@@ -1,0 +1,13 @@
+Package: fastread
+Title: Faster Data Readers
+Version: 0.0.0
+Authors@R: c(
+    person("Hadley", "Wickham", email = "h.wickham@gmail.com", role = c("aut", "cre")),
+    person("Romain", "Francois", role = "aut"),
+    ) 
+Description: Faster Data Readers
+Depends: R (>= 3.0.1), Rcpp (>= 0.10.3)
+LinkingTo: Rcpp
+Imports: methods
+License: GPL (>= 2)
+
