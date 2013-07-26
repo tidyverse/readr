@@ -165,13 +165,31 @@ List read_csv(std::string file, int n ){
 }
 
 // [[Rcpp::export]]
-CharacterVector scan_( std::string filename, int n ){
-    CharacterVector out(n) ;
+SEXP scan_( std::string filename, int n, SEXP what ){
+    fastread::VectorInput_Base* input ;
+    switch( TYPEOF( what ) ){
+    case INTSXP:
+        input = new fastread::VectorInput_Integer(n) ;
+        break;
+    case REALSXP: 
+        input = new fastread::VectorInput_Double(n) ;
+        break; 
+    case STRSXP: 
+        input = new fastread::VectorInput_String(n) ;
+        break ;
+    default:
+        stop( "unsupported type" ) ;
+    }
+    
     fastread::FileReader reader(filename) ;
     for( int i=0; i<n; i++){
         if( reader.is_finished() ) break ;
-        out[i] = reader.get_token() ;
+        input->set( i, reader.get_token() ) ;
     }
-    return out ;
+    
+    SEXP res = input->get() ;
+    delete input ;
+    
+    return res ;
 }
 

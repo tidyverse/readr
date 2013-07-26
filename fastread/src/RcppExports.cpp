@@ -22,15 +22,16 @@ BEGIN_RCPP
 END_RCPP
 }
 // scan_
-CharacterVector scan_(std::string filename, int n);
-RcppExport SEXP fastread_scan_(SEXP filenameSEXP, SEXP nSEXP) {
+SEXP scan_(std::string filename, int n, SEXP what);
+RcppExport SEXP fastread_scan_(SEXP filenameSEXP, SEXP nSEXP, SEXP whatSEXP) {
 BEGIN_RCPP
     SEXP __sexp_result;
     {
         Rcpp::RNGScope __rngScope;
         std::string filename = Rcpp::as<std::string >(filenameSEXP);
         int n = Rcpp::as<int >(nSEXP);
-        CharacterVector __result = scan_(filename, n);
+        SEXP what = Rcpp::as<SEXP >(whatSEXP);
+        SEXP __result = scan_(filename, n, what);
         PROTECT(__sexp_result = Rcpp::wrap(__result));
     }
     UNPROTECT(1);

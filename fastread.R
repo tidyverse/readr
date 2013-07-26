@@ -20,8 +20,16 @@ system.time( d2 <- read.csv( 'data.txt', sep = ",", header = FALSE, stringsAsFac
 
 
 message( "fastread :: scan_" )
-system.time( scan_( "data.txt", n*2 ) )
+system.time( scan_( "data.txt", n*2, character() ) )
 
 message( "utils :: scan" )
-system.time( scan( "data.txt", character(), nmax = n*2 ) )
+system.time( scan( "data.txt", character(), nmax = n*2, sep = "," ) )
+
+
+message( "fastread :: scan_ (scanning double) " )
+system.time( scan_( "data.txt", n*2, character() ) )
+
+message( "utils :: scan (scanning double)" )
+system.time( scan( "data.txt", numeric(), nmax = n*2, sep = ","  ) )
+
 

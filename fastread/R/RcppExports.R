@@ -5,7 +5,7 @@ read_csv <- function(file, n) {
     .Call('fastread_read_csv', PACKAGE = 'fastread', file, n)
 }
 
-scan_ <- function(filename, n) {
-    .Call('fastread_scan_', PACKAGE = 'fastread', filename, n)
+scan_ <- function(filename, n, what) {
+    .Call('fastread_scan_', PACKAGE = 'fastread', filename, n, what)
 }
 
