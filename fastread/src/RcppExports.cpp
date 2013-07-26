@@ -5,15 +5,16 @@
 
 using namespace Rcpp;
 
-// tokenize
-CharacterVector tokenize(std::string s);
-RcppExport SEXP fastread_tokenize(SEXP sSEXP) {
+// read_csv
+List read_csv(std::string file, int n);
+RcppExport SEXP fastread_read_csv(SEXP fileSEXP, SEXP nSEXP) {
 BEGIN_RCPP
     SEXP __sexp_result;
     {
         Rcpp::RNGScope __rngScope;
-        std::string s = Rcpp::as<std::string >(sSEXP);
-        CharacterVector __result = tokenize(s);
+        std::string file = Rcpp::as<std::string >(fileSEXP);
+        int n = Rcpp::as<int >(nSEXP);
+        List __result = read_csv(file, n);
         PROTECT(__sexp_result = Rcpp::wrap(__result));
     }
     UNPROTECT(1);

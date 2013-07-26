@@ -3,4 +3,5 @@
 .RData
 **/src/*.o
 **/src/*.so
+data.txt
 
