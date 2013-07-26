@@ -16,15 +16,25 @@ namespace fastread{
      * without affecting the rest of the code
      */
     class Tokenizer {
-        typedef boost::tokenizer< boost::escaped_list_separator<char> > BoostTokenizer ;
-        BoostTokenizer tokenizer_ ;
-        
     public:
+        Tokenizer() : tokenizer_(std::string("")){}
+        inline void assign( const std::string& line){ 
+            tokenizer_.assign(line) ;
+            it = tokenizer_.begin() ;
+        } 
+        const std::string& get_token(){
+            token = *it++; 
+            return token ;
+        } 
+    private:
+        typedef boost::tokenizer< boost::escaped_list_separator<char> > BoostTokenizer ;
         typedef BoostTokenizer::const_iterator const_iterator ;
         
-        Tokenizer(const std::string& line) : tokenizer_(line){}
-        const_iterator begin() const { return tokenizer_.begin(); }
-        const_iterator end() const   { return tokenizer_.end(); }
+        BoostTokenizer tokenizer_ ;
+        
+        std::string token ;
+        const_iterator it ;
+    
     } ;
     
     template <typename T>
@@ -43,6 +53,27 @@ namespace fastread{
         std::istringstream ss ;
         T value ;
     } ;  
+    
+    template <>
+    class FromString<int>{
+    public:
+        FromString() {} 
+        inline int get( const std::string& s){
+            return atoi(s.c_str());
+        }
+        
+    } ;  
+    
+    template <>
+    class FromString<double>{
+    public:
+        FromString() {} 
+        inline double get( const std::string& s){
+            return atof(s.c_str());
+        }
+        
+    } ;  
+    
     
     template <>
     class FromString< String >{
@@ -82,17 +113,16 @@ namespace fastread{
     
     class DataReader {
     public:
-        DataReader(int n_) : n(n_), data(), ncol(1) {
+        DataReader(int n_) : n(n_), data(), ncol(2) {
             data.push_back( new VectorInput_Integer(n) ) ;
-            // data.push_back( new VectorInput_Double(n)  ) ;
+            data.push_back( new VectorInput_Double(n)  ) ;
             // data.push_back( new VectorInput_String(n)  ) ;
         }
         
         void set( int i, const std::string& line ){
-            fastread::Tokenizer tok(line);
-            fastread::Tokenizer::const_iterator it = tok.begin() ;
-            for( int j=0; j<ncol; j++, ++it){
-                data[j]->set( i, *it ) ;
+            tokenizer.assign(line); 
+            for( int j=0; j<ncol; j++){
+                data[j]->set( i, tokenizer.get_token() ) ;
             }
         }   
         
@@ -101,7 +131,7 @@ namespace fastread{
             std::ifstream file(filename.c_str());
             
             for( int i=0; i<n; i++){
-                std::getline (file,line);
+                std::getline(file,line);
                 set( i, line );
             }
             file.close();
@@ -126,6 +156,7 @@ namespace fastread{
         int n ;
         std::vector< VectorInput_Base* > data ;
         int ncol ;
+        Tokenizer tokenizer ;
     } ; 
     
 }
