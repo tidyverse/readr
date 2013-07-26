@@ -18,5 +18,10 @@ system.time( d1 <- read_csv( 'data.txt', n ) )
 message( "utils :: read.csv" )
 system.time( d2 <- read.csv( 'data.txt', sep = ",", header = FALSE, stringsAsFactors = FALSE, nrows = n ) )
 
+
+message( "fastread :: scan_" )
 system.time( scan_( "data.txt", n*2 ) )
+
+message( "utils :: scan" )
+system.time( scan( "data.txt", character() ) )
 

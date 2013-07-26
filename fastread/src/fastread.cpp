@@ -1,9 +1,5 @@
-#include <Rcpp.h>
+#include "fastread.h"
 #include <boost/tokenizer.hpp>
-
-#include <iostream>
-#include <fstream>
-#include <sstream>
 
 // [[Rcpp::depends(BH)]]
 
@@ -166,5 +162,16 @@ List read_csv(std::string file, int n ){
     fastread::DataReader reader( n ) ;
     reader.read_file( file ) ;
     return reader.get() ;
+}
+
+// [[Rcpp::export]]
+CharacterVector scan_( std::string filename, int n ){
+    CharacterVector out(n) ;
+    fastread::FileReader reader(filename) ;
+    for( int i=0; i<n; i++){
+        if( reader.is_finished() ) break ;
+        out[i] = reader.get_token() ;
+    }
+    return out ;
 }
 
