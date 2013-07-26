@@ -1,0 +1,8 @@
+
+panda faster read.csv:
+http://wesmckinney.com/blog/?p=543
+
+why Boost Tokenizer is slow:
+http://stackoverflow.com/questions/12344722/c-why-is-reading-lines-from-a-file-by-tokenizer-is-so-slow
+
+
