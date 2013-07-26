@@ -21,3 +21,19 @@ BEGIN_RCPP
     return __sexp_result;
 END_RCPP
 }
+// scan_
+CharacterVector scan_(std::string filename, int n);
+RcppExport SEXP fastread_scan_(SEXP filenameSEXP, SEXP nSEXP) {
+BEGIN_RCPP
+    SEXP __sexp_result;
+    {
+        Rcpp::RNGScope __rngScope;
+        std::string filename = Rcpp::as<std::string >(filenameSEXP);
+        int n = Rcpp::as<int >(nSEXP);
+        CharacterVector __result = scan_(filename, n);
+        PROTECT(__sexp_result = Rcpp::wrap(__result));
+    }
+    UNPROTECT(1);
+    return __sexp_result;
+END_RCPP
+}

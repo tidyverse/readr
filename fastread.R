@@ -5,7 +5,7 @@ load_all( "fastread" )
 if( !file.exists( "data.txt" ) ){
     line <- '1, 1.3'
     f <- file( "data.txt", open = "w" )
-    for( i in 1:1e6){
+    for( i in 1:1e5){
         writeLines( line, f )    
     }
     close(f)
@@ -18,5 +18,5 @@ system.time( d1 <- read_csv( 'data.txt', n ) )
 message( "utils :: read.csv" )
 system.time( d2 <- read.csv( 'data.txt', sep = ",", header = FALSE, stringsAsFactors = FALSE, nrows = n ) )
 
-sapply( d1, head )
-head( d2 )
+system.time( scan_( "data.txt", n*2 ) )
+
