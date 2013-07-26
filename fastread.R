@@ -23,5 +23,5 @@ message( "fastread :: scan_" )
 system.time( scan_( "data.txt", n*2 ) )
 
 message( "utils :: scan" )
-system.time( scan( "data.txt", character() ) )
+system.time( scan( "data.txt", character(), nmax = n*2 ) )
 
