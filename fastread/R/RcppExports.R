@@ -9,16 +9,20 @@ read_csv2 <- function(file, n) {
     .Call('fastread_read_csv2', PACKAGE = 'fastread', file, n)
 }
 
-read_file <- function(file) {
-    invisible(.Call('fastread_read_file', PACKAGE = 'fastread', file))
-}
-
 read_tokens <- function(file, n, nc) {
     invisible(.Call('fastread_read_tokens', PACKAGE = 'fastread', file, n, nc))
 }
 
 skip_tokens <- function(file, n, nc) {
     invisible(.Call('fastread_skip_tokens', PACKAGE = 'fastread', file, n, nc))
+}
+
+read_all_lines_ifstream <- function(filename, n) {
+    invisible(.Call('fastread_read_all_lines_ifstream', PACKAGE = 'fastread', filename, n))
+}
+
+read_all_lines_FILE <- function(filename) {
+    invisible(.Call('fastread_read_all_lines_FILE', PACKAGE = 'fastread', filename))
 }
 
 scan_ <- function(filename, n, what) {

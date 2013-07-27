@@ -189,13 +189,6 @@ List read_csv2(std::string file, int n ){
     return reader.get() ;
 }
 
-// just reading characters one by one until the end of the file
-// [[Rcpp::export]]
-void read_file( std::string file ){
-    FileReader reader( file );
-    reader.read_all() ;
-}
-
 // just reading the tokens
 // [[Rcpp::export]]
 void read_tokens( std::string file, int n, int nc ){
@@ -208,6 +201,23 @@ void read_tokens( std::string file, int n, int nc ){
 void skip_tokens( std::string file, int n, int nc ){
     FileReader reader( file );
     for( int i=0; i<n; i++) for( int j=0; j<nc; j++) reader.skip_token() ;
+}
+
+// [[Rcpp::export]]
+void read_all_lines_ifstream(std::string filename, int n){
+  std::string line;
+  std::ifstream myfile(filename.c_str());
+  for( int i=0; i<n; i++){
+      getline( myfile, line );    
+  }
+}
+
+// [[Rcpp::export]]
+void read_all_lines_FILE(std::string filename){
+    FILE* file = fopen( filename.c_str(), "r" ) ;
+    char next ;
+    while( ( next = fgetc(file) ) != EOF ) ;
+    fclose(file);
 }
 
 // [[Rcpp::export]]

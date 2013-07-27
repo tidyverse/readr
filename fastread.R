@@ -21,17 +21,22 @@ system.time( d1 <- read_csv( 'data.txt', n ) )
 message( "fastread :: read_csv2" )
 system.time( d1 <- read_csv2( 'data.txt', n ) )
 
-message( "fastread :: read_file" )
-system.time( d1 <- read_file( 'data.txt' ) )
-
 message( "fastread :: read_tokens" )
 system.time( d1 <- read_tokens( 'data.txt', n, 2 ) )
 
 message( "fastread :: skip_tokens" )
 system.time( d1 <- skip_tokens( 'data.txt', n, 2 ) )
 
+message( "fastread :: read_all_lines_ifstream" )
+system.time( d1 <- read_all_lines_ifstream( 'data.txt', n ) )
+
+message( "fastread :: read_all_lines_FILE" )
+system.time( d1 <- read_all_lines_FILE( 'data.txt' ) )
+
 message( "utils :: read.csv" )
 system.time( d2 <- read.csv( 'data.txt', sep = ",", header = FALSE, stringsAsFactors = FALSE, nrows = n ) )
+
+
 
 message( "data.table :: fread" )
 system.time( d3 <- fread( 'data.txt', sep = ",", header = FALSE, stringsAsFactors = FALSE, nrows = n ) )
@@ -46,7 +51,7 @@ system.time( scan( "data.txt", character(), nmax = n*2, sep = "," ) )
 
 
 message( "fastread :: scan_ (scanning double) " )
-system.time( scan_( "data.txt", n*2, character() ) )
+system.time( scan_( "data.txt", n*2, numeric() ) )
 
 message( "utils :: scan (scanning double)" )
 system.time( scan( "data.txt", numeric(), nmax = n*2, sep = ","  ) )

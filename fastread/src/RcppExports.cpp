@@ -37,18 +37,6 @@ BEGIN_RCPP
     return __sexp_result;
 END_RCPP
 }
-// read_file
-void read_file(std::string file);
-RcppExport SEXP fastread_read_file(SEXP fileSEXP) {
-BEGIN_RCPP
-    {
-        Rcpp::RNGScope __rngScope;
-        std::string file = Rcpp::as<std::string >(fileSEXP);
-        read_file(file);
-    }
-    return R_NilValue;
-END_RCPP
-}
 // read_tokens
 void read_tokens(std::string file, int n, int nc);
 RcppExport SEXP fastread_read_tokens(SEXP fileSEXP, SEXP nSEXP, SEXP ncSEXP) {
@@ -73,6 +61,31 @@ BEGIN_RCPP
         int n = Rcpp::as<int >(nSEXP);
         int nc = Rcpp::as<int >(ncSEXP);
         skip_tokens(file, n, nc);
+    }
+    return R_NilValue;
+END_RCPP
+}
+// read_all_lines_ifstream
+void read_all_lines_ifstream(std::string filename, int n);
+RcppExport SEXP fastread_read_all_lines_ifstream(SEXP filenameSEXP, SEXP nSEXP) {
+BEGIN_RCPP
+    {
+        Rcpp::RNGScope __rngScope;
+        std::string filename = Rcpp::as<std::string >(filenameSEXP);
+        int n = Rcpp::as<int >(nSEXP);
+        read_all_lines_ifstream(filename, n);
+    }
+    return R_NilValue;
+END_RCPP
+}
+// read_all_lines_FILE
+void read_all_lines_FILE(std::string filename);
+RcppExport SEXP fastread_read_all_lines_FILE(SEXP filenameSEXP) {
+BEGIN_RCPP
+    {
+        Rcpp::RNGScope __rngScope;
+        std::string filename = Rcpp::as<std::string >(filenameSEXP);
+        read_all_lines_FILE(filename);
     }
     return R_NilValue;
 END_RCPP
