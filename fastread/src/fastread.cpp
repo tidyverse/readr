@@ -230,4 +230,77 @@ SEXP scan_( std::string filename, int n, SEXP what ){
     }
     return input.get() ;
 }
+     
+
+#include <sys/mman.h>
+#include <sys/stat.h>
+#include <fcntl.h>   // for open()
+#include <unistd.h>  // for close()
+
+char* skip_token( char* p ){
+    char next;
+    bool inquote = false ;
+    char sep = ',' , esc = '\\'  , quote = '"' ;
+    while( true ){
+        next = *(p++) ; 
+        if( inquote ){
+            if( next == esc ){
+                // the next character is an escape character
+                ++p ;
+            } else if( next == quote ){
+                // ending the quote
+                inquote = false ; 
+            } 
+        } else {
+            if( next == quote ){
+                // entering a quote
+                inquote = true ;
+            } else if( next == sep || next == '\n' ){
+                // end of line
+                break ;
+            }
+        }
+    }
+    return p ;
+}
+
+// [[Rcpp::export]]
+List play_mmap( std::string filename, int n, int nc){
+    int fd = open( filename.c_str(), O_RDONLY ) ;
+    struct stat stat_buf;
+    if (fstat(fd,&stat_buf) == -1) {
+        stop( "error" ) ;
+    }
+    size_t filesize = stat_buf.st_size;
+    
+    const char* mmp = (const char *)mmap(NULL, filesize, PROT_READ, MAP_PRIVATE, fd, 0);    // for Mac
+    char* p = const_cast<char*>( mmp ) ;
+    // int token_length =0 ;
+    IntegerVector X(n) ;
+    NumericVector Y(n); 
+    
+    char *end ;
+    for( int i=0; i<n; i++) { 
+        // for( int j=0; j<2; j++) {
+        //     previous = p ;
+        //     p = skip_token( p ) ;
+        //     token_length = p - previous - 1  ;
+        //     total += token_length ;
+        // }
+        
+        // the int
+        X[i] = strtol( p, &end, 10) ;
+        p = skip_token( end ) ;
+        
+        Y[i] = strtod( p, &end ) ;
+        p = skip_token( end ) ;
+        
+    }
+    
+    munmap((char *)mmp, filesize);
+    close(fd);
+    return List::create( X, Y ) ;
+}
+
+
 

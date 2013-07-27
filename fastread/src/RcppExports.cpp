@@ -107,3 +107,20 @@ BEGIN_RCPP
     return __sexp_result;
 END_RCPP
 }
+// play_mmap
+List play_mmap(std::string filename, int n, int nc);
+RcppExport SEXP fastread_play_mmap(SEXP filenameSEXP, SEXP nSEXP, SEXP ncSEXP) {
+BEGIN_RCPP
+    SEXP __sexp_result;
+    {
+        Rcpp::RNGScope __rngScope;
+        std::string filename = Rcpp::as<std::string >(filenameSEXP);
+        int n = Rcpp::as<int >(nSEXP);
+        int nc = Rcpp::as<int >(ncSEXP);
+        List __result = play_mmap(filename, n, nc);
+        PROTECT(__sexp_result = Rcpp::wrap(__result));
+    }
+    UNPROTECT(1);
+    return __sexp_result;
+END_RCPP
+}

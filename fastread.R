@@ -5,7 +5,7 @@ require(data.table)
 load_all( "fastread" )
 
 if( !file.exists( "data.txt" ) ){
-    line <- '1, 1.3'
+    line <- '1,1.3'
     f <- file( "data.txt", open = "w" )
     for( i in 1:1e6){
         writeLines( line, f )    
@@ -33,13 +33,18 @@ system.time( d1 <- read_all_lines_ifstream( 'data.txt', n ) )
 message( "fastread :: read_all_lines_FILE" )
 system.time( d1 <- read_all_lines_FILE( 'data.txt' ) )
 
+message( "fastread :: play_mmap" )
+system.time( xx <- play_mmap( 'data.txt', n, 2 ) )
+sapply( xx, head ) 
+
+
 message( "utils :: read.csv" )
 system.time( d2 <- read.csv( 'data.txt', sep = ",", header = FALSE, stringsAsFactors = FALSE, nrows = n ) )
 
-
-
 message( "data.table :: fread" )
 system.time( d3 <- fread( 'data.txt', sep = ",", header = FALSE, stringsAsFactors = FALSE, nrows = n ) )
+
+q("no")
 
 message( "-------" )
 

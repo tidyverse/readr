@@ -29,3 +29,7 @@ scan_ <- function(filename, n, what) {
     .Call('fastread_scan_', PACKAGE = 'fastread', filename, n, what)
 }
 
+play_mmap <- function(filename, n, nc) {
+    .Call('fastread_play_mmap', PACKAGE = 'fastread', filename, n, nc)
+}
+
