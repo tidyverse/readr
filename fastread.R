@@ -4,39 +4,21 @@ require(data.table)
 
 load_all( "fastread" )
 
+n <- 1e6
+
 if( !file.exists( "data.txt" ) ){
     line <- '1,1.3'
     f <- file( "data.txt", open = "w" )
-    for( i in 1:1e6){
+    for( i in 1:n ){
         writeLines( line, f )    
     }
     close(f)
 }
 
-n <- 1e6
 
 message( "fastread :: read_csv" )
 system.time( d1 <- read_csv( 'data.txt', n ) )
-
-message( "fastread :: read_csv2" )
-system.time( d1 <- read_csv2( 'data.txt', n ) )
-
-message( "fastread :: read_tokens" )
-system.time( d1 <- read_tokens( 'data.txt', n, 2 ) )
-
-message( "fastread :: skip_tokens" )
-system.time( d1 <- skip_tokens( 'data.txt', n, 2 ) )
-
-message( "fastread :: read_all_lines_ifstream" )
-system.time( d1 <- read_all_lines_ifstream( 'data.txt', n ) )
-
-message( "fastread :: read_all_lines_FILE" )
-system.time( d1 <- read_all_lines_FILE( 'data.txt' ) )
-
-message( "fastread :: play_mmap" )
-system.time( xx <- play_mmap( 'data.txt', n, 2 ) )
-sapply( xx, head ) 
-
+sapply( d1, head )
 
 message( "utils :: read.csv" )
 system.time( d2 <- read.csv( 'data.txt', sep = ",", header = FALSE, stringsAsFactors = FALSE, nrows = n ) )
@@ -46,19 +28,19 @@ system.time( d3 <- fread( 'data.txt', sep = ",", header = FALSE, stringsAsFactor
 
 q("no")
 
-message( "-------" )
-
-message( "fastread :: scan_" )
-system.time( scan_( "data.txt", n*2, character() ) )
-
-message( "utils :: scan" )
-system.time( scan( "data.txt", character(), nmax = n*2, sep = "," ) )
-
-
-message( "fastread :: scan_ (scanning double) " )
-system.time( scan_( "data.txt", n*2, numeric() ) )
-
-message( "utils :: scan (scanning double)" )
-system.time( scan( "data.txt", numeric(), nmax = n*2, sep = ","  ) )
+# message( "-------" )
+# 
+# message( "fastread :: scan_" )
+# system.time( scan_( "data.txt", n*2, character() ) )
+# 
+# message( "utils :: scan" )
+# system.time( scan( "data.txt", character(), nmax = n*2, sep = "," ) )
+# 
+# 
+# message( "fastread :: scan_ (scanning double) " )
+# system.time( scan_( "data.txt", n*2, numeric() ) )
+# 
+# message( "utils :: scan (scanning double)" )
+# system.time( scan( "data.txt", numeric(), nmax = n*2, sep = ","  ) )
 
 
