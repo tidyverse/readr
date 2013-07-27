@@ -1,37 +1,8 @@
 #include "fastread.h"
-#include <boost/tokenizer.hpp>
-
-// [[Rcpp::depends(BH)]]
 
 using namespace Rcpp ;
 
 namespace fastread{
-    
-    /**
-     * Abstraction around Boost::Tokenizer, so that we can use something else
-     * without affecting the rest of the code
-     */
-    class Tokenizer {
-    public:
-        Tokenizer() : tokenizer_(std::string("")){}
-        inline void assign( const std::string& line){ 
-            tokenizer_.assign(line) ;
-            it = tokenizer_.begin() ;
-        } 
-        const std::string& get_token(){
-            token = *it++; 
-            return token ;
-        } 
-    private:
-        typedef boost::tokenizer< boost::escaped_list_separator<char> > BoostTokenizer ;
-        typedef BoostTokenizer::const_iterator const_iterator ;
-        
-        BoostTokenizer tokenizer_ ;
-        
-        std::string token ;
-        const_iterator it ;
-    
-    } ;
     
     template <typename T>
     class FromString{
