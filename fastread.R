@@ -1,5 +1,7 @@
 require(methods)
 require(devtools)
+require(data.table)
+
 load_all( "fastread" )
 
 if( !file.exists( "data.txt" ) ){
@@ -12,12 +14,17 @@ if( !file.exists( "data.txt" ) ){
 }
 
 n <- 1e5
+
 message( "fastread :: read_csv" )
 system.time( d1 <- read_csv( 'data.txt', n ) )
 
 message( "utils :: read.csv" )
 system.time( d2 <- read.csv( 'data.txt', sep = ",", header = FALSE, stringsAsFactors = FALSE, nrows = n ) )
 
+message( "data.table :: fread" )
+system.time( d3 <- fread( 'data.txt', sep = ",", header = FALSE, stringsAsFactors = FALSE, nrows = n ) )
+
+message( "-------" )
 
 message( "fastread :: scan_" )
 system.time( scan_( "data.txt", n*2, character() ) )
