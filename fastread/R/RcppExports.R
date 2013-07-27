@@ -5,6 +5,22 @@ read_csv <- function(file, n) {
     .Call('fastread_read_csv', PACKAGE = 'fastread', file, n)
 }
 
+read_csv2 <- function(file, n) {
+    .Call('fastread_read_csv2', PACKAGE = 'fastread', file, n)
+}
+
+read_file <- function(file) {
+    invisible(.Call('fastread_read_file', PACKAGE = 'fastread', file))
+}
+
+read_tokens <- function(file, n, nc) {
+    invisible(.Call('fastread_read_tokens', PACKAGE = 'fastread', file, n, nc))
+}
+
+skip_tokens <- function(file, n, nc) {
+    invisible(.Call('fastread_skip_tokens', PACKAGE = 'fastread', file, n, nc))
+}
+
 scan_ <- function(filename, n, what) {
     .Call('fastread_scan_', PACKAGE = 'fastread', filename, n, what)
 }

@@ -15,6 +15,7 @@ namespace fastread {
             
             const std::string& get_token() ;
             void skip_token() ;
+            void read_all() ;
             
             inline bool is_finished() const { return finished ; }
             inline int line_numer() const { return i_line; }

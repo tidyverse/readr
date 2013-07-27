@@ -14,6 +14,11 @@ namespace fastread{
         fclose(file) ;
     }
      
+    void FileReader::read_all(){
+        char next ;
+        while( ( next = get_next() ) != EOF ){}
+    }
+    
     const std::string& FileReader::get_token(){
         token.clear() ;
         char next ; 

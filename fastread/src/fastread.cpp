@@ -47,7 +47,6 @@ namespace fastread{
        public:
            FromString(){}
            String get(const std::string& s){ return String(s) ;}
-       
     } ;
     
     class VectorInput {
@@ -64,10 +63,10 @@ namespace fastread{
     public:
         VectorInput_Template( int n ) : data(n), converter() {}
         
-        void set( int i, const std::string& chunk ){
+        inline void set( int i, const std::string& chunk ){
             data[i] = converter.get( chunk ) ;
         }
-        SEXP get(){ return data ; }
+        inline SEXP get(){ return data ; }
         
     private:
         Storage data;  
@@ -78,8 +77,8 @@ namespace fastread{
     class VectorInput_Skip : public VectorInput {
     public:
         VectorInput_Skip( int n ){}
-        void set( int i, const std::string& chunk ){}
-        SEXP get(){ return R_NilValue; }
+        inline void set( int i, const std::string& chunk ){}
+        inline SEXP get(){ return R_NilValue; }
     };
     
     typedef VectorInput_Template< IntegerVector   , FromString<int>    > VectorInput_Integer ;
@@ -136,6 +135,17 @@ namespace fastread{
                 }
             }
         }
+        void read_file2( const std::string& filename){
+            FileReader reader(filename) ;
+            
+            for( int i=0; i<n; i++){
+                for( int j=0; j<ncol; j++){
+                    // inputs[j]->set( i, 
+                    reader.get_token();  
+                    // ) ;    
+                }
+            }
+        }
         
         ~DataReader(){
             // deleting the inputs
@@ -170,6 +180,34 @@ List read_csv(std::string file, int n ){
     DataReader reader( n ) ;
     reader.read_file( file ) ;
     return reader.get() ;
+}
+
+// [[Rcpp::export]]
+List read_csv2(std::string file, int n ){
+    DataReader reader( n ) ;
+    reader.read_file2( file ) ;
+    return reader.get() ;
+}
+
+// just reading characters one by one until the end of the file
+// [[Rcpp::export]]
+void read_file( std::string file ){
+    FileReader reader( file );
+    reader.read_all() ;
+}
+
+// just reading the tokens
+// [[Rcpp::export]]
+void read_tokens( std::string file, int n, int nc ){
+    FileReader reader( file );
+    for( int i=0; i<n; i++) for( int j=0; j<nc; j++) reader.get_token() ;
+}
+
+// just skipping the tokens
+// [[Rcpp::export]]
+void skip_tokens( std::string file, int n, int nc ){
+    FileReader reader( file );
+    for( int i=0; i<n; i++) for( int j=0; j<nc; j++) reader.skip_token() ;
 }
 
 // [[Rcpp::export]]

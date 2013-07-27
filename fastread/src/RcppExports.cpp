@@ -21,6 +21,62 @@ BEGIN_RCPP
     return __sexp_result;
 END_RCPP
 }
+// read_csv2
+List read_csv2(std::string file, int n);
+RcppExport SEXP fastread_read_csv2(SEXP fileSEXP, SEXP nSEXP) {
+BEGIN_RCPP
+    SEXP __sexp_result;
+    {
+        Rcpp::RNGScope __rngScope;
+        std::string file = Rcpp::as<std::string >(fileSEXP);
+        int n = Rcpp::as<int >(nSEXP);
+        List __result = read_csv2(file, n);
+        PROTECT(__sexp_result = Rcpp::wrap(__result));
+    }
+    UNPROTECT(1);
+    return __sexp_result;
+END_RCPP
+}
+// read_file
+void read_file(std::string file);
+RcppExport SEXP fastread_read_file(SEXP fileSEXP) {
+BEGIN_RCPP
+    {
+        Rcpp::RNGScope __rngScope;
+        std::string file = Rcpp::as<std::string >(fileSEXP);
+        read_file(file);
+    }
+    return R_NilValue;
+END_RCPP
+}
+// read_tokens
+void read_tokens(std::string file, int n, int nc);
+RcppExport SEXP fastread_read_tokens(SEXP fileSEXP, SEXP nSEXP, SEXP ncSEXP) {
+BEGIN_RCPP
+    {
+        Rcpp::RNGScope __rngScope;
+        std::string file = Rcpp::as<std::string >(fileSEXP);
+        int n = Rcpp::as<int >(nSEXP);
+        int nc = Rcpp::as<int >(ncSEXP);
+        read_tokens(file, n, nc);
+    }
+    return R_NilValue;
+END_RCPP
+}
+// skip_tokens
+void skip_tokens(std::string file, int n, int nc);
+RcppExport SEXP fastread_skip_tokens(SEXP fileSEXP, SEXP nSEXP, SEXP ncSEXP) {
+BEGIN_RCPP
+    {
+        Rcpp::RNGScope __rngScope;
+        std::string file = Rcpp::as<std::string >(fileSEXP);
+        int n = Rcpp::as<int >(nSEXP);
+        int nc = Rcpp::as<int >(ncSEXP);
+        skip_tokens(file, n, nc);
+    }
+    return R_NilValue;
+END_RCPP
+}
 // scan_
 SEXP scan_(std::string filename, int n, SEXP what);
 RcppExport SEXP fastread_scan_(SEXP filenameSEXP, SEXP nSEXP, SEXP whatSEXP) {

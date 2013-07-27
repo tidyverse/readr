@@ -7,16 +7,28 @@ load_all( "fastread" )
 if( !file.exists( "data.txt" ) ){
     line <- '1, 1.3'
     f <- file( "data.txt", open = "w" )
-    for( i in 1:1e5){
+    for( i in 1:1e6){
         writeLines( line, f )    
     }
     close(f)
 }
 
-n <- 1e5
+n <- 1e6
 
 message( "fastread :: read_csv" )
 system.time( d1 <- read_csv( 'data.txt', n ) )
+
+message( "fastread :: read_csv2" )
+system.time( d1 <- read_csv2( 'data.txt', n ) )
+
+message( "fastread :: read_file" )
+system.time( d1 <- read_file( 'data.txt' ) )
+
+message( "fastread :: read_tokens" )
+system.time( d1 <- read_tokens( 'data.txt', n, 2 ) )
+
+message( "fastread :: skip_tokens" )
+system.time( d1 <- read_tokens( 'data.txt', n, 2 ) )
 
 message( "utils :: read.csv" )
 system.time( d2 <- read.csv( 'data.txt', sep = ",", header = FALSE, stringsAsFactors = FALSE, nrows = n ) )
