@@ -52,5 +52,35 @@ namespace fastread{
         }
         return token ;
     }
+    
+    // similar to get_token, but it just skips the token instead ot returning it
+    void FileReader::skip_token(){
+        char next; 
+        while( true ){
+            next = get_next() ;
+            
+            if( inquote ){
+                if( next == esc ){
+                    // the next character is an escape character
+                    get_next() ;
+                } else if( next == quote ){
+                    // ending the quote
+                    inquote = false ; 
+                } 
+            } else {
+                if( next == quote ){
+                    // entering a quote
+                    inquote = true ;
+                } else if( next == sep || next == '\n' ){
+                    // end of line
+                    i_line++ ;
+                    break ;
+                } else if( next == EOF ){
+                    finished = true ;
+                    break ;
+                } 
+            }
+        }
+    }
 
 }  
