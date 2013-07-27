@@ -28,7 +28,7 @@ message( "fastread :: read_tokens" )
 system.time( d1 <- read_tokens( 'data.txt', n, 2 ) )
 
 message( "fastread :: skip_tokens" )
-system.time( d1 <- read_tokens( 'data.txt', n, 2 ) )
+system.time( d1 <- skip_tokens( 'data.txt', n, 2 ) )
 
 message( "utils :: read.csv" )
 system.time( d2 <- read.csv( 'data.txt', sep = ",", header = FALSE, stringsAsFactors = FALSE, nrows = n ) )
