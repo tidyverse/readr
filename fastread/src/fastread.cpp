@@ -4,9 +4,9 @@ using namespace Rcpp ;
 using namespace fastread ;
 
 // [[Rcpp::export]]
-List read_csv(std::string file, int n ){
+List read_csv(std::string file, int n, CharacterVector classes ){
     MMapReader reader( file ) ;
-    reader.read( n) ;
+    reader.read( n, classes ) ;
     return reader.get() ;
 }
 
@@ -24,7 +24,7 @@ void read_all_lines_FILE(std::string filename){
     FILE* file = fopen( filename.c_str(), "r" ) ;
     char next ;
     while( ( next = fgetc(file) ) != EOF ) ;
-    fclose(file);
+    fclose(file); 
 }
 
 // // [[Rcpp::export]]

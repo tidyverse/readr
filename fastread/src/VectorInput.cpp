@@ -4,26 +4,28 @@ using namespace Rcpp ;
 
 namespace fastread{
     
-    void VectorInput_Integer::set( int i){
-        data[i] = strtol( reader.get_pointer() , &end, 0 ) ;
+    inline void VectorInput_Integer::set( int i){
+        data[i] = 
+            strtol( reader.get_pointer() , &end, 0 ) ;
         reader.set_pointer( end ) ;
         reader.move_until_next_token_start() ;
     }
            
-    void VectorInput_Double::set( int i ){
-        data[i] = strtod( reader.get_pointer() , &end ) ;
+    inline void VectorInput_Double::set( int i ){
+        data[i] = 
+            strtod( reader.get_pointer() , &end ) ;
         reader.set_pointer( end ) ;
         reader.move_until_next_token_start() ;
     }
     
-    void VectorInput_String::set( int i ){
+    inline void VectorInput_String::set( int i ){
         char* start = reader.get_pointer() ;
         reader.move_until_next_token_start() ;
         buffer.assign( start, reader.get_pointer() - 1) ; 
         data[i] = buffer ;
     }
     
-    void VectorInput_Skip::set( int i){
+    inline void VectorInput_Skip::set( int i){
         reader.move_until_next_token_start() ;
     }
     

@@ -24,14 +24,16 @@ namespace fastread{
         memory_start = p = (char *)mmap(NULL, filesize, PROT_READ, MAP_PRIVATE, file_descriptor, 0);
     }
     
-    void MMapReader::read(int n){
-       inputs.push_back( new VectorInput_Integer(n, *this) ) ;
-       inputs.push_back( new VectorInput_Double(n, *this)  ) ;
-       ncol = inputs.size() ;
-       
-       for( int i=0; i<n; i++) for( int j=0; j<ncol; j++){
-            inputs[j]->set(i) ;    
-       }
+    void MMapReader::read(int n, CharacterVector classes ){
+        ncol = classes.size() ;
+        for( int i=0; i<ncol; i++){
+            String cl = classes[i] ;
+            inputs.push_back( make_vector_input(cl, n, *this ) ) ;   
+        }
+        ncol = inputs.size() ;
+        for( int i=0; i<n; i++) for( int j=0; j<ncol; j++){
+             inputs[j]->set(i) ;    
+        }
     }
     
     List MMapReader::get(){

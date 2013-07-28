@@ -7,24 +7,41 @@ load_all( "fastread" )
 n <- 1e6
 
 if( !file.exists( "data.txt" ) ){
-    line <- '1,1.3'
+    line <- '1.0,1.0,1.0,1.0,2.0'
     f <- file( "data.txt", open = "w" )
     for( i in 1:n ){
         writeLines( line, f )    
     }
     close(f)
 }
-
+  
+# require( microbenchmark )
+# microbenchmark(     
+#     read_csv( 'data.txt', n, rep( "double", 5 ) ), 
+#     read.csv( 'data.txt', sep = ",", 
+#         header = FALSE, stringsAsFactors = FALSE, nrows = n,
+#         colClasses = c("numeric", "numeric", "numeric", "numeric", "numeric" ) ), 
+#     fread( 'data.txt', sep = ",", header = FALSE, stringsAsFactors = FALSE, nrows = n ), 
+#     times = 10L 
+# )
+#  
+# q("no")
 
 message( "fastread :: read_csv" )
-system.time( d1 <- read_csv( 'data.txt', n ) )
-sapply( d1, head )
+system.time( d1 <- read_csv( 'data.txt', n, classes = rep( "double" , 5L)  ) )
+lapply( d1, head )
+str( d1 )
 
 message( "utils :: read.csv" )
-system.time( d2 <- read.csv( 'data.txt', sep = ",", header = FALSE, stringsAsFactors = FALSE, nrows = n ) )
+system.time( d2 <- read.csv( 'data.txt', sep = ",", 
+    header = FALSE, stringsAsFactors = FALSE, nrows = n,
+    colClasses = rep( "numeric", 5L ) ) )
+lapply( d2, head )
 
 message( "data.table :: fread" )
-system.time( d3 <- fread( 'data.txt', sep = ",", header = FALSE, stringsAsFactors = FALSE, nrows = n ) )
+system.time( d3 <- fread( 'data.txt', sep = ",", header = FALSE, 
+    stringsAsFactors = FALSE, nrows = n ) )
+lapply( d3, head )
 
 q("no")
 

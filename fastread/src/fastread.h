@@ -25,7 +25,8 @@ namespace fastread {
     
     class VectorInput_Integer : public VectorInput {
     public:
-        VectorInput_Integer( int n, MMapReader& reader_ ) : VectorInput(reader_), data(n){}
+        VectorInput_Integer( int n, MMapReader& reader_ ) : 
+            VectorInput(reader_), data(n) {}
         void set( int i ) ;
         inline SEXP get(){ return data ; } 
         
@@ -72,7 +73,7 @@ namespace fastread {
            MMapReader( const std::string& filename, char sep_ = ',', char quote_ = '"', char esc_ = '\\' ) ;
            ~MMapReader() ;
            
-           void read(int n) ;
+           void read(int n, Rcpp::CharacterVector classes ) ;
            Rcpp::List get() ;
            
            inline char* get_pointer() const { return p; }
