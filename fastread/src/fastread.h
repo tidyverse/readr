@@ -32,7 +32,6 @@ namespace fastread {
         
     private:
         Rcpp::IntegerVector data ;
-        char* end ;
     } ;
     
     class VectorInput_Double : public VectorInput {
@@ -43,7 +42,6 @@ namespace fastread {
         
     private:
         Rcpp::DoubleVector data ;
-        char* end ;
     } ;
     
     class VectorInput_String : public VectorInput {
@@ -54,8 +52,6 @@ namespace fastread {
         
     private:
         Rcpp::CharacterVector data ;
-        char* end, *start ;
-        std::string buffer ;
     } ;
     
     class VectorInput_Skip : public VectorInput {
@@ -81,6 +77,10 @@ namespace fastread {
            
            void move_until_next_token_start() ;
            
+           int get_int() ;
+           double get_double() ;
+           Rcpp::String get_String() ;
+           
        private:
            
            int file_descriptor ;
@@ -88,6 +88,7 @@ namespace fastread {
            
            char* memory_start ;
            char* p ;
+           char* end ;
            size_t filesize ;
            bool inquote ;
            

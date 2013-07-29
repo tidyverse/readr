@@ -52,6 +52,27 @@ namespace fastread{
        close(file_descriptor);
     }
     
+    int MMapReader::get_int(){
+        int res = strtol( p, &end, 0 ) ; 
+        p = end ;
+        move_until_next_token_start() ;
+        return res ;
+    }
+    
+    double MMapReader::get_double(){
+        double res =  strtod( p , &end ) ;
+        p = end ;
+        move_until_next_token_start() ;
+        return res ;
+    }
+    
+    Rcpp::String MMapReader::get_String(){
+        end = p ;
+        move_until_next_token_start() ;
+        std::string buffer( end, p-1) ;
+        return String(buffer) ;
+    }
+    
     void MMapReader::move_until_next_token_start(){
         char next;
         while( true ){
