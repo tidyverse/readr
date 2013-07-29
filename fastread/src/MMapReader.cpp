@@ -67,20 +67,20 @@ namespace fastread{
     }
     
     Rcpp::String MMapReader::get_String(){
-        end = p ;
-        move_until_next_token_start() ;
-        std::string buffer( end, p-1) ;
-        return String(buffer) ;
+        end = p ; // saving the first character
+        int len = move_until_next_token_start() ;
+        return Rf_mkCharLen( end, len ) ;
     }
     
-    void MMapReader::move_until_next_token_start(){
+    int MMapReader::move_until_next_token_start(){
         char next;
+        int len = 0 ;
         while( true ){
-            next = *(p++) ; 
+            next = *(p++) ;
             if( inquote ){
                 if( next == esc ){
                     // the next character is an escape character
-                    ++p ;
+                    ++p ; len++ ;
                 } else if( next == quote ){
                     // ending the quote
                     inquote = false ; 
@@ -92,9 +92,13 @@ namespace fastread{
                 } else if( next == sep || next == '\n' ){
                     // end of line
                     break ;
+                } else if( next == '\r' && *p == '\n' ){
+                    p++; break ;    
                 }
             }
-        }    
+            len++ ;
+        }
+        return len ;
     }
     
 }  

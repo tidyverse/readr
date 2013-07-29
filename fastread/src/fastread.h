@@ -75,7 +75,7 @@ namespace fastread {
            inline char* get_pointer() const { return p; }
            inline void  set_pointer(char* p_) { p = p_ ; }
            
-           void move_until_next_token_start() ;
+           int move_until_next_token_start() ;
            
            int get_int() ;
            double get_double() ;
