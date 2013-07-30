@@ -19,6 +19,7 @@ namespace fastread {
         virtual void set( int i ) = 0 ;
         
         virtual SEXP get() = 0;
+        virtual bool skip() const { return false ; }
     protected:
         MMapReader& reader ;
     } ;
@@ -59,6 +60,7 @@ namespace fastread {
         VectorInput_Skip( int , MMapReader& reader_ ) : VectorInput(reader_){}
         void set( int i ) ;
         inline SEXP get(){ return R_NilValue ; } 
+        virtual bool skip() const { return true ; }
     } ;
     
     VectorInput* make_vector_input( int rtype, int n, MMapReader& ) ;
