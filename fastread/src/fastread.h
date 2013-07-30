@@ -20,6 +20,7 @@ namespace fastread {
         
         virtual SEXP get() = 0;
         virtual bool skip() const { return false ; }
+        virtual bool is_rownames() const { return false ; }
     protected:
         MMapReader& reader ;
     } ;
@@ -53,6 +54,12 @@ namespace fastread {
         
     private:
         Rcpp::CharacterVector data ;
+    } ;
+    
+    class VectorInput_Rownames : public VectorInput_String {
+    public:
+        VectorInput_Rownames( int n, MMapReader& reader_ ) : VectorInput_String(n, reader_){}
+        bool is_rownames() const { return true ; }
     } ;
     
     class VectorInput_Skip : public VectorInput {
