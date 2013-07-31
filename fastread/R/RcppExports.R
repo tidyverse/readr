@@ -5,11 +5,11 @@ read_csv <- function(file, n, classes) {
     .Call('fastread_read_csv', PACKAGE = 'fastread', file, n, classes)
 }
 
-read_all_lines_ifstream <- function(filename, n) {
-    invisible(.Call('fastread_read_all_lines_ifstream', PACKAGE = 'fastread', filename, n))
+allocate_vectors <- function(file, n, classes) {
+    .Call('fastread_allocate_vectors', PACKAGE = 'fastread', file, n, classes)
 }
 
-read_all_lines_FILE <- function(filename) {
-    invisible(.Call('fastread_read_all_lines_FILE', PACKAGE = 'fastread', filename))
+count_lines <- function(file, n, classes) {
+    .Call('fastread_count_lines', PACKAGE = 'fastread', file, n, classes)
 }
 

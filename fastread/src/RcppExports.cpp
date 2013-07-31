@@ -22,28 +22,37 @@ BEGIN_RCPP
     return __sexp_result;
 END_RCPP
 }
-// read_all_lines_ifstream
-void read_all_lines_ifstream(std::string filename, int n);
-RcppExport SEXP fastread_read_all_lines_ifstream(SEXP filenameSEXP, SEXP nSEXP) {
+// allocate_vectors
+List allocate_vectors(std::string file, int n, CharacterVector classes);
+RcppExport SEXP fastread_allocate_vectors(SEXP fileSEXP, SEXP nSEXP, SEXP classesSEXP) {
 BEGIN_RCPP
+    SEXP __sexp_result;
     {
         Rcpp::RNGScope __rngScope;
-        std::string filename = Rcpp::as<std::string >(filenameSEXP);
+        std::string file = Rcpp::as<std::string >(fileSEXP);
         int n = Rcpp::as<int >(nSEXP);
-        read_all_lines_ifstream(filename, n);
+        CharacterVector classes = Rcpp::as<CharacterVector >(classesSEXP);
+        List __result = allocate_vectors(file, n, classes);
+        PROTECT(__sexp_result = Rcpp::wrap(__result));
     }
-    return R_NilValue;
+    UNPROTECT(1);
+    return __sexp_result;
 END_RCPP
 }
-// read_all_lines_FILE
-void read_all_lines_FILE(std::string filename);
-RcppExport SEXP fastread_read_all_lines_FILE(SEXP filenameSEXP) {
+// count_lines
+int count_lines(std::string file, int n, CharacterVector classes);
+RcppExport SEXP fastread_count_lines(SEXP fileSEXP, SEXP nSEXP, SEXP classesSEXP) {
 BEGIN_RCPP
+    SEXP __sexp_result;
     {
         Rcpp::RNGScope __rngScope;
-        std::string filename = Rcpp::as<std::string >(filenameSEXP);
-        read_all_lines_FILE(filename);
+        std::string file = Rcpp::as<std::string >(fileSEXP);
+        int n = Rcpp::as<int >(nSEXP);
+        CharacterVector classes = Rcpp::as<CharacterVector >(classesSEXP);
+        int __result = count_lines(file, n, classes);
+        PROTECT(__sexp_result = Rcpp::wrap(__result));
     }
-    return R_NilValue;
+    UNPROTECT(1);
+    return __sexp_result;
 END_RCPP
 }

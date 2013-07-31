@@ -22,9 +22,14 @@ namespace fastread{
         inquote = false ;
         
         memory_start = p = (char *)mmap(NULL, filesize, PROT_READ, MAP_PRIVATE, file_descriptor, 0);
+        eof = p + filesize ;
     }
     
     void MMapReader::read(int n, CharacterVector classes ){
+        if( n <= 0 ){ // this includes n == NA
+            // TODO: handle header lines, skipping rows
+            n = count_lines() ; 
+        }
         ncol = classes.size() ;
         for( int i=0; i<ncol; i++){
             String cl = classes[i] ;
@@ -36,12 +41,32 @@ namespace fastread{
         }
     }
     
+    void MMapReader::setup(int n, CharacterVector classes ){
+        if( n <= 0 ){ // this includes n == NA
+            // TODO: handle header lines, skipping rows
+            n = count_lines() ; 
+        }
+        ncol = classes.size() ;
+        for( int i=0; i<ncol; i++){
+            String cl = classes[i] ;
+            inputs.push_back( make_vector_input(cl, n, *this ) ) ;   
+        }
+        ncol = inputs.size() ;
+    }
+    
     List MMapReader::get(){
         List out(ncol) ;
         for( int i=0; i<ncol; i++){
             out[i] = inputs[i]->get() ;    
         }
         return out ;
+    }
+    
+    int MMapReader::count_lines() const {
+        int count = 0 ;
+        char* ptr = memory_start ;
+        while( ptr < eof ) if( *ptr++ == '\n' ) count++ ;
+        return count ;
     }
     
     MMapReader::~MMapReader(){
@@ -60,7 +85,7 @@ namespace fastread{
     }
     
     double MMapReader::get_double(){
-        double res =  strtod( p , &end ) ;
+        double res = strtod( p , &end ) ;
         p = end ;
         move_until_next_token_start() ;
         return res ;

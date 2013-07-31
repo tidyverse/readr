@@ -26,7 +26,7 @@ namespace fastread {
     class VectorInput_Integer : public VectorInput {
     public:
         VectorInput_Integer( int n, MMapReader& reader_ ) : 
-            VectorInput(reader_), data(n) {}
+            VectorInput(reader_), data( Rcpp::no_init(n) ) {}
         void set( int i ) ;
         inline SEXP get(){ return data ; } 
         
@@ -36,7 +36,8 @@ namespace fastread {
     
     class VectorInput_Double : public VectorInput {
     public:
-        VectorInput_Double( int n, MMapReader& reader_ ) : VectorInput(reader_), data(n){}
+        VectorInput_Double( int n, MMapReader& reader_ ) : 
+            VectorInput(reader_), data(Rcpp::no_init(n) ){}
         void set( int i ) ;
         inline SEXP get(){ return data ; } 
         
@@ -46,7 +47,8 @@ namespace fastread {
     
     class VectorInput_String : public VectorInput {
     public:
-        VectorInput_String( int n, MMapReader& reader_ ) : VectorInput(reader_), data(n){}
+        VectorInput_String( int n, MMapReader& reader_ ) : 
+            VectorInput(reader_), data(Rcpp::no_init(n) ){}
         void set( int i ) ;
         inline SEXP get(){ return data ; } 
         
@@ -70,6 +72,8 @@ namespace fastread {
            ~MMapReader() ;
            
            void read(int n, Rcpp::CharacterVector classes ) ;
+           void setup(int n, Rcpp::CharacterVector classes ) ;
+           
            Rcpp::List get() ;
            
            inline char* get_pointer() const { return p; }
@@ -81,6 +85,8 @@ namespace fastread {
            double get_double() ;
            Rcpp::String get_String() ;
            
+           int count_lines() const ; 
+           
        private:
            
            int file_descriptor ;
@@ -89,6 +95,7 @@ namespace fastread {
            char* memory_start ;
            char* p ;
            char* end ;
+           char* eof ;
            size_t filesize ;
            bool inquote ;
            
