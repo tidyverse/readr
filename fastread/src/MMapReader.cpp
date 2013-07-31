@@ -25,7 +25,8 @@ namespace fastread{
         eof = p + filesize ;
     }
     
-    void MMapReader::read(int n, CharacterVector classes ){
+    void MMapReader::read(int n_, CharacterVector classes ){
+        n = n_ ;
         if( n <= 0 ){ // this includes n == NA
             // TODO: handle header lines, skipping rows
             n = count_lines() ; 
@@ -41,7 +42,8 @@ namespace fastread{
         }
     }
     
-    void MMapReader::setup(int n, CharacterVector classes ){
+    void MMapReader::setup(int n_, CharacterVector classes ){
+        n = n_ ;
         if( n <= 0 ){ // this includes n == NA
             // TODO: handle header lines, skipping rows
             n = count_lines() ; 
@@ -71,10 +73,18 @@ namespace fastread{
         }
         
         List out(ncolumns) ;
+        // automatic names for now
+        // TODO: handle names in header line
+        CharacterVector names(ncolumns) ;
+        
         for( int i=0; i<ncolumns; i++){
+            String V("V") ; V += (i+1) ;
+        
+            names[i] = V ;
             out[i] = columns[i]->get() ;    
         }
-        // out.attr( "class" ) = "data.frame" ;
+        out.attr( "class" ) = "data.frame" ;
+        out.attr( "names" ) = names ;
         if( row_names ){
             out.attr( "row.names" ) = row_names->get() ;   
         } else {

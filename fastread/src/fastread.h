@@ -80,8 +80,8 @@ namespace fastread {
            MMapReader( const std::string& filename, char sep_ = ',', char quote_ = '"', char esc_ = '\\' ) ;
            ~MMapReader() ;
            
-           void read(int n, Rcpp::CharacterVector classes ) ;
-           void setup(int n, Rcpp::CharacterVector classes ) ;
+           void read(int n_, Rcpp::CharacterVector classes ) ;
+           void setup(int n_, Rcpp::CharacterVector classes ) ;
            
            Rcpp::List get() ;
            
