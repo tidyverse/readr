@@ -16,10 +16,11 @@ make_matrix <- function( file = "matrix.csv", nc = 10, nr = 1e6 ){
 
 require( microbenchmark )
 
+options( width = 150 )
 n <- 1e6
 microbenchmark(     
     read_csv( 'zeros.csv', n, rep( "int", 50 ) ), 
-    count_lines( 'zeros.csv', 0L, rep( "int", 50 ) ), # read_csv counts lines 
+    count_lines( 'zeros.csv' ),  
     allocate_vectors( 'zeros.csv', n, rep( "int", 50 ) ), # counting just allocating the data 
     # read.csv( 'zeros.csv', sep = ",", 
     #     header = FALSE, stringsAsFactors = FALSE, nrows = n,
@@ -27,6 +28,18 @@ microbenchmark(
     # fread( 'zeros.csv', sep = ",", header = FALSE, stringsAsFactors = FALSE, nrows = n ), 
     times = 10L 
 )
+
+microbenchmark(     
+    read_csv( 'matrix.csv', n, rep( "double", 10 ) ), 
+    count_lines( 'matrix.csv' ), 
+    allocate_vectors( 'matrix.csv', n, rep( "double", 10 ) ), # counting just allocating the data 
+    # read.csv( 'zeros.csv', sep = ",", 
+    #     header = FALSE, stringsAsFactors = FALSE, nrows = n,
+    #     colClasses = rep( "integer", 50 ) ), 
+    # fread( 'zeros.csv', sep = ",", header = FALSE, stringsAsFactors = FALSE, nrows = n ), 
+    times = 10L 
+)
+
 q("no")
 
 microbenchmark(     

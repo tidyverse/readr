@@ -9,7 +9,7 @@ allocate_vectors <- function(file, n, classes) {
     .Call('fastread_allocate_vectors', PACKAGE = 'fastread', file, n, classes)
 }
 
-count_lines <- function(file, n, classes) {
-    .Call('fastread_count_lines', PACKAGE = 'fastread', file, n, classes)
+count_lines <- function(file) {
+    .Call('fastread_count_lines', PACKAGE = 'fastread', file)
 }
 

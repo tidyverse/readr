@@ -18,7 +18,7 @@ List allocate_vectors(std::string file, int n, CharacterVector classes ){
 }
 
 // [[Rcpp::export]]
-int count_lines(std::string file, int n, CharacterVector classes ){
+int count_lines(std::string file ){
     MMapReader reader( file ) ;
     return reader.count_lines() ;
 }

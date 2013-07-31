@@ -40,16 +40,14 @@ BEGIN_RCPP
 END_RCPP
 }
 // count_lines
-int count_lines(std::string file, int n, CharacterVector classes);
-RcppExport SEXP fastread_count_lines(SEXP fileSEXP, SEXP nSEXP, SEXP classesSEXP) {
+int count_lines(std::string file);
+RcppExport SEXP fastread_count_lines(SEXP fileSEXP) {
 BEGIN_RCPP
     SEXP __sexp_result;
     {
         Rcpp::RNGScope __rngScope;
         std::string file = Rcpp::as<std::string >(fileSEXP);
-        int n = Rcpp::as<int >(nSEXP);
-        CharacterVector classes = Rcpp::as<CharacterVector >(classesSEXP);
-        int __result = count_lines(file, n, classes);
+        int __result = count_lines(file);
         PROTECT(__sexp_result = Rcpp::wrap(__result));
     }
     UNPROTECT(1);
