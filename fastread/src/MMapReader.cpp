@@ -55,9 +55,30 @@ namespace fastread{
     }
     
     List MMapReader::get(){
-        List out(ncol) ;
+        // retaining only the inputs of interest
+        // TODO: deal with names column
+        std::vector<VectorInput*> columns ; columns.reserve(ncol) ;
+        int ncolumns = 0 ;   
+        VectorInput* row_names = 0 ;
+        
         for( int i=0; i<ncol; i++){
-            out[i] = inputs[i]->get() ;    
+            if( inputs[i]->skip() ) continue ;
+            if( inputs[i]->is_rownames() ){
+                row_names = inputs[i] ; 
+                continue ;    
+            }
+            columns.push_back( inputs[i] ) ; ncolumns++ ;
+        }
+        
+        List out(ncolumns) ;
+        for( int i=0; i<ncolumns; i++){
+            out[i] = columns[i]->get() ;    
+        }
+        // out.attr( "class" ) = "data.frame" ;
+        if( row_names ){
+            out.attr( "row.names" ) = row_names->get() ;   
+        } else {
+            out.attr( "row.names") = IntegerVector::create( NA_INTEGER, -n) ;
         }
         return out ;
     }

@@ -35,7 +35,8 @@ namespace fastread{
         if( ( clazz == "int" )   || ( clazz == "I" ) || ( clazz == "integer"   ) ) return new VectorInput_Integer(n, reader) ;
         if( ( clazz == "double") || ( clazz == "D" ) || ( clazz == "numeric"   ) ) return new VectorInput_Double(n, reader) ;
         if( ( clazz == "string") || ( clazz == "S" ) || ( clazz == "character" ) ) return new VectorInput_String(n, reader) ;
-        if( clazz == "_" ) return new VectorInput_Skip(n, reader) ;
+        if( ( clazz == "names" ) || ( clazz == "row.names" ) || ( clazz == "rownames" ) ) return new VectorInput_Rownames( n, reader ) ; 
+        if( ( clazz == "NULL"  ) || ( clazz == "_" )     || ( clazz == "skip" ) ) return new VectorInput_Skip(n, reader) ;
         stop( "unsupported" ) ;
         return 0 ;
     }
