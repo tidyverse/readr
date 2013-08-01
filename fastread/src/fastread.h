@@ -92,12 +92,14 @@ namespace fastread {
            
            int get_int() ;
            double get_double() ;
+           double get_double_fast_atof() ;
            Rcpp::String get_String() ;
            
            int count_lines() const ; 
            
            double parseDouble_strtod(int nd) ;
            double parseDouble_double_conversion(int nd) ;
+           double parseDouble_fast_atof(int nd) ;
            
        private:
            

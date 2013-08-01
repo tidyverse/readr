@@ -3,9 +3,6 @@ require(devtools)
 require(data.table)
 load_all( "fastread" )
 
-parseDouble_strtod( "matrix.csv", 1e6, rep( "double", 10 )  ) 
-q("no")
-
 make_zeros <- function( file = "zeros.csv", nc = 50, nr = 1e6 ){
     d <- matrix( sample( c(0L, 1L), nc * nr, replace = TRUE ), ncol = nc )
     write.table( d , file, row.names = FALSE, col.names = FALSE, sep = "," )    
@@ -38,7 +35,7 @@ microbenchmark(
     # read.csv( 'zeros.csv', sep = ",", 
     #     header = FALSE, stringsAsFactors = FALSE, nrows = n,
     #     colClasses = rep( "integer", 50 ) ), 
-    fread( 'zeros.csv', sep = ",", header = FALSE, stringsAsFactors = FALSE, nrows = n ), 
+    fread( 'matrix.csv', sep = ",", header = FALSE, stringsAsFactors = FALSE, nrows = n ), 
     times = 10L 
 )
 

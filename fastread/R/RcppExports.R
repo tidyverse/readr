@@ -21,3 +21,7 @@ parseDouble_double_conversion <- function(file, nd) {
     .Call('fastread_parseDouble_double_conversion', PACKAGE = 'fastread', file, nd)
 }
 
+parseDouble_fast_atof <- function(file, nd) {
+    .Call('fastread_parseDouble_fast_atof', PACKAGE = 'fastread', file, nd)
+}
+

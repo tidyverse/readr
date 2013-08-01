@@ -34,3 +34,9 @@ double parseDouble_double_conversion( std::string file, int nd ){
     MMapReader reader( file ) ;
     return reader.parseDouble_double_conversion(nd) ;    
 }
+
+// [[Rcpp::export]]
+double parseDouble_fast_atof( std::string file, int nd ){
+    MMapReader reader( file ) ;
+    return reader.parseDouble_fast_atof(nd) ;    
+}
