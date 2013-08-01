@@ -7,12 +7,14 @@ using namespace Rcpp ;
 #include <fcntl.h>   // for open()
 #include <unistd.h>  // for close()
 
+#include "double-conversion.h"
+  
 namespace fastread{
 
     MMapReader::MMapReader( const std::string& filename, char sep_, char quote_, char esc_ ) : 
         file_descriptor( open(filename.c_str(), O_RDONLY) ), 
         sep(sep_), quote(quote_), esc(esc_), 
-        inputs()
+        ncol(0), inputs()
     {
         struct stat file_info;
         if (fstat(file_descriptor,&file_info) == -1) {
@@ -23,6 +25,14 @@ namespace fastread{
         
         memory_start = p = (char *)mmap(NULL, filesize, PROT_READ, MAP_PRIVATE, file_descriptor, 0);
         eof = p + filesize ;
+    }
+    
+    MMapReader::~MMapReader(){
+       for( int i=0; i<ncol; i++){
+           delete inputs[i] ;    
+       }
+       munmap(memory_start, filesize);
+       close(file_descriptor);
     }
     
     void MMapReader::read(int n_, CharacterVector classes ){
@@ -42,6 +52,7 @@ namespace fastread{
         }
     }
     
+    // this was just for benchamrking. will disappear
     void MMapReader::setup(int n_, CharacterVector classes ){
         n = n_ ;
         if( n <= 0 ){ // this includes n == NA
@@ -100,13 +111,6 @@ namespace fastread{
         return count ;
     }
     
-    MMapReader::~MMapReader(){
-       for( int i=0; i<ncol; i++){
-           delete inputs[i] ;    
-       }
-       munmap(memory_start, filesize);
-       close(file_descriptor);
-    }
     
     int MMapReader::get_int(){
         int res = strtol( p, &end, 0 ) ; 
@@ -156,5 +160,34 @@ namespace fastread{
         }
         return len ;
     }
+    
+    
+    double MMapReader::parseDouble_strtod(int nd){
+        double sum = 0.0 ;
+        for( int i=0; i<nd; i++){
+            sum += strtod( p , &end ) ;  move_until_next_token_start() ;
+        }
+        return sum ;
+    }
+       
+    double MMapReader::parseDouble_double_conversion(int nd){
+        using namespace double_conversion ;
+        double sum = 0.0 ;
+        StringToDoubleConverter converter( 
+            StringToDoubleConverter::ALLOW_LEADING_SPACES | 
+            StringToDoubleConverter::ALLOW_TRAILING_JUNK , 
+            NA_REAL, NA_REAL, "Inf", "NaN"
+        ) ; 
+        
+        int processed_count ;
+        // assuming the double is less than 30 characters
+        for(int i=0; i<nd; i++){
+            sum += converter.StringToDouble( p, 30, &processed_count ) ;
+            p += processed_count ;
+            move_until_next_token_start() ;
+        }
+        return sum ;
+    }
+    
     
 }  

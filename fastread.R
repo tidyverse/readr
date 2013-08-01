@@ -3,6 +3,9 @@ require(devtools)
 require(data.table)
 load_all( "fastread" )
 
+parseDouble_strtod( "matrix.csv", 1e6, rep( "double", 10 )  ) 
+q("no")
+
 make_zeros <- function( file = "zeros.csv", nc = 50, nr = 1e6 ){
     d <- matrix( sample( c(0L, 1L), nc * nr, replace = TRUE ), ncol = nc )
     write.table( d , file, row.names = FALSE, col.names = FALSE, sep = "," )    
@@ -12,12 +15,11 @@ make_matrix <- function( file = "matrix.csv", nc = 10, nr = 1e6 ){
     d <- matrix( rnorm(nc*nr), ncol = nc )
     write.table( d , file, row.names = FALSE, col.names = FALSE, sep = "," )    
 }
-
+n <- 1e6
 
 require( microbenchmark )
 
 options( width = 150 )
-n <- 1e6
 microbenchmark(     
     read_csv( 'zeros.csv', n, rep( "int", 50 ) ), 
     count_lines( 'zeros.csv' ),  
@@ -25,7 +27,7 @@ microbenchmark(
     # read.csv( 'zeros.csv', sep = ",", 
     #     header = FALSE, stringsAsFactors = FALSE, nrows = n,
     #     colClasses = rep( "integer", 50 ) ), 
-    # fread( 'zeros.csv', sep = ",", header = FALSE, stringsAsFactors = FALSE, nrows = n ), 
+    fread( 'zeros.csv', sep = ",", header = FALSE, stringsAsFactors = FALSE, nrows = n ), 
     times = 10L 
 )
 
@@ -36,7 +38,7 @@ microbenchmark(
     # read.csv( 'zeros.csv', sep = ",", 
     #     header = FALSE, stringsAsFactors = FALSE, nrows = n,
     #     colClasses = rep( "integer", 50 ) ), 
-    # fread( 'zeros.csv', sep = ",", header = FALSE, stringsAsFactors = FALSE, nrows = n ), 
+    fread( 'zeros.csv', sep = ",", header = FALSE, stringsAsFactors = FALSE, nrows = n ), 
     times = 10L 
 )
 

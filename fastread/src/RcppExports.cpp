@@ -54,3 +54,35 @@ BEGIN_RCPP
     return __sexp_result;
 END_RCPP
 }
+// parseDouble_strtod
+double parseDouble_strtod(std::string file, int nd);
+RcppExport SEXP fastread_parseDouble_strtod(SEXP fileSEXP, SEXP ndSEXP) {
+BEGIN_RCPP
+    SEXP __sexp_result;
+    {
+        Rcpp::RNGScope __rngScope;
+        std::string file = Rcpp::as<std::string >(fileSEXP);
+        int nd = Rcpp::as<int >(ndSEXP);
+        double __result = parseDouble_strtod(file, nd);
+        PROTECT(__sexp_result = Rcpp::wrap(__result));
+    }
+    UNPROTECT(1);
+    return __sexp_result;
+END_RCPP
+}
+// parseDouble_double_conversion
+double parseDouble_double_conversion(std::string file, int nd);
+RcppExport SEXP fastread_parseDouble_double_conversion(SEXP fileSEXP, SEXP ndSEXP) {
+BEGIN_RCPP
+    SEXP __sexp_result;
+    {
+        Rcpp::RNGScope __rngScope;
+        std::string file = Rcpp::as<std::string >(fileSEXP);
+        int nd = Rcpp::as<int >(ndSEXP);
+        double __result = parseDouble_double_conversion(file, nd);
+        PROTECT(__sexp_result = Rcpp::wrap(__result));
+    }
+    UNPROTECT(1);
+    return __sexp_result;
+END_RCPP
+}

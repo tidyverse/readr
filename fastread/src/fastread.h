@@ -96,6 +96,9 @@ namespace fastread {
            
            int count_lines() const ; 
            
+           double parseDouble_strtod(int nd) ;
+           double parseDouble_double_conversion(int nd) ;
+           
        private:
            
            int file_descriptor ;

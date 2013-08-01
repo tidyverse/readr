@@ -23,3 +23,14 @@ int count_lines(std::string file ){
     return reader.count_lines() ;
 }
 
+// [[Rcpp::export]]
+double parseDouble_strtod( std::string file, int nd ){
+    MMapReader reader( file ) ;
+    return reader.parseDouble_strtod(nd) ;    
+}
+
+// [[Rcpp::export]]
+double parseDouble_double_conversion( std::string file, int nd ){
+    MMapReader reader( file ) ;
+    return reader.parseDouble_double_conversion(nd) ;    
+}
