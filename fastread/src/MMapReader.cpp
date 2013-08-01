@@ -162,12 +162,12 @@ namespace fastread{
     }
     
     
-    double MMapReader::parseDouble_strtod(int nd){
-        double sum = 0.0 ;
+    NumericVector MMapReader::parseDouble_strtod(int nd){
+        NumericVector out(nd) ;
         for( int i=0; i<nd; i++){
-            sum += strtod( p , &end ) ;  move_until_next_token_start() ;
+            out[i] =  strtod( p , &end ) ;  move_until_next_token_start() ;
         }
-        return sum ;
+        return out ;
     }
     
     // double MMapReader::parseDouble_qi(int nd){
@@ -184,9 +184,9 @@ namespace fastread{
     // }
     
     
-    double MMapReader::parseDouble_double_conversion(int nd){
+    NumericVector MMapReader::parseDouble_double_conversion(int nd){
         using namespace double_conversion ;
-        double sum = 0.0 ;
+        NumericVector out(nd);
         StringToDoubleConverter converter( 
             StringToDoubleConverter::ALLOW_LEADING_SPACES | 
             StringToDoubleConverter::ALLOW_TRAILING_JUNK , 
@@ -196,23 +196,30 @@ namespace fastread{
         int processed_count ;
         // assuming the double is less than 30 characters
         for(int i=0; i<nd; i++){
-            sum += converter.StringToDouble( p, 30, &processed_count ) ;
+            out[i] = converter.StringToDouble( p, 30, &processed_count ) ;
             p += processed_count ;
             move_until_next_token_start() ;
         }
-        return sum ;
+        return out ;
     }
     
-    double MMapReader::parseDouble_fast_atof(int nd){
-        double sum = 0.0 ;
+    NumericVector MMapReader::parseDouble_fast_atof(int nd){
+        NumericVector out(nd);
         for( int i=0; i<nd; i++){
-            sum += get_double_fast_atof() ;  move_until_next_token_start() ;
+            out[i] = get_double_fast_atof() ;  move_until_next_token_start() ;
         }
-        return sum ;
+        return out ;
     }
     
     #define white_space(c) ((c) == ' ' || (c) == '\t')
-    #define valid_digit(c) ((c) >= '0' && (c) <= '9')
+    
+    #define kBufferSize 100 
+    
+    inline bool valid_digit(char c){
+        static char before_zero = '0' - 1 ;
+        static char after_nine = '9' + 1 ;
+        return c > before_zero && c < after_nine ;
+    }
     
     double MMapReader::get_double_fast_atof(){
         int frac;
@@ -221,36 +228,35 @@ namespace fastread{
         // Skip leading white space, if any.
     
         while ( *p == ' ' ) {
-            p += 1;
+            ++p ;
         }
     
         // Get sign, if any.
-    
         sign = 1.0;
         if (*p == '-') {
             sign = -1.0;
-            p += 1;
-    
+            ++p ;
         } else if (*p == '+') {
-            p += 1;
+            ++p ;
         }
     
         // Get digits before decimal point or exponent, if any.
-    
-        for (value = 0.0; valid_digit(*p); p += 1) {
+        for (value = 0.0; valid_digit(*p); ++p ) {
             value = value * 10.0 + (*p - '0');
         }
     
         // Get digits after decimal point, if any.
-    
         if (*p == '.') {
-            double pow10 = 10.0;
-            p += 1;
+            double pow10 = 1.0;
+            ++p ;
+            double decimal = 0.0 ;
+            
             while (valid_digit(*p)) {
-                value += (*p - '0') / pow10;
+                decimal = decimal * 10.0 + (*p - '0');
                 pow10 *= 10.0;
-                p += 1;
+                ++p;
             }
+            value += (decimal / pow10) ;
         }
     
         // Handle exponent, if any.
@@ -262,18 +268,17 @@ namespace fastread{
     
             // Get sign of exponent, if any.
     
-            p += 1;
+            ++p ;
             if (*p == '-') {
                 frac = 1;
-                p += 1;
-    
+                ++p ;
             } else if (*p == '+') {
-                p += 1;
+                ++p ;
             }
     
             // Get digits of exponent, if any.
     
-            for (expon = 0; valid_digit(*p); p += 1) {
+            for (expon = 0; valid_digit(*p); ++p) {
                 expon = expon * 10 + (*p - '0');
             }
             if (expon > 308) expon = 308;

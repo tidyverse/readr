@@ -97,9 +97,9 @@ namespace fastread {
            
            int count_lines() const ; 
            
-           double parseDouble_strtod(int nd) ;
-           double parseDouble_double_conversion(int nd) ;
-           double parseDouble_fast_atof(int nd) ;
+           Rcpp::NumericVector parseDouble_strtod(int nd) ;
+           Rcpp::NumericVector parseDouble_double_conversion(int nd) ;
+           Rcpp::NumericVector parseDouble_fast_atof(int nd) ;
            
        private:
            

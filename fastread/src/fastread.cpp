@@ -24,19 +24,19 @@ int count_lines(std::string file ){
 }
 
 // [[Rcpp::export]]
-double parseDouble_strtod( std::string file, int nd ){
+NumericVector parseDouble_strtod( std::string file, int nd ){
     MMapReader reader( file ) ;
     return reader.parseDouble_strtod(nd) ;    
 }
 
 // [[Rcpp::export]]
-double parseDouble_double_conversion( std::string file, int nd ){
+NumericVector parseDouble_double_conversion( std::string file, int nd ){
     MMapReader reader( file ) ;
     return reader.parseDouble_double_conversion(nd) ;    
 }
 
 // [[Rcpp::export]]
-double parseDouble_fast_atof( std::string file, int nd ){
+NumericVector parseDouble_fast_atof( std::string file, int nd ){
     MMapReader reader( file ) ;
     return reader.parseDouble_fast_atof(nd) ;    
 }
