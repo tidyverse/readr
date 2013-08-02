@@ -101,6 +101,7 @@ namespace fastread {
            Rcpp::NumericVector parseDouble_double_conversion(int nd) ;
            Rcpp::NumericVector parseDouble_fast_atof(int nd) ;
            Rcpp::NumericVector parseDouble_qi(int nd) ;
+           Rcpp::NumericVector parseDouble_atof(int nd) ;
            
        private:
            

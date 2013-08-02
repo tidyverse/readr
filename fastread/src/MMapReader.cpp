@@ -174,12 +174,20 @@ namespace fastread{
         return out ;
     }
     
+    NumericVector MMapReader::parseDouble_atof(int nd){
+        NumericVector out = no_init(nd) ;
+        for( int i=0; i<nd; i++){
+            out[i] = atof(p) ;  move_until_next_token_start() ;
+        }
+        return out ;
+    }
+    
+    
     NumericVector MMapReader::parseDouble_qi(int nd){
         using boost::spirit::qi::double_;
         using boost::spirit::qi::parse;
         
         NumericVector out = no_init(nd);
-        double res ; 
         for( int i=0; i<nd; i++){
             end = p ;
             parse( end, end + move_until_next_token_start(), double_, out[i] ) ;

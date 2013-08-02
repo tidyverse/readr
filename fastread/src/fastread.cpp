@@ -46,3 +46,10 @@ NumericVector parseDouble_qi( std::string file, int nd ){
     MMapReader reader( file ) ;
     return reader.parseDouble_qi(nd) ;    
 }
+
+// [[Rcpp::export]]
+NumericVector parseDouble_atof( std::string file, int nd ){
+    MMapReader reader( file ) ;
+    return reader.parseDouble_atof(nd) ;    
+}
+

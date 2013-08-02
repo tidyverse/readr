@@ -29,3 +29,7 @@ parseDouble_qi <- function(file, nd) {
     .Call('fastread_parseDouble_qi', PACKAGE = 'fastread', file, nd)
 }
 
+parseDouble_atof <- function(file, nd) {
+    .Call('fastread_parseDouble_atof', PACKAGE = 'fastread', file, nd)
+}
+
