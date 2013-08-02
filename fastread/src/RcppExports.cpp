@@ -102,3 +102,19 @@ BEGIN_RCPP
     return __sexp_result;
 END_RCPP
 }
+// parseDouble_qi
+NumericVector parseDouble_qi(std::string file, int nd);
+RcppExport SEXP fastread_parseDouble_qi(SEXP fileSEXP, SEXP ndSEXP) {
+BEGIN_RCPP
+    SEXP __sexp_result;
+    {
+        Rcpp::RNGScope __rngScope;
+        std::string file = Rcpp::as<std::string >(fileSEXP);
+        int nd = Rcpp::as<int >(ndSEXP);
+        NumericVector __result = parseDouble_qi(file, nd);
+        PROTECT(__sexp_result = Rcpp::wrap(__result));
+    }
+    UNPROTECT(1);
+    return __sexp_result;
+END_RCPP
+}

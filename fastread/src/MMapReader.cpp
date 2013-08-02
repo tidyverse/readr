@@ -8,7 +8,11 @@ using namespace Rcpp ;
 #include <unistd.h>  // for close()
 
 #include "double-conversion.h"
-  
+
+#include <boost/spirit/include/qi.hpp>
+#include <boost/spirit/include/phoenix_core.hpp>
+#include <boost/spirit/include/phoenix_operator.hpp>
+
 namespace fastread{
 
     MMapReader::MMapReader( const std::string& filename, char sep_, char quote_, char esc_ ) : 
@@ -147,7 +151,7 @@ namespace fastread{
                 } 
             } else {
                 if( next == quote ){
-                    // entering a quote
+                    // entering a quote                                                      
                     inquote = true ;
                 } else if( next == sep || next == '\n' ){
                     // end of line
@@ -163,30 +167,31 @@ namespace fastread{
     
     
     NumericVector MMapReader::parseDouble_strtod(int nd){
-        NumericVector out(nd) ;
+        NumericVector out = no_init(nd) ;
         for( int i=0; i<nd; i++){
             out[i] =  strtod( p , &end ) ;  move_until_next_token_start() ;
         }
         return out ;
     }
     
-    // double MMapReader::parseDouble_qi(int nd){
-    //     using boost::spirit::qi::double_;
-    //     using boost::spirit::qi::parse;
-    //     
-    //     double sum = 0.0 ; double res ; 
-    //     for( int i=0; i<nd; i++){
-    //         // parse(str, &str[nums[i].size()], double_, res);
-    //         move_until_next_token_start() ;
-    //     }
-    //     
-    //     return sum ;
-    // }
+    NumericVector MMapReader::parseDouble_qi(int nd){
+        using boost::spirit::qi::double_;
+        using boost::spirit::qi::parse;
+        
+        NumericVector out = no_init(nd);
+        double res ; 
+        for( int i=0; i<nd; i++){
+            end = p ;
+            parse( end, end + move_until_next_token_start(), double_, out[i] ) ;
+        }
+        
+        return out ;
+    }
     
     
     NumericVector MMapReader::parseDouble_double_conversion(int nd){
         using namespace double_conversion ;
-        NumericVector out(nd);
+        NumericVector out = no_init(nd);
         StringToDoubleConverter converter( 
             StringToDoubleConverter::ALLOW_LEADING_SPACES | 
             StringToDoubleConverter::ALLOW_TRAILING_JUNK , 
@@ -204,7 +209,7 @@ namespace fastread{
     }
     
     NumericVector MMapReader::parseDouble_fast_atof(int nd){
-        NumericVector out(nd);
+        NumericVector out = no_init(nd);
         for( int i=0; i<nd; i++){
             out[i] = get_double_fast_atof() ;  move_until_next_token_start() ;
         }
