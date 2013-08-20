@@ -30,12 +30,6 @@ NumericVector parseDouble_strtod( std::string file, int nd ){
 }
 
 // [[Rcpp::export]]
-NumericVector parseDouble_double_conversion( std::string file, int nd ){
-    MMapReader reader( file ) ;
-    return reader.parseDouble_double_conversion(nd) ;    
-}
-
-// [[Rcpp::export]]
 NumericVector parseDouble_fast_atof( std::string file, int nd ){
     MMapReader reader( file ) ;
     return reader.parseDouble_fast_atof(nd) ;    

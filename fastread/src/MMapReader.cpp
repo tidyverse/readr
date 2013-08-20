@@ -7,8 +7,6 @@ using namespace Rcpp ;
 #include <fcntl.h>   // for open()
 #include <unistd.h>  // for close()
 
-#include "double-conversion.h"
-
 #include <boost/spirit/include/qi.hpp>
 #include <boost/spirit/include/phoenix_core.hpp>
 #include <boost/spirit/include/phoenix_operator.hpp>
@@ -193,26 +191,6 @@ namespace fastread{
             parse( end, end + move_until_next_token_start(), double_, out[i] ) ;
         }
         
-        return out ;
-    }
-    
-    
-    NumericVector MMapReader::parseDouble_double_conversion(int nd){
-        using namespace double_conversion ;
-        NumericVector out = no_init(nd);
-        StringToDoubleConverter converter( 
-            StringToDoubleConverter::ALLOW_LEADING_SPACES | 
-            StringToDoubleConverter::ALLOW_TRAILING_JUNK , 
-            NA_REAL, NA_REAL, "Inf", "NaN"
-        ) ; 
-        
-        int processed_count ;
-        // assuming the double is less than 30 characters
-        for(int i=0; i<nd; i++){
-            out[i] = converter.StringToDouble( p, 30, &processed_count ) ;
-            p += processed_count ;
-            move_until_next_token_start() ;
-        }
         return out ;
     }
     
