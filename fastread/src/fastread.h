@@ -6,6 +6,7 @@
 #include <iostream>
 #include <fstream>
 #include <sstream>
+#include <tr1/unordered_map>
 
 namespace fastread {
     
@@ -34,6 +35,24 @@ namespace fastread {
         
     private:
         Rcpp::IntegerVector data ;
+    } ;
+    
+    class VectorInput_Factor : public VectorInput {
+    public:
+        VectorInput_Factor( int n, MMapReader& reader_ ) : VectorInput(reader_), 
+            data( Rcpp::no_init(n) ), 
+            level_map(), 
+            max_level(0)
+            {}
+          
+        void set( int i);
+        SEXP get() ;
+            
+    private:
+        Rcpp::IntegerVector data ;
+        typedef std::tr1::unordered_map<SEXP, int> MAP;  
+        MAP level_map ;
+        int max_level ;
     } ;
     
     class VectorInput_Double : public VectorInput {
@@ -93,6 +112,7 @@ namespace fastread {
            int get_int() ;
            double get_double() ;
            double get_double_fast_atof() ;
+           int get_int_naive() ;
            Rcpp::String get_String() ;
            
            int count_lines() const ; 
@@ -101,6 +121,10 @@ namespace fastread {
            Rcpp::NumericVector parseDouble_fast_atof(int nd) ;
            Rcpp::NumericVector parseDouble_qi(int nd) ;
            Rcpp::NumericVector parseDouble_atof(int nd) ;
+           
+           Rcpp::IntegerVector parseInt_strtol(int nd) ;
+           Rcpp::IntegerVector parseInt_naive(int nd) ;
+           Rcpp::IntegerVector parseInt_qi(int nd) ;
            
        private:
            

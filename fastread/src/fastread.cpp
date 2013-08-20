@@ -47,3 +47,23 @@ NumericVector parseDouble_atof( std::string file, int nd ){
     return reader.parseDouble_atof(nd) ;    
 }
 
+
+
+// [[Rcpp::export]]
+IntegerVector parseInt_strtol( std::string file, int nd ){
+    MMapReader reader( file ) ;
+    return reader.parseInt_strtol(nd) ;    
+}
+
+// [[Rcpp::export]]
+IntegerVector parseInt_naive( std::string file, int nd ){
+    MMapReader reader( file ) ;
+    return reader.parseInt_naive(nd) ;    
+}
+
+// [[Rcpp::export]]
+IntegerVector parseInt_qi( std::string file, int nd ){
+    MMapReader reader( file ) ;
+    return reader.parseInt_qi(nd) ;    
+}
+

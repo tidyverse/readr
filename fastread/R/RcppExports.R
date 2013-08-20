@@ -29,3 +29,15 @@ parseDouble_atof <- function(file, nd) {
     .Call('fastread_parseDouble_atof', PACKAGE = 'fastread', file, nd)
 }
 
+parseInt_strtol <- function(file, nd) {
+    .Call('fastread_parseInt_strtol', PACKAGE = 'fastread', file, nd)
+}
+
+parseInt_naive <- function(file, nd) {
+    .Call('fastread_parseInt_naive', PACKAGE = 'fastread', file, nd)
+}
+
+parseInt_qi <- function(file, nd) {
+    .Call('fastread_parseInt_qi', PACKAGE = 'fastread', file, nd)
+}
+

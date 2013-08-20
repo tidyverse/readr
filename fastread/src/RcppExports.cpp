@@ -118,3 +118,51 @@ BEGIN_RCPP
     return __sexp_result;
 END_RCPP
 }
+// parseInt_strtol
+IntegerVector parseInt_strtol(std::string file, int nd);
+RcppExport SEXP fastread_parseInt_strtol(SEXP fileSEXP, SEXP ndSEXP) {
+BEGIN_RCPP
+    SEXP __sexp_result;
+    {
+        Rcpp::RNGScope __rngScope;
+        std::string file = Rcpp::as<std::string >(fileSEXP);
+        int nd = Rcpp::as<int >(ndSEXP);
+        IntegerVector __result = parseInt_strtol(file, nd);
+        PROTECT(__sexp_result = Rcpp::wrap(__result));
+    }
+    UNPROTECT(1);
+    return __sexp_result;
+END_RCPP
+}
+// parseInt_naive
+IntegerVector parseInt_naive(std::string file, int nd);
+RcppExport SEXP fastread_parseInt_naive(SEXP fileSEXP, SEXP ndSEXP) {
+BEGIN_RCPP
+    SEXP __sexp_result;
+    {
+        Rcpp::RNGScope __rngScope;
+        std::string file = Rcpp::as<std::string >(fileSEXP);
+        int nd = Rcpp::as<int >(ndSEXP);
+        IntegerVector __result = parseInt_naive(file, nd);
+        PROTECT(__sexp_result = Rcpp::wrap(__result));
+    }
+    UNPROTECT(1);
+    return __sexp_result;
+END_RCPP
+}
+// parseInt_qi
+IntegerVector parseInt_qi(std::string file, int nd);
+RcppExport SEXP fastread_parseInt_qi(SEXP fileSEXP, SEXP ndSEXP) {
+BEGIN_RCPP
+    SEXP __sexp_result;
+    {
+        Rcpp::RNGScope __rngScope;
+        std::string file = Rcpp::as<std::string >(fileSEXP);
+        int nd = Rcpp::as<int >(ndSEXP);
+        IntegerVector __result = parseInt_qi(file, nd);
+        PROTECT(__sexp_result = Rcpp::wrap(__result));
+    }
+    UNPROTECT(1);
+    return __sexp_result;
+END_RCPP
+}

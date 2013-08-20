@@ -115,8 +115,7 @@ namespace fastread{
     
     
     int MMapReader::get_int(){
-        int res = strtol( p, &end, 0 ) ; 
-        p = end ;
+        int res = get_int_naive() ;
         move_until_next_token_start() ;
         return res ;
     }
@@ -163,6 +162,37 @@ namespace fastread{
             len++ ;
         }
         return len ;
+    }
+    
+    
+    // benchmarking reading ints
+    IntegerVector MMapReader::parseInt_strtol(int nd){
+        IntegerVector out = no_init(nd) ;
+        for( int i=0; i<nd; i++){
+            out[i] =  strtol( p , &end, 0 ) ;  move_until_next_token_start() ;
+        }
+        return out ;
+    }
+    IntegerVector MMapReader::parseInt_naive(int nd){
+        IntegerVector out = no_init(nd) ;
+        
+        for( int i=0; i<nd; i++){
+            out[i] = get_int_naive() ; move_until_next_token_start() ;
+        }
+        
+        return out ;
+    }
+    IntegerVector MMapReader::parseInt_qi(int nd){
+        using boost::spirit::qi::int_;
+        using boost::spirit::qi::parse;
+        
+        IntegerVector out = no_init(nd) ;
+        for( int i=0; i<nd; i++){
+            end = p ;
+            parse( end, end + move_until_next_token_start(), int_, out[i] ) ;
+        }
+        
+        return out ;
     }
     
     // --------- 
@@ -291,6 +321,33 @@ namespace fastread{
     
         return sign * (frac ? (value / scale) : (value * scale));
     }
+    
+    
+    int MMapReader::get_int_naive(){
+        int sign, value ;
+    
+        // Skip leading white space, if any.
+        while ( *p == ' ' ) {
+            ++p ;
+        }
+    
+        // Get sign, if any.
+        sign = 1;
+        if (*p == '-') {
+            sign = -1;
+            ++p ;
+        } else if (*p == '+') {
+            ++p ;
+        }
+    
+        // Get digits before decimal point or exponent, if any.
+        for (value = 0; valid_digit(*p); ++p ) {
+            value = value * 10 + (*p - '0');
+        }
+    
+        return sign * value ;
+    }
+    
     
     
 }  
