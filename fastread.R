@@ -17,30 +17,14 @@ n <- 1e6
 require( microbenchmark )
 
 options( width = 150 )
-microbenchmark(     
-    read_csv( 'zeros.csv', n, rep( "int", 50 ) ), 
-    count_lines( 'zeros.csv' ),  
-    allocate_vectors( 'zeros.csv', n, rep( "int", 50 ) ), # counting just allocating the data 
-    # read.csv( 'zeros.csv', sep = ",", 
-    #     header = FALSE, stringsAsFactors = FALSE, nrows = n,
-    #     colClasses = rep( "integer", 50 ) ), 
-    fread( 'zeros.csv', sep = ",", header = FALSE, stringsAsFactors = FALSE, nrows = n ), 
-    times = 10L 
-)
 
-microbenchmark(     
-    read_csv( 'matrix.csv', n, rep( "double", 10 ) ), 
-    count_lines( 'matrix.csv' ), 
-    allocate_vectors( 'matrix.csv', n, rep( "double", 10 ) ), # counting just allocating the data 
-    # read.csv( 'zeros.csv', sep = ",", 
-    #     header = FALSE, stringsAsFactors = FALSE, nrows = n,
-    #     colClasses = rep( "integer", 50 ) ), 
-    fread( 'matrix.csv', sep = ",", header = FALSE, stringsAsFactors = FALSE, nrows = n ), 
-    times = 10L 
-)
-
-q("no")
-
+d1 <- read_csv( 'matrix.csv', n, rep( "double", 10 ) )
+d2 <- fread( 'matrix.csv', sep = ",", header = FALSE, stringsAsFactors = FALSE, nrows = n )
+d3 <- read.csv( 'matrix.csv', sep = ",", 
+         header = FALSE, stringsAsFactors = FALSE, nrows = n,
+         colClasses = rep( "numeric", 10 ) )
+stopifnot( all.equal( d1, d3 ) )
+         
 microbenchmark(     
     read_csv( 'matrix.csv', n, rep( "double", 10 ) ), 
     # read.csv( 'matrix.csv', sep = ",", 

@@ -122,14 +122,16 @@ namespace fastread{
     }
     
     double MMapReader::get_double(){
-        double res = strtod( p , &end ) ;
-        p = end ;
-        move_until_next_token_start() ;
+        using boost::spirit::qi::double_;
+        using boost::spirit::qi::parse;
+        double res = 0.0 ;
+        end = p ;
+        parse( end, end + move_until_next_token_start(), double_, res ) ;
         return res ;
     }
     
     Rcpp::String MMapReader::get_String(){
-        end = p ; // saving the first character
+        end = p ; // saving the position of first character
         int len = move_until_next_token_start() ;
         return Rf_mkCharLen( end, len ) ;
     }
@@ -163,7 +165,9 @@ namespace fastread{
         return len ;
     }
     
-    
+    // --------- 
+    // these were used for the benchmarking of the way to read double 
+    // release them eventually
     NumericVector MMapReader::parseDouble_strtod(int nd){
         NumericVector out = no_init(nd) ;
         for( int i=0; i<nd; i++){
@@ -201,6 +205,8 @@ namespace fastread{
         }
         return out ;
     }
+    
+    // ------------
     
     #define white_space(c) ((c) == ' ' || (c) == '\t')
     
