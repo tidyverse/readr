@@ -113,7 +113,7 @@ namespace fastread {
            double get_double() ;
            double get_double_fast_atof() ;
            int get_int_naive() ;
-           Rcpp::String get_String() ;
+           SEXP get_String() ;
            
            int count_lines() const ; 
            

@@ -85,10 +85,19 @@ fread_factors <- function( ... ){
 }
 microbenchmark(     
     read_csv( 'factors.csv', n, rep( "factor", 10 ) ), 
-    read.csv( 'factors.csv', sep = ",", 
-        header = FALSE, stringsAsFactors = TRUE, nrows = n,
-        colClasses = rep( "factor", 10 ) ), 
+    # read.csv( 'factors.csv', sep = ",", 
+    #     header = FALSE, stringsAsFactors = TRUE, nrows = n,
+    #     colClasses = rep( "factor", 10 ) ), 
     fread_factors( 'factors.csv', sep = ",", header = FALSE, nrows = n ), 
     times = 10L 
 )
 
+# microbenchmark(     
+#     read_csv( 'factors.csv', n, rep( "character", 10 ) ), 
+#     read.csv( 'factors.csv', sep = ",", 
+#         header = FALSE, stringsAsFactors = FALSE, nrows = n,
+#         colClasses = rep( "character", 10 ) ), 
+#     fread( 'factors.csv', sep = ",", header = FALSE, nrows = n ), 
+#     times = 10L 
+# )
+# 

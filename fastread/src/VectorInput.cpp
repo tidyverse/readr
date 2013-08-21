@@ -20,21 +20,27 @@ namespace fastread{
         reader.move_until_next_token_start() ;
     }
     
+    // we store the values as integers, the first seen level is set
+    // to 1, then 2, ...
+    // and the values are reordered later when we know all the levels
     inline void VectorInput_Factor::set(int i){
-          SEXP st = reader.get_String().get_sexp() ;
-          MAP::iterator it = level_map.find(st) ;
-          if( it == level_map.end() ){
-              // not yet in the map, so increment the max_level and 
-              // use it
-              data[i] = ++max_level ;
-              level_map[st] = max_level ;
-          } else {
-              // already on the map, just use the value for that key
-              data[i] = it->second ;
-          }
+        SEXP st = reader.get_String() ;
+        // search for this strings as a key in the hash map
+        MAP::iterator it = level_map.find(st) ;
+        if( it == level_map.end() ){
+            // not yet in the map, so increment the max_level and use it
+            data[i] = ++max_level ;
+            level_map[st] = max_level ;
+        } else {
+            // already on the map, just use the value for that key
+            data[i] = it->second ;
+        }
     }
     
     SEXP VectorInput_Factor::get(){
+        // we now need to put the values in the correct order
+        // as read.table does, so we first copy the hash map into 
+        // a regular map so that data are sorted by keys
         std::map< std::string, int > sorted ;
         std::string buffer ;
         for( MAP::iterator it = level_map.begin(); it != level_map.end(); ++it){
@@ -42,6 +48,9 @@ namespace fastread{
             sorted[ buffer ] = it->second ;
         }
         int nlevels = sorted.size() ;
+        // we then grab the keys of the sorted map. Those are the level names
+        // and make a vector of codes, giving the real factor values for each 
+        // value that was set while reading the data
         std::vector<int> code( nlevels ) ;
         std::map< std::string, int >::iterator sorted_it = sorted.begin() ;
         CharacterVector levels( nlevels ); 
@@ -58,7 +67,6 @@ namespace fastread{
         data.attr("levels") = levels ;
         data.attr("class" ) = "factor" ;
         
-        // modify data
         return data ;
     }
     

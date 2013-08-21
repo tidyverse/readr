@@ -129,7 +129,7 @@ namespace fastread{
         return res ;
     }
     
-    Rcpp::String MMapReader::get_String(){
+    SEXP MMapReader::get_String(){
         end = p ; // saving the position of first character
         int len = move_until_next_token_start() ;
         return Rf_mkCharLen( end, len ) ;
