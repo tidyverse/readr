@@ -63,11 +63,32 @@ options( width = 150 )
 # all.equal( d1, d2 )
 #         
 
-require(methods)
-require(devtools)
-require(data.table)
-load_all( "fastread" )
-n <- 1e6
-f <- read_csv( 'factors.csv', n, rep( "factor", 10 ) )
-str( f[[2]] )
+# f <- read_csv( 'factors.csv', n, rep( "factor", 10 ) )
+# d <- read.csv( "factors.csv", header = FALSE )
+# e <- fread( "factors.csv", stringsAsFactors = TRUE, sep = ",", header = FALSE, nrows = n )
+
+# the stringsAsFactors argument of fread does not work, so we create the 
+# factors afterwards using data.table "by reference" syntax
+fread_factors <- function( ... ){
+    res <- fread(...)
+    res[ , V1  := as.factor(V1 ) ]
+    res[ , V2  := as.factor(V2 ) ]
+    res[ , V3  := as.factor(V3 ) ]
+    res[ , V4  := as.factor(V4 ) ]
+    res[ , V5  := as.factor(V5 ) ]
+    res[ , V6  := as.factor(V6 ) ]
+    res[ , V7  := as.factor(V7 ) ]
+    res[ , V8  := as.factor(V8 ) ]
+    res[ , V9  := as.factor(V9 ) ]
+    res[ , V10 := as.factor(V10) ]
+    res
+}
+microbenchmark(     
+    read_csv( 'factors.csv', n, rep( "factor", 10 ) ), 
+    read.csv( 'factors.csv', sep = ",", 
+        header = FALSE, stringsAsFactors = TRUE, nrows = n,
+        colClasses = rep( "factor", 10 ) ), 
+    fread_factors( 'factors.csv', sep = ",", header = FALSE, nrows = n ), 
+    times = 10L 
+)
 
