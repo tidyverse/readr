@@ -38,24 +38,24 @@ options( width = 150 )
 #          colClasses = rep( "numeric", 10 ) )
 # stopifnot( all.equal( d1, d3 ) )
 #          
-# microbenchmark(     
-#     read_csv( 'matrix.csv', n, rep( "double", 10 ) ), 
-#     # read.csv( 'matrix.csv', sep = ",", 
-#     #     header = FALSE, stringsAsFactors = FALSE, nrows = n,
-#     #     colClasses = rep( "numeric", 10 ) ), 
-#     fread( 'matrix.csv', sep = ",", header = FALSE, stringsAsFactors = FALSE, nrows = n ), 
-#     times = 10L 
-# )
-# 
+microbenchmark(     
+    read_csv( 'matrix.csv', n, rep( "double", 10 ) ), 
+    # read.csv( 'matrix.csv', sep = ",", 
+    #     header = FALSE, stringsAsFactors = FALSE, nrows = n,
+    #     colClasses = rep( "numeric", 10 ) ), 
+    fread( 'matrix.csv', sep = ",", header = FALSE, stringsAsFactors = FALSE, nrows = n ), 
+    times = 10L 
+)
+  
 
-# microbenchmark(     
-#     read_csv( 'integers.csv', n, rep( "int", 10 ) ), 
-#     # read.csv( 'integers.csv', sep = ",", 
-#     #     header = FALSE, stringsAsFactors = FALSE, nrows = n,
-#     #     colClasses = rep( "numeric", 10 ) ), 
-#     fread( 'integers.csv', sep = ",", header = FALSE, stringsAsFactors = FALSE, nrows = n ), 
-#     times = 10L 
-# )
+microbenchmark(     
+    read_csv( 'integers.csv', n, rep( "int", 10 ) ), 
+    # read.csv( 'integers.csv', sep = ",", 
+    #     header = FALSE, stringsAsFactors = FALSE, nrows = n,
+    #     colClasses = rep( "numeric", 10 ) ), 
+    fread( 'integers.csv', sep = ",", header = FALSE, stringsAsFactors = FALSE, nrows = n ), 
+    times = 10L 
+)
 # d1 <- read_csv( 'integers.csv', n, rep( "int", 10 ) )
 # d2 <- read.csv( 'integers.csv', sep = ",", 
 #          header = FALSE, stringsAsFactors = FALSE, nrows = n,
