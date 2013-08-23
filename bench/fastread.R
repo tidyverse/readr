@@ -11,7 +11,7 @@ if( !file.exists("bench/factors.csv") ) make_factors( "bench/factors.csv", 10, n
 
 require( microbenchmark )
 
-options( width = 150 )
+options( width = 150, digits = 3 )
 
 # d1 <- read_csv( 'bench/matrix.csv', n, rep( "double", 10 ) )
 # d2 <- fread( 'bench/matrix.csv', sep = ",", header = FALSE, stringsAsFactors = FALSE, nrows = n )
@@ -21,21 +21,21 @@ options( width = 150 )
 # stopifnot( all.equal( d1, d3 ) )
 #          
 microbenchmark(     
-    read_csv( 'bench/matrix.csv', n, rep( "double", 10 ) ), 
-    # read.csv( 'bench/matrix.csv', sep = ",", 
+    fastread = read_csv( 'bench/matrix.csv', n, rep( "double", 10 ) ), 
+    # base = read.csv( 'bench/matrix.csv', sep = ",", 
     #     header = FALSE, stringsAsFactors = FALSE, nrows = n,
     #     colClasses = rep( "numeric", 10 ) ), 
-    fread( 'bench/matrix.csv', sep = ",", header = FALSE, stringsAsFactors = FALSE, nrows = n ), 
+    datatable = fread( 'bench/matrix.csv', sep = ",", header = FALSE, stringsAsFactors = FALSE, nrows = n ), 
     times = 10L 
 )
   
 
 microbenchmark(     
-    read_csv( 'bench/integers.csv', n, rep( "int", 10 ) ), 
-    # read.csv( 'bench/integers.csv', sep = ",", 
+    fastread = read_csv( 'bench/integers.csv', n, rep( "int", 10 ) ), 
+    # base = read.csv( 'bench/integers.csv', sep = ",", 
     #     header = FALSE, stringsAsFactors = FALSE, nrows = n,
     #     colClasses = rep( "numeric", 10 ) ), 
-    fread( 'bench/integers.csv', sep = ",", header = FALSE, stringsAsFactors = FALSE, nrows = n ), 
+    datatable = fread( 'bench/integers.csv', sep = ",", header = FALSE, stringsAsFactors = FALSE, nrows = n ), 
     times = 10L 
 )
 # d1 <- read_csv( 'bench/integers.csv', n, rep( "int", 10 ) )
@@ -66,20 +66,20 @@ fread_factors <- function( ... ){
     res
 }
 microbenchmark(     
-    read_csv( 'bench/factors.csv', n, rep( "factor", 10 ) ), 
-    # read.csv( 'bench/factors.csv', sep = ",", 
+    fastread = read_csv( 'bench/factors.csv', n, rep( "factor", 10 ) ), 
+    # base = read.csv( 'bench/factors.csv', sep = ",", 
     #     header = FALSE, stringsAsFactors = TRUE, nrows = n,
     #     colClasses = rep( "factor", 10 ) ), 
-    fread_factors( 'bench/factors.csv', sep = ",", header = FALSE, nrows = n ), 
+    datatable = fread_factors( 'bench/factors.csv', sep = ",", header = FALSE, nrows = n ), 
     times = 10L 
 )
 
 # microbenchmark(     
-#     read_csv( 'bench/factors.csv', n, rep( "character", 10 ) ), 
-#     read.csv( 'bench/factors.csv', sep = ",", 
+#     fastread = read_csv( 'bench/factors.csv', n, rep( "character", 10 ) ), 
+#     base = read.csv( 'bench/factors.csv', sep = ",", 
 #         header = FALSE, stringsAsFactors = FALSE, nrows = n,
 #         colClasses = rep( "character", 10 ) ), 
-#     fread( 'bench/factors.csv', sep = ",", header = FALSE, nrows = n ), 
+#     datatable = fread( 'bench/factors.csv', sep = ",", header = FALSE, nrows = n ), 
 #     times = 10L 
 # )
 # 
