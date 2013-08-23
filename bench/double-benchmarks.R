@@ -2,14 +2,16 @@ require(methods)
 require(devtools)
 require(data.table)
 require(microbenchmark)
-load_all( "fastread" )
+load_all( "." )
 
-n <- 1e6
+n <- 1e5
+source("bench/data.R")
+if( !file.exists("bench/matrix.csv") ) make_matrix( "bench/matrix.csv", 10, n )
 
-tod <- parseDouble_strtod( "matrix.csv", 10*1e6 )
-tof <- parseDouble_fast_atof( "matrix.csv", 10*1e6 )
-qi  <- parseDouble_qi( "matrix.csv", 10*1e6 )
-atof  <- parseDouble_atof( "matrix.csv", 10*1e6 )
+tod <- parseDouble_strtod( "bench/matrix.csv", 10*1e6 )
+tof <- parseDouble_fast_atof( "bench/matrix.csv", 10*1e6 )
+qi  <- parseDouble_qi( "bench/matrix.csv", 10*1e6 )
+atof  <- parseDouble_atof( "bench/matrix.csv", 10*1e6 )
 
 identical( qi, tod )
 
@@ -25,10 +27,10 @@ atof <- parseDouble_atof
 
 
 microbenchmark( 
-    strtod( "matrix.csv", 10*1e6 ), 
-    fast_atof( "matrix.csv", 10*1e6 ), 
-    spirit_qi( "matrix.csv", 10*1e6 ), 
-    atof( "matrix.csv", 10*1e6 ), 
+    strtod( "bench/matrix.csv", 10*1e6 ), 
+    fast_atof( "bench/matrix.csv", 10*1e6 ), 
+    spirit_qi( "bench/matrix.csv", 10*1e6 ), 
+    atof( "bench/matrix.csv", 10*1e6 ), 
     times = 5L
 )
 

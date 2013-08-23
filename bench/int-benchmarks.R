@@ -2,24 +2,26 @@ require(methods)
 require(devtools)
 require(data.table)
 require(microbenchmark)
-load_all( "fastread" )
+load_all( "." )
 
-n <- 1e6
+n <- 1e5
+source( "bench/data.R" )
+if( !file.exists("bench/integers.csv") ) make_integer_matrix( "bench/integers.csv", 10, n )
 
 strtol <- parseInt_strtol
 qi     <- parseInt_qi
 naive  <- parseInt_naive
 
 microbenchmark( 
-    strtol( "integers.csv", 10*1e6 ), 
-    qi( "integers.csv", 10*1e6 ), 
-    naive( "integers.csv", 10*1e6 ),
+    strtol( "bench/integers.csv", 10*1e6 ), 
+    qi( "bench/integers.csv", 10*1e6 ), 
+    naive( "bench/integers.csv", 10*1e6 ),
     times = 5L
 )
 
-d1 <- strtol( "integers.csv", 10*1e6 )
-d2 <- qi( "integers.csv", 10*1e6 )
-d3 <- naive( "integers.csv", 10*1e6 )
+d1 <- strtol( "bench/integers.csv", 10*1e6 )
+d2 <- qi( "bench/integers.csv", 10*1e6 )
+d3 <- naive( "bench/integers.csv", 10*1e6 )
 identical( d1, d2 )
 identical( d1, d3 )
 
