@@ -14,7 +14,7 @@ require( microbenchmark )
 options( width = 150, digits = 3 )
 
 # d1 <- read_csv( 'bench/matrix.csv', n, rep( "double", 10 ) )
-# d2 <- fread( 'bench/matrix.csv', sep = ",", header = FALSE, stringsAsFactors = FALSE, nrows = n )
+# d2 <- fread( 'bench/matrix.csv', sep = ",", header = FALSE, stringsAsFactors = FALSE, nrows = n, verbose = FALSE )
 # d3 <- read.csv( 'bench/matrix.csv', sep = ",", 
 #          header = FALSE, stringsAsFactors = FALSE, nrows = n,
 #          colClasses = rep( "numeric", 10 ) )
@@ -25,7 +25,7 @@ microbenchmark(
     # base = read.csv( 'bench/matrix.csv', sep = ",", 
     #     header = FALSE, stringsAsFactors = FALSE, nrows = n,
     #     colClasses = rep( "numeric", 10 ) ), 
-    datatable = fread( 'bench/matrix.csv', sep = ",", header = FALSE, stringsAsFactors = FALSE, nrows = n ), 
+    datatable = fread( 'bench/matrix.csv', sep = ",", header = FALSE, stringsAsFactors = FALSE, nrows = n, verbose = FALSE ), 
     times = 10L 
 )
   
@@ -35,7 +35,7 @@ microbenchmark(
     # base = read.csv( 'bench/integers.csv', sep = ",", 
     #     header = FALSE, stringsAsFactors = FALSE, nrows = n,
     #     colClasses = rep( "numeric", 10 ) ), 
-    datatable = fread( 'bench/integers.csv', sep = ",", header = FALSE, stringsAsFactors = FALSE, nrows = n ), 
+    datatable = fread( 'bench/integers.csv', sep = ",", header = FALSE, stringsAsFactors = FALSE, nrows = n, verbose = FALSE ), 
     times = 10L 
 )
 # d1 <- read_csv( 'bench/integers.csv', n, rep( "int", 10 ) )
@@ -47,7 +47,7 @@ microbenchmark(
 
 # f <- read_csv( 'bench/factors.csv', n, rep( "factor", 10 ) )
 # d <- read.csv( "bench/factors.csv", header = FALSE )
-# e <- fread( "bench/factors.csv", stringsAsFactors = TRUE, sep = ",", header = FALSE, nrows = n )
+# e <- fread( "bench/factors.csv", stringsAsFactors = TRUE, sep = ",", header = FALSE, nrows = n, verbose = FALSE )
 
 # the stringsAsFactors argument of fread does not work, so we create the 
 # factors afterwards using data.table "by reference" syntax
@@ -70,7 +70,7 @@ microbenchmark(
     # base = read.csv( 'bench/factors.csv', sep = ",", 
     #     header = FALSE, stringsAsFactors = TRUE, nrows = n,
     #     colClasses = rep( "factor", 10 ) ), 
-    datatable = fread_factors( 'bench/factors.csv', sep = ",", header = FALSE, nrows = n ), 
+    datatable = fread_factors( 'bench/factors.csv', sep = ",", header = FALSE, nrows = n, verbose = FALSE ), 
     times = 10L 
 )
 
@@ -79,7 +79,7 @@ microbenchmark(
 #     base = read.csv( 'bench/factors.csv', sep = ",", 
 #         header = FALSE, stringsAsFactors = FALSE, nrows = n,
 #         colClasses = rep( "character", 10 ) ), 
-#     datatable = fread( 'bench/factors.csv', sep = ",", header = FALSE, nrows = n ), 
+#     datatable = fread( 'bench/factors.csv', sep = ",", header = FALSE, nrows = n, verbose = FALSE ), 
 #     times = 10L 
 # )
 # 
