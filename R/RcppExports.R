@@ -9,3 +9,7 @@ count_lines <- function(file) {
     .Call('fastread_count_lines', PACKAGE = 'fastread', file)
 }
 
+read_file <- function(path) {
+    .Call('fastread_read_file', PACKAGE = 'fastread', path)
+}
+

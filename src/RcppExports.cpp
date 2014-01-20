@@ -38,3 +38,18 @@ BEGIN_RCPP
     return __sexp_result;
 END_RCPP
 }
+// read_file
+String read_file(const std::string& path);
+RcppExport SEXP fastread_read_file(SEXP pathSEXP) {
+BEGIN_RCPP
+    SEXP __sexp_result;
+    {
+        Rcpp::RNGScope __rngScope;
+        Rcpp::traits::input_parameter< const std::string& >::type path(pathSEXP );
+        String __result = read_file(path);
+        PROTECT(__sexp_result = Rcpp::wrap(__result));
+    }
+    UNPROTECT(1);
+    return __sexp_result;
+END_RCPP
+}
