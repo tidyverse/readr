@@ -5,39 +5,7 @@ read_csv <- function(file, n, classes) {
     .Call('fastread_read_csv', PACKAGE = 'fastread', file, n, classes)
 }
 
-allocate_vectors <- function(file, n, classes) {
-    .Call('fastread_allocate_vectors', PACKAGE = 'fastread', file, n, classes)
-}
-
 count_lines <- function(file) {
     .Call('fastread_count_lines', PACKAGE = 'fastread', file)
-}
-
-parseDouble_strtod <- function(file, nd) {
-    .Call('fastread_parseDouble_strtod', PACKAGE = 'fastread', file, nd)
-}
-
-parseDouble_fast_atof <- function(file, nd) {
-    .Call('fastread_parseDouble_fast_atof', PACKAGE = 'fastread', file, nd)
-}
-
-parseDouble_qi <- function(file, nd) {
-    .Call('fastread_parseDouble_qi', PACKAGE = 'fastread', file, nd)
-}
-
-parseDouble_atof <- function(file, nd) {
-    .Call('fastread_parseDouble_atof', PACKAGE = 'fastread', file, nd)
-}
-
-parseInt_strtol <- function(file, nd) {
-    .Call('fastread_parseInt_strtol', PACKAGE = 'fastread', file, nd)
-}
-
-parseInt_naive <- function(file, nd) {
-    .Call('fastread_parseInt_naive', PACKAGE = 'fastread', file, nd)
-}
-
-parseInt_qi <- function(file, nd) {
-    .Call('fastread_parseInt_qi', PACKAGE = 'fastread', file, nd)
 }
 

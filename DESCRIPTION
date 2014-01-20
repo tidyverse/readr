@@ -6,7 +6,7 @@ Authors@R: c(
     person("Romain", "Francois", role = "aut")
     ) 
 Description: Faster Data Readers
-Depends: R (>= 3.0.1), Rcpp (>= 0.10.6), BH (>= 1.51.0-2)
+Depends: R (>= 3.0.2), Rcpp (>= 0.10.6), BH (>= 1.51.0-2)
 LinkingTo: Rcpp, BH
 Imports: methods
 License: GPL (>= 2)

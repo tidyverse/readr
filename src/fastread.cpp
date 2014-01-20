@@ -11,59 +11,8 @@ List read_csv(std::string file, int n, CharacterVector classes ){
 }
 
 // [[Rcpp::export]]
-List allocate_vectors(std::string file, int n, CharacterVector classes ){
-    MMapReader reader( file ) ;
-    reader.setup( n, classes ) ;
-    return reader.get() ;
-}
-
-// [[Rcpp::export]]
-int count_lines(std::string file ){
+int count_lines(std::string file){
     MMapReader reader( file ) ;
     return reader.count_lines() ;
-}
-
-// [[Rcpp::export]]
-NumericVector parseDouble_strtod( std::string file, int nd ){
-    MMapReader reader( file ) ;
-    return reader.parseDouble_strtod(nd) ;    
-}
-
-// [[Rcpp::export]]
-NumericVector parseDouble_fast_atof( std::string file, int nd ){
-    MMapReader reader( file ) ;
-    return reader.parseDouble_fast_atof(nd) ;    
-}
-
-// [[Rcpp::export]]
-NumericVector parseDouble_qi( std::string file, int nd ){
-    MMapReader reader( file ) ;
-    return reader.parseDouble_qi(nd) ;    
-}
-
-// [[Rcpp::export]]
-NumericVector parseDouble_atof( std::string file, int nd ){
-    MMapReader reader( file ) ;
-    return reader.parseDouble_atof(nd) ;    
-}
-
-
-
-// [[Rcpp::export]]
-IntegerVector parseInt_strtol( std::string file, int nd ){
-    MMapReader reader( file ) ;
-    return reader.parseInt_strtol(nd) ;    
-}
-
-// [[Rcpp::export]]
-IntegerVector parseInt_naive( std::string file, int nd ){
-    MMapReader reader( file ) ;
-    return reader.parseInt_naive(nd) ;    
-}
-
-// [[Rcpp::export]]
-IntegerVector parseInt_qi( std::string file, int nd ){
-    MMapReader reader( file ) ;
-    return reader.parseInt_qi(nd) ;    
 }
 

@@ -54,21 +54,6 @@ namespace fastread{
         }
     }
     
-    // this was just for benchamrking. will disappear
-    void MMapReader::setup(int n_, CharacterVector classes ){
-        n = n_ ;
-        if( n <= 0 ){ // this includes n == NA
-            // TODO: handle header lines, skipping rows
-            n = count_lines() ; 
-        }
-        ncol = classes.size() ;
-        for( int i=0; i<ncol; i++){
-            String cl = classes[i] ;
-            inputs.push_back( make_vector_input(cl, n, *this ) ) ;   
-        }
-        ncol = inputs.size() ;
-    }
-    
     List MMapReader::get(){
         // retaining only the inputs of interest
         // TODO: deal with names column
@@ -164,164 +149,11 @@ namespace fastread{
         return len ;
     }
     
-    
-    // benchmarking reading ints
-    IntegerVector MMapReader::parseInt_strtol(int nd){
-        IntegerVector out = no_init(nd) ;
-        for( int i=0; i<nd; i++){
-            out[i] =  strtol( p , &end, 0 ) ;  move_until_next_token_start() ;
-        }
-        return out ;
-    }
-    IntegerVector MMapReader::parseInt_naive(int nd){
-        IntegerVector out = no_init(nd) ;
-        
-        for( int i=0; i<nd; i++){
-            out[i] = get_int_naive() ; move_until_next_token_start() ;
-        }
-        
-        return out ;
-    }
-    IntegerVector MMapReader::parseInt_qi(int nd){
-        using boost::spirit::qi::int_;
-        using boost::spirit::qi::parse;
-        
-        IntegerVector out = no_init(nd) ;
-        for( int i=0; i<nd; i++){
-            end = p ;
-            parse( end, end + move_until_next_token_start(), int_, out[i] ) ;
-        }
-        
-        return out ;
-    }
-    
-    // --------- 
-    // these were used for the benchmarking of the way to read double 
-    // release them eventually
-    NumericVector MMapReader::parseDouble_strtod(int nd){
-        NumericVector out = no_init(nd) ;
-        for( int i=0; i<nd; i++){
-            out[i] =  strtod( p , &end ) ;  move_until_next_token_start() ;
-        }
-        return out ;
-    }
-    
-    NumericVector MMapReader::parseDouble_atof(int nd){
-        NumericVector out = no_init(nd) ;
-        for( int i=0; i<nd; i++){
-            out[i] = atof(p) ;  move_until_next_token_start() ;
-        }
-        return out ;
-    }
-    
-    
-    NumericVector MMapReader::parseDouble_qi(int nd){
-        using boost::spirit::qi::double_;
-        using boost::spirit::qi::parse;
-        
-        NumericVector out = no_init(nd);
-        for( int i=0; i<nd; i++){
-            end = p ;
-            parse( end, end + move_until_next_token_start(), double_, out[i] ) ;
-        }
-        
-        return out ;
-    }
-    
-    NumericVector MMapReader::parseDouble_fast_atof(int nd){
-        NumericVector out = no_init(nd);
-        for( int i=0; i<nd; i++){
-            out[i] = get_double_fast_atof() ;  move_until_next_token_start() ;
-        }
-        return out ;
-    }
-    
-    // ------------
-    
-    #define white_space(c) ((c) == ' ' || (c) == '\t')
-    
-    #define kBufferSize 100 
-    
     inline bool valid_digit(char c){
         static char before_zero = '0' - 1 ;
         static char after_nine = '9' + 1 ;
         return c > before_zero && c < after_nine ;
     }
-    
-    double MMapReader::get_double_fast_atof(){
-        int frac;
-        double sign, value, scale;
-    
-        // Skip leading white space, if any.
-    
-        while ( *p == ' ' ) {
-            ++p ;
-        }
-    
-        // Get sign, if any.
-        sign = 1.0;
-        if (*p == '-') {
-            sign = -1.0;
-            ++p ;
-        } else if (*p == '+') {
-            ++p ;
-        }
-    
-        // Get digits before decimal point or exponent, if any.
-        for (value = 0.0; valid_digit(*p); ++p ) {
-            value = value * 10.0 + (*p - '0');
-        }
-    
-        // Get digits after decimal point, if any.
-        if (*p == '.') {
-            double pow10 = 1.0;
-            ++p ;
-            double decimal = 0.0 ;
-            
-            while (valid_digit(*p)) {
-                decimal = decimal * 10.0 + (*p - '0');
-                pow10 *= 10.0;
-                ++p;
-            }
-            value += (decimal / pow10) ;
-        }
-    
-        // Handle exponent, if any.
-    
-        frac = 0;
-        scale = 1.0;
-        if ((*p == 'e') || (*p == 'E')) {
-            unsigned int expon;
-    
-            // Get sign of exponent, if any.
-    
-            ++p ;
-            if (*p == '-') {
-                frac = 1;
-                ++p ;
-            } else if (*p == '+') {
-                ++p ;
-            }
-    
-            // Get digits of exponent, if any.
-    
-            for (expon = 0; valid_digit(*p); ++p) {
-                expon = expon * 10 + (*p - '0');
-            }
-            if (expon > 308) expon = 308;
-    
-            // Calculate scaling factor.
-    
-            while (expon >= 50) { scale *= 1E50; expon -= 50; }
-            while (expon >=  8) { scale *= 1E8;  expon -=  8; }
-            while (expon >   0) { scale *= 10.0; expon -=  1; }
-        }
-    
-        // Return signed and scaled floating point result.
-    
-        return sign * (frac ? (value / scale) : (value * scale));
-    }
-    
     
     int MMapReader::get_int_naive(){
         int sign, value ;

@@ -6,7 +6,7 @@
 #include <iostream>
 #include <fstream>
 #include <sstream>
-#include <tr1/unordered_map>
+#include <boost/unordered_map.hpp>
 
 namespace fastread {
     
@@ -50,7 +50,7 @@ namespace fastread {
             
     private:
         Rcpp::IntegerVector data ;
-        typedef std::tr1::unordered_map<SEXP, int> MAP;  
+        typedef boost::unordered_map<SEXP, int> MAP;  
         MAP level_map ;
         int max_level ;
     } ;
@@ -110,21 +110,12 @@ namespace fastread {
            int move_until_next_token_start() ;
            
            int get_int() ;
-           double get_double() ;
-           double get_double_fast_atof() ;
            int get_int_naive() ;
+           
+           double get_double() ;
            SEXP get_String() ;
            
            int count_lines() const ; 
-           
-           Rcpp::NumericVector parseDouble_strtod(int nd) ;
-           Rcpp::NumericVector parseDouble_fast_atof(int nd) ;
-           Rcpp::NumericVector parseDouble_qi(int nd) ;
-           Rcpp::NumericVector parseDouble_atof(int nd) ;
-           
-           Rcpp::IntegerVector parseInt_strtol(int nd) ;
-           Rcpp::IntegerVector parseInt_naive(int nd) ;
-           Rcpp::IntegerVector parseInt_qi(int nd) ;
            
        private:
            
