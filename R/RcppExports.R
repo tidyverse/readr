@@ -9,6 +9,10 @@ count_lines <- function(file) {
     .Call('fastread_count_lines', PACKAGE = 'fastread', file)
 }
 
+#' Read file in a single string
+#' 
+#' @param path file path name
+#' @export
 read_file <- function(path) {
     .Call('fastread_read_file', PACKAGE = 'fastread', path)
 }
