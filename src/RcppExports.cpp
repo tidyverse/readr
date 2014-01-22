@@ -39,7 +39,7 @@ BEGIN_RCPP
 END_RCPP
 }
 // read_lines
-CharacterVector read_lines(std::string file, int n);
+CharacterVector read_lines(std::string file, int n = 0);
 RcppExport SEXP fastread_read_lines(SEXP fileSEXP, SEXP nSEXP) {
 BEGIN_RCPP
     SEXP __sexp_result;

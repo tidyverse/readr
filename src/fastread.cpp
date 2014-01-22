@@ -17,7 +17,7 @@ int count_lines(std::string file){
 }
 
 // [[Rcpp::export]]
-CharacterVector read_lines(std::string file, int n){
+CharacterVector read_lines(std::string file, int n = 0){
     MMapReader reader( file ) ;
     return reader.read_lines(n) ;
 }
