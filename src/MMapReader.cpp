@@ -140,25 +140,11 @@ namespace fastread{
         int len = 0 ;
         while( p < eof ){
             next = *(p++) ;
-            if( inquote ){
-                if( next == esc ){
-                    // the next character is an escape character
-                    ++p ; len++ ;
-                } else if( next == quote ){
-                    // ending the quote
-                    inquote = false ; 
-                } 
-            } else {
-                if( next == quote ){
-                    // entering a quote                                                      
-                    inquote = true ;
-                } else if( next == '\n' ){
-                    // end of line
-                    p++ ;
-                    break ;
-                } else if( next == '\r' && *p == '\n' ){
-                    p+=2; break ;    
-                }
+            if( next == '\n' ){
+                break ;
+            } else if( next == '\r' && *p == '\n' ){
+                p++; 
+                break ;    
             }
             len++ ;
         }
