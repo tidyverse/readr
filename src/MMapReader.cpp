@@ -98,6 +98,21 @@ namespace fastread{
         return count ;
     }
     
+    CharacterVector MMapReader::read_lines(int n_){
+        n = n_ ;
+        if( n <= 0 ){ // this includes n == NA
+            // TODO: handle header lines, skipping rows
+            n = count_lines() ; 
+        }
+        StringVector out(n) ;
+        for( int i=0; i<n; i++){
+            char* start = p ;
+            int len = move_until_next_line() ;
+            out[i] = Rf_mkCharLen(start, len) ;
+        }
+        return out ;
+    }
+    
     
     int MMapReader::get_int(){
         int res = get_int_naive() ;
@@ -120,10 +135,40 @@ namespace fastread{
         return Rf_mkCharLen( end, len ) ;
     }
     
+    int MMapReader::move_until_next_line(){
+        char next;
+        int len = 0 ;
+        while( p < eof ){
+            next = *(p++) ;
+            if( inquote ){
+                if( next == esc ){
+                    // the next character is an escape character
+                    ++p ; len++ ;
+                } else if( next == quote ){
+                    // ending the quote
+                    inquote = false ; 
+                } 
+            } else {
+                if( next == quote ){
+                    // entering a quote                                                      
+                    inquote = true ;
+                } else if( next == '\n' ){
+                    // end of line
+                    p++ ;
+                    break ;
+                } else if( next == '\r' && *p == '\n' ){
+                    p+=2; break ;    
+                }
+            }
+            len++ ;
+        }
+        return len ;
+    }
+    
     int MMapReader::move_until_next_token_start(){
         char next;
         int len = 0 ;
-        while( true ){
+        while( p < eof ){
             next = *(p++) ;
             if( inquote ){
                 if( next == esc ){

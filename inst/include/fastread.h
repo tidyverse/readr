@@ -108,6 +108,7 @@ namespace fastread {
            inline void  set_pointer(char* p_) { p = p_ ; }
            
            int move_until_next_token_start() ;
+           int move_until_next_line() ;
            
            int get_int() ;
            int get_int_naive() ;
@@ -116,6 +117,7 @@ namespace fastread {
            SEXP get_String() ;
            
            int count_lines() const ; 
+           Rcpp::CharacterVector read_lines(int n) ;
            
        private:
            
