@@ -15,8 +15,7 @@ namespace fastread{
 
     MMapReader::MMapReader( const std::string& filename, char sep_, char quote_, char esc_ ) : 
         file_descriptor( open(filename.c_str(), O_RDONLY) ), 
-        sep(sep_), quote(quote_), esc(esc_), 
-        ncol(0), inputs()
+        sep(sep_), quote(quote_), esc(esc_)
     {
         struct stat file_info;
         if (fstat(file_descriptor,&file_info) == -1) {
@@ -30,65 +29,8 @@ namespace fastread{
     }
     
     MMapReader::~MMapReader(){
-       for( int i=0; i<ncol; i++){
-           delete inputs[i] ;    
-       }
        munmap(memory_start, filesize);
        close(file_descriptor);
-    }
-    
-    void MMapReader::read(int n_, CharacterVector classes ){
-        n = n_ ;
-        if( n <= 0 ){ // this includes n == NA
-            // TODO: handle header lines, skipping rows
-            n = count_lines() ; 
-        }
-        ncol = classes.size() ;
-        for( int i=0; i<ncol; i++){
-            String cl = classes[i] ;
-            inputs.push_back( make_vector_input(cl, n, *this ) ) ;   
-        }
-        ncol = inputs.size() ;
-        for( int i=0; i<n; i++) for( int j=0; j<ncol; j++){
-             inputs[j]->set(i) ;    
-        }
-    }
-    
-    List MMapReader::get(){
-        // retaining only the inputs of interest
-        // TODO: deal with names column
-        std::vector<Input*> columns ; columns.reserve(ncol) ;
-        int ncolumns = 0 ;   
-        Input* row_names = 0 ;
-        
-        for( int i=0; i<ncol; i++){
-            if( inputs[i]->skip() ) continue ;
-            if( inputs[i]->is_rownames() ){
-                row_names = inputs[i] ; 
-                continue ;    
-            }
-            columns.push_back( inputs[i] ) ; ncolumns++ ;
-        }
-        
-        List out(ncolumns) ;
-        // automatic names for now
-        // TODO: handle names in header line
-        CharacterVector names(ncolumns) ;
-        
-        for( int i=0; i<ncolumns; i++){
-            String V("V") ; V += (i+1) ;
-        
-            names[i] = V ;
-            out[i] = columns[i]->get() ;    
-        }
-        out.attr( "class" ) = "data.frame" ;
-        out.attr( "names" ) = names ;
-        if( row_names ){
-            out.attr( "row.names" ) = row_names->get() ;   
-        } else {
-            out.attr( "row.names") = IntegerVector::create( NA_INTEGER, -n) ;
-        }
-        return out ;
     }
     
     int MMapReader::count_lines() const {

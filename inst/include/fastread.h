@@ -13,5 +13,6 @@ using namespace Rcpp;
 
 #include <fastread/VectorInput.h>
 #include <fastread/MMapReader.h>
+#include <fastread/DataReader.h>
 
 #endif

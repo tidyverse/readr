@@ -5,9 +5,9 @@ using namespace fastread ;
 
 // [[Rcpp::export]]
 List read_csv(std::string file, int n, CharacterVector classes ){
-    MMapReader reader( file ) ;
-    reader.read( n, classes ) ;
-    return reader.get() ;
+    MMapReader mmap_reader(file) ;
+    DataReader<MMapReader> data_reader(mmap_reader) ;
+    return data_reader.read( n, classes ) ;
 }
 
 // [[Rcpp::export]]

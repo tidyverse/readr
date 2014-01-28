@@ -5,15 +5,9 @@ namespace fastread {
     
     class MMapReader {
        public:
-           typedef VectorInput<MMapReader> Input ;
            
            MMapReader( const std::string& filename, char sep_ = ',', char quote_ = '"', char esc_ = '\\' ) ;
            ~MMapReader() ;
-           
-           void read(int n_, Rcpp::CharacterVector classes ) ;
-           void setup(int n_, Rcpp::CharacterVector classes ) ;
-           
-           Rcpp::List get() ;
            
            int skip_token() ;
            
@@ -42,9 +36,8 @@ namespace fastread {
            size_t filesize ;
            bool inquote ;
            
-           int n, ncol ;
+           int n ;
            
-           std::vector<Input*> inputs ;
     } ;
     
 }     
