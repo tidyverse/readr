@@ -15,9 +15,6 @@ namespace fastread {
            
            Rcpp::List get() ;
            
-           inline char* get_pointer() const { return p; }
-           inline void  set_pointer(char* p_) { p = p_ ; }
-           
            int skip_token() ;
            
            int move_until_next_line() ;
