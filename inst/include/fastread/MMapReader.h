@@ -18,7 +18,8 @@ namespace fastread {
            inline char* get_pointer() const { return p; }
            inline void  set_pointer(char* p_) { p = p_ ; }
            
-           int move_until_next_token_start() ;
+           int skip_token() ;
+           
            int move_until_next_line() ;
            
            int get_int() ;
@@ -31,6 +32,8 @@ namespace fastread {
            Rcpp::CharacterVector read_lines(int n) ;
            
        private:
+           
+           int move_until_next_token_start() ;
            
            int file_descriptor ;
            char sep, quote, esc ;

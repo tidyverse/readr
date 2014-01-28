@@ -151,6 +151,10 @@ namespace fastread{
         return len ;
     }
     
+    int MMapReader::skip_token(){
+        return move_until_next_token_start() ;    
+    }
+    
     int MMapReader::move_until_next_token_start(){
         char next;
         int len = 0 ;

@@ -149,7 +149,7 @@ namespace fastread {
         
         VectorInput_Skip( int, Source& reader_ ) : Base(reader_){}
         void set( int i ) {
-            Base::reader.move_until_next_token_start() ;
+            Base::reader.skip_token() ;
         }
         inline SEXP get(){ return R_NilValue ; } 
         virtual bool skip() const { return true ; }
