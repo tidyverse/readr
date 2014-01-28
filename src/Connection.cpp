@@ -28,13 +28,13 @@ namespace fastread {
         return out ;
     }
     
-    inline int ReadConnection::get_int(){
+    int ReadConnection::get_int(){
         int res = get_int_naive(p) ;
         move_until_next_token_start() ;
         return res ;
     }
     
-    inline double ReadConnection::get_double(){
+    double ReadConnection::get_double(){
         using boost::spirit::qi::double_;
         using boost::spirit::qi::parse;
         double res = 0.0 ;
@@ -43,7 +43,7 @@ namespace fastread {
         return res ;
     }
     
-    inline SEXP ReadConnection::get_String(){
+    SEXP ReadConnection::get_String(){
         char* q = p ; // saving the position of first character
         int len = move_until_next_token_start() ;
         return Rf_mkCharLen( q, len ) ;

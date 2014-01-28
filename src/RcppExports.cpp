@@ -7,16 +7,16 @@
 using namespace Rcpp;
 
 // read_csv
-List read_csv(std::string file, int n, CharacterVector classes);
-RcppExport SEXP fastread_read_csv(SEXP fileSEXP, SEXP nSEXP, SEXP classesSEXP) {
+List read_csv(SEXP input, int n, CharacterVector classes);
+RcppExport SEXP fastread_read_csv(SEXP inputSEXP, SEXP nSEXP, SEXP classesSEXP) {
 BEGIN_RCPP
     SEXP __sexp_result;
     {
         Rcpp::RNGScope __rngScope;
-        Rcpp::traits::input_parameter< std::string >::type file(fileSEXP );
+        Rcpp::traits::input_parameter< SEXP >::type input(inputSEXP );
         Rcpp::traits::input_parameter< int >::type n(nSEXP );
         Rcpp::traits::input_parameter< CharacterVector >::type classes(classesSEXP );
-        List __result = read_csv(file, n, classes);
+        List __result = read_csv(input, n, classes);
         PROTECT(__sexp_result = Rcpp::wrap(__result));
     }
     UNPROTECT(1);

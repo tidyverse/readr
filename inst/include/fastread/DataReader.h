@@ -6,7 +6,7 @@ namespace fastread {
     template <typename Source>
     class DataReader {
     public:     
-        typedef VectorInput<MMapReader> Input ;
+        typedef VectorInput<Source> Input ;
            
         DataReader( Source& source_ ) : source(source_){} 
         
