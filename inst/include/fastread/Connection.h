@@ -22,6 +22,8 @@ namespace fastread {
         {
         }
         
+        CharacterVector read_lines(int n) ; 
+        
         int read_chunk(){
             size_t res = con->read( data, 1, chunk_size, con ) ;
             return res ;
@@ -49,11 +51,14 @@ namespace fastread {
         inline char* get_data(){ return data ; }
         
     private:       
+        CharacterVector read_all_lines() ;
         
         void resize(){
+            int pos = p - data ;
             chunk_size *= 2 ;
             buffer.resize(chunk_size, '\0' );
             data = &buffer[0] ;
+            p = data + pos ;
         }
         
         Rconnection con ;
@@ -61,6 +66,7 @@ namespace fastread {
         int chunk_size ;
         std::vector<char> buffer ;
         char* data ;
+        char* p ;
     };
 
 }
