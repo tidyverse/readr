@@ -28,6 +28,71 @@ namespace fastread {
         return out ;
     }
     
+    inline int ReadConnection::get_int(){
+        int res = get_int_naive(p) ;
+        move_until_next_token_start() ;
+        return res ;
+    }
+    
+    inline double ReadConnection::get_double(){
+        using boost::spirit::qi::double_;
+        using boost::spirit::qi::parse;
+        double res = 0.0 ;
+        char* q = p ;
+        parse( q, q + move_until_next_token_start(), double_, res ) ;
+        return res ;
+    }
+    
+    inline SEXP ReadConnection::get_String(){
+        char* q = p ; // saving the position of first character
+        int len = move_until_next_token_start() ;
+        return Rf_mkCharLen( q, len ) ;
+    }
+    
+    void ReadConnection::ensure_full_line(){
+        char* q = p ;
+        while( *q != '\n' && q < data_end ) q++ ;
+        int pos = q-p ;
+        if( q == data_end ){
+            std::memmove( data, p, q-p ) ;    
+        }
+        con->read( data + pos, 1, chunk_size - pos, con) ;
+        p = data ;
+    }
+    
+    int ReadConnection::skip_token(){
+        return move_until_next_token_start() ;    
+    }
+    
+    int ReadConnection::move_until_next_token_start(){
+        char next;
+        int len = 0 ;
+        while(true){
+            next = *(p++) ;
+            if( inquote ){
+                if( next == esc ){
+                    // the next character is an escape character
+                    ++p ; len++ ;
+                } else if( next == quote ){
+                    // ending the quote
+                    inquote = false ; 
+                } 
+            } else {
+                if( next == quote ){
+                    // entering a quote                                                      
+                    inquote = true ;
+                } else if( next == sep || next == '\n' ){
+                    // end of line
+                    break ;
+                } else if( next == '\r' && *p == '\n' ){
+                    p++; break ;    
+                }
+            }
+            len++ ;
+        }
+        return len ;
+    }
+          
 }
 
 

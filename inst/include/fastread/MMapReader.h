@@ -14,13 +14,14 @@ namespace fastread {
            int move_until_next_line() ;
            
            int get_int() ;
-           int get_int_naive() ;
            
            double get_double() ;
            SEXP get_String() ;
            
            int count_lines() const ; 
            Rcpp::CharacterVector read_lines(int n) ;
+           
+           inline void ensure_full_line(){}
            
        private:
            

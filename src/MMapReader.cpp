@@ -2,15 +2,6 @@
 
 using namespace Rcpp ;
 
-#include <sys/mman.h>
-#include <sys/stat.h>
-#include <fcntl.h>   // for open()
-#include <unistd.h>  // for close()
-
-#include <boost/spirit/include/qi.hpp>
-#include <boost/spirit/include/phoenix_core.hpp>
-#include <boost/spirit/include/phoenix_operator.hpp>
-
 namespace fastread{
 
     MMapReader::MMapReader( const std::string& filename, char sep_, char quote_, char esc_ ) : 
@@ -57,7 +48,7 @@ namespace fastread{
     
     
     int MMapReader::get_int(){
-        int res = get_int_naive() ;
+        int res = get_int_naive(p) ;
         move_until_next_token_start() ;
         return res ;
     }
@@ -125,38 +116,6 @@ namespace fastread{
         }
         return len ;
     }
-    
-    inline bool valid_digit(char c){
-        static char before_zero = '0' - 1 ;
-        static char after_nine = '9' + 1 ;
-        return c > before_zero && c < after_nine ;
-    }
-    
-    int MMapReader::get_int_naive(){
-        int sign, value ;
-    
-        // Skip leading white space, if any.
-        while ( *p == ' ' ) {
-            ++p ;
-        }
-    
-        // Get sign, if any.
-        sign = 1;
-        if (*p == '-') {
-            sign = -1;
-            ++p ;
-        } else if (*p == '+') {
-            ++p ;
-        }
-    
-        // Get digits before decimal point or exponent, if any.
-        for (value = 0; valid_digit(*p); ++p ) {
-            value = value * 10 + (*p - '0');
-        }
-    
-        return sign * value ;
-    }
-    
     
     
 }  
