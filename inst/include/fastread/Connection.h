@@ -46,6 +46,8 @@ namespace fastread {
             return(nbuf);                
         }
         
+        inline char* get_data(){ return data ; }
+        
     private:       
         
         void resize(){
