@@ -46,18 +46,30 @@ namespace fastread {
     SEXP ReadConnection::get_String(){
         char* q = p ; // saving the position of first character
         int len = move_until_next_token_start() ;
-        return Rf_mkCharLen( q, len ) ;
+        
+        SEXP res = Rf_mkCharLen( q, len ) ;
+        return res ;
     }
     
     void ReadConnection::ensure_full_line(){
         char* q = p ;
-        while( *q != '\n' && q < data_end ) q++ ;
-        int pos = q-p ;
-        if( q == data_end ){
-            std::memmove( data, p, q-p ) ;    
+        if(p==data_end){
+            int read = con->read( data, 1, chunk_size, con) ;
+            p = data ; 
+            data_end = p + read ;
+        } else {
+            while( q < data_end && *q != '\n' ) ++q ;
+            int pos = q-p ;
+            
+            // move the rest of the data to the beginning of the buffer 
+            // and read some more from the connection
+            if( q == data_end ){
+                std::memmove( data, p, q-p ) ;
+                con->read( data + pos, 1, chunk_size - pos, con) ;
+                p = data ;
+            }
+            
         }
-        con->read( data + pos, 1, chunk_size - pos, con) ;
-        p = data ;
     }
     
     int ReadConnection::skip_token(){

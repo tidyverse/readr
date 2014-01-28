@@ -23,6 +23,9 @@ namespace fastread {
             sep = ',' ;
             quote = '"' ;
             esc = '\\' ;
+            p = data_end = data ;
+            ensure_full_line() ;
+            
         }
         
         CharacterVector read_lines(int n) ; 
@@ -65,7 +68,7 @@ namespace fastread {
         CharacterVector read_all_lines() ;
         
         int move_until_next_token_start() ;
-           
+        
         void resize(){
             int pos = p - data ;
             chunk_size *= 2 ;
@@ -74,6 +77,22 @@ namespace fastread {
             p = data + pos ;
         }
         
+        int move_until_next_line(){
+            char next;
+            int len = 0 ;
+            while( true ){
+                next = *(p++) ;
+                if( next == '\n' ){
+                    break ;
+                } else if( next == '\r' && *p == '\n' ){
+                    p++; 
+                    break ;    
+                }
+                len++ ;
+            }
+            return len ;
+        }
+    
         Rconnection con ;
         
         int chunk_size ;
