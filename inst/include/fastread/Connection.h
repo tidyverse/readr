@@ -6,6 +6,7 @@
 #include <R_ext/Connections.h>
 #undef class
 #undef private
+#define R_EOF	-1
  
 extern "C" {
     extern Rconnection getConnection(int) ;
