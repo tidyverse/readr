@@ -2,6 +2,7 @@
 #define FASTREAD_FASTREAD_H
 
 #include <Rcpp.h>
+#include <fastread/Connection.h>
 
 #include <iostream>
 #include <fstream>
