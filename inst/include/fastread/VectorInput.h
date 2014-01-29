@@ -6,7 +6,7 @@ namespace fastread {
     template <typename Source>
     class VectorInput {
     public:
-        VectorInput( Source& reader_) : reader(reader_) {}
+        VectorInput( Source& source_) : source(source_) {}
         virtual ~VectorInput(){} ;
         
         virtual void set( int i ) = 0 ;
@@ -16,7 +16,7 @@ namespace fastread {
         virtual bool is_rownames() const { return false ; }
     
     protected:
-        Source& reader ;
+        Source& source ;
     } ;
     
     template <typename Source>
@@ -24,10 +24,10 @@ namespace fastread {
     public:
         typedef VectorInput<Source> Base ;
         
-        VectorInput_Integer( int n, Source& reader_ ) : 
-            Base(reader_), data( Rcpp::no_init(n) ) {}
+        VectorInput_Integer( int n, Source& source_ ) : 
+            Base(source_), data( Rcpp::no_init(n) ) {}
         void set( int i ){
-            data[i] = Base::reader.get_int() ;    
+            data[i] = Base::source.get_int() ;    
         }
         inline SEXP get(){ return data ; } 
         
@@ -40,7 +40,7 @@ namespace fastread {
     public:
         typedef VectorInput<Source> Base ;
         
-        VectorInput_Factor( int n, Source& reader_ ) : Base(reader_), 
+        VectorInput_Factor( int n, Source& source_ ) : Base(source_), 
             data( Rcpp::no_init(n) ), 
             level_map(), 
             max_level(0)
@@ -50,7 +50,7 @@ namespace fastread {
         // to 1, then 2, ...
         // and the values are reordered later when we know all the levels
         void set( int i){
-            SEXP st = Base::reader.get_String() ;
+            SEXP st = Base::source.get_String() ;
             // search for this strings as a key in the hash map
             MAP::iterator it = level_map.find(st) ;
             if( it == level_map.end() ){
@@ -108,10 +108,10 @@ namespace fastread {
     public:
         typedef VectorInput<Source> Base ;
         
-        VectorInput_Double( int n, Source& reader_ ) : 
-            Base(reader_), data(Rcpp::no_init(n) ){}
+        VectorInput_Double( int n, Source& source_ ) : 
+            Base(source_), data(Rcpp::no_init(n) ){}
         void set( int i ){
-             data[i] = Base::reader.get_double() ;
+             data[i] = Base::source.get_double() ;
         }
         inline SEXP get(){ return data ; } 
         
@@ -124,10 +124,10 @@ namespace fastread {
     public:
         typedef VectorInput<Source> Base ;
         
-        VectorInput_String( int n, Source& reader_ ) : 
-            Base(reader_), data(Rcpp::no_init(n) ){}
+        VectorInput_String( int n, Source& source_ ) : 
+            Base(source_), data(Rcpp::no_init(n) ){}
         void set( int i ) {
-            data[i] = Base::reader.get_String() ;
+            data[i] = Base::source.get_String() ;
         }
         inline SEXP get(){ return data ; } 
         
@@ -138,7 +138,7 @@ namespace fastread {
     template <typename Source>
     class VectorInput_Rownames : public VectorInput_String<Source> {
     public:
-        VectorInput_Rownames( int n, Source& reader_ ) : VectorInput_String<Source>(n, reader_){}
+        VectorInput_Rownames( int n, Source& source_ ) : VectorInput_String<Source>(n, source_){}
         bool is_rownames() const { return true ; }
     } ;
     
@@ -147,20 +147,20 @@ namespace fastread {
     public:
         typedef VectorInput<Source> Base ;
         
-        VectorInput_Skip( int, Source& reader_ ) : Base(reader_){}
+        VectorInput_Skip( int, Source& source_ ) : Base(source_){}
         void set( int i ) {
-            Base::reader.skip_token() ;
+            Base::source.skip() ;
         }
         inline SEXP get(){ return R_NilValue ; } 
         virtual bool skip() const { return true ; }
     } ;
     
     template <typename Source>
-    VectorInput<Source>* make_vector_input( int rtype, int n, Source& reader){
+    VectorInput<Source>* make_vector_input( int rtype, int n, Source& source){
         switch( rtype ){
-            case INTSXP:  return new VectorInput_Integer<Source>(n, reader) ;
-            case REALSXP: return new VectorInput_Double<Source>(n, reader) ;
-            case STRSXP:  return new VectorInput_String<Source>(n, reader) ;
+            case INTSXP:  return new VectorInput_Integer<Source>(n, source) ;
+            case REALSXP: return new VectorInput_Double<Source>(n, source) ;
+            case STRSXP:  return new VectorInput_String<Source>(n, source) ;
             default:
                 stop( "unsupported type" ) ;
         }
@@ -168,13 +168,13 @@ namespace fastread {
     }
     
     template <typename Source>
-    VectorInput<Source>* make_vector_input( const std::string& clazz, int n, Source& reader ){
-        if( ( clazz == "int" )   || ( clazz == "I" ) || ( clazz == "integer"   ) ) return new VectorInput_Integer<Source>(n, reader) ;
-        if( ( clazz == "double") || ( clazz == "D" ) || ( clazz == "numeric"   ) ) return new VectorInput_Double<Source>(n, reader) ;
-        if( ( clazz == "string") || ( clazz == "S" ) || ( clazz == "character" ) ) return new VectorInput_String<Source>(n, reader) ;
-        if( ( clazz == "names" ) || ( clazz == "row.names" ) || ( clazz == "rownames" ) ) return new VectorInput_Rownames<Source>( n, reader ) ; 
-        if( ( clazz == "NULL"  ) || ( clazz == "_" )     || ( clazz == "skip" ) ) return new VectorInput_Skip<Source>(n, reader) ;
-        if( ( clazz == "factor") ) return new VectorInput_Factor<Source>(n, reader) ;
+    VectorInput<Source>* make_vector_input( const std::string& clazz, int n, Source& source ){
+        if( ( clazz == "int" )   || ( clazz == "I" ) || ( clazz == "integer"   ) ) return new VectorInput_Integer<Source>(n, source) ;
+        if( ( clazz == "double") || ( clazz == "D" ) || ( clazz == "numeric"   ) ) return new VectorInput_Double<Source>(n, source) ;
+        if( ( clazz == "string") || ( clazz == "S" ) || ( clazz == "character" ) ) return new VectorInput_String<Source>(n, source) ;
+        if( ( clazz == "names" ) || ( clazz == "row.names" ) || ( clazz == "rownames" ) ) return new VectorInput_Rownames<Source>( n, source ) ; 
+        if( ( clazz == "NULL"  ) || ( clazz == "_" )     || ( clazz == "skip" ) ) return new VectorInput_Skip<Source>(n, source) ;
+        if( ( clazz == "factor") ) return new VectorInput_Factor<Source>(n, source) ;
         
         stop( "unsupported" ) ;
         return 0 ;

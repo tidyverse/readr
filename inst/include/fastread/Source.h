@@ -12,7 +12,13 @@ namespace fastread {
         inline void set(char* p_, char* end_){ 
             p = p_ ; end = end_ ;
         }
-        inline char* get(){ return p ; }
+        inline char* get(){ 
+            return p ; 
+        }
+        
+        void skip(){
+            move_until_next_token_start(); 
+        }
         
         int get_int(){
             int res = get_int_naive();

@@ -7,7 +7,7 @@ namespace fastread {
     public:
         typedef Source<MMapSource> Base ;
         
-        MMapSource( const std::string& filename, char sep, char quote, char esc)  ;
+        MMapSource( const std::string& filename, char sep = ',', char quote = '"', char esc = '\\' )  ;
         
         // no-op as we always have the full data mmapped
         inline void ensure_full_line(){}
