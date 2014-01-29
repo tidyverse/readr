@@ -9,8 +9,8 @@ count_lines <- function(file) {
     .Call('fastread_count_lines', PACKAGE = 'fastread', file)
 }
 
-read_lines <- function(file, n = 0L) {
-    .Call('fastread_read_lines', PACKAGE = 'fastread', file, n)
+read_lines <- function(input, n = 0L) {
+    .Call('fastread_read_lines', PACKAGE = 'fastread', input, n)
 }
 
 #' Read file in a single string

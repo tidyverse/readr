@@ -39,15 +39,15 @@ BEGIN_RCPP
 END_RCPP
 }
 // read_lines
-CharacterVector read_lines(std::string file, int n = 0);
-RcppExport SEXP fastread_read_lines(SEXP fileSEXP, SEXP nSEXP) {
+CharacterVector read_lines(SEXP input, int n = 0);
+RcppExport SEXP fastread_read_lines(SEXP inputSEXP, SEXP nSEXP) {
 BEGIN_RCPP
     SEXP __sexp_result;
     {
         Rcpp::RNGScope __rngScope;
-        Rcpp::traits::input_parameter< std::string >::type file(fileSEXP );
+        Rcpp::traits::input_parameter< SEXP >::type input(inputSEXP );
         Rcpp::traits::input_parameter< int >::type n(nSEXP );
-        CharacterVector __result = read_lines(file, n);
+        CharacterVector __result = read_lines(input, n);
         PROTECT(__sexp_result = Rcpp::wrap(__result));
     }
     UNPROTECT(1);

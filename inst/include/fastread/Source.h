@@ -20,6 +20,11 @@ namespace fastread {
             move_until_next_token_start(); 
         }
         
+        SEXP get_line(){
+            char* q = p; 
+            return Rf_mkCharLen(q, move_until_next_line());    
+        }
+        
         int get_int(){
             int res = get_int_naive();
             move_until_next_token_start() ;
@@ -43,7 +48,8 @@ namespace fastread {
     protected:
         char* p ;
         char* end ;
-    private:
+        
+    private:      
     
         char sep, quote, esc ;
         bool inquote ;
@@ -82,7 +88,7 @@ namespace fastread {
         int move_until_next_token_start(){
             char next;
             int len = 0 ;
-            while(true){
+            while(p<end){
                 next = *(p++) ;
                 if( inquote ){
                     if( next == esc ){
@@ -107,6 +113,23 @@ namespace fastread {
             }
             return len ;
         }
+        
+        int move_until_next_line(){
+            char next;
+            int len = 0 ;
+            while( p < end ){
+                next = *(p++) ;
+                if( next == '\n' ){
+                    break ;
+                } else if( next == '\r' && *p == '\n' ){
+                    p++; 
+                    break ;    
+                }
+                len++ ;
+            }
+            return len ;
+        }
+    
         
     } ;
 }
