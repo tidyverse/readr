@@ -36,6 +36,9 @@ namespace fastread {
                 lines.push_back( source.get_line() );
                 n++ ;
             }
+            // if the last line is empty, dump it. 
+            if( std::string("") == CHAR(lines[n-1]) ) n-- ;
+            
             CharacterVector res(n) ;
             for( int i=0; i<n; i++){
                 res[i] = lines[i] ;    
