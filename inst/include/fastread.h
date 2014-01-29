@@ -18,8 +18,13 @@ using namespace Rcpp;
 #include <boost/spirit/include/phoenix_core.hpp>
 #include <boost/spirit/include/phoenix_operator.hpp>
 
-#include <fastread/get_int_naive.h>
 #include <fastread/Connection.h>
+
+#include <fastread/Source.h>
+#include <fastread/MMapSource.h>
+#include <fastread/ReadConnectionSource.h>
+
+#include <fastread/get_int_naive.h>
 #include <fastread/VectorInput.h>
 #include <fastread/MMapReader.h>
 #include <fastread/DataReader.h>
