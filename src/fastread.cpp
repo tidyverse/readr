@@ -18,12 +18,6 @@ List read_csv( SEXP input, int n, CharacterVector classes ){
 }
 
 // [[Rcpp::export]]
-int count_lines(std::string file){
-    MMapReader reader( file ) ;
-    return reader.count_lines() ;
-}
-
-// [[Rcpp::export]]
 CharacterVector read_lines(SEXP input, int n = 0){ 
     if( Rf_inherits(input, "connection" ) ){
         ReadConnectionSource source(input);
@@ -35,5 +29,11 @@ CharacterVector read_lines(SEXP input, int n = 0){
         LinesReader<MMapSource> reader(source) ;
         return reader.read(n) ;
     }
+}
+
+// [[Rcpp::export]]
+int count_lines(std::string file){
+    MMapReader reader( file ) ;
+    return reader.count_lines() ;
 }
 

@@ -10,7 +10,6 @@ namespace fastread{
         data(&buffer[0]), n(0)
     {
         n = con->read(data,1,chunk_size,con);
-        Rprintf( "reading %d characters from connection\n", n ) ;
         find_last_line() ;
     }
     
@@ -18,10 +17,8 @@ namespace fastread{
         if( p > last_full_line ){
             int nchars = n-(p-data) ;
             
-            Rprintf( "moving %d characters\n", nchars ) ;
             std::memmove(data, p, nchars) ;
             n = con->read(data + nchars, 1, chunk_size - nchars, con);
-            Rprintf( "reading %d characters from connection\n", n ) ;
             n = n + nchars ;
             
             find_last_line() ;
