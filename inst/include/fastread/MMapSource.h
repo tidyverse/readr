@@ -12,13 +12,17 @@ namespace fastread {
         inline bool more(){ return false ;}
         
         // no-op as we always have the full data mmapped
-        inline void ensure_full_line(){}
+        inline bool ensure_full_line(){
+            return p < last_full_line ;
+        }
         
     private:
         int file_descriptor ;
         size_t filesize ;
         char* memory_start ;
         char* eof ;
+        char* last_full_line ;
+         
     } ;
 }
 

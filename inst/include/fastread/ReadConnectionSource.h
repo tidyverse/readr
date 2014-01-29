@@ -8,8 +8,8 @@ namespace fastread {
         typedef Source<ReadConnectionSource> Base ;
         
         ReadConnectionSource(SEXP con_d, char sep = ',', char quote = '"', char esc = '\\') ;
-        void ensure_full_line(); 
         
+        bool ensure_full_line(); 
         bool more() ;
         
     private:

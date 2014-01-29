@@ -14,10 +14,9 @@ namespace fastread{
         find_last_line() ;
     }
     
-    void ReadConnectionSource::ensure_full_line(){
-        if( p > last_full_line ){
-            more() ;    
-        }
+    bool ReadConnectionSource::ensure_full_line(){
+        if( p > last_full_line && more() ) return true ;    
+        return p < last_full_line ;
     }
     
     void ReadConnectionSource::find_last_line(){

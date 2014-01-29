@@ -13,6 +13,10 @@ namespace fastread{
         memory_start = (char *)mmap(NULL, filesize, PROT_READ, MAP_PRIVATE, file_descriptor, 0);
         eof = memory_start + filesize ;
         Base::set(memory_start, eof);
+        
+        last_full_line = eof - 1 ;
+        while( *last_full_line != '\n' ) --last_full_line;
+    
     } 
 
 }

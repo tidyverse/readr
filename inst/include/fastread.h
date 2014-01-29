@@ -26,7 +26,6 @@ using namespace Rcpp;
 
 #include <fastread/get_int_naive.h>
 #include <fastread/VectorInput.h>
-#include <fastread/MMapReader.h>
 
 #include <fastread/DataReader.h>
 #include <fastread/LinesReader.h>
