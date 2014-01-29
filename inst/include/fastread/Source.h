@@ -45,11 +45,25 @@ namespace fastread {
             return res ;
         }
     
+        int count_lines(){
+            int n = 0 ;
+            while(true){
+                n += std::count( p, end, '\n' ) ;
+                p = end ;
+                if( !more() ) break ;    
+            }
+            return n ;
+        }
+        
     protected:
         char* p ;
         char* end ;
         
-    private:      
+    private:
+        
+        bool more(){
+            return static_cast<Class&>(*this).more() ;
+        }
     
         char sep, quote, esc ;
         bool inquote ;

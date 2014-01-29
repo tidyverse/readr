@@ -23,21 +23,6 @@ BEGIN_RCPP
     return __sexp_result;
 END_RCPP
 }
-// count_lines
-int count_lines(std::string file);
-RcppExport SEXP fastread_count_lines(SEXP fileSEXP) {
-BEGIN_RCPP
-    SEXP __sexp_result;
-    {
-        Rcpp::RNGScope __rngScope;
-        Rcpp::traits::input_parameter< std::string >::type file(fileSEXP );
-        int __result = count_lines(file);
-        PROTECT(__sexp_result = Rcpp::wrap(__result));
-    }
-    UNPROTECT(1);
-    return __sexp_result;
-END_RCPP
-}
 // read_lines
 CharacterVector read_lines(SEXP input, int n = 0);
 RcppExport SEXP fastread_read_lines(SEXP inputSEXP, SEXP nSEXP) {
@@ -48,6 +33,21 @@ BEGIN_RCPP
         Rcpp::traits::input_parameter< SEXP >::type input(inputSEXP );
         Rcpp::traits::input_parameter< int >::type n(nSEXP );
         CharacterVector __result = read_lines(input, n);
+        PROTECT(__sexp_result = Rcpp::wrap(__result));
+    }
+    UNPROTECT(1);
+    return __sexp_result;
+END_RCPP
+}
+// count_lines
+int count_lines(SEXP input);
+RcppExport SEXP fastread_count_lines(SEXP inputSEXP) {
+BEGIN_RCPP
+    SEXP __sexp_result;
+    {
+        Rcpp::RNGScope __rngScope;
+        Rcpp::traits::input_parameter< SEXP >::type input(inputSEXP );
+        int __result = count_lines(input);
         PROTECT(__sexp_result = Rcpp::wrap(__result));
     }
     UNPROTECT(1);

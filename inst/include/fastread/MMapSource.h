@@ -9,6 +9,8 @@ namespace fastread {
         
         MMapSource( const std::string& filename, char sep = ',', char quote = '"', char esc = '\\' )  ;
         
+        inline bool more(){ return false ;}
+        
         // no-op as we always have the full data mmapped
         inline void ensure_full_line(){}
         

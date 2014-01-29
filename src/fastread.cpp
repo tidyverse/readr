@@ -32,8 +32,14 @@ CharacterVector read_lines(SEXP input, int n = 0){
 }
 
 // [[Rcpp::export]]
-int count_lines(std::string file){
-    MMapReader reader( file ) ;
-    return reader.count_lines() ;
+int count_lines(SEXP input){
+    if( Rf_inherits(input, "connection" ) ){
+        ReadConnectionSource source(input);
+        return source.count_lines() ;
+    } else {
+        std::string path = as<std::string>(input) ;
+        MMapSource source(path) ;
+        return source.count_lines() ;
+    }
 }
 

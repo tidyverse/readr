@@ -5,12 +5,12 @@ read_csv <- function(input, n, classes) {
     .Call('fastread_read_csv', PACKAGE = 'fastread', input, n, classes)
 }
 
-count_lines <- function(file) {
-    .Call('fastread_count_lines', PACKAGE = 'fastread', file)
-}
-
 read_lines <- function(input, n = 0L) {
     .Call('fastread_read_lines', PACKAGE = 'fastread', input, n)
+}
+
+count_lines <- function(input) {
+    .Call('fastread_count_lines', PACKAGE = 'fastread', input)
 }
 
 #' Read file in a single string
