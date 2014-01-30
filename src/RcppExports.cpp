@@ -54,16 +54,16 @@ BEGIN_RCPP
     return __sexp_result;
 END_RCPP
 }
-// scan_text
-SEXP scan_text(CharacterVector x, std::string what);
-RcppExport SEXP fastread_scan_text(SEXP xSEXP, SEXP whatSEXP) {
+// parse_text
+SEXP parse_text(CharacterVector x, std::string what);
+RcppExport SEXP fastread_parse_text(SEXP xSEXP, SEXP whatSEXP) {
 BEGIN_RCPP
     SEXP __sexp_result;
     {
         Rcpp::RNGScope __rngScope;
         Rcpp::traits::input_parameter< CharacterVector >::type x(xSEXP );
         Rcpp::traits::input_parameter< std::string >::type what(whatSEXP );
-        SEXP __result = scan_text(x, what);
+        SEXP __result = parse_text(x, what);
         PROTECT(__sexp_result = Rcpp::wrap(__result));
     }
     UNPROTECT(1);

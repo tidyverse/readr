@@ -45,7 +45,7 @@ int count_lines(SEXP input){
 }
 
 // [[Rcpp::export]]
-SEXP scan_text( CharacterVector x, std::string what){
+SEXP parse_text( CharacterVector x, std::string what){
     CharacterVectorSource source(x) ;
     int n = x.size() ;
     VectorInput<CharacterVectorSource>* input = 

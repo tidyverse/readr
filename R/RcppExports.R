@@ -13,8 +13,8 @@ count_lines <- function(input) {
     .Call('fastread_count_lines', PACKAGE = 'fastread', input)
 }
 
-scan_text <- function(x, what) {
-    .Call('fastread_scan_text', PACKAGE = 'fastread', x, what)
+parse_text <- function(x, what) {
+    .Call('fastread_parse_text', PACKAGE = 'fastread', x, what)
 }
 
 #' Read file in a single string

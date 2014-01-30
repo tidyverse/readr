@@ -215,19 +215,7 @@ namespace fastread {
         inline SEXP get(){ return R_NilValue ; } 
         virtual bool skip() const { return true ; }
     } ;
-    
-    template <typename Source>
-    VectorInput<Source>* make_vector_input( int rtype, int n, Source& source){
-        switch( rtype ){
-            case INTSXP:  return new VectorInput_Integer<Source>(n, source) ;
-            case REALSXP: return new VectorInput_Double<Source>(n, source) ;
-            case STRSXP:  return new VectorInput_String<Source>(n, source) ;
-            default:
-                stop( "unsupported type" ) ;
-        }
-        return 0 ;    
-    }
-    
+   
     template <typename Source>
     VectorInput<Source>* make_vector_input( const std::string& clazz, int n, Source& source ){
         if( ( clazz == "int" )   || ( clazz == "I" ) || ( clazz == "integer"   ) ) return new VectorInput_Integer<Source>(n, source) ;
