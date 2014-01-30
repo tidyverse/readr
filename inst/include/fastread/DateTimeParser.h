@@ -15,42 +15,37 @@ namespace fastread {
             end = end_ ;
             
             double res = 0 ;
+                    
+            skip_non_digit() ;
+            if( !has_more() ) return res ;
+                
+            // year
+            int y = read_year() ;
+            if( y >= 0 ){
+                                // feb 29th
+                res += y * 365 + y/4 ;     
+            }
             
-            if( has_more() ){
+            skip_non_digit() ;
+            
+            if( !has_more() ) return res ;
                 
-                skip_non_digit() ;
-                
-                // reading year
-                int y = read_year() ;
-                if( y >= 0 ){
-                                    // feb 29th
-                    res += y * 365 + y/4 ;     
-                }
-                
-                skip_non_digit() ;
-                
-                // month
-                if( has_more() ){
-                    int m = read_month() ;
-                    res += days_at_month_start(m) ;
-                    
-                    // feb 29th
-                    if( m > 2 && (y&3) == 2 ){
-                        res += 1 ;
-                    }
-                    
-                    skip_non_digit() ;
-                    
-                    // day
-                    if( has_more() ){
-                        int d = read_day() ;
-                        if( d > 1 ){
-                            res += (d - 1);    
-                        }
-                    }
-                    
-                }
-                
+            // month
+            int m = read_month() ;
+            res += days_at_month_start(m) ;
+            
+            // feb 29th from previous years
+            if( m > 2 && (y&3) == 2 ){
+                res += 1 ;
+            }
+            
+            skip_non_digit() ;
+            
+            // day
+            if( !has_more() ) return res ;
+            int d = read_day() ;
+            if( d > 1 ){
+                res += (d - 1);    
             }
             
             return res ;
@@ -61,28 +56,22 @@ namespace fastread {
             end = end_ ;
             double res = 0 ;
             
+            skip_non_digit() ;
+            if( !has_more() ) return res ;
+            
             // hour
-            if( has_more() ){
-                skip_non_digit() ;
-                
-                res += read_hour() * HOUR ;
-                
-                skip_non_digit() ;
-                
-                // minutes
-                if( has_more() ){
-                    res += read_minute() * MINUTE ;
-                    
-                    skip_non_digit() ;
-                    
-                    // seconds
-                    if( has_more() ){
-                        res += read_second() ;
-                    }
-                }
-                
-            }
-                        
+            res += read_hour() * HOUR ;
+            skip_non_digit() ;
+            
+            // minutes
+            if( !has_more() ) return res ;
+            res += read_minute() * MINUTE ;
+            skip_non_digit() ;
+            
+            // seconds
+            if( !has_more() ) return res ;
+            
+            res += read_second() ;
             return res ;
         }
         
@@ -95,44 +84,38 @@ namespace fastread {
             end = end_ ;
             
             double res = 0.0 ;
-            if( has_more() ){
-                
-                skip_non_digit() ;
-                
-                // reading year
-                int y = read_year() ;
-                if( y >= 0 ){
-                                    // feb 29th
-                    res += y*YEAR + ( (y+1)/4 ) * DAY ;     
-                }
-                
-                skip_non_digit() ;
-                
-                // month
-                if( has_more() ){
-                    int m = read_month() ;
-                    res += seconds_at_month_start(m) ;
-                    
-                    // feb 29th
-                    if( m > 2 && (y&3) == 2 ) res += DAY ;
-                    
-                    skip_non_digit() ;
-                    
-                    // day
-                    if( has_more() ){
-                        int d = read_day() ;
-                        if( d > 1){
-                            res +=  (d-1) * DAY ;
-                        }
-                        skip_non_digit() ;
-                        
-                        res += parse_Time(p, end); 
-                        
-                    } 
-                    
-                }
-                
+            
+            skip_non_digit() ;
+            if( !has_more() ) return res ;
+            
+            // year
+            int y = read_year() ;
+            if( y >= 0 ){
+                                // feb 29th from previous years
+                res += y*YEAR + ( (y+1)/4 ) * DAY ;     
             }
+            
+            skip_non_digit() ;
+            if( !has_more() ) return res ;
+            
+            // month
+            int m = read_month() ;
+            res += seconds_at_month_start(m) ;
+            
+            // feb 29th
+            if( m > 2 && (y&3) == 2 ) res += DAY ;
+            
+            skip_non_digit() ;
+            if( !has_more() ) return res ;
+            
+            // day
+            int d = read_day() ;
+            if( d > 1){
+                res +=  (d-1) * DAY ;
+            }
+            skip_non_digit() ;
+            
+            res += parse_Time(p, end); 
             
             return res ;
         }
