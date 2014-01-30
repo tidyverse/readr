@@ -175,6 +175,26 @@ namespace fastread {
         NumericVector data ;
     } ;
     
+    template <typename Source>
+    class VectorInput_Time : public VectorInput<Source>{
+    public:
+        typedef VectorInput<Source> Base ;
+        
+        VectorInput_Time( int n, Source& source_ ) : 
+            Base(source_), data(no_init(n)){}
+        
+        void set(int i){
+            data[i] = Base::source.get_Time() ;    
+        }
+        inline SEXP get(){
+            data.attr("class") = "Time" ;
+            return data ;
+        }
+        
+    private:
+        NumericVector data ;
+    } ;
+    
     
     template <typename Source>
     class VectorInput_Rownames : public VectorInput_String<Source> {
@@ -218,6 +238,7 @@ namespace fastread {
         if( ( clazz == "factor") || ( clazz == "F" ) ) return new VectorInput_Factor<Source>(n, source) ;
         if( clazz == "Date" ) return new VectorInput_Date_ymd<Source>(n, source) ;
         if( clazz == "POSIXct" ) return new VectorInput_POSIXct<Source>(n, source );
+        if( clazz == "Time" ) return new VectorInput_Time<Source>(n, source );
         stop( "unsupported" ) ;
         return 0 ;
         

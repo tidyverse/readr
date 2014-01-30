@@ -65,6 +65,11 @@ namespace fastread {
             return date_time_parser.parse_POSIXct(start, start + move_until_next_token_start() ) ; 
         }
         
+        double get_Time(){
+            char* start = p ; 
+            return date_time_parser.parse_Time(start, start + move_until_next_token_start() ) ;
+        }
+        
     protected:
         char* p ;
         char* end ;

@@ -53,7 +53,38 @@ namespace fastread {
             
             return res ;
         }
-              
+            
+        double parse_Time( char* start, char* end_ ){
+            p = start ;
+            end = end_ ;
+            double res = 0 ;
+            
+            // hour
+            if( has_more() ){
+                skip_non_digit() ;
+                
+                res += read_hour() * HOUR ;
+                
+                skip_non_digit() ;
+                
+                // minutes
+                if( has_more() ){
+                    res += read_minute() * MINUTE ;
+                    
+                    skip_non_digit() ;
+                    
+                    // seconds
+                    if( has_more() ){
+                        res += read_second() ;
+                    }
+                }
+                
+            }
+                        
+            return res ;
+        }
+        
+        
         /**
          * The number of seconds since the epoc
          */
@@ -91,26 +122,7 @@ namespace fastread {
                         
                         skip_non_digit() ;
                         
-                        // hour
-                        if( has_more() ){
-                            res += read_hour() * HOUR ;
-                            
-                            skip_non_digit() ;
-                            
-                            // minutes
-                            if( has_more() ){
-                                res += read_minute() * MINUTE ;
-                                
-                                skip_non_digit() ;
-                                
-                                // seconds
-                                if( has_more() ){
-                                    res += read_second() ;    
-                                }
-                            }
-                            
-                        }
-                        
+                        res += parse_Time(p, end); 
                         
                     } 
                     
@@ -145,10 +157,10 @@ namespace fastread {
         }
         
         static const int YEAR = 31536000 ;    
-        static const int MINUTE = 60;
-        static const int HOUR = 3600 ;
         static const int DAY = 86400 ;
-		
+        static const int HOUR = 3600 ;
+        static const int MINUTE = 60;
+        
 		inline int read_year(){
             int y = read_int() ;
             if( y < 100 ) y+=2000 ;
