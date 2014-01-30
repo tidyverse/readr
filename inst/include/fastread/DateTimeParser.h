@@ -120,8 +120,10 @@ namespace fastread {
                     
                     // day
                     if( has_more() ){
-                        res += read_day() * DAY ;
-                        
+                        int d = read_day() ;
+                        if( d > 1){
+                            res +=  (d-1) * DAY ;
+                        }
                         skip_non_digit() ;
                         
                         res += parse_Time(p, end); 
