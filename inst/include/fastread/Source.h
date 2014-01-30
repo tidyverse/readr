@@ -55,8 +55,8 @@ namespace fastread {
             return n ;
         }
         
-        double get_POSIX_date_Ymd(){
-            double res = date_time_parser.parse_Date_Ymd(p) ; 
+        double get_Date_Ymd(){
+            double res = date_time_parser.parse_Date(p) ; 
             move_until_next_token_start(); 
             return res ;
         }

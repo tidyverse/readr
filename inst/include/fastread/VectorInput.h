@@ -25,14 +25,14 @@ namespace fastread {
         typedef VectorInput<Source> Base ;
         
         VectorInput_Integer( int n, Source& source_ ) : 
-            Base(source_), data( Rcpp::no_init(n) ) {}
+            Base(source_), data( no_init(n) ) {}
         void set( int i ){
             data[i] = Base::source.get_int() ;    
         }
         inline SEXP get(){ return data ; } 
         
     private:
-        Rcpp::IntegerVector data ;
+        IntegerVector data ;
     } ;
     
     template <typename Source>
@@ -41,7 +41,7 @@ namespace fastread {
         typedef VectorInput<Source> Base ;
         
         VectorInput_Factor( int n, Source& source_ ) : Base(source_), 
-            data( Rcpp::no_init(n) ), 
+            data( no_init(n) ), 
             level_map(), 
             max_level(0)
             {}
@@ -97,7 +97,7 @@ namespace fastread {
         }
             
     private:
-        Rcpp::IntegerVector data ;
+        IntegerVector data ;
         typedef boost::unordered_map<SEXP, int> MAP;  
         MAP level_map ;
         int max_level ;
@@ -109,14 +109,14 @@ namespace fastread {
         typedef VectorInput<Source> Base ;
         
         VectorInput_Double( int n, Source& source_ ) : 
-            Base(source_), data(Rcpp::no_init(n) ){}
+            Base(source_), data(no_init(n) ){}
         void set( int i ){
              data[i] = Base::source.get_double() ;
         }
         inline SEXP get(){ return data ; } 
         
     private:
-        Rcpp::DoubleVector data ;
+        DoubleVector data ;
     } ;
     
     template <typename Source>
@@ -125,14 +125,34 @@ namespace fastread {
         typedef VectorInput<Source> Base ;
         
         VectorInput_String( int n, Source& source_ ) : 
-            Base(source_), data(Rcpp::no_init(n) ){}
+            Base(source_), data(no_init(n) ){}
         void set( int i ) {
             data[i] = Base::source.get_String() ;
         }
         inline SEXP get(){ return data ; } 
         
     private:
-        Rcpp::CharacterVector data ;
+        CharacterVector data ;
+    } ;
+    
+    template <typename Source>
+    class VectorInput_Date_ymd : public VectorInput<Source>{
+    public:
+        typedef VectorInput<Source> Base ;
+        
+        VectorInput_Date_ymd( int n, Source& source_ ) : 
+            Base(source_), data(no_init(n)){}
+        
+        void set(int i){
+            data[i] = Base::source.get_Date_Ymd() ;    
+        }
+        inline SEXP get(){
+            data.attr("class") = "Date" ;
+            return data ;
+        }
+        
+    private:
+        NumericVector data ;
     } ;
     
     template <typename Source>
@@ -175,7 +195,7 @@ namespace fastread {
         if( ( clazz == "names" ) || ( clazz == "row.names" ) || ( clazz == "rownames" ) ) return new VectorInput_Rownames<Source>( n, source ) ; 
         if( ( clazz == "NULL"  ) || ( clazz == "_" )     || ( clazz == "skip" ) ) return new VectorInput_Skip<Source>(n, source) ;
         if( ( clazz == "factor") ) return new VectorInput_Factor<Source>(n, source) ;
-        
+        if( clazz == "Date" ) return new VectorInput_Date_ymd<Source>(n, source) ;
         stop( "unsupported" ) ;
         return 0 ;
         
