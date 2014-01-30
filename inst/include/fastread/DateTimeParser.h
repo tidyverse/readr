@@ -21,7 +21,7 @@ namespace fastread {
                 int y = read_year() ;
                 if( y >= 0 ){
                                     // feb 29th
-                    res += y + ( (y+1)/4 ) ;     
+                    res += y * 365 + ( (y+1)/4 ) ;     
                 }
                 
                 skip_non_digit() ;
