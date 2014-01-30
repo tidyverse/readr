@@ -55,23 +55,35 @@ namespace fastread {
             return n ;
         }
         
+        double get_POSIX_date_Ymd(){
+            double res = date_time_parser.parse_Date_Ymd(p) ; 
+            move_until_next_token_start(); 
+            return res ;
+        }
+        
     protected:
         char* p ;
         char* end ;
         
     private:
         
-        bool more(){
+        DateTimeParser<Class> date_time_parser ;
+        
+        /* start of each month in seconds */
+        
+		bool more(){
             return static_cast<Class&>(*this).more() ;
         }
     
         char sep, quote, esc ;
         bool inquote ;
         
-        inline bool valid_digit(char c){
-            static char before_zero = '0' - 1 ;
-            static char after_nine = '9' + 1 ;
-            return c > before_zero && c < after_nine ;
+        inline bool valid_digit(){
+            return *p >= '0' && *p <= '9' ;
+        }
+        
+        inline int digit_value(){
+            return *p - '0' ;    
         }
         
         inline int get_int_naive() {
@@ -92,8 +104,8 @@ namespace fastread {
             }
         
             // Get digits before decimal point or exponent, if any.
-            for (value = 0; valid_digit(*p); ++p ) {
-                value = value * 10 + (*p - '0');
+            for (value = 0; valid_digit(); ++p ) {
+                value = value * 10 + digit_value() ;
             }
         
             return sign * value ;

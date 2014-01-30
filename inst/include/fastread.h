@@ -31,6 +31,7 @@ using namespace Rcpp;
 
 #include <fastread/Connection.h>
 
+#include <fastread/DateTimeParser.h>
 #include <fastread/Source.h>
 #include <fastread/MMapSource.h>
 #include <fastread/ReadConnectionSource.h>
