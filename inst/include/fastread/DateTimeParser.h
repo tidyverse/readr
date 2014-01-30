@@ -24,7 +24,7 @@ namespace fastread {
                 int y = read_year() ;
                 if( y >= 0 ){
                                     // feb 29th
-                    res += y * 365 + ( (y+1)/4 ) ;     
+                    res += y * 365 + y/4 ;     
                 }
                 
                 skip_non_digit() ;
@@ -35,15 +35,17 @@ namespace fastread {
                     res += days_at_month_start(m) ;
                     
                     // feb 29th
-                    if( m > 2 && (y&3) == 2 ) res += 1 ;
+                    if( m > 2 && (y&3) == 2 ){
+                        res += 1 ;
+                    }
                     
-                    has_more() ;
+                    skip_non_digit() ;
                     
                     // day
-                    if( valid_digit() ){
+                    if( has_more() ){
                         int d = read_day() ;
                         if( d > 1 ){
-                            res += d ;    
+                            res += (d - 1);    
                         }
                     }
                     
