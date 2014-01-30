@@ -7,6 +7,9 @@ namespace fastread {
     class DateTimeParser{
     public:
         
+        /**
+         * The number of days since the epoc
+         */
         double parse_Date( char* start, char* end_ ){
             p = start ;
             end = end_ ;
@@ -50,8 +53,11 @@ namespace fastread {
             
             return res ;
         }
-        
-        double parse_DateTime_Ymd( char* start, char* end_ ){
+              
+        /**
+         * The number of seconds since the epoc
+         */
+        double parse_POSIXct( char* start, char* end_ ){
             p = start ;
             end = end_ ;
             
@@ -81,11 +87,32 @@ namespace fastread {
                     
                     // day
                     if( has_more() ){
-                        int d = read_day() ;
-                        if( d > 1 ){
-                            res += DAY * d ;    
+                        res += read_day() * DAY ;
+                        
+                        skip_non_digit() ;
+                        
+                        // hour
+                        if( has_more() ){
+                            res += read_hour() * HOUR ;
+                            
+                            skip_non_digit() ;
+                            
+                            // minutes
+                            if( has_more() ){
+                                res += read_minute() * MINUTE ;
+                                
+                                skip_non_digit() ;
+                                
+                                // seconds
+                                if( has_more() ){
+                                    res += read_second() ;    
+                                }
+                            }
+                            
                         }
-                    }
+                        
+                        
+                    } 
                     
                 }
                 
@@ -135,6 +162,18 @@ namespace fastread {
         
         inline int read_day(){
             return read_int() ;
+        }
+        
+        inline int read_hour(){
+            return read_int() ;    
+        }
+        
+        inline int read_minute(){
+            return read_int() ;    
+        }
+        
+        inline int read_second(){
+            return read_int() ;    
         }
         
         inline int read_int(){

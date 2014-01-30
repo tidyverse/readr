@@ -156,6 +156,27 @@ namespace fastread {
     } ;
     
     template <typename Source>
+    class VectorInput_POSIXct : public VectorInput<Source>{
+    public:
+        typedef VectorInput<Source> Base ;
+        
+        VectorInput_POSIXct( int n, Source& source_ ) : 
+            Base(source_), data(no_init(n)){}
+        
+        void set(int i){
+            data[i] = Base::source.get_POSIXct() ;    
+        }
+        inline SEXP get(){
+            data.attr("class") = CharacterVector::create( "POSIXct", "POSIXt" ) ;
+            return data ;
+        }
+        
+    private:
+        NumericVector data ;
+    } ;
+    
+    
+    template <typename Source>
     class VectorInput_Rownames : public VectorInput_String<Source> {
     public:
         VectorInput_Rownames( int n, Source& source_ ) : VectorInput_String<Source>(n, source_){}
@@ -196,6 +217,7 @@ namespace fastread {
         if( ( clazz == "NULL"  ) || ( clazz == "_" )     || ( clazz == "skip" ) ) return new VectorInput_Skip<Source>(n, source) ;
         if( ( clazz == "factor") || ( clazz == "F" ) ) return new VectorInput_Factor<Source>(n, source) ;
         if( clazz == "Date" ) return new VectorInput_Date_ymd<Source>(n, source) ;
+        if( clazz == "POSIXct" ) return new VectorInput_POSIXct<Source>(n, source );
         stop( "unsupported" ) ;
         return 0 ;
         
