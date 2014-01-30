@@ -194,7 +194,7 @@ namespace fastread {
         if( ( clazz == "string") || ( clazz == "S" ) || ( clazz == "character" ) ) return new VectorInput_String<Source>(n, source) ;
         if( ( clazz == "names" ) || ( clazz == "row.names" ) || ( clazz == "rownames" ) ) return new VectorInput_Rownames<Source>( n, source ) ; 
         if( ( clazz == "NULL"  ) || ( clazz == "_" )     || ( clazz == "skip" ) ) return new VectorInput_Skip<Source>(n, source) ;
-        if( ( clazz == "factor") ) return new VectorInput_Factor<Source>(n, source) ;
+        if( ( clazz == "factor") || ( clazz == "F" ) ) return new VectorInput_Factor<Source>(n, source) ;
         if( clazz == "Date" ) return new VectorInput_Date_ymd<Source>(n, source) ;
         stop( "unsupported" ) ;
         return 0 ;

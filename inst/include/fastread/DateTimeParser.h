@@ -7,30 +7,34 @@ namespace fastread {
     class DateTimeParser{
     public:
         
-        double parse_Date( char*& stream ){
-            p = stream ;
+        double parse_Date( char* start, char* end_ ){
+            p = start ;
+            end = end_ ;
+            
             double res = 0 ;
             
-            if( valid_digit() ){
+            if( has_more() ){
+                
+                skip_non_digit() ;
                 
                 // reading year
                 int y = read_year() ;
                 if( y >= 0 ){
                                     // feb 29th
-                    res += y*YEAR + ( (y+1)/4 ) ;     
+                    res += y + ( (y+1)/4 ) ;     
                 }
                 
                 skip_non_digit() ;
                 
                 // month
-                if( valid_digit() ){
+                if( has_more() ){
                     int m = read_month() ;
                     res += days_at_month_start(m) ;
                     
                     // feb 29th
                     if( m > 2 && (y&3) == 2 ) res += 1 ;
                     
-                    skip_non_digit() ;
+                    has_more() ;
                     
                     // day
                     if( valid_digit() ){
@@ -44,17 +48,17 @@ namespace fastread {
                 
             }
             
-            
-            stream = p ;
             return res ;
         }
         
-        double parse_DateTime_Ymd(char*& stream){
+        double parse_DateTime_Ymd( char* start, char* end_ ){
+            p = start ;
+            end = end_ ;
             
-            
-            p = stream ;
             double res = 0.0 ;
-            if( valid_digit() ){
+            if( has_more() ){
+                
+                skip_non_digit() ;
                 
                 // reading year
                 int y = read_year() ;
@@ -66,7 +70,7 @@ namespace fastread {
                 skip_non_digit() ;
                 
                 // month
-                if( valid_digit() ){
+                if( has_more() ){
                     int m = read_month() ;
                     res += seconds_at_month_start(m) ;
                     
@@ -76,7 +80,7 @@ namespace fastread {
                     skip_non_digit() ;
                     
                     // day
-                    if( valid_digit() ){
+                    if( has_more() ){
                         int d = read_day() ;
                         if( d > 1 ){
                             res += DAY * d ;    
@@ -87,12 +91,12 @@ namespace fastread {
                 
             }
             
-            stream = p;
             return res ;
         }
         
     private:
         char* p ;
+        char* end ;
         
         inline int seconds_at_month_start(int m){ 
             static const int data[] = { 0, 0, 2678400, 5097600, 7776000, 10368000, 13046400, 15638400,
@@ -135,12 +139,21 @@ namespace fastread {
         
         inline int read_int(){
             int m = 0 ;
-            while( valid_digit() ) m = m*10 + digit_value(); p++ ;
+            while( valid_digit() && has_more() ) {
+                m = m*10 + digit_value(); 
+                p++ ;
+            }
             return m ;
         }
         
         inline void skip_non_digit(){
-            while( !valid_digit() ) p++ ;    
+            while( !valid_digit() && has_more() ) {
+                p++ ;
+            }
+        }
+        
+        inline bool has_more(){
+            return p != end ;    
         }
         
     };

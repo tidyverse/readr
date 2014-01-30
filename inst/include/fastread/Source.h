@@ -56,9 +56,8 @@ namespace fastread {
         }
         
         double get_Date_Ymd(){
-            double res = date_time_parser.parse_Date(p) ; 
-            move_until_next_token_start(); 
-            return res ;
+            char* start = p ; 
+            return date_time_parser.parse_Date(start, start + move_until_next_token_start() ) ; 
         }
         
     protected:
