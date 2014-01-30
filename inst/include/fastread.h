@@ -35,6 +35,7 @@ using namespace Rcpp;
 #include <fastread/Source.h>
 #include <fastread/MMapSource.h>
 #include <fastread/ReadConnectionSource.h>
+#include <fastread/CharacterVectorSource.h>
 
 #include <fastread/get_int_naive.h>
 #include <fastread/VectorInput.h>

@@ -54,6 +54,22 @@ BEGIN_RCPP
     return __sexp_result;
 END_RCPP
 }
+// scan_text
+SEXP scan_text(CharacterVector x, std::string what);
+RcppExport SEXP fastread_scan_text(SEXP xSEXP, SEXP whatSEXP) {
+BEGIN_RCPP
+    SEXP __sexp_result;
+    {
+        Rcpp::RNGScope __rngScope;
+        Rcpp::traits::input_parameter< CharacterVector >::type x(xSEXP );
+        Rcpp::traits::input_parameter< std::string >::type what(whatSEXP );
+        SEXP __result = scan_text(x, what);
+        PROTECT(__sexp_result = Rcpp::wrap(__result));
+    }
+    UNPROTECT(1);
+    return __sexp_result;
+END_RCPP
+}
 // read_file
 String read_file(const std::string& path);
 RcppExport SEXP fastread_read_file(SEXP pathSEXP) {
