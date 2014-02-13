@@ -46,8 +46,7 @@ namespace fastread{
     void ReadConnectionSource::seek(double pos, ReadConnectionSource::Origin origin){
         con->seek(con, pos, origin, READ) ;
         n = 0 ;
-        p = end = data ;
-        find_last_line() ;
+        p = end = last_full_line = data ;
     }
     
 }

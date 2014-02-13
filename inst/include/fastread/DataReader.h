@@ -34,7 +34,6 @@ namespace fastread {
                     names[i] = V ;
                 }   
             }
-            
             for( int i=0; i<n; i++) {
                 source.ensure_full_line() ;
                 for( int j=0; j<ncol; j++){
@@ -53,7 +52,6 @@ namespace fastread {
                 }
                 columns[k++] = inputs[i];
             }
-            
             List out(ncolumns) ;
             
             for( int i=0; i<ncolumns; i++){

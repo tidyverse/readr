@@ -13,6 +13,7 @@ List read_csv( SEXP input, int n, CharacterVector classes, bool header = true ){
             
             double pos = source.byte_offset() ;
             n = source.count_lines() ;
+            if(header) n--;
             source.seek(pos) ;
         }
         DataReader<ReadConnectionSource> reader(source) ;
