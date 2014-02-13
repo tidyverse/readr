@@ -7,8 +7,8 @@
 using namespace Rcpp;
 
 // read_csv
-List read_csv(SEXP input, int n, CharacterVector classes);
-RcppExport SEXP fastread_read_csv(SEXP inputSEXP, SEXP nSEXP, SEXP classesSEXP) {
+List read_csv(SEXP input, int n, CharacterVector classes, bool header = true);
+RcppExport SEXP fastread_read_csv(SEXP inputSEXP, SEXP nSEXP, SEXP classesSEXP, SEXP headerSEXP) {
 BEGIN_RCPP
     SEXP __sexp_result;
     {
@@ -16,7 +16,8 @@ BEGIN_RCPP
         Rcpp::traits::input_parameter< SEXP >::type input(inputSEXP );
         Rcpp::traits::input_parameter< int >::type n(nSEXP );
         Rcpp::traits::input_parameter< CharacterVector >::type classes(classesSEXP );
-        List __result = read_csv(input, n, classes);
+        Rcpp::traits::input_parameter< bool >::type header(headerSEXP );
+        List __result = read_csv(input, n, classes, header);
         PROTECT(__sexp_result = Rcpp::wrap(__result));
     }
     UNPROTECT(1);

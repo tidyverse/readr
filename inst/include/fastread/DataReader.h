@@ -10,16 +10,31 @@ namespace fastread {
            
         DataReader( Source& source_ ) : source(source_){} 
         
-        List read( int n, CharacterVector classes ){
+        List read( int n, CharacterVector classes, bool header ){
             std::vector<Input*> inputs ;
             
             int ncol = classes.size() ;
+            int ncolumns = 0 ;   
+            
             for( int i=0; i<ncol; i++){
                 String cl = classes[i] ;
-                inputs.push_back( make_vector_input<Source>(cl, n, source ) ) ;   
+                inputs.push_back( make_vector_input<Source>(cl, n, source ) ) ;
+                if( !inputs[i]->is_rownames() && ! inputs[i]->skip() ) ncolumns++ ;
             }
             
-            ncol = inputs.size() ;
+            CharacterVector names(ncolumns) ;
+            if( header ){
+                source.ensure_full_line() ;
+                for( int i=0; i<ncolumns; i++){
+                    names[i] = source.get_String() ;   
+                }
+            } else {
+                for( int i=0; i<ncolumns; i++){
+                    String V("V") ; V += (i+1) ;
+                    names[i] = V ;
+                }   
+            }
+            
             for( int i=0; i<n; i++) {
                 source.ensure_full_line() ;
                 for( int j=0; j<ncol; j++){
@@ -27,30 +42,24 @@ namespace fastread {
                 }
             }
                   
-            std::vector<Input*> columns ; columns.reserve(ncol) ;
-            int ncolumns = 0 ;   
+            std::vector<Input*> columns(ncolumns) ;
             Input* row_names = 0 ;
             
-            for( int i=0; i<ncol; i++){
+            for( int i=0, k=0; i<ncol; i++){
                 if( inputs[i]->skip() ) continue ;
                 if( inputs[i]->is_rownames() ){
                     row_names = inputs[i] ; 
                     continue ;    
                 }
-                columns.push_back( inputs[i] ) ; ncolumns++ ;
+                columns[k++] = inputs[i];
             }
             
             List out(ncolumns) ;
-            // automatic names for now
-            // TODO: handle names in header line
-            CharacterVector names(ncolumns) ;
             
             for( int i=0; i<ncolumns; i++){
-                String V("V") ; V += (i+1) ;
-            
-                names[i] = V ;
-                out[i] = columns[i]->get() ;    
+                out[i] = columns[i]->get() ;
             }
+            
             out.attr( "class" ) = "data.frame" ;
             out.attr( "names" ) = names ;
             if( row_names ){

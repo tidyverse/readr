@@ -4,7 +4,7 @@ using namespace Rcpp ;
 using namespace fastread ;
 
 // [[Rcpp::export]]
-List read_csv( SEXP input, int n, CharacterVector classes ){
+List read_csv( SEXP input, int n, CharacterVector classes, bool header = true ){
     if( Rf_inherits( input, "connection" ) ){
         ReadConnectionSource source(input);
         if( n <= 0 ){
@@ -16,7 +16,7 @@ List read_csv( SEXP input, int n, CharacterVector classes ){
             source.seek(pos) ;
         }
         DataReader<ReadConnectionSource> reader(source) ;
-        return reader.read( n, classes ) ;
+        return reader.read( n, classes, header ) ;
     } else {
         std::string path = as<std::string>(input) ;
         MMapSource source(path) ;
@@ -25,7 +25,7 @@ List read_csv( SEXP input, int n, CharacterVector classes ){
             source.seek(0) ;
         }
         DataReader<MMapSource> reader(source) ;
-        return reader.read( n, classes ) ;
+        return reader.read( n, classes, header ) ;
     }
 }
 
