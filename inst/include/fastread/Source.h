@@ -33,7 +33,15 @@ namespace fastread {
         
         SEXP get_String(){
             char* q = p ;
-            return Rf_mkCharLen( q, move_until_next_token_start() ) ;
+            int len = move_until_next_token_start() ;
+            while( *q == quote ){
+                len-- ;
+                q++ ;
+            }
+            while( q[len-1] == quote ){
+                len-- ;    
+            }
+            return Rf_mkCharLen( q, len ) ;
         }
         
         double get_double(){
