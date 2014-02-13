@@ -11,7 +11,6 @@ namespace fastread {
         DataReader( Source& source_ ) : source(source_){} 
         
         List read( int n, CharacterVector classes ){
-            if( n <= 0 ) stop( "not handling yet" ) ;
             std::vector<Input*> inputs ;
             
             int ncol = classes.size() ;

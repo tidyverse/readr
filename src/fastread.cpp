@@ -8,13 +8,22 @@ List read_csv( SEXP input, int n, CharacterVector classes ){
     if( Rf_inherits( input, "connection" ) ){
         ReadConnectionSource source(input);
         if( n <= 0 ){
+            if( !source.can_seek() )
+                stop("connection cannot seek") ;
             
+            double pos = source.byte_offset() ;
+            n = source.count_lines() ;
+            source.seek(pos) ;
         }
         DataReader<ReadConnectionSource> reader(source) ;
         return reader.read( n, classes ) ;
     } else {
         std::string path = as<std::string>(input) ;
         MMapSource source(path) ;
+        if( n <= 0 ){
+            n = source.count_lines() ;
+            source.seek(0) ;
+        }
         DataReader<MMapSource> reader(source) ;
         return reader.read( n, classes ) ;
     }

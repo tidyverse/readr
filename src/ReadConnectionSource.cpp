@@ -9,9 +9,8 @@ namespace fastread{
         buffer(chunk_size, '\0' ), 
         data(&buffer[0]), n(0)
     {
-        // TODO: we need to consume the push back first
-        n = con->read(data,1,chunk_size,con);
-        find_last_line() ;
+        p = data ;
+        end = data ;
     }
     
     bool ReadConnectionSource::ensure_full_line(){
@@ -29,11 +28,26 @@ namespace fastread{
         int nchars = n-(p-data) ;
         std::memmove(data, p, nchars) ;
         n = con->read(data + nchars, 1, chunk_size - nchars, con);
-        bool done = n < chunk_size - nchars;  
+        bool done = n == 0;  
         n = n + nchars ;
         
         find_last_line() ;
         return !done ;
+    }
+    
+    bool ReadConnectionSource::can_seek() const {
+        return con->canseek ;  
+    }
+    
+    double ReadConnectionSource::byte_offset(ReadConnectionSource::Origin origin) const {
+        return con->seek(con, NA_REAL, origin, READ) ;    
+    }
+    
+    void ReadConnectionSource::seek(double pos, ReadConnectionSource::Origin origin){
+        con->seek(con, pos, origin, READ) ;
+        n = 0 ;
+        p = end = data ;
+        find_last_line() ;
     }
     
 }

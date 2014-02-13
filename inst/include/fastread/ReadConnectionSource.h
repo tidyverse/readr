@@ -7,10 +7,26 @@ namespace fastread {
     public:
         typedef Source<ReadConnectionSource> Base ;
         
+        enum Origin {
+            START = 1, 
+            CURRENT = 2, 
+            END = 3
+        } ;
+        
+        enum ReadWrite {
+            READ = 1, 
+            WRITE = 2
+        } ;
+        
         ReadConnectionSource(SEXP con_d, char sep = ',', char quote = '"', char esc = '\\') ;
         
         bool ensure_full_line(); 
         bool more() ;
+        bool can_seek() const ;
+        
+        double byte_offset(Origin origin = START) const ;
+        
+        void seek(double pos, Origin origin = START) ;
         
     private:
         Rconnection con ;
@@ -22,6 +38,7 @@ namespace fastread {
         char* data ;
         char* last_full_line ;
         int n ;
+        
     } ;
 }
 

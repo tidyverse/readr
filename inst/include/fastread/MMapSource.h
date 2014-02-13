@@ -16,6 +16,10 @@ namespace fastread {
             return p < last_full_line ;
         }
         
+        inline void seek( int pos ){
+            p = memory_start + pos ;
+        }
+        
     private:
         int file_descriptor ;
         size_t filesize ;

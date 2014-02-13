@@ -86,9 +86,7 @@ namespace fastread {
         
         DateTimeParser<Class> date_time_parser ;
         
-        /* start of each month in seconds */
-        
-		bool more(){
+        bool more(){
             return static_cast<Class&>(*this).more() ;
         }
     
