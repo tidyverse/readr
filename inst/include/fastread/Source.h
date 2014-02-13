@@ -20,6 +20,10 @@ namespace fastread {
             move_until_next_token_start(); 
         }
         
+        void skip_line(){
+            move_until_next_line() ;
+        }
+        
         SEXP get_line(){
             char* q = p; 
             return Rf_mkCharLen(q, move_until_next_line());    

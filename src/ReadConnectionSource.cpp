@@ -9,11 +9,11 @@ namespace fastread{
         buffer(chunk_size, '\0' ), 
         data(&buffer[0]), n(0)
     {
-        p = data ;
-        end = data ;
+        p = end = last_full_line = data ;
     }
     
     bool ReadConnectionSource::ensure_full_line(){
+        if( p == end && more() ) return true ;
         if( p > last_full_line && more() ) return true ;    
         return p < last_full_line ;
     }

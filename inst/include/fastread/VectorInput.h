@@ -6,7 +6,8 @@ namespace fastread {
     template <typename Source>
     class VectorInput {
     public:
-        VectorInput( Source& source_) : source(source_) {}
+        VectorInput() : source(0) {}
+        VectorInput( Source* source_) : source(source_) {}
         virtual ~VectorInput(){} ;
         
         virtual void set( int i ) = 0 ;
@@ -14,9 +15,13 @@ namespace fastread {
         virtual SEXP get() = 0;
         virtual bool skip() const { return false ; }
         virtual bool is_rownames() const { return false ; }
-    
+        
+        void set_source(Source& source_){
+            source = &source_ ;    
+        }
+        
     protected:
-        Source& source ;
+        Source* source ;
     } ;
     
     template <typename Source>
@@ -24,10 +29,12 @@ namespace fastread {
     public:
         typedef VectorInput<Source> Base ;
         
-        VectorInput_Integer( int n, Source& source_ ) : 
+        VectorInput_Integer( int n ) : Base(), data(no_init(n)){}
+        
+        VectorInput_Integer( int n, Source* source_ ) : 
             Base(source_), data( no_init(n) ) {}
         void set( int i ){
-            data[i] = Base::source.get_int() ;    
+            data[i] = Base::source->get_int() ;    
         }
         inline SEXP get(){ return data ; } 
         
@@ -40,7 +47,13 @@ namespace fastread {
     public:
         typedef VectorInput<Source> Base ;
         
-        VectorInput_Factor( int n, Source& source_ ) : Base(source_), 
+        VectorInput_Factor(int n ) : Base(), 
+            data(no_init(n)), 
+            level_map(), 
+            max_level(0)
+            {}
+        
+        VectorInput_Factor( int n, Source* source_ ) : Base(source_), 
             data( no_init(n) ), 
             level_map(), 
             max_level(0)
@@ -50,7 +63,7 @@ namespace fastread {
         // to 1, then 2, ...
         // and the values are reordered later when we know all the levels
         void set( int i){
-            SEXP st = Base::source.get_String() ;
+            SEXP st = Base::source->get_String() ;
             // search for this strings as a key in the hash map
             MAP::iterator it = level_map.find(st) ;
             if( it == level_map.end() ){
@@ -108,10 +121,11 @@ namespace fastread {
     public:
         typedef VectorInput<Source> Base ;
         
-        VectorInput_Double( int n, Source& source_ ) : 
+        VectorInput_Double( int n) : Base(), data(no_init(n)){}
+        VectorInput_Double( int n, Source* source_ ) : 
             Base(source_), data(no_init(n) ){}
         void set( int i ){
-             data[i] = Base::source.get_double() ;
+             data[i] = Base::source->get_double() ;
         }
         inline SEXP get(){ return data ; } 
         
@@ -123,11 +137,11 @@ namespace fastread {
     class VectorInput_String : public VectorInput<Source> {
     public:
         typedef VectorInput<Source> Base ;
-        
-        VectorInput_String( int n, Source& source_ ) : 
+        VectorInput_String( int n) : Base(), data(no_init(n)){}
+        VectorInput_String( int n, Source* source_ ) : 
             Base(source_), data(no_init(n) ){}
         void set( int i ) {
-            data[i] = Base::source.get_String() ;
+            data[i] = Base::source->get_String() ;
         }
         inline SEXP get(){ return data ; } 
         
@@ -140,11 +154,12 @@ namespace fastread {
     public:
         typedef VectorInput<Source> Base ;
         
-        VectorInput_Date_ymd( int n, Source& source_ ) : 
+        VectorInput_Date_ymd( int n ) : Base(), data(no_init(n)){}
+        VectorInput_Date_ymd( int n, Source* source_ ) : 
             Base(source_), data(no_init(n)){}
         
         void set(int i){
-            data[i] = Base::source.get_Date_Ymd() ;    
+            data[i] = Base::source->get_Date_Ymd() ;    
         }
         inline SEXP get(){
             data.attr("class") = "Date" ;
@@ -160,11 +175,12 @@ namespace fastread {
     public:
         typedef VectorInput<Source> Base ;
         
-        VectorInput_POSIXct( int n, Source& source_ ) : 
+        VectorInput_POSIXct( int n ) : Base(), data(no_init(n)){}
+        VectorInput_POSIXct( int n, Source* source_ ) : 
             Base(source_), data(no_init(n)){}
         
         void set(int i){
-            data[i] = Base::source.get_POSIXct() ;    
+            data[i] = Base::source->get_POSIXct() ;    
         }
         inline SEXP get(){
             data.attr("class") = CharacterVector::create( "POSIXct", "POSIXt" ) ;
@@ -180,11 +196,12 @@ namespace fastread {
     public:
         typedef VectorInput<Source> Base ;
         
-        VectorInput_Time( int n, Source& source_ ) : 
+        VectorInput_Time( int n ) : Base(), data(no_init(n)){}
+        VectorInput_Time( int n, Source* source_ ) : 
             Base(source_), data(no_init(n)){}
         
         void set(int i){
-            data[i] = Base::source.get_Time() ;    
+            data[i] = Base::source->get_Time() ;    
         }
         inline SEXP get(){
             data.attr("class") = "Time" ;
@@ -199,7 +216,8 @@ namespace fastread {
     template <typename Source>
     class VectorInput_Rownames : public VectorInput_String<Source> {
     public:
-        VectorInput_Rownames( int n, Source& source_ ) : VectorInput_String<Source>(n, source_){}
+        VectorInput_Rownames( int n ) : VectorInput_String<Source>(n){} 
+        VectorInput_Rownames( int n, Source* source_ ) : VectorInput_String<Source>(n, source_){}
         bool is_rownames() const { return true ; }
     } ;
     
@@ -208,9 +226,10 @@ namespace fastread {
     public:
         typedef VectorInput<Source> Base ;
         
-        VectorInput_Skip( int, Source& source_ ) : Base(source_){}
+        VectorInput_Skip( int ) : Base(){} ;
+        VectorInput_Skip( int, Source* source_ ) : Base(source_){}
         void set( int i ) {
-            Base::source.skip() ;
+            Base::source->skip() ;
         }
         inline SEXP get(){ return R_NilValue ; } 
         virtual bool skip() const { return true ; }
@@ -218,15 +237,31 @@ namespace fastread {
    
     template <typename Source>
     VectorInput<Source>* make_vector_input( const std::string& clazz, int n, Source& source ){
-        if( ( clazz == "int" )   || ( clazz == "I" ) || ( clazz == "integer"   ) ) return new VectorInput_Integer<Source>(n, source) ;
-        if( ( clazz == "double") || ( clazz == "D" ) || ( clazz == "numeric"   ) ) return new VectorInput_Double<Source>(n, source) ;
-        if( ( clazz == "string") || ( clazz == "S" ) || ( clazz == "character" ) ) return new VectorInput_String<Source>(n, source) ;
-        if( ( clazz == "names" ) || ( clazz == "row.names" ) || ( clazz == "rownames" ) ) return new VectorInput_Rownames<Source>( n, source ) ; 
-        if( ( clazz == "NULL"  ) || ( clazz == "_" )     || ( clazz == "skip" ) ) return new VectorInput_Skip<Source>(n, source) ;
-        if( ( clazz == "factor") || ( clazz == "F" ) ) return new VectorInput_Factor<Source>(n, source) ;
-        if( clazz == "Date" ) return new VectorInput_Date_ymd<Source>(n, source) ;
-        if( clazz == "POSIXct" ) return new VectorInput_POSIXct<Source>(n, source );
-        if( clazz == "Time" ) return new VectorInput_Time<Source>(n, source );
+        if( ( clazz == "int" )   || ( clazz == "I" ) || ( clazz == "integer"   ) ) return new VectorInput_Integer<Source>(n, &source) ;
+        if( ( clazz == "double") || ( clazz == "D" ) || ( clazz == "numeric"   ) ) return new VectorInput_Double<Source>(n, &source) ;
+        if( ( clazz == "string") || ( clazz == "S" ) || ( clazz == "character" ) ) return new VectorInput_String<Source>(n, &source) ;
+        if( ( clazz == "names" ) || ( clazz == "row.names" ) || ( clazz == "rownames" ) ) return new VectorInput_Rownames<Source>( n, &source ) ; 
+        if( ( clazz == "NULL"  ) || ( clazz == "_" )     || ( clazz == "skip" ) ) return new VectorInput_Skip<Source>(n, &source) ;
+        if( ( clazz == "factor") || ( clazz == "F" ) ) return new VectorInput_Factor<Source>(n, &source) ;
+        if( clazz == "Date" ) return new VectorInput_Date_ymd<Source>(n, &source) ;
+        if( clazz == "POSIXct" ) return new VectorInput_POSIXct<Source>(n, &source );
+        if( clazz == "Time" ) return new VectorInput_Time<Source>(n, &source );
+        stop( "unsupported" ) ;
+        return 0 ;
+        
+    }
+    
+    template <typename Source>
+    VectorInput<Source>* make_vector_input( const std::string& clazz, int n ){
+        if( ( clazz == "int" )   || ( clazz == "I" ) || ( clazz == "integer"   ) ) return new VectorInput_Integer<Source>(n) ;
+        if( ( clazz == "double") || ( clazz == "D" ) || ( clazz == "numeric"   ) ) return new VectorInput_Double<Source>(n) ;
+        if( ( clazz == "string") || ( clazz == "S" ) || ( clazz == "character" ) ) return new VectorInput_String<Source>(n) ;
+        if( ( clazz == "names" ) || ( clazz == "row.names" ) || ( clazz == "rownames" ) ) return new VectorInput_Rownames<Source>( n ) ; 
+        if( ( clazz == "NULL"  ) || ( clazz == "_" )     || ( clazz == "skip" ) ) return new VectorInput_Skip<Source>(n) ;
+        if( ( clazz == "factor") || ( clazz == "F" ) ) return new VectorInput_Factor<Source>(n) ;
+        if( clazz == "Date" ) return new VectorInput_Date_ymd<Source>(n) ;
+        if( clazz == "POSIXct" ) return new VectorInput_POSIXct<Source>(n);
+        if( clazz == "Time" ) return new VectorInput_Time<Source>(n);
         stop( "unsupported" ) ;
         return 0 ;
         
