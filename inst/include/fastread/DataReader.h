@@ -19,7 +19,7 @@ namespace fastread {
                 String cl = classes[i] ;
                 inputs.push_back( make_vector_input<Source>(cl, n, source ) ) ;   
             }
-            METRONOME_STEP("alloc")
+            
             ncol = inputs.size() ;
             for( int i=0; i<n; i++) {
                 source.ensure_full_line() ;

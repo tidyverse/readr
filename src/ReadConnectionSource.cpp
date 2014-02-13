@@ -9,10 +9,8 @@ namespace fastread{
         buffer(chunk_size, '\0' ), 
         data(&buffer[0]), n(0)
     {
-        // TODO: we need to comsume the push back first
-        METRONOME_STEP("start")
+        // TODO: we need to consume the push back first
         n = con->read(data,1,chunk_size,con);
-        METRONOME_STEP("read")
         find_last_line() ;
     }
     
@@ -29,10 +27,8 @@ namespace fastread{
         
     bool ReadConnectionSource::more(){
         int nchars = n-(p-data) ;
-        METRONOME_STEP("process")
         std::memmove(data, p, nchars) ;
         n = con->read(data + nchars, 1, chunk_size - nchars, con);
-        METRONOME_STEP("read");
         bool done = n < chunk_size - nchars;  
         n = n + nchars ;
         

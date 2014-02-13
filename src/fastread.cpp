@@ -5,9 +5,11 @@ using namespace fastread ;
 
 // [[Rcpp::export]]
 List read_csv( SEXP input, int n, CharacterVector classes ){
-    METRONOME_RESET
     if( Rf_inherits( input, "connection" ) ){
         ReadConnectionSource source(input);
+        if( n <= 0 ){
+            
+        }
         DataReader<ReadConnectionSource> reader(source) ;
         return reader.read( n, classes ) ;
     } else {
