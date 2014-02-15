@@ -8,7 +8,7 @@ namespace fastread {
     public:
         typedef Source<MMapSource, LinePolicy> Base ;
         
-        MMapSource( const std::string& filename, char sep = ',', char quote = '"', char esc = '\\', LinePolicy<Base> line_policy_ = LinePolicy<Base>() ) : 
+        MMapSource( const std::string& filename, LinePolicy<Base> line_policy_ = LinePolicy<Base>(), char sep = ',', char quote = '"', char esc = '\\' ) : 
             Base(sep, quote, esc, line_policy_), file_descriptor( open(filename.c_str(), O_RDONLY) )
         {
             struct stat file_info;
@@ -32,8 +32,16 @@ namespace fastread {
             return Base::p < last_full_line ;
         }
         
+        inline bool can_seek(){
+            return true ;    
+        }
+        
         inline void seek( int pos ){
             Base::p = memory_start + pos ;
+        }
+        
+        inline double byte_offset(){
+            return Base::p - memory_start ;    
         }
         
     private:

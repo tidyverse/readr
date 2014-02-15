@@ -3,14 +3,29 @@
 
 namespace fastread {
     
+    template <typename DataSource>
+    int source_count_lines( DataSource& source, bool header ){
+        if( !source.can_seek() )
+            stop( "cannot seek" ) ;
+        double pos = source.byte_offset() ;
+        int n = source.count_lines() ;
+        if( header ) n-- ;
+        source.seek(pos) ;
+        return n ;
+    }
+
     template <typename Source>
     class DataReader {
     public:     
         typedef VectorInput<Source> Input ;
-           
+
         DataReader( Source& source_ ) : source(source_){} 
         
         List read( int n, CharacterVector classes, bool header ){
+            if( n <= 0){
+                n = source_count_lines(source, header) ;
+            }
+            
             std::vector<Input*> inputs ;
             
             int ncol = classes.size() ;

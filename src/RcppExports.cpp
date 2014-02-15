@@ -6,43 +6,6 @@
 
 using namespace Rcpp;
 
-// read_csv_impl
-List read_csv_impl(SEXP input, CharacterVector classes, int n, bool header);
-RcppExport SEXP fastread_read_csv_impl(SEXP inputSEXP, SEXP classesSEXP, SEXP nSEXP, SEXP headerSEXP) {
-BEGIN_RCPP
-    SEXP __sexp_result;
-    {
-        Rcpp::RNGScope __rngScope;
-        Rcpp::traits::input_parameter< SEXP >::type input(inputSEXP );
-        Rcpp::traits::input_parameter< CharacterVector >::type classes(classesSEXP );
-        Rcpp::traits::input_parameter< int >::type n(nSEXP );
-        Rcpp::traits::input_parameter< bool >::type header(headerSEXP );
-        List __result = read_csv_impl(input, classes, n, header);
-        PROTECT(__sexp_result = Rcpp::wrap(__result));
-    }
-    UNPROTECT(1);
-    return __sexp_result;
-END_RCPP
-}
-// read_csv_impl_filter_pattern
-List read_csv_impl_filter_pattern(SEXP input, CharacterVector classes, int n, bool header, LogicalVector filter_pattern);
-RcppExport SEXP fastread_read_csv_impl_filter_pattern(SEXP inputSEXP, SEXP classesSEXP, SEXP nSEXP, SEXP headerSEXP, SEXP filter_patternSEXP) {
-BEGIN_RCPP
-    SEXP __sexp_result;
-    {
-        Rcpp::RNGScope __rngScope;
-        Rcpp::traits::input_parameter< SEXP >::type input(inputSEXP );
-        Rcpp::traits::input_parameter< CharacterVector >::type classes(classesSEXP );
-        Rcpp::traits::input_parameter< int >::type n(nSEXP );
-        Rcpp::traits::input_parameter< bool >::type header(headerSEXP );
-        Rcpp::traits::input_parameter< LogicalVector >::type filter_pattern(filter_patternSEXP );
-        List __result = read_csv_impl_filter_pattern(input, classes, n, header, filter_pattern);
-        PROTECT(__sexp_result = Rcpp::wrap(__result));
-    }
-    UNPROTECT(1);
-    return __sexp_result;
-END_RCPP
-}
 // read_lines
 CharacterVector read_lines(SEXP input, int n = 0);
 RcppExport SEXP fastread_read_lines(SEXP inputSEXP, SEXP nSEXP) {
@@ -84,6 +47,43 @@ BEGIN_RCPP
         Rcpp::traits::input_parameter< CharacterVector >::type x(xSEXP );
         Rcpp::traits::input_parameter< std::string >::type what(whatSEXP );
         SEXP __result = parse_text(x, what);
+        PROTECT(__sexp_result = Rcpp::wrap(__result));
+    }
+    UNPROTECT(1);
+    return __sexp_result;
+END_RCPP
+}
+// read_csv_impl
+List read_csv_impl(SEXP input, CharacterVector classes, int n, bool header);
+RcppExport SEXP fastread_read_csv_impl(SEXP inputSEXP, SEXP classesSEXP, SEXP nSEXP, SEXP headerSEXP) {
+BEGIN_RCPP
+    SEXP __sexp_result;
+    {
+        Rcpp::RNGScope __rngScope;
+        Rcpp::traits::input_parameter< SEXP >::type input(inputSEXP );
+        Rcpp::traits::input_parameter< CharacterVector >::type classes(classesSEXP );
+        Rcpp::traits::input_parameter< int >::type n(nSEXP );
+        Rcpp::traits::input_parameter< bool >::type header(headerSEXP );
+        List __result = read_csv_impl(input, classes, n, header);
+        PROTECT(__sexp_result = Rcpp::wrap(__result));
+    }
+    UNPROTECT(1);
+    return __sexp_result;
+END_RCPP
+}
+// read_csv_impl_filter_pattern
+List read_csv_impl_filter_pattern(SEXP input, CharacterVector classes, int n, bool header, LogicalVector filter_pattern);
+RcppExport SEXP fastread_read_csv_impl_filter_pattern(SEXP inputSEXP, SEXP classesSEXP, SEXP nSEXP, SEXP headerSEXP, SEXP filter_patternSEXP) {
+BEGIN_RCPP
+    SEXP __sexp_result;
+    {
+        Rcpp::RNGScope __rngScope;
+        Rcpp::traits::input_parameter< SEXP >::type input(inputSEXP );
+        Rcpp::traits::input_parameter< CharacterVector >::type classes(classesSEXP );
+        Rcpp::traits::input_parameter< int >::type n(nSEXP );
+        Rcpp::traits::input_parameter< bool >::type header(headerSEXP );
+        Rcpp::traits::input_parameter< LogicalVector >::type filter_pattern(filter_patternSEXP );
+        List __result = read_csv_impl_filter_pattern(input, classes, n, header, filter_pattern);
         PROTECT(__sexp_result = Rcpp::wrap(__result));
     }
     UNPROTECT(1);
