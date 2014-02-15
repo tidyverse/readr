@@ -87,6 +87,8 @@ namespace fastread {
         
     private:
         
+        // fast implementation of count lines as there is no need to 
+        // ask the line policy if we keep the line
         int count_lines__impl( Rcpp::traits::true_type ){
             int n = 0 ;
             while(true){
@@ -97,6 +99,7 @@ namespace fastread {
             return n ;            
         }
         
+        // for each line, we need to ask to the line policy if we keep the line
         int count_lines__impl( Rcpp::traits::false_type ){
             int n = 0 ;
             while(true){
