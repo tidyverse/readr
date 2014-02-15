@@ -1,2 +1,3 @@
 useDynLib(fastread)
+import(assertthat)
 

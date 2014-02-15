@@ -5,7 +5,7 @@ using namespace fastread ;
 
 class MultipleConnectionReader {
 public:
-    typedef VectorInput<ReadConnectionSource> Input ;
+    typedef VectorInput< ReadConnectionSource<KeepAllLines> > Input ;
     
     MultipleConnectionReader( CharacterVector classes_, IntegerVector nlines_, bool header_ ) : 
         classes(classes_), nlines(nlines_), header(header_) 
@@ -17,7 +17,7 @@ public:
         
         for( int i=0; i<ncol; i++){
             String cl = classes[i] ;
-            inputs.push_back( make_vector_input<ReadConnectionSource>(cl, nrows ) ) ;
+            inputs.push_back( make_vector_input<ReadConnectionSource<KeepAllLines> >(cl, nrows ) ) ;
             if( !inputs[i]->is_rownames() && ! inputs[i]->skip() ) {
                 ncolumns++ ;
                 columns.push_back(inputs[i]) ;
@@ -45,7 +45,7 @@ public:
     }
        
     void process(SEXP con, int index){
-        ReadConnectionSource source(con) ; 
+        ReadConnectionSource<KeepAllLines> source(con) ; 
         if( header ){
             if( index == 1 ){
                 // read header line

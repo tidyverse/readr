@@ -3,11 +3,13 @@
 
 namespace fastread {
        
-    template <typename Class>
+    template <typename Class, template <class> class LinePolicy = KeepAllLines >
     class Source {
     public:
         
-        Source(char sep_, char quote_, char esc_) : sep(sep_), quote(quote_), esc(esc_), inquote(false) {}
+        Source(char sep_, char quote_, char esc_, LinePolicy<Source> line_policy_ = LinePolicy<Source>() ) : 
+            sep(sep_), quote(quote_), esc(esc_), inquote(false), line_policy(line_policy_)
+        {}
         
         inline void set(char* p_, char* end_){ 
             p = p_ ; end = end_ ;
@@ -96,6 +98,7 @@ namespace fastread {
     
         char sep, quote, esc ;
         bool inquote ;
+        LinePolicy<Source> line_policy ;
         
         inline bool valid_digit(){
             return *p >= '0' && *p <= '9' ;

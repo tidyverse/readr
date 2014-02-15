@@ -3,21 +3,37 @@
 
 namespace fastread {
         
-    class MMapSource : public Source<MMapSource>{
+    template <template <class> class LinePolicy = KeepAllLines >
+    class MMapSource : public Source< MMapSource<LinePolicy>, LinePolicy>{
     public:
-        typedef Source<MMapSource> Base ;
+        typedef Source<MMapSource, LinePolicy> Base ;
         
-        MMapSource( const std::string& filename, char sep = ',', char quote = '"', char esc = '\\' )  ;
+        MMapSource( const std::string& filename, char sep = ',', char quote = '"', char esc = '\\', LinePolicy<Base> line_policy_ = LinePolicy<Base>() ) : 
+            Base(sep, quote, esc, line_policy_), file_descriptor( open(filename.c_str(), O_RDONLY) )
+        {
+            struct stat file_info;
+            if (fstat(file_descriptor,&file_info) == -1) {
+                stop( "cannot read file information" ) ;
+            }
+            filesize = file_info.st_size ;
+            memory_start = (char *)mmap(NULL, filesize, PROT_READ, MAP_PRIVATE, file_descriptor, 0);
+            eof = memory_start + filesize ;
+            Base::set(memory_start, eof);
+            
+            last_full_line = eof - 1 ;
+            while( *last_full_line != '\n' ) --last_full_line;
+        
+        } 
+
         
         inline bool more(){ return false ;}
         
-        // no-op as we always have the full data mmapped
         inline bool ensure_full_line(){
-            return p < last_full_line ;
+            return Base::p < last_full_line ;
         }
         
         inline void seek( int pos ){
-            p = memory_start + pos ;
+            Base::p = memory_start + pos ;
         }
         
     private:

@@ -20,6 +20,8 @@ using namespace Rcpp;
 
 #include <fastread/Connection.h>
 
+#include <fastread/LinePolicy.h>
+
 #include <fastread/DateTimeParser.h>
 #include <fastread/Source.h>
 #include <fastread/MMapSource.h>
