@@ -62,7 +62,14 @@ namespace fastread {
         int count_lines(){
             int n = 0 ;
             while(true){
-                n += std::count( p, end, '\n' ) ;
+                char* q = p ;
+                while( q < end ){
+                    q = std::find(q, end, '\n' ) ;
+                    if( q < end && line_policy.keep_line(*this) ) {
+                        n++ ;
+                        q++ ;
+                    }
+                }
                 p = end ;
                 if( !more() ) break ;    
             }
