@@ -2,7 +2,7 @@
 #define FASTREAD_Source_H
 
 namespace fastread {
-       
+      
     template <typename Class, template <class> class LinePolicy = KeepAllLines >
     class Source {
     public:
@@ -58,22 +58,9 @@ namespace fastread {
             parse( q, q + move_until_next_token_start(), double_, res ) ;
             return res ;
         }
-    
-        int count_lines(){
-            int n = 0 ;
-            while(true){
-                char* q = p ;
-                while( q < end ){
-                    q = std::find(q, end, '\n' ) ;
-                    if( q < end && line_policy.keep_line(*this) ) {
-                        n++ ;
-                        q++ ;
-                    }
-                }
-                p = end ;
-                if( !more() ) break ;    
-            }
-            return n ;
+        
+        inline int count_lines() {
+            return count_lines__impl( typename Rcpp::traits::same_type< LinePolicy<Source>, KeepAllLines<Source> >::type() ) ;
         }
         
         double get_Date_Ymd(){
@@ -91,21 +78,46 @@ namespace fastread {
             return date_time_parser.parse_Time(start, start + move_until_next_token_start() ) ;
         }
         
-    protected:
         char* p ;
         char* end ;
+        DateTimeParser<Class> date_time_parser ;
+        char sep, quote, esc ;
+        bool inquote ;
+        LinePolicy<Source> line_policy ;
         
     private:
         
-        DateTimeParser<Class> date_time_parser ;
+        int count_lines__impl( Rcpp::traits::true_type ){
+            int n = 0 ;
+            while(true){
+                n += std::count( p, end, '\n' ) ;
+                p = end ;
+                if( !more() ) break ;    
+            }
+            return n ;            
+        }
+        
+        int count_lines__impl( Rcpp::traits::false_type ){
+            int n = 0 ;
+            while(true){
+                char* q = p ;
+                while( q < end ){
+                    q = std::find(q, end, '\n' ) ;
+                    if( q < end && line_policy.keep_line(*this) ) {
+                        n++ ;
+                        q++ ;
+                    }
+                }
+                p = end ;
+                if( !more() ) break ;    
+            }
+            return n ;        
+        }
         
         bool more(){
             return static_cast<Class&>(*this).more() ;
         }
     
-        char sep, quote, esc ;
-        bool inquote ;
-        LinePolicy<Source> line_policy ;
         
         inline bool valid_digit(){
             return *p >= '0' && *p <= '9' ;
@@ -184,9 +196,10 @@ namespace fastread {
             }
             return len ;
         }
-    
         
     } ;
+    
+        
 }
 
 #endif
