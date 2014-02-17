@@ -120,8 +120,11 @@ namespace fastread {
         bool more(){
             return static_cast<Class&>(*this).more() ;
         }
-    
         
+        bool ensure_full_line(){
+            return static_cast<Class&>(*this).ensure_full_line() ;    
+        }
+            
         inline bool valid_digit(){
             return *p >= '0' && *p <= '9' ;
         }
@@ -174,9 +177,19 @@ namespace fastread {
                         inquote = true ;
                     } else if( next == sep || next == '\n' ){
                         // end of line
+                        if( !line_policy.keep_line() ) {
+                            ensure_full_line();
+                            move_until_next_line() ;
+                        }
                         break ;
                     } else if( next == '\r' && *p == '\n' ){
-                        p++; break ;    
+                        p++; 
+                        
+                        if( !line_policy.keep_line() ) {
+                            move_until_next_line() ;
+                            ensure_full_line() ;
+                        }
+                        break ;    
                     }
                 }
                 len++ ;
@@ -197,6 +210,12 @@ namespace fastread {
                 }
                 len++ ;
             }
+            
+            if( !line_policy.keep_line() ) {
+                ensure_full_line();
+                move_until_next_line() ;
+            }
+            
             return len ;
         }
         
