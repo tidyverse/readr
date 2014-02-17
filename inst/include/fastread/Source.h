@@ -177,7 +177,7 @@ namespace fastread {
                         inquote = true ;
                     } else if( next == sep || next == '\n' ){
                         // end of line
-                        if( !line_policy.keep_line() ) {
+                        if( !line_policy.keep_line(*this) ) {
                             ensure_full_line();
                             move_until_next_line() ;
                         }
@@ -185,7 +185,7 @@ namespace fastread {
                     } else if( next == '\r' && *p == '\n' ){
                         p++; 
                         
-                        if( !line_policy.keep_line() ) {
+                        if( !line_policy.keep_line(*this) ) {
                             move_until_next_line() ;
                             ensure_full_line() ;
                         }
@@ -211,7 +211,7 @@ namespace fastread {
                 len++ ;
             }
             
-            if( !line_policy.keep_line() ) {
+            if( !line_policy.keep_line(*this) ) {
                 ensure_full_line();
                 move_until_next_line() ;
             }
