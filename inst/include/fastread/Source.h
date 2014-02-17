@@ -47,7 +47,8 @@ namespace fastread {
             while( q[len-1] == quote ){
                 len-- ;    
             }
-            return Rf_mkCharLen( q, len ) ;
+            SEXP res = Rf_mkCharLen( q, len ) ;
+            return res ;
         }
         
         double get_double(){
@@ -175,7 +176,9 @@ namespace fastread {
                     if( next == quote ){
                         // entering a quote                                                      
                         inquote = true ;
-                    } else if( next == sep || next == '\n' ){
+                    } else if( next == sep ){
+                        break ;
+                    } else if( next == '\n' ){
                         // end of line
                         if( !line_policy.keep_line(*this) ) {
                             ensure_full_line();
@@ -186,8 +189,8 @@ namespace fastread {
                         p++; 
                         
                         if( !line_policy.keep_line(*this) ) {
-                            move_until_next_line() ;
                             ensure_full_line() ;
+                            move_until_next_line() ;
                         }
                         break ;    
                     }

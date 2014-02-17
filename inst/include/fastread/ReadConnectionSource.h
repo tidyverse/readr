@@ -36,13 +36,20 @@ namespace fastread {
             return Base::p < last_full_line ;
         }
         bool more() {
-            int nchars = n-(Base::p-data) ;
+            int nchars = n - (Base::p - data) ;
+            if( nchars < 0 ) {
+                stop("data corrupt");
+            }
+            
             std::memmove(data, Base::p, nchars) ;
             n = con->read(data + nchars, 1, chunk_size - nchars, con);
             bool done = n == 0;  
             n = n + nchars ;
             
-            find_last_line() ;
+            Base::set(data, data + n) ;
+            last_full_line = data + n - 1 ;
+            while( *last_full_line != '\n' && last_full_line > data ) --last_full_line;
+            
             return !done ;
         }
         bool can_seek() const {
@@ -61,12 +68,6 @@ namespace fastread {
         
     private:
         Rconnection con ;
-        
-        void find_last_line(){
-            Base::set(data, data + n) ;
-            last_full_line = data + n - 1 ;
-            while( *last_full_line != '\n' ) --last_full_line;
-        }
         
         int chunk_size ;
         std::vector<char> buffer ;
