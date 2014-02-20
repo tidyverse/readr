@@ -61,7 +61,9 @@ namespace fastread {
         }
         
         inline int count_lines(bool header) {
-            return count_lines__impl( header, typename Rcpp::traits::same_type< LinePolicy<Source>, KeepAllLines<Source> >::type() ) ;
+            int res = count_lines__impl( header, typename Rcpp::traits::same_type< LinePolicy<Source>, KeepAllLines<Source> >::type() ) ;
+            line_policy.reset() ;
+            return res ;
         }
         
         double get_Date_Ymd(){

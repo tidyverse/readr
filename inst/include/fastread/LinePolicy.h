@@ -9,6 +9,8 @@ namespace fastread {
         bool keep_line(Source& ){
             return true ;    
         }
+        
+        inline void reset(){}
     };
     
     template <typename Source>
@@ -22,6 +24,8 @@ namespace fastread {
             if( i == n) i = 0 ;
             return res ;
         }
+        
+        inline void reset(){ i = 0 ; }
         
     private:
         LogicalVector pattern ;
