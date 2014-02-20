@@ -8,8 +8,7 @@ namespace fastread {
         if( !source.can_seek() )
             stop( "cannot seek" ) ;
         double pos = source.byte_offset() ;
-        int n = source.count_lines() ;
-        if( header ) n-- ;
+        int n = source.count_lines(header) ;
         source.seek(pos) ;
         return n ;
     }

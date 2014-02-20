@@ -18,14 +18,14 @@ CharacterVector read_lines(SEXP input, int n = 0){
 }
 
 // [[Rcpp::export]]
-int count_lines(SEXP input){
+int count_lines(SEXP input, bool header = true){
     if( Rf_inherits(input, "connection" ) ){
         ReadConnectionSource<KeepAllLines>  source(input);
-        return source.count_lines() ;
+        return source.count_lines(header) ;
     } else {
         std::string path = as<std::string>(input) ;
         MMapSource<KeepAllLines>  source(path) ;
-        return source.count_lines() ;
+        return source.count_lines(header) ;
     }
 }
 

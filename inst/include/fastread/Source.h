@@ -60,8 +60,8 @@ namespace fastread {
             return res ;
         }
         
-        inline int count_lines() {
-            return count_lines__impl( typename Rcpp::traits::same_type< LinePolicy<Source>, KeepAllLines<Source> >::type() ) ;
+        inline int count_lines(bool header) {
+            return count_lines__impl( header, typename Rcpp::traits::same_type< LinePolicy<Source>, KeepAllLines<Source> >::type() ) ;
         }
         
         double get_Date_Ymd(){
@@ -90,8 +90,12 @@ namespace fastread {
         
         // fast implementation of count lines as there is no need to 
         // ask the line policy if we keep the line
-        int count_lines__impl( Rcpp::traits::true_type ){
+        int count_lines__impl( bool header, Rcpp::traits::true_type ){
             int n = 0 ;
+            // skip the first line if necessary
+            if( header ) {
+                p = std::find( p, end, '\n' ) + 1 ;
+            }
             while(true){
                 n += std::count( p, end, '\n' ) ;
                 p = end ;
@@ -101,8 +105,13 @@ namespace fastread {
         }
         
         // for each line, we need to ask to the line policy if we keep the line
-        int count_lines__impl( Rcpp::traits::false_type ){
+        int count_lines__impl( bool header, Rcpp::traits::false_type ){
             int n = 0 ;
+            
+            // skip the first line
+            if( header ){
+                p = std::find(p, end, '\n' ) + 1;
+            }
             while(true){
                 char* q = p ;
                 while( q < end ){

@@ -23,14 +23,15 @@ BEGIN_RCPP
 END_RCPP
 }
 // count_lines
-int count_lines(SEXP input);
-RcppExport SEXP fastread_count_lines(SEXP inputSEXP) {
+int count_lines(SEXP input, bool header = true);
+RcppExport SEXP fastread_count_lines(SEXP inputSEXP, SEXP headerSEXP) {
 BEGIN_RCPP
     SEXP __sexp_result;
     {
         Rcpp::RNGScope __rngScope;
         Rcpp::traits::input_parameter< SEXP >::type input(inputSEXP );
-        int __result = count_lines(input);
+        Rcpp::traits::input_parameter< bool >::type header(headerSEXP );
+        int __result = count_lines(input, header);
         PROTECT(__sexp_result = Rcpp::wrap(__result));
     }
     UNPROTECT(1);

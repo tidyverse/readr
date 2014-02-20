@@ -5,8 +5,8 @@ read_lines <- function(input, n = 0L) {
     .Call('fastread_read_lines', PACKAGE = 'fastread', input, n)
 }
 
-count_lines <- function(input) {
-    .Call('fastread_count_lines', PACKAGE = 'fastread', input)
+count_lines <- function(input, header = TRUE) {
+    .Call('fastread_count_lines', PACKAGE = 'fastread', input, header)
 }
 
 parse_text <- function(x, what) {
