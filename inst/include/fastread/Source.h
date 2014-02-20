@@ -87,6 +87,7 @@ namespace fastread {
         LinePolicy<Source> line_policy ;
         
         CharacterVector get_headers(int nc, bool header){
+            if( p == end ) more() ;
             CharacterVector out(nc) ;
             if(header){
                 for( int i=0; i<nc; i++){
@@ -189,8 +190,8 @@ namespace fastread {
         }
         
         inline void on_newline(){
+            ensure_full_line();                
             if( !line_policy.keep_line(*this) ) {
-                ensure_full_line();
                 move_until_next_line() ;
             }        
         }
@@ -242,7 +243,7 @@ namespace fastread {
                 }
                 len++ ;
             }
-            on_newline() ;
+            if( p < end ) on_newline() ;
             return len ;
         }
         

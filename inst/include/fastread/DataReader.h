@@ -38,7 +38,6 @@ namespace fastread {
             
             CharacterVector names = source.get_headers(ncolumns, header) ;
             for( int i=0; i<n; i++) {
-                source.ensure_full_line() ;
                 for( int j=0; j<ncol; j++){
                     inputs[j]->set(i) ;
                 }
