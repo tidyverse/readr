@@ -36,18 +36,7 @@ namespace fastread {
                 if( !inputs[i]->is_rownames() && ! inputs[i]->skip() ) ncolumns++ ;
             }
             
-            CharacterVector names(ncolumns) ;
-            if( header ){
-                source.ensure_full_line() ;
-                for( int i=0; i<ncolumns; i++){
-                    names[i] = source.get_String() ;   
-                }
-            } else {
-                for( int i=0; i<ncolumns; i++){
-                    String V("V") ; V += (i+1) ;
-                    names[i] = V ;
-                }   
-            }
+            CharacterVector names = source.get_headers(ncolumns, header) ;
             for( int i=0; i<n; i++) {
                 source.ensure_full_line() ;
                 for( int j=0; j<ncol; j++){

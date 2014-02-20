@@ -86,12 +86,31 @@ namespace fastread {
         bool inquote ;
         LinePolicy<Source> line_policy ;
         
+        CharacterVector get_headers(int nc, bool header){
+            CharacterVector out(nc) ;
+            if(header){
+                for( int i=0; i<nc; i++){
+                    out[i] = get_String();     
+                }
+                return out ;
+            } else {
+                for( int i=0; i<nc; i++){
+                    String V("V") ; V += (i+1) ;
+                    out[i] = V ;
+                }
+                on_newline() ;
+            }
+            return out ;
+        }
+        
     private:
         
         // fast implementation of count lines as there is no need to 
         // ask the line policy if we keep the line
         int count_lines__impl( bool header, Rcpp::traits::true_type ){
             int n = 0 ;
+            if( p == end ) more() ;
+            
             // skip the first line if necessary
             if( header ) {
                 p = std::find( p, end, '\n' ) + 1 ;
@@ -107,6 +126,7 @@ namespace fastread {
         // for each line, we need to ask to the line policy if we keep the line
         int count_lines__impl( bool header, Rcpp::traits::false_type ){
             int n = 0 ;
+            if( p == end ) more() ;
             
             // skip the first line
             if( header ){
@@ -118,8 +138,8 @@ namespace fastread {
                     q = std::find(q, end, '\n' ) ;
                     if( q < end && line_policy.keep_line(*this) ) {
                         n++ ;
-                        q++ ;
                     }
+                    q++ ;
                 }
                 p = end ;
                 if( !more() ) break ;    
@@ -168,6 +188,13 @@ namespace fastread {
             return sign * value ;
         }
         
+        inline void on_newline(){
+            if( !line_policy.keep_line(*this) ) {
+                ensure_full_line();
+                move_until_next_line() ;
+            }        
+        }
+        
         int move_until_next_token_start(){
             char next;
             int len = 0 ;
@@ -189,18 +216,11 @@ namespace fastread {
                         break ;
                     } else if( next == '\n' ){
                         // end of line
-                        if( !line_policy.keep_line(*this) ) {
-                            ensure_full_line();
-                            move_until_next_line() ;
-                        }
+                        on_newline() ;
                         break ;
                     } else if( next == '\r' && *p == '\n' ){
                         p++; 
-                        
-                        if( !line_policy.keep_line(*this) ) {
-                            ensure_full_line() ;
-                            move_until_next_line() ;
-                        }
+                        on_newline() ;
                         break ;    
                     }
                 }
@@ -222,12 +242,7 @@ namespace fastread {
                 }
                 len++ ;
             }
-            
-            if( !line_policy.keep_line(*this) ) {
-                ensure_full_line();
-                move_until_next_line() ;
-            }
-            
+            on_newline() ;
             return len ;
         }
         
