@@ -23,7 +23,6 @@ namespace fastread {
             return i < n;
         }
         
-        // no-op as we always have the full data mmapped
         inline bool ensure_full_line(){
             return i < n ;
         }
