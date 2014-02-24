@@ -11,3 +11,10 @@ test_that( "parser skips quotes and spaces", {
   
 })
 
+test_that("parser escapes quotes", {
+  target <- "foo \"yada\" bar" 
+  expect_equal(parse_text('"foo ""yada"" bar"', "string" ), target)
+  expect_equal(parse_text('"foo \"yada\" bar"', "string" ), target)
+  expect_equal(parse_text('"foo "yada" bar"', "string" ), target)
+})
+

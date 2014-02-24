@@ -46,14 +46,39 @@ namespace fastread {
         SEXP get_String(){
             char* q = p ;
             int len = move_until_next_token_start() ;
-            while( *q == quote ){
+            
+            // skip initial quote
+            if( *q == quote ){
                 len-- ;
                 q++ ;
             }
-            while( q[len-1] == quote ){
+            
+            // skip end quote
+            if( q[len-1] == quote ){
                 len-- ;    
             }
+            
+            // check if there are double quotes
+            for( int i=0; i<len-1; i++){
+                if( q[i] == '"' && q[i+1] == '"' ){
+                    // found a double quote. so we need to escape it : "" -> \"
+                    
+                    std::string buffer(q, q+len) ;
+                    buffer.erase( i, 1 ) ;
+                    
+                    size_t pos = i + 1;
+                    while( ( pos = buffer.find( "\"\"", pos ) ) != std::string::npos){
+                        buffer.erase( pos, 1 ) ; 
+                    }
+                    
+                    return Rf_mkCharLen( buffer.data(), buffer.size() ) ;
+                    
+                }
+            }
+            
+            // double quotes not found
             SEXP res = Rf_mkCharLen( q, len ) ;
+            
             return res ;
         }
         
