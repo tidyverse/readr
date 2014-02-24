@@ -55,6 +55,7 @@ namespace fastread {
             using boost::spirit::qi::double_;
             using boost::spirit::qi::parse;
             double res = 0.0 ;
+            while( *p == ' ' || *p == '\t' || *p == '"' || *p == '\'' ) ++p ;
             char* q = p ;
             parse( q, q + move_until_next_token_start(), double_, res ) ;
             return res ;
@@ -170,7 +171,7 @@ namespace fastread {
             int sign, value ;
         
             // Skip leading white space, if any.
-            while ( *p == ' ' ) {
+            while ( *p == ' ' || *p == '"' || *p == '\'') {
                 ++p ;
             }
         
