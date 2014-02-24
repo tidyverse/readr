@@ -3,12 +3,16 @@
 
 namespace fastread {
         
-    class CharacterVectorSource : public Source<CharacterVectorSource>{
+    template <
+        typename LinePolicy = KeepAllLines,
+        typename SeparatorPolicy = SingleCharacterSeparator
+    >
+    class CharacterVectorSource : public Source< CharacterVectorSource<LinePolicy,SeparatorPolicy>, LinePolicy, SeparatorPolicy>{
     public:
-        typedef Source<CharacterVectorSource> Base ;
+        typedef Source< CharacterVectorSource<LinePolicy, SeparatorPolicy>, LinePolicy, SeparatorPolicy> Base ;
         
-        CharacterVectorSource( CharacterVector data_, char sep = ',', char quote = '"', char esc = '\\' ) :
-            Base(sep,quote,esc), data(data_), n(data.size()), i(0)
+        CharacterVectorSource( CharacterVector data_, LinePolicy line_policy_ = LinePolicy(), SeparatorPolicy sep_policy_ = SeparatorPolicy() ) :
+            Base(line_policy_, sep_policy_), data(data_), n(data.size()), i(0)
         {
             more() ;
         }

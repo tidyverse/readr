@@ -3,13 +3,16 @@
 
 namespace fastread {
         
-    template <template <class> class LinePolicy = KeepAllLines >
-    class MMapSource : public Source< MMapSource<LinePolicy>, LinePolicy>{
+    template <
+        typename LinePolicy = KeepAllLines, 
+        typename SeparatorPolicy = SingleCharacterSeparator 
+    >
+    class MMapSource : public Source< MMapSource<LinePolicy, SeparatorPolicy>, LinePolicy, SeparatorPolicy>{
     public:
-        typedef Source<MMapSource, LinePolicy> Base ;
+        typedef Source<MMapSource, LinePolicy, SeparatorPolicy> Base ;
         
-        MMapSource( const std::string& filename, LinePolicy<Base> line_policy_ = LinePolicy<Base>(), char sep = ',', char quote = '"', char esc = '\\' ) : 
-            Base(sep, quote, esc, line_policy_), file_descriptor( open(filename.c_str(), O_RDONLY) )
+        MMapSource( const std::string& filename, LinePolicy line_policy_ = LinePolicy(), SeparatorPolicy sep_policy_ = SeparatorPolicy() ) : 
+            Base(line_policy_, sep_policy_), file_descriptor( open(filename.c_str(), O_RDONLY) )
         {
             struct stat file_info;
             if (fstat(file_descriptor,&file_info) == -1) {

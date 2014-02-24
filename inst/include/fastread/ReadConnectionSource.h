@@ -3,11 +3,13 @@
 
 namespace fastread {
         
-    template < template <class> class LinePolicy = KeepAllLines >
-    class ReadConnectionSource : public Source<ReadConnectionSource<LinePolicy>, LinePolicy>{
+    template < 
+        typename LinePolicy = KeepAllLines, 
+        typename SeparatorPolicy = SingleCharacterSeparator 
+    >
+    class ReadConnectionSource : public Source<ReadConnectionSource<LinePolicy, SeparatorPolicy>, LinePolicy, SeparatorPolicy>{
     public:
-        typedef Source<ReadConnectionSource, LinePolicy> Base ;
-        typedef LinePolicy<Base> Policy ;
+        typedef Source<ReadConnectionSource, LinePolicy, SeparatorPolicy> Base ;
         
         enum Origin {
             START = 1, 
@@ -20,8 +22,8 @@ namespace fastread {
             WRITE = 2
         } ;
         
-        ReadConnectionSource(SEXP id, LinePolicy<Base> line_policy_ = LinePolicy<Base>(), char sep = ',', char quote = '"', char esc = '\\' ) : 
-            Base(sep, quote, esc, line_policy_), 
+        ReadConnectionSource(SEXP id, LinePolicy line_policy_ = LinePolicy(), SeparatorPolicy sep_policy_ = SeparatorPolicy() ) : 
+            Base(line_policy_, sep_policy_), 
             con(getConnection(as<int>(id))), 
             chunk_size(10000), 
             buffer(chunk_size, '\0' ), 

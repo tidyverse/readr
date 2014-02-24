@@ -21,6 +21,7 @@ using namespace Rcpp;
 #include <fastread/Connection.h>
 
 #include <fastread/LinePolicy.h>
+#include <fastread/SeparatorPolicy.h>
 
 #include <fastread/DateTimeParser.h>
 #include <fastread/Source.h>

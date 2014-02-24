@@ -3,12 +3,18 @@
 
 namespace fastread {
       
-    template <typename Class, template <class> class LinePolicy = KeepAllLines >
+    template <typename Class, 
+        typename LinePolicy = KeepAllLines, 
+        typename SeparatorPolicy = SingleCharacterSeparator
+    >
     class Source {
     public:
         
-        Source(char sep_, char quote_, char esc_, LinePolicy<Source> line_policy_ = LinePolicy<Source>() ) : 
-            sep(sep_), quote(quote_), esc(esc_), inquote(false), line_policy(line_policy_)
+        Source( 
+            LinePolicy line_policy_ = LinePolicy(), 
+            SeparatorPolicy sep_policy_ = SeparatorPolicy()
+        ) : 
+            quote('"'), esc('\\'), inquote(false), line_policy(line_policy_), sep_policy(sep_policy_)
         {}
         
         inline void set(char* p_, char* end_){ 
@@ -62,7 +68,7 @@ namespace fastread {
         }
         
         inline int count_lines(bool header) {
-            int res = count_lines__impl( header, typename Rcpp::traits::same_type< LinePolicy<Source>, KeepAllLines<Source> >::type() ) ;
+            int res = count_lines__impl( header, typename Rcpp::traits::same_type< LinePolicy, KeepAllLines >::type() ) ;
             line_policy.reset() ;
             return res ;
         }
@@ -85,9 +91,10 @@ namespace fastread {
         char* p ;
         char* end ;
         DateTimeParser<Class> date_time_parser ;
-        char sep, quote, esc ;
+        char quote, esc ;
         bool inquote ;
-        LinePolicy<Source> line_policy ;
+        LinePolicy line_policy ;
+        SeparatorPolicy sep_policy ;
         
         CharacterVector get_headers(int nc, bool header){
             if( p == end ) more() ;
@@ -140,10 +147,9 @@ namespace fastread {
                 char* q = p ;
                 while( q < end ){
                     q = std::find(q, end, '\n' ) ;
-                    if( q < end && line_policy.keep_line(*this) ) {
+                    if( q < end && line_policy.keep_line(++q) ) {
                         n++ ;
                     }
-                    q++ ;
                 }
                 p = end ;
                 if( !more() ) break ;    
@@ -194,7 +200,7 @@ namespace fastread {
         
         inline void on_newline(){
             ensure_full_line();                
-            if( !line_policy.keep_line(*this) ) {
+            if( !line_policy.keep_line(p) ) {
                 move_until_next_line() ;
             }        
         }
@@ -216,7 +222,7 @@ namespace fastread {
                     if( next == quote ){
                         // entering a quote                                                      
                         inquote = true ;
-                    } else if( next == sep ){
+                    } else if( sep_policy.is_sep(next) ){
                         break ;
                     } else if( next == '\n' ){
                         // end of line

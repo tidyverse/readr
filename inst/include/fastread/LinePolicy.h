@@ -3,23 +3,21 @@
 
 namespace fastread {
     
-    template <typename Source>
     class KeepAllLines{
     public:
-        bool keep_line(Source& ){
+        inline bool keep_line(char* p){
             return true ;    
         }
         
         inline void reset(){}
     };
     
-    template <typename Source>
     class FilterRecylerLines {
     public:
         FilterRecylerLines( LogicalVector pattern_ ) : 
             pattern(pattern_), i(0), n(pattern.size()){}
         
-        bool keep_line(Source& ){
+        bool keep_line(char* p){
             bool res = pattern[i++] ;
             if( i == n) i = 0 ;
             return res ;
