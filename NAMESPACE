@@ -1,3 +1,4 @@
 useDynLib(fastread)
 import(assertthat)
+importFrom(Rcpp, loadModule)
 
