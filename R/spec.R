@@ -11,12 +11,15 @@
 #' @param line_delim The delimiter between lines, usually \code{"\n"}
 #' @param field_delim The delimiter between fields. Either a character vector
 #'   or XXX meaning to split on any whitespace.
+#' @param na_string A character vector of strings which should be converted to
+#'   NA in R.
 #' @param comment_char Any lines starting with this character will be not be
 #'   processed.
 #' @param skip Skip this many lines before beginning parsing.
 #' @export
 spec <- function(col_parsers, header = TRUE, line_delim = "\n",
-                 field_delim = ",", comment_char = "#", skip = 0) {
+                 field_delim = ",", comment_char = "#", na_string = "NA",
+                 skip = 0) {
 
   structure(
     list(
@@ -24,6 +27,7 @@ spec <- function(col_parsers, header = TRUE, line_delim = "\n",
       header = header,
       line_delim = line_delim,
       field_delim = field_delim,
+      na_string = na_string,
       comment_char = comment_char,
       skip = skip
     ),
