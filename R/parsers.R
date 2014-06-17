@@ -4,7 +4,7 @@ parser <- function(type, ...) {
 
 #' Define how to parse each column
 #'
-#' @objname parser
+#' @name parser
 NULL
 
 #' @param trim If \code{TRUE}, will trim off any leading or trailing whitespace.
