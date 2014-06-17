@@ -12,3 +12,21 @@ Fail early: fastread functions fail early, as soon as they discover there is som
 Fast: the goal of fastread is to be fast. If adding a rarely used feature would result in a significant slowdown, we should reconsider how important it is. Users can always fall back to the slow built in functions if they need to parse an unusual format. fastread should be competitive with the best file readers from other programming languages.
 
 Sensible defaults: fastread adopts sensible defaults for modern R coding. It never converts strings to factors (unless you explicitly ask for it) and it leaves column names as is.
+
+Clean separation between parsing and guessing parameters.
+
+## Data types
+
+fastread will automatically recognise and parse the following data types:
+
+* double
+* integer
+* logical
+* character
+* ISO8601 date time (date + T + time + (optionally) time zone)
+* ISO8601 dates (`YYYY-MM-DD`, `YYYYMMDD`)
+
+Additionally, through use of custom parsers, you can parse:
+
+* factors
+* flexible date time parsing

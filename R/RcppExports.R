@@ -13,6 +13,10 @@ parse_text <- function(x, what) {
     .Call('fastread_parse_text', PACKAGE = 'fastread', x, what)
 }
 
+flip <- function(x) {
+    .Call('fastread_flip', PACKAGE = 'fastread', x)
+}
+
 read_csv_impl <- function(input, classes, n, header) {
     .Call('fastread_read_csv_impl', PACKAGE = 'fastread', input, classes, n, header)
 }

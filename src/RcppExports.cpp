@@ -54,6 +54,21 @@ BEGIN_RCPP
     return __sexp_result;
 END_RCPP
 }
+// flip
+List flip(ListOf<CharacterVector> x);
+RcppExport SEXP fastread_flip(SEXP xSEXP) {
+BEGIN_RCPP
+    SEXP __sexp_result;
+    {
+        Rcpp::RNGScope __rngScope;
+        Rcpp::traits::input_parameter< ListOf<CharacterVector> >::type x(xSEXP );
+        List __result = flip(x);
+        PROTECT(__sexp_result = Rcpp::wrap(__result));
+    }
+    UNPROTECT(1);
+    return __sexp_result;
+END_RCPP
+}
 // read_csv_impl
 List read_csv_impl(SEXP input, CharacterVector classes, int n, bool header);
 RcppExport SEXP fastread_read_csv_impl(SEXP inputSEXP, SEXP classesSEXP, SEXP nSEXP, SEXP headerSEXP) {
