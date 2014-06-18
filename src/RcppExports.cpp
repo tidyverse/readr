@@ -6,6 +6,25 @@
 
 using namespace Rcpp;
 
+// parse_line_delimited
+std::vector<std::string> parse_line_delimited(std::string x, std::string delim_ = ",", std::string quote_ = "'", bool backslash_escape = false, bool double_escape = false);
+RcppExport SEXP fastread_parse_line_delimited(SEXP xSEXP, SEXP delim_SEXP, SEXP quote_SEXP, SEXP backslash_escapeSEXP, SEXP double_escapeSEXP) {
+BEGIN_RCPP
+    SEXP __sexp_result;
+    {
+        Rcpp::RNGScope __rngScope;
+        Rcpp::traits::input_parameter< std::string >::type x(xSEXP );
+        Rcpp::traits::input_parameter< std::string >::type delim_(delim_SEXP );
+        Rcpp::traits::input_parameter< std::string >::type quote_(quote_SEXP );
+        Rcpp::traits::input_parameter< bool >::type backslash_escape(backslash_escapeSEXP );
+        Rcpp::traits::input_parameter< bool >::type double_escape(double_escapeSEXP );
+        std::vector<std::string> __result = parse_line_delimited(x, delim_, quote_, backslash_escape, double_escape);
+        PROTECT(__sexp_result = Rcpp::wrap(__result));
+    }
+    UNPROTECT(1);
+    return __sexp_result;
+END_RCPP
+}
 // read_lines
 CharacterVector read_lines(SEXP input, int n = 0);
 RcppExport SEXP fastread_read_lines(SEXP inputSEXP, SEXP nSEXP) {
