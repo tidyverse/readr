@@ -49,23 +49,37 @@ guess_parsers <- function(fields, na_strings = "NA", ignore_whitespace = TRUE) {
       paste(nfields, collapse = ", "), collapse = ",")
   }
 
-  lapply(flip(fields), guess_parser, na_strings = na_strings,
+  candidates <- lapply(flip(fields), guess_parser, na_strings = na_strings,
     ignore_whitespace = ignore_whitespace)
+
+  pick <- function(var, parsers) {
+    selected <- parsers[1]
+    others <- if (length(parsers) > 1)
+      paste0(" (also valid: ", paste0(parsers[-1], collapse = ", "), ")")
+
+    message(var, ": ", selected, others)
+    selected
+  }
+
+  if (is.null(names(fields))) {
+    names(fields) <- paste0("X", seq_along(fields))
+  }
+
+  Map(pick, names(fields), candidates)
 }
 
 guess_parser <- function(x, na_strings = "NA", ignore_whitespace = FALSE) {
   if (ignore_whitespace) {
-    x <- lapply(x, gsub, "^\\s+|\\s+$", "")
+    x <- gsub("^\\s+|\\s+$", "", x)
   }
-  x <- lapply(x, setdiff, na_strings)
+  x <- setdiff(x, na_strings)
 
   coercible <- list(
-    logical = function(x) x %in% c("TRUE", "FALSE", "T", "F"),
-    integer = function(x) grepl(x, "^[0-9]+$"),
+    logical = function(x) all(x %in% c("TRUE", "FALSE", "T", "F")),
+    integer = function(x) all(grepl("^[0-9]+$", x)),
     double  = function(x) is_double(x),
-    date    = function(x) grepl(x, "^[0-9]{4}-[0-9]{2}-[0-9]{2}$")
+    date    = function(x) all(grepl("^[0-9]{4}-[0-9]{2}-[0-9]{2}$", x))
   )
-
   ok <- vapply(coercible, function(f) f(x), logical(1))
   if (!any(ok)) {
     return("character")
