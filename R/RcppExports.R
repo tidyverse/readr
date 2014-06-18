@@ -33,8 +33,8 @@ parse_delimited_fields <- function(x, delim_ = ",", quote_ = "\"", collapse = FA
     .Call('fastread_parse_delimited_fields', PACKAGE = 'fastread', x, delim_, quote_, collapse, backslash_escape, double_escape, strict)
 }
 
-parse_lines <- function(x, skip = 0L, line_delim_ = "\n", comment_char_ = "") {
-    .Call('fastread_parse_lines', PACKAGE = 'fastread', x, skip, line_delim_, comment_char_)
+parse_lines <- function(x, skip = 0L, delim_ = "\n", comment_ = "") {
+    .Call('fastread_parse_lines', PACKAGE = 'fastread', x, skip, delim_, comment_)
 }
 
 read_csv_impl <- function(input, classes, n, header) {

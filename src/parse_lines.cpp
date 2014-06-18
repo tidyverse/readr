@@ -5,29 +5,29 @@ using namespace Rcpp;
 // [[Rcpp::export]]
 std::vector<std::string> parse_lines(std::string x,
                                      int skip = 0,
-                                     std::string line_delim_ = "\n",
-                                     std::string comment_char_ = "") {
+                                     std::string delim_ = "\n",
+                                     std::string comment_ = "") {
 
-  char line_delim = line_delim_[0];
-  char comment_char = comment_char_[0];
+  char delim = delim_[0];
+  char comment = comment_[0];
 
   std::vector<std::string> out;
   std::istringstream stream(x);
 
   for (int i = 0; i < skip; i++) {
-    stream.ignore(std::numeric_limits<std::streamsize>::max(), line_delim);
+    stream.ignore(std::numeric_limits<std::streamsize>::max(), delim);
   }
 
   std::string line = "";
   char c;
   while((c = stream.get()) && stream.good()) {
-    if (c == line_delim) {
+    if (c == delim) {
       out.push_back(line);
       line = "";
-    } else if (c == comment_char) {
+    } else if (c == comment) {
       out.push_back(line);
       line = "";
-      stream.ignore(std::numeric_limits<std::streamsize>::max(), line_delim);
+      stream.ignore(std::numeric_limits<std::streamsize>::max(), delim);
     } else {
       line.push_back(c);
     }
