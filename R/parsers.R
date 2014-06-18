@@ -33,6 +33,8 @@ logical_parser <- function() {
 }
 
 #' @rdname parser
+#' @param levels A character vector listing all valid levels of the factor.
+#' @param ordered Create an ordered factor?
 #' @export
 factor_parser <- function(levels, ordered = FALSE) {
   parser("factor", levels = levels, ordered = ordered)

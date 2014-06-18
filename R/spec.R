@@ -54,7 +54,7 @@ fwf_spec <- function(widths = NULL, start = NULL, end = NULL, column = NULL) {
 #'
 #' @param skip Skip this many lines before beginning parsing.
 #' @param n If not 0, parse at most this many lines from the file.
-#' @param comment_char If not \code{""}, all content after this character
+#' @param comment If not \code{""}, all content after this character
 #'   is ignored.
 #' @param delim Delimiter between lines.
 #' @export
@@ -129,7 +129,3 @@ column_spec <- function(parsers, header = TRUE, na_strings = "NA") {
     class = c("column_spec", "spec")
   )
 }
-
-#' @export
-#' @rdname spec
-whitespace <- function() list("whitespace")

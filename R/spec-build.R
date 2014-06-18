@@ -27,8 +27,12 @@ build_csv_spec <- function(file, parsers = NULL, header = TRUE, quote = '"',
   )
 }
 
-#' @param fields List of character vectors as returned by
-#'   \code{\link{parse_fields}}
+#' Guess which parsers are needed.
+#'
+#' @param fields List of character vectors: each vector represents one
+#'   lines worth of fields.
+#' @export
+#' @keywords internal
 guess_parsers <- function(fields) {
   nfields <- unique(vapply(fields, length, integer(1)))
 

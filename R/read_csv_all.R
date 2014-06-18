@@ -1,5 +1,3 @@
-#' read from multiple compatible csv files
-#' @export
 read_csv_all <- function(files, classes, header = TRUE){
 
   nlines <- cumsum(sapply(files, function(file){
