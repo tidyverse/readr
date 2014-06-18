@@ -6,27 +6,6 @@
 
 using namespace Rcpp;
 
-// parse_line_delimited
-std::vector<std::string> parse_line_delimited(std::string x, std::string delim_ = ",", std::string quote_ = "\"", bool collapse = false, bool backslash_escape = false, bool double_escape = false, bool strict = false);
-RcppExport SEXP fastread_parse_line_delimited(SEXP xSEXP, SEXP delim_SEXP, SEXP quote_SEXP, SEXP collapseSEXP, SEXP backslash_escapeSEXP, SEXP double_escapeSEXP, SEXP strictSEXP) {
-BEGIN_RCPP
-    SEXP __sexp_result;
-    {
-        Rcpp::RNGScope __rngScope;
-        Rcpp::traits::input_parameter< std::string >::type x(xSEXP );
-        Rcpp::traits::input_parameter< std::string >::type delim_(delim_SEXP );
-        Rcpp::traits::input_parameter< std::string >::type quote_(quote_SEXP );
-        Rcpp::traits::input_parameter< bool >::type collapse(collapseSEXP );
-        Rcpp::traits::input_parameter< bool >::type backslash_escape(backslash_escapeSEXP );
-        Rcpp::traits::input_parameter< bool >::type double_escape(double_escapeSEXP );
-        Rcpp::traits::input_parameter< bool >::type strict(strictSEXP );
-        std::vector<std::string> __result = parse_line_delimited(x, delim_, quote_, collapse, backslash_escape, double_escape, strict);
-        PROTECT(__sexp_result = Rcpp::wrap(__result));
-    }
-    UNPROTECT(1);
-    return __sexp_result;
-END_RCPP
-}
 // read_lines
 CharacterVector read_lines(SEXP input, int n = 0);
 RcppExport SEXP fastread_read_lines(SEXP inputSEXP, SEXP nSEXP) {
@@ -84,6 +63,27 @@ BEGIN_RCPP
         Rcpp::RNGScope __rngScope;
         Rcpp::traits::input_parameter< ListOf<CharacterVector> >::type x(xSEXP );
         List __result = flip(x);
+        PROTECT(__sexp_result = Rcpp::wrap(__result));
+    }
+    UNPROTECT(1);
+    return __sexp_result;
+END_RCPP
+}
+// parse_delimited_fields
+std::vector<std::string> parse_delimited_fields(std::string x, std::string delim_ = ",", std::string quote_ = "\"", bool collapse = false, bool backslash_escape = false, bool double_escape = false, bool strict = false);
+RcppExport SEXP fastread_parse_delimited_fields(SEXP xSEXP, SEXP delim_SEXP, SEXP quote_SEXP, SEXP collapseSEXP, SEXP backslash_escapeSEXP, SEXP double_escapeSEXP, SEXP strictSEXP) {
+BEGIN_RCPP
+    SEXP __sexp_result;
+    {
+        Rcpp::RNGScope __rngScope;
+        Rcpp::traits::input_parameter< std::string >::type x(xSEXP );
+        Rcpp::traits::input_parameter< std::string >::type delim_(delim_SEXP );
+        Rcpp::traits::input_parameter< std::string >::type quote_(quote_SEXP );
+        Rcpp::traits::input_parameter< bool >::type collapse(collapseSEXP );
+        Rcpp::traits::input_parameter< bool >::type backslash_escape(backslash_escapeSEXP );
+        Rcpp::traits::input_parameter< bool >::type double_escape(double_escapeSEXP );
+        Rcpp::traits::input_parameter< bool >::type strict(strictSEXP );
+        std::vector<std::string> __result = parse_delimited_fields(x, delim_, quote_, collapse, backslash_escape, double_escape, strict);
         PROTECT(__sexp_result = Rcpp::wrap(__result));
     }
     UNPROTECT(1);
