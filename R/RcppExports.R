@@ -5,7 +5,12 @@ read_lines <- function(input, n = 0L) {
     .Call('fastread_read_lines', PACKAGE = 'fastread', input, n)
 }
 
-count_lines <- function(input, header = TRUE) {
+#' Count the number of lines in a file.
+#'
+#' @param header If \code{TRUE}, subtract one line to account for the
+#'   header.
+#' @export
+count_lines <- function(input, header = FALSE) {
     .Call('fastread_count_lines', PACKAGE = 'fastread', input, header)
 }
 

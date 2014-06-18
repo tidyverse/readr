@@ -23,7 +23,7 @@ BEGIN_RCPP
 END_RCPP
 }
 // count_lines
-int count_lines(SEXP input, bool header = true);
+int count_lines(SEXP input, bool header = false);
 RcppExport SEXP fastread_count_lines(SEXP inputSEXP, SEXP headerSEXP) {
 BEGIN_RCPP
     SEXP __sexp_result;

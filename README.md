@@ -30,3 +30,9 @@ Additionally, through use of custom parsers, you can parse:
 
 * factors
 * flexible date time parsing
+
+## Low-level functions
+
+As well as high-level functions for very efficiently reading in complete files into data frames, fastread also provides a number of lower-level functions. Combining these together won't be quite as efficient as using code that's bundled together at the C++ level (it will have to make a couple more copies of the data), but it gives you a lot of flexibility at the R level.
+
+* `count_lines(file)`: count the number of lines in a file

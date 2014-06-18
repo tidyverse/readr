@@ -4,7 +4,7 @@ using namespace Rcpp ;
 using namespace fastread ;
 
 // [[Rcpp::export]]
-CharacterVector read_lines(SEXP input, int n = 0){ 
+CharacterVector read_lines(SEXP input, int n = 0){
     if( Rf_inherits(input, "connection" ) ){
         ReadConnectionSource<>  source(input);
         LinesReader<ReadConnectionSource<> > reader(source) ;
@@ -17,8 +17,14 @@ CharacterVector read_lines(SEXP input, int n = 0){
     }
 }
 
+
+//' Count the number of lines in a file.
+//'
+//' @param header If \code{TRUE}, subtract one line to account for the
+//'   header.
+//' @export
 // [[Rcpp::export]]
-int count_lines(SEXP input, bool header = true){
+int count_lines(SEXP input, bool header = false){
     if( Rf_inherits(input, "connection" ) ){
         ReadConnectionSource<>  source(input);
         return source.count_lines(header) ;
@@ -33,9 +39,9 @@ int count_lines(SEXP input, bool header = true){
 SEXP parse_text( CharacterVector x, std::string what){
     CharacterVectorSource<> source(x) ;
     int n = x.size() ;
-    VectorInput< CharacterVectorSource<> >* input = 
+    VectorInput< CharacterVectorSource<> >* input =
         make_vector_input< CharacterVectorSource<> >(what, n, source );
-    
+
     for( int i=0; i<n; i++){
         source.more() ;
         input->set(i);
