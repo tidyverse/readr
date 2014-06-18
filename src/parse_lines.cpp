@@ -18,14 +18,23 @@ std::vector<std::string> parse_lines(std::string x,
     stream.ignore(std::numeric_limits<std::streamsize>::max(), line_delim);
   }
 
-  while(stream.good()) {
-    if (stream.peek() == comment_char) {
+  std::string line = "";
+  char c;
+  while((c = stream.get()) && stream.good()) {
+    if (c == line_delim) {
+      out.push_back(line);
+      line = "";
+    } else if (c == comment_char) {
+      out.push_back(line);
+      line = "";
       stream.ignore(std::numeric_limits<std::streamsize>::max(), line_delim);
     } else {
-      std::string line;
-      std::getline(stream, line, line_delim);
-      out.push_back(line);
+      line.push_back(c);
     }
+  }
+
+  if (line != "") {
+    out.push_back(line);
   }
 
   return out;
