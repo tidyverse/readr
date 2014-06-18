@@ -1,25 +1,53 @@
 #' File parsing specification.
 #'
-#' A complete file spec is defined by the combination of line, field and column
-#' specs.
+#' Parsing a delimited file is naturally composed of three pieces:
+#' parsing a file into lines, parsing each line in to fields, then
+#' converting each field into an R vector, forming the columns of a data frame.
+#' Parsing a fixed width file does not decompose in this way, because while
+#' a delimted file is ragged on disk, a fixed width file is a 2d grid.
 #'
-#' @param line spec
-#' @param field spec. If \code{NULL}, only line parsing will be performed.
-#' @param column spec. If \code{NULL}, only line and field parsing will be
-#'   performed.
+#' @param line,field,column Line, field and column specification as created by
+#'   \code{\link{line_spec}}, \code{\link{field_spec}} and \code{column_spec}.
+#' @name file_spec
+NULL
+
 #' @export
-delim_spec <- function(line, field = NULL, column = NULL) {
+#' @rdname file_spec
+delim_spec <- function(line, field, column) {
   structure(
     list(
       line = line,
       field = field,
       column = column
     ),
-    class = c("file_spec", "spec")
+    class = c("delim_spec", "file_spec", "spec")
   )
 }
 
-fwf_spec <- function(parsers = NULL, start, end = NULL) {
+#' @rdname file_spec
+#' @param widths,start,end Either specify the column positions with their
+#'   widths, or by providing start and ending positions.
+#' @export
+fwf_spec <- function(widths = NULL, start = NULL, end = NULL, column = NULL) {
+  ok <- !is.null(widths) && is.null(start) && is.null(end) ||
+        is.null(widths) && !is.null(start) && !is.null(end)
+  if (!ok) {
+    stop("Must supply either widths or both start and end", call. = FALSE)
+  }
+  if (is.null(starts)) {
+    pos <- cumsum(c(0, widths))
+    start <- pos[1]
+    end <- pos[-length(pos)] - 1
+  }
+
+  structure(
+    list(
+      start = start,
+      end = end,
+      column = column
+    ),
+    class = c("fwf_spec", "file_spec", "spec")
+  )
 }
 
 #' Line parsing specification
