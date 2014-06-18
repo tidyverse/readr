@@ -60,12 +60,9 @@ guess_parsers <- function(fields, na_strings = "NA", ignore_whitespace = TRUE) {
     message(var, ": ", selected, others)
     selected
   }
+  names(candidates) <- paste0("X", seq_along(candidates))
 
-  if (is.null(names(fields))) {
-    names(fields) <- paste0("X", seq_along(fields))
-  }
-
-  Map(pick, names(fields), candidates)
+  Map(pick, names(candidates), candidates)
 }
 
 guess_parser <- function(x, na_strings = "NA", ignore_whitespace = FALSE) {
