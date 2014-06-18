@@ -123,17 +123,18 @@ BEGIN_RCPP
 END_RCPP
 }
 // parse_lines
-std::vector<std::string> parse_lines(std::string x, int skip = 0, std::string delim_ = "\n", std::string comment_ = "");
-RcppExport SEXP fastread_parse_lines(SEXP xSEXP, SEXP skipSEXP, SEXP delim_SEXP, SEXP comment_SEXP) {
+std::vector<std::string> parse_lines(std::string x, int skip = 0, int n = 0, std::string delim_ = "\n", std::string comment_ = "");
+RcppExport SEXP fastread_parse_lines(SEXP xSEXP, SEXP skipSEXP, SEXP nSEXP, SEXP delim_SEXP, SEXP comment_SEXP) {
 BEGIN_RCPP
     SEXP __sexp_result;
     {
         Rcpp::RNGScope __rngScope;
         Rcpp::traits::input_parameter< std::string >::type x(xSEXP );
         Rcpp::traits::input_parameter< int >::type skip(skipSEXP );
+        Rcpp::traits::input_parameter< int >::type n(nSEXP );
         Rcpp::traits::input_parameter< std::string >::type delim_(delim_SEXP );
         Rcpp::traits::input_parameter< std::string >::type comment_(comment_SEXP );
-        std::vector<std::string> __result = parse_lines(x, skip, delim_, comment_);
+        std::vector<std::string> __result = parse_lines(x, skip, n, delim_, comment_);
         PROTECT(__sexp_result = Rcpp::wrap(__result));
     }
     UNPROTECT(1);

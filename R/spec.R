@@ -53,15 +53,17 @@ fwf_spec <- function(widths = NULL, start = NULL, end = NULL, column = NULL) {
 #' Line parsing specification
 #'
 #' @param skip Skip this many lines before beginning parsing.
+#' @param n If not 0, parse at most this many lines from the file.
 #' @param comment_char If not \code{""}, all content after this character
 #'   is ignored.
 #' @param delim Delimiter between lines.
 #' @export
-line_spec <- function(skip = 0, comment = "", delim = "\n") {
+line_spec <- function(skip = 0, n = 0, comment = "", delim = "\n") {
   structure(
     list(
       delim = delim,
       skip = skip,
+      n = n,
       comment = comment
     ),
     class = c("line_spec", "spec")
@@ -79,7 +81,7 @@ line_spec <- function(skip = 0, comment = "", delim = "\n") {
 #' @param strict If \code{TRUE}, will throw an error if there are any
 #'   unterminated strings or quotes.
 #' @export
-delimited_field_spec <- function(delim, quote = '"', collapse = FALSE,
+field_spec <- function(delim, quote = '"', collapse = FALSE,
                                  backslash_escape = FALSE,
                                  double_escape = FALSE,
                                  strict = FALSE) {

@@ -5,6 +5,7 @@ using namespace Rcpp;
 // [[Rcpp::export]]
 std::vector<std::string> parse_lines(std::string x,
                                      int skip = 0,
+                                     int n = 0,
                                      std::string delim_ = "\n",
                                      std::string comment_ = "") {
 
@@ -31,6 +32,9 @@ std::vector<std::string> parse_lines(std::string x,
     } else {
       line.push_back(c);
     }
+
+    // Quit if we have enough lines
+    if (n != 0 && out.size() >= n) break;
   }
 
   if (line != "") {

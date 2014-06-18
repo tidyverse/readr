@@ -1,28 +1,30 @@
-#' Read a csv file
+#' Build a spec from a csv file.
 #'
-#' @param file Path to a file, or a connection object.
-#' @inheritParams spec
-read_csv <- function(file, parsers = NULL, header = TRUE,
-                     na_strings = "NA", skip = 0) {
+#' Builds a complete specification to parse a csv file, including guessing
+#' the column parsers if they're not suppled.
+#'
+#' @keywords internal
+#' @export
+#' @inheritParams line_spec
+#' @inheritParams field_spec
+#' @inheritParams column_spec
+build_csv_spec <- function(file, parsers = NULL, header = TRUE, quote = '"',
+                           na_strings = "NA", n = 0, skip = 0,
+                           comment_char = "", double_escape = FALSE,
+                           backslash_escape = FALSE) {
+
   if (is.null(parsers)) {
-    fields <- parse_fields(file, field_delim = ",", header = header,
-      comment_char = comment_char, na_strings = na_strings, skip = skip)
+    lines <- parse_lines(file, skip = skip)
+    fields <- lapply(lines, parse_fields, delim = ",", n = 20)
     parsers <- guess_parsers(fields)
   }
-  spec <- spec(parsers, header = header, comment_char = comment_char,
-    na_strings = na_strings, skip = skip)
 
-  read_with_spec(file, spec)
-}
-
-# This can be relatively slow because we're only processing ~20 rows.
-parse_fields <- function(file, n = 20, field_delim = ",", header = TRUE,
-                         comment_char = "#", na_strings = "NA", skip = 0) {
-  stopifnot(file.exists(file))
-  skip <- skip + header
-
-  parseFields(field, n, fieldDelim = ",", skipLines = skip,
-    commentChar = comment_char, naStrings = na_strings)
+  delim_spec(
+    line_spec(skip = skip, n = n, comment = comment_char),
+    field_spec(delim = ",", quote = quote, double_escape = double_escape,
+      backslash_escape = backslash_escape),
+    column_spec(parsers, header = header, na_strings = na_strings)
+  )
 }
 
 #' @param fields List of character vectors as returned by
