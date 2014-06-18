@@ -5,7 +5,7 @@ using namespace Rcpp;
 // [[Rcpp::export]]
 std::vector<bool> empty_cols(std::string x) {
 
-  std::vector<bool> out;
+  std::vector<bool> is_white;
 
   int col = 0;
   std::istringstream stream(x);
@@ -19,13 +19,13 @@ std::vector<bool> empty_cols(std::string x) {
     col++;
 
     // Make sure there's enough room
-    if (col >= out.size()) {
-      out.resize(col, true);
+    if (col >= is_white.size()) {
+      is_white.resize(col, true);
     }
-    if (!out[col - 1]) continue;
+    if (!is_white[col - 1]) continue;
 
-    if (c != ' ') out[col - 1] = false;
+    if (c != ' ') is_white[col - 1] = false;
   }
 
-  return out;
+  return is_white;
 }
