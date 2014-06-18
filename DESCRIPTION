@@ -8,7 +8,7 @@ Depends:
     R (>= 3.0.2)
 LinkingTo: Rcpp, BH
 Imports:
-    Rcpp (>= 0.11.0),
+    Rcpp (>= 0.11.2),
     methods,
     assertthat
 Suggests:
