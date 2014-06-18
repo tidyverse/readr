@@ -122,9 +122,9 @@ BEGIN_RCPP
     return __sexp_result;
 END_RCPP
 }
-// parse_lines
-std::vector<std::string> parse_lines(std::string x, int skip = 0, int n = 0, std::string delim_ = "\n", std::string comment_ = "");
-RcppExport SEXP fastread_parse_lines(SEXP xSEXP, SEXP skipSEXP, SEXP nSEXP, SEXP delim_SEXP, SEXP comment_SEXP) {
+// parse_lines_from_string
+std::vector<std::string> parse_lines_from_string(std::string x, int skip = 0, int n = 0, std::string delim_ = "\n", std::string comment_ = "");
+RcppExport SEXP fastread_parse_lines_from_string(SEXP xSEXP, SEXP skipSEXP, SEXP nSEXP, SEXP delim_SEXP, SEXP comment_SEXP) {
 BEGIN_RCPP
     SEXP __sexp_result;
     {
@@ -134,7 +134,26 @@ BEGIN_RCPP
         Rcpp::traits::input_parameter< int >::type n(nSEXP );
         Rcpp::traits::input_parameter< std::string >::type delim_(delim_SEXP );
         Rcpp::traits::input_parameter< std::string >::type comment_(comment_SEXP );
-        std::vector<std::string> __result = parse_lines(x, skip, n, delim_, comment_);
+        std::vector<std::string> __result = parse_lines_from_string(x, skip, n, delim_, comment_);
+        PROTECT(__sexp_result = Rcpp::wrap(__result));
+    }
+    UNPROTECT(1);
+    return __sexp_result;
+END_RCPP
+}
+// parse_lines_from_file
+std::vector<std::string> parse_lines_from_file(std::string x, int skip = 0, int n = 0, std::string delim_ = "\n", std::string comment_ = "");
+RcppExport SEXP fastread_parse_lines_from_file(SEXP xSEXP, SEXP skipSEXP, SEXP nSEXP, SEXP delim_SEXP, SEXP comment_SEXP) {
+BEGIN_RCPP
+    SEXP __sexp_result;
+    {
+        Rcpp::RNGScope __rngScope;
+        Rcpp::traits::input_parameter< std::string >::type x(xSEXP );
+        Rcpp::traits::input_parameter< int >::type skip(skipSEXP );
+        Rcpp::traits::input_parameter< int >::type n(nSEXP );
+        Rcpp::traits::input_parameter< std::string >::type delim_(delim_SEXP );
+        Rcpp::traits::input_parameter< std::string >::type comment_(comment_SEXP );
+        std::vector<std::string> __result = parse_lines_from_file(x, skip, n, delim_, comment_);
         PROTECT(__sexp_result = Rcpp::wrap(__result));
     }
     UNPROTECT(1);

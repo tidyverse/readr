@@ -41,8 +41,12 @@ parse_fixed_fields <- function(x, start, end) {
     .Call('fastread_parse_fixed_fields', PACKAGE = 'fastread', x, start, end)
 }
 
-parse_lines <- function(x, skip = 0L, n = 0L, delim_ = "\n", comment_ = "") {
-    .Call('fastread_parse_lines', PACKAGE = 'fastread', x, skip, n, delim_, comment_)
+parse_lines_from_string <- function(x, skip = 0L, n = 0L, delim_ = "\n", comment_ = "") {
+    .Call('fastread_parse_lines_from_string', PACKAGE = 'fastread', x, skip, n, delim_, comment_)
+}
+
+parse_lines_from_file <- function(x, skip = 0L, n = 0L, delim_ = "\n", comment_ = "") {
+    .Call('fastread_parse_lines_from_file', PACKAGE = 'fastread', x, skip, n, delim_, comment_)
 }
 
 read_csv_impl <- function(input, classes, n, header) {
