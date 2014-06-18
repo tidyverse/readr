@@ -6,7 +6,7 @@ using namespace Rcpp;
 std::vector<std::string> parse_line_delimited(
                                         std::string x,
                                         std::string delim_ = ",",
-                                        std::string quote_ = "'",
+                                        std::string quote_ = "\"",
                                         bool collapse = false,
                                         bool backslash_escape = false,
                                         bool double_escape = false,

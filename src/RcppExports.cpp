@@ -7,7 +7,7 @@
 using namespace Rcpp;
 
 // parse_line_delimited
-std::vector<std::string> parse_line_delimited(std::string x, std::string delim_ = ",", std::string quote_ = "'", bool collapse = false, bool backslash_escape = false, bool double_escape = false, bool strict = false);
+std::vector<std::string> parse_line_delimited(std::string x, std::string delim_ = ",", std::string quote_ = "\"", bool collapse = false, bool backslash_escape = false, bool double_escape = false, bool strict = false);
 RcppExport SEXP fastread_parse_line_delimited(SEXP xSEXP, SEXP delim_SEXP, SEXP quote_SEXP, SEXP collapseSEXP, SEXP backslash_escapeSEXP, SEXP double_escapeSEXP, SEXP strictSEXP) {
 BEGIN_RCPP
     SEXP __sexp_result;
