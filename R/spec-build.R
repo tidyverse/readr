@@ -65,3 +65,18 @@ guess_parser <- function(x) {
   # -> character
   "character"
 }
+
+
+top_delim <- function(file, n = 20, quote = "\"",
+                        backslash_escape = FALSE,
+                        double_escape = FALSE) {
+
+  x <- count_char_from_file(file, quote = quote,
+    backslash_escape = backslash_escape, double_escape = double_escape)
+
+  names(x) <- rawToChar(as.raw(names(x)), multiple = TRUE)
+  sort(x, decreasing = TRUE)
+
+  # Look for largest that's multiple of lines
+  # Prefer , over . (unless Europe = TRUE?)
+}

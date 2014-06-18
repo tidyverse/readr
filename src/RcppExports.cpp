@@ -6,6 +6,26 @@
 
 using namespace Rcpp;
 
+// count_char_from_file
+std::map<char,int> count_char_from_file(std::string x, std::string quote_ = "\"", bool backslash_escape = false, bool double_escape = false, bool include_alpha = false, bool include_num = false);
+RcppExport SEXP fastread_count_char_from_file(SEXP xSEXP, SEXP quote_SEXP, SEXP backslash_escapeSEXP, SEXP double_escapeSEXP, SEXP include_alphaSEXP, SEXP include_numSEXP) {
+BEGIN_RCPP
+    SEXP __sexp_result;
+    {
+        Rcpp::RNGScope __rngScope;
+        Rcpp::traits::input_parameter< std::string >::type x(xSEXP );
+        Rcpp::traits::input_parameter< std::string >::type quote_(quote_SEXP );
+        Rcpp::traits::input_parameter< bool >::type backslash_escape(backslash_escapeSEXP );
+        Rcpp::traits::input_parameter< bool >::type double_escape(double_escapeSEXP );
+        Rcpp::traits::input_parameter< bool >::type include_alpha(include_alphaSEXP );
+        Rcpp::traits::input_parameter< bool >::type include_num(include_numSEXP );
+        std::map<char,int> __result = count_char_from_file(x, quote_, backslash_escape, double_escape, include_alpha, include_num);
+        PROTECT(__sexp_result = Rcpp::wrap(__result));
+    }
+    UNPROTECT(1);
+    return __sexp_result;
+END_RCPP
+}
 // empty_cols
 std::vector<bool> empty_cols(std::string x);
 RcppExport SEXP fastread_empty_cols(SEXP xSEXP) {
