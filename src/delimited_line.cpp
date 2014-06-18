@@ -28,6 +28,12 @@ std::vector<std::string> parse_line_delimited(
       }
       out.push_back(field);
       field = "";
+
+      // If the next character is the EOF, then add an empty field
+      if (stream.peek() == EOF) {
+        out.push_back("");
+      }
+
     } else if (c == quote) {
       if (double_escape && stream.peek() == quote) {
         stream.get();

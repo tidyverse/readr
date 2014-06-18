@@ -41,6 +41,12 @@ test_that("in strict mode, errors if escapes or strings unterminated", {
     parse_line_delimited('"a', double_escape = TRUE, strict = TRUE),
     "Unterminated string"
   )
-
 })
 
+test_that("trailing delim leads to empty last value", {
+  expect_equal(parse_line_delimited(","), c("", ""))
+})
+
+test_that("parsing empty string gives length 0 output", {
+  expect_equal(parse_line_delimited(""), character())
+})
