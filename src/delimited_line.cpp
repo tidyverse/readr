@@ -42,10 +42,11 @@ std::vector<std::string> parse_line_delimited(
         in_string = !in_string;
       }
     } else if (backslash_escape && c == '\\') {
-      if (strict && stream.peek() == EOF) {
-        stop("Unterminated escape");
+      if (stream.peek() == EOF) {
+        if (strict) stop("Unterminated escape");
+      } else {
+        field.push_back(stream.get());
       }
-      field.push_back(stream.get());
     } else {
       field.push_back(c);
     }
