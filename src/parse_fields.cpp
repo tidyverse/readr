@@ -60,3 +60,26 @@ std::vector<std::string> parse_delimited_fields(std::string x,
 
   return out;
 }
+
+// [[Rcpp::export]]
+CharacterVector parse_fixed_fields(std::string x,
+                                   IntegerVector start,
+                                   IntegerVector end) {
+  if (start.size() != end.size()) stop("start and end not the same length");
+  int n = start.size();
+
+  CharacterVector out(n);
+  std::istringstream stream(x);
+
+  for (int i = 0; i < n; ++i) {
+    int length = end[i] - start[i] + 1;
+    stream.seekg(start[i] - 1);
+
+    char* field = new char [length];
+    stream.get(field, length);
+
+    out[i] = std::string(field);
+  }
+
+  return out;
+}

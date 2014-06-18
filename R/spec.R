@@ -8,7 +8,7 @@
 #' @param column spec. If \code{NULL}, only line and field parsing will be
 #'   performed.
 #' @export
-file_spec <- function(line, field = NULL, column = NULL) {
+delim_spec <- function(line, field = NULL, column = NULL) {
   structure(
     list(
       line = line,
@@ -17,6 +17,9 @@ file_spec <- function(line, field = NULL, column = NULL) {
     ),
     class = c("file_spec", "spec")
   )
+}
+
+fwf_spec <- function(parsers = NULL, start, end = NULL) {
 }
 
 #' Line parsing specification

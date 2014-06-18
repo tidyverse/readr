@@ -6,6 +6,21 @@
 
 using namespace Rcpp;
 
+// empty_cols
+std::vector<bool> empty_cols(std::string x);
+RcppExport SEXP fastread_empty_cols(SEXP xSEXP) {
+BEGIN_RCPP
+    SEXP __sexp_result;
+    {
+        Rcpp::RNGScope __rngScope;
+        Rcpp::traits::input_parameter< std::string >::type x(xSEXP );
+        std::vector<bool> __result = empty_cols(x);
+        PROTECT(__sexp_result = Rcpp::wrap(__result));
+    }
+    UNPROTECT(1);
+    return __sexp_result;
+END_RCPP
+}
 // read_lines
 CharacterVector read_lines(SEXP input, int n = 0);
 RcppExport SEXP fastread_read_lines(SEXP inputSEXP, SEXP nSEXP) {
@@ -84,6 +99,23 @@ BEGIN_RCPP
         Rcpp::traits::input_parameter< bool >::type double_escape(double_escapeSEXP );
         Rcpp::traits::input_parameter< bool >::type strict(strictSEXP );
         std::vector<std::string> __result = parse_delimited_fields(x, delim_, quote_, collapse, backslash_escape, double_escape, strict);
+        PROTECT(__sexp_result = Rcpp::wrap(__result));
+    }
+    UNPROTECT(1);
+    return __sexp_result;
+END_RCPP
+}
+// parse_fixed_fields
+CharacterVector parse_fixed_fields(std::string x, IntegerVector start, IntegerVector end);
+RcppExport SEXP fastread_parse_fixed_fields(SEXP xSEXP, SEXP startSEXP, SEXP endSEXP) {
+BEGIN_RCPP
+    SEXP __sexp_result;
+    {
+        Rcpp::RNGScope __rngScope;
+        Rcpp::traits::input_parameter< std::string >::type x(xSEXP );
+        Rcpp::traits::input_parameter< IntegerVector >::type start(startSEXP );
+        Rcpp::traits::input_parameter< IntegerVector >::type end(endSEXP );
+        CharacterVector __result = parse_fixed_fields(x, start, end);
         PROTECT(__sexp_result = Rcpp::wrap(__result));
     }
     UNPROTECT(1);
