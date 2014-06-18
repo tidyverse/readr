@@ -32,3 +32,15 @@ test_that("can escape delim if backslash_escape = TRUE", {
   )
 })
 
+test_that("in strict mode, errors if escapes or strings unterminated", {
+  expect_error(
+    parse_line_delimited("a\\", backslash_escape = TRUE, strict = TRUE),
+    "Unterminated escape"
+  )
+  expect_error(
+    parse_line_delimited('"a', double_escape = TRUE, strict = TRUE),
+    "Unterminated string"
+  )
+
+})
+

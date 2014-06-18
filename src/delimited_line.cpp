@@ -29,9 +29,7 @@ std::vector<std::string> parse_line_delimited(
       out.push_back(field);
       field = "";
     } else if (c == quote) {
-      if (double_escape && strict && stream.peek() == EOF) {
-        stop("Unterminated escape");
-      } else if (double_escape && stream.peek() == quote) {
+      if (double_escape && stream.peek() == quote) {
         stream.get();
         field.push_back(quote);
       } else {
