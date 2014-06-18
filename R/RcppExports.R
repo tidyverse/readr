@@ -33,6 +33,10 @@ flip <- function(x) {
     .Call('fastread_flip', PACKAGE = 'fastread', x)
 }
 
+parse_lines <- function(x, skip = 0L, line_delim_ = "\n", comment_char_ = "") {
+    .Call('fastread_parse_lines', PACKAGE = 'fastread', x, skip, line_delim_, comment_char_)
+}
+
 read_csv_impl <- function(input, classes, n, header) {
     .Call('fastread_read_csv_impl', PACKAGE = 'fastread', input, classes, n, header)
 }

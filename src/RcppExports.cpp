@@ -90,6 +90,24 @@ BEGIN_RCPP
     return __sexp_result;
 END_RCPP
 }
+// parse_lines
+std::vector<std::string> parse_lines(std::string x, int skip = 0, std::string line_delim_ = "\n", std::string comment_char_ = "");
+RcppExport SEXP fastread_parse_lines(SEXP xSEXP, SEXP skipSEXP, SEXP line_delim_SEXP, SEXP comment_char_SEXP) {
+BEGIN_RCPP
+    SEXP __sexp_result;
+    {
+        Rcpp::RNGScope __rngScope;
+        Rcpp::traits::input_parameter< std::string >::type x(xSEXP );
+        Rcpp::traits::input_parameter< int >::type skip(skipSEXP );
+        Rcpp::traits::input_parameter< std::string >::type line_delim_(line_delim_SEXP );
+        Rcpp::traits::input_parameter< std::string >::type comment_char_(comment_char_SEXP );
+        std::vector<std::string> __result = parse_lines(x, skip, line_delim_, comment_char_);
+        PROTECT(__sexp_result = Rcpp::wrap(__result));
+    }
+    UNPROTECT(1);
+    return __sexp_result;
+END_RCPP
+}
 // read_csv_impl
 List read_csv_impl(SEXP input, CharacterVector classes, int n, bool header);
 RcppExport SEXP fastread_read_csv_impl(SEXP inputSEXP, SEXP classesSEXP, SEXP nSEXP, SEXP headerSEXP) {
