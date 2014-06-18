@@ -1,8 +1,8 @@
-# Only need to guess elements that aren't already present.
-# Order matters: need to know line_delim, then field_delim, then
-# parsers
-
-read_csv <- function(file, parsers = NULL, header = TRUE, comment_char = "#",
+#' Read a csv file
+#'
+#' @param file Path to a file, or a connection object.
+#' @inheritParams spec
+read_csv <- function(file, parsers = NULL, header = TRUE,
                      na_strings = "NA", skip = 0) {
   if (is.null(parsers)) {
     fields <- parse_fields(file, field_delim = ",", header = header,
