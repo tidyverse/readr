@@ -14,8 +14,10 @@ build_csv_spec <- function(file, parsers = NULL, header = TRUE, quote = '"',
                            backslash_escape = FALSE) {
 
   if (is.null(parsers)) {
-    lines <- parse_lines(file, skip = skip + header, n = 20)
-    fields <- lapply(lines, parse_fields, delim = ",")
+    path <- normalizePath(file)
+    lines <- parse_lines_from_file(path, skip = skip + header, n = 20)
+    if (length(lines) == 0) stop("No lines found in ", file, call. = FALSE)
+    fields <- lapply(lines, parse_delimited_fields, delim = ",")
     parsers <- guess_parsers(fields)
   }
 

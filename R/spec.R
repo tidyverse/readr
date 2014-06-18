@@ -121,10 +121,7 @@ column_spec <- function(parsers, header = TRUE, na_strings = "NA") {
     list(
       parsers = parsers,
       header = header,
-      field_delim = field_delim,
-      comment_char = comment_char,
-      na_strings = na_strings,
-      skip = skip
+      na_strings = na_strings
     ),
     class = c("column_spec", "spec")
   )

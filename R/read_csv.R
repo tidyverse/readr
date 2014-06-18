@@ -22,9 +22,8 @@ read_csv <- function(input, classes, n = 0, header = TRUE, filter_pattern = NULL
 #' @return A data frame with additionanl class \code{"tbl_df"}.
 read_csv <- function(file, parsers = NULL, header = TRUE,
                      na_strings = "NA", ...) {
-  spec <- build_csv_spec(file, parsers, header = header, na_strings = na_strings,
-    ...)
+  spec <- build_csv_spec(file, parsers, header = header,
+    na_strings = na_strings, ...)
 
-  read_with_spec(file, spec)
+  read_with_spec(spec, file)
 }
-
