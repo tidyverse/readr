@@ -3,14 +3,13 @@
 using namespace Rcpp;
 
 // [[Rcpp::export]]
-std::vector<std::string> parse_line_delimited(
-                                        std::string x,
-                                        std::string delim_ = ",",
-                                        std::string quote_ = "\"",
-                                        bool collapse = false,
-                                        bool backslash_escape = false,
-                                        bool double_escape = false,
-                                        bool strict = false) {
+std::vector<std::string> parse_delimited_fields(std::string x,
+                                                std::string delim_ = ",",
+                                                std::string quote_ = "\"",
+                                                bool collapse = false,
+                                                bool backslash_escape = false,
+                                                bool double_escape = false,
+                                                bool strict = false) {
   char delim = delim_[0];
   char quote = quote_[0];
 
