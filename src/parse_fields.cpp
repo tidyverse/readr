@@ -44,6 +44,8 @@ std::vector<std::string> parse_delimited_fields(std::string x,
       if (stream.peek() == EOF) {
         if (strict) stop("Unterminated escape");
       } else {
+        // Push both escape and value.
+        field.push_back(c);
         field.push_back(stream.get());
       }
     } else {

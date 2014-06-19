@@ -21,14 +21,14 @@ test_that("escaped quote doesn't terminate string", {
   )
   expect_equal(
     parse_delimited_fields('a,"b\\"c', backslash_escape = TRUE),
-    c("a", "b\"c")
+    c("a", "b\\\"c")
   )
 })
 
 test_that("can escape delim if backslash_escape = TRUE", {
   expect_equal(
     parse_delimited_fields("a,b\\,c", backslash_escape = TRUE),
-    c("a", "b,c")
+    c("a", "b\\,c")
   )
 })
 
