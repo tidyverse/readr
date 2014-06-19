@@ -6,6 +6,7 @@ bool is_double(std::string x) {
   char* end;
 
   strtod(start, &end);
+  // parsed to end of string and no errors
   return (end == start + x.size()) && (errno == 0);
 }
 
