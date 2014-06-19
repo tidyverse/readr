@@ -29,8 +29,8 @@ read_lines <- function(input, n = 0L) {
 #' @param header If \code{TRUE}, subtract one line to account for the
 #'   header.
 #' @export
-count_lines <- function(input, header = FALSE) {
-    .Call('fastread_count_lines', PACKAGE = 'fastread', input, header)
+count_lines <- function(input) {
+    .Call('fastread_count_lines', PACKAGE = 'fastread', input)
 }
 
 parse_text <- function(x, what) {

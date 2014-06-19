@@ -2,7 +2,7 @@
 #define FASTREAD_FASTREAD_H
 
 #include <Rcpp.h>
-using namespace Rcpp; 
+using namespace Rcpp;
 
 #include <sys/mman.h>
 #include <sys/stat.h>
@@ -32,7 +32,6 @@ using namespace Rcpp;
 #include <fastread/get_int_naive.h>
 #include <fastread/VectorInput.h>
 
-#include <fastread/DataReader.h>
 #include <fastread/LinesReader.h>
 
 #endif

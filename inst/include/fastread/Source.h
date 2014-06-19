@@ -2,86 +2,86 @@
 #define FASTREAD_Source_H
 
 namespace fastread {
-      
-    template <typename Class, 
-        typename LinePolicy = KeepAllLines, 
+
+    template <typename Class,
+        typename LinePolicy = KeepAllLines,
         typename SeparatorPolicy = SingleCharacterSeparator
     >
     class Source {
     public:
-        
-        Source( 
-            LinePolicy line_policy_ = LinePolicy(), 
+
+        Source(
+            LinePolicy line_policy_ = LinePolicy(),
             SeparatorPolicy sep_policy_ = SeparatorPolicy()
-        ) : 
+        ) :
             quote('"'), esc('\\'), inquote(false), line_policy(line_policy_), sep_policy(sep_policy_)
         {}
-        
-        inline void set(char* p_, char* end_){ 
+
+        inline void set(char* p_, char* end_){
             p = p_ ; end = end_ ;
         }
-        inline char* get(){ 
-            return p ; 
+        inline char* get(){
+            return p ;
         }
-        
+
         void skip(){
-            move_until_next_token_start(); 
+            move_until_next_token_start();
         }
-        
+
         void skip_line(){
             move_until_next_line() ;
         }
-        
+
         SEXP get_line(){
-            char* q = p; 
-            return Rf_mkCharLen(q, move_until_next_line());    
+            char* q = p;
+            return Rf_mkCharLen(q, move_until_next_line());
         }
-        
+
         int get_int(){
             int res = get_int_naive();
             move_until_next_token_start() ;
             return res ;
         }
-        
+
         SEXP get_String(){
             char* q = p ;
             int len = move_until_next_token_start() ;
-            
+
             // skip initial quote
             if( *q == quote ){
                 len-- ;
                 q++ ;
             }
-            
+
             // skip end quote
             if( q[len-1] == quote ){
-                len-- ;    
+                len-- ;
             }
-            
+
             // check if there are double quotes
             for( int i=0; i<len-1; i++){
                 if( q[i] == '"' && q[i+1] == '"' ){
                     // found a double quote. so we need to escape it : "" -> \"
-                    
+
                     std::string buffer(q, q+len) ;
                     buffer.erase( i, 1 ) ;
-                    
+
                     size_t pos = i + 1;
                     while( ( pos = buffer.find( "\"\"", pos ) ) != std::string::npos){
-                        buffer.erase( pos, 1 ) ; 
+                        buffer.erase( pos, 1 ) ;
                     }
-                    
+
                     return Rf_mkCharLen( buffer.data(), buffer.size() ) ;
-                    
+
                 }
             }
-            
+
             // double quotes not found
             SEXP res = Rf_mkCharLen( q, len ) ;
-            
+
             return res ;
         }
-        
+
         double get_double(){
             using boost::spirit::qi::double_;
             using boost::spirit::qi::parse;
@@ -91,28 +91,28 @@ namespace fastread {
             parse( q, q + move_until_next_token_start(), double_, res ) ;
             return res ;
         }
-        
-        inline int count_lines(bool header) {
-            int res = count_lines__impl( header, typename Rcpp::traits::same_type< LinePolicy, KeepAllLines >::type() ) ;
+
+        inline int count_lines() {
+            int res = count_lines__impl(typename Rcpp::traits::same_type< LinePolicy, KeepAllLines >::type() ) ;
             line_policy.reset() ;
             return res ;
         }
-        
+
         double get_Date_Ymd(){
-            char* start = p ; 
-            return date_time_parser.parse_Date(start, start + move_until_next_token_start() ) ; 
+            char* start = p ;
+            return date_time_parser.parse_Date(start, start + move_until_next_token_start() ) ;
         }
-        
+
         double get_POSIXct(){
-            char* start = p ; 
-            return date_time_parser.parse_POSIXct(start, start + move_until_next_token_start() ) ; 
+            char* start = p ;
+            return date_time_parser.parse_POSIXct(start, start + move_until_next_token_start() ) ;
         }
-        
+
         double get_Time(){
-            char* start = p ; 
+            char* start = p ;
             return date_time_parser.parse_Time(start, start + move_until_next_token_start() ) ;
         }
-        
+
         char* p ;
         char* end ;
         DateTimeParser<Class> date_time_parser ;
@@ -120,54 +120,29 @@ namespace fastread {
         bool inquote ;
         LinePolicy line_policy ;
         SeparatorPolicy sep_policy ;
-        
-        CharacterVector get_headers(int nc, bool header){
-            if( p == end ) more() ;
-            CharacterVector out(nc) ;
-            if(header){
-                for( int i=0; i<nc; i++){
-                    out[i] = get_String();     
-                }
-                return out ;
-            } else {
-                for( int i=0; i<nc; i++){
-                    String V("V") ; V += (i+1) ;
-                    out[i] = V ;
-                }
-                on_newline() ;
-            }
-            return out ;
-        }
-        
+
     private:
-        
-        // fast implementation of count lines as there is no need to 
+
+        // fast implementation of count lines as there is no need to
         // ask the line policy if we keep the line
-        int count_lines__impl( bool header, Rcpp::traits::true_type ){
+        int count_lines__impl(Rcpp::traits::true_type ){
             int n = 0 ;
             if( p == end ) more() ;
-            
+
             // skip the first line if necessary
-            if( header ) {
-                p = std::find( p, end, '\n' ) + 1 ;
-            }
             while(true){
                 n += std::count( p, end, '\n' ) ;
                 p = end ;
-                if( !more() ) break ;    
+                if( !more() ) break ;
             }
-            return n ;            
+            return n ;
         }
-        
+
         // for each line, we need to ask to the line policy if we keep the line
-        int count_lines__impl( bool header, Rcpp::traits::false_type ){
+        int count_lines__impl(Rcpp::traits::false_type ){
             int n = 0 ;
             if( p == end ) more() ;
-            
-            // skip the first line
-            if( header ){
-                p = std::find(p, end, '\n' ) + 1;
-            }
+
             while(true){
                 char* q = p ;
                 while( q < end ){
@@ -177,35 +152,35 @@ namespace fastread {
                     }
                 }
                 p = end ;
-                if( !more() ) break ;    
+                if( !more() ) break ;
             }
-            return n ;        
+            return n ;
         }
-        
+
         bool more(){
             return static_cast<Class&>(*this).more() ;
         }
-        
+
         bool ensure_full_line(){
-            return static_cast<Class&>(*this).ensure_full_line() ;    
+            return static_cast<Class&>(*this).ensure_full_line() ;
         }
-            
+
         inline bool valid_digit(){
             return *p >= '0' && *p <= '9' ;
         }
-        
+
         inline int digit_value(){
-            return *p - '0' ;    
+            return *p - '0' ;
         }
-        
+
         inline int get_int_naive() {
             int sign, value ;
-        
+
             // Skip leading white space, if any.
             while ( *p == ' ' || *p == '"' || *p == '\'') {
                 ++p ;
             }
-        
+
             // Get sign, if any.
             sign = 1;
             if (*p == '-') {
@@ -214,22 +189,22 @@ namespace fastread {
             } else if (*p == '+') {
                 ++p ;
             }
-        
+
             // Get digits before decimal point or exponent, if any.
             for (value = 0; valid_digit(); ++p ) {
                 value = value * 10 + digit_value() ;
             }
-        
+
             return sign * value ;
         }
-        
+
         inline void on_newline(){
-            ensure_full_line();                
+            ensure_full_line();
             if( !line_policy.keep_line(p) ) {
                 move_until_next_line() ;
-            }        
+            }
         }
-        
+
         int move_until_next_token_start(){
             char next;
             int len = 0 ;
@@ -241,11 +216,11 @@ namespace fastread {
                         ++p ; len++ ;
                     } else if( next == quote ){
                         // ending the quote
-                        inquote = false ; 
-                    } 
+                        inquote = false ;
+                    }
                 } else {
                     if( next == quote ){
-                        // entering a quote                                                      
+                        // entering a quote
                         inquote = true ;
                     } else if( sep_policy.is_sep(next) ){
                         break ;
@@ -254,16 +229,16 @@ namespace fastread {
                         on_newline() ;
                         break ;
                     } else if( next == '\r' && *p == '\n' ){
-                        p++; 
+                        p++;
                         on_newline() ;
-                        break ;    
+                        break ;
                     }
                 }
                 len++ ;
             }
             return len ;
         }
-        
+
         int move_until_next_line(){
             char next;
             int len = 0 ;
@@ -272,18 +247,18 @@ namespace fastread {
                 if( next == '\n' ){
                     break ;
                 } else if( next == '\r' && *p == '\n' ){
-                    p++; 
-                    break ;    
+                    p++;
+                    break ;
                 }
                 len++ ;
             }
             if( p < end ) on_newline() ;
             return len ;
         }
-        
+
     } ;
-    
-        
+
+
 }
 
 #endif

@@ -2,12 +2,23 @@
 #include <fastread.h>
 using namespace Rcpp;
 
+template <typename Source>
+int source_count_lines(Source& source) {
+  if (!source.can_seek()) stop("cannot seek");
+
+  double pos = source.byte_offset();
+  int n = source.count_lines();
+  source.seek(pos);
+
+  return n;
+}
+
 template<typename Source>
 List read_csv(Source source, CharacterVector classes,
               CharacterVector col_names, int n = 0, int skip = 0) {
 
     if (n <= 0)
-      n = fastread::source_count_lines(source, false) - skip;
+      n = source_count_lines(source) - skip;
     for (int i = 0; i < skip; ++i)
       source.skip_line();
 
