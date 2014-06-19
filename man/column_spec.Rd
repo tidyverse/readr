@@ -10,19 +10,19 @@ column_spec(parsers, col_names, na_strings = "NA")
   into an R data frame. If \code{NULL}, \code{\link{guess_parsers}()} will
   do its best to print the correct format.
 
-  Optionally, \code{parsers} can be a named list. If \code{header = TRUE},
-  then parsers will be matched to column names, and any unmatched columns
-  will not be included in the output. If \code{header = FALSE}, the names
-  be used to name the output columns, and there must be one parser per
-  column.}
+  The elements of \code{parsers} can be named to match the columns. Any
+  columns not included will not be included in the output data frame.}
 
-\item{header}{Does the first line of the file specify column names?
-If \code{TRUE}, the first row will be used to define column
-names. If \code{FALSE}, columns will be named given names X1-Xn, unless
-\code{parsers} is a named list.}
+\item{col_names}{A character vector naming the columns.}
 
 \item{na_strings}{A character vector of providing strings which should be
 converted to NA in R.}
+}
+\value{
+A list:
+\item{parsers}{A list of parsers, in the same order as col_names}
+\item{col_names}{}
+\item{na_strings}{}
 }
 \description{
 Column parsign specification.

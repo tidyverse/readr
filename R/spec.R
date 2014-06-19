@@ -103,19 +103,35 @@ field_spec <- function(delim, quote = '"', collapse = FALSE,
 #'   into an R data frame. If \code{NULL}, \code{\link{guess_parsers}()} will
 #'   do its best to print the correct format.
 #'
-#'   Optionally, \code{parsers} can be a named list. If \code{header = TRUE},
-#'   then parsers will be matched to column names, and any unmatched columns
-#'   will not be included in the output. If \code{header = FALSE}, the names
-#'   be used to name the output columns, and there must be one parser per
-#'   column.
-#' @param header Does the first line of the file specify column names?
-#'   If \code{TRUE}, the first row will be used to define column
-#'   names. If \code{FALSE}, columns will be named given names X1-Xn, unless
-#'   \code{parsers} is a named list.
+#'   The elements of \code{parsers} can be named to match the columns. Any
+#'   columns not included will not be included in the output data frame.
+#' @param col_names A character vector naming the columns.
 #' @param na_strings A character vector of providing strings which should be
 #'   converted to NA in R.
+#' @return A list:
+#' \item{parsers}{A list of parsers, in the same order as col_names}
+#' \item{col_names}{}
+#' \item{na_strings}{}
 #' @export
 column_spec <- function(parsers, col_names, na_strings = "NA") {
+  if (is.null(names(parsers))) {
+    if (length(parsers) != length(col_names)) {
+      stop("Unnamed parsers must have the same length as col_names",
+        call. = FALSE)
+    }
+  } else {
+    bad_names <- setdiff(names(parsers), col_names)
+    if (length(bad_names) > 0) {
+      stop("The following named parsers don't match the column names: ",
+        paste0(bad_names, collapse = ", "), call. = FALSE)
+    }
+
+    skip <- setdiff(col_names, names(parsers))
+    parsers[skip] <- rep(list("skip"), length(skip))
+
+    parsers <- parsers[match(names(parsers), col_names)]
+  }
+
   structure(
     list(
       parsers = parsers,

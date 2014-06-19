@@ -21,11 +21,10 @@ build_csv_spec(file, parsers = NULL, col_names = TRUE,
   into an R data frame. If \code{NULL}, \code{\link{guess_parsers}()} will
   do its best to print the correct format.
 
-  Optionally, \code{parsers} can be a named list. If \code{header = TRUE},
-  then parsers will be matched to column names, and any unmatched columns
-  will not be included in the output. If \code{header = FALSE}, the names
-  be used to name the output columns, and there must be one parser per
-  column.}
+  The elements of \code{parsers} can be named to match the columns. Any
+  columns not included will not be included in the output data frame.}
+
+\item{col_names}{A character vector naming the columns.}
 
 \item{na_strings}{A character vector of providing strings which should be
 converted to NA in R.}

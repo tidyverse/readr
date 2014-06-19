@@ -26,7 +26,7 @@ build_csv_spec <- function(file, parsers = NULL, col_names = TRUE, quote = '"',
   }
 
   delim_spec(
-    line_spec(skip = skip, n = n, comment = comment_char),
+    line_spec(skip = skip + header, n = n, comment = comment_char),
     field_spec(delim = ",", quote = quote, double_escape = double_escape,
       backslash_escape = backslash_escape),
     col_spec
