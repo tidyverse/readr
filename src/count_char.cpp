@@ -56,3 +56,14 @@ std::map<char,int> count_char_from_file(std::string x, std::string quote_ = "\""
     include_alpha, include_num);
 }
 
+// [[Rcpp::export]]
+std::map<char,int> count_char_from_string(std::string x, std::string quote_ = "\"",
+                                          bool backslash_escape = false,
+                                          bool double_escape = false,
+                                          bool include_alpha = false,
+                                          bool include_num = false) {
+
+  std::istringstream stream(x);
+  return count_char(stream, quote_, backslash_escape, double_escape,
+    include_alpha, include_num);
+}

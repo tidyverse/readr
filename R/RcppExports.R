@@ -5,6 +5,10 @@ count_char_from_file <- function(x, quote_ = "\"", backslash_escape = FALSE, dou
     .Call('fastread_count_char_from_file', PACKAGE = 'fastread', x, quote_, backslash_escape, double_escape, include_alpha, include_num)
 }
 
+count_char_from_string <- function(x, quote_ = "\"", backslash_escape = FALSE, double_escape = FALSE, include_alpha = FALSE, include_num = FALSE) {
+    .Call('fastread_count_char_from_string', PACKAGE = 'fastread', x, quote_, backslash_escape, double_escape, include_alpha, include_num)
+}
+
 empty_cols <- function(x) {
     .Call('fastread_empty_cols', PACKAGE = 'fastread', x)
 }
