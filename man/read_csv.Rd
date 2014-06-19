@@ -3,7 +3,7 @@
 \alias{read_csv}
 \title{Read a csv file}
 \usage{
-read_csv(file, parsers = NULL, header = TRUE, na_strings = "NA", ...)
+read_csv(file, parsers = NULL, col_names = TRUE, na_strings = "NA", ...)
 }
 \arguments{
 \item{file}{Path to a file, or a connection object.}
@@ -13,11 +13,11 @@ These are not normally necessary, but you may need them if you have
 an unusually formatted csv file.}
 
 \item{parsers}{A list of parsers used to control how each column is turned
-  into an R data frame. If \code{NULL}, \code{\link{guess_parsers}()} will
-  do its best to print the correct format.
+into an R data frame. The elements of \code{parsers} can be named to match
+the columns. Any columns not included will not be included in the output
+data frame.}
 
-  The elements of \code{parsers} can be named to match the columns. Any
-  columns not included will not be included in the output data frame.}
+\item{col_names}{A character vector naming the columns.}
 
 \item{na_strings}{A character vector of providing strings which should be
 converted to NA in R.}

@@ -20,9 +20,9 @@ read_csv <- function(input, classes, n = 0, header = TRUE, filter_pattern = NULL
 #'   an unusually formatted csv file.
 #' @export
 #' @return A data frame with additionanl class \code{"tbl_df"}.
-read_csv <- function(file, parsers = NULL, header = TRUE,
+read_csv <- function(file, parsers = NULL, col_names = TRUE,
                      na_strings = "NA", ...) {
-  spec <- build_csv_spec(file, parsers, header = header,
+  spec <- build_csv_spec(file, parsers, col_names = col_names,
     na_strings = na_strings, ...)
 
   read_with_spec(spec, file)

@@ -100,11 +100,9 @@ field_spec <- function(delim, quote = '"', collapse = FALSE,
 #' Column parsign specification.
 #'
 #' @param parsers A list of parsers used to control how each column is turned
-#'   into an R data frame. If \code{NULL}, \code{\link{guess_parsers}()} will
-#'   do its best to print the correct format.
-#'
-#'   The elements of \code{parsers} can be named to match the columns. Any
-#'   columns not included will not be included in the output data frame.
+#'   into an R data frame. The elements of \code{parsers} can be named to match
+#'   the columns. Any columns not included will not be included in the output
+#'   data frame.
 #' @param col_names A character vector naming the columns.
 #' @param na_strings A character vector of providing strings which should be
 #'   converted to NA in R.

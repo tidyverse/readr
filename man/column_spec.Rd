@@ -7,11 +7,9 @@ column_spec(parsers, col_names, na_strings = "NA")
 }
 \arguments{
 \item{parsers}{A list of parsers used to control how each column is turned
-  into an R data frame. If \code{NULL}, \code{\link{guess_parsers}()} will
-  do its best to print the correct format.
-
-  The elements of \code{parsers} can be named to match the columns. Any
-  columns not included will not be included in the output data frame.}
+into an R data frame. The elements of \code{parsers} can be named to match
+the columns. Any columns not included will not be included in the output
+data frame.}
 
 \item{col_names}{A character vector naming the columns.}
 
