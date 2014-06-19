@@ -82,9 +82,8 @@ line_spec <- function(skip = 0, n = 0, comment = "", delim = "\n") {
 #'   unterminated strings or quotes.
 #' @export
 field_spec <- function(delim, quote = '"', collapse = FALSE,
-                                 backslash_escape = FALSE,
-                                 double_escape = FALSE,
-                                 strict = FALSE) {
+                       backslash_escape = FALSE, double_escape = FALSE,
+                       strict = FALSE) {
   structure(
     list(
       delim = delim,
@@ -116,11 +115,11 @@ field_spec <- function(delim, quote = '"', collapse = FALSE,
 #' @param na_strings A character vector of providing strings which should be
 #'   converted to NA in R.
 #' @export
-column_spec <- function(parsers, header = TRUE, na_strings = "NA") {
+column_spec <- function(parsers, col_names, na_strings = "NA") {
   structure(
     list(
       parsers = parsers,
-      header = header,
+      col_names = col_names,
       na_strings = na_strings
     ),
     class = c("column_spec", "spec")

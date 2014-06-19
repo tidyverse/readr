@@ -3,7 +3,7 @@
 \alias{build_csv_spec}
 \title{Build a spec from a csv file.}
 \usage{
-build_csv_spec(file, parsers = NULL, header = TRUE,
+build_csv_spec(file, parsers = NULL, col_names = TRUE,
   quote = "\\"", na_strings = "NA", n = 0, skip = 0, comment_char = "", double_escape = FALSE, backslash_escape = FALSE)
 }
 \arguments{
@@ -26,11 +26,6 @@ build_csv_spec(file, parsers = NULL, header = TRUE,
   will not be included in the output. If \code{header = FALSE}, the names
   be used to name the output columns, and there must be one parser per
   column.}
-
-\item{header}{Does the first line of the file specify column names?
-If \code{TRUE}, the first row will be used to define column
-names. If \code{FALSE}, columns will be named given names X1-Xn, unless
-\code{parsers} is a named list.}
 
 \item{na_strings}{A character vector of providing strings which should be
 converted to NA in R.}

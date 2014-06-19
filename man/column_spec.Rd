@@ -3,7 +3,7 @@
 \alias{column_spec}
 \title{Column parsign specification.}
 \usage{
-column_spec(parsers, header = TRUE, na_strings = "NA")
+column_spec(parsers, col_names, na_strings = "NA")
 }
 \arguments{
 \item{parsers}{A list of parsers used to control how each column is turned

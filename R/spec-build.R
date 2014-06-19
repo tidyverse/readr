@@ -8,24 +8,28 @@
 #' @inheritParams line_spec
 #' @inheritParams field_spec
 #' @inheritParams column_spec
-build_csv_spec <- function(file, parsers = NULL, header = TRUE, quote = '"',
+build_csv_spec <- function(file, parsers = NULL, col_names = TRUE, quote = '"',
                            na_strings = "NA", n = 0, skip = 0,
                            comment_char = "", double_escape = FALSE,
                            backslash_escape = FALSE) {
 
-  if (is.null(parsers)) {
+  if (is.null(parsers) || isTRUE(col_names) || isFALSE(col_names)) {
     path <- normalizePath(file)
-    lines <- parse_lines_from_file(path, skip = skip + header, n = 20)
+    lines <- parse_lines_from_file(path, skip = skip, n = 20)
     if (length(lines) == 0) stop("No lines found in ", file, call. = FALSE)
     fields <- lapply(lines, parse_delimited_fields, delim = ",")
-    parsers <- guess_parsers(fields)
+    col_spec <- guess_column_spec(fields, parsers = parsers,
+      col_names = col_names, na_strings = na_strings)
+  } else {
+    col_spec <- column_spec(parsers, col_names = col_names,
+      na_strings = na_strings)
   }
 
   delim_spec(
     line_spec(skip = skip, n = n, comment = comment_char),
     field_spec(delim = ",", quote = quote, double_escape = double_escape,
       backslash_escape = backslash_escape),
-    column_spec(parsers, header = header, na_strings = na_strings)
+    col_spec
   )
 }
 
@@ -41,35 +45,61 @@ build_csv_spec <- function(file, parsers = NULL, header = TRUE, quote = '"',
 #'   lines worth of fields.
 #' @export
 #' @keywords internal
-guess_parsers <- function(fields, na_strings = "NA", ignore_whitespace = TRUE) {
-  nfields <- unique(vapply(fields, length, integer(1)))
+guess_column_spec <- function(fields, parsers = NULL, col_names = TRUE,
+                              na_strings = "NA", ignore_whitespace = TRUE) {
 
+  message("Guessing column specification from first ", length(fields),
+    " lines of data")
+
+  nfields <- unique(vapply(fields, length, integer(1)))
   if (length(nfields) != 1) {
     stop("Lines do not have the same number of fields: ",
       paste(nfields, collapse = ", "), collapse = ",")
   }
 
-  candidates <- lapply(flip(fields), guess_parser, na_strings = na_strings,
-    ignore_whitespace = ignore_whitespace)
-
-  pick <- function(var, parsers) {
-    selected <- parsers[1]
-    others <- if (length(parsers) > 1)
-      paste0(" (also valid: ", paste0(parsers[-1], collapse = ", "), ")")
-
-    message(var, ": ", selected, others)
-    selected
+  cols <- flip(fields)
+  if (isTRUE(col_names)) {
+    col_names <- str_trim(vpluck(cols, 1))
+    cols <- lapply(cols, "[", -1)
+    message("Reading column names from file:",
+      paste0(col_names, collapse = ", "))
+  } else if (isFALSE(col_names)) {
+    col_names <- paste0("X", seq_along(cols))
+    message("No column names in file, using X1-X", length(cols))
+  } else {
+    if (!is.character(col_names))
+      stop("col_names must be a character vector", call. = FALSE)
+    if (length(col_names) != length(cols))
+      stop("col_names must be same length as columns (", length(cols), ")",
+        call. = FALSE)
   }
-  names(candidates) <- paste0("X", seq_along(candidates))
+  names(cols) <- col_names
 
-  Map(pick, names(candidates), candidates)
+  if (is.null(parsers)) {
+    message("Guessing how to parse each column")
+    candidates <- lapply(cols, guess_parser, na_strings = na_strings,
+      ignore_whitespace = ignore_whitespace)
+
+    pick <- function(var, parsers) {
+      selected <- parsers[1]
+      others <- if (length(parsers) > 1)
+        paste0(" (also valid: ", paste0(parsers[-1], collapse = ", "), ")")
+
+      message(var, ": ", selected, others)
+      selected
+    }
+
+    parsers <- Map(pick, names(candidates), candidates)
+  }
+
+  column_spec(parsers, col_names, na_strings = na_strings)
 }
 
-guess_parser <- function(x, na_strings = "NA", ignore_whitespace = FALSE) {
+guess_parser <- function(x, na_strings = "NA", ignore_whitespace = TRUE) {
   if (ignore_whitespace) {
-    x <- gsub("^\\s+|\\s+$", "", x)
+    x <- str_trim(x)
   }
-  x <- setdiff(x, na_strings)
+  x <- setdiff(x, c(na_strings, ""))
 
   coercible <- list(
     logical = function(x) all(x %in% c("TRUE", "FALSE", "T", "F")),
