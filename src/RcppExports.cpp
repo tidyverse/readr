@@ -230,9 +230,9 @@ BEGIN_RCPP
     return __sexp_result;
 END_RCPP
 }
-// read_csv
-List read_csv(std::string path, CharacterVector classes, CharacterVector col_names, int n = 0, int skip = 0);
-RcppExport SEXP fastread_read_csv(SEXP pathSEXP, SEXP classesSEXP, SEXP col_namesSEXP, SEXP nSEXP, SEXP skipSEXP) {
+// read_csv_from_file
+List read_csv_from_file(std::string path, CharacterVector classes, CharacterVector col_names, int n = 0, int skip = 0);
+RcppExport SEXP fastread_read_csv_from_file(SEXP pathSEXP, SEXP classesSEXP, SEXP col_namesSEXP, SEXP nSEXP, SEXP skipSEXP) {
 BEGIN_RCPP
     SEXP __sexp_result;
     {
@@ -242,7 +242,26 @@ BEGIN_RCPP
         Rcpp::traits::input_parameter< CharacterVector >::type col_names(col_namesSEXP );
         Rcpp::traits::input_parameter< int >::type n(nSEXP );
         Rcpp::traits::input_parameter< int >::type skip(skipSEXP );
-        List __result = read_csv(path, classes, col_names, n, skip);
+        List __result = read_csv_from_file(path, classes, col_names, n, skip);
+        PROTECT(__sexp_result = Rcpp::wrap(__result));
+    }
+    UNPROTECT(1);
+    return __sexp_result;
+END_RCPP
+}
+// read_csv_from_connection
+List read_csv_from_connection(SEXP conn, CharacterVector classes, CharacterVector col_names, int n = 0, int skip = 0);
+RcppExport SEXP fastread_read_csv_from_connection(SEXP connSEXP, SEXP classesSEXP, SEXP col_namesSEXP, SEXP nSEXP, SEXP skipSEXP) {
+BEGIN_RCPP
+    SEXP __sexp_result;
+    {
+        Rcpp::RNGScope __rngScope;
+        Rcpp::traits::input_parameter< SEXP >::type conn(connSEXP );
+        Rcpp::traits::input_parameter< CharacterVector >::type classes(classesSEXP );
+        Rcpp::traits::input_parameter< CharacterVector >::type col_names(col_namesSEXP );
+        Rcpp::traits::input_parameter< int >::type n(nSEXP );
+        Rcpp::traits::input_parameter< int >::type skip(skipSEXP );
+        List __result = read_csv_from_connection(conn, classes, col_names, n, skip);
         PROTECT(__sexp_result = Rcpp::wrap(__result));
     }
     UNPROTECT(1);

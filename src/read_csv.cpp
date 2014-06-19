@@ -2,11 +2,9 @@
 #include <fastread.h>
 using namespace Rcpp;
 
-// [[Rcpp::export]]
-List read_csv(std::string path, CharacterVector classes,
+template<typename Source>
+List read_csv(Source source, CharacterVector classes,
               CharacterVector col_names, int n = 0, int skip = 0) {
-
-    fastread::MMapSource<> source(path);
 
     if (n <= 0)
       n = fastread::source_count_lines(source, false) - skip;
@@ -18,10 +16,10 @@ List read_csv(std::string path, CharacterVector classes,
     int src_cols = classes.size();
     int dst_cols = 0;
 
-    std::vector<fastread::VectorInput<fastread::MMapSource<> >*> parsers;
+    std::vector<fastread::VectorInput<Source>*> parsers;
     for(int i = 0; i < src_cols; ++i){
       String cl = classes[i];
-      parsers.push_back(fastread::make_vector_input<fastread::MMapSource<> >(cl, n, source));
+      parsers.push_back(fastread::make_vector_input<Source>(cl, n, source));
       if (!parsers[i]->skip()) dst_cols++;
     }
 
@@ -53,4 +51,20 @@ List read_csv(std::string path, CharacterVector classes,
     }
 
     return out;
+}
+
+// [[Rcpp::export]]
+List read_csv_from_file(std::string path, CharacterVector classes,
+                        CharacterVector col_names, int n = 0, int skip = 0) {
+
+    fastread::MMapSource<> source(path);
+    return read_csv(source, classes, col_names, n, skip);
+}
+
+// [[Rcpp::export]]
+List read_csv_from_connection(SEXP conn, CharacterVector classes,
+                        CharacterVector col_names, int n = 0, int skip = 0) {
+
+    fastread::ReadConnectionSource<> source(conn);
+    return read_csv(source, classes, col_names, n, skip);
 }
