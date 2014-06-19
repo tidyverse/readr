@@ -1,3 +1,5 @@
 ^\.travis\.yml$
 ^.*\.Rproj$
 ^\.Rproj\.user$
+^bench$
+^resources\.txt$
