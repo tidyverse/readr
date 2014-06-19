@@ -65,12 +65,8 @@ parse_lines_from_file <- function(x, skip = 0L, n = 0L, delim_ = "\n", comment_ 
     .Call('fastread_parse_lines_from_file', PACKAGE = 'fastread', x, skip, n, delim_, comment_)
 }
 
-read_csv_impl <- function(input, classes, n, header) {
-    .Call('fastread_read_csv_impl', PACKAGE = 'fastread', input, classes, n, header)
-}
-
-read_csv_impl_filter_pattern <- function(input, classes, n, header, filter_pattern) {
-    .Call('fastread_read_csv_impl_filter_pattern', PACKAGE = 'fastread', input, classes, n, header, filter_pattern)
+read_csv <- function(path, classes, col_names, n = 0L, skip = 0L) {
+    .Call('fastread_read_csv', PACKAGE = 'fastread', path, classes, col_names, n, skip)
 }
 
 #' Read file in a single string

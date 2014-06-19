@@ -237,29 +237,29 @@ namespace fastread {
 
     template <typename Source>
     VectorInput<Source>* make_vector_input( const std::string& clazz, int n, Source& source ){
-        if( clazz == "integer" ) return new VectorInput_Integer<Source>(n, &source) ;
-        if( clazz == "double"  ) return new VectorInput_Double<Source>(n, &source) ;
-        if( clazz == "string"  ) return new VectorInput_String<Source>(n, &source) ;
-        if( clazz == "skip"    ) return new VectorInput_Skip<Source>(n, &source) ;
-        if( clazz == "factor"  ) return new VectorInput_Factor<Source>(n, &source) ;
-        if( clazz == "Date"    ) return new VectorInput_Date_ymd<Source>(n, &source) ;
-        if( clazz == "POSIXct" ) return new VectorInput_POSIXct<Source>(n, &source) ;
-        if( clazz == "Time"    ) return new VectorInput_Time<Source>(n, &source) ;
-        stop( "unsupported" ) ;
+        if( clazz == "integer"   ) return new VectorInput_Integer<Source>(n, &source) ;
+        if( clazz == "double"    ) return new VectorInput_Double<Source>(n, &source) ;
+        if( clazz == "character" ) return new VectorInput_String<Source>(n, &source) ;
+        if( clazz == "skip"      ) return new VectorInput_Skip<Source>(n, &source) ;
+        if( clazz == "factor"    ) return new VectorInput_Factor<Source>(n, &source) ;
+        if( clazz == "Date"      ) return new VectorInput_Date_ymd<Source>(n, &source) ;
+        if( clazz == "POSIXct"   ) return new VectorInput_POSIXct<Source>(n, &source) ;
+        if( clazz == "Time"      ) return new VectorInput_Time<Source>(n, &source) ;
+        stop( "unsupported column type" ) ;
         return 0 ;
     }
 
     template <typename Source>
     VectorInput<Source>* make_vector_input( const std::string& clazz, int n ){
-        if( clazz == "integer" ) return new VectorInput_Integer<Source>(n) ;
-        if( clazz == "double"  ) return new VectorInput_Double<Source>(n) ;
-        if( clazz == "string"  ) return new VectorInput_String<Source>(n) ;
-        if( clazz == "skip"    ) return new VectorInput_Skip<Source>(n) ;
-        if( clazz == "factor"  ) return new VectorInput_Factor<Source>(n) ;
-        if( clazz == "Date"    ) return new VectorInput_Date_ymd<Source>(n) ;
-        if( clazz == "POSIXct" ) return new VectorInput_POSIXct<Source>(n) ;
-        if( clazz == "Time"    ) return new VectorInput_Time<Source>(n) ;
-        stop( "unsupported" ) ;
+        if( clazz == "integer"   ) return new VectorInput_Integer<Source>(n) ;
+        if( clazz == "double"    ) return new VectorInput_Double<Source>(n) ;
+        if( clazz == "character" ) return new VectorInput_String<Source>(n) ;
+        if( clazz == "skip"      ) return new VectorInput_Skip<Source>(n) ;
+        if( clazz == "factor"    ) return new VectorInput_Factor<Source>(n) ;
+        if( clazz == "Date"      ) return new VectorInput_Date_ymd<Source>(n) ;
+        if( clazz == "POSIXct"   ) return new VectorInput_POSIXct<Source>(n) ;
+        if( clazz == "Time"      ) return new VectorInput_Time<Source>(n) ;
+        stop( "unsupported column type" ) ;
         return 0 ;
     }
 

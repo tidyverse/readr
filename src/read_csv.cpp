@@ -1,33 +1,56 @@
+#include <Rcpp.h>
 #include <fastread.h>
-
-using namespace Rcpp ;
-using namespace fastread ;
+using namespace Rcpp;
 
 // [[Rcpp::export]]
-List read_csv_impl( SEXP input, CharacterVector classes, int n, bool header ){
-    if( Rf_inherits( input, "connection" ) ){
-        typedef ReadConnectionSource<KeepAllLines> DataSource ;
-        DataSource source( input ) ;
-        return DataReader<DataSource>(source).read( n, classes, header ) ;
-    } else {
-        typedef MMapSource<KeepAllLines> DataSource ; 
-        std::string path = as<std::string>(input) ;
-        DataSource source(path) ;
-        return DataReader<DataSource>(source).read( n, classes, header) ;
-    }
-}
+List read_csv(std::string path, CharacterVector classes,
+              CharacterVector col_names, int n = 0, int skip = 0) {
 
-// [[Rcpp::export]]
-List read_csv_impl_filter_pattern( SEXP input, CharacterVector classes, int n, bool header, LogicalVector filter_pattern ){
-    if( Rf_inherits( input, "connection" ) ){
-        typedef ReadConnectionSource<FilterRecylerLines> DataSource ;
-        DataSource source( input, filter_pattern ) ;
-        return DataReader<DataSource>(source).read( n, classes, header ) ;
-    } else {
-        typedef MMapSource<FilterRecylerLines> DataSource ; 
-        std::string path = as<std::string>(input) ;
-        DataSource source(path, filter_pattern) ;
-        return DataReader<DataSource>(source).read( n, classes, header) ;
-    }
-}
+    fastread::MMapSource<> source(path);
 
+    if (n <= 0)
+      n = fastread::source_count_lines(source, false) - skip;
+    for (int i = 0; i < skip; ++i)
+      source.skip_line();
+
+    // Create a vector input parser for each column, figuring out how many
+    // columns that the output will have.
+    int src_cols = classes.size();
+    int dst_cols = 0;
+
+    std::vector<fastread::VectorInput<fastread::MMapSource<> >*> parsers;
+    for(int i = 0; i < src_cols; ++i){
+      String cl = classes[i];
+      parsers.push_back(fastread::make_vector_input<fastread::MMapSource<> >(cl, n, source));
+      if (!parsers[i]->skip()) dst_cols++;
+    }
+
+    // Load data into vector parsers
+    for (int i = 0; i < n; ++i) {
+      for (int j = 0; j < src_cols; j++) {
+        parsers[j]->set(i);
+      }
+    }
+
+    // Create output data frame
+    List out(dst_cols);
+    CharacterVector dst_names(dst_cols);
+
+    int k = 0;
+    for(int i = 0; i < src_cols; i++){
+      if (parsers[i]->skip()) continue;
+      out[k] = parsers[i]->get();
+      dst_names[k] = col_names[i];
+      k++;
+    }
+    out.attr("class") = CharacterVector::create("tbl_df", "data.frame");
+    out.attr("names") = dst_names;
+    out.attr("row.names") = IntegerVector::create(NA_INTEGER, -n);
+
+    // Clean up parsers
+    for(int i = 0; i < parsers.size(); i++) {
+      delete parsers[i];
+    }
+
+    return out;
+}

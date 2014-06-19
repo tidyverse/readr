@@ -1,14 +1,3 @@
-read_csv <- function(input, classes, n = 0, header = TRUE, filter_pattern = NULL){
-
-  if( is.null(filter_pattern) ){
-    read_csv_impl( input, classes, n, header )
-  } else {
-    assert_that( is.logical(filter_pattern) )
-    read_csv_impl_filter_pattern( input, classes, n, header, filter_pattern )
-  }
-
-}
-
 #' Read a csv file
 #'
 #' Compared to \code{\link{read.csv}} this function is considerably faster.
@@ -25,5 +14,8 @@ read_csv <- function(file, parsers = NULL, col_names = TRUE,
   spec <- build_csv_spec(file, parsers, col_names = col_names,
     na_strings = na_strings, ...)
 
-  spec
+  path <- normalizePath(file)
+  classes <- vpluck(spec$column$parsers, 1)
+  read_csv(path, classes, spec$column$col_names, n = as.integer(spec$line$n),
+    skip = as.integer(spec$line$skip))
 }
