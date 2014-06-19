@@ -25,5 +25,5 @@ read_csv <- function(file, parsers = NULL, col_names = TRUE,
   spec <- build_csv_spec(file, parsers, col_names = col_names,
     na_strings = na_strings, ...)
 
-  read_with_spec(spec, file)
+  spec
 }
