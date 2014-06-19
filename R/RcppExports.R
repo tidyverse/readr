@@ -37,10 +37,6 @@ flip <- function(x) {
     .Call('fastread_flip', PACKAGE = 'fastread', x)
 }
 
-is_double_one <- function(x) {
-    .Call('fastread_is_double_one', PACKAGE = 'fastread', x)
-}
-
 is_double <- function(x) {
     .Call('fastread_is_double', PACKAGE = 'fastread', x)
 }

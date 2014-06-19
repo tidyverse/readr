@@ -104,21 +104,6 @@ BEGIN_RCPP
     return __sexp_result;
 END_RCPP
 }
-// is_double_one
-bool is_double_one(std::string x);
-RcppExport SEXP fastread_is_double_one(SEXP xSEXP) {
-BEGIN_RCPP
-    SEXP __sexp_result;
-    {
-        Rcpp::RNGScope __rngScope;
-        Rcpp::traits::input_parameter< std::string >::type x(xSEXP );
-        bool __result = is_double_one(x);
-        PROTECT(__sexp_result = Rcpp::wrap(__result));
-    }
-    UNPROTECT(1);
-    return __sexp_result;
-END_RCPP
-}
 // is_double
 bool is_double(CharacterVector x);
 RcppExport SEXP fastread_is_double(SEXP xSEXP) {

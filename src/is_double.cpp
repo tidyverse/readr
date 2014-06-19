@@ -1,9 +1,7 @@
 #include <Rcpp.h>
 using namespace Rcpp;
 
-
-// [[Rcpp::export]]
-bool is_double_one(std::string x) {
+bool is_double(std::string x) {
   const char* start = x.c_str();
   char* end;
 
@@ -16,7 +14,7 @@ bool is_double(CharacterVector x) {
   int n = x.size();
   for (int i = 0; i < n; ++i) {
     String cur = x[i];
-    if (!is_double_one(cur)) return false;
+    if (!is_double(cur)) return false;
   }
 
   return true;
