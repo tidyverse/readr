@@ -15,7 +15,7 @@ build_csv_spec <- function(file, parsers = NULL, col_names = TRUE, quote = '"',
 
   if (is.null(parsers) || isTRUE(col_names) || isFALSE(col_names)) {
     path <- normalizePath(file)
-    lines <- parse_lines_from_file(path, skip = skip, n = 20)
+    lines <- parse_lines_from_file(path, skip = skip, n = 100)
     if (length(lines) == 0) stop("No lines found in ", file, call. = FALSE)
     fields <- lapply(lines, parse_delimited_fields, delim = ",")
     col_spec <- guess_column_spec(fields, parsers = parsers,
@@ -102,6 +102,7 @@ guess_parser <- function(x, na_strings = "NA", ignore_whitespace = TRUE) {
   x <- setdiff(x, c(na_strings, ""))
 
   coercible <- list(
+    skip =   function(x) length(x) == 0,
     logical = function(x) all(x %in% c("TRUE", "FALSE", "T", "F")),
     integer = function(x) all(grepl("^[0-9]+$", x)),
     double  = function(x) is_double(x),
