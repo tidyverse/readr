@@ -237,34 +237,30 @@ namespace fastread {
 
     template <typename Source>
     VectorInput<Source>* make_vector_input( const std::string& clazz, int n, Source& source ){
-        if( ( clazz == "int" )   || ( clazz == "I" ) || ( clazz == "integer"   ) ) return new VectorInput_Integer<Source>(n, &source) ;
-        if( ( clazz == "double") || ( clazz == "D" ) || ( clazz == "numeric"   ) ) return new VectorInput_Double<Source>(n, &source) ;
-        if( ( clazz == "string") || ( clazz == "S" ) || ( clazz == "character" ) ) return new VectorInput_String<Source>(n, &source) ;
-        if( ( clazz == "names" ) || ( clazz == "row.names" ) || ( clazz == "rownames" ) ) return new VectorInput_Rownames<Source>( n, &source ) ;
-        if( ( clazz == "NULL"  ) || ( clazz == "_" )     || ( clazz == "skip" ) ) return new VectorInput_Skip<Source>(n, &source) ;
-        if( ( clazz == "factor") || ( clazz == "F" ) ) return new VectorInput_Factor<Source>(n, &source) ;
-        if( clazz == "Date" ) return new VectorInput_Date_ymd<Source>(n, &source) ;
-        if( clazz == "POSIXct" ) return new VectorInput_POSIXct<Source>(n, &source );
-        if( clazz == "Time" ) return new VectorInput_Time<Source>(n, &source );
+        if( clazz == "integer" ) return new VectorInput_Integer<Source>(n, &source) ;
+        if( clazz == "double"  ) return new VectorInput_Double<Source>(n, &source) ;
+        if( clazz == "string"  ) return new VectorInput_String<Source>(n, &source) ;
+        if( clazz == "skip"    ) return new VectorInput_Skip<Source>(n, &source) ;
+        if( clazz == "factor"  ) return new VectorInput_Factor<Source>(n, &source) ;
+        if( clazz == "Date"    ) return new VectorInput_Date_ymd<Source>(n, &source) ;
+        if( clazz == "POSIXct" ) return new VectorInput_POSIXct<Source>(n, &source) ;
+        if( clazz == "Time"    ) return new VectorInput_Time<Source>(n, &source) ;
         stop( "unsupported" ) ;
         return 0 ;
-
     }
 
     template <typename Source>
     VectorInput<Source>* make_vector_input( const std::string& clazz, int n ){
-        if( ( clazz == "int" )   || ( clazz == "I" ) || ( clazz == "integer"   ) ) return new VectorInput_Integer<Source>(n) ;
-        if( ( clazz == "double") || ( clazz == "D" ) || ( clazz == "numeric"   ) ) return new VectorInput_Double<Source>(n) ;
-        if( ( clazz == "string") || ( clazz == "S" ) || ( clazz == "character" ) ) return new VectorInput_String<Source>(n) ;
-        if( ( clazz == "names" ) || ( clazz == "row.names" ) || ( clazz == "rownames" ) ) return new VectorInput_Rownames<Source>( n ) ;
-        if( ( clazz == "NULL"  ) || ( clazz == "_" )     || ( clazz == "skip" ) ) return new VectorInput_Skip<Source>(n) ;
-        if( ( clazz == "factor") || ( clazz == "F" ) ) return new VectorInput_Factor<Source>(n) ;
-        if( clazz == "Date" ) return new VectorInput_Date_ymd<Source>(n) ;
-        if( clazz == "POSIXct" ) return new VectorInput_POSIXct<Source>(n);
-        if( clazz == "Time" ) return new VectorInput_Time<Source>(n);
+        if( clazz == "integer" ) return new VectorInput_Integer<Source>(n) ;
+        if( clazz == "double"  ) return new VectorInput_Double<Source>(n) ;
+        if( clazz == "string"  ) return new VectorInput_String<Source>(n) ;
+        if( clazz == "skip"    ) return new VectorInput_Skip<Source>(n) ;
+        if( clazz == "factor"  ) return new VectorInput_Factor<Source>(n) ;
+        if( clazz == "Date"    ) return new VectorInput_Date_ymd<Source>(n) ;
+        if( clazz == "POSIXct" ) return new VectorInput_POSIXct<Source>(n) ;
+        if( clazz == "Time"    ) return new VectorInput_Time<Source>(n) ;
         stop( "unsupported" ) ;
         return 0 ;
-
     }
 
 }
