@@ -104,7 +104,7 @@ guess_parser <- function(x, na_strings = "NA", ignore_whitespace = TRUE) {
   coercible <- list(
     skip =   function(x) length(x) == 0,
     logical = function(x) all(x %in% c("TRUE", "FALSE", "T", "F")),
-    integer = function(x) all(grepl("^[0-9]+$", x)),
+    integer = function(x) is_int(x),
     double  = function(x) is_double(x),
     date    = function(x) all(grepl("^[0-9]{4}-[0-9]{2}-[0-9]{2}$", x))
   )

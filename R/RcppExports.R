@@ -45,6 +45,10 @@ is_double <- function(x) {
     .Call('fastread_is_double', PACKAGE = 'fastread', x)
 }
 
+is_int <- function(x) {
+    .Call('fastread_is_int', PACKAGE = 'fastread', x)
+}
+
 parse_delimited_fields <- function(x, delim_ = ",", quote_ = "\"", collapse = FALSE, backslash_escape = FALSE, double_escape = FALSE, strict = FALSE) {
     .Call('fastread_parse_delimited_fields', PACKAGE = 'fastread', x, delim_, quote_, collapse, backslash_escape, double_escape, strict)
 }
