@@ -6,19 +6,12 @@ namespace fastread {
     template <typename Source>
     class VectorInput {
     public:
-        VectorInput() : source(0) {}
         VectorInput( Source* source_) : source(source_) {}
         virtual ~VectorInput(){} ;
 
         virtual void set( int i ) = 0 ;
-
         virtual SEXP get() = 0;
         virtual bool skip() const { return false ; }
-        virtual bool is_rownames() const { return false ; }
-
-        void set_source(Source& source_){
-            source = &source_ ;
-        }
 
     protected:
         Source* source ;
@@ -29,10 +22,9 @@ namespace fastread {
     public:
         typedef VectorInput<Source> Base ;
 
-        VectorInput_Integer( int n ) : Base(), data(no_init(n)){}
-
         VectorInput_Integer( int n, Source* source_ ) :
             Base(source_), data( no_init(n) ) {}
+
         void set( int i ){
             data[i] = Base::source->get_int() ;
         }
@@ -46,11 +38,6 @@ namespace fastread {
     class VectorInput_Factor : public VectorInput<Source> {
     public:
         typedef VectorInput<Source> Base ;
-
-        VectorInput_Factor(int n ) : Base(),
-            data(no_init(n)),
-            level_map()
-            {}
 
         VectorInput_Factor( int n, Source* source_, CharacterVector levels_, bool ordered_ ) : Base(source_),
             data( no_init(n) ),
@@ -102,7 +89,6 @@ namespace fastread {
     public:
         typedef VectorInput<Source> Base ;
 
-        VectorInput_Double( int n) : Base(), data(no_init(n)){}
         VectorInput_Double( int n, Source* source_ ) :
             Base(source_), data(no_init(n) ){}
         void set( int i ){
@@ -118,7 +104,6 @@ namespace fastread {
     class VectorInput_String : public VectorInput<Source> {
     public:
         typedef VectorInput<Source> Base ;
-        VectorInput_String( int n) : Base(), data(no_init(n)){}
         VectorInput_String( int n, Source* source_ ) :
             Base(source_), data(no_init(n) ){}
         void set( int i ) {
@@ -135,7 +120,6 @@ namespace fastread {
     public:
         typedef VectorInput<Source> Base ;
 
-        VectorInput_Date_ymd( int n ) : Base(), data(no_init(n)){}
         VectorInput_Date_ymd( int n, Source* source_ ) :
             Base(source_), data(no_init(n)){}
 
@@ -156,7 +140,6 @@ namespace fastread {
     public:
         typedef VectorInput<Source> Base ;
 
-        VectorInput_POSIXct( int n ) : Base(), data(no_init(n)){}
         VectorInput_POSIXct( int n, Source* source_ ) :
             Base(source_), data(no_init(n)){}
 
@@ -177,7 +160,6 @@ namespace fastread {
     public:
         typedef VectorInput<Source> Base ;
 
-        VectorInput_Time( int n ) : Base(), data(no_init(n)){}
         VectorInput_Time( int n, Source* source_ ) :
             Base(source_), data(no_init(n)){}
 
@@ -197,7 +179,6 @@ namespace fastread {
     template <typename Source>
     class VectorInput_Rownames : public VectorInput_String<Source> {
     public:
-        VectorInput_Rownames( int n ) : VectorInput_String<Source>(n){}
         VectorInput_Rownames( int n, Source* source_ ) : VectorInput_String<Source>(n, source_){}
         bool is_rownames() const { return true ; }
     } ;
@@ -207,7 +188,6 @@ namespace fastread {
     public:
         typedef VectorInput<Source> Base ;
 
-        VectorInput_Skip( int ) : Base(){} ;
         VectorInput_Skip( int, Source* source_ ) : Base(source_){}
         void set( int i ) {
             Base::source->skip() ;
