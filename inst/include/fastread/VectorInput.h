@@ -237,7 +237,7 @@ namespace fastread {
 
     template <typename Source>
     VectorInput<Source>* create_parser(List spec, int n, Source& source){
-      String clazz = (as<CharacterVector>(spec[0]))[0];
+      String clazz = (as<CharacterVector>(spec["type"]))[0];
 
       if( clazz == "integer"   ) return new VectorInput_Integer<Source>(n, &source) ;
       if( clazz == "double"    ) return new VectorInput_Double<Source>(n, &source) ;

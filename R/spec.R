@@ -112,6 +112,15 @@ field_spec <- function(delim, quote = '"', collapse = FALSE,
 #' \item{na_strings}{}
 #' @export
 column_spec <- function(parsers, col_names, na_strings = "NA") {
+  stopifnot(is.list(parsers))
+  is_parser <- vapply(parsers, inherits, "parser", FUN.VALUE = logical(1))
+  if (any(!is_parser)) {
+    stop("Some parsers are not S3 parser objects: ",
+      paste(which(!is_parser), collapse = ", "), call. = FALSE)
+  }
+
+  stopifnot(all(vapply(parsers, class, character(1)) == "parser"))
+
   if (is.null(names(parsers))) {
     if (length(parsers) != length(col_names)) {
       stop("Unnamed parsers must have the same length as col_names",
@@ -129,6 +138,7 @@ column_spec <- function(parsers, col_names, na_strings = "NA") {
 
     parsers <- parsers[match(names(parsers), col_names)]
   }
+
 
   structure(
     list(

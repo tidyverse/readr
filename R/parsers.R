@@ -1,5 +1,9 @@
 parser <- function(type, ...) {
-  structure(list(type = type, params = list(...)), class = "parser")
+  structure(list(type = type, ...), class = "parser")
+}
+
+find_parser <- function(name) {
+  match.fun(paste0(name, "_parser"))()
 }
 
 #' Define how to parse each column

@@ -89,7 +89,8 @@ guess_column_spec <- function(fields, parsers = NULL, col_names = TRUE,
       selected
     }
 
-    parsers <- Map(pick, names(candidates), candidates)
+    names <- Map(pick, names(candidates), candidates)
+    parsers <- lapply(names, find_parser)
   }
 
   column_spec(parsers, col_names, na_strings = na_strings)
