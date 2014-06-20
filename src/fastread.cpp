@@ -43,11 +43,11 @@ int count_lines(SEXP input){
 }
 
 // [[Rcpp::export]]
-SEXP parse_text( CharacterVector x, std::string what){
+SEXP parse_text( CharacterVector x, List parser){
     CharacterVectorSource<> source(x) ;
     int n = x.size() ;
     VectorInput< CharacterVectorSource<> >* input =
-        make_vector_input< CharacterVectorSource<> >(what, n, source );
+        create_parser< CharacterVectorSource<> >(parser, n, source );
 
     for( int i=0; i<n; i++){
         source.more() ;
@@ -57,4 +57,3 @@ SEXP parse_text( CharacterVector x, std::string what){
     delete input ;
     return out ;
 }
-

@@ -33,8 +33,8 @@ count_lines <- function(input) {
     .Call('fastread_count_lines', PACKAGE = 'fastread', input)
 }
 
-parse_text <- function(x, what) {
-    .Call('fastread_parse_text', PACKAGE = 'fastread', x, what)
+parse_text <- function(x, parser) {
+    .Call('fastread_parse_text', PACKAGE = 'fastread', x, parser)
 }
 
 flip <- function(x) {
@@ -65,12 +65,12 @@ parse_lines_from_file <- function(x, skip = 0L, n = 0L, delim_ = "\n", comment_ 
     .Call('fastread_parse_lines_from_file', PACKAGE = 'fastread', x, skip, n, delim_, comment_)
 }
 
-read_csv_from_file <- function(path, classes, col_names, n = 0L, skip = 0L) {
-    .Call('fastread_read_csv_from_file', PACKAGE = 'fastread', path, classes, col_names, n, skip)
+read_csv_from_file <- function(path, parser_spec, col_names, n = 0L, skip = 0L) {
+    .Call('fastread_read_csv_from_file', PACKAGE = 'fastread', path, parser_spec, col_names, n, skip)
 }
 
-read_csv_from_connection <- function(conn, classes, col_names, n = 0L, skip = 0L) {
-    .Call('fastread_read_csv_from_connection', PACKAGE = 'fastread', conn, classes, col_names, n, skip)
+read_csv_from_connection <- function(conn, parser_spec, col_names, n = 0L, skip = 0L) {
+    .Call('fastread_read_csv_from_connection', PACKAGE = 'fastread', conn, parser_spec, col_names, n, skip)
 }
 
 #' Read file in a single string

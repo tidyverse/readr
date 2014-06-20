@@ -1,2 +1,2 @@
-loadModule("MultipleConnectionReader", TRUE)
+# loadModule("MultipleConnectionReader", TRUE)
 

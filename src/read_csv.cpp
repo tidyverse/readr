@@ -1,6 +1,7 @@
 #include <Rcpp.h>
 #include <fastread.h>
 using namespace Rcpp;
+using namespace fastread;
 
 template <typename Source>
 int source_count_lines(Source& source) {
@@ -14,8 +15,8 @@ int source_count_lines(Source& source) {
 }
 
 template<typename Source>
-List read_csv(Source source, CharacterVector classes,
-              CharacterVector col_names, int n = 0, int skip = 0) {
+List read_csv(Source source, List parser_spec, CharacterVector col_names,
+              int n = 0, int skip = 0) {
 
     if (n <= 0)
       n = source_count_lines(source) - skip;
@@ -24,13 +25,12 @@ List read_csv(Source source, CharacterVector classes,
 
     // Create a vector input parser for each column, figuring out how many
     // columns that the output will have.
-    int src_cols = classes.size();
+    int src_cols = col_names.size();
     int dst_cols = 0;
 
-    std::vector<fastread::VectorInput<Source>*> parsers;
+    std::vector<VectorInput<Source>*> parsers;
     for(int i = 0; i < src_cols; ++i){
-      String cl = classes[i];
-      parsers.push_back(fastread::make_vector_input<Source>(cl, n, source));
+      parsers.push_back(create_parser<Source>(parser_spec[i], n, source));
       if (!parsers[i]->skip()) dst_cols++;
     }
 
@@ -65,17 +65,17 @@ List read_csv(Source source, CharacterVector classes,
 }
 
 // [[Rcpp::export]]
-List read_csv_from_file(std::string path, CharacterVector classes,
+List read_csv_from_file(std::string path, List parser_spec,
                         CharacterVector col_names, int n = 0, int skip = 0) {
 
-    fastread::MMapSource<> source(path);
-    return read_csv(source, classes, col_names, n, skip);
+    MMapSource<> source(path);
+    return read_csv(source, parser_spec, col_names, n, skip);
 }
 
 // [[Rcpp::export]]
-List read_csv_from_connection(SEXP conn, CharacterVector classes,
+List read_csv_from_connection(SEXP conn, List parser_spec,
                         CharacterVector col_names, int n = 0, int skip = 0) {
 
-    fastread::ReadConnectionSource<> source(conn);
-    return read_csv(source, classes, col_names, n, skip);
+    ReadConnectionSource<> source(conn);
+    return read_csv(source, parser_spec, col_names, n, skip);
 }

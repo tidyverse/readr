@@ -17,14 +17,12 @@ read_csv <- function(file, parsers = NULL, col_names = TRUE,
   spec <- build_csv_spec(file, parsers, col_names = col_names,
     na_strings = na_strings, ...)
 
-  classes <- vpluck(spec$column$parsers, 1)
-
   if (is.character(file)) {
     path <- normalizePath(file)
-    read_csv_from_file(path, classes, spec$column$col_names,
+    read_csv_from_file(path, spec$column$parsers, spec$column$col_names,
       n = as.integer(spec$line$n), skip = as.integer(spec$line$skip))
   } else {
-    read_csv_from_connection(file, classes, spec$column$col_names,
+    read_csv_from_connection(file, spec$column$parsers, spec$column$col_names,
       n = as.integer(spec$line$n), skip = as.integer(spec$line$skip))
   }
 }
