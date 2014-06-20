@@ -3,7 +3,7 @@
 \alias{count_lines}
 \title{Count the number of lines in a file.}
 \usage{
-count_lines(input, header = FALSE)
+count_lines(input)
 }
 \arguments{
 \item{input}{Either a path to a file, or a \code{connection}.}

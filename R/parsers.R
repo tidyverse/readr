@@ -2,6 +2,11 @@ parser <- function(type, ...) {
   structure(list(type = type, ...), class = "parser")
 }
 
+#' @export
+print.parser <- function(x, ...) {
+  cat("<", x$type, "_parser>\n", sep = "")
+}
+
 find_parser <- function(name) {
   match.fun(paste0(name, "_parser"))()
 }

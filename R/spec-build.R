@@ -102,19 +102,19 @@ guess_parser <- function(x, na_strings = "NA", ignore_whitespace = TRUE) {
   }
   x <- setdiff(x, c(na_strings, ""))
 
-  coercible <- list(
-    skip =   function(x) length(x) == 0,
-    logical = function(x) all(x %in% c("TRUE", "FALSE", "T", "F")),
-    integer = function(x) is_int(x),
-    double  = function(x) is_double(x),
-    date    = function(x) all(grepl("^[0-9]{4}-[0-9]{2}-[0-9]{2}$", x))
+  coercible <- c(
+    skip    = length(x) == 0,
+    logical = all(x %in% c("TRUE", "FALSE", "T", "F")),
+    integer = is_int(x),
+    double  = is_double(x),
+    date    = all(grepl("^[0-9]{4}-[0-9]{2}-[0-9]{2}$", x))
   )
-  ok <- vapply(coercible, function(f) f(x), logical(1))
-  if (!any(ok)) {
+
+  if (!any(coercible)) {
     return("character")
   }
 
-  names(coercible)[ok]
+  names(coercible)[coercible]
 }
 
 

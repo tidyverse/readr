@@ -134,11 +134,10 @@ column_spec <- function(parsers, col_names, na_strings = "NA") {
     }
 
     skip <- setdiff(col_names, names(parsers))
-    parsers[skip] <- rep(list("skip"), length(skip))
+    parsers[skip] <- rep(list(skip_parser()), length(skip))
 
     parsers <- parsers[match(names(parsers), col_names)]
   }
-
 
   structure(
     list(

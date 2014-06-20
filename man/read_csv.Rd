@@ -3,7 +3,7 @@
 \alias{read_csv}
 \title{Read a csv file.}
 \usage{
-read_csv(file, parsers = NULL, col_names = TRUE, na_strings = "NA", ...)
+read_csv(file, parsers = NULL, col_names = TRUE, ..., na_strings = "NA")
 }
 \arguments{
 \item{file}{Path to a file, or a connection object.}

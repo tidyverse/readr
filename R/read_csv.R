@@ -12,8 +12,8 @@
 #'   an unusually formatted csv file.
 #' @export
 #' @return A data frame with additional class \code{"tbl_df"}.
-read_csv <- function(file, parsers = NULL, col_names = TRUE,
-                     na_strings = "NA", ...) {
+read_csv <- function(file, parsers = NULL, col_names = TRUE, ...,
+                     na_strings = "NA") {
   spec <- build_csv_spec(file, parsers, col_names = col_names,
     na_strings = na_strings, ...)
 
