@@ -61,7 +61,7 @@ guess_column_spec <- function(fields, parsers = NULL, col_names = TRUE,
   if (isTRUE(col_names)) {
     col_names <- str_trim(vpluck(cols, 1))
     cols <- lapply(cols, "[", -1)
-    message("Reading column names from file:",
+    message("Reading column names from file: ",
       paste0(col_names, collapse = ", "))
   } else if (isFALSE(col_names)) {
     col_names <- paste0("X", seq_along(cols))
@@ -83,9 +83,9 @@ guess_column_spec <- function(fields, parsers = NULL, col_names = TRUE,
     pick <- function(var, parsers) {
       selected <- parsers[1]
       others <- if (length(parsers) > 1)
-        paste0(" (also valid: ", paste0(parsers[-1], collapse = ", "), ")")
+        paste0("# or ", paste0(parsers[-1], collapse = ", "), ")")
 
-      message(var, ": ", selected, others)
+      message(var, " = ", selected, "_parser()", others)
       selected
     }
 
