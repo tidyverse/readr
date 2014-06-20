@@ -20,7 +20,3 @@ test_that("factor parser respects ordered", {
 test_that("factor parser complains when it sees unknown level", {
   expect_error(read_abc(factor_parser("a")), "not in list")
 })
-
-
-read_csv("inst/tests/abc.csv", col_names = "x", parsers = list(factor_parser(c("a", "b", "c"))))
-read_csv("inst/tests/abc.csv", col_names = "x", parsers = list(factor_parser(c("a", "b"))))
