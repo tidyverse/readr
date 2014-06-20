@@ -49,71 +49,52 @@ namespace fastread {
 
         VectorInput_Factor(int n ) : Base(),
             data(no_init(n)),
-            level_map(),
-            max_level(0)
+            level_map()
             {}
 
-        VectorInput_Factor( int n, Source* source_ ) : Base(source_),
+        VectorInput_Factor( int n, Source* source_, CharacterVector levels_, bool ordered_ ) : Base(source_),
             data( no_init(n) ),
-            level_map(),
-            max_level(0)
-            {}
+            levels(levels_),
+            ordered(ordered_)
+            {
+              int m = levels.size();
 
-        // we store the values as integers, the first seen level is set
-        // to 1, then 2, ...
-        // and the values are reordered later when we know all the levels
+              // Train unordered map with int
+              level_map = boost::unordered_map<SEXP, int>();
+              for (int i = 0; i < m; ++i) {
+                SEXP level = levels[i];
+                level_map[level] = i;
+              }
+            }
+
         void set( int i){
             SEXP st = Base::source->get_String() ;
-            // search for this strings as a key in the hash map
+
             MAP::iterator it = level_map.find(st) ;
             if( it == level_map.end() ){
-                // not yet in the map, so increment the max_level and use it
-                data[i] = ++max_level ;
-                level_map[st] = max_level ;
+                stop("Value not in list of allowed levels");
             } else {
-                // already on the map, just use the value for that key
-                data[i] = it->second ;
+                data[i] = it->second + 1 ;
             }
         }
 
         SEXP get() {
-            // we now need to put the values in the correct order
-            // as read.table does, so we first copy the hash map into
-            // a regular map so that data are sorted by keys
-            std::map< std::string, int > sorted ;
-            std::string buffer ;
-            for( MAP::iterator it = level_map.begin(); it != level_map.end(); ++it){
-                buffer = as<std::string>( it->first ) ;
-                sorted[ buffer ] = it->second ;
-            }
-            int nlevels = sorted.size() ;
-            // we then grab the keys of the sorted map. Those are the level names
-            // and make a vector of codes, giving the real factor values for each
-            // value that was set while reading the data
-            std::vector<int> code( nlevels ) ;
-            std::map< std::string, int >::iterator sorted_it = sorted.begin() ;
-            CharacterVector levels( nlevels );
-            for( int i=0; i<nlevels; i++, ++sorted_it){
-                code[ sorted_it->second ] = i + 1 ;
-                levels[ i ] = sorted_it->first ;
-            }
-            // recode
-            int n = data.size() ;
-            for( int i=0; i<n; i++){
-                data[i] = code[ data[i] ] ;
-            }
-
             data.attr("levels") = levels ;
-            data.attr("class" ) = "factor" ;
+            if (ordered) {
+              data.attr("class") = CharacterVector::create("ordered", "factor");
+            } else {
+              data.attr("class" ) = "factor";
+            }
 
             return data ;
         }
 
     private:
         IntegerVector data ;
+        CharacterVector levels;
+        bool ordered;
         typedef boost::unordered_map<SEXP, int> MAP;
         MAP level_map ;
-        int max_level ;
     } ;
 
     template <typename Source>
@@ -243,7 +224,11 @@ namespace fastread {
       if( clazz == "double"    ) return new VectorInput_Double<Source>(n, &source) ;
       if( clazz == "character" ) return new VectorInput_String<Source>(n, &source) ;
       if( clazz == "skip"      ) return new VectorInput_Skip<Source>(n, &source) ;
-      if( clazz == "factor"    ) return new VectorInput_Factor<Source>(n, &source) ;
+      if( clazz == "factor"    ) {
+        CharacterVector levels = as<CharacterVector>(spec["levels"]);
+        bool ordered = (as<LogicalVector>(spec["ordered"]))[0];
+        return new VectorInput_Factor<Source>(n, &source, levels, ordered) ;
+      }
       if( clazz == "Date"      ) return new VectorInput_Date_ymd<Source>(n, &source) ;
       if( clazz == "POSIXct"   ) return new VectorInput_POSIXct<Source>(n, &source) ;
       if( clazz == "Time"      ) return new VectorInput_Time<Source>(n, &source) ;
