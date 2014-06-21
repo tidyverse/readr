@@ -14,9 +14,9 @@
 #'   an unusually formatted file.
 #' @export
 #' @return A data frame with additional class \code{"tbl_df"}.
-read_delim <- function(file, delim, parsers = NULL, col_names = TRUE, ...,
-                       na_strings = "NA") {
-  spec <- build_delim_spec(file, parsers, col_names = col_names,
+read_delim <- function(file, delim = NULL, parsers = NULL, col_names = TRUE,
+                       ..., na_strings = "NA") {
+  spec <- build_delim_spec(file, parsers, col_names = col_names, delim = delim,
     na_strings = na_strings, ...)
 
   if (is.character(file)) {

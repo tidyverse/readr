@@ -4,7 +4,7 @@
 \alias{read_delim}
 \title{Read a delimited file.}
 \usage{
-read_delim(file, delim, parsers = NULL, col_names = TRUE, ...,
+read_delim(file, delim = NULL, parsers = NULL, col_names = TRUE, ...,
   na_strings = "NA")
 
 read_csv(file, parsers = NULL, col_names = TRUE, ..., na_strings = "NA")

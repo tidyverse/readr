@@ -7,19 +7,22 @@
 using namespace Rcpp;
 
 // count_char_from_file
-std::map<char,int> count_char_from_file(std::string x, std::string quote_ = "\"", bool backslash_escape = false, bool double_escape = false, bool include_alpha = false, bool include_num = false);
-RcppExport SEXP fastread_count_char_from_file(SEXP xSEXP, SEXP quote_SEXP, SEXP backslash_escapeSEXP, SEXP double_escapeSEXP, SEXP include_alphaSEXP, SEXP include_numSEXP) {
+std::map<char,int> count_char_from_file(std::string x, int n = 30, int skip = 0, std::string comment_ = "", std::string quote_ = "\"", bool backslash_escape = false, bool double_escape = false, bool include_alpha = false, bool include_num = false);
+RcppExport SEXP fastread_count_char_from_file(SEXP xSEXP, SEXP nSEXP, SEXP skipSEXP, SEXP comment_SEXP, SEXP quote_SEXP, SEXP backslash_escapeSEXP, SEXP double_escapeSEXP, SEXP include_alphaSEXP, SEXP include_numSEXP) {
 BEGIN_RCPP
     SEXP __sexp_result;
     {
         Rcpp::RNGScope __rngScope;
         Rcpp::traits::input_parameter< std::string >::type x(xSEXP );
+        Rcpp::traits::input_parameter< int >::type n(nSEXP );
+        Rcpp::traits::input_parameter< int >::type skip(skipSEXP );
+        Rcpp::traits::input_parameter< std::string >::type comment_(comment_SEXP );
         Rcpp::traits::input_parameter< std::string >::type quote_(quote_SEXP );
         Rcpp::traits::input_parameter< bool >::type backslash_escape(backslash_escapeSEXP );
         Rcpp::traits::input_parameter< bool >::type double_escape(double_escapeSEXP );
         Rcpp::traits::input_parameter< bool >::type include_alpha(include_alphaSEXP );
         Rcpp::traits::input_parameter< bool >::type include_num(include_numSEXP );
-        std::map<char,int> __result = count_char_from_file(x, quote_, backslash_escape, double_escape, include_alpha, include_num);
+        std::map<char,int> __result = count_char_from_file(x, n, skip, comment_, quote_, backslash_escape, double_escape, include_alpha, include_num);
         PROTECT(__sexp_result = Rcpp::wrap(__result));
     }
     UNPROTECT(1);
@@ -27,19 +30,22 @@ BEGIN_RCPP
 END_RCPP
 }
 // count_char_from_string
-std::map<char,int> count_char_from_string(std::string x, std::string quote_ = "\"", bool backslash_escape = false, bool double_escape = false, bool include_alpha = false, bool include_num = false);
-RcppExport SEXP fastread_count_char_from_string(SEXP xSEXP, SEXP quote_SEXP, SEXP backslash_escapeSEXP, SEXP double_escapeSEXP, SEXP include_alphaSEXP, SEXP include_numSEXP) {
+std::map<char,int> count_char_from_string(std::string x, int n = 30, int skip = 0, std::string comment_ = "", std::string quote_ = "\"", bool backslash_escape = false, bool double_escape = false, bool include_alpha = false, bool include_num = false);
+RcppExport SEXP fastread_count_char_from_string(SEXP xSEXP, SEXP nSEXP, SEXP skipSEXP, SEXP comment_SEXP, SEXP quote_SEXP, SEXP backslash_escapeSEXP, SEXP double_escapeSEXP, SEXP include_alphaSEXP, SEXP include_numSEXP) {
 BEGIN_RCPP
     SEXP __sexp_result;
     {
         Rcpp::RNGScope __rngScope;
         Rcpp::traits::input_parameter< std::string >::type x(xSEXP );
+        Rcpp::traits::input_parameter< int >::type n(nSEXP );
+        Rcpp::traits::input_parameter< int >::type skip(skipSEXP );
+        Rcpp::traits::input_parameter< std::string >::type comment_(comment_SEXP );
         Rcpp::traits::input_parameter< std::string >::type quote_(quote_SEXP );
         Rcpp::traits::input_parameter< bool >::type backslash_escape(backslash_escapeSEXP );
         Rcpp::traits::input_parameter< bool >::type double_escape(double_escapeSEXP );
         Rcpp::traits::input_parameter< bool >::type include_alpha(include_alphaSEXP );
         Rcpp::traits::input_parameter< bool >::type include_num(include_numSEXP );
-        std::map<char,int> __result = count_char_from_string(x, quote_, backslash_escape, double_escape, include_alpha, include_num);
+        std::map<char,int> __result = count_char_from_string(x, n, skip, comment_, quote_, backslash_escape, double_escape, include_alpha, include_num);
         PROTECT(__sexp_result = Rcpp::wrap(__result));
     }
     UNPROTECT(1);

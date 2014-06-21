@@ -8,10 +8,16 @@
 #' @inheritParams line_spec
 #' @inheritParams field_spec
 #' @inheritParams column_spec
-build_delim_spec <- function(file, delim, parsers = NULL, col_names = TRUE,
-                             quote = '"', na_strings = "NA", n = 0, skip = 0,
-                             comment_char = "", double_escape = FALSE,
-                             backslash_escape = FALSE) {
+build_delim_spec <- function(file, delim = NULL, parsers = NULL,
+                             col_names = TRUE, quote = '"', na_strings = "NA",
+                             n = 0, skip = 0, comment_char = "",
+                             double_escape = FALSE, backslash_escape = FALSE) {
+
+  if (is.null(delim)) {
+    delim <- guess_delim(file, skip = skip,
+      quote = quote, backslash_escape = backslash_escape,
+      double_escape = double_escape, comment_char = comment_char)
+  }
 
   if (is.null(parsers) || isTRUE(col_names) || isFALSE(col_names)) {
     path <- normalizePath(file)
@@ -117,17 +123,40 @@ guess_parser <- function(x, na_strings = "NA", ignore_whitespace = TRUE) {
   names(coercible)[coercible]
 }
 
-
-top_delim <- function(file, n = 30, quote = "\"",
+guess_delim <- function(file, n = 30, skip = 0, comment_char = "", quote = "\"",
                         backslash_escape = FALSE,
                         double_escape = FALSE) {
 
-  x <- count_char_from_file(file, quote_ = quote,
-    backslash_escape = backslash_escape, double_escape = double_escape)
+  path <- normalizePath(file)
+  x <- count_char_from_file(path, n = n, skip = skip, quote_ = quote,
+    comment = comment_char, backslash_escape = backslash_escape,
+    double_escape = double_escape)
 
   names(x) <- rawToChar(as.raw(names(x)), multiple = TRUE)
-  sort(x, decreasing = TRUE)
+  counts <- sort(x, decreasing = TRUE)
 
-  # Look for largest that's multiple of lines
-  # Prefer , over . (unless Europe = TRUE?)
+  lines <- counts[["\n"]]
+  candidates <- counts[setdiff(names(counts), "\n")]
+
+  per_line <- candidates / lines
+  # Must be at least one delimiter per line
+  per_line <- per_line[per_line > 1]
+  # Integer number of delimiters per line is best
+  is_int <- round(per_line) == per_line
+  if (sum(is_int) == 0) {
+    stop("Could not guess delimter")
+  } else if (sum(is_int) == 1) {
+    # Only one delim is used on every line
+    delim <- names(per_line)[is_int]
+    message("Guessing delimiter is ", delim, " (used ", per_line[is_int],
+      " times per line).")
+  } else {
+    # Use candidate with highest frequency
+    ok <- per_line[is_int]
+    delim <- names(per_line)[which.max(ok)][1]
+    message("Guessing delimiter is ", delim,
+      " (", paste0(names(ok), " used ", ok, collapse = ","), ")")
+  }
+
+  delim
 }

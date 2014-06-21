@@ -3,7 +3,7 @@
 \alias{build_delim_spec}
 \title{Build a spec from a csv file.}
 \usage{
-build_delim_spec(file, delim, parsers = NULL, col_names = TRUE,
+build_delim_spec(file, delim = NULL, parsers = NULL, col_names = TRUE,
   quote = "\\"", na_strings = "NA", n = 0, skip = 0, comment_char = "", double_escape = FALSE, backslash_escape = FALSE)
 }
 \arguments{
