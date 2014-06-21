@@ -83,7 +83,7 @@ guess_column_spec <- function(fields, parsers = NULL, col_names = TRUE,
     pick <- function(var, parsers) {
       selected <- parsers[1]
       others <- if (length(parsers) > 1)
-        paste0("# or ", paste0(parsers[-1], collapse = ", "), ")")
+        paste0(" # or ", paste0(parsers[-1], collapse = ", "))
 
       message(var, " = ", selected, "_parser()", others)
       selected
