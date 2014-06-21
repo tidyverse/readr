@@ -7,9 +7,13 @@ column_spec(parsers, col_names, na_strings = "NA")
 }
 \arguments{
 \item{parsers}{A list of parsers used to control how each column is turned
-into an R data frame. The elements of \code{parsers} can be named to match
-the columns. Any columns not included will not be included in the output
-data frame.}
+  into an R data frame. The elements of \code{parsers} can be named to match
+  the columns. Any columns not included will not be included in the output
+  data frame.
+
+  Alternatively, you can use string where each character represents
+  one column. c = character, d = double, i = integer, l = logical and
+  \code{_} skips the column.}
 
 \item{col_names}{A character vector naming the columns.}
 
@@ -24,5 +28,8 @@ A list:
 }
 \description{
 Column parsign specification.
+}
+\examples{
+column_spec("ccd", c("a", "b", "c"))
 }
 

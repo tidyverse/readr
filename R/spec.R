@@ -103,6 +103,10 @@ field_spec <- function(delim, quote = '"', collapse = FALSE,
 #'   into an R data frame. The elements of \code{parsers} can be named to match
 #'   the columns. Any columns not included will not be included in the output
 #'   data frame.
+#'
+#'   Alternatively, you can use string where each character represents
+#'   one column. c = character, d = double, i = integer, l = logical and
+#'   \code{_} skips the column.
 #' @param col_names A character vector naming the columns.
 #' @param na_strings A character vector of providing strings which should be
 #'   converted to NA in R.
@@ -111,7 +115,13 @@ field_spec <- function(delim, quote = '"', collapse = FALSE,
 #' \item{col_names}{}
 #' \item{na_strings}{}
 #' @export
+#' @examples
+#' column_spec("ccd", c("a", "b", "c"))
 column_spec <- function(parsers, col_names, na_strings = "NA") {
+  if (is.character(parsers)) {
+    parsers <- parse_parser_string(parsers)
+  }
+
   stopifnot(is.list(parsers))
   is_parser <- vapply(parsers, inherits, "parser", FUN.VALUE = logical(1))
   if (any(!is_parser)) {
@@ -147,4 +157,23 @@ column_spec <- function(parsers, col_names, na_strings = "NA") {
     ),
     class = c("column_spec", "spec")
   )
+}
+
+
+parse_parser_string <- function(x) {
+  letters <- strsplit(x, "")[[1]]
+  lookup <- list(
+    c = character_parser(),
+    d = double_parser(),
+    i = integer_parser(),
+    l = logical_parser(),
+    "_" = skip_parser()
+  )
+
+  bad <- setdiff(letters, names(lookup))
+  if (length(bad) > 0) {
+    stop("Unknown shortcuts: ", paste(unique(bad), collapse = ", "))
+  }
+
+  unname(lookup[letters])
 }
