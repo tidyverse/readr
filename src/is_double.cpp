@@ -5,6 +5,7 @@ bool is_double(std::string x) {
   const char* start = x.c_str();
   char* end;
 
+  errno = 0;
   strtod(start, &end);
   // parsed to end of string and no errors
   return (end == start + x.size()) && (errno == 0);
@@ -27,6 +28,7 @@ bool is_int(std::string x) {
   const char* start = x.c_str();
   char* end;
 
+  errno = 0;
   strtol(start, &end, 10);
   // parsed to end of string and no errors
   return (end == start + x.size()) && (errno == 0);
