@@ -8,16 +8,16 @@
 #' @inheritParams line_spec
 #' @inheritParams field_spec
 #' @inheritParams column_spec
-build_csv_spec <- function(file, parsers = NULL, col_names = TRUE, quote = '"',
-                           na_strings = "NA", n = 0, skip = 0,
-                           comment_char = "", double_escape = FALSE,
-                           backslash_escape = FALSE) {
+build_delim_spec <- function(file, delim, parsers = NULL, col_names = TRUE,
+                             quote = '"', na_strings = "NA", n = 0, skip = 0,
+                             comment_char = "", double_escape = FALSE,
+                             backslash_escape = FALSE) {
 
   if (is.null(parsers) || isTRUE(col_names) || isFALSE(col_names)) {
     path <- normalizePath(file)
     lines <- parse_lines_from_file(path, skip = skip, n = 30)
     if (length(lines) == 0) stop("No lines found in ", file, call. = FALSE)
-    fields <- lapply(lines, parse_delimited_fields, delim = ",")
+    fields <- lapply(lines, parse_delimited_fields, delim = delim)
     col_spec <- guess_column_spec(fields, parsers = parsers,
       col_names = col_names, na_strings = na_strings)
   } else {
