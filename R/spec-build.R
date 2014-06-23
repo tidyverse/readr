@@ -21,7 +21,7 @@ build_delim_spec <- function(file, delim = NULL, parsers = NULL,
   }
 
   if (is.null(parsers) || isTRUE(col_names) || isFALSE(col_names)) {
-    lines <- parse_lines_from_file(path, skip = skip, n = 30)
+    lines <- parse_lines_from_file(file, skip = skip, n = 30)
     if (length(lines) == 0) stop("No lines found in ", file, call. = FALSE)
     fields <- lapply(lines, parse_delimited_fields, delim = delim)
     col_spec <- guess_column_spec(fields, parsers = parsers,

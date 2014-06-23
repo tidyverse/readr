@@ -17,8 +17,8 @@
 read_delim <- function(file, delim = NULL, parsers = NULL, col_names = TRUE,
                        ..., na_strings = "NA") {
   file <- check_file(file)
-  spec <- build_delim_spec(file, parsers, col_names = col_names, delim = delim,
-    na_strings = na_strings, ...)
+  spec <- build_delim_spec(file, delim = delim, parsers = parsers,
+    col_names = col_names, na_strings = na_strings, ...)
 
   if (is.character(file)) {
     read_csv_from_file(file, spec$column$parsers, spec$column$col_names,
@@ -33,6 +33,6 @@ read_delim <- function(file, delim = NULL, parsers = NULL, col_names = TRUE,
 read_csv <- function(file, parsers = NULL, col_names = TRUE, ...,
                      na_strings = "NA") {
 
-  read_delim(file, ",", parsers = parser, col_names = col_names, ...,
+  read_delim(file, ",", parsers = parsers, col_names = col_names, ...,
     na_strings = na_strings)
 }
