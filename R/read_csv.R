@@ -16,12 +16,12 @@
 #' @return A data frame with additional class \code{"tbl_df"}.
 read_delim <- function(file, delim = NULL, parsers = NULL, col_names = TRUE,
                        ..., na_strings = "NA") {
+  file <- check_file(file)
   spec <- build_delim_spec(file, parsers, col_names = col_names, delim = delim,
     na_strings = na_strings, ...)
 
   if (is.character(file)) {
-    path <- normalizePath(file)
-    read_csv_from_file(path, spec$column$parsers, spec$column$col_names,
+    read_csv_from_file(file, spec$column$parsers, spec$column$col_names,
       n = as.integer(spec$line$n), skip = as.integer(spec$line$skip))
   } else {
     read_csv_from_connection(file, spec$column$parsers, spec$column$col_names,

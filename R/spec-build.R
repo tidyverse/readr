@@ -13,6 +13,7 @@ build_delim_spec <- function(file, delim = NULL, parsers = NULL,
                              n = 0, skip = 0, comment_char = "",
                              double_escape = FALSE, backslash_escape = FALSE) {
 
+  file <- check_file(file)
   if (is.null(delim)) {
     delim <- guess_delim(file, skip = skip,
       quote = quote, backslash_escape = backslash_escape,
@@ -20,7 +21,6 @@ build_delim_spec <- function(file, delim = NULL, parsers = NULL,
   }
 
   if (is.null(parsers) || isTRUE(col_names) || isFALSE(col_names)) {
-    path <- normalizePath(file)
     lines <- parse_lines_from_file(path, skip = skip, n = 30)
     if (length(lines) == 0) stop("No lines found in ", file, call. = FALSE)
     fields <- lapply(lines, parse_delimited_fields, delim = delim)
@@ -127,7 +127,7 @@ guess_delim <- function(file, n = 30, skip = 0, comment_char = "", quote = "\"",
                         backslash_escape = FALSE,
                         double_escape = FALSE) {
 
-  path <- normalizePath(file)
+  file <- check_file(file)
   x <- count_char_from_file(path, n = n, skip = skip, quote_ = quote,
     comment = comment_char, backslash_escape = backslash_escape,
     double_escape = double_escape)
