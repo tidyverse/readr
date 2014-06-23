@@ -36,6 +36,7 @@ List read_csv(Source source, List parser_spec, CharacterVector col_names,
 
     // Load data into vector parsers
     for (int i = 0; i < n; ++i) {
+      if (i % 4096 == 0) Rcpp::checkUserInterrupt();
       for (int j = 0; j < src_cols; j++) {
         parsers[j]->set(i);
       }
