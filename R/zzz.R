@@ -1,2 +1,0 @@
-# loadModule("MultipleConnectionReader", TRUE)
-
