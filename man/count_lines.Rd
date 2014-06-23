@@ -7,9 +7,6 @@ count_lines(input)
 }
 \arguments{
 \item{input}{Either a path to a file, or a \code{connection}.}
-
-\item{header}{If \code{TRUE}, subtract one line to account for the
-header.}
 }
 \description{
 Count the number of lines in a file.

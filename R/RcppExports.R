@@ -26,8 +26,6 @@ read_lines <- function(input, n = 0L) {
 #' Count the number of lines in a file.
 #'
 #' @param input Either a path to a file, or a \code{connection}.
-#' @param header If \code{TRUE}, subtract one line to account for the
-#'   header.
 #' @export
 count_lines <- function(input) {
     .Call('fastread_count_lines', PACKAGE = 'fastread', input)

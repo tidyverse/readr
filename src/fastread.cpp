@@ -27,8 +27,6 @@ CharacterVector read_lines(SEXP input, int n = 0){
 //' Count the number of lines in a file.
 //'
 //' @param input Either a path to a file, or a \code{connection}.
-//' @param header If \code{TRUE}, subtract one line to account for the
-//'   header.
 //' @export
 // [[Rcpp::export]]
 int count_lines(SEXP input){
