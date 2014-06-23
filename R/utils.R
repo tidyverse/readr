@@ -23,5 +23,5 @@ check_file <- function(file) {
 }
 
 is_absolute_path <- function(path) {
-  grepl("^(~|[A-Za-z]:|\\\\|~)", path)
+  grepl("^(/|[A-Za-z]:|\\\\|~)", path)
 }
