@@ -13,8 +13,15 @@ check_file <- function(file) {
   }
 
   if (!file.exists(file)) {
-    stop("'", file, "' does not exist", call. = FALSE)
+    stop("'", file, "' does not exist",
+      if (!is_absolute_path(file)) " in current working directory",
+      ".",
+      call. = FALSE)
   }
 
   normalizePath(file, "/")
+}
+
+is_absolute_path <- function(path) {
+  grepl("^(~|[A-Za-z]:|\\\\|~)", path)
 }
