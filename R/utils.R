@@ -14,7 +14,8 @@ check_file <- function(file) {
 
   if (!file.exists(file)) {
     stop("'", file, "' does not exist",
-      if (!is_absolute_path(file)) " in current working directory",
+      if (!is_absolute_path(file)) paste0(" in current working directory (",
+        normalizePath("~"), ")"),
       ".",
       call. = FALSE)
   }

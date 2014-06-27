@@ -30,6 +30,7 @@ read_delim <- function(file, delim = NULL, parsers = NULL, col_names = TRUE,
 }
 
 #' @rdname read_delim
+#' @export
 read_csv <- function(file, parsers = NULL, col_names = TRUE, ...,
                      na_strings = "NA") {
 
