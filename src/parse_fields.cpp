@@ -77,10 +77,10 @@ CharacterVector parse_fixed_fields(std::string x,
     int length = end[i] - start[i] + 1;
     stream.seekg(start[i] - 1);
 
-    char* field = new char [length];
-    stream.get(field, length);
+    std::vector<char> field(length);
+    stream.get(&field[0], length);
 
-    out[i] = std::string(field);
+    out[i] = std::string(&field[0], length);
   }
 
   return out;
