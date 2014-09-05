@@ -12,9 +12,13 @@ using namespace boost::interprocess;
 class FileRead {
 public:
   FileRead( const std::string& path ) {
-    //TODO catch error if mapping fails...
-    file_mapping fm(path.c_str(), read_only);
-    mr = new mapped_region(fm, read_only);
+    try{
+      file_mapping fm(path.c_str(), read_only);
+      mr = new mapped_region(fm, read_only);
+    }
+    catch(interprocess_exception& e){
+      stop("could not read file");
+    }
 
     size = mr->get_size();
     data = static_cast<char*>(mr->get_address());
@@ -25,7 +29,6 @@ public:
   }
 
   ~FileRead(){
-    mr->flush();
     delete mr;
   }
 

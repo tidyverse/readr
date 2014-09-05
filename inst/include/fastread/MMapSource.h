@@ -14,11 +14,16 @@ namespace fastread {
         MMapSource( const std::string& filename, LinePolicy line_policy_ = LinePolicy(), SeparatorPolicy sep_policy_ = SeparatorPolicy() ) :
             Base(line_policy_, sep_policy_)
         {
-            //TODO catch possible exception when file mapping fails
             using namespace boost::interprocess;
-            file_mapping fm(filename.c_str(), read_only);
-            mr = new mapped_region(fm, read_only);
 
+            try {
+              file_mapping fm(filename.c_str(), read_only);
+              mr = new mapped_region(fm, read_only);
+            }
+
+            catch(interprocess_exception& e){
+              stop( "cannot read file information" ) ;
+            }
             filesize = mr->get_size();
             memory_start = static_cast<char*>(mr->get_address());
 
