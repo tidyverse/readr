@@ -4,22 +4,20 @@
 #include <sstream>
 #include <boost/interprocess/file_mapping.hpp>
 #include <boost/interprocess/mapped_region.hpp>
-//#include <sys/mman.h>
-//#include <sys/stat.h>
 #include <fcntl.h>
 
 using namespace Rcpp ;
-using namespace boost::interprocess ;
+using namespace boost::interprocess;
 
 class FileRead {
 public:
   FileRead( const std::string& path ) {
     //TODO catch error if mapping fails...
-    fm = &file_mapping(path, read_only);
-    mr = &mapped_region(fm);
+    file_mapping fm(path.c_str(), read_only);
+    mr = new mapped_region(fm, read_only);
 
     size = mr->get_size();
-    data = mr->get_address();
+    data = static_cast<char*>(mr->get_address());
   }
 
   String get(){
@@ -27,8 +25,8 @@ public:
   }
 
   ~FileRead(){
-    munmap(data, size);
-    close(fd);
+    mr->flush();
+    delete mr;
   }
 
 private:
@@ -39,7 +37,6 @@ private:
 
   char* data ;
   int size ;
-  file_mapping* fm;
   mapped_region* mr;
 } ;
 

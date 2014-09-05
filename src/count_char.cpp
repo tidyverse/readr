@@ -68,7 +68,7 @@ std::map<char,int> count_char_from_file(std::string x, int n = 30, int skip = 0,
                                         bool include_alpha = false,
                                         bool include_num = false) {
 
-  std::fstream stream(x);
+  std::fstream stream(x.c_str());
   return count_char(stream, n, skip, comment_, quote_, backslash_escape,
     double_escape, include_alpha, include_num);
 }

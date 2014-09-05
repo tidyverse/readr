@@ -14,13 +14,13 @@ namespace fastread {
         MMapSource( const std::string& filename, LinePolicy line_policy_ = LinePolicy(), SeparatorPolicy sep_policy_ = SeparatorPolicy() ) :
             Base(line_policy_, sep_policy_)
         {
-            fm = boost::interprocess::file_mapping(filename, boost::interprocess::read_only);
-            mr = boost::interprocess::mapped_region(fm);
+            //TODO catch possible exception when file mapping fails
+            using namespace boost::interprocess;
+            file_mapping fm(filename.c_str(), read_only);
+            mr = new mapped_region(fm, read_only);
 
-            //TODO catch possible exception
-            filesize = mr.get_size();
-            memory_start = mr.get_address();
-            //
+            filesize = mr->get_size();
+            memory_start = static_cast<char*>(mr->get_address());
 
             eof = memory_start + filesize ;
             Base::set(memory_start, eof);
@@ -28,6 +28,12 @@ namespace fastread {
             last_full_line = eof - 1 ;
             while( *last_full_line != '\n' ) --last_full_line;
 
+        }
+
+        ~MMapSource(){
+          //not sure if mr is autoflushed.
+          mr->flush();
+          delete(mr);
         }
 
 
@@ -50,13 +56,11 @@ namespace fastread {
         }
 
     private:
-        int file_descriptor ;
         size_t filesize ;
         char* memory_start ;
         char* eof ;
         char* last_full_line ;
-        boost::interprocess::file_mapping fm;
-        boost::interprocess::mapped_region mr;
+        boost::interprocess::mapped_region* mr;
     } ;
 }
 
