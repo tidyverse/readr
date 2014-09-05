@@ -36,8 +36,6 @@ namespace fastread {
         }
 
         ~MMapSource(){
-          //not sure if mr is autoflushed.
-          mr->flush();
           delete(mr);
         }
 
