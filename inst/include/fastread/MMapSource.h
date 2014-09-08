@@ -18,14 +18,15 @@ namespace fastread {
 
             try {
               file_mapping fm(filename.c_str(), read_only);
-              mr = new mapped_region(fm, read_only);
+              this->mr.reset(new mapped_region(fm, read_only));
             }
 
             catch(interprocess_exception& e){
               stop( "cannot read file information" ) ;
             }
-            filesize = mr->get_size();
-            memory_start = static_cast<char*>(mr->get_address());
+
+            filesize = this->mr->get_size();
+            memory_start = static_cast<char*>(this->mr->get_address());
 
             eof = memory_start + filesize ;
             Base::set(memory_start, eof);
@@ -34,11 +35,6 @@ namespace fastread {
             while( *last_full_line != '\n' ) --last_full_line;
 
         }
-
-        ~MMapSource(){
-          delete(mr);
-        }
-
 
         inline bool more(){ return false ;}
 
@@ -63,7 +59,7 @@ namespace fastread {
         char* memory_start ;
         char* eof ;
         char* last_full_line ;
-        boost::interprocess::mapped_region* mr;
+        std::auto_ptr<boost::interprocess::mapped_region> mr;
     } ;
 }
 

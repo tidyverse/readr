@@ -14,7 +14,7 @@ public:
   FileRead( const std::string& path ) {
     try{
       file_mapping fm(path.c_str(), read_only);
-      mr = new mapped_region(fm, read_only);
+      mr.reset(new mapped_region(fm, read_only));
     }
     catch(interprocess_exception& e){
       stop("could not read file");
@@ -28,10 +28,6 @@ public:
     return Rf_mkCharLen(data, size) ;
   }
 
-  ~FileRead(){
-    delete mr;
-  }
-
 private:
 
   // prevent copy
@@ -40,7 +36,7 @@ private:
 
   char* data ;
   int size ;
-  mapped_region* mr;
+  std::auto_ptr<mapped_region> mr;
 } ;
 
 //' Read file in a single string
