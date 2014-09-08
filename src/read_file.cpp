@@ -13,8 +13,8 @@ class FileRead {
 public:
   FileRead( const std::string& path ) {
     try{
-      file_mapping fm(path.c_str(), read_only);
-      mr.reset(new mapped_region(fm, read_only));
+      fm.reset(new file_mapping(path.c_str(), read_only));
+      mr.reset(new mapped_region(*fm, read_only));
     }
     catch(interprocess_exception& e){
       stop("could not read file");
@@ -37,6 +37,7 @@ private:
   char* data ;
   int size ;
   std::auto_ptr<mapped_region> mr;
+  std::auto_ptr<file_mapping> fm;
 } ;
 
 //' Read file in a single string

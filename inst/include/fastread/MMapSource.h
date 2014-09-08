@@ -17,16 +17,16 @@ namespace fastread {
             using namespace boost::interprocess;
 
             try {
-              file_mapping fm(filename.c_str(), read_only);
-              this->mr.reset(new mapped_region(fm, read_only));
+              fm.reset(new file_mapping(filename.c_str(), read_only));
+              mr.reset(new mapped_region(*fm, read_only));
             }
 
             catch(interprocess_exception& e){
               stop( "cannot read file information" ) ;
             }
 
-            filesize = this->mr->get_size();
-            memory_start = static_cast<char*>(this->mr->get_address());
+            filesize = mr->get_size();
+            memory_start = static_cast<char*>(mr->get_address());
 
             eof = memory_start + filesize ;
             Base::set(memory_start, eof);
@@ -59,6 +59,7 @@ namespace fastread {
         char* memory_start ;
         char* eof ;
         char* last_full_line ;
+        std::auto_ptr<boost::interprocess::file_mapping> fm;
         std::auto_ptr<boost::interprocess::mapped_region> mr;
     } ;
 }
