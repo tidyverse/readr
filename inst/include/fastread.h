@@ -4,8 +4,9 @@
 #include <Rcpp.h>
 using namespace Rcpp;
 
-#include <sys/mman.h>
-#include <sys/stat.h>
+#include <boost/interprocess/file_mapping.hpp>
+#include <boost/interprocess/mapped_region.hpp>
+
 #include <fcntl.h>   // for open()
 #include <unistd.h>  // for close()
 

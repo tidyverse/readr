@@ -72,7 +72,7 @@ read_csv_from_connection <- function(conn, parser_spec, col_names, n = 0L, skip 
 }
 
 #' Read file in a single string
-#' 
+#'
 #' @param path file path name
 #' @export
 read_file <- function(path) {

@@ -2,54 +2,46 @@
 
 #include <fstream>
 #include <sstream>
-#include <sys/mman.h>
-#include <sys/stat.h>
+#include <boost/interprocess/file_mapping.hpp>
+#include <boost/interprocess/mapped_region.hpp>
 #include <fcntl.h>
 
 using namespace Rcpp ;
+using namespace boost::interprocess;
 
 class FileRead {
 public:
-  FileRead( const std::string& path ){
-    struct stat file_info;
-    
-    fd = open( path.c_str() , O_RDONLY );
-    if (fstat(fd, &file_info) == -1) {
-      stop("Could not read file information.");
+  FileRead( const std::string& path ) {
+    try{
+      fm.reset(new file_mapping(path.c_str(), read_only));
+      mr.reset(new mapped_region(*fm, read_only));
     }
-    
-    size = file_info.st_size;
-    data = (char*) mmap(0, size, PROT_READ, MAP_SHARED, fd, 0);
-    
-    if (data == MAP_FAILED) {
-      close(fd);
-      stop("Error mapping the file.");
+    catch(interprocess_exception& e){
+      stop("could not read file");
     }
-  
+
+    size = mr->get_size();
+    data = static_cast<char*>(mr->get_address());
   }
-  
+
   String get(){
-    return Rf_mkCharLen(data, size) ;  
+    return Rf_mkCharLen(data, size) ;
   }
-  
-  ~FileRead(){
-    munmap(data, size);
-    close(fd);
-  }
-  
+
 private:
-  
+
   // prevent copy
   FileRead( const FileRead& ) ;
   FileRead& operator=(const FileRead& ) ;
-  
+
   char* data ;
   int size ;
-  int fd ;
+  std::auto_ptr<mapped_region> mr;
+  std::auto_ptr<file_mapping> fm;
 } ;
 
 //' Read file in a single string
-//' 
+//'
 //' @param path file path name
 //' @export
 // [[Rcpp::export]]
