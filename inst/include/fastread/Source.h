@@ -147,7 +147,16 @@ namespace fastread {
                 p = end ;
                 if( !more() ) break ;
             }
-            return n ;
+
+            // get pointer to antepenultimate (before last) character
+            p -= 2;
+
+            // increment the number of lines by one if antepenultimate
+            // character is not positioned on a full line
+            return n + (int)(!ensure_full_line());
+
+            // TODO: Might need to do the same trick in the function below
+            // I still have not figured out when it is supposed to be used
         }
 
         // for each line, we need to ask to the line policy if we keep the line
