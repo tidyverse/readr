@@ -104,8 +104,13 @@ namespace fastread {
     class VectorInput_String : public VectorInput<Source> {
     public:
         typedef VectorInput<Source> Base ;
-        VectorInput_String( int n, Source* source_ ) :
-            Base(source_), data(no_init(n) ){}
+        VectorInput_String( int n, Source* source_, bool trim_ ) :
+            Base(source_),
+            data(no_init(n)),
+            trim(trim_)
+            {
+
+            }
         void set( int i ) {
             data[i] = Base::source->get_String() ;
         }
@@ -113,6 +118,7 @@ namespace fastread {
 
     private:
         CharacterVector data ;
+        bool trim;
     } ;
 
     template <typename Source>
@@ -202,7 +208,10 @@ namespace fastread {
 
       if( clazz == "integer"   ) return new VectorInput_Integer<Source>(n, &source) ;
       if( clazz == "double"    ) return new VectorInput_Double<Source>(n, &source) ;
-      if( clazz == "character" ) return new VectorInput_String<Source>(n, &source) ;
+      if( clazz == "character" ) {
+        bool trim = as<LogicalVector>(spec["trim"]);
+        return new VectorInput_String<Source>(n, &source, trim) ;
+      }
       if( clazz == "skip"      ) return new VectorInput_Skip<Source>(n, &source) ;
       if( clazz == "factor"    ) {
         CharacterVector levels = as<CharacterVector>(spec["levels"]);

@@ -43,7 +43,7 @@ namespace fastread {
             return res ;
         }
 
-        SEXP get_String(){
+        SEXP get_String(bool trim = true){
             char* q = p ;
             int len = move_until_next_token_start() ;
 
@@ -56,6 +56,18 @@ namespace fastread {
             // skip end quote
             if( q[len-1] == quote ){
                 len-- ;
+            }
+
+            // trim leading and trailing whitespaces
+            if (trim)
+            {
+              if (*q == ' ')
+              {
+                len--;
+                q++;
+              }
+              if (q[len-1] == ' ')
+                len--;
             }
 
             // check if there are double quotes

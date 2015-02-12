@@ -19,7 +19,7 @@ NULL
 #' @param trim If \code{TRUE}, will trim off any leading or trailing whitespace.
 #' @rdname parser
 #' @export
-character_parser <- function(trim = FALSE) {
+character_parser <- function(trim = TRUE) {
   parser("character", trim = trim)
 }
 
