@@ -211,6 +211,14 @@ namespace fastread {
                 ++p ;
             }
 
+            // Exception needed because if the first character is not a
+            // valid digit, then the function returns 0, which is not a
+            // nice way to handle NA
+            if (!valid_digit())
+            {
+              return -1;
+            }
+
             // Get digits before decimal point or exponent, if any.
             for (value = 0; valid_digit(); ++p ) {
                 value = value * 10 + digit_value() ;
