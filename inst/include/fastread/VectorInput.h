@@ -105,12 +105,7 @@ namespace fastread {
     public:
         typedef VectorInput<Source> Base ;
         VectorInput_String( int n, Source* source_, bool trim_ ) :
-            Base(source_),
-            data(no_init(n)),
-            trim(trim_)
-            {
-
-            }
+            Base(source_), data(no_init(n)), trim(trim_) {}
         void set( int i ) {
             data[i] = Base::source->get_String() ;
         }

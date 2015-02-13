@@ -59,10 +59,8 @@ namespace fastread {
             }
 
             // trim leading and trailing whitespaces
-            if (trim)
-            {
-              if (*q == ' ')
-              {
+            if (trim) {
+              if (*q == ' ') {
                 len--;
                 q++;
               }
@@ -215,9 +213,7 @@ namespace fastread {
             // valid digit, then the function returns 0, which is not a
             // nice way to handle NA
             if (!valid_digit())
-            {
               return -1;
-            }
 
             // Get digits before decimal point or exponent, if any.
             for (value = 0; valid_digit(); ++p ) {

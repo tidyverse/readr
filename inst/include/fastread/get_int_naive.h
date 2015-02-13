@@ -33,9 +33,7 @@ namespace fastread {
         // valid digit, then the function returns 0, which is not a
         // nice way to handle NA
         if (!valid_digit(*p))
-        {
           return -1;
-        }
 
         // Get digits before decimal point or exponent, if any.
         for (value = 0; valid_digit(*p); ++p ) {
