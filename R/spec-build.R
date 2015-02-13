@@ -1,6 +1,6 @@
-#' Build a spec from a csv file.
+#' Build a spec from a delimited file.
 #'
-#' Builds a complete specification to parse a csv file, including guessing
+#' Builds a complete specification to parse a delimited file, including guessing
 #' the column parsers if they're not suppled.
 #'
 #' @keywords internal
