@@ -8,7 +8,7 @@ print.parser <- function(x, ...) {
 }
 
 find_parser <- function(name) {
-  match.fun(paste0(name, "_parser"))()
+  get(paste0(name, "_parser"), envir = asNamespace("fastread"))()
 }
 
 #' Define how to parse each column
