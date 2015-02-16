@@ -43,7 +43,7 @@ namespace fastread {
             return res ;
         }
 
-        SEXP get_String(){
+        SEXP get_String(bool trim = true){
             char* q = p ;
             int len = move_until_next_token_start() ;
 
@@ -56,6 +56,16 @@ namespace fastread {
             // skip end quote
             if( q[len-1] == quote ){
                 len-- ;
+            }
+
+            // trim leading and trailing whitespaces
+            if (trim) {
+              if (*q == ' ') {
+                len--;
+                q++;
+              }
+              if (q[len-1] == ' ')
+                len--;
             }
 
             // check if there are double quotes
@@ -135,7 +145,16 @@ namespace fastread {
                 p = end ;
                 if( !more() ) break ;
             }
-            return n ;
+
+            // get pointer to antepenultimate (before last) character
+            p -= 2;
+
+            // increment the number of lines by one if antepenultimate
+            // character is not positioned on a full line
+            return n + (int)(!ensure_full_line());
+
+            // TODO: Might need to do the same trick in the function below
+            // I still have not figured out when it is supposed to be used
         }
 
         // for each line, we need to ask to the line policy if we keep the line
@@ -189,6 +208,12 @@ namespace fastread {
             } else if (*p == '+') {
                 ++p ;
             }
+
+            // Exception needed because if the first character is not a
+            // valid digit, then the function returns 0, which is not a
+            // nice way to handle NA
+            if (!valid_digit())
+              return -1;
 
             // Get digits before decimal point or exponent, if any.
             for (value = 0; valid_digit(); ++p ) {

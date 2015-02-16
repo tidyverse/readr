@@ -8,7 +8,7 @@ print.parser <- function(x, ...) {
 }
 
 find_parser <- function(name) {
-  match.fun(paste0(name, "_parser"))()
+  get(paste0(name, "_parser"), envir = asNamespace("fastread"))()
 }
 
 #' Define how to parse each column
@@ -19,7 +19,7 @@ NULL
 #' @param trim If \code{TRUE}, will trim off any leading or trailing whitespace.
 #' @rdname parser
 #' @export
-character_parser <- function(trim = FALSE) {
+character_parser <- function(trim = TRUE) {
   parser("character", trim = trim)
 }
 
