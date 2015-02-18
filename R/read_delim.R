@@ -8,7 +8,7 @@
 #'
 #' @param file Path to a file, or a connection object.
 #' @param delim the field delimiter to use, such as "," for a comma-separated file,
-#' or "\t" for a tab-separated file.
+#'   or "\t" for a tab-separated file.
 #' @inheritParams column_spec
 #' @param ... Other parameters passed on to \code{\link{build_delim_spec}}.
 #'   These are not normally necessary, but maybe be useful if you have
