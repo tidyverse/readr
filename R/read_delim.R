@@ -2,18 +2,19 @@
 #'
 #' \code{read_delim} is usually 5-15x faster than \code{\link{read.delim}}, and
 #' provides substantially more feedback about what's going on. It produces a
-#' data frame inline with modern R usage: col names are left as is, factors
+#' data frame in line with modern R usage: col names are left as is, factors
 #' are never created by default, and row names are never used. \code{read_csv}
 #' is a version of \code{read_delim} where \code{delim} is set to ",".
 #'
 #' @param file Path to a file, or a connection object.
-#' @param delim Field delimiter.
+#' @param delim the field delimiter to use, such as "," for a comma-separated file,
+#' or "\t" for a tab-separated file.
 #' @inheritParams column_spec
 #' @param ... Other parameters passed on to \code{\link{build_delim_spec}}.
 #'   These are not normally necessary, but maybe be useful if you have
 #'   an unusually formatted file.
 #' @export
-#' @return A data frame with additional class \code{"tbl_df"}.
+#' @return A data frame with the additional class \code{"tbl_df"}.
 read_delim <- function(file, delim = NULL, parsers = NULL, col_names = TRUE,
                        ..., na_strings = "NA") {
   file <- check_file(file)
