@@ -7,10 +7,10 @@
 #undef class
 #undef private
 #define R_EOF	-1
- 
+
 extern "C" {
-    extern Rconnection getConnection(int) ;
-    extern int Rconn_fgetc(Rconnection con);
+  extern Rconnection getConnection(int) ;
+  extern int Rconn_fgetc(Rconnection con);
 }
-  
+
 #endif

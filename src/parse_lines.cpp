@@ -57,10 +57,10 @@ std::vector<std::string> parse_lines_from_string(std::string x,
 
 // [[Rcpp::export]]
 std::vector<std::string> parse_lines_from_file(std::string x,
-                                                 int skip = 0,
-                                                 int n = 0,
-                                                 std::string delim_ = "\n",
-                                                 std::string comment_ = "") {
+                                               int skip = 0,
+                                               int n = 0,
+                                               std::string delim_ = "\n",
+                                               std::string comment_ = "") {
   std::fstream stream(x.c_str());
   return parse_lines(stream, skip, n, delim_, comment_);
 }

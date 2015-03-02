@@ -70,7 +70,7 @@ std::map<char,int> count_char_from_file(std::string x, int n = 30, int skip = 0,
 
   std::fstream stream(x.c_str());
   return count_char(stream, n, skip, comment_, quote_, backslash_escape,
-    double_escape, include_alpha, include_num);
+                    double_escape, include_alpha, include_num);
 }
 
 // [[Rcpp::export]]
@@ -84,5 +84,5 @@ std::map<char,int> count_char_from_string(std::string x, int n = 30, int skip = 
 
   std::istringstream stream(x);
   return count_char(stream, n, skip, comment_, quote_, backslash_escape,
-    double_escape, include_alpha, include_num);
+                    double_escape, include_alpha, include_num);
 }

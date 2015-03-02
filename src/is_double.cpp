@@ -1,6 +1,6 @@
 #include <Rcpp.h>
 #include <cerrno>
- 
+
 using namespace Rcpp;
 
 bool is_double(std::string x) {
