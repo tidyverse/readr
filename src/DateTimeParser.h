@@ -1,8 +1,6 @@
 #ifndef FASTREAD_DATE_TIME_PARSER_H
 #define FASTREAD_DATE_TIME_PARSER_H
 
-namespace fastread {
-
 template <typename Class>
 class DateTimeParser{
 public:
@@ -195,7 +193,5 @@ private:
   }
 
 };
-
-}
 
 #endif

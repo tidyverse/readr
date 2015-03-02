@@ -1,8 +1,6 @@
 #ifndef FASTREAD_LinePolicy_H
 #define FASTREAD_LinePolicy_H
 
-namespace fastread {
-
 class KeepAllLines{
 public:
   inline bool keep_line(char* p){
@@ -30,7 +28,5 @@ private:
   int i ;
   int n ;
 };
-
-}
 
 #endif

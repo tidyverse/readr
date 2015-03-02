@@ -1,8 +1,6 @@
 #ifndef FASTREAD_SourceFilterRecycler_H
 #define FASTREAD_SourceFilterRecycler_H
 
-namespace fastread {
-
 template <typename Source>
 class SourceFilterRecycler {
 public:
@@ -15,6 +13,5 @@ private:
   LogicalVector pattern ;
 
 } ;
-}
 
 #endif

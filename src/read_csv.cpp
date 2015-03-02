@@ -1,7 +1,6 @@
 #include <Rcpp.h>
 #include "fastread.h"
 using namespace Rcpp;
-using namespace fastread;
 
 template <typename Source>
 int source_count_lines(Source& source) {

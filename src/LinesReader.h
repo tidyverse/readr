@@ -1,8 +1,6 @@
 #ifndef FASTREAD_LinesReader_H
 #define FASTREAD_LinesReader_H
 
-namespace fastread {
-
 template <typename Source>
 class LinesReader {
 public:
@@ -47,7 +45,5 @@ private:
   }
 
 } ;
-
-}
 
 #endif

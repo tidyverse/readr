@@ -1,8 +1,6 @@
 #ifndef FASTREAD_SeparatorPolicy_H
 #define FASTREAD_SeparatorPolicy_H
 
-namespace fastread {
-
 class SingleCharacterSeparator {
 public:
   SingleCharacterSeparator( char sep_ = ',' ) : sep(sep_){}
@@ -21,6 +19,5 @@ public:
     return c == ' ' || c == '\t' ;
   }
 } ;
-}
 
 #endif

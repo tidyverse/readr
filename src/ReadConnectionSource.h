@@ -1,8 +1,6 @@
 #ifndef FASTREAD_ReadConnectionSource_H
 #define FASTREAD_ReadConnectionSource_H
 
-namespace fastread {
-
 template <
   typename LinePolicy = KeepAllLines,
     typename SeparatorPolicy = SingleCharacterSeparator
@@ -78,6 +76,5 @@ private:
   int n ;
 
 } ;
-}
 
 #endif

@@ -1,11 +1,9 @@
 #ifndef FASTREAD_MMapSource_H
 #define FASTREAD_MMapSource_H
 
-namespace fastread {
-
 template <
   typename LinePolicy = KeepAllLines,
-    typename SeparatorPolicy = SingleCharacterSeparator
+  typename SeparatorPolicy = SingleCharacterSeparator
 >
 class MMapSource : public Source< MMapSource<LinePolicy, SeparatorPolicy>, LinePolicy, SeparatorPolicy>{
 public:
@@ -62,6 +60,5 @@ private:
   std::auto_ptr<boost::interprocess::file_mapping> fm;
   std::auto_ptr<boost::interprocess::mapped_region> mr;
 } ;
-}
 
 #endif

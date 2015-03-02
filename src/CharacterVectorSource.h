@@ -1,8 +1,6 @@
 #ifndef FASTREAD_CharacterVectorSource_H
 #define FASTREAD_CharacterVectorSource_H
 
-namespace fastread {
-
 template <
   typename LinePolicy = KeepAllLines,
     typename SeparatorPolicy = SingleCharacterSeparator
@@ -32,7 +30,6 @@ private:
   int n ;
   int i ;
 
-} ;
-}
+};
 
 #endif

@@ -1,8 +1,6 @@
 #ifndef FASTREAD_VectorInput_H
 #define FASTREAD_VectorInput_H
 
-namespace fastread {
-
 template <typename Source>
 class VectorInput {
 public:
@@ -218,8 +216,6 @@ VectorInput<Source>* create_parser(Rcpp::List spec, int n, Source& source){
   if( clazz == "Time"      ) return new VectorInput_Time<Source>(n, &source) ;
   Rcpp::stop( "unsupported column type" ) ;
   return 0 ;
-}
-
 }
 
 #endif

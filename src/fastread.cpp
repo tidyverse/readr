@@ -1,7 +1,6 @@
 #include "fastread.h"
 
 using namespace Rcpp ;
-using namespace fastread;
 
 //' Read lines
 //'

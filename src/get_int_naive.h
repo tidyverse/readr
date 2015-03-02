@@ -4,8 +4,6 @@
 // TO DO: Is it a duplicate with respect to the get_int_naive
 // function declared in Source.h ?
 
-namespace fastread {
-
 inline bool valid_digit(char c){
   static char before_zero = '0' - 1 ;
   static char after_nine = '9' + 1 ;
@@ -41,8 +39,6 @@ inline int get_int_naive(char*& p) {
   }
 
   return sign * value ;
-}
-
 }
 
 #endif
