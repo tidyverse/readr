@@ -14,7 +14,7 @@ read_csv(file, parsers = NULL, col_names = TRUE, ..., na_strings = "NA")
 \item{file}{Path to a file, or a connection object.}
 
 \item{delim}{the field delimiter to use, such as "," for a comma-separated file,
-or "\t" for a tab-separated file.}
+or "\\t" for a tab-separated file.}
 
 \item{parsers}{A list of parsers used to control how each column is turned
   into an R data frame. The elements of \code{parsers} can be named to match

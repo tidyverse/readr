@@ -1,15 +1,18 @@
 Package: fastread
-Title: Faster Data Readers
 Version: 0.0.0
-Authors@R: c( person("Hadley", "Wickham", email = "h.wickham@gmail.com", role =
-    c("aut", "cre")), person("Romain", "Francois", role = "aut") )
+Title: Faster Data Readers
 Description: Faster Data Readers
+Authors@R: c(
+    person("Hadley", "Wickham", , "hadley@rstudio.com", c("aut", "cre")),
+    person("Romain", "Francois", role = "aut"),
+    person("RStudio", role = "cph"))
 Depends:
     R (>= 3.0.2)
-LinkingTo: Rcpp, BH
+LinkingTo:
+    Rcpp,
+    BH
 Imports:
     Rcpp (>= 0.11.2),
-    methods,
     assertthat
 Suggests:
     testthat
