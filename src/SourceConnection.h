@@ -1,13 +1,13 @@
-#ifndef FASTREAD_ReadConnectionSource_H
-#define FASTREAD_ReadConnectionSource_H
+#ifndef FASTREAD_SOURCECONNECTION_H
+#define FASTREAD_SOURCECONNECTION_H
 
 template <
   typename LinePolicy = KeepAllLines,
     typename SeparatorPolicy = SingleCharacterSeparator
 >
-class ReadConnectionSource : public Source<ReadConnectionSource<LinePolicy, SeparatorPolicy>, LinePolicy, SeparatorPolicy>{
+class SourceConnection : public Source<SourceConnection<LinePolicy, SeparatorPolicy>, LinePolicy, SeparatorPolicy>{
 public:
-  typedef Source<ReadConnectionSource, LinePolicy, SeparatorPolicy> Base ;
+  typedef Source<SourceConnection, LinePolicy, SeparatorPolicy> Base ;
 
   enum Origin {
     START = 1,
@@ -20,7 +20,7 @@ public:
     WRITE = 2
   } ;
 
-  ReadConnectionSource(SEXP id, LinePolicy line_policy_ = LinePolicy(), SeparatorPolicy sep_policy_ = SeparatorPolicy() ) :
+  SourceConnection(SEXP id, LinePolicy line_policy_ = LinePolicy(), SeparatorPolicy sep_policy_ = SeparatorPolicy() ) :
     Base(line_policy_, sep_policy_),
     con(getConnection(Rcpp::as<int>(id))),
     chunk_size(10000),

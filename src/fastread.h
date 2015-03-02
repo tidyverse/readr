@@ -25,9 +25,9 @@
 
 #include "DateTimeParser.h"
 #include "Source.h"
-#include "MMapSource.h"
-#include "ReadConnectionSource.h"
-#include "CharacterVectorSource.h"
+#include "SourceConnection.h"
+#include "SourceFile.h"
+#include "SourceString.h"
 
 #include "get_int_naive.h"
 #include "VectorInput.h"

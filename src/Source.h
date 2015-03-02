@@ -1,10 +1,11 @@
 #ifndef FASTREAD_Source_H
 #define FASTREAD_Source_H
 
-template <typename Class,
-          typename LinePolicy = KeepAllLines,
-          typename SeparatorPolicy = SingleCharacterSeparator
-  >
+template <
+  typename Class,
+  typename LinePolicy = KeepAllLines,
+  typename SeparatorPolicy = SingleCharacterSeparator
+>
 class Source {
 public:
 

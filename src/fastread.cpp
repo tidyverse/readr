@@ -11,13 +11,13 @@ using namespace Rcpp ;
 // [[Rcpp::export]]
 CharacterVector read_lines(SEXP input, int n = 0){
   if( Rf_inherits(input, "connection" ) ){
-    ReadConnectionSource<>  source(input);
-    LinesReader<ReadConnectionSource<> > reader(source) ;
+    SourceConnection<>  source(input);
+    LinesReader<SourceConnection<> > reader(source) ;
     return reader.read(n) ;
   } else {
     std::string path = as<std::string>(input) ;
-    MMapSource<> source(path) ;
-    LinesReader< MMapSource<> > reader(source) ;
+    SourceFile<> source(path) ;
+    LinesReader< SourceFile<> > reader(source) ;
     return reader.read(n) ;
   }
 }
@@ -30,21 +30,21 @@ CharacterVector read_lines(SEXP input, int n = 0){
 // [[Rcpp::export]]
 int count_lines(SEXP input){
   if( Rf_inherits(input, "connection" ) ){
-    ReadConnectionSource<>  source(input);
+    SourceConnection<>  source(input);
     return source.count_lines() ;
   } else {
     std::string path = as<std::string>(input) ;
-    MMapSource<>  source(path) ;
+    SourceFile<>  source(path) ;
     return source.count_lines() ;
   }
 }
 
 // [[Rcpp::export]]
 SEXP parse_text( CharacterVector x, List parser){
-  CharacterVectorSource<> source(x) ;
+  SourceString<> source(x) ;
   int n = x.size() ;
-  VectorInput< CharacterVectorSource<> >* input =
-    create_parser< CharacterVectorSource<> >(parser, n, source );
+  VectorInput< SourceString<> >* input =
+    create_parser< SourceString<> >(parser, n, source );
 
   for( int i=0; i<n; i++){
     source.more() ;

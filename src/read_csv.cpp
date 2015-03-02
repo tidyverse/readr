@@ -68,7 +68,7 @@ List read_csv(Source source, List parser_spec, CharacterVector col_names,
 List read_csv_from_file(std::string path, List parser_spec,
                         CharacterVector col_names, int n = 0, int skip = 0) {
 
-  MMapSource<> source(path);
+  SourceFile<> source(path);
   return read_csv(source, parser_spec, col_names, n, skip);
 }
 
@@ -76,6 +76,6 @@ List read_csv_from_file(std::string path, List parser_spec,
 List read_csv_from_connection(SEXP conn, List parser_spec,
                               CharacterVector col_names, int n = 0, int skip = 0) {
 
-  ReadConnectionSource<> source(conn);
+  SourceConnection<> source(conn);
   return read_csv(source, parser_spec, col_names, n, skip);
 }

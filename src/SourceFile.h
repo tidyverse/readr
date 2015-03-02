@@ -1,15 +1,15 @@
-#ifndef FASTREAD_MMapSource_H
-#define FASTREAD_MMapSource_H
+#ifndef FASTREAD_SOURCEFILE_H
+#define FASTREAD_SOURCEFILE_H
 
 template <
   typename LinePolicy = KeepAllLines,
   typename SeparatorPolicy = SingleCharacterSeparator
 >
-class MMapSource : public Source< MMapSource<LinePolicy, SeparatorPolicy>, LinePolicy, SeparatorPolicy>{
+class SourceFile : public Source< SourceFile<LinePolicy, SeparatorPolicy>, LinePolicy, SeparatorPolicy>{
 public:
-  typedef Source<MMapSource, LinePolicy, SeparatorPolicy> Base ;
+  typedef Source<SourceFile, LinePolicy, SeparatorPolicy> Base ;
 
-  MMapSource( const std::string& filename, LinePolicy line_policy_ = LinePolicy(), SeparatorPolicy sep_policy_ = SeparatorPolicy() ) :
+  SourceFile( const std::string& filename, LinePolicy line_policy_ = LinePolicy(), SeparatorPolicy sep_policy_ = SeparatorPolicy() ) :
     Base(line_policy_, sep_policy_)
   {
     using namespace boost::interprocess;
