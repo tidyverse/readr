@@ -2,7 +2,6 @@
 #define FASTREAD_FASTREAD_H
 
 #include <Rcpp.h>
-using namespace Rcpp;
 
 #include <boost/interprocess/file_mapping.hpp>
 #include <boost/interprocess/mapped_region.hpp>
@@ -19,20 +18,20 @@ using namespace Rcpp;
 #include <boost/spirit/include/phoenix_core.hpp>
 #include <boost/spirit/include/phoenix_operator.hpp>
 
-#include <fastread/Connection.h>
+#include "Connection.h"
 
-#include <fastread/LinePolicy.h>
-#include <fastread/SeparatorPolicy.h>
+#include "LinePolicy.h"
+#include "SeparatorPolicy.h"
 
-#include <fastread/DateTimeParser.h>
-#include <fastread/Source.h>
-#include <fastread/MMapSource.h>
-#include <fastread/ReadConnectionSource.h>
-#include <fastread/CharacterVectorSource.h>
+#include "DateTimeParser.h"
+#include "Source.h"
+#include "MMapSource.h"
+#include "ReadConnectionSource.h"
+#include "CharacterVectorSource.h"
 
-#include <fastread/get_int_naive.h>
-#include <fastread/VectorInput.h>
+#include "get_int_naive.h"
+#include "VectorInput.h"
 
-#include <fastread/LinesReader.h>
+#include "LinesReader.h"
 
 #endif

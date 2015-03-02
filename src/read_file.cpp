@@ -1,4 +1,4 @@
-#include <fastread.h>
+#include "fastread.h"
 
 #include <fstream>
 #include <sstream>

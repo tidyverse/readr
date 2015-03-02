@@ -1,5 +1,5 @@
 #include <Rcpp.h>
-#include <fastread.h>
+#include "fastread.h"
 using namespace Rcpp;
 using namespace fastread;
 

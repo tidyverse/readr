@@ -22,7 +22,7 @@ namespace fastread {
             }
 
             catch(interprocess_exception& e){
-              stop( "cannot read file information" ) ;
+              Rcpp::stop( "cannot read file information" ) ;
             }
 
             filesize = mr->get_size();

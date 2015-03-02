@@ -1,7 +1,7 @@
-#include <fastread.h>
+#include "fastread.h"
 
 using namespace Rcpp ;
-using namespace fastread ;
+using namespace fastread;
 
 //' Read lines
 //'

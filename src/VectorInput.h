@@ -23,7 +23,7 @@ namespace fastread {
         typedef VectorInput<Source> Base ;
 
         VectorInput_Integer( int n, Source* source_ ) :
-            Base(source_), data( no_init(n) ) {}
+            Base(source_), data( Rcpp::no_init(n) ) {}
 
         void set( int i ){
             data[i] = Base::source->get_int() ;
@@ -31,7 +31,7 @@ namespace fastread {
         inline SEXP get(){ return data ; }
 
     private:
-        IntegerVector data ;
+      Rcpp::IntegerVector data ;
     } ;
 
     template <typename Source>
@@ -39,8 +39,8 @@ namespace fastread {
     public:
         typedef VectorInput<Source> Base ;
 
-        VectorInput_Factor( int n, Source* source_, CharacterVector levels_, bool ordered_ ) : Base(source_),
-            data( no_init(n) ),
+        VectorInput_Factor( int n, Source* source_, Rcpp::CharacterVector levels_, bool ordered_ ) : Base(source_),
+            data( Rcpp::no_init(n) ),
             levels(levels_),
             ordered(ordered_)
             {
@@ -59,7 +59,7 @@ namespace fastread {
 
             MAP::iterator it = level_map.find(st) ;
             if( it == level_map.end() ){
-                stop("Value not in list of allowed levels");
+                Rcpp::stop("Value not in list of allowed levels");
             } else {
                 data[i] = it->second + 1 ;
             }
@@ -68,7 +68,7 @@ namespace fastread {
         SEXP get() {
             data.attr("levels") = levels ;
             if (ordered) {
-              data.attr("class") = CharacterVector::create("ordered", "factor");
+              data.attr("class") = Rcpp::CharacterVector::create("ordered", "factor");
             } else {
               data.attr("class" ) = "factor";
             }
@@ -77,8 +77,8 @@ namespace fastread {
         }
 
     private:
-        IntegerVector data ;
-        CharacterVector levels;
+        Rcpp::IntegerVector data ;
+        Rcpp::CharacterVector levels;
         bool ordered;
         typedef boost::unordered_map<SEXP, int> MAP;
         MAP level_map ;
@@ -90,14 +90,14 @@ namespace fastread {
         typedef VectorInput<Source> Base ;
 
         VectorInput_Double( int n, Source* source_ ) :
-            Base(source_), data(no_init(n) ){}
+            Base(source_), data(Rcpp::no_init(n) ){}
         void set( int i ){
              data[i] = Base::source->get_double() ;
         }
         inline SEXP get(){ return data ; }
 
     private:
-        DoubleVector data ;
+        Rcpp::DoubleVector data ;
     } ;
 
     template <typename Source>
@@ -105,14 +105,14 @@ namespace fastread {
     public:
         typedef VectorInput<Source> Base ;
         VectorInput_String( int n, Source* source_, bool trim_ ) :
-            Base(source_), data(no_init(n)), trim(trim_) {}
+            Base(source_), data(Rcpp::no_init(n)), trim(trim_) {}
         void set( int i ) {
             data[i] = Base::source->get_String() ;
         }
         inline SEXP get(){ return data ; }
 
     private:
-        CharacterVector data ;
+        Rcpp::CharacterVector data ;
         bool trim;
     } ;
 
@@ -122,7 +122,7 @@ namespace fastread {
         typedef VectorInput<Source> Base ;
 
         VectorInput_Date_ymd( int n, Source* source_ ) :
-            Base(source_), data(no_init(n)){}
+            Base(source_), data(Rcpp::no_init(n)){}
 
         void set(int i){
             data[i] = Base::source->get_Date_Ymd() ;
@@ -133,7 +133,7 @@ namespace fastread {
         }
 
     private:
-        NumericVector data ;
+      Rcpp::NumericVector data ;
     } ;
 
     template <typename Source>
@@ -142,18 +142,18 @@ namespace fastread {
         typedef VectorInput<Source> Base ;
 
         VectorInput_POSIXct( int n, Source* source_ ) :
-            Base(source_), data(no_init(n)){}
+            Base(source_), data(Rcpp::no_init(n)){}
 
         void set(int i){
             data[i] = Base::source->get_POSIXct() ;
         }
         inline SEXP get(){
-            data.attr("class") = CharacterVector::create( "POSIXct", "POSIXt" ) ;
+            data.attr("class") = Rcpp::CharacterVector::create( "POSIXct", "POSIXt" ) ;
             return data ;
         }
 
     private:
-        NumericVector data ;
+      Rcpp::NumericVector data ;
     } ;
 
     template <typename Source>
@@ -162,7 +162,7 @@ namespace fastread {
         typedef VectorInput<Source> Base ;
 
         VectorInput_Time( int n, Source* source_ ) :
-            Base(source_), data(no_init(n)){}
+            Base(source_), data(Rcpp::no_init(n)){}
 
         void set(int i){
             data[i] = Base::source->get_Time() ;
@@ -173,7 +173,7 @@ namespace fastread {
         }
 
     private:
-        NumericVector data ;
+      Rcpp::NumericVector data ;
     } ;
 
 
@@ -198,25 +198,25 @@ namespace fastread {
     } ;
 
     template <typename Source>
-    VectorInput<Source>* create_parser(List spec, int n, Source& source){
-      String clazz = (as<CharacterVector>(spec["type"]))[0];
+    VectorInput<Source>* create_parser(Rcpp::List spec, int n, Source& source){
+      Rcpp::String clazz = (Rcpp::as<Rcpp::CharacterVector>(spec["type"]))[0];
 
       if( clazz == "integer"   ) return new VectorInput_Integer<Source>(n, &source) ;
       if( clazz == "double"    ) return new VectorInput_Double<Source>(n, &source) ;
       if( clazz == "character" ) {
-        bool trim = as<LogicalVector>(spec["trim"]);
+        bool trim = Rcpp::as<Rcpp::LogicalVector>(spec["trim"]);
         return new VectorInput_String<Source>(n, &source, trim) ;
       }
       if( clazz == "skip"      ) return new VectorInput_Skip<Source>(n, &source) ;
       if( clazz == "factor"    ) {
-        CharacterVector levels = as<CharacterVector>(spec["levels"]);
-        bool ordered = (as<LogicalVector>(spec["ordered"]))[0];
+        Rcpp::CharacterVector levels = Rcpp::as<Rcpp::CharacterVector>(spec["levels"]);
+        bool ordered = (Rcpp::as<Rcpp::LogicalVector>(spec["ordered"]))[0];
         return new VectorInput_Factor<Source>(n, &source, levels, ordered) ;
       }
       if( clazz == "Date"      ) return new VectorInput_Date_ymd<Source>(n, &source) ;
       if( clazz == "POSIXct"   ) return new VectorInput_POSIXct<Source>(n, &source) ;
       if( clazz == "Time"      ) return new VectorInput_Time<Source>(n, &source) ;
-      stop( "unsupported column type" ) ;
+      Rcpp::stop( "unsupported column type" ) ;
       return 0 ;
     }
 
