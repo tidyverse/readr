@@ -39,10 +39,6 @@ flip <- function(x) {
     .Call('fastread_flip', PACKAGE = 'fastread', x)
 }
 
-readFile <- function(path) {
-    invisible(.Call('fastread_readFile', PACKAGE = 'fastread', path))
-}
-
 readString <- function(x) {
     invisible(.Call('fastread_readString', PACKAGE = 'fastread', x))
 }

@@ -100,16 +100,6 @@ BEGIN_RCPP
     return __result;
 END_RCPP
 }
-// readFile
-void readFile(std::string path);
-RcppExport SEXP fastread_readFile(SEXP pathSEXP) {
-BEGIN_RCPP
-    Rcpp::RNGScope __rngScope;
-    Rcpp::traits::input_parameter< std::string >::type path(pathSEXP);
-    readFile(path);
-    return R_NilValue;
-END_RCPP
-}
 // readString
 void readString(CharacterVector x);
 RcppExport SEXP fastread_readString(SEXP xSEXP) {

@@ -1,19 +1,9 @@
-#include "HCollector.h"
-#include "HStreamFile.h"
 #include "HStreamString.h"
 #include "HTokenizerDelimited.h"
+#include "HCollectorDouble.h"
 
 #include <Rcpp.h>
 using namespace Rcpp;
-
-// [[Rcpp::export]]
-void readFile(std::string path) {
-  StreamFile source(path);
-
-  char c;
-  while((c = source.get()) != EOF)
-    Rcout << c;
-}
 
 // [[Rcpp::export]]
 void readString(CharacterVector x) {
@@ -43,7 +33,7 @@ std::vector<std::string> tokenizeString(CharacterVector x) {
 NumericVector parseNumbers(CharacterVector x) {
   StreamString source(x);
   TokenizerDelimited csv(',');
-  DoubleCollector out;
+  CollectorDouble out;
 
   out.resize(100);
 
