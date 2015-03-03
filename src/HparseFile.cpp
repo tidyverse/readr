@@ -23,7 +23,7 @@ std::vector<std::string> tokenizeString(CharacterVector x) {
 
   while(source.peek() != EOF) {
     Token t = csv.nextToken(&source);
-    out.push_back(t.asString(source));
+    out.push_back(t.asString());
   }
 
   return out;

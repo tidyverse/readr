@@ -26,8 +26,7 @@ public:
     type_(type), begin_(begin), end_(end) {
   }
 
-  template <class Stream>
-  std::string asString(Stream s) const {
+  std::string asString() const {
     switch(type_) {
     case TOKEN_POINTER:  return std::string(begin_, end_);
     case TOKEN_INLINE:   return text_;
@@ -41,7 +40,7 @@ public:
   TokenType type() const {
     return type_;
   }
-  std::string text() const {
+  const std::string& text() const {
     return text_;
   }
   StreamIterator begin() const {
