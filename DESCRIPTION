@@ -6,14 +6,16 @@ Authors@R: c(
     person("Hadley", "Wickham", , "hadley@rstudio.com", c("aut", "cre")),
     person("Romain", "Francois", role = "aut"),
     person("RStudio", role = "cph"))
-Depends:
+Depends: 
     R (>= 3.0.2)
-LinkingTo:
+LinkingTo: 
     Rcpp,
     BH
-Imports:
+Imports: 
     Rcpp (>= 0.11.2),
     assertthat
-Suggests:
-    testthat
+Suggests: 
+    testthat,
+    knitr
 License: GPL (>= 2)
+VignetteBuilder: knitr

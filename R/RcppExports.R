@@ -39,6 +39,14 @@ flip <- function(x) {
     .Call('fastread_flip', PACKAGE = 'fastread', x)
 }
 
+readFile <- function(path) {
+    invisible(.Call('fastread_readFile', PACKAGE = 'fastread', path))
+}
+
+readString <- function(x) {
+    invisible(.Call('fastread_readString', PACKAGE = 'fastread', x))
+}
+
 is_double <- function(x) {
     .Call('fastread_is_double', PACKAGE = 'fastread', x)
 }

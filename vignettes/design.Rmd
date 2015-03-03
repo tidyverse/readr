@@ -1,0 +1,170 @@
+---
+title: "Overall design"
+author: "Hadley Wickham"
+date: "`r Sys.Date()`"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Overall design}
+  %\VignetteEngine{knitr::rmarkdown}
+  \usepackage[utf8]{inputenc}
+---
+
+# Assumptions
+
+* Data may be on file, in a string, or in connection.
+
+* Table broken into records (normally by new lines), and records broken into 
+  fields (normally by delimiter). You can't tease about record and field 
+  parsing because to find the end of a field you need to understand
+  escaping and quoting.
+
+* Data is fundamentally rectangular, and stored in record-major format 
+  (but input may be ragged)
+
+* Always known number (and type) of fields; don't always know number of rows.
+  Field types are known in advance (either guessed from first 30 rows, or 
+  supplied by user). Cost of determining types is negligible compared to
+  parsing (or at least amortises to small amount).
+
+* Key to good performance is to avoid copying.
+
+# Main components
+
+* A source, a mmapped file, a connection or a string.  All sources have
+  a stream like interface. Some sources are persistent (i.e. all data lives
+  in memory), some sources are transient.
+
+* A token, which represents the contents of one field, as a string. 
+  Tokens should be very lightweight, pointing to the memory already allocated 
+  by the stream if possible.
+
+* A tokeniser converts a stream of characters from a source into a stream of
+  tokens.
+
+* Field collectors take a token, parse it and and store it in an R vector.
+
+## Sources
+
+There are three main sources:
+
+* A file on disk (mmapped for optimal performance).
+* A string.
+* An R connection.
+
+The job of the source is to provide a stream of characters for further parsing. It also provides a buffer of memory that tokens can point into. A source must buffer at least the complete current record, but may buffer the whole contents in memory.
+
+A source has a stream interface, i.e. it provides:
+
+* `pos()`, the current position.
+* `get()`, return char at current position, and advance to next position.
+* `peek()`, look at current char without advancing.
+
+## Tokens
+
+There are five possible types of token:
+
+```cpp
+enum TokenType {
+  TOKEN_POINTER,  // a pointer to existing memory
+  TOKEN_INLINE,   // a new std::string
+  TOKEN_MISSING,  // a missing value
+  TOKEN_EOL,      // end of record
+  TOKEN_EOF       // end of file
+}
+```
+
+`TOKEN_POINTER` should be the most common - it gives offsets into memory provided by the stream, avoiding a copy in the common case where the character values can be used as is. This gives optimal performance by avoiding copies.
+
+When the raw string value can not be interpreted directly (for example when escapes are present), use `TOKEN_INLINE`, which stores the parsed text in the token object.
+
+```cpp
+class Token { 
+  TokenType type;
+  int row, col;    // semantic location of token
+  int start, end;  // indexes to start and end of string (for TOKEN_POINTER)
+  std::string text // string itself (for TOKEN_RAW)
+};
+```
+
+## Tokenizer
+
+The tokenizer turns a stream of characters into a stream of tokens.
+
+```cpp
+
+class Tokenizer {
+
+  Token nextToken(Source s) {
+    // returns token 
+    // advances source paste delimited (if appropriate)
+  }
+
+  void skipLines(Source s) {
+    // convenience method to skip multiple lines
+  }
+}
+```
+
+The two most important tokenisers are:
+
+* `DelimitedTokenizer` for parsing delimited files. Needs sep, quote, 
+  and escaping options.
+  
+* `FixedWidthTokenizer`. Needs field widths.
+
+All tokenizers keep a (vector?) of strings representing NA values. Defaults to `c("", "NA")`.
+
+## Column collectors
+
+Column collectors collect corresponding fields across multiple records, parsing strings and storing in the appropriate R vector.
+
+Four collectors correspond to existing behaviour in `read.csv()` etc:
+
+* Logical
+* Integer
+* Double
+* Character: encoding, trim
+
+Three others support the most important S3 vectors:
+
+* Factor: levels, ordered
+* Date
+* DateTime
+
+There are two others that don't represent existing S3 vectors, but might be useful to add:
+
+* BigInteger (64 bit)
+* Time
+
+# The whole thing
+
+Putting all the pieces together, this gives something like:
+
+```cpp
+SourceFile mtcars("mtcars.csv");
+DelimitedTokenizer csv(',');
+int n = 32;
+
+std::vector<FieldType*> fields = {
+  new CharacterParser("UTF-8"), 
+  new IntegerParser(), 
+  new IntegerParser(),
+  new FactorParser()
+};
+
+int p = field.size();
+for (int j = 0; j < p; ++j) {
+  fields[p]->resize(n);
+}
+
+while ((Token token = csv.nextToken(mtcars)) != TOKEN_EOF) {
+  fields[token.col]->setValue(source, token);
+}
+
+List out(p);
+for (int j = 0; j < p; ++j) {
+  out[j] = fields[j]->column();
+}
+
+return out;
+```
