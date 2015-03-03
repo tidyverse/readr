@@ -47,6 +47,10 @@ readString <- function(x) {
     invisible(.Call('fastread_readString', PACKAGE = 'fastread', x))
 }
 
+tokenizeString <- function(x) {
+    .Call('fastread_tokenizeString', PACKAGE = 'fastread', x)
+}
+
 is_double <- function(x) {
     .Call('fastread_is_double', PACKAGE = 'fastread', x)
 }

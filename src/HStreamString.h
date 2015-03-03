@@ -17,6 +17,10 @@ public:
     addr_ = CHAR(string_);
   }
 
+  std::string getString(int start, int end) {
+    return std::string(addr_ + start, end - start);
+  }
+
   int pos() {
     return pos_;
   }

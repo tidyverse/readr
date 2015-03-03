@@ -28,6 +28,10 @@ public:
     addr_ = static_cast<char*>(mr_.get_address());
   }
 
+  std::string getString(int start, int end) {
+    return std::string(addr_ + start, end - start);
+  }
+
   int pos() {
     return pos_;
   }

@@ -20,7 +20,8 @@ public:
     backslashEscape_(backslashEscape)
   {}
 
-  Token nextToken(StreamFile s) {
+  template <class Stream>
+  Token nextToken(const Stream& s) {
     int start = s.pos();
 
     // Could be delimiter, new line or EOF
@@ -35,7 +36,7 @@ public:
         s.get();
       return Token(TOKEN_EOL);
     default:
-      if (first != delim_)
+      if (start > 0 && first != delim_)
         Rcpp::stop("Invalid value");
     }
 
@@ -46,6 +47,8 @@ public:
       if (!hasQuotes) {
         if (c == delim_)
           break;
+        // or new line
+        // or eof
 
         if (c == quote_)
           hasQuotes = true;
@@ -66,12 +69,17 @@ public:
       s.get();
     }
 
+    int end = s.pos();
+    s.get();
+
     if (hasQuotes) {
       return Token(TOKEN_INLINE, string);
     } else {
-      return Token(TOKEN_POINTER, start, s.pos());
+      return Token(TOKEN_POINTER, start, end);
     }
   }
+
+
 
 };
 

@@ -26,7 +26,7 @@ vignette: >
   supplied by user). Cost of determining types is negligible compared to
   parsing (or at least amortises to small amount).
 
-* Key to good performance is to avoid copying.
+* Key to good performance is to avoid copying and allocation.
 
 # Main components
 

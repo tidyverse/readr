@@ -1,4 +1,4 @@
-#include "HSourceFile.h"
+#include "HStreamFile.h"
 #include "HStreamString.h"
 #include "HTokenizerDelimited.h"
 
@@ -21,4 +21,20 @@ void readString(CharacterVector x) {
   char c;
   while((c = source.get()) != EOF)
     Rcout << c;
+}
+
+// [[Rcpp::export]]
+std::vector<std::string> tokenizeString(CharacterVector x) {
+  StreamString source(x);
+  TokenizerDelimited csv(',');
+
+  std::vector<std::string> out;
+
+  int i = 0;
+  while(source.peek() != EOF && i < 10) {
+    Token t = csv.nextToken(source);
+    Rcout << i++ << ": " << t.asString(source) << "\n";
+  }
+
+  return out;
 }
