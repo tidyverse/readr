@@ -23,24 +23,28 @@ public:
   template <class Stream>
   Token nextToken(Stream* pStream) {
 
-    char first = pStream->get();
+    char first = pStream->peek();
     switch(first) {
     case EOF:
       return Token(TOKEN_EOF);
     case '\n':
+      pStream->get();
       pStream->nextRow();
       return Token(TOKEN_EOL);
     case '\r':
+      pStream->get();
       if (pStream->peek() == '\n')
         pStream->get();
       pStream->nextRow();
       return Token(TOKEN_EOL);
     default:
-      if (pStream->col() != 0 && first != delim_) {
-        Rcpp::stop("Expecting delimiter at (%i, %i) but found '%s'",
-          pStream->row(), pStream->col(), first);
+      if (pStream->col() != 0) {
+        // skip delimiter from last element
+        if (first != delim_)
+          Rcpp::stop("Expecting delimiter at (%i, %i) but found '%s'",
+            pStream->row(), pStream->col(), first);
+        pStream->get();
       }
-
       break;
     }
 
