@@ -30,15 +30,15 @@ std::vector<std::string> tokenizeString(CharacterVector x) {
 }
 
 // [[Rcpp::export]]
-NumericVector parseNumbers(CharacterVector x) {
+NumericVector parseNumbers(CharacterVector x, int n = 100) {
   StreamString source(x);
   TokenizerDelimited csv(',');
   CollectorDouble out;
 
-  out.resize(100);
+  out.resize(n);
 
   int i = 0;
-  while(source.peek() != EOF && i < 100) {
+  while(source.peek() != EOF && i < n) {
     Token t = csv.nextToken(&source);
     out.setValue(i++, t);
   }

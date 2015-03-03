@@ -122,13 +122,14 @@ BEGIN_RCPP
 END_RCPP
 }
 // parseNumbers
-NumericVector parseNumbers(CharacterVector x);
-RcppExport SEXP fastread_parseNumbers(SEXP xSEXP) {
+NumericVector parseNumbers(CharacterVector x, int n = 100);
+RcppExport SEXP fastread_parseNumbers(SEXP xSEXP, SEXP nSEXP) {
 BEGIN_RCPP
     Rcpp::RObject __result;
     Rcpp::RNGScope __rngScope;
     Rcpp::traits::input_parameter< CharacterVector >::type x(xSEXP);
-    __result = Rcpp::wrap(parseNumbers(x));
+    Rcpp::traits::input_parameter< int >::type n(nSEXP);
+    __result = Rcpp::wrap(parseNumbers(x, n));
     return __result;
 END_RCPP
 }
