@@ -2,13 +2,16 @@
 using namespace Rcpp;
 
 #include "HCollector.h"
-#include "HCollectorCharacter.h"
+#include "HCollectorLogical.h"
 #include "HCollectorInteger.h"
 #include "HCollectorDouble.h"
+#include "HCollectorCharacter.h"
 
 boost::shared_ptr<Collector> collectorCreate(List spec) {
   String type = (as<CharacterVector>(spec["type"]))[0];
 
+  if (type == "logical"  )
+    return boost::shared_ptr<Collector>(new CollectorLogical());
   if (type == "integer"  )
     return boost::shared_ptr<Collector>(new CollectorInteger());
   if (type == "double"   )
