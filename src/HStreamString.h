@@ -5,13 +5,13 @@
 
 class StreamString {
   Rcpp::RObject string_;
-  int pos_;
+  int pos_, row_, col_;
   size_t size_;
   const char* addr_;
 
 public:
 
-  StreamString(Rcpp::CharacterVector x) : pos_(0) {
+  StreamString(Rcpp::CharacterVector x) : pos_(0), row_(0), col_(0) {
     string_ = x[0];
     size_ = Rf_length(string_);
     addr_ = CHAR(string_);
@@ -37,6 +37,20 @@ public:
       return EOF;
 
     return addr_[pos_];
+  }
+
+  void nextRow() {
+    row_++;
+    col_ = 0;
+  }
+  void nextCol() {
+    col_++;
+  }
+  int col() {
+    return col_;
+  }
+  int row() {
+    return row_;
   }
 
 };

@@ -22,29 +22,29 @@ public:
 
   template <class Stream>
   Token nextToken(Stream* pStream) {
-    int start = pStream->pos();
 
-    // Current position is after last field: could be delimiter, EOL or EOF
-    if (start != 0) {
-      char first = pStream->get();
-      switch(first) {
-      case EOF:
-        return Token(TOKEN_EOF);
-      case '\n':
-        return Token(TOKEN_EOL);
-      case '\r':
-        if (pStream->peek() == '\n')
-          pStream->get();
-        return Token(TOKEN_EOL);
-      default:
-        if (first != delim_)
-          Rcpp::stop("Expecting delimiter");
-        break;
+    char first = pStream->get();
+    switch(first) {
+    case EOF:
+      return Token(TOKEN_EOF);
+    case '\n':
+      pStream->nextRow();
+      return Token(TOKEN_EOL);
+    case '\r':
+      if (pStream->peek() == '\n')
+        pStream->get();
+      pStream->nextRow();
+      return Token(TOKEN_EOL);
+    default:
+      if (pStream->col() != 0 && first != delim_) {
+        Rcpp::stop("Expecting delimiter at (%i, %i) but found '%s'",
+          pStream->row(), pStream->col(), first);
       }
 
-      // Don't include delimiter in output
-      start++;
+      break;
     }
+
+    int start = pStream->pos();
 
     std::string string;
     bool isQuoted = false;
@@ -72,11 +72,16 @@ public:
       pStream->get();
     }
 
+    pStream->nextCol();
     if (isQuoted) {
       return Token(TOKEN_INLINE, string);
     } else {
       int end = pStream->pos();
-      return Token(TOKEN_POINTER, start, end);
+      if (start == end) {
+        return Token(TOKEN_EMPTY);
+      } else {
+        return Token(TOKEN_POINTER, start, end);
+      }
     }
   }
 
