@@ -21,60 +21,61 @@ public:
   {}
 
   template <class Stream>
-  Token nextToken(const Stream& s) {
-    int start = s.pos();
+  Token nextToken(Stream* pStream) {
+    int start = pStream->pos();
 
-    // Could be delimiter, new line or EOF
-    char first = s.get();
-    switch(first) {
-    case EOF:
-      return Token(TOKEN_EOF);
-    case '\n':
-      return Token(TOKEN_EOL);
-    case '\r':
-      if (s.peek() == '\n')
-        s.get();
-      return Token(TOKEN_EOL);
-    default:
-      if (start > 0 && first != delim_)
-        Rcpp::stop("Invalid value");
+    // Current position is after last field: could be delimiter, EOL or EOF
+    if (start != 0) {
+      char first = pStream->get();
+      switch(first) {
+      case EOF:
+        return Token(TOKEN_EOF);
+      case '\n':
+        return Token(TOKEN_EOL);
+      case '\r':
+        if (pStream->peek() == '\n')
+          pStream->get();
+        return Token(TOKEN_EOL);
+      default:
+        if (first != delim_)
+          Rcpp::stop("Expecting delimiter");
+        break;
+      }
+
+      // Don't include delimiter in output
+      start++;
     }
 
     std::string string;
-    bool hasQuotes = false;
+    bool isQuoted = false;
     char c;
-    while((c = s.peek()) != EOF) {
-      if (!hasQuotes) {
-        if (c == delim_)
+    while((c = pStream->peek()) != EOF) {
+      if (!isQuoted) {
+        if (c == delim_ || c == '\n' || c == '\r')
           break;
-        // or new line
-        // or eof
 
-        if (c == quote_)
-          hasQuotes = true;
-
+        if (c == quote_) {
+          isQuoted = true;
+        }
       } else {
         // In a string
         if (c == quote_) {
-          s.get();
+          pStream->get(); // eat quote
           break;
         } else if (backslashEscape_ && c == '\\') {
-          s.get(); // skip escape
-          string.push_back(s.peek()); // Needs escaping processing
+          pStream->get(); // skip escape
+          string.push_back(pStream->peek()); // Needs escaping processing
         } else {
           string.push_back(c);
         }
-
       }
-      s.get();
+      pStream->get();
     }
 
-    int end = s.pos();
-    s.get();
-
-    if (hasQuotes) {
+    if (isQuoted) {
       return Token(TOKEN_INLINE, string);
     } else {
+      int end = pStream->pos();
       return Token(TOKEN_POINTER, start, end);
     }
   }

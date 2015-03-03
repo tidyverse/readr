@@ -32,8 +32,8 @@ std::vector<std::string> tokenizeString(CharacterVector x) {
 
   int i = 0;
   while(source.peek() != EOF && i < 10) {
-    Token t = csv.nextToken(source);
-    Rcout << i++ << ": " << t.asString(source) << "\n";
+    Token t = csv.nextToken(&source);
+    out.push_back(t.asString(source));
   }
 
   return out;
