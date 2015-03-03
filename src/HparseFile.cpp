@@ -30,20 +30,21 @@ std::vector<std::string> tokenizeString(CharacterVector x) {
 }
 
 // [[Rcpp::export]]
-NumericVector parseNumbers(CharacterVector x, int n = 100) {
+SEXP parseString(CharacterVector x, List spec, int n = 100) {
   StreamString source(x);
   TokenizerDelimited csv(',');
-  CollectorDouble out;
 
-  out.resize(n);
+  boost::shared_ptr<Collector> out = collectorCreate(spec);
+  out->resize(n);
 
   int i = 0;
   while(source.peek() != EOF && i < n) {
     Token t = csv.nextToken(&source);
-    out.setValue(i++, t);
+    out->setValue(i++, t);
   }
+  if (i != n)
+    out->resize(i);
 
-  return out.vector();
+  return out->vector();
 }
-
 

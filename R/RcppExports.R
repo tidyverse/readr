@@ -47,8 +47,8 @@ tokenizeString <- function(x) {
     .Call('fastread_tokenizeString', PACKAGE = 'fastread', x)
 }
 
-parseNumbers <- function(x, n = 100L) {
-    .Call('fastread_parseNumbers', PACKAGE = 'fastread', x, n)
+parseString <- function(x, spec, n = 100L) {
+    .Call('fastread_parseString', PACKAGE = 'fastread', x, spec, n)
 }
 
 is_double <- function(x) {

@@ -8,7 +8,7 @@
 #include <boost/spirit/include/phoenix_core.hpp>
 #include <boost/spirit/include/phoenix_operator.hpp>
 
-class CollectorDouble : Collector {
+class CollectorDouble : public Collector {
   Rcpp::NumericVector column_;
 
 public:

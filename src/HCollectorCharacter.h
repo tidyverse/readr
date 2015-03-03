@@ -4,7 +4,7 @@
 #include "HCollector.h"
 #include <Rcpp.h>
 
-class CollectorCharacter : Collector {
+class CollectorCharacter : public Collector {
   Rcpp::CharacterVector column_;
   cetype_t encoding_;
 
@@ -14,7 +14,7 @@ public:
   }
 
   void resize(int n) {
-    Rf_lengthgets(column_, n);
+    column_ = Rf_lengthgets(column_, n);
   }
 
   void setValue(int i, const Token& t) {
