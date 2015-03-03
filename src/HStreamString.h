@@ -3,40 +3,40 @@
 
 #include <Rcpp.h>
 
+typedef const char* StreamIterator;
+
 class StreamString {
   Rcpp::RObject string_;
-  int pos_, row_, col_;
-  size_t size_;
-  const char* addr_;
+  int row_, col_;
+
+  StreamIterator begin_, end_, cur_;
 
 public:
 
-  StreamString(Rcpp::CharacterVector x) : pos_(0), row_(0), col_(0) {
+  StreamString(Rcpp::CharacterVector x) : row_(0), col_(0) {
     string_ = x[0];
-    size_ = Rf_length(string_);
-    addr_ = CHAR(string_);
+
+    begin_ = CHAR(string_);
+    end_ = begin_ + Rf_length(string_);
+    cur_ = begin_;
   }
 
-  std::string getString(int start, int end) {
-    return std::string(addr_ + start, end - start);
-  }
-
-  int pos() {
-    return pos_;
+  StreamIterator pos() {
+    return cur_;
   }
 
   char get() {
-    if (pos_ >= size_)
+    if (cur_ >= end_)
       return EOF;
 
-    return addr_[pos_++];
+    return *cur_++;
   }
 
   char peek() {
-    if (pos_ >= size_)
+    if (cur_ >= end_)
       return EOF;
 
-    return addr_[pos_];
+    return *cur_;
   }
 
   void nextRow() {

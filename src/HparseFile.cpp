@@ -1,3 +1,4 @@
+#include "HCollector.h"
 #include "HStreamFile.h"
 #include "HStreamString.h"
 #include "HTokenizerDelimited.h"
@@ -30,8 +31,7 @@ std::vector<std::string> tokenizeString(CharacterVector x) {
 
   std::vector<std::string> out;
 
-  int i = 0;
-  while(source.peek() != EOF && i < 10) {
+  while(source.peek() != EOF) {
     Token t = csv.nextToken(&source);
     out.push_back(t.asString(source));
   }

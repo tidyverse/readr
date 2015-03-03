@@ -44,7 +44,7 @@ public:
       break;
     }
 
-    int start = pStream->pos();
+    StreamIterator start = pStream->pos();
 
     std::string string;
     bool isQuoted = false;
@@ -76,7 +76,7 @@ public:
     if (isQuoted) {
       return Token(TOKEN_INLINE, string);
     } else {
-      int end = pStream->pos();
+      StreamIterator end = pStream->pos();
       if (start == end) {
         return Token(TOKEN_EMPTY);
       } else {
@@ -84,8 +84,6 @@ public:
       }
     }
   }
-
-
 
 };
 
