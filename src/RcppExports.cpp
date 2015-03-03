@@ -131,6 +131,17 @@ BEGIN_RCPP
     return __result;
 END_RCPP
 }
+// parseNumbers
+NumericVector parseNumbers(CharacterVector x);
+RcppExport SEXP fastread_parseNumbers(SEXP xSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject __result;
+    Rcpp::RNGScope __rngScope;
+    Rcpp::traits::input_parameter< CharacterVector >::type x(xSEXP);
+    __result = Rcpp::wrap(parseNumbers(x));
+    return __result;
+END_RCPP
+}
 // is_double
 bool is_double(CharacterVector x);
 RcppExport SEXP fastread_is_double(SEXP xSEXP) {

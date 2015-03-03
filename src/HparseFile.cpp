@@ -38,3 +38,22 @@ std::vector<std::string> tokenizeString(CharacterVector x) {
 
   return out;
 }
+
+// [[Rcpp::export]]
+NumericVector parseNumbers(CharacterVector x) {
+  StreamString source(x);
+  TokenizerDelimited csv(',');
+  DoubleCollector out;
+
+  out.resize(100);
+
+  int i = 0;
+  while(source.peek() != EOF && i < 100) {
+    Token t = csv.nextToken(&source);
+    out.setValue(i++, t);
+  }
+
+  return out.vector();
+}
+
+
