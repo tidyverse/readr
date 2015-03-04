@@ -54,3 +54,44 @@ IntegerVector dimString(CharacterVector x) {
 
   return IntegerVector::create(csv.row() + 1, cols + 1);
 }
+
+
+// [[Rcpp::export]]
+List dataframeString(CharacterVector x, ListOf<List> specs, int n = 100) {
+  StreamString source(x);
+  TokenizerDelimited csv(',');
+  csv.tokenize(source.begin(), source.end());
+
+  int p = specs.size();
+
+  // Initialise collectors
+  std::vector<boost::shared_ptr<Collector> > collectors;
+  for (int j = 0; j < p; ++j) {
+    collectors.push_back(collectorCreate(specs[j]));
+    collectors[j]->resize(n);
+  }
+
+  int row = 0, col = 0;
+  for (Token t = csv.nextToken(); t.type() != TOKEN_EOF; t = csv.nextToken()) {
+    if (col >= p)
+      stop("In row %i, there are %i columns!", csv.row(), csv.col());
+    if (row == n)
+      break;
+
+    collectors[col]->setValue(row, t);
+
+    // Update
+    row = csv.row();
+    col = csv.col();
+  }
+
+  // Save individual columns into a data frame
+  List out(p);
+  for (int j = 0; j < p; ++j) {
+    out[j] = collectors[j]->vector();
+  }
+  out.attr("class") = CharacterVector::create("tbl_df", "tbl", "data.frame");
+  out.attr("row.names") = IntegerVector::create(NA_INTEGER, -n);
+
+  return out;
+}

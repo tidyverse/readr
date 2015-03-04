@@ -51,6 +51,10 @@ dimString <- function(x) {
     .Call('fastread_dimString', PACKAGE = 'fastread', x)
 }
 
+dataframeString <- function(x, specs, n = 100L) {
+    .Call('fastread_dataframeString', PACKAGE = 'fastread', x, specs, n)
+}
+
 is_double <- function(x) {
     .Call('fastread_is_double', PACKAGE = 'fastread', x)
 }

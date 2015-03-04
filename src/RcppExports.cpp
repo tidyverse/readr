@@ -135,6 +135,19 @@ BEGIN_RCPP
     return __result;
 END_RCPP
 }
+// dataframeString
+List dataframeString(CharacterVector x, ListOf<List> specs, int n = 100);
+RcppExport SEXP fastread_dataframeString(SEXP xSEXP, SEXP specsSEXP, SEXP nSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject __result;
+    Rcpp::RNGScope __rngScope;
+    Rcpp::traits::input_parameter< CharacterVector >::type x(xSEXP);
+    Rcpp::traits::input_parameter< ListOf<List> >::type specs(specsSEXP);
+    Rcpp::traits::input_parameter< int >::type n(nSEXP);
+    __result = Rcpp::wrap(dataframeString(x, specs, n));
+    return __result;
+END_RCPP
+}
 // is_double
 bool is_double(CharacterVector x);
 RcppExport SEXP fastread_is_double(SEXP xSEXP) {
