@@ -17,7 +17,7 @@ enum TokenType {
 
 class Token {
   TokenType type_;
-  StreamIterator begin_, end_;  // indexes to start and end of string (for TOKEN_POINTER)
+  StreamIterator begin_, end_;
 
   UnescapeFun pUnescaper_;
 
