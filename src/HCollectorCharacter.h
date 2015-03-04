@@ -26,8 +26,9 @@ public:
     case TOKEN_POINTER:
       return Rf_mkCharLenCE(t.begin(), t.end() - t.begin(), encoding_);
     case TOKEN_MISSING:
-    case TOKEN_EMPTY:
       return NA_STRING;
+    case TOKEN_EMPTY:
+      return Rf_mkChar("");
     case TOKEN_EOF:
       Rcpp::stop("Invalid token");
     }
