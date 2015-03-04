@@ -159,36 +159,3 @@ There are two others that don't represent existing S3 vectors, but might be usef
 
 * BigInteger (64 bit)
 * Time
-
-# The whole thing
-
-Putting all the pieces together, this gives something like:
-
-```cpp
-SourceFile mtcars("mtcars.csv");
-DelimitedTokenizer csv(',');
-int n = 32;
-
-std::vector<FieldType*> fields = {
-  new CharacterParser("UTF-8"), 
-  new IntegerParser(), 
-  new IntegerParser(),
-  new FactorParser()
-};
-
-int p = field.size();
-for (int j = 0; j < p; ++j) {
-  fields[p]->resize(n);
-}
-
-while ((Token token = csv.nextToken(mtcars)) != TOKEN_EOF) {
-  fields[token.col]->setValue(source, token);
-}
-
-List out(p);
-for (int j = 0; j < p; ++j) {
-  out[j] = fields[j]->column();
-}
-
-return out;
-```
