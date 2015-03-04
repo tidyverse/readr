@@ -30,18 +30,19 @@ class TokenizerDelimited {
   bool moreTokens_;
 
   CsvState state_;
+  std::string* pBuffer_;
 
 public:
 
   TokenizerDelimited(char delim = ','):
     delim_(delim),
-    moreTokens_(false),
     NA_("NA"),
-    NA_size_(2)
+    NA_size_(2),
+    moreTokens_(false)
   {
   }
 
-  void tokenize(StreamIterator begin, StreamIterator end) {
+  void tokenize(StreamIterator begin, StreamIterator end, std::string* pBuffer) {
     cur_ = begin;
     end_ = end;
 
@@ -49,6 +50,8 @@ public:
     col_ = 0;
     state_ = STATE_DELIM;
     moreTokens_ = true;
+
+    pBuffer_ = pBuffer;
   }
 
   Token nextToken() {
@@ -56,6 +59,7 @@ public:
       return Token(TOKEN_EOF);
 
     StreamIterator token_begin = cur_;
+    bool hasEscape = false;
 
     while (cur_ != end_) {
       // Increments cur on destruct, ensuring that we always move on to the
@@ -103,11 +107,11 @@ public:
 
       case STATE_QUOTE:
         if (*cur_ == '"') {
-          // Construct a string in temporary buffer and return it
+          hasEscape = true;
           state_ = STATE_STRING;
         } else if (*cur_ == delim_) {
           state_ = STATE_DELIM;
-          return stringToken(token_begin + 1, cur_ - 1);
+          return stringToken(token_begin + 1, cur_ - 1, hasEscape);
         } else {
           Rcpp::stop("Expecting delimiter or quote at (%i, %i) but found '%s'",
                       row_, col_, *cur_);
@@ -133,11 +137,11 @@ public:
       }
 
     case STATE_QUOTE:
-      return stringToken(token_begin + 1, end_ - 1);
+      return stringToken(token_begin + 1, end_ - 1, hasEscape);
 
     case STATE_STRING:
       Rf_warning("Unterminated string at end of file");
-      return stringToken(token_begin + 1, end_);
+      return stringToken(token_begin + 1, end_, hasEscape);
 
     case STATE_FIELD:
       return fieldToken(token_begin, end_);
@@ -155,11 +159,33 @@ private:
     return Token(TOKEN_POINTER, begin, end);
   }
 
-  Token stringToken(StreamIterator begin, StreamIterator end) {
+  Token stringToken(StreamIterator begin, StreamIterator end, bool hasEscape) {
     if (begin == end)
       return Token(TOKEN_EMPTY);
 
-    return Token(TOKEN_POINTER, begin, end);
+    if (!hasEscape)
+      return Token(TOKEN_POINTER, begin, end);
+
+    // Has escapes, so we need to copy unescaped string into provided buffer
+    pBuffer_->clear();
+    pBuffer_->reserve(end - begin);
+
+    bool inEscape = false;
+    for (StreamIterator cur = begin; cur != end; ++cur) {
+      if (*cur == '"') {
+        if (inEscape) {
+          pBuffer_->push_back(*cur);
+          inEscape = false;
+        } else {
+          inEscape = true;
+        }
+      } else {
+        pBuffer_->push_back(*cur);
+      }
+    }
+
+    return Token(TOKEN_POINTER, pBuffer_->data(),
+      pBuffer_->data() + pBuffer_->size());
   }
 
 };
