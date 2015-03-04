@@ -28,26 +28,12 @@ public:
     addr_ = static_cast<char*>(mr_.get_address());
   }
 
-  std::string getString(int start, int end) {
-    return std::string(addr_ + start, end - start);
+  const char* begin() {
+    return addr_;
   }
 
-  int pos() {
-    return pos_;
-  }
-
-  char get() {
-    if (pos_ >= size_)
-      return EOF;
-
-    return addr_[pos_++];
-  }
-
-  char peek() {
-    if (pos_ >= size_)
-      return EOF;
-
-    return addr_[pos_];
+  const char* end() {
+    return addr_ + size_;
   }
 
 };

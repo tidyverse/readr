@@ -100,16 +100,6 @@ BEGIN_RCPP
     return __result;
 END_RCPP
 }
-// readString
-void readString(CharacterVector x);
-RcppExport SEXP fastread_readString(SEXP xSEXP) {
-BEGIN_RCPP
-    Rcpp::RNGScope __rngScope;
-    Rcpp::traits::input_parameter< CharacterVector >::type x(xSEXP);
-    readString(x);
-    return R_NilValue;
-END_RCPP
-}
 // tokenizeString
 std::vector<std::string> tokenizeString(CharacterVector x);
 RcppExport SEXP fastread_tokenizeString(SEXP xSEXP) {

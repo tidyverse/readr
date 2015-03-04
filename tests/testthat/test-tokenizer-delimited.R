@@ -4,8 +4,8 @@ test_that("simple sequence tokenised correctly", {
   expect_equal(tokenizeString('1,2,3'), c("1", "2", "3"))
 })
 
-test_that("newlines tokenised as EOL", {
-  expect_equal(tokenizeString('1\n2'), c("1", "[EOL]", "2"))
+test_that("newlines are not tokenised", {
+  expect_equal(tokenizeString('1\n2'), c("1", "2"))
 })
 
 test_that("quotes in strings are dropped", {

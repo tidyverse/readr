@@ -3,92 +3,131 @@
 
 #include "HToken.h"
 #include <Rcpp.h>
+#include <boost/noncopyable.hpp>
+
+enum CsvState {
+  STATE_DELIM,
+  STATE_FIELD,
+  STATE_STRING,
+  STATE_QUOTE
+};
+
+class Advance : boost::noncopyable  {
+  StreamIterator* pIter_;
+public:
+  Advance(StreamIterator* pIter): pIter_(pIter) {}
+  ~Advance() {
+    (*pIter_)++;
+  }
+};
 
 class TokenizerDelimited {
-  char delim_, quote_;
-  bool backslashEscape_;
+  char delim_;
+  StreamIterator cur_, end_;
+  int row_, col_;
+
+  CsvState state_;
 
 public:
 
-  TokenizerDelimited(
-    char delim = ',',
-    char quote = '"',
-    bool backslashEscape = false
-  ):
-    delim_(delim),
-    quote_(quote),
-    backslashEscape_(backslashEscape)
-  {}
+  TokenizerDelimited(char delim = ','): delim_(delim) {}
 
-  template <class Stream>
-  Token nextToken(Stream* pStream) {
+  void tokenize(StreamIterator begin, StreamIterator end) {
+    cur_ = begin;
+    end_ = end;
 
-    char first = pStream->peek();
-    switch(first) {
-    case EOF:
-      return Token(TOKEN_EOF);
-    case '\n':
-      pStream->get();
-      pStream->nextRow();
-      return Token(TOKEN_EOL);
-    case '\r':
-      pStream->get();
-      if (pStream->peek() == '\n')
-        pStream->get();
-      pStream->nextRow();
-      return Token(TOKEN_EOL);
-    default:
-      if (pStream->col() != 0) {
-        // skip delimiter from last element
-        if (first != delim_)
-          Rcpp::stop("Expecting delimiter at (%i, %i) but found '%s'",
-            pStream->row(), pStream->col(), first);
-        pStream->get();
-      }
-      break;
-    }
-
-    StreamIterator start = pStream->pos();
-
-    std::string string;
-    bool isQuoted = false;
-    char c;
-    while((c = pStream->peek()) != EOF) {
-      if (!isQuoted) {
-        if (c == delim_ || c == '\n' || c == '\r')
-          break;
-
-        if (c == quote_) {
-          isQuoted = true;
-        }
-      } else {
-        // In a string
-        if (c == quote_) {
-          pStream->get(); // eat quote
-          break;
-        } else if (backslashEscape_ && c == '\\') {
-          pStream->get(); // skip escape
-          string.push_back(pStream->peek()); // Needs escaping processing
-        } else {
-          string.push_back(c);
-        }
-      }
-      pStream->get();
-    }
-
-    pStream->nextCol();
-    if (isQuoted) {
-      return Token(TOKEN_INLINE, string);
-    } else {
-      StreamIterator end = pStream->pos();
-      if (start == end) {
-        return Token(TOKEN_EMPTY);
-      } else {
-        return Token(TOKEN_POINTER, start, end);
-      }
-    }
+    row_ = 0;
+    col_ = 0;
+    state_ = STATE_DELIM;
   }
 
+  Token nextToken() {
+    if (cur_ == end_)
+      return Token(TOKEN_EOF);
+
+    StreamIterator token_begin = cur_;
+
+    while (cur_ != end_) {
+      // Increments cur on destruct, ensuring that we always move on to the
+      // next character
+      Advance advance(&cur_);
+
+      if (row_ % 1000 == 0 || col_ % 1000 == 0)
+        Rcpp::checkUserInterrupt();
+
+      switch(state_) {
+      case STATE_DELIM:
+        if (*cur_ == '\r') {
+          // Ignore \r, expect will be followed by \n
+        } else if (*cur_ == '\n') {
+          row_++;
+          col_ = 0;
+          return Token(TOKEN_EMPTY);
+        } else if (*cur_ == delim_) {
+          col_++;
+          return Token(TOKEN_EMPTY);
+        } else if (*cur_ == '"') {
+          col_++;
+          state_ = STATE_STRING;
+        } else {
+          col_++;
+          state_ = STATE_FIELD;
+        }
+        break;
+
+      case STATE_FIELD:
+        if (*cur_ == '\r') {
+          // ignore
+        } else if (*cur_ == '\n') {
+          row_++;
+          col_ = 0;
+          state_ = STATE_DELIM;
+          return Token(TOKEN_POINTER, token_begin, cur_);
+        } else if (*cur_ == delim_) {
+          col_++;
+          state_ = STATE_DELIM;
+          return Token(TOKEN_POINTER, token_begin, cur_);
+        }
+        break;
+
+      case STATE_QUOTE:
+        if (*cur_ == '"') {
+          // Construct a string in temporary buffer and return it
+          state_ = STATE_STRING;
+        } else if (*cur_ == delim_) {
+          state_ = STATE_DELIM;
+          return Token(TOKEN_POINTER, token_begin + 1, cur_ - 1);
+        } else {
+          Rcpp::stop("Expecting delimiter or quote at (%i, %i) but found '%s'",
+                      row_, col_, *cur_);
+        }
+        break;
+
+      case STATE_STRING:
+        if (*cur_ == '"')
+          state_ = STATE_QUOTE;
+        break;
+      }
+    }
+
+    // Reached end of stream
+    switch (state_) {
+    case STATE_QUOTE:
+      return Token(TOKEN_POINTER, token_begin + 1, cur_ - 1);
+
+    case STATE_STRING:
+      Rcpp::warning("Unterminated string at end of file");
+      return Token(TOKEN_POINTER, token_begin + 1, cur_);
+
+    case STATE_DELIM:
+      return Token(TOKEN_EMPTY);
+
+    case STATE_FIELD:
+      return Token(TOKEN_POINTER, token_begin, cur_);
+    }
+
+    return Token(TOKEN_EOF);
+  }
 };
 
 #endif

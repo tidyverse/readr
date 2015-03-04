@@ -39,10 +39,6 @@ flip <- function(x) {
     .Call('fastread_flip', PACKAGE = 'fastread', x)
 }
 
-readString <- function(x) {
-    invisible(.Call('fastread_readString', PACKAGE = 'fastread', x))
-}
-
 tokenizeString <- function(x) {
     .Call('fastread_tokenizeString', PACKAGE = 'fastread', x)
 }

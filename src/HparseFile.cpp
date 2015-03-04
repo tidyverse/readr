@@ -6,23 +6,14 @@
 using namespace Rcpp;
 
 // [[Rcpp::export]]
-void readString(CharacterVector x) {
-  StreamString source(x);
-
-  char c;
-  while((c = source.get()) != EOF)
-    Rcout << c;
-}
-
-// [[Rcpp::export]]
 std::vector<std::string> tokenizeString(CharacterVector x) {
   StreamString source(x);
   TokenizerDelimited csv(',');
+  csv.tokenize(source.begin(), source.end());
 
   std::vector<std::string> out;
 
-  while(source.peek() != EOF) {
-    Token t = csv.nextToken(&source);
+  for (Token t = csv.nextToken(); t.type() != TOKEN_EOF; t = csv.nextToken()) {
     out.push_back(t.asString());
   }
 
@@ -33,13 +24,13 @@ std::vector<std::string> tokenizeString(CharacterVector x) {
 SEXP parseString(CharacterVector x, List spec, int n = 100) {
   StreamString source(x);
   TokenizerDelimited csv(',');
+  csv.tokenize(source.begin(), source.end());
 
   boost::shared_ptr<Collector> out = collectorCreate(spec);
   out->resize(n);
 
   int i = 0;
-  while(source.peek() != EOF && i < n) {
-    Token t = csv.nextToken(&source);
+  for (Token t = csv.nextToken(); t.type() != TOKEN_EOF; t = csv.nextToken()) {
     out->setValue(i++, t);
   }
   if (i != n)

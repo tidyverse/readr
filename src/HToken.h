@@ -20,6 +20,7 @@ class Token {
 
 public:
 
+  Token(): type_(TOKEN_EMPTY) {}
   Token(TokenType type): type_(type) {}
   Token(TokenType type, std::string text): type_(type), text_(text) {}
   Token(TokenType type, StreamIterator begin, StreamIterator end):

@@ -3,56 +3,22 @@
 
 #include <Rcpp.h>
 
-typedef const char* StreamIterator;
-
 class StreamString {
   Rcpp::RObject string_;
-  int row_, col_;
-
-  StreamIterator begin_, end_, cur_;
-
+  size_t size_;
 public:
-
-  StreamString(Rcpp::CharacterVector x) : row_(0), col_(0) {
+  StreamString(Rcpp::CharacterVector x) {
     string_ = x[0];
-
-    begin_ = CHAR(string_);
-    end_ = begin_ + Rf_length(string_);
-    cur_ = begin_;
+    size_ = Rf_length(string_);
   }
 
-  StreamIterator pos() {
-    return cur_;
+  const char* begin() {
+    return CHAR(string_);
   }
 
-  char get() {
-    if (cur_ >= end_)
-      return EOF;
-
-    return *cur_++;
+  const char* end() {
+    return begin() + size_;
   }
-
-  char peek() {
-    if (cur_ >= end_)
-      return EOF;
-
-    return *cur_;
-  }
-
-  void nextRow() {
-    row_++;
-    col_ = 0;
-  }
-  void nextCol() {
-    col_++;
-  }
-  int col() {
-    return col_;
-  }
-  int row() {
-    return row_;
-  }
-
 };
 
 #endif
