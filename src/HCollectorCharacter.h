@@ -5,20 +5,14 @@
 #include <Rcpp.h>
 
 class CollectorCharacter : public Collector {
-  Rcpp::CharacterVector column_;
   cetype_t encoding_;
 
 public:
-
-  CollectorCharacter(): column_(0), encoding_(CE_NATIVE) {
-  }
-
-  void resize(int n) {
-    column_ = Rf_lengthgets(column_, n);
+  CollectorCharacter(): Collector(CharacterVector()), encoding_(CE_NATIVE) {
   }
 
   void setValue(int i, const Token& t) {
-    column_[i] = parse(t);
+    SET_STRING_ELT(column_, i, parse(t));
   }
 
   SEXP parse(const Token& t) {
@@ -37,11 +31,6 @@ public:
     }
     return NA_STRING;
   }
-
-  SEXP vector() {
-    return column_;
-  }
-
 };
 
 #endif

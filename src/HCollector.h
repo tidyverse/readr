@@ -6,15 +6,22 @@
 #include <boost/shared_ptr.hpp>
 
 class Collector {
+protected:
+  Rcpp::RObject column_;
 
 public:
+  Collector(SEXP column): column_(column) {}
+  virtual ~Collector() {};
+
   virtual void setValue(int i, const Token& t) =0;
-  virtual void resize(int n) =0;
-  virtual SEXP vector() =0;
 
-  virtual ~Collector() {
-
+  virtual void resize(int n) {
+    column_ = Rf_lengthgets(column_, n);
+  }
+  virtual Rcpp::RObject vector() {
+    return column_;
   };
+
 };
 
 // Create an collector from an R list specification

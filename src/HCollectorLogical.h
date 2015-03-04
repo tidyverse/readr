@@ -6,18 +6,12 @@
 #include <Rcpp.h>
 
 class CollectorLogical : public Collector {
-  Rcpp::LogicalVector column_;
-
 public:
-  CollectorLogical(): column_(0) {
-  }
-
-  void resize(int n) {
-    column_ = Rf_lengthgets(column_, n);
+  CollectorLogical(): Collector(LogicalVector()) {
   }
 
   void setValue(int i, const Token& t) {
-    column_[i] = parse(t);
+    LOGICAL(column_)[i] = parse(t);
   }
 
   int parse(const Token& t) {
@@ -39,10 +33,6 @@ public:
     }
 
     return false;
-  }
-
-  SEXP vector() {
-    return column_;
   }
 
 };

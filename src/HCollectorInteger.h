@@ -9,19 +9,13 @@
 #include <boost/spirit/include/phoenix_operator.hpp>
 
 class CollectorInteger : public Collector {
-  Rcpp::IntegerVector column_;
-
 public:
 
-  CollectorInteger(): column_(0) {
-  }
-
-  void resize(int n) {
-    column_ = Rf_lengthgets(column_, n);
+  CollectorInteger(): Collector(IntegerVector()) {
   }
 
   void setValue(int i, const Token& t) {
-    column_[i] = parse(t);
+    INTEGER(column_)[i] = parse(t);
   }
 
   int parse(const Token& t) {
@@ -44,10 +38,6 @@ public:
     }
 
     return res;
-  }
-
-  SEXP vector() {
-    return column_;
   }
 
 };

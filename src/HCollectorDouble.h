@@ -9,18 +9,13 @@
 #include <boost/spirit/include/phoenix_operator.hpp>
 
 class CollectorDouble : public Collector {
-  Rcpp::NumericVector column_;
 
 public:
-  CollectorDouble(): column_(0) {
-  }
-
-  void resize(int n) {
-    column_ = Rf_lengthgets(column_, n);
+  CollectorDouble(): Collector(Rcpp::NumericVector()) {
   }
 
   void setValue(int i, const Token& t) {
-    column_[i] = parse(t);
+    REAL(column_)[i] = parse(t);
   }
 
   double parse(const Token& t) {
@@ -43,10 +38,6 @@ public:
     }
 
     return res;
-  }
-
-  SEXP vector() {
-    return column_;
   }
 
 };
