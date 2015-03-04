@@ -114,6 +114,30 @@ The two most important tokenisers are:
 
 All tokenizers keep a (vector?) of strings representing NA values. Defaults to `c("", "NA")`.
 
+### Delimited tokenizer
+
+The delimited tokenizer is built on top of the following DFA (deterministic finite automata):
+
+```{r, echo = FALSE, tangle = FALSE}
+DiagrammeR::mermaid('graph LR
+field -->|...| field
+field -->|,| delim
+
+delim -->|...| field
+delim -->|,| delim
+delim -->|"| string
+style delim fill:lightgreen
+
+string -->|"| quote
+string -->|...| string
+
+quote -->|"| string
+quote -->|,| delim
+')
+```
+
+It is designed to support the most common style of csv files, where quotes in strings are double escaped. In other words, to create a string containing a single double quote, you use `""""`. In the future, we'll add other tokenizers to support more esoteric formats.
+
 ## Column collectors
 
 Column collectors collect corresponding fields across multiple records, parsing strings and storing in the appropriate R vector.
