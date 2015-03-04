@@ -95,7 +95,7 @@ All tokenizers keep a (vector?) of strings representing NA values. Defaults to `
 
 The delimited tokenizer is built on top of the following DFA (deterministic finite automata):
 
-```{r, echo = FALSE, purl = FALSE}
+```{r, echo = FALSE}
 DiagrammeR::mermaid('graph LR
 field -->|...| field
 field -->|,| delim
