@@ -148,6 +148,12 @@ public:
     return Token(TOKEN_EOF);
   }
 
+  int row() {
+    return row_;
+  }
+  int col() {
+    return col_;
+  }
 
 private:
 

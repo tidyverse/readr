@@ -47,6 +47,10 @@ parseString <- function(x, spec, n = 100L) {
     .Call('fastread_parseString', PACKAGE = 'fastread', x, spec, n)
 }
 
+dimString <- function(x) {
+    .Call('fastread_dimString', PACKAGE = 'fastread', x)
+}
+
 is_double <- function(x) {
     .Call('fastread_is_double', PACKAGE = 'fastread', x)
 }

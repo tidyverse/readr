@@ -39,3 +39,18 @@ SEXP parseString(CharacterVector x, List spec, int n = 100) {
   return out->vector();
 }
 
+// [[Rcpp::export]]
+IntegerVector dimString(CharacterVector x) {
+  StreamString source(x);
+  TokenizerDelimited csv(',');
+  csv.tokenize(source.begin(), source.end());
+
+  int cols = -1;
+
+  for (Token t = csv.nextToken(); t.type() != TOKEN_EOF; t = csv.nextToken()) {
+    if (csv.col() > cols)
+      cols = csv.col();
+  }
+
+  return IntegerVector::create(csv.row() + 1, cols + 1);
+}
