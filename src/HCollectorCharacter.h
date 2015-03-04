@@ -25,12 +25,9 @@ public:
     switch(t.type()) {
     case TOKEN_POINTER:
       return Rf_mkCharLenCE(t.begin(), t.end() - t.begin(), encoding_);
-    case TOKEN_INLINE:
-      return Rf_mkCharCE(t.text().c_str(), encoding_);
     case TOKEN_MISSING:
     case TOKEN_EMPTY:
       return NA_STRING;
-    case TOKEN_EOL:
     case TOKEN_EOF:
       Rcpp::stop("Invalid token");
     }

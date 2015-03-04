@@ -27,14 +27,10 @@ public:
       return (size == 1 && *t.begin() == 'T') ||
         (size == 4 && strncmp(t.begin(), "TRUE", 4));
     };
-    case TOKEN_INLINE:
-      return t.text() == "T" || t.text() == "TRUE";
-      break;
     case TOKEN_MISSING:
     case TOKEN_EMPTY:
       return NA_LOGICAL;
       break;
-    case TOKEN_EOL:
     case TOKEN_EOF:
       Rcpp::stop("Invalid token");
     }

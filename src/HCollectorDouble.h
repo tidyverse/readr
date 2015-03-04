@@ -31,15 +31,10 @@ public:
       boost::spirit::qi::parse(t.begin(), t.end(),
         boost::spirit::qi::double_, res);
       break;
-    case TOKEN_INLINE:
-      boost::spirit::qi::parse(t.text().begin(), t.text().end(),
-        boost::spirit::qi::double_, res);
-      break;
     case TOKEN_MISSING:
     case TOKEN_EMPTY:
       res = NA_REAL;
       break;
-    case TOKEN_EOL:
     case TOKEN_EOF:
       Rcpp::stop("Invalid token");
     }
