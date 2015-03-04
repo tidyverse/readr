@@ -74,13 +74,11 @@ public:
           newRecord();
           return Token(TOKEN_EMPTY);
         } else if (*cur_ == delim_) {
-          col_++;
+          newField();
           return Token(TOKEN_EMPTY);
         } else if (*cur_ == '"') {
-          col_++;
           state_ = STATE_STRING;
         } else {
-          col_++;
           state_ = STATE_FIELD;
         }
         break;
@@ -92,8 +90,7 @@ public:
           newRecord();
           return fieldToken(token_begin, cur_);
         } else if (*cur_ == delim_) {
-          col_++;
-          state_ = STATE_DELIM;
+          newField();
           return fieldToken(token_begin, cur_);
         }
         break;
@@ -108,7 +105,7 @@ public:
           newRecord();
           return stringToken(token_begin + 1, cur_ - 1, hasEscape);
         } else if (*cur_ == delim_) {
-          state_ = STATE_DELIM;
+          newField();
           return stringToken(token_begin + 1, cur_ - 1, hasEscape);
         } else {
           Rcpp::stop("Expecting delimiter or quote at (%i, %i) but found '%s'",
@@ -156,6 +153,11 @@ public:
   }
 
 private:
+
+  void newField() {
+    col_++;
+    state_ = STATE_DELIM;
+  }
 
   void newRecord() {
     row_++;
