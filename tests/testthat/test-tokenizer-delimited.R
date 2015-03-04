@@ -11,3 +11,12 @@ test_that("newlines are not tokenised", {
 test_that("quotes in strings are dropped", {
   expect_equal(tokenizeString('"abc",abc'), c("abc", "abc"))
 })
+
+test_that("warning if unterminated string", {
+  expect_warning(tokenizeString('1,2,"3'), "Unterminated string")
+})
+
+test_that("empty fields get special token", {
+  expect_equal(tokenizeString(',\n,'), rep("[EMPTY]", 4))
+  expect_equal(tokenizeString(',\n,\n'), rep("[EMPTY]", 4))
+})

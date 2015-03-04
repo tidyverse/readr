@@ -25,12 +25,13 @@ class TokenizerDelimited {
   char delim_;
   StreamIterator cur_, end_;
   int row_, col_;
+  bool moreTokens_;
 
   CsvState state_;
 
 public:
 
-  TokenizerDelimited(char delim = ','): delim_(delim) {}
+  TokenizerDelimited(char delim = ','): delim_(delim), moreTokens_(false) {}
 
   void tokenize(StreamIterator begin, StreamIterator end) {
     cur_ = begin;
@@ -39,10 +40,11 @@ public:
     row_ = 0;
     col_ = 0;
     state_ = STATE_DELIM;
+    moreTokens_ = true;
   }
 
   Token nextToken() {
-    if (cur_ == end_)
+    if (!moreTokens_)
       return Token(TOKEN_EOF);
 
     StreamIterator token_begin = cur_;
@@ -110,20 +112,26 @@ public:
       }
     }
 
-    // Reached end of stream
+    // Reached end of stream: cur_ == end_
+    moreTokens_ = false;
+
     switch (state_) {
+    case STATE_DELIM:
+      if (col_ == 0) {
+        return Token(TOKEN_EOF);
+      } else {
+        return Token(TOKEN_EMPTY);
+      }
+
     case STATE_QUOTE:
-      return Token(TOKEN_POINTER, token_begin + 1, cur_ - 1);
+      return Token(TOKEN_POINTER, token_begin + 1, end_ - 1);
 
     case STATE_STRING:
       Rcpp::warning("Unterminated string at end of file");
-      return Token(TOKEN_POINTER, token_begin + 1, cur_);
-
-    case STATE_DELIM:
-      return Token(TOKEN_EMPTY);
+      return Token(TOKEN_POINTER, token_begin + 1, end_);
 
     case STATE_FIELD:
-      return Token(TOKEN_POINTER, token_begin, cur_);
+      return Token(TOKEN_POINTER, token_begin, end_);
     }
 
     return Token(TOKEN_EOF);
