@@ -19,8 +19,8 @@ public:
 
   Token(): type_(TOKEN_EMPTY) {}
   Token(TokenType type): type_(type) {}
-  Token(TokenType type, StreamIterator begin, StreamIterator end):
-    type_(type), begin_(begin), end_(end) {
+  Token(StreamIterator begin, StreamIterator end):
+    type_(TOKEN_POINTER), begin_(begin), end_(end) {
   }
 
   std::string asString() const {

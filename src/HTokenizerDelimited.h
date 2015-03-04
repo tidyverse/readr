@@ -156,7 +156,7 @@ private:
     if ((end - begin) == NA_size_ && strncmp(begin, &NA_[0], NA_size_) == 0)
       return Token(TOKEN_MISSING);
 
-    return Token(TOKEN_POINTER, begin, end);
+    return Token(begin, end);
   }
 
   Token stringToken(StreamIterator begin, StreamIterator end, bool hasEscape) {
@@ -164,7 +164,7 @@ private:
       return Token(TOKEN_EMPTY);
 
     if (!hasEscape)
-      return Token(TOKEN_POINTER, begin, end);
+      return Token(begin, end);
 
     // Has escapes, so we need to copy unescaped string into provided buffer
     pBuffer_->clear();
@@ -184,8 +184,7 @@ private:
       }
     }
 
-    return Token(TOKEN_POINTER, pBuffer_->data(),
-      pBuffer_->data() + pBuffer_->size());
+    return Token(pBuffer_->data(), pBuffer_->data() + pBuffer_->size());
   }
 
 };
