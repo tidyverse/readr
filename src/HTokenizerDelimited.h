@@ -24,6 +24,8 @@ public:
 class TokenizerDelimited {
   char delim_;
   StreamIterator cur_, end_;
+  std::string NA_;
+  int NA_size_;
   int row_, col_;
   bool moreTokens_;
 
@@ -31,7 +33,13 @@ class TokenizerDelimited {
 
 public:
 
-  TokenizerDelimited(char delim = ','): delim_(delim), moreTokens_(false) {}
+  TokenizerDelimited(char delim = ','):
+    delim_(delim),
+    moreTokens_(false),
+    NA_("NA"),
+    NA_size_(2)
+  {
+  }
 
   void tokenize(StreamIterator begin, StreamIterator end) {
     cur_ = begin;
@@ -84,11 +92,12 @@ public:
           row_++;
           col_ = 0;
           state_ = STATE_DELIM;
-          return Token(TOKEN_POINTER, token_begin, cur_);
+
+          return fieldToken(token_begin, cur_);
         } else if (*cur_ == delim_) {
           col_++;
           state_ = STATE_DELIM;
-          return Token(TOKEN_POINTER, token_begin, cur_);
+          return fieldToken(token_begin, cur_);
         }
         break;
 
@@ -131,11 +140,21 @@ public:
       return Token(TOKEN_POINTER, token_begin + 1, end_);
 
     case STATE_FIELD:
-      return Token(TOKEN_POINTER, token_begin, end_);
+      return fieldToken(token_begin, end_);
     }
 
     return Token(TOKEN_EOF);
   }
+
+private:
+
+  Token fieldToken(StreamIterator begin, StreamIterator end) {
+    if ((end - begin) == NA_size_ && strncmp(begin, &NA_[0], NA_size_) == 0)
+      return Token(TOKEN_MISSING);
+
+    return Token(TOKEN_POINTER, begin, end);
+  }
+
 };
 
 #endif

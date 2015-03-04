@@ -20,3 +20,7 @@ test_that("empty fields get special token", {
   expect_equal(tokenizeString(',\n,'), rep("[EMPTY]", 4))
   expect_equal(tokenizeString(',\n,\n'), rep("[EMPTY]", 4))
 })
+
+test_that("bare NA tokenised to missing", {
+  expect_equal(tokenizeString('NA,"NA"'), c("[MISSING]", "NA"))
+})
