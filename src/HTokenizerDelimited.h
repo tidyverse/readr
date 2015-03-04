@@ -177,7 +177,7 @@ private:
 public:
 
   static void unescapeDoubleQuote(StreamIterator begin, StreamIterator end,
-                                  std::string* pOut) {
+                                  boost::container::string* pOut) {
     pOut->reserve(end - begin);
 
     bool inEscape = false;

@@ -24,7 +24,7 @@ public:
   SEXP parse(const Token& t) {
     switch(t.type()) {
     case TOKEN_STRING: {
-      std::string buffer;
+      boost::container::string buffer;
       StreamIterators string = t.getString(&buffer);
       return Rf_mkCharLenCE(string.first, string.second - string.first, encoding_);
     };

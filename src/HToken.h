@@ -2,9 +2,11 @@
 #define FASTREAD_TOKEN_H
 
 typedef const char* StreamIterator;
-typedef void (*UnescapeFun)(StreamIterator, StreamIterator, std::string*);
 typedef std::pair<StreamIterator,StreamIterator> StreamIterators;
 #include <string>
+
+#include <boost/container/string.hpp>
+typedef void (*UnescapeFun)(StreamIterator, StreamIterator, boost::container::string*);
 
 enum TokenType {
   TOKEN_STRING,   // a sequence of characters
@@ -47,7 +49,7 @@ public:
     return type_;
   }
 
-  StreamIterators getString(std::string *pOut) const {
+  StreamIterators getString(boost::container::string *pOut) const {
     if (pUnescaper_ == NULL)
       return std::make_pair(begin_, end_);
 
