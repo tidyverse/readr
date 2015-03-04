@@ -61,30 +61,7 @@ A source has a stream interface, i.e. it provides:
 
 ## Tokens
 
-There are five possible types of token:
-
-```cpp
-enum TokenType {
-  TOKEN_POINTER,  // a pointer to existing memory
-  TOKEN_INLINE,   // a new std::string
-  TOKEN_MISSING,  // a missing value
-  TOKEN_EOL,      // end of record
-  TOKEN_EOF       // end of file
-}
-```
-
-`TOKEN_POINTER` should be the most common - it gives offsets into memory provided by the stream, avoiding a copy in the common case where the character values can be used as is. This gives optimal performance by avoiding copies.
-
-When the raw string value can not be interpreted directly (for example when escapes are present), use `TOKEN_INLINE`, which stores the parsed text in the token object.
-
-```cpp
-class Token { 
-  TokenType type;
-  int row, col;    // semantic location of token
-  int start, end;  // indexes to start and end of string (for TOKEN_POINTER)
-  std::string text // string itself (for TOKEN_RAW)
-};
-```
+A token is a constant (e.g. missing, empty or eof) or a pair of stream iterators defining a string.
 
 ## Tokenizer
 

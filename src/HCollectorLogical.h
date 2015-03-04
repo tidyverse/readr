@@ -22,7 +22,7 @@ public:
 
   int parse(const Token& t) {
     switch(t.type()) {
-    case TOKEN_POINTER: {
+    case TOKEN_STRING: {
       int size = t.end() - t.begin();
       return (size == 1 && *t.begin() == 'T') ||
         (size == 4 && strncmp(t.begin(), "TRUE", 4));

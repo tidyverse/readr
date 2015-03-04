@@ -28,7 +28,7 @@ public:
     int res = 0;
 
     switch(t.type()) {
-    case TOKEN_POINTER:
+    case TOKEN_STRING:
       boost::spirit::qi::parse(t.begin(), t.end(),
         boost::spirit::qi::int_, res);
       break;

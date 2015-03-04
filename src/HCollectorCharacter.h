@@ -23,7 +23,7 @@ public:
 
   SEXP parse(const Token& t) {
     switch(t.type()) {
-    case TOKEN_POINTER:
+    case TOKEN_STRING:
       return Rf_mkCharLenCE(t.begin(), t.end() - t.begin(), encoding_);
     case TOKEN_MISSING:
       return NA_STRING;
