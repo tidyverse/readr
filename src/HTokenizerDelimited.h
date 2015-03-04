@@ -74,8 +74,7 @@ public:
         if (*cur_ == '\r') {
           // Ignore \r, expect will be followed by \n
         } else if (*cur_ == '\n') {
-          row_++;
-          col_ = 0;
+          newRecord();
           return Token(TOKEN_EMPTY);
         } else if (*cur_ == delim_) {
           col_++;
@@ -93,10 +92,7 @@ public:
         if (*cur_ == '\r') {
           // ignore
         } else if (*cur_ == '\n') {
-          row_++;
-          col_ = 0;
-          state_ = STATE_DELIM;
-
+          newRecord();
           return fieldToken(token_begin, cur_);
         } else if (*cur_ == delim_) {
           col_++;
@@ -109,12 +105,17 @@ public:
         if (*cur_ == '"') {
           hasEscape = true;
           state_ = STATE_STRING;
+        } else if (*cur_ == '\r') {
+          // ignore
+        } else if (*cur_ == '\n') {
+          newRecord();
+          return stringToken(token_begin + 1, cur_ - 1, hasEscape);
         } else if (*cur_ == delim_) {
           state_ = STATE_DELIM;
           return stringToken(token_begin + 1, cur_ - 1, hasEscape);
         } else {
           Rcpp::stop("Expecting delimiter or quote at (%i, %i) but found '%s'",
-                      row_, col_, *cur_);
+            row_, col_, *cur_);
         }
         break;
 
@@ -151,6 +152,12 @@ public:
   }
 
 private:
+
+  void newRecord() {
+    row_++;
+    col_ = 0;
+    state_ = STATE_DELIM;
+  }
 
   Token fieldToken(StreamIterator begin, StreamIterator end) {
     if ((end - begin) == NA_size_ && strncmp(begin, &NA_[0], NA_size_) == 0)

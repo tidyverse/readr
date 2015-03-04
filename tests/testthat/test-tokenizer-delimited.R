@@ -31,3 +31,6 @@ test_that("bare NA tokenised to missing", {
   expect_equal(tokenizeString('NA,"NA"'), c("[MISSING]", "NA"))
 })
 
+test_that("string can be ended by new line", {
+  expect_equal(tokenizeString('123,"a"\n'), c("123", "a"))
+})
