@@ -107,7 +107,7 @@ public:
           state_ = STATE_STRING;
         } else if (*cur_ == delim_) {
           state_ = STATE_DELIM;
-          return Token(TOKEN_POINTER, token_begin + 1, cur_ - 1);
+          return stringToken(token_begin + 1, cur_ - 1);
         } else {
           Rcpp::stop("Expecting delimiter or quote at (%i, %i) but found '%s'",
                       row_, col_, *cur_);
@@ -133,11 +133,11 @@ public:
       }
 
     case STATE_QUOTE:
-      return Token(TOKEN_POINTER, token_begin + 1, end_ - 1);
+      return stringToken(token_begin + 1, end_ - 1);
 
     case STATE_STRING:
       Rf_warning("Unterminated string at end of file");
-      return Token(TOKEN_POINTER, token_begin + 1, end_);
+      return stringToken(token_begin + 1, end_);
 
     case STATE_FIELD:
       return fieldToken(token_begin, end_);
@@ -151,6 +151,13 @@ private:
   Token fieldToken(StreamIterator begin, StreamIterator end) {
     if ((end - begin) == NA_size_ && strncmp(begin, &NA_[0], NA_size_) == 0)
       return Token(TOKEN_MISSING);
+
+    return Token(TOKEN_POINTER, begin, end);
+  }
+
+  Token stringToken(StreamIterator begin, StreamIterator end) {
+    if (begin == end)
+      return Token(TOKEN_EMPTY);
 
     return Token(TOKEN_POINTER, begin, end);
   }

@@ -19,6 +19,7 @@ test_that("warning if unterminated string", {
 test_that("empty fields get special token", {
   expect_equal(tokenizeString(',\n,'), rep("[EMPTY]", 4))
   expect_equal(tokenizeString(',\n,\n'), rep("[EMPTY]", 4))
+  expect_equal(tokenizeString('""'), rep("[EMPTY]", 1))
 })
 
 test_that("bare NA tokenised to missing", {
