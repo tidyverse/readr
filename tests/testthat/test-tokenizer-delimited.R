@@ -12,6 +12,11 @@ test_that("quotes in strings are dropped", {
   expect_equal(tokenizeString('"abc",abc'), c("abc", "abc"))
 })
 
+test_that("escapes are removed from strings", {
+  expect_equal(tokenizeString('""""'), '"')
+})
+
+
 test_that("warning if unterminated string", {
   expect_warning(tokenizeString('1,2,"3'), "Unterminated string")
 })
@@ -25,3 +30,4 @@ test_that("empty fields get special token", {
 test_that("bare NA tokenised to missing", {
   expect_equal(tokenizeString('NA,"NA"'), c("[MISSING]", "NA"))
 })
+
