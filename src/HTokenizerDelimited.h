@@ -127,7 +127,7 @@ public:
       return Token(TOKEN_POINTER, token_begin + 1, end_ - 1);
 
     case STATE_STRING:
-      Rcpp::warning("Unterminated string at end of file");
+      Rf_warning("Unterminated string at end of file");
       return Token(TOKEN_POINTER, token_begin + 1, end_);
 
     case STATE_FIELD:
