@@ -21,11 +21,14 @@ public:
   }
 
   int parse(const Token& t) {
+
     switch(t.type()) {
     case TOKEN_STRING: {
-      int size = t.end() - t.begin();
-      return (size == 1 && *t.begin() == 'T') ||
-        (size == 4 && strncmp(t.begin(), "TRUE", 4));
+      std::string buffer;
+      StreamIterators string = t.getString(&buffer);
+      int size = string.second - string.first;
+      return (size == 1 && *string.first == 'T') ||
+        (size == 4 && strncmp(string.first, "TRUE", 4));
     };
     case TOKEN_MISSING:
     case TOKEN_EMPTY:

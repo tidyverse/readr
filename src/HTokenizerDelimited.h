@@ -30,7 +30,6 @@ class TokenizerDelimited {
   bool moreTokens_;
 
   CsvState state_;
-  std::string* pBuffer_;
 
 public:
 
@@ -42,7 +41,7 @@ public:
   {
   }
 
-  void tokenize(StreamIterator begin, StreamIterator end, std::string* pBuffer) {
+  void tokenize(StreamIterator begin, StreamIterator end) {
     cur_ = begin;
     end_ = end;
 
@@ -50,8 +49,6 @@ public:
     col_ = 0;
     state_ = STATE_DELIM;
     moreTokens_ = true;
-
-    pBuffer_ = pBuffer;
   }
 
   Token nextToken() {
@@ -151,6 +148,7 @@ public:
     return Token(TOKEN_EOF);
   }
 
+
 private:
 
   void newRecord() {
@@ -170,29 +168,33 @@ private:
     if (begin == end)
       return Token(TOKEN_EMPTY);
 
-    if (!hasEscape)
-      return Token(begin, end);
+    if (hasEscape)
+      return Token(begin, end, TokenizerDelimited::unescapeDoubleQuote);
 
-    // Has escapes, so we need to copy unescaped string into provided buffer
-    pBuffer_->clear();
-    pBuffer_->reserve(end - begin);
+    return Token(begin, end);
+  }
+
+public:
+
+  static void unescapeDoubleQuote(StreamIterator begin, StreamIterator end,
+                                  std::string* pOut) {
+    pOut->reserve(end - begin);
 
     bool inEscape = false;
     for (StreamIterator cur = begin; cur != end; ++cur) {
       if (*cur == '"') {
         if (inEscape) {
-          pBuffer_->push_back(*cur);
+          pOut->push_back(*cur);
           inEscape = false;
         } else {
           inEscape = true;
         }
       } else {
-        pBuffer_->push_back(*cur);
+        pOut->push_back(*cur);
       }
     }
-
-    return Token(pBuffer_->data(), pBuffer_->data() + pBuffer_->size());
   }
+
 
 };
 

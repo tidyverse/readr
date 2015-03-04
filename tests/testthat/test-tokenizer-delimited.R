@@ -12,11 +12,6 @@ test_that("quotes in strings are dropped", {
   expect_equal(tokenizeString('"abc",abc'), c("abc", "abc"))
 })
 
-test_that("escapes are removed from strings", {
-  expect_equal(tokenizeString('""""'), '"')
-})
-
-
 test_that("warning if unterminated string", {
   expect_warning(tokenizeString('1,2,"3'), "Unterminated string")
 })

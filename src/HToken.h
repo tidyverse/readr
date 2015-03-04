@@ -2,6 +2,8 @@
 #define FASTREAD_TOKEN_H
 
 typedef const char* StreamIterator;
+typedef void (*UnescapeFun)(StreamIterator, StreamIterator, std::string*);
+typedef std::pair<StreamIterator,StreamIterator> StreamIterators;
 #include <string>
 
 enum TokenType {
@@ -15,13 +17,22 @@ class Token {
   TokenType type_;
   StreamIterator begin_, end_;  // indexes to start and end of string (for TOKEN_POINTER)
 
+  UnescapeFun pUnescaper_;
+
 public:
 
   Token(): type_(TOKEN_EMPTY) {}
   Token(TokenType type): type_(type) {}
   Token(StreamIterator begin, StreamIterator end):
-    type_(TOKEN_STRING), begin_(begin), end_(end) {
+    type_(TOKEN_STRING), begin_(begin), end_(end), pUnescaper_(NULL) {
   }
+
+  Token(StreamIterator begin, StreamIterator end, UnescapeFun pUnescaper):
+    type_(TOKEN_STRING),
+    begin_(begin),
+    end_(end),
+    pUnescaper_(pUnescaper)
+  {}
 
   std::string asString() const {
     switch(type_) {
@@ -35,11 +46,13 @@ public:
   TokenType type() const {
     return type_;
   }
-  StreamIterator begin() const {
-    return begin_;
-  }
-  StreamIterator end() const {
-    return end_;
+
+  StreamIterators getString(std::string *pOut) const {
+    if (pUnescaper_ == NULL)
+      return std::make_pair(begin_, end_);
+
+    pUnescaper_(begin_, end_, pOut);
+    return std::make_pair(pOut->data(), pOut->data() + pOut->size());
   }
 
 };

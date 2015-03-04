@@ -23,8 +23,11 @@ public:
 
   SEXP parse(const Token& t) {
     switch(t.type()) {
-    case TOKEN_STRING:
-      return Rf_mkCharLenCE(t.begin(), t.end() - t.begin(), encoding_);
+    case TOKEN_STRING: {
+      std::string buffer;
+      StreamIterators string = t.getString(&buffer);
+      return Rf_mkCharLenCE(string.first, string.second - string.first, encoding_);
+    };
     case TOKEN_MISSING:
       return NA_STRING;
     case TOKEN_EMPTY:

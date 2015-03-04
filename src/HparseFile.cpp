@@ -9,8 +9,7 @@ using namespace Rcpp;
 std::vector<std::string> tokenizeString(CharacterVector x) {
   StreamString source(x);
   TokenizerDelimited csv(',');
-  std::string buffer;
-  csv.tokenize(source.begin(), source.end(), &buffer);
+  csv.tokenize(source.begin(), source.end());
 
   std::vector<std::string> out;
 
@@ -25,9 +24,7 @@ std::vector<std::string> tokenizeString(CharacterVector x) {
 SEXP parseString(CharacterVector x, List spec, int n = 100) {
   StreamString source(x);
   TokenizerDelimited csv(',');
-  std::string buffer;
-
-  csv.tokenize(source.begin(), source.end(), &buffer);
+  csv.tokenize(source.begin(), source.end());
 
   boost::shared_ptr<Collector> out = collectorCreate(spec);
   out->resize(n);

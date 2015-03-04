@@ -27,10 +27,13 @@ public:
     double res = 0.0;
 
     switch(t.type()) {
-    case TOKEN_STRING:
-      boost::spirit::qi::parse(t.begin(), t.end(),
+    case TOKEN_STRING: {
+      std::string buffer;
+      StreamIterators string = t.getString(&buffer);
+      boost::spirit::qi::parse(string.first, string.second,
         boost::spirit::qi::double_, res);
       break;
+    };
     case TOKEN_MISSING:
     case TOKEN_EMPTY:
       res = NA_REAL;
