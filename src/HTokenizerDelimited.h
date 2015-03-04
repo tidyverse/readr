@@ -63,7 +63,7 @@ public:
       // next character
       Advance advance(&cur_);
 
-      if (row_ % 1000 == 0 || col_ % 1000 == 0)
+      if ((row_ + 1) % 100000 == 0 || (col_ + 1) % 100000 == 0)
         Rcpp::checkUserInterrupt();
 
       switch(state_) {
