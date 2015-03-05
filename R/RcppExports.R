@@ -33,3 +33,7 @@ dataframeString <- function(x, specs, n = 100L) {
     .Call('fastread_dataframeString', PACKAGE = 'fastread', x, specs, n)
 }
 
+input_source <- function(sourceSpec) {
+    .Call('fastread_input_source', PACKAGE = 'fastread', sourceSpec)
+}
+

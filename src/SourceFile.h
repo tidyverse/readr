@@ -11,13 +11,13 @@
 class SourceFile : public Source {
   boost::interprocess::file_mapping fm_;
   boost::interprocess::mapped_region mr_;
-  int pos_;
-  size_t size_;
-  char* addr_;
+
+  const char* begin_;
+  const char* end_;
 
 public:
 
-  SourceFile(const std::string& path) : pos_(0) {
+  SourceFile(const std::string& path) {
     try {
       fm_ = boost::interprocess::file_mapping(path.c_str(),
         boost::interprocess::read_only);
@@ -27,16 +27,16 @@ public:
       Rcpp::stop("Cannot read file %s", path) ;
     }
 
-    size_ = mr_.get_size();
-    addr_ = static_cast<char*>(mr_.get_address());
+    begin_ = static_cast<char*>(mr_.get_address());
+    end_ = begin_ + mr_.get_size();
   }
 
   const char* begin() {
-    return addr_;
+    return begin_;
   }
 
   const char* end() {
-    return addr_ + size_;
+    return end_;
   }
 
 };

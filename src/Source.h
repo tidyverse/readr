@@ -2,6 +2,10 @@
 #define FASTREAD_SOURCE_H_
 
 #include <boost/container/string.hpp>
+#include <boost/shared_ptr.hpp>
+
+class Source;
+typedef boost::shared_ptr<Source> SourcePtr;
 
 typedef const char* SourceIterator;
 typedef std::pair<SourceIterator,SourceIterator> SourceIterators;

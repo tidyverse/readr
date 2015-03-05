@@ -97,3 +97,14 @@ BEGIN_RCPP
     return __result;
 END_RCPP
 }
+// input_source
+CharacterVector input_source(List sourceSpec);
+RcppExport SEXP fastread_input_source(SEXP sourceSpecSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject __result;
+    Rcpp::RNGScope __rngScope;
+    Rcpp::traits::input_parameter< List >::type sourceSpec(sourceSpecSEXP);
+    __result = Rcpp::wrap(input_source(sourceSpec));
+    return __result;
+END_RCPP
+}
