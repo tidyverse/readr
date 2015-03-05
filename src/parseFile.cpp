@@ -45,14 +45,15 @@ IntegerVector dimString(CharacterVector x) {
   TokenizerDelimited csv(',');
   csv.tokenize(source.begin(), source.end());
 
-  int cols = -1;
+  int rows = -1, cols = -1;
 
   for (Token t = csv.nextToken(); t.type() != TOKEN_EOF; t = csv.nextToken()) {
-    if (csv.col() > cols)
-      cols = csv.col();
+    rows = t.row();
+    if (t.col() > cols)
+      cols = t.col();
   }
 
-  return IntegerVector::create(csv.row() + 1, cols + 1);
+  return IntegerVector::create(rows + 1, cols + 1);
 }
 
 
@@ -71,18 +72,13 @@ List dataframeString(CharacterVector x, ListOf<List> specs, int n = 100) {
     collectors[j]->resize(n);
   }
 
-  int row = 0, col = 0;
   for (Token t = csv.nextToken(); t.type() != TOKEN_EOF; t = csv.nextToken()) {
-    if (col >= p)
-      stop("In row %i, there are %i columns!", csv.row(), csv.col());
-    if (row == n)
+    if (t.col() >= p)
+      stop("In row %i, there are %i columns!", t.row(), t.col());
+    if (t.row() == n)
       break;
 
-    collectors[col]->setValue(row, t);
-
-    // Update
-    row = csv.row();
-    col = csv.col();
+    collectors[t.col()]->setValue(t.row(), t);
   }
 
   // Save individual columns into a data frame

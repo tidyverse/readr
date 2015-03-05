@@ -43,8 +43,11 @@ public:
   }
 
   Token nextToken() {
+    // Capture current position
+    int row = row_, col = col_;
+
     if (!moreTokens_)
-      return Token(TOKEN_EOF);
+      return Token(TOKEN_EOF, row, col);
 
     SourceIterator token_begin = cur_;
     bool hasEscape = false;
@@ -63,10 +66,10 @@ public:
           // Ignore \r, expect will be followed by \n
         } else if (*cur_ == '\n') {
           newRecord();
-          return Token(TOKEN_EMPTY);
+          return Token(TOKEN_EMPTY, row, col);
         } else if (*cur_ == delim_) {
           newField();
-          return Token(TOKEN_EMPTY);
+          return Token(TOKEN_EMPTY, row, col);
         } else if (*cur_ == '"') {
           state_ = STATE_STRING;
         } else {
@@ -79,10 +82,10 @@ public:
           // ignore
         } else if (*cur_ == '\n') {
           newRecord();
-          return fieldToken(token_begin, cur_);
+          return fieldToken(token_begin, cur_, row, col);
         } else if (*cur_ == delim_) {
           newField();
-          return fieldToken(token_begin, cur_);
+          return fieldToken(token_begin, cur_, row, col);
         }
         break;
 
@@ -94,13 +97,13 @@ public:
           // ignore
         } else if (*cur_ == '\n') {
           newRecord();
-          return stringToken(token_begin + 1, cur_ - 1, hasEscape);
+          return stringToken(token_begin + 1, cur_ - 1, hasEscape, row, col);
         } else if (*cur_ == delim_) {
           newField();
-          return stringToken(token_begin + 1, cur_ - 1, hasEscape);
+          return stringToken(token_begin + 1, cur_ - 1, hasEscape, row, col);
         } else {
           Rcpp::stop("Expecting delimiter or quote at (%i, %i) but found '%s'",
-            row_, col_, *cur_);
+            row, col, *cur_);
         }
         break;
 
@@ -117,30 +120,23 @@ public:
     switch (state_) {
     case STATE_DELIM:
       if (col_ == 0) {
-        return Token(TOKEN_EOF);
+        return Token(TOKEN_EOF, row, col);
       } else {
-        return Token(TOKEN_EMPTY);
+        return Token(TOKEN_EMPTY, row, col);
       }
 
     case STATE_QUOTE:
-      return stringToken(token_begin + 1, end_ - 1, hasEscape);
+      return stringToken(token_begin + 1, end_ - 1, hasEscape, row, col);
 
     case STATE_STRING:
       Rf_warning("Unterminated string at end of file");
-      return stringToken(token_begin + 1, end_, hasEscape);
+      return stringToken(token_begin + 1, end_, hasEscape, row, col);
 
     case STATE_FIELD:
-      return fieldToken(token_begin, end_);
+      return fieldToken(token_begin, end_, row, col);
     }
 
-    return Token(TOKEN_EOF);
-  }
-
-  int row() {
-    return row_;
-  }
-  int col() {
-    return col_;
+    return Token(TOKEN_EOF, row, col);
   }
 
 private:
@@ -156,21 +152,22 @@ private:
     state_ = STATE_DELIM;
   }
 
-  Token fieldToken(SourceIterator begin, SourceIterator end) {
+  Token fieldToken(SourceIterator begin, SourceIterator end, int row, int col) {
     if ((end - begin) == NA_size_ && strncmp(begin, &NA_[0], NA_size_) == 0)
-      return Token(TOKEN_MISSING);
+      return Token(TOKEN_MISSING, row, col);
 
-    return Token(begin, end);
+    return Token(begin, end, row, col);
   }
 
-  Token stringToken(SourceIterator begin, SourceIterator end, bool hasEscape) {
+  Token stringToken(SourceIterator begin, SourceIterator end, bool hasEscape,
+                    int row, int col) {
     if (begin == end)
-      return Token(TOKEN_EMPTY);
+      return Token(TOKEN_EMPTY, row, col);
 
     if (hasEscape)
-      return Token(begin, end, TokenizerDelimited::unescapeDoubleQuote);
+      return Token(begin, end, TokenizerDelimited::unescapeDoubleQuote, row, col);
 
-    return Token(begin, end);
+    return Token(begin, end, row, col);
   }
 
 public:

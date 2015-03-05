@@ -14,22 +14,29 @@ enum TokenType {
 class Token {
   TokenType type_;
   SourceIterator begin_, end_;
+  int row_, col_;
 
   UnescapeFun pUnescaper_;
 
 public:
 
-  Token(): type_(TOKEN_EMPTY) {}
-  Token(TokenType type): type_(type) {}
-  Token(SourceIterator begin, SourceIterator end):
-    type_(TOKEN_STRING), begin_(begin), end_(end), pUnescaper_(NULL) {
-  }
-
-  Token(SourceIterator begin, SourceIterator end, UnescapeFun pUnescaper):
+  Token(): type_(TOKEN_EMPTY), row_(0), col_(0) {}
+  Token(TokenType type, int row, int col): type_(type), row_(row), col_(col) {}
+  Token(SourceIterator begin, SourceIterator end, UnescapeFun pUnescaper, int row, int col):
     type_(TOKEN_STRING),
     begin_(begin),
     end_(end),
+    row_(row),
+    col_(col),
     pUnescaper_(pUnescaper)
+  {}
+  Token(SourceIterator begin, SourceIterator end, int row, int col):
+    type_(TOKEN_STRING),
+    begin_(begin),
+    end_(end),
+    row_(row),
+    col_(col),
+    pUnescaper_(NULL)
   {}
 
   std::string asString() const {
@@ -51,6 +58,13 @@ public:
 
     pUnescaper_(begin_, end_, pOut);
     return std::make_pair(pOut->data(), pOut->data() + pOut->size());
+  }
+
+  int row() {
+    return row_;
+  }
+  int col() {
+    return col_;
   }
 
 };
