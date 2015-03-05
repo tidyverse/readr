@@ -1,5 +1,5 @@
-#ifndef FASTREAD_TOKEN_H
-#define FASTREAD_TOKEN_H
+#ifndef FASTREAD_TOKEN_H_
+#define FASTREAD_TOKEN_H_
 
 typedef const char* StreamIterator;
 typedef std::pair<StreamIterator,StreamIterator> StreamIterators;

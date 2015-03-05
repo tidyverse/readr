@@ -1,5 +1,5 @@
-#ifndef FASTREAD_HCOLLECTOR_H
-#define FASTREAD_HCOLLECTOR_H
+#ifndef FASTREAD_COLLECTOR_H_
+#define FASTREAD_COLLECTOR_H_
 
 #include "Token.h"
 #include <Rcpp.h>

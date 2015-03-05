@@ -1,5 +1,5 @@
-#ifndef FASTREAD_COLLECTORLOGICAL_H
-#define FASTREAD_COLLECTORLOGICAL_H
+#ifndef FASTREAD_COLLECTORLOGICAL_H_
+#define FASTREAD_COLLECTORLOGICAL_H_
 
 #include "Collector.h"
 #include <cstring>

@@ -1,5 +1,5 @@
-#ifndef FASTREAD_DATE_TIME_PARSER_H
-#define FASTREAD_DATE_TIME_PARSER_H
+#ifndef FASTREAD_DATETIMEPARSER_H_
+#define FASTREAD_DATETIMEPARSER_H_
 
 template <typename Class>
 class DateTimeParser{

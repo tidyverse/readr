@@ -1,5 +1,5 @@
-#ifndef FASTREAD_HSOURCEFILE_H
-#define FASTREAD_HSOURCEFILE_H
+#ifndef FASTREAD_STREAMFILE_H_
+#define FASTREAD_STREAMFILE_H_
 
 #include <boost/interprocess/file_mapping.hpp>
 #include <boost/interprocess/mapped_region.hpp>

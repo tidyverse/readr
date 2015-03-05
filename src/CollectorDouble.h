@@ -1,5 +1,5 @@
-#ifndef FASTREAD_COLLECTORDOUBLE_H
-#define FASTREAD_COLLECTORDOUBLE_H
+#ifndef FASTREAD_COLLECTORDOUBLE_H_
+#define FASTREAD_COLLECTORDOUBLE_H_
 
 #include "Collector.h"
 #include <Rcpp.h>
