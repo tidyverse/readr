@@ -2,8 +2,9 @@
 #define FASTREAD_STREAMSTRING_H_
 
 #include <Rcpp.h>
+#include "Stream.h"
 
-class StreamString {
+class StreamString : public Stream {
   Rcpp::RObject string_;
   size_t size_;
 public:

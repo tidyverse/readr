@@ -6,7 +6,9 @@
 #include <boost/interprocess/file_mapping.hpp>
 #include <boost/interprocess/mapped_region.hpp>
 
-class StreamFile {
+#include "Stream.h"
+
+class StreamFile : public Stream {
   boost::interprocess::file_mapping fm_;
   boost::interprocess::mapped_region mr_;
   int pos_;
