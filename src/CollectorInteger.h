@@ -41,6 +41,16 @@ public:
     return res;
   }
 
+  static bool canParse(std::string x) {
+    const char* start = x.c_str();
+    char* end;
+
+    errno = 0;
+    strtol(start, &end, 10);
+    // parsed to end of string and no errors
+    return (end == start + x.size()) && (errno == 0);
+  }
+
 };
 
 #endif

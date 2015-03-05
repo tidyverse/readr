@@ -35,6 +35,10 @@ public:
     return false;
   }
 
+  static bool canParse(std::string x) {
+    return x == "T" || x == "F" || x == "TRUE" || x == "FALSE";
+  }
+
 };
 
 #endif

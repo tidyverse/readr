@@ -27,28 +27,6 @@ BEGIN_RCPP
     return __result;
 END_RCPP
 }
-// is_double
-bool is_double(CharacterVector x);
-RcppExport SEXP fastread_is_double(SEXP xSEXP) {
-BEGIN_RCPP
-    Rcpp::RObject __result;
-    Rcpp::RNGScope __rngScope;
-    Rcpp::traits::input_parameter< CharacterVector >::type x(xSEXP);
-    __result = Rcpp::wrap(is_double(x));
-    return __result;
-END_RCPP
-}
-// is_int
-bool is_int(CharacterVector x);
-RcppExport SEXP fastread_is_int(SEXP xSEXP) {
-BEGIN_RCPP
-    Rcpp::RObject __result;
-    Rcpp::RNGScope __rngScope;
-    Rcpp::traits::input_parameter< CharacterVector >::type x(xSEXP);
-    __result = Rcpp::wrap(is_int(x));
-    return __result;
-END_RCPP
-}
 // read_file_
 CharacterVector read_file_(List sourceSpec);
 RcppExport SEXP fastread_read_file_(SEXP sourceSpecSEXP) {

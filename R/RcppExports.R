@@ -9,14 +9,6 @@ flip <- function(x) {
     .Call('fastread_flip', PACKAGE = 'fastread', x)
 }
 
-is_double <- function(x) {
-    .Call('fastread_is_double', PACKAGE = 'fastread', x)
-}
-
-is_int <- function(x) {
-    .Call('fastread_is_int', PACKAGE = 'fastread', x)
-}
-
 read_file_ <- function(sourceSpec) {
     .Call('fastread_read_file_', PACKAGE = 'fastread', sourceSpec)
 }
