@@ -5,26 +5,6 @@ using namespace Rcpp;
 #include "TokenizerDelimited.h"
 #include "Collector.h"
 
-
-// [[Rcpp::export]]
-SEXP parseString(CharacterVector x, List spec, int n = 100) {
-  SourceString source(x);
-  TokenizerDelimited csv(',');
-  csv.tokenize(source.begin(), source.end());
-
-  boost::shared_ptr<Collector> out = collectorCreate(spec);
-  out->resize(n);
-
-  int i = 0;
-  for (Token t = csv.nextToken(); t.type() != TOKEN_EOF; t = csv.nextToken()) {
-    out->setValue(i++, t);
-  }
-  if (i != n)
-    out->resize(i);
-
-  return out->vector();
-}
-
 // [[Rcpp::export]]
 List dataframeString(CharacterVector x, ListOf<List> specs, int n = 100) {
   SourceString source(x);

@@ -6,6 +6,7 @@
 #include <boost/spirit/include/qi.hpp>
 #include <boost/spirit/include/phoenix_core.hpp>
 #include <boost/spirit/include/phoenix_operator.hpp>
+namespace qi = boost::spirit::qi;
 
 #include "Collector.h"
 
@@ -26,8 +27,13 @@ public:
     case TOKEN_STRING: {
       boost::container::string buffer;
       SourceIterators string = t.getString(&buffer);
-      boost::spirit::qi::parse(string.first, string.second,
-        boost::spirit::qi::double_, res);
+
+      bool ok = qi::parse(string.first, string.second, qi::double_, res);
+      if (!ok || string.first != string.second) {
+        Collector::warn(t);
+        res = NA_REAL;
+      }
+
       break;
     };
     case TOKEN_MISSING:

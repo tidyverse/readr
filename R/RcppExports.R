@@ -25,8 +25,8 @@ tokenize_ <- function(sourceSpec, tokenizerSpec, n) {
     .Call('fastread_tokenize_', PACKAGE = 'fastread', sourceSpec, tokenizerSpec, n)
 }
 
-parseString <- function(x, spec, n = 100L) {
-    .Call('fastread_parseString', PACKAGE = 'fastread', x, spec, n)
+parse_ <- function(sourceSpec, tokenizerSpec, collectorSpec) {
+    .Call('fastread_parse_', PACKAGE = 'fastread', sourceSpec, tokenizerSpec, collectorSpec)
 }
 
 dataframeString <- function(x, specs, n = 100L) {

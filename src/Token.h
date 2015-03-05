@@ -60,10 +60,10 @@ public:
     return std::make_pair(pOut->data(), pOut->data() + pOut->size());
   }
 
-  int row() {
+  int row() const {
     return row_;
   }
-  int col() {
+  int col() const {
     return col_;
   }
 

@@ -75,16 +75,16 @@ BEGIN_RCPP
     return __result;
 END_RCPP
 }
-// parseString
-SEXP parseString(CharacterVector x, List spec, int n = 100);
-RcppExport SEXP fastread_parseString(SEXP xSEXP, SEXP specSEXP, SEXP nSEXP) {
+// parse_
+SEXP parse_(List sourceSpec, List tokenizerSpec, List collectorSpec);
+RcppExport SEXP fastread_parse_(SEXP sourceSpecSEXP, SEXP tokenizerSpecSEXP, SEXP collectorSpecSEXP) {
 BEGIN_RCPP
     Rcpp::RObject __result;
     Rcpp::RNGScope __rngScope;
-    Rcpp::traits::input_parameter< CharacterVector >::type x(xSEXP);
-    Rcpp::traits::input_parameter< List >::type spec(specSEXP);
-    Rcpp::traits::input_parameter< int >::type n(nSEXP);
-    __result = Rcpp::wrap(parseString(x, spec, n));
+    Rcpp::traits::input_parameter< List >::type sourceSpec(sourceSpecSEXP);
+    Rcpp::traits::input_parameter< List >::type tokenizerSpec(tokenizerSpecSEXP);
+    Rcpp::traits::input_parameter< List >::type collectorSpec(collectorSpecSEXP);
+    __result = Rcpp::wrap(parse_(sourceSpec, tokenizerSpec, collectorSpec));
     return __result;
 END_RCPP
 }

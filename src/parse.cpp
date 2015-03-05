@@ -92,3 +92,29 @@ std::vector<std::vector<std::string> > tokenize_(List sourceSpec, List tokenizer
 
   return rows;
 }
+
+
+// [[Rcpp::export]]
+SEXP parse_(List sourceSpec, List tokenizerSpec, List collectorSpec) {
+  SourcePtr source = sourceCreate(sourceSpec);
+  TokenizerPtr tokenizer = tokenizerCreate(tokenizerSpec);
+  tokenizer->tokenize(source->begin(), source->end());
+
+  boost::shared_ptr<Collector> out = collectorCreate(collectorSpec);
+  out->resize(100);
+
+  int i = 0;
+  for (Token t = tokenizer->nextToken(); t.type() != TOKEN_EOF; t = tokenizer->nextToken()) {
+    if (i > out->size())
+      out->resize(i * 2);
+
+    out->setValue(i, t);
+    ++i;
+  }
+
+  if (i != out->size()) {
+    out->resize(i);
+  }
+
+  return out->vector();
+}
