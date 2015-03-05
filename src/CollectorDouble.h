@@ -1,12 +1,13 @@
 #ifndef FASTREAD_COLLECTORDOUBLE_H_
 #define FASTREAD_COLLECTORDOUBLE_H_
 
-#include "Collector.h"
 #include <Rcpp.h>
 
 #include <boost/spirit/include/qi.hpp>
 #include <boost/spirit/include/phoenix_core.hpp>
 #include <boost/spirit/include/phoenix_operator.hpp>
+
+#include "Collector.h"
 
 class CollectorDouble : public Collector {
 

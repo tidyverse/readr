@@ -1,7 +1,8 @@
+#include "Collector.h"
+
 #include <Rcpp.h>
 using namespace Rcpp;
 
-#include "Collector.h"
 #include "CollectorLogical.h"
 #include "CollectorInteger.h"
 #include "CollectorDouble.h"

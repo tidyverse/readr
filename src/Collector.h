@@ -1,9 +1,9 @@
 #ifndef FASTREAD_COLLECTOR_H_
 #define FASTREAD_COLLECTOR_H_
 
-#include "Token.h"
 #include <Rcpp.h>
 #include <boost/shared_ptr.hpp>
+#include "Token.h"
 
 class Collector {
 protected:

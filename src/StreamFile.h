@@ -1,9 +1,10 @@
 #ifndef FASTREAD_STREAMFILE_H_
 #define FASTREAD_STREAMFILE_H_
 
+#include <Rcpp.h>
+
 #include <boost/interprocess/file_mapping.hpp>
 #include <boost/interprocess/mapped_region.hpp>
-#include <Rcpp.h>
 
 class StreamFile {
   boost::interprocess::file_mapping fm_;

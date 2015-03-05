@@ -1,9 +1,9 @@
-#include "StreamString.h"
-#include "TokenizerDelimited.h"
-#include "CollectorDouble.h"
-
 #include <Rcpp.h>
 using namespace Rcpp;
+
+#include "StreamString.h"
+#include "TokenizerDelimited.h"
+#include "Collector.h"
 
 // [[Rcpp::export]]
 std::vector<std::string> tokenizeString(CharacterVector x) {

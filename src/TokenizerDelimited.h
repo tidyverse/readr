@@ -1,9 +1,9 @@
 #ifndef FASTREAD_TOKENIZERDELIMITED_H_
 #define FASTREAD_TOKENIZERDELIMITED_H_
 
-#include "Token.h"
 #include <Rcpp.h>
 #include <boost/noncopyable.hpp>
+#include "Token.h"
 
 enum CsvState {
   STATE_DELIM,
