@@ -2,8 +2,8 @@
 #define FASTREAD_TOKENIZERDELIMITED_H_
 
 #include <Rcpp.h>
-#include <boost/noncopyable.hpp>
 #include "Token.h"
+#include "Tokenizer.h"
 
 enum CsvState {
   STATE_DELIM,
@@ -12,16 +12,7 @@ enum CsvState {
   STATE_QUOTE
 };
 
-class Advance : boost::noncopyable  {
-  SourceIterator* pIter_;
-public:
-  Advance(SourceIterator* pIter): pIter_(pIter) {}
-  ~Advance() {
-    (*pIter_)++;
-  }
-};
-
-class TokenizerDelimited {
+class TokenizerDelimited : public Tokenizer {
   char delim_;
   SourceIterator cur_, end_;
   std::string NA_;
