@@ -1,8 +1,8 @@
 #ifndef FASTREAD_COLLECTORCHARACTER_H_
 #define FASTREAD_COLLECTORCHARACTER_H_
 
-#include "Collector.h"
 #include <Rcpp.h>
+#include "Collector.h"
 
 class CollectorCharacter : public Collector {
   cetype_t encoding_;
