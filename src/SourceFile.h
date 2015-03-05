@@ -1,14 +1,14 @@
-#ifndef FASTREAD_STREAMFILE_H_
-#define FASTREAD_STREAMFILE_H_
+#ifndef FASTREAD_SOURCEFILE_H_
+#define FASTREAD_SOURCEFILE_H_
 
 #include <Rcpp.h>
 
 #include <boost/interprocess/file_mapping.hpp>
 #include <boost/interprocess/mapped_region.hpp>
 
-#include "Stream.h"
+#include "Source.h"
 
-class StreamFile : public Stream {
+class SourceFile : public Source {
   boost::interprocess::file_mapping fm_;
   boost::interprocess::mapped_region mr_;
   int pos_;
@@ -17,7 +17,7 @@ class StreamFile : public Stream {
 
 public:
 
-  StreamFile(const std::string& path) : pos_(0) {
+  SourceFile(const std::string& path) : pos_(0) {
     try {
       fm_ = boost::interprocess::file_mapping(path.c_str(),
         boost::interprocess::read_only);

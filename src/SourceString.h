@@ -1,14 +1,14 @@
-#ifndef FASTREAD_STREAMSTRING_H_
-#define FASTREAD_STREAMSTRING_H_
+#ifndef FASTREAD_SOURCESTRING_H_
+#define FASTREAD_SOURCESTRING_H_
 
 #include <Rcpp.h>
-#include "Stream.h"
+#include "Source.h"
 
-class StreamString : public Stream {
+class SourceString : public Source {
   Rcpp::RObject string_;
   size_t size_;
 public:
-  StreamString(Rcpp::CharacterVector x) {
+  SourceString(Rcpp::CharacterVector x) {
     string_ = x[0];
     size_ = Rf_length(string_);
   }

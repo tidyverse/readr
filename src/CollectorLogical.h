@@ -19,7 +19,7 @@ public:
     switch(t.type()) {
     case TOKEN_STRING: {
       boost::container::string buffer;
-      StreamIterators string = t.getString(&buffer);
+      SourceIterators string = t.getString(&buffer);
       int size = string.second - string.first;
       return (size == 1 && *string.first == 'T') ||
         (size == 4 && strncmp(string.first, "TRUE", 4));

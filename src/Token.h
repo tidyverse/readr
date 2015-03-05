@@ -2,7 +2,7 @@
 #define FASTREAD_TOKEN_H_
 
 #include <string>
-#include "Stream.h"
+#include "Source.h"
 
 enum TokenType {
   TOKEN_STRING,   // a sequence of characters
@@ -13,7 +13,7 @@ enum TokenType {
 
 class Token {
   TokenType type_;
-  StreamIterator begin_, end_;
+  SourceIterator begin_, end_;
 
   UnescapeFun pUnescaper_;
 
@@ -21,11 +21,11 @@ public:
 
   Token(): type_(TOKEN_EMPTY) {}
   Token(TokenType type): type_(type) {}
-  Token(StreamIterator begin, StreamIterator end):
+  Token(SourceIterator begin, SourceIterator end):
     type_(TOKEN_STRING), begin_(begin), end_(end), pUnescaper_(NULL) {
   }
 
-  Token(StreamIterator begin, StreamIterator end, UnescapeFun pUnescaper):
+  Token(SourceIterator begin, SourceIterator end, UnescapeFun pUnescaper):
     type_(TOKEN_STRING),
     begin_(begin),
     end_(end),
@@ -45,7 +45,7 @@ public:
     return type_;
   }
 
-  StreamIterators getString(boost::container::string *pOut) const {
+  SourceIterators getString(boost::container::string *pOut) const {
     if (pUnescaper_ == NULL)
       return std::make_pair(begin_, end_);
 

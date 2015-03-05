@@ -19,7 +19,7 @@ public:
     switch(t.type()) {
     case TOKEN_STRING: {
       boost::container::string buffer;
-      StreamIterators string = t.getString(&buffer);
+      SourceIterators string = t.getString(&buffer);
       return Rf_mkCharLenCE(string.first, string.second - string.first, encoding_);
     };
     case TOKEN_MISSING:

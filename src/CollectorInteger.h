@@ -25,7 +25,7 @@ public:
     switch(t.type()) {
     case TOKEN_STRING: {
       boost::container::string buffer;
-      StreamIterators string = t.getString(&buffer);
+      SourceIterators string = t.getString(&buffer);
       boost::spirit::qi::parse(string.first, string.second,
         boost::spirit::qi::int_, res);
       break;

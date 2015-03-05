@@ -13,9 +13,9 @@ enum CsvState {
 };
 
 class Advance : boost::noncopyable  {
-  StreamIterator* pIter_;
+  SourceIterator* pIter_;
 public:
-  Advance(StreamIterator* pIter): pIter_(pIter) {}
+  Advance(SourceIterator* pIter): pIter_(pIter) {}
   ~Advance() {
     (*pIter_)++;
   }
@@ -23,7 +23,7 @@ public:
 
 class TokenizerDelimited {
   char delim_;
-  StreamIterator cur_, end_;
+  SourceIterator cur_, end_;
   std::string NA_;
   int NA_size_;
   int row_, col_;
@@ -41,7 +41,7 @@ public:
   {
   }
 
-  void tokenize(StreamIterator begin, StreamIterator end) {
+  void tokenize(SourceIterator begin, SourceIterator end) {
     cur_ = begin;
     end_ = end;
 
@@ -55,7 +55,7 @@ public:
     if (!moreTokens_)
       return Token(TOKEN_EOF);
 
-    StreamIterator token_begin = cur_;
+    SourceIterator token_begin = cur_;
     bool hasEscape = false;
 
     while (cur_ != end_) {
@@ -120,7 +120,7 @@ public:
       }
     }
 
-    // Reached end of stream: cur_ == end_
+    // Reached end of Source: cur_ == end_
     moreTokens_ = false;
 
     switch (state_) {
@@ -165,14 +165,14 @@ private:
     state_ = STATE_DELIM;
   }
 
-  Token fieldToken(StreamIterator begin, StreamIterator end) {
+  Token fieldToken(SourceIterator begin, SourceIterator end) {
     if ((end - begin) == NA_size_ && strncmp(begin, &NA_[0], NA_size_) == 0)
       return Token(TOKEN_MISSING);
 
     return Token(begin, end);
   }
 
-  Token stringToken(StreamIterator begin, StreamIterator end, bool hasEscape) {
+  Token stringToken(SourceIterator begin, SourceIterator end, bool hasEscape) {
     if (begin == end)
       return Token(TOKEN_EMPTY);
 
@@ -184,12 +184,12 @@ private:
 
 public:
 
-  static void unescapeDoubleQuote(StreamIterator begin, StreamIterator end,
+  static void unescapeDoubleQuote(SourceIterator begin, SourceIterator end,
                                   boost::container::string* pOut) {
     pOut->reserve(end - begin);
 
     bool inEscape = false;
-    for (StreamIterator cur = begin; cur != end; ++cur) {
+    for (SourceIterator cur = begin; cur != end; ++cur) {
       if (*cur == '"') {
         if (inEscape) {
           pOut->push_back(*cur);

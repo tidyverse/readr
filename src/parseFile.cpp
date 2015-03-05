@@ -1,13 +1,13 @@
 #include <Rcpp.h>
 using namespace Rcpp;
 
-#include "StreamString.h"
+#include "SourceString.h"
 #include "TokenizerDelimited.h"
 #include "Collector.h"
 
 // [[Rcpp::export]]
 std::vector<std::string> tokenizeString(CharacterVector x) {
-  StreamString source(x);
+  SourceString source(x);
   TokenizerDelimited csv(',');
   csv.tokenize(source.begin(), source.end());
 
@@ -22,7 +22,7 @@ std::vector<std::string> tokenizeString(CharacterVector x) {
 
 // [[Rcpp::export]]
 SEXP parseString(CharacterVector x, List spec, int n = 100) {
-  StreamString source(x);
+  SourceString source(x);
   TokenizerDelimited csv(',');
   csv.tokenize(source.begin(), source.end());
 
@@ -41,7 +41,7 @@ SEXP parseString(CharacterVector x, List spec, int n = 100) {
 
 // [[Rcpp::export]]
 IntegerVector dimString(CharacterVector x) {
-  StreamString source(x);
+  SourceString source(x);
   TokenizerDelimited csv(',');
   csv.tokenize(source.begin(), source.end());
 
@@ -58,7 +58,7 @@ IntegerVector dimString(CharacterVector x) {
 
 // [[Rcpp::export]]
 List dataframeString(CharacterVector x, ListOf<List> specs, int n = 100) {
-  StreamString source(x);
+  SourceString source(x);
   TokenizerDelimited csv(',');
   csv.tokenize(source.begin(), source.end());
 
