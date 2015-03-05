@@ -1,11 +1,10 @@
 #ifndef FASTREAD_SOURCE_H_
 #define FASTREAD_SOURCE_H_
 
+#include <Rcpp.h>
+
 #include <boost/container/string.hpp>
 #include <boost/shared_ptr.hpp>
-
-class Source;
-typedef boost::shared_ptr<Source> SourcePtr;
 
 typedef const char* SourceIterator;
 typedef std::pair<SourceIterator,SourceIterator> SourceIterators;
@@ -21,5 +20,8 @@ public:
   virtual const char* end() = 0;
 
 };
+
+typedef boost::shared_ptr<Source> SourcePtr;
+SourcePtr sourceCreate(Rcpp::List spec);
 
 #endif
