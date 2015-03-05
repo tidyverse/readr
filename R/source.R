@@ -24,7 +24,7 @@ new_source <- function(path, text) {
       x <- readBin(path, n = 1e6)
       structure(list(x), class = "source_raw")
     } else if (is.character(path)) {
-      path <- normalizePath(path, mustWork = TRUE)
+      path <- check_file(path)
       structure(list(path), class = "source_file")
     } else {
       stop("Path must be a character vector or connection", call. = FALSE)
@@ -32,3 +32,16 @@ new_source <- function(path, text) {
   }
 
 }
+
+check_file <- function(path) {
+  if (!file.exists(path)) {
+    stop("'", path, "' does not exist",
+      if (!is_absolute_path(path)) paste0(" in current working directory ('",
+        getwd(), "')"),
+      ".",
+      call. = FALSE)
+  }
+
+  normalizePath(path, "/", mustWork = FALSE)
+}
+

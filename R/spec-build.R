@@ -13,7 +13,7 @@ build_delim_spec <- function(file, delim = NULL, parsers = NULL,
                              n = 0, skip = 0, comment_char = "",
                              double_escape = FALSE, backslash_escape = FALSE) {
 
-  file <- check_file(file)
+  # file <- check_file(file)
   if (is.null(delim)) {
     delim <- guess_delim(file, skip = skip,
       quote = quote, backslash_escape = backslash_escape,
@@ -127,7 +127,7 @@ guess_delim <- function(file, n = 30, skip = 0, comment_char = "", quote = "\"",
                         backslash_escape = FALSE,
                         double_escape = FALSE) {
 
-  file <- check_file(file)
+  # file <- check_file(file)
   x <- count_char_from_file(file, n = n, skip = skip, quote_ = quote,
     comment_ = comment_char, backslash_escape = backslash_escape,
     double_escape = double_escape)

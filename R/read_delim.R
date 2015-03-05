@@ -17,7 +17,7 @@
 #' @return A data frame with the additional class \code{"tbl_df"}.
 read_delim <- function(file, delim = NULL, parsers = NULL, col_names = TRUE,
                        ..., na_strings = "NA") {
-  file <- check_file(file)
+  # file <- check_file(file)
   spec <- build_delim_spec(file, delim = delim, parsers = parsers,
     col_names = col_names, na_strings = na_strings, ...)
 
