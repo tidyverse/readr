@@ -1,7 +1,7 @@
 #ifndef FASTREAD_COLLECTORLOGICAL_H
 #define FASTREAD_COLLECTORLOGICAL_H
 
-#include "HCollector.h"
+#include "Collector.h"
 #include <cstring>
 #include <Rcpp.h>
 

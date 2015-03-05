@@ -1,7 +1,7 @@
 #ifndef FASTREAD_COLLECTORCHARACTER_H
 #define FASTREAD_COLLECTORCHARACTER_H
 
-#include "HCollector.h"
+#include "Collector.h"
 #include <Rcpp.h>
 
 class CollectorCharacter : public Collector {

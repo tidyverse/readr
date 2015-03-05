@@ -1,7 +1,7 @@
 #ifndef FASTREAD_HCOLLECTOR_H
 #define FASTREAD_HCOLLECTOR_H
 
-#include "HToken.h"
+#include "Token.h"
 #include <Rcpp.h>
 #include <boost/shared_ptr.hpp>
 

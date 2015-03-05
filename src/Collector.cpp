@@ -1,11 +1,11 @@
 #include <Rcpp.h>
 using namespace Rcpp;
 
-#include "HCollector.h"
-#include "HCollectorLogical.h"
-#include "HCollectorInteger.h"
-#include "HCollectorDouble.h"
-#include "HCollectorCharacter.h"
+#include "Collector.h"
+#include "CollectorLogical.h"
+#include "CollectorInteger.h"
+#include "CollectorDouble.h"
+#include "CollectorCharacter.h"
 
 boost::shared_ptr<Collector> collectorCreate(List spec) {
   String type = (as<CharacterVector>(spec["type"]))[0];

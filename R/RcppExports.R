@@ -9,6 +9,14 @@ flip <- function(x) {
     .Call('fastread_flip', PACKAGE = 'fastread', x)
 }
 
+is_double <- function(x) {
+    .Call('fastread_is_double', PACKAGE = 'fastread', x)
+}
+
+is_int <- function(x) {
+    .Call('fastread_is_int', PACKAGE = 'fastread', x)
+}
+
 tokenizeString <- function(x) {
     .Call('fastread_tokenizeString', PACKAGE = 'fastread', x)
 }
@@ -23,13 +31,5 @@ dimString <- function(x) {
 
 dataframeString <- function(x, specs, n = 100L) {
     .Call('fastread_dataframeString', PACKAGE = 'fastread', x, specs, n)
-}
-
-is_double <- function(x) {
-    .Call('fastread_is_double', PACKAGE = 'fastread', x)
-}
-
-is_int <- function(x) {
-    .Call('fastread_is_int', PACKAGE = 'fastread', x)
 }
 

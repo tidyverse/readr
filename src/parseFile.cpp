@@ -1,6 +1,6 @@
-#include "HStreamString.h"
-#include "HTokenizerDelimited.h"
-#include "HCollectorDouble.h"
+#include "StreamString.h"
+#include "TokenizerDelimited.h"
+#include "CollectorDouble.h"
 
 #include <Rcpp.h>
 using namespace Rcpp;

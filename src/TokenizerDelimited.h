@@ -1,7 +1,7 @@
 #ifndef FASTREAD_PARSERDELIMITED_H
 #define FASTREAD_PARSERDELIMITED_H
 
-#include "HToken.h"
+#include "Token.h"
 #include <Rcpp.h>
 #include <boost/noncopyable.hpp>
 

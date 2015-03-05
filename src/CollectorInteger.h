@@ -1,7 +1,7 @@
 #ifndef FASTREAD_COLLECTORINTEGER_H
 #define FASTREAD_COLLECTORINTEGER_H
 
-#include "HCollector.h"
+#include "Collector.h"
 #include <Rcpp.h>
 
 #include <boost/spirit/include/qi.hpp>
