@@ -5,20 +5,6 @@ using namespace Rcpp;
 #include "TokenizerDelimited.h"
 #include "Collector.h"
 
-// [[Rcpp::export]]
-std::vector<std::string> tokenizeString(CharacterVector x) {
-  SourceString source(x);
-  TokenizerDelimited csv(',');
-  csv.tokenize(source.begin(), source.end());
-
-  std::vector<std::string> out;
-
-  for (Token t = csv.nextToken(); t.type() != TOKEN_EOF; t = csv.nextToken()) {
-    out.push_back(t.asString());
-  }
-
-  return out;
-}
 
 // [[Rcpp::export]]
 SEXP parseString(CharacterVector x, List spec, int n = 100) {

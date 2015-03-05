@@ -49,14 +49,27 @@ BEGIN_RCPP
     return __result;
 END_RCPP
 }
-// tokenizeString
-std::vector<std::string> tokenizeString(CharacterVector x);
-RcppExport SEXP fastread_tokenizeString(SEXP xSEXP) {
+// read_file_
+CharacterVector read_file_(List sourceSpec);
+RcppExport SEXP fastread_read_file_(SEXP sourceSpecSEXP) {
 BEGIN_RCPP
     Rcpp::RObject __result;
     Rcpp::RNGScope __rngScope;
-    Rcpp::traits::input_parameter< CharacterVector >::type x(xSEXP);
-    __result = Rcpp::wrap(tokenizeString(x));
+    Rcpp::traits::input_parameter< List >::type sourceSpec(sourceSpecSEXP);
+    __result = Rcpp::wrap(read_file_(sourceSpec));
+    return __result;
+END_RCPP
+}
+// tokenize_
+std::vector<std::vector<std::string> > tokenize_(List sourceSpec, List tokenizerSpec, int n);
+RcppExport SEXP fastread_tokenize_(SEXP sourceSpecSEXP, SEXP tokenizerSpecSEXP, SEXP nSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject __result;
+    Rcpp::RNGScope __rngScope;
+    Rcpp::traits::input_parameter< List >::type sourceSpec(sourceSpecSEXP);
+    Rcpp::traits::input_parameter< List >::type tokenizerSpec(tokenizerSpecSEXP);
+    Rcpp::traits::input_parameter< int >::type n(nSEXP);
+    __result = Rcpp::wrap(tokenize_(sourceSpec, tokenizerSpec, n));
     return __result;
 END_RCPP
 }
@@ -94,17 +107,6 @@ BEGIN_RCPP
     Rcpp::traits::input_parameter< ListOf<List> >::type specs(specsSEXP);
     Rcpp::traits::input_parameter< int >::type n(nSEXP);
     __result = Rcpp::wrap(dataframeString(x, specs, n));
-    return __result;
-END_RCPP
-}
-// input_source
-CharacterVector input_source(List sourceSpec);
-RcppExport SEXP fastread_input_source(SEXP sourceSpecSEXP) {
-BEGIN_RCPP
-    Rcpp::RObject __result;
-    Rcpp::RNGScope __rngScope;
-    Rcpp::traits::input_parameter< List >::type sourceSpec(sourceSpecSEXP);
-    __result = Rcpp::wrap(input_source(sourceSpec));
     return __result;
 END_RCPP
 }

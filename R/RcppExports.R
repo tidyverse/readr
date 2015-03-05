@@ -17,8 +17,12 @@ is_int <- function(x) {
     .Call('fastread_is_int', PACKAGE = 'fastread', x)
 }
 
-tokenizeString <- function(x) {
-    .Call('fastread_tokenizeString', PACKAGE = 'fastread', x)
+read_file_ <- function(sourceSpec) {
+    .Call('fastread_read_file_', PACKAGE = 'fastread', sourceSpec)
+}
+
+tokenize_ <- function(sourceSpec, tokenizerSpec, n) {
+    .Call('fastread_tokenize_', PACKAGE = 'fastread', sourceSpec, tokenizerSpec, n)
 }
 
 parseString <- function(x, spec, n = 100L) {
@@ -31,9 +35,5 @@ dimString <- function(x) {
 
 dataframeString <- function(x, specs, n = 100L) {
     .Call('fastread_dataframeString', PACKAGE = 'fastread', x, specs, n)
-}
-
-input_source <- function(sourceSpec) {
-    .Call('fastread_input_source', PACKAGE = 'fastread', sourceSpec)
 }
 

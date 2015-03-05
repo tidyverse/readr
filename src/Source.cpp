@@ -23,12 +23,3 @@ SourcePtr sourceCreate(List spec) {
   Rcpp::stop("Unknown source type");
   return SourcePtr();
 }
-
-// [[Rcpp::export]]
-CharacterVector input_source(List sourceSpec) {
-  SourcePtr source = sourceCreate(sourceSpec);
-
-  CharacterVector out(1);
-  out[0] = Rf_mkCharLen(source->begin(), source->end() - source->begin());
-  return out;
-}

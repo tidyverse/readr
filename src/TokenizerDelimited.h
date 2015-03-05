@@ -14,20 +14,20 @@ enum CsvState {
 
 class TokenizerDelimited : public Tokenizer {
   char delim_;
-  SourceIterator cur_, end_;
   std::string NA_;
   int NA_size_;
+
+  SourceIterator cur_, end_;
+  CsvState state_;
   int row_, col_;
   bool moreTokens_;
 
-  CsvState state_;
-
 public:
 
-  TokenizerDelimited(char delim = ','):
+  TokenizerDelimited(char delim = ',', std::string NA = "NA"):
     delim_(delim),
     NA_("NA"),
-    NA_size_(2),
+    NA_size_(NA.size()),
     moreTokens_(false)
   {
   }
