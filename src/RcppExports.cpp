@@ -60,6 +60,30 @@ BEGIN_RCPP
     return __result;
 END_RCPP
 }
+// read_lines_
+CharacterVector read_lines_(List sourceSpec, int n_max = -1);
+RcppExport SEXP fastread_read_lines_(SEXP sourceSpecSEXP, SEXP n_maxSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject __result;
+    Rcpp::RNGScope __rngScope;
+    Rcpp::traits::input_parameter< List >::type sourceSpec(sourceSpecSEXP);
+    Rcpp::traits::input_parameter< int >::type n_max(n_maxSEXP);
+    __result = Rcpp::wrap(read_lines_(sourceSpec, n_max));
+    return __result;
+END_RCPP
+}
+// dim_tokens_
+IntegerVector dim_tokens_(List sourceSpec, List tokenizerSpec);
+RcppExport SEXP fastread_dim_tokens_(SEXP sourceSpecSEXP, SEXP tokenizerSpecSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject __result;
+    Rcpp::RNGScope __rngScope;
+    Rcpp::traits::input_parameter< List >::type sourceSpec(sourceSpecSEXP);
+    Rcpp::traits::input_parameter< List >::type tokenizerSpec(tokenizerSpecSEXP);
+    __result = Rcpp::wrap(dim_tokens_(sourceSpec, tokenizerSpec));
+    return __result;
+END_RCPP
+}
 // tokenize_
 std::vector<std::vector<std::string> > tokenize_(List sourceSpec, List tokenizerSpec, int n);
 RcppExport SEXP fastread_tokenize_(SEXP sourceSpecSEXP, SEXP tokenizerSpecSEXP, SEXP nSEXP) {
@@ -83,17 +107,6 @@ BEGIN_RCPP
     Rcpp::traits::input_parameter< List >::type spec(specSEXP);
     Rcpp::traits::input_parameter< int >::type n(nSEXP);
     __result = Rcpp::wrap(parseString(x, spec, n));
-    return __result;
-END_RCPP
-}
-// dimString
-IntegerVector dimString(CharacterVector x);
-RcppExport SEXP fastread_dimString(SEXP xSEXP) {
-BEGIN_RCPP
-    Rcpp::RObject __result;
-    Rcpp::RNGScope __rngScope;
-    Rcpp::traits::input_parameter< CharacterVector >::type x(xSEXP);
-    __result = Rcpp::wrap(dimString(x));
     return __result;
 END_RCPP
 }

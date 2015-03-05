@@ -21,16 +21,20 @@ read_file_ <- function(sourceSpec) {
     .Call('fastread_read_file_', PACKAGE = 'fastread', sourceSpec)
 }
 
+read_lines_ <- function(sourceSpec, n_max = -1L) {
+    .Call('fastread_read_lines_', PACKAGE = 'fastread', sourceSpec, n_max)
+}
+
+dim_tokens_ <- function(sourceSpec, tokenizerSpec) {
+    .Call('fastread_dim_tokens_', PACKAGE = 'fastread', sourceSpec, tokenizerSpec)
+}
+
 tokenize_ <- function(sourceSpec, tokenizerSpec, n) {
     .Call('fastread_tokenize_', PACKAGE = 'fastread', sourceSpec, tokenizerSpec, n)
 }
 
 parseString <- function(x, spec, n = 100L) {
     .Call('fastread_parseString', PACKAGE = 'fastread', x, spec, n)
-}
-
-dimString <- function(x) {
-    .Call('fastread_dimString', PACKAGE = 'fastread', x)
 }
 
 dataframeString <- function(x, specs, n = 100L) {

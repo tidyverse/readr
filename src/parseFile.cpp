@@ -26,24 +26,6 @@ SEXP parseString(CharacterVector x, List spec, int n = 100) {
 }
 
 // [[Rcpp::export]]
-IntegerVector dimString(CharacterVector x) {
-  SourceString source(x);
-  TokenizerDelimited csv(',');
-  csv.tokenize(source.begin(), source.end());
-
-  int rows = -1, cols = -1;
-
-  for (Token t = csv.nextToken(); t.type() != TOKEN_EOF; t = csv.nextToken()) {
-    rows = t.row();
-    if (t.col() > cols)
-      cols = t.col();
-  }
-
-  return IntegerVector::create(rows + 1, cols + 1);
-}
-
-
-// [[Rcpp::export]]
 List dataframeString(CharacterVector x, ListOf<List> specs, int n = 100) {
   SourceString source(x);
   TokenizerDelimited csv(',');

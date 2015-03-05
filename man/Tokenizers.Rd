@@ -3,9 +3,12 @@
 \name{Tokenizers}
 \alias{Tokenizers}
 \alias{csv_tokenizer}
+\alias{line_tokenizer}
 \title{Tokenizers.}
 \usage{
 csv_tokenizer(na = "NA")
+
+line_tokenizer()
 }
 \arguments{
 \item{na}{String to use for missing values.}

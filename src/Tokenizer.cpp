@@ -4,6 +4,7 @@
 using namespace Rcpp;
 
 #include "TokenizerDelimited.h"
+#include "TokenizerLine.h"
 
 TokenizerPtr tokenizerCreate(List spec) {
   CharacterVector klass = as<CharacterVector>(spec.attr("class"));
@@ -14,6 +15,8 @@ TokenizerPtr tokenizerCreate(List spec) {
     std::string na = as<std::string>(spec["na"]);
 
     return TokenizerPtr(new TokenizerDelimited(delim, na));
+  } else if (subclass == "tokenizer_line") {
+    return TokenizerPtr(new TokenizerLine());
   }
 
   Rcpp::stop("Unknown tokenizer type");

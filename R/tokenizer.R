@@ -40,3 +40,9 @@ NULL
 csv_tokenizer <- function(na = "NA") {
   structure(list(delim = ",", na = na), class = "tokenizer_delimited")
 }
+
+#' @export
+#' @rdname Tokenizers
+line_tokenizer <- function() {
+  structure(list(), class = "tokenizer_line")
+}
