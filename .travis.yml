@@ -1,7 +1,7 @@
 language: r
 warnings_are_errors: true
 
-github_packages:
+r_github_packages:
   - RcppCore/Rcpp
 
 r_packages:
