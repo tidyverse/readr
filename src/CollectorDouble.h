@@ -21,40 +21,40 @@ public:
   }
 
   double parse(const Token& t) {
-    double res = 0.0;
-
     switch(t.type()) {
     case TOKEN_STRING: {
       boost::container::string buffer;
       SourceIterators string = t.getString(&buffer);
 
-      bool ok = qi::parse(string.first, string.second, qi::double_, res);
-      if (!ok || string.first != string.second) {
-        Collector::warn(t);
-        res = NA_REAL;
-      }
+      std::pair<bool,double> parsed =
+        CollectorDouble::parse(string.first, string.second);
 
-      break;
-    };
+      if (!parsed.first)
+        Collector::warn(t, string);
+      return parsed.second;
+    }
     case TOKEN_MISSING:
     case TOKEN_EMPTY:
-      res = NA_REAL;
-      break;
+      return NA_REAL;
     case TOKEN_EOF:
       Rcpp::stop("Invalid token");
     }
 
-    return res;
+    return 0;
   }
 
   static bool canParse(std::string x) {
-    const char* start = x.c_str();
-    char* end;
+    return CollectorDouble::parse(x.begin(), x.end()).first;
+  }
 
-    errno = 0;
-    strtod(start, &end);
-    // parsed to end of string and no errors
-    return (end == start + x.size()) && (errno == 0);
+private:
+
+  template <class Iter>
+  static std::pair<bool,double> parse(Iter begin, Iter end) {
+    double res = 0;
+
+    bool ok = qi::parse(begin, end, qi::double_, res) && begin == end;
+    return std::make_pair(ok, ok ? res : NA_REAL);
   }
 
 };

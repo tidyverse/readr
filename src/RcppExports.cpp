@@ -39,7 +39,7 @@ BEGIN_RCPP
 END_RCPP
 }
 // read_lines_
-CharacterVector read_lines_(List sourceSpec, int n_max = -1);
+CharacterVector read_lines_(List sourceSpec, int n_max);
 RcppExport SEXP fastread_read_lines_(SEXP sourceSpecSEXP, SEXP n_maxSEXP) {
 BEGIN_RCPP
     Rcpp::RObject __result;
@@ -89,7 +89,7 @@ BEGIN_RCPP
 END_RCPP
 }
 // dataframeString
-List dataframeString(CharacterVector x, ListOf<List> specs, int n = 100);
+List dataframeString(CharacterVector x, ListOf<List> specs, int n);
 RcppExport SEXP fastread_dataframeString(SEXP xSEXP, SEXP specsSEXP, SEXP nSEXP) {
 BEGIN_RCPP
     Rcpp::RObject __result;

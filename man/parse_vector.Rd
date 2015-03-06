@@ -20,6 +20,7 @@ parse_vector("1,2,3,NA", csv_tokenizer(), list(type = "double"))
 
 # Invalid values are replaced with missing values with a warning.
 parse_vector("1,2,-", csv_tokenizer(), list(type = "double"))
+parse_vector("1,2,-", csv_tokenizer(), list(type = "integer"))
 }
 \keyword{internal}
 
