@@ -1,5 +1,8 @@
 language: r
 warnings_are_errors: true
 
+github_packages:
+  - RcppCore/Rcpp
+
 r_packages:
   - rmarkdown

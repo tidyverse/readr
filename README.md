@@ -4,6 +4,13 @@
 
 The goal of fastread is to provide a fast and friendly way to read data into R. It will eventually encompass the functionality provided by `read.csv()`, `read.table()`, `read.delim()` and `read.fwf()`.
 
+## Installation
+
+```R
+install_github("RcppCore/Rcpp")
+install_github("hadley/fastread")
+```
+
 ## Design principles
 
 Fail early: fastread functions fail early, as soon as they discover there is something wrong with the input. fastread should make reasonable default guesses, but if it guesses wrong (e.g. a column turns out to be character, not integer) it will raise an error indicating what the problem is. You always know best about your data, so if a column type (or name) conflicts between the file and specification, then fastread throws an error so that you can resolve the problem.
