@@ -4,6 +4,7 @@ using namespace Rcpp;
 #include "SourceString.h"
 #include "TokenizerDelimited.h"
 #include "Collector.h"
+#include "Iconv.h"
 
 // [[Rcpp::export]]
 List dataframeString(CharacterVector x, ListOf<List> specs, int n = 100) {
@@ -38,4 +39,9 @@ List dataframeString(CharacterVector x, ListOf<List> specs, int n = 100) {
   out.attr("row.names") = IntegerVector::create(NA_INTEGER, -n);
 
   return out;
+}
+
+// [[Rcpp::export]]
+std::string myconv(std::string x, std::string from, std::string to = "UTF-8") {
+  return Iconv(from, to).convert(x);
 }

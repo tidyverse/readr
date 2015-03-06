@@ -33,3 +33,7 @@ dataframeString <- function(x, specs, n = 100L) {
     .Call('fastread_dataframeString', PACKAGE = 'fastread', x, specs, n)
 }
 
+myconv <- function(x, from, to = "UTF-8") {
+    .Call('fastread_myconv', PACKAGE = 'fastread', x, from, to)
+}
+

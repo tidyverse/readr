@@ -101,3 +101,16 @@ BEGIN_RCPP
     return __result;
 END_RCPP
 }
+// myconv
+std::string myconv(std::string x, std::string from, std::string to);
+RcppExport SEXP fastread_myconv(SEXP xSEXP, SEXP fromSEXP, SEXP toSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject __result;
+    Rcpp::RNGScope __rngScope;
+    Rcpp::traits::input_parameter< std::string >::type x(xSEXP);
+    Rcpp::traits::input_parameter< std::string >::type from(fromSEXP);
+    Rcpp::traits::input_parameter< std::string >::type to(toSEXP);
+    __result = Rcpp::wrap(myconv(x, from, to));
+    return __result;
+END_RCPP
+}
