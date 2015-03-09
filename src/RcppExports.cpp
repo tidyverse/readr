@@ -27,29 +27,6 @@ BEGIN_RCPP
     return __result;
 END_RCPP
 }
-// read_file_
-CharacterVector read_file_(List sourceSpec);
-RcppExport SEXP fastread_read_file_(SEXP sourceSpecSEXP) {
-BEGIN_RCPP
-    Rcpp::RObject __result;
-    Rcpp::RNGScope __rngScope;
-    Rcpp::traits::input_parameter< List >::type sourceSpec(sourceSpecSEXP);
-    __result = Rcpp::wrap(read_file_(sourceSpec));
-    return __result;
-END_RCPP
-}
-// read_lines_
-CharacterVector read_lines_(List sourceSpec, int n_max);
-RcppExport SEXP fastread_read_lines_(SEXP sourceSpecSEXP, SEXP n_maxSEXP) {
-BEGIN_RCPP
-    Rcpp::RObject __result;
-    Rcpp::RNGScope __rngScope;
-    Rcpp::traits::input_parameter< List >::type sourceSpec(sourceSpecSEXP);
-    Rcpp::traits::input_parameter< int >::type n_max(n_maxSEXP);
-    __result = Rcpp::wrap(read_lines_(sourceSpec, n_max));
-    return __result;
-END_RCPP
-}
 // dim_tokens_
 IntegerVector dim_tokens_(List sourceSpec, List tokenizerSpec);
 RcppExport SEXP fastread_dim_tokens_(SEXP sourceSpecSEXP, SEXP tokenizerSpecSEXP) {
@@ -111,6 +88,29 @@ BEGIN_RCPP
     Rcpp::traits::input_parameter< std::string >::type from(fromSEXP);
     Rcpp::traits::input_parameter< std::string >::type to(toSEXP);
     __result = Rcpp::wrap(myconv(x, from, to));
+    return __result;
+END_RCPP
+}
+// read_file_
+CharacterVector read_file_(List sourceSpec);
+RcppExport SEXP fastread_read_file_(SEXP sourceSpecSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject __result;
+    Rcpp::RNGScope __rngScope;
+    Rcpp::traits::input_parameter< List >::type sourceSpec(sourceSpecSEXP);
+    __result = Rcpp::wrap(read_file_(sourceSpec));
+    return __result;
+END_RCPP
+}
+// read_lines_
+CharacterVector read_lines_(List sourceSpec, int n_max);
+RcppExport SEXP fastread_read_lines_(SEXP sourceSpecSEXP, SEXP n_maxSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject __result;
+    Rcpp::RNGScope __rngScope;
+    Rcpp::traits::input_parameter< List >::type sourceSpec(sourceSpecSEXP);
+    Rcpp::traits::input_parameter< int >::type n_max(n_maxSEXP);
+    __result = Rcpp::wrap(read_lines_(sourceSpec, n_max));
     return __result;
 END_RCPP
 }

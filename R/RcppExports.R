@@ -9,14 +9,6 @@ flip <- function(x) {
     .Call('fastread_flip', PACKAGE = 'fastread', x)
 }
 
-read_file_ <- function(sourceSpec) {
-    .Call('fastread_read_file_', PACKAGE = 'fastread', sourceSpec)
-}
-
-read_lines_ <- function(sourceSpec, n_max = -1L) {
-    .Call('fastread_read_lines_', PACKAGE = 'fastread', sourceSpec, n_max)
-}
-
 dim_tokens_ <- function(sourceSpec, tokenizerSpec) {
     .Call('fastread_dim_tokens_', PACKAGE = 'fastread', sourceSpec, tokenizerSpec)
 }
@@ -35,5 +27,13 @@ dataframeString <- function(x, specs, n = 100L) {
 
 myconv <- function(x, from, to = "UTF-8") {
     .Call('fastread_myconv', PACKAGE = 'fastread', x, from, to)
+}
+
+read_file_ <- function(sourceSpec) {
+    .Call('fastread_read_file_', PACKAGE = 'fastread', sourceSpec)
+}
+
+read_lines_ <- function(sourceSpec, n_max = -1L) {
+    .Call('fastread_read_lines_', PACKAGE = 'fastread', sourceSpec, n_max)
 }
 
