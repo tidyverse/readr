@@ -1,7 +1,7 @@
 Package: readr
 Version: 0.0.0.9000
-Title: Faster Data Readers
-Description: Faster Data Readers
+Title: Read Tabular Data.
+Description: Readr makes it easy (and fast) to read tabular data from disk.
 Authors@R: c(
     person("Hadley", "Wickham", , "hadley@rstudio.com", c("aut", "cre")),
     person("Romain", "Francois", role = "aut"),
