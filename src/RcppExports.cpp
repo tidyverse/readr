@@ -65,32 +65,6 @@ BEGIN_RCPP
     return __result;
 END_RCPP
 }
-// dataframeString
-List dataframeString(CharacterVector x, ListOf<List> specs, int n);
-RcppExport SEXP fastread_dataframeString(SEXP xSEXP, SEXP specsSEXP, SEXP nSEXP) {
-BEGIN_RCPP
-    Rcpp::RObject __result;
-    Rcpp::RNGScope __rngScope;
-    Rcpp::traits::input_parameter< CharacterVector >::type x(xSEXP);
-    Rcpp::traits::input_parameter< ListOf<List> >::type specs(specsSEXP);
-    Rcpp::traits::input_parameter< int >::type n(nSEXP);
-    __result = Rcpp::wrap(dataframeString(x, specs, n));
-    return __result;
-END_RCPP
-}
-// myconv
-std::string myconv(std::string x, std::string from, std::string to);
-RcppExport SEXP fastread_myconv(SEXP xSEXP, SEXP fromSEXP, SEXP toSEXP) {
-BEGIN_RCPP
-    Rcpp::RObject __result;
-    Rcpp::RNGScope __rngScope;
-    Rcpp::traits::input_parameter< std::string >::type x(xSEXP);
-    Rcpp::traits::input_parameter< std::string >::type from(fromSEXP);
-    Rcpp::traits::input_parameter< std::string >::type to(toSEXP);
-    __result = Rcpp::wrap(myconv(x, from, to));
-    return __result;
-END_RCPP
-}
 // read_file_
 CharacterVector read_file_(List sourceSpec);
 RcppExport SEXP fastread_read_file_(SEXP sourceSpecSEXP) {
@@ -111,6 +85,20 @@ BEGIN_RCPP
     Rcpp::traits::input_parameter< List >::type sourceSpec(sourceSpecSEXP);
     Rcpp::traits::input_parameter< int >::type n_max(n_maxSEXP);
     __result = Rcpp::wrap(read_lines_(sourceSpec, n_max));
+    return __result;
+END_RCPP
+}
+// read_tokens
+List read_tokens(List sourceSpec, List tokenizerSpec, ListOf<List> colSpecs, int n_max);
+RcppExport SEXP fastread_read_tokens(SEXP sourceSpecSEXP, SEXP tokenizerSpecSEXP, SEXP colSpecsSEXP, SEXP n_maxSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject __result;
+    Rcpp::RNGScope __rngScope;
+    Rcpp::traits::input_parameter< List >::type sourceSpec(sourceSpecSEXP);
+    Rcpp::traits::input_parameter< List >::type tokenizerSpec(tokenizerSpecSEXP);
+    Rcpp::traits::input_parameter< ListOf<List> >::type colSpecs(colSpecsSEXP);
+    Rcpp::traits::input_parameter< int >::type n_max(n_maxSEXP);
+    __result = Rcpp::wrap(read_tokens(sourceSpec, tokenizerSpec, colSpecs, n_max));
     return __result;
 END_RCPP
 }

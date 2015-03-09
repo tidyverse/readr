@@ -9,7 +9,7 @@ using namespace Rcpp;
 #include "CollectorDouble.h"
 #include "CollectorCharacter.h"
 
-boost::shared_ptr<Collector> collectorCreate(List spec) {
+CollectorPtr collectorCreate(List spec) {
   std::string subclass(as<CharacterVector>(spec.attr("class"))[0]);
 
   if (subclass == "collector_skip"  )
@@ -25,4 +25,19 @@ boost::shared_ptr<Collector> collectorCreate(List spec) {
 
   Rcpp::stop("Unsupported column type");
   return boost::shared_ptr<Collector>();
+}
+
+std::vector<CollectorPtr> collectorsCreate(ListOf<List> specs) {
+  std::vector<CollectorPtr> collectors;
+  for (int j = 0; j < specs.size(); ++j) {
+    collectors.push_back(collectorCreate(specs[j]));
+  }
+
+  return collectors;
+}
+
+void collectorsResize(std::vector<CollectorPtr>& collectors, int n) {
+  for (int j = 0; j < collectors.size(); ++j) {
+    collectors[j]->resize(n);
+  }
 }

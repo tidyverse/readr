@@ -21,19 +21,15 @@ parse_ <- function(sourceSpec, tokenizerSpec, collectorSpec) {
     .Call('fastread_parse_', PACKAGE = 'fastread', sourceSpec, tokenizerSpec, collectorSpec)
 }
 
-dataframeString <- function(x, specs, n = 100L) {
-    .Call('fastread_dataframeString', PACKAGE = 'fastread', x, specs, n)
-}
-
-myconv <- function(x, from, to = "UTF-8") {
-    .Call('fastread_myconv', PACKAGE = 'fastread', x, from, to)
-}
-
 read_file_ <- function(sourceSpec) {
     .Call('fastread_read_file_', PACKAGE = 'fastread', sourceSpec)
 }
 
 read_lines_ <- function(sourceSpec, n_max = -1L) {
     .Call('fastread_read_lines_', PACKAGE = 'fastread', sourceSpec, n_max)
+}
+
+read_tokens <- function(sourceSpec, tokenizerSpec, colSpecs, n_max = -1L) {
+    .Call('fastread_read_tokens', PACKAGE = 'fastread', sourceSpec, tokenizerSpec, colSpecs, n_max)
 }
 

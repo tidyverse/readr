@@ -17,6 +17,9 @@ public:
   virtual void setValue(int i, const Token& t) =0;
 
   virtual void resize(int n) {
+    if (n == n_)
+      return;
+
     n_ = n;
     column_ = Rf_lengthgets(column_, n);
   }
@@ -35,7 +38,10 @@ public:
 
 };
 
+typedef boost::shared_ptr<Collector> CollectorPtr;
 // Create an collector from an R list specification
-boost::shared_ptr<Collector> collectorCreate(Rcpp::List spec);
+CollectorPtr collectorCreate(Rcpp::List spec);
+std::vector<CollectorPtr> collectorsCreate(Rcpp::ListOf<Rcpp::List> specs);
+void collectorsResize(std::vector<CollectorPtr>& collectors, int n);
 
 #endif
