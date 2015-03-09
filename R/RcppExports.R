@@ -41,3 +41,7 @@ collectorsGuess <- function(sourceSpec, tokenizerSpec, n = 100L) {
     .Call('readr_collectorsGuess', PACKAGE = 'readr', sourceSpec, tokenizerSpec, n)
 }
 
+stream_csv <- function(df, path, col_names = TRUE, append = FALSE) {
+    invisible(.Call('readr_stream_csv', PACKAGE = 'readr', df, path, col_names, append))
+}
+
