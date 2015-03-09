@@ -11,13 +11,19 @@ namespace qi = boost::spirit::qi;
 #include "Collector.h"
 
 class CollectorDouble : public Collector {
+  double* data_;
 
 public:
   CollectorDouble(): Collector(Rcpp::NumericVector()) {
   }
 
+  virtual void resize(int n) {
+    Collector::resize(n);
+    data_ = REAL(column_);
+  }
+
   void setValue(int i, const Token& t) {
-    REAL(column_)[i] = parse(t);
+    data_[i] = parse(t);
   }
 
   double parse(const Token& t) {

@@ -11,13 +11,20 @@ namespace qi = boost::spirit::qi;
 #include "Collector.h"
 
 class CollectorInteger : public Collector {
+  int* data_;
+
 public:
 
   CollectorInteger(): Collector(IntegerVector()) {
   }
 
+  virtual void resize(int n) {
+    Collector::resize(n);
+    data_ = INTEGER(column_);
+  }
+
   void setValue(int i, const Token& t) {
-    INTEGER(column_)[i] = parse(t);
+    data_[i] = parse(t);
   }
 
   int parse(const Token& t) {
