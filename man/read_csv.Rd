@@ -41,11 +41,16 @@ first element is used.}
   l = logical and \code{_} skips the column.}
 
 \item{na}{String to use for missing values.}
+
+\item{skip}{Number of lines to skip before reading data.}
 }
 \description{
 Read a csv file into a data frame.
 }
 \examples{
-read_csv(text = "1,2\\n3,4", col_types = "ii", col_names = c("x", "y"))
+read_csv(text = "x,y\\n1,2\\n3,4")
+
+# Override default col types
+read_csv(text = "x,y\\n1,2\\n3,4", col_types = "dd")
 }
 

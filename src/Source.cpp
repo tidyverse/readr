@@ -10,13 +10,15 @@ using namespace Rcpp;
 SourcePtr sourceCreate(List spec) {
   std::string subclass(as<CharacterVector>(spec.attr("class"))[0]);
 
+  int skip = as<int>(spec["skip"]);
+
   if (subclass == "source_raw") {
-    return SourcePtr(new SourceRaw(as<RawVector>(spec[0])));
+    return SourcePtr(new SourceRaw(as<RawVector>(spec[0]), skip));
   } else if (subclass == "source_string") {
-    return SourcePtr(new SourceString(as<CharacterVector>(spec[0])));
+    return SourcePtr(new SourceString(as<CharacterVector>(spec[0]), skip));
   } else if (subclass == "source_file") {
     std::string path(as<CharacterVector>(spec[0])[0]);
-    return SourcePtr(new SourceFile(path));
+    return SourcePtr(new SourceFile(path, skip));
   }
 
   Rcpp::stop("Unknown source type");

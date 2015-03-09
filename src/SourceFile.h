@@ -17,7 +17,7 @@ class SourceFile : public Source {
 
 public:
 
-  SourceFile(const std::string& path) {
+  SourceFile(const std::string& path, int skip = 0) {
     try {
       fm_ = boost::interprocess::file_mapping(path.c_str(),
         boost::interprocess::read_only);
@@ -29,6 +29,9 @@ public:
 
     begin_ = static_cast<char*>(mr_.get_address());
     end_ = begin_ + mr_.get_size();
+
+    // Skip lines, if needed
+    begin_ = skipLines(begin_, end_, skip);
   }
 
   const char* begin() {

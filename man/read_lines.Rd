@@ -24,5 +24,6 @@ Read lines from a file or string.
 }
 \examples{
 read_lines(text = "1\\n\\n2")
+read_lines(text = "")
 }
 

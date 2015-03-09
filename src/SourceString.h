@@ -7,18 +7,26 @@
 class SourceString : public Source {
   Rcpp::RObject string_;
   size_t size_;
+
+  const char* begin_;
+  const char* end_;
 public:
-  SourceString(Rcpp::CharacterVector x) {
+  SourceString(Rcpp::CharacterVector x, int skip = 0) {
     string_ = x[0];
-    size_ = Rf_length(string_);
+
+    begin_ = CHAR(string_);
+    end_ = begin_ + Rf_length(string_);
+
+    // Skip lines, if needed
+    begin_ = skipLines(begin_, end_, skip);
   }
 
   const char* begin() {
-    return CHAR(string_);
+    return begin_;
   }
 
   const char* end() {
-    return begin() + size_;
+    return end_;
   }
 };
 

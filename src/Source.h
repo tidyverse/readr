@@ -19,9 +19,24 @@ public:
   virtual const char* begin() = 0;
   virtual const char* end() = 0;
 
+  static const char* skipLines(const char* begin, const char* end, int n) {
+    const char* cur = begin;
+
+    while(n > 0 && cur != end) {
+      if (*cur == '\n')
+        n--;
+
+      ++cur;
+    }
+
+    return cur;
+  }
+
 };
 
 typedef boost::shared_ptr<Source> SourcePtr;
 SourcePtr sourceCreate(Rcpp::List spec);
 
 #endif
+
+
