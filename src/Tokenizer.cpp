@@ -7,8 +7,7 @@ using namespace Rcpp;
 #include "TokenizerLine.h"
 
 TokenizerPtr tokenizerCreate(List spec) {
-  CharacterVector klass = as<CharacterVector>(spec.attr("class"));
-  std::string subclass(klass[klass.size() - 1]);
+  std::string subclass(as<CharacterVector>(spec.attr("class"))[0]);
 
   if (subclass == "tokenizer_delimited") {
     char delim = as<char>(spec["delim"]);

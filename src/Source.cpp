@@ -8,8 +8,7 @@ using namespace Rcpp;
 #include "SourceRaw.h"
 
 SourcePtr sourceCreate(List spec) {
-  CharacterVector klass = as<CharacterVector>(spec.attr("class"));
-  std::string subclass(klass[klass.size() - 1]);
+  std::string subclass(as<CharacterVector>(spec.attr("class"))[0]);
 
   if (subclass == "source_raw") {
     return SourcePtr(new SourceRaw(as<RawVector>(spec[0])));

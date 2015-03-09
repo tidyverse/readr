@@ -1,33 +1,3 @@
-#' File parsing specification.
-#'
-#' Parsing a delimited file is naturally composed of three pieces:
-#' parsing a file into lines, parsing each line in to fields, then
-#' converting each field into an R vector, forming the columns of a data frame.
-#' Parsing a fixed width file does not decompose in this way, because while
-#' a delimted file is ragged on disk, a fixed width file is a 2d grid.
-#'
-#' @param line,field,column Line, field and column specification as created by
-#'   \code{\link{line_spec}}, \code{\link{field_spec}} and \code{column_spec}.
-#' @name file_spec
-NULL
-
-#' @export
-#' @rdname file_spec
-delim_spec <- function(line, field, column) {
-  structure(
-    list(
-      line = line,
-      field = field,
-      column = column
-    ),
-    class = c("delim_spec", "file_spec", "spec")
-  )
-}
-
-#' @rdname file_spec
-#' @param widths,start,end Either specify the column positions with their
-#'   widths, or by providing start and ending positions.
-#' @export
 fwf_spec <- function(widths = NULL, start = NULL, end = NULL, column = NULL) {
   ok <- !is.null(widths) && is.null(start) && is.null(end) ||
         is.null(widths) && !is.null(start) && !is.null(end)
@@ -50,54 +20,7 @@ fwf_spec <- function(widths = NULL, start = NULL, end = NULL, column = NULL) {
   )
 }
 
-#' Line parsing specification
-#'
-#' @param skip Skip this many lines before beginning parsing.
-#' @param n If not 0, parse at most this many lines from the file.
-#' @param comment If not \code{""}, all content after this character
-#'   is ignored.
-#' @param delim Delimiter between lines.
-#' @export
-line_spec <- function(skip = 0, n = 0, comment = "", delim = "\n") {
-  structure(
-    list(
-      delim = delim,
-      skip = skip,
-      n = n,
-      comment = comment
-    ),
-    class = c("line_spec", "spec")
-  )
-}
-
-#' Field parsing specification for delimited files.
-#'
-#' @param delim Delimiter between fields
-#' @param quote Quoting character. Quotes are not preserved in the output.
-#' @param collapse Collapse multiple delimiters into one. (Mostly useful when
-#'   the delimiter is a space).
-#' @param backslash_escape Do backslashes escape the following character?
-#' @param double_escape Does doubling the quoting character escape it?
-#' @param strict If \code{TRUE}, will throw an error if there are any
-#'   unterminated strings or quotes.
-#' @export
-field_spec <- function(delim, quote = '"', collapse = FALSE,
-                       backslash_escape = FALSE, double_escape = FALSE,
-                       strict = FALSE) {
-  structure(
-    list(
-      delim = delim,
-      quote = quote,
-      collapse = collapse,
-      backslash_escape = backslash_escape,
-      double_escape = double_escape,
-      strict = strict
-    ),
-    class = c("delimited_field_spec", "field_spec", "spec")
-  )
-}
-
-#' Column parsign specification.
+#' Describe column types.
 #'
 #' @param parsers A list of parsers used to control how each column is turned
 #'   into an R data frame. The elements of \code{parsers} can be named to match
@@ -116,20 +39,18 @@ field_spec <- function(delim, quote = '"', collapse = FALSE,
 #' \item{na_strings}{}
 #' @export
 #' @examples
-#' column_spec("ccd", c("a", "b", "c"))
-column_spec <- function(parsers, col_names, na_strings = "NA") {
+#' columns("ccd", c("a", "b", "c"))
+columns <- function(parsers, col_names, na_strings = "NA") {
   if (is.character(parsers)) {
     parsers <- parse_parser_string(parsers)
   }
 
   stopifnot(is.list(parsers))
-  is_parser <- vapply(parsers, inherits, "parser", FUN.VALUE = logical(1))
+  is_parser <- vapply(parsers, inherits, "collector", FUN.VALUE = logical(1))
   if (any(!is_parser)) {
     stop("Some parsers are not S3 parser objects: ",
       paste(which(!is_parser), collapse = ", "), call. = FALSE)
   }
-
-  stopifnot(all(vapply(parsers, class, character(1)) == "parser"))
 
   if (is.null(names(parsers))) {
     if (length(parsers) != length(col_names)) {
@@ -144,7 +65,7 @@ column_spec <- function(parsers, col_names, na_strings = "NA") {
     }
 
     skip <- setdiff(col_names, names(parsers))
-    parsers[skip] <- rep(list(skip_parser()), length(skip))
+    parsers[skip] <- rep(list(col_skip()), length(skip))
 
     parsers <- parsers[match(names(parsers), col_names)]
   }
@@ -163,11 +84,11 @@ column_spec <- function(parsers, col_names, na_strings = "NA") {
 parse_parser_string <- function(x) {
   letters <- strsplit(x, "")[[1]]
   lookup <- list(
-    c = character_parser(),
-    d = double_parser(),
-    i = integer_parser(),
-    l = logical_parser(),
-    "_" = skip_parser()
+    c = col_character(),
+    d = col_double(),
+    i = col_integer(),
+    l = col_logical(),
+    "_" = col_skip()
   )
 
   bad <- setdiff(letters, names(lookup))

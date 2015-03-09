@@ -9,3 +9,5 @@ vpluck <- function(x, i) vapply(x, "[[", i, FUN.VALUE = x[[1]][[i]])
 is_absolute_path <- function(path) {
   grepl("^(/|[A-Za-z]:|\\\\|~)", path)
 }
+
+last <- function(x) x[[length(x)]]

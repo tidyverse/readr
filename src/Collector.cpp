@@ -9,15 +9,15 @@ using namespace Rcpp;
 #include "CollectorCharacter.h"
 
 boost::shared_ptr<Collector> collectorCreate(List spec) {
-  String type = (as<CharacterVector>(spec["type"]))[0];
+  std::string subclass(as<CharacterVector>(spec.attr("class"))[0]);
 
-  if (type == "logical"  )
+  if (subclass == "collector_logical"  )
     return boost::shared_ptr<Collector>(new CollectorLogical());
-  if (type == "integer"  )
+  if (subclass == "collector_integer"  )
     return boost::shared_ptr<Collector>(new CollectorInteger());
-  if (type == "double"   )
+  if (subclass == "collector_double"   )
     return boost::shared_ptr<Collector>(new CollectorDouble());
-  if (type == "character")
+  if (subclass == "collector_character")
     return boost::shared_ptr<Collector>(new CollectorCharacter());
 
   Rcpp::stop("Unsupported column type");
