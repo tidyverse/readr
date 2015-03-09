@@ -45,3 +45,18 @@ As well as high-level functions for very efficiently reading in complete files i
 * `parse_delimited_fields(lines)`, `parse_fixed_fields(lines)`: parse lines into
   fields
 * `parse_columns()`: parse fields into R columns
+
+### Acknowledgements
+
+A big set of thanks to:
+
+* [Joe Cheng](https://github.com/jcheng5) for show me the beauty of
+  deterministic finite automata for parsing, and for teaching me why I 
+  should write a tokenizer.
+  
+* [JJ Allaire](https://github.com/jjallaire) for helping me come up with a
+  design that makes very few copies.
+  
+* [Dirk Eddelbuettel](http://dirk.eddelbuettel.com) for coming up with the
+  name!
+  
