@@ -5,7 +5,7 @@
 \title{Read a csv file into a data frame.}
 \usage{
 read_csv(path, text, col_names = TRUE, col_types = NULL, na = "NA",
-  skip = 0)
+  skip = 0, n_max = -1)
 }
 \arguments{
 \item{path}{Either a path to a file, or a connection. Reading directly
@@ -43,6 +43,8 @@ first element is used.}
 \item{na}{String to use for missing values.}
 
 \item{skip}{Number of lines to skip before reading data.}
+
+\item{n_max}{Maximum number of records to read.}
 }
 \description{
 Read a csv file into a data frame.
