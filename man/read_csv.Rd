@@ -4,27 +4,43 @@
 \alias{read_csv}
 \title{Read a csv file into a data frame.}
 \usage{
-read_csv(path, col_types, col_names, na = "NA", text = NULL)
+read_csv(path, text, col_names = TRUE, col_types = NULL, na = "NA",
+  skip = 0)
 }
 \arguments{
 \item{path}{Either a path to a file, or a connection. Reading directly
 from a file is most efficient.}
 
-\item{col_types}{A list of types used to control how each column is turned
-  into an R data frame. The elements of \code{col_types} can be named to match
-  the columns. Any columns not included will not be included in the output
-  data frame.
-
-  Alternatively, you can use string where each character represents
-  one column. c = character, d = double, i = integer, l = logical and
-  \code{_} skips the column.}
-
-\item{col_names}{A character vector naming the columns.}
-
-\item{na}{String to use for missing values.}
-
 \item{text}{A character or raw vector. If a character vector, only the
 first element is used.}
+
+\item{col_names}{Either \code{TRUE}, \code{FALSE} or a character vector
+  of column names.
+
+  If \code{TRUE}, the first row of the input will be used as the column
+  names, and will not be included in the data frame. If \code{FALSE}, column
+  names will be generated automatically: X1, X2, X3 etc.
+
+  If \code{col_names} is a character vector, the values will be used as the
+  names of the columns, and the first row of the input will be read into
+  the first row of the output data frame.}
+
+\item{col_types}{One of \code{NULL}, a list, a named list or a string.
+
+  If \code{NULL}, the column type will be imputed from the first 30 rows
+  on the input. This is convenient (and fast), but not robust. If the
+  imputation fails, you'll need to supply the correct types yourself.
+
+  If a list, it must contain one "\code{\link{collector}}" for each column.
+  If you only want to read a subset of the columns, you can use a named list
+  (where the names give the column names). If a column is not mentioned by
+  name, it will not be included in the output.
+
+  Alternatively, you can use a compact string representation where each
+  character represents one column: c = character, d = double, i = integer,
+  l = logical and \code{_} skips the column.}
+
+\item{na}{String to use for missing values.}
 }
 \description{
 Read a csv file into a data frame.

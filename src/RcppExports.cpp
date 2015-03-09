@@ -5,6 +5,17 @@
 
 using namespace Rcpp;
 
+// collectorGuess
+std::string collectorGuess(CharacterVector input);
+RcppExport SEXP fastread_collectorGuess(SEXP inputSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject __result;
+    Rcpp::RNGScope __rngScope;
+    Rcpp::traits::input_parameter< CharacterVector >::type input(inputSEXP);
+    __result = Rcpp::wrap(collectorGuess(input));
+    return __result;
+END_RCPP
+}
 // empty_cols
 std::vector<bool> empty_cols(std::string x);
 RcppExport SEXP fastread_empty_cols(SEXP xSEXP) {
@@ -89,16 +100,30 @@ BEGIN_RCPP
 END_RCPP
 }
 // read_tokens
-List read_tokens(List sourceSpec, List tokenizerSpec, ListOf<List> colSpecs, int n_max);
-RcppExport SEXP fastread_read_tokens(SEXP sourceSpecSEXP, SEXP tokenizerSpecSEXP, SEXP colSpecsSEXP, SEXP n_maxSEXP) {
+List read_tokens(List sourceSpec, List tokenizerSpec, ListOf<List> colSpecs, CharacterVector col_names, int n_max);
+RcppExport SEXP fastread_read_tokens(SEXP sourceSpecSEXP, SEXP tokenizerSpecSEXP, SEXP colSpecsSEXP, SEXP col_namesSEXP, SEXP n_maxSEXP) {
 BEGIN_RCPP
     Rcpp::RObject __result;
     Rcpp::RNGScope __rngScope;
     Rcpp::traits::input_parameter< List >::type sourceSpec(sourceSpecSEXP);
     Rcpp::traits::input_parameter< List >::type tokenizerSpec(tokenizerSpecSEXP);
     Rcpp::traits::input_parameter< ListOf<List> >::type colSpecs(colSpecsSEXP);
+    Rcpp::traits::input_parameter< CharacterVector >::type col_names(col_namesSEXP);
     Rcpp::traits::input_parameter< int >::type n_max(n_maxSEXP);
-    __result = Rcpp::wrap(read_tokens(sourceSpec, tokenizerSpec, colSpecs, n_max));
+    __result = Rcpp::wrap(read_tokens(sourceSpec, tokenizerSpec, colSpecs, col_names, n_max));
+    return __result;
+END_RCPP
+}
+// collectorsGuess
+std::vector<std::string> collectorsGuess(List sourceSpec, List tokenizerSpec, int n);
+RcppExport SEXP fastread_collectorsGuess(SEXP sourceSpecSEXP, SEXP tokenizerSpecSEXP, SEXP nSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject __result;
+    Rcpp::RNGScope __rngScope;
+    Rcpp::traits::input_parameter< List >::type sourceSpec(sourceSpecSEXP);
+    Rcpp::traits::input_parameter< List >::type tokenizerSpec(tokenizerSpecSEXP);
+    Rcpp::traits::input_parameter< int >::type n(nSEXP);
+    __result = Rcpp::wrap(collectorsGuess(sourceSpec, tokenizerSpec, n));
     return __result;
 END_RCPP
 }

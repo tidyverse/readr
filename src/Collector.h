@@ -43,5 +43,6 @@ typedef boost::shared_ptr<Collector> CollectorPtr;
 CollectorPtr collectorCreate(Rcpp::List spec);
 std::vector<CollectorPtr> collectorsCreate(Rcpp::ListOf<Rcpp::List> specs);
 void collectorsResize(std::vector<CollectorPtr>& collectors, int n);
+std::string collectorGuess(Rcpp::CharacterVector input);
 
 #endif

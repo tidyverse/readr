@@ -61,27 +61,6 @@ guess_column_spec <- function(fields, parsers = NULL, col_names = TRUE,
   column_spec(parsers, col_names, na_strings = na_strings)
 }
 
-guess_parser <- function(x, na_strings = "NA", ignore_whitespace = TRUE) {
-  if (ignore_whitespace) {
-    x <- str_trim(x)
-  }
-  x <- setdiff(x, c(na_strings, ""))
-
-  coercible <- c(
-    skip    = length(x) == 0,
-    logical = all(x %in% c("TRUE", "FALSE", "T", "F")),
-    integer = is_int(x),
-    double  = is_double(x),
-    date    = all(grepl("^[0-9]{4}-[0-9]{2}-[0-9]{2}$", x))
-  )
-
-  if (!any(coercible)) {
-    return("character")
-  }
-
-  names(coercible)[coercible]
-}
-
 guess_delim <- function(file, n = 30, skip = 0, comment_char = "", quote = "\"",
                         backslash_escape = FALSE,
                         double_escape = FALSE) {

@@ -41,3 +41,33 @@ void collectorsResize(std::vector<CollectorPtr>& collectors, int n) {
     collectors[j]->resize(n);
   }
 }
+
+// Guess column types ----------------------------------------------------------
+
+typedef bool (*canParseFun)(std::string);
+
+static bool canParse(CharacterVector x, canParseFun canParse) {
+  for (int i = 0; i < x.size(); ++i) {
+    if (x[i] == NA_STRING)
+      continue;
+
+    if (!canParse(std::string(x[i])))
+      return FALSE;
+  }
+  return TRUE;
+}
+
+
+// [[Rcpp::export]]
+std::string collectorGuess(CharacterVector input) {
+  // Work from strictest to most flexible
+  if (canParse(input, CollectorLogical::canParse))
+    return "logical";
+  if (canParse(input, CollectorInteger::canParse))
+    return "integer";
+  if (canParse(input, CollectorDouble::canParse))
+    return "double";
+
+  // Otherwise can always parse as a character
+  return "character";
+}

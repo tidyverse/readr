@@ -5,6 +5,7 @@ using namespace Rcpp;
 #include "Tokenizer.h"
 #include "TokenizerLine.h"
 #include "Collector.h"
+#include "CollectorCharacter.h"
 
 // [[Rcpp::export]]
 CharacterVector read_file_(List sourceSpec) {
@@ -51,7 +52,7 @@ CharacterVector read_lines_(List sourceSpec, int n_max = -1) {
 
 // [[Rcpp::export]]
 List read_tokens(List sourceSpec, List tokenizerSpec, ListOf<List> colSpecs,
-                 int n_max = -1) {
+                 CharacterVector col_names, int n_max = -1) {
   SourcePtr source = sourceCreate(sourceSpec);
   TokenizerPtr tokenizer = tokenizerCreate(tokenizerSpec);
   tokenizer->tokenize(source->begin(), source->end());
@@ -90,6 +91,42 @@ List read_tokens(List sourceSpec, List tokenizerSpec, ListOf<List> colSpecs,
   }
   out.attr("class") = CharacterVector::create("tbl_df", "tbl", "data.frame");
   out.attr("row.names") = IntegerVector::create(NA_INTEGER, -i);
+  out.attr("names") = col_names;
 
   return out;
 }
+
+
+// [[Rcpp::export]]
+std::vector<std::string> collectorsGuess(List sourceSpec, List tokenizerSpec, int n = 100) {
+  SourcePtr source = sourceCreate(sourceSpec);
+  TokenizerPtr tokenizer = tokenizerCreate(tokenizerSpec);
+  tokenizer->tokenize(source->begin(), source->end());
+
+  std::vector<CollectorCharacter> collectors;
+  for (Token t = tokenizer->nextToken(); t.type() != TOKEN_EOF; t = tokenizer->nextToken()) {
+    if (t.row() >= n)
+      break;
+
+    // Add new collectors, if needed
+    if (t.col() >= collectors.size()) {
+      int old_p = collectors.size();
+      collectors.resize(t.col() + 1);
+      for (int j = old_p; j < collectors.size(); ++j) {
+        collectors[j].resize(n);
+      }
+    }
+
+    collectors[t.col()].setValue(t.row(), t);
+  }
+
+  std::vector<std::string> out;
+  for (int j = 0; j < collectors.size(); ++j) {
+    CharacterVector col = as<CharacterVector>(collectors[j].vector());
+    out.push_back(collectorGuess(col));
+  }
+
+  return out;
+}
+
+
