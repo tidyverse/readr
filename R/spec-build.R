@@ -3,9 +3,9 @@ guess_delim <- function(file, n = 30, skip = 0, comment_char = "", quote = "\"",
                         double_escape = FALSE) {
 
   # file <- check_file(file)
-  x <- count_char_from_file(file, n = n, skip = skip, quote_ = quote,
-    comment_ = comment_char, backslash_escape = backslash_escape,
-    double_escape = double_escape)
+#   x <- count_char_from_file(file, n = n, skip = skip, quote_ = quote,
+#     comment_ = comment_char, backslash_escape = backslash_escape,
+#     double_escape = double_escape)
 
   names(x) <- rawToChar(as.raw(names(x)), multiple = TRUE)
   counts <- sort(x, decreasing = TRUE)
