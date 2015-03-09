@@ -18,7 +18,7 @@
 #'
 #' # Only tokenize first two lines
 #' tokenize(text = "1,2\n3,4,5\n\n6", n = 2)
-tokenize <- function(path, text, tokenizer = csv_tokenizer(), n = NA_integer_) {
+tokenize <- function(path, text, tokenizer = tokenizer_csv(), n = NA_integer_) {
   tokenize_(new_source(path, text), tokenizer, if (missing(n)) -1L else n)
 }
 
@@ -31,18 +31,18 @@ tokenize <- function(path, text, tokenizer = csv_tokenizer(), n = NA_integer_) {
 #' @keywords internal
 #' @name Tokenizers
 #' @examples
-#' csv_tokenizer()
+#' tokenizer_csv()
 NULL
 
 #' @export
 #' @rdname Tokenizers
 #' @param na String to use for missing values.
-csv_tokenizer <- function(na = "NA") {
+tokenizer_csv <- function(na = "NA") {
   structure(list(delim = ",", na = na), class = "tokenizer_csv")
 }
 
 #' @export
 #' @rdname Tokenizers
-line_tokenizer <- function() {
+tokenizer_line <- function() {
   structure(list(), class = "tokenizer_line")
 }

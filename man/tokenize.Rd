@@ -4,7 +4,7 @@
 \alias{tokenize}
 \title{Tokenize a file/string.}
 \usage{
-tokenize(path, text, tokenizer = csv_tokenizer(), n = NA_integer_)
+tokenize(path, text, tokenizer = tokenizer_csv(), n = NA_integer_)
 }
 \arguments{
 \item{path}{Either a path to a file, or a connection. Reading directly

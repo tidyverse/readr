@@ -2,13 +2,13 @@
 % Please edit documentation in R/tokenizer.R
 \name{Tokenizers}
 \alias{Tokenizers}
-\alias{csv_tokenizer}
-\alias{line_tokenizer}
+\alias{tokenizer_csv}
+\alias{tokenizer_line}
 \title{Tokenizers.}
 \usage{
-csv_tokenizer(na = "NA")
+tokenizer_csv(na = "NA")
 
-line_tokenizer()
+tokenizer_line()
 }
 \arguments{
 \item{na}{String to use for missing values.}
@@ -19,7 +19,7 @@ function, but will instead use one of the use friendly wrappers like
 \code{read_csv}.
 }
 \examples{
-csv_tokenizer()
+tokenizer_csv()
 }
 \keyword{internal}
 
