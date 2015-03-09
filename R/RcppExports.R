@@ -2,42 +2,42 @@
 # Generator token: 10BE3573-1514-4C36-9D1C-5A225CD40393
 
 collectorGuess <- function(input) {
-    .Call('fastread_collectorGuess', PACKAGE = 'fastread', input)
+    .Call('readr_collectorGuess', PACKAGE = 'readr', input)
 }
 
 empty_cols <- function(x) {
-    .Call('fastread_empty_cols', PACKAGE = 'fastread', x)
+    .Call('readr_empty_cols', PACKAGE = 'readr', x)
 }
 
 flip <- function(x) {
-    .Call('fastread_flip', PACKAGE = 'fastread', x)
+    .Call('readr_flip', PACKAGE = 'readr', x)
 }
 
 dim_tokens_ <- function(sourceSpec, tokenizerSpec) {
-    .Call('fastread_dim_tokens_', PACKAGE = 'fastread', sourceSpec, tokenizerSpec)
+    .Call('readr_dim_tokens_', PACKAGE = 'readr', sourceSpec, tokenizerSpec)
 }
 
 tokenize_ <- function(sourceSpec, tokenizerSpec, n) {
-    .Call('fastread_tokenize_', PACKAGE = 'fastread', sourceSpec, tokenizerSpec, n)
+    .Call('readr_tokenize_', PACKAGE = 'readr', sourceSpec, tokenizerSpec, n)
 }
 
 parse_ <- function(sourceSpec, tokenizerSpec, collectorSpec) {
-    .Call('fastread_parse_', PACKAGE = 'fastread', sourceSpec, tokenizerSpec, collectorSpec)
+    .Call('readr_parse_', PACKAGE = 'readr', sourceSpec, tokenizerSpec, collectorSpec)
 }
 
 read_file_ <- function(sourceSpec) {
-    .Call('fastread_read_file_', PACKAGE = 'fastread', sourceSpec)
+    .Call('readr_read_file_', PACKAGE = 'readr', sourceSpec)
 }
 
 read_lines_ <- function(sourceSpec, n_max = -1L) {
-    .Call('fastread_read_lines_', PACKAGE = 'fastread', sourceSpec, n_max)
+    .Call('readr_read_lines_', PACKAGE = 'readr', sourceSpec, n_max)
 }
 
 read_tokens <- function(sourceSpec, tokenizerSpec, colSpecs, col_names, n_max = -1L) {
-    .Call('fastread_read_tokens', PACKAGE = 'fastread', sourceSpec, tokenizerSpec, colSpecs, col_names, n_max)
+    .Call('readr_read_tokens', PACKAGE = 'readr', sourceSpec, tokenizerSpec, colSpecs, col_names, n_max)
 }
 
 collectorsGuess <- function(sourceSpec, tokenizerSpec, n = 100L) {
-    .Call('fastread_collectorsGuess', PACKAGE = 'fastread', sourceSpec, tokenizerSpec, n)
+    .Call('readr_collectorsGuess', PACKAGE = 'readr', sourceSpec, tokenizerSpec, n)
 }
 

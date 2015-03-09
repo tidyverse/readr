@@ -1,5 +1,5 @@
-Package: fastread
-Version: 0.0.0
+Package: readr
+Version: 0.0.0.9000
 Title: Faster Data Readers
 Description: Faster Data Readers
 Authors@R: c(
@@ -12,8 +12,7 @@ LinkingTo:
     Rcpp,
     BH
 Imports:
-    Rcpp (>= 0.11.5),
-    assertthat
+    Rcpp (>= 0.11.5)
 Suggests:
     testthat,
     knitr,

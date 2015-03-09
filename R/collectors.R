@@ -8,7 +8,7 @@ print.collector <- function(x, ...) {
 }
 
 collector_find <- function(name) {
-  get(paste0("col_", name), envir = asNamespace("fastread"))()
+  get(paste0("col_", name), envir = asNamespace("readr"))()
 }
 
 #' Column parsing specifications.

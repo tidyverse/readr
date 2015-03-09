@@ -7,7 +7,7 @@ using namespace Rcpp;
 
 // collectorGuess
 std::string collectorGuess(CharacterVector input);
-RcppExport SEXP fastread_collectorGuess(SEXP inputSEXP) {
+RcppExport SEXP readr_collectorGuess(SEXP inputSEXP) {
 BEGIN_RCPP
     Rcpp::RObject __result;
     Rcpp::RNGScope __rngScope;
@@ -18,7 +18,7 @@ END_RCPP
 }
 // empty_cols
 std::vector<bool> empty_cols(std::string x);
-RcppExport SEXP fastread_empty_cols(SEXP xSEXP) {
+RcppExport SEXP readr_empty_cols(SEXP xSEXP) {
 BEGIN_RCPP
     Rcpp::RObject __result;
     Rcpp::RNGScope __rngScope;
@@ -29,7 +29,7 @@ END_RCPP
 }
 // flip
 List flip(ListOf<CharacterVector> x);
-RcppExport SEXP fastread_flip(SEXP xSEXP) {
+RcppExport SEXP readr_flip(SEXP xSEXP) {
 BEGIN_RCPP
     Rcpp::RObject __result;
     Rcpp::RNGScope __rngScope;
@@ -40,7 +40,7 @@ END_RCPP
 }
 // dim_tokens_
 IntegerVector dim_tokens_(List sourceSpec, List tokenizerSpec);
-RcppExport SEXP fastread_dim_tokens_(SEXP sourceSpecSEXP, SEXP tokenizerSpecSEXP) {
+RcppExport SEXP readr_dim_tokens_(SEXP sourceSpecSEXP, SEXP tokenizerSpecSEXP) {
 BEGIN_RCPP
     Rcpp::RObject __result;
     Rcpp::RNGScope __rngScope;
@@ -52,7 +52,7 @@ END_RCPP
 }
 // tokenize_
 std::vector<std::vector<std::string> > tokenize_(List sourceSpec, List tokenizerSpec, int n);
-RcppExport SEXP fastread_tokenize_(SEXP sourceSpecSEXP, SEXP tokenizerSpecSEXP, SEXP nSEXP) {
+RcppExport SEXP readr_tokenize_(SEXP sourceSpecSEXP, SEXP tokenizerSpecSEXP, SEXP nSEXP) {
 BEGIN_RCPP
     Rcpp::RObject __result;
     Rcpp::RNGScope __rngScope;
@@ -65,7 +65,7 @@ END_RCPP
 }
 // parse_
 SEXP parse_(List sourceSpec, List tokenizerSpec, List collectorSpec);
-RcppExport SEXP fastread_parse_(SEXP sourceSpecSEXP, SEXP tokenizerSpecSEXP, SEXP collectorSpecSEXP) {
+RcppExport SEXP readr_parse_(SEXP sourceSpecSEXP, SEXP tokenizerSpecSEXP, SEXP collectorSpecSEXP) {
 BEGIN_RCPP
     Rcpp::RObject __result;
     Rcpp::RNGScope __rngScope;
@@ -78,7 +78,7 @@ END_RCPP
 }
 // read_file_
 CharacterVector read_file_(List sourceSpec);
-RcppExport SEXP fastread_read_file_(SEXP sourceSpecSEXP) {
+RcppExport SEXP readr_read_file_(SEXP sourceSpecSEXP) {
 BEGIN_RCPP
     Rcpp::RObject __result;
     Rcpp::RNGScope __rngScope;
@@ -89,7 +89,7 @@ END_RCPP
 }
 // read_lines_
 CharacterVector read_lines_(List sourceSpec, int n_max);
-RcppExport SEXP fastread_read_lines_(SEXP sourceSpecSEXP, SEXP n_maxSEXP) {
+RcppExport SEXP readr_read_lines_(SEXP sourceSpecSEXP, SEXP n_maxSEXP) {
 BEGIN_RCPP
     Rcpp::RObject __result;
     Rcpp::RNGScope __rngScope;
@@ -101,7 +101,7 @@ END_RCPP
 }
 // read_tokens
 List read_tokens(List sourceSpec, List tokenizerSpec, ListOf<List> colSpecs, CharacterVector col_names, int n_max);
-RcppExport SEXP fastread_read_tokens(SEXP sourceSpecSEXP, SEXP tokenizerSpecSEXP, SEXP colSpecsSEXP, SEXP col_namesSEXP, SEXP n_maxSEXP) {
+RcppExport SEXP readr_read_tokens(SEXP sourceSpecSEXP, SEXP tokenizerSpecSEXP, SEXP colSpecsSEXP, SEXP col_namesSEXP, SEXP n_maxSEXP) {
 BEGIN_RCPP
     Rcpp::RObject __result;
     Rcpp::RNGScope __rngScope;
@@ -116,7 +116,7 @@ END_RCPP
 }
 // collectorsGuess
 std::vector<std::string> collectorsGuess(List sourceSpec, List tokenizerSpec, int n);
-RcppExport SEXP fastread_collectorsGuess(SEXP sourceSpecSEXP, SEXP tokenizerSpecSEXP, SEXP nSEXP) {
+RcppExport SEXP readr_collectorsGuess(SEXP sourceSpecSEXP, SEXP tokenizerSpecSEXP, SEXP nSEXP) {
 BEGIN_RCPP
     Rcpp::RObject __result;
     Rcpp::RNGScope __rngScope;

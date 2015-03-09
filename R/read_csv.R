@@ -11,6 +11,8 @@
 #'
 #' # Override default col types
 #' read_csv(text = "x,y\n1,2\n3,4", col_types = "dd")
+#' @useDynLib readr
+#' @importClassesFrom Rcpp "C++Object"
 read_csv <- function(path, text, col_names = TRUE, col_types = NULL, na = "NA",
                      skip = 0, n_max = -1) {
   source <- new_source(path, text, skip = skip)

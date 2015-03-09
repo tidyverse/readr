@@ -1,4 +1,4 @@
 library(testthat)
-library(fastread)
+library(readr)
 
-test_check("fastread")
+test_check("readr")
