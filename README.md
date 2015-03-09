@@ -6,47 +6,76 @@ The goal of readr is to provide a fast and friendly way to read data into R. It 
 
 ## Installation
 
+Currently, readr is not available from CRAN, but you can try out the dev version with:
+
 ```R
 install_github("RcppCore/Rcpp")
 install_github("hadley/readr")
 ```
 
-## Design principles
+## Usage
 
-Fail early: readr functions fail early, as soon as they discover there is something wrong with the input. readr should make reasonable default guesses, but if it guesses wrong (e.g. a column turns out to be character, not integer) it will raise an error indicating what the problem is. You always know best about your data, so if a column type (or name) conflicts between the file and specification, then readr throws an error so that you can resolve the problem.
+```r
+library(readr)
+library(dplyr)
 
-Fast: the goal of readr is to be fast. If adding a rarely used feature would result in a significant slowdown, we carefully consider if it's important. You can always fall back to the slow base functions if you need to parse an unusual format. readr aims to be competitive with the best file readers in other programming languages.
+mtcars_path <- tempfile(fileext = ".csv")
+write.csv(mtcars, mtcars_path, row.names = FALSE)
 
-Sensible defaults: readr adopts sensible defaults for modern R coding. It never converts strings to factors (unless you explicitly ask for it), it never modifies column names, and it never creates row names.
+# Read a csv file into a data frame
+read_csv(mtcars_path)
+# Read lines into a vector
+read_lines(mtcars_path)
+# Read whole file into a single string
+read_file(mtcars_path)
+```
 
-Solid API: the readr API makes a clear distinction between figuring out what format a file is in, and parsing the file. 
+## Output
 
-## Data types
+`read_csv()` produces a data frame with the following properties:
 
-readr will automatically recognise and parse the following data types:
+* Characters are never automatically converted to factors (i.e. no more 
+  `stringsAsFactors = FALSE`).
 
-* doubles
-* integers
-* logicals
-* ISO8601 date time (date + T + time + (optionally) time zone)
-* ISO8601 dates (`YYYY-MM-DD`, `YYYYMMDD`)
+* Column names are left as is, not munged into valid R identifiers.
 
-If all else fails, it will leave the data as is, storing it in a character vector (never in a factor!). You can always override the default choices, and additionally use:
+* The data frame is given class `c("tbl_df", "tbl", "data.frame")` so 
+  if you also use [dplyr](https://github.com/hadley/dplyr/) you'll get an 
+  enhanced display.
 
-* factors
-* inconsistently formatted dates and times
+* Row names are never set.
 
-## Low-level functions
+## Compared to base functions
 
-As well as high-level functions for very efficiently reading in complete files into data frames, readr also provides a number of lower-level functions. Combining these together won't be quite as efficient as using code that's bundled together at the C++ level (it will have to make a couple more copies of the data), but it gives you a lot of flexibility at the R level.
+Compared to the corresponding base functions, readr functions:
 
-* `count_lines(file)`: count the number of lines in a file
-* `parse_lines(file)`: parse a file into lines.
-* `parse_delimited_fields(lines)`, `parse_fixed_fields(lines)`: parse lines into
-  fields
-* `parse_columns()`: parse fields into R columns
+* Return "modern" data frames, as described above.
 
-### Acknowledgements
+* Use a consistent naming scheme for the parameters (e.g. `col_names` and 
+ `col_types` not `header` and `colClasses`).
+ 
+* Are much faster (up to 10x faster).
+
+## Compared to `fread()`
+
+[data.table](https://github.com/Rdatatable/data.table) has a similar function called fread. Compared to fread, readr:
+
+* Is slower. (It's currently much slower, but will always be at least 20% slower
+  than fread.) If you want absolutely the best performance, use 
+  `data.table::fread()`.
+  
+* readr has a slightly more sophisticated csv parser, and automatically 
+  unescape doubled quotes (e.g. `"a""b"` is read in as `a"b`).
+  
+* `fread()` save you work by automatically guessing the delimiter, whether
+  or not the file has a header, how many lines to skip by default and 
+  more. Readr always forces you to supply these parameters.
+  
+* The underlying designs are quite difference. Readr is designed to be fairly
+  general so dealing with new types of rectangular data just requires 
+  implementing a new tokenizer. fread is pure C, readr is C++ (and Rcpp).
+
+## Acknowledgements
 
 A big set of thanks to:
 
