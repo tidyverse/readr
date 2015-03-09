@@ -19,7 +19,7 @@ library(readr)
 library(dplyr)
 
 mtcars_path <- tempfile(fileext = ".csv")
-write.csv(mtcars, mtcars_path, row.names = FALSE)
+write_csv(mtcars, mtcars_path)
 
 # Read a csv file into a data frame
 read_csv(mtcars_path)
