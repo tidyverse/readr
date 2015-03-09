@@ -9,7 +9,6 @@ The goal of readr is to provide a fast and friendly way to read data into R. It 
 Currently, readr is not available from CRAN, but you can try out the dev version with:
 
 ```R
-install_github("RcppCore/Rcpp")
 install_github("hadley/readr")
 ```
 
