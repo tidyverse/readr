@@ -6,7 +6,6 @@
 
 class SourceString : public Source {
   Rcpp::RObject string_;
-  size_t size_;
 
   const char* begin_;
   const char* end_;
