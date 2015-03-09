@@ -4,7 +4,7 @@
 \alias{read_lines}
 \title{Read lines from a file or string.}
 \usage{
-read_lines(path, text, n = -1L)
+read_lines(path, text, n_max = -1L)
 }
 \arguments{
 \item{path}{Either a path to a file, or a connection. Reading directly
@@ -13,7 +13,7 @@ from a file is most efficient.}
 \item{text}{A character or raw vector. If a character vector, only the
 first element is used.}
 
-\item{n}{Number of lines to read. If \code{n} is -1, all lines in
+\item{n_max}{Number of lines to read. If \code{n} is -1, all lines in
 file will be read. For large files, this may}
 }
 \value{

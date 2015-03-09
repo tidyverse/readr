@@ -10,6 +10,7 @@
 #' parse_vector("1,2,3,NA", csv_tokenizer(), col_integer())
 #' parse_vector("1,2,3,NA", csv_tokenizer(), col_double())
 #' parse_vector("1,2,3,NA", csv_tokenizer(), col_character())
+#' parse_vector("1,2,3,NA", csv_tokenizer(), col_skip())
 #'
 #' # Invalid values are replaced with missing values with a warning.
 #' parse_vector("1,2,-", csv_tokenizer(), col_double())

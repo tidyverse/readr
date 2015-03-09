@@ -3,6 +3,7 @@
 #include <Rcpp.h>
 using namespace Rcpp;
 
+#include "CollectorSkip.h"
 #include "CollectorLogical.h"
 #include "CollectorInteger.h"
 #include "CollectorDouble.h"
@@ -11,6 +12,8 @@ using namespace Rcpp;
 boost::shared_ptr<Collector> collectorCreate(List spec) {
   std::string subclass(as<CharacterVector>(spec.attr("class"))[0]);
 
+  if (subclass == "collector_skip"  )
+    return boost::shared_ptr<Collector>(new CollectorSkip());
   if (subclass == "collector_logical"  )
     return boost::shared_ptr<Collector>(new CollectorLogical());
   if (subclass == "collector_integer"  )
