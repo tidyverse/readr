@@ -52,7 +52,7 @@ col_types_concise <- function(x) {
 
 col_types_full <- function(col_types, col_names) {
   is_collector <- vapply(col_types, inherits, "collector", FUN.VALUE = logical(1))
-  if (any(!is_parser)) {
+  if (any(!is_collector)) {
     stop("Some col_types are not S3 collector objects: ",
       paste(which(!is_collector), collapse = ", "), call. = FALSE)
   }
