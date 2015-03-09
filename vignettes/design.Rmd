@@ -84,14 +84,14 @@ class Tokenizer {
 
 The two most important tokenisers are:
 
-* `DelimitedTokenizer` for parsing delimited files. Needs sep, quote, 
+* `TokenizerCsv` for parsing delimited files. Needs sep, quote, 
   and escaping options.
   
 * `FixedWidthTokenizer`. Needs field widths.
 
 All tokenizers keep a (vector?) of strings representing NA values. Defaults to `c("", "NA")`.
 
-### Delimited tokenizer
+### Csv tokenizer
 
 The delimited tokenizer is built on top of the following DFA (deterministic finite automata):
 

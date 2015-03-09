@@ -2,14 +2,14 @@
 using namespace Rcpp;
 
 #include "SourceString.h"
-#include "TokenizerDelimited.h"
+#include "TokenizerCsv.h"
 #include "Collector.h"
 #include "Iconv.h"
 
 // [[Rcpp::export]]
 List dataframeString(CharacterVector x, ListOf<List> specs, int n = 100) {
   SourceString source(x);
-  TokenizerDelimited csv(',');
+  TokenizerCsv csv(',');
   csv.tokenize(source.begin(), source.end());
 
   int p = specs.size();

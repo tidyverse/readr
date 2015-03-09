@@ -3,17 +3,17 @@
 #include <Rcpp.h>
 using namespace Rcpp;
 
-#include "TokenizerDelimited.h"
+#include "TokenizerCsv.h"
 #include "TokenizerLine.h"
 
 TokenizerPtr tokenizerCreate(List spec) {
   std::string subclass(as<CharacterVector>(spec.attr("class"))[0]);
 
-  if (subclass == "tokenizer_delimited") {
+  if (subclass == "tokenizer_csv") {
     char delim = as<char>(spec["delim"]);
     std::string na = as<std::string>(spec["na"]);
 
-    return TokenizerPtr(new TokenizerDelimited(delim, na));
+    return TokenizerPtr(new TokenizerCsv(delim, na));
   } else if (subclass == "tokenizer_line") {
     return TokenizerPtr(new TokenizerLine());
   }

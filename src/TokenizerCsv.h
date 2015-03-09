@@ -12,7 +12,7 @@ enum CsvState {
   STATE_QUOTE
 };
 
-class TokenizerDelimited : public Tokenizer {
+class TokenizerCsv : public Tokenizer {
   char delim_;
   std::string NA_;
   int NA_size_;
@@ -24,7 +24,7 @@ class TokenizerDelimited : public Tokenizer {
 
 public:
 
-  TokenizerDelimited(char delim = ',', std::string NA = "NA"):
+  TokenizerCsv(char delim = ',', std::string NA = "NA"):
     delim_(delim),
     NA_("NA"),
     NA_size_(NA.size()),
@@ -165,7 +165,7 @@ private:
       return Token(TOKEN_EMPTY, row, col);
 
     if (hasEscape)
-      return Token(begin, end, TokenizerDelimited::unescapeDoubleQuote, row, col);
+      return Token(begin, end, TokenizerCsv::unescapeDoubleQuote, row, col);
 
     return Token(begin, end, row, col);
   }

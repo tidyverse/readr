@@ -38,7 +38,7 @@ NULL
 #' @rdname Tokenizers
 #' @param na String to use for missing values.
 csv_tokenizer <- function(na = "NA") {
-  structure(list(delim = ",", na = na), class = "tokenizer_delimited")
+  structure(list(delim = ",", na = na), class = "tokenizer_csv")
 }
 
 #' @export

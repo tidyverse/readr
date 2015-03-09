@@ -1,4 +1,4 @@
-context("TokeniserDelimited")
+context("TokenizerCsv")
 
 tokenize_simple <- function(x) unlist(tokenize(text = x))
 
