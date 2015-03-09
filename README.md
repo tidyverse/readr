@@ -79,7 +79,7 @@ Compared to the corresponding base functions, readr functions:
 
 A big set of thanks to:
 
-* [Joe Cheng](https://github.com/jcheng5) for show me the beauty of
+* [Joe Cheng](https://github.com/jcheng5) for showing me the beauty of
   deterministic finite automata for parsing, and for teaching me why I 
   should write a tokenizer.
   
