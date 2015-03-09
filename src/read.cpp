@@ -68,12 +68,11 @@ List read_tokens(List sourceSpec, List tokenizerSpec, ListOf<List> colSpecs,
       stop("In row %i, there are %i columns!", t.row() + 1, t.col() + 1);
 
     if (i >= n) {
-      if (n_max < 0) {
-        n = (n * 3)/2 + 1;
-        collectorsResize(collectors,n);
-      } else {
+      if (n_max >= 0)
         break;
-      }
+
+      n = (i / tokenizer->proportionDone()) * 1.2;
+      collectorsResize(collectors, n);
     }
 
     collectors[t.col()]->setValue(t.row(), t);

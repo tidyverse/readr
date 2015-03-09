@@ -17,7 +17,7 @@ class TokenizerCsv : public Tokenizer {
   std::string NA_;
   int NA_size_;
 
-  SourceIterator cur_, end_;
+  SourceIterator begin_, cur_, end_;
   CsvState state_;
   int row_, col_;
   bool moreTokens_;
@@ -34,12 +34,17 @@ public:
 
   void tokenize(SourceIterator begin, SourceIterator end) {
     cur_ = begin;
+    begin_ = begin;
     end_ = end;
 
     row_ = 0;
     col_ = 0;
     state_ = STATE_DELIM;
     moreTokens_ = true;
+  }
+
+  double proportionDone() {
+    return (cur_ - begin_) / (double) (end_ - begin_);
   }
 
   Token nextToken() {

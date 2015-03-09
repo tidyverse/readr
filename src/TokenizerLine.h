@@ -6,7 +6,7 @@
 #include "Tokenizer.h"
 
 class TokenizerLine : public Tokenizer {
-  SourceIterator cur_, end_;
+  SourceIterator begin_, cur_, end_;
   bool moreTokens_;
   int line_;
 
@@ -19,6 +19,10 @@ public:
     end_ = end;
     line_ = 0;
     moreTokens_ = true;
+  }
+
+  double proportionDone() {
+    return (cur_ - begin_) / (end_ - begin_);
   }
 
   Token nextToken() {

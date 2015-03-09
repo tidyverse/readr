@@ -14,6 +14,7 @@ public:
 
   virtual void tokenize(SourceIterator begin, SourceIterator end) = 0;
   virtual Token nextToken() = 0;
+  virtual double proportionDone() = 0;
 };
 
 typedef boost::shared_ptr<Tokenizer> TokenizerPtr;
