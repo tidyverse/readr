@@ -2,27 +2,22 @@
 % Please edit documentation in R/parse.R
 \name{parse_vector}
 \alias{parse_vector}
-\title{Parse}
+\title{Parse into a vector.}
 \usage{
-parse_vector(file, tokenizer, collector)
+parse_vector(text, tokenizer, collector)
 }
 \arguments{
-\item{file}{Either a path to a file, a url, a connection, or literal data
-   (either a single string or a raw vector). Connections and urls are saved
-   to a temporary file before being read.
-
-   Literal data is most useful for examples and tests. It must contain at
-   least one new line to be recognised as data (instead of a path).}
+\item{text}{String to parse.}
 }
 \description{
 This tokenizes then collects the input values into a single vector.
 It's mostly useful for testing
 }
 \examples{
-parse_vector("1,2,3,NA\\n", tokenizer_csv(), col_integer())
-parse_vector("1,2,3,NA\\n", tokenizer_csv(), col_double())
-parse_vector("1,2,3,NA\\n", tokenizer_csv(), col_character())
-parse_vector("1,2,3,NA\\n", tokenizer_csv(), col_skip())
+parse_vector("1,2,3,NA", tokenizer_csv(), col_integer())
+parse_vector("1,2,3,NA", tokenizer_csv(), col_double())
+parse_vector("1,2,3,NA", tokenizer_csv(), col_character())
+parse_vector("1,2,3,NA", tokenizer_csv(), col_skip())
 
 # Invalid values are replaced with missing values with a warning.
 parse_vector("1,2,-\\n", tokenizer_csv(), col_double())

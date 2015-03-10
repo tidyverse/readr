@@ -30,7 +30,7 @@ read_csv <- function(file, col_names = TRUE, col_types = NULL, na = "NA",
 # The header is the first row, parsed into fields
 header <- function(datasource, tokenizer) {
   first <- read_lines_(datasource, n_max = 1)
-  parse_vector(datasource_string(first, 0), tokenizer = tokenizer, col_character())
+  parse_vector(first, tokenizer = tokenizer, col_character())
 }
 
 types <- function(source, tokenizer) {
