@@ -7,7 +7,7 @@
 
 class CollectorLogical : public Collector {
 public:
-  CollectorLogical(): Collector(LogicalVector()) {
+  CollectorLogical(): Collector(Rcpp::LogicalVector()) {
   }
 
   void setValue(int i, const Token& t) {
@@ -21,8 +21,16 @@ public:
       boost::container::string buffer;
       SourceIterators string = t.getString(&buffer);
       int size = string.second - string.first;
-      return (size == 1 && *string.first == 'T') ||
-        (size == 4 && strncmp(string.first, "TRUE", 4));
+
+      if (size == 1) {
+        if (*string.first == 'T') return 1;
+        if (*string.first == 'F') return 0;
+      } else if (size == 4) {
+        if (strncmp(string.first, "TRUE", 4) == 0) return 1;
+      } else if (size == 5) {
+        if (strncmp(string.first, "FALSE", 5) == 0) return 0;
+      }
+      return warn(t, string);
     };
     case TOKEN_MISSING:
     case TOKEN_EMPTY:
@@ -37,6 +45,14 @@ public:
 
   static bool canParse(std::string x) {
     return x == "T" || x == "F" || x == "TRUE" || x == "FALSE";
+  }
+
+private:
+
+  int warn(const Token& t, SourceIterators string) {
+    Rcpp::warning("At [%i, %i]: expected T/F/TRUE/FALSE, got '%s'",
+      t.row() + 1, t.col() + 1, std::string(string.first, string.second));
+    return NA_LOGICAL;
   }
 
 };
