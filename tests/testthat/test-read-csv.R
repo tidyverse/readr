@@ -8,8 +8,7 @@ test_that("read_csv col imputation, col_name detection and NA detection works",{
 })
 
 test_that("read_csv's 'NA' option genuinely changes the NA values",{
-  test_data <- read_csv("basic-df.csv", na = "z")
-  expect_equal(sum(is.na(test_data)), 2)
+  expect_equal(read_csv("a\nz", na = "z")$a, NA)
 })
 
 test_that("read_csv's 'skip' option allows for skipping'",{
@@ -25,5 +24,5 @@ test_that("read_csv's 'skip' option allows for skipping when no header row is pr
 test_that("read_csv's 'n_max' allows for a maximum number of records and does not corrupt any",{
   test_data <- read_csv("basic-df.csv", n_max = 7)
   expect_equal(nrow(test_data), 7)
-  expect_equal(sum(is.na(test_data)), 1)
+  expect_equal(sum(is.na(test_data)), 0)
 })
