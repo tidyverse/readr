@@ -14,6 +14,7 @@
 #' @inheritParams tokenizer_fwf
 #' @inheritParams col_names_standardise
 #' @inheritParams col_types_standardise
+#' @inheritParams read_csv
 #' @export
 #' @examples
 #' # One corner from http://www.masseyratings.com/cf/compare.htm

@@ -29,6 +29,11 @@ read_lines(mtcars_path)
 read_file(mtcars_path)
 ```
 
+Other useful readers:
+
+* `read_fwf()`: read a fixed width file
+* `read_table()`: read tabular data separated by columns of whitespace
+
 ## Output
 
 `read_csv()` produces a data frame with the following properties:

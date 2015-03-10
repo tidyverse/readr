@@ -12,7 +12,7 @@ class TokenizerFwf : public Tokenizer {
   int NA_size_;
 
   SourceIterator begin_, curLine_, end_;
-  int row_, col_, cols_;
+  int row_, col_, cols_, max_;
   bool moreTokens_;
 
 public:
@@ -25,6 +25,19 @@ public:
     cols_(beginOffset.size()),
     moreTokens_(false)
   {
+    if (beginOffset_.size() != endOffset_.size())
+      Rcpp::stop("Begin (%i) and end (%i) specifications must have equal length",
+        beginOffset_.size(), endOffset_.size());
+
+    max_ = 0;
+    for (int j = 0; j < cols_; ++j) {
+      if (endOffset_[j] <= beginOffset_[j])
+        Rcpp::stop("Begin offset (%i) must be smaller than end offset (%i)",
+          beginOffset_[j], endOffset_[j]);
+
+      if (endOffset_[j] > max_)
+        max_ = endOffset_[j];
+    }
   }
 
   void tokenize(SourceIterator begin, SourceIterator end) {
@@ -33,6 +46,9 @@ public:
     end_ = end;
 
     cacheLineWidth();
+    if (max_ >= lineWidth_)
+      Rcpp::stop("Line width (%i) smaller than last field (%i)",
+        lineWidth_, max_);
 
     row_ = 0;
     col_ = 0;

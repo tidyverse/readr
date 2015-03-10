@@ -1,33 +1,87 @@
-read_fwf <- function(file, fields, col_types = NULL, na = "NA", skip = 0,
+#' Read a fixed width file.
+#'
+#' A fixed width file can be a very compact representation of numeric data.
+#' It's also very fast to parse, because every field is in the same place in
+#' every line. Unfortunately, it's painful to parse because you need to
+#' describe the length of every field. Readr aims to make it as easy as possible
+#' by providing a number of different ways to describe the field structure.
+#'
+#' @seealso \code{read_fwf} to read fixed width files where each column
+#'   is not separated by whitespace. \code{read_fwf} is also useful for reading
+#'   tabular data with non-standard formatting.
+#' @inheritParams datasource
+#' @inheritParams tokenizer_fwf
+#' @inheritParams col_names_standardise
+#' @inheritParams col_types_standardise
+#' @inheritParams read_csv
+#' @param col_positions Column positions, as created by \code{fwf_empty},
+#'   \code{fwf_widths} or \code{fwf_positions}. To read in only selected fields,
+#'   use \code{fwf_positions}.
+#' @export
+#' @examples
+#' fwf_sample <- system.file("extdata/fwf-sample.txt", package = "readr")
+#' cat(read_lines(fwf_sample))
+#'
+#' # You can specify column positions in three ways:
+#' # 1. Guess based on position of empty columns
+#' read_fwf(fwf_sample, fwf_empty(fwf_sample))
+#' # 2. A vector of field widths
+#' read_fwf(fwf_sample, fwf_widths(c(2, 5, 3)))
+#' # 3. Paired vectors of start and end positions
+#' read_fwf(fwf_sample, fwf_positions(c(1, 4), c(2, 10)))
+read_fwf <- function(file, col_positions, col_types = NULL, na = "NA", skip = 0,
                      n_max = -1) {
   ds <- datasource(file, skip = skip)
-  tokenizer <- tokenizer_fwf(fields$begin, fields$end, na = na)
+  tokenizer <- tokenizer_fwf(col_positions$begin, col_positions$end, na = na)
 
-  col_types <- col_types_standardise(col_types, col_names, types(ds, tokenizer))
-  col_names <- paste0("X", seq_along(col_types))
-  read_tokens(ds, tokenizer, col_types, col_names, n_max = n_max)
+  col_types <- col_types_standardise(col_types, col_positions$col_names,
+    types(ds, tokenizer))
+  read_tokens(ds, tokenizer, col_types, col_positions$col_names, n_max = n_max)
 }
 
-fwf_empty <- function(file) {
-  ds <- datasource(file)
-  whitespaceColumns(ds)
-}
+#' @rdname read_fwf
+#' @export
+fwf_empty <- function(file, skip = 0, col_names = NULL) {
+  ds <- datasource(file, skip = skip)
 
-fwf_col <- function(widths = NULL, start = NULL, end = NULL) {
-  ok <- !is.null(widths) && is.null(start) && is.null(end) ||
-    is.null(widths) && !is.null(start) && !is.null(end)
-  if (!ok) {
-    stop("Must supply either widths or both start and end", call. = FALSE)
+  out <- whitespaceColumns(ds)
+
+  if (is.null(col_names)) {
+    col_names <- paste0("X", seq_along(start))
+  } else {
+    stopifnot(length(out$begin) != length(col_names))
   }
-  if (is.null(start)) {
-    pos <- cumsum(c(0, widths))
-    start <- pos[1]
-    end <- pos[-length(pos)] - 1
+  out$col_names <- col_names
+
+  out
+}
+
+#' @rdname read_fwf
+#' @export
+#' @param widths Width of each field.
+#' @param col_names Either NULL, or a character vector column names.
+fwf_widths <- function(widths, col_names = NULL) {
+  pos <- cumsum(c(1, widths))
+
+  fwf_positions(pos[-length(pos)], pos[-1] - 1, col_names)
+}
+
+#' @rdname read_fwf
+#' @export
+#' @param start,end Starting and ending (inclusive) positions of each field.
+fwf_positions <- function(start, end, col_names = NULL) {
+  stopifnot(length(start) == length(end))
+
+  if (is.null(col_names)) {
+    col_names <- paste0("X", seq_along(start))
+  } else {
+    stopifnot(length(start) == length(col_names))
   }
 
   list(
     begin = start - 1,
-    end = end # -1 to change to 0 offset, +1 to be exclusive
+    end = end, # -1 to change to 0 offset, +1 to be exclusive,
+    col_names = col_names
   )
 }
 
