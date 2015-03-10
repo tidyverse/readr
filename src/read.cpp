@@ -67,7 +67,7 @@ List read_tokens(List sourceSpec, List tokenizerSpec, ListOf<List> colSpecs,
     if (t.col() >= p)
       stop("In row %i, there are %i columns!", t.row() + 1, t.col() + 1);
 
-    if (i >= n) {
+    if (t.row() >= n) {
       if (n_max >= 0)
         break;
 
@@ -76,11 +76,11 @@ List read_tokens(List sourceSpec, List tokenizerSpec, ListOf<List> colSpecs,
     }
 
     collectors[t.col()]->setValue(t.row(), t);
-    i = t.row() + 1;
+    i = t.row();
   }
 
-  if (i < n) {
-    collectorsResize(collectors, i);
+  if (i <= n) {
+    collectorsResize(collectors, i + 1);
   }
 
   // Save individual columns into a data frame
@@ -89,7 +89,7 @@ List read_tokens(List sourceSpec, List tokenizerSpec, ListOf<List> colSpecs,
     out[j] = collectors[j]->vector();
   }
   out.attr("class") = CharacterVector::create("tbl_df", "tbl", "data.frame");
-  out.attr("row.names") = IntegerVector::create(NA_INTEGER, -i);
+  out.attr("row.names") = IntegerVector::create(NA_INTEGER, -(i + 1));
   out.attr("names") = col_names;
 
   return out;
