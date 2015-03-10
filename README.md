@@ -66,7 +66,7 @@ Compared to the corresponding base functions, readr functions:
 * readr has a slightly more sophisticated csv parser, and automatically 
   unescape doubled quotes (e.g. `"a""b"` is read in as `a"b`).
   
-* `fread()` save you work by automatically guessing the delimiter, whether
+* `fread()` saves you work by automatically guessing the delimiter, whether
   or not the file has a header, how many lines to skip by default and 
   more. Readr always forces you to supply these parameters.
   
