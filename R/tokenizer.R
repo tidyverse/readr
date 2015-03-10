@@ -47,3 +47,12 @@ tokenizer_csv <- function(na = "NA") {
 tokenizer_line <- function() {
   structure(list(), class = "tokenizer_line")
 }
+
+#' @export
+#' @rdname Tokenizers
+#' @param begin,end Begin and end offsets for each file. These are C++
+#'   offsets so the first column is column zero, and the ranges are
+#'   [begin, end) (i.e inclusive-exclusive).
+tokenizer_fwf <- function(begin, end, na = "NA") {
+  structure(list(begin = begin, end = end, na = na), class = "tokenizer_fwf")
+}

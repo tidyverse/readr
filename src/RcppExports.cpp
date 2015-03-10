@@ -16,17 +16,6 @@ BEGIN_RCPP
     return __result;
 END_RCPP
 }
-// empty_cols
-std::vector<bool> empty_cols(std::string x);
-RcppExport SEXP readr_empty_cols(SEXP xSEXP) {
-BEGIN_RCPP
-    Rcpp::RObject __result;
-    Rcpp::RNGScope __rngScope;
-    Rcpp::traits::input_parameter< std::string >::type x(xSEXP);
-    __result = Rcpp::wrap(empty_cols(x));
-    return __result;
-END_RCPP
-}
 // flip
 List flip(ListOf<CharacterVector> x);
 RcppExport SEXP readr_flip(SEXP xSEXP) {
@@ -124,6 +113,18 @@ BEGIN_RCPP
     Rcpp::traits::input_parameter< List >::type tokenizerSpec(tokenizerSpecSEXP);
     Rcpp::traits::input_parameter< int >::type n(nSEXP);
     __result = Rcpp::wrap(collectorsGuess(sourceSpec, tokenizerSpec, n));
+    return __result;
+END_RCPP
+}
+// whitespaceColumns
+List whitespaceColumns(List sourceSpec, int n);
+RcppExport SEXP readr_whitespaceColumns(SEXP sourceSpecSEXP, SEXP nSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject __result;
+    Rcpp::RNGScope __rngScope;
+    Rcpp::traits::input_parameter< List >::type sourceSpec(sourceSpecSEXP);
+    Rcpp::traits::input_parameter< int >::type n(nSEXP);
+    __result = Rcpp::wrap(whitespaceColumns(sourceSpec, n));
     return __result;
 END_RCPP
 }

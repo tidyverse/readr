@@ -5,10 +5,6 @@ collectorGuess <- function(input) {
     .Call('readr_collectorGuess', PACKAGE = 'readr', input)
 }
 
-empty_cols <- function(x) {
-    .Call('readr_empty_cols', PACKAGE = 'readr', x)
-}
-
 flip <- function(x) {
     .Call('readr_flip', PACKAGE = 'readr', x)
 }
@@ -39,6 +35,10 @@ read_tokens <- function(sourceSpec, tokenizerSpec, colSpecs, col_names, n_max = 
 
 collectorsGuess <- function(sourceSpec, tokenizerSpec, n = 100L) {
     .Call('readr_collectorsGuess', PACKAGE = 'readr', sourceSpec, tokenizerSpec, n)
+}
+
+whitespaceColumns <- function(sourceSpec, n = 100L) {
+    .Call('readr_whitespaceColumns', PACKAGE = 'readr', sourceSpec, n)
 }
 
 stream_csv <- function(df, path, col_names = TRUE, append = FALSE) {

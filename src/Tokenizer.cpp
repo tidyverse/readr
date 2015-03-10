@@ -4,6 +4,7 @@
 using namespace Rcpp;
 
 #include "TokenizerCsv.h"
+#include "TokenizerFwf.h"
 #include "TokenizerLine.h"
 
 TokenizerPtr Tokenizer::create(List spec) {
@@ -14,6 +15,14 @@ TokenizerPtr Tokenizer::create(List spec) {
     std::string na = as<std::string>(spec["na"]);
 
     return TokenizerPtr(new TokenizerCsv(delim, na));
+  } else if (subclass == "tokenizer_fwf") {
+    std::vector<int>
+      begin = as<std::vector<int> >(spec["begin"]),
+      end = as<std::vector<int> >(spec["end"]);
+
+    std::string na = as<std::string>(spec["na"]);
+
+    return TokenizerPtr(new TokenizerFwf(begin, end, na));
   } else if (subclass == "tokenizer_line") {
     return TokenizerPtr(new TokenizerLine());
   }
