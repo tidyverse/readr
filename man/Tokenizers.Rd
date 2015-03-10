@@ -3,15 +3,22 @@
 \name{Tokenizers}
 \alias{Tokenizers}
 \alias{tokenizer_csv}
+\alias{tokenizer_fwf}
 \alias{tokenizer_line}
 \title{Tokenizers.}
 \usage{
 tokenizer_csv(na = "NA")
 
 tokenizer_line()
+
+tokenizer_fwf(begin, end, na = "NA")
 }
 \arguments{
 \item{na}{String to use for missing values.}
+
+\item{begin,end}{Begin and end offsets for each file. These are C++
+offsets so the first column is column zero, and the ranges are
+[begin, end) (i.e inclusive-exclusive).}
 }
 \description{
 Explicitly create tokenizer objects. Usually you will not call these

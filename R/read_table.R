@@ -1,0 +1,37 @@
+#' Read text file where columns are separated by whitespace.
+#'
+#' This is designed to read the type of textual data where each column is
+#' separate by one (or more) columns of space. Each line is the same length,
+#' and each field is in the same position in every line. It's similar to
+#' \code{\link{read.table}}, but rather parsing like a file delimited by
+#' arbitrary amounts of whitespace, it first finds empty columns and then
+#' parses like a fixed width file.
+#'
+#' @seealso \code{read_fwf} to read fixed width files where each column
+#'   is not separated by whitespace. \code{read_fwf} is also useful for reading
+#'   tabular data with non-standard formatting.
+#' @inheritParams datasource
+#' @inheritParams tokenizer_fwf
+#' @inheritParams col_names_standardise
+#' @inheritParams col_types_standardise
+#' @export
+#' @examples
+#' # One corner from http://www.masseyratings.com/cf/compare.htm
+#' massey <- system.file("extdata/massey-rating.txt", package = "readr")
+#' cat(read_file(massey))
+#' read_table(massey)
+read_table <- function(file, col_names = TRUE, col_types = NULL, na = "NA", skip = 0,
+                       n_max = -1) {
+  columns <- fwf_empty(file)
+
+  ds <- datasource(file, skip = skip)
+  tokenizer <- tokenizer_fwf(columns$begin, columns$end, na = na)
+
+  if (isTRUE(col_names))
+    skip <- skip + 1
+  col_names <- col_names_standardise(col_names, header(ds, tokenizer))
+
+  ds <- datasource(file, skip = skip)
+  col_types <- col_types_standardise(col_types, col_names, types(ds, tokenizer))
+  read_tokens(ds, tokenizer, col_types, col_names, n_max = n_max)
+}
