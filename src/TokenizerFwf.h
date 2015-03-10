@@ -61,10 +61,10 @@ public:
       if (col_ + 1 != cols_) {
         Rcpp::warning("Final line is incomplete");
       }
-      return Token(fieldBegin, end_, row_, col_);
+      return stringToken(fieldBegin, end_);
     }
 
-    Token t = Token(fieldBegin, fieldEnd, row_, col_);
+    Token t = stringToken(fieldBegin, fieldEnd);
 
     col_++;
     if (col_  >= cols_) {
@@ -77,6 +77,19 @@ public:
   }
 
 private:
+
+  Token stringToken(SourceIterator begin, SourceIterator end) {
+    while (*begin == ' ' && begin != end)
+      begin++;
+    while (*(end - 1) == ' ' && end != begin)
+      end--;
+
+    if (begin == end)
+      return Token(TOKEN_EMPTY, row_, col_);
+
+    return Token(begin, end, row_, col_);
+  }
+
 
   void cacheLineWidth() {
     SourceIterator cur = begin_;

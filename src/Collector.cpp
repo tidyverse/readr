@@ -51,6 +51,9 @@ static bool canParse(CharacterVector x, canParseFun canParse) {
     if (x[i] == NA_STRING)
       continue;
 
+    if (x[i].size() == 0)
+      continue;
+
     if (!canParse(std::string(x[i])))
       return FALSE;
   }

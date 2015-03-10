@@ -20,9 +20,14 @@
 #' massey <- system.file("extdata/massey-rating.txt", package = "readr")
 #' cat(read_file(massey))
 #' read_table(massey)
+#'
+#' # 1978 fuel economy data from http://www.fueleconomy.gov/feg/epadata/78data.zip
+#' epa <- system.file("extdata/epa78.txt", package = "readr")
+#' cat(read_file(epa))
+#' read_table(epa, skip = 19, col_names = FALSE)
 read_table <- function(file, col_names = TRUE, col_types = NULL, na = "NA", skip = 0,
                        n_max = -1) {
-  columns <- fwf_empty(file)
+  columns <- fwf_empty(file, skip = skip)
 
   ds <- datasource(file, skip = skip)
   tokenizer <- tokenizer_fwf(columns$begin, columns$end, na = na)

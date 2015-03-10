@@ -1,0 +1,349 @@
+01TWO SEATER                        TWO SEATERS                                                     78000011
+02MINICOMPACT                     MINICOMPACT CARS                                                  78000021
+03SUBCOMPACT                      SUBCOMPACT CARS                                                   78000031
+04COMPACT                           COMPACT CARS                                                    78000041
+05MID-SIZE                         MID-SIZE CARS                                                    78000051
+06LARGE                              LARGE CARS                                                     78000061
+07SMALL WAGON                   SMALL STATION WAGONS                                                78000071
+08MID-SIZE WAGON              MID-SIZE STATION WAGONS                                               78000081
+09LARGE WAGON                   LARGE STATION WAGONS                                                78000091
+10SMALL P/U                     SMALL PICKUP TRUCKS                                                 78000101
+11STNDRD P/U                   STANDARD PICKUP TRUCKS                                               78000111
+12VANS                                 VANS                                                         78000121
+13SPEC  PURPOSE                SPECIAL PURPOSE TRUCKS                                               78000131
+
+
+
+
+
+
+ALFA ROMEO                                                                     ALFA ROMEO           78010003
+ALFETTA                              03  81  8    74  7   89  9                ALFETTA              78010053
+SPIDER 2000                          01                                        SPIDER 2000          78010103
+AMC                                                                            AMC                  78020002
+GREMLIN                              03  79  9                    79  9        GREMLIN              78020053
+PACER                                04  89 11                    89 11        PACER                78020103
+PACER WAGON                          07  90 26    91 26                        PACER WAGON          78020153
+CONCORD                              04  88 12    90 11   90 11   83 16        CONCORD              78020203
+CONCORD WAGON                        07  91 30            91 30                CONCORD WAGON        78020253
+MATADOR COUPE                        05  97 14    97 14                        MATADOR COUPE        78020303
+MATADOR SEDAN                        06 110 20           110 20                MATADOR SEDAN        78020353
+MATADOR WAGON                        09 112 50           112 50                MATADOR WAGON        78020403
+ASTON MARTIN                                                                   ASTON MARTIN         78040002
+ASTON MARTIN                                                                   ASTON MARTIN         78040053
+AUDI                                                                           AUDI                 78050002
+FOX                                  03  84 11    84 11   84 11                FOX                  78050053
+FOX WAGON                            07  83 40            83 40                FOX WAGON            78050103
+5000                                 04  90 15            90 15                5000                 78050153
+AVANTI                                                                         AVANTI               78065002
+AVANTI II                            02  75  8    75  8                        AVANTI II            78065053
+BMW                                                                            BMW                  78070002
+320 I                                03  82 12    82 12                        320 I                78070053
+530 I                                03  86 13            86 13                530 I                78070103
+633 CSI                              03  84 12    84 12                        633 CSI              78070153
+733 I                                04  94 13            94 13                733 I                78070203
+BRISTOL                                                                        BRISTOL              78075002
+412                                                                            412                  78075053
+BUICK                                                                          BUICK                78080002
+SKYLARK                              04  93 14    90 14   96 13   90 16        SKYLARK              78080053
+SKYHAWK                              03  78 10                    78 10        SKYHAWK              78080103
+OPEL                                 03 077 10*  076 10  079 10                OPEL                 78080153
+CENTURY                              05  98 16    94 16  101 16                CENTURY              78080203
+REGAL                                05  96 16    96 16                        REGAL                78080223
+CENTURY WAGON                        08 100 40           100 40                CENTURY WAGON        78080253
+LESABRE                              06 109 21   107 21  111 21                LESABRE              78080303
+ESTATE WAGON                         09 111 51           111 51                ESTATE WAGON         78080353
+ELECTRA                              06 110 20   108 20  111 20                ELECTRA              78080403
+RIVIERA                              06 106 20   106 20                        RIVIERA              78080453
+CADILLAC                                                                       CADILLAC             78100002
+SEVILLE                              04  95 13            95 13                SEVILLE              78100053
+CADILLAC                             06 108 20   107 20  109 20                CADILLAC             78100103
+LIMOUSINE                            06 116 18           116 18                LIMOUSINE            78100153
+ELDORADO                             05 102 17   102 17                        ELDORADO             78100203
+CHECKER                                                                        CHECKER              78110002
+CHECKER                              05 100 14           100 14                CHECKER              78110053
+CHEVROLET                                                                      CHEVROLET            78120002
+CHEVETTE                             03  79  9                    79  9        CHEVETTE             78120053
+MONZA                                03  78  8    78  7           78 10        MONZA                78120103
+MONZA WAGON                          07  83 25    83 25                        MONZA WAGON          78120153
+NOVA                                 04  92 14    90 13   96 13   90 16        NOVA                 78120203
+CAMARO                               03  85  6    85  6                        CAMARO               78120253
+MALIBU                               05  99 17    96 17  102 17                MALIBU               78120303
+MALIBU WAGON                         08 101 40           101 40                MALIBU WAGON         78120353
+CHEVROLET                            06 108 20   106 20  111 20                CHEVROLET            78120403
+CHEVROLET WAGON                      09 111 51           111 51                CHEVROLET WAGON      78120453
+MONTE CARLO                          05  96 16    96 16                        MONTE CARLO          78120503
+CORVETTE                             01                                        CORVETTE             78120553
+CHRYSLER                                                                       CHRYSLER             78130002
+LEBARON                              05  94 16    91 16   97 16                LEBARON              78130053
+LEBARON WAGON                        08  98 39            98 39                LEBARON WAGON        78130103
+CORDOBA                              05  95 16    95 16                        CORDOBA              78130153
+CHRYSLER                             06 107 22   106 22  107 22                CHRYSLER             78130203
+DATSUN                                                                         DATSUN               78150002
+B-210                                02  66 10    68  7   68  7   63 14        B-210                78150053
+F-10                                 03  71 14                    71 14        F-10                 78150103
+F-10 WAGON                           07  73 29    73 29                        F-10 WAGON           78150153
+510                                  03  77 10    79  8   79  8   73 13        510                  78150203
+510 WAGON                            07  80 29            79 29                510 WAGON            78150253
+810                                  03  80  8            80  8                810                  78150303
+810 WAGON                            07  81 30            81 30                810 WAGON            78150353
+280Z                                 01                                        280Z                 78150403
+200 SX                               02  70  6    70  6                        200 SX               78150453
+DODGE                                                                          DODGE                78160002
+OMNI                                 04  85 15                    85 15        OMNI                 78160053
+CELESTE                              02  73 10                    73 11       *CELESTE              78160103
+CHALLENGER                           02  77  8    77  8                        CHALLENGER           78160153
+COLT WAGON                           07  82 34            82 34                COLT WAGON           78160203
+COLT                                 02  73  8    73  8   73  8                COLT                 78160253
+ASPEN                                04  92 15    87 15   98 15                ASPEN                78160303
+ASPEN WAGON                          08  99 39            99 39                ASPEN WAGON          78160353
+DIPLOMAT                             05  94 16    91 16   97 16                DIPLOMAT             78160403
+DIPLOMAT WAGON                       08  98 39            98 39                DIPLOMAT WAGON       78160453
+MONACO                               05  98 17    95 15  101 20                MONACO               78160503
+MONACO WAGON                         08 105 50           104 50                MONACO WAGON         78160553
+CHARGER SE/MAGNUM XE                 05  97 16    97 16                        CHARGER SE/MAG XE    78160603
+FERRARI                                                                        FERRARI              78170002
+FERRARI 308                          01                                        FERRARI 308          78170053
+FIAT                                                                           FIAT                 78180002
+128                                  02  75 10    75  9   76  9   72 13        128                  78180053
+128 WAGON                            07  76 26    76 26                        128 WAGON            78180103
+131 MIRAFIORI                        03  85 11    85 11   85 11                131 MIRAFIORI        78180153
+131 ESTATE WAGON                     07  85 33            85 33                131 ESTATE WAGON     78180203
+124 SPORT                            01                                        124 SPORT            78180253
+LANCIA BETA                          03  78 12    71  9   85 12   78 16        LANCIA BETA          78180303
+LANCIA BETA SCORPION                 01                                        LANCIA BETA SCORP    78180353
+X1/9                                 01                                        X1/9                 78180403
+FORD                                                                           FORD                 78190002
+FIESTA                               03  79  9                    79  9        FIESTA               78190033
+PINTO                                02  74  9    75  8           74  9        PINTO                78190053
+PINTO WAGON                          07  78 31    78 31                        PINTO WAGON          78190103
+MUSTANG II                           02  71  9    72  8           70 10        MUSTANG II           78190153
+FAIRMONT                             05  96 17    95 17   96 17                FAIRMONT             78190193
+FAIRMONT WAGON                       08  98 43            98 43                FAIRMONT WAGON       78190213
+GRANADA                              04  91 15    89 15   93 15                GRANADA              78190253
+LTD II                               05  98 16    94 16  102 16                LTD II               78190303
+LTD II WAGON                                                                   LTD II WAGON         78190353
+ELITE                                                                          ELITE                78190403
+FORD                                 06 103 23   100 23  106 23                FORD                 78190453
+FORD WAGON                           09 108 56           108 56                FORD WAGON           78190503
+THUNDERBIRD                          05  95 16    95 16                        THUNDERBIRD          78190553
+HONDA                                                                          HONDA                78210002
+CIVIC                                02  65  7    65  5           65  9        CIVIC                78210053
+CIVIC                                                                          CIVIC                78210103
+CIVIC WAGON                          07  66 22            65 22                CIVIC WAGON          78210153
+ACCORD                               03  82 14                    82 14        ACCORD               78210203
+JAGUAR                                                                         JAGUAR               78220002
+JAGUAR XJ                            03  90 10            90 10                JAGUAR XJ            78220053
+JAGUAR XJS                           03  77 11    77 11                        JAGUAR XJS           78220103
+LINCOLN-MERCURY                                                                LINCOLN-MERCURY      78240002
+BOBCAT                               02  74  9                    74  9        BOBCAT               78240053
+BOBCAT WAGON                         07  78 31    78 31                        BOBCAT WAGON         78240073
+CAPRI                                                                          CAPRI                78240103
+ZEPHYR                               05  96 17    95 17   96 17                ZEPHYR               78240163
+ZEPHYR WAGON                         08  98 43            98 43                ZEPHYR WAGON         78240173
+MONARCH                              04  91 16    89 16   93 16                MONARCH              78240203
+VERSAILLES                           04  92 15            92 15                VERSAILLES           78240223
+COUGAR/COUGAR XR-7                   05  97 16    93 16  101 16                COUGAR/COUGAR XR7    78240253
+COUGAR WAGON                                                                   COUGAR WAGON         78240303
+MERCURY                              06 104 22   100 23  108 23                MERCURY              78240403
+MERCURY WAGON                        09 108 56           108 56                MERCURY WAGON        78240453
+LINCOLN CONTINENTAL                  06 113 22   111 22  114 22                LINCOLN CONT.        78240503
+CONTINENTAL MARK V                   05  99 18    99 18                        CONT. MARK V         78240553
+LOTUS                                                                          LOTUS                78250002
+ESPRIT                               01                                        ESPRIT               78250053
+ELITE/SPRINT                         02  71  6    71  6                        ELITE/SPRINT         78250103
+STEELBRO MANUFACTURING, LTD.                                                   STEELBRO MANUF.      78251002
+SUPER 907                                                                      SUPER 907            78251053
+MASERATI                                                                       MASERATI             78260002
+MERAK                                01                                        MERAK                78260053
+KHAMSIN                                                                        KHAMSIN              78260103
+BORA                                                                           BORA                 78260153
+MAZDA                                                                          MAZDA                78270002
+COSMO                                03  75 10    75 10                        COSMO                78270053
+GLC                                  03  75 11                    75 11        GLC                  78270203
+RX-3                                 02  68 10    68 10                        RX-3                 78270253
+RX-4                                 03  80 11            80 11                RX-4                 78270303
+RX-4 WAGON                           07  82 32            82 32                RX-4 WAGON           78270353
+RX-7                                                                           RX-7                 78270403
+MERCEDES-BENZ                                                                  MERCEDES-BENZ        78280002
+SERIES MB 123                                                                  SERIES MB 123        78280053
+MB 123(230)                          04  89 12    84 13   92 13                MB 123(230)          78280063
+MB 123(240D)                         04                                        MB 123(240D)         78280073
+MB 123(280E)                         04                                        MB 123(280E)         78280083
+MB 123(300D)                         04                                        MB 123(300D)         78280093
+SERIES MB 123                        04                                        SERIES MB 123        78280103
+SERIES MB 116                        04                                        SERIES MB 116        78280153
+MB 116(280SE)                        04  92 15            92 15                MB 116(280SE)        78280163
+MB 116(300SD)                        04                                        MB 116(300SD)        78280173
+SERIES MB 123                                                                  SERIES MB 123        78280203
+SERIES MB 123                                                                  SERIES MB 123        78280253
+SERIES MB 116                                                                  SERIES MB 116        78280303
+SERIES MB 116V                       05                                        SERIES MB 116V       78280353
+MB116V(450SEL)                       05  96 15            96 15                MB116V(450SEL)       78280363
+MB116V(6.9)                          05                                        MB116V(6.9)          78280373
+SERIES MB 107                        01                                        SERIES MB 107        78280403
+MB107(450SL/SLC)                     01                                        MB107(450SL/SLC)     78280413
+SERIES MB 116V                                                                 SERIES MB 116V       78280453
+MB 123(240D)                         04  89 12    84 13   92 13                MB 123(240D)         78280503
+SERIES MB 116                        04  92 15            92 15                SERIES MB 116        78280553
+SERIES MB 116V                       05  96 15            96 15                SERIES MB 116V       78280603
+SERIES MB 107                        01                                        SERIES MB 107        78280653
+MG                                                                             MG                   78285002
+MIDGET                               01                                        MIDGET               78285053
+AUSTIN MARINA                                                                  AUSTIN MARINA        78285103
+MGB                                  01                                        MGB                  78285153
+OLDSMOBILE                                                                     OLDSMOBILE           78290002
+OMEGA                                04  92 15    90 14   96 14   90 16        OMEGA                78290053
+STARFIRE                             03  78 10                    78 10        STARFIRE             78290103
+CUTLASS                              05  99 16    97 16  101 16                CUTLASS              78290153
+CUTLASS SUPREME                      05  98 16    98 16                        CUTLASS SUPREME      78290183
+CUTLASS CRUISER WAGON                08 100 40           100 40                CUTLAS CRUISER WG    78290203
+DELTA 88                             06 109 20   107 20  111 20                DELTA 88             78290253
+CUSTOM CRUISER WAGON                 09 110 50           110 51                CUSTOM CRUISER WG    78290303
+OLDSMOBILE 98                        06 110 20   108 20  111 20                OLDSMOBILE 98        78290353
+TORONADO                             06 105 17   105 17                        TORONADO             78290403
+PEUGEOT                                                                        PEUGEOT              78310002
+504                                  04  90 10            90 10                504                  78310053
+504 WAGON                            08  89 44            89 44                504 WAGON            78310103
+604                                  04  91 14            91 14                604                  78310253
+PLYMOUTH                                                                       PLYMOUTH             78320002
+HORIZON                              04  85 15                    85 15        HORIZON              78320053
+LANCER                               02  73  8    73  8   73  8               *LANCER               78320103
+LANCER WAGON                         07  82 34            82 34               *LANCER WAGON         78320123
+ARROW                                02  73 10                    73 11        ARROW                78320153
+VOLARE                               04  92 15    87 15   98 15                VOLARE               78320203
+VOLARE WAGON                         08  99 39            99 39                VOLARE WAGON         78320253
+FURY                                 05  98 17    95 15  101 20                FURY                 78320303
+FURY WAGON                           08 105 50           104 50                FURY WAGON           78320353
+SAPPORO                              02  77  8    77  8                        SAPPORO              78320403
+PONTIAC                                                                        PONTIAC              78330002
+SUNBIRD                              03  78  8    78  7           78 10        SUNBIRD              78330053
+SUNBIRD SAFARI WAGON                 07  83 25    83 25                        SUNBIRD SAFARI WG    78330103
+PHOENIX                              04  92 14    90 14   96 13   90 16        PHOENIX              78330153
+FIREBIRD                             03  85  6    85  7                        FIREBIRD             78330203
+LEMANS                               05  99 16    96 17  102 17                LEMANS               78330253
+LEMANS SAFARI WAGON                  08 101 40           101 40                LEMANS SAFARI WG     78330303
+LEMANS/GRAND AM                                                                LEMANS/GRAND AM      78330353
+GRAND AM                                                                       GRAND AM             78330403
+PONTIAC                              06 109 20   107 20  111 20                PONTIAC              78330453
+PONTIAC SAFARI WAGON                 09 111 51           111 51                PONTIAC SAFARI WG    78330503
+GRAND PRIX                           05  94 16    94 16                        GRAND PRIX           78330553
+PORSCHE                                                                        PORSCHE              78340002
+914                                                                            914                  78340053
+911                                  01                                        911                  78340103
+912E                                                                           912E                 78340153
+TURBO CARRERA                                                                  TURBO CARRERA        78340203
+924                                  01                                        924                  78340253
+928                                  02  74  8                    74  8        928                  78340303
+RENAULT                                                                        RENAULT              78350002
+LE CAR                               02  74 10                    74 10        LE CAR               78350053
+17 GORDINI                           02  72  8    72  8                        17 GORDINI           78350103
+ROLLS-ROYCE/BENTLEY                                                            ROLLS-ROYCE/BENT.    78360002
+ROLLS-ROYCE/BENTLEY                  03  86 12    79 11   93 13                ROLLS-ROYCE/BENT.    78360053
+SILVER SHADOW/CORNICHE/T2            03  87 12    79 11   94 13                SIL SHAD/CORN/T2     78360103
+CAMARGUE                             04  94 14    94 14                        CAMARGUE             78360153
+SAAB                                                                           SAAB                 78370002
+99                                   04  90 18    91 13           89 21        99                   78370053
+SATRA                                                                          SATRA                78375002
+LADA                                                                           LADA                 78375053
+EXCALIBUR AUTOS                                                                EXCALIBUR AUTOS      78377002
+EXCALIBUR                            02  67  0    67  0                        EXCALIBUR            78377053
+STUTZ                                                                          STUTZ                78378002
+STUTZ                                                                          STUTZ                78378053
+SUBARU                                                                         SUBARU               78380002
+SUBARU                               02  72 10    71 11   74 11                SUBARU               78380053
+SUBARU WAGON                         07  74 23            74 24                SUBARU WAGON         78380103
+BRAT                                                                           BRAT                 78380153
+TOYOTA                                                                         TOYOTA               78390002
+COROLLA                              03  76  9    75  9   78  9   75 12        COROLLA              78390053
+COROLLA WAGON                        07  74 31            74 31                COROLLA WAGON        78390103
+CORONA                               03  77 10    77 10   78 10                CORONA               78390153
+CORONA WAGON                         07  78 35            77 35                CORONA WAGON         78390203
+CELICA                               03  80 12    80  9           80 14        CELICA               78390253
+CRESSIDA                             03  83 11            83 11                CRESSIDA             78390303
+CRESSIDA WAGON                       07  84 36            84 36                CRESSIDA WAGON       78390353
+TRIUMPH                                                                        TRIUMPH              78400002
+TR-6                                                                           TR-6                 78400053
+TR                                   01                                        TR                   78400103
+TR                                   01                                        TR                   78400123
+SPITFIRE                             01                                        SPITFIRE             78400153
+TVR                                                                            TVR                  78410002
+TVR 3000M                            01                                        TVR 3000M            78410053
+VOLKSWAGEN                                                                     VOLKSWAGEN           78420002
+BEETLE CONVERTIBLE                   02  67  7    67  7                        BEETLE CONVERTIBLE   78420053
+RABBIT                               03  80 15                    80 15        RABBIT               78420103
+DASHER                               03  84 15            84 12   83 18        DASHER               78420203
+DASHER WAGON                         07  83 40            83 40                DASHER WAGON         78420303
+SCIROCCO                             03  74 16                    74 16        SCIROCCO             78420403
+VOLVO                                                                          VOLVO                78430002
+VOLVO SEDAN                                                                    VOLVO SEDAN          78430053
+VOLVO STATION WAGON                                                            VOLVO STAT WGN       78430103
+VOLVO SEDAN                                                                    VOLVO SEDAN          78430153
+VOLVO STATION WAGON                                                            VOLVO STAT WGN       78430203
+BERTONE COUPE                        03  81 14    81 14                        BERTONE COUPE        78430253
+VOLVO STATION WAGON                  08  89 42            89 42                VOLVO STAT WGN       78430303
+VOLVO SEDAN                          04  89 14    89 14   89 14                VOLVO SEDAN          78430353
+AM GENERAL                                                                     AM GENERAL           78510002
+POST OFFICE VEHICLE                  13                                        POST OFF. VEHICLE    78510053
+CADILLAC                                                                       CADILLAC             78530002
+COMMERCIAL CHASSIS                   13                                        COMMERCIAL CHASIS    78530053
+CHEVROLET                                                                      CHEVROLET            78550002
+LUV PICKUP                           10                                        LUV PICKUP           78550053
+LUV CAB CHASSIS                      13                                        LUV CAB CHASSIS      78550103
+CHEV. PICKUP                         11                                        CHEV. PICKUP         78550153
+CHEV. VAN                            12                                        CHEV. VAN            78550203
+EL CAMINO                            11                                        EL CAMINO            78550253
+CHEV. UTILITY                                                                  CHEV. UTILITY        78550303
+CHEV. SUBURBAN                                                                 CHEV. SUBURBAN       78550353
+CHEV. CAB CHASSIS                                                              CHEV. CAB CHASSIS    78550403
+HIGH CUBE VAN                                                                  HIGH CUBE VAN        78550453
+STEP VAN                                                                       STEP VAN             78550503
+FORWARD CONTROL CHASSIS                                                        FORWARD CNTRL CHAS   78550553
+DATSUN                                                                         DATSUN               78600002
+PICKUP                               10                                        PICKUP               78600053
+DATSUN CAB CHASSIS                   13                                        DATSUN CAB CHAS      78600103
+DODGE                                                                          DODGE                78650002
+DODGE VAN                            12                                        DODGE VAN            78650053
+DODGE PICKUP                         11                                        DODGE PICKUP         78650103
+DODGE UTILITY                        13                                        DODGE UTILITY        78650153
+FORD                                                                           FORD                 78700002
+COURIER PICKUP                       10                                        COURIER PICKUP       78700053
+COURIER CAB CHASSIS                  13                                        COURIER CAB CHAS.    78700073
+PICKUP                               11                                        PICKUP               78700103
+PINTO WAGON (PANEL)                  13                                        PINTO WGN PANEL      78700113
+VAN (ECONOLINE/CLUB WAGON)           12                                        VAN (ECO/CLUB WG)    78700153
+BRONCO                               13                                        BRONCO               78700203
+RANCHERO                             11                                        RANCHERO             78700253
+GMC                                                                            GMC                  78800002
+GMC PICKUP                           11                                        GMC PICKUP           78800053
+GMC VAN                              12                                        GMC VAN              78800103
+CABALLERO                            11                                        CABALLERO            78800153
+GMC UTILITY                                                                    GMC UTILITY          78800203
+GMC SUBURBAN                                                                   GMC SUBURBAN         78800253
+GMC CAB CHASSIS                                                                GMC CAB CHASSIS      78800303
+MAGNA VAN                                                                      MAGNA VAN            78800353
+VALUE VAN                                                                      VALUE VAN            78800403
+FORWARD CONTROL CHASSIS                                                        FORWARD CNTRL CHAS   78800453
+INTERNATIONAL HARVESTER                                                        INTNAT HARVESTER     78820002
+SCOUT II                                                                       SCOUT II             78820053
+SS II                                                                          SS II                78820103
+TERRA                                                                          TERRA                78820153
+TRAVELER                                                                       TRAVELER             78820203
+JEEP                                                                           JEEP                 78850002
+JEEP (CJ-5/CJ-7)                     13                                        JEEP(CJ-5/CJ-7)      78850053
+MAZDA                                                                          MAZDA                78880002
+B1800 PICKUP                         10                                        B1800 PICKUP         78880053
+CAB CHASSIS                                                                    CAB CHASSIS          78880153
+PLYMOUTH                                                                       PLYMOUTH             78910002
+PLYMOUTH VAN                         12                                        PLYMOUTH VAN         78910053
+PLYMOUTH PICKUP                      11                                        PLYMOUTH PICKUP      78910103
+PLYMOUTH UTILITY                                                               PLYMOUTH UTILITY     78910153
+SUBARU                                                                         SUBARU               78920002
+BRAT                                                                           BRAT                 78920053
+TOYOTA                                                                         TOYOTA               78940002
+HILUX                                10                                        HILUX                78940053
+HILUX CAB CHASSIS                    13                                        HILUX CAB CHASSIS    78940103
+LAND CRUISER                         13                                        LAND CRUISER         78940153
+LAND CRUISER WAGON                   13                                        LAND CRUISER WG      78940203
+VOLKSWAGEN                                                                     VOLKSWAGEN           78970002
+BUS (WAGON,KOMBI,CAMPMOBILE)         12                                        BUS(WG.,KOM.,CAM)    78970053
