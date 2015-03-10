@@ -34,7 +34,7 @@ void stream_csv(std::ofstream& output, const char* string) {
 
 // [[Rcpp::export]]
 void stream_csv(List df, std::string path, bool col_names = true, bool append = false) {
-  std::ofstream output(path, append ? std::ofstream::app : std::ofstream::trunc);
+  std::ofstream output(path.c_str(), append ? std::ofstream::app : std::ofstream::trunc);
 
   int p = Rf_length(df);
   if (p == 0) {
