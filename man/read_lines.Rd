@@ -4,14 +4,15 @@
 \alias{read_lines}
 \title{Read lines from a file or string.}
 \usage{
-read_lines(path, text, n_max = -1L)
+read_lines(file, n_max = -1L)
 }
 \arguments{
-\item{path}{Either a path to a file, or a connection. Reading directly
-from a file is most efficient.}
+\item{file}{Either a path to a file, a url, a connection, or literal data
+   (either a single string or a raw vector). Connections and urls are saved
+   to a temporary file before being read.
 
-\item{text}{A character or raw vector. If a character vector, only the
-first element is used.}
+   Literal data is most useful for examples and tests. It must contain at
+   least one new line to be recognised as data (instead of a path).}
 
 \item{n_max}{Number of lines to read. If \code{n} is -1, all lines in
 file will be read. For large files, this may}
@@ -23,7 +24,8 @@ A character vector with one element for each line.
 Read lines from a file or string.
 }
 \examples{
-read_lines(text = "1\\n\\n2")
-read_lines(text = "")
+read_lines(system.file("extdata/mtcars.csv", package = "readr"))
+read_lines("1\\n\\n2")
+read_lines("\\n")
 }
 

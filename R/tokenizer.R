@@ -8,18 +8,19 @@
 #' when a file doesn't parse correctly and you want to see the underlying
 #' tokens.
 #'
-#' @inheritParams new_source
+#' @inheritParams datasource
 #' @param tokenizer A tokenizer specification.
 #' @param n Optionally, maximum number of rows to tokenize.
 #' @keywords internal
 #' @export
 #' @examples
-#' tokenize(text = "1,2\n3,4,5\n\n6")
+#' tokenize("1,2\n3,4,5\n\n6")
 #'
 #' # Only tokenize first two lines
-#' tokenize(text = "1,2\n3,4,5\n\n6", n = 2)
-tokenize <- function(path, text, tokenizer = tokenizer_csv(), n = NA_integer_) {
-  tokenize_(new_source(path, text), tokenizer, if (missing(n)) -1L else n)
+#' tokenize("1,2\n3,4,5\n\n6", n = 2)
+tokenize <- function(file, tokenizer = tokenizer_csv(), n = NA_integer_) {
+  ds <- datasource(file)
+  tokenize_(ds, tokenizer, if (missing(n)) -1L else n)
 }
 
 #' Tokenizers.

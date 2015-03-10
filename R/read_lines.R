@@ -1,14 +1,15 @@
 #' Read lines from a file or string.
 #'
-#' @inheritParams new_source
+#' @inheritParams datasource
 #' @param n_max Number of lines to read. If \code{n} is -1, all lines in
 #'   file will be read. For large files, this may
 #' @return A character vector with one element for each line.
 #' @export
 #' @examples
-#' read_lines(text = "1\n\n2")
-#' read_lines(text = "")
-read_lines <- function(path, text, n_max = -1L) {
-  source <- new_source(path, text)
-  read_lines_(source, n_max = n_max)
+#' read_lines(system.file("extdata/mtcars.csv", package = "readr"))
+#' read_lines("1\n\n2")
+#' read_lines("\n")
+read_lines <- function(file, n_max = -1L) {
+  ds <- datasource(file)
+  read_lines_(ds, n_max = n_max)
 }

@@ -4,15 +4,16 @@
 \alias{read_csv}
 \title{Read a csv file into a data frame.}
 \usage{
-read_csv(path, text, col_names = TRUE, col_types = NULL, na = "NA",
-  skip = 0, n_max = -1)
+read_csv(file, col_names = TRUE, col_types = NULL, na = "NA", skip = 0,
+  n_max = -1)
 }
 \arguments{
-\item{path}{Either a path to a file, or a connection. Reading directly
-from a file is most efficient.}
+\item{file}{Either a path to a file, a url, a connection, or literal data
+   (either a single string or a raw vector). Connections and urls are saved
+   to a temporary file before being read.
 
-\item{text}{A character or raw vector. If a character vector, only the
-first element is used.}
+   Literal data is most useful for examples and tests. It must contain at
+   least one new line to be recognised as data (instead of a path).}
 
 \item{col_names}{Either \code{TRUE}, \code{FALSE} or a character vector
   of column names.
@@ -50,9 +51,9 @@ first element is used.}
 Read a csv file into a data frame.
 }
 \examples{
-read_csv(text = "x,y\\n1,2\\n3,4")
+read_csv("x,y\\n1,2\\n3,4")
 
 # Override default col types
-read_csv(text = "x,y\\n1,2\\n3,4", col_types = "dd")
+read_csv("x,y\\n1,2\\n3,4", col_types = "dd")
 }
 

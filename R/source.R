@@ -1,37 +1,80 @@
 #' Create a source object.
 #'
-#' @param path Either a path to a file, or a connection. Reading directly
-#'   from a file is most efficient.
-#' @param text A character or raw vector. If a character vector, only the
-#'   first element is used.
+#' @param file Either a path to a file, a url, a connection, or literal data
+#'    (either a single string or a raw vector). Connections and urls are saved
+#'    to a temporary file before being read.
+#'
+#'    Literal data is most useful for examples and tests. It must contain at
+#'    least one new line to be recognised as data (instead of a path).
 #' @param skip Number of lines to skip before reading data.
 #' @keywords internal
-new_source <- function(path, text, skip = 0) {
-  if (!xor(missing(path), missing(text))) {
-    stop("Specificy only one of path and text", call. = FALSE)
-  }
-
-  if (!missing(text)) {
-    if (is.character(text)) {
-      structure(list(text, skip = skip), class = "source_string")
-    } else if (is.raw(text)) {
-      structure(list(text, skip = skip), class = "source_raw")
+#' @export
+#' @examples
+#' # Literal csv
+#' datasource("a,b,c\n1,2,3")
+#' datasource(charToRaw("a,b,c\n1,2,3"))
+#'
+#' # Local path
+#' datasource(system.file("extdata/mtcars.csv", package = "readr"))
+#'
+#' # Connection
+#' datasource(rawConnection(charToRaw("abc\n123")))
+datasource <- function(file, skip = 0) {
+  if (inherits(file, "source")) {
+    file
+  } else if (inherits(file, "connection")) {
+    datasource_file(cache_con(file), skip)
+  } else if (is.raw(file)) {
+    datasource_raw(file, skip)
+  } else if (is.character(file)) {
+    if (grepl("\n", file)) {
+      datasource_string(file, skip)
+    } else if (grepl("^(http|ftp|https)://", file)) {
+      tmp <- tempfile()
+      download.file(file, tmp, quiet = TRUE, mode = "wb")
+      datasource_file(tmp, skip)
     } else {
-      stop("Text must be a character or raw vector", call. = FALSE)
+      datasource_file(file, skip)
     }
   } else {
-    if (inherits(path, "connection")) {
-      stop("Not supported")
-      x <- readBin(path, n = 1e6)
-      structure(list(x, skip = skip), class = "source_raw")
-    } else if (is.character(path)) {
-      path <- check_file(path)
-      structure(list(path, skip = skip), class = "source_file")
-    } else {
-      stop("Path must be a character vector or connection", call. = FALSE)
-    }
+    stop("`file` must be a string, raw vector or a connection.", call. = FALSE)
+  }
+}
+
+new_datasource <- function(type, x, skip, ...) {
+  structure(list(x, skip = skip, ...),
+    class = c(paste0("source_", type), "source"))
+}
+
+datasource_string <- function(text, skip) {
+  new_datasource("string", text, skip = skip)
+}
+
+datasource_file <- function(path, skip) {
+  path <- check_file(path)
+  new_datasource("file", path, skip = skip)
+}
+
+datasource_raw <- function(text, skip) {
+  new_datasource("text", text, skip = skip)
+}
+
+
+
+cache_con <- function(con) {
+  tmp <- tempfile()
+  tmpcon <- file(tmp, "w+b")
+  on.exit(close(tmpcon), add = TRUE)
+
+  if (!isOpen(con)) {
+    open(con, "rb")
+    on.exit(close(con), add = TRUE)
   }
 
+  while(length(buf <- readBin(con, raw(), 32 * 1024)))
+    writeBin(buf, tmpcon)
+
+  return(tmp)
 }
 
 check_file <- function(path) {

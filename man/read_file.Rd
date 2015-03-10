@@ -4,21 +4,20 @@
 \alias{read_file}
 \title{Read a file into a string.}
 \usage{
-read_file(path, text)
+read_file(file)
 }
 \arguments{
-\item{path}{Either a path to a file, or a connection. Reading directly
-from a file is most efficient.}
+\item{file}{Either a path to a file, a url, a connection, or literal data
+   (either a single string or a raw vector). Connections and urls are saved
+   to a temporary file before being read.
 
-\item{text}{A character or raw vector. If a character vector, only the
-first element is used.}
+   Literal data is most useful for examples and tests. It must contain at
+   least one new line to be recognised as data (instead of a path).}
 }
 \description{
 Read a file into a string.
 }
 \examples{
 read_file(file.path(R.home(), "COPYING"))
-read_file(text = "abc")
-read_file(text = charToRaw("abc"))
 }
 

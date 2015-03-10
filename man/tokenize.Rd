@@ -4,14 +4,15 @@
 \alias{tokenize}
 \title{Tokenize a file/string.}
 \usage{
-tokenize(path, text, tokenizer = tokenizer_csv(), n = NA_integer_)
+tokenize(file, tokenizer = tokenizer_csv(), n = NA_integer_)
 }
 \arguments{
-\item{path}{Either a path to a file, or a connection. Reading directly
-from a file is most efficient.}
+\item{file}{Either a path to a file, a url, a connection, or literal data
+   (either a single string or a raw vector). Connections and urls are saved
+   to a temporary file before being read.
 
-\item{text}{A character or raw vector. If a character vector, only the
-first element is used.}
+   Literal data is most useful for examples and tests. It must contain at
+   least one new line to be recognised as data (instead of a path).}
 
 \item{tokenizer}{A tokenizer specification.}
 
@@ -28,10 +29,10 @@ when a file doesn't parse correctly and you want to see the underlying
 tokens.
 }
 \examples{
-tokenize(text = "1,2\\n3,4,5\\n\\n6")
+tokenize("1,2\\n3,4,5\\n\\n6")
 
 # Only tokenize first two lines
-tokenize(text = "1,2\\n3,4,5\\n\\n6", n = 2)
+tokenize("1,2\\n3,4,5\\n\\n6", n = 2)
 }
 \keyword{internal}
 

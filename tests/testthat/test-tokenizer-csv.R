@@ -1,6 +1,6 @@
 context("TokenizerCsv")
 
-tokenize_simple <- function(x) unlist(tokenize(text = x))
+tokenize_simple <- function(x) unlist(tokenize(datasource_string(x, 0)))
 
 test_that("simple sequence tokenised correctly", {
   expect_equal(tokenize_simple('1,2,3'), c("1", "2", "3"))
