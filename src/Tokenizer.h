@@ -8,6 +8,9 @@
 
 #include "Token.h"
 
+class Tokenizer;
+typedef boost::shared_ptr<Tokenizer> TokenizerPtr;
+
 class Tokenizer {
 public:
   virtual ~Tokenizer() {}
@@ -15,10 +18,9 @@ public:
   virtual void tokenize(SourceIterator begin, SourceIterator end) = 0;
   virtual Token nextToken() = 0;
   virtual double proportionDone() = 0;
-};
 
-typedef boost::shared_ptr<Tokenizer> TokenizerPtr;
-TokenizerPtr tokenizerCreate(Rcpp::List spec);
+  static TokenizerPtr create(Rcpp::List spec);
+};
 
 // -----------------------------------------------------------------------------
 // Helper class for parsers - ensures iterator always advanced no matter

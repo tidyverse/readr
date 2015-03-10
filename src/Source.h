@@ -10,7 +10,8 @@ typedef const char* SourceIterator;
 typedef std::pair<SourceIterator,SourceIterator> SourceIterators;
 typedef void (*UnescapeFun)(SourceIterator, SourceIterator, boost::container::string*);
 
-typedef const char* SourceIterator;
+class Source;
+typedef boost::shared_ptr<Source> SourcePtr;
 
 class Source {
 public:
@@ -32,10 +33,9 @@ public:
     return cur;
   }
 
-};
+  static SourcePtr create(Rcpp::List spec);
 
-typedef boost::shared_ptr<Source> SourcePtr;
-SourcePtr sourceCreate(Rcpp::List spec);
+};
 
 #endif
 

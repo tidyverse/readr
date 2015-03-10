@@ -9,7 +9,7 @@ using namespace Rcpp;
 #include "CollectorDouble.h"
 #include "CollectorCharacter.h"
 
-CollectorPtr collectorCreate(List spec) {
+CollectorPtr Collector::create(List spec) {
   std::string subclass(as<CharacterVector>(spec.attr("class"))[0]);
 
   if (subclass == "collector_skip"  )
@@ -30,7 +30,7 @@ CollectorPtr collectorCreate(List spec) {
 std::vector<CollectorPtr> collectorsCreate(ListOf<List> specs) {
   std::vector<CollectorPtr> collectors;
   for (int j = 0; j < specs.size(); ++j) {
-    collectors.push_back(collectorCreate(specs[j]));
+    collectors.push_back(Collector::create(specs[j]));
   }
 
   return collectors;

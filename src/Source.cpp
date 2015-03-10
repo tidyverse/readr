@@ -7,7 +7,7 @@ using namespace Rcpp;
 #include "SourceString.h"
 #include "SourceRaw.h"
 
-SourcePtr sourceCreate(List spec) {
+SourcePtr Source::create(List spec) {
   std::string subclass(as<CharacterVector>(spec.attr("class"))[0]);
 
   int skip = as<int>(spec["skip"]);

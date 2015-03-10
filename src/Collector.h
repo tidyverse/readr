@@ -5,6 +5,9 @@
 #include <boost/shared_ptr.hpp>
 #include "Token.h"
 
+class Collector;
+typedef boost::shared_ptr<Collector> CollectorPtr;
+
 class Collector {
 protected:
   Rcpp::RObject column_;
@@ -36,11 +39,10 @@ public:
       t.row() + 1, t.col() + 1, std::string(string.first, string.second));
   }
 
+  static CollectorPtr create(Rcpp::List spec);
+
 };
 
-typedef boost::shared_ptr<Collector> CollectorPtr;
-// Create an collector from an R list specification
-CollectorPtr collectorCreate(Rcpp::List spec);
 std::vector<CollectorPtr> collectorsCreate(Rcpp::ListOf<Rcpp::List> specs);
 void collectorsResize(std::vector<CollectorPtr>& collectors, int n);
 std::string collectorGuess(Rcpp::CharacterVector input);

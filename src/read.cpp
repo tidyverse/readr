@@ -9,7 +9,7 @@ using namespace Rcpp;
 
 // [[Rcpp::export]]
 CharacterVector read_file_(List sourceSpec) {
-  SourcePtr source = sourceCreate(sourceSpec);
+  SourcePtr source = Source::create(sourceSpec);
 
   CharacterVector out(1);
   out[0] = Rf_mkCharLen(source->begin(), source->end() - source->begin());
@@ -18,7 +18,7 @@ CharacterVector read_file_(List sourceSpec) {
 
 // [[Rcpp::export]]
 CharacterVector read_lines_(List sourceSpec, int n_max = -1) {
-  SourcePtr source = sourceCreate(sourceSpec);
+  SourcePtr source = Source::create(sourceSpec);
   TokenizerLine tokenizer;
   tokenizer.tokenize(source->begin(), source->end());
 
@@ -53,8 +53,8 @@ CharacterVector read_lines_(List sourceSpec, int n_max = -1) {
 // [[Rcpp::export]]
 List read_tokens(List sourceSpec, List tokenizerSpec, ListOf<List> colSpecs,
                  CharacterVector col_names, int n_max = -1) {
-  SourcePtr source = sourceCreate(sourceSpec);
-  TokenizerPtr tokenizer = tokenizerCreate(tokenizerSpec);
+  SourcePtr source = Source::create(sourceSpec);
+  TokenizerPtr tokenizer = Tokenizer::create(tokenizerSpec);
   tokenizer->tokenize(source->begin(), source->end());
   std::vector<CollectorPtr> collectors = collectorsCreate(colSpecs);
 
@@ -98,8 +98,8 @@ List read_tokens(List sourceSpec, List tokenizerSpec, ListOf<List> colSpecs,
 
 // [[Rcpp::export]]
 std::vector<std::string> collectorsGuess(List sourceSpec, List tokenizerSpec, int n = 100) {
-  SourcePtr source = sourceCreate(sourceSpec);
-  TokenizerPtr tokenizer = tokenizerCreate(tokenizerSpec);
+  SourcePtr source = Source::create(sourceSpec);
+  TokenizerPtr tokenizer = Tokenizer::create(tokenizerSpec);
   tokenizer->tokenize(source->begin(), source->end());
 
   std::vector<CollectorCharacter> collectors;

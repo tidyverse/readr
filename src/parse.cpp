@@ -8,8 +8,8 @@ using namespace Rcpp;
 
 // [[Rcpp::export]]
 IntegerVector dim_tokens_(List sourceSpec, List tokenizerSpec) {
-  SourcePtr source = sourceCreate(sourceSpec);
-  TokenizerPtr tokenizer = tokenizerCreate(tokenizerSpec);
+  SourcePtr source = Source::create(sourceSpec);
+  TokenizerPtr tokenizer = Tokenizer::create(tokenizerSpec);
   tokenizer->tokenize(source->begin(), source->end());
 
   int rows = -1, cols = -1;
@@ -25,8 +25,8 @@ IntegerVector dim_tokens_(List sourceSpec, List tokenizerSpec) {
 
 // [[Rcpp::export]]
 std::vector<std::vector<std::string> > tokenize_(List sourceSpec, List tokenizerSpec, int n) {
-  SourcePtr source = sourceCreate(sourceSpec);
-  TokenizerPtr tokenizer = tokenizerCreate(tokenizerSpec);
+  SourcePtr source = Source::create(sourceSpec);
+  TokenizerPtr tokenizer = Tokenizer::create(tokenizerSpec);
   tokenizer->tokenize(source->begin(), source->end());
 
   std::vector<std::vector<std::string> > rows;
@@ -54,11 +54,11 @@ std::vector<std::vector<std::string> > tokenize_(List sourceSpec, List tokenizer
 
 // [[Rcpp::export]]
 SEXP parse_(List sourceSpec, List tokenizerSpec, List collectorSpec) {
-  SourcePtr source = sourceCreate(sourceSpec);
-  TokenizerPtr tokenizer = tokenizerCreate(tokenizerSpec);
+  SourcePtr source = Source::create(sourceSpec);
+  TokenizerPtr tokenizer = Tokenizer::create(tokenizerSpec);
   tokenizer->tokenize(source->begin(), source->end());
 
-  boost::shared_ptr<Collector> out = collectorCreate(collectorSpec);
+  boost::shared_ptr<Collector> out = Collector::create(collectorSpec);
   out->resize(100);
 
   int i = 0;

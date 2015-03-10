@@ -6,7 +6,7 @@ using namespace Rcpp;
 #include "TokenizerCsv.h"
 #include "TokenizerLine.h"
 
-TokenizerPtr tokenizerCreate(List spec) {
+TokenizerPtr Tokenizer::create(List spec) {
   std::string subclass(as<CharacterVector>(spec.attr("class"))[0]);
 
   if (subclass == "tokenizer_csv") {
