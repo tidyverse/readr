@@ -7,7 +7,7 @@
 \alias{tokenizer_line}
 \title{Tokenizers.}
 \usage{
-tokenizer_csv(na = "NA")
+tokenizer_csv(na = "NA", escape_double = TRUE, escape_backslash = FALSE)
 
 tokenizer_line()
 

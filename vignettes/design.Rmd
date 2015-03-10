@@ -107,18 +107,13 @@ for (Token t = tokenizer->nextToken(); t.type() != TOKEN_EOF; t = tokenizer->nex
 
 The most important tokenisers are:
 
-* `TokenizerCsv` for parsing csv files (or any file that doubled escapes).
-  
-* `TokenizerDelim` for parsing general delimited files (any file that uses 
-   backslash escapes).
+* `TokenizerDelim` for parsing general delimited files
   
 * `TokenizerFixedWidth` for parsing fixed width files.
 
 Tokenizers also identify missing values and manage encoding (mediated through the token).
 
-### Csv tokenizer
-
-The csv tokenizer is built on top of the following DFA (deterministic finite automata):
+### TokenizerDelim with doubled escapes
 
 ```{r, echo = FALSE}
 DiagrammeR::mermaid('graph LR
@@ -138,7 +133,35 @@ quote -->|,| delim
 ')
 ```
 
+(`,` is short hand for any delimiter, newline or EOF.)
+
 It is designed to support the most common style of csv files, where quotes in strings are double escaped. In other words, to create a string containing a single double quote, you use `""""`. In the future, we'll add other tokenizers to support more esoteric formats.
+
+### TokenizerDelim with backslash escapes
+
+```{r, echo = FALSE}
+DiagrammeR::mermaid('graph LR
+escape_s --> string
+
+string -->|\\| escape_s
+string -->|...| string
+string -->|"| string_complete
+  
+string_complete --> delim
+
+delim -->|...| field
+delim -->|,| delim
+delim -->|"| string
+delim -->|\\| escape_f
+style delim fill:lightgreen
+
+field -->|...| field
+field -->|,| delim
+field -->|\\| escape_f
+
+escape_f --> field
+')
+```
 
 ## Column collectors
 

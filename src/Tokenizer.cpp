@@ -13,8 +13,10 @@ TokenizerPtr Tokenizer::create(List spec) {
   if (subclass == "tokenizer_csv") {
     char delim = as<char>(spec["delim"]);
     std::string na = as<std::string>(spec["na"]);
+    bool escapeDouble = as<bool>(spec["escape_double"]);
+    bool escapeBackslash = as<bool>(spec["escape_backslash"]);
 
-    return TokenizerPtr(new TokenizerCsv(delim, na));
+    return TokenizerPtr(new TokenizerCsv(delim, na, escapeBackslash, escapeDouble));
   } else if (subclass == "tokenizer_fwf") {
     std::vector<int>
       begin = as<std::vector<int> >(spec["begin"]),
