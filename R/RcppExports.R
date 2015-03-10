@@ -13,6 +13,10 @@ dim_tokens_ <- function(sourceSpec, tokenizerSpec) {
     .Call('readr_dim_tokens_', PACKAGE = 'readr', sourceSpec, tokenizerSpec)
 }
 
+count_fields_ <- function(sourceSpec, tokenizerSpec) {
+    .Call('readr_count_fields_', PACKAGE = 'readr', sourceSpec, tokenizerSpec)
+}
+
 tokenize_ <- function(sourceSpec, tokenizerSpec, n) {
     .Call('readr_tokenize_', PACKAGE = 'readr', sourceSpec, tokenizerSpec, n)
 }

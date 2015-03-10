@@ -24,6 +24,25 @@ IntegerVector dim_tokens_(List sourceSpec, List tokenizerSpec) {
 }
 
 // [[Rcpp::export]]
+std::vector<int> count_fields_(List sourceSpec, List tokenizerSpec) {
+  SourcePtr source = Source::create(sourceSpec);
+  TokenizerPtr tokenizer = Tokenizer::create(tokenizerSpec);
+  tokenizer->tokenize(source->begin(), source->end());
+
+  std::vector<int> fields;
+
+  for (Token t = tokenizer->nextToken(); t.type() != TOKEN_EOF; t = tokenizer->nextToken()) {
+    if (t.row() >= fields.size()) {
+      fields.resize(t.row() + 1);
+    }
+
+    fields[t.row()] = t.col();
+  }
+
+  return fields;
+}
+
+// [[Rcpp::export]]
 std::vector<std::vector<std::string> > tokenize_(List sourceSpec, List tokenizerSpec, int n) {
   SourcePtr source = Source::create(sourceSpec);
   TokenizerPtr tokenizer = Tokenizer::create(tokenizerSpec);

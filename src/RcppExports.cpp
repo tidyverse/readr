@@ -39,6 +39,18 @@ BEGIN_RCPP
     return __result;
 END_RCPP
 }
+// count_fields_
+std::vector<int> count_fields_(List sourceSpec, List tokenizerSpec);
+RcppExport SEXP readr_count_fields_(SEXP sourceSpecSEXP, SEXP tokenizerSpecSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject __result;
+    Rcpp::RNGScope __rngScope;
+    Rcpp::traits::input_parameter< List >::type sourceSpec(sourceSpecSEXP);
+    Rcpp::traits::input_parameter< List >::type tokenizerSpec(tokenizerSpecSEXP);
+    __result = Rcpp::wrap(count_fields_(sourceSpec, tokenizerSpec));
+    return __result;
+END_RCPP
+}
 // tokenize_
 std::vector<std::vector<std::string> > tokenize_(List sourceSpec, List tokenizerSpec, int n);
 RcppExport SEXP readr_tokenize_(SEXP sourceSpecSEXP, SEXP tokenizerSpecSEXP, SEXP nSEXP) {
