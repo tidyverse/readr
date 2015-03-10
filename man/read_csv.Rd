@@ -51,9 +51,16 @@ read_csv(file, col_names = TRUE, col_types = NULL, na = "NA", skip = 0,
 Read a csv file into a data frame.
 }
 \examples{
+# Read from a path
+read_csv(system.file("extdata/mtcars.csv", package = "readr"))
+# Or directly from a string (must contain a newline)
 read_csv("x,y\\n1,2\\n3,4")
 
-# Override default col types
-read_csv("x,y\\n1,2\\n3,4", col_types = "dd")
+# By default, readr guess the columns types, looking at the first 100 rows.
+# You can override with a compact specification:
+read_csv("x,y\\n1,2\\n3,4", col_types = "dc")
+
+# Or with a list of column types:
+read_csv("x,y\\n1,2\\n3,4", col_types = list(col_double(), col_character()))
 }
 
