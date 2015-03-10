@@ -26,7 +26,7 @@ public:
 
   TokenizerCsv(char delim = ',', std::string NA = "NA"):
     delim_(delim),
-    NA_("NA"),
+    NA_(NA),
     NA_size_(NA.size()),
     moreTokens_(false)
   {
