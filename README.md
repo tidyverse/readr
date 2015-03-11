@@ -14,6 +14,13 @@ install_github("hadley/readr")
 
 ## Usage
 
+The most important functions are:
+
+* Read delimited files: `read_delim()`, `read_csv()`, `read_tsv()`.
+* Read fixed width files: `read_fwf()`, `read_table()`.
+* Read lines: `read_lines()`.
+* Read whole file: `read_file()`.
+
 ```r
 library(readr)
 library(dplyr)
@@ -29,11 +36,6 @@ read_lines(mtcars_path)
 read_file(mtcars_path)
 ```
 
-Other useful readers:
-
-* `read_fwf()`: read a fixed width file
-* `read_table()`: read tabular data separated by columns of whitespace
-
 ## Output
 
 `read_csv()` produces a data frame with the following properties:
@@ -41,7 +43,8 @@ Other useful readers:
 * Characters are never automatically converted to factors (i.e. no more 
   `stringsAsFactors = FALSE`).
 
-* Column names are left as is, not munged into valid R identifiers.
+* Column names are left as is, not munged into valid R identifiers
+  (i.e. there is no `check.names = TRUE`).
 
 * The data frame is given class `c("tbl_df", "tbl", "data.frame")` so 
   if you also use [dplyr](https://github.com/hadley/dplyr/) you'll get an 
