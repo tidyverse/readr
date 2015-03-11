@@ -36,6 +36,22 @@ read_lines(mtcars_path)
 read_file(mtcars_path)
 ```
 
+## Column types
+
+Currently, readr automatically recognises the following types of columns:
+
+* `col_logical()`, containing only `T`, `F`, `TRUE` or `FALSE`.
+* `col_integer()`, integers.
+* `col_double()`, doubles.
+* `col_euro_double()`, "Euro" doubles that use `,` as decimal separator
+* `col_character()`, everything else.
+
+You can also manually specify other column types:
+
+* `col_skip()`, don't import this column.
+* `col_datetime(format)`, date times with given format
+
+
 ## Output
 
 `read_csv()` produces a data frame with the following properties:
