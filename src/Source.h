@@ -3,12 +3,7 @@
 
 #include <Rcpp.h>
 
-#include <boost/container/string.hpp>
 #include <boost/shared_ptr.hpp>
-
-typedef const char* SourceIterator;
-typedef std::pair<SourceIterator,SourceIterator> SourceIterators;
-typedef void (*UnescapeFun)(SourceIterator, SourceIterator, boost::container::string*);
 
 class Source;
 typedef boost::shared_ptr<Source> SourcePtr;

@@ -3,6 +3,7 @@
 
 #include <string>
 #include "Source.h"
+#include "Tokenizer.h"
 
 enum TokenType {
   TOKEN_STRING,   // a sequence of characters
@@ -16,27 +17,19 @@ class Token {
   SourceIterator begin_, end_;
   int row_, col_;
 
-  UnescapeFun pUnescaper_;
+  Tokenizer* pTokenizer_;
 
 public:
 
   Token(): type_(TOKEN_EMPTY), row_(0), col_(0) {}
   Token(TokenType type, int row, int col): type_(type), row_(row), col_(col) {}
-  Token(SourceIterator begin, SourceIterator end, UnescapeFun pUnescaper, int row, int col):
+  Token(SourceIterator begin, SourceIterator end, int row, int col, Tokenizer* pTokenizer = NULL):
     type_(TOKEN_STRING),
     begin_(begin),
     end_(end),
     row_(row),
     col_(col),
-    pUnescaper_(pUnescaper)
-  {}
-  Token(SourceIterator begin, SourceIterator end, int row, int col):
-    type_(TOKEN_STRING),
-    begin_(begin),
-    end_(end),
-    row_(row),
-    col_(col),
-    pUnescaper_(NULL)
+    pTokenizer_(pTokenizer)
   {}
 
   std::string asString() const {
@@ -53,10 +46,10 @@ public:
   }
 
   SourceIterators getString(boost::container::string *pOut) const {
-    if (pUnescaper_ == NULL)
+    if (pTokenizer_ == NULL)
       return std::make_pair(begin_, end_);
 
-    pUnescaper_(begin_, end_, pOut);
+    pTokenizer_->unescape(begin_, end_, pOut);
     return std::make_pair(pOut->data(), pOut->data() + pOut->size());
   }
 

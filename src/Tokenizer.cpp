@@ -12,11 +12,14 @@ TokenizerPtr Tokenizer::create(List spec) {
 
   if (subclass == "tokenizer_delim") {
     char delim = as<char>(spec["delim"]);
+    char quote = as<char>(spec["quote"]);
     std::string na = as<std::string>(spec["na"]);
     bool escapeDouble = as<bool>(spec["escape_double"]);
     bool escapeBackslash = as<bool>(spec["escape_backslash"]);
 
-    return TokenizerPtr(new TokenizerDelim(delim, na, escapeBackslash, escapeDouble));
+    return TokenizerPtr(new
+      TokenizerDelim(delim, quote, na, escapeBackslash, escapeDouble)
+    );
   } else if (subclass == "tokenizer_fwf") {
     std::vector<int>
       begin = as<std::vector<int> >(spec["begin"]),

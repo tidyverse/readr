@@ -16,7 +16,7 @@ enum DelimState {
 };
 
 class TokenizerDelim : public Tokenizer {
-  char delim_;
+  char delim_, quote_;
   std::string NA_;
   int NA_size_;
 
@@ -29,9 +29,10 @@ class TokenizerDelim : public Tokenizer {
 
 public:
 
-  TokenizerDelim(char delim = ',', std::string NA = "NA",
+  TokenizerDelim(char delim = ',', char quote = '"', std::string NA = "NA",
                bool escapeBackslash = false, bool escapeDouble = true):
     delim_(delim),
+    quote_(quote),
     NA_(NA),
     NA_size_(NA.size()),
     escapeBackslash_(escapeBackslash),
@@ -83,7 +84,7 @@ public:
         } else if (*cur_ == delim_) {
           newField();
           return Token(TOKEN_EMPTY, row, col);
-        } else if (*cur_ == '"') {
+        } else if (*cur_ == quote_) {
           state_ = STATE_STRING;
         } else if (escapeBackslash_ && *cur_ == '\\') {
           state_ = STATE_ESCAPE_F;
@@ -112,7 +113,7 @@ public:
         break;
 
       case STATE_QUOTE:
-        if (*cur_ == '"') {
+        if (*cur_ == quote_) {
           hasEscapeD = true;
           state_ = STATE_STRING;
         } else if (*cur_ == '\r') {
@@ -130,7 +131,7 @@ public:
         break;
 
       case STATE_STRING:
-        if (*cur_ == '"') {
+        if (*cur_ == quote_) {
           if (escapeDouble_) {
             state_ = STATE_QUOTE;
           } else {
@@ -212,9 +213,7 @@ private:
     if ((end - begin) == NA_size_ && strncmp(begin, &NA_[0], NA_size_) == 0)
       return Token(TOKEN_MISSING, row, col);
 
-    UnescapeFun unescaper = hasEscapeB ? TokenizerDelim::unescapeBackslash : NULL;
-
-    return Token(begin, end, unescaper, row, col);
+    return Token(begin, end, row, col, (hasEscapeB) ? this : NULL);
   }
 
   Token stringToken(SourceIterator begin, SourceIterator end, bool hasEscapeB,
@@ -222,26 +221,30 @@ private:
     if (begin == end)
       return Token(TOKEN_EMPTY, row, col);
 
-    UnescapeFun unescaper = NULL;
-    if (hasEscapeD && !hasEscapeB) {
-      unescaper = TokenizerDelim::unescapeDouble;
-    } else if (hasEscapeB && !hasEscapeD) {
-      unescaper = TokenizerDelim::unescapeBackslash;
-    } else if (hasEscapeB && hasEscapeD) {
-      Rcpp::stop("Not supported");
-    }
-    return Token(begin, end, unescaper, row, col);
+    return Token(begin, end, row, col,
+      (hasEscapeD || hasEscapeB) ? this : NULL);
   }
 
 public:
 
+  void unescape(SourceIterator begin, SourceIterator end,
+                boost::container::string* pOut) {
+    if (escapeDouble_ && !escapeBackslash_) {
+      unescapeDouble(begin, end, quote_, pOut);
+    } else if (escapeBackslash_ && !escapeDouble_) {
+      unescapeBackslash(begin, end, delim_, quote_, pOut);
+    } else if (escapeBackslash_ && escapeDouble_) {
+      Rcpp::stop("Not supported");
+    }
+  }
+
   static void unescapeDouble(SourceIterator begin, SourceIterator end,
-                             boost::container::string* pOut) {
+                             char quote, boost::container::string* pOut) {
     pOut->reserve(end - begin);
 
     bool inEscape = false;
     for (SourceIterator cur = begin; cur != end; ++cur) {
-      if (*cur == '"') {
+      if (*cur == quote) {
         if (inEscape) {
           pOut->push_back(*cur);
           inEscape = false;
@@ -255,6 +258,7 @@ public:
   }
 
   static void unescapeBackslash(SourceIterator begin, SourceIterator end,
+                                char delim, char quote,
                                 boost::container::string* pOut) {
     pOut->reserve(end - begin);
 

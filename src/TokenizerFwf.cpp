@@ -2,6 +2,7 @@
 using namespace Rcpp;
 
 #include "Source.h"
+#include "Tokenizer.h"
 
 std::vector<bool> emptyCols_(SourceIterator begin, SourceIterator end, int n = 100) {
 

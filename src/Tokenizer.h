@@ -5,8 +5,12 @@
 
 #include <boost/noncopyable.hpp>
 #include <boost/shared_ptr.hpp>
+#include <boost/container/string.hpp>
+class Token;
 
-#include "Token.h"
+typedef const char* SourceIterator;
+typedef std::pair<SourceIterator,SourceIterator> SourceIterators;
+typedef void (*UnescapeFun)(SourceIterator, SourceIterator, boost::container::string*);
 
 class Tokenizer;
 typedef boost::shared_ptr<Tokenizer> TokenizerPtr;
@@ -18,6 +22,13 @@ public:
   virtual void tokenize(SourceIterator begin, SourceIterator end) = 0;
   virtual Token nextToken() = 0;
   virtual double proportionDone() = 0;
+
+  virtual void unescape(SourceIterator begin, SourceIterator end,
+                        boost::container::string* pOut) {
+    pOut->reserve(end - begin);
+    for (SourceIterator cur = begin; cur != end; ++cur)
+      pOut->push_back(*cur);
+  }
 
   static TokenizerPtr create(Rcpp::List spec);
 };

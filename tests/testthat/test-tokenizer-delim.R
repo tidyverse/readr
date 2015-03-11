@@ -1,12 +1,12 @@
 context("TokenizerDelim")
 # Tests tokenizing and unescaping, via CollectorCharacter.
 
-parse_b <- function(x) {
-  tok <- tokenizer_delim(",", escape_double = FALSE, escape_backslash = TRUE)
+parse_b <- function(x, ...) {
+  tok <- tokenizer_delim(",", escape_double = FALSE, escape_backslash = TRUE, ...)
   parse_vector(x, tok, col_character())
 }
-parse_d <- function(x) {
-  tok <- tokenizer_delim(",", escape_double = TRUE, escape_backslash = FALSE)
+parse_d <- function(x, ...) {
+  tok <- tokenizer_delim(",", escape_double = TRUE, escape_backslash = FALSE, ...)
   parse_vector(x, tok, col_character())
 }
 
@@ -21,6 +21,9 @@ test_that("newlines are not tokenised", {
 test_that("quotes in strings are dropped", {
   expect_equal(parse_d('"abc",abc'), c("abc", "abc"))
   expect_equal(parse_b('"abc",abc'), c("abc", "abc"))
+
+  expect_equal(parse_b("'abc',abc", quote = "'"), c("abc", "abc"))
+  expect_equal(parse_d("'abc',abc", quote = "'"), c("abc", "abc"))
 })
 
 test_that("warning if unterminated string", {

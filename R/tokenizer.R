@@ -52,6 +52,7 @@ tokenizer_delim <- function(delim, quote = '"', na = "NA",
   structure(
     list(
       delim = ",",
+      quote = quote,
       na = na,
       escape_double = escape_double,
       escape_backslash = escape_backslash
