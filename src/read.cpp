@@ -49,6 +49,7 @@ CharacterVector read_lines_(List sourceSpec, int n_max = -1) {
   return out;
 }
 
+typedef std::vector<CollectorPtr>::iterator CollectorItr;
 
 // [[Rcpp::export]]
 List read_tokens(List sourceSpec, List tokenizerSpec, ListOf<List> colSpecs,
@@ -59,13 +60,38 @@ List read_tokens(List sourceSpec, List tokenizerSpec, ListOf<List> colSpecs,
   std::vector<CollectorPtr> collectors = collectorsCreate(colSpecs);
 
   int p = collectors.size();
+  // Work out how many output columns we have
+  int pOut = 0;
+  for(CollectorItr cur = collectors.begin(); cur != collectors.end(); ++cur) {
+    if (!(*cur)->skip())
+      pOut++;
+  }
+
+  // Allow either one name for column, or one name per output col
+  if (p != pOut && col_names.size() == p) {
+    CharacterVector col_names2(pOut);
+    int cj = 0;
+    for (int j = 0; j < p; ++j) {
+      if (collectors[j]->skip())
+        continue;
+      col_names2[cj++] = col_names[j];
+    }
+    col_names = col_names2;
+  }
+
+  if (pOut != col_names.size()) {
+    Rcpp::stop("You have %i column names, but %i columns",
+      col_names.size(), pOut);
+  }
+
   int n = (n_max < 0) ? 1000 : n_max;
   collectorsResize(collectors, n);
 
   int i = 0;
   for (Token t = tokenizer->nextToken(); t.type() != TOKEN_EOF; t = tokenizer->nextToken()) {
-    if (t.col() >= p)
+    if (t.col() >= p) {
       stop("In row %i, there are %i columns!", t.row() + 1, t.col() + 1);
+    }
 
     if (t.row() >= n) {
       if (n_max >= 0)
@@ -84,10 +110,16 @@ List read_tokens(List sourceSpec, List tokenizerSpec, ListOf<List> colSpecs,
   }
 
   // Save individual columns into a data frame
-  List out(p);
-  for (int j = 0; j < p; ++j) {
-    out[j] = collectors[j]->vector();
+  List out(pOut);
+  int j = 0;
+  for(CollectorItr cur = collectors.begin(); cur != collectors.end(); ++cur) {
+    if ((*cur)->skip())
+      continue;
+
+    out[j] = (*cur)->vector();
+    j++;
   }
+
   out.attr("class") = CharacterVector::create("tbl_df", "tbl", "data.frame");
   out.attr("row.names") = IntegerVector::create(NA_INTEGER, -(i + 1));
   out.attr("names") = col_names;

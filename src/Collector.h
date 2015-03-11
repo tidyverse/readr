@@ -30,6 +30,10 @@ public:
     return column_;
   };
 
+  virtual bool skip() {
+    return false;
+  }
+
   int size() {
     return n_;
   }

@@ -13,6 +13,10 @@ public:
   void setValue(int i, const Token& t) {
   }
 
+  virtual bool skip() {
+    return true;
+  }
+
   static bool canParse(std::string x) {
     return TRUE;
   }
