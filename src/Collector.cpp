@@ -9,22 +9,28 @@ using namespace Rcpp;
 #include "CollectorDouble.h"
 #include "CollectorEuroDouble.h"
 #include "CollectorCharacter.h"
+#include "CollectorDateTime.h"
 
 CollectorPtr Collector::create(List spec) {
   std::string subclass(as<CharacterVector>(spec.attr("class"))[0]);
 
-  if (subclass == "collector_skip"  )
+  if (subclass == "collector_skip")
     return boost::shared_ptr<Collector>(new CollectorSkip());
-  if (subclass == "collector_logical"  )
+  if (subclass == "collector_logical")
     return boost::shared_ptr<Collector>(new CollectorLogical());
-  if (subclass == "collector_integer"  )
+  if (subclass == "collector_integer")
     return boost::shared_ptr<Collector>(new CollectorInteger());
-  if (subclass == "collector_double"   )
+  if (subclass == "collector_double")
     return boost::shared_ptr<Collector>(new CollectorDouble());
-  if (subclass == "collector_euro_double"   )
+  if (subclass == "collector_euro_double")
     return boost::shared_ptr<Collector>(new CollectorEuroDouble());
   if (subclass == "collector_character")
     return boost::shared_ptr<Collector>(new CollectorCharacter());
+  if (subclass == "collector_datetime") {
+    std::string format = as<std::string>(spec["format"]);
+    return boost::shared_ptr<Collector>(new CollectorDateTime(format));
+  }
+
 
   Rcpp::stop("Unsupported column type");
   return boost::shared_ptr<Collector>();

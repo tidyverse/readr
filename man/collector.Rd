@@ -2,6 +2,7 @@
 % Please edit documentation in R/collectors.R
 \name{collector}
 \alias{col_character}
+\alias{col_datetime}
 \alias{col_double}
 \alias{col_euro_double}
 \alias{col_integer}
@@ -20,7 +21,12 @@ col_euro_double()
 
 col_logical()
 
+col_datetime(format)
+
 col_skip()
+}
+\arguments{
+\item{format}{Format string passed on to the underlying \code{strptime}.}
 }
 \description{
 Column parsing specifications.

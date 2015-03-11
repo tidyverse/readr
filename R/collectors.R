@@ -47,9 +47,15 @@ col_logical <- function() {
   collector("logical")
 }
 
+#' @param format Format string passed on to the underlying \code{strptime}.
+#' @rdname collector
+#' @export
+col_datetime <- function(format) {
+  collector("datetime", format = format)
+}
+
 #' @rdname collector
 #' @export
 col_skip <- function() {
   collector("skip")
 }
-

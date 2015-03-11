@@ -2,6 +2,7 @@
 
 S3method(print,collector)
 export(col_character)
+export(col_datetime)
 export(col_double)
 export(col_euro_double)
 export(col_integer)
