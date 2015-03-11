@@ -36,6 +36,13 @@ col_double <- function() {
 
 #' @rdname collector
 #' @export
+col_euro_double <- function() {
+  collector("euro_double")
+}
+
+
+#' @rdname collector
+#' @export
 col_logical <- function() {
   collector("logical")
 }

@@ -3,6 +3,7 @@
 \name{collector}
 \alias{col_character}
 \alias{col_double}
+\alias{col_euro_double}
 \alias{col_integer}
 \alias{col_logical}
 \alias{col_skip}
@@ -14,6 +15,8 @@ col_character()
 col_integer()
 
 col_double()
+
+col_euro_double()
 
 col_logical()
 

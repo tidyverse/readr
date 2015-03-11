@@ -16,7 +16,7 @@ install_github("hadley/readr")
 
 The most important functions are:
 
-* Read delimited files: `read_delim()`, `read_csv()`, `read_tsv()`.
+* Read delimited files: `read_delim()`, `read_csv()`, `read_tsv()`, `read_csv2()`.
 * Read fixed width files: `read_fwf()`, `read_table()`.
 * Read lines: `read_lines()`.
 * Read whole file: `read_file()`.

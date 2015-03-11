@@ -2,6 +2,7 @@
 % Please edit documentation in R/read_delim.R
 \name{read_delim}
 \alias{read_csv}
+\alias{read_csv2}
 \alias{read_delim}
 \alias{read_tsv}
 \title{Read a delimited file into a data frame.}
@@ -11,6 +12,9 @@ read_delim(file, delim, quote = '\"', escape_backslash = TRUE,
   skip = 0, n_max = -1)
 
 read_csv(file, col_names = TRUE, col_types = NULL, na = "NA", skip = 0,
+  n_max = -1)
+
+read_csv2(file, col_names = TRUE, col_types = NULL, na = "NA", skip = 0,
   n_max = -1)
 
 read_tsv(file, col_names = TRUE, col_types = NULL, na = "NA", skip = 0,
@@ -72,7 +76,9 @@ a single quote, \code{\"}.}
 \description{
 \code{read_csv} and \code{read_tsv} are special cases of the general
 \code{read_delim}. They're useful for reading the most common types of
-flat file data.
+flat file data. \code{read_csv2} uses \code{.} for separators, instead of
+\code{,}. This is common in European countries which use \code{,} as the
+decimal separator.
 }
 \examples{
 # Read from a path

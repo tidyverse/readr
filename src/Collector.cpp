@@ -7,6 +7,7 @@ using namespace Rcpp;
 #include "CollectorLogical.h"
 #include "CollectorInteger.h"
 #include "CollectorDouble.h"
+#include "CollectorEuroDouble.h"
 #include "CollectorCharacter.h"
 
 CollectorPtr Collector::create(List spec) {
@@ -20,6 +21,8 @@ CollectorPtr Collector::create(List spec) {
     return boost::shared_ptr<Collector>(new CollectorInteger());
   if (subclass == "collector_double"   )
     return boost::shared_ptr<Collector>(new CollectorDouble());
+  if (subclass == "collector_euro_double"   )
+    return boost::shared_ptr<Collector>(new CollectorEuroDouble());
   if (subclass == "collector_character")
     return boost::shared_ptr<Collector>(new CollectorCharacter());
 
@@ -70,6 +73,8 @@ std::string collectorGuess(CharacterVector input) {
     return "integer";
   if (canParse(input, CollectorDouble::canParse))
     return "double";
+  if (canParse(input, CollectorEuroDouble::canParse))
+    return "eurodouble";
 
   // Otherwise can always parse as a character
   return "character";

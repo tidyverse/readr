@@ -6,7 +6,9 @@ NULL
 #'
 #' \code{read_csv} and \code{read_tsv} are special cases of the general
 #' \code{read_delim}. They're useful for reading the most common types of
-#' flat file data.
+#' flat file data. \code{read_csv2} uses \code{.} for separators, instead of
+#' \code{,}. This is common in European countries which use \code{,} as the
+#' decimal separator.
 #'
 #' @inheritParams datasource
 #' @inheritParams tokenizer_delim
@@ -49,6 +51,17 @@ read_csv <- function(file, col_names = TRUE, col_types = NULL, na = "NA",
   read_delimited(file, tokenizer, col_names = col_names, col_types = col_types,
     skip = skip, n_max = n_max)
 }
+
+#' @rdname read_delim
+#' @export
+read_csv2 <- function(file, col_names = TRUE, col_types = NULL, na = "NA",
+                      skip = 0, n_max = -1) {
+
+  tokenizer <- tokenizer_delim(delim = ".", na = na)
+  read_delimited(file, tokenizer, col_names = col_names, col_types = col_types,
+    skip = skip, n_max = n_max)
+}
+
 
 #' @rdname read_delim
 #' @export
