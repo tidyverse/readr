@@ -18,7 +18,6 @@ enum DelimState {
 class TokenizerDelim : public Tokenizer {
   char delim_, quote_;
   std::string NA_;
-  int NA_size_;
 
   bool escapeBackslash_, escapeDouble_;
 
@@ -34,7 +33,6 @@ public:
     delim_(delim),
     quote_(quote),
     NA_(NA),
-    NA_size_(NA.size()),
     escapeBackslash_(escapeBackslash),
     escapeDouble_(escapeDouble),
     moreTokens_(false)
@@ -210,17 +208,11 @@ private:
 
   Token fieldToken(SourceIterator begin, SourceIterator end, bool hasEscapeB,
                    int row, int col) {
-    if ((end - begin) == NA_size_ && strncmp(begin, &NA_[0], NA_size_) == 0)
-      return Token(TOKEN_MISSING, row, col);
-
-    return Token(begin, end, row, col, (hasEscapeB) ? this : NULL);
+    return Token(begin, end, row, col, (hasEscapeB) ? this : NULL).flagNA(NA_);
   }
 
   Token stringToken(SourceIterator begin, SourceIterator end, bool hasEscapeB,
                     bool hasEscapeD, int row, int col) {
-    if (begin == end)
-      return Token(TOKEN_EMPTY, row, col);
-
     return Token(begin, end, row, col,
       (hasEscapeD || hasEscapeB) ? this : NULL);
   }

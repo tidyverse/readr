@@ -9,7 +9,6 @@ class TokenizerFwf : public Tokenizer {
   std::vector<int> beginOffset_, endOffset_;
   int lineWidth_;
   std::string NA_;
-  int NA_size_;
 
   SourceIterator begin_, curLine_, end_;
   int row_, col_, cols_, max_;
@@ -21,7 +20,6 @@ public:
     beginOffset_(beginOffset),
     endOffset_(endOffset),
     NA_(NA),
-    NA_size_(NA.size()),
     cols_(beginOffset.size()),
     moreTokens_(false)
   {
@@ -77,10 +75,10 @@ public:
       if (col_ + 1 != cols_) {
         Rcpp::warning("Final line is incomplete");
       }
-      return stringToken(fieldBegin, end_);
+      return fieldToken(fieldBegin, end_);
     }
 
-    Token t = stringToken(fieldBegin, fieldEnd);
+    Token t = fieldToken(fieldBegin, fieldEnd);
 
     col_++;
     if (col_  >= cols_) {
@@ -94,18 +92,13 @@ public:
 
 private:
 
-  Token stringToken(SourceIterator begin, SourceIterator end) {
-    while (*begin == ' ' && begin != end)
-      begin++;
-    while (*(end - 1) == ' ' && end != begin)
-      end--;
+  Token fieldToken(SourceIterator begin, SourceIterator end) {
+    Token t = Token(begin, end, row_, col_);
+    t.trim();
+    t.flagNA(NA_);
 
-    if (begin == end)
-      return Token(TOKEN_EMPTY, row_, col_);
-
-    return Token(begin, end, row_, col_);
+    return t;
   }
-
 
   void cacheLineWidth() {
     SourceIterator cur = begin_;

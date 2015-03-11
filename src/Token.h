@@ -30,7 +30,10 @@ public:
     row_(row),
     col_(col),
     pTokenizer_(pTokenizer)
-  {}
+  {
+    if (begin_ == end_)
+      type_ = TOKEN_EMPTY;
+  }
 
   std::string asString() const {
     switch(type_) {
@@ -58,6 +61,29 @@ public:
   }
   int col() const {
     return col_;
+  }
+
+  Token& trim() {
+    while (*begin_ == ' ' && begin_ != end_)
+      begin_++;
+    while (*(end_ - 1) == ' ' && end_ != begin_)
+      end_--;
+
+    if (begin_ == end_)
+      type_ = TOKEN_EMPTY;
+
+    return *this;
+  }
+
+  Token& flagNA(std::string NA) {
+    if ((end_ - begin_) != NA.size())
+      return *this;
+
+    if (strncmp(begin_, &NA[0], NA.size()) != 0)
+      return *this;
+
+    type_ = TOKEN_MISSING;
+    return *this;
   }
 
 };
