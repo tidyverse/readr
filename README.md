@@ -40,20 +40,47 @@ read_file(mtcars_path)
 
 Currently, readr automatically recognises the following types of columns:
 
-* `col_logical()`, containing only `T`, `F`, `TRUE` or `FALSE`.
-* `col_integer()`, integers.
-* `col_double()`, doubles.
-* `col_euro_double()`, "Euro" doubles that use `,` as decimal separator
-* `col_character()`, everything else.
+* `col_logical()` [l], containing only `T`, `F`, `TRUE` or `FALSE`.
+* `col_integer()` [i], integers.
+* `col_double()` [d], doubles.
+* `col_euro_double()` [e], "Euro" doubles that use `,` as decimal separator
+* `col_character()` [c], everything else.
 
 You can also manually specify other column types:
 
-* `col_skip()`, don't import this column.
+* `col_skip()` [_], don't import this column.
 * `col_datetime(format)`, date times with given format
-* `col_numeric()`, a sloppy numeric parser that ignores everything apart from
+* `col_numeric()` [n], a sloppy numeric parser that ignores everything apart from
    0-9, `-` and `.` (this is useful for parsing data formatted as currencies).
 * `col_factor(levels, ordered)`, parse a fixed set of known values into a 
   factor
+
+Use the `col_types` argument to override the default choices. There are a few ways to do it:
+
+* With a string: `dc__d`: read first column as double, second as character,
+  skip the next two and read the last column as a double. (There's no way to
+  use this form with types that need parameters like date time and factor.)
+
+* With a (named) list of col objects:
+
+    ```R
+    read_csv("iris.csv", col_types = list(
+      Sepal.Length = col_double(),
+      Sepal.Width = col_double(),
+      Petal.Length = col_double(),
+      Petal.Width = col_double(),
+      Species = col_factor(c("setosa", "versicolor", "virginica"))
+    ))
+    ```
+    
+    Note that any ommitted columns will be parsed using the default, so
+    the previous function is equivalent to:
+    
+    ```R
+    read_csv("iris.csv", col_types = list(
+      Species = col_factor(c("setosa", "versicolor", "virginica"))
+    )
+    ```
 
 ## Output
 

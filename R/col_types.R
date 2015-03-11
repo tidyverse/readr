@@ -25,7 +25,7 @@ col_types_standardise <- function(col_types, col_names, guessed_types) {
   } else if (is.character(col_types) && length(col_types) == 1) {
     col_types_concise(col_types)
   } else if (is.list(col_types)) {
-    col_types_full(col_types, col_names)
+    col_types_full(col_types, col_names, guessed_types)
   } else {
     stop("`col_types` must be NULL, a list or a string", call. = FALSE)
   }
@@ -39,7 +39,9 @@ col_types_concise <- function(x) {
     d = col_double(),
     i = col_integer(),
     l = col_logical(),
-    "_" = col_skip()
+    "_" = col_skip(),
+    n = col_numeric(),
+    e = col_euro_double()
   )
 
   bad <- setdiff(letters, names(lookup))
@@ -50,7 +52,7 @@ col_types_concise <- function(x) {
   unname(lookup[letters])
 }
 
-col_types_full <- function(col_types, col_names) {
+col_types_full <- function(col_types, col_names, guessed_types) {
   is_collector <- vapply(col_types, inherits, "collector", FUN.VALUE = logical(1))
   if (any(!is_collector)) {
     stop("Some col_types are not S3 collector objects: ",
@@ -59,7 +61,7 @@ col_types_full <- function(col_types, col_names) {
 
   if (is.null(names(col_types))) {
     if (length(col_types) != length(col_names)) {
-      stop("Unnamed parsers must have the same length as col_names",
+      stop("Unnamed columns must have the same length as col_names",
         call. = FALSE)
     }
 
@@ -72,7 +74,10 @@ col_types_full <- function(col_types, col_names) {
     }
 
     skip <- setdiff(col_names, names(col_types))
-    col_types[skip] <- rep(list(col_skip()), length(skip))
+    if (length(skip) > 0) {
+      names(guessed_types) <- col_names
+      col_types[skip] <- lapply(guessed_types[skip], collector_find)
+    }
 
     col_types[match(names(col_types), col_names)]
   }
