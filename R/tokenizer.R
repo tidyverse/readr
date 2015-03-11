@@ -38,7 +38,8 @@ NULL
 #' @export
 #' @rdname Tokenizers
 #' @param na String to use for missing values.
-tokenizer_csv <- function(na = "NA", escape_double = TRUE, escape_backslash = FALSE) {
+tokenizer_delim <- function(delim, quote = '"', na = "NA",
+                            escape_double = TRUE, escape_backslash = FALSE) {
   structure(
     list(
       delim = ",",
@@ -46,7 +47,20 @@ tokenizer_csv <- function(na = "NA", escape_double = TRUE, escape_backslash = FA
       escape_double = escape_double,
       escape_backslash = escape_backslash
     ),
-    class = "tokenizer_csv"
+    class = "tokenizer_delim"
+  )
+}
+
+
+#' @export
+#' @rdname Tokenizers
+tokenizer_csv <- function(na = "NA") {
+  tokenizer_delim(
+    delim = ",",
+    quote = '"',
+    na = na,
+    escape_double = TRUE,
+    escape_backslash = FALSE
   )
 }
 

@@ -3,11 +3,15 @@
 \name{Tokenizers}
 \alias{Tokenizers}
 \alias{tokenizer_csv}
+\alias{tokenizer_delim}
 \alias{tokenizer_fwf}
 \alias{tokenizer_line}
 \title{Tokenizers.}
 \usage{
-tokenizer_csv(na = "NA", escape_double = TRUE, escape_backslash = FALSE)
+tokenizer_delim(delim,
+  quote = "\\"", na = "NA", escape_double = TRUE, escape_backslash = FALSE)
+
+tokenizer_csv(na = "NA")
 
 tokenizer_line()
 

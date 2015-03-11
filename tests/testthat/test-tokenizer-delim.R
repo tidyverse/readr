@@ -1,12 +1,12 @@
-context("TokenizerCsv")
+context("TokenizerDelim")
 # Tests tokenizing and unescaping, via CollectorCharacter.
 
 parse_b <- function(x) {
-  tok <- tokenizer_csv(escape_double = FALSE, escape_backslash = TRUE)
+  tok <- tokenizer_delim(",", escape_double = FALSE, escape_backslash = TRUE)
   parse_vector(x, tok, col_character())
 }
 parse_d <- function(x) {
-  tok <- tokenizer_csv(escape_double = TRUE, escape_backslash = FALSE)
+  tok <- tokenizer_delim(",", escape_double = TRUE, escape_backslash = FALSE)
   parse_vector(x, tok, col_character())
 }
 

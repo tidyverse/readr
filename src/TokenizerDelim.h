@@ -1,11 +1,11 @@
-#ifndef FASTREAD_TOKENIZECSV_H_
-#define FASTREAD_TOKENIZECSV_H_
+#ifndef FASTREAD_TOKENIZEDELIM_H_
+#define FASTREAD_TOKENIZEDELIM_H_
 
 #include <Rcpp.h>
 #include "Token.h"
 #include "Tokenizer.h"
 
-enum CsvState {
+enum DelimState {
   STATE_DELIM,
   STATE_FIELD,
   STATE_STRING,
@@ -15,7 +15,7 @@ enum CsvState {
   STATE_STRING_END
 };
 
-class TokenizerCsv : public Tokenizer {
+class TokenizerDelim : public Tokenizer {
   char delim_;
   std::string NA_;
   int NA_size_;
@@ -23,13 +23,13 @@ class TokenizerCsv : public Tokenizer {
   bool escapeBackslash_, escapeDouble_;
 
   SourceIterator begin_, cur_, end_;
-  CsvState state_;
+  DelimState state_;
   int row_, col_;
   bool moreTokens_;
 
 public:
 
-  TokenizerCsv(char delim = ',', std::string NA = "NA",
+  TokenizerDelim(char delim = ',', std::string NA = "NA",
                bool escapeBackslash = false, bool escapeDouble = true):
     delim_(delim),
     NA_(NA),
@@ -212,7 +212,7 @@ private:
     if ((end - begin) == NA_size_ && strncmp(begin, &NA_[0], NA_size_) == 0)
       return Token(TOKEN_MISSING, row, col);
 
-    UnescapeFun unescaper = hasEscapeB ? TokenizerCsv::unescapeBackslash : NULL;
+    UnescapeFun unescaper = hasEscapeB ? TokenizerDelim::unescapeBackslash : NULL;
 
     return Token(begin, end, unescaper, row, col);
   }
@@ -224,9 +224,9 @@ private:
 
     UnescapeFun unescaper = NULL;
     if (hasEscapeD && !hasEscapeB) {
-      unescaper = TokenizerCsv::unescapeDouble;
+      unescaper = TokenizerDelim::unescapeDouble;
     } else if (hasEscapeB && !hasEscapeD) {
-      unescaper = TokenizerCsv::unescapeBackslash;
+      unescaper = TokenizerDelim::unescapeBackslash;
     } else if (hasEscapeB && hasEscapeD) {
       Rcpp::stop("Not supported");
     }

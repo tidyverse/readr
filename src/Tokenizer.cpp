@@ -3,20 +3,20 @@
 #include <Rcpp.h>
 using namespace Rcpp;
 
-#include "TokenizerCsv.h"
+#include "TokenizerDelim.h"
 #include "TokenizerFwf.h"
 #include "TokenizerLine.h"
 
 TokenizerPtr Tokenizer::create(List spec) {
   std::string subclass(as<CharacterVector>(spec.attr("class"))[0]);
 
-  if (subclass == "tokenizer_csv") {
+  if (subclass == "tokenizer_delim") {
     char delim = as<char>(spec["delim"]);
     std::string na = as<std::string>(spec["na"]);
     bool escapeDouble = as<bool>(spec["escape_double"]);
     bool escapeBackslash = as<bool>(spec["escape_backslash"]);
 
-    return TokenizerPtr(new TokenizerCsv(delim, na, escapeBackslash, escapeDouble));
+    return TokenizerPtr(new TokenizerDelim(delim, na, escapeBackslash, escapeDouble));
   } else if (subclass == "tokenizer_fwf") {
     std::vector<int>
       begin = as<std::vector<int> >(spec["begin"]),
