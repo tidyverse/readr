@@ -5,6 +5,7 @@
 \alias{col_datetime}
 \alias{col_double}
 \alias{col_euro_double}
+\alias{col_factor}
 \alias{col_integer}
 \alias{col_logical}
 \alias{col_numeric}
@@ -26,10 +27,16 @@ col_logical()
 
 col_datetime(format)
 
+col_factor(levels, ordered = FALSE)
+
 col_skip()
 }
 \arguments{
 \item{format}{Format string passed on to the underlying \code{strptime}.}
+
+\item{levels}{Character vector providing set of allowed levels.}
+
+\item{ordered}{Is it an ordered factor?}
 }
 \description{
 Column parsing specifications.

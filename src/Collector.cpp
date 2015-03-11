@@ -11,6 +11,7 @@ using namespace Rcpp;
 #include "CollectorNumeric.h"
 #include "CollectorCharacter.h"
 #include "CollectorDateTime.h"
+#include "CollectorFactor.h"
 
 CollectorPtr Collector::create(List spec) {
   std::string subclass(as<CharacterVector>(spec.attr("class"))[0]);
@@ -32,6 +33,11 @@ CollectorPtr Collector::create(List spec) {
   if (subclass == "collector_datetime") {
     std::string format = as<std::string>(spec["format"]);
     return boost::shared_ptr<Collector>(new CollectorDateTime(format));
+  }
+  if (subclass == "collector_factor") {
+    CharacterVector levels = as<CharacterVector>(spec["levels"]);
+    bool ordered = as<bool>(spec["ordered"]);
+    return boost::shared_ptr<Collector>(new CollectorFactor(levels, ordered));
   }
 
 

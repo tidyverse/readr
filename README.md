@@ -52,6 +52,8 @@ You can also manually specify other column types:
 * `col_datetime(format)`, date times with given format
 * `col_numeric()`, a sloppy numeric parser that ignores everything apart from
    0-9, `-` and `.` (this is useful for parsing data formatted as currencies).
+* `col_factor(levels, ordered)`, parse a fixed set of known values into a 
+  factor
 
 ## Output
 

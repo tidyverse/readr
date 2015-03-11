@@ -59,6 +59,15 @@ col_datetime <- function(format) {
   collector("datetime", format = format)
 }
 
+#' @param levels Character vector providing set of allowed levels.
+#' @param ordered Is it an ordered factor?
+#' @rdname collector
+#' @export
+col_factor <- function(levels, ordered = FALSE) {
+  collector("factor", levels = levels, ordered = ordered)
+}
+
+
 #' @rdname collector
 #' @export
 col_skip <- function() {
