@@ -50,7 +50,8 @@ You can also manually specify other column types:
 
 * `col_skip()`, don't import this column.
 * `col_datetime(format)`, date times with given format
-
+* `col_numeric()`, a sloppy numeric parser that ignores everything apart from
+   0-9, `-` and `.` (this is useful for parsing data formatted as currencies).
 
 ## Output
 

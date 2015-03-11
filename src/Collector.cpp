@@ -8,6 +8,7 @@ using namespace Rcpp;
 #include "CollectorInteger.h"
 #include "CollectorDouble.h"
 #include "CollectorEuroDouble.h"
+#include "CollectorNumeric.h"
 #include "CollectorCharacter.h"
 #include "CollectorDateTime.h"
 
@@ -24,6 +25,8 @@ CollectorPtr Collector::create(List spec) {
     return boost::shared_ptr<Collector>(new CollectorDouble());
   if (subclass == "collector_euro_double")
     return boost::shared_ptr<Collector>(new CollectorEuroDouble());
+  if (subclass == "collector_numeric")
+    return boost::shared_ptr<Collector>(new CollectorNumeric());
   if (subclass == "collector_character")
     return boost::shared_ptr<Collector>(new CollectorCharacter());
   if (subclass == "collector_datetime") {

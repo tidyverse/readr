@@ -40,6 +40,11 @@ col_euro_double <- function() {
   collector("euro_double")
 }
 
+#' @rdname collector
+#' @export
+col_numeric <- function() {
+  collector("numeric")
+}
 
 #' @rdname collector
 #' @export

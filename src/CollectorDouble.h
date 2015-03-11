@@ -53,8 +53,6 @@ public:
     return CollectorDouble::parse(x.begin(), x.end()).first;
   }
 
-private:
-
   template <class Iter>
   static std::pair<bool,double> parse(Iter begin, Iter end) {
     double res = 0;

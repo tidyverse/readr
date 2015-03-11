@@ -7,6 +7,7 @@
 \alias{col_euro_double}
 \alias{col_integer}
 \alias{col_logical}
+\alias{col_numeric}
 \alias{col_skip}
 \alias{collector}
 \title{Column parsing specifications.}
@@ -18,6 +19,8 @@ col_integer()
 col_double()
 
 col_euro_double()
+
+col_numeric()
 
 col_logical()
 
