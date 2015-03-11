@@ -30,13 +30,14 @@
 #' # 3. Paired vectors of start and end positions
 #' read_fwf(fwf_sample, fwf_positions(c(1, 4), c(2, 10)))
 read_fwf <- function(file, col_positions, col_types = NULL, na = "NA", skip = 0,
-                     n_max = -1) {
+                     n_max = -1, progress = interactive()) {
   ds <- datasource(file, skip = skip)
   tokenizer <- tokenizer_fwf(col_positions$begin, col_positions$end, na = na)
 
   col_types <- col_types_standardise(col_types, col_positions$col_names,
     types(ds, tokenizer))
-  read_tokens(ds, tokenizer, col_types, col_positions$col_names, n_max = n_max)
+  read_tokens(ds, tokenizer, col_types, col_positions$col_names, n_max = n_max,
+    progress = progress)
 }
 
 #' @rdname read_fwf

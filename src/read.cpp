@@ -6,6 +6,7 @@ using namespace Rcpp;
 #include "TokenizerLine.h"
 #include "Collector.h"
 #include "CollectorCharacter.h"
+#include "Progress.h"
 
 // [[Rcpp::export]]
 CharacterVector read_file_(List sourceSpec) {
@@ -53,11 +54,14 @@ typedef std::vector<CollectorPtr>::iterator CollectorItr;
 
 // [[Rcpp::export]]
 List read_tokens(List sourceSpec, List tokenizerSpec, ListOf<List> colSpecs,
-                 CharacterVector col_names, int n_max = -1) {
+                 CharacterVector col_names, int n_max = -1,
+                 bool progress = true) {
   SourcePtr source = Source::create(sourceSpec);
   TokenizerPtr tokenizer = Tokenizer::create(tokenizerSpec);
   tokenizer->tokenize(source->begin(), source->end());
   std::vector<CollectorPtr> collectors = collectorsCreate(colSpecs);
+
+  Progress progressBar;
 
   int p = collectors.size();
   // Work out how many output columns we have
@@ -87,8 +91,11 @@ List read_tokens(List sourceSpec, List tokenizerSpec, ListOf<List> colSpecs,
   int n = (n_max < 0) ? 1000 : n_max;
   collectorsResize(collectors, n);
 
-  int i = 0;
+  int i = 0, cells = 0;
   for (Token t = tokenizer->nextToken(); t.type() != TOKEN_EOF; t = tokenizer->nextToken()) {
+    if (progress && (cells++) % 250000 == 0)
+      progressBar.show(tokenizer->proportionDone());
+
     if (t.col() >= p) {
       stop("In row %i, there are %i columns!", t.row() + 1, t.col() + 1);
     }
@@ -104,10 +111,12 @@ List read_tokens(List sourceSpec, List tokenizerSpec, ListOf<List> colSpecs,
     collectors[t.col()]->setValue(t.row(), t);
     i = t.row();
   }
+  progressBar.stop();
 
   if (i <= n) {
     collectorsResize(collectors, i + 1);
   }
+
 
   // Save individual columns into a data frame
   List out(pOut);

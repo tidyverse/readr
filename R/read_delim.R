@@ -15,9 +15,11 @@ NULL
 #' @inheritParams col_names_standardise
 #' @inheritParams col_types_standardise
 #' @param n_max Maximum number of records to read.
+#' @param progress Display a progress bar? (If file loading is going to take a
+#'   while)
 #' @usage read_delim(file, delim, quote = '\"', escape_backslash = TRUE,
 #'   escape_double = TRUE, na = "NA", col_names = TRUE, col_types = NULL,
-#'   skip = 0, n_max = -1)
+#'   skip = 0, n_max = -1, progress = TRUE)
 #' @export
 #' @examples
 #' # Read from a path
@@ -33,49 +35,50 @@ NULL
 #' read_csv("x,y\n1,2\n3,4", col_types = list(col_double(), col_character()))
 read_delim <- function(file, delim, quote = '"', escape_backslash = TRUE,
                        escape_double = TRUE, na = "NA", col_names = TRUE,
-                       col_types = NULL, skip = 0, n_max = -1) {
+                       col_types = NULL, skip = 0, n_max = -1,
+                       progress = interactive()) {
 
   tokenizer <- tokenizer_delim(delim, quote = quote,
     escape_backslash = escape_backslash, escape_double = escape_double,
     na = na)
   read_delimited(file, tokenizer, col_names = col_names, col_types = col_types,
-    skip = skip, n_max = n_max)
+    skip = skip, n_max = n_max, progress = progress)
 }
 
 #' @rdname read_delim
 #' @export
 read_csv <- function(file, col_names = TRUE, col_types = NULL, na = "NA",
-                     skip = 0, n_max = -1) {
+                     skip = 0, n_max = -1, progress = interactive()) {
 
   tokenizer <- tokenizer_csv(na = na)
   read_delimited(file, tokenizer, col_names = col_names, col_types = col_types,
-    skip = skip, n_max = n_max)
+    skip = skip, n_max = n_max, progress = progress)
 }
 
 #' @rdname read_delim
 #' @export
 read_csv2 <- function(file, col_names = TRUE, col_types = NULL, na = "NA",
-                      skip = 0, n_max = -1) {
+                      skip = 0, n_max = -1, progress = interactive()) {
 
   tokenizer <- tokenizer_delim(delim = ".", na = na)
   read_delimited(file, tokenizer, col_names = col_names, col_types = col_types,
-    skip = skip, n_max = n_max)
+    skip = skip, n_max = n_max, progress = progress)
 }
 
 
 #' @rdname read_delim
 #' @export
 read_tsv <- function(file, col_names = TRUE, col_types = NULL, na = "NA",
-                     skip = 0, n_max = -1) {
+                     skip = 0, n_max = -1, progress = interactive()) {
 
   tokenizer <- tokenizer_tsv(na = na)
   read_delimited(file, tokenizer, col_names = col_names, col_types = col_types,
-    skip = skip, n_max = n_max)
+    skip = skip, n_max = n_max, progress = progress)
 }
 
 # Helper functions for reading from delimited files ----------------------------
 read_delimited <- function(file, tokenizer, col_names = TRUE, col_types = NULL,
-                           skip = 0, n_max = -1) {
+                           skip = 0, n_max = -1, progress = interactive()) {
   ds <- datasource(file, skip = skip)
 
   if (isTRUE(col_names))
@@ -84,7 +87,8 @@ read_delimited <- function(file, tokenizer, col_names = TRUE, col_types = NULL,
 
   ds <- datasource(file, skip = skip)
   col_types <- col_types_standardise(col_types, col_names, types(ds, tokenizer))
-  read_tokens(ds, tokenizer, col_types, col_names, n_max = n_max)
+  read_tokens(ds, tokenizer, col_types, col_names, n_max = n_max,
+    progress = progress)
 
 }
 

@@ -8,7 +8,7 @@
 \title{Read a fixed width file.}
 \usage{
 read_fwf(file, col_positions, col_types = NULL, na = "NA", skip = 0,
-  n_max = -1)
+  n_max = -1, progress = interactive())
 
 fwf_empty(file, skip = 0, col_names = NULL)
 
@@ -48,6 +48,9 @@ use \code{fwf_positions}.}
 \item{skip}{Number of lines to skip before reading data.}
 
 \item{n_max}{Maximum number of records to read.}
+
+\item{progress}{Display a progress bar? (If file loading is going to take a
+while)}
 
 \item{col_names}{Either NULL, or a character vector column names.}
 

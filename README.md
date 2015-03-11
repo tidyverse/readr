@@ -102,12 +102,12 @@ Use the `col_types` argument to override the default choices. There are a few wa
 
 Compared to the corresponding base functions, readr functions:
 
-* Return "modern" data frames, as described above.
-
 * Use a consistent naming scheme for the parameters (e.g. `col_names` and 
  `col_types` not `header` and `colClasses`).
  
 * Are much faster (up to 10x faster).
+
+* Have a helpful progress bar if loading is going to take a while.
 
 ## Compared to `fread()`
 

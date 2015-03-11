@@ -101,8 +101,8 @@ BEGIN_RCPP
 END_RCPP
 }
 // read_tokens
-List read_tokens(List sourceSpec, List tokenizerSpec, ListOf<List> colSpecs, CharacterVector col_names, int n_max);
-RcppExport SEXP readr_read_tokens(SEXP sourceSpecSEXP, SEXP tokenizerSpecSEXP, SEXP colSpecsSEXP, SEXP col_namesSEXP, SEXP n_maxSEXP) {
+List read_tokens(List sourceSpec, List tokenizerSpec, ListOf<List> colSpecs, CharacterVector col_names, int n_max, bool progress);
+RcppExport SEXP readr_read_tokens(SEXP sourceSpecSEXP, SEXP tokenizerSpecSEXP, SEXP colSpecsSEXP, SEXP col_namesSEXP, SEXP n_maxSEXP, SEXP progressSEXP) {
 BEGIN_RCPP
     Rcpp::RObject __result;
     Rcpp::RNGScope __rngScope;
@@ -111,7 +111,8 @@ BEGIN_RCPP
     Rcpp::traits::input_parameter< ListOf<List> >::type colSpecs(colSpecsSEXP);
     Rcpp::traits::input_parameter< CharacterVector >::type col_names(col_namesSEXP);
     Rcpp::traits::input_parameter< int >::type n_max(n_maxSEXP);
-    __result = Rcpp::wrap(read_tokens(sourceSpec, tokenizerSpec, colSpecs, col_names, n_max));
+    Rcpp::traits::input_parameter< bool >::type progress(progressSEXP);
+    __result = Rcpp::wrap(read_tokens(sourceSpec, tokenizerSpec, colSpecs, col_names, n_max, progress));
     return __result;
 END_RCPP
 }

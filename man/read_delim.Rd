@@ -9,16 +9,16 @@
 \usage{
 read_delim(file, delim, quote = '\"', escape_backslash = TRUE,
   escape_double = TRUE, na = "NA", col_names = TRUE, col_types = NULL,
-  skip = 0, n_max = -1)
+  skip = 0, n_max = -1, progress = TRUE)
 
 read_csv(file, col_names = TRUE, col_types = NULL, na = "NA", skip = 0,
-  n_max = -1)
+  n_max = -1, progress = interactive())
 
 read_csv2(file, col_names = TRUE, col_types = NULL, na = "NA", skip = 0,
-  n_max = -1)
+  n_max = -1, progress = interactive())
 
 read_tsv(file, col_names = TRUE, col_types = NULL, na = "NA", skip = 0,
-  n_max = -1)
+  n_max = -1, progress = interactive())
 }
 \arguments{
 \item{file}{Either a path to a file, a url, a connection, or literal data
@@ -72,6 +72,9 @@ a single quote, \code{\"}.}
 \item{skip}{Number of lines to skip before reading data.}
 
 \item{n_max}{Maximum number of records to read.}
+
+\item{progress}{Display a progress bar? (If file loading is going to take a
+while)}
 }
 \description{
 \code{read_csv} and \code{read_tsv} are special cases of the general
