@@ -230,21 +230,21 @@ public:
   void unescape(SourceIterator begin, SourceIterator end,
                 boost::container::string* pOut) {
     if (escapeDouble_ && !escapeBackslash_) {
-      unescapeDouble(begin, end, quote_, pOut);
+      unescapeDouble(begin, end, pOut);
     } else if (escapeBackslash_ && !escapeDouble_) {
-      unescapeBackslash(begin, end, delim_, quote_, pOut);
+      unescapeBackslash(begin, end, pOut);
     } else if (escapeBackslash_ && escapeDouble_) {
       Rcpp::stop("Not supported");
     }
   }
 
-  static void unescapeDouble(SourceIterator begin, SourceIterator end,
-                             char quote, boost::container::string* pOut) {
+  void unescapeDouble(SourceIterator begin, SourceIterator end,
+                      boost::container::string* pOut) {
     pOut->reserve(end - begin);
 
     bool inEscape = false;
     for (SourceIterator cur = begin; cur != end; ++cur) {
-      if (*cur == quote) {
+      if (*cur == quote_) {
         if (inEscape) {
           pOut->push_back(*cur);
           inEscape = false;
@@ -257,9 +257,8 @@ public:
     }
   }
 
-  static void unescapeBackslash(SourceIterator begin, SourceIterator end,
-                                char delim, char quote,
-                                boost::container::string* pOut) {
+  void unescapeBackslash(SourceIterator begin, SourceIterator end,
+                          boost::container::string* pOut) {
     pOut->reserve(end - begin);
 
     bool inEscape = false;
@@ -276,7 +275,16 @@ public:
         case 'r':   pOut->push_back('\r'); break;
         case 't':   pOut->push_back('\t'); break;
         case 'v':   pOut->push_back('\v'); break;
-        default:    pOut->push_back(*cur); break;
+        default:
+          if (*cur == delim_ || *cur == quote_) {
+            pOut->push_back(*cur);
+          } else {
+            pOut->push_back('\\');
+            pOut->push_back(*cur);
+            Rcpp::warning("Unrecgonised escape '\%s' at [%i, %i]",
+              *cur, row_ + 1, col_ + 1);
+          }
+          break;
         }
         inEscape = false;
       } else {
