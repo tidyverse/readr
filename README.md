@@ -67,7 +67,7 @@ Compared to the corresponding base functions, readr functions:
 
 [data.table](https://github.com/Rdatatable/data.table) has a similar function called fread. Compared to fread, readr:
 
-* Is slower. (It's currently much slower, but will always be at least 20% slower
+* Is slower. (It's currently much slower, but will always be somewhat slower
   than fread.) If you want absolutely the best performance, use 
   `data.table::fread()`.
   
