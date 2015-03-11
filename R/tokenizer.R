@@ -38,6 +38,15 @@ NULL
 #' @export
 #' @rdname Tokenizers
 #' @param na String to use for missing values.
+#' @param delim Single character used to separate fields within a record.
+#' @param quote Single character used to quote strings.
+#' @param escape_double Does the file escape quotes by doubling them?
+#'   i.e. If this option is \code{TRUE}, the value \code{""""} represents
+#'   a single quote, \code{\"}.
+#' @param escape_backslash Does the file use backslashes to escape special
+#'   characters? This is more general than \code{escape_double} as backslashes
+#'   can be used to escape the delimeter character, the quote characer, or
+#'   to add special characters like \code{\\n}.
 tokenizer_delim <- function(delim, quote = '"', na = "NA",
                             escape_double = TRUE, escape_backslash = FALSE) {
   structure(
@@ -51,12 +60,23 @@ tokenizer_delim <- function(delim, quote = '"', na = "NA",
   )
 }
 
-
 #' @export
 #' @rdname Tokenizers
 tokenizer_csv <- function(na = "NA") {
   tokenizer_delim(
     delim = ",",
+    quote = '"',
+    na = na,
+    escape_double = TRUE,
+    escape_backslash = FALSE
+  )
+}
+
+#' @export
+#' @rdname Tokenizers
+tokenizer_tsv <- function(na = "NA") {
+  tokenizer_delim(
+    delim = "\t",
     quote = '"',
     na = na,
     escape_double = TRUE,

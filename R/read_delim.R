@@ -1,0 +1,86 @@
+#' @useDynLib readr
+#' @importClassesFrom Rcpp "C++Object"
+NULL
+
+#' Read a delimited file into a data frame.
+#'
+#' \code{read_csv} and \code{read_tsv} are special cases of the general
+#' \code{read_delim}. They're useful for reading the most common types of
+#' flat file data.
+#'
+#' @inheritParams datasource
+#' @inheritParams tokenizer_delim
+#' @inheritParams col_names_standardise
+#' @inheritParams col_types_standardise
+#' @param n_max Maximum number of records to read.
+#' @usage read_delim(file, delim, quote = '\"', escape_backslash = TRUE,
+#'   escape_double = TRUE, na = "NA", col_names = TRUE, col_types = NULL,
+#'   skip = 0, n_max = -1)
+#' @export
+#' @examples
+#' # Read from a path
+#' read_csv(system.file("extdata/mtcars.csv", package = "readr"))
+#' # Or directly from a string (must contain a newline)
+#' read_csv("x,y\n1,2\n3,4")
+#'
+#' # By default, readr guess the columns types, looking at the first 100 rows.
+#' # You can override with a compact specification:
+#' read_csv("x,y\n1,2\n3,4", col_types = "dc")
+#'
+#' # Or with a list of column types:
+#' read_csv("x,y\n1,2\n3,4", col_types = list(col_double(), col_character()))
+read_delim <- function(file, delim, quote = '"', escape_backslash = TRUE,
+                       escape_double = TRUE, na = "NA", col_names = TRUE,
+                       col_types = NULL, skip = 0, n_max = -1) {
+
+  tokenizer <- tokenizer_delim(delim, quote = quote,
+    escape_backslash = escape_backslash, escape_double = escape_double,
+    na = na)
+  read_delimited(file, tokenizer, col_names = col_names, col_types = col_types,
+    skip = skip, n_max = n_max)
+}
+
+#' @rdname read_delim
+#' @export
+read_csv <- function(file, col_names = TRUE, col_types = NULL, na = "NA",
+                     skip = 0, n_max = -1) {
+
+  tokenizer <- tokenizer_csv(na = na)
+  read_delimited(file, tokenizer, col_names = col_names, col_types = col_types,
+    skip = skip, n_max = n_max)
+}
+
+#' @rdname read_delim
+#' @export
+read_tsv <- function(file, col_names = TRUE, col_types = NULL, na = "NA",
+                     skip = 0, n_max = -1) {
+
+  tokenizer <- tokenizer_tsv(na = na)
+  read_delimited(file, tokenizer, col_names = col_names, col_types = col_types,
+    skip = skip, n_max = n_max)
+}
+
+# Helper functions for reading from delimited files ----------------------------
+read_delimited <- function(file, tokenizer, col_names = TRUE, col_types = NULL,
+                           skip = 0, n_max = -1) {
+  ds <- datasource(file, skip = skip)
+
+  if (isTRUE(col_names))
+    skip <- skip + 1
+  col_names <- col_names_standardise(col_names, header(ds, tokenizer))
+
+  ds <- datasource(file, skip = skip)
+  col_types <- col_types_standardise(col_types, col_names, types(ds, tokenizer))
+  read_tokens(ds, tokenizer, col_types, col_names, n_max = n_max)
+
+}
+
+# The header is the first row, parsed into fields
+header <- function(datasource, tokenizer) {
+  first <- read_lines_(datasource, n_max = 1)
+  parse_vector(first, tokenizer = tokenizer, col_character())
+}
+
+types <- function(source, tokenizer) {
+  collectorsGuess(source, tokenizer, n = 100)
+}

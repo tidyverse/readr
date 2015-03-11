@@ -6,6 +6,7 @@
 \alias{tokenizer_delim}
 \alias{tokenizer_fwf}
 \alias{tokenizer_line}
+\alias{tokenizer_tsv}
 \title{Tokenizers.}
 \usage{
 tokenizer_delim(delim,
@@ -13,12 +14,27 @@ tokenizer_delim(delim,
 
 tokenizer_csv(na = "NA")
 
+tokenizer_tsv(na = "NA")
+
 tokenizer_line()
 
 tokenizer_fwf(begin, end, na = "NA")
 }
 \arguments{
+\item{delim}{Single character used to separate fields within a record.}
+
+\item{quote}{Single character used to quote strings.}
+
 \item{na}{String to use for missing values.}
+
+\item{escape_double}{Does the file escape quotes by doubling them?
+i.e. If this option is \code{TRUE}, the value \code{""""} represents
+a single quote, \code{\"}.}
+
+\item{escape_backslash}{Does the file use backslashes to escape special
+characters? This is more general than \code{escape_double} as backslashes
+can be used to escape the delimeter character, the quote characer, or
+to add special characters like \code{\\n}.}
 
 \item{begin,end}{Begin and end offsets for each file. These are C++
 offsets so the first column is column zero, and the ranges are
