@@ -4,11 +4,11 @@ using namespace Rcpp;
 #include "Source.h"
 #include "Tokenizer.h"
 
-std::vector<bool> emptyCols_(SourceIterator begin, SourceIterator end, int n = 100) {
+std::vector<bool> emptyCols_(SourceIterator begin, SourceIterator end, size_t n = 100) {
 
   std::vector<bool> is_white;
 
-  int row = 0, col = 0;
+  size_t row = 0, col = 0;
   for (SourceIterator cur = begin; cur != end; ++cur) {
     if (row > n)
       break;
@@ -44,7 +44,7 @@ List whitespaceColumns(List sourceSpec, int n = 100) {
 
   bool in_col = false;
 
-  for (int i = 0; i < empty.size(); ++i) {
+  for (size_t i = 0; i < empty.size(); ++i) {
     if (in_col && empty[i]) {
       end.push_back(i);
       in_col = false;

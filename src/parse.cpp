@@ -12,7 +12,7 @@ IntegerVector dim_tokens_(List sourceSpec, List tokenizerSpec) {
   TokenizerPtr tokenizer = Tokenizer::create(tokenizerSpec);
   tokenizer->tokenize(source->begin(), source->end());
 
-  int rows = -1, cols = -1;
+  size_t rows = -1, cols = -1;
 
   for (Token t = tokenizer->nextToken(); t.type() != TOKEN_EOF; t = tokenizer->nextToken()) {
     rows = t.row();

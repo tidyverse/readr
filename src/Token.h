@@ -15,7 +15,7 @@ enum TokenType {
 class Token {
   TokenType type_;
   SourceIterator begin_, end_;
-  int row_, col_;
+  size_t row_, col_;
 
   Tokenizer* pTokenizer_;
 
@@ -56,10 +56,10 @@ public:
     return std::make_pair(pOut->data(), pOut->data() + pOut->size());
   }
 
-  int row() const {
+  size_t row() const {
     return row_;
   }
-  int col() const {
+  size_t col() const {
     return col_;
   }
 
@@ -76,7 +76,7 @@ public:
   }
 
   Token& flagNA(std::string NA) {
-    if ((end_ - begin_) != NA.size())
+    if ((size_t) (end_ - begin_) != NA.size())
       return *this;
 
     if (strncmp(begin_, &NA[0], NA.size()) != 0)

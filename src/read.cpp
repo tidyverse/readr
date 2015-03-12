@@ -63,19 +63,19 @@ List read_tokens(List sourceSpec, List tokenizerSpec, ListOf<List> colSpecs,
 
   Progress progressBar;
 
-  int p = collectors.size();
+  size_t p = collectors.size();
   // Work out how many output columns we have
-  int pOut = 0;
+  size_t pOut = 0;
   for(CollectorItr cur = collectors.begin(); cur != collectors.end(); ++cur) {
     if (!(*cur)->skip())
       pOut++;
   }
 
   // Allow either one name for column, or one name per output col
-  if (p != pOut && col_names.size() == p) {
+  if (p != pOut && (size_t) col_names.size() == p) {
     CharacterVector col_names2(pOut);
     int cj = 0;
-    for (int j = 0; j < p; ++j) {
+    for (size_t j = 0; j < p; ++j) {
       if (collectors[j]->skip())
         continue;
       col_names2[cj++] = col_names[j];
@@ -83,15 +83,15 @@ List read_tokens(List sourceSpec, List tokenizerSpec, ListOf<List> colSpecs,
     col_names = col_names2;
   }
 
-  if (pOut != col_names.size()) {
+  if (pOut != (size_t) col_names.size()) {
     Rcpp::stop("You have %i column names, but %i columns",
       col_names.size(), pOut);
   }
 
-  int n = (n_max < 0) ? 1000 : n_max;
+  size_t n = (n_max < 0) ? 1000 : n_max;
   collectorsResize(collectors, n);
 
-  int i = 0, cells = 0;
+  size_t i = 0, cells = 0;
   for (Token t = tokenizer->nextToken(); t.type() != TOKEN_EOF; t = tokenizer->nextToken()) {
     if (progress && (cells++) % 250000 == 0)
       progressBar.show(tokenizer->proportionDone());
@@ -138,7 +138,7 @@ List read_tokens(List sourceSpec, List tokenizerSpec, ListOf<List> colSpecs,
 
 
 // [[Rcpp::export]]
-std::vector<std::string> collectorsGuess(List sourceSpec, List tokenizerSpec, int n = 100) {
+std::vector<std::string> collectorsGuess(List sourceSpec, List tokenizerSpec, size_t n = 100) {
   SourcePtr source = Source::create(sourceSpec);
   TokenizerPtr tokenizer = Tokenizer::create(tokenizerSpec);
   tokenizer->tokenize(source->begin(), source->end());
@@ -152,7 +152,7 @@ std::vector<std::string> collectorsGuess(List sourceSpec, List tokenizerSpec, in
     if (t.col() >= collectors.size()) {
       int old_p = collectors.size();
       collectors.resize(t.col() + 1);
-      for (int j = old_p; j < collectors.size(); ++j) {
+      for (size_t j = old_p; j < collectors.size(); ++j) {
         collectors[j].resize(n);
       }
     }
@@ -161,7 +161,7 @@ std::vector<std::string> collectorsGuess(List sourceSpec, List tokenizerSpec, in
   }
 
   std::vector<std::string> out;
-  for (int j = 0; j < collectors.size(); ++j) {
+  for (size_t j = 0; j < collectors.size(); ++j) {
     CharacterVector col = as<CharacterVector>(collectors[j].vector());
     out.push_back(collectorGuess(col));
   }

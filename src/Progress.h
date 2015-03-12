@@ -49,7 +49,7 @@ public:
       }
     }
 
-    double time_left = (1 - prop) * est;
+    // double time_left = (1 - prop) * est;
     int nbars = prop * width_, nspaces = (1 - prop) * width_;
 
     Rcpp::Rcout << "\r|" << std::string(nbars, '=') << std::string(nspaces, ' ') <<

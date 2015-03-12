@@ -60,7 +60,7 @@ std::vector<CollectorPtr> collectorsCreate(ListOf<List> specs) {
 }
 
 void collectorsResize(std::vector<CollectorPtr>& collectors, int n) {
-  for (int j = 0; j < collectors.size(); ++j) {
+  for (size_t j = 0; j < collectors.size(); ++j) {
     collectors[j]->resize(n);
   }
 }
