@@ -23,7 +23,8 @@ datasource <- function(file, skip = 0) {
   if (inherits(file, "source")) {
     file
   } else if (inherits(file, "connection")) {
-    datasource_file(cache_con(file), skip)
+    path <- cache_con(file)
+    datasource_file(path, skip)
   } else if (is.raw(file)) {
     datasource_raw(file, skip)
   } else if (is.character(file)) {
@@ -72,7 +73,7 @@ cache_con <- function(con) {
   while(length(buf <- readBin(con, raw(), 32 * 1024)))
     writeBin(buf, tmpcon)
 
-  return(tmp)
+  tmp
 }
 
 check_file <- function(path) {

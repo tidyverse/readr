@@ -37,7 +37,6 @@ read_delim <- function(file, delim, quote = '"', escape_backslash = TRUE,
                        escape_double = TRUE, na = "NA", col_names = TRUE,
                        col_types = NULL, skip = 0, n_max = -1,
                        progress = interactive()) {
-
   tokenizer <- tokenizer_delim(delim, quote = quote,
     escape_backslash = escape_backslash, escape_double = escape_double,
     na = na)
@@ -79,6 +78,10 @@ read_tsv <- function(file, col_names = TRUE, col_types = NULL, na = "NA",
 # Helper functions for reading from delimited files ----------------------------
 read_delimited <- function(file, tokenizer, col_names = TRUE, col_types = NULL,
                            skip = 0, n_max = -1, progress = interactive()) {
+  if (is.connection(file)) {
+    file <- cache_con(file)
+    on.exit(unlink(file))
+  }
   ds <- datasource(file, skip = skip)
 
   if (isTRUE(col_names))
