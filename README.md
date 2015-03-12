@@ -2,7 +2,12 @@
 
 [![Build Status](https://travis-ci.org/hadley/readr.png?branch=master)](https://travis-ci.org/hadley/readr)
 
-The goal of readr is to provide a fast and friendly way to read data into R. It will eventually encompass the functionality provided by `read.csv()`, `read.table()`, `read.delim()` and `read.fwf()`.
+The goal of readr is to provide a fast and friendly way to read tabular data into R. The most important functions are:
+
+* Read delimited files: `read_delim()`, `read_csv()`, `read_tsv()`, `read_csv2()`.
+* Read fixed width files: `read_fwf()`, `read_table()`.
+* Read lines: `read_lines()`.
+* Read whole file: `read_file()`.
 
 ## Installation
 
@@ -13,13 +18,6 @@ install_github("hadley/readr")
 ```
 
 ## Usage
-
-The most important functions are:
-
-* Read delimited files: `read_delim()`, `read_csv()`, `read_tsv()`, `read_csv2()`.
-* Read fixed width files: `read_fwf()`, `read_table()`.
-* Read lines: `read_lines()`.
-* Read whole file: `read_file()`.
 
 ```r
 library(readr)
@@ -43,7 +41,7 @@ Currently, readr automatically recognises the following types of columns:
 * `col_logical()` [l], containing only `T`, `F`, `TRUE` or `FALSE`.
 * `col_integer()` [i], integers.
 * `col_double()` [d], doubles.
-* `col_euro_double()` [e], "Euro" doubles that use `,` as decimal separator
+* `col_euro_double()` [e], "Euro" doubles that use `,` as decimal separator.
 * `col_character()` [c], everything else.
 
 You can also manually specify other column types:
@@ -55,9 +53,9 @@ You can also manually specify other column types:
 * `col_factor(levels, ordered)`, parse a fixed set of known values into a 
   factor
 
-Use the `col_types` argument to override the default choices. There are a few ways to do it:
+Use the `col_types` argument to override the default choices. There are two ways to use it:
 
-* With a string: `dc__d`: read first column as double, second as character,
+* With a string: `"dc__d"`: read first column as double, second as character,
   skip the next two and read the last column as a double. (There's no way to
   use this form with types that need parameters like date time and factor.)
 
@@ -73,8 +71,8 @@ Use the `col_types` argument to override the default choices. There are a few wa
     ))
     ```
     
-    Note that any ommitted columns will be parsed using the default, so
-    the previous function is equivalent to:
+    Any omitted columns will be parsed automatically, so the previous call is 
+    equivalent to:
     
     ```R
     read_csv("iris.csv", col_types = list(
@@ -111,22 +109,23 @@ Compared to the corresponding base functions, readr functions:
 
 ## Compared to `fread()`
 
-[data.table](https://github.com/Rdatatable/data.table) has a similar function called fread. Compared to fread, readr:
+[data.table](https://github.com/Rdatatable/data.table) has a function similar to `read_csv()` called fread. Compared to fread, readr:
 
-* Is slower. (It's currently much slower, but will always be somewhat slower
-  than fread.) If you want absolutely the best performance, use 
-  `data.table::fread()`.
+* Is slower (currently ~1.2-2x slower. If you want absolutely the best 
+  performance, use `data.table::fread()`.
   
-* readr has a slightly more sophisticated csv parser, and automatically 
-  unescape doubled quotes (e.g. `"a""b"` is read in as `a"b`).
+* Readr has a slightly more sophisticated parser, recognising both 
+  doubled ("""") and backslash escapes ("\""). Readr allows you to read
+  factors and date times directly from disk.
   
 * `fread()` saves you work by automatically guessing the delimiter, whether
   or not the file has a header, how many lines to skip by default and 
-  more. Readr always forces you to supply these parameters.
+  more. Readr forces you to supply these parameters.
   
-* The underlying designs are quite difference. Readr is designed to be fairly
-  general so dealing with new types of rectangular data just requires 
-  implementing a new tokenizer. fread is pure C, readr is C++ (and Rcpp).
+* The underlying designs are quite different. Readr is designed to be
+  general, and dealing with new types of rectangular data just requires 
+  implementing a new tokenizer. `fread()` is designed to be as fast as 
+  possible. `fread()` is pure C, readr is C++ (and Rcpp).
 
 ## Acknowledgements
 
@@ -137,8 +136,7 @@ A big set of thanks to:
   should write a tokenizer.
   
 * [JJ Allaire](https://github.com/jjallaire) for helping me come up with a
-  design that makes very few copies.
+  design that makes very few copies, and is easy to extend.
   
 * [Dirk Eddelbuettel](http://dirk.eddelbuettel.com) for coming up with the
   name!
-  
