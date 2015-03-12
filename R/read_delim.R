@@ -19,7 +19,7 @@ NULL
 #'   while)
 #' @usage read_delim(file, delim, quote = '\"', escape_backslash = TRUE,
 #'   escape_double = TRUE, na = "NA", col_names = TRUE, col_types = NULL,
-#'   skip = 0, n_max = -1, progress = TRUE)
+#'   skip = 0, n_max = -1, progress = interactive())
 #' @export
 #' @examples
 #' # Read from a path
