@@ -16,11 +16,6 @@ public:
   virtual bool skip() {
     return true;
   }
-
-  static bool canParse(std::string x) {
-    return TRUE;
-  }
-
 };
 
 #endif

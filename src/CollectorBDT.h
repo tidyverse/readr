@@ -8,7 +8,7 @@ namespace bpt = boost::posix_time;
 
 const bpt::ptime epoch(boost::gregorian::date(1970, 1, 1));
 
-std::string formatStandard(std::string format);
+std::string formatStandard(const std::string& format);
 
 class CollectorBDT : public Collector {
   std::string format_;

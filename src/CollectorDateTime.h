@@ -8,7 +8,7 @@
 
 time_t timegm(struct tm *tm);
 
-std::string formatStandard(std::string format) {
+std::string formatStandard(const std::string& format) {
   std::string out;
   out.resize(100);
 
@@ -34,7 +34,7 @@ class CollectorDateTime : public Collector {
   std::string format_;
 
 public:
-  CollectorDateTime(std::string format):
+  CollectorDateTime(const std::string& format):
     Collector(Rcpp::NumericVector()),
     format_(format)
   {
@@ -80,11 +80,6 @@ public:
     return column_;
   };
 
-
-  static bool canParse(std::string x) {
-    // Because it needs non-static info
-    return false;
-  }
 
 };
 

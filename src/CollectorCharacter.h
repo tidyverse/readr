@@ -32,10 +32,6 @@ public:
     return NA_STRING;
   }
 
-  static bool canParse(std::string) {
-    return true;
-  }
-
 };
 
 #endif

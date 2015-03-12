@@ -67,7 +67,7 @@ void collectorsResize(std::vector<CollectorPtr>& collectors, int n) {
 
 // Guess column types ----------------------------------------------------------
 
-typedef bool (*canParseFun)(std::string);
+typedef bool (*canParseFun)(const std::string&);
 
 static bool canParse(CharacterVector x, canParseFun canParse) {
   for (int i = 0; i < x.size(); ++i) {

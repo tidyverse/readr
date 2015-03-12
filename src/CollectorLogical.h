@@ -43,7 +43,7 @@ public:
     return false;
   }
 
-  static bool canParse(std::string x) {
+  static bool canParse(const std::string& x) {
     return x == "T" || x == "F" || x == "TRUE" || x == "FALSE";
   }
 

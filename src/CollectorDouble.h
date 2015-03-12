@@ -49,7 +49,7 @@ public:
     return 0;
   }
 
-  static bool canParse(std::string x) {
+  static bool canParse(const std::string& x) {
     return CollectorDouble::parse(x.begin(), x.end()).first;
   }
 
