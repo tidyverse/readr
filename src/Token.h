@@ -42,6 +42,8 @@ public:
     case TOKEN_EMPTY:    return "[EMPTY]";
     case TOKEN_EOF:      return "[EOF]";
     }
+
+    return "";
   }
 
   TokenType type() const {
