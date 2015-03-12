@@ -1,6 +1,3 @@
-/*	$Id$	*/
-/*	$NetBSD: strptime.c,v 1.18 1999/04/29 02:58:30 tv Exp $	*/
-
 /*-
  * Copyright (c) 1997, 1998 The NetBSD Foundation, Inc.
  * All rights reserved.

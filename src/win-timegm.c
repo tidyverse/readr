@@ -33,7 +33,7 @@
 
 #ifdef WIN32
 
-typedef	long time_t
+#include "win.h";
 
 static int is_leap(unsigned y) {
   y += 1900;

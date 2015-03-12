@@ -4,10 +4,7 @@
 #include <Rcpp.h>
 #include <ctime>
 #include "Collector.h"
-
-time_t timegm(struct tm *tm);
-// For windows: defined in strptime.c
-char* strptime(const char *buf, const char *fmt, struct tm *tm);
+#include "win.h"
 
 std::string formatStandard(const std::string& format) {
   std::string out;
