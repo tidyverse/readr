@@ -18,6 +18,7 @@ will append to an existing file.}
 }
 \description{
 This is about twice as fast as \code{\link{write.csv}}, and never
-writes row names.
+writes row names. Non-atomic vectors are coerced to character vectors
+with \code{as.character}.
 }
 
