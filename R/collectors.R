@@ -59,6 +59,11 @@ col_datetime <- function(format) {
   collector("datetime", format = format)
 }
 
+
+col_bdt <- function(format) {
+  collector("bdt", format = format)
+}
+
 #' @param levels Character vector providing set of allowed levels.
 #' @param ordered Is it an ordered factor?
 #' @rdname collector
