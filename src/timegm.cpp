@@ -33,6 +33,8 @@
 
 #ifdef WIN32
 
+typedef	long time_t
+
 static int is_leap(unsigned y) {
   y += 1900;
   return (y % 4) == 0 && ((y % 100) != 0 || (y % 400) == 0);
