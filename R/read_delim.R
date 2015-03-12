@@ -15,8 +15,9 @@ NULL
 #' @inheritParams col_names_standardise
 #' @inheritParams col_types_standardise
 #' @param n_max Maximum number of records to read.
-#' @param progress Display a progress bar? (If file loading is going to take a
-#'   while)
+#' @param progress Display a progress bar? By default it will only display
+#'   in an interactive session. The display is updated every 50,000 values
+#'   and will on display if estimated reading time is 5 seconds or more.
 #' @usage read_delim(file, delim, quote = '\"', escape_backslash = TRUE,
 #'   escape_double = TRUE, na = "NA", col_names = TRUE, col_types = NULL,
 #'   skip = 0, n_max = -1, progress = interactive())

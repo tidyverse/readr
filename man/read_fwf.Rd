@@ -49,8 +49,9 @@ use \code{fwf_positions}.}
 
 \item{n_max}{Maximum number of records to read.}
 
-\item{progress}{Display a progress bar? (If file loading is going to take a
-while)}
+\item{progress}{Display a progress bar? By default it will only display
+in an interactive session. The display is updated every 50,000 values
+and will on display if estimated reading time is 5 seconds or more.}
 
 \item{col_names}{Either NULL, or a character vector column names.}
 
