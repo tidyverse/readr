@@ -7,7 +7,7 @@ class Iconv {
 
 public:
 
-  Iconv(std::string from, std::string to = "UTF-8") {
+  Iconv(const std::string& from, const std::string& to = "UTF-8") {
     cd_ = iconv_open(to.c_str(), from.c_str());
 
     if (cd_ == (iconv_t) -1) {
