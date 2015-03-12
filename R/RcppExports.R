@@ -5,10 +5,6 @@ collectorGuess <- function(input) {
     .Call('readr_collectorGuess', PACKAGE = 'readr', input)
 }
 
-flip <- function(x) {
-    .Call('readr_flip', PACKAGE = 'readr', x)
-}
-
 dim_tokens_ <- function(sourceSpec, tokenizerSpec) {
     .Call('readr_dim_tokens_', PACKAGE = 'readr', sourceSpec, tokenizerSpec)
 }

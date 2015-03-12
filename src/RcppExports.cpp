@@ -16,17 +16,6 @@ BEGIN_RCPP
     return __result;
 END_RCPP
 }
-// flip
-List flip(ListOf<CharacterVector> x);
-RcppExport SEXP readr_flip(SEXP xSEXP) {
-BEGIN_RCPP
-    Rcpp::RObject __result;
-    Rcpp::RNGScope __rngScope;
-    Rcpp::traits::input_parameter< ListOf<CharacterVector> >::type x(xSEXP);
-    __result = Rcpp::wrap(flip(x));
-    return __result;
-END_RCPP
-}
 // dim_tokens_
 IntegerVector dim_tokens_(List sourceSpec, List tokenizerSpec);
 RcppExport SEXP readr_dim_tokens_(SEXP sourceSpecSEXP, SEXP tokenizerSpecSEXP) {
