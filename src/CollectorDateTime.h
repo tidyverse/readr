@@ -3,6 +3,7 @@
 
 #include <Rcpp.h>
 #include <ctime>
+#include <time.h>
 #include "Collector.h"
 
 time_t timegm(struct tm *tm);
