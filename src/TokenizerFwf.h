@@ -102,7 +102,7 @@ private:
 
   void cacheLineWidth() {
     SourceIterator cur = begin_;
-    while(*cur != '\n')
+    while(*cur != '\n' && cur != end_)
       cur++;
 
     lineWidth_ = cur - begin_ + 1;
