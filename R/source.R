@@ -59,8 +59,6 @@ datasource_raw <- function(text, skip) {
   new_datasource("text", text, skip = skip)
 }
 
-
-
 cache_con <- function(con) {
   tmp <- tempfile()
   tmpcon <- file(tmp, "w+b")
@@ -80,12 +78,16 @@ cache_con <- function(con) {
 check_file <- function(path) {
   if (!file.exists(path)) {
     stop("'", path, "' does not exist",
-      if (!is_absolute_path(path)) paste0(" in current working directory ('",
-        getwd(), "')"),
+      if (!is_absolute_path(path))
+        paste0(" in current working directory ('", getwd(), "')"),
       ".",
       call. = FALSE)
   }
 
   normalizePath(path, "/", mustWork = FALSE)
+}
+
+is_absolute_path <- function(path) {
+  grepl("^(/|[A-Za-z]:|\\\\|~)", path)
 }
 
