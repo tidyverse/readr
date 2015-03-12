@@ -7,8 +7,16 @@
 
 typedef	long time_t;
 
+#ifdef __cplusplus
+extern "C" {
+#endif
+
+char* strptime(const char *buf, const char *fmt, struct tm *tm);
 time_t timegm(struct tm *tm);
-char *strptime(const char *buf, const char *fmt, struct tm *tm);
+
+#ifdef __cplusplus
+}
+#endif
 
 #endif // WIN32
 

@@ -33,7 +33,7 @@
 
 #ifdef WIN32
 
-#include "win.h";
+#include "win.h"
 
 static int is_leap(unsigned y) {
   y += 1900;
