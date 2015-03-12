@@ -5,7 +5,9 @@
 
 #include <time.h>
 
+#ifndef _WIN64 // Only define on 32-bit. 64-seems to have existing def
 typedef	long time_t;
+#endif
 
 #ifdef __cplusplus
 extern "C" {
