@@ -67,7 +67,7 @@ read_csv <- function(file, col_names = TRUE, col_types = NULL, na = "NA",
 read_csv2 <- function(file, col_names = TRUE, col_types = NULL, na = "NA",
                       skip = 0, n_max = -1, progress = interactive()) {
 
-  tokenizer <- tokenizer_delim(delim = ".", na = na)
+  tokenizer <- tokenizer_delim(delim = ";", na = na)
   read_delimited(file, tokenizer, col_names = col_names, col_types = col_types,
     skip = skip, n_max = n_max, progress = progress)
 }
