@@ -36,7 +36,7 @@ col_double <- function() {
 
 #' @rdname collector
 #' @export
-col_euro_double <- function() {
+col_eurodouble <- function() {
   collector("euro_double")
 }
 

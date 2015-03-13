@@ -4,7 +4,7 @@
 \alias{col_character}
 \alias{col_datetime}
 \alias{col_double}
-\alias{col_euro_double}
+\alias{col_eurodouble}
 \alias{col_factor}
 \alias{col_integer}
 \alias{col_logical}
@@ -19,7 +19,7 @@ col_integer()
 
 col_double()
 
-col_euro_double()
+col_eurodouble()
 
 col_numeric()
 
