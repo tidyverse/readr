@@ -23,6 +23,7 @@ NULL
 #'   skip = 0, n_max = -1, progress = interactive())
 #' @export
 #' @examples
+#' # Input sources -------------------------------------------------------------
 #' # Read from a path
 #' read_csv(system.file("extdata/mtcars.csv", package = "readr"))
 #' # Or directly from a string (must contain a newline)
@@ -34,6 +35,12 @@ NULL
 #'
 #' # Or with a list of column types:
 #' read_csv("x,y\n1,2\n3,4", col_types = list(col_double(), col_character()))
+#'
+#' # File types ----------------------------------------------------------------
+#' read_csv("a,b\n1.0,2.0")
+#' read_csv2("a.b\n1,0.2,0")
+#' read_tsv("a\tb\n1.0\t2.0")
+#' read_delim("a|b\n1.0|2.0", delim = "|")
 read_delim <- function(file, delim, quote = '"', escape_backslash = TRUE,
                        escape_double = TRUE, na = "NA", col_names = TRUE,
                        col_types = NULL, skip = 0, n_max = -1,
