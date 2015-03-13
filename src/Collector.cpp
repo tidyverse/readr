@@ -94,7 +94,7 @@ std::string collectorGuess(CharacterVector input) {
   if (canParse(input, CollectorDouble::canParse))
     return "double";
   if (canParse(input, CollectorEuroDouble::canParse))
-    return "eurodouble";
+    return "euro_double";
 
   // Otherwise can always parse as a character
   return "character";
