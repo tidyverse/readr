@@ -138,14 +138,14 @@ List read_tokens(List sourceSpec, List tokenizerSpec, ListOf<List> colSpecs,
 
 
 // [[Rcpp::export]]
-std::vector<std::string> collectorsGuess(List sourceSpec, List tokenizerSpec, size_t n = 100) {
+std::vector<std::string> collectorsGuess(List sourceSpec, List tokenizerSpec, int n = 100) {
   SourcePtr source = Source::create(sourceSpec);
   TokenizerPtr tokenizer = Tokenizer::create(tokenizerSpec);
   tokenizer->tokenize(source->begin(), source->end());
 
   std::vector<CollectorCharacter> collectors;
   for (Token t = tokenizer->nextToken(); t.type() != TOKEN_EOF; t = tokenizer->nextToken()) {
-    if (t.row() >= n)
+    if (t.row() >= (size_t) n)
       break;
 
     // Add new collectors, if needed

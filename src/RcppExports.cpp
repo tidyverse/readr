@@ -106,14 +106,14 @@ BEGIN_RCPP
 END_RCPP
 }
 // collectorsGuess
-std::vector<std::string> collectorsGuess(List sourceSpec, List tokenizerSpec, size_t n);
+std::vector<std::string> collectorsGuess(List sourceSpec, List tokenizerSpec, int n);
 RcppExport SEXP readr_collectorsGuess(SEXP sourceSpecSEXP, SEXP tokenizerSpecSEXP, SEXP nSEXP) {
 BEGIN_RCPP
     Rcpp::RObject __result;
     Rcpp::RNGScope __rngScope;
     Rcpp::traits::input_parameter< List >::type sourceSpec(sourceSpecSEXP);
     Rcpp::traits::input_parameter< List >::type tokenizerSpec(tokenizerSpecSEXP);
-    Rcpp::traits::input_parameter< size_t >::type n(nSEXP);
+    Rcpp::traits::input_parameter< int >::type n(nSEXP);
     __result = Rcpp::wrap(collectorsGuess(sourceSpec, tokenizerSpec, n));
     return __result;
 END_RCPP
