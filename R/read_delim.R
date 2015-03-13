@@ -38,7 +38,7 @@ NULL
 #'
 #' # File types ----------------------------------------------------------------
 #' read_csv("a,b\n1.0,2.0")
-#' read_csv2("a.b\n1,0.2,0")
+#' read_csv2("a;b\n1,0;2,0")
 #' read_tsv("a\tb\n1.0\t2.0")
 #' read_delim("a|b\n1.0|2.0", delim = "|")
 read_delim <- function(file, delim, quote = '"', escape_backslash = TRUE,
