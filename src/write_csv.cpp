@@ -3,9 +3,11 @@
 using namespace Rcpp;
 
 // Defined later to make copyright clearer
-void stream_csv(std::ofstream& output, Rcpp::RObject x, int i);
+template <class Stream>
+void stream_csv(Stream& output, Rcpp::RObject x, int i);
 
-void stream_csv_row(std::ofstream& output, Rcpp::List x, int i) {
+template <class Stream>
+void stream_csv_row(Stream& output, Rcpp::List x, int i) {
   int p = Rf_length(x);
 
   for (int j = 0; j < p; ++j) {
@@ -16,7 +18,8 @@ void stream_csv_row(std::ofstream& output, Rcpp::List x, int i) {
   output << '\n';
 }
 
-void stream_csv(std::ofstream& output, const char* string) {
+template <class Stream>
+void stream_csv(Stream& output, const char* string) {
   output << '"';
 
   for (const char* cur = string; *cur != '\0'; ++cur) {
@@ -32,15 +35,11 @@ void stream_csv(std::ofstream& output, const char* string) {
   output << '"';
 }
 
-// [[Rcpp::export]]
-void stream_csv(List df, std::string path, bool col_names = true, bool append = false) {
-  std::ofstream output(path.c_str(), append ? std::ofstream::app : std::ofstream::trunc);
-
+template <class Stream>
+void stream_csv(Stream& output, List df, bool col_names = true, bool append = false) {
   int p = Rf_length(df);
-  if (p == 0) {
-    output.close();
+  if (p == 0)
     return;
-  }
 
   if (col_names) {
     CharacterVector names = as<CharacterVector>(df.attr("names"));
@@ -58,18 +57,28 @@ void stream_csv(List df, std::string path, bool col_names = true, bool append = 
   for (int i = 0; i < n; ++i) {
     stream_csv_row(output, df, i);
   }
-
-  output.flush();
-  output.close();
 }
 
+// [[Rcpp::export]]
+std::string stream_csv(List df, std::string path, bool col_names = true, bool append = false) {
+  if (path == "") {
+    std::ostringstream output;
+    stream_csv(output, df, col_names, append);
+    return output.str();
+  } else {
+    std::ofstream output(path.c_str(), append ? std::ofstream::app : std::ofstream::trunc);
+    stream_csv(output, df, col_names, append);
+    return "";
+  }
+}
 
 // =============================================================================
 // Derived from EncodeElementS in RPostgreSQL
 // Written by: tomoakin@kenroku.kanazawa-u.ac.jp
 // License: GPL-2
 
-void stream_csv(std::ofstream& output, RObject x, int i) {
+template <class Stream>
+void stream_csv(Stream& output, RObject x, int i) {
   switch (TYPEOF(x)) {
   case LGLSXP: {
     int value = LOGICAL(x)[i];

@@ -131,15 +131,16 @@ BEGIN_RCPP
 END_RCPP
 }
 // stream_csv
-void stream_csv(List df, std::string path, bool col_names, bool append);
+std::string stream_csv(List df, std::string path, bool col_names, bool append);
 RcppExport SEXP readr_stream_csv(SEXP dfSEXP, SEXP pathSEXP, SEXP col_namesSEXP, SEXP appendSEXP) {
 BEGIN_RCPP
+    Rcpp::RObject __result;
     Rcpp::RNGScope __rngScope;
     Rcpp::traits::input_parameter< List >::type df(dfSEXP);
     Rcpp::traits::input_parameter< std::string >::type path(pathSEXP);
     Rcpp::traits::input_parameter< bool >::type col_names(col_namesSEXP);
     Rcpp::traits::input_parameter< bool >::type append(appendSEXP);
-    stream_csv(df, path, col_names, append);
-    return R_NilValue;
+    __result = Rcpp::wrap(stream_csv(df, path, col_names, append));
+    return __result;
 END_RCPP
 }

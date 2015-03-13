@@ -42,6 +42,6 @@ whitespaceColumns <- function(sourceSpec, n = 100L) {
 }
 
 stream_csv <- function(df, path, col_names = TRUE, append = FALSE) {
-    invisible(.Call('readr_stream_csv', PACKAGE = 'readr', df, path, col_names, append))
+    .Call('readr_stream_csv', PACKAGE = 'readr', df, path, col_names, append)
 }
 

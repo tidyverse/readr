@@ -9,7 +9,8 @@ write_csv(x, path, append = FALSE, col_names = !append)
 \arguments{
 \item{x}{A data frame to write to disk}
 
-\item{path}{Path to write to.}
+\item{path}{Path to write to. If \code{""} will return the csv file as
+a string.}
 
 \item{append}{If \code{FALSE}, will create a new file. If \code{TRUE},
 will append to an existing file.}
@@ -19,6 +20,10 @@ will append to an existing file.}
 \description{
 This is about twice as fast as \code{\link{write.csv}}, and never
 writes row names. Non-atomic vectors are coerced to character vectors
-with \code{as.character}.
+with \code{as.character}. All columns are encoded as UTF-8.
+}
+\examples{
+cat(write_csv(head(mtcars), ""))
+cat(write_csv(head(iris), ""))
 }
 
