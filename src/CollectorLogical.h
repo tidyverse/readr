@@ -1,8 +1,8 @@
 #ifndef FASTREAD_COLLECTORLOGICAL_H_
 #define FASTREAD_COLLECTORLOGICAL_H_
 
-#include <cstring>
 #include <Rcpp.h>
+#include <cstring>
 #include "Collector.h"
 
 class CollectorLogical : public Collector {

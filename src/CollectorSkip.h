@@ -1,8 +1,8 @@
 #ifndef FASTREAD_COLLECTORSKIP_H_
 #define FASTREAD_COLLECTORSKIP_H_
 
-#include <cstring>
 #include <Rcpp.h>
+#include <cstring>
 #include "Collector.h"
 
 class CollectorSkip : public Collector {
