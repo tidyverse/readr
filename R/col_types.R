@@ -41,7 +41,7 @@ col_types_concise <- function(x) {
     l = col_logical(),
     "_" = col_skip(),
     n = col_numeric(),
-    e = col_euro_double()
+    e = col_eurodouble()
   )
 
   bad <- setdiff(letters, names(lookup))
