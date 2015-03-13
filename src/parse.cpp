@@ -82,7 +82,7 @@ SEXP parse_(List sourceSpec, List tokenizerSpec, List collectorSpec) {
 
   int i = 0;
   for (Token t = tokenizer->nextToken(); t.type() != TOKEN_EOF; t = tokenizer->nextToken()) {
-    if (i > out->size())
+    if (i >= out->size())
       out->resize(i * 2);
 
     out->setValue(i, t);
