@@ -123,8 +123,8 @@ public:
           newField();
           return stringToken(token_begin + 1, cur_ - 1, hasEscapeB, hasEscapeD, row, col);
         } else {
-          Rcpp::stop("Expecting delimiter or quote at (%i, %i) but found '%s'",
-            row, col, *cur_);
+          Rcpp::stop("At [%i, %i] expecting delimiter or quote but found '%s'",
+            row + 1, col + 1, *cur_);
         }
         break;
 
@@ -226,7 +226,7 @@ public:
     } else if (escapeBackslash_ && !escapeDouble_) {
       unescapeBackslash(begin, end, pOut);
     } else if (escapeBackslash_ && escapeDouble_) {
-      Rcpp::stop("Not supported");
+      Rcpp::stop("Backslash & double escapes not supported at this time");
     }
   }
 
