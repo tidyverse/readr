@@ -130,7 +130,7 @@ Compared to the corresponding base functions, readr functions:
 
 ## Acknowledgements
 
-A big set of thanks to:
+Thanks to:
 
 * [Joe Cheng](https://github.com/jcheng5) for showing me the beauty of
   deterministic finite automata for parsing, and for teaching me why I 
