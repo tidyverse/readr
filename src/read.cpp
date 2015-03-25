@@ -138,14 +138,22 @@ List read_tokens(List sourceSpec, List tokenizerSpec, ListOf<List> colSpecs,
 
 
 // [[Rcpp::export]]
-std::vector<std::string> collectorsGuess(List sourceSpec, List tokenizerSpec, int n = 100) {
+std::vector<std::string> collectorsGuess(List sourceSpec, List tokenizerSpec, int n = -1) {
   SourcePtr source = Source::create(sourceSpec);
   TokenizerPtr tokenizer = Tokenizer::create(tokenizerSpec);
   tokenizer->tokenize(source->begin(), source->end());
 
+  size_t numrows;
+  if (n > -1) {
+    numrows = n;
+  } else {
+    // If n is not specified, we guess 100 and double it later.
+    numrows = 100;
+  }
+  
   std::vector<CollectorCharacter> collectors;
   for (Token t = tokenizer->nextToken(); t.type() != TOKEN_EOF; t = tokenizer->nextToken()) {
-    if (t.row() >= (size_t) n)
+    if (n > -1 && t.row() >= (size_t) n)
       break;
 
     // Add new collectors, if needed
@@ -153,7 +161,15 @@ std::vector<std::string> collectorsGuess(List sourceSpec, List tokenizerSpec, in
       int old_p = collectors.size();
       collectors.resize(t.col() + 1);
       for (size_t j = old_p; j < collectors.size(); ++j) {
-        collectors[j].resize(n);
+        collectors[j].resize(numrows);
+      }
+    }
+    
+    // Resize collectors, if needed.
+    if (t.row() >= numrows) {
+      numrows *= 2;
+      for (size_t j = 0; j < collectors.size(); ++j) {
+        collectors[j].resize(numrows);
       }
     }
 

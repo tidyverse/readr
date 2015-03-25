@@ -33,7 +33,7 @@ read_tokens <- function(sourceSpec, tokenizerSpec, colSpecs, col_names, n_max = 
     .Call('readr_read_tokens', PACKAGE = 'readr', sourceSpec, tokenizerSpec, colSpecs, col_names, n_max, progress)
 }
 
-collectorsGuess <- function(sourceSpec, tokenizerSpec, n = 100L) {
+collectorsGuess <- function(sourceSpec, tokenizerSpec, n = -1L) {
     .Call('readr_collectorsGuess', PACKAGE = 'readr', sourceSpec, tokenizerSpec, n)
 }
 

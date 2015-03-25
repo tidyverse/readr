@@ -29,8 +29,8 @@ NULL
 #' # Or directly from a string (must contain a newline)
 #' read_csv("x,y\n1,2\n3,4")
 #'
-#' # By default, readr guess the columns types, looking at the first 100 rows.
-#' # You can override with a compact specification:
+#' # By default, readr will guess the columns types, doing a full scan of the
+#' file. You can override with a compact specification:
 #' read_csv("x,y\n1,2\n3,4", col_types = "dc")
 #'
 #' # Or with a list of column types:
@@ -97,7 +97,7 @@ read_delimited <- function(file, tokenizer, col_names = TRUE, col_types = NULL,
   col_names <- col_names_standardise(col_names, header(ds, tokenizer))
 
   ds <- datasource(file, skip = skip)
-  col_types <- col_types_standardise(col_types, col_names, types(ds, tokenizer))
+  col_types <- col_types_standardise(col_types, col_names, types(ds, tokenizer, n_max))
   read_tokens(ds, tokenizer, col_types, col_names, n_max = n_max,
     progress = progress)
 
@@ -109,6 +109,6 @@ header <- function(datasource, tokenizer) {
   parse_vector(first, tokenizer = tokenizer, col_character())
 }
 
-types <- function(source, tokenizer) {
-  collectorsGuess(source, tokenizer, n = 100)
+types <- function(source, tokenizer, n = -1) {
+  collectorsGuess(source, tokenizer, n)
 }
