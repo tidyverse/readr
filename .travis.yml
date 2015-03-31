@@ -6,3 +6,6 @@ r_github_packages:
 
 r_packages:
   - rmarkdown
+
+apt_packages:
+  - libv8-dev
