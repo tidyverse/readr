@@ -26,9 +26,14 @@ NULL
 #' # Input sources -------------------------------------------------------------
 #' # Read from a path
 #' read_csv(system.file("extdata/mtcars.csv", package = "readr"))
+#' read_csv(system.file("extdata/mtcars.csv.zip", package = "readr"))
+#' read_csv(system.file("extdata/mtcars.csv.bz2", package = "readr"))
+#' read_csv("https://github.com/hadley/readr/raw/master/inst/extdata/mtcars.csv")
+#'
 #' # Or directly from a string (must contain a newline)
 #' read_csv("x,y\n1,2\n3,4")
 #'
+#' # Column types --------------------------------------------------------------
 #' # By default, readr guess the columns types, looking at the first 100 rows.
 #' # You can override with a compact specification:
 #' read_csv("x,y\n1,2\n3,4", col_types = "dc")

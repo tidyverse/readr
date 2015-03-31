@@ -21,9 +21,13 @@ read_tsv(file, col_names = TRUE, col_types = NULL, na = "NA", skip = 0,
   n_max = -1, progress = interactive())
 }
 \arguments{
-\item{file}{Either a path to a file, a url, a connection, or literal data
-   (either a single string or a raw vector). Connections and urls are saved
-   to a temporary file before being read.
+\item{file}{Either a path to a file, a connection, or literal data
+   (either a single string or a raw vector).
+
+   Files ending in \code{.gz}, \code{.bz2}, \code{.xz}, or \code{.zip} will
+   be automatically uncompressed. Files starting with \code{http://},
+   \code{https://}, \code{ftp://}, or \code{ftps://} will be automatically
+   downloaded.
 
    Literal data is most useful for examples and tests. It must contain at
    least one new line to be recognised as data (instead of a path).}
@@ -88,9 +92,14 @@ decimal separator.
 # Input sources -------------------------------------------------------------
 # Read from a path
 read_csv(system.file("extdata/mtcars.csv", package = "readr"))
+read_csv(system.file("extdata/mtcars.csv.zip", package = "readr"))
+read_csv(system.file("extdata/mtcars.csv.bz2", package = "readr"))
+read_csv("https://github.com/hadley/readr/raw/master/inst/extdata/mtcars.csv")
+
 # Or directly from a string (must contain a newline)
 read_csv("x,y\\n1,2\\n3,4")
 
+# Column types --------------------------------------------------------------
 # By default, readr guess the columns types, looking at the first 100 rows.
 # You can override with a compact specification:
 read_csv("x,y\\n1,2\\n3,4", col_types = "dc")

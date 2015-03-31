@@ -1,8 +1,12 @@
 #' Create a source object.
 #'
-#' @param file Either a path to a file, a url, a connection, or literal data
-#'    (either a single string or a raw vector). Connections and urls are saved
-#'    to a temporary file before being read.
+#' @param file Either a path to a file, a connection, or literal data
+#'    (either a single string or a raw vector).
+#'
+#'    Files ending in \code{.gz}, \code{.bz2}, \code{.xz}, or \code{.zip} will
+#'    be automatically uncompressed. Files starting with \code{http://},
+#'    \code{https://}, \code{ftp://}, or \code{ftps://} will be automatically
+#'    downloaded.
 #'
 #'    Literal data is most useful for examples and tests. It must contain at
 #'    least one new line to be recognised as data (instead of a path).
@@ -14,33 +18,38 @@
 #' datasource("a,b,c\n1,2,3")
 #' datasource(charToRaw("a,b,c\n1,2,3"))
 #'
-#' # Local path
+#' # Strings
 #' datasource(system.file("extdata/mtcars.csv", package = "readr"))
+#' datasource(system.file("extdata/mtcars.csv.bz2", package = "readr"))
+#' datasource(system.file("extdata/mtcars.csv.zip", package = "readr"))
+#' datasource("https://github.com/hadley/readr/raw/master/inst/extdata/mtcars.csv")
 #'
 #' # Connection
 #' datasource(rawConnection(charToRaw("abc\n123")))
 datasource <- function(file, skip = 0) {
   if (inherits(file, "source")) {
     file
-  } else if (inherits(file, "connection")) {
-    path <- cache_con(file)
-    datasource_file(path, skip)
+  } else if (is.connection(file)) {
+    datasource_connection(file, skip)
   } else if (is.raw(file)) {
     datasource_raw(file, skip)
   } else if (is.character(file)) {
     if (grepl("\n", file)) {
       datasource_string(file, skip)
-    } else if (grepl("^(http|ftp|https)://", file)) {
-      tmp <- tempfile()
-      download.file(file, tmp, quiet = TRUE, mode = "wb")
-      datasource_file(tmp, skip)
     } else {
-      datasource_file(file, skip)
+      file <- standardise_path(file)
+      if (is.connection(file)) {
+        datasource_connection(file, skip)
+      } else {
+        datasource_file(file, skip)
+      }
     }
   } else {
     stop("`file` must be a string, raw vector or a connection.", call. = FALSE)
   }
 }
+
+# Constructors -----------------------------------------------------------------
 
 new_datasource <- function(type, x, skip, ...) {
   structure(list(x, skip = skip, ...),
@@ -52,13 +61,20 @@ datasource_string <- function(text, skip) {
 }
 
 datasource_file <- function(path, skip) {
-  path <- check_file(path)
+  path <- check_path(path)
   new_datasource("file", path, skip = skip)
+}
+
+datasource_connection <- function(path, skip) {
+  path <- cache_con(path)
+  datasource_file(path, skip)
 }
 
 datasource_raw <- function(text, skip) {
   new_datasource("text", text, skip = skip)
 }
+
+# Helpers ----------------------------------------------------------------------
 
 cache_con <- function(con) {
   tmp <- tempfile()
@@ -76,19 +92,50 @@ cache_con <- function(con) {
   tmp
 }
 
-check_file <- function(path) {
-  if (!file.exists(path)) {
-    stop("'", path, "' does not exist",
-      if (!is_absolute_path(path))
-        paste0(" in current working directory ('", getwd(), "')"),
-      ".",
-      call. = FALSE)
-  }
+standardise_path <- function(path) {
+  if (!is.character(path))
+    return(path)
 
-  normalizePath(path, "/", mustWork = FALSE)
+  if (is_url(path))
+    return(curl::curl(path))
+
+  path <- check_path(path)
+  switch(tools::file_ext(path),
+    gz = gzfile(path, ""),
+    bz2 = bzfile(path, ""),
+    xz = xzfile(path, ""),
+    zip = zipfile(path, ""),
+    path
+  )
+}
+
+is_url <- function(path) {
+  grepl("^(http|ftp)s?://", path)
+}
+
+check_path <- function(path) {
+  if (file.exists(path))
+    return(normalizePath(path, "/", mustWork = FALSE))
+
+  stop("'", path, "' does not exist",
+    if (!is_absolute_path(path))
+      paste0(" in current working directory ('", getwd(), "')"),
+    ".",
+    call. = FALSE
+  )
 }
 
 is_absolute_path <- function(path) {
   grepl("^(/|[A-Za-z]:|\\\\|~)", path)
 }
 
+zipfile <- function(path, open = "r") {
+  files <- utils::unzip(path, list = TRUE)
+  file <- files$Name[[1]]
+
+  if (nrow(files) > 1) {
+    message("Multiple files in zip: reading '", file, "'")
+  }
+
+  unz(path, file, open = open)
+}
