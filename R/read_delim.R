@@ -91,10 +91,12 @@ read_tsv <- function(file, col_names = TRUE, col_types = NULL, na = "NA",
 # Helper functions for reading from delimited files ----------------------------
 read_delimited <- function(file, tokenizer, col_names = TRUE, col_types = NULL,
                            skip = 0, n_max = -1, progress = interactive()) {
+  # If connection needed, read once.
+  file <- standardise_path(file)
   if (is.connection(file)) {
-    file <- cache_con(file)
-    on.exit(unlink(file))
+    file <- read_connection(file)
   }
+
   ds <- datasource(file, skip = skip)
 
   if (isTRUE(col_names))

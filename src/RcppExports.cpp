@@ -16,6 +16,18 @@ BEGIN_RCPP
     return __result;
 END_RCPP
 }
+// read_connection_
+RawVector read_connection_(RObject con, size_t chunk_size);
+RcppExport SEXP readr_read_connection_(SEXP conSEXP, SEXP chunk_sizeSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject __result;
+    Rcpp::RNGScope __rngScope;
+    Rcpp::traits::input_parameter< RObject >::type con(conSEXP);
+    Rcpp::traits::input_parameter< size_t >::type chunk_size(chunk_sizeSEXP);
+    __result = Rcpp::wrap(read_connection_(con, chunk_size));
+    return __result;
+END_RCPP
+}
 // dim_tokens_
 IntegerVector dim_tokens_(List sourceSpec, List tokenizerSpec);
 RcppExport SEXP readr_dim_tokens_(SEXP sourceSpecSEXP, SEXP tokenizerSpecSEXP) {

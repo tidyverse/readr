@@ -31,10 +31,6 @@
 #' read_fwf(fwf_sample, fwf_positions(c(1, 4), c(2, 10)))
 read_fwf <- function(file, col_positions, col_types = NULL, na = "NA", skip = 0,
                      n_max = -1, progress = interactive()) {
-  if (is.connection(file)) {
-    file <- cache_con(file)
-    on.exit(unlink(file))
-  }
   ds <- datasource(file, skip = skip)
   tokenizer <- tokenizer_fwf(col_positions$begin, col_positions$end, na = na)
 

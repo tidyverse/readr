@@ -66,34 +66,31 @@ datasource_file <- function(path, skip) {
 }
 
 datasource_connection <- function(path, skip) {
-  path <- cache_con(path)
-  datasource_file(path, skip)
+  datasource_raw(read_connection(path), skip)
 }
 
 datasource_raw <- function(text, skip) {
-  new_datasource("text", text, skip = skip)
+  new_datasource("raw", text, skip = skip)
 }
 
 # Helpers ----------------------------------------------------------------------
 
-cache_con <- function(con) {
-  tmp <- tempfile()
-  tmpcon <- file(tmp, "w+b")
-  on.exit(close(tmpcon), add = TRUE)
+read_connection <- function(con) {
+  stopifnot(is.connection(con))
 
   if (!isOpen(con)) {
     open(con, "rb")
     on.exit(close(con), add = TRUE)
   }
 
-  while(length(buf <- readBin(con, raw(), 32 * 1024)))
-    writeBin(buf, tmpcon)
-
-  tmp
+  read_connection_(con)
 }
 
 standardise_path <- function(path) {
   if (!is.character(path))
+    return(path)
+
+  if (grepl("\n", path))
     return(path)
 
   if (is_url(path))

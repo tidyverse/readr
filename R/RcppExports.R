@@ -5,6 +5,10 @@ collectorGuess <- function(input) {
     .Call('readr_collectorGuess', PACKAGE = 'readr', input)
 }
 
+read_connection_ <- function(con, chunk_size = 64 * 1024L) {
+    .Call('readr_read_connection_', PACKAGE = 'readr', con, chunk_size)
+}
+
 dim_tokens_ <- function(sourceSpec, tokenizerSpec) {
     .Call('readr_dim_tokens_', PACKAGE = 'readr', sourceSpec, tokenizerSpec)
 }
