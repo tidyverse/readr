@@ -6,7 +6,7 @@ NULL
 #'
 #' \code{read_csv} and \code{read_tsv} are special cases of the general
 #' \code{read_delim}. They're useful for reading the most common types of
-#' flat file data. \code{read_csv2} uses \code{.} for separators, instead of
+#' flat file data. \code{read_csv2} uses \code{;} for separators, instead of
 #' \code{,}. This is common in European countries which use \code{,} as the
 #' decimal separator.
 #'

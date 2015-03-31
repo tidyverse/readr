@@ -37,7 +37,7 @@ public:
         CollectorInteger::parse(string.first, string.second);
 
       if (!parsed.first)
-        Collector::warn(t, string);
+        CollectorInteger::warn(t, string);
       return parsed.second;
     };
     case TOKEN_MISSING:
@@ -63,6 +63,11 @@ private:
 
     bool ok = qi::parse(begin, end, qi::int_, res) && begin == end;
     return std::make_pair(ok, ok ? res : NA_INTEGER);
+  }
+  
+  void warn(const Token& t, SourceIterators string) {
+    Rcpp::warning("At [%i, %i]: expected an integer, got '%s'",
+      t.row() + 1, t.col() + 1, std::string(string.first, string.second));
   }
 
 };
