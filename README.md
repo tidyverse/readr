@@ -8,6 +8,7 @@ The goal of readr is to provide a fast and friendly way to read tabular data int
 * Read fixed width files: `read_fwf()`, `read_table()`.
 * Read lines: `read_lines()`.
 * Read whole file: `read_file()`.
+* Re-parse existing data frame: `type_convert()`.
 
 ## Installation
 

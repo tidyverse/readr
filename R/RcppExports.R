@@ -45,6 +45,10 @@ whitespaceColumns <- function(sourceSpec, n = 100L) {
     .Call('readr_whitespaceColumns', PACKAGE = 'readr', sourceSpec, n)
 }
 
+type_convert_col <- function(x, spec, col) {
+    .Call('readr_type_convert_col', PACKAGE = 'readr', x, spec, col)
+}
+
 stream_csv <- function(df, path, col_names = TRUE, append = FALSE) {
     .Call('readr_stream_csv', PACKAGE = 'readr', df, path, col_names, append)
 }

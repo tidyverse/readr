@@ -142,6 +142,19 @@ BEGIN_RCPP
     return __result;
 END_RCPP
 }
+// type_convert_col
+RObject type_convert_col(CharacterVector x, List spec, int col);
+RcppExport SEXP readr_type_convert_col(SEXP xSEXP, SEXP specSEXP, SEXP colSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject __result;
+    Rcpp::RNGScope __rngScope;
+    Rcpp::traits::input_parameter< CharacterVector >::type x(xSEXP);
+    Rcpp::traits::input_parameter< List >::type spec(specSEXP);
+    Rcpp::traits::input_parameter< int >::type col(colSEXP);
+    __result = Rcpp::wrap(type_convert_col(x, spec, col));
+    return __result;
+END_RCPP
+}
 // stream_csv
 std::string stream_csv(List df, std::string path, bool col_names, bool append);
 RcppExport SEXP readr_stream_csv(SEXP dfSEXP, SEXP pathSEXP, SEXP col_namesSEXP, SEXP appendSEXP) {
