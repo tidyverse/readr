@@ -74,10 +74,9 @@ public:
 
       switch(state_) {
       case STATE_DELIM:
-        if (*cur_ == '\r') {
-          // Ignore \r, expect will be followed by \n
-        } else if (*cur_ == '\n') {
+        if (*cur_ == '\r' || *cur_ == '\n') {
           newRecord();
+          advanceForLF();
           return Token(TOKEN_EMPTY, row, col);
         } else if (*cur_ == delim_) {
           newField();
@@ -92,11 +91,9 @@ public:
         break;
 
       case STATE_FIELD:
-        if (*cur_ == '\r') {
-          // ignore
-        } else if (*cur_ == '\n') {
+        if (*cur_ == '\r' || *cur_ == '\n') {
           newRecord();
-          return fieldToken(token_begin, cur_, hasEscapeB, row, col);
+          return fieldToken(token_begin, advanceForLF(), hasEscapeB, row, col);
         } else if (escapeBackslash_ && *cur_ == '\\') {
           state_ = STATE_ESCAPE_F;
         } else if (*cur_ == delim_) {
@@ -114,11 +111,9 @@ public:
         if (*cur_ == quote_) {
           hasEscapeD = true;
           state_ = STATE_STRING;
-        } else if (*cur_ == '\r') {
-          // ignore
-        } else if (*cur_ == '\n') {
+        } else if (*cur_ == '\r' || *cur_ == '\n') {
           newRecord();
-          return stringToken(token_begin + 1, cur_ - 1, hasEscapeB, hasEscapeD, row, col);
+          return stringToken(token_begin + 1, advanceForLF() - 1, hasEscapeB, hasEscapeD, row, col);
         } else if (*cur_ == delim_) {
           newField();
           return stringToken(token_begin + 1, cur_ - 1, hasEscapeB, hasEscapeD, row, col);
@@ -141,11 +136,9 @@ public:
         break;
 
       case STATE_STRING_END:
-        if (*cur_ == '\r') {
-          // ignore
-        } else if (*cur_ == '\n') {
+        if (*cur_ == '\r' || *cur_ == '\n') {
           newRecord();
-          return stringToken(token_begin + 1, cur_ - 1, hasEscapeB, hasEscapeD, row, col);
+          return stringToken(token_begin + 1, advanceForLF() - 1, hasEscapeB, hasEscapeD, row, col);
         } else if (*cur_ == delim_) {
           newField();
           return stringToken(token_begin + 1, cur_ - 1, hasEscapeB, hasEscapeD, row, col);
@@ -204,6 +197,16 @@ private:
     row_++;
     col_ = 0;
     state_ = STATE_DELIM;
+  }
+
+  // Advances if iterator if the next character is a LF.
+  // Returns pointer to last character in this line
+  const char* advanceForLF() {
+    const char* end = cur_;
+    if (*cur_ == '\r' && (cur_ + 1 != end_) && *(cur_ + 1) == '\n')
+      cur_++;
+
+    return end;
   }
 
   Token fieldToken(SourceIterator begin, SourceIterator end, bool hasEscapeB,

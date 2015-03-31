@@ -38,6 +38,15 @@ public:
         Rcpp::checkUserInterrupt();
 
       switch(*cur_) {
+      case '\r':
+        line_++;
+        {
+          const char* end = cur_;
+          if (nextIsLF()) {
+            cur_++;
+          }
+          return Token(token_begin, end, line, 0);
+        }
       case '\n':
         line_++;
         return Token(token_begin, cur_, line, 0);
@@ -48,8 +57,22 @@ public:
 
     // Reached end of Source: cur_ == end_
     moreTokens_ = false;
-    return Token(token_begin, end_, line, 0);
+    if (token_begin == end_) {
+      return Token(TOKEN_EOF, line, 0);
+    } else {
+      return Token(token_begin, end_, line, 0);
+    }
   }
+
+private:
+  bool nextIsLF() {
+    const char* next = cur_ + 1;
+    if (next == end_)
+      return false;
+
+    return *next == '\n';
+  }
+
 
 };
 

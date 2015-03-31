@@ -19,10 +19,17 @@ public:
     const char* cur = begin;
 
     while(n > 0 && cur != end) {
-      if (*cur == '\n')
+      if (*cur == '\r') {
+        if (cur + 1 != end && *(cur + 1) == '\n') {
+          cur++;
+        }
         n--;
+      } else if (*cur == '\n') {
+        n--;
+      }
 
-      ++cur;
+
+      cur++;
     }
 
     return cur;
