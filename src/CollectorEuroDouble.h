@@ -8,6 +8,7 @@
 #include <boost/spirit/include/phoenix_operator.hpp>
 namespace qi = boost::spirit::qi;
 #include "Collector.h"
+#include "CollectorDouble.h"
 
 struct DoubleEuroPolicy : public qi::ureal_policies<double> {
   template <typename Iterator>
@@ -38,7 +39,7 @@ public:
       std::pair<bool,double> parsed = parse(string.first, string.second);
 
       if (!parsed.first)
-        Collector::warn(t, string);
+        CollectorDouble::warn(t, string);
       return parsed.second;
     }
     case TOKEN_MISSING:

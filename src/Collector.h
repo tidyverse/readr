@@ -38,11 +38,6 @@ public:
     return n_;
   }
 
-  static void warn(const Token& t, SourceIterators string) {
-    Rcpp::warning("At [%i, %i]: expected a double, got '%s'",
-      t.row() + 1, t.col() + 1, std::string(string.first, string.second));
-  }
-
   static CollectorPtr create(Rcpp::List spec);
 
 };

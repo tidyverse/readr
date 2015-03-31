@@ -32,11 +32,10 @@ public:
       boost::container::string buffer;
       SourceIterators string = t.getString(&buffer);
 
-      std::pair<bool,double> parsed =
-        CollectorDouble::parse(string.first, string.second);
-
+      std::pair<bool,double> parsed = parse(string.first, string.second);
       if (!parsed.first)
-        Collector::warn(t, string);
+        warn(t, string);
+
       return parsed.second;
     }
     case TOKEN_MISSING:
@@ -59,6 +58,11 @@ public:
 
     bool ok = qi::parse(begin, end, qi::double_, res) && begin == end;
     return std::make_pair(ok, ok ? res : NA_REAL);
+  }
+
+  static void warn(const Token& t, SourceIterators string) {
+    Rcpp::warning("At [%i, %i]: expected a double, got '%s'",
+      t.row() + 1, t.col() + 1, std::string(string.first, string.second));
   }
 
 };
