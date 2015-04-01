@@ -45,6 +45,7 @@ NULL
 #' read_csv("a,b\n1.0,2.0")
 #' read_csv2("a;b\n1,0;2,0")
 #' read_tsv("a\tb\n1.0\t2.0")
+#' read_markdown_table("a|b\n-|-\n1.0|2.0")
 #' read_delim("a|b\n1.0|2.0", delim = "|")
 read_delim <- function(file, delim, quote = '"', escape_backslash = TRUE,
                        escape_double = TRUE, na = "NA", col_names = TRUE,
@@ -86,6 +87,28 @@ read_tsv <- function(file, col_names = TRUE, col_types = NULL, na = "NA",
   tokenizer <- tokenizer_tsv(na = na)
   read_delimited(file, tokenizer, col_names = col_names, col_types = col_types,
     skip = skip, n_max = n_max, progress = progress)
+}
+
+#' @rdname read_delim
+#' @export
+read_markdown_table <- function(file, col_names = TRUE, col_types = NULL, na = "NA",
+                     skip = 0, n_max = -1, progress = interactive()) {
+  tokenizer <- tokenizer_delim(delim = "|", escape_double = FALSE, na = na)
+  # If connection needed, read once.
+  file <- standardise_path(file)
+  if (is.connection(file)) {
+    file <- read_connection(file)
+  }
+
+  ds <- datasource(file, skip = skip)
+
+  skip <- skip + if (isTRUE(col_names)) 2 else 1
+  col_names <- col_names_standardise(col_names, header(ds, tokenizer))
+
+  ds <- datasource(file, skip = skip)
+  col_types <- col_types_standardise(col_types, col_names, types(ds, tokenizer))
+  read_tokens(ds, tokenizer, col_types, col_names, n_max = n_max,
+    progress = progress)
 }
 
 # Helper functions for reading from delimited files ----------------------------

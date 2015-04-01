@@ -4,6 +4,7 @@
 \alias{read_csv}
 \alias{read_csv2}
 \alias{read_delim}
+\alias{read_markdown_table}
 \alias{read_tsv}
 \title{Read a delimited file into a data frame.}
 \usage{
@@ -19,6 +20,9 @@ read_csv2(file, col_names = TRUE, col_types = NULL, na = "NA", skip = 0,
 
 read_tsv(file, col_names = TRUE, col_types = NULL, na = "NA", skip = 0,
   n_max = -1, progress = interactive())
+
+read_markdown_table(file, col_names = TRUE, col_types = NULL, na = "NA",
+  skip = 0, n_max = -1, progress = interactive())
 }
 \arguments{
 \item{file}{Either a path to a file, a connection, or literal data
