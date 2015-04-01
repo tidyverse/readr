@@ -6,7 +6,9 @@
 using namespace Rcpp;
 #include <ctime>
 
-static const int first_day_of_month[12] =
+static const int month_length[12] =
+  {31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31};
+static const int month_start[12] =
   {0, 31, 59, 90, 120, 151, 181, 212, 243, 273, 304, 334};
 
 // Leap days occur in a 400 year cycle: this records the cumulative number
@@ -53,13 +55,126 @@ public:
   psec_(psec) {
   }
 
+  // Adjust a struct tm to be a valid date-time.
+  // Return 0 if valid, -1 if invalid and uncorrectable, or a positive
+  // integer approximating the number of corrections needed.
+  int validate() {
+    int tmp, res = 0;
+
+    if (sec_ < 0 || sec_ > 60) { /* 61 POSIX, 60 draft ISO C */
+      res++;
+      tmp = sec_ / 60;
+      sec_ -= 60 * tmp;
+      min_ += tmp;
+      if (sec_ < 0) {
+        sec_ += 60;
+        min_--;
+      }
+    }
+
+    if (min_ < 0 || min_ > 59) {
+      res++;
+      tmp = min_ / 60;
+      min_ -= 60 * tmp;
+      hour_ += tmp;
+      if (min_ < 0) {
+        min_ += 60;
+        hour_--;
+      }
+    }
+
+    if (hour_ == 24 && min_ == 0 && sec_ == 0) {
+      hour_ = 0;
+      day_++;
+
+      if (mon_ >= 0 && mon_ <= 11) {
+        if (day_ > days_in_month()) {
+          mon_++;
+          day_ = 1;
+          if (min_ == 12) {
+            year_++;
+            mon_ = 0;
+          }
+        }
+      }
+    }
+
+    if (hour_ < 0 || hour_ > 23) {
+      res++;
+      tmp = hour_ / 24;
+      hour_ -= 24 * tmp;
+      day_ += tmp;
+      if(hour_ < 0) {
+        hour_ += 24;
+        day_--;
+      }
+    }
+
+    /* defer fixing mday until we know the year */
+    if (mon_ < 0 || mon_ > 11) {
+      res++;
+      tmp = mon_/12;
+      mon_ -= 12 * tmp;
+      year_ += tmp;
+
+      if(mon_ < 0) {
+        mon_ += 12;
+        year_--;
+      }
+    }
+
+    // Never fix more than 10 years worth of days
+    if (abs(day_) > 366 * 10)
+      return -1;
+
+    if (abs(day_) > 366) {
+      res++;
+      // first spin back until January
+      while(mon_ > 0) {
+        --mon_;
+        day_ += days_in_month();
+      }
+      // then spin years
+      while(day_ < 1) {
+        year_--;
+        day_ += days_in_year();
+      }
+      while(day_ > (tmp = days_in_year())) {
+        year_++;
+        day_ -= tmp;
+      }
+    }
+
+    while(day_ < 1) {
+      res++;
+      mon_--;
+      if(mon_ < 0) {
+        mon_ += 12;
+        year_--;
+      }
+      day_ += days_in_month();
+    }
+
+    while(day_ > (tmp = days_in_month())) {
+      res++;
+      mon_++;
+      if(mon_ > 11) {
+        mon_ -= 12;
+        year_++;
+      }
+      day_ -= tmp;
+    }
+    return res;
+  }
+
+
   // Convert a tm struct into number of seconds since 1970-01-01T0000Z.
   // Compared to usual implementations this returns a double, and supports
   // a wider range of dates. Input is not validated; invalid dates have
   // undefined behaviour.
   double utctime() const {
     // Number of days since start of year
-    int day = first_day_of_month[mon_] + day_;
+    int day = month_start[mon_] + day_;
     if (mon_ > 1 && is_leap(year_))
       day++;
 
@@ -78,6 +193,14 @@ public:
     day -= 719528;
 
     return psec_ + sec_ + (min_ * 60) + (hour_ * 3600) + (day * 86400.0);
+  }
+
+private:
+  inline int days_in_month() {
+    return month_length[mon_] + (mon_ == 1 && is_leap(year_));
+  }
+  inline int days_in_year() {
+    return 365 + is_leap(year_);
   }
 };
 
