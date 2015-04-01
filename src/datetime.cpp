@@ -55,17 +55,33 @@ public:
   psec_(psec) {
   }
 
+  // Is this a valid date time?
+  bool isValid() const {
+    if (sec_ < 0 || sec_ > 60)
+      return false;
+    if (min_ < 0 || min_ > 59)
+      return false;
+    if (hour_ < 0 || hour_ > 23)
+      return false;
+    if (mon_ < 0 || mon_ > 11)
+      return false;
+    if (day_ < 0 || day_ >= days_in_month())
+      return false;
+
+    return true;
+  }
+
   // Adjust a struct tm to be a valid date-time.
   // Return 0 if valid, -1 if invalid and uncorrectable, or a positive
   // integer approximating the number of corrections needed.
-  int validate() {
-    int tmp, res = 0;
+  int repair() {
+    int tmp, fixes = 0;
 
     if (sec_ < 0 || sec_ > 60) { /* 61 POSIX, 60 draft ISO C */
-      res++;
-      tmp = sec_ / 60;
-      sec_ -= 60 * tmp;
-      min_ += tmp;
+      fixes++;
+      int extra_mins = sec_ / 60;
+      sec_ -= 60 * extra_mins;
+      min_ += extra_mins;
       if (sec_ < 0) {
         sec_ += 60;
         min_--;
@@ -73,7 +89,7 @@ public:
     }
 
     if (min_ < 0 || min_ > 59) {
-      res++;
+      fixes++;
       tmp = min_ / 60;
       min_ -= 60 * tmp;
       hour_ += tmp;
@@ -100,7 +116,7 @@ public:
     }
 
     if (hour_ < 0 || hour_ > 23) {
-      res++;
+      fixes++;
       tmp = hour_ / 24;
       hour_ -= 24 * tmp;
       day_ += tmp;
@@ -112,7 +128,7 @@ public:
 
     /* defer fixing mday until we know the year */
     if (mon_ < 0 || mon_ > 11) {
-      res++;
+      fixes++;
       tmp = mon_/12;
       mon_ -= 12 * tmp;
       year_ += tmp;
@@ -128,7 +144,7 @@ public:
       return -1;
 
     if (abs(day_) > 366) {
-      res++;
+      fixes++;
       // first spin back until January
       while(mon_ > 0) {
         --mon_;
@@ -146,7 +162,7 @@ public:
     }
 
     while(day_ < 1) {
-      res++;
+      fixes++;
       mon_--;
       if(mon_ < 0) {
         mon_ += 12;
@@ -156,7 +172,7 @@ public:
     }
 
     while(day_ > (tmp = days_in_month())) {
-      res++;
+      fixes++;
       mon_++;
       if(mon_ > 11) {
         mon_ -= 12;
@@ -164,7 +180,7 @@ public:
       }
       day_ -= tmp;
     }
-    return res;
+    return fixes;
   }
 
 
@@ -173,6 +189,9 @@ public:
   // a wider range of dates. Input is not validated; invalid dates have
   // undefined behaviour.
   double utctime() const {
+    if (!isValid())
+      return NA_REAL;
+
     // Number of days since start of year
     int day = month_start[mon_] + day_;
     if (mon_ > 1 && is_leap(year_))
@@ -196,10 +215,10 @@ public:
   }
 
 private:
-  inline int days_in_month() {
+  inline int days_in_month() const {
     return month_length[mon_] + (mon_ == 1 && is_leap(year_));
   }
-  inline int days_in_year() {
+  inline int days_in_year() const {
     return 365 + is_leap(year_);
   }
 };
@@ -207,7 +226,7 @@ private:
 // [[Rcpp::export]]
 NumericVector utctime(IntegerVector year, IntegerVector month, IntegerVector day,
                       IntegerVector hour, IntegerVector min, IntegerVector sec,
-                      NumericVector psec) {
+                      NumericVector psec, bool repair = false) {
   int n = year.size();
   if (month.size() != n || day.size() != n || hour.size() != n ||
       min.size() != n || sec.size() != n || psec.size() != n) {
@@ -219,7 +238,8 @@ NumericVector utctime(IntegerVector year, IntegerVector month, IntegerVector day
   for (int i = 0; i < n; ++i) {
     DateTime dt(year[i], month[i] - 1, day[i] - 1, hour[i], min[i],
       sec[i], psec[i]);
-    dt.validate();
+    if (repair)
+      dt.repair();
     out[i] = dt.utctime();
   }
 
