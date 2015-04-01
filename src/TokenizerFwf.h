@@ -49,8 +49,9 @@ public:
     moreTokens_ = true;
   }
 
-  double proportionDone() {
-    return (curLine_ - begin_) / (double) (end_ - begin_);
+  std::pair<double,size_t> progress() {
+    size_t bytes = curLine_ - begin_;
+    return std::make_pair(bytes / (double) (end_ - begin_), bytes);
   }
 
   Token nextToken() {

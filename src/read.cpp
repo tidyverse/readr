@@ -94,7 +94,7 @@ List read_tokens(List sourceSpec, List tokenizerSpec, ListOf<List> colSpecs,
   size_t i = 0, cells = 0;
   for (Token t = tokenizer->nextToken(); t.type() != TOKEN_EOF; t = tokenizer->nextToken()) {
     if (progress && (cells++) % 250000 == 0)
-      progressBar.show(tokenizer->proportionDone());
+      progressBar.show(tokenizer->progress());
 
     if (t.col() >= p) {
       stop("In row %i, there are %i columns!", t.row() + 1, t.col() + 1);
@@ -104,13 +104,15 @@ List read_tokens(List sourceSpec, List tokenizerSpec, ListOf<List> colSpecs,
       if (n_max >= 0)
         break;
 
-      n = (i / tokenizer->proportionDone()) * 1.2;
+      // Estimate rows in full dataset
+      n = (i / tokenizer->progress().first) * 1.2;
       collectorsResize(collectors, n);
     }
 
     collectors[t.col()]->setValue(t.row(), t);
     i = t.row();
   }
+  progressBar.show(tokenizer->progress());
   progressBar.stop();
 
   if (i <= n) {

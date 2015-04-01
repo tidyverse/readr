@@ -21,7 +21,8 @@ public:
 
   virtual void tokenize(SourceIterator begin, SourceIterator end) = 0;
   virtual Token nextToken() = 0;
-  virtual double proportionDone() = 0;
+  // Percentage & bytes
+  virtual std::pair<double,size_t> progress() = 0;
 
   virtual void unescape(SourceIterator begin, SourceIterator end,
                         boost::container::string* pOut) {

@@ -39,7 +39,9 @@ public:
     stopped_ = true;
   }
 
-  void show(double prop) {
+  void show(std::pair<double, size_t> progress) {
+    double prop = progress.first, size = progress.second / (1024 * 1024);
+
     double est = (now() - timeInit_) / prop;
     if (!show_) {
       if (est > timeMin_) {
@@ -52,8 +54,13 @@ public:
     // double time_left = (1 - prop) * est;
     int nbars = prop * width_, nspaces = (1 - prop) * width_;
 
-    Rcpp::Rcout << "\r|" << std::string(nbars, '=') << std::string(nspaces, ' ') <<
-      "|" << round(prop * 100) << "%" << std::string(5, ' ');
+    std::string bars(nbars, '='), spaces(nspaces, ' ');
+    tfm::format(Rcpp::Rcout, "\r|%s%s| %3d%%", bars, spaces, (int) (prop * 100));
+    if (size > 0) {
+      tfm::format(Rcpp::Rcout, " %4.0f MB", size);
+    } else {
+      tfm::format(Rcpp::Rcout, "           ");
+    }
   }
 
   ~Progress() {
@@ -63,9 +70,8 @@ public:
 
       if (!stopped_)
         timeStop_ = now();
+      Rcpp::Rcout << "\n";
 
-//       Rcpp::Rcout << "\n" << (stopped_ ? "Completed" : "Killed") <<
-//         " after " << showTime(timeStop_ - timeInit_) << ".\n";
     } catch (...) {}
   }
 
