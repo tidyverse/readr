@@ -217,8 +217,10 @@ NumericVector utctime(IntegerVector year, IntegerVector month, IntegerVector day
   NumericVector out = NumericVector(n);
 
   for (int i = 0; i < n; ++i) {
-    out[i] = DateTime(year[i], month[i] - 1, day[i] - 1, hour[i], min[i],
-      sec[i], psec[i]).utctime();
+    DateTime dt(year[i], month[i] - 1, day[i] - 1, hour[i], min[i],
+      sec[i], psec[i]);
+    dt.validate();
+    out[i] = dt.utctime();
   }
 
   out.attr("class") = CharacterVector::create("POSIXct", "POSIXt");
