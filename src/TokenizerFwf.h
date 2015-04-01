@@ -4,10 +4,11 @@
 #include <Rcpp.h>
 #include "Token.h"
 #include "Tokenizer.h"
+#include "utils.h"
 
 class TokenizerFwf : public Tokenizer {
+  // Begin and end offsets are inclusive to match R conventions
   std::vector<int> beginOffset_, endOffset_;
-  int lineWidth_;
   std::string NA_;
 
   SourceIterator begin_, curLine_, end_;
@@ -43,11 +44,6 @@ public:
     begin_ = begin;
     end_ = end;
 
-    cacheLineWidth();
-    if (max_ >= lineWidth_)
-      Rcpp::stop("Line width (%i) smaller than last field (%i)",
-        lineWidth_, max_);
-
     row_ = 0;
     col_ = 0;
     moreTokens_ = true;
@@ -61,7 +57,6 @@ public:
     if (!moreTokens_)
       return Token(TOKEN_EOF, 0, 0);
 
-    // NA handling
     SourceIterator
       fieldBegin = curLine_ + beginOffset_[col_],
       fieldEnd = curLine_ + endOffset_[col_];
@@ -81,11 +76,8 @@ public:
     Token t = fieldToken(fieldBegin, fieldEnd);
 
     col_++;
-    if (col_  >= cols_) {
-      row_++;
-      col_ = 0;
-      curLine_ += lineWidth_;
-    }
+    if (col_  >= cols_)
+      newLine(fieldEnd);
 
     return t;
   }
@@ -100,12 +92,19 @@ private:
     return t;
   }
 
-  void cacheLineWidth() {
-    SourceIterator cur = begin_;
-    while(*cur != '\n' && cur != end_)
-      cur++;
+  void newLine(SourceIterator cur) {
+    row_++;
+    col_ = 0;
 
-    lineWidth_ = cur - begin_ + 1;
+    curLine_ = cur;
+
+    // Find EOL - last columns may be whitespace, and some fwf files have
+    // ragged line lengths, so need to scan
+    while(curLine_ != end_ && !(*curLine_ == '\r' || *curLine_ == '\n'))
+      curLine_++;
+    advanceForLF(&curLine_, end_);
+    if (curLine_ != end_)
+      curLine_++;
   }
 
 };

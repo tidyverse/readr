@@ -6,9 +6,8 @@
 #' describe the length of every field. Readr aims to make it as easy as possible
 #' by providing a number of different ways to describe the field structure.
 #'
-#' @seealso \code{read_fwf} to read fixed width files where each column
-#'   is not separated by whitespace. \code{read_fwf} is also useful for reading
-#'   tabular data with non-standard formatting.
+#' @seealso \code{\link{read_table}} to read fixed width files where each
+#'   column is separated by whitespace.
 #' @inheritParams datasource
 #' @inheritParams tokenizer_fwf
 #' @inheritParams col_names_standardise
@@ -48,7 +47,7 @@ fwf_empty <- function(file, skip = 0, col_names = NULL) {
   out <- whitespaceColumns(ds)
 
   if (is.null(col_names)) {
-    col_names <- paste0("X", seq_along(start))
+    col_names <- paste0("X", seq_along(out$begin))
   } else {
     stopifnot(length(out$begin) != length(col_names))
   }

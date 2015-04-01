@@ -65,13 +65,14 @@ massey <- system.file("extdata/massey-rating.txt", package = "readr")
 cat(read_file(massey))
 read_table(massey)
 
-# 1978 fuel economy data from http://www.fueleconomy.gov/feg/epadata/78data.zip
+# Sample of 1978 fuel economy data from
+# http://www.fueleconomy.gov/feg/epadata/78data.zip
 epa <- system.file("extdata/epa78.txt", package = "readr")
 cat(read_file(epa))
-read_table(epa, skip = 19, col_names = FALSE)
+read_table(epa, col_names = FALSE)
 }
 \seealso{
-\code{read_fwf} to read fixed width files where each column
+\code{\link{read_fwf}} to read fixed width files where each column
   is not separated by whitespace. \code{read_fwf} is also useful for reading
   tabular data with non-standard formatting.
 }

@@ -3,6 +3,7 @@ using namespace Rcpp;
 
 #include "Source.h"
 #include "Tokenizer.h"
+#include "utils.h"
 
 std::vector<bool> emptyCols_(SourceIterator begin, SourceIterator end, size_t n = 100) {
 
@@ -12,12 +13,11 @@ std::vector<bool> emptyCols_(SourceIterator begin, SourceIterator end, size_t n 
   for (SourceIterator cur = begin; cur != end; ++cur) {
     if (row > n)
       break;
-    // Make sure there's enough room
-    if (col >= is_white.size())
-      is_white.resize(col + 1, true);
 
     switch(*cur) {
     case '\n':
+    case '\r':
+      advanceForLF(&cur, end);
       col = 0;
       row++;
       break;
@@ -25,6 +25,9 @@ std::vector<bool> emptyCols_(SourceIterator begin, SourceIterator end, size_t n 
       col++;
       break;
     default:
+      // Make sure there's enough room
+      if (col >= is_white.size())
+        is_white.resize(col + 1, true);
       is_white[col] = false;
     col++;
     }
@@ -33,7 +36,6 @@ std::vector<bool> emptyCols_(SourceIterator begin, SourceIterator end, size_t n 
 
   return is_white;
 }
-
 
 // [[Rcpp::export]]
 List whitespaceColumns(List sourceSpec, int n = 100) {
@@ -55,7 +57,7 @@ List whitespaceColumns(List sourceSpec, int n = 100) {
   }
 
   if (in_col)
-    end.push_back(empty.size() + 1);
+    end.push_back(empty.size());
 
   return List::create(
     _["begin"] = begin,

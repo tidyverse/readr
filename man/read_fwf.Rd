@@ -83,8 +83,7 @@ read_fwf(fwf_sample, fwf_widths(c(2, 5, 3)))
 read_fwf(fwf_sample, fwf_positions(c(1, 4), c(2, 10)))
 }
 \seealso{
-\code{read_fwf} to read fixed width files where each column
-  is not separated by whitespace. \code{read_fwf} is also useful for reading
-  tabular data with non-standard formatting.
+\code{\link{read_table}} to read fixed width files where each
+  column is separated by whitespace.
 }
 
