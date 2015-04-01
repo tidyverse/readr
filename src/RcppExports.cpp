@@ -29,18 +29,18 @@ BEGIN_RCPP
 END_RCPP
 }
 // utctime
-NumericVector utctime(int year, int month, int day, int hour, int min, int sec, double psec);
+NumericVector utctime(IntegerVector year, IntegerVector month, IntegerVector day, IntegerVector hour, IntegerVector min, IntegerVector sec, NumericVector psec);
 RcppExport SEXP readr_utctime(SEXP yearSEXP, SEXP monthSEXP, SEXP daySEXP, SEXP hourSEXP, SEXP minSEXP, SEXP secSEXP, SEXP psecSEXP) {
 BEGIN_RCPP
     Rcpp::RObject __result;
     Rcpp::RNGScope __rngScope;
-    Rcpp::traits::input_parameter< int >::type year(yearSEXP);
-    Rcpp::traits::input_parameter< int >::type month(monthSEXP);
-    Rcpp::traits::input_parameter< int >::type day(daySEXP);
-    Rcpp::traits::input_parameter< int >::type hour(hourSEXP);
-    Rcpp::traits::input_parameter< int >::type min(minSEXP);
-    Rcpp::traits::input_parameter< int >::type sec(secSEXP);
-    Rcpp::traits::input_parameter< double >::type psec(psecSEXP);
+    Rcpp::traits::input_parameter< IntegerVector >::type year(yearSEXP);
+    Rcpp::traits::input_parameter< IntegerVector >::type month(monthSEXP);
+    Rcpp::traits::input_parameter< IntegerVector >::type day(daySEXP);
+    Rcpp::traits::input_parameter< IntegerVector >::type hour(hourSEXP);
+    Rcpp::traits::input_parameter< IntegerVector >::type min(minSEXP);
+    Rcpp::traits::input_parameter< IntegerVector >::type sec(secSEXP);
+    Rcpp::traits::input_parameter< NumericVector >::type psec(psecSEXP);
     __result = Rcpp::wrap(utctime(year, month, day, hour, min, sec, psec));
     return __result;
 END_RCPP

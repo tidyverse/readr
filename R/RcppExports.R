@@ -9,7 +9,7 @@ read_connection_ <- function(con, chunk_size = 64 * 1024L) {
     .Call('readr_read_connection_', PACKAGE = 'readr', con, chunk_size)
 }
 
-utctime <- function(year, month, day, hour = 0L, min = 0L, sec = 0L, psec = 0) {
+utctime <- function(year, month, day, hour, min, sec, psec) {
     .Call('readr_utctime', PACKAGE = 'readr', year, month, day, hour, min, sec, psec)
 }
 
