@@ -37,7 +37,7 @@ public:
     size_t inbytesleft = from.size(), outbytesleft = max_size;
     size_t res = iconv(cd_, &inbuf, &inbytesleft, &outbuf, &outbytesleft);
 
-    if (res == -1) {
+    if (res == (size_t) -1) {
       switch(errno) {
       case EILSEQ: Rcpp::stop("Invalid multibyte sequence");
       case EINVAL: Rcpp::stop("Incomplete multibyte sequence");
