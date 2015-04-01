@@ -57,7 +57,7 @@ public:
   // Compared to usual implementations this returns a double, and supports
   // a wider range of dates. Input is not validated; invalid dates have
   // undefined behaviour.
-  double utctime() {
+  double utctime() const {
     // Number of days since start of year
     int day = first_day_of_month[mon_] + day_;
     if (mon_ > 1 && is_leap(year_))
