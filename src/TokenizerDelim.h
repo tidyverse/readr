@@ -4,6 +4,7 @@
 #include <Rcpp.h>
 #include "Token.h"
 #include "Tokenizer.h"
+#include "utils.h"
 
 enum DelimState {
   STATE_DELIM,
@@ -76,7 +77,7 @@ public:
       case STATE_DELIM:
         if (*cur_ == '\r' || *cur_ == '\n') {
           newRecord();
-          advanceForLF();
+          advanceForLF(&cur_, end_);
           return Token(TOKEN_EMPTY, row, col);
         } else if (*cur_ == delim_) {
           newField();
@@ -93,7 +94,7 @@ public:
       case STATE_FIELD:
         if (*cur_ == '\r' || *cur_ == '\n') {
           newRecord();
-          return fieldToken(token_begin, advanceForLF(), hasEscapeB, row, col);
+          return fieldToken(token_begin, advanceForLF(&cur_, end_), hasEscapeB, row, col);
         } else if (escapeBackslash_ && *cur_ == '\\') {
           state_ = STATE_ESCAPE_F;
         } else if (*cur_ == delim_) {
@@ -113,10 +114,12 @@ public:
           state_ = STATE_STRING;
         } else if (*cur_ == '\r' || *cur_ == '\n') {
           newRecord();
-          return stringToken(token_begin + 1, advanceForLF() - 1, hasEscapeB, hasEscapeD, row, col);
+          return stringToken(token_begin + 1, advanceForLF(&cur_, end_) - 1,
+            hasEscapeB, hasEscapeD, row, col);
         } else if (*cur_ == delim_) {
           newField();
-          return stringToken(token_begin + 1, cur_ - 1, hasEscapeB, hasEscapeD, row, col);
+          return stringToken(token_begin + 1, cur_ - 1,
+            hasEscapeB, hasEscapeD, row, col);
         } else {
           Rcpp::stop("At [%i, %i] expecting delimiter or quote but found '%s'",
             row + 1, col + 1, *cur_);
@@ -138,7 +141,8 @@ public:
       case STATE_STRING_END:
         if (*cur_ == '\r' || *cur_ == '\n') {
           newRecord();
-          return stringToken(token_begin + 1, advanceForLF() - 1, hasEscapeB, hasEscapeD, row, col);
+          return stringToken(token_begin + 1, advanceForLF(&cur_, end_) - 1,
+            hasEscapeB, hasEscapeD, row, col);
         } else if (*cur_ == delim_) {
           newField();
           return stringToken(token_begin + 1, cur_ - 1, hasEscapeB, hasEscapeD, row, col);
@@ -197,16 +201,6 @@ private:
     row_++;
     col_ = 0;
     state_ = STATE_DELIM;
-  }
-
-  // Advances if iterator if the next character is a LF.
-  // Returns pointer to last character in this line
-  const char* advanceForLF() {
-    const char* end = cur_;
-    if (*cur_ == '\r' && (cur_ + 1 != end_) && *(cur_ + 1) == '\n')
-      cur_++;
-
-    return end;
   }
 
   Token fieldToken(SourceIterator begin, SourceIterator end, bool hasEscapeB,

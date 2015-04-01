@@ -4,6 +4,7 @@
 #include <Rcpp.h>
 #include "Token.h"
 #include "Tokenizer.h"
+#include "utils.h"
 
 class TokenizerLine : public Tokenizer {
   SourceIterator begin_, cur_, end_;
@@ -39,17 +40,8 @@ public:
 
       switch(*cur_) {
       case '\r':
-        line_++;
-        {
-          const char* end = cur_;
-          if (nextIsLF()) {
-            cur_++;
-          }
-          return Token(token_begin, end, line, 0);
-        }
       case '\n':
-        line_++;
-        return Token(token_begin, cur_, line, 0);
+        return Token(token_begin, advanceForLF(&cur_, end_), line, 0);
       default:
         break;
       }
@@ -63,16 +55,6 @@ public:
       return Token(token_begin, end_, line, 0);
     }
   }
-
-private:
-  bool nextIsLF() {
-    const char* next = cur_ + 1;
-    if (next == end_)
-      return false;
-
-    return *next == '\n';
-  }
-
 
 };
 
