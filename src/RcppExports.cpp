@@ -46,6 +46,16 @@ BEGIN_RCPP
     return __result;
 END_RCPP
 }
+// localeStrings
+List localeStrings();
+RcppExport SEXP readr_localeStrings() {
+BEGIN_RCPP
+    Rcpp::RObject __result;
+    Rcpp::RNGScope __rngScope;
+    __result = Rcpp::wrap(localeStrings());
+    return __result;
+END_RCPP
+}
 // dim_tokens_
 IntegerVector dim_tokens_(List sourceSpec, List tokenizerSpec);
 RcppExport SEXP readr_dim_tokens_(SEXP sourceSpecSEXP, SEXP tokenizerSpecSEXP) {

@@ -13,6 +13,10 @@ utctime <- function(year, month, day, hour, min, sec, psec, repair = FALSE) {
     .Call('readr_utctime', PACKAGE = 'readr', year, month, day, hour, min, sec, psec, repair)
 }
 
+localeStrings <- function() {
+    .Call('readr_localeStrings', PACKAGE = 'readr')
+}
+
 dim_tokens_ <- function(sourceSpec, tokenizerSpec) {
     .Call('readr_dim_tokens_', PACKAGE = 'readr', sourceSpec, tokenizerSpec)
 }
