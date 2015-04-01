@@ -7,6 +7,7 @@ Authors@R: c(
     person("Romain", "Francois", role = "aut"),
     person("Kungliga Tekniska Högskolan", role = "ctb", comment = "Source code for timegm"),
     person("NetBSD Foundation", role = "ctb", comment = "Source code for strptime"),
+    person("R Core Team", role = "ctb", comment = "Date time code adapted from R"),
     person("RStudio", role = "cph"))
 Encoding: UTF-8
 Depends:

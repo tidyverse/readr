@@ -1,4 +1,4 @@
-// Adapted from mktime00 in src/main/datetime.c
+// Much of this code is adapted from R's src/main/datetime.c.
 // Author: The R Core Team.
 // License: GPL >= 2
 
