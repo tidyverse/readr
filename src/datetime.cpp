@@ -9,9 +9,9 @@ using namespace Rcpp;
 static const int first_day_of_month[12] =
   {0, 31, 59, 90, 120, 151, 181, 212, 243, 273, 304, 334};
 
-#define isleap(y) ((((y) % 4) == 0 && ((y) % 100) != 0) || ((y) % 400) == 0)
-#define days_in_year(year) (isleap(year) ? 366 : 365)
-
+inline int is_leap(unsigned y) {
+  return (y % 4) == 0 && ((y % 100) != 0 || (y % 400) == 0);
+}
 
 class DateTime {
   int year_, mon_, day_, hour_, min_, sec_;
@@ -29,10 +29,9 @@ public:
   // a wider range of dates. Input is not validated; invalid dates have
   // undefined behaviour.
   double utctime() {
-
     // Count number of days since start of year
     int day = first_day_of_month[mon_] + day_;
-    if (mon_ > 1 && isleap(year_))
+    if (mon_ > 1 && is_leap(year_))
       day++;
 
     // Add number of days between start of year and 1970-01-01. Before 0 and
@@ -49,10 +48,10 @@ public:
 
     if (year0 > 1970) {
       for (int year = 1970; year < year0; year++)
-        day += days_in_year(year);
+        day += 365 + is_leap(year);
     } else if (year0 < 1970) {
       for (int year = 1969; year >= year0; year--)
-        day -= days_in_year(year);
+        day -= (365 + is_leap(year));
     }
     day += excess * 730485; // 2000 * (365 + 1/4 - 1/100 + 1/400);
 
