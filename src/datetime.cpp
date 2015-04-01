@@ -6,68 +6,69 @@
 using namespace Rcpp;
 #include <ctime>
 
-static const int days_in_month[12] =
-  {31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31};
+static const int first_day_of_month[12] =
+  {0, 31, 59, 90, 120, 151, 181, 212, 243, 273, 304, 334};
 
 #define isleap(y) ((((y) % 4) == 0 && ((y) % 100) != 0) || ((y) % 400) == 0)
 #define days_in_year(year) (isleap(year) ? 366 : 365)
 
-// Convert a tm struct into number of seconds since 1970-01-01T0000Z.
-// Compared to usual implementations this returns a double, and supports
-// a wider range of dates. Input is not validated; invalid dates have
-// undefined behaviour.
-double utctime(struct tm* tm) {
-  int day = tm->tm_mday - 1;
-  int year0 = 1900 + tm->tm_year;
 
-  // Before 0 and after 3000, only estimate the number of days in a year,
-  // assuming an average of 365 + 1/4 - 1/100 + 1/400 days per year. This is
-  // an approximation, but resonable given that the Gregorian calendar wasn't
-  // defined until in 1582 (the last European country to adopt it was Greece,
-  // in 1923), and has an error of ~1 day / 3300 years.
-  double excess = 0;
-  if (year0 < 0 || year0 > 3000) {
-    excess = (int) (year0 / 2000) - 1;
-  }
-  year0 -= (int) (excess * 2000);
-  excess *= 730485; // 2000 * (365 + 1/4 - 1/100 + 1/400);
+class DateTime {
+  int year_, mon_, day_, hour_, min_, sec_;
+  double psec_;
 
-  for(int i = 0; i < tm->tm_mon; i++)
-    day += days_in_month[i];
-  if (tm->tm_mon > 1 && isleap(year0))
-    day++;
-
-  if (year0 > 1970) {
-    for (int year = 1970; year < year0; year++)
-      day += days_in_year(year);
-  } else if (year0 < 1970) {
-    for (int year = 1969; year >= year0; year--)
-      day -= days_in_year(year);
+public:
+  DateTime(int year, int mon, int day, int hour = 0, int min = 0, int sec = 0,
+    double psec = 0):
+  year_(year), mon_(mon), day_(day), hour_(hour), min_(min), sec_(sec),
+  psec_(psec) {
   }
 
-  return
-    tm->tm_sec +
-    (tm->tm_min * 60) +
-    (tm->tm_hour * 3600) +
-    (day + excess) * 86400.0;
-}
+  // Convert a tm struct into number of seconds since 1970-01-01T0000Z.
+  // Compared to usual implementations this returns a double, and supports
+  // a wider range of dates. Input is not validated; invalid dates have
+  // undefined behaviour.
+  double utctime() {
+
+    // Count number of days since start of year
+    int day = first_day_of_month[mon_] + day_;
+    if (mon_ > 1 && isleap(year_))
+      day++;
+
+    // Add number of days between start of year and 1970-01-01. Before 0 and
+    // after 3000, only estimate the number of days in a year, assuming an
+    // average of 365 + 1/4 - 1/100 + 1/400 days per year. This is an
+    // approximation, but resonable given that the Gregorian calendar wasn't
+    // defined until in 1582 (the last European country to adopt it was Greece,
+    // in 1923), and has an error of ~1 day / 3300 years.
+    double excess = 0;
+    if (year_ < 0 || year_ > 3000) {
+      excess = (year_ / 2000) - 1;
+    }
+    int year0 = year_ - (excess * 2000);
+
+    if (year0 > 1970) {
+      for (int year = 1970; year < year0; year++)
+        day += days_in_year(year);
+    } else if (year0 < 1970) {
+      for (int year = 1969; year >= year0; year--)
+        day -= days_in_year(year);
+    }
+    day += excess * 730485; // 2000 * (365 + 1/4 - 1/100 + 1/400);
+
+    return psec_ + sec_ + (min_ * 60) + (hour_ * 3600) + (day * 86400.0);
+  }
+};
 
 // [[Rcpp::export]]
 NumericVector utctime(int year, int month, int day, int hour = 0, int min = 0,
-                      int sec = 0, double psec = 0) {
-  struct tm tm;
-  tm.tm_year = year - 1900;
-  tm.tm_mon = month - 1;
-  tm.tm_mday = day;
-  tm.tm_hour = hour;
-  tm.tm_min = min;
-  tm.tm_sec = sec;
+  int sec = 0, double psec = 0) {
 
-  NumericVector out = NumericVector::create(utctime(&tm) + psec);
+  double dt = DateTime(year, month - 1, day - 1, hour, min, sec, psec).utctime();
+
+  NumericVector out = NumericVector::create(dt + psec);
   out.attr("class") = CharacterVector::create("POSIXct", "POSIXt");
   out.attr("tzone") = "UTC";
 
   return out;
 }
-
-
