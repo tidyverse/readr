@@ -43,3 +43,13 @@ test_that("%OS captures partial seconds", {
   x <- date_parse("2001-01-01 00:00:01.333", "%Y-%m-%d %H:%M:%OS")
   expect_equal(as.POSIXlt(x)$sec, 1.333, tol = 1e-6)
 })
+
+test_that("invalid dates return NA", {
+  expect_true(is.na(date_parse("2010-02-30", "%Y-%m-%d")))
+})
+
+test_that("failed parsing returns", {
+  expect_true(is.na(date_parse("2010-02", "%Y-%m-%d")))
+  expect_true(is.na(date_parse("2010-02-ab", "%Y-%m-%d")))
+  expect_true(is.na(date_parse("2010/02-ab", "%Y-%m-%d")))
+})
