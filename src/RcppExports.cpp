@@ -56,6 +56,17 @@ BEGIN_RCPP
     return __result;
 END_RCPP
 }
+// findMonth
+int findMonth(std::string month);
+RcppExport SEXP readr_findMonth(SEXP monthSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject __result;
+    Rcpp::RNGScope __rngScope;
+    Rcpp::traits::input_parameter< std::string >::type month(monthSEXP);
+    __result = Rcpp::wrap(findMonth(month));
+    return __result;
+END_RCPP
+}
 // dim_tokens_
 IntegerVector dim_tokens_(List sourceSpec, List tokenizerSpec);
 RcppExport SEXP readr_dim_tokens_(SEXP sourceSpecSEXP, SEXP tokenizerSpecSEXP) {

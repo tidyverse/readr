@@ -51,19 +51,19 @@ public:
     period_.push_back(encoder_.convert(formatDate(tm, "%p")));
   }
 
-  const std::vector<std::string>& month() {
+  const std::vector<std::string>& month() const {
     return month_;
   }
-  const std::vector<std::string>& monthAbbrev() {
+  const std::vector<std::string>& monthAbbrev() const {
     return monthAbbrev_;
   }
-  const std::vector<std::string>& day() {
+  const std::vector<std::string>& day() const {
     return day_;
   }
-  const std::vector<std::string>& dayAbbrev() {
+  const std::vector<std::string>& dayAbbrev() const {
     return dayAbbrev_;
   }
-  const std::vector<std::string>& period() {
+  const std::vector<std::string>& period() const {
     return period_;
   }
 

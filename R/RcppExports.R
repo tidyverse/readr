@@ -17,6 +17,10 @@ date_time_locale <- function() {
     .Call('readr_date_time_locale', PACKAGE = 'readr')
 }
 
+findMonth <- function(month) {
+    .Call('readr_findMonth', PACKAGE = 'readr', month)
+}
+
 dim_tokens_ <- function(sourceSpec, tokenizerSpec) {
     .Call('readr_dim_tokens_', PACKAGE = 'readr', sourceSpec, tokenizerSpec)
 }

@@ -53,8 +53,8 @@ class DateTime {
 public:
   DateTime(int year, int mon, int day, int hour = 0, int min = 0, int sec = 0,
     double psec = 0):
-  year_(year), mon_(mon), day_(day), hour_(hour), min_(min), sec_(sec),
-  psec_(psec) {
+      year_(year), mon_(mon), day_(day), hour_(hour), min_(min), sec_(sec),
+      psec_(psec) {
   }
 
   // Is this a valid date time?
