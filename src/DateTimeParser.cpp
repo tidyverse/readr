@@ -30,35 +30,40 @@ public:
     init(date);
 
     // Date: 2015-04-01
-    if ((year_ = consumeInteger(4)) == -1)
+    if (consumeInteger(4, &year_))
       return false;
-    if (consumeChar() != '-')
+    if (!consumeThisChar('-'))
       return false;
-    if ((mon_ = consumeInteger(2) - 1) == -1)
+    if (consumeInteger(2, &mon_))
       return false;
-    if (consumeChar() != '-')
+    if (consumeThisChar('-'))
       return false;
-    if ((day_ = consumeInteger(2) - 1) == -1)
+    if (consumeInteger(2, &day_))
       return false;
+
+    mon_--;
+    day_--;
 
     if (isComplete())
       return true;
 
     // Technically, spec requires T, but very common to use
-    char next = consumeChar();
+    char next;
+    if (!consumeChar(&next))
+      return false;
     if (next != 'T' && next != ' ')
       return false;
 
     // Time: 08:41:51
-    if ((hour_ = consumeInteger(2)) == -1)
+    if (consumeInteger(2, &hour_))
       return false;
-    if (consumeChar() != ':')
+    if (!consumeThisChar(':'))
       return false;
-    if ((min_ = consumeInteger(2)) == -1)
+    if (consumeInteger(2, &min_))
       return false;
-    if (consumeChar() != ':')
+    if (!consumeThisChar(':'))
       return false;
-    if (!parseSeconds())
+    if (consumeSeconds(&sec_, &psec_))
       return false;
 
     if (isComplete())
@@ -89,7 +94,7 @@ public:
 
       // Any other characters much much exactly.
       if (*formatItr != '%') {
-        if (*formatItr != consumeChar())
+        if (!consumeThisChar(*formatItr))
           return false;
         continue;
       }
@@ -100,41 +105,41 @@ public:
 
       switch(*formatItr) {
       case 'Y': // year with century
-        if ((year_ = consumeInteger(4)) == -1)
+        if (!consumeInteger(4, &year_))
           return false;
         break;
       case 'y': // year without century
-        if ((year_ = consumeInteger(2)) == -1)
+        if (!consumeInteger(2, &year_))
           return false;
         year_ += (year_ < 69) ? 2000 : 1900;
         break;
       case 'm': // month
-        if ((mon_ = consumeInteger(2)) == -1)
+        if (!consumeInteger(2, &mon_))
           return false;
         mon_--;
         break;
       case 'd': // day
-        if ((day_ = consumeInteger(2)) == -1)
+        if (!consumeInteger(2, &day_))
           return false;
         day_--;
         break;
       case 'H': // hour
-        if ((hour_ = consumeInteger(2)) == -1)
+        if (!consumeInteger(2, &hour_))
           return false;
         break;
       case 'M': // minute
-        if ((min_ = consumeInteger(2)) == -1)
+        if (!consumeInteger(2, &min_))
           return false;
         break;
       case 'S': // seconds (integer)
-        if ((sec_ = consumeInteger(2)) == -1)
+        if (!consumeSeconds(&sec_, NULL))
           return false;
         break;
       case 'O': // seconds (double)
         if (formatItr + 1 == formatEnd || *(formatItr + 1) != 'S')
           Rcpp::stop("Invalid format: %%O must be followed by %%S");
         formatItr++;
-        if (!parseSeconds())
+        if (!consumeSeconds(&sec_, &psec_))
           return false;
 
         break;
@@ -161,39 +166,43 @@ private:
     return true;
   }
 
-  inline bool parseSeconds() {
-    psec_ = consumeDouble();
-    if (psec_ == -1)
+  inline bool consumeSeconds(int* pSec, double* pPartialSec) {
+    double sec;
+    if (!consumeDouble(&sec))
       return false;
 
-    sec_ = (int) psec_;
-    psec_ -= sec_;
+    *pSec = (int) sec;
+    if (pPartialSec != NULL)
+      *pPartialSec = sec - *pSec;
     return true;
   }
 
-  inline int consumeInteger(int n) {
-    int res = 0;
-    bool ok = qi::parse(dateItr_, std::min(dateItr_ + n, dateEnd_), qi::int_, res);
-
-    return ok ? res : -1;
+  inline bool consumeInteger(int n, int* pOut) {
+    return qi::parse(dateItr_, std::min(dateItr_ + n, dateEnd_), qi::int_, *pOut);
   }
 
-  inline double consumeDouble() {
-    double res = 0;
-
-    bool ok = qi::parse(dateItr_, dateEnd_, qi::double_, res);
-    return ok ? res : -1;
+  inline double consumeDouble(double* pOut) {
+    return qi::parse(dateItr_, dateEnd_, qi::double_, *pOut);
   }
 
-  inline void consumeWhiteSpace() {
+  inline bool consumeWhiteSpace() {
     while (dateItr_ != dateEnd_ && std::isspace(*dateItr_))
       dateItr_++;
+
+    return true;
   }
 
-  char consumeChar() {
-    char out = *dateItr_;
+  inline bool consumeChar(char* pOut) {
+    *pOut = *dateItr_++;
+    return true;
+  }
+
+  inline bool consumeThisChar(char needed) {
+    if (*dateItr_ != needed)
+      return false;
+
     dateItr_++;
-    return out;
+    return true;
   }
 
   void init(const char* date) {
