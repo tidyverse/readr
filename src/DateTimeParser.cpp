@@ -26,9 +26,10 @@ public:
     reset();
   }
 
-  bool parseISO8601(const char* date) {
-    init(date);
-
+  // Parse ISO8601 date time. In benchmarks this only seems ~30% faster than
+  // parsing with a format string so it doesn't seem necessary to add individual
+  // parsers for other common formats.
+  bool parse() {
     // Date: 2015-04-01
     if (consumeInteger1(4, &year_))
       return false;
@@ -76,9 +77,11 @@ public:
     return dateItr_ == dateEnd_;
   }
 
-  bool parseDate(const char* date, const std::string& format) {
+  void setDate(const char* date) {
     init(date);
+  }
 
+  bool parse(const std::string& format) {
     consumeWhiteSpace(); // always consume leading whitespace
 
     std::string::const_iterator formatItr, formatEnd = format.end();
@@ -253,12 +256,8 @@ NumericVector date_parse(CharacterVector dates, std::string format = "", bool st
   NumericVector out = NumericVector(n);
   for (int i = 0; i < n; ++i) {
     const char* string = CHAR(STRING_ELT(dates, i));
-    bool res;
-    if (format == "") {
-      res = parser.parseISO8601(string);
-    } else {
-      res = parser.parseDate(string, format);
-    }
+    parser.setDate(string);
+    bool res = (format == "") ? parser.parse() : parser.parse(format);
 
     if (!res) {
       out[i] = NA_REAL;
