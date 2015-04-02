@@ -17,7 +17,7 @@ date_time_locale <- function() {
     .Call('readr_date_time_locale', PACKAGE = 'readr')
 }
 
-date_parse <- function(dates, format, strict = TRUE) {
+date_parse <- function(dates, format = "", strict = TRUE) {
     .Call('readr_date_parse', PACKAGE = 'readr', dates, format, strict)
 }
 

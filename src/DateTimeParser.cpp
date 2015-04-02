@@ -34,11 +34,11 @@ public:
       return false;
     if (consumeChar() != '-')
       return false;
-    if ((mon_ = consumeInteger(2)) == -1)
+    if ((mon_ = consumeInteger(2) - 1) == -1)
       return false;
     if (consumeChar() != '-')
       return false;
-    if ((day_ = consumeInteger(2)) == -1)
+    if ((day_ = consumeInteger(2) - 1) == -1)
       return false;
 
     if (isComplete())
@@ -46,7 +46,7 @@ public:
 
     // Technically, spec requires T, but very common to use
     char next = consumeChar();
-    if (next != 'T' || next != ' ')
+    if (next != 'T' && next != ' ')
       return false;
 
     // Time: 08:41:51
@@ -218,7 +218,7 @@ private:
 };
 
 // [[Rcpp::export]]
-NumericVector date_parse(CharacterVector dates, std::string format, bool strict = true) {
+NumericVector date_parse(CharacterVector dates, std::string format = "", bool strict = true) {
   int n = dates.size();
 
   DateTimeLocale loc;
@@ -227,7 +227,13 @@ NumericVector date_parse(CharacterVector dates, std::string format, bool strict 
   NumericVector out = NumericVector(n);
   for (int i = 0; i < n; ++i) {
     const char* string = CHAR(STRING_ELT(dates, i));
-    bool res = parser.parseDate(string, format);
+    bool res;
+    if (format == "") {
+      res = parser.parseISO8601(string);
+    } else {
+      res = parser.parseDate(string, format);
+    }
+
     if (!res) {
       out[i] = NA_REAL;
     } else {
