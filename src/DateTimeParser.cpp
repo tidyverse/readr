@@ -26,8 +26,58 @@ public:
     reset();
   }
 
+  bool parseISO8601(const char* date) {
+    init(date);
+
+    // Date: 2015-04-01
+    if ((year_ = consumeInteger(4)) == -1)
+      return false;
+    if (consumeChar() != '-')
+      return false;
+    if ((mon_ = consumeInteger(2)) == -1)
+      return false;
+    if (consumeChar() != '-')
+      return false;
+    if ((day_ = consumeInteger(2)) == -1)
+      return false;
+
+    if (isComplete())
+      return true;
+
+    // Technically, spec requires T, but very common to use
+    char next = consumeChar();
+    if (next != 'T' || next != ' ')
+      return false;
+
+    // Time: 08:41:51
+    if ((hour_ = consumeInteger(2)) == -1)
+      return false;
+    if (consumeChar() != ':')
+      return false;
+    if ((min_ = consumeInteger(2)) == -1)
+      return false;
+    if (consumeChar() != ':')
+      return false;
+    if (!parseSeconds())
+      return false;
+
+    if (isComplete())
+      return true;
+
+    // Time zone:
+    Rcpp::stop("Time zones not supported yet");
+
+    return true;
+  }
+
+  bool isComplete() {
+    return dateItr_ == dateEnd_;
+  }
+
   bool parseDate(const char* date, const std::string& format) {
     init(date);
+
+    consumeWhiteSpace(); // always consume leading whitespace
 
     std::string::const_iterator formatItr, formatEnd = format.end();
     for (formatItr = format.begin(); formatItr != formatEnd; ++formatItr) {
@@ -84,16 +134,15 @@ public:
         if (formatItr + 1 == formatEnd || *(formatItr + 1) != 'S')
           Rcpp::stop("Invalid format: %%O must be followed by %%S");
         formatItr++;
-
-        psec_ = consumeDouble();
-        sec_ = (int) psec_;
-        psec_ -= sec_;
+        if (!parseSeconds())
+          return false;
 
         break;
       default:
         Rcpp::stop("Unsupported format %%%s", *formatItr);
       }
     }
+    consumeWhiteSpace(); // always consume trailing whitespace
 
     return isValid();
   }
@@ -109,6 +158,16 @@ private:
     if (year_ == -1 || mon_ == -1 || day_ == -1)
       return false;
 
+    return true;
+  }
+
+  inline bool parseSeconds() {
+    psec_ = consumeDouble();
+    if (psec_ == -1)
+      return false;
+
+    sec_ = (int) psec_;
+    psec_ -= sec_;
     return true;
   }
 
