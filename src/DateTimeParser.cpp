@@ -15,6 +15,8 @@ using namespace Rcpp;
 class DateTimeParser {
   int year_, mon_, day_, hour_, min_, sec_;
   double psec_;
+  int tzOffsetHours_, tzOffsetMinutes_;
+  bool isUTC_;
   const DateTimeLocale& locale_;
 
   const char* dateItr_;
@@ -23,23 +25,22 @@ class DateTimeParser {
 public:
   DateTimeParser(const DateTimeLocale& locale): locale_(locale)
   {
-    reset();
   }
 
   // Parse ISO8601 date time. In benchmarks this only seems ~30% faster than
   // parsing with a format string so it doesn't seem necessary to add individual
   // parsers for other common formats.
   bool parse() {
-    // Date: 2015-04-01
-    if (consumeInteger1(4, &year_))
+    isUTC_ = true;
+
+    // Date: YYYY-MM-DD, YYYYMMDD
+    if (!consumeInteger(4, &year_))
       return false;
-    if (!consumeThisChar('-'))
+    consumeThisChar('-');
+    if (!consumeInteger1(2, &mon_))
       return false;
-    if (consumeInteger1(2, &mon_))
-      return false;
-    if (consumeThisChar('-'))
-      return false;
-    if (consumeInteger(2, &day_))
+    consumeThisChar('-');
+    if (!consumeInteger1(2, &day_))
       return false;
 
     if (isComplete())
@@ -52,25 +53,24 @@ public:
     if (next != 'T' && next != ' ')
       return false;
 
-    // Time: 08:41:51
-    if (consumeInteger(2, &hour_))
+    // hh:mm:ss.sss, hh:mm:ss, hh:mm, hh
+    // hhmmss.sss, hhmmss, hhmm
+    if (!consumeInteger(2, &hour_))
       return false;
-    if (!consumeThisChar(':'))
-      return false;
-    if (consumeInteger(2, &min_))
-      return false;
-    if (!consumeThisChar(':'))
-      return false;
-    if (consumeSeconds(&sec_, &psec_))
-      return false;
+    consumeThisChar(':');
+    consumeInteger(2, &min_);
+    consumeThisChar(':');
+    consumeSeconds(&sec_, &psec_);
 
     if (isComplete())
       return true;
 
-    // Time zone:
-    Rcpp::stop("Time zones not supported yet");
+    // Has a timezone
+    isUTC_ = true;
+    if (!consumeTzOffset(&tzOffsetHours_, &tzOffsetMinutes_))
+      return false;
 
-    return true;
+    return isComplete();
   }
 
   bool isComplete() {
@@ -79,6 +79,7 @@ public:
 
   void setDate(const char* date) {
     init(date);
+    reset();
   }
 
   bool parse(const std::string& format) {
@@ -145,6 +146,11 @@ public:
           return false;
         break;
 
+      case 'Z': // time zone specification
+        isUTC_ = true;
+        if (!consumeTzOffset(&tzOffsetHours_, &tzOffsetMinutes_))
+          return false;
+
       // Compound formats
       case 'D':
         parse("%m/%d/%y");
@@ -201,7 +207,6 @@ private:
     return qi::parse(dateItr_, std::min(dateItr_ + n, dateEnd_), qi::int_, *pOut);
   }
 
-
   // Integer indexed from 1 (i.e. month and date)
   inline bool consumeInteger1(int n, int* pOut) {
     if (!consumeInteger(n, pOut))
@@ -243,6 +248,35 @@ private:
     return true;
   }
 
+  // ISO8601 style
+  // Z
+  // ±hh:mm
+  // ±hhmm
+  // ±hh
+  inline bool consumeTzOffset(int* pHours, int* pMinutes) {
+    isUTC_ = true;
+
+    if (consumeThisChar('Z'))
+      return true;
+
+    // Optional +/- (required for ISO8601 but we'll let it slide)
+    int mult = 1;
+    if (*dateItr_ == '+' || *dateItr_ == '-') {
+      mult = (*dateItr_ == '-') ? -1 : 1;
+      dateItr_++;
+    }
+
+    // Required hours
+    if (!consumeInteger(2, pHours))
+      return false;
+
+    // Optional colon and minutes
+    consumeThisChar(':');
+    consumeInteger(2, pMinutes);
+
+    return true;
+  }
+
   void init(const char* date) {
     reset();
     dateItr_ = date;
@@ -261,6 +295,10 @@ private:
     min_ = 0;
     sec_ = 0;
     psec_ = 0;
+
+    tzOffsetHours_ = 0;
+    tzOffsetMinutes_ = 0;
+    isUTC_ = false;
   }
 };
 
