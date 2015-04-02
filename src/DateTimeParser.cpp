@@ -143,8 +143,26 @@ public:
         formatItr++;
         if (!consumeSeconds(&sec_, &psec_))
           return false;
-
         break;
+
+      // Compound formats
+      case 'D':
+        parse("%m/%d/%y");
+        break;
+      case 'F':
+        parse("%Y-%m-%d");
+        break;
+      case 'R':
+        parse("%H:%M");
+        break;
+      case 'X':
+      case 'T':
+        parse("%H:%M:%S");
+        break;
+      case 'x':
+        parse("%y/%m/%d");
+        break;
+
       default:
         Rcpp::stop("Unsupported format %%%s", *formatItr);
       }
