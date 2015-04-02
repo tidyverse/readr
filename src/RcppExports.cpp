@@ -46,13 +46,13 @@ BEGIN_RCPP
     return __result;
 END_RCPP
 }
-// localeStrings
-List localeStrings();
-RcppExport SEXP readr_localeStrings() {
+// date_time_locale
+List date_time_locale();
+RcppExport SEXP readr_date_time_locale() {
 BEGIN_RCPP
     Rcpp::RObject __result;
     Rcpp::RNGScope __rngScope;
-    __result = Rcpp::wrap(localeStrings());
+    __result = Rcpp::wrap(date_time_locale());
     return __result;
 END_RCPP
 }
