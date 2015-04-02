@@ -15,8 +15,11 @@ using namespace Rcpp;
 class DateTimeParser {
   int year_, mon_, day_, hour_, min_, sec_;
   double psec_;
+
   int tzOffsetHours_, tzOffsetMinutes_;
   bool isUTC_;
+  std::string tzName_;
+
   const DateTimeLocale& locale_;
 
   const char* dateItr_;
@@ -146,10 +149,15 @@ public:
           return false;
         break;
 
-      case 'Z': // time zone specification
+      case 'z': // time zone specification
         isUTC_ = true;
         if (!consumeTzOffset(&tzOffsetHours_, &tzOffsetMinutes_))
           return false;
+        break;
+      case 'Z': // time zone name
+        if (!consumeTzName(&tzName_))
+          return false;
+        break;
 
       // Compound formats
       case 'D':
@@ -277,6 +285,16 @@ private:
     return true;
   }
 
+  inline bool consumeTzName(std::string* pOut) {
+    const char* tzStart = dateItr_;
+    while (dateItr_ != dateEnd_ && !std::isspace(*dateItr_))
+      dateItr_++;
+
+    pOut->assign(tzStart, dateItr_);
+    return tzStart != dateItr_;
+  }
+
+
   void init(const char* date) {
     reset();
     dateItr_ = date;
@@ -299,6 +317,7 @@ private:
     tzOffsetHours_ = 0;
     tzOffsetMinutes_ = 0;
     isUTC_ = false;
+    tzName_.assign("");
   }
 };
 
