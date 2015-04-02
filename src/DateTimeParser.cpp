@@ -30,19 +30,16 @@ public:
     init(date);
 
     // Date: 2015-04-01
-    if (consumeInteger(4, &year_))
+    if (consumeInteger1(4, &year_))
       return false;
     if (!consumeThisChar('-'))
       return false;
-    if (consumeInteger(2, &mon_))
+    if (consumeInteger1(2, &mon_))
       return false;
     if (consumeThisChar('-'))
       return false;
     if (consumeInteger(2, &day_))
       return false;
-
-    mon_--;
-    day_--;
 
     if (isComplete())
       return true;
@@ -114,14 +111,12 @@ public:
         year_ += (year_ < 69) ? 2000 : 1900;
         break;
       case 'm': // month
-        if (!consumeInteger(2, &mon_))
+        if (!consumeInteger1(2, &mon_))
           return false;
-        mon_--;
         break;
       case 'd': // day
-        if (!consumeInteger(2, &day_))
+        if (!consumeInteger1(2, &day_))
           return false;
-        day_--;
         break;
       case 'H': // hour
         if (!consumeInteger(2, &hour_))
@@ -181,7 +176,16 @@ private:
     return qi::parse(dateItr_, std::min(dateItr_ + n, dateEnd_), qi::int_, *pOut);
   }
 
-  inline double consumeDouble(double* pOut) {
+  inline bool consumeInteger1(int n, int* pOut) {
+    if (!consumeInteger(2, pOut))
+      return false;
+
+    (*pOut)--;
+    return true;
+  }
+
+
+  inline bool consumeDouble(double* pOut) {
     return qi::parse(dateItr_, dateEnd_, qi::double_, *pOut);
   }
 
