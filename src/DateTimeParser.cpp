@@ -118,6 +118,10 @@ public:
         if (!consumeInteger1(2, &day_))
           return false;
         break;
+      case 'e': // day with optional leading space
+        if (!consumeInteger1WithSpace(2, &day_))
+          return false;
+        break;
       case 'H': // hour
         if (!consumeInteger(2, &hour_))
           return false;
@@ -176,14 +180,23 @@ private:
     return qi::parse(dateItr_, std::min(dateItr_ + n, dateEnd_), qi::int_, *pOut);
   }
 
+
+  // Integer indexed from 1 (i.e. month and date)
   inline bool consumeInteger1(int n, int* pOut) {
-    if (!consumeInteger(2, pOut))
+    if (!consumeInteger(n, pOut))
       return false;
 
     (*pOut)--;
     return true;
   }
 
+  // Integer indexed from 1 with optional space
+  inline bool consumeInteger1WithSpace(int n, int* pOut) {
+    if (consumeThisChar(' '))
+      n--;
+
+    return consumeInteger1(n, pOut);
+  }
 
   inline bool consumeDouble(double* pOut) {
     return qi::parse(dateItr_, dateEnd_, qi::double_, *pOut);

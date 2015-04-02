@@ -36,6 +36,10 @@ test_that("%y matches R behaviour", {
   )
 })
 
+test_that("%e allows leading space", {
+  expect_equal(date_parse("201010 1", "%Y%m%e"), utctime(2010, 10, 1, 0, 0, 0, 0))
+})
+
 test_that("%OS captures partial seconds", {
   x <- date_parse("2001-01-01 00:00:01.125", "%Y-%m-%d %H:%M:%OS")
   expect_equal(as.POSIXlt(x)$sec, 1.125)
