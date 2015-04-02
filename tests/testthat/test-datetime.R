@@ -10,5 +10,36 @@ test_that("utctime is equivalent to R conversion", {
     ISOdatetime(year, mon, day, zero, zero, zero, tz = "UTC"),
     utctime(year, mon, day, zero, zero, zero, zero)
   )
+})
 
+# Parsing ----------------------------------------------------------------------
+
+r_parse <- function(x, fmt) as.POSIXct(strptime(x, fmt, tz = "UTC"))
+
+test_that("%d, %m and %y", {
+  target <- utctime(2010, 2, 3, 0, 0, 0, 0)
+
+  expect_equal(date_parse("10-02-03", "%y-%m-%d"), target)
+  expect_equal(date_parse("10-03-02", "%y-%d-%m"), target)
+  expect_equal(date_parse("03/02/10", "%d/%m/%y"), target)
+  expect_equal(date_parse("02/03/10", "%m/%d/%y"), target)
+})
+
+test_that("%y matches R behaviour", {
+  expect_equal(
+    date_parse("01-01-69", "%d-%m-%y"),
+    r_parse("01-01-69", "%d-%m-%y")
+  )
+  expect_equal(
+    date_parse("01-01-70", "%d-%m-%y"),
+    r_parse("01-01-70", "%d-%m-%y")
+  )
+})
+
+test_that("%OS captures partial seconds", {
+  x <- date_parse("2001-01-01 00:00:01.125", "%Y-%m-%d %H:%M:%OS")
+  expect_equal(as.POSIXlt(x)$sec, 1.125)
+
+  x <- date_parse("2001-01-01 00:00:01.333", "%Y-%m-%d %H:%M:%OS")
+  expect_equal(as.POSIXlt(x)$sec, 1.333, tol = 1e-6)
 })

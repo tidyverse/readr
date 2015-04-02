@@ -56,14 +56,16 @@ BEGIN_RCPP
     return __result;
 END_RCPP
 }
-// findMonth
-int findMonth(std::string month);
-RcppExport SEXP readr_findMonth(SEXP monthSEXP) {
+// date_parse
+NumericVector date_parse(CharacterVector dates, std::string format, bool strict);
+RcppExport SEXP readr_date_parse(SEXP datesSEXP, SEXP formatSEXP, SEXP strictSEXP) {
 BEGIN_RCPP
     Rcpp::RObject __result;
     Rcpp::RNGScope __rngScope;
-    Rcpp::traits::input_parameter< std::string >::type month(monthSEXP);
-    __result = Rcpp::wrap(findMonth(month));
+    Rcpp::traits::input_parameter< CharacterVector >::type dates(datesSEXP);
+    Rcpp::traits::input_parameter< std::string >::type format(formatSEXP);
+    Rcpp::traits::input_parameter< bool >::type strict(strictSEXP);
+    __result = Rcpp::wrap(date_parse(dates, format, strict));
     return __result;
 END_RCPP
 }

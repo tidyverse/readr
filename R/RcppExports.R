@@ -17,8 +17,8 @@ date_time_locale <- function() {
     .Call('readr_date_time_locale', PACKAGE = 'readr')
 }
 
-findMonth <- function(month) {
-    .Call('readr_findMonth', PACKAGE = 'readr', month)
+date_parse <- function(dates, format, strict = TRUE) {
+    .Call('readr_date_parse', PACKAGE = 'readr', dates, format, strict)
 }
 
 dim_tokens_ <- function(sourceSpec, tokenizerSpec) {
