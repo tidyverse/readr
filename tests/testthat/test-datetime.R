@@ -48,8 +48,12 @@ test_that("invalid dates return NA", {
   expect_true(is.na(date_parse("2010-02-30", "%Y-%m-%d")))
 })
 
-test_that("failed parsing returns", {
+test_that("failed parsing returns NA", {
   expect_true(is.na(date_parse("2010-02", "%Y-%m-%d")))
   expect_true(is.na(date_parse("2010-02-ab", "%Y-%m-%d")))
   expect_true(is.na(date_parse("2010/02-ab", "%Y-%m-%d")))
+})
+
+test_that("invalid specs returns NA", {
+  expect_true(is.na(date_parse("2010-02-02", "%Y-%m-%m")))
 })
