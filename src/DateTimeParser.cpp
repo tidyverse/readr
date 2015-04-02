@@ -95,15 +95,7 @@ public:
       }
     }
 
-    return true;
-  }
-
-  bool isValid() {
-    // Must have year, month and day
-    if (year_ == -1 || mon_ == -1 || day_ == -1)
-      return false;
-
-    return true;
+    return isValid();
   }
 
   DateTime makeDate() {
@@ -112,6 +104,13 @@ public:
   }
 
 private:
+  bool isValid() {
+    // Must have year, month and day
+    if (year_ == -1 || mon_ == -1 || day_ == -1)
+      return false;
+
+    return true;
+  }
 
   inline int consumeInteger(int n) {
     int res = 0;
