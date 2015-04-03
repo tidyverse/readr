@@ -47,6 +47,8 @@ Currently, readr automatically recognises the following types of columns:
 * `col_character()` [c], everything else.
 * `col_datetime(format = "", tz = "UTC")` [d]: ISO8601 date times
 
+To recognise these columns, it reads the first 100 rows of your dataset. This is not guaranteed to be perfect, but it's fast and a reasonable heuristic. If you get a lot of parsing failures, you'll need to re-read the file, overriding the default choices as described below.
+
 You can also manually specify other column types:
 
 * `col_skip()` [_], don't import this column.
