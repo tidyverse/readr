@@ -7,7 +7,6 @@ RawVector read_bin(RObject con, size_t bytes = 64 * 1024) {
   Rcpp::Function readBin = baseEnv["readBin"];
 
   RawVector out = Rcpp::as<RawVector>(readBin(con, "raw", bytes));
-  tfm::format(Rcout, "%i\n", out.size());
   return out;
 }
 
