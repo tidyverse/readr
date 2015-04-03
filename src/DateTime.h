@@ -2,6 +2,7 @@
 #define READR_DATE_TIME_H_
 
 #include <ctime>
+#include <stdlib.h>
 #include "DateTimeLocale.h"
 
 class TzManager {
