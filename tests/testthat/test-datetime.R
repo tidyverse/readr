@@ -61,3 +61,15 @@ test_that("failed parsing returns NA", {
 test_that("invalid specs returns NA", {
   expect_true(is.na(date_parse("2010-02-02", "%Y-%m-%m")))
 })
+
+
+# Time zones ------------------------------------------------------------------
+
+test_that("same times with different offsets parsed as same time", {
+  # From http://en.wikipedia.org/wiki/ISO_8601#Time_offsets_from_UTC
+  same_time <- paste("2010-02-03", c("18:30Z", "22:30+04", "1130-0700", "15:00-03:30"))
+  parsed <- date_parse(same_time)
+
+  expect_equal(parsed, rep(utctime(2010, 2, 3, 18, 30, 0, 0), 4))
+})
+

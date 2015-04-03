@@ -27,7 +27,12 @@ public:
       return;
 
     cur_ = tz;
-    setenv("TZ", tz.c_str(), 1);
+    if (tz == "") {
+      unsetenv("TZ");
+    } else {
+      setenv("TZ", tz.c_str(), 1);
+    }
+
     tzset();
   }
 
@@ -125,43 +130,7 @@ public:
       }
     }
 
-    if (min_ < 0 || min_ > 59) {
-      fixes++;
-      tmp = min_ / 60;
-      min_ -= 60 * tmp;
-      hour_ += tmp;
-      if (min_ < 0) {
-        min_ += 60;
-        hour_--;
-      }
-    }
-
-    if (hour_ == 24 && min_ == 0 && sec_ == 0) {
-      hour_ = 0;
-      day_++;
-
-      if (mon_ >= 0 && mon_ <= 11) {
-        if (day_ > days_in_month()) {
-          mon_++;
-          day_ = 1;
-          if (min_ == 12) {
-            year_++;
-            mon_ = 0;
-          }
-        }
-      }
-    }
-
-    if (hour_ < 0 || hour_ > 23) {
-      fixes++;
-      tmp = hour_ / 24;
-      hour_ -= 24 * tmp;
-      day_ += tmp;
-      if(hour_ < 0) {
-        hour_ += 24;
-        day_--;
-      }
-    }
+    fixes += repair_hour_min();
 
     /* defer fixing mday until we know the year */
     if (mon_ < 0 || mon_ > 11) {
@@ -224,7 +193,57 @@ public:
     return (tz_ == "UTC") ? utctime() : localtime();
   }
 
+  void offset(int hours, int mins) {
+    hour_ -= hours;
+    min_ -= mins;
+    repair_hour_min();
+  }
+
 private:
+
+  int repair_hour_min() {
+    int fixes = 0, tmp = 0;
+
+    if (min_ < 0 || min_ > 59) {
+      fixes++;
+      tmp = min_ / 60;
+      min_ -= 60 * tmp;
+      hour_ += tmp;
+      if (min_ < 0) {
+        min_ += 60;
+        hour_--;
+      }
+    }
+
+    if (hour_ == 24 && min_ == 0 && sec_ == 0) {
+      hour_ = 0;
+      day_++;
+
+      if (mon_ >= 0 && mon_ <= 11) {
+        if (day_ > days_in_month()) {
+          mon_++;
+          day_ = 1;
+          if (min_ == 12) {
+            year_++;
+            mon_ = 0;
+          }
+        }
+      }
+    }
+
+    if (hour_ < 0 || hour_ > 23) {
+      fixes++;
+      tmp = hour_ / 24;
+      hour_ -= 24 * tmp;
+      day_ += tmp;
+      if(hour_ < 0) {
+        hour_ += 24;
+        day_--;
+      }
+    }
+
+    return fixes;
+  }
 
   // Convert a tm struct into number of seconds since 1970-01-01T0000Z.
   // Compared to usual implementations this returns a double, and supports

@@ -195,12 +195,10 @@ public:
   }
 
   DateTime makeDate(TzManager& tzMan) {
-    if (tz_ == "UTC") {
-      hour_ += tzOffsetHours_;
-      min_ += tzOffsetMinutes_;
-    }
-
     DateTime dt(tzMan, year_, mon_, day_, hour_, min_, sec_, psec_, tz_);
+    if (tz_ == "UTC")
+      dt.offset(tzOffsetHours_, tzOffsetMinutes_);
+
     return dt;
   }
 
@@ -225,6 +223,9 @@ private:
   }
 
   inline bool consumeInteger(int n, int* pOut) {
+    if (dateItr_ == dateEnd_ || *dateItr_ == '-' || *dateItr_ == '+')
+      return false;
+
     return qi::parse(dateItr_, std::min(dateItr_ + n, dateEnd_), qi::int_, *pOut);
   }
 
@@ -246,6 +247,8 @@ private:
   }
 
   inline bool consumeDouble(double* pOut) {
+    if (dateItr_ == dateEnd_ || *dateItr_ == '-' || *dateItr_ == '+')
+      return false;
     return qi::parse(dateItr_, dateEnd_, qi::double_, *pOut);
   }
 
@@ -311,6 +314,9 @@ private:
     consumeThisChar(':');
     consumeInteger(2, pMinutes);
 
+    *pHours *= mult;
+    *pMinutes *= mult;
+
     return true;
   }
 
@@ -351,7 +357,7 @@ private:
 
 // [[Rcpp::export]]
 NumericVector date_parse(CharacterVector dates, std::string format = "",
-                         std::string defaultTz = "", bool strict = true) {
+                         std::string defaultTz = "UTC", bool strict = true) {
   int n = dates.size();
 
   DateTimeLocale loc;
@@ -375,7 +381,8 @@ NumericVector date_parse(CharacterVector dates, std::string format = "",
   }
 
   out.attr("class") = CharacterVector::create("POSIXct", "POSIXt");
-  out.attr("tzone") = defaultTz;
+  // Always _display_ ISO8601 dates in utc
+  out.attr("tzone") = (format == "") ? "UTC" : defaultTz;
 
   return out;
 }
