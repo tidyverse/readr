@@ -17,10 +17,10 @@ NumericVector utctime(IntegerVector year, IntegerVector month, IntegerVector day
 
   for (int i = 0; i < n; ++i) {
     DateTime dt(year[i], month[i] - 1, day[i] - 1, hour[i], min[i],
-      sec[i], psec[i]);
+      sec[i], psec[i], "UTC");
     if (repair)
       dt.repair();
-    out[i] = dt.utctime();
+    out[i] = dt.time();
   }
 
   out.attr("class") = CharacterVector::create("POSIXct", "POSIXt");

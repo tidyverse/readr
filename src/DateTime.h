@@ -49,12 +49,13 @@ inline int is_leap(unsigned y) {
 class DateTime {
   int year_, mon_, day_, hour_, min_, sec_;
   double psec_;
+  std::string tz_;
 
 public:
   DateTime(int year, int mon, int day, int hour = 0, int min = 0, int sec = 0,
-    double psec = 0):
+    double psec = 0, std::string tz = ""):
       year_(year), mon_(mon), day_(day), hour_(hour), min_(min), sec_(sec),
-      psec_(psec) {
+      psec_(psec), tz_(tz) {
   }
 
   // Is this a valid date time?
@@ -185,6 +186,11 @@ public:
     return fixes;
   }
 
+  double time() const {
+    return (tz_ == "UTC") ? utctime() : localtime();
+  }
+
+private:
 
   // Convert a tm struct into number of seconds since 1970-01-01T0000Z.
   // Compared to usual implementations this returns a double, and supports
@@ -216,7 +222,19 @@ public:
     return psec_ + sec_ + (min_ * 60) + (hour_ * 3600) + (day * 86400.0);
   }
 
-private:
+  double localtime() const {
+    struct tm tm;
+    tm.tm_year = year_ - 1900;
+    tm.tm_mon = mon_;
+    tm.tm_mday = day_ + 1;
+    tm.tm_hour = hour_;
+    tm.tm_min = min_;
+    tm.tm_sec = sec_;
+
+    time_t time = mktime(&tm);
+    return time + psec_;
+  }
+
   inline int days_in_month() const {
     return month_length[mon_] + (mon_ == 1 && is_leap(year_));
   }

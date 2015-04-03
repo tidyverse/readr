@@ -17,16 +17,17 @@ class DateTimeParser {
   double psec_;
 
   int tzOffsetHours_, tzOffsetMinutes_;
-  bool isUTC_;
-  std::string tzName_;
+  std::string tz_;
 
   const DateTimeLocale& locale_;
+  std::string tzDefault_;
 
   const char* dateItr_;
   const char* dateEnd_;
 
 public:
-  DateTimeParser(const DateTimeLocale& locale): locale_(locale)
+  DateTimeParser(const DateTimeLocale& locale, const std::string& tzDefault = ""):
+    locale_(locale), tzDefault_(tzDefault)
   {
   }
 
@@ -34,8 +35,6 @@ public:
   // parsing with a format string so it doesn't seem necessary to add individual
   // parsers for other common formats.
   bool parse() {
-    isUTC_ = true;
-
     // Date: YYYY-MM-DD, YYYYMMDD
     if (!consumeInteger(4, &year_))
       return false;
@@ -69,7 +68,7 @@ public:
       return true;
 
     // Has a timezone
-    isUTC_ = true;
+    tz_ = "UTC";
     if (!consumeTzOffset(&tzOffsetHours_, &tzOffsetMinutes_))
       return false;
 
@@ -150,12 +149,12 @@ public:
         break;
 
       case 'z': // time zone specification
-        isUTC_ = true;
+        tz_ = "UTC";
         if (!consumeTzOffset(&tzOffsetHours_, &tzOffsetMinutes_))
           return false;
         break;
       case 'Z': // time zone name
-        if (!consumeTzName(&tzName_))
+        if (!consumeTzName(&tz_))
           return false;
         break;
 
@@ -187,7 +186,7 @@ public:
   }
 
   DateTime makeDate() {
-    DateTime dt(year_, mon_, day_, hour_, min_, sec_, psec_);
+    DateTime dt(year_, mon_, day_, hour_, min_, sec_, psec_, tz_);
     return dt;
   }
 
@@ -262,8 +261,6 @@ private:
   // ±hhmm
   // ±hh
   inline bool consumeTzOffset(int* pHours, int* pMinutes) {
-    isUTC_ = true;
-
     if (consumeThisChar('Z'))
       return true;
 
@@ -316,8 +313,7 @@ private:
 
     tzOffsetHours_ = 0;
     tzOffsetMinutes_ = 0;
-    isUTC_ = false;
-    tzName_.assign("");
+    tz_ = tzDefault_;
   }
 };
 
@@ -340,7 +336,7 @@ NumericVector date_parse(CharacterVector dates, std::string format = "", bool st
       DateTime dt = parser.makeDate();
       if (!strict)
         dt.repair();
-      out[i] = dt.utctime();
+      out[i] = dt.time();
     }
   }
 
