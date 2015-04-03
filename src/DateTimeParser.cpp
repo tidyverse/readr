@@ -158,6 +158,15 @@ public:
           return false;
         break;
 
+      // Extensions
+      case '.':
+        consumeNonDigit();
+        break;
+
+      case '*':
+        consumeNonDigits();
+        break;
+
       // Compound formats
       case 'D':
         parse("%m/%d/%y");
@@ -242,13 +251,31 @@ private:
     return true;
   }
 
+  inline bool consumeNonDigit() {
+    if (dateItr_ == dateEnd_ || std::isdigit(*dateItr_))
+      return false;
+
+    dateItr_++;
+    return true;
+  }
+
+  inline bool consumeNonDigits() {
+    while (dateItr_ != dateEnd_ && !std::isdigit(*dateItr_))
+      dateItr_++;
+
+    return true;
+  }
+
   inline bool consumeChar(char* pOut) {
+    if (dateItr_ == dateEnd_)
+      return false;
+
     *pOut = *dateItr_++;
     return true;
   }
 
   inline bool consumeThisChar(char needed) {
-    if (*dateItr_ != needed)
+    if (dateItr_ == dateEnd_ || *dateItr_ != needed)
       return false;
 
     dateItr_++;
