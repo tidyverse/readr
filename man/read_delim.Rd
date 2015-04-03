@@ -79,7 +79,7 @@ a single quote, \code{\"}.}
 
 \item{progress}{Display a progress bar? By default it will only display
 in an interactive session. The display is updated every 50,000 values
-and will on display if estimated reading time is 5 seconds or more.}
+and will only display if estimated reading time is 5 seconds or more.}
 }
 \description{
 \code{read_csv} and \code{read_tsv} are special cases of the general
