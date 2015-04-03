@@ -1,3 +1,6 @@
+#ifndef READ_ICONV_H_
+#define READ_ICONV_H_
+
 #include <iconv.h>
 #include <errno.h>
 
@@ -50,3 +53,5 @@ public:
   }
 
 };
+
+#endif

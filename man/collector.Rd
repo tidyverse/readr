@@ -25,14 +25,16 @@ col_numeric()
 
 col_logical()
 
-col_datetime(format)
+col_datetime(format = "", tz = "UTC")
 
 col_factor(levels, ordered = FALSE)
 
 col_skip()
 }
 \arguments{
-\item{format}{Format string passed on to the underlying \code{strptime}.}
+\item{format}{Format string passed on to the \code{\link{parse_date}}.}
+
+\item{tz}{Default time zone to use for input and output (format).}
 
 \item{levels}{Character vector providing set of allowed levels.}
 

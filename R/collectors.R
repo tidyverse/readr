@@ -52,16 +52,12 @@ col_logical <- function() {
   collector("logical")
 }
 
-#' @param format Format string passed on to the underlying \code{strptime}.
+#' @param format Format string passed on to the \code{\link{parse_date}}.
+#' @param tz Default time zone to use for input and output (format).
 #' @rdname collector
 #' @export
-col_datetime <- function(format) {
-  collector("datetime", format = format)
-}
-
-
-col_bdt <- function(format) {
-  collector("bdt", format = format)
+col_datetime <- function(format = "", tz = "UTC") {
+  collector("datetime", format = format, tz = tz)
 }
 
 #' @param levels Character vector providing set of allowed levels.

@@ -45,11 +45,13 @@ Currently, readr automatically recognises the following types of columns:
 * `col_double()` [d], doubles.
 * `col_euro_double()` [e], "Euro" doubles that use `,` as decimal separator.
 * `col_character()` [c], everything else.
+* `col_datetime(format = "", tz = "UTC")` [d]: ISO8601 date times
 
 You can also manually specify other column types:
 
 * `col_skip()` [_], don't import this column.
-* `col_datetime(format)`, date times with given format
+* `col_datetime(format, tz)`, date times with given format. If the timezone
+  is UTC, this is >20x faster than loading then using `strptime()`.
 * `col_numeric()` [n], a sloppy numeric parser that ignores everything apart from
    0-9, `-` and `.` (this is useful for parsing data formatted as currencies).
 * `col_factor(levels, ordered)`, parse a fixed set of known values into a 

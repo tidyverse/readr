@@ -2,9 +2,10 @@
 #define FASTREAD_COLLECTORDATETIME_H_
 
 #include <Rcpp.h>
-#include <ctime>
 #include "Collector.h"
-#include "win.h"
+#include "DateTime.h"
+#include "DateTimeParser.h"
+#include "DateTimeLocale.h"
 
 std::string formatStandard(const std::string& format) {
   std::string out;
@@ -29,12 +30,17 @@ std::string formatStandard(const std::string& format) {
 
 
 class CollectorDateTime : public Collector {
-  std::string format_;
+  std::string format_, tz_;
+  DateTimeParser parser_;
+  TzManager tzMan_;
 
 public:
-  CollectorDateTime(const std::string& format):
-    Collector(Rcpp::NumericVector()),
-    format_(format)
+  CollectorDateTime(const std::string& format, const std::string& tz):
+      Collector(Rcpp::NumericVector()),
+      format_(format),
+      tz_(tz),
+      parser_(DateTimeLocale(), tz),
+      tzMan_(tz)
   {
   }
 
@@ -49,18 +55,22 @@ public:
       SourceIterators string = t.getString(&buffer);
       std::string std_string(string.first, string.second);
 
-      struct tm tm;
-      memset(&tm, 0, sizeof(tm));
+      parser_.setDate(std_string.c_str());
+      bool res = (format_ == "") ? parser_.parse() : parser_.parse(format_);
 
-      char* res = strptime(std_string.c_str(), format_.c_str(), &tm);
-
-      if (res == NULL || res != &std_string[std_string.size()]) {
+      if (!res) {
         Rcpp::warning("At [%i, %i]: expected date like '%s', got '%s'",
-          t.row() + 1, t.col() + 1, formatStandard(format_), std_string);
+          t.row() + 1, t.col() + 1, format_, std_string);
         return NA_REAL;
       }
 
-      return timegm(&tm);
+      DateTime dt = parser_.makeDate(tzMan_);
+      if (!dt.isValid()) {
+        Rcpp::warning("At [%i, %i]: invalid date",
+          t.row() + 1, t.col() + 1, std_string);
+        return NA_REAL;
+      }
+      return dt.time();
     }
     case TOKEN_MISSING:
     case TOKEN_EMPTY:
@@ -73,11 +83,18 @@ public:
   }
 
   Rcpp::RObject vector() {
-    column_.attr("class") = CharacterVector::create("POSIXct", "POSIXt");
-    column_.attr("tzone") = "UTC";
+    column_.attr("class") = Rcpp::CharacterVector::create("POSIXct", "POSIXt");
+    column_.attr("tzone") = tz_;
     return column_;
   };
 
+  static bool canParse(const std::string& x) {
+    DateTimeLocale loc;
+    DateTimeParser parser(loc, "UTC");
+
+    parser.setDate(x.c_str());
+    return parser.parse();
+  }
 
 };
 

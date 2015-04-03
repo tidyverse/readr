@@ -11,7 +11,6 @@ using namespace Rcpp;
 #include "CollectorNumeric.h"
 #include "CollectorCharacter.h"
 #include "CollectorDateTime.h"
-#include "CollectorBDT.h"
 #include "CollectorFactor.h"
 
 CollectorPtr Collector::create(List spec) {
@@ -33,11 +32,8 @@ CollectorPtr Collector::create(List spec) {
     return boost::shared_ptr<Collector>(new CollectorCharacter());
   if (subclass == "collector_datetime") {
     std::string format = as<std::string>(spec["format"]);
-    return boost::shared_ptr<Collector>(new CollectorDateTime(format));
-  }
-  if (subclass == "collector_bdt") {
-    std::string format = as<std::string>(spec["format"]);
-    return boost::shared_ptr<Collector>(new CollectorBDT(format));
+    std::string tz = as<std::string>(spec["tz"]);
+    return boost::shared_ptr<Collector>(new CollectorDateTime(format, tz));
   }
   if (subclass == "collector_factor") {
     CharacterVector levels = as<CharacterVector>(spec["levels"]);
@@ -95,6 +91,8 @@ std::string collectorGuess(CharacterVector input) {
     return "double";
   if (canParse(input, CollectorEuroDouble::canParse))
     return "euro_double";
+  if (canParse(input, CollectorDateTime::canParse))
+    return "datetime";
 
   // Otherwise can always parse as a character
   return "character";
