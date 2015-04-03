@@ -4,6 +4,39 @@
 #include <ctime>
 #include "DateTimeLocale.h"
 
+class TzManager {
+  std::string default_, cur_;
+
+public:
+  TzManager(): default_(currentTz()), cur_(default_) {
+  }
+  TzManager(std::string tz) {
+    TzManager();
+    setTz(tz);
+  }
+
+  ~TzManager() {
+    try {
+      // Restore default
+      setTz(default_);
+    } catch (...) {}
+  }
+
+  void setTz(std::string tz) {
+    if (cur_ == tz)
+      return;
+
+    cur_ = tz;
+    setenv("TZ", tz.c_str(), 1);
+    tzset();
+  }
+
+  static std::string currentTz() {
+    const char* tz = getenv("TZ");
+    return (tz == NULL) ? "" : std::string(tz);
+  }
+};
+
 // Much of this code is adapted from R's src/main/datetime.c.
 // Author: The R Core Team.
 // License: GPL >= 2
@@ -50,12 +83,13 @@ class DateTime {
   int year_, mon_, day_, hour_, min_, sec_;
   double psec_;
   std::string tz_;
+  TzManager& tzManager_;
 
 public:
-  DateTime(int year, int mon, int day, int hour = 0, int min = 0, int sec = 0,
-    double psec = 0, std::string tz = ""):
+  DateTime(TzManager& tzManager, int year, int mon, int day, int hour = 0,
+           int min = 0, int sec = 0, double psec = 0, std::string tz = ""):
       year_(year), mon_(mon), day_(day), hour_(hour), min_(min), sec_(sec),
-      psec_(psec), tz_(tz) {
+      psec_(psec), tz_(tz), tzManager_(tzManager) {
   }
 
   // Is this a valid date time?
@@ -223,6 +257,10 @@ private:
   }
 
   double localtime() const {
+    tzManager_.setTz(tz_);
+    if (!isValid())
+      return NA_REAL;
+
     struct tm tm;
     tm.tm_year = year_ - 1900;
     tm.tm_mon = mon_;

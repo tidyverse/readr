@@ -57,15 +57,16 @@ BEGIN_RCPP
 END_RCPP
 }
 // date_parse
-NumericVector date_parse(CharacterVector dates, std::string format, bool strict);
-RcppExport SEXP readr_date_parse(SEXP datesSEXP, SEXP formatSEXP, SEXP strictSEXP) {
+NumericVector date_parse(CharacterVector dates, std::string format, std::string defaultTz, bool strict);
+RcppExport SEXP readr_date_parse(SEXP datesSEXP, SEXP formatSEXP, SEXP defaultTzSEXP, SEXP strictSEXP) {
 BEGIN_RCPP
     Rcpp::RObject __result;
     Rcpp::RNGScope __rngScope;
     Rcpp::traits::input_parameter< CharacterVector >::type dates(datesSEXP);
     Rcpp::traits::input_parameter< std::string >::type format(formatSEXP);
+    Rcpp::traits::input_parameter< std::string >::type defaultTz(defaultTzSEXP);
     Rcpp::traits::input_parameter< bool >::type strict(strictSEXP);
-    __result = Rcpp::wrap(date_parse(dates, format, strict));
+    __result = Rcpp::wrap(date_parse(dates, format, defaultTz, strict));
     return __result;
 END_RCPP
 }

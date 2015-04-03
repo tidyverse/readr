@@ -194,8 +194,13 @@ public:
     return isValid();
   }
 
-  DateTime makeDate() {
-    DateTime dt(year_, mon_, day_, hour_, min_, sec_, psec_, tz_);
+  DateTime makeDate(TzManager& tzMan) {
+    if (tz_ == "UTC") {
+      hour_ += tzOffsetHours_;
+      min_ += tzOffsetMinutes_;
+    }
+
+    DateTime dt(tzMan, year_, mon_, day_, hour_, min_, sec_, psec_, tz_);
     return dt;
   }
 
@@ -345,11 +350,13 @@ private:
 };
 
 // [[Rcpp::export]]
-NumericVector date_parse(CharacterVector dates, std::string format = "", bool strict = true) {
+NumericVector date_parse(CharacterVector dates, std::string format = "",
+                         std::string defaultTz = "", bool strict = true) {
   int n = dates.size();
 
   DateTimeLocale loc;
-  DateTimeParser parser(loc);
+  DateTimeParser parser(loc, defaultTz);
+  TzManager tzMan(defaultTz);
 
   NumericVector out = NumericVector(n);
   for (int i = 0; i < n; ++i) {
@@ -360,7 +367,7 @@ NumericVector date_parse(CharacterVector dates, std::string format = "", bool st
     if (!res) {
       out[i] = NA_REAL;
     } else {
-      DateTime dt = parser.makeDate();
+      DateTime dt = parser.makeDate(tzMan);
       if (!strict)
         dt.repair();
       out[i] = dt.time();
@@ -368,7 +375,7 @@ NumericVector date_parse(CharacterVector dates, std::string format = "", bool st
   }
 
   out.attr("class") = CharacterVector::create("POSIXct", "POSIXt");
-  out.attr("tzone") = "UTC";
+  out.attr("tzone") = defaultTz;
 
   return out;
 }
