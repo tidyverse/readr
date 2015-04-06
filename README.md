@@ -102,6 +102,22 @@ Use the `col_types` argument to override the default choices. There are two ways
 
 * Row names are never set.
 
+## Problems
+
+If there are any problems parsing the file, the `read_` function will throw a warning telling you how many problems there are. You can then use the `problems()` function to access a data frame that gives information about each problem:
+
+```R
+df <- read_csv(col_types = "dd", col_names = c("x", "y"), skip = 1, "
+1,2
+a,b
+")
+#> Warning message: There were 2 problems. See problems(x) for more details
+problems(df)
+#>   row col expected actual
+#> 1   2   1 a double      a
+#> 2   2   2 a double      b
+```
+
 ## Compared to base functions
 
 Compared to the corresponding base functions, readr functions:
