@@ -23,10 +23,8 @@ public:
       SourceIterators string = t.getString(&buffer);
 
       std::pair<bool,double> parsed = parse(string.first, string.second);
-      if (!parsed.first) {
-        Rcpp::warning("At [%i, %i]: expected a numeric, got '%s'",
-          t.row() + 1, t.col() + 1, std::string(string.first, string.second));
-      }
+      if (!parsed.first)
+        warn(t.row(), t.col(), "a number", string);
       return parsed.second;
     }
     case TOKEN_MISSING:

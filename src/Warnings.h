@@ -1,3 +1,6 @@
+#ifndef READ_WARNINGS_H_
+#define READ_WARNINGS_H_
+
 class Warnings {
   std::vector<int> row_, col_;
   std::vector<std::string> expected_, actual_;
@@ -7,21 +10,21 @@ public:
   Warnings() {
   }
 
+  // row and col should be zero-indexed. addWarning converts into one-indexed
   void addWarning(int row, int col, std::string expected, std::string actual) {
-    row_.push_back(row);
-    col_.push_back(col);
+    row_.push_back(row + 1);
+    col_.push_back(col + 1);
     expected_.push_back(expected);
     actual_.push_back(actual);
   }
 
   Rcpp::List asDataFrame() {
-    Rcpp::List out = Rcpp::List(4);
-    out[0] = Rcpp::wrap(row_);
-    out[1] = Rcpp::wrap(col_);
-    out[2] = Rcpp::wrap(expected_);
-    out[3] = Rcpp::wrap(actual_);
-
-    out.attr("names") = Rcpp::CharacterVector::create("row", "col", "expected", "actual");
+    Rcpp::List out = Rcpp::List::create(
+      Rcpp::_["row"] = Rcpp::wrap(row_),
+      Rcpp::_["col"] = Rcpp::wrap(col_),
+      Rcpp::_["expected"] = Rcpp::wrap(expected_),
+      Rcpp::_["actual"] = Rcpp::wrap(actual_)
+    );
     out.attr("class") = Rcpp::CharacterVector::create("tbl_df", "tbl", "data.frame");
     out.attr("row.names") = Rcpp::IntegerVector::create(NA_INTEGER, -row_.size());
 
@@ -29,3 +32,5 @@ public:
   }
 
 };
+
+#endif

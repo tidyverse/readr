@@ -30,7 +30,7 @@ public:
       } else if (size == 5) {
         if (strncmp(string.first, "FALSE", 5) == 0) return 0;
       }
-      return warn(t, string);
+      warn(t.row(), t.col(), "T/F/TRUE/FALSE", string);
     };
     case TOKEN_MISSING:
     case TOKEN_EMPTY:
@@ -45,14 +45,6 @@ public:
 
   static bool canParse(const std::string& x) {
     return x == "T" || x == "F" || x == "TRUE" || x == "FALSE";
-  }
-
-private:
-
-  int warn(const Token& t, SourceIterators string) {
-    Rcpp::warning("At [%i, %i]: expected T/F/TRUE/FALSE, got '%s'",
-      t.row() + 1, t.col() + 1, std::string(string.first, string.second));
-    return NA_LOGICAL;
   }
 
 };

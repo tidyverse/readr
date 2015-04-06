@@ -34,7 +34,7 @@ public:
 
       std::pair<bool,double> parsed = parse(string.first, string.second);
       if (!parsed.first)
-        warn(t, string);
+        warn(t.row(), t.col(), "a double", string);
 
       return parsed.second;
     }
@@ -58,11 +58,6 @@ public:
 
     bool ok = qi::parse(begin, end, qi::double_, res) && begin == end;
     return std::make_pair(ok, ok ? res : NA_REAL);
-  }
-
-  static void warn(const Token& t, SourceIterators string) {
-    Rcpp::warning("At [%i, %i]: expected a double, got '%s'",
-      t.row() + 1, t.col() + 1, std::string(string.first, string.second));
   }
 
 };

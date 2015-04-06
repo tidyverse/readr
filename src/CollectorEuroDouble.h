@@ -39,7 +39,7 @@ public:
       std::pair<bool,double> parsed = parse(string.first, string.second);
 
       if (!parsed.first)
-        CollectorDouble::warn(t, string);
+        warn(t.row(), t.col(), "a double", string);
       return parsed.second;
     }
     case TOKEN_MISSING:

@@ -5,13 +5,13 @@
 #include "Collector.h"
 
 class CollectorFactor : public Collector {
-  CharacterVector levels_;
+  Rcpp::CharacterVector levels_;
   std::map<std::string,int> levelset_;
   bool ordered_;
 
 public:
-  CollectorFactor(CharacterVector levels, bool ordered):
-    Collector(IntegerVector()), levels_(levels), ordered_(ordered)
+  CollectorFactor(Rcpp::CharacterVector levels, bool ordered):
+    Collector(Rcpp::IntegerVector()), levels_(levels), ordered_(ordered)
   {
     int n = levels.size();
 
@@ -35,8 +35,7 @@ public:
       std::string std_string(string.first, string.second);
       std::map<std::string,int>::iterator it = levelset_.find(std_string);
       if (it == levelset_.end()) {
-        Rcpp::warning("At [%i, %i]: value '%s' not found in supplied levels",
-          t.row() + 1, t.col() + 1, std_string);
+        warn(t.row(), t.col(), "value in level set", std_string);
         return NA_INTEGER;
       } else {
         return it->second + 1;

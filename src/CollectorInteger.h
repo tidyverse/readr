@@ -35,7 +35,7 @@ public:
 
       std::pair<bool,double> parsed = parse(string.first, string.second);
       if (!parsed.first)
-        warn(t, string);
+        warn(t.row(), t.col(), "an integer", string);
 
       return parsed.second;
     };
@@ -63,12 +63,6 @@ private:
     bool ok = qi::parse(begin, end, qi::int_, res) && begin == end;
     return std::make_pair(ok, ok ? res : NA_INTEGER);
   }
-
-  void warn(const Token& t, SourceIterators string) {
-    Rcpp::warning("At [%i, %i]: expected an integer, got '%s'",
-      t.row() + 1, t.col() + 1, std::string(string.first, string.second));
-  }
-
 };
 
 #endif

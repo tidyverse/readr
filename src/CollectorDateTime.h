@@ -59,15 +59,13 @@ public:
       bool res = (format_ == "") ? parser_.parse() : parser_.parse(format_);
 
       if (!res) {
-        Rcpp::warning("At [%i, %i]: expected date like '%s', got '%s'",
-          t.row() + 1, t.col() + 1, format_, std_string);
+        warn(t.row(), t.col(), "date like " +  format_, std_string);
         return NA_REAL;
       }
 
       DateTime dt = parser_.makeDate(tzMan_);
       if (!dt.isValid()) {
-        Rcpp::warning("At [%i, %i]: invalid date",
-          t.row() + 1, t.col() + 1, std_string);
+        warn(t.row(), t.col(), "valid date", std_string);
         return NA_REAL;
       }
       return dt.time();
