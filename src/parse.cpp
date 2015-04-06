@@ -5,6 +5,7 @@ using namespace Rcpp;
 #include "Tokenizer.h"
 #include "TokenizerLine.h"
 #include "Collector.h"
+#include "Warnings.h"
 
 // [[Rcpp::export]]
 IntegerVector dim_tokens_(List sourceSpec, List tokenizerSpec) {
@@ -87,10 +88,12 @@ std::vector<std::vector<std::string> > tokenize_(List sourceSpec, List tokenizer
 //' parse_vector(x, col_double())
 // [[Rcpp::export]]
 SEXP parse_vector(CharacterVector x, List collectorSpec) {
+  Warnings warnings;
   int n = x.size();
 
-  boost::shared_ptr<Collector> out = Collector::create(collectorSpec);
-  out->resize(n);
+  boost::shared_ptr<Collector> col = Collector::create(collectorSpec);
+  col->setWarnings(&warnings);
+  col->resize(n);
 
   for (int i = 0; i < n; ++i) {
     Token t;
@@ -100,8 +103,8 @@ SEXP parse_vector(CharacterVector x, List collectorSpec) {
       SEXP string = x[i];
       t = Token(CHAR(string), CHAR(string) + Rf_length(string), i, -1);
     }
-    out->setValue(i, t);
+    col->setValue(i, t);
   }
 
-  return out->vector();
+  return warnings.addAsAttribute(col->vector());
 }

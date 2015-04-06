@@ -27,6 +27,11 @@ collector_find <- function(name) {
 #' parse_euro_double(c("1", "2", "3,123"))
 #' parse_factor(c("a", "b"), letters)
 #' parse_numeric("$1,123,456.000")
+#'
+#' # If there are parsing problems, you'll get a warning message saying
+#' # how many. Use problems() to access a data frame giving more details.
+#' x <- parse_integer(c("1X", "blah", "3"))
+#' problems(x)
 NULL
 
 #' @rdname collector

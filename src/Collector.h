@@ -45,6 +45,10 @@ public:
     return n_;
   }
 
+  void setWarnings(Warnings* pWarnings) {
+    pWarnings_ = pWarnings;
+  }
+
   inline void warn(int row, int col, std::string expected, std::string actual) {
     if (pWarnings_ == NULL) {
       Rcpp::warning(
