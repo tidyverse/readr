@@ -195,11 +195,15 @@ public:
     return isComplete() && isValid();
   }
 
-  DateTime makeDate(TzManager& tzMan) {
-    DateTime dt(tzMan, year_, mon_, day_, hour_, min_, sec_, psec_, tz_);
+  DateTime makeDateTime() {
+    DateTime dt(year_, mon_, day_, hour_, min_, sec_, psec_, tz_);
     if (tz_ == "UTC")
       dt.offset(tzOffsetHours_, tzOffsetMinutes_);
 
+    return dt;
+  }
+  DateTime makeDate() {
+    DateTime dt(year_, mon_, day_, 0, 0, 0, 0, "UTC");
     return dt;
   }
 

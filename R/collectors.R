@@ -192,6 +192,12 @@ col_skip <- function() {
 #' # Handle any separator
 #' parse_datetime("01/02/2010", "%m%.%d%.%Y")
 #'
+#' # Dates look the same, but internally they use the number of days since
+#' # 1970-01-01 instead of the number of seconds. This avoids a whole lot
+#' # of troubles related to time zones, so use if you can.
+#' parse_date("01/02/2010", "%d/%m/%Y")
+#' parse_date("01/02/2010", "%m/%d/%Y")
+#'
 #' # You can parse timezones from strings (as listed in OlsonNames())
 #' parse_datetime("2010/01/01 12:00 US/Central", "%Y/%m/%d %H:%M %Z")
 #' # Or from offsets
@@ -239,3 +245,14 @@ col_datetime <- function(format = "", tz = "UTC") {
   collector("datetime", format = format, tz = tz)
 }
 
+#' @rdname parse_datetime
+#' @export
+parse_date <- function(x, format = "%Y-%m-%d") {
+  parse_vector(x, col_date(format))
+}
+
+#' @rdname parse_datetime
+#' @export
+col_date <- function(format = "%Y%.%m%.%d") {
+  collector("date", format = format)
+}

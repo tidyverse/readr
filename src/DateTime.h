@@ -52,13 +52,12 @@ class DateTime {
   int year_, mon_, day_, hour_, min_, sec_;
   double psec_;
   std::string tz_;
-  TzManager& tzManager_;
 
 public:
-  DateTime(TzManager& tzManager, int year, int mon, int day, int hour = 0,
-           int min = 0, int sec = 0, double psec = 0, std::string tz = ""):
+  DateTime(int year, int mon, int day, int hour = 0, int min = 0, int sec = 0,
+           double psec = 0, std::string tz = ""):
       year_(year), mon_(mon), day_(day), hour_(hour), min_(min), sec_(sec),
-      psec_(psec), tz_(tz), tzManager_(tzManager) {
+      psec_(psec), tz_(tz) {
   }
 
   // Is this a valid date time?
@@ -153,8 +152,12 @@ public:
     return fixes;
   }
 
-  double time() const {
-    return (tz_ == "UTC") ? utctime() : localtime();
+  double time(TzManager* pTzManager) const {
+    return (tz_ == "UTC") ? utctime() : localtime(pTzManager);
+  }
+
+  int date() const {
+    return utcdate();
   }
 
   void offset(int hours, int mins) {
@@ -209,11 +212,16 @@ private:
     return fixes;
   }
 
-  // Convert a tm struct into number of seconds since 1970-01-01T0000Z.
+  // Number of number of seconds since 1970-01-01T00:00:00Z.
   // Compared to usual implementations this returns a double, and supports
-  // a wider range of dates. Input is not validated; invalid dates have
-  // undefined behaviour.
+  // a wider range of dates. Invalid dates have undefined behaviour.
   double utctime() const {
+    return psec_ + sec_ + (min_ * 60) + (hour_ * 3600) + (utcdate() * 86400.0);
+  }
+
+  // Find number of days since 1970-01-01.
+  // Invalid dates have undefined behaviour.
+  int utcdate() const {
     if (!isValid())
       return NA_REAL;
 
@@ -236,11 +244,12 @@ private:
     // Convert to number of days since 1970-01-01
     day -= 719528;
 
-    return psec_ + sec_ + (min_ * 60) + (hour_ * 3600) + (day * 86400.0);
+    return day;
   }
 
-  double localtime() const {
-    tzManager_.setTz(tz_);
+
+  double localtime(TzManager* pTzManager) const {
+    pTzManager->setTz(tz_);
     if (!isValid())
       return NA_REAL;
 

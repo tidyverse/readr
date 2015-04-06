@@ -37,7 +37,8 @@ col_types_concise <- function(x) {
   lookup <- list(
     c = col_character(),
     d = col_double(),
-    D = col_datetime(),
+    D = col_date(),
+    T = col_datetime(),
     i = col_integer(),
     l = col_logical(),
     "_" = col_skip(),
