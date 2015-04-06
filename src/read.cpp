@@ -7,6 +7,7 @@ using namespace Rcpp;
 #include "Collector.h"
 #include "CollectorCharacter.h"
 #include "Progress.h"
+#include "Warnings.h"
 
 // [[Rcpp::export]]
 CharacterVector read_file_(List sourceSpec) {
@@ -53,13 +54,15 @@ CharacterVector read_lines_(List sourceSpec, int n_max = -1) {
 typedef std::vector<CollectorPtr>::iterator CollectorItr;
 
 // [[Rcpp::export]]
-List read_tokens(List sourceSpec, List tokenizerSpec, ListOf<List> colSpecs,
-                 CharacterVector col_names, int n_max = -1,
-                 bool progress = true) {
+RObject read_tokens(List sourceSpec, List tokenizerSpec, ListOf<List> colSpecs,
+                    CharacterVector col_names, int n_max = -1,
+                    bool progress = true) {
   SourcePtr source = Source::create(sourceSpec);
   TokenizerPtr tokenizer = Tokenizer::create(tokenizerSpec);
   tokenizer->tokenize(source->begin(), source->end());
-  std::vector<CollectorPtr> collectors = collectorsCreate(colSpecs);
+
+  Warnings warnings;
+  std::vector<CollectorPtr> collectors = collectorsCreate(colSpecs, &warnings);
 
   Progress progressBar;
 
@@ -135,7 +138,7 @@ List read_tokens(List sourceSpec, List tokenizerSpec, ListOf<List> colSpecs,
   out.attr("row.names") = IntegerVector::create(NA_INTEGER, -(i + 1));
   out.attr("names") = col_names;
 
-  return out;
+  return warnings.addAsAttribute(out);
 }
 
 

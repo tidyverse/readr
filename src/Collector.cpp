@@ -12,6 +12,7 @@ using namespace Rcpp;
 #include "CollectorCharacter.h"
 #include "CollectorDateTime.h"
 #include "CollectorFactor.h"
+#include "Warnings.h"
 
 CollectorPtr Collector::create(List spec) {
   std::string subclass(as<CharacterVector>(spec.attr("class"))[0]);
@@ -46,10 +47,12 @@ CollectorPtr Collector::create(List spec) {
   return boost::shared_ptr<Collector>();
 }
 
-std::vector<CollectorPtr> collectorsCreate(ListOf<List> specs) {
+std::vector<CollectorPtr> collectorsCreate(ListOf<List> specs, Warnings* pWarning) {
   std::vector<CollectorPtr> collectors;
   for (int j = 0; j < specs.size(); ++j) {
-    collectors.push_back(Collector::create(specs[j]));
+    CollectorPtr col = Collector::create(specs[j]);
+    col->setWarnings(pWarning);
+    collectors.push_back(col);
   }
 
   return collectors;

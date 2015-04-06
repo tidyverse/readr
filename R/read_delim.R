@@ -21,6 +21,8 @@ NULL
 #' @usage read_delim(file, delim, quote = '\"', escape_backslash = TRUE,
 #'   escape_double = TRUE, na = "NA", col_names = TRUE, col_types = NULL,
 #'   skip = 0, n_max = -1, progress = interactive())
+#' @return A data frame. If there are parsing problems, a warning tells you
+#'   how many, and you can retrieve the details with \code{\link{problems}()}.
 #' @export
 #' @examples
 #' # Input sources -------------------------------------------------------------
@@ -40,6 +42,12 @@ NULL
 #'
 #' # Or with a list of column types:
 #' read_csv("x,y\n1,2\n3,4", col_types = list(col_double(), col_character()))
+#'
+#' # If there are parsing problems, you get a warning, and can extract
+#' # more details with problems()
+#' y <- read_csv("x\n1\n2\nb", col_types = list(col_double()))
+#' y
+#' problems(y)
 #'
 #' # File types ----------------------------------------------------------------
 #' read_csv("a,b\n1.0,2.0")

@@ -81,6 +81,10 @@ a single quote, \code{\"}.}
 in an interactive session. The display is updated every 50,000 values
 and will only display if estimated reading time is 5 seconds or more.}
 }
+\value{
+A data frame. If there are parsing problems, a warning tells you
+  how many, and you can retrieve the details with \code{\link{problems}()}.
+}
 \description{
 \code{read_csv} and \code{read_tsv} are special cases of the general
 \code{read_delim}. They're useful for reading the most common types of
@@ -106,6 +110,12 @@ read_csv("x,y\\n1,2\\n3,4", col_types = "dc")
 
 # Or with a list of column types:
 read_csv("x,y\\n1,2\\n3,4", col_types = list(col_double(), col_character()))
+
+# If there are parsing problems, you get a warning, and can extract
+# more details with problems()
+y <- read_csv("x\\n1\\n2\\nb", col_types = list(col_double()))
+y
+problems(y)
 
 # File types ----------------------------------------------------------------
 read_csv("a,b\\n1.0,2.0")
