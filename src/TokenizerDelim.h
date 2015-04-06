@@ -122,8 +122,8 @@ public:
           return stringToken(token_begin + 1, cur_ - 1,
             hasEscapeB, hasEscapeD, row, col);
         } else {
-          Rcpp::stop("At [%i, %i] expecting delimiter or quote but found '%s'",
-            row + 1, col + 1, *cur_);
+          warn(row, col, "delimiter or quote", std::string(cur_, cur_ + 1));
+          state_ = STATE_STRING;
         }
         break;
 
