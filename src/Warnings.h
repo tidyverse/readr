@@ -38,7 +38,7 @@ public:
       Rcpp::_["expected"] = Rcpp::wrap(expected_),
       Rcpp::_["actual"] = Rcpp::wrap(actual_)
     );
-    out.attr("class") = "data.frame";
+    out.attr("class") = Rcpp::CharacterVector::create("tbl_df", "tbl", "data.frame");
     out.attr("row.names") = Rcpp::IntegerVector::create(NA_INTEGER, -size());
 
     return out;
