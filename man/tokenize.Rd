@@ -23,14 +23,10 @@ tokenize(file, tokenizer = tokenizer_csv(), n = NA_integer_)
 \item{n}{Optionally, maximum number of rows to tokenize.}
 }
 \description{
-This turns a file into a list of tokens: each element of the list represents
-one line. There are two special tokens: "[MISSING]" and "[EMPTY]".
-}
-\details{
-Usually the tokenization is done purely in C++, and never exposed to R
-(because that requires a copy). This function is useful for testing, or
-when a file doesn't parse correctly and you want to see the underlying
-tokens.
+Turns input into a character vector. Usually the tokenization is done purely
+in C++, and never exposed to R (because that requires a copy). This function
+is useful for testing, or when a file doesn't parse correctly and you want
+to see the underlying tokens.
 }
 \examples{
 tokenize("1,2\\n3,4,5\\n\\n6")

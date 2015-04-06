@@ -37,7 +37,12 @@ public:
 
   std::string asString() const {
     switch(type_) {
-    case TOKEN_STRING:  return std::string(begin_, end_);
+    case TOKEN_STRING:   {
+      boost::container::string buffer;
+      SourceIterators string = getString(&buffer);
+
+      return std::string(string.first, string.second);
+    }
     case TOKEN_MISSING:  return "[MISSING]";
     case TOKEN_EMPTY:    return "[EMPTY]";
     case TOKEN_EOF:      return "[EOF]";

@@ -62,6 +62,7 @@ std::vector<std::vector<std::string> > tokenize_(List sourceSpec, List tokenizer
     std::vector<std::string>& row = rows[t.row()];
     if (t.col() >= row.size())
       row.resize(t.col() + 1);
+
     row[t.col()] = t.asString();
 
     ++i;

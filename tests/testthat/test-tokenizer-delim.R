@@ -1,29 +1,29 @@
 context("TokenizerDelim")
-# Tests tokenizing and unescaping, via CollectorCharacter.
+# Tests tokenizing and unescaping
 
 parse_b <- function(x, ...) {
   tok <- tokenizer_delim(",", escape_double = FALSE, escape_backslash = TRUE, ...)
-  parse_vector(x, tok, col_character())
+  tokenize(datasource_string(x, 0), tok)
 }
 parse_d <- function(x, ...) {
   tok <- tokenizer_delim(",", escape_double = TRUE, escape_backslash = FALSE, ...)
-  parse_vector(x, tok, col_character())
+  tokenize(datasource_string(x, 0), tok)
 }
 
 test_that("simple sequence parsec correctly", {
-  expect_equal(parse_d('1,2,3'), c("1", "2", "3"))
+  expect_equal(parse_d('1,2,3'), list(c("1", "2", "3")))
 })
 
 test_that("newlines are not tokenised", {
-  expect_equal(parse_d('1\n2'), c("1", "2"))
+  expect_equal(parse_d('1\n2'), list("1", "2"))
 })
 
 test_that("quotes in strings are dropped", {
-  expect_equal(parse_d('"abc",abc'), c("abc", "abc"))
-  expect_equal(parse_b('"abc",abc'), c("abc", "abc"))
+  expect_equal(parse_d('"abc",abc'), list(c("abc", "abc")))
+  expect_equal(parse_b('"abc",abc'), list(c("abc", "abc")))
 
-  expect_equal(parse_b("'abc',abc", quote = "'"), c("abc", "abc"))
-  expect_equal(parse_d("'abc',abc", quote = "'"), c("abc", "abc"))
+  expect_equal(parse_b("'abc',abc", quote = "'"), list(c("abc", "abc")))
+  expect_equal(parse_d("'abc',abc", quote = "'"), list(c("abc", "abc")))
 })
 
 test_that("warning if unterminated string", {
@@ -36,28 +36,28 @@ test_that("warning if unterminated escape", {
 })
 
 test_that("empty fields become empty strings", {
-  expect_equal(parse_d(',\n,'), rep("", 4))
-  expect_equal(parse_d(',\n,\n'), rep("", 4))
-  expect_equal(parse_d('""'), rep("", 1))
+  expect_equal(parse_d(',\n,'), list(c("[EMPTY]", "[EMPTY]"), c("[EMPTY]", "[EMPTY]")))
+  expect_equal(parse_d(',\n,\n'), list(c("[EMPTY]", "[EMPTY]"), c("[EMPTY]", "[EMPTY]")))
+  expect_equal(parse_d('""'), list("[EMPTY]"))
 })
 
 test_that("bare NA becomes missing value", {
-  expect_equal(parse_b('NA,"NA"'), c(NA, "NA"))
-  expect_equal(parse_d('NA,"NA"'), c(NA, "NA"))
+  expect_equal(parse_b('NA,"NA"'), list(c("[MISSING]", "NA")))
+  expect_equal(parse_d('NA,"NA"'), list(c("[MISSING]", "NA")))
 })
 
 test_that("string can be ended by new line", {
-  expect_equal(parse_d('123,"a"\n'), c("123", "a"))
+  expect_equal(parse_d('123,"a"\n'), list(c("123", "a")))
 })
 
 test_that("can escape delimeter with backslash", {
-  expect_equal(parse_b('1\\,2'), "1,2")
+  expect_equal(parse_b('1\\,2'), list("1,2"))
 })
 
 test_that("doubled quote becomes single quote (with d-escaping)", {
-  expect_equal(parse_d('""""'), '"')
+  expect_equal(parse_d('""""'), list('"'))
 })
 
 test_that("escaped quoted doesn't terminate string (with b-escaping)", {
-  expect_equal(parse_b('"\\""'), '"')
+  expect_equal(parse_b('"\\""'), list('"'))
 })
