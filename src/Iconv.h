@@ -35,7 +35,13 @@ public:
       buffer_.resize(max_size);
 
     // http://man7.org/linux/man-pages/man3/iconv.3.html
+
+#ifdef _WIN32
     const char* inbuf = &from[0];
+#else
+    char* inbuf = &from[0];
+#endif
+
     char* outbuf = &buffer_[0];
     size_t inbytesleft = from.size(), outbytesleft = max_size;
     size_t res = iconv(cd_, &inbuf, &inbytesleft, &outbuf, &outbytesleft);
