@@ -7,7 +7,7 @@
 #'
 #' @param x An data frame (from \code{read_*}) or a vector
 #'   (from \code{parse_*}).
-#' @return A data frame with four columns:
+#' @return A data frame with one row for each problem and four columns:
 #'   \item{row,col}{Row and column of problem}
 #'   \item{expected}{What readr expected to find}
 #'   \item{actual}{What it actually got}

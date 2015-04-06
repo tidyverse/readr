@@ -11,7 +11,7 @@ problems(x)
 (from \code{parse_*}).}
 }
 \value{
-A data frame with four columns:
+A data frame with one row for each problem and four columns:
   \item{row,col}{Row and column of problem}
   \item{expected}{What readr expected to find}
   \item{actual}{What it actually got}
