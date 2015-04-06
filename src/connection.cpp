@@ -14,7 +14,7 @@ RawVector read_bin(RObject con, size_t bytes = 64 * 1024) {
 // raw vector.
 //
 // [[Rcpp::export]]
-RawVector read_connection_(RObject con, size_t chunk_size = 64 * 1024) {
+RawVector read_connection_(RObject con, int chunk_size = 64 * 1024) {
   std::vector<RawVector> chunks;
 
   RawVector chunk;
