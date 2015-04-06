@@ -2,7 +2,6 @@
 % Please edit documentation in R/collectors.R
 \name{collector}
 \alias{col_character}
-\alias{col_datetime}
 \alias{col_double}
 \alias{col_euro_double}
 \alias{col_factor}
@@ -11,36 +10,63 @@
 \alias{col_numeric}
 \alias{col_skip}
 \alias{collector}
-\title{Column parsing specifications.}
+\alias{parse_character}
+\alias{parse_double}
+\alias{parse_euro_double}
+\alias{parse_factor}
+\alias{parse_integer}
+\alias{parse_logical}
+\alias{parse_numeric}
+\title{Parse character vectors into typed columns.}
 \usage{
 col_character()
 
+parse_character(x)
+
 col_integer()
+
+parse_integer(x)
 
 col_double()
 
+parse_double(x)
+
 col_euro_double()
+
+parse_euro_double(x)
 
 col_numeric()
 
+parse_numeric(x)
+
 col_logical()
 
-col_datetime(format = "", tz = "UTC")
+parse_logical(x)
 
 col_factor(levels, ordered = FALSE)
+
+parse_factor(x, levels, ordered = FALSE)
 
 col_skip()
 }
 \arguments{
-\item{format}{Format string passed on to the \code{\link{parse_date}}.}
-
-\item{tz}{Default time zone to use for input and output (format).}
-
 \item{levels}{Character vector providing set of allowed levels.}
 
 \item{ordered}{Is it an ordered factor?}
 }
 \description{
-Column parsing specifications.
+Use \code{parse_} if you have a character vector you want to parse. Use
+\code{col_} in conjunction with a \code{read_} function to parse the
+values as they're read in.
+}
+\examples{
+parse_integer(c("1", "2", "3"))
+parse_double(c("1", "2", "3.123"))
+parse_euro_double(c("1", "2", "3,123"))
+parse_factor(c("a", "b"), letters)
+parse_numeric("$1,123,456.000")
+}
+\seealso{
+\code{\link{parse_date}}
 }
 
