@@ -11,57 +11,47 @@ namespace qi = boost::spirit::qi;
 #include "Collector.h"
 
 class CollectorInteger : public Collector {
-  int* data_;
 
 public:
+  boost::container::string buffer_;
 
-  CollectorInteger(): Collector(IntegerVector()) {
+  CollectorInteger(): Collector(Rcpp::IntegerVector()) {
   }
 
   virtual void resize(int n) {
     Collector::resize(n);
-    data_ = INTEGER(column_);
   }
 
   void setValue(int i, const Token& t) {
-    data_[i] = parse(t);
-  }
-
-  int parse(const Token& t) {
     switch(t.type()) {
     case TOKEN_STRING: {
-      boost::container::string buffer;
-      SourceIterators string = t.getString(&buffer);
+      SourceIterators str = t.getString(&buffer_);
 
-      std::pair<bool,double> parsed = parse(string.first, string.second);
-      if (!parsed.first)
-        warn(t.row(), t.col(), "an integer", string);
+      bool ok = qi::parse(str.first, str.second, qi::int_, INTEGER(column_)[i]);
+      if (!ok) {
+        INTEGER(column_)[i] = NA_INTEGER;
+        warn(t.row(), t.col(), "an integer", str);
+        return;
+      }
 
-      return parsed.second;
+      if (str.first != str.second)
+        warn(t.row(), t.col(), "no trailing characters", str);
+
+      return;
     };
     case TOKEN_MISSING:
     case TOKEN_EMPTY:
-      return NA_INTEGER;
+      INTEGER(column_)[i] = NA_INTEGER;
       break;
     case TOKEN_EOF:
       Rcpp::stop("Invalid token");
     }
-
-    return 0;
   }
 
   static bool canParse(const std::string& x) {
-    return CollectorInteger::parse(x.begin(), x.end()).first;
-  }
-
-private:
-
-  template <class Iter>
-  static std::pair<bool,double> parse(Iter begin, Iter end) {
     int res = 0;
-
-    bool ok = qi::parse(begin, end, qi::int_, res) && begin == end;
-    return std::make_pair(ok, ok ? res : NA_INTEGER);
+    std::string::const_iterator begin = x.begin(), end = x.end();
+    return qi::parse(begin, end, qi::int_, res) && begin == end;
   }
 };
 

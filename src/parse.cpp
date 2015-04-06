@@ -72,26 +72,38 @@ std::vector<std::vector<std::string> > tokenize_(List sourceSpec, List tokenizer
 }
 
 
+//' Parse a character vector.
+//'
+//' @param x Character vector of elements to parse.
+//' @param collector Column specification.
+//' @keywords internal
+//' @export
+//' @examples
+//' x <- c("1", "2", "3", NA)
+//' parse_vector(x, col_integer())
+//' parse_vector(x, col_double())
+//' parse_vector(x, col_character())
+//' parse_vector(x, col_skip())
+//'
+//' # Invalid values are replaced with missing values with a warning.
+//' x <- c("1", "2", "3", "-")
+//' parse_vector(x, col_double())
 // [[Rcpp::export]]
-SEXP parse_(List sourceSpec, List tokenizerSpec, List collectorSpec) {
-  SourcePtr source = Source::create(sourceSpec);
-  TokenizerPtr tokenizer = Tokenizer::create(tokenizerSpec);
-  tokenizer->tokenize(source->begin(), source->end());
+SEXP parse_vector(CharacterVector x, List collectorSpec) {
+  int n = x.size();
 
   boost::shared_ptr<Collector> out = Collector::create(collectorSpec);
-  out->resize(100);
+  out->resize(n);
 
-  int i = 0;
-  for (Token t = tokenizer->nextToken(); t.type() != TOKEN_EOF; t = tokenizer->nextToken()) {
-    if (i >= out->size())
-      out->resize(i * 2);
-
+  for (int i = 0; i < n; ++i) {
+    Token t;
+    if (x[i] == NA_STRING) {
+      t = Token(TOKEN_MISSING, i, -1);
+    } else {
+      SEXP string = x[i];
+      t = Token(CHAR(string), CHAR(string) + Rf_length(string), i, -1);
+    }
     out->setValue(i, t);
-    ++i;
-  }
-
-  if (i != out->size()) {
-    out->resize(i);
   }
 
   return out->vector();
