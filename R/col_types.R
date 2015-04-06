@@ -61,6 +61,7 @@ col_types_full <- function(col_types, col_names, guessed_types) {
       paste(which(!is_collector), collapse = ", "), call. = FALSE)
   }
 
+
   if (is.null(names(col_types))) {
     if (length(col_types) != length(col_names)) {
       stop("Unnamed columns must have the same length as col_names",
@@ -81,6 +82,6 @@ col_types_full <- function(col_types, col_names, guessed_types) {
       col_types[skip] <- lapply(guessed_types[skip], collector_find)
     }
 
-    col_types[match(names(col_types), col_names)]
+    col_types[match(col_names, names(col_types))]
   }
 }
