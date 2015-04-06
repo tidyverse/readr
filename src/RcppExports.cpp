@@ -56,20 +56,6 @@ BEGIN_RCPP
     return __result;
 END_RCPP
 }
-// parse_datetime
-NumericVector parse_datetime(CharacterVector dates, std::string format, std::string tz, bool repair);
-RcppExport SEXP readr_parse_datetime(SEXP datesSEXP, SEXP formatSEXP, SEXP tzSEXP, SEXP repairSEXP) {
-BEGIN_RCPP
-    Rcpp::RObject __result;
-    Rcpp::RNGScope __rngScope;
-    Rcpp::traits::input_parameter< CharacterVector >::type dates(datesSEXP);
-    Rcpp::traits::input_parameter< std::string >::type format(formatSEXP);
-    Rcpp::traits::input_parameter< std::string >::type tz(tzSEXP);
-    Rcpp::traits::input_parameter< bool >::type repair(repairSEXP);
-    __result = Rcpp::wrap(parse_datetime(dates, format, tz, repair));
-    return __result;
-END_RCPP
-}
 // dim_tokens_
 IntegerVector dim_tokens_(List sourceSpec, List tokenizerSpec);
 RcppExport SEXP readr_dim_tokens_(SEXP sourceSpecSEXP, SEXP tokenizerSpecSEXP) {
