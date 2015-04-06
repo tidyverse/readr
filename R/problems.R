@@ -16,5 +16,16 @@
 #' x <- parse_integer(c("1X", "blah", "3"))
 #' problems(x)
 problems <- function(x) {
-  attr(x, "problems")
+  probs <- attr(suppressWarnings(x), "problems")
+  if (is.null(probs)) {
+    data.frame(
+      row = integer(),
+      col = integer(),
+      expected = character(),
+      actual = character(),
+      stringsAsFactors = FALSE
+    )
+  } else {
+    probs
+  }
 }

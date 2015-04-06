@@ -26,13 +26,22 @@ test_that("quotes in strings are dropped", {
   expect_equal(parse_d("'abc',abc", quote = "'"), list(c("abc", "abc")))
 })
 
-test_that("warning if unterminated string", {
-  expect_warning(parse_d('1,2,"3'), "Unterminated string")
-  expect_warning(parse_b('1,2,"3'), "Unterminated string")
+test_that("problems if unterminated string", {
+  p1 <- problems(parse_d('1,2,"3'))
+  p2 <- problems(parse_b('1,2,"3'))
+
+  expect_equal(p1$col, 3)
+  expect_equal(p2$col, 3)
+
+  expect_equal(p1$expected, "closing quote at end of file")
+  expect_equal(p2$expected, "closing quote at end of file")
 })
 
-test_that("warning if unterminated escape", {
-  expect_warning(parse_b('1\\'), "Unterminated escape")
+test_that("problem if unterminated escape", {
+  p <- problems(parse_b('1\\'))
+
+  expect_equal(p$row, 1)
+  expect_equal(p$col, 1)
 })
 
 test_that("empty fields become empty strings", {

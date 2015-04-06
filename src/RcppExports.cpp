@@ -95,7 +95,7 @@ BEGIN_RCPP
 END_RCPP
 }
 // tokenize_
-std::vector<std::vector<std::string> > tokenize_(List sourceSpec, List tokenizerSpec, int n_max);
+RObject tokenize_(List sourceSpec, List tokenizerSpec, int n_max);
 RcppExport SEXP readr_tokenize_(SEXP sourceSpecSEXP, SEXP tokenizerSpecSEXP, SEXP n_maxSEXP) {
 BEGIN_RCPP
     Rcpp::RObject __result;
