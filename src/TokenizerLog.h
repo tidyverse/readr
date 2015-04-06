@@ -106,6 +106,8 @@ public:
       case LOG_DATE:
         if (*cur_ == ']') {
           newField();
+          if (cur_ + 1 != end_)
+            cur_++;
           return fieldToken(token_begin + 1, cur_ - 1, row, col);
         }
         break;
