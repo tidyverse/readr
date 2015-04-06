@@ -43,16 +43,15 @@ std::vector<int> count_fields_(List sourceSpec, List tokenizerSpec) {
 }
 
 // [[Rcpp::export]]
-std::vector<std::vector<std::string> > tokenize_(List sourceSpec, List tokenizerSpec, int n) {
+std::vector<std::vector<std::string> > tokenize_(List sourceSpec, List tokenizerSpec, int n_max) {
   SourcePtr source = Source::create(sourceSpec);
   TokenizerPtr tokenizer = Tokenizer::create(tokenizerSpec);
   tokenizer->tokenize(source->begin(), source->end());
 
   std::vector<std::vector<std::string> > rows;
 
-  int i = 0;
   for (Token t = tokenizer->nextToken(); t.type() != TOKEN_EOF; t = tokenizer->nextToken()) {
-    if (n > 0 && i > n)
+    if (n_max > 0 && t.row() >= (size_t) n_max)
       break;
 
     if (t.row() >= rows.size()) {
@@ -64,8 +63,6 @@ std::vector<std::vector<std::string> > tokenize_(List sourceSpec, List tokenizer
       row.resize(t.col() + 1);
 
     row[t.col()] = t.asString();
-
-    ++i;
   }
 
   return rows;

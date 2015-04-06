@@ -31,7 +31,7 @@ date_time_locale <- function() {
 #'   \item Any other character is matched exactly.
 #' }
 #'
-#' \code{parse_date} recognises the following format specifications:
+#' \code{parse_datetime} recognises the following format specifications:
 #' \itemize{
 #'   \item Year: "\%Y" (4 digits). "\%y" (2 digits); 00-69 -> 2000-2069,
 #'     70-99 -> 1970-1999.
@@ -78,45 +78,45 @@ date_time_locale <- function() {
 #' @export
 #' @examples
 #' # Format strings --------------------------------------------------------
-#' parse_date("01/02/2010", "%d/%m/%Y")
-#' parse_date("01/02/2010", "%m/%d/%Y")
+#' parse_datetime("01/02/2010", "%d/%m/%Y")
+#' parse_datetime("01/02/2010", "%m/%d/%Y")
 #' # Handle any separator
-#' parse_date("01/02/2010", "%m%.%d%.%Y")
+#' parse_datetime("01/02/2010", "%m%.%d%.%Y")
 #'
 #' # You can parse timezones from strings (as listed in OlsonNames())
-#' parse_date("2010/01/01 12:00 US/Central", "%Y/%m/%d %H:%M %Z")
+#' parse_datetime("2010/01/01 12:00 US/Central", "%Y/%m/%d %H:%M %Z")
 #' # Or from offsets
-#' parse_date("2010/01/01 12:00 -0600", "%Y/%m/%d %H:%M %z")
+#' parse_datetime("2010/01/01 12:00 -0600", "%Y/%m/%d %H:%M %z")
 #'
 #' # Use the tz parameter to control the default time zone
 #' # (but note UTC is considerably faster than other options)
-#' parse_date("2010/01/01 12:00", "%Y/%m/%d %H:%M", tz = "US/Central")
-#' parse_date("2010/01/01 12:00", "%Y/%m/%d %H:%M", tz = "US/Eastern")
+#' parse_datetime("2010/01/01 12:00", "%Y/%m/%d %H:%M", tz = "US/Central")
+#' parse_datetime("2010/01/01 12:00", "%Y/%m/%d %H:%M", tz = "US/Eastern")
 #'
 #' # Unlike strptime, the format specification must match the complete
 #' # string (ignoring leading and trailing whitespace). This avoids common
 #' # errors:
 #' strptime("01/02/2010", "%d/%m/%y")
-#' parse_date("01/02/2010", "%d/%m/%y")
+#' parse_datetime("01/02/2010", "%d/%m/%y")
 #'
 #' # ISO8601 --------------------------------------------------------------
 #' # With separators
-#' parse_date("1979-10-14")
-#' parse_date("1979-10-14T10")
-#' parse_date("1979-10-14T10:11")
-#' parse_date("1979-10-14T10:11:12")
-#' parse_date("1979-10-14T10:11:12.12345")
+#' parse_datetime("1979-10-14")
+#' parse_datetime("1979-10-14T10")
+#' parse_datetime("1979-10-14T10:11")
+#' parse_datetime("1979-10-14T10:11:12")
+#' parse_datetime("1979-10-14T10:11:12.12345")
 #'
 #' # Without separators
-#' parse_date("19791014")
-#' parse_date("19791014T101112")
+#' parse_datetime("19791014")
+#' parse_datetime("19791014T101112")
 #'
 #' # Time zones
-#' parse_date("1979-10-14T1010", tz = "US/Central")
-#' parse_date("1979-10-14T1010-0500", tz = "US/Central")
-#' parse_date("1979-10-14T1010Z", tz = "US/Central")
-parse_date <- function(dates, format = "", tz = "UTC", repair = FALSE) {
-    .Call('readr_parse_date', PACKAGE = 'readr', dates, format, tz, repair)
+#' parse_datetime("1979-10-14T1010", tz = "US/Central")
+#' parse_datetime("1979-10-14T1010-0500", tz = "US/Central")
+#' parse_datetime("1979-10-14T1010Z", tz = "US/Central")
+parse_datetime <- function(dates, format = "", tz = "UTC", repair = FALSE) {
+    .Call('readr_parse_datetime', PACKAGE = 'readr', dates, format, tz, repair)
 }
 
 dim_tokens_ <- function(sourceSpec, tokenizerSpec) {
@@ -127,8 +127,8 @@ count_fields_ <- function(sourceSpec, tokenizerSpec) {
     .Call('readr_count_fields_', PACKAGE = 'readr', sourceSpec, tokenizerSpec)
 }
 
-tokenize_ <- function(sourceSpec, tokenizerSpec, n) {
-    .Call('readr_tokenize_', PACKAGE = 'readr', sourceSpec, tokenizerSpec, n)
+tokenize_ <- function(sourceSpec, tokenizerSpec, n_max) {
+    .Call('readr_tokenize_', PACKAGE = 'readr', sourceSpec, tokenizerSpec, n_max)
 }
 
 #' Parse a character vector.

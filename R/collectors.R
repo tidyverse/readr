@@ -18,7 +18,9 @@ collector_find <- function(name) {
 #' values as they're read in.
 #'
 #' @name collector
-#' @seealso \code{\link{parse_date}}
+#' @param x Character vector of values to parse.
+#' @seealso \code{\link{parse_datetime}}, \code{\link{type_convert}} to
+#'   automatically re-parse all character columns in a data frame.
 #' @examples
 #' parse_integer(c("1", "2", "3"))
 #' parse_double(c("1", "2", "3.123"))
@@ -122,9 +124,7 @@ col_skip <- function() {
 
 # More complex ------------------------------------------------------------
 
-#' @param format Format string passed on to the \code{\link{parse_date}}.
-#' @param tz Default time zone to use for input and output (format).
-#' @rdname parse_date
+#' @rdname parse_datetime
 #' @export
 col_datetime <- function(format = "", tz = "UTC") {
   collector("datetime", format = format, tz = tz)

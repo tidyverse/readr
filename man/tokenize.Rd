@@ -4,7 +4,7 @@
 \alias{tokenize}
 \title{Tokenize a file/string.}
 \usage{
-tokenize(file, tokenizer = tokenizer_csv(), n = NA_integer_)
+tokenize(file, tokenizer = tokenizer_csv(), n_max = -1L)
 }
 \arguments{
 \item{file}{Either a path to a file, a connection, or literal data
@@ -20,7 +20,7 @@ tokenize(file, tokenizer = tokenizer_csv(), n = NA_integer_)
 
 \item{tokenizer}{A tokenizer specification.}
 
-\item{n}{Optionally, maximum number of rows to tokenize.}
+\item{n_max}{Optionally, maximum number of rows to tokenize.}
 }
 \description{
 Turns input into a character vector. Usually the tokenization is done purely

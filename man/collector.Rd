@@ -50,6 +50,8 @@ parse_factor(x, levels, ordered = FALSE)
 col_skip()
 }
 \arguments{
+\item{x}{Character vector of values to parse.}
+
 \item{levels}{Character vector providing set of allowed levels.}
 
 \item{ordered}{Is it an ordered factor?}
@@ -67,6 +69,7 @@ parse_factor(c("a", "b"), letters)
 parse_numeric("$1,123,456.000")
 }
 \seealso{
-\code{\link{parse_date}}
+\code{\link{parse_datetime}}, \code{\link{type_convert}} to
+  automatically re-parse all character columns in a data frame.
 }
 

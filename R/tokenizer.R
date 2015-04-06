@@ -7,7 +7,7 @@
 #'
 #' @inheritParams datasource
 #' @param tokenizer A tokenizer specification.
-#' @param n Optionally, maximum number of rows to tokenize.
+#' @param n_max Optionally, maximum number of rows to tokenize.
 #' @keywords internal
 #' @export
 #' @examples
@@ -15,9 +15,9 @@
 #'
 #' # Only tokenize first two lines
 #' tokenize("1,2\n3,4,5\n\n6", n = 2)
-tokenize <- function(file, tokenizer = tokenizer_csv(), n = NA_integer_) {
+tokenize <- function(file, tokenizer = tokenizer_csv(), n_max = -1L) {
   ds <- datasource(file)
-  tokenize_(ds, tokenizer, if (missing(n)) -1L else n)
+  tokenize_(ds, tokenizer, n_max)
 }
 
 #' Tokenizers.

@@ -112,8 +112,7 @@ read_delimited <- function(file, tokenizer, col_names = TRUE, col_types = NULL,
 
 # The header is the first row, parsed into fields
 header <- function(datasource, tokenizer) {
-  first <- read_lines_(datasource, n_max = 1)
-  parse_vector(first, tokenizer = tokenizer, col_character())
+  tokenize(datasource, tokenizer = tokenizer, n_max = 1)[[1]]
 }
 
 types <- function(source, tokenizer) {

@@ -56,9 +56,9 @@ BEGIN_RCPP
     return __result;
 END_RCPP
 }
-// parse_date
-NumericVector parse_date(CharacterVector dates, std::string format, std::string tz, bool repair);
-RcppExport SEXP readr_parse_date(SEXP datesSEXP, SEXP formatSEXP, SEXP tzSEXP, SEXP repairSEXP) {
+// parse_datetime
+NumericVector parse_datetime(CharacterVector dates, std::string format, std::string tz, bool repair);
+RcppExport SEXP readr_parse_datetime(SEXP datesSEXP, SEXP formatSEXP, SEXP tzSEXP, SEXP repairSEXP) {
 BEGIN_RCPP
     Rcpp::RObject __result;
     Rcpp::RNGScope __rngScope;
@@ -66,7 +66,7 @@ BEGIN_RCPP
     Rcpp::traits::input_parameter< std::string >::type format(formatSEXP);
     Rcpp::traits::input_parameter< std::string >::type tz(tzSEXP);
     Rcpp::traits::input_parameter< bool >::type repair(repairSEXP);
-    __result = Rcpp::wrap(parse_date(dates, format, tz, repair));
+    __result = Rcpp::wrap(parse_datetime(dates, format, tz, repair));
     return __result;
 END_RCPP
 }
@@ -95,15 +95,15 @@ BEGIN_RCPP
 END_RCPP
 }
 // tokenize_
-std::vector<std::vector<std::string> > tokenize_(List sourceSpec, List tokenizerSpec, int n);
-RcppExport SEXP readr_tokenize_(SEXP sourceSpecSEXP, SEXP tokenizerSpecSEXP, SEXP nSEXP) {
+std::vector<std::vector<std::string> > tokenize_(List sourceSpec, List tokenizerSpec, int n_max);
+RcppExport SEXP readr_tokenize_(SEXP sourceSpecSEXP, SEXP tokenizerSpecSEXP, SEXP n_maxSEXP) {
 BEGIN_RCPP
     Rcpp::RObject __result;
     Rcpp::RNGScope __rngScope;
     Rcpp::traits::input_parameter< List >::type sourceSpec(sourceSpecSEXP);
     Rcpp::traits::input_parameter< List >::type tokenizerSpec(tokenizerSpecSEXP);
-    Rcpp::traits::input_parameter< int >::type n(nSEXP);
-    __result = Rcpp::wrap(tokenize_(sourceSpec, tokenizerSpec, n));
+    Rcpp::traits::input_parameter< int >::type n_max(n_maxSEXP);
+    __result = Rcpp::wrap(tokenize_(sourceSpec, tokenizerSpec, n_max));
     return __result;
 END_RCPP
 }
