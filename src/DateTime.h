@@ -4,44 +4,7 @@
 #include <ctime>
 #include <stdlib.h>
 #include "DateTimeLocale.h"
-
-class TzManager {
-  std::string default_, cur_;
-
-public:
-  TzManager(): default_(currentTz()), cur_(default_) {
-  }
-  TzManager(std::string tz) {
-    TzManager();
-    setTz(tz);
-  }
-
-  ~TzManager() {
-    try {
-      // Restore default
-      setTz(default_);
-    } catch (...) {}
-  }
-
-  void setTz(std::string tz) {
-    if (cur_ == tz)
-      return;
-
-    cur_ = tz;
-    if (tz == "") {
-      unsetenv("TZ");
-    } else {
-      setenv("TZ", tz.c_str(), 1);
-    }
-
-    tzset();
-  }
-
-  static std::string currentTz() {
-    const char* tz = getenv("TZ");
-    return (tz == NULL) ? "" : std::string(tz);
-  }
-};
+#include "TzManager.h"
 
 // Much of this code is adapted from R's src/main/datetime.c.
 // Author: The R Core Team.
