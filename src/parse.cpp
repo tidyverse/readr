@@ -45,6 +45,8 @@ std::vector<int> count_fields_(List sourceSpec, List tokenizerSpec) {
 
 // [[Rcpp::export]]
 std::vector<std::vector<std::string> > tokenize_(List sourceSpec, List tokenizerSpec, int n_max) {
+  Warnings warnings;
+
   SourcePtr source = Source::create(sourceSpec);
   TokenizerPtr tokenizer = Tokenizer::create(tokenizerSpec);
   tokenizer->tokenize(source->begin(), source->end());

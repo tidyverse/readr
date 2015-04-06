@@ -57,11 +57,14 @@ typedef std::vector<CollectorPtr>::iterator CollectorItr;
 RObject read_tokens(List sourceSpec, List tokenizerSpec, ListOf<List> colSpecs,
                     CharacterVector col_names, int n_max = -1,
                     bool progress = true) {
+  Warnings warnings;
+
   SourcePtr source = Source::create(sourceSpec);
+
   TokenizerPtr tokenizer = Tokenizer::create(tokenizerSpec);
   tokenizer->tokenize(source->begin(), source->end());
+  tokenizer->setWarnings(&warnings);
 
-  Warnings warnings;
   std::vector<CollectorPtr> collectors = collectorsCreate(colSpecs, &warnings);
 
   Progress progressBar;
@@ -144,9 +147,11 @@ RObject read_tokens(List sourceSpec, List tokenizerSpec, ListOf<List> colSpecs,
 
 // [[Rcpp::export]]
 std::vector<std::string> collectorsGuess(List sourceSpec, List tokenizerSpec, int n = 100) {
+  Warnings warnings;
   SourcePtr source = Source::create(sourceSpec);
   TokenizerPtr tokenizer = Tokenizer::create(tokenizerSpec);
   tokenizer->tokenize(source->begin(), source->end());
+  tokenizer->setWarnings(&warnings); // silence warnings
 
   std::vector<CollectorCharacter> collectors;
   for (Token t = tokenizer->nextToken(); t.type() != TOKEN_EOF; t = tokenizer->nextToken()) {

@@ -176,12 +176,12 @@ public:
       return stringToken(token_begin + 1, end_ - 1, hasEscapeB, hasEscapeD, row, col);
 
     case STATE_STRING:
-      Rf_warning("Unterminated string at end of file");
+      warn(row, col, "closing quote at end of file");
       return stringToken(token_begin + 1, end_, hasEscapeB, hasEscapeD, row, col);
 
     case STATE_ESCAPE_S:
     case STATE_ESCAPE_F:
-      Rf_warning("Unterminated escape at end of file");
+      warn(row, col, "closing escape at end of file");
       return stringToken(token_begin, end_ - 1, hasEscapeB, hasEscapeD, row, col);
 
     case STATE_FIELD:
@@ -271,8 +271,7 @@ public:
           } else {
             pOut->push_back('\\');
             pOut->push_back(*cur);
-            Rcpp::warning("Unrecgonised escape '\%s' at [%i, %i]",
-              *cur, row_ + 1, col_ + 1);
+            warn(row_, col_, "standard escape", "\\" + std::string(*cur, *cur + 1));
           }
           break;
         }

@@ -69,7 +69,10 @@ public:
     if (fieldEnd >= end_) {
       moreTokens_ = false;
       if (col_ + 1 != cols_) {
-        Rcpp::warning("Final line is incomplete");
+        warn(row_, -1,
+          tfm::format("%i cols on last line", cols_),
+          tfm::format("%i cols", col_ + 1)
+        );
       }
       return fieldToken(fieldBegin, end_);
     }

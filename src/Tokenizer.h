@@ -6,6 +6,7 @@
 #include <boost/noncopyable.hpp>
 #include <boost/shared_ptr.hpp>
 #include <boost/container/string.hpp>
+#include "Warnings.h"
 class Token;
 
 typedef const char* SourceIterator;
@@ -16,7 +17,10 @@ class Tokenizer;
 typedef boost::shared_ptr<Tokenizer> TokenizerPtr;
 
 class Tokenizer {
+  Warnings* pWarnings_;
+
 public:
+  Tokenizer(): pWarnings_(NULL) {}
   virtual ~Tokenizer() {}
 
   virtual void tokenize(SourceIterator begin, SourceIterator end) = 0;
@@ -29,6 +33,18 @@ public:
     pOut->reserve(end - begin);
     for (SourceIterator cur = begin; cur != end; ++cur)
       pOut->push_back(*cur);
+  }
+
+  void setWarnings(Warnings* pWarnings) {
+    pWarnings_ = pWarnings;
+  }
+
+  inline void warn(int row, int col, std::string expected, std::string actual = "") {
+    if (pWarnings_ == NULL) {
+      Rcpp::warning("[%i, %i]: expected %s", row + 1, col + 1, expected);
+      return;
+    }
+    pWarnings_->addWarning(row, col, expected, actual);
   }
 
   static TokenizerPtr create(Rcpp::List spec);
