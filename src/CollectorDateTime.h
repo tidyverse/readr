@@ -31,6 +31,7 @@ std::string formatStandard(const std::string& format) {
 
 class CollectorDateTime : public Collector {
   std::string format_, tz_;
+  DateTimeLocale locale_;
   DateTimeParser parser_;
   TzManager tzMan_;
 
@@ -39,7 +40,7 @@ public:
       Collector(Rcpp::NumericVector()),
       format_(format),
       tz_(tz),
-      parser_(DateTimeLocale(), tz),
+      parser_(locale_, tz),
       tzMan_(tz)
   {
   }

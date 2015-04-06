@@ -128,6 +128,14 @@ public:
         if (!consumeInteger1(2, &mon_))
           return false;
         break;
+      case 'b': // abbreviated month name
+        if (!consumeString(locale_.monthAbbrev(), &mon_))
+          return false;
+        break;
+      case 'B': // month name
+        if (!consumeString(locale_.month(), &mon_))
+          return false;
+        break;
       case 'd': // day
         if (!consumeInteger1(2, &day_))
           return false;
@@ -232,6 +240,20 @@ private:
     if (pPartialSec != NULL)
       *pPartialSec = sec - *pSec;
     return true;
+  }
+
+  inline bool consumeString(const std::vector<std::string>& haystack, int* pOut) {
+    boost::iterator_range<const char*> needle(dateItr_, dateEnd_);
+
+    for(size_t i = 0; i < haystack.size(); ++i) {
+      if (boost::starts_with(needle, haystack[i])) {
+        *pOut = i;
+        dateItr_ += haystack[i].size();
+        return true;
+      }
+    }
+
+    return false;
   }
 
   inline bool consumeInteger(int n, int* pOut) {
@@ -366,57 +388,5 @@ private:
     tz_ = tzDefault_;
   }
 };
-
-// // First element is position, second element is length
-// std::pair<int, int> findMatch(const char* needle, const std::vector<std::string>& haystack) {
-//   for(size_t i = 0; i < haystack.size(); ++i)
-//     if (boost::starts_with(needle, haystack[i]))
-//       return std::make_pair(i, haystack[i].size());
-//
-//   return std::make_pair(-1, 0);
-// }
-//
-// int matchMonth(const char** pDate, const DateTimeLocale& loc) {
-//   std::pair<int,int> full_match = findMatch(*pDate, loc.month());
-//   if (full_match.first != -1) {
-//     *pDate += full_match.second;
-//     return full_match.first;
-//   }
-//
-//   std::pair<int,int> abbr_match = findMatch(*pDate, loc.monthAbbrev());
-//   if (abbr_match.first != 0) {
-//     *pDate += abbr_match.second;
-//     return abbr_match.first;
-//   }
-//
-//   return -1;
-// }
-//
-// int matchDay(const char** pDate, const DateTimeLocale& loc) {
-//   std::pair<int,int> full_match = findMatch(*pDate, loc.day());
-//   if (full_match.first != -1) {
-//     *pDate += full_match.second;
-//     return full_match.first;
-//   }
-//
-//   std::pair<int,int> abbr_match = findMatch(*pDate, loc.monthAbbrev());
-//   if (abbr_match.first != 0) {
-//     *pDate += abbr_match.second;
-//     return abbr_match.first;
-//   }
-//
-//   return -1;
-// }
-//
-// int matchPeriod(const char** pDate, const DateTimeLocale& loc) {
-//   std::pair<int,int> full_match = findMatch(*pDate, loc.period());
-//   if (full_match.first != -1) {
-//     *pDate += full_match.second;
-//     return full_match.first;
-//   }
-//
-//   return -1;
-// }
-
 
 #endif

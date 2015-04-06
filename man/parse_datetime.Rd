@@ -66,7 +66,8 @@ There are three types of element:
 \itemize{
   \item Year: "\%Y" (4 digits). "\%y" (2 digits); 00-69 -> 2000-2069,
     70-99 -> 1970-1999.
-  \item Month: "\%m" (2 digits).
+  \item Month: "\%m" (2 digits), "\%b" (abbreviated name in current
+    locale), "\%B" (full name in current locale).
   \item Day: "\%d" (2 digits), "\%e" (optional leading space)
   \item Hour: "\%H"
   \item Minutes: "\%M"
