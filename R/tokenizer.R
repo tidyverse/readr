@@ -90,6 +90,13 @@ tokenizer_line <- function() {
 
 #' @export
 #' @rdname Tokenizers
+tokenizer_log <- function() {
+  structure(list(), class = "tokenizer_log")
+}
+
+
+#' @export
+#' @rdname Tokenizers
 #' @param begin,end Begin and end offsets for each file. These are C++
 #'   offsets so the first column is column zero, and the ranges are
 #'   [begin, end) (i.e inclusive-exclusive).

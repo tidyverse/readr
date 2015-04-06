@@ -6,6 +6,7 @@
 \alias{tokenizer_delim}
 \alias{tokenizer_fwf}
 \alias{tokenizer_line}
+\alias{tokenizer_log}
 \alias{tokenizer_tsv}
 \title{Tokenizers.}
 \usage{
@@ -17,6 +18,8 @@ tokenizer_csv(na = "NA")
 tokenizer_tsv(na = "NA")
 
 tokenizer_line()
+
+tokenizer_log()
 
 tokenizer_fwf(begin, end, na = "NA")
 }
