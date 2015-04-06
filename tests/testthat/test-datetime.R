@@ -66,7 +66,7 @@ test_that("ISO8601 partial dates fill in month and day", {
   ref <- parse_datetime("2001-01-01")
   expect_equal(parse_datetime("2001"), ref)
   expect_equal(parse_datetime("2001-01"), ref)
-}),
+})
 
 # Time zones ------------------------------------------------------------------
 
