@@ -5,7 +5,7 @@
 \alias{col_datetime}
 \alias{parse_date}
 \alias{parse_datetime}
-\title{Parse a character vector of dates.}
+\title{Parse a character vector of dates or date times.}
 \usage{
 parse_datetime(x, format = "", tz = "UTC")
 
@@ -13,13 +13,14 @@ col_datetime(format = "", tz = "UTC")
 
 parse_date(x, format = "\%Y-\%m-\%d")
 
-col_date(format = "\%Y\%.\%m\%.\%d")
+col_date(format = "\%Y-\%m-\%d")
 }
 \arguments{
 \item{x}{A character vector of dates to parse.}
 
 \item{format}{A format specification, as described below. If omitted,
-  parses dates according to the ISO8601 specification.
+  parses dates according to the ISO8601 specification (with caveats,
+  as described below).
 
   Unlike \code{\link{strptime}}, the format specification must match
   the complete string.}
@@ -46,7 +47,7 @@ A \code{\link{POSIXct}} vector with \code{tzone} attribute set to
   you of the total number of failures.
 }
 \description{
-Parse a character vector of dates.
+Parse a character vector of dates or date times.
 }
 \section{Format specification}{
 
@@ -76,6 +77,25 @@ There are three types of element:
     number of non-digits characters.
   \item Shortcuts: "\%D" = "\%m/\%d/\%y",  "\%F" = "\%Y-\%m-\%d",
       "\%R" = "\%H:\%M", "\%T" = "\%H:\%M:\%S",  "\%x" = "\%y/\%m/\%d".
+}
+}
+
+\section{ISO8601 support}{
+
+
+Currently, readr does not support all of ISO8601. Missing features:
+
+\itemize{
+\item Week & weekday specifications, e.g. "2013-W05", "2013-W05-10"
+\item Ordinal dates, e.g. "2013-095".
+\item Using commas instead of a period for decimal separator
+}
+
+The parser is also a little laxer than ISO8601:
+
+\itemize{
+\item Dates and times can be separated with a space, not just T.
+\item Mostly correct specifications like "2009-05-19 14:" and  "200912-01" work.
 }
 }
 \examples{

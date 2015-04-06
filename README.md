@@ -45,7 +45,7 @@ Currently, readr automatically recognises the following types of columns:
 * `col_double()` [d], doubles.
 * `col_euro_double()` [e], "Euro" doubles that use `,` as decimal separator.
 * `col_character()` [c], everything else.
-* `col_datetime(format = "", tz = "UTC")` [D]: Y-m-d dates.
+* `col_date(format = "")` [D]: Y-m-d dates.
 * `col_datetime(format = "", tz = "UTC")` [T]: ISO8601 date times
 
 To recognise these columns, it reads the first 100 rows of your dataset. This is not guaranteed to be perfect, but it's fast and a reasonable heuristic. If you get a lot of parsing failures, you'll need to re-read the file, overriding the default choices as described below.
@@ -53,8 +53,9 @@ To recognise these columns, it reads the first 100 rows of your dataset. This is
 You can also manually specify other column types:
 
 * `col_skip()` [_], don't import this column.
+* `col_datetime(date)`, dates with given format.
 * `col_datetime(format, tz)`, date times with given format. If the timezone
-  is UTC, this is >20x faster than loading then using `strptime()`.
+  is UTC, this is >20x faster than loading then parsing with `strptime()`.
 * `col_numeric()` [n], a sloppy numeric parser that ignores everything apart from
    0-9, `-` and `.` (this is useful for parsing data formatted as currencies).
 * `col_factor(levels, ordered)`, parse a fixed set of known values into a 
@@ -118,6 +119,8 @@ problems(df)
 #> 1   2   1 a double      a
 #> 2   2   2 a double      b
 ```
+
+It's likely that there will be cases that you can never load without some manual regexp-based munging in R. Load those columns with `col_character()`, fix them up as needed, then use `convert_types()` to re-run the automated conversion on every character column in the data frame. Alternatively, you can use `parse_integer()`, `parse_numeric()`, `parse_date()` etc to parse a single character vector at a time.
 
 ## Compared to base functions
 

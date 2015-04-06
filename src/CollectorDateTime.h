@@ -91,7 +91,7 @@ public:
     DateTimeParser parser(loc, "UTC");
 
     parser.setDate(x.c_str());
-    return parser.parse();
+    return parser.parse(false);
   }
 
 };
