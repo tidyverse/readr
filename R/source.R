@@ -66,11 +66,11 @@ datasource_file <- function(path, skip) {
 }
 
 datasource_connection <- function(path, skip) {
-  datasource_raw(read_connection(path), skip, path = path)
+  datasource_raw(read_connection(path), skip)
 }
 
-datasource_raw <- function(text, skip, path = "<raw vector>") {
-  new_datasource("raw", text, skip = skip, path = path)
+datasource_raw <- function(text, skip) {
+  new_datasource("raw", text, skip = skip)
 }
 
 # Helpers ----------------------------------------------------------------------
