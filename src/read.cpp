@@ -103,7 +103,8 @@ RObject read_tokens(List sourceSpec, List tokenizerSpec, ListOf<List> colSpecs,
       progressBar.show(tokenizer->progress());
 
     if (t.col() >= p) {
-      stop("In row %i, there are %i columns!", t.row() + 1, t.col() + 1);
+      warnings.addWarning(t.row(), t.col(), tfm::format("Only %i columns", p), "");
+      continue;
     }
 
     if (t.row() >= n) {
