@@ -13,41 +13,38 @@ public:
   }
 
   void setValue(int i, const Token& t) {
-    REAL(column_)[i] = parse(t);
-  }
-
-  double parse(const Token& t) {
     switch(t.type()) {
     case TOKEN_STRING: {
       boost::container::string buffer;
       SourceIterators string = t.getString(&buffer);
 
-      std::pair<bool,double> parsed = parse(string.first, string.second);
-      if (!parsed.first)
+      if (!parse(string.first, string.second, &REAL(column_)[i])) {
         warn(t.row(), t.col(), "a number", string);
-      return parsed.second;
+        REAL(column_)[i] = NA_REAL;
+      }
+      break;
     }
     case TOKEN_MISSING:
     case TOKEN_EMPTY:
-      return NA_REAL;
+      REAL(column_)[i] = NA_REAL;
+      break;
     case TOKEN_EOF:
       Rcpp::stop("Invalid token");
     }
-
-    return 0;
   }
 
 private:
 
   template <class Iter>
-  static std::pair<bool,double> parse(Iter begin, Iter end) {
+  static bool parse(Iter begin, Iter end, double* pEnd) {
     std::string clean;
     for (Iter cur = begin; cur != end; ++cur) {
       if (*cur == '-' || *cur == '.' || (*cur >= '0' && *cur <= '9'))
         clean.push_back(*cur);
     }
 
-    return CollectorDouble::parse(clean.begin(), clean.end());
+    std::string::const_iterator cbegin = clean.begin(), cend = clean.end();
+    return qi::parse(cbegin, cend, qi::double_, *pEnd) && cbegin == cend;
   }
 
 };

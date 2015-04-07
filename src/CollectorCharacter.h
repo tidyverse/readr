@@ -8,28 +8,29 @@ class CollectorCharacter : public Collector {
   cetype_t encoding_;
 
 public:
-  CollectorCharacter(): Collector(CharacterVector()), encoding_(CE_NATIVE) {
+  CollectorCharacter(): Collector(Rcpp::CharacterVector()), encoding_(CE_NATIVE) {
   }
 
   void setValue(int i, const Token& t) {
-    SET_STRING_ELT(column_, i, parse(t));
-  }
-
-  SEXP parse(const Token& t) {
+    Rcpp::RObject charsxp;
     switch(t.type()) {
     case TOKEN_STRING: {
       boost::container::string buffer;
       SourceIterators string = t.getString(&buffer);
-      return Rf_mkCharLenCE(string.first, string.second - string.first, encoding_);
+      charsxp = Rf_mkCharLenCE(string.first, string.second - string.first, encoding_);
+      break;
     };
     case TOKEN_MISSING:
-      return NA_STRING;
+      charsxp = NA_STRING;
+      break;
     case TOKEN_EMPTY:
-      return Rf_mkChar("");
+      charsxp = Rf_mkChar("");
+      break;
     case TOKEN_EOF:
       Rcpp::stop("Invalid token");
     }
-    return NA_STRING;
+
+    SET_STRING_ELT(column_, i, charsxp);
   }
 
 };

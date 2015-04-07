@@ -8,6 +8,7 @@ class CollectorFactor : public Collector {
   Rcpp::CharacterVector levels_;
   std::map<std::string,int> levelset_;
   bool ordered_;
+  boost::container::string buffer_;
 
 public:
   CollectorFactor(Rcpp::CharacterVector levels, bool ordered):
@@ -29,8 +30,7 @@ public:
   int parse(const Token& t) {
     switch(t.type()) {
     case TOKEN_STRING: {
-      boost::container::string buffer;
-      SourceIterators string = t.getString(&buffer);
+      SourceIterators string = t.getString(&buffer_);
 
       std::string std_string(string.first, string.second);
       std::map<std::string,int>::iterator it = levelset_.find(std_string);

@@ -11,7 +11,7 @@ namespace qi = boost::spirit::qi;
 #include "Collector.h"
 
 class CollectorDouble : public Collector {
-  double* data_;
+  boost::container::string buffer_;
 
 public:
   CollectorDouble(): Collector(Rcpp::NumericVector()) {
@@ -19,47 +19,37 @@ public:
 
   virtual void resize(int n) {
     Collector::resize(n);
-    data_ = REAL(column_);
   }
 
   void setValue(int i, const Token& t) {
-    data_[i] = parse(t);
-  }
-
-  double parse(const Token& t) {
     switch(t.type()) {
     case TOKEN_STRING: {
-      boost::container::string buffer;
-      SourceIterators string = t.getString(&buffer);
+      SourceIterators str = t.getString(&buffer_);
 
-      std::pair<bool,double> parsed = parse(string.first, string.second);
-      if (!parsed.first)
-        warn(t.row(), t.col(), "a double", string);
+      bool ok = qi::parse(str.first, str.second, qi::double_, REAL(column_)[i]);
+      if (!ok) {
+        REAL(column_)[i] = NA_REAL;
+        warn(t.row(), t.col(), "a double", str);
+      }
 
-      return parsed.second;
+      if (str.first != str.second)
+        warn(t.row(), t.col(), "no trailing characters", str);
+
+      return;
     }
     case TOKEN_MISSING:
     case TOKEN_EMPTY:
-      return NA_REAL;
+      REAL(column_)[i] = NA_REAL;
+      break;
     case TOKEN_EOF:
       Rcpp::stop("Invalid token");
     }
-
-    return 0;
   }
-
   static bool canParse(const std::string& x) {
-    return CollectorDouble::parse(x.begin(), x.end()).first;
-  }
-
-  template <class Iter>
-  static std::pair<bool,double> parse(Iter begin, Iter end) {
     double res = 0;
-
-    bool ok = qi::parse(begin, end, qi::double_, res) && begin == end;
-    return std::make_pair(ok, ok ? res : NA_REAL);
+    std::string::const_iterator begin = x.begin(), end = x.end();
+    return qi::parse(begin, end, qi::double_, res) && begin == end;
   }
-
 };
 
 #endif

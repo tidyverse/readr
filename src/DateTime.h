@@ -57,7 +57,7 @@ public:
   DateTime(int year, int mon, int day, int hour = 0, int min = 0, int sec = 0,
            double psec = 0, const std::string& tz = ""):
       year_(year), mon_(mon), day_(day), hour_(hour), min_(min), sec_(sec),
-      psec_(psec), offset_(0), tz_(tz) {
+      offset_(0), psec_(psec), tz_(tz) {
   }
 
   // Used to add time zone offsets which can only be easily applied once
