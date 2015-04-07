@@ -29,24 +29,8 @@ tokenize_ <- function(sourceSpec, tokenizerSpec, n_max) {
     .Call('readr_tokenize_', PACKAGE = 'readr', sourceSpec, tokenizerSpec, n_max)
 }
 
-#' Parse a character vector.
-#'
-#' @param x Character vector of elements to parse.
-#' @param collector Column specification.
-#' @keywords internal
-#' @export
-#' @examples
-#' x <- c("1", "2", "3", NA)
-#' parse_vector(x, col_integer())
-#' parse_vector(x, col_double())
-#' parse_vector(x, col_character())
-#' parse_vector(x, col_skip())
-#'
-#' # Invalid values are replaced with missing values with a warning.
-#' x <- c("1", "2", "3", "-")
-#' parse_vector(x, col_double())
-parse_vector <- function(x, collectorSpec) {
-    .Call('readr_parse_vector', PACKAGE = 'readr', x, collectorSpec)
+parse_vector_ <- function(x, collectorSpec) {
+    .Call('readr_parse_vector_', PACKAGE = 'readr', x, collectorSpec)
 }
 
 read_file_ <- function(sourceSpec) {

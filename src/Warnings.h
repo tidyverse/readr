@@ -19,11 +19,10 @@ public:
   }
 
   Rcpp::RObject addAsAttribute(Rcpp::RObject x) {
-    if (size() > 0) {
-      Rcpp::warning("There were %i problems. See problems(x) for more details",
-        size());
-      x.attr("problems") = asDataFrame();
-    }
+    if (size() == 0)
+      return x;
+
+    x.attr("problems") = asDataFrame();
     return x;
   }
 

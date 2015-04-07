@@ -99,23 +99,27 @@ read_tsv <- function(file, col_names = TRUE, col_types = NULL, na = "NA",
 # Helper functions for reading from delimited files ----------------------------
 read_delimited <- function(file, tokenizer, col_names = TRUE, col_types = NULL,
                            skip = 0, n_max = -1, progress = interactive()) {
+  name <- source_name(file)
   # If connection needed, read once.
   file <- standardise_path(file)
   if (is.connection(file)) {
-    file <- read_connection(file)
+    data <- read_connection(file)
+  } else {
+    data <- file
   }
 
-  ds <- datasource(file, skip = skip)
+  ds <- datasource(data, skip = skip)
 
   if (isTRUE(col_names))
     skip <- skip + 1
   col_names <- col_names_standardise(col_names, header(ds, tokenizer))
 
-  ds <- datasource(file, skip = skip)
+  ds <- datasource(data, skip = skip)
   col_types <- col_types_standardise(col_types, col_names, types(ds, tokenizer))
-  read_tokens(ds, tokenizer, col_types, col_names, n_max = n_max,
+  out <- read_tokens(ds, tokenizer, col_types, col_names, n_max = n_max,
     progress = progress)
 
+  warn_problems(out, name)
 }
 
 # The header is the first row, parsed into fields

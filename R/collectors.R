@@ -11,6 +11,26 @@ collector_find <- function(name) {
   get(paste0("col_", name), envir = asNamespace("readr"))()
 }
 
+#' Parse a character vector.
+#'
+#' @param x Character vector of elements to parse.
+#' @param collector Column specification.
+#' @keywords internal
+#' @export
+#' @examples
+#' x <- c("1", "2", "3", NA)
+#' parse_vector(x, col_integer())
+#' parse_vector(x, col_double())
+#' parse_vector(x, col_character())
+#' parse_vector(x, col_skip())
+#'
+#' # Invalid values are replaced with missing values with a warning.
+#' x <- c("1", "2", "3", "-")
+#' parse_vector(x, col_double())
+parse_vector <- function(x, collector) {
+  warn_problems(parse_vector_(x, collector))
+}
+
 #' Parse character vectors into typed columns.
 #'
 #' Use \code{parse_} if you have a character vector you want to parse. Use

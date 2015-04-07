@@ -66,11 +66,11 @@ datasource_file <- function(path, skip) {
 }
 
 datasource_connection <- function(path, skip) {
-  datasource_raw(read_connection(path), skip)
+  datasource_raw(read_connection(path), skip, path = path)
 }
 
-datasource_raw <- function(text, skip) {
-  new_datasource("raw", text, skip = skip)
+datasource_raw <- function(text, skip, path = "<raw vector>") {
+  new_datasource("raw", text, skip = skip, path = path)
 }
 
 # Helpers ----------------------------------------------------------------------
@@ -104,6 +104,22 @@ standardise_path <- function(path) {
     zip = zipfile(path, ""),
     path
   )
+}
+
+source_name <- function(x) {
+  if (is.connection(x)) {
+    "<connection>"
+  } else if (is.raw(x)) {
+    "<raw vector>"
+  } else if (is.character(x)) {
+    if (grepl("\n", x)) {
+      "literal data"
+    } else {
+      paste0("'", x, "'")
+    }
+  } else {
+    "???"
+  }
 }
 
 is_url <- function(path) {

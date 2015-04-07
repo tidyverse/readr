@@ -29,3 +29,18 @@ problems <- function(x) {
     probs
   }
 }
+
+n_problems <- function(x) {
+  probs <- attr(x, "problems")
+  if (is.null(probs)) 0 else nrow(probs)
+}
+
+warn_problems <- function(x, name = "input") {
+  n <- n_problems(x)
+  if (n == 0)
+    return(x)
+
+  warning(n, " problems parsing ", name, ". ",
+    "See problems(...) for more details.", call. = FALSE)
+  x
+}
