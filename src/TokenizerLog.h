@@ -10,6 +10,7 @@ enum LogState {
   LOG_DELIM,
   LOG_FIELD,
   LOG_STRING,
+  LOG_ESCAPE,
   LOG_QUOTE,
   LOG_DATE
 };
@@ -100,7 +101,13 @@ public:
       case LOG_STRING:
         if (*cur_ == '"') {
           state_ = LOG_QUOTE;
+        } else if (*cur_ == '\\') {
+          state_ = LOG_ESCAPE;
         }
+        break;
+
+      case LOG_ESCAPE:
+        state_ = LOG_STRING;
         break;
 
       case LOG_DATE:
@@ -129,7 +136,6 @@ public:
       return fieldToken(token_begin + 1, end_ - 1, row, col);
 
     case LOG_STRING:
-      warn(row, col, "closing quote at end of file");
       return fieldToken(token_begin + 1, end_, row, col);
 
     case LOG_DATE:
