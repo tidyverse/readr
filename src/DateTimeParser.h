@@ -213,7 +213,7 @@ public:
   DateTime makeDateTime() {
     DateTime dt(year_, mon_, day_, hour_, min_, sec_, psec_, tz_);
     if (tz_ == "UTC")
-      dt.offset(tzOffsetHours_, tzOffsetMinutes_);
+      dt.setOffset(-tzOffsetHours_ * 3600 - tzOffsetMinutes_ * 60);
 
     return dt;
   }

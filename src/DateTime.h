@@ -49,15 +49,21 @@ inline int is_leap(unsigned y) {
 }
 
 class DateTime {
-  int year_, mon_, day_, hour_, min_, sec_;
+  int year_, mon_, day_, hour_, min_, sec_, offset_;
   double psec_;
   std::string tz_;
 
 public:
   DateTime(int year, int mon, int day, int hour = 0, int min = 0, int sec = 0,
-           double psec = 0, std::string tz = ""):
+           double psec = 0, const std::string& tz = ""):
       year_(year), mon_(mon), day_(day), hour_(hour), min_(min), sec_(sec),
-      psec_(psec), tz_(tz) {
+      psec_(psec), offset_(0), tz_(tz) {
+  }
+
+  // Used to add time zone offsets which can only be easily applied once
+  // we've converted into seconds since epoch.
+  void setOffset(int offset) {
+    offset_ = offset;
   }
 
   // Is this a valid date time?
@@ -160,12 +166,6 @@ public:
     return utcdate();
   }
 
-  void offset(int hours, int mins) {
-    hour_ -= hours;
-    min_ -= mins;
-    repair_hour_min();
-  }
-
 private:
 
   int repair_hour_min() {
@@ -216,7 +216,8 @@ private:
   // Compared to usual implementations this returns a double, and supports
   // a wider range of dates. Invalid dates have undefined behaviour.
   double utctime() const {
-    return psec_ + sec_ + (min_ * 60) + (hour_ * 3600) + (utcdate() * 86400.0);
+    return offset_ + psec_ + sec_ + (min_ * 60) + (hour_ * 3600) +
+      (utcdate() * 86400.0);
   }
 
   // Find number of days since 1970-01-01.
@@ -262,7 +263,7 @@ private:
     tm.tm_sec = sec_;
 
     time_t time = mktime(&tm);
-    return time + psec_;
+    return time + psec_ + offset_;
   }
 
   inline int days_in_month() const {

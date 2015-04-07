@@ -77,3 +77,10 @@ test_that("same times with different offsets parsed as same time", {
 
   expect_equal(parsed, rep(utctime(2010, 2, 3, 18, 30, 0, 0), 4))
 })
+
+test_that("offsets can cross date boundaries", {
+  expect_equal(
+    parse_datetime("2015-01-31T2000-0500"),
+    parse_datetime("2015-02-01T0100Z")
+  )
+})
