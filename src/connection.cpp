@@ -2,7 +2,7 @@
 using namespace Rcpp;
 
 // Wrapper around R's read_bin function
-RawVector read_bin(RObject con, size_t bytes = 64 * 1024) {
+RawVector read_bin(RObject con, int bytes = 64 * 1024) {
   Rcpp::Environment baseEnv = Rcpp::Environment::base_env();
   Rcpp::Function readBin = baseEnv["readBin"];
 
