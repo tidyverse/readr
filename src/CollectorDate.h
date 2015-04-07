@@ -9,12 +9,13 @@
 class CollectorDate : public Collector {
   std::string format_;
   DateTimeParser parser_;
+  DateTimeLocale locale_;
 
 public:
   CollectorDate(const std::string& format):
       Collector(Rcpp::IntegerVector()),
       format_(format),
-      parser_(DateTimeLocale(), "UTC")
+      parser_(locale_, "UTC")
   {
   }
 
