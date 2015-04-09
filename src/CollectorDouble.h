@@ -30,6 +30,7 @@ public:
       if (!ok) {
         REAL(column_)[i] = NA_REAL;
         warn(t.row(), t.col(), "a double", str);
+        return;
       }
 
       if (str.first != str.second)
