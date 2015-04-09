@@ -4,3 +4,4 @@
 ^bench$
 ^resources\.txt$
 ^cran-comments\.md$
+^NEWS\.md$
