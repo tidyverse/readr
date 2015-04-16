@@ -4,3 +4,6 @@
 
 * When guessing field types, and there's no information to go on, use
   character instead of logical (#124, #128).
+
+* `write_csv()` outputs all 17 digits of precision for floating point numbers.
+  (#117)

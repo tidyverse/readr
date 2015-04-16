@@ -15,3 +15,10 @@ test_that("read_csv and write_csv round trip special chars", {
 
   expect_equal(input$x, x)
 })
+
+test_that("roundtrip preserved floating point numbers", {
+  input <- data.frame(x = runif(100))
+  output <- read_csv(write_csv(input, ""))
+
+  expect_equal(input$x, output$x)
+})

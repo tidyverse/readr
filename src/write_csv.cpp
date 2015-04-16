@@ -76,10 +76,12 @@ void stream_csv(Stream& output, List df, bool col_names = true, bool append = fa
 std::string stream_csv(List df, std::string path, bool col_names = true, bool append = false) {
   if (path == "") {
     std::ostringstream output;
+    output.precision(17);
     stream_csv(output, df, col_names, append);
     return output.str();
   } else {
     std::ofstream output(path.c_str(), append ? std::ofstream::app : std::ofstream::trunc);
+    output.precision(17);
     stream_csv(output, df, col_names, append);
     return "";
   }
