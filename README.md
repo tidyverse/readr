@@ -12,8 +12,12 @@ The goal of readr is to provide a fast and friendly way to read tabular data int
 
 ## Installation
 
-Currently, readr is not available from CRAN, but you can try out the dev version with:
+readr is now available from CRAN.
+``` r
+install.packages("readr")
+```
 
+You can try out the dev version with:
 ```R
 # install.packages("devtools")
 devtools::install_github("hadley/readr")
