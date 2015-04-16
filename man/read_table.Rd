@@ -39,7 +39,8 @@ read_table(file, col_names = TRUE, col_types = NULL, na = "NA",
   If a list, it must contain one "\code{\link{collector}}" for each column.
   If you only want to read a subset of the columns, you can use a named list
   (where the names give the column names). If a column is not mentioned by
-  name, it will not be included in the output.
+  name, it will be parsed with the default collector (as determined by
+  reading the first 100 rows).
 
   Alternatively, you can use a compact string representation where each
   character represents one column: c = character, d = double, i = integer,
