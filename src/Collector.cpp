@@ -82,14 +82,25 @@ static bool canParse(CharacterVector x, canParseFun canParse) {
       continue;
 
     if (!canParse(std::string(x[i])))
-      return FALSE;
+      return false;
   }
-  return TRUE;
+  return true;
 }
 
 
+bool allMissing(CharacterVector x) {
+  for (int i = 0; i < x.size(); ++i) {
+    if (x[i] != NA_STRING && x[i].size() > 0)
+      return false;
+  }
+  return true;
+}
+
 // [[Rcpp::export]]
 std::string collectorGuess(CharacterVector input) {
+  if (allMissing(input))
+    return "character";
+
   // Work from strictest to most flexible
   if (canParse(input, CollectorLogical::canParse))
     return "logical";
