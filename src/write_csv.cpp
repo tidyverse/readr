@@ -18,9 +18,21 @@ void stream_csv_row(Stream& output, Rcpp::List x, int i) {
   output << '\n';
 }
 
+bool needs_quote(const char* string, char delim = ',') {
+  for (const char* cur = string; *cur != '\0'; ++cur) {
+    if (*cur == '\n' || *cur == '\r' || *cur == '"' || *cur == delim)
+      return true;
+  }
+
+  return false;
+}
+
 template <class Stream>
 void stream_csv(Stream& output, const char* string) {
-  output << '"';
+  bool quotes = needs_quote(string);
+
+  if (quotes)
+    output << '"';
 
   for (const char* cur = string; *cur != '\0'; ++cur) {
     switch (*cur) {
@@ -32,7 +44,8 @@ void stream_csv(Stream& output, const char* string) {
     }
   }
 
-  output << '"';
+  if (quotes)
+    output << '"';
 }
 
 template <class Stream>
