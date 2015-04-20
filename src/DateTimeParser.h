@@ -205,6 +205,7 @@ public:
         Rcpp::stop("Unsupported format %%%s", *formatItr);
       }
     }
+
     consumeWhiteSpace(); // always consume trailing whitespace
 
     return isComplete() && isValid();

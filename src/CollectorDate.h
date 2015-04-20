@@ -65,7 +65,7 @@ public:
     DateTimeParser parser(loc, "UTC");
 
     parser.setDate(x.c_str());
-    return parser.parse("%Y-%m-%d");
+    return parser.parse(std::string("%Y%.%m%.%d"));
   }
 
 };

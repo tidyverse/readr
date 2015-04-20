@@ -22,3 +22,15 @@ test_that("roundtrip preserved floating point numbers", {
 
   expect_equal(input$x, output$x)
 })
+
+test_that("roundtrip preserves dates and datetimes", {
+  x <- as.Date("2010-01-01") + 1:10
+  y <- as.POSIXct(x)
+  attr(y, "tzone") <- "UTC"
+
+  input <- data.frame(x, y)
+  output <- read_csv(write_csv(input, ""))
+
+  expect_equal(output$x, x)
+  expect_equal(output$y, y)
+})
