@@ -2,7 +2,7 @@
 #'
 #' @inheritParams datasource
 #' @param n_max Number of lines to read. If \code{n} is -1, all lines in
-#'   file will be read. For large files, this may
+#'   file will be read. For large files, this may prove useful or even necessary.
 #' @return A character vector with one element for each line.
 #' @export
 #' @examples
