@@ -119,9 +119,9 @@ RObject read_tokens(List sourceSpec, List tokenizerSpec, ListOf<List> colSpecs,
     collectors[t.col()]->setValue(t.row(), t);
     i = t.row();
   }
-  if(progress){
+  if (progress)
     progressBar.show(tokenizer->progress());
-  }
+    
   progressBar.stop();
 
   if (i <= n) {
