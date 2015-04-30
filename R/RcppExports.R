@@ -5,16 +5,20 @@ collectorGuess <- function(input) {
     .Call('readr_collectorGuess', PACKAGE = 'readr', input)
 }
 
+date_time_locale <- function() {
+    .Call('readr_date_time_locale', PACKAGE = 'readr')
+}
+
+whitespaceColumns <- function(sourceSpec, n = 100L) {
+    .Call('readr_whitespaceColumns', PACKAGE = 'readr', sourceSpec, n)
+}
+
 read_connection_ <- function(con, chunk_size = 64 * 1024L) {
     .Call('readr_read_connection_', PACKAGE = 'readr', con, chunk_size)
 }
 
 utctime <- function(year, month, day, hour, min, sec, psec, repair = FALSE) {
     .Call('readr_utctime', PACKAGE = 'readr', year, month, day, hour, min, sec, psec, repair)
-}
-
-date_time_locale <- function() {
-    .Call('readr_date_time_locale', PACKAGE = 'readr')
 }
 
 dim_tokens_ <- function(sourceSpec, tokenizerSpec) {
@@ -47,10 +51,6 @@ read_tokens <- function(sourceSpec, tokenizerSpec, colSpecs, col_names, n_max = 
 
 collectorsGuess <- function(sourceSpec, tokenizerSpec, n = 100L) {
     .Call('readr_collectorsGuess', PACKAGE = 'readr', sourceSpec, tokenizerSpec, n)
-}
-
-whitespaceColumns <- function(sourceSpec, n = 100L) {
-    .Call('readr_whitespaceColumns', PACKAGE = 'readr', sourceSpec, n)
 }
 
 type_convert_col <- function(x, spec, col) {

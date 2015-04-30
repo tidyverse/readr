@@ -16,6 +16,28 @@ BEGIN_RCPP
     return __result;
 END_RCPP
 }
+// date_time_locale
+List date_time_locale();
+RcppExport SEXP readr_date_time_locale() {
+BEGIN_RCPP
+    Rcpp::RObject __result;
+    Rcpp::RNGScope __rngScope;
+    __result = Rcpp::wrap(date_time_locale());
+    return __result;
+END_RCPP
+}
+// whitespaceColumns
+List whitespaceColumns(List sourceSpec, int n);
+RcppExport SEXP readr_whitespaceColumns(SEXP sourceSpecSEXP, SEXP nSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject __result;
+    Rcpp::RNGScope __rngScope;
+    Rcpp::traits::input_parameter< List >::type sourceSpec(sourceSpecSEXP);
+    Rcpp::traits::input_parameter< int >::type n(nSEXP);
+    __result = Rcpp::wrap(whitespaceColumns(sourceSpec, n));
+    return __result;
+END_RCPP
+}
 // read_connection_
 RawVector read_connection_(RObject con, int chunk_size);
 RcppExport SEXP readr_read_connection_(SEXP conSEXP, SEXP chunk_sizeSEXP) {
@@ -43,16 +65,6 @@ BEGIN_RCPP
     Rcpp::traits::input_parameter< NumericVector >::type psec(psecSEXP);
     Rcpp::traits::input_parameter< bool >::type repair(repairSEXP);
     __result = Rcpp::wrap(utctime(year, month, day, hour, min, sec, psec, repair));
-    return __result;
-END_RCPP
-}
-// date_time_locale
-List date_time_locale();
-RcppExport SEXP readr_date_time_locale() {
-BEGIN_RCPP
-    Rcpp::RObject __result;
-    Rcpp::RNGScope __rngScope;
-    __result = Rcpp::wrap(date_time_locale());
     return __result;
 END_RCPP
 }
@@ -154,18 +166,6 @@ BEGIN_RCPP
     Rcpp::traits::input_parameter< List >::type tokenizerSpec(tokenizerSpecSEXP);
     Rcpp::traits::input_parameter< int >::type n(nSEXP);
     __result = Rcpp::wrap(collectorsGuess(sourceSpec, tokenizerSpec, n));
-    return __result;
-END_RCPP
-}
-// whitespaceColumns
-List whitespaceColumns(List sourceSpec, int n);
-RcppExport SEXP readr_whitespaceColumns(SEXP sourceSpecSEXP, SEXP nSEXP) {
-BEGIN_RCPP
-    Rcpp::RObject __result;
-    Rcpp::RNGScope __rngScope;
-    Rcpp::traits::input_parameter< List >::type sourceSpec(sourceSpecSEXP);
-    Rcpp::traits::input_parameter< int >::type n(nSEXP);
-    __result = Rcpp::wrap(whitespaceColumns(sourceSpec, n));
     return __result;
 END_RCPP
 }
