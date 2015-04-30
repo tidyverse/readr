@@ -182,17 +182,18 @@ BEGIN_RCPP
     return __result;
 END_RCPP
 }
-// stream_csv
-std::string stream_csv(List df, std::string path, bool col_names, bool append);
-RcppExport SEXP readr_stream_csv(SEXP dfSEXP, SEXP pathSEXP, SEXP col_namesSEXP, SEXP appendSEXP) {
+// stream_delim
+std::string stream_delim(List df, std::string path, char delim, bool col_names, bool append);
+RcppExport SEXP readr_stream_delim(SEXP dfSEXP, SEXP pathSEXP, SEXP delimSEXP, SEXP col_namesSEXP, SEXP appendSEXP) {
 BEGIN_RCPP
     Rcpp::RObject __result;
     Rcpp::RNGScope __rngScope;
     Rcpp::traits::input_parameter< List >::type df(dfSEXP);
     Rcpp::traits::input_parameter< std::string >::type path(pathSEXP);
+    Rcpp::traits::input_parameter< char >::type delim(delimSEXP);
     Rcpp::traits::input_parameter< bool >::type col_names(col_namesSEXP);
     Rcpp::traits::input_parameter< bool >::type append(appendSEXP);
-    __result = Rcpp::wrap(stream_csv(df, path, col_names, append));
+    __result = Rcpp::wrap(stream_delim(df, path, delim, col_names, append));
     return __result;
 END_RCPP
 }

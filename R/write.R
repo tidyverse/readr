@@ -32,7 +32,7 @@ write_csv <- function(x, path, append = FALSE, col_names = !append) {
 
   x <- lapply(x, output_column)
 
-  out <- stream_csv(x, path, col_names = col_names, append = append)
+  out <- stream_delim(x, path, delim = ',', col_names = col_names, append = append)
   if (path == "") out else invisible()
 }
 
