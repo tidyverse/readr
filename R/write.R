@@ -1,4 +1,4 @@
-#' Save a data frame to a csv file.
+#' Save a data frame to a delimited file.
 #'
 #' This is about twice as fast as \code{\link{write.csv}}, and never
 #' writes row names. \code{output_column} is a generic method used to coerce
@@ -19,6 +19,26 @@
 #' @param append If \code{FALSE}, will create a new file. If \code{TRUE},
 #'   will append to an existing file.
 #' @param col_names Write columns names at the top of the file?
+#' @param delim Delimiter used to seperate values. Defaults to \code{" "}. Must be
+#'   a single character.
+#' @export
+#' @examples
+#' cat(write_delim(head(mtcars), "", "_"))
+#' cat(write_delim(head(iris), "", ";"))
+#'
+#' df <- data.frame(x = c("a", '"', ",", "\n"))
+#' read_delim(write_delim(df, "", "_"), "_")
+write_delim <- function(x, path, delim = " ", append = FALSE, col_names = !append) {
+  stopifnot(is.data.frame(x))
+  path <- normalizePath(path, mustWork = FALSE)
+
+  x <- lapply(x, output_column)
+
+  out <- stream_delim(x, path, delim = ',', col_names = col_names, append = append)
+  if (path == "") out else invisible()
+}
+
+#' @rdname write_delim
 #' @export
 #' @examples
 #' cat(write_csv(head(mtcars), ""))
@@ -36,7 +56,25 @@ write_csv <- function(x, path, append = FALSE, col_names = !append) {
   if (path == "") out else invisible()
 }
 
-#' @rdname write_csv
+#' @rdname write_delim
+#' @export
+#' @examples
+#' cat(write_tsv(head(mtcars), ""))
+#' cat(write_tsv(head(iris), ""))
+#'
+#' df <- data.frame(x = c("a", '"', ",", "\n"))
+#' read_tsv(write_tsv(df, ""))
+write_tsv <- function(x, path, append = FALSE, col_names = !append) {
+  stopifnot(is.data.frame(x))
+  path <- normalizePath(path, mustWork = FALSE)
+
+  x <- lapply(x, output_column)
+
+  out <- stream_delim(x, path, delim = '\t', col_names = col_names, append = append)
+  if (path == "") out else invisible()
+}
+
+#' @rdname write_delim
 #' @export
 output_column <- function(x) {
   UseMethod("output_column")
