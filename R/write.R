@@ -96,3 +96,42 @@ output_column.POSIXt <- function(x) {
   format(x, "%Y-%m-%dT%H:%M:%OSZ", tz = "UTC")
 }
 
+#' Write a single R object to file
+#'
+#' Light wrappers around \code{\link{saveRDS}} with explicit naming. \code{write_rds}
+#' never compresses output for speed. \code{write_compressed_rds} tries to guess
+#' the best type of compression for your object to obtain the smallest file size.
+#'
+#' @section guess compression:
+#' N.B. this is not yet implemented but there some empirical testing is taking
+#' place to come up with something useful.
+#' @param x R object to write to serialise.
+#' @param path Path to write to.
+#' @param compress_fun Compression method to use one of \code{guess},
+#' \code{xzfile}, \code{bzfile}, \code{gzfile}.
+#' @param compress_amount Level of compression must be in 0:9L
+#' @param ... dots
+#' @name write_rds
+NULL
+
+#' @rdname write_rds
+#' @export
+#' @examples
+#' ## write_rds(mtcars, "mtcars.rds")
+write_rds <- function(x, path) {
+  saveRDS(x, path, ascii = FALSE, version = NULL, compress = FALSE, refhook = NULL)
+}
+
+#' @rdname write_rds
+#' @export
+#' @examples
+#' ## write_compressed_rds(mtcars, "mtcars.rds", compress_fun = gzfile)
+write_compressed_rds <- function(x, path, compress_fun = xzfile, compress_amount = 9L, ...) {
+  bool <- deparse(substitute(compress_fun)) == c("xzfile", "bzfile", "gzfile")
+  if(sum(bool) != 1) stop("compress_fun not found")
+  stopifnot(compress_amount >= 0, compress_amount <= 9)
+
+  con <- compress_fun(path, compression = compress_amount, ...)
+  saveRDS(x, con)
+  on.exit(close(con))
+}
