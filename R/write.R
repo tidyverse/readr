@@ -34,7 +34,7 @@ write_delim <- function(x, path, delim = " ", append = FALSE, col_names = !appen
 
   x <- lapply(x, output_column)
 
-  out <- stream_delim(x, path, delim = ',', col_names = col_names, append = append)
+  out <- stream_delim(x, path, delim, col_names = col_names, append = append)
   if (path == "") out else invisible()
 }
 
@@ -47,13 +47,7 @@ write_delim <- function(x, path, delim = " ", append = FALSE, col_names = !appen
 #' df <- data.frame(x = c("a", '"', ",", "\n"))
 #' read_csv(write_csv(df, ""))
 write_csv <- function(x, path, append = FALSE, col_names = !append) {
-  stopifnot(is.data.frame(x))
-  path <- normalizePath(path, mustWork = FALSE)
-
-  x <- lapply(x, output_column)
-
-  out <- stream_delim(x, path, delim = ',', col_names = col_names, append = append)
-  if (path == "") out else invisible()
+  write_delim(x, path, delim = ',', append, col_names)
 }
 
 #' @rdname write_delim
@@ -65,13 +59,7 @@ write_csv <- function(x, path, append = FALSE, col_names = !append) {
 #' df <- data.frame(x = c("a", '"', ",", "\n"))
 #' read_tsv(write_tsv(df, ""))
 write_tsv <- function(x, path, append = FALSE, col_names = !append) {
-  stopifnot(is.data.frame(x))
-  path <- normalizePath(path, mustWork = FALSE)
-
-  x <- lapply(x, output_column)
-
-  out <- stream_delim(x, path, delim = '\t', col_names = col_names, append = append)
-  if (path == "") out else invisible()
+  write_delim(x, path, delim = '\t', append, col_names)
 }
 
 #' @rdname write_delim
