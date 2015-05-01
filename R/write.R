@@ -104,6 +104,7 @@ NULL
 #' @export
 #' @examples
 #' ## write_rds(mtcars, "mtcars.rds")
+#' ## write_rds(mtcars, "compressed_mtc.rds, "xz", compression = 9L)
 write_rds <- function(x, path, compress = c("none", "gz", "bz", "xz"), ...) {
 
   if(length(compress)!=1) compress <- compress[[1]]
