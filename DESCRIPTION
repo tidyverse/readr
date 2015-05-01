@@ -21,4 +21,5 @@ Suggests:
     knitr,
     DiagrammeR
 License: GPL (>= 2)
+BugReports: https://github.com/hadley/readr/issues
 VignetteBuilder: knitr
