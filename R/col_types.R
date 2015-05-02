@@ -77,10 +77,13 @@ col_types_full <- function(col_types, col_names, guessed_types) {
         paste0(bad_names, collapse = ", "), call. = FALSE)
     }
 
-    skip <- setdiff(col_names, names(col_types))
-    if (length(skip) > 0) {
+    # if no names given for guessed_types, assume it matches the col_names order
+    if ( is.null(names(guessed_types)) && length(guessed_types) == length(col_names) )
       names(guessed_types) <- col_names
-      col_types[skip] <- lapply(guessed_types[skip], collector_find)
+    # use the guessed column type, unless it was already explicitly specified
+    guessed <- intersect(setdiff(col_names, names(col_types)), names(guessed_types))
+    if (length(guessed) > 0) {
+      col_types[guessed] <- lapply(guessed_types[guessed], collector_find)
     }
 
     col_types[match(col_names, names(col_types))]
