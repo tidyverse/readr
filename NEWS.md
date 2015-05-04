@@ -9,3 +9,6 @@
 * When guessing field types, and there's no information to go on, use
   character instead of logical (#124, #128).
 
+* `read_XXX()` methods would not throw an error if `col_types` argument
+  specifies type for a missing column (#145 thanks @alyst).
+

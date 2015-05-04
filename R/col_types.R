@@ -71,10 +71,10 @@ col_types_full <- function(col_types, col_names, guessed_types) {
 
     col_types
   } else {
-    bad_names <- setdiff(names(col_types), col_names)
-    if (length(bad_names) > 0) {
-      stop("The following named parsers don't match the column names: ",
-        paste0(bad_names, collapse = ", "), call. = FALSE)
+    unmatched_names <- setdiff(names(col_types), col_names)
+    if (length(unmatched_names) > 0) {
+      warning("The following named parsers don't match the column names: ",
+        paste0(unmatched_names, collapse = ", "), call. = FALSE)
     }
 
     skip <- setdiff(col_names, names(col_types))
