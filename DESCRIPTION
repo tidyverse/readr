@@ -22,4 +22,5 @@ Suggests:
     DiagrammeR
 License: GPL (>= 2)
 BugReports: https://github.com/hadley/readr/issues
+URL: https://github.com/hadley/readr
 VignetteBuilder: knitr
