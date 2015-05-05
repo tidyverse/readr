@@ -104,14 +104,16 @@ NULL
 #' @export
 #' @examples
 #' ## write_rds(mtcars, "mtcars.rds")
-#' ## write_rds(mtcars, "compressed_mtc.rds, "xz", compression = 9L)
-write_rds <- function(x, path, compress = c("none", "gz", "bz", "xz"), ...) {
+#' ## write_rds(mtcars, "compressed_mtc.rds", "xz", compression = 9L)
+write_rds <- function(x, path, compress = c("none", "gz", "bz2", "xz"), ...) {
 
-  if(length(compress)!=1) compress <- compress[[1]]
-  lookup <- list(none = file, gz = gzfile, bz = bzfile, xz = xzfile)
-  connection_fun <- lookup[[compress]]
+  compress <- match.arg(compress)
+  switch(compress,
+         none = con <-    file(path, ...),
+         gz   = con <-  gzfile(path, ...),
+         bz2  = con <-  bzfile(path, ...),
+         xz   = con <-  xzfile(path, ...))
 
-  con <- connection_fun(path, ...)
   saveRDS(x, con)
   on.exit(close(con))
 }
