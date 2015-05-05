@@ -54,8 +54,8 @@ NULL
 #' read_csv2("a;b\n1,0;2,0")
 #' read_tsv("a\tb\n1.0\t2.0")
 #' read_delim("a|b\n1.0|2.0", delim = "|")
-read_delim <- function(file, delim, quote = '"', escape_backslash = TRUE,
-                       escape_double = FALSE, na = "NA", col_names = TRUE,
+read_delim <- function(file, delim, quote = '"', escape_backslash = FALSE,
+                       escape_double = TRUE, na = "NA", col_names = TRUE,
                        col_types = NULL, skip = 0, n_max = -1,
                        progress = interactive()) {
   tokenizer <- tokenizer_delim(delim, quote = quote,
