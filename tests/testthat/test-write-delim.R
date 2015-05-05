@@ -3,17 +3,20 @@ context("write_delim")
 test_that("strings are only quoted if needed", {
   x <- c("a", ',')
 
-  csv <- write_delim(data.frame(x), "", delim = " ",col_names = FALSE)
-  expect_equal(csv, 'a\n,\n')
+  csv <- write_delim(data.frame(x), "", delim = ",",col_names = FALSE)
+  expect_equal(csv, 'a\n\",\"\n')
+  ssv <- write_delim(data.frame(x), "", delim = " ",col_names = FALSE)
+  expect_equal(ssv, 'a\n,\n')
 })
 
-test_that("read_delim and write_delim round trip special chars", {
+test_that("read_delim/csv/tsv and write_delim round trip special chars", {
   x <- c("a", '"', ",", "\n","at\t")
 
   output <- data.frame(x)
   input <- read_delim(write_delim(output, "", delim = " "), delim = " ")
-
-  expect_equal(input$x, x)
+  input_csv <- read_csv(write_delim(output, "", delim = ","))
+  input_tsv <- read_tsv(write_delim(output, "", delim = "\t"))
+  expect_equal(input$x, input_csv$x, input_tsv$x,  x)
 })
 
 test_that("roundtrip preserved floating point numbers", {
