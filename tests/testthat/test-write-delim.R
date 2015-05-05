@@ -4,7 +4,7 @@ test_that("strings are only quoted if needed", {
   x <- c("a", ',')
 
   csv <- write_delim(data.frame(x), "", delim = " ",col_names = FALSE)
-  expect_equal(csv, 'a\n\",\"\n')
+  expect_equal(csv, 'a\n,\n')
 })
 
 test_that("read_delim and write_delim round trip special chars", {
