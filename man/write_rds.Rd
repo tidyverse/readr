@@ -4,7 +4,7 @@
 \alias{write_rds}
 \title{Write a single R object to file}
 \usage{
-write_rds(x, path, compress = c("none", "gz", "bz", "xz"), ...)
+write_rds(x, path, compress = c("none", "gz", "bz2", "xz"), ...)
 }
 \arguments{
 \item{x}{R object to write to serialise.}
@@ -27,6 +27,6 @@ with something useful.
 }
 \examples{
 ## write_rds(mtcars, "mtcars.rds")
-## write_rds(mtcars, "compressed_mtc.rds, "xz", compression = 9L)
+## write_rds(mtcars, "compressed_mtc.rds", "xz", compression = 9L)
 }
 
