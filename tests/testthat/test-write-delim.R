@@ -21,7 +21,7 @@ test_that("read_delim/csv/tsv and write_delim round trip special chars", {
 
 test_that("roundtrip preserved floating point numbers", {
   input <- data.frame(x = runif(100))
-  output <- read_delim(write_delim(input, ""), delim = " ")
+  output <- read_delim(write_delim(input, "", delim = " "), delim = " ")
 
   expect_equal(input$x, output$x)
 })
@@ -32,7 +32,7 @@ test_that("roundtrip preserves dates and datetimes", {
   attr(y, "tzone") <- "UTC"
 
   input <- data.frame(x, y)
-  output <- read_delim(write_delim(input, ""), delim = " ")
+  output <- read_delim(write_delim(input, "", delim = " "), delim = " ")
 
   expect_equal(output$x, x)
   expect_equal(output$y, y)
