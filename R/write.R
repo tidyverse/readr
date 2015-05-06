@@ -112,6 +112,6 @@ write_rds <- function(x, path, compress = c("none", "gz", "bz2", "xz"), ...) {
          gz   = gzfile(path, ...),
          bz2  = bzfile(path, ...),
          xz   = xzfile(path, ...))
-  on.exit(close(con) add = TRUE)
+  on.exit(close(con), add = TRUE)
   saveRDS(x, con)
 }
