@@ -2,7 +2,7 @@
 
   
 * Convenient wrapper around base::saveRDS `write_rds()` for saving a single R 
-  object (#140).  
+  object (#140, @nicolasCoutin).  
   
 * readr now provides `write_delim()` and `write_tsv()` (#135).
 
