@@ -1,4 +1,4 @@
-#' Save a data frame to a csv file.
+#' Save a data frame to a delimited file.
 #'
 #' This is about twice as fast as \code{\link{write.csv}}, and never
 #' writes row names. \code{output_column} is a generic method used to coerce
@@ -19,6 +19,26 @@
 #' @param append If \code{FALSE}, will create a new file. If \code{TRUE},
 #'   will append to an existing file.
 #' @param col_names Write columns names at the top of the file?
+#' @param delim Delimiter used to seperate values. Defaults to \code{" "}. Must be
+#'   a single character.
+#' @export
+#' @examples
+#' cat(write_delim(head(mtcars), "", "_"))
+#' cat(write_delim(head(iris), "", ";"))
+#'
+#' df <- data.frame(x = c("a", '"', ",", "\n"))
+#' read_delim(write_delim(df, "", "_"), "_")
+write_delim <- function(x, path, delim = " ", append = FALSE, col_names = !append) {
+  stopifnot(is.data.frame(x))
+  path <- normalizePath(path, mustWork = FALSE)
+
+  x <- lapply(x, output_column)
+
+  out <- stream_delim(x, path, delim, col_names = col_names, append = append)
+  if (path == "") out else invisible()
+}
+
+#' @rdname write_delim
 #' @export
 #' @examples
 #' cat(write_csv(head(mtcars), ""))
@@ -27,16 +47,22 @@
 #' df <- data.frame(x = c("a", '"', ",", "\n"))
 #' read_csv(write_csv(df, ""))
 write_csv <- function(x, path, append = FALSE, col_names = !append) {
-  stopifnot(is.data.frame(x))
-  path <- normalizePath(path, mustWork = FALSE)
-
-  x <- lapply(x, output_column)
-
-  out <- stream_csv(x, path, col_names = col_names, append = append)
-  if (path == "") out else invisible()
+  write_delim(x, path, delim = ',', append, col_names)
 }
 
-#' @rdname write_csv
+#' @rdname write_delim
+#' @export
+#' @examples
+#' cat(write_tsv(head(mtcars), ""))
+#' cat(write_tsv(head(iris), ""))
+#'
+#' df <- data.frame(x = c("a", '"', ",", "\n"))
+#' read_tsv(write_tsv(df, ""))
+write_tsv <- function(x, path, append = FALSE, col_names = !append) {
+  write_delim(x, path, delim = '\t', append, col_names)
+}
+
+#' @rdname write_delim
 #' @export
 output_column <- function(x) {
   UseMethod("output_column")
@@ -58,3 +84,34 @@ output_column.POSIXt <- function(x) {
   format(x, "%Y-%m-%dT%H:%M:%OSZ", tz = "UTC")
 }
 
+#' Write a single R object to file
+#'
+#' Consistent wrapper around \code{\link{saveRDS}}. \code{write_rds} never
+#' compresses by default as space is generally cheaper than time.
+#'
+#' @param x R object to write to serialise.
+#' @param path Path to write to.
+#' @param compress Compression method to use one of \code{c("none", "gz" ,"bz",
+#' "xz")}.
+#' @param ... Additional arguments to connection function. For example, control
+#' the space-time trade-off of different compression methods with
+#' \code{compression}. See \code{\link{connections}} for more details.
+#' @name write_rds
+NULL
+
+#' @rdname write_rds
+#' @export
+#' @examples
+#' ## write_rds(mtcars, "mtcars.rds")
+#' ## write_rds(mtcars, "compressed_mtc.rds", "xz", compression = 9L)
+write_rds <- function(x, path, compress = c("none", "gz", "bz2", "xz"), ...) {
+
+  compress <- match.arg(compress)
+  con <- switch(compress,
+         none = file(path, ...),
+         gz   = gzfile(path, ...),
+         bz2  = bzfile(path, ...),
+         xz   = xzfile(path, ...))
+  on.exit(close(con), add = TRUE)
+  saveRDS(x, con)
+}

@@ -6,3 +6,4 @@ src/*.so
 bench/*.csv
 
 inst/doc
+.DS_Store
