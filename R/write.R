@@ -89,14 +89,13 @@ output_column.POSIXt <- function(x) {
 #' Consistent wrapper around \code{\link{saveRDS}}. \code{write_rds} never
 #' compresses by default as space is generally cheaper than time.
 #'
-#' @section guess compression:
-#' N.B. this is not yet implemented but some empirical testing may help come up
-#' with something useful.
 #' @param x R object to write to serialise.
 #' @param path Path to write to.
 #' @param compress Compression method to use one of \code{c("none", "gz" ,"bz",
 #' "xz")}.
-#' @param ... Additional arguments to connection function.
+#' @param ... Additional arguments to connection function. For example, control
+#' the space-time trade-off of different compression methods with
+#' \code{compression}. See \code{\link{connections}} for more details.
 #' @name write_rds
 NULL
 
@@ -108,12 +107,11 @@ NULL
 write_rds <- function(x, path, compress = c("none", "gz", "bz2", "xz"), ...) {
 
   compress <- match.arg(compress)
-  switch(compress,
-         none = con <-    file(path, ...),
-         gz   = con <-  gzfile(path, ...),
-         bz2  = con <-  bzfile(path, ...),
-         xz   = con <-  xzfile(path, ...))
-
+  con <- switch(compress,
+         none = file(path, ...),
+         gz   = gzfile(path, ...),
+         bz2  = bzfile(path, ...),
+         xz   = xzfile(path, ...))
+  on.exit(close(con) add = TRUE)
   saveRDS(x, con)
-  on.exit(close(con))
 }
