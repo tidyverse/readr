@@ -4,21 +4,21 @@ using namespace Rcpp;
 
 // Defined later to make copyright clearer
 template <class Stream>
-void stream_csv(Stream& output, Rcpp::RObject x, int i);
+void stream_delim(Stream& output, Rcpp::RObject x, int i, char delim);
 
 template <class Stream>
-void stream_csv_row(Stream& output, Rcpp::List x, int i) {
+void stream_delim_row(Stream& output, Rcpp::List x, int i, char delim) {
   int p = Rf_length(x);
 
   for (int j = 0; j < p; ++j) {
-    stream_csv(output, x[j], i);
+    stream_delim(output, x[j], i, delim);
     if (j != p - 1)
-      output << ',';
+      output << delim;
   }
   output << '\n';
 }
 
-bool needs_quote(const char* string, char delim = ',') {
+bool needs_quote(const char* string, char delim) {
   for (const char* cur = string; *cur != '\0'; ++cur) {
     if (*cur == '\n' || *cur == '\r' || *cur == '"' || *cur == delim)
       return true;
@@ -28,8 +28,8 @@ bool needs_quote(const char* string, char delim = ',') {
 }
 
 template <class Stream>
-void stream_csv(Stream& output, const char* string) {
-  bool quotes = needs_quote(string);
+void stream_delim(Stream& output, const char* string, char delim) {
+  bool quotes = needs_quote(string, delim);
 
   if (quotes)
     output << '"';
@@ -49,7 +49,7 @@ void stream_csv(Stream& output, const char* string) {
 }
 
 template <class Stream>
-void stream_csv(Stream& output, List df, bool col_names = true, bool append = false) {
+void stream_delim(Stream& output, List df, char delim, bool col_names = true, bool append = false) {
   int p = Rf_length(df);
   if (p == 0)
     return;
@@ -57,9 +57,9 @@ void stream_csv(Stream& output, List df, bool col_names = true, bool append = fa
   if (col_names) {
     CharacterVector names = as<CharacterVector>(df.attr("names"));
     for (int j = 0; j < p; ++j) {
-      stream_csv(output, names, j);
+      stream_delim(output, names, j, delim);
       if (j != p - 1)
-        output << ',';
+        output << delim;
     }
     output << '\n';
   }
@@ -68,21 +68,21 @@ void stream_csv(Stream& output, List df, bool col_names = true, bool append = fa
   int n = Rf_length(first_col);
 
   for (int i = 0; i < n; ++i) {
-    stream_csv_row(output, df, i);
+    stream_delim_row(output, df, i, delim);
   }
 }
 
 // [[Rcpp::export]]
-std::string stream_csv(List df, std::string path, bool col_names = true, bool append = false) {
+std::string stream_delim(List df, std::string path, char delim, bool col_names = true, bool append = false) {
   if (path == "") {
     std::ostringstream output;
     output.precision(17);
-    stream_csv(output, df, col_names, append);
+    stream_delim(output, df, delim, col_names, append);
     return output.str();
   } else {
     std::ofstream output(path.c_str(), append ? std::ofstream::app : std::ofstream::trunc);
     output.precision(17);
-    stream_csv(output, df, col_names, append);
+    stream_delim(output, df, delim, col_names, append);
     return "";
   }
 }
@@ -93,7 +93,7 @@ std::string stream_csv(List df, std::string path, bool col_names = true, bool ap
 // License: GPL-2
 
 template <class Stream>
-void stream_csv(Stream& output, RObject x, int i) {
+void stream_delim(Stream& output, RObject x, int i, char delim) {
   switch (TYPEOF(x)) {
   case LGLSXP: {
     int value = LOGICAL(x)[i];
@@ -137,7 +137,7 @@ void stream_csv(Stream& output, RObject x, int i) {
     if (value == NA_STRING) {
       output << "NA";
     } else {
-      stream_csv(output, Rf_translateCharUTF8(STRING_ELT(x, i)));
+      stream_delim(output, Rf_translateCharUTF8(STRING_ELT(x, i)), delim);
     }
     break;
   }

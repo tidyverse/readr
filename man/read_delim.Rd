@@ -7,8 +7,8 @@
 \alias{read_tsv}
 \title{Read a delimited file into a data frame.}
 \usage{
-read_delim(file, delim, quote = '\"', escape_backslash = TRUE,
-  escape_double = FALSE, na = "NA", col_names = TRUE, col_types = NULL,
+read_delim(file, delim, quote = '\"', escape_backslash = FALSE,
+  escape_double = TRUE, na = "NA", col_names = TRUE, col_types = NULL,
   skip = 0, n_max = -1, progress = interactive())
 
 read_csv(file, col_names = TRUE, col_types = NULL, na = "NA", skip = 0,

@@ -1,5 +1,13 @@
 # readr 0.1.0.9000
 
+* `read_delim()` now defaults to `escape_backslash = FALSE` and 
+`escape_double = TRUE` for consistency.  
+  
+* Convenient wrapper around base::saveRDS `write_rds()` for saving a single R 
+  object (#140, @nicolasCoutin).  
+  
+* readr now provides `write_delim()` and `write_tsv()` (#135).
+
 * In `write_csv()`, only use quotes when they're actually needed (#116).
   Write the same amount of precision as used by `as.character()` (#117).
   Format POSIXt vectors in ISO8601 compatible format (#134).

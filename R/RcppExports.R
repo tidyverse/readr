@@ -5,16 +5,20 @@ collectorGuess <- function(input) {
     .Call('readr_collectorGuess', PACKAGE = 'readr', input)
 }
 
+date_time_locale <- function() {
+    .Call('readr_date_time_locale', PACKAGE = 'readr')
+}
+
+whitespaceColumns <- function(sourceSpec, n = 100L) {
+    .Call('readr_whitespaceColumns', PACKAGE = 'readr', sourceSpec, n)
+}
+
 read_connection_ <- function(con, chunk_size = 64 * 1024L) {
     .Call('readr_read_connection_', PACKAGE = 'readr', con, chunk_size)
 }
 
 utctime <- function(year, month, day, hour, min, sec, psec, repair = FALSE) {
     .Call('readr_utctime', PACKAGE = 'readr', year, month, day, hour, min, sec, psec, repair)
-}
-
-date_time_locale <- function() {
-    .Call('readr_date_time_locale', PACKAGE = 'readr')
 }
 
 dim_tokens_ <- function(sourceSpec, tokenizerSpec) {
@@ -49,15 +53,11 @@ collectorsGuess <- function(sourceSpec, tokenizerSpec, n = 100L) {
     .Call('readr_collectorsGuess', PACKAGE = 'readr', sourceSpec, tokenizerSpec, n)
 }
 
-whitespaceColumns <- function(sourceSpec, n = 100L) {
-    .Call('readr_whitespaceColumns', PACKAGE = 'readr', sourceSpec, n)
-}
-
 type_convert_col <- function(x, spec, col) {
     .Call('readr_type_convert_col', PACKAGE = 'readr', x, spec, col)
 }
 
-stream_csv <- function(df, path, col_names = TRUE, append = FALSE) {
-    .Call('readr_stream_csv', PACKAGE = 'readr', df, path, col_names, append)
+stream_delim <- function(df, path, delim, col_names = TRUE, append = FALSE) {
+    .Call('readr_stream_delim', PACKAGE = 'readr', df, path, delim, col_names, append)
 }
 
