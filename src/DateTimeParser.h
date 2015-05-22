@@ -92,6 +92,10 @@ public:
     reset();
   }
 
+  bool parse(const char* format) {
+    return parse(std::string(format));
+  }
+
   bool parse(const std::string& format) {
     consumeWhiteSpace(); // always consume leading whitespace
 
