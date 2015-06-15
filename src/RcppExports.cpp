@@ -16,6 +16,24 @@ BEGIN_RCPP
     return __result;
 END_RCPP
 }
+// utctime
+NumericVector utctime(IntegerVector year, IntegerVector month, IntegerVector day, IntegerVector hour, IntegerVector min, IntegerVector sec, NumericVector psec, bool repair);
+RcppExport SEXP readr_utctime(SEXP yearSEXP, SEXP monthSEXP, SEXP daySEXP, SEXP hourSEXP, SEXP minSEXP, SEXP secSEXP, SEXP psecSEXP, SEXP repairSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject __result;
+    Rcpp::RNGScope __rngScope;
+    Rcpp::traits::input_parameter< IntegerVector >::type year(yearSEXP);
+    Rcpp::traits::input_parameter< IntegerVector >::type month(monthSEXP);
+    Rcpp::traits::input_parameter< IntegerVector >::type day(daySEXP);
+    Rcpp::traits::input_parameter< IntegerVector >::type hour(hourSEXP);
+    Rcpp::traits::input_parameter< IntegerVector >::type min(minSEXP);
+    Rcpp::traits::input_parameter< IntegerVector >::type sec(secSEXP);
+    Rcpp::traits::input_parameter< NumericVector >::type psec(psecSEXP);
+    Rcpp::traits::input_parameter< bool >::type repair(repairSEXP);
+    __result = Rcpp::wrap(utctime(year, month, day, hour, min, sec, psec, repair));
+    return __result;
+END_RCPP
+}
 // date_time_locale
 List date_time_locale();
 RcppExport SEXP readr_date_time_locale() {
@@ -47,24 +65,6 @@ BEGIN_RCPP
     Rcpp::traits::input_parameter< RObject >::type con(conSEXP);
     Rcpp::traits::input_parameter< int >::type chunk_size(chunk_sizeSEXP);
     __result = Rcpp::wrap(read_connection_(con, chunk_size));
-    return __result;
-END_RCPP
-}
-// utctime
-NumericVector utctime(IntegerVector year, IntegerVector month, IntegerVector day, IntegerVector hour, IntegerVector min, IntegerVector sec, NumericVector psec, bool repair);
-RcppExport SEXP readr_utctime(SEXP yearSEXP, SEXP monthSEXP, SEXP daySEXP, SEXP hourSEXP, SEXP minSEXP, SEXP secSEXP, SEXP psecSEXP, SEXP repairSEXP) {
-BEGIN_RCPP
-    Rcpp::RObject __result;
-    Rcpp::RNGScope __rngScope;
-    Rcpp::traits::input_parameter< IntegerVector >::type year(yearSEXP);
-    Rcpp::traits::input_parameter< IntegerVector >::type month(monthSEXP);
-    Rcpp::traits::input_parameter< IntegerVector >::type day(daySEXP);
-    Rcpp::traits::input_parameter< IntegerVector >::type hour(hourSEXP);
-    Rcpp::traits::input_parameter< IntegerVector >::type min(minSEXP);
-    Rcpp::traits::input_parameter< IntegerVector >::type sec(secSEXP);
-    Rcpp::traits::input_parameter< NumericVector >::type psec(psecSEXP);
-    Rcpp::traits::input_parameter< bool >::type repair(repairSEXP);
-    __result = Rcpp::wrap(utctime(year, month, day, hour, min, sec, psec, repair));
     return __result;
 END_RCPP
 }
