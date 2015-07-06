@@ -18,7 +18,7 @@ enum DelimState {
 
 class TokenizerDelim : public Tokenizer {
   char delim_, quote_;
-  std::string NA_;
+  std::vector<std::string> NA_;
 
   bool escapeBackslash_, escapeDouble_;
 
@@ -29,7 +29,8 @@ class TokenizerDelim : public Tokenizer {
 
 public:
 
-  TokenizerDelim(char delim = ',', char quote = '"', std::string NA = "NA",
+  TokenizerDelim(char delim = ',', char quote = '"',
+               std::vector<std::string> NA = std::vector<std::string>(1, "NA"),
                bool escapeBackslash = false, bool escapeDouble = true):
     delim_(delim),
     quote_(quote),

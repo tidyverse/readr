@@ -9,7 +9,7 @@
 class TokenizerFwf : public Tokenizer {
   // Begin and end offsets are inclusive to match R conventions
   std::vector<int> beginOffset_, endOffset_;
-  std::string NA_;
+  std::vector<std::string> NA_;
 
   SourceIterator begin_, curLine_, end_;
   int row_, col_, cols_, max_;
@@ -17,7 +17,8 @@ class TokenizerFwf : public Tokenizer {
 
 public:
 
-  TokenizerFwf(std::vector<int> beginOffset, std::vector<int> endOffset, std::string NA = "NA"):
+  TokenizerFwf(std::vector<int> beginOffset, std::vector<int> endOffset,
+               std::vector<std::string> NA = std::vector<std::string>(1, "NA")):
     beginOffset_(beginOffset),
     endOffset_(endOffset),
     NA_(NA),

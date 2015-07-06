@@ -12,6 +12,18 @@ test_that("read_csv's 'NA' option genuinely changes the NA values", {
   expect_equal(read_csv("a\nz", na = "z")$a, NA_character_)
 })
 
+test_that("read_csv's 'NA' option works with multiple NA values", {
+  expect_equal(read_csv("a\n1\nmiss\n13", na = c("13", "miss"))$a, c(1, NA, NA))
+})
+
+test_that("passing NULL to read_csv's 'NA' option reads \"\" correctly", {
+  expect_equal(read_csv("a\nfoo\n\n", na = NULL)$a, c("foo", ""))
+})
+
+test_that("passing \"\" to read_csv's 'NA' option reads \"\" correctly", {
+  expect_equal(read_csv("a\nfoo\n\n", na = "")$a, c("foo", NA))
+})
+
 test_that("read_csv's 'skip' option allows for skipping'", {
   test_data <- read_csv("basic-df.csv", skip = 1)
   expect_equal(nrow(test_data), 9)
