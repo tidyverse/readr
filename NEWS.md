@@ -1,4 +1,4 @@
-# readr 0.1.0.9000
+# readr 0.1.1.9000
 
 * `read_delim()` now defaults to `escape_backslash = FALSE` and 
 `escape_double = TRUE` for consistency.  
