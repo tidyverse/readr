@@ -13,7 +13,8 @@ test_that("read_csv's 'NA' option genuinely changes the NA values", {
 })
 
 test_that("read_csv's 'NA' option works with multiple NA values", {
-  expect_equal(read_csv("a\n1\nmiss\n13", na = c("13", "miss"))$a, c(1, NA, NA))
+  expect_equal(read_csv("a\nNA\n\nmiss\n13", na = c("13", "miss"))$a,
+               c("NA", "", NA, NA))
 })
 
 test_that("passing NULL to read_csv's 'NA' option reads \"\" correctly", {

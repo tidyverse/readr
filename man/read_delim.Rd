@@ -45,7 +45,8 @@ to add special characters like \code{\\n}.}
 i.e. If this option is \code{TRUE}, the value \code{""""} represents
 a single quote, \code{\"}.}
 
-\item{na}{String to use for missing values.}
+\item{na}{Character vector of strings to use for missing values. Set this
+option to \code{NULL} to indicate no missing values.}
 
 \item{col_names}{Either \code{TRUE}, \code{FALSE} or a character vector
   of column names.

@@ -8,3 +8,8 @@ test_that("trailing spaces ommitted", {
   df <- read_fwf("fwf-trailing.txt", spec)
   expect_equal(df$X1, df$X2)
 })
+
+test_that("passing \"\" to read_fwf's 'na' option", {
+  expect_equal(read_fwf('foobar\nfoo   ', fwf_widths(c(3, 3)), na = "")[[2]],
+               c("bar", NA))
+})
