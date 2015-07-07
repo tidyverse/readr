@@ -17,8 +17,8 @@ test_that("read_csv's 'NA' option works with multiple NA values", {
                c("NA", "", NA, NA))
 })
 
-test_that("passing NULL to read_csv's 'NA' option reads \"\" correctly", {
-  expect_equal(read_csv("a\nfoo\n\n", na = NULL)$a, c("foo", ""))
+test_that('passing character() to read_csv\'s "NA" option reads "" correctly', {
+  expect_equal(read_csv("a\nfoo\n\n", na = character())$a, c("foo", ""))
 })
 
 test_that("passing \"\" to read_csv's 'NA' option reads \"\" correctly", {

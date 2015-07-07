@@ -17,3 +17,5 @@
 * When guessing field types, and there's no information to go on, use
   character instead of logical (#124, #128).
 
+* Multiple strings can now be specified to indicate missing values (#125).
+  Specifying `na = ""` now works as expected with character columns (#114).

@@ -29,7 +29,7 @@ tokenizer_fwf(begin, end, na = "NA")
 \item{quote}{Single character used to quote strings.}
 
 \item{na}{Character vector of strings to use for missing values. Set this
-option to \code{NULL} to indicate no missing values.}
+option to \code{character()} to indicate no missing values.}
 
 \item{escape_double}{Does the file escape quotes by doubling them?
 i.e. If this option is \code{TRUE}, the value \code{""""} represents
