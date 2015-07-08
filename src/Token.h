@@ -82,14 +82,19 @@ public:
     return *this;
   }
 
-  Token& flagNA(std::string NA) {
-    if ((size_t) (end_ - begin_) != NA.size())
-      return *this;
+  Token& flagNA(std::vector<std::string> NA) {
 
-    if (strncmp(begin_, &NA[0], NA.size()) != 0)
-      return *this;
+    std::vector<std::string>::iterator it;
+    for (it = NA.begin(); it != NA.end(); ++it) {
+      if ((size_t) (end_ - begin_) != it->size())
+        continue;
 
-    type_ = TOKEN_MISSING;
+      if (strncmp(begin_, it->data(), it->size()) == 0) {
+        type_ = TOKEN_MISSING;
+        break;
+      }
+    }
+
     return *this;
   }
 

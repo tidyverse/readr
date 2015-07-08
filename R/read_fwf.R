@@ -28,8 +28,8 @@
 #' read_fwf(fwf_sample, fwf_widths(c(2, 5, 3)))
 #' # 3. Paired vectors of start and end positions
 #' read_fwf(fwf_sample, fwf_positions(c(1, 4), c(2, 10)))
-read_fwf <- function(file, col_positions, col_types = NULL, na = "NA", skip = 0,
-                     n_max = -1, progress = interactive()) {
+read_fwf <- function(file, col_positions, col_types = NULL, na = c("", "NA"),
+                     skip = 0, n_max = -1, progress = interactive()) {
   ds <- datasource(file, skip = skip)
   tokenizer <- tokenizer_fwf(col_positions$begin, col_positions$end, na = na)
 

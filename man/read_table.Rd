@@ -46,7 +46,8 @@ read_table(file, col_names = TRUE, col_types = NULL, na = "NA",
   character represents one column: c = character, d = double, i = integer,
   l = logical and \code{_} skips the column.}
 
-\item{na}{String to use for missing values.}
+\item{na}{Character vector of strings to use for missing values. Set this
+option to \code{character()} to indicate no missing values.}
 
 \item{skip}{Number of lines to skip before reading data.}
 

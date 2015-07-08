@@ -20,7 +20,7 @@ NULL
 #'   in an interactive session. The display is updated every 50,000 values
 #'   and will only display if estimated reading time is 5 seconds or more.
 #' @usage read_delim(file, delim, quote = '\"', escape_backslash = FALSE,
-#'   escape_double = TRUE, na = "NA", col_names = TRUE, col_types = NULL,
+#'   escape_double = TRUE, na = c("", "NA"), col_names = TRUE, col_types = NULL,
 #'   skip = 0, n_max = -1, progress = interactive())
 #' @return A data frame. If there are parsing problems, a warning tells you
 #'   how many, and you can retrieve the details with \code{\link{problems}()}.
@@ -56,7 +56,7 @@ NULL
 #' read_tsv("a\tb\n1.0\t2.0")
 #' read_delim("a|b\n1.0|2.0", delim = "|")
 read_delim <- function(file, delim, quote = '"', escape_backslash = FALSE,
-                       escape_double = TRUE, na = "NA", col_names = TRUE,
+                       escape_double = TRUE, na = c("", "NA"), col_names = TRUE,
                        col_types = NULL, skip = 0, n_max = -1,
                        progress = interactive()) {
   tokenizer <- tokenizer_delim(delim, quote = quote,
@@ -68,7 +68,7 @@ read_delim <- function(file, delim, quote = '"', escape_backslash = FALSE,
 
 #' @rdname read_delim
 #' @export
-read_csv <- function(file, col_names = TRUE, col_types = NULL, na = "NA",
+read_csv <- function(file, col_names = TRUE, col_types = NULL, na = c("", "NA"),
                      skip = 0, n_max = -1, progress = interactive()) {
 
   tokenizer <- tokenizer_csv(na = na)
@@ -78,8 +78,9 @@ read_csv <- function(file, col_names = TRUE, col_types = NULL, na = "NA",
 
 #' @rdname read_delim
 #' @export
-read_csv2 <- function(file, col_names = TRUE, col_types = NULL, na = "NA",
-                      skip = 0, n_max = -1, progress = interactive()) {
+read_csv2 <- function(file, col_names = TRUE, col_types = NULL,
+                      na = c("", "NA"), skip = 0, n_max = -1,
+                      progress = interactive()) {
 
   tokenizer <- tokenizer_delim(delim = ";", na = na)
   read_delimited(file, tokenizer, col_names = col_names, col_types = col_types,
@@ -89,7 +90,7 @@ read_csv2 <- function(file, col_names = TRUE, col_types = NULL, na = "NA",
 
 #' @rdname read_delim
 #' @export
-read_tsv <- function(file, col_names = TRUE, col_types = NULL, na = "NA",
+read_tsv <- function(file, col_names = TRUE, col_types = NULL, na = c("", "NA"),
                      skip = 0, n_max = -1, progress = interactive()) {
 
   tokenizer <- tokenizer_tsv(na = na)

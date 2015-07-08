@@ -7,8 +7,8 @@
 \alias{read_fwf}
 \title{Read a fixed width file.}
 \usage{
-read_fwf(file, col_positions, col_types = NULL, na = "NA", skip = 0,
-  n_max = -1, progress = interactive())
+read_fwf(file, col_positions, col_types = NULL, na = c("", "NA"),
+  skip = 0, n_max = -1, progress = interactive())
 
 fwf_empty(file, skip = 0, col_names = NULL)
 
@@ -48,7 +48,8 @@ use \code{fwf_positions}.}
   character represents one column: c = character, d = double, i = integer,
   l = logical and \code{_} skips the column.}
 
-\item{na}{String to use for missing values.}
+\item{na}{Character vector of strings to use for missing values. Set this
+option to \code{character()} to indicate no missing values.}
 
 \item{skip}{Number of lines to skip before reading data.}
 

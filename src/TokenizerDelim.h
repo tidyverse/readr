@@ -18,7 +18,7 @@ enum DelimState {
 
 class TokenizerDelim : public Tokenizer {
   char delim_, quote_;
-  std::string NA_;
+  std::vector<std::string> NA_;
 
   bool escapeBackslash_, escapeDouble_;
 
@@ -29,7 +29,8 @@ class TokenizerDelim : public Tokenizer {
 
 public:
 
-  TokenizerDelim(char delim = ',', char quote = '"', std::string NA = "NA",
+  TokenizerDelim(char delim = ',', char quote = '"',
+               std::vector<std::string> NA = std::vector<std::string>(1, "NA"),
                bool escapeBackslash = false, bool escapeDouble = true):
     delim_(delim),
     quote_(quote),
@@ -79,10 +80,10 @@ public:
         if (*cur_ == '\r' || *cur_ == '\n') {
           newRecord();
           advanceForLF(&cur_, end_);
-          return Token(TOKEN_EMPTY, row, col);
+          return emptyToken(row, col);
         } else if (*cur_ == delim_) {
           newField();
-          return Token(TOKEN_EMPTY, row, col);
+          return emptyToken(row, col);
         } else if (*cur_ == quote_) {
           state_ = STATE_STRING;
         } else if (escapeBackslash_ && *cur_ == '\\') {
@@ -168,7 +169,7 @@ public:
       if (col_ == 0) {
         return Token(TOKEN_EOF, row, col);
       } else {
-        return Token(TOKEN_EMPTY, row, col);
+        return emptyToken(row, col);
       }
 
     case STATE_STRING_END:
@@ -204,6 +205,10 @@ private:
     state_ = STATE_DELIM;
   }
 
+  Token emptyToken(int row, int col) {
+    return Token(TOKEN_EMPTY, row, col).flagNA(NA_);
+  }
+
   Token fieldToken(SourceIterator begin, SourceIterator end, bool hasEscapeB,
                    int row, int col) {
     return Token(begin, end, row, col, (hasEscapeB) ? this : NULL).flagNA(NA_);
@@ -214,6 +219,7 @@ private:
     return Token(begin, end, row, col,
       (hasEscapeD || hasEscapeB) ? this : NULL);
   }
+
 
 public:
 

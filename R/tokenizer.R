@@ -34,7 +34,8 @@ NULL
 
 #' @export
 #' @rdname Tokenizers
-#' @param na String to use for missing values.
+#' @param na Character vector of strings to use for missing values. Set this
+#'   option to \code{character()} to indicate no missing values.
 #' @param delim Single character used to separate fields within a record.
 #' @param quote Single character used to quote strings.
 #' @param escape_double Does the file escape quotes by doubling them?
