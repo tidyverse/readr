@@ -86,10 +86,10 @@ public:
 
     std::vector<std::string>::iterator it;
     for (it = NA.begin(); it != NA.end(); ++it) {
-      if ((size_t) (end_ - begin_) != (*it).size())
+      if ((size_t) (end_ - begin_) != it->size())
         continue;
 
-      if (strncmp(begin_, &(*it)[0], (*it).size()) == 0) {
+      if (strncmp(begin_, it->data(), it->size()) == 0) {
         type_ = TOKEN_MISSING;
         break;
       }

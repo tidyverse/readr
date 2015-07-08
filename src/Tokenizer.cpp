@@ -14,14 +14,7 @@ TokenizerPtr Tokenizer::create(List spec) {
   if (subclass == "tokenizer_delim") {
     char delim = as<char>(spec["delim"]);
     char quote = as<char>(spec["quote"]);
-
-    std::vector<std::string> na;
-    if (Rf_isNull(spec["na"])) {
-      na = std::vector<std::string>();
-    } else {
-      na = as<std::vector<std::string> >(spec["na"]);
-    }
-
+    std::vector<std::string> na = as<std::vector<std::string> >(spec["na"]);
     bool escapeDouble = as<bool>(spec["escape_double"]);
     bool escapeBackslash = as<bool>(spec["escape_backslash"]);
 
@@ -32,13 +25,7 @@ TokenizerPtr Tokenizer::create(List spec) {
     std::vector<int>
       begin = as<std::vector<int> >(spec["begin"]),
       end = as<std::vector<int> >(spec["end"]);
-
-    std::vector<std::string> na;
-    if (Rf_isNull(spec["na"])) {
-      na = std::vector<std::string>();
-    } else {
-      na = as<std::vector<std::string> >(spec["na"]);
-    }
+    std::vector<std::string> na = as<std::vector<std::string> >(spec["na"]);
 
     return TokenizerPtr(new TokenizerFwf(begin, end, na));
   } else if (subclass == "tokenizer_line") {
