@@ -4,5 +4,10 @@ warnings_are_errors: true
 r_packages:
   - rmarkdown
 
+r_github_packages:
+  - jimhester/covr
+after_success:
+  - Rscript -e 'covr::codecov()'
+
 apt_packages:
   - libv8-dev
