@@ -14,7 +14,7 @@
 #'
 #'   Alternatively, you can use a compact string representation where each
 #'   character represents one column: c = character, d = double, i = integer,
-#'   l = logical and \code{_} skips the column.
+#'   l = logical, ? = guess, or \code{_}/\code{-} to skip the column.
 #' @param col_names A character vector naming the columns.
 #' @param rows A data frame containing the first few rows, parsed as
 #'   character vectors.
@@ -24,7 +24,7 @@ col_types_standardise <- function(col_types, col_names, guessed_types) {
   if (is.null(col_types)) {
     lapply(guessed_types, collector_find)
   } else if (is.character(col_types) && length(col_types) == 1) {
-    col_types_concise(col_types)
+    col_types_concise(col_types, guessed_types)
   } else if (is.list(col_types)) {
     col_types_full(col_types, col_names, guessed_types)
   } else {
@@ -33,7 +33,7 @@ col_types_standardise <- function(col_types, col_names, guessed_types) {
 }
 
 
-col_types_concise <- function(x) {
+col_types_concise <- function(x, guessed_types) {
   letters <- strsplit(x, "")[[1]]
   lookup <- list(
     c = col_character(),
@@ -43,8 +43,10 @@ col_types_concise <- function(x) {
     i = col_integer(),
     l = col_logical(),
     "_" = col_skip(),
+    "-" = col_skip(),
     n = col_numeric(),
-    e = col_euro_double()
+    e = col_euro_double(),
+    "?" = NULL
   )
 
   bad <- setdiff(letters, names(lookup))
@@ -52,7 +54,12 @@ col_types_concise <- function(x) {
     stop("Unknown shortcuts: ", paste(unique(bad), collapse = ", "))
   }
 
-  unname(lookup[letters])
+  collectors <- unname(lookup[letters])
+
+  is_guess <- vapply(collectors, is.null, logical(1))
+  collectors[is_guess] <- lapply(guessed_types[is_guess], collector_find)
+
+  collectors
 }
 
 col_types_full <- function(col_types, col_names, guessed_types) {
