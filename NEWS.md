@@ -1,7 +1,7 @@
 # readr 0.1.1.9000
 
 * `read_delim()` now defaults to `escape_backslash = FALSE` and 
-`escape_double = TRUE` for consistency.  
+  `escape_double = TRUE` for consistency.  
   
 * Convenient wrapper around base::saveRDS `write_rds()` for saving a single R 
   object (#140, @nicolasCoutin).  
