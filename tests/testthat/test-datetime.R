@@ -31,7 +31,7 @@ test_that("Compound formats work", {
   expect_equal(parse_datetime("02/03/10", "%D"), target)
   expect_equal(parse_datetime("2010-02-03", "%F"), target)
   expect_equal(parse_datetime("10/02/03", "%x"), target)
-}
+})
 
 test_that("%y matches R behaviour", {
   expect_equal(
