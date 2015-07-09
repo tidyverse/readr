@@ -10,7 +10,7 @@ namespace qi = boost::spirit::qi;
 #include "Collector.h"
 #include "CollectorDouble.h"
 
-struct DoubleEuroPolicy : public qi::ureal_policies<double> {
+struct DoubleEuroPolicy : public qi::real_policies<double> {
   template <typename Iterator>
   static bool parse_dot(Iterator& first, Iterator const& last) {
     if (first == last || *first != ',')

@@ -1,5 +1,8 @@
 # readr 0.1.1.9000
 
+* `col_euro_double()` and `parse_euro_double()` now handle negative values 
+  (#213).
+
 * Use R's platform independent `iconv` wrapper (#149).
 
 * `write_csv()` no longer fails silently if it can't open the target for
