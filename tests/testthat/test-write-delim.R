@@ -19,6 +19,16 @@ test_that("read_delim/csv/tsv and write_delim round trip special chars", {
   expect_equal(input$x, input_csv$x, input_tsv$x,  x)
 })
 
+test_that("special floating point values translated to text", {
+  df <- data.frame(x = c(NaN, NA, Inf, -Inf))
+  expect_equal(write_delim(df, ""), "x\nNaN\nNA\nInf\n-Inf\n")
+})
+
+test_that("logical values give long names", {
+  df <- data.frame(x = c(NA, FALSE, TRUE))
+  expect_equal(write_delim(df, ""), "x\nNA\nFALSE\nTRUE\n")
+})
+
 test_that("roundtrip preserved floating point numbers", {
   input <- data.frame(x = runif(100))
   output <- read_delim(write_delim(input, "", delim = " "), delim = " ")
