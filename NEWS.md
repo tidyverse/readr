@@ -1,5 +1,7 @@
 # readr 0.1.1.9000
 
+* Use R's platform independent `iconv` wrapper (#149).
+
 * `write_csv()` no longer fails silently if it can't open the target for
   writing (#193, #172).
 

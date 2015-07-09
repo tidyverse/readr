@@ -1,19 +1,19 @@
 #ifndef READ_ICONV_H_
 #define READ_ICONV_H_
 
-#include <iconv.h>
+#include "R_ext/Riconv.h"
 #include <errno.h>
 
 class Iconv {
-  iconv_t cd_;
+  void* cd_;
   std::string buffer_;
 
 public:
 
   Iconv(const std::string& from, const std::string& to = "UTF-8") {
-    cd_ = iconv_open(to.c_str(), from.c_str());
+    cd_ = Riconv_open(to.c_str(), from.c_str());
 
-    if (cd_ == (iconv_t) -1) {
+    if (cd_ == (void*) -1) {
       if (errno == EINVAL) {
         Rcpp::stop("Can't convert from %s to %s", from, to);
       } else {
@@ -26,7 +26,7 @@ public:
   }
 
   ~Iconv() {
-    iconv_close(cd_);
+    Riconv_close(cd_);
   }
 
   std::string convert(std::string from) {
@@ -36,15 +36,11 @@ public:
 
     // http://man7.org/linux/man-pages/man3/iconv.3.html
 
-#ifdef _WIN32
     const char* inbuf = &from[0];
-#else
-    char* inbuf = &from[0];
-#endif
 
     char* outbuf = &buffer_[0];
     size_t inbytesleft = from.size(), outbytesleft = max_size;
-    size_t res = iconv(cd_, &inbuf, &inbytesleft, &outbuf, &outbytesleft);
+    size_t res = Riconv(cd_, &inbuf, &inbytesleft, &outbuf, &outbytesleft);
 
     if (res == (size_t) -1) {
       switch(errno) {
