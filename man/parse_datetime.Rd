@@ -74,6 +74,7 @@ There are three types of element:
   \item Seconds: "\%S" (integer seconds), "\%OS" (partial seconds)
   \item Time zone: "\%Z" (as name, e.g. "America/Chicago"), "\%z" (as
     offset from UTC, e.g. "+0800")
+  \item AM/PM indicator: "\%p".
   \item Non-digits: "\%." skips one non-digit charcter, "\%*" skips any
     number of non-digits characters.
   \item Shortcuts: "\%D" = "\%m/\%d/\%y",  "\%F" = "\%Y-\%m-\%d",

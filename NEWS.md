@@ -1,5 +1,7 @@
 # readr 0.1.1.9000
 
+* Date time parsing now understands `%p` to parse AM/PM (and am/pm) (#126).
+
 * `read_delim()` now defaults to `escape_backslash = FALSE` and 
   `escape_double = TRUE` for consistency.  
   

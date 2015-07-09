@@ -76,6 +76,13 @@ test_that("ISO8601 partial dates fill in month and day", {
   expect_equal(parse_datetime("2001-01"), ref)
 })
 
+test_that("%p detects AM/PM", {
+  am <- parse_datetime(c("2015-01-01 01:00 AM", "2015-01-01 01:00 am"), "%F %R %p")
+  pm <- parse_datetime(c("2015-01-01 01:00 PM", "2015-01-01 01:00 pm"), "%F %R %p")
+
+  expect_equal(pm, am + 12 * 3600)
+})
+
 # Time zones ------------------------------------------------------------------
 
 test_that("same times with different offsets parsed as same time", {

@@ -16,6 +16,7 @@ namespace qi = boost::spirit::qi;
 class DateTimeParser {
   int year_, mon_, day_, hour_, min_, sec_;
   double psec_;
+  bool isPM_;
 
   int tzOffsetHours_, tzOffsetMinutes_;
   std::string tz_;
@@ -164,6 +165,11 @@ public:
           return false;
         break;
 
+      case 'p': // AM/PM
+        if (!consumeAMPM(&isPM_))
+          return false;
+        break;
+
       case 'z': // time zone specification
         tz_ = "UTC";
         if (!consumeTzOffset(&tzOffsetHours_, &tzOffsetMinutes_))
@@ -212,7 +218,7 @@ public:
   }
 
   DateTime makeDateTime() {
-    DateTime dt(year_, mon_, day_, hour_, min_, sec_, psec_, tz_);
+    DateTime dt(year_, mon_, day_, hour_ + (isPM_ ? 12 : 0), min_, sec_, psec_, tz_);
     if (tz_ == "UTC")
       dt.setOffset(-tzOffsetHours_ * 3600 - tzOffsetMinutes_ * 60);
 
@@ -325,6 +331,24 @@ private:
     return true;
   }
 
+  inline bool consumeAMPM(bool* pIsPM) {
+    if (dateItr_ == dateEnd_)
+      return false;
+
+    if (consumeThisChar('A') || consumeThisChar('a')) {
+      *pIsPM = false;
+    } else if (consumeThisChar('P') || consumeThisChar('p')) {
+      *pIsPM = true;
+    } else {
+      return false;
+    }
+
+    if (!(consumeThisChar('M') || consumeThisChar('m')))
+      return false;
+
+    return true;
+  }
+
   // ISO8601 style
   // Z
   // ±hh:mm
@@ -383,6 +407,7 @@ private:
     min_ = 0;
     sec_ = 0;
     psec_ = 0;
+    isPM_ = false;
 
     tzOffsetHours_ = 0;
     tzOffsetMinutes_ = 0;

@@ -16,6 +16,18 @@ BEGIN_RCPP
     return __result;
 END_RCPP
 }
+// read_connection_
+RawVector read_connection_(RObject con, int chunk_size);
+RcppExport SEXP readr_read_connection_(SEXP conSEXP, SEXP chunk_sizeSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject __result;
+    Rcpp::RNGScope __rngScope;
+    Rcpp::traits::input_parameter< RObject >::type con(conSEXP);
+    Rcpp::traits::input_parameter< int >::type chunk_size(chunk_sizeSEXP);
+    __result = Rcpp::wrap(read_connection_(con, chunk_size));
+    return __result;
+END_RCPP
+}
 // utctime
 NumericVector utctime(IntegerVector year, IntegerVector month, IntegerVector day, IntegerVector hour, IntegerVector min, IntegerVector sec, NumericVector psec, bool repair);
 RcppExport SEXP readr_utctime(SEXP yearSEXP, SEXP monthSEXP, SEXP daySEXP, SEXP hourSEXP, SEXP minSEXP, SEXP secSEXP, SEXP psecSEXP, SEXP repairSEXP) {
@@ -41,30 +53,6 @@ BEGIN_RCPP
     Rcpp::RObject __result;
     Rcpp::RNGScope __rngScope;
     __result = Rcpp::wrap(date_time_locale());
-    return __result;
-END_RCPP
-}
-// whitespaceColumns
-List whitespaceColumns(List sourceSpec, int n);
-RcppExport SEXP readr_whitespaceColumns(SEXP sourceSpecSEXP, SEXP nSEXP) {
-BEGIN_RCPP
-    Rcpp::RObject __result;
-    Rcpp::RNGScope __rngScope;
-    Rcpp::traits::input_parameter< List >::type sourceSpec(sourceSpecSEXP);
-    Rcpp::traits::input_parameter< int >::type n(nSEXP);
-    __result = Rcpp::wrap(whitespaceColumns(sourceSpec, n));
-    return __result;
-END_RCPP
-}
-// read_connection_
-RawVector read_connection_(RObject con, int chunk_size);
-RcppExport SEXP readr_read_connection_(SEXP conSEXP, SEXP chunk_sizeSEXP) {
-BEGIN_RCPP
-    Rcpp::RObject __result;
-    Rcpp::RNGScope __rngScope;
-    Rcpp::traits::input_parameter< RObject >::type con(conSEXP);
-    Rcpp::traits::input_parameter< int >::type chunk_size(chunk_sizeSEXP);
-    __result = Rcpp::wrap(read_connection_(con, chunk_size));
     return __result;
 END_RCPP
 }
@@ -166,6 +154,18 @@ BEGIN_RCPP
     Rcpp::traits::input_parameter< List >::type tokenizerSpec(tokenizerSpecSEXP);
     Rcpp::traits::input_parameter< int >::type n(nSEXP);
     __result = Rcpp::wrap(collectorsGuess(sourceSpec, tokenizerSpec, n));
+    return __result;
+END_RCPP
+}
+// whitespaceColumns
+List whitespaceColumns(List sourceSpec, int n);
+RcppExport SEXP readr_whitespaceColumns(SEXP sourceSpecSEXP, SEXP nSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject __result;
+    Rcpp::RNGScope __rngScope;
+    Rcpp::traits::input_parameter< List >::type sourceSpec(sourceSpecSEXP);
+    Rcpp::traits::input_parameter< int >::type n(nSEXP);
+    __result = Rcpp::wrap(whitespaceColumns(sourceSpec, n));
     return __result;
 END_RCPP
 }
