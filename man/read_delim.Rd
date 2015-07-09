@@ -73,7 +73,7 @@ option to \code{character()} to indicate no missing values.}
 
   Alternatively, you can use a compact string representation where each
   character represents one column: c = character, d = double, i = integer,
-  l = logical and \code{_} skips the column.}
+  l = logical, ? = guess, or \code{_}/\code{-} to skip the column.}
 
 \item{skip}{Number of lines to skip before reading data.}
 

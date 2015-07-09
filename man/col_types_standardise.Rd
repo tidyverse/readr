@@ -21,7 +21,7 @@ col_types_standardise(col_types, col_names, guessed_types)
 
   Alternatively, you can use a compact string representation where each
   character represents one column: c = character, d = double, i = integer,
-  l = logical and \code{_} skips the column.}
+  l = logical, ? = guess, or \code{_}/\code{-} to skip the column.}
 
 \item{col_names}{A character vector naming the columns.}
 

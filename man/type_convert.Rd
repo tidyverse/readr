@@ -23,7 +23,7 @@ type_convert(df, col_types = NULL)
 
   Alternatively, you can use a compact string representation where each
   character represents one column: c = character, d = double, i = integer,
-  l = logical and \code{_} skips the column.}
+  l = logical, ? = guess, or \code{_}/\code{-} to skip the column.}
 }
 \description{
 This is useful if you need to do some manual munging - you can read the

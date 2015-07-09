@@ -44,7 +44,7 @@ read_log(file, col_names = FALSE, col_types = NULL, skip = 0,
 
   Alternatively, you can use a compact string representation where each
   character represents one column: c = character, d = double, i = integer,
-  l = logical and \code{_} skips the column.}
+  l = logical, ? = guess, or \code{_}/\code{-} to skip the column.}
 
 \item{skip}{Number of lines to skip before reading data.}
 

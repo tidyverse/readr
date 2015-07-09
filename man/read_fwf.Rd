@@ -46,7 +46,7 @@ use \code{fwf_positions}.}
 
   Alternatively, you can use a compact string representation where each
   character represents one column: c = character, d = double, i = integer,
-  l = logical and \code{_} skips the column.}
+  l = logical, ? = guess, or \code{_}/\code{-} to skip the column.}
 
 \item{na}{Character vector of strings to use for missing values. Set this
 option to \code{character()} to indicate no missing values.}
