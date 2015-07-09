@@ -21,3 +21,6 @@
   the default for missing strings has been changed to `na = c("", "NA")`.
   Specifying `na = ""` now works as expected with character columns (#114).
   
+* `read_*()` methods now throw a warning instead of an error is `col_types`
+  specifies type for a non-existant column (#145, @alyst).
+
