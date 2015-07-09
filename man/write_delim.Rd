@@ -24,8 +24,9 @@ a string.}
 \item{delim}{Delimiter used to seperate values. Defaults to \code{" "}. Must be
 a single character.}
 
-\item{append}{If \code{FALSE}, will create a new file. If \code{TRUE},
-will append to an existing file.}
+\item{append}{If \code{FALSE}, will overwrite existing file. If \code{TRUE},
+will append to existing file. In both cases, if file does not exist a new
+file is created.}
 
 \item{col_names}{Write columns names at the top of the file?}
 }
