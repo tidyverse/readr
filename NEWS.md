@@ -24,3 +24,5 @@
 * `read_*()` methods now throw a warning instead of an error is `col_types`
   specifies type for a non-existant column (#145, @alyst).
 
+* Compound formats %D, %F, %R, %X, %T, %x are now parsed correctly, instead of
+  using the ISO8601 parser (#178, @kmillar)

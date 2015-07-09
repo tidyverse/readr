@@ -35,7 +35,7 @@ public:
   // Parse ISO8601 date time. In benchmarks this only seems ~30% faster than
   // parsing with a format string so it doesn't seem necessary to add individual
   // parsers for other common formats.
-  bool parse(bool partial = true) {
+  bool parseISO8601(bool partial = true) {
     // Support partial specifications - this is normally ok, but don't want
     // to turn on when guessing formats as it's too liberal
     if (partial) {
