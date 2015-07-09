@@ -57,7 +57,8 @@ public:
       std::string std_string(string.first, string.second);
 
       parser_.setDate(std_string.c_str());
-      bool res = (format_ == "") ? parser_.parse() : parser_.parse(format_);
+      bool res = (format_ == "") ? parser_.parseISO8601()
+        : parser_.parse(format_);
 
       if (!res) {
         warn(t.row(), t.col(), "date like " +  format_, std_string);
@@ -92,7 +93,7 @@ public:
     DateTimeParser parser(loc, "UTC");
 
     parser.setDate(x.c_str());
-    return parser.parse(false);
+    return parser.parseISO8601(false);
   }
 
 };

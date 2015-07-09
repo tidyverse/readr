@@ -25,6 +25,14 @@ test_that("%d, %m and %y", {
   expect_equal(parse_datetime("02/03/10", "%m/%d/%y"), target)
 })
 
+test_that("Compound formats work", {
+  target <- utctime(2010, 2, 3, 0, 0, 0, 0)
+
+  expect_equal(parse_datetime("02/03/10", "%D"), target)
+  expect_equal(parse_datetime("2010-02-03", "%F"), target)
+  expect_equal(parse_datetime("10/02/03", "%x"), target)
+}
+
 test_that("%y matches R behaviour", {
   expect_equal(
     parse_datetime("01-01-69", "%d-%m-%y"),
