@@ -81,6 +81,9 @@ std::string stream_delim(List df, std::string path, char delim, bool col_names =
     return output.str();
   } else {
     std::ofstream output(path.c_str(), append ? std::ofstream::app : std::ofstream::trunc);
+    if (output.fail()) {
+      stop("Failed to open '%s'.", path);
+    }
     output.precision(17);
     stream_delim(output, df, delim, col_names, append);
     return "";

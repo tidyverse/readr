@@ -1,5 +1,11 @@
 # readr 0.1.1.9000
 
+* `write_csv()` no longer fails silently if it can't open the target for
+  writing (#193, #172).
+
+* Concise `col_types` specification now understands `?` (guess the type) and
+  `-` skip the column (#188).
+
 * Date time parsing now understands `%p` to parse AM/PM (and am/pm) (#126).
 
 * `read_delim()` now defaults to `escape_backslash = FALSE` and 
