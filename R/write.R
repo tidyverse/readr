@@ -16,8 +16,9 @@
 #' @param x A data frame to write to disk
 #' @param path Path to write to. If \code{""} will return the csv file as
 #'   a string.
-#' @param append If \code{FALSE}, will create a new file. If \code{TRUE},
-#'   will append to an existing file.
+#' @param append If \code{FALSE}, will overwrite existing file. If \code{TRUE},
+#'   will append to existing file. In both cases, if file does not exist a new
+#'   file is created.
 #' @param col_names Write columns names at the top of the file?
 #' @param delim Delimiter used to seperate values. Defaults to \code{" "}. Must be
 #'   a single character.
