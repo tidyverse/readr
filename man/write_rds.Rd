@@ -11,16 +11,15 @@ write_rds(x, path, compress = c("none", "gz", "bz2", "xz"), ...)
 
 \item{path}{Path to write to.}
 
-\item{compress}{Compression method to use one of \code{c("none", "gz" ,"bz",
-"xz")}.}
+\item{compress}{Compression method to use: "none", "gz" ,"bz", or "xz".}
 
 \item{...}{Additional arguments to connection function. For example, control
 the space-time trade-off of different compression methods with
 \code{compression}. See \code{\link{connections}} for more details.}
 }
 \description{
-Consistent wrapper around \code{\link{saveRDS}}. \code{write_rds} never
-compresses by default as space is generally cheaper than time.
+Consistent wrapper around \code{\link{saveRDS}}. \code{write_rds} does not
+compress by default as space is generally cheaper than time.
 }
 \examples{
 \dontrun{

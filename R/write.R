@@ -87,16 +87,15 @@ output_column.POSIXt <- function(x) {
 
 #' Write a single R object to file
 #'
-#' Consistent wrapper around \code{\link{saveRDS}}. \code{write_rds} never
-#' compresses by default as space is generally cheaper than time.
+#' Consistent wrapper around \code{\link{saveRDS}}. \code{write_rds} does not
+#' compress by default as space is generally cheaper than time.
 #'
 #' @param x R object to write to serialise.
 #' @param path Path to write to.
-#' @param compress Compression method to use one of \code{c("none", "gz" ,"bz",
-#' "xz")}.
+#' @param compress Compression method to use: "none", "gz" ,"bz", or "xz".
 #' @param ... Additional arguments to connection function. For example, control
-#' the space-time trade-off of different compression methods with
-#' \code{compression}. See \code{\link{connections}} for more details.
+#'   the space-time trade-off of different compression methods with
+#'   \code{compression}. See \code{\link{connections}} for more details.
 #' @export
 #' @examples
 #' \dontrun{
