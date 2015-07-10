@@ -19,6 +19,9 @@ void stream_delim_row(Stream& output, Rcpp::List x, int i, char delim) {
 }
 
 bool needs_quote(const char* string, char delim) {
+  if (*string == 'N' && *(string + 1) == 'A')
+    return true;
+
   for (const char* cur = string; *cur != '\0'; ++cur) {
     if (*cur == '\n' || *cur == '\r' || *cur == '"' || *cur == delim)
       return true;

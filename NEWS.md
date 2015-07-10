@@ -21,7 +21,8 @@
   
 * readr now provides `write_delim()` and `write_tsv()` (#135).
 
-* In `write_csv()`, only use quotes when they're actually needed (#116).
+* In `write_csv()`, only use quotes when they're actually needed (#116): 
+  when the string contains a quote, the delimiter, a new line or NA.
   Write the same amount of precision as used by `as.character()` (#117).
   Format POSIXt vectors in ISO8601 compatible format (#134).
   

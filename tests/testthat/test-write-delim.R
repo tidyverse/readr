@@ -9,6 +9,10 @@ test_that("strings are only quoted if needed", {
   expect_equal(ssv, 'a\n,\n')
 })
 
+test_that("a literal NA is quoted", {
+  expect_equal(write_csv(data.frame(x = "NA"), ""), "x\n\"NA\"\n")
+})
+
 test_that("read_delim/csv/tsv and write_delim round trip special chars", {
   x <- c("a", '"', ",", "\n","at\t")
 
