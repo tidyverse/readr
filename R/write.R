@@ -97,14 +97,12 @@ output_column.POSIXt <- function(x) {
 #' @param ... Additional arguments to connection function. For example, control
 #' the space-time trade-off of different compression methods with
 #' \code{compression}. See \code{\link{connections}} for more details.
-#' @name write_rds
-NULL
-
-#' @rdname write_rds
 #' @export
 #' @examples
-#' ## write_rds(mtcars, "mtcars.rds")
-#' ## write_rds(mtcars, "compressed_mtc.rds", "xz", compression = 9L)
+#' \dontrun{
+#' write_rds(mtcars, "mtcars.rds")
+#' write_rds(mtcars, "compressed_mtc.rds", "xz", compression = 9L)
+#' }
 write_rds <- function(x, path, compress = c("none", "gz", "bz2", "xz"), ...) {
 
   compress <- match.arg(compress)

@@ -23,7 +23,9 @@ Consistent wrapper around \code{\link{saveRDS}}. \code{write_rds} never
 compresses by default as space is generally cheaper than time.
 }
 \examples{
-## write_rds(mtcars, "mtcars.rds")
-## write_rds(mtcars, "compressed_mtc.rds", "xz", compression = 9L)
+\dontrun{
+write_rds(mtcars, "mtcars.rds")
+write_rds(mtcars, "compressed_mtc.rds", "xz", compression = 9L)
+}
 }
 
