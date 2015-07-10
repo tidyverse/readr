@@ -40,3 +40,6 @@
 
 * Compound formats %D, %F, %R, %X, %T, %x are now parsed correctly, instead of
   using the ISO8601 parser (#178, @kmillar)
+
+* The completed progress bar is no longer shown after reading a large file if
+  `progress = FALSE` (#156, @humburg)
