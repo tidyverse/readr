@@ -40,3 +40,6 @@
 
 * Compound formats %D, %F, %R, %X, %T, %x are now parsed correctly, instead of
   using the ISO8601 parser (#178, @kmillar)
+  
+* Local (non-UTC) times with and without daylight savings are now parsed
+  correctly (#120, @andres-s).

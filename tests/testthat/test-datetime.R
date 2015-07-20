@@ -99,3 +99,18 @@ test_that("offsets can cross date boundaries", {
     parse_datetime("2015-02-01T0100Z")
   )
 })
+
+test_that("unambiguous times with and without daylight savings", {
+  # Melbourne had daylight savings in 2015 that ended the morning of 2015-04-05
+  expect_equal(
+    parse_datetime(c("2015-04-04 12:00:00", "2015-04-06 12:00:00"),
+                   tz="Australia/Melbourne"),
+    as.POSIXct(c("2015-04-04 12:00:00", "2015-04-06 12:00:00"),
+               tz = "Australia/Melbourne")
+  )
+  # Japan didn't have daylight savings in 2015
+  expect_equal(
+    parse_datetime(c("2015-04-04 12:00:00", "2015-04-06 12:00:00"), tz="Japan"),
+    as.POSIXct(c("2015-04-04 12:00:00", "2015-04-06 12:00:00"), tz = "Japan")
+  )
+})
