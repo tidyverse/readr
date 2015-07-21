@@ -261,6 +261,10 @@ private:
     tm.tm_hour = hour_;
     tm.tm_min = min_;
     tm.tm_sec = sec_;
+    // The Daylight Saving Time flag (tm_isdst) is greater than zero if Daylight
+    // Saving Time is in effect, zero if Daylight Saving Time is not in effect,
+    // and less than zero if the information is not available.
+    tm.tm_isdst = -1;
 
     time_t time = mktime(&tm);
     return time + psec_ + offset_;
