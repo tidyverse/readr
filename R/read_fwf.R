@@ -49,7 +49,7 @@ fwf_empty <- function(file, skip = 0, col_names = NULL) {
   if (is.null(col_names)) {
     col_names <- paste0("X", seq_along(out$begin))
   } else {
-    stopifnot(length(out$begin) != length(col_names))
+    stopifnot(length(out$begin) == length(col_names))
   }
   out$col_names <- col_names
 
