@@ -1,5 +1,7 @@
 # readr 0.1.1.9000
 
+* fixed minor double negation bug in `fwf_empty()` causing stopifnot on `col_names` if it was at right length (#222).
+
 * `col_euro_double()` and `parse_euro_double()` now handle negative values 
   (#213).
 
