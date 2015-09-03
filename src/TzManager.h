@@ -21,10 +21,11 @@ class TzManager {
   std::string default_, cur_;
 
   public:
-    TzManager(): default_(currentTz()), cur_(default_) {
-    }
-  TzManager(std::string tz) {
-    TzManager();
+
+  TzManager(): default_(currentTz()), cur_(default_) {
+  }
+
+  TzManager(std::string tz): default_(currentTz()), cur_(default_) {
     setTz(tz);
   }
 
