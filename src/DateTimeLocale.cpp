@@ -3,7 +3,7 @@
 
 using namespace Rcpp;
 
-CharacterVector utf8Vector(std::vector<std::string> x) {
+CharacterVector utf8Vector(const std::vector<std::string>& x) {
   CharacterVector out(x.size());
   for (size_t i = 0; i < x.size(); ++i)
     out[i] = Rf_mkCharCE(x[i].c_str(), CE_UTF8);

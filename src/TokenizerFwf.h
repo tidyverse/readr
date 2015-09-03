@@ -17,7 +17,7 @@ class TokenizerFwf : public Tokenizer {
 
 public:
 
-  TokenizerFwf(std::vector<int> beginOffset, std::vector<int> endOffset,
+  TokenizerFwf(const std::vector<int>& beginOffset, const std::vector<int>& endOffset,
                std::vector<std::string> NA = std::vector<std::string>(1, "NA")):
     beginOffset_(beginOffset),
     endOffset_(endOffset),

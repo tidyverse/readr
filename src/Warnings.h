@@ -11,7 +11,8 @@ public:
   }
 
   // row and col should be zero-indexed. addWarning converts into one-indexed
-  void addWarning(int row, int col, std::string expected, std::string actual) {
+  void addWarning(int row, int col, const std::string& expected,
+                  const std::string& actual) {
     row_.push_back(row == -1 ? NA_INTEGER : row + 1);
     col_.push_back(col == -1 ? NA_INTEGER : col + 1);
     expected_.push_back(expected);
