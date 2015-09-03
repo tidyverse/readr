@@ -15,15 +15,21 @@
 #' @examples
 #' x <- parse_integer(c("1X", "blah", "3"))
 #' problems(x)
+#'
+#' y <- parse_integer(c("1", "2", "3"))
+#' problems(y)
 problems <- function(x) {
   probs <- attr(suppressWarnings(x), "problems")
   if (is.null(probs)) {
-    data.frame(
-      row = integer(),
-      col = integer(),
-      expected = character(),
-      actual = character(),
-      stringsAsFactors = FALSE
+    structure(
+      data.frame(
+        row = integer(),
+        col = integer(),
+        expected = character(),
+        actual = character(),
+        stringsAsFactors = FALSE
+      ),
+      class = c("tbl_df", "data.frame")
     )
   } else {
     probs
