@@ -1,7 +1,8 @@
 # readr
 
+[![CRAN_Status_Badge](http://www.r-pkg.org/badges/version/readr)](http://cran.r-project.org/package=readr)
 [![Build Status](https://travis-ci.org/hadley/readr.png?branch=master)](https://travis-ci.org/hadley/readr)
-[![Coverage Status](https://img.shields.io/codecov/c/github/hadley/readr/master.svg)](https://codecov.io/github/hadley/readr?branch=master)
+[![Coverage Status](http://codecov.io/github/hadley/readr/coverage.svg?branch=master)](http://codecov.io/github/hadley/readr?branch=master)
 
 The goal of readr is to provide a fast and friendly way to read tabular data into R. The most important functions are:
 
