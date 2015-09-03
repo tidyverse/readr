@@ -1,5 +1,7 @@
 # readr 0.1.1.9000
 
+* The first five problems are printing out in the problems warning message.
+
 * `type_convert()` gains `NA` and `trim_ws` arguments, and removes missing
   values before determining column types (#)
 
