@@ -6,7 +6,8 @@
 * If `read_delim()`, `n_max` now also affects the number of rows read to 
   guess the column types (#224).
 
-* fixed minor double negation bug in `fwf_empty()` causing stopifnot on `col_names` if it was at right length (#222).
+* fixed minor double negation bug in `fwf_empty()` causing stopifnot on 
+  `col_names` if it was at right length (#186, #222).
 
 * `col_euro_double()` and `parse_euro_double()` now handle negative values 
   (#213).
