@@ -1,5 +1,8 @@
 # readr 0.1.1.9000
 
+* Integer and double parsing is stricter. Previously "3d" was parsed as 
+  3 with a warning, now it returns NA (#221)
+
 * If `read_delim()`, `n_max` now also affects the number of rows read to 
   guess the column types (#224).
 

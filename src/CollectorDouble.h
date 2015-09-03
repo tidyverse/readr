@@ -33,8 +33,11 @@ public:
         return;
       }
 
-      if (str.first != str.second)
+      if (str.first != str.second) {
+        REAL(column_)[i] = NA_REAL;
         warn(t.row(), t.col(), "no trailing characters", str);
+        return;
+      }
 
       return;
     }

@@ -34,8 +34,11 @@ public:
         return;
       }
 
-      if (str.first != str.second)
+      if (str.first != str.second) {
         warn(t.row(), t.col(), "no trailing characters", str);
+        INTEGER(column_)[i] = NA_INTEGER;
+        return;
+      }
 
       return;
     };
