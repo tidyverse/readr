@@ -74,7 +74,8 @@ RObject tokenize_(List sourceSpec, List tokenizerSpec, int n_max) {
 }
 
 // [[Rcpp::export]]
-SEXP parse_vector_(CharacterVector x, List collectorSpec) {
+SEXP parse_vector_(CharacterVector x, List collectorSpec,
+                   const std::vector<std::string>& na) {
   Warnings warnings;
   int n = x.size();
 
@@ -89,6 +90,8 @@ SEXP parse_vector_(CharacterVector x, List collectorSpec) {
     } else {
       SEXP string = x[i];
       t = Token(CHAR(string), CHAR(string) + Rf_length(string), i, -1);
+      t.flagNA(na);
+      t.trim();
     }
     col->setValue(i, t);
   }

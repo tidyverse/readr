@@ -1,5 +1,11 @@
 # readr 0.1.1.9000
 
+* `read_delim()` etc gains a `trim_ws` argument that controls whether leading
+  and trailing whitespace is automatically removed. It defaults to `TRUE`. (#137)
+  
+* `parse_*` gain a `na` argument that allows you to specify which values should
+  be converted to missing.
+
 * Month and abbreviated month name formats (`%b` and `%B`) now ignore
   case when matching (#219).
 

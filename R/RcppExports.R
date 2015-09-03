@@ -29,8 +29,8 @@ tokenize_ <- function(sourceSpec, tokenizerSpec, n_max) {
     .Call('readr_tokenize_', PACKAGE = 'readr', sourceSpec, tokenizerSpec, n_max)
 }
 
-parse_vector_ <- function(x, collectorSpec) {
-    .Call('readr_parse_vector_', PACKAGE = 'readr', x, collectorSpec)
+parse_vector_ <- function(x, collectorSpec, na) {
+    .Call('readr_parse_vector_', PACKAGE = 'readr', x, collectorSpec, na)
 }
 
 read_file_ <- function(sourceSpec) {

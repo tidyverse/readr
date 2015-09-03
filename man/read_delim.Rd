@@ -12,13 +12,13 @@ read_delim(file, delim, quote = '\"', escape_backslash = FALSE,
   skip = 0, n_max = -1, progress = interactive())
 
 read_csv(file, col_names = TRUE, col_types = NULL, na = c("", "NA"),
-  skip = 0, n_max = -1, progress = interactive())
+  trim_ws = TRUE, skip = 0, n_max = -1, progress = interactive())
 
 read_csv2(file, col_names = TRUE, col_types = NULL, na = c("", "NA"),
-  skip = 0, n_max = -1, progress = interactive())
+  trim_ws = TRUE, skip = 0, n_max = -1, progress = interactive())
 
 read_tsv(file, col_names = TRUE, col_types = NULL, na = c("", "NA"),
-  skip = 0, n_max = -1, progress = interactive())
+  trim_ws = TRUE, skip = 0, n_max = -1, progress = interactive())
 }
 \arguments{
 \item{file}{Either a path to a file, a connection, or literal data
@@ -82,6 +82,9 @@ option to \code{character()} to indicate no missing values.}
 \item{progress}{Display a progress bar? By default it will only display
 in an interactive session. The display is updated every 50,000 values
 and will only display if estimated reading time is 5 seconds or more.}
+
+\item{trim_ws}{Should leading and trailing whitespace be trimmed from
+each field before parsing it?}
 }
 \value{
 A data frame. If there are parsing problems, a warning tells you

@@ -69,9 +69,10 @@ read_delim <- function(file, delim, quote = '"', escape_backslash = FALSE,
 #' @rdname read_delim
 #' @export
 read_csv <- function(file, col_names = TRUE, col_types = NULL, na = c("", "NA"),
-                     skip = 0, n_max = -1, progress = interactive()) {
+                     trim_ws = TRUE, skip = 0, n_max = -1,
+                     progress = interactive()) {
 
-  tokenizer <- tokenizer_csv(na = na)
+  tokenizer <- tokenizer_csv(na = na, trim_ws = trim_ws)
   read_delimited(file, tokenizer, col_names = col_names, col_types = col_types,
     skip = skip, n_max = n_max, progress = progress)
 }
@@ -79,10 +80,10 @@ read_csv <- function(file, col_names = TRUE, col_types = NULL, na = c("", "NA"),
 #' @rdname read_delim
 #' @export
 read_csv2 <- function(file, col_names = TRUE, col_types = NULL,
-                      na = c("", "NA"), skip = 0, n_max = -1,
+                      na = c("", "NA"), trim_ws = TRUE, skip = 0, n_max = -1,
                       progress = interactive()) {
 
-  tokenizer <- tokenizer_delim(delim = ";", na = na)
+  tokenizer <- tokenizer_delim(delim = ";", na = na, trim_ws = trim_ws)
   read_delimited(file, tokenizer, col_names = col_names, col_types = col_types,
     skip = skip, n_max = n_max, progress = progress)
 }
@@ -91,9 +92,10 @@ read_csv2 <- function(file, col_names = TRUE, col_types = NULL,
 #' @rdname read_delim
 #' @export
 read_tsv <- function(file, col_names = TRUE, col_types = NULL, na = c("", "NA"),
-                     skip = 0, n_max = -1, progress = interactive()) {
+                     trim_ws = TRUE, skip = 0, n_max = -1,
+                     progress = interactive()) {
 
-  tokenizer <- tokenizer_tsv(na = na)
+  tokenizer <- tokenizer_tsv(na = na, trim_ws = trim_ws)
   read_delimited(file, tokenizer, col_names = col_names, col_types = col_types,
     skip = skip, n_max = n_max, progress = progress)
 }

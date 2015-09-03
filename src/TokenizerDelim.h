@@ -20,7 +20,7 @@ class TokenizerDelim : public Tokenizer {
   char delim_, quote_;
   std::vector<std::string> NA_;
 
-  bool escapeBackslash_, escapeDouble_;
+  bool trimWS_, escapeBackslash_, escapeDouble_;
 
   SourceIterator begin_, cur_, end_;
   DelimState state_;
@@ -31,10 +31,12 @@ public:
 
   TokenizerDelim(char delim = ',', char quote = '"',
                std::vector<std::string> NA = std::vector<std::string>(1, "NA"),
-               bool escapeBackslash = false, bool escapeDouble = true):
+               bool trimWS = true, bool escapeBackslash = false,
+               bool escapeDouble = true):
     delim_(delim),
     quote_(quote),
     NA_(NA),
+    trimWS_(trimWS),
     escapeBackslash_(escapeBackslash),
     escapeDouble_(escapeDouble),
     moreTokens_(false)
@@ -211,13 +213,19 @@ private:
 
   Token fieldToken(SourceIterator begin, SourceIterator end, bool hasEscapeB,
                    int row, int col) {
-    return Token(begin, end, row, col, (hasEscapeB) ? this : NULL).flagNA(NA_);
+    Token t(begin, end, row, col, (hasEscapeB) ? this : NULL);
+    t.flagNA(NA_);
+    if (trimWS_)
+      t.trim();
+    return t;
   }
 
   Token stringToken(SourceIterator begin, SourceIterator end, bool hasEscapeB,
                     bool hasEscapeD, int row, int col) {
-    return Token(begin, end, row, col,
-      (hasEscapeD || hasEscapeB) ? this : NULL);
+    Token t(begin, end, row, col, (hasEscapeD || hasEscapeB) ? this : NULL);
+    if (trimWS_)
+      t.trim();
+    return t;
   }
 
 

@@ -94,14 +94,15 @@ BEGIN_RCPP
 END_RCPP
 }
 // parse_vector_
-SEXP parse_vector_(CharacterVector x, List collectorSpec);
-RcppExport SEXP readr_parse_vector_(SEXP xSEXP, SEXP collectorSpecSEXP) {
+SEXP parse_vector_(CharacterVector x, List collectorSpec, const std::vector<std::string>& na);
+RcppExport SEXP readr_parse_vector_(SEXP xSEXP, SEXP collectorSpecSEXP, SEXP naSEXP) {
 BEGIN_RCPP
     Rcpp::RObject __result;
     Rcpp::RNGScope __rngScope;
     Rcpp::traits::input_parameter< CharacterVector >::type x(xSEXP);
     Rcpp::traits::input_parameter< List >::type collectorSpec(collectorSpecSEXP);
-    __result = Rcpp::wrap(parse_vector_(x, collectorSpec));
+    Rcpp::traits::input_parameter< const std::vector<std::string>& >::type na(naSEXP);
+    __result = Rcpp::wrap(parse_vector_(x, collectorSpec, na));
     return __result;
 END_RCPP
 }

@@ -21,36 +21,38 @@
 \usage{
 col_character()
 
-parse_character(x)
+parse_character(x, na = c("", "NA"))
 
 col_integer()
 
-parse_integer(x)
+parse_integer(x, na = c("", "NA"))
 
 col_double()
 
-parse_double(x)
+parse_double(x, na = c("", "NA"))
 
 col_euro_double()
 
-parse_euro_double(x)
+parse_euro_double(x, na = c("", "NA"))
 
 col_numeric()
 
-parse_numeric(x)
+parse_numeric(x, na = c("", "NA"))
 
 col_logical()
 
-parse_logical(x)
+parse_logical(x, na = c("", "NA"))
 
 col_factor(levels, ordered = FALSE)
 
-parse_factor(x, levels, ordered = FALSE)
+parse_factor(x, levels, ordered = FALSE, na = c("", "NA"))
 
 col_skip()
 }
 \arguments{
 \item{x}{Character vector of values to parse.}
+
+\item{na}{Character vector giving strings to treat as missing.}
 
 \item{levels}{Character vector providing set of allowed levels.}
 

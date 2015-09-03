@@ -15,6 +15,9 @@
 #' )
 #' str(df)
 #' str(type_convert(df))
+#'
+#' df <- data.frame(x = c("NA", "10"), stringsAsFactors=  FALSE)
+#' type_convert(df)
 type_convert <- function(df, col_types = NULL) {
   is_character <- vapply(df, is.character, logical(1))
 

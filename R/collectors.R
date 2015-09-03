@@ -15,10 +15,11 @@ collector_find <- function(name) {
 #'
 #' @param x Character vector of elements to parse.
 #' @param collector Column specification.
+#' @param na Character vector giving strings to treat as missing.
 #' @keywords internal
 #' @export
 #' @examples
-#' x <- c("1", "2", "3", NA)
+#' x <- c("1", "2", "3", "NA")
 #' parse_vector(x, col_integer())
 #' parse_vector(x, col_double())
 #' parse_vector(x, col_character())
@@ -27,8 +28,10 @@ collector_find <- function(name) {
 #' # Invalid values are replaced with missing values with a warning.
 #' x <- c("1", "2", "3", "-")
 #' parse_vector(x, col_double())
-parse_vector <- function(x, collector) {
-  warn_problems(parse_vector_(x, collector))
+#' # Or flag values as missing
+#' parse_vector(x, col_double(), na = "-")
+parse_vector <- function(x, collector, na = "NA") {
+  warn_problems(parse_vector_(x, collector, na = na))
 }
 
 #' Parse character vectors into typed columns.
@@ -39,6 +42,7 @@ parse_vector <- function(x, collector) {
 #'
 #' @name collector
 #' @param x Character vector of values to parse.
+#' @param na Character vector giving strings to treat as missing.
 #' @seealso \code{\link{parse_datetime}}, \code{\link{type_convert}} to
 #'   automatically re-parse all character columns in a data frame.
 #' @examples
@@ -62,8 +66,8 @@ col_character <- function() {
 
 #' @rdname collector
 #' @export
-parse_character <- function(x) {
-  parse_vector(x, col_character())
+parse_character <- function(x, na = c("", "NA")) {
+  parse_vector(x, col_character(), na = na)
 }
 
 #' @rdname collector
@@ -74,8 +78,8 @@ col_integer <- function() {
 
 #' @rdname collector
 #' @export
-parse_integer <- function(x) {
-  parse_vector(x, col_integer())
+parse_integer <- function(x, na = c("", "NA")) {
+  parse_vector(x, col_integer(), na = na)
 }
 
 #' @rdname collector
@@ -86,8 +90,8 @@ col_double <- function() {
 
 #' @rdname collector
 #' @export
-parse_double <- function(x) {
-  parse_vector(x, col_double())
+parse_double <- function(x, na = c("", "NA")) {
+  parse_vector(x, col_double(), na = na)
 }
 
 #' @rdname collector
@@ -98,8 +102,8 @@ col_euro_double <- function() {
 
 #' @rdname collector
 #' @export
-parse_euro_double <- function(x) {
-  parse_vector(x, col_euro_double())
+parse_euro_double <- function(x, na = c("", "NA")) {
+  parse_vector(x, col_euro_double(), na = na)
 }
 
 
@@ -111,8 +115,8 @@ col_numeric <- function() {
 
 #' @rdname collector
 #' @export
-parse_numeric <- function(x) {
-  parse_vector(x, col_numeric())
+parse_numeric <- function(x, na = c("", "NA")) {
+  parse_vector(x, col_numeric(), na = na)
 }
 
 #' @rdname collector
@@ -123,8 +127,8 @@ col_logical <- function() {
 
 #' @rdname collector
 #' @export
-parse_logical <- function(x) {
-  parse_vector(x, col_logical())
+parse_logical <- function(x, na = c("", "NA")) {
+  parse_vector(x, col_logical(), na = na)
 }
 
 #' @param levels Character vector providing set of allowed levels.
@@ -137,8 +141,8 @@ col_factor <- function(levels, ordered = FALSE) {
 
 #' @rdname collector
 #' @export
-parse_factor <- function(x, levels, ordered = FALSE) {
-  parse_vector(x, col_factor(levels, ordered))
+parse_factor <- function(x, levels, ordered = FALSE, na = c("", "NA")) {
+  parse_vector(x, col_factor(levels, ordered), na = na)
 }
 
 #' @rdname collector

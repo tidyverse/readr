@@ -11,11 +11,11 @@
 \title{Tokenizers.}
 \usage{
 tokenizer_delim(delim,
-  quote = "\\"", na = "NA", escape_double = TRUE, escape_backslash = FALSE)
+  quote = "\\"", na = "NA", trim_ws = TRUE, escape_double = TRUE, escape_backslash = FALSE)
 
-tokenizer_csv(na = "NA")
+tokenizer_csv(na = "NA", trim_ws = TRUE)
 
-tokenizer_tsv(na = "NA")
+tokenizer_tsv(na = "NA", trim_ws = TRUE)
 
 tokenizer_line()
 
@@ -30,6 +30,9 @@ tokenizer_fwf(begin, end, na = "NA")
 
 \item{na}{Character vector of strings to use for missing values. Set this
 option to \code{character()} to indicate no missing values.}
+
+\item{trim_ws}{Should leading and trailing whitespace be trimmed from
+each field before parsing it?}
 
 \item{escape_double}{Does the file escape quotes by doubling them?
 i.e. If this option is \code{TRUE}, the value \code{""""} represents

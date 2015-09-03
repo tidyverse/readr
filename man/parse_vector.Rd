@@ -4,18 +4,20 @@
 \alias{parse_vector}
 \title{Parse a character vector.}
 \usage{
-parse_vector(x, collector)
+parse_vector(x, collector, na = "NA")
 }
 \arguments{
 \item{x}{Character vector of elements to parse.}
 
 \item{collector}{Column specification.}
+
+\item{na}{Character vector giving strings to treat as missing.}
 }
 \description{
 Parse a character vector.
 }
 \examples{
-x <- c("1", "2", "3", NA)
+x <- c("1", "2", "3", "NA")
 parse_vector(x, col_integer())
 parse_vector(x, col_double())
 parse_vector(x, col_character())
@@ -24,6 +26,8 @@ parse_vector(x, col_skip())
 # Invalid values are replaced with missing values with a warning.
 x <- c("1", "2", "3", "-")
 parse_vector(x, col_double())
+# Or flag values as missing
+parse_vector(x, col_double(), na = "-")
 }
 \keyword{internal}
 

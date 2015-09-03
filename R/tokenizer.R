@@ -38,6 +38,8 @@ NULL
 #'   option to \code{character()} to indicate no missing values.
 #' @param delim Single character used to separate fields within a record.
 #' @param quote Single character used to quote strings.
+#' @param trim_ws Should leading and trailing whitespace be trimmed from
+#'   each field before parsing it?
 #' @param escape_double Does the file escape quotes by doubling them?
 #'   i.e. If this option is \code{TRUE}, the value \code{""""} represents
 #'   a single quote, \code{\"}.
@@ -46,12 +48,15 @@ NULL
 #'   can be used to escape the delimeter character, the quote characer, or
 #'   to add special characters like \code{\\n}.
 tokenizer_delim <- function(delim, quote = '"', na = "NA",
-                            escape_double = TRUE, escape_backslash = FALSE) {
+                            trim_ws = TRUE,
+                            escape_double = TRUE,
+                            escape_backslash = FALSE) {
   structure(
     list(
       delim = delim,
       quote = quote,
       na = na,
+      trim_ws = trim_ws,
       escape_double = escape_double,
       escape_backslash = escape_backslash
     ),
@@ -61,11 +66,12 @@ tokenizer_delim <- function(delim, quote = '"', na = "NA",
 
 #' @export
 #' @rdname Tokenizers
-tokenizer_csv <- function(na = "NA") {
+tokenizer_csv <- function(na = "NA", trim_ws = TRUE) {
   tokenizer_delim(
     delim = ",",
     quote = '"',
     na = na,
+    trim_ws = trim_ws,
     escape_double = TRUE,
     escape_backslash = FALSE
   )
@@ -73,11 +79,12 @@ tokenizer_csv <- function(na = "NA") {
 
 #' @export
 #' @rdname Tokenizers
-tokenizer_tsv <- function(na = "NA") {
+tokenizer_tsv <- function(na = "NA", trim_ws = TRUE) {
   tokenizer_delim(
     delim = "\t",
     quote = '"',
     na = na,
+    trim_ws = trim_ws,
     escape_double = TRUE,
     escape_backslash = FALSE
   )
