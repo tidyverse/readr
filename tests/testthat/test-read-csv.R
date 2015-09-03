@@ -41,6 +41,14 @@ test_that("read_csv's 'n_max' allows for a maximum number of records and does no
   expect_equal(sum(is.na(test_data)), 0)
 })
 
+test_that("n_max also affects column guessing", {
+  df <- read_csv(n_max = 1, 'x,y,z
+    1,2,3
+    1,2,3,4'
+  )
+  expect_equal(dim(df), c(1, 3))
+})
+
 test_that("can read more than 100 columns", {
   set.seed(2015-3-13)
   x <- as.data.frame(matrix(rbinom(300, 2, .5), nrow = 2))

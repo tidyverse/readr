@@ -1,5 +1,8 @@
 # readr 0.1.1.9000
 
+* If `read_delim()`, `n_max` now also affects the number of rows read to 
+  guess the column types (#224).
+
 * fixed minor double negation bug in `fwf_empty()` causing stopifnot on `col_names` if it was at right length (#222).
 
 * `col_euro_double()` and `parse_euro_double()` now handle negative values 

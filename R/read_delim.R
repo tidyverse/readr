@@ -117,7 +117,7 @@ read_delimited <- function(file, tokenizer, col_names = TRUE, col_types = NULL,
   col_names <- col_names_standardise(col_names, header(ds, tokenizer))
 
   ds <- datasource(data, skip = skip)
-  col_types <- col_types_standardise(col_types, col_names, types(ds, tokenizer))
+  col_types <- col_types_standardise(col_types, col_names, types(ds, tokenizer, n_max = n_max))
   out <- read_tokens(ds, tokenizer, col_types, col_names, n_max = n_max,
     progress = progress)
 
@@ -129,6 +129,12 @@ header <- function(datasource, tokenizer) {
   suppressWarnings(tokenize(datasource, tokenizer = tokenizer, n_max = 1)[[1]])
 }
 
-types <- function(source, tokenizer) {
-  collectorsGuess(source, tokenizer, n = 100)
+types <- function(source, tokenizer, n = 100, n_max = -1) {
+  if (n_max > 0) {
+    n <- min(n, n_max)
+  }
+
+  collectorsGuess(source, tokenizer, n = n)
 }
+
+
