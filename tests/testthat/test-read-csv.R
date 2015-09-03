@@ -1,4 +1,4 @@
-context("read_csv parameter testing")
+context("read_csv")
 
 test_that("read_csv col imputation, col_name detection and NA detection works", {
   test_data <- read_csv("basic-df.csv", col_types = NULL, col_names = TRUE)

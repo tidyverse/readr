@@ -1,4 +1,4 @@
-context("Parsing: numeric")
+context("Parsing, numeric")
 
 test_that("non-numeric integer/double matches fail", {
   expect_true(is.na(parse_double("d")))
