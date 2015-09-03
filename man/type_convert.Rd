@@ -4,7 +4,7 @@
 \alias{type_convert}
 \title{Re-convert character columns in existing data frame.}
 \usage{
-type_convert(df, col_types = NULL)
+type_convert(df, col_types = NULL, na = c("", "NA"), trim_ws = TRUE)
 }
 \arguments{
 \item{df}{A data frame.}
@@ -24,6 +24,12 @@ type_convert(df, col_types = NULL)
   Alternatively, you can use a compact string representation where each
   character represents one column: c = character, d = double, i = integer,
   l = logical, ? = guess, or \code{_}/\code{-} to skip the column.}
+
+\item{na}{Character vector of strings to use for missing values. Set this
+option to \code{character()} to indicate no missing values.}
+
+\item{trim_ws}{Should leading and trailing whitespace be trimmed from
+each field before parsing it?}
 }
 \description{
 This is useful if you need to do some manual munging - you can read the
@@ -39,7 +45,7 @@ df <- data.frame(
 str(df)
 str(type_convert(df))
 
-df <- data.frame(x = c("NA", "10"), stringsAsFactors=  FALSE)
-type_convert(df)
+df <- data.frame(x = c("NA", "10"), stringsAsFactors = FALSE)
+str(type_convert(df))
 }
 

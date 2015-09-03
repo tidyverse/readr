@@ -1,5 +1,8 @@
 # readr 0.1.1.9000
 
+* `type_convert()` gains `NA` and `trim_ws` arguments, and removes missing
+  values before determining column types (#)
+
 * `read_delim()` etc gains a `trim_ws` argument that controls whether leading
   and trailing whitespace is automatically removed. It defaults to `TRUE`. (#137)
   

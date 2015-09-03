@@ -5,7 +5,8 @@ using namespace Rcpp;
 #include "Token.h"
 
 // [[Rcpp::export]]
-RObject type_convert_col(CharacterVector x, List spec, int col) {
+RObject type_convert_col(CharacterVector x, List spec, int col,
+                         const std::vector<std::string>& na, bool trim_ws) {
   CollectorPtr collector = Collector::create(spec);
   collector->resize(x.size());
 
@@ -18,6 +19,9 @@ RObject type_convert_col(CharacterVector x, List spec, int col) {
     } else {
       const char* begin = CHAR(string);
       t = Token(begin, begin + Rf_length(string), i - 1, col - 1);
+      if (trim_ws)
+        t.trim();
+      t.flagNA(na);
     }
 
     collector->setValue(i, t);

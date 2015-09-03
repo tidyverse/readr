@@ -53,8 +53,8 @@ whitespaceColumns <- function(sourceSpec, n = 100L) {
     .Call('readr_whitespaceColumns', PACKAGE = 'readr', sourceSpec, n)
 }
 
-type_convert_col <- function(x, spec, col) {
-    .Call('readr_type_convert_col', PACKAGE = 'readr', x, spec, col)
+type_convert_col <- function(x, spec, col, na, trim_ws) {
+    .Call('readr_type_convert_col', PACKAGE = 'readr', x, spec, col, na, trim_ws)
 }
 
 stream_delim <- function(df, path, delim, na, col_names = TRUE, append = FALSE) {

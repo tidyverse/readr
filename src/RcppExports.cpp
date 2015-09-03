@@ -171,15 +171,17 @@ BEGIN_RCPP
 END_RCPP
 }
 // type_convert_col
-RObject type_convert_col(CharacterVector x, List spec, int col);
-RcppExport SEXP readr_type_convert_col(SEXP xSEXP, SEXP specSEXP, SEXP colSEXP) {
+RObject type_convert_col(CharacterVector x, List spec, int col, const std::vector<std::string>& na, bool trim_ws);
+RcppExport SEXP readr_type_convert_col(SEXP xSEXP, SEXP specSEXP, SEXP colSEXP, SEXP naSEXP, SEXP trim_wsSEXP) {
 BEGIN_RCPP
     Rcpp::RObject __result;
     Rcpp::RNGScope __rngScope;
     Rcpp::traits::input_parameter< CharacterVector >::type x(xSEXP);
     Rcpp::traits::input_parameter< List >::type spec(specSEXP);
     Rcpp::traits::input_parameter< int >::type col(colSEXP);
-    __result = Rcpp::wrap(type_convert_col(x, spec, col));
+    Rcpp::traits::input_parameter< const std::vector<std::string>& >::type na(naSEXP);
+    Rcpp::traits::input_parameter< bool >::type trim_ws(trim_wsSEXP);
+    __result = Rcpp::wrap(type_convert_col(x, spec, col, na, trim_ws));
     return __result;
 END_RCPP
 }
