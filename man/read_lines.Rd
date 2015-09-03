@@ -19,7 +19,7 @@ read_lines(file, n_max = -1L)
    least one new line to be recognised as data (instead of a path).}
 
 \item{n_max}{Number of lines to read. If \code{n} is -1, all lines in
-file will be read. For large files, this may}
+file will be read.}
 }
 \value{
 A character vector with one element for each line.
