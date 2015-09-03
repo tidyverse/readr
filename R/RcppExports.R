@@ -57,7 +57,7 @@ type_convert_col <- function(x, spec, col) {
     .Call('readr_type_convert_col', PACKAGE = 'readr', x, spec, col)
 }
 
-stream_delim <- function(df, path, delim, col_names = TRUE, append = FALSE) {
-    .Call('readr_stream_delim', PACKAGE = 'readr', df, path, delim, col_names, append)
+stream_delim <- function(df, path, delim, na, col_names = TRUE, append = FALSE) {
+    .Call('readr_stream_delim', PACKAGE = 'readr', df, path, delim, na, col_names, append)
 }
 

@@ -22,6 +22,9 @@
 #' @param col_names Write columns names at the top of the file?
 #' @param delim Delimiter used to seperate values. Defaults to \code{" "}. Must be
 #'   a single character.
+#' @param na String used for missing values. Defaults to NA. Missing values
+#'   will never be quoted; strings with the same value as \code{na} will
+#'   always be quoted.
 #' @export
 #' @examples
 #' cat(write_delim(head(mtcars), "", "_"))
@@ -29,13 +32,15 @@
 #'
 #' df <- data.frame(x = c("a", '"', ",", "\n"))
 #' read_delim(write_delim(df, "", "_"), "_")
-write_delim <- function(x, path, delim = " ", append = FALSE, col_names = !append) {
+write_delim <- function(x, path, delim = " ", na = "NA", append = FALSE,
+                        col_names = !append) {
   stopifnot(is.data.frame(x))
   path <- normalizePath(path, mustWork = FALSE)
 
   x <- lapply(x, output_column)
 
-  out <- stream_delim(x, path, delim, col_names = col_names, append = append)
+  out <- stream_delim(x, path, delim, col_names = col_names, append = append,
+    na = na)
   if (path == "") out else invisible()
 }
 
@@ -47,8 +52,8 @@ write_delim <- function(x, path, delim = " ", append = FALSE, col_names = !appen
 #'
 #' df <- data.frame(x = c("a", '"', ",", "\n"))
 #' read_csv(write_csv(df, ""))
-write_csv <- function(x, path, append = FALSE, col_names = !append) {
-  write_delim(x, path, delim = ',', append, col_names)
+write_csv <- function(x, path, na = "NA", append = FALSE, col_names = !append) {
+  write_delim(x, path, delim = ',', na = na, append, col_names)
 }
 
 #' @rdname write_delim
@@ -59,8 +64,8 @@ write_csv <- function(x, path, append = FALSE, col_names = !append) {
 #'
 #' df <- data.frame(x = c("a", '"', ",", "\n"))
 #' read_tsv(write_tsv(df, ""))
-write_tsv <- function(x, path, append = FALSE, col_names = !append) {
-  write_delim(x, path, delim = '\t', append, col_names)
+write_tsv <- function(x, path, na = "NA", append = FALSE, col_names = !append) {
+  write_delim(x, path, delim = '\t', na = na, append, col_names)
 }
 
 #' @rdname write_delim

@@ -1,5 +1,8 @@
 # readr 0.1.1.9000
 
+* `write_delim()` gains `na` argument to specify how missing values should be
+  written (#187)
+
 * Integer and double parsing is stricter. Previously "3d" was parsed as 
   3 with a warning, now it returns NA (#221)
 

@@ -183,17 +183,18 @@ BEGIN_RCPP
 END_RCPP
 }
 // stream_delim
-std::string stream_delim(List df, std::string path, char delim, bool col_names, bool append);
-RcppExport SEXP readr_stream_delim(SEXP dfSEXP, SEXP pathSEXP, SEXP delimSEXP, SEXP col_namesSEXP, SEXP appendSEXP) {
+std::string stream_delim(List df, const std::string& path, char delim, const std::string& na, bool col_names, bool append);
+RcppExport SEXP readr_stream_delim(SEXP dfSEXP, SEXP pathSEXP, SEXP delimSEXP, SEXP naSEXP, SEXP col_namesSEXP, SEXP appendSEXP) {
 BEGIN_RCPP
     Rcpp::RObject __result;
     Rcpp::RNGScope __rngScope;
     Rcpp::traits::input_parameter< List >::type df(dfSEXP);
-    Rcpp::traits::input_parameter< std::string >::type path(pathSEXP);
+    Rcpp::traits::input_parameter< const std::string& >::type path(pathSEXP);
     Rcpp::traits::input_parameter< char >::type delim(delimSEXP);
+    Rcpp::traits::input_parameter< const std::string& >::type na(naSEXP);
     Rcpp::traits::input_parameter< bool >::type col_names(col_namesSEXP);
     Rcpp::traits::input_parameter< bool >::type append(appendSEXP);
-    __result = Rcpp::wrap(stream_delim(df, path, delim, col_names, append));
+    __result = Rcpp::wrap(stream_delim(df, path, delim, na, col_names, append));
     return __result;
 END_RCPP
 }

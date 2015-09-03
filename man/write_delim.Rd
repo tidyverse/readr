@@ -7,11 +7,12 @@
 \alias{write_tsv}
 \title{Save a data frame to a delimited file.}
 \usage{
-write_delim(x, path, delim = " ", append = FALSE, col_names = !append)
+write_delim(x, path, delim = " ", na = "NA", append = FALSE,
+  col_names = !append)
 
-write_csv(x, path, append = FALSE, col_names = !append)
+write_csv(x, path, na = "NA", append = FALSE, col_names = !append)
 
-write_tsv(x, path, append = FALSE, col_names = !append)
+write_tsv(x, path, na = "NA", append = FALSE, col_names = !append)
 
 output_column(x)
 }
@@ -23,6 +24,10 @@ a string.}
 
 \item{delim}{Delimiter used to seperate values. Defaults to \code{" "}. Must be
 a single character.}
+
+\item{na}{String used for missing values. Defaults to NA. Missing values
+will never be quoted; strings with the same value as \code{na} will
+always be quoted.}
 
 \item{append}{If \code{FALSE}, will overwrite existing file. If \code{TRUE},
 will append to existing file. In both cases, if file does not exist a new

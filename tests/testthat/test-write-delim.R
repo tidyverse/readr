@@ -13,6 +13,11 @@ test_that("a literal NA is quoted", {
   expect_equal(write_csv(data.frame(x = "NA"), ""), "x\n\"NA\"\n")
 })
 
+test_that("na argument modifies how missing values are written", {
+  df <- data.frame(x = c(NA, "x", "."))
+  expect_equal(write_csv(df, "", na = "."), "x\n.\nx\n\".\"\n")
+})
+
 test_that("read_delim/csv/tsv and write_delim round trip special chars", {
   x <- c("a", '"', ",", "\n","at\t")
 
