@@ -246,7 +246,7 @@ private:
     boost::iterator_range<const char*> needle(dateItr_, dateEnd_);
 
     for(size_t i = 0; i < haystack.size(); ++i) {
-      if (boost::starts_with(needle, haystack[i])) {
+      if (boost::istarts_with(needle, haystack[i])) {
         *pOut = i;
         dateItr_ += haystack[i].size();
         return true;

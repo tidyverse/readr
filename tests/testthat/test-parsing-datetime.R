@@ -83,6 +83,13 @@ test_that("%p detects AM/PM", {
   expect_equal(pm, am + 12 * 3600)
 })
 
+test_that("%b and %B are case insensitve", {
+  ref <- parse_date("2001-01-01")
+
+  expect_equal(parse_date("2001 JAN 01", "%Y %b %d"), ref)
+  expect_equal(parse_date("2001 JANUARY 01", "%Y %B %d"), ref)
+})
+
 # Time zones ------------------------------------------------------------------
 
 test_that("same times with different offsets parsed as same time", {

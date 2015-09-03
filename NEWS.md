@@ -1,5 +1,8 @@
 # readr 0.1.1.9000
 
+* Month and abbreviated month name formats (`%b` and `%B`) now ignore
+  case when matching (#219).
+
 * `count_fields()` starts counting from 1, not 0 (#200).
 
 * `write_delim()` gains `na` argument to specify how missing values should be
