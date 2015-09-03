@@ -82,9 +82,9 @@ public:
     return *this;
   }
 
-  Token& flagNA(std::vector<std::string> NA) {
+  Token& flagNA(const std::vector<std::string>& NA) {
 
-    std::vector<std::string>::iterator it;
+    std::vector<std::string>::const_iterator it;
     for (it = NA.begin(); it != NA.end(); ++it) {
       if ((size_t) (end_ - begin_) != it->size())
         continue;
