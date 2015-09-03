@@ -37,7 +37,7 @@ std::vector<int> count_fields_(List sourceSpec, List tokenizerSpec) {
       fields.resize(t.row() + 1);
     }
 
-    fields[t.row()] = t.col();
+    fields[t.row()] = t.col() + 1;
   }
 
   return fields;

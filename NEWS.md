@@ -1,5 +1,7 @@
 # readr 0.1.1.9000
 
+* `count_fields()` starts counting from 1, not 0 (#200).
+
 * `write_delim()` gains `na` argument to specify how missing values should be
   written (#187)
 
