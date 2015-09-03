@@ -54,8 +54,7 @@ parse_vector <- function(x, collector, na = "NA") {
 #'
 #' # If there are parsing problems, you'll get a warning message saying
 #' # how many. Use problems() to access a data frame giving more details.
-#' x <- parse_integer(c("1X", "blah", "3"))
-#' problems(x)
+#' parse_integer(c("1X", "blah", "3"))
 NULL
 
 #' @rdname collector
@@ -260,8 +259,7 @@ col_skip <- function() {
 #'
 #' # Failures -------------------------------------------------------------
 #' parse_datetime("01/01/2010", "%d/%m/%Y")
-#' x <- parse_datetime(c("01/ab/2010", "32/01/2010"), "%d/%m/%Y")
-#' problems(x)
+#' parse_datetime(c("01/ab/2010", "32/01/2010"), "%d/%m/%Y")
 #'
 #' # ISO8601 --------------------------------------------------------------
 #' # With separators
