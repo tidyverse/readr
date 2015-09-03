@@ -29,6 +29,10 @@
   Format POSIXt vectors in ISO8601 compatible format (#134).
   
 * Date time columns are no longer incorrectly read as date columns (#136).
+  ISO8601 dates no longer accept partial dates (e.g. 19, 1900, 1900-01).
+  These triggered common false positives and after re-reading the spec,
+  I believe they actually refer to periods of time, and should not be translated
+  in to a specific instant (#228)
 
 * When guessing field types, and there's no information to go on, use
   character instead of logical (#124, #128).

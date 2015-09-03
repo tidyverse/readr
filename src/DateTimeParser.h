@@ -37,22 +37,15 @@ public:
   // parsing with a format string so it doesn't seem necessary to add individual
   // parsers for other common formats.
   bool parseISO8601(bool partial = true) {
-    // Support partial specifications - this is normally ok, but don't want
-    // to turn on when guessing formats as it's too liberal
-    if (partial) {
-      mon_ = 0;
-      day_ = 0;
-    }
-
     // Date: YYYY-MM-DD, YYYYMMDD
     if (!consumeInteger(4, &year_))
       return false;
     consumeThisChar('-');
     if (!consumeInteger1(2, &mon_))
-      return isComplete();
+      return false;
     consumeThisChar('-');
     if (!consumeInteger1(2, &day_))
-      return isComplete();
+      return false;
 
     if (isComplete())
       return true;

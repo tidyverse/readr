@@ -70,10 +70,10 @@ test_that("invalid specs returns NA", {
   expect_true(is.na(parse_datetime("2010-02-02", "%Y-%m-%m")))
 })
 
-test_that("ISO8601 partial dates fill in month and day", {
-  ref <- parse_datetime("2001-01-01")
-  expect_equal(parse_datetime("2001"), ref)
-  expect_equal(parse_datetime("2001-01"), ref)
+test_that("ISO8601 partial dates are not parsed", {
+  expect_true(is.na(parse_datetime("20")))
+  expect_true(is.na(parse_datetime("2001")))
+  expect_true(is.na(parse_datetime("2001-01")))
 })
 
 test_that("%p detects AM/PM", {
@@ -113,4 +113,11 @@ test_that("unambiguous times with and without daylight savings", {
     parse_datetime(c("2015-04-04 12:00:00", "2015-04-06 12:00:00"), tz="Japan"),
     as.POSIXct(c("2015-04-04 12:00:00", "2015-04-06 12:00:00"), tz = "Japan")
   )
+})
+
+
+# Guessing ---------------------------------------------------------------------
+
+test_that("DDDD-DD not parsed as date (i.e. doesn't trigger partial date match)", {
+  expect_equal(collectorGuess(c("1989-90", "1990-91")), "character")
 })
