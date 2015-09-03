@@ -52,10 +52,19 @@ CharacterVector read_lines_(List sourceSpec, int n_max = -1) {
 }
 
 typedef std::vector<CollectorPtr>::iterator CollectorItr;
+void checkColumns(Warnings *pWarnings, int i, int j, int n) {
+  if (j + 1 == n)
+    return;
+
+  pWarnings->addWarning(i, -1,
+    tfm::format("%i columns", n),
+    tfm::format("%i columns", j + 1)
+  );
+}
 
 // [[Rcpp::export]]
 RObject read_tokens(List sourceSpec, List tokenizerSpec, ListOf<List> colSpecs,
-                    CharacterVector col_names, int n_max = -1,
+                    CharacterVector colNames, int n_max = -1,
                     bool progress = true) {
   Warnings warnings;
 
@@ -77,35 +86,37 @@ RObject read_tokens(List sourceSpec, List tokenizerSpec, ListOf<List> colSpecs,
       pOut++;
   }
 
-  // Allow either one name for column, or one name per output col
-  if (p != pOut && (size_t) col_names.size() == p) {
-    CharacterVector col_names2(pOut);
-    int cj = 0;
-    for (size_t j = 0; j < p; ++j) {
-      if (collectors[j]->skip())
-        continue;
-      col_names2[cj++] = col_names[j];
+  // Match colNames to with non-skipped collectors, shrinking or growing
+  // as needed
+  CharacterVector outNames(pOut);
+  int cj = 0;
+  for (size_t j = 0; j < p; ++j) {
+    if (collectors[j]->skip())
+      continue;
+    if (cj >= pOut)
+      break;
+    if (j < colNames.size()) {
+      outNames[cj++] = colNames[j];
+    } else {
+      outNames[cj++] = tfm::format("X%i", j + 1);
     }
-    col_names = col_names2;
   }
-
-  if (pOut != (size_t) col_names.size()) {
-    Rcpp::stop("You have %i column names, but %i columns",
-      col_names.size(), pOut);
+  if (colNames.size() != pOut) {
+    warnings.addWarning(-1, -1,
+      tfm::format("%i col names", pOut),
+      tfm::format("%i col names", colNames.size()));
   }
 
   size_t n = (n_max < 0) ? 1000 : n_max;
   collectorsResize(collectors, n);
 
-  size_t i = 0, cells = 0;
+  size_t i = 0, j = 0, cells = 0;
   for (Token t = tokenizer->nextToken(); t.type() != TOKEN_EOF; t = tokenizer->nextToken()) {
     if (progress && (cells++) % 250000 == 0)
       progressBar.show(tokenizer->progress());
 
-    if (t.col() >= p) {
-      warnings.addWarning(t.row(), t.col(), tfm::format("Only %i columns", p), "");
-      continue;
-    }
+    if (t.col() == 0 && i > 0)
+      checkColumns(&warnings, i, j, pOut);
 
     if (t.row() >= n) {
       if (n_max >= 0)
@@ -116,9 +127,14 @@ RObject read_tokens(List sourceSpec, List tokenizerSpec, ListOf<List> colSpecs,
       collectorsResize(collectors, n);
     }
 
-    collectors[t.col()]->setValue(t.row(), t);
+    if (t.col() < p)
+      collectors[t.col()]->setValue(t.row(), t);
+
     i = t.row();
+    j = t.col();
   }
+  checkColumns(&warnings, i, j, pOut);
+
   progressBar.show(tokenizer->progress());
   progressBar.stop();
 
@@ -129,7 +145,7 @@ RObject read_tokens(List sourceSpec, List tokenizerSpec, ListOf<List> colSpecs,
 
   // Save individual columns into a data frame
   List out(pOut);
-  int j = 0;
+  j = 0;
   for(CollectorItr cur = collectors.begin(); cur != collectors.end(); ++cur) {
     if ((*cur)->skip())
       continue;
@@ -140,7 +156,7 @@ RObject read_tokens(List sourceSpec, List tokenizerSpec, ListOf<List> colSpecs,
 
   out.attr("class") = CharacterVector::create("tbl_df", "tbl", "data.frame");
   out.attr("row.names") = IntegerVector::create(NA_INTEGER, -(i + 1));
-  out.attr("names") = col_names;
+  out.attr("names") = outNames;
 
   return warnings.addAsAttribute(out);
 }

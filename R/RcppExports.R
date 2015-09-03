@@ -41,8 +41,8 @@ read_lines_ <- function(sourceSpec, n_max = -1L) {
     .Call('readr_read_lines_', PACKAGE = 'readr', sourceSpec, n_max)
 }
 
-read_tokens <- function(sourceSpec, tokenizerSpec, colSpecs, col_names, n_max = -1L, progress = TRUE) {
-    .Call('readr_read_tokens', PACKAGE = 'readr', sourceSpec, tokenizerSpec, colSpecs, col_names, n_max, progress)
+read_tokens <- function(sourceSpec, tokenizerSpec, colSpecs, colNames, n_max = -1L, progress = TRUE) {
+    .Call('readr_read_tokens', PACKAGE = 'readr', sourceSpec, tokenizerSpec, colSpecs, colNames, n_max, progress)
 }
 
 collectorsGuess <- function(sourceSpec, tokenizerSpec, n = 100L) {

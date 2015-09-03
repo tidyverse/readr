@@ -1,5 +1,8 @@
 # readr 0.1.1.9000
 
+* Specifying the wrong number of column names, or the having rows which
+  are different lengths now generates a warning, rather than an error (#189).
+
 * The first five problems are printing out in the problems warning message.
 
 * `type_convert()` gains `NA` and `trim_ws` arguments, and removes missing
