@@ -71,9 +71,9 @@ public:
   }
 
   Token& trim() {
-    while (*begin_ == ' ' && begin_ != end_)
+    while (begin_ != end_ && *begin_ == ' ')
       begin_++;
-    while (*(end_ - 1) == ' ' && end_ != begin_)
+    while (end_ != begin_ && *(end_ - 1) == ' ')
       end_--;
 
     if (begin_ == end_)
