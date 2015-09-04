@@ -37,8 +37,8 @@ read_file_ <- function(sourceSpec) {
     .Call('readr_read_file_', PACKAGE = 'readr', sourceSpec)
 }
 
-read_lines_ <- function(sourceSpec, n_max = -1L) {
-    .Call('readr_read_lines_', PACKAGE = 'readr', sourceSpec, n_max)
+read_lines_ <- function(sourceSpec, n_max = -1L, progress = TRUE) {
+    .Call('readr_read_lines_', PACKAGE = 'readr', sourceSpec, n_max, progress)
 }
 
 read_tokens <- function(sourceSpec, tokenizerSpec, colSpecs, colNames, n_max = -1L, progress = TRUE) {

@@ -1,5 +1,10 @@
 # readr 0.1.1.9000
 
+* `read_lines()` gains a progress bar.
+
+* `read_lines()` estimates the number of lines in the file, considerably
+  speeding up the reading of large files (60s -> 15s for 1.5 Gb file)
+
 * Specifying the wrong number of column names, or the having rows which
   are different lengths now generates a warning, rather than an error (#189).
 

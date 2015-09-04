@@ -19,19 +19,24 @@ CharacterVector read_file_(List sourceSpec) {
 }
 
 // [[Rcpp::export]]
-CharacterVector read_lines_(List sourceSpec, int n_max = -1) {
+CharacterVector read_lines_(List sourceSpec, int n_max = -1, bool progress = true) {
   SourcePtr source = Source::create(sourceSpec);
   TokenizerLine tokenizer;
   tokenizer.tokenize(source->begin(), source->end());
+  Progress progressBar;
 
-  int n = (n_max < 0) ? 1000 : n_max;
+  int n = (n_max < 0) ? 10000 : n_max;
   CharacterVector out(n);
 
   int i = 0;
   for (Token t = tokenizer.nextToken(); t.type() != TOKEN_EOF; t = tokenizer.nextToken()) {
+    if (progress && (i + 1) % 25000 == 0)
+      progressBar.show(tokenizer.progress());
+
     if (i >= n) {
       if (n_max < 0) {
-        n = (n * 3)/2 + 1;
+        // Estimate rows in full dataset
+        n = (i / tokenizer.progress().first) * 1.2;
         out = Rf_lengthgets(out, n);
       } else {
         break;
@@ -47,6 +52,10 @@ CharacterVector read_lines_(List sourceSpec, int n_max = -1) {
   if (i < n) {
     out = Rf_lengthgets(out, i);
   }
+
+  progressBar.show(tokenizer.progress());
+  progressBar.stop();
+
 
   return out;
 }

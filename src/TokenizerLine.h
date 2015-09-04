@@ -16,6 +16,7 @@ public:
   TokenizerLine(): moreTokens_(false) {}
 
   void tokenize(SourceIterator begin, SourceIterator end) {
+    begin_ = begin;
     cur_ = begin;
     end_ = end;
     line_ = 0;
