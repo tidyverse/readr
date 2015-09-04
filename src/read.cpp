@@ -53,9 +53,9 @@ CharacterVector read_lines_(List sourceSpec, int n_max = -1, bool progress = tru
     out = Rf_lengthgets(out, i);
   }
 
-  progressBar.show(tokenizer.progress());
+  if (progress)
+    progressBar.show(tokenizer.progress());
   progressBar.stop();
-
 
   return out;
 }
@@ -144,7 +144,8 @@ RObject read_tokens(List sourceSpec, List tokenizerSpec, ListOf<List> colSpecs,
   }
   checkColumns(&warnings, i, j, pOut);
 
-  progressBar.show(tokenizer->progress());
+  if (progress)
+    progressBar.show(tokenizer->progress());
   progressBar.stop();
 
   if (i <= n) {
