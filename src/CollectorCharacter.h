@@ -6,7 +6,6 @@
 
 class CollectorCharacter : public Collector {
   cetype_t encoding_;
-  boost::container::string buffer_;
 
 
 public:
@@ -16,6 +15,7 @@ public:
   void setValue(int i, const Token& t) {
     switch(t.type()) {
     case TOKEN_STRING: {
+      boost::container::string buffer_;
       SourceIterators string = t.getString(&buffer_);
       SET_STRING_ELT(column_, i,
         Rf_mkCharLenCE(string.first, string.second - string.first, encoding_)
