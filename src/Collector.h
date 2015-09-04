@@ -26,13 +26,6 @@ public:
 
   virtual void setValue(int i, const Token& t) =0;
 
-  virtual void resize(int n) {
-    if (n == n_)
-      return;
-
-    n_ = n;
-    column_ = Rf_lengthgets(column_, n);
-  }
   virtual Rcpp::RObject vector() {
     return column_;
   };
@@ -43,6 +36,14 @@ public:
 
   int size() {
     return n_;
+  }
+
+  void resize(int n) {
+    if (n == n_)
+      return;
+
+    n_ = n;
+    column_ = Rf_lengthgets(column_, n);
   }
 
   void setWarnings(Warnings* pWarnings) {

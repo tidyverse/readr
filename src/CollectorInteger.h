@@ -18,10 +18,6 @@ public:
   CollectorInteger(): Collector(Rcpp::IntegerVector()) {
   }
 
-  virtual void resize(int n) {
-    Collector::resize(n);
-  }
-
   void setValue(int i, const Token& t) {
     switch(t.type()) {
     case TOKEN_STRING: {
