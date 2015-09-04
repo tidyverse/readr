@@ -62,7 +62,7 @@ option to \code{character()} to indicate no missing values.}
 \item{col_types}{One of \code{NULL}, a list, a named list or a string.
   See \code{vignette("column-types")} for more details.
 
-  If \code{NULL}, the column type will be imputed from the first 30 rows
+  If \code{NULL}, the column type will be imputed from the first 1000 rows
   on the input. This is convenient (and fast), but not robust. If the
   imputation fails, you'll need to supply the correct types yourself.
 
@@ -70,7 +70,7 @@ option to \code{character()} to indicate no missing values.}
   If you only want to read a subset of the columns, you can use a named list
   (where the names give the column names). If a column is not mentioned by
   name, it will be parsed with the default collector (as determined by
-  reading the first 100 rows).
+  reading the first 1000 rows).
 
   Alternatively, you can use a compact string representation where each
   character represents one column: c = character, d = double, i = integer,

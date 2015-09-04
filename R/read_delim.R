@@ -132,7 +132,7 @@ header <- function(datasource, tokenizer) {
   suppressWarnings(tokenize(datasource, tokenizer = tokenizer, n_max = 1)[[1]])
 }
 
-types <- function(source, tokenizer, n = 100, n_max = -1) {
+types <- function(source, tokenizer, n = 1000, n_max = -1) {
   if (n_max > 0) {
     n <- min(n, n_max)
   }

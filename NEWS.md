@@ -1,5 +1,7 @@
 # readr 0.1.1.9000
 
+* Bumped up row inspection for column typing guessing from 100 to 1000.
+
 * Readr gains `vignette("col-types")` which describes how the defaults
   work and how to override them (#122).
 
