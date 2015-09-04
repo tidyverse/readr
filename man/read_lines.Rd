@@ -4,7 +4,7 @@
 \alias{read_lines}
 \title{Read lines from a file or string.}
 \usage{
-read_lines(file, n_max = -1L)
+read_lines(file, n_max = -1L, progress = interactive())
 }
 \arguments{
 \item{file}{Either a path to a file, a connection, or literal data
@@ -20,6 +20,10 @@ read_lines(file, n_max = -1L)
 
 \item{n_max}{Number of lines to read. If \code{n} is -1, all lines in
 file will be read.}
+
+\item{progress}{Display a progress bar? By default it will only display
+in an interactive session. The display is updated every 50,000 values
+and will only display if estimated reading time is 5 seconds or more.}
 }
 \value{
 A character vector with one element for each line.
