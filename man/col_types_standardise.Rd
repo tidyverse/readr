@@ -8,6 +8,7 @@ col_types_standardise(col_types, col_names, guessed_types)
 }
 \arguments{
 \item{col_types}{One of \code{NULL}, a list, a named list or a string.
+  See \code{vignette("column-types")} for more details.
 
   If \code{NULL}, the column type will be imputed from the first 30 rows
   on the input. This is convenient (and fast), but not robust. If the

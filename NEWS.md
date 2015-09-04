@@ -1,5 +1,8 @@
 # readr 0.1.1.9000
 
+* Readr gains `vignette("col-types")` which describes how the defaults
+  work and how to override them (#122).
+
 * `problems()` now reports column names rather than column numbers (#143).
 
 * `read_lines()` gains a progress bar.

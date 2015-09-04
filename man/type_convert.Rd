@@ -10,6 +10,7 @@ type_convert(df, col_types = NULL, na = c("", "NA"), trim_ws = TRUE)
 \item{df}{A data frame.}
 
 \item{col_types}{One of \code{NULL}, a list, a named list or a string.
+  See \code{vignette("column-types")} for more details.
 
   If \code{NULL}, the column type will be imputed from the first 30 rows
   on the input. This is convenient (and fast), but not robust. If the
