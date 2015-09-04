@@ -15,8 +15,8 @@ public:
   void setValue(int i, const Token& t) {
     switch(t.type()) {
     case TOKEN_STRING: {
-      boost::container::string buffer_;
-      SourceIterators string = t.getString(&buffer_);
+      boost::container::string buffer;
+      SourceIterators string = t.getString(&buffer);
       SET_STRING_ELT(column_, i,
         Rf_mkCharLenCE(string.first, string.second - string.first, encoding_)
       );
