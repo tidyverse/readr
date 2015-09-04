@@ -13,7 +13,6 @@ using namespace Rcpp;
 #include "CollectorDateTime.h"
 #include "CollectorDate.h"
 #include "CollectorFactor.h"
-#include "Warnings.h"
 
 CollectorPtr Collector::create(List spec) {
   std::string subclass(as<CharacterVector>(spec.attr("class"))[0]);
