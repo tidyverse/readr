@@ -14,7 +14,7 @@ CharacterVector read_file_(List sourceSpec) {
   SourcePtr source = Source::create(sourceSpec);
 
   CharacterVector out(1);
-  out[0] = Rf_mkCharLen(source->begin(), source->end() - source->begin());
+  out[0] = Rf_mkCharLenCE(source->begin(), source->end() - source->begin(), CE_UTF8);
   return out;
 }
 
