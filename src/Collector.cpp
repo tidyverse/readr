@@ -72,7 +72,7 @@ void collectorsResize(std::vector<CollectorPtr>& collectors, int n) {
 
 typedef bool (*canParseFun)(const std::string&);
 
-static bool canParse(CharacterVector x, canParseFun canParse) {
+static bool canParse(CharacterVector x, const canParseFun& canParse) {
   for (int i = 0; i < x.size(); ++i) {
     if (x[i] == NA_STRING)
       continue;
