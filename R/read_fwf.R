@@ -35,8 +35,11 @@ read_fwf <- function(file, col_positions, col_types = NULL, na = c("", "NA"),
 
   col_types <- col_types_standardise(col_types, col_positions$col_names,
     types(ds, tokenizer))
-  read_tokens(ds, tokenizer, col_types, col_positions$col_names, n_max = n_max,
+  out <- read_tokens(ds, tokenizer, col_types, col_positions$col_names, n_max = n_max,
     progress = progress)
+
+  out <- name_problems(out)
+  warn_problems(out, name)
 }
 
 #' @rdname read_fwf

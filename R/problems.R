@@ -69,3 +69,11 @@ warn_problems <- function(x, name = "input") {
 
   x
 }
+
+name_problems <- function(x) {
+  problems <- problems(x)
+  problems$col <- names(x)[problems$col]
+  attr(x, "problems") <- problems
+
+  x
+}

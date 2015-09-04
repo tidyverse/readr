@@ -123,6 +123,7 @@ read_delimited <- function(file, tokenizer, col_names = TRUE, col_types = NULL,
   out <- read_tokens(ds, tokenizer, col_types, col_names, n_max = n_max,
     progress = progress)
 
+  out <- name_problems(out)
   warn_problems(out, name)
 }
 

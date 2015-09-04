@@ -1,5 +1,7 @@
 # readr 0.1.1.9000
 
+* `problems()` now reports column names rather than column numbers (#143).
+
 * `read_lines()` gains a progress bar.
 
 * `read_lines()` estimates the number of lines in the file, considerably
