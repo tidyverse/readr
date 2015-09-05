@@ -72,7 +72,6 @@ static bool isDateTime(const std::string& x) {
 }
 
 
-
 // [[Rcpp::export]]
 std::string collectorGuess(CharacterVector input) {
   if (allMissing(input))

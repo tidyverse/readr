@@ -5,7 +5,6 @@ using namespace Rcpp;
 #include "Tokenizer.h"
 #include "TokenizerLine.h"
 #include "Collector.h"
-#include "CollectorCharacter.h"
 #include "Progress.h"
 #include "Warnings.h"
 
