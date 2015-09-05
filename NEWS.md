@@ -7,7 +7,8 @@
 
 * `problems()` now reports column names rather than column numbers (#143).
 
-* `read_lines()` gains a progress bar.
+* `read_lines()` gains a progress bar. It now also correctly checks for 
+  interrupts every 500,000 lines so you can interrupt long running jobs.
 
 * `read_lines()` estimates the number of lines in the file, considerably
   speeding up the reading of large files (60s -> 15s for 1.5 Gb file)

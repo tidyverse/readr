@@ -30,20 +30,20 @@ public:
 
   Token nextToken() {
     SourceIterator token_begin = cur_;
-    int line = line_;
 
     if (!moreTokens_)
-      return Token(TOKEN_EOF, line, 0);
+      return Token(TOKEN_EOF, line_, 0);
 
     while (cur_ != end_) {
       Advance advance(&cur_);
-      if ((line_ + 1) % 100000 == 0)
+
+      if ((line_ + 1) % 500000 == 0)
         Rcpp::checkUserInterrupt();
 
       switch(*cur_) {
       case '\r':
       case '\n':
-        return Token(token_begin, advanceForLF(&cur_, end_), line, 0);
+        return Token(token_begin, advanceForLF(&cur_, end_), line_++, 0);
       default:
         break;
       }
@@ -52,9 +52,9 @@ public:
     // Reached end of Source: cur_ == end_
     moreTokens_ = false;
     if (token_begin == end_) {
-      return Token(TOKEN_EOF, line, 0);
+      return Token(TOKEN_EOF, line_++, 0);
     } else {
-      return Token(token_begin, end_, line, 0);
+      return Token(token_begin, end_, line_++, 0);
     }
   }
 
