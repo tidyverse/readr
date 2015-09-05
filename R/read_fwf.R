@@ -39,7 +39,7 @@ read_fwf <- function(file, col_positions, col_types = NULL, na = c("", "NA"),
     progress = progress)
 
   out <- name_problems(out)
-  warn_problems(out, name)
+  warn_problems(out, source_name(file))
 }
 
 #' @rdname read_fwf
