@@ -45,11 +45,6 @@ public:
       Rcpp::stop("Invalid token");
     }
   }
-  static bool canParse(const std::string& x) {
-    double res = 0;
-    std::string::const_iterator begin = x.begin(), end = x.end();
-    return qi::parse(begin, end, qi::double_, res) && begin == end;
-  }
 };
 
 #endif

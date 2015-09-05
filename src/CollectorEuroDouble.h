@@ -3,22 +3,13 @@
 
 #include <Rcpp.h>
 
+#include "DoubleEuroPolicy.h"
 #include <boost/spirit/include/qi.hpp>
 #include <boost/spirit/include/phoenix_core.hpp>
 #include <boost/spirit/include/phoenix_operator.hpp>
 namespace qi = boost::spirit::qi;
 #include "Collector.h"
 #include "CollectorDouble.h"
-
-struct DoubleEuroPolicy : public qi::real_policies<double> {
-  template <typename Iterator>
-  static bool parse_dot(Iterator& first, Iterator const& last) {
-    if (first == last || *first != ',')
-      return false;
-    ++first;
-    return true;
-  }
-};
 
 class CollectorEuroDouble : public Collector {
 

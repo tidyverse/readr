@@ -61,14 +61,6 @@ public:
     return column_;
   };
 
-  static bool canParse(const std::string& x) {
-    DateTimeLocale loc;
-    DateTimeParser parser(loc, "UTC");
-
-    parser.setDate(x.c_str());
-    return parser.parse(std::string("%Y%.%m%.%d"));
-  }
-
 };
 
 #endif

@@ -47,11 +47,6 @@ public:
     }
   }
 
-  static bool canParse(const std::string& x) {
-    int res = 0;
-    std::string::const_iterator begin = x.begin(), end = x.end();
-    return qi::parse(begin, end, qi::int_, res) && begin == end;
-  }
 };
 
 #endif
