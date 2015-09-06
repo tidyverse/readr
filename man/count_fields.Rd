@@ -4,7 +4,7 @@
 \alias{count_fields}
 \title{Count the number of fields in each line of a file.}
 \usage{
-count_fields(file, tokenizer, skip = 0)
+count_fields(file, tokenizer, skip = 0, n_max = -1L)
 }
 \arguments{
 \item{file}{Either a path to a file, a connection, or literal data
@@ -23,6 +23,8 @@ up into fields, e.g., \code{\link{tokenizer_csv}},
 \code{\link{tokenizer_fwf}}}
 
 \item{skip}{Number of lines to skip before reading data.}
+
+\item{n_max}{Optionally, maximum number of rows to count fields for.}
 }
 \description{
 This is useful for diagnosing problems with functions that fail
