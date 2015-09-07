@@ -124,7 +124,7 @@ RObject read_tokens(List sourceSpec, List tokenizerSpec, ListOf<List> colSpecs,
       progressBar.show(tokenizer->progress());
 
     if (t.col() == 0 && i > 0)
-      checkColumns(&warnings, i, j, pOut);
+      checkColumns(&warnings, i, j, p);
 
     if (t.row() >= n) {
       if (n_max >= 0)
@@ -141,7 +141,7 @@ RObject read_tokens(List sourceSpec, List tokenizerSpec, ListOf<List> colSpecs,
     i = t.row();
     j = t.col();
   }
-  checkColumns(&warnings, i, j, pOut);
+  checkColumns(&warnings, i, j, p);
 
   if (progress)
     progressBar.show(tokenizer->progress());

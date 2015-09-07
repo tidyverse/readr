@@ -56,3 +56,11 @@ test_that("can read more than 100 columns", {
 
   expect_equal(ncol(read_csv(y)), 150)
 })
+
+
+# Column warnings ---------------------------------------------------------
+
+test_that("warnings based on number of columns (not output columns)", {
+  out <- readr::read_csv("1,2,3\n4,5,6", "z", "__i")
+  expect_equal(n_problems(out), 0)
+})
