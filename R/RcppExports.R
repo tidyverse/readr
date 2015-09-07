@@ -21,8 +21,8 @@ dim_tokens_ <- function(sourceSpec, tokenizerSpec) {
     .Call('readr_dim_tokens_', PACKAGE = 'readr', sourceSpec, tokenizerSpec)
 }
 
-count_fields_ <- function(sourceSpec, tokenizerSpec) {
-    .Call('readr_count_fields_', PACKAGE = 'readr', sourceSpec, tokenizerSpec)
+count_fields_ <- function(sourceSpec, tokenizerSpec, n_max) {
+    .Call('readr_count_fields_', PACKAGE = 'readr', sourceSpec, tokenizerSpec, n_max)
 }
 
 tokenize_ <- function(sourceSpec, tokenizerSpec, n_max) {

@@ -4,7 +4,7 @@
 \alias{read_lines}
 \title{Read lines from a file or string.}
 \usage{
-read_lines(file, n_max = -1L, progress = interactive())
+read_lines(file, skip = 0, n_max = -1L, progress = interactive())
 }
 \arguments{
 \item{file}{Either a path to a file, a connection, or literal data
@@ -17,6 +17,8 @@ read_lines(file, n_max = -1L, progress = interactive())
 
    Literal data is most useful for examples and tests. It must contain at
    least one new line to be recognised as data (instead of a path).}
+
+\item{skip}{Number of lines to skip before reading data.}
 
 \item{n_max}{Number of lines to read. If \code{n} is -1, all lines in
 file will be read.}
