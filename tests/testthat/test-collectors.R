@@ -1,11 +1,16 @@
 context("Collectors")
 
-test_that("guess for empty vector is character", {
+test_that("guess for empty strings is character", {
   expect_equal(collectorGuess(c("", "")), "character")
 })
 
 test_that("guess for missing vector is character", {
   expect_equal(collectorGuess(NA_character_), "character")
+})
+
+test_that("empty + NA ignored when determining type", {
+  expect_equal(collectorGuess(c("1", "")), "integer")
+  expect_equal(collectorGuess(c("1", NA)), "integer")
 })
 
 
