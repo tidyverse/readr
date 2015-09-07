@@ -4,7 +4,7 @@
 \alias{read_file}
 \title{Read a file into a string.}
 \usage{
-read_file(file, skip = 0)
+read_file(file)
 }
 \arguments{
 \item{file}{Either a path to a file, a connection, or literal data
@@ -17,8 +17,6 @@ read_file(file, skip = 0)
 
    Literal data is most useful for examples and tests. It must contain at
    least one new line to be recognised as data (instead of a path).}
-
-\item{skip}{Number of lines to skip before reading data.}
 }
 \description{
 Read a file into a string.
