@@ -6,14 +6,14 @@
 \alias{date_names_locales}
 \title{Create or retrieve date names}
 \usage{
-date_names(mon, mon_ab, day, day_ab, am_pm)
+date_names(mon, mon_ab = mon, day, day_ab = day, am_pm = c("AM", "PM"))
 
 date_names_locale(locale, as_ascii = FALSE)
 
 date_names_locales()
 }
 \arguments{
-\item{mon,mon_ab}{Full and abbreviated month names}
+\item{mon,mon_ab}{Full and abbreviated month names. Starts with Sunday.}
 
 \item{day,day_ab}{Full and abbreviated week day names}
 

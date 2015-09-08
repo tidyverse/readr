@@ -5,7 +5,7 @@
 #' create your own, or retrieve from a standard list. The standard list is
 #' derived from ICU (\url{http://site.icu-project.org}) via the stringi package.
 #'
-#' @param mon,mon_ab Full and abbreviated month names
+#' @param mon,mon_ab Full and abbreviated month names. Starts with Sunday.
 #' @param day,day_ab Full and abbreviated week day names
 #' @param am_pm Names used for AM and PM.
 #' @export
@@ -17,7 +17,8 @@
 #' if (require("stringi")) {
 #'   date_names_locale("fr", as_ascii = TRUE)
 #' }
-date_names <- function(mon, mon_ab, day, day_ab, am_pm) {
+date_names <- function(mon, mon_ab = mon, day, day_ab = day,
+                       am_pm = c("AM", "PM")) {
   stopifnot(is.character(mon), length(mon) == 12)
   stopifnot(is.character(mon_ab), length(mon_ab) == 12)
   stopifnot(is.character(day), length(day) == 7)
