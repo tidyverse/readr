@@ -4,12 +4,14 @@
 \alias{read_catalog}
 \title{Read multiple files from an input catalog}
 \usage{
-read_catalog(inca, bind = FALSE)
+read_catalog(inca, bind = FALSE, .id = "id")
 }
 \arguments{
-\item{inca}{(df) A input catalog (inca).}
+\item{inca}{(df). A input catalog (inca).}
 
-\item{bind}{(lgl). Should \code{dplyr::bind_rows()} be called on output?
+\item{bind}{(lgl). Should \code{dplyr::bind_rows()} be called on output?}
+
+\item{.id}{(chr). Name of the id column to use if bind is set to TRUE.
 Defaults to FALSE.}
 }
 \description{
