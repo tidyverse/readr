@@ -8,11 +8,12 @@ locale_info <- function(x) {
   full <- stri_datetime_symbols(x, context = "format", width = "wide")
   abbr <- stri_datetime_symbols(x, context = "format", width = "abbreviated")
 
-  list(
-    month = full$Month,
-    month_abbr = abbr$Month,
+  date_names(
+    mon = full$Month,
+    mon_ab = abbr$Month,
     day = full$Weekday,
-    day_abbr = abbr$Weekday
+    day_ab = abbr$Weekday,
+    am_pm = full$AmPm
   )
 }
 
