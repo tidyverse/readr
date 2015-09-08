@@ -2,32 +2,28 @@
 % Please edit documentation in R/read_catalog.R
 \name{read_catalog}
 \alias{read_catalog}
-\title{Read multiple files from a file catalog}
+\title{Read multiple files from an input catalog}
 \usage{
-read_catalog(catalog, bind = FALSE)
+read_catalog(inca, bind = FALSE)
 }
 \arguments{
-\item{catalog}{df. A file catalog.}
+\item{inca}{(df) A input catalog (inca).}
 
-\item{bind}{boolean. Should \code{dplyr::bind_rows()} be called on output.
+\item{bind}{(lgl). Should \code{dplyr::bind_rows()} be called on output?
 Defaults to FALSE.}
 }
 \description{
-A file catalog is a \code{data.frame} object (df) where each observation is a
-specification of how to read in a particular file. The minimum variables are
-\code{file}, \code{read_fun} and \code{dots}.
+An input catalog (inca for short?) is a table that catalogs the inputs of a
+project. It is a `data.frame` object where each observation/record/row
+represents an input: something to be inputed into R relevant to your project.
+}
+\details{
+Defining variables are: \code{in_name} a character string of the human-friendly
+name of the input, \code{in_fun} a character string of the name of the
+function to use to read the input, and \code{in_args} a named list of the
+arguments to be used when reading the input.
 }
 \examples{
-# first we make a catalog
- files <- c(system.file("extdata/mtcars.csv", package = "readr"),
-           system.file("extdata/mtcars.csv.zip", package = "readr"),
-           system.file("extdata/mtcars.csv.bz2", package = "readr"))
- catalog <- dplyr::data_frame(file = files,
-                             read_fun = "read_csv",
-                             dots = list(list(skip = 1),
-                                         list(n_max = 1),
-                                        list(col_names = FALSE)))
- read_catalog(catalog)
- read_catalog(catalog, bind = TRUE)
+# see the vignette.
 }
 
