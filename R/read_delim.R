@@ -137,7 +137,7 @@ types <- function(source, tokenizer, n = 1000, n_max = -1) {
     n <- min(n, n_max)
   }
 
-  collectorsGuess(source, tokenizer, n = n)
+  collectorsGuess(source, tokenizer, locale(), n = n)
 }
 
 

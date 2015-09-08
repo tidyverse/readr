@@ -21,14 +21,14 @@
 #' # South American locale
 #' locale("es_MX", decimal_mark = ",", grouping_mark = ".")
 locale <- function(date_names = "en",
-                   date_format = "%Y-%m-%d", time_format = "%H:%M",
+                   date_format = "%Y%.%m%.%d", time_format = "%H:%M",
                    decimal_mark = ".", grouping_mark = ",",
                    tz = "UTC", encoding = "UTF-8") {
   if (is.character(date_names)) {
     date_names <- date_names_locale(date_names)
   }
   stopifnot(is.date_names(date_names))
-  stopifnot(is.character(decimal_mark), length(decimal_mark) == 1)
+  stopifnot(decimal_mark %in% c(".", ","))
   stopifnot(is.character(grouping_mark), length(grouping_mark) == 1)
   check_tz(tz)
   check_encoding(encoding)
@@ -45,6 +45,21 @@ locale <- function(date_names = "en",
     ),
     class = "locale"
   )
+}
+
+#' @export
+#' @rdname locale
+default_locale <- function() {
+  loc <- getOption("readr.default_locale")
+  if (is.null(loc)) {
+    return(locale())
+  }
+
+  if (interactive()) {
+    message("Using non-default locale")
+  }
+
+  loc
 }
 
 check_tz <- function(x) {

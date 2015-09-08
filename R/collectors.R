@@ -96,13 +96,15 @@ parse_double <- function(x, na = c("", "NA")) {
 #' @rdname collector
 #' @export
 col_euro_double <- function() {
-  collector("euro_double")
+  warning("Deprecated: please set locale")
+  collector("double")
 }
 
 #' @rdname collector
 #' @export
 parse_euro_double <- function(x, na = c("", "NA")) {
-  parse_vector(x, col_euro_double(), na = na)
+  warning("Deprecated: please set locale")
+  parse_vector(x, col_double(), na = na)
 }
 
 

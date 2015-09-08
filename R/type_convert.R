@@ -19,13 +19,14 @@
 #'
 #' df <- data.frame(x = c("NA", "10"), stringsAsFactors = FALSE)
 #' str(type_convert(df))
-type_convert <- function(df, col_types = NULL, na = c("", "NA"), trim_ws = TRUE) {
+type_convert <- function(df, col_types = NULL, na = c("", "NA"), trim_ws = TRUE,
+                         locale = default_locale()) {
   is_character <- vapply(df, is.character, logical(1))
 
   char_cols <- df[is_character]
   guesses <- lapply(char_cols, function(x) {
     x[x %in% na] <- NA
-    collectorGuess(x)
+    collectorGuess(x, locale)
   })
   col_types <- col_types_standardise(col_types, names(char_cols), guesses)
 

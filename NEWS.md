@@ -1,5 +1,14 @@
 # readr 0.1.1.9000
 
+* readr now has a new strategy for dealing with settings that vary from
+  place to place: locales. The default locale is still US-English centric
+  (because R itself is), but you can now easily override the default
+  tz, decimal separator, grouping mark, day & month names, date format, and 
+  encoding.
+  
+    * `col_euro_double()` and `parse_euro_double()` have been deprecated.
+      Please use the `decimal_mark` parameter to `locale()` instead.
+
 * Bumped up row inspection for column typing guessing from 100 to 1000.
 
 * Readr gains `vignette("col-types")` which describes how the defaults

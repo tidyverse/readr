@@ -211,6 +211,6 @@ public:
 
 std::vector<CollectorPtr> collectorsCreate(Rcpp::ListOf<Rcpp::List> specs, Warnings* pWarning);
 void collectorsResize(std::vector<CollectorPtr>& collectors, int n);
-std::string collectorGuess(Rcpp::CharacterVector input);
+std::string collectorGuess(Rcpp::CharacterVector input, Rcpp::List locale_);
 
 #endif

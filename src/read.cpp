@@ -172,7 +172,8 @@ RObject read_tokens(List sourceSpec, List tokenizerSpec, ListOf<List> colSpecs,
 
 
 // [[Rcpp::export]]
-std::vector<std::string> collectorsGuess(List sourceSpec, List tokenizerSpec, int n = 100) {
+std::vector<std::string> collectorsGuess(List sourceSpec, List tokenizerSpec,
+                                         Rcpp::List locale_, int n = 100) {
   Warnings warnings;
   SourcePtr source = Source::create(sourceSpec);
   TokenizerPtr tokenizer = Tokenizer::create(tokenizerSpec);
@@ -199,7 +200,7 @@ std::vector<std::string> collectorsGuess(List sourceSpec, List tokenizerSpec, in
   std::vector<std::string> out;
   for (size_t j = 0; j < collectors.size(); ++j) {
     CharacterVector col = as<CharacterVector>(collectors[j].vector());
-    out.push_back(collectorGuess(col));
+    out.push_back(collectorGuess(col, locale_));
   }
 
   return out;

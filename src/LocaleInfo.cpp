@@ -18,6 +18,9 @@ LocaleInfo::LocaleInfo(List x) {
   decimalMark_ = as<char>(x["decimal_mark"]);
   groupingMark_ = as<char>(x["grouping_mark"]);
 
+  dateFormat_ = as<std::string>(x["date_format"]);
+  timeFormat_ = as<std::string>(x["time_format"]);
+
   tz_ = as<std::string>(x["tz"]);
   encoding_ = as<std::string>(x["encoding"]);
 }
