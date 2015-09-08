@@ -16,7 +16,7 @@
 #'                              read_fun = "read_csv",
 #'                              dots = list(list(skip = 1),
 #'                                          list(n_max = 1),
-#'                                         list(col_names = F)))
+#'                                         list(col_names = FALSE)))
 #'  read_catalog(catalog)
 #'  read_catalog(catalog, bind = TRUE)
 #' @export
