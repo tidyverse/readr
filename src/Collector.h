@@ -3,6 +3,7 @@
 
 #include <Rcpp.h>
 #include <boost/shared_ptr.hpp>
+#include "Iconv.h"
 #include "LocaleInfo.h"
 #include "Token.h"
 #include "Warnings.h"
@@ -68,17 +69,19 @@ public:
     warn(row, col, expected, std::string(actual.first, actual.second));
   }
 
-  static CollectorPtr create(Rcpp::List spec, const LocaleInfo& locale);
+  static CollectorPtr create(Rcpp::List spec, LocaleInfo* pLocale);
 
 };
 
 // Character -------------------------------------------------------------------
 
 class CollectorCharacter : public Collector {
-  cetype_t encoding_;
+  Iconv* pEncoder_;
 
 public:
-  CollectorCharacter(): Collector(Rcpp::CharacterVector()), encoding_(CE_NATIVE) {}
+  CollectorCharacter(Iconv* pEncoder):
+    Collector(Rcpp::CharacterVector()),
+    pEncoder_(pEncoder) {}
   void setValue(int i, const Token& t);
 };
 
@@ -210,7 +213,7 @@ public:
 
 // Helpers ---------------------------------------------------------------------
 
-std::vector<CollectorPtr> collectorsCreate(Rcpp::ListOf<Rcpp::List> specs, const LocaleInfo& locale, Warnings* pWarning);
+std::vector<CollectorPtr> collectorsCreate(Rcpp::ListOf<Rcpp::List> specs, LocaleInfo* pLocale, Warnings* pWarning);
 void collectorsResize(std::vector<CollectorPtr>& collectors, int n);
 std::string collectorGuess(Rcpp::CharacterVector input, Rcpp::List locale_);
 

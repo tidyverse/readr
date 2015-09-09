@@ -5,7 +5,7 @@ using namespace Rcpp;
 #include "LocaleInfo.h"
 #include "QiParsers.h"
 
-CollectorPtr Collector::create(List spec, const LocaleInfo& locale) {
+CollectorPtr Collector::create(List spec, LocaleInfo* pLocale) {
   std::string subclass(as<CharacterVector>(spec.attr("class"))[0]);
 
   if (subclass == "collector_skip")
@@ -15,12 +15,12 @@ CollectorPtr Collector::create(List spec, const LocaleInfo& locale) {
   if (subclass == "collector_integer")
     return boost::shared_ptr<Collector>(new CollectorInteger());
   if (subclass == "collector_double") {
-    return boost::shared_ptr<Collector>(new CollectorDouble(locale.decimalMark_));
+    return boost::shared_ptr<Collector>(new CollectorDouble(pLocale->decimalMark_));
   }
   if (subclass == "collector_number")
-    return boost::shared_ptr<Collector>(new CollectorNumeric(locale.decimalMark_, locale.groupingMark_));
+    return boost::shared_ptr<Collector>(new CollectorNumeric(pLocale->decimalMark_, pLocale->groupingMark_));
   if (subclass == "collector_character")
-    return boost::shared_ptr<Collector>(new CollectorCharacter());
+    return boost::shared_ptr<Collector>(new CollectorCharacter(&pLocale->encoder_));
   if (subclass == "collector_date") {
     std::string format = as<std::string>(spec["format"]);
     return boost::shared_ptr<Collector>(new CollectorDate(format));
@@ -42,11 +42,11 @@ CollectorPtr Collector::create(List spec, const LocaleInfo& locale) {
 }
 
 std::vector<CollectorPtr> collectorsCreate(ListOf<List> specs,
-                                           const LocaleInfo& locale,
+                                           LocaleInfo* pLocale,
                                            Warnings* pWarning) {
   std::vector<CollectorPtr> collectors;
   for (int j = 0; j < specs.size(); ++j) {
-    CollectorPtr col = Collector::create(specs[j], locale);
+    CollectorPtr col = Collector::create(specs[j], pLocale);
     col->setWarnings(pWarning);
     collectors.push_back(col);
   }
@@ -67,16 +67,15 @@ void CollectorCharacter::setValue(int i, const Token& t) {
   case TOKEN_STRING: {
     boost::container::string buffer;
     SourceIterators string = t.getString(&buffer);
-    SET_STRING_ELT(column_, i,
-      Rf_mkCharLenCE(string.first, string.second - string.first, encoding_)
-    );
+
+    SET_STRING_ELT(column_, i, pEncoder_->makeSEXP(string.first, string.second));
     break;
   };
   case TOKEN_MISSING:
     SET_STRING_ELT(column_, i, NA_STRING);
     break;
   case TOKEN_EMPTY:
-    SET_STRING_ELT(column_, i, Rf_mkChar(""));
+    SET_STRING_ELT(column_, i, Rf_mkCharCE("", CE_UTF8));
     break;
   case TOKEN_EOF:
     Rcpp::stop("Invalid token");

@@ -23,4 +23,5 @@ LocaleInfo::LocaleInfo(List x) {
 
   tz_ = as<std::string>(x["tz"]);
   encoding_ = as<std::string>(x["encoding"]);
+  encoder_ = Iconv(encoding_);
 }

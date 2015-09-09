@@ -1,6 +1,8 @@
 #ifndef FASTREAD_LOCALINFO
 #define FASTREAD_LOCALINFO
 
+#include "Iconv.h"
+
 class LocaleInfo {
 
 public:
@@ -14,6 +16,7 @@ public:
   // LC_MISC
   std::string tz_;
   std::string encoding_;
+  Iconv encoder_;
 
   LocaleInfo(Rcpp::List);
 

@@ -12,7 +12,7 @@ class DateTimeLocale : boost::noncopyable {
 
 public:
 
-  DateTimeLocale(): encoder_("") {
+  DateTimeLocale(): encoder_("UTF-8") {
 
     month_.reserve(12);
     monthAbbrev_.reserve(12);
@@ -71,7 +71,7 @@ public:
 private:
   inline std::string formatDate(struct tm& tm, const char* format) {
     size_t res = strftime(buff_, 100, format, &tm);
-    return std::string((res == 0) ? "" : encoder_.convert(buff_));
+    return std::string((res == 0) ? "" : buff_);
   }
 
 };
