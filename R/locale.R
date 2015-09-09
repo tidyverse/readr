@@ -10,7 +10,8 @@
 #'   an object created by \code{\link{date_names}}.
 #' @param date_format,time_format Default date and time formats.
 #' @param decimal_mark,grouping_mark Symbols used to indicate the decimal
-#'   place, and to chunk larger numbers.
+#'   place, and to chunk larger numbers. Decimal mark can only be \code{,} or
+#'   \code{.}.
 #' @param tz Default time zone.
 #' @param encoding Default encoding
 #' @export
@@ -19,16 +20,20 @@
 #' locale("fr")
 #'
 #' # South American locale
-#' locale("es_MX", decimal_mark = ",", grouping_mark = ".")
+#' locale("es_MX", decimal_mark = ",")
 locale <- function(date_names = "en",
                    date_format = "%Y%.%m%.%d", time_format = "%H:%M",
-                   decimal_mark = ".", grouping_mark = ",",
+                   decimal_mark = ".", grouping_mark = NULL,
                    tz = "UTC", encoding = "UTF-8") {
   if (is.character(date_names)) {
     date_names <- date_names_locale(date_names)
   }
   stopifnot(is.date_names(date_names))
   stopifnot(decimal_mark %in% c(".", ","))
+
+  if (is.null(grouping_mark)) {
+    grouping_mark <- if (decimal_mark == ".") "," else "."
+  }
   stopifnot(is.character(grouping_mark), length(grouping_mark) == 1)
   check_tz(tz)
   check_encoding(encoding)

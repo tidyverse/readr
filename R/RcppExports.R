@@ -29,8 +29,8 @@ tokenize_ <- function(sourceSpec, tokenizerSpec, n_max) {
     .Call('readr_tokenize_', PACKAGE = 'readr', sourceSpec, tokenizerSpec, n_max)
 }
 
-parse_vector_ <- function(x, collectorSpec, na) {
-    .Call('readr_parse_vector_', PACKAGE = 'readr', x, collectorSpec, na)
+parse_vector_ <- function(x, collectorSpec, locale_, na) {
+    .Call('readr_parse_vector_', PACKAGE = 'readr', x, collectorSpec, locale_, na)
 }
 
 read_file_ <- function(sourceSpec) {
@@ -41,8 +41,8 @@ read_lines_ <- function(sourceSpec, n_max = -1L, progress = TRUE) {
     .Call('readr_read_lines_', PACKAGE = 'readr', sourceSpec, n_max, progress)
 }
 
-read_tokens <- function(sourceSpec, tokenizerSpec, colSpecs, colNames, n_max = -1L, progress = TRUE) {
-    .Call('readr_read_tokens', PACKAGE = 'readr', sourceSpec, tokenizerSpec, colSpecs, colNames, n_max, progress)
+read_tokens <- function(sourceSpec, tokenizerSpec, colSpecs, colNames, locale_, n_max = -1L, progress = TRUE) {
+    .Call('readr_read_tokens', PACKAGE = 'readr', sourceSpec, tokenizerSpec, colSpecs, colNames, locale_, n_max, progress)
 }
 
 collectorsGuess <- function(sourceSpec, tokenizerSpec, locale_, n = 100L) {
@@ -53,8 +53,8 @@ whitespaceColumns <- function(sourceSpec, n = 100L) {
     .Call('readr_whitespaceColumns', PACKAGE = 'readr', sourceSpec, n)
 }
 
-type_convert_col <- function(x, spec, col, na, trim_ws) {
-    .Call('readr_type_convert_col', PACKAGE = 'readr', x, spec, col, na, trim_ws)
+type_convert_col <- function(x, spec, locale_, col, na, trim_ws) {
+    .Call('readr_type_convert_col', PACKAGE = 'readr', x, spec, locale_, col, na, trim_ws)
 }
 
 stream_delim <- function(df, path, delim, na, col_names = TRUE, append = FALSE) {

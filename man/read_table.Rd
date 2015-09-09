@@ -4,8 +4,8 @@
 \alias{read_table}
 \title{Read text file where columns are separated by whitespace.}
 \usage{
-read_table(file, col_names = TRUE, col_types = NULL, na = "NA",
-  skip = 0, n_max = -1)
+read_table(file, col_names = TRUE, col_types = NULL,
+  locale = default_locale(), na = "NA", skip = 0, n_max = -1)
 }
 \arguments{
 \item{file}{Either a path to a file, a connection, or literal data
@@ -46,6 +46,12 @@ read_table(file, col_names = TRUE, col_types = NULL, na = "NA",
   Alternatively, you can use a compact string representation where each
   character represents one column: c = character, d = double, i = integer,
   l = logical, ? = guess, or \code{_}/\code{-} to skip the column.}
+
+\item{locale}{The locale controls defaults that vary from place to place.
+The default locale is US-centric (like R), but you can use
+\code{\link{locale}} to create your own locale that controls things like
+the default time zone, encoding, decimal mark, big mark, and day/month
+names.}
 
 \item{na}{Character vector of strings to use for missing values. Set this
 option to \code{character()} to indicate no missing values.}

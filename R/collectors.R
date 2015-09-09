@@ -15,7 +15,7 @@ collector_find <- function(name) {
 #'
 #' @param x Character vector of elements to parse.
 #' @param collector Column specification.
-#' @param na Character vector giving strings to treat as missing.
+#' @inheritParams read_delim
 #' @keywords internal
 #' @export
 #' @examples
@@ -30,8 +30,13 @@ collector_find <- function(name) {
 #' parse_vector(x, col_double())
 #' # Or flag values as missing
 #' parse_vector(x, col_double(), na = "-")
-parse_vector <- function(x, collector, na = "NA") {
-  warn_problems(parse_vector_(x, collector, na = na))
+#'
+#' # Use locale to override default settings
+#' x <- c("1,3", "2,4", "5,6")
+#' parse_vector(x, col_double())
+#' parse_vector(x, col_double(), locale = locale(decimal_mark = ","))
+parse_vector <- function(x, collector, na = "NA", locale = default_locale()) {
+  warn_problems(parse_vector_(x, collector, na = na, locale_ = locale))
 }
 
 #' Parse character vectors into typed columns.

@@ -3,6 +3,7 @@
 
 #include <Rcpp.h>
 #include <boost/shared_ptr.hpp>
+#include "LocaleInfo.h"
 #include "Token.h"
 #include "Warnings.h"
 #include "DateTime.h"
@@ -67,7 +68,7 @@ public:
     warn(row, col, expected, std::string(actual.first, actual.second));
   }
 
-  static CollectorPtr create(Rcpp::List spec);
+  static CollectorPtr create(Rcpp::List spec, const LocaleInfo& locale);
 
 };
 
@@ -209,7 +210,7 @@ public:
 
 // Helpers ---------------------------------------------------------------------
 
-std::vector<CollectorPtr> collectorsCreate(Rcpp::ListOf<Rcpp::List> specs, Warnings* pWarning);
+std::vector<CollectorPtr> collectorsCreate(Rcpp::ListOf<Rcpp::List> specs, const LocaleInfo& locale, Warnings* pWarning);
 void collectorsResize(std::vector<CollectorPtr>& collectors, int n);
 std::string collectorGuess(Rcpp::CharacterVector input, Rcpp::List locale_);
 

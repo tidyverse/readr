@@ -6,6 +6,9 @@
   tz, decimal separator, grouping mark, day & month names, date format, and 
   encoding.
   
+    * `read_csv()`, `read_tsv()`, `read_fwf()`, `read_table()`, 
+      `type_convert()`, `parse_vector()` all gain a `locale` argument.
+
     * `col_euro_double()` and `parse_euro_double()` have been deprecated.
       Please use the `decimal_mark` parameter to `locale()` instead.
 

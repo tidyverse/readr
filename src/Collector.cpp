@@ -4,6 +4,7 @@
 using namespace Rcpp;
 
 #include "Collector.h"
+#include "LocaleInfo.h"
 #include "DoubleEuroPolicy.h"
 #include <boost/spirit/include/qi.hpp>
 #include <boost/spirit/include/phoenix_core.hpp>
@@ -11,7 +12,7 @@ using namespace Rcpp;
 namespace qi = boost::spirit::qi;
 
 
-CollectorPtr Collector::create(List spec) {
+CollectorPtr Collector::create(List spec, const LocaleInfo& locale) {
   std::string subclass(as<CharacterVector>(spec.attr("class"))[0]);
 
   if (subclass == "collector_skip")
@@ -20,10 +21,13 @@ CollectorPtr Collector::create(List spec) {
     return boost::shared_ptr<Collector>(new CollectorLogical());
   if (subclass == "collector_integer")
     return boost::shared_ptr<Collector>(new CollectorInteger());
-  if (subclass == "collector_double")
-    return boost::shared_ptr<Collector>(new CollectorDouble());
-  if (subclass == "collector_euro_double")
-    return boost::shared_ptr<Collector>(new CollectorEuroDouble());
+  if (subclass == "collector_double") {
+    if (locale.decimalMark_ == '.') {
+      return boost::shared_ptr<Collector>(new CollectorDouble());
+    } else {
+      return boost::shared_ptr<Collector>(new CollectorEuroDouble());
+    }
+  }
   if (subclass == "collector_numeric")
     return boost::shared_ptr<Collector>(new CollectorNumeric());
   if (subclass == "collector_character")
@@ -48,10 +52,12 @@ CollectorPtr Collector::create(List spec) {
   return boost::shared_ptr<Collector>();
 }
 
-std::vector<CollectorPtr> collectorsCreate(ListOf<List> specs, Warnings* pWarning) {
+std::vector<CollectorPtr> collectorsCreate(ListOf<List> specs,
+                                           const LocaleInfo& locale,
+                                           Warnings* pWarning) {
   std::vector<CollectorPtr> collectors;
   for (int j = 0; j < specs.size(); ++j) {
-    CollectorPtr col = Collector::create(specs[j]);
+    CollectorPtr col = Collector::create(specs[j], locale);
     col->setWarnings(pWarning);
     collectors.push_back(col);
   }

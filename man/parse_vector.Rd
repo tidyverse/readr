@@ -4,14 +4,18 @@
 \alias{parse_vector}
 \title{Parse a character vector.}
 \usage{
-parse_vector(x, collector, na = "NA")
+parse_vector(x, collector, na = "NA", locale = default_locale())
 }
 \arguments{
 \item{x}{Character vector of elements to parse.}
 
 \item{collector}{Column specification.}
 
-\item{na}{Character vector giving strings to treat as missing.}
+\item{locale}{The locale controls defaults that vary from place to place.
+The default locale is US-centric (like R), but you can use
+\code{\link{locale}} to create your own locale that controls things like
+the default time zone, encoding, decimal mark, big mark, and day/month
+names.}
 }
 \description{
 Parse a character vector.
@@ -28,6 +32,11 @@ x <- c("1", "2", "3", "-")
 parse_vector(x, col_double())
 # Or flag values as missing
 parse_vector(x, col_double(), na = "-")
+
+# Use locale to override default settings
+x <- c("1,3", "2,4", "5,6")
+parse_vector(x, col_double())
+parse_vector(x, col_double(), locale = locale(decimal_mark = ","))
 }
 \keyword{internal}
 

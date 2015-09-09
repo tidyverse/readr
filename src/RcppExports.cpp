@@ -97,15 +97,16 @@ BEGIN_RCPP
 END_RCPP
 }
 // parse_vector_
-SEXP parse_vector_(CharacterVector x, List collectorSpec, const std::vector<std::string>& na);
-RcppExport SEXP readr_parse_vector_(SEXP xSEXP, SEXP collectorSpecSEXP, SEXP naSEXP) {
+SEXP parse_vector_(CharacterVector x, List collectorSpec, List locale_, const std::vector<std::string>& na);
+RcppExport SEXP readr_parse_vector_(SEXP xSEXP, SEXP collectorSpecSEXP, SEXP locale_SEXP, SEXP naSEXP) {
 BEGIN_RCPP
     Rcpp::RObject __result;
     Rcpp::RNGScope __rngScope;
     Rcpp::traits::input_parameter< CharacterVector >::type x(xSEXP);
     Rcpp::traits::input_parameter< List >::type collectorSpec(collectorSpecSEXP);
+    Rcpp::traits::input_parameter< List >::type locale_(locale_SEXP);
     Rcpp::traits::input_parameter< const std::vector<std::string>& >::type na(naSEXP);
-    __result = Rcpp::wrap(parse_vector_(x, collectorSpec, na));
+    __result = Rcpp::wrap(parse_vector_(x, collectorSpec, locale_, na));
     return __result;
 END_RCPP
 }
@@ -134,8 +135,8 @@ BEGIN_RCPP
 END_RCPP
 }
 // read_tokens
-RObject read_tokens(List sourceSpec, List tokenizerSpec, ListOf<List> colSpecs, CharacterVector colNames, int n_max, bool progress);
-RcppExport SEXP readr_read_tokens(SEXP sourceSpecSEXP, SEXP tokenizerSpecSEXP, SEXP colSpecsSEXP, SEXP colNamesSEXP, SEXP n_maxSEXP, SEXP progressSEXP) {
+RObject read_tokens(List sourceSpec, List tokenizerSpec, ListOf<List> colSpecs, CharacterVector colNames, List locale_, int n_max, bool progress);
+RcppExport SEXP readr_read_tokens(SEXP sourceSpecSEXP, SEXP tokenizerSpecSEXP, SEXP colSpecsSEXP, SEXP colNamesSEXP, SEXP locale_SEXP, SEXP n_maxSEXP, SEXP progressSEXP) {
 BEGIN_RCPP
     Rcpp::RObject __result;
     Rcpp::RNGScope __rngScope;
@@ -143,9 +144,10 @@ BEGIN_RCPP
     Rcpp::traits::input_parameter< List >::type tokenizerSpec(tokenizerSpecSEXP);
     Rcpp::traits::input_parameter< ListOf<List> >::type colSpecs(colSpecsSEXP);
     Rcpp::traits::input_parameter< CharacterVector >::type colNames(colNamesSEXP);
+    Rcpp::traits::input_parameter< List >::type locale_(locale_SEXP);
     Rcpp::traits::input_parameter< int >::type n_max(n_maxSEXP);
     Rcpp::traits::input_parameter< bool >::type progress(progressSEXP);
-    __result = Rcpp::wrap(read_tokens(sourceSpec, tokenizerSpec, colSpecs, colNames, n_max, progress));
+    __result = Rcpp::wrap(read_tokens(sourceSpec, tokenizerSpec, colSpecs, colNames, locale_, n_max, progress));
     return __result;
 END_RCPP
 }
@@ -176,17 +178,18 @@ BEGIN_RCPP
 END_RCPP
 }
 // type_convert_col
-RObject type_convert_col(CharacterVector x, List spec, int col, const std::vector<std::string>& na, bool trim_ws);
-RcppExport SEXP readr_type_convert_col(SEXP xSEXP, SEXP specSEXP, SEXP colSEXP, SEXP naSEXP, SEXP trim_wsSEXP) {
+RObject type_convert_col(CharacterVector x, List spec, List locale_, int col, const std::vector<std::string>& na, bool trim_ws);
+RcppExport SEXP readr_type_convert_col(SEXP xSEXP, SEXP specSEXP, SEXP locale_SEXP, SEXP colSEXP, SEXP naSEXP, SEXP trim_wsSEXP) {
 BEGIN_RCPP
     Rcpp::RObject __result;
     Rcpp::RNGScope __rngScope;
     Rcpp::traits::input_parameter< CharacterVector >::type x(xSEXP);
     Rcpp::traits::input_parameter< List >::type spec(specSEXP);
+    Rcpp::traits::input_parameter< List >::type locale_(locale_SEXP);
     Rcpp::traits::input_parameter< int >::type col(colSEXP);
     Rcpp::traits::input_parameter< const std::vector<std::string>& >::type na(naSEXP);
     Rcpp::traits::input_parameter< bool >::type trim_ws(trim_wsSEXP);
-    __result = Rcpp::wrap(type_convert_col(x, spec, col, na, trim_ws));
+    __result = Rcpp::wrap(type_convert_col(x, spec, locale_, col, na, trim_ws));
     return __result;
 END_RCPP
 }

@@ -72,9 +72,10 @@ void checkColumns(Warnings *pWarnings, int i, int j, int n) {
 
 // [[Rcpp::export]]
 RObject read_tokens(List sourceSpec, List tokenizerSpec, ListOf<List> colSpecs,
-                    CharacterVector colNames, int n_max = -1,
+                    CharacterVector colNames, List locale_, int n_max = -1,
                     bool progress = true) {
   Warnings warnings;
+  LocaleInfo locale(locale_);
 
   SourcePtr source = Source::create(sourceSpec);
 
@@ -82,7 +83,7 @@ RObject read_tokens(List sourceSpec, List tokenizerSpec, ListOf<List> colSpecs,
   tokenizer->tokenize(source->begin(), source->end());
   tokenizer->setWarnings(&warnings);
 
-  std::vector<CollectorPtr> collectors = collectorsCreate(colSpecs, &warnings);
+  std::vector<CollectorPtr> collectors = collectorsCreate(colSpecs, locale, &warnings);
 
   Progress progressBar;
 
