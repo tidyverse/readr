@@ -1,14 +1,10 @@
 #include <Rcpp.h>
 using namespace Rcpp;
 
-#include <boost/spirit/include/qi.hpp>
-#include <boost/spirit/include/phoenix_core.hpp>
-#include <boost/spirit/include/phoenix_operator.hpp>
-#include "DoubleEuroPolicy.h"
 #include "DateTime.h"
 #include "DateTimeParser.h"
 #include "LocaleInfo.h"
-namespace qi = boost::spirit::qi;
+#include "QiParsers.h"
 
 typedef bool (*canParseFun)(const std::string&, const LocaleInfo& locale);
 
@@ -42,21 +38,15 @@ bool isLogical(const std::string& x, const LocaleInfo& locale) {
 bool isInteger(const std::string& x, const LocaleInfo& locale) {
   int res = 0;
   std::string::const_iterator begin = x.begin(), end = x.end();
-  return qi::parse(begin, end, qi::int_, res) && begin == end;
+
+  return parseInt(begin, end, res) && begin == end;
 }
 
 bool isDouble(const std::string& x, const LocaleInfo& locale) {
   double res = 0;
   std::string::const_iterator begin = x.begin(), end = x.end();
 
-  bool parsed;
-  if (locale.decimalMark_ == '.') {
-    parsed = qi::parse(begin, end, qi::double_, res);
-  } else {
-    parsed = qi::parse(begin, end, qi::real_parser<double, DoubleEuroPolicy>(), res);
-  }
-  return parsed && begin == end;
-
+  return parseDouble(locale.decimalMark_, begin, end, res) && begin == end;
 }
 
 bool isDate(const std::string& x, const LocaleInfo& locale) {

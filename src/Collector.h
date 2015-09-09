@@ -135,16 +135,10 @@ public:
 };
 
 class CollectorDouble : public Collector {
-
+  char decimalMark_;
 public:
-  CollectorDouble(): Collector(Rcpp::NumericVector()) {}
-  void setValue(int i, const Token& t);
-};
-
-class CollectorEuroDouble : public Collector {
-
-public:
-  CollectorEuroDouble(): Collector(Rcpp::NumericVector()) {}
+  CollectorDouble(char decimalMark): Collector(Rcpp::NumericVector()),
+      decimalMark_(decimalMark) {}
   void setValue(int i, const Token& t);
 };
 
