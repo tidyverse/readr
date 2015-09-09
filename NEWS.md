@@ -11,6 +11,14 @@
 
     * `col_euro_double()` and `parse_euro_double()` have been deprecated.
       Please use the `decimal_mark` parameter to `locale()` instead.
+      
+    * `parse_number()` has a more conservative strategy: it starts at 
+      the first numeric value and continues until it reach the end of the 
+      number. It uses `groupingMark` to define what a number is.
+      
+* `parse_numeric()` has been deprecated because the name is confusing - 
+  it's a flexible number parser, not a parser of "numerics", as R collectively
+  calls doubles and intergers.
 
 * Bumped up row inspection for column typing guessing from 100 to 1000.
 

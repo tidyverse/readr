@@ -20,12 +20,22 @@ test_that("leading/trailing ws ignored when parsing", {
 })
 
 
-# Decimal comma -----------------------------------------------------------
-
+# Flexible number parsing -------------------------------------------------
 es_MX <- locale("es", decimal_mark = ",")
 
+test_that("col_number only takes first number", {
+  expect_equal(parse_numeric("XYZ 123,000 BLAH 456"), 123000)
+})
+
+test_that("col_number helps with currency", {
+  expect_equal(parse_numeric("$1,000,000.00"), 1e6)
+  expect_equal(parse_numeric("$1.000.000,00", locale = es_MX), 1e6)
+})
+
+# Decimal comma -----------------------------------------------------------
+
 test_that("parse_vector passes along decimal_mark", {
-  expect_equal(parse_vector("1,5", col_double(), locale = es_MX), 1.5)
+  expect_equal(parse_double("1,5", locale = es_MX), 1.5)
 })
 
 test_that("type_convert passes along decimal_mark", {

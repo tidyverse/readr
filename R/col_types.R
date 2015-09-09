@@ -45,7 +45,7 @@ col_types_concise <- function(x, guessed_types) {
     l = col_logical(),
     "_" = col_skip(),
     "-" = col_skip(),
-    n = col_numeric(),
+    n = col_number(),
     e = col_euro_double(),
     "?" = NULL
   )

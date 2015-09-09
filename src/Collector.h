@@ -187,9 +187,15 @@ public:
 };
 
 class CollectorNumeric : public Collector {
+  char decimalMark_, groupingMark_;
+
 public:
-  CollectorNumeric(): Collector(Rcpp::NumericVector()) {}
+  CollectorNumeric(char decimalMark, char groupingMark):
+    Collector(Rcpp::NumericVector()),
+    decimalMark_(decimalMark),
+    groupingMark_(groupingMark) {}
   void setValue(int i, const Token& t);
+  bool isNum(char c);
 };
 
 class CollectorSkip : public Collector {

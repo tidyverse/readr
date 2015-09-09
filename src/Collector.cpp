@@ -17,8 +17,8 @@ CollectorPtr Collector::create(List spec, const LocaleInfo& locale) {
   if (subclass == "collector_double") {
     return boost::shared_ptr<Collector>(new CollectorDouble(locale.decimalMark_));
   }
-  if (subclass == "collector_numeric")
-    return boost::shared_ptr<Collector>(new CollectorNumeric());
+  if (subclass == "collector_number")
+    return boost::shared_ptr<Collector>(new CollectorNumeric(locale.decimalMark_, locale.groupingMark_));
   if (subclass == "collector_character")
     return boost::shared_ptr<Collector>(new CollectorCharacter());
   if (subclass == "collector_date") {
@@ -293,6 +293,9 @@ void CollectorLogical::setValue(int i, const Token& t) {
   }
 }
 
+bool CollectorNumeric::isNum(char c) {
+  return c == '-' || c == decimalMark_ || (c >= '0' && c <= '9');
+}
 
 void CollectorNumeric::setValue(int i, const Token& t) {
   switch(t.type()) {
@@ -301,13 +304,26 @@ void CollectorNumeric::setValue(int i, const Token& t) {
     SourceIterators string = t.getString(&buffer);
 
     std::string clean;
-    for (SourceIterator cur = string.first; cur != string.second; ++cur) {
-      if (*cur == '-' || *cur == '.' || (*cur >= '0' && *cur <= '9'))
+    // Advance to first number
+    SourceIterator numStart;
+    for (numStart = string.first; numStart != string.second; ++numStart) {
+      if (isNum(*numStart))
+        break;
+    }
+
+    for (SourceIterator cur = numStart; cur != string.second; ++cur) {
+      if (isNum(*cur)) {
         clean.push_back(*cur);
+      } else if (*cur == groupingMark_) {
+        // ignore
+      } else {
+        // end of number
+        break;
+      }
     }
 
     std::string::const_iterator cbegin = clean.begin(), cend = clean.end();
-    bool ok = parseDouble('.', cbegin, cend, REAL(column_)[i]);
+    bool ok = parseDouble(decimalMark_, cbegin, cend, REAL(column_)[i]);
     if (!ok || cbegin != cend) {
       warn(t.row(), t.col(), "a number", string);
       REAL(column_)[i] = NA_REAL;

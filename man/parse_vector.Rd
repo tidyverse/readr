@@ -4,7 +4,7 @@
 \alias{parse_vector}
 \title{Parse a character vector.}
 \usage{
-parse_vector(x, collector, na = "NA", locale = default_locale())
+parse_vector(x, collector, na = c("", "NA"), locale = default_locale())
 }
 \arguments{
 \item{x}{Character vector of elements to parse.}
@@ -24,19 +24,6 @@ Parse a character vector.
 x <- c("1", "2", "3", "NA")
 parse_vector(x, col_integer())
 parse_vector(x, col_double())
-parse_vector(x, col_character())
-parse_vector(x, col_skip())
-
-# Invalid values are replaced with missing values with a warning.
-x <- c("1", "2", "3", "-")
-parse_vector(x, col_double())
-# Or flag values as missing
-parse_vector(x, col_double(), na = "-")
-
-# Use locale to override default settings
-x <- c("1,3", "2,4", "5,6")
-parse_vector(x, col_double())
-parse_vector(x, col_double(), locale = locale(decimal_mark = ","))
 }
 \keyword{internal}
 
