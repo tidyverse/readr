@@ -181,7 +181,7 @@ std::vector<std::string> collectorsGuess(List sourceSpec, List tokenizerSpec,
   tokenizer->tokenize(source->begin(), source->end());
   tokenizer->setWarnings(&warnings); // silence warnings
 
-  Iconv encoder("UTF-8");
+  LocaleInfo locale(locale_);
 
   std::vector<CollectorPtr> collectors;
   for (Token t = tokenizer->nextToken(); t.type() != TOKEN_EOF; t = tokenizer->nextToken()) {
@@ -192,7 +192,7 @@ std::vector<std::string> collectorsGuess(List sourceSpec, List tokenizerSpec,
     if (t.col() >= collectors.size()) {
       int p = collectors.size() - t.col() + 1;
       for (int j = 0; j < p; ++j) {
-        CollectorPtr col = CollectorPtr(new CollectorCharacter(&encoder));
+        CollectorPtr col = CollectorPtr(new CollectorCharacter(&locale.encoder_));
         col->setWarnings(&warnings);
         col->resize(n);
         collectors.push_back(col);

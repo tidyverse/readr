@@ -3,6 +3,32 @@ using namespace Rcpp;
 
 #include "Iconv.h"
 
+Iconv::Iconv(const std::string& from, const std::string& to) {
+  if (from == "UTF-8") {
+    cd_ = NULL;
+  } else {
+    cd_ = Riconv_open(to.c_str(), from.c_str());
+    if (cd_ == (void*) -1) {
+      if (errno == EINVAL) {
+        stop("Can't convert from %s to %s", from, to);
+      } else {
+        stop("Iconv initialisation failed");
+      }
+    }
+
+    // Allocate space in buffer
+    buffer_.resize(1024);
+  }
+
+}
+
+Iconv::~Iconv() {
+  if (cd_ != NULL) {
+    Riconv_close(cd_);
+    cd_ = NULL;
+  }
+}
+
 SEXP Iconv::makeSEXP(const char* start, const char* end) {
   size_t n = end - start;
   if (cd_ == NULL)
@@ -14,17 +40,16 @@ SEXP Iconv::makeSEXP(const char* start, const char* end) {
   if (buffer_.size() < max_size)
     buffer_.resize(max_size);
 
-  Rcpp::Rcout << max_size << "/" << buffer_.size() << ":" << std::string(start, end) << "\n";
   char* outbuf = &buffer_[0];
   size_t inbytesleft = n, outbytesleft = max_size;
   size_t res = Riconv(cd_, &start, &inbytesleft, &outbuf, &outbytesleft);
 
   if (res == (size_t) -1) {
     switch(errno) {
-    case EILSEQ: Rcpp::stop("Invalid multibyte sequence");
-    case EINVAL: Rcpp::stop("Incomplete multibyte sequence");
-    case E2BIG: Rcpp::stop("Iconv buffer too small");
-    default: Rcpp::stop("Iconv failed to convert for unknown reason");
+    case EILSEQ: stop("Invalid multibyte sequence");
+    case EINVAL: stop("Incomplete multibyte sequence");
+    case E2BIG:  stop("Iconv buffer too small");
+    default:     stop("Iconv failed to convert for unknown reason");
     }
   }
 

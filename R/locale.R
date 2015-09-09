@@ -13,7 +13,8 @@
 #'   place, and to chunk larger numbers. Decimal mark can only be \code{,} or
 #'   \code{.}.
 #' @param tz Default time zone.
-#' @param encoding Default encoding
+#' @param encoding Default encoding. This only affects how the file is
+#'   read - readr always converts the output to UTF-8.
 #' @export
 #' @examples
 #' locale()
@@ -78,7 +79,7 @@ check_tz <- function(x) {
 check_encoding <- function(x) {
   stopifnot(is.character(x), length(x) == 1)
 
-  if (x %in% iconvlist())
+  if (tolower(x) %in% tolower(iconvlist()))
     return(TRUE)
 
   stop("Unknown encoding ", x, call. = FALSE)

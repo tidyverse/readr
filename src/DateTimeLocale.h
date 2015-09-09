@@ -7,12 +7,11 @@
 
 class DateTimeLocale : boost::noncopyable {
   std::vector<std::string> month_, monthAbbrev_, day_, dayAbbrev_, period_;
-  Iconv encoder_;
   char buff_[100];
 
 public:
 
-  DateTimeLocale(): encoder_("UTF-8") {
+  DateTimeLocale() {
 
     month_.reserve(12);
     monthAbbrev_.reserve(12);

@@ -16,6 +16,9 @@
       the first numeric value and continues until it reach the end of the 
       number. It uses `groupingMark` to define what a number is.
       
+    * The default encoding is now UTF-8. To load files that are not 
+      in UTF-8, set the encoding parameter of the locale (#40)
+      
 * `parse_numeric()` has been deprecated because the name is confusing - 
   it's a flexible number parser, not a parser of "numerics", as R collectively
   calls doubles and integers. Instead use `parse_number()`. Parse number
