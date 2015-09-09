@@ -201,6 +201,33 @@ public:
   bool isNum(char c);
 };
 
+// Time ---------------------------------------------------------------------
+
+
+class CollectorTime : public Collector {
+  std::string format_;
+  DateTimeParser parser_;
+  DateTimeLocale locale_;
+
+public:
+  CollectorTime(const std::string& format):
+    Collector(Rcpp::IntegerVector()),
+    format_(format),
+    parser_(locale_, "UTC")
+  {
+  }
+
+  void setValue(int i, const Token& t);
+
+  Rcpp::RObject vector() {
+    column_.attr("class") = "time";
+    return column_;
+  };
+
+};
+
+// Skip ---------------------------------------------------------------------
+
 class CollectorSkip : public Collector {
 public:
   CollectorSkip() : Collector(R_NilValue) {}

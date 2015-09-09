@@ -24,7 +24,8 @@ place, and to chunk larger numbers. Decimal mark can only be \code{,} or
 
 \item{tz}{Default time zone.}
 
-\item{encoding}{Default encoding}
+\item{encoding}{Default encoding. This only affects how the file is
+read - readr always converts the output to UTF-8.}
 }
 \description{
 A locale object tries to capture all the defaults that can vary between

@@ -36,6 +36,8 @@ You can also manually specify other column types:
 * `col_datetime(format, tz)`, date times with given format. If the timezone
   is UTC, this is >20x faster than loading then parsing with `strptime()`.
 
+* `col_time(format)`, times. Returned as number of seconds past midnight.
+
 * `col_factor(levels, ordered)`, parse a fixed set of known values into a 
   factor
 

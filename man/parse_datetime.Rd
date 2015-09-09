@@ -3,8 +3,10 @@
 \name{parse_datetime}
 \alias{col_date}
 \alias{col_datetime}
+\alias{col_time}
 \alias{parse_date}
 \alias{parse_datetime}
+\alias{parse_time}
 \title{Parse a character vector of dates or date times.}
 \usage{
 parse_datetime(x, format = "", tz = "UTC")
@@ -14,6 +16,10 @@ col_datetime(format = "", tz = "UTC")
 parse_date(x, format = "\%Y-\%m-\%d")
 
 col_date(format = "\%Y-\%m-\%d")
+
+parse_time(x, format = "\%H:\%M")
+
+col_time(format = "\%H:\%M.\%S")
 }
 \arguments{
 \item{x}{A character vector of dates to parse.}

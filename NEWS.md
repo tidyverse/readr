@@ -1,5 +1,8 @@
 # readr 0.1.1.9000
 
+* New `col_time()` allows you to parse times (hours, minutes, seconds) in
+  to number of seconds since midnight.
+
 * readr now has a new strategy for dealing with settings that vary from
   place to place: locales. The default locale is still US-English centric
   (because R itself is), but you can now easily override the default

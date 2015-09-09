@@ -67,16 +67,25 @@ public:
   }
 
   // Is this a valid date time?
-  bool isValid() const {
+  bool validDateTime() const {
+    return validDate() && validTime();
+  }
+
+  bool validDate() const {
+    if (mon_ < 0 || mon_ > 11)
+      return false;
+    if (day_ < 0 || day_ >= days_in_month())
+      return false;
+
+    return true;
+  }
+
+  bool validTime() const {
     if (sec_ < 0 || sec_ > 60)
       return false;
     if (min_ < 0 || min_ > 59)
       return false;
     if (hour_ < 0 || hour_ > 23)
-      return false;
-    if (mon_ < 0 || mon_ > 11)
-      return false;
-    if (day_ < 0 || day_ >= days_in_month())
       return false;
 
     return true;
@@ -166,6 +175,10 @@ public:
     return utcdate();
   }
 
+  double time() const {
+    return psec_ + sec_ + (min_ * 60) + (hour_ * 3600);
+  }
+
 private:
 
   int repair_hour_min() {
@@ -216,14 +229,13 @@ private:
   // Compared to usual implementations this returns a double, and supports
   // a wider range of dates. Invalid dates have undefined behaviour.
   double utctime() const {
-    return offset_ + psec_ + sec_ + (min_ * 60) + (hour_ * 3600) +
-      (utcdate() * 86400.0);
+    return utcdate() * 86400.0 + time() + offset_;
   }
 
   // Find number of days since 1970-01-01.
   // Invalid dates have undefined behaviour.
   int utcdate() const {
-    if (!isValid())
+    if (!validDate())
       return NA_REAL;
 
     // Number of days since start of year
@@ -251,7 +263,7 @@ private:
 
   double localtime(TzManager* pTzManager) const {
     pTzManager->setTz(tz_);
-    if (!isValid())
+    if (!validDateTime())
       return NA_REAL;
 
     struct tm tm;

@@ -74,7 +74,7 @@ public:
     if (!consumeTzOffset(&tzOffsetHours_, &tzOffsetMinutes_))
       return false;
 
-    return isComplete() && isValid();
+    return isComplete();
   }
 
   bool isComplete() {
@@ -207,7 +207,7 @@ public:
 
     consumeWhiteSpace(); // always consume trailing whitespace
 
-    return isComplete() && isValid();
+    return isComplete();
   }
 
   DateTime makeDateTime() {
@@ -221,16 +221,12 @@ public:
     DateTime dt(year_, mon_, day_, 0, 0, 0, 0, "UTC");
     return dt;
   }
-
-private:
-  bool isValid() {
-    // Must have year, month and day
-    if (year_ == -1 || mon_ == -1 || day_ == -1)
-      return false;
-
-    return true;
+  DateTime makeTime() {
+    DateTime dt(0, 0, 0, hour_ + (isPM_ ? 12 : 0), min_, sec_, psec_, "UTC");
+    return dt;
   }
 
+private:
   inline bool consumeSeconds(int* pSec, double* pPartialSec) {
     double sec;
     if (!consumeDouble(&sec))

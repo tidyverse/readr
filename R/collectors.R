@@ -315,3 +315,15 @@ parse_date <- function(x, format = "%Y-%m-%d") {
 col_date <- function(format = "%Y-%m-%d") {
   collector("date", format = format)
 }
+
+#' @rdname parse_datetime
+#' @export
+parse_time <- function(x, format = "%H:%M") {
+  parse_vector(x, col_time(format))
+}
+
+#' @rdname parse_datetime
+#' @export
+col_time <- function(format = "%H:%M.%S") {
+  collector("time", format = format)
+}

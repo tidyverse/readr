@@ -30,6 +30,10 @@ CollectorPtr Collector::create(List spec, LocaleInfo* pLocale) {
     std::string tz = as<std::string>(spec["tz"]);
     return CollectorPtr(new CollectorDateTime(format, tz));
   }
+  if (subclass == "collector_time") {
+    std::string format = as<std::string>(spec["format"]);
+    return CollectorPtr(new CollectorTime(format));
+  }
   if (subclass == "collector_factor") {
     CharacterVector levels = as<CharacterVector>(spec["levels"]);
     bool ordered = as<bool>(spec["ordered"]);
@@ -99,7 +103,7 @@ void CollectorDate::setValue(int i, const Token& t) {
     }
 
     DateTime dt = parser_.makeDate();
-    if (!dt.isValid()) {
+    if (!dt.validDate()) {
       warn(t.row(), t.col(), "valid date", std_string);
       INTEGER(column_)[i] = NA_INTEGER;
       return;
@@ -134,7 +138,7 @@ void CollectorDateTime::setValue(int i, const Token& t) {
     }
 
     DateTime dt = parser_.makeDateTime();
-    if (!dt.isValid()) {
+    if (!dt.validDateTime()) {
       warn(t.row(), t.col(), "valid date", std_string);
       REAL(column_)[i] = NA_REAL;
       return;
@@ -319,4 +323,38 @@ void CollectorNumeric::setValue(int i, const Token& t) {
   case TOKEN_EOF:
     Rcpp::stop("Invalid token");
   }
+}
+
+void CollectorTime::setValue(int i, const Token& t) {
+  switch(t.type()) {
+  case TOKEN_STRING: {
+    boost::container::string buffer;
+    SourceIterators string = t.getString(&buffer);
+    std::string std_string(string.first, string.second);
+
+    parser_.setDate(std_string.c_str());
+    bool res = parser_.parse(format_);
+
+    if (!res) {
+      warn(t.row(), t.col(), "time like " +  format_, std_string);
+      INTEGER(column_)[i] = NA_INTEGER;
+      return;
+    }
+
+    DateTime dt = parser_.makeTime();
+    if (!dt.validTime()) {
+      warn(t.row(), t.col(), "valid date", std_string);
+      INTEGER(column_)[i] = NA_INTEGER;
+      return;
+    }
+    INTEGER(column_)[i] = dt.time();
+    return;
+  }
+  case TOKEN_MISSING:
+  case TOKEN_EMPTY:
+    INTEGER(column_)[i] = NA_INTEGER;
+  case TOKEN_EOF:
+    Rcpp::stop("Invalid token");
+  }
+
 }
