@@ -2,7 +2,7 @@
 using namespace Rcpp;
 
 #include "Collector.h"
-#include "Locale.h"
+#include "LocaleInfo.h"
 #include "Token.h"
 
 // [[Rcpp::export]]

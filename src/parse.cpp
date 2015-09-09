@@ -1,11 +1,11 @@
 #include <Rcpp.h>
 using namespace Rcpp;
 
-#include "Locale.h"
+#include "Collector.h"
+#include "LocaleInfo.h"
 #include "Source.h"
 #include "Tokenizer.h"
 #include "TokenizerLine.h"
-#include "Collector.h"
 #include "Warnings.h"
 
 // [[Rcpp::export]]
