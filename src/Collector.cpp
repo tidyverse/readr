@@ -9,36 +9,35 @@ CollectorPtr Collector::create(List spec, LocaleInfo* pLocale) {
   std::string subclass(as<CharacterVector>(spec.attr("class"))[0]);
 
   if (subclass == "collector_skip")
-    return boost::shared_ptr<Collector>(new CollectorSkip());
+    return CollectorPtr(new CollectorSkip());
   if (subclass == "collector_logical")
-    return boost::shared_ptr<Collector>(new CollectorLogical());
+    return CollectorPtr(new CollectorLogical());
   if (subclass == "collector_integer")
-    return boost::shared_ptr<Collector>(new CollectorInteger());
+    return CollectorPtr(new CollectorInteger());
   if (subclass == "collector_double") {
-    return boost::shared_ptr<Collector>(new CollectorDouble(pLocale->decimalMark_));
+    return CollectorPtr(new CollectorDouble(pLocale->decimalMark_));
   }
   if (subclass == "collector_number")
-    return boost::shared_ptr<Collector>(new CollectorNumeric(pLocale->decimalMark_, pLocale->groupingMark_));
+    return CollectorPtr(new CollectorNumeric(pLocale->decimalMark_, pLocale->groupingMark_));
   if (subclass == "collector_character")
-    return boost::shared_ptr<Collector>(new CollectorCharacter(&pLocale->encoder_));
+    return CollectorPtr(new CollectorCharacter(&pLocale->encoder_));
   if (subclass == "collector_date") {
     std::string format = as<std::string>(spec["format"]);
-    return boost::shared_ptr<Collector>(new CollectorDate(format));
+    return CollectorPtr(new CollectorDate(format));
   }
   if (subclass == "collector_datetime") {
     std::string format = as<std::string>(spec["format"]);
     std::string tz = as<std::string>(spec["tz"]);
-    return boost::shared_ptr<Collector>(new CollectorDateTime(format, tz));
+    return CollectorPtr(new CollectorDateTime(format, tz));
   }
   if (subclass == "collector_factor") {
     CharacterVector levels = as<CharacterVector>(spec["levels"]);
     bool ordered = as<bool>(spec["ordered"]);
-    return boost::shared_ptr<Collector>(new CollectorFactor(levels, ordered));
+    return CollectorPtr(new CollectorFactor(levels, ordered));
   }
 
-
   Rcpp::stop("Unsupported column type");
-  return boost::shared_ptr<Collector>();
+  return CollectorPtr(new CollectorSkip());
 }
 
 std::vector<CollectorPtr> collectorsCreate(ListOf<List> specs,
