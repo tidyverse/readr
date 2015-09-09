@@ -4,7 +4,8 @@
 \alias{type_convert}
 \title{Re-convert character columns in existing data frame.}
 \usage{
-type_convert(df, col_types = NULL, na = c("", "NA"), trim_ws = TRUE)
+type_convert(df, col_types = NULL, na = c("", "NA"), trim_ws = TRUE,
+  locale = default_locale())
 }
 \arguments{
 \item{df}{A data frame.}
@@ -31,6 +32,12 @@ option to \code{character()} to indicate no missing values.}
 
 \item{trim_ws}{Should leading and trailing whitespace be trimmed from
 each field before parsing it?}
+
+\item{locale}{The locale controls defaults that vary from place to place.
+The default locale is US-centric (like R), but you can use
+\code{\link{locale}} to create your own locale that controls things like
+the default time zone, encoding, decimal mark, big mark, and day/month
+names.}
 }
 \description{
 This is useful if you need to do some manual munging - you can read the

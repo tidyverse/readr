@@ -15,13 +15,19 @@ NULL
 #' @inheritParams tokenizer_delim
 #' @inheritParams col_names_standardise
 #' @inheritParams col_types_standardise
+#' @param locale The locale controls defaults that vary from place to place.
+#'   The default locale is US-centric (like R), but you can use
+#'   \code{\link{locale}} to create your own locale that controls things like
+#'   the default time zone, encoding, decimal mark, big mark, and day/month
+#'   names.
 #' @param n_max Maximum number of records to read.
 #' @param progress Display a progress bar? By default it will only display
 #'   in an interactive session. The display is updated every 50,000 values
 #'   and will only display if estimated reading time is 5 seconds or more.
-#' @usage read_delim(file, delim, quote = '\"', escape_backslash = FALSE,
-#'   escape_double = TRUE, na = c("", "NA"), col_names = TRUE, col_types = NULL,
-#'   skip = 0, n_max = -1, progress = interactive())
+#' @usage read_delim(file, delim, quote = '"', escape_backslash = FALSE,
+#'   escape_double = TRUE, col_names = TRUE, col_types = NULL,
+#'   locale = default_locale(), na = c("", "NA"), skip = 0, n_max = -1,
+#'   progress = interactive())
 #' @return A data frame. If there are parsing problems, a warning tells you
 #'   how many, and you can retrieve the details with \code{\link{problems}()}.
 #' @export
@@ -55,54 +61,60 @@ NULL
 #' read_csv2("a;b\n1,0;2,0")
 #' read_tsv("a\tb\n1.0\t2.0")
 #' read_delim("a|b\n1.0|2.0", delim = "|")
-read_delim <- function(file, delim, quote = '"', escape_backslash = FALSE,
-                       escape_double = TRUE, na = c("", "NA"), col_names = TRUE,
-                       col_types = NULL, skip = 0, n_max = -1,
-                       progress = interactive()) {
+read_delim <- function(file, delim, quote = '"',
+                       escape_backslash = FALSE, escape_double = TRUE,
+                       col_names = TRUE, col_types = NULL,
+                       locale = default_locale(), na = c("", "NA"),
+                       skip = 0, n_max = -1, progress = interactive()) {
   tokenizer <- tokenizer_delim(delim, quote = quote,
     escape_backslash = escape_backslash, escape_double = escape_double,
     na = na)
   read_delimited(file, tokenizer, col_names = col_names, col_types = col_types,
-    skip = skip, n_max = n_max, progress = progress)
+    locale = locale, skip = skip, n_max = n_max, progress = progress)
 }
 
 #' @rdname read_delim
 #' @export
-read_csv <- function(file, col_names = TRUE, col_types = NULL, na = c("", "NA"),
+read_csv <- function(file, col_names = TRUE, col_types = NULL,
+                     locale = default_locale(), na = c("", "NA"),
                      trim_ws = TRUE, skip = 0, n_max = -1,
                      progress = interactive()) {
 
   tokenizer <- tokenizer_csv(na = na, trim_ws = trim_ws)
   read_delimited(file, tokenizer, col_names = col_names, col_types = col_types,
-    skip = skip, n_max = n_max, progress = progress)
+    locale = locale, skip = skip, n_max = n_max, progress = progress)
 }
 
 #' @rdname read_delim
 #' @export
 read_csv2 <- function(file, col_names = TRUE, col_types = NULL,
-                      na = c("", "NA"), trim_ws = TRUE, skip = 0, n_max = -1,
+                      locale = default_locale(),
+                      na = c("", "NA"),
+                      trim_ws = TRUE, skip = 0, n_max = -1,
                       progress = interactive()) {
 
   tokenizer <- tokenizer_delim(delim = ";", na = na, trim_ws = trim_ws)
   read_delimited(file, tokenizer, col_names = col_names, col_types = col_types,
-    skip = skip, n_max = n_max, progress = progress)
+    locale = locale, skip = skip, n_max = n_max, progress = progress)
 }
 
 
 #' @rdname read_delim
 #' @export
-read_tsv <- function(file, col_names = TRUE, col_types = NULL, na = c("", "NA"),
+read_tsv <- function(file, col_names = TRUE, col_types = NULL,
+                     locale = default_locale(), na = c("", "NA"),
                      trim_ws = TRUE, skip = 0, n_max = -1,
                      progress = interactive()) {
 
   tokenizer <- tokenizer_tsv(na = na, trim_ws = trim_ws)
   read_delimited(file, tokenizer, col_names = col_names, col_types = col_types,
-    skip = skip, n_max = n_max, progress = progress)
+    locale = locale, skip = skip, n_max = n_max, progress = progress)
 }
 
 # Helper functions for reading from delimited files ----------------------------
 read_delimited <- function(file, tokenizer, col_names = TRUE, col_types = NULL,
-                           skip = 0, n_max = -1, progress = interactive()) {
+                           locale = default_locale(), skip = 0, n_max = -1,
+                           progress = interactive()) {
   name <- source_name(file)
   # If connection needed, read once.
   file <- standardise_path(file)
@@ -119,9 +131,9 @@ read_delimited <- function(file, tokenizer, col_names = TRUE, col_types = NULL,
   col_names <- col_names_standardise(col_names, header(ds, tokenizer))
 
   ds <- datasource(data, skip = skip)
-  col_types <- col_types_standardise(col_types, col_names, types(ds, tokenizer, n_max = n_max))
-  out <- read_tokens(ds, tokenizer, col_types, col_names, n_max = n_max,
-    progress = progress)
+  col_types <- col_types_standardise(col_types, col_names, types(ds, tokenizer, locale, n_max = n_max))
+  out <- read_tokens(ds, tokenizer, col_types, col_names, locale_ = locale,
+    n_max = n_max, progress = progress)
 
   out <- name_problems(out)
   warn_problems(out, name)
@@ -132,12 +144,12 @@ header <- function(datasource, tokenizer) {
   suppressWarnings(tokenize(datasource, tokenizer = tokenizer, n_max = 1)[[1]])
 }
 
-types <- function(source, tokenizer, n = 1000, n_max = -1) {
+types <- function(source, tokenizer, locale, n = 1000, n_max = -1) {
   if (n_max > 0) {
     n <- min(n, n_max)
   }
 
-  collectorsGuess(source, tokenizer, n = n)
+  collectorsGuess(source, tokenizer, locale, n = n)
 }
 
 

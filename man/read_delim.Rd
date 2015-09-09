@@ -7,18 +7,22 @@
 \alias{read_tsv}
 \title{Read a delimited file into a data frame.}
 \usage{
-read_delim(file, delim, quote = '\"', escape_backslash = FALSE,
-  escape_double = TRUE, na = c("", "NA"), col_names = TRUE, col_types = NULL,
-  skip = 0, n_max = -1, progress = interactive())
+read_delim(file, delim, quote = '"', escape_backslash = FALSE,
+  escape_double = TRUE, col_names = TRUE, col_types = NULL,
+  locale = default_locale(), na = c("", "NA"), skip = 0, n_max = -1,
+  progress = interactive())
 
-read_csv(file, col_names = TRUE, col_types = NULL, na = c("", "NA"),
-  trim_ws = TRUE, skip = 0, n_max = -1, progress = interactive())
+read_csv(file, col_names = TRUE, col_types = NULL,
+  locale = default_locale(), na = c("", "NA"), trim_ws = TRUE, skip = 0,
+  n_max = -1, progress = interactive())
 
-read_csv2(file, col_names = TRUE, col_types = NULL, na = c("", "NA"),
-  trim_ws = TRUE, skip = 0, n_max = -1, progress = interactive())
+read_csv2(file, col_names = TRUE, col_types = NULL,
+  locale = default_locale(), na = c("", "NA"), trim_ws = TRUE, skip = 0,
+  n_max = -1, progress = interactive())
 
-read_tsv(file, col_names = TRUE, col_types = NULL, na = c("", "NA"),
-  trim_ws = TRUE, skip = 0, n_max = -1, progress = interactive())
+read_tsv(file, col_names = TRUE, col_types = NULL,
+  locale = default_locale(), na = c("", "NA"), trim_ws = TRUE, skip = 0,
+  n_max = -1, progress = interactive())
 }
 \arguments{
 \item{file}{Either a path to a file, a connection, or literal data
@@ -44,9 +48,6 @@ to add special characters like \code{\\n}.}
 \item{escape_double}{Does the file escape quotes by doubling them?
 i.e. If this option is \code{TRUE}, the value \code{""""} represents
 a single quote, \code{\"}.}
-
-\item{na}{Character vector of strings to use for missing values. Set this
-option to \code{character()} to indicate no missing values.}
 
 \item{col_names}{Either \code{TRUE}, \code{FALSE} or a character vector
   of column names.
@@ -75,6 +76,15 @@ option to \code{character()} to indicate no missing values.}
   Alternatively, you can use a compact string representation where each
   character represents one column: c = character, d = double, i = integer,
   l = logical, ? = guess, or \code{_}/\code{-} to skip the column.}
+
+\item{locale}{The locale controls defaults that vary from place to place.
+The default locale is US-centric (like R), but you can use
+\code{\link{locale}} to create your own locale that controls things like
+the default time zone, encoding, decimal mark, big mark, and day/month
+names.}
+
+\item{na}{Character vector of strings to use for missing values. Set this
+option to \code{character()} to indicate no missing values.}
 
 \item{skip}{Number of lines to skip before reading data.}
 

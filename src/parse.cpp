@@ -1,10 +1,11 @@
 #include <Rcpp.h>
 using namespace Rcpp;
 
+#include "Collector.h"
+#include "LocaleInfo.h"
 #include "Source.h"
 #include "Tokenizer.h"
 #include "TokenizerLine.h"
-#include "Collector.h"
 #include "Warnings.h"
 
 // [[Rcpp::export]]
@@ -79,11 +80,13 @@ RObject tokenize_(List sourceSpec, List tokenizerSpec, int n_max) {
 
 // [[Rcpp::export]]
 SEXP parse_vector_(CharacterVector x, List collectorSpec,
-                   const std::vector<std::string>& na) {
+                   List locale_, const std::vector<std::string>& na) {
   Warnings warnings;
   int n = x.size();
 
-  boost::shared_ptr<Collector> col = Collector::create(collectorSpec);
+  LocaleInfo locale(locale_);
+
+  boost::shared_ptr<Collector> col = Collector::create(collectorSpec, locale);
   col->setWarnings(&warnings);
   col->resize(n);
 

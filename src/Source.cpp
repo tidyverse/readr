@@ -1,8 +1,7 @@
-#include "Source.h"
-
 #include <Rcpp.h>
 using namespace Rcpp;
 
+#include "Source.h"
 #include "SourceFile.h"
 #include "SourceString.h"
 #include "SourceRaw.h"

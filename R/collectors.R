@@ -15,23 +15,15 @@ collector_find <- function(name) {
 #'
 #' @param x Character vector of elements to parse.
 #' @param collector Column specification.
-#' @param na Character vector giving strings to treat as missing.
+#' @inheritParams read_delim
 #' @keywords internal
 #' @export
 #' @examples
 #' x <- c("1", "2", "3", "NA")
 #' parse_vector(x, col_integer())
 #' parse_vector(x, col_double())
-#' parse_vector(x, col_character())
-#' parse_vector(x, col_skip())
-#'
-#' # Invalid values are replaced with missing values with a warning.
-#' x <- c("1", "2", "3", "-")
-#' parse_vector(x, col_double())
-#' # Or flag values as missing
-#' parse_vector(x, col_double(), na = "-")
-parse_vector <- function(x, collector, na = "NA") {
-  warn_problems(parse_vector_(x, collector, na = na))
+parse_vector <- function(x, collector, na = c("", "NA"), locale = default_locale()) {
+  warn_problems(parse_vector_(x, collector, na = na, locale_ = locale))
 }
 
 #' Parse character vectors into typed columns.
@@ -42,19 +34,25 @@ parse_vector <- function(x, collector, na = "NA") {
 #'
 #' @name collector
 #' @param x Character vector of values to parse.
-#' @param na Character vector giving strings to treat as missing.
+#' @inheritParams tokenizer_delim
+#' @inheritParams read_delim
 #' @seealso \code{\link{parse_datetime}}, \code{\link{type_convert}} to
 #'   automatically re-parse all character columns in a data frame.
 #' @examples
 #' parse_integer(c("1", "2", "3"))
 #' parse_double(c("1", "2", "3.123"))
-#' parse_euro_double(c("1", "2", "3,123"))
 #' parse_factor(c("a", "b"), letters)
-#' parse_numeric("$1,123,456.000")
+#' parse_number("$1,123,456.00")
 #'
-#' # If there are parsing problems, you'll get a warning message saying
-#' # how many. Use problems() to access a data frame giving more details.
-#' parse_integer(c("1X", "blah", "3"))
+#' # Use locale to override default decimal and grouping marks
+#' es_MX <- locale("es", decimal_mark = ",")
+#' parse_number("$1.123.456,00", locale = es_MX)
+#'
+#' # Invalid values are replaced with missing values with a warning.
+#' x <- c("1", "2", "3", "-")
+#' parse_double(x)
+#' # Or flag values as missing
+#' parse_double(x, na = "-")
 NULL
 
 #' @rdname collector
@@ -65,8 +63,8 @@ col_character <- function() {
 
 #' @rdname collector
 #' @export
-parse_character <- function(x, na = c("", "NA")) {
-  parse_vector(x, col_character(), na = na)
+parse_character <- function(x, na = c("", "NA"), locale = default_locale()) {
+  parse_vector(x, col_character(), na = na, locale = locale)
 }
 
 #' @rdname collector
@@ -77,8 +75,8 @@ col_integer <- function() {
 
 #' @rdname collector
 #' @export
-parse_integer <- function(x, na = c("", "NA")) {
-  parse_vector(x, col_integer(), na = na)
+parse_integer <- function(x, na = c("", "NA"), locale = default_locale()) {
+  parse_vector(x, col_integer(), na = na, locale = locale)
 }
 
 #' @rdname collector
@@ -89,33 +87,51 @@ col_double <- function() {
 
 #' @rdname collector
 #' @export
-parse_double <- function(x, na = c("", "NA")) {
-  parse_vector(x, col_double(), na = na)
+parse_double <- function(x, na = c("", "NA"), locale = default_locale()) {
+  parse_vector(x, col_double(), na = na, locale = locale)
 }
 
 #' @rdname collector
 #' @export
 col_euro_double <- function() {
-  collector("euro_double")
+  warning("Deprecated: please set locale")
+  collector("double")
 }
 
 #' @rdname collector
 #' @export
 parse_euro_double <- function(x, na = c("", "NA")) {
-  parse_vector(x, col_euro_double(), na = na)
+  warning("Deprecated: please set locale")
+  parse_vector(x, col_double(), na = na)
 }
 
 
 #' @rdname collector
+#' @usage NULL
 #' @export
 col_numeric <- function() {
-  collector("numeric")
+  warning("Deprecated: please use `col_number()`")
+  collector("number")
+}
+
+#' @rdname collector
+#' @usage NULL
+#' @export
+parse_numeric <- function(x, na = c("", "NA"), locale = default_locale()) {
+  warning("Deprecated: please use `parse_number()`")
+  parse_vector(x, col_number(), na = na, locale = locale)
 }
 
 #' @rdname collector
 #' @export
-parse_numeric <- function(x, na = c("", "NA")) {
-  parse_vector(x, col_numeric(), na = na)
+col_number <- function() {
+  collector("number")
+}
+
+#' @rdname collector
+#' @export
+parse_number <- function(x, na = c("", "NA"), locale = default_locale()) {
+  parse_vector(x, col_number(), na = na, locale = locale)
 }
 
 #' @rdname collector
@@ -126,8 +142,8 @@ col_logical <- function() {
 
 #' @rdname collector
 #' @export
-parse_logical <- function(x, na = c("", "NA")) {
-  parse_vector(x, col_logical(), na = na)
+parse_logical <- function(x, na = c("", "NA"), locale = default_locale()) {
+  parse_vector(x, col_logical(), na = na, locale = locale)
 }
 
 #' @param levels Character vector providing set of allowed levels.
@@ -140,8 +156,9 @@ col_factor <- function(levels, ordered = FALSE) {
 
 #' @rdname collector
 #' @export
-parse_factor <- function(x, levels, ordered = FALSE, na = c("", "NA")) {
-  parse_vector(x, col_factor(levels, ordered), na = na)
+parse_factor <- function(x, levels, ordered = FALSE, na = c("", "NA"),
+                         locale = default_locale()) {
+  parse_vector(x, col_factor(levels, ordered), na = na, locale = locale)
 }
 
 #' @rdname collector

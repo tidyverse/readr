@@ -12,7 +12,7 @@
 #' @inheritParams tokenizer_fwf
 #' @inheritParams col_names_standardise
 #' @inheritParams col_types_standardise
-#' @inheritParams read_csv
+#' @inheritParams read_delim
 #' @param col_positions Column positions, as created by \code{fwf_empty},
 #'   \code{fwf_widths} or \code{fwf_positions}. To read in only selected fields,
 #'   use \code{fwf_positions}.
@@ -28,15 +28,16 @@
 #' read_fwf(fwf_sample, fwf_widths(c(2, 5, 3)))
 #' # 3. Paired vectors of start and end positions
 #' read_fwf(fwf_sample, fwf_positions(c(1, 4), c(2, 10)))
-read_fwf <- function(file, col_positions, col_types = NULL, na = c("", "NA"),
+read_fwf <- function(file, col_positions, col_types = NULL,
+                     locale = default_locale(), na = c("", "NA"),
                      skip = 0, n_max = -1, progress = interactive()) {
   ds <- datasource(file, skip = skip)
   tokenizer <- tokenizer_fwf(col_positions$begin, col_positions$end, na = na)
 
   col_types <- col_types_standardise(col_types, col_positions$col_names,
-    types(ds, tokenizer))
-  out <- read_tokens(ds, tokenizer, col_types, col_positions$col_names, n_max = n_max,
-    progress = progress)
+    types(ds, tokenizer, locale))
+  out <- read_tokens(ds, tokenizer, col_types, col_positions$col_names,
+    locale_ = locale, n_max = n_max, progress = progress)
 
   out <- name_problems(out)
   warn_problems(out, source_name(file))

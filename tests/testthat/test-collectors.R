@@ -1,18 +1,29 @@
 context("Collectors")
 
 test_that("guess for empty strings is character", {
-  expect_equal(collectorGuess(c("", "")), "character")
+  expect_equal(collectorGuess(c("", ""), locale()), "character")
 })
 
 test_that("guess for missing vector is character", {
-  expect_equal(collectorGuess(NA_character_), "character")
+  expect_equal(collectorGuess(NA_character_, locale()), "character")
 })
 
 test_that("empty + NA ignored when determining type", {
-  expect_equal(collectorGuess(c("1", "")), "integer")
-  expect_equal(collectorGuess(c("1", NA)), "integer")
+  expect_equal(collectorGuess(c("1", ""), locale()), "integer")
+  expect_equal(collectorGuess(c("1", NA), locale()), "integer")
 })
 
+test_that("guess decimal commas with correct locale", {
+  expect_equal(collectorGuess("1,300", locale()), "number")
+  expect_equal(collectorGuess("1,300", locale(decimal_mark = ",")), "double")
+})
+
+# Numbers -----------------------------------------------------------------
+
+test_that("skipping more than 4 characters fails", {
+  expect_equal(collectorGuess("USD 1,300", locale()), "number")
+  expect_equal(collectorGuess("USDX 1,300", locale()), "character")
+})
 
 # Concise collectors specification ----------------------------------------
 
