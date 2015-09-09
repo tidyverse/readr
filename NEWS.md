@@ -18,7 +18,11 @@
       
 * `parse_numeric()` has been deprecated because the name is confusing - 
   it's a flexible number parser, not a parser of "numerics", as R collectively
-  calls doubles and intergers.
+  calls doubles and integers. Instead use `parse_number()`. Parse number
+  automatically guessed as a column type if it doesn't have to skip more than
+  four characters at the start or end of a string. This should mean most 
+  currencies and percentages will be parsed automatically into numbers, and
+  hopefully there will be few false positives.
 
 * Bumped up row inspection for column typing guessing from 100 to 1000.
 

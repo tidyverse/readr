@@ -301,32 +301,15 @@ void CollectorNumeric::setValue(int i, const Token& t) {
   switch(t.type()) {
   case TOKEN_STRING: {
     boost::container::string buffer;
-    SourceIterators string = t.getString(&buffer);
+    SourceIterators str = t.getString(&buffer);
 
-    std::string clean;
-    // Advance to first number
-    SourceIterator numStart;
-    for (numStart = string.first; numStart != string.second; ++numStart) {
-      if (isNum(*numStart))
-        break;
-    }
+    bool ok = parseNumber(decimalMark_, groupingMark_, str.first, str.second,
+      REAL(column_)[i]);
 
-    for (SourceIterator cur = numStart; cur != string.second; ++cur) {
-      if (isNum(*cur)) {
-        clean.push_back(*cur);
-      } else if (*cur == groupingMark_) {
-        // ignore
-      } else {
-        // end of number
-        break;
-      }
-    }
-
-    std::string::const_iterator cbegin = clean.begin(), cend = clean.end();
-    bool ok = parseDouble(decimalMark_, cbegin, cend, REAL(column_)[i]);
-    if (!ok || cbegin != cend) {
-      warn(t.row(), t.col(), "a number", string);
+    if (!ok) {
       REAL(column_)[i] = NA_REAL;
+      warn(t.row(), t.col(), "a number", str);
+      return;
     }
 
     break;

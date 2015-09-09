@@ -42,6 +42,31 @@ bool isInteger(const std::string& x, const LocaleInfo& locale) {
   return parseInt(begin, end, res) && begin == end;
 }
 
+bool canParseNumber(CharacterVector x, const LocaleInfo& info) {
+  double tmp;
+
+  for (int i = 0; i < x.size(); ++i) {
+    if (x[i] == NA_STRING)
+      continue;
+
+    if (x[i].size() == 0)
+      return false;
+
+    std::string xstr = std::string(x[i]);
+    std::string::const_iterator begin = xstr.begin(), end = xstr.end();
+
+    bool ok = parseNumber(info.decimalMark_, info.groupingMark_, begin, end, tmp);
+    if (!ok)
+      return false;
+
+    int nskip = (begin - xstr.begin()) + (end - xstr.end());
+    if (nskip > 4)
+      return false;
+
+  }
+  return true;
+}
+
 bool isDouble(const std::string& x, const LocaleInfo& locale) {
   double res = 0;
   std::string::const_iterator begin = x.begin(), end = x.end();
@@ -80,6 +105,8 @@ std::string collectorGuess(CharacterVector input, List locale_) {
     return "integer";
   if (canParse(input, isDouble, locale))
     return "double";
+  if (canParseNumber(input, locale))
+    return "number";
   if (canParse(input, isDate, locale))
     return "date";
   if (canParse(input, isDateTime, locale))

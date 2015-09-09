@@ -14,8 +14,15 @@ test_that("empty + NA ignored when determining type", {
 })
 
 test_that("guess decimal commas with correct locale", {
-  expect_equal(collectorGuess("1,3", locale()), "character")
-  expect_equal(collectorGuess("1,3", locale(decimal_mark = ",")), "double")
+  expect_equal(collectorGuess("1,300", locale()), "number")
+  expect_equal(collectorGuess("1,300", locale(decimal_mark = ",")), "double")
+})
+
+# Numbers -----------------------------------------------------------------
+
+test_that("skipping more than 4 characters fails", {
+  expect_equal(collectorGuess("USD 1,300", locale()), "number")
+  expect_equal(collectorGuess("USDX 1,300", locale()), "character")
 })
 
 # Concise collectors specification ----------------------------------------
