@@ -2,12 +2,15 @@
 using namespace Rcpp;
 
 #include "Collector.h"
+#include "LocaleInfo.h"
 #include "Token.h"
 
 // [[Rcpp::export]]
-RObject type_convert_col(CharacterVector x, List spec, int col,
+RObject type_convert_col(CharacterVector x, List spec, List locale_, int col,
                          const std::vector<std::string>& na, bool trim_ws) {
-  CollectorPtr collector = Collector::create(spec);
+  LocaleInfo locale(locale_);
+
+  CollectorPtr collector = Collector::create(spec, locale);
   collector->resize(x.size());
 
   for (int i = 0; i < x.size(); ++i) {

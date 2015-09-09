@@ -7,6 +7,7 @@
 \alias{col_factor}
 \alias{col_integer}
 \alias{col_logical}
+\alias{col_number}
 \alias{col_numeric}
 \alias{col_skip}
 \alias{collector}
@@ -16,43 +17,52 @@
 \alias{parse_factor}
 \alias{parse_integer}
 \alias{parse_logical}
+\alias{parse_number}
 \alias{parse_numeric}
 \title{Parse character vectors into typed columns.}
 \usage{
 col_character()
 
-parse_character(x, na = c("", "NA"))
+parse_character(x, na = c("", "NA"), locale = default_locale())
 
 col_integer()
 
-parse_integer(x, na = c("", "NA"))
+parse_integer(x, na = c("", "NA"), locale = default_locale())
 
 col_double()
 
-parse_double(x, na = c("", "NA"))
+parse_double(x, na = c("", "NA"), locale = default_locale())
 
 col_euro_double()
 
 parse_euro_double(x, na = c("", "NA"))
 
-col_numeric()
+col_number()
 
-parse_numeric(x, na = c("", "NA"))
+parse_number(x, na = c("", "NA"), locale = default_locale())
 
 col_logical()
 
-parse_logical(x, na = c("", "NA"))
+parse_logical(x, na = c("", "NA"), locale = default_locale())
 
 col_factor(levels, ordered = FALSE)
 
-parse_factor(x, levels, ordered = FALSE, na = c("", "NA"))
+parse_factor(x, levels, ordered = FALSE, na = c("", "NA"),
+  locale = default_locale())
 
 col_skip()
 }
 \arguments{
 \item{x}{Character vector of values to parse.}
 
-\item{na}{Character vector giving strings to treat as missing.}
+\item{na}{Character vector of strings to use for missing values. Set this
+option to \code{character()} to indicate no missing values.}
+
+\item{locale}{The locale controls defaults that vary from place to place.
+The default locale is US-centric (like R), but you can use
+\code{\link{locale}} to create your own locale that controls things like
+the default time zone, encoding, decimal mark, big mark, and day/month
+names.}
 
 \item{levels}{Character vector providing set of allowed levels.}
 
@@ -66,13 +76,18 @@ values as they're read in.
 \examples{
 parse_integer(c("1", "2", "3"))
 parse_double(c("1", "2", "3.123"))
-parse_euro_double(c("1", "2", "3,123"))
 parse_factor(c("a", "b"), letters)
-parse_numeric("$1,123,456.000")
+parse_number("$1,123,456.00")
 
-# If there are parsing problems, you'll get a warning message saying
-# how many. Use problems() to access a data frame giving more details.
-parse_integer(c("1X", "blah", "3"))
+# Use locale to override default decimal and grouping marks
+es_MX <- locale("es", decimal_mark = ",")
+parse_number("$1.123.456,00", locale = es_MX)
+
+# Invalid values are replaced with missing values with a warning.
+x <- c("1", "2", "3", "-")
+parse_double(x)
+# Or flag values as missing
+parse_double(x, na = "-")
 }
 \seealso{
 \code{\link{parse_datetime}}, \code{\link{type_convert}} to

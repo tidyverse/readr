@@ -14,7 +14,7 @@
 #' @inheritParams tokenizer_fwf
 #' @inheritParams col_names_standardise
 #' @inheritParams col_types_standardise
-#' @inheritParams read_csv
+#' @inheritParams read_delim
 #' @export
 #' @examples
 #' # One corner from http://www.masseyratings.com/cf/compare.htm
@@ -27,8 +27,9 @@
 #' epa <- system.file("extdata/epa78.txt", package = "readr")
 #' cat(read_file(epa))
 #' read_table(epa, col_names = FALSE)
-read_table <- function(file, col_names = TRUE, col_types = NULL, na = "NA", skip = 0,
-                       n_max = -1) {
+read_table <- function(file, col_names = TRUE, col_types = NULL,
+                       locale = default_locale(), na = "NA",
+                       skip = 0, n_max = -1) {
   columns <- fwf_empty(file, skip = skip)
 
   ds <- datasource(file, skip = skip)
@@ -39,6 +40,8 @@ read_table <- function(file, col_names = TRUE, col_types = NULL, na = "NA", skip
   col_names <- col_names_standardise(col_names, header(ds, tokenizer))
 
   ds <- datasource(file, skip = skip)
-  col_types <- col_types_standardise(col_types, col_names, types(ds, tokenizer))
-  read_tokens(ds, tokenizer, col_types, col_names, n_max = n_max)
+  col_types <- col_types_standardise(col_types, col_names,
+    types(ds, tokenizer, locale))
+  read_tokens(ds, tokenizer, col_types, col_names, locale_ = locale,
+    n_max = n_max)
 }

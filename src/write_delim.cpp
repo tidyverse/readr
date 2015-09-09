@@ -1,6 +1,6 @@
-#include <fstream>
 #include <Rcpp.h>
 using namespace Rcpp;
+#include <fstream>
 
 // Defined later to make copyright clearer
 template <class Stream>

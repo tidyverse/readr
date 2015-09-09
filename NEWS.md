@@ -1,5 +1,29 @@
 # readr 0.1.1.9000
 
+* readr now has a new strategy for dealing with settings that vary from
+  place to place: locales. The default locale is still US-English centric
+  (because R itself is), but you can now easily override the default
+  tz, decimal separator, grouping mark, day & month names, date format, and 
+  encoding.
+  
+    * `read_csv()`, `read_tsv()`, `read_fwf()`, `read_table()`, 
+      `type_convert()`, `parse_vector()` all gain a `locale` argument.
+
+    * `col_euro_double()` and `parse_euro_double()` have been deprecated.
+      Please use the `decimal_mark` parameter to `locale()` instead.
+      
+    * `parse_number()` has a more conservative strategy: it starts at 
+      the first numeric value and continues until it reach the end of the 
+      number. It uses `groupingMark` to define what a number is.
+      
+* `parse_numeric()` has been deprecated because the name is confusing - 
+  it's a flexible number parser, not a parser of "numerics", as R collectively
+  calls doubles and integers. Instead use `parse_number()`. Parse number
+  automatically guessed as a column type if it doesn't have to skip more than
+  four characters at the start or end of a string. This should mean most 
+  currencies and percentages will be parsed automatically into numbers, and
+  hopefully there will be few false positives.
+
 * Bumped up row inspection for column typing guessing from 100 to 1000.
 
 * Readr gains `vignette("col-types")` which describes how the defaults

@@ -1,8 +1,7 @@
-#include "Tokenizer.h"
-
 #include <Rcpp.h>
 using namespace Rcpp;
 
+#include "Tokenizer.h"
 #include "TokenizerDelim.h"
 #include "TokenizerFwf.h"
 #include "TokenizerLine.h"

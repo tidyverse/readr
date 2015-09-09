@@ -3,6 +3,7 @@
 
 #include <Rcpp.h>
 #include <boost/shared_ptr.hpp>
+#include "LocaleInfo.h"
 #include "Token.h"
 #include "Warnings.h"
 #include "DateTime.h"
@@ -67,7 +68,7 @@ public:
     warn(row, col, expected, std::string(actual.first, actual.second));
   }
 
-  static CollectorPtr create(Rcpp::List spec);
+  static CollectorPtr create(Rcpp::List spec, const LocaleInfo& locale);
 
 };
 
@@ -134,16 +135,10 @@ public:
 };
 
 class CollectorDouble : public Collector {
-
+  char decimalMark_;
 public:
-  CollectorDouble(): Collector(Rcpp::NumericVector()) {}
-  void setValue(int i, const Token& t);
-};
-
-class CollectorEuroDouble : public Collector {
-
-public:
-  CollectorEuroDouble(): Collector(Rcpp::NumericVector()) {}
+  CollectorDouble(char decimalMark): Collector(Rcpp::NumericVector()),
+      decimalMark_(decimalMark) {}
   void setValue(int i, const Token& t);
 };
 
@@ -192,9 +187,15 @@ public:
 };
 
 class CollectorNumeric : public Collector {
+  char decimalMark_, groupingMark_;
+
 public:
-  CollectorNumeric(): Collector(Rcpp::NumericVector()) {}
+  CollectorNumeric(char decimalMark, char groupingMark):
+    Collector(Rcpp::NumericVector()),
+    decimalMark_(decimalMark),
+    groupingMark_(groupingMark) {}
   void setValue(int i, const Token& t);
+  bool isNum(char c);
 };
 
 class CollectorSkip : public Collector {
@@ -209,8 +210,8 @@ public:
 
 // Helpers ---------------------------------------------------------------------
 
-std::vector<CollectorPtr> collectorsCreate(Rcpp::ListOf<Rcpp::List> specs, Warnings* pWarning);
+std::vector<CollectorPtr> collectorsCreate(Rcpp::ListOf<Rcpp::List> specs, const LocaleInfo& locale, Warnings* pWarning);
 void collectorsResize(std::vector<CollectorPtr>& collectors, int n);
-std::string collectorGuess(Rcpp::CharacterVector input);
+std::string collectorGuess(Rcpp::CharacterVector input, Rcpp::List locale_);
 
 #endif

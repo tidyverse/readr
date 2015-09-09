@@ -126,5 +126,5 @@ test_that("unambiguous times with and without daylight savings", {
 # Guessing ---------------------------------------------------------------------
 
 test_that("DDDD-DD not parsed as date (i.e. doesn't trigger partial date match)", {
-  expect_equal(collectorGuess(c("1989-90", "1990-91")), "character")
+  expect_equal(collectorGuess(c("1989-90", "1990-91"), locale()), "character")
 })

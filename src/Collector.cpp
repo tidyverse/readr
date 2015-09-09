@@ -1,17 +1,11 @@
-#include "Collector.h"
-
 #include <Rcpp.h>
 using namespace Rcpp;
 
 #include "Collector.h"
-#include "DoubleEuroPolicy.h"
-#include <boost/spirit/include/qi.hpp>
-#include <boost/spirit/include/phoenix_core.hpp>
-#include <boost/spirit/include/phoenix_operator.hpp>
-namespace qi = boost::spirit::qi;
+#include "LocaleInfo.h"
+#include "QiParsers.h"
 
-
-CollectorPtr Collector::create(List spec) {
+CollectorPtr Collector::create(List spec, const LocaleInfo& locale) {
   std::string subclass(as<CharacterVector>(spec.attr("class"))[0]);
 
   if (subclass == "collector_skip")
@@ -20,12 +14,11 @@ CollectorPtr Collector::create(List spec) {
     return boost::shared_ptr<Collector>(new CollectorLogical());
   if (subclass == "collector_integer")
     return boost::shared_ptr<Collector>(new CollectorInteger());
-  if (subclass == "collector_double")
-    return boost::shared_ptr<Collector>(new CollectorDouble());
-  if (subclass == "collector_euro_double")
-    return boost::shared_ptr<Collector>(new CollectorEuroDouble());
-  if (subclass == "collector_numeric")
-    return boost::shared_ptr<Collector>(new CollectorNumeric());
+  if (subclass == "collector_double") {
+    return boost::shared_ptr<Collector>(new CollectorDouble(locale.decimalMark_));
+  }
+  if (subclass == "collector_number")
+    return boost::shared_ptr<Collector>(new CollectorNumeric(locale.decimalMark_, locale.groupingMark_));
   if (subclass == "collector_character")
     return boost::shared_ptr<Collector>(new CollectorCharacter());
   if (subclass == "collector_date") {
@@ -48,10 +41,12 @@ CollectorPtr Collector::create(List spec) {
   return boost::shared_ptr<Collector>();
 }
 
-std::vector<CollectorPtr> collectorsCreate(ListOf<List> specs, Warnings* pWarning) {
+std::vector<CollectorPtr> collectorsCreate(ListOf<List> specs,
+                                           const LocaleInfo& locale,
+                                           Warnings* pWarning) {
   std::vector<CollectorPtr> collectors;
   for (int j = 0; j < specs.size(); ++j) {
-    CollectorPtr col = Collector::create(specs[j]);
+    CollectorPtr col = Collector::create(specs[j], locale);
     col->setWarnings(pWarning);
     collectors.push_back(col);
   }
@@ -167,38 +162,7 @@ void CollectorDouble::setValue(int i, const Token& t) {
     boost::container::string buffer;
     SourceIterators str = t.getString(&buffer);
 
-    bool ok = qi::parse(str.first, str.second, qi::double_, REAL(column_)[i]);
-    if (!ok) {
-      REAL(column_)[i] = NA_REAL;
-      warn(t.row(), t.col(), "a double", str);
-      return;
-    }
-
-    if (str.first != str.second) {
-      REAL(column_)[i] = NA_REAL;
-      warn(t.row(), t.col(), "no trailing characters", str);
-      return;
-    }
-
-    return;
-  }
-  case TOKEN_MISSING:
-  case TOKEN_EMPTY:
-    REAL(column_)[i] = NA_REAL;
-    break;
-  case TOKEN_EOF:
-    Rcpp::stop("Invalid token");
-  }
-}
-
-void CollectorEuroDouble::setValue(int i, const Token& t) {
-  switch(t.type()) {
-  case TOKEN_STRING: {
-    boost::container::string buffer;
-    SourceIterators str = t.getString(&buffer);
-
-    bool ok = qi::parse(str.first, str.second,
-      qi::real_parser<double, DoubleEuroPolicy>(), REAL(column_)[i]);
+    bool ok = parseDouble(decimalMark_, str.first, str.second, REAL(column_)[i]);
     if (!ok) {
       REAL(column_)[i] = NA_REAL;
       warn(t.row(), t.col(), "a double", str);
@@ -256,7 +220,7 @@ void CollectorInteger::setValue(int i, const Token& t) {
     boost::container::string buffer;
     SourceIterators str = t.getString(&buffer);
 
-    bool ok = qi::parse(str.first, str.second, qi::int_, INTEGER(column_)[i]);
+    bool ok = parseInt(str.first, str.second, INTEGER(column_)[i]);
     if (!ok) {
       INTEGER(column_)[i] = NA_INTEGER;
       warn(t.row(), t.col(), "an integer", str);
@@ -329,24 +293,23 @@ void CollectorLogical::setValue(int i, const Token& t) {
   }
 }
 
+bool CollectorNumeric::isNum(char c) {
+  return c == '-' || c == decimalMark_ || (c >= '0' && c <= '9');
+}
 
 void CollectorNumeric::setValue(int i, const Token& t) {
   switch(t.type()) {
   case TOKEN_STRING: {
     boost::container::string buffer;
-    SourceIterators string = t.getString(&buffer);
+    SourceIterators str = t.getString(&buffer);
 
-    std::string clean;
-    for (SourceIterator cur = string.first; cur != string.second; ++cur) {
-      if (*cur == '-' || *cur == '.' || (*cur >= '0' && *cur <= '9'))
-        clean.push_back(*cur);
-    }
+    bool ok = parseNumber(decimalMark_, groupingMark_, str.first, str.second,
+      REAL(column_)[i]);
 
-    std::string::const_iterator cbegin = clean.begin(), cend = clean.end();
-    bool ok = qi::parse(cbegin, cend, qi::double_, REAL(column_)[i]);
-    if (!ok || cbegin != cend) {
-      warn(t.row(), t.col(), "a number", string);
+    if (!ok) {
       REAL(column_)[i] = NA_REAL;
+      warn(t.row(), t.col(), "a number", str);
+      return;
     }
 
     break;
