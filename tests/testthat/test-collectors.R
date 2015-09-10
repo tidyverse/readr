@@ -25,6 +25,10 @@ test_that("skipping more than 4 characters fails", {
   expect_equal(collectorGuess("USDX 1,300", locale()), "character")
 })
 
+test_that("dates don't parse as numbers", {
+  expect_equal(collectorGuess("02/02/1900", locale()), "character")
+})
+
 # Concise collectors specification ----------------------------------------
 
 test_that("_ or - skips column", {

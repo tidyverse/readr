@@ -60,7 +60,7 @@ bool canParseNumber(CharacterVector x, LocaleInfo* pLocale) {
     if (!ok)
       return false;
 
-    int nskip = (begin - xstr.begin()) + (end - xstr.end());
+    int nskip = (begin - xstr.begin()) + (xstr.end() - end);
     if (nskip > 4)
       return false;
 
