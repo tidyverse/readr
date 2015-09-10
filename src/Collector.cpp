@@ -294,10 +294,6 @@ void CollectorLogical::setValue(int i, const Token& t) {
   }
 }
 
-bool CollectorNumeric::isNum(char c) {
-  return c == '-' || c == decimalMark_ || (c >= '0' && c <= '9');
-}
-
 void CollectorNumeric::setValue(int i, const Token& t) {
   switch(t.type()) {
   case TOKEN_STRING: {
