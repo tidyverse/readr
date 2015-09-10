@@ -13,9 +13,9 @@ struct DecimalCommaPolicy : public boost::spirit::qi::real_policies<double> {
   }
 };
 
-template <typename Iterator>
+template <typename Iterator, typename Attr>
 inline bool parseDouble(const char decimalMark, Iterator& first, Iterator& last,
-                        double& res) {
+                        Attr& res) {
 
   if (decimalMark == '.') {
     return boost::spirit::qi::parse(first, last,
@@ -36,9 +36,9 @@ enum NumberState {
 };
 
 
-template <typename Iterator>
+template <typename Iterator, typename Attr>
 inline bool parseNumber(char decimalMark, char groupingMark, Iterator& first,
-                        Iterator& last, double& res) {
+                        Iterator& last, Attr& res) {
 
   // Advance to first non-character
   for(; first != last; ++first) {
@@ -110,8 +110,8 @@ inline bool parseNumber(char decimalMark, char groupingMark, Iterator& first,
 }
 
 
-template <typename Iterator>
-inline bool parseInt(Iterator& first, Iterator& last, int& res) {
+template <typename Iterator, typename Attr>
+inline bool parseInt(Iterator& first, Iterator& last, Attr& res) {
   return  boost::spirit::qi::parse(first, last, boost::spirit::qi::int_, res);
 }
 

@@ -4,12 +4,8 @@
 #include <ctime>
 #include "DateTime.h"
 #include "LocaleInfo.h"
-
 #include <boost/algorithm/string/predicate.hpp>
-#include <boost/spirit/include/qi.hpp>
-#include <boost/spirit/include/phoenix_core.hpp>
-#include <boost/spirit/include/phoenix_operator.hpp>
-namespace qi = boost::spirit::qi;
+#include "QiParsers.h"
 
 // Parsing ---------------------------------------------------------------------
 
@@ -256,7 +252,8 @@ private:
     if (dateItr_ == dateEnd_ || *dateItr_ == '-' || *dateItr_ == '+')
       return false;
 
-    return qi::parse(dateItr_, std::min(dateItr_ + n, dateEnd_), qi::int_, *pOut);
+    const char* end = std::min(dateItr_ + n, dateEnd_);
+    return parseInt(dateItr_, end, *pOut);
   }
 
   // Integer indexed from 1 (i.e. month and date)
@@ -279,7 +276,7 @@ private:
   inline bool consumeDouble(double* pOut) {
     if (dateItr_ == dateEnd_ || *dateItr_ == '-' || *dateItr_ == '+')
       return false;
-    return qi::parse(dateItr_, dateEnd_, qi::double_, *pOut);
+    return parseDouble(pLocale_->decimalMark_, dateItr_, dateEnd_, *pOut);
   }
 
   inline bool consumeWhiteSpace() {

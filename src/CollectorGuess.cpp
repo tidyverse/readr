@@ -43,7 +43,7 @@ bool isInteger(const std::string& x, LocaleInfo* pLocale) {
 }
 
 bool canParseNumber(CharacterVector x, LocaleInfo* pLocale) {
-  double tmp;
+  double tmp = 0;
 
   for (int i = 0; i < x.size(); ++i) {
     if (x[i] == NA_STRING)
