@@ -22,6 +22,11 @@
     * The default encoding is now UTF-8. To load files that are not 
       in UTF-8, set the encoding parameter of the locale (#40)
       
+    * `parse_datetime()` and `parse_date()` with `%B` and `%b` use the
+      month names (full and abbreviate) defined in the locale (#242).
+      They also inherit the tz from the locale, rather than using an
+      explicit `tz` parameter.
+      
 * `parse_numeric()` has been deprecated because the name is confusing - 
   it's a flexible number parser, not a parser of "numerics", as R collectively
   calls doubles and integers. Instead use `parse_number()`. Parse number

@@ -12,7 +12,20 @@
 #' @param decimal_mark,grouping_mark Symbols used to indicate the decimal
 #'   place, and to chunk larger numbers. Decimal mark can only be \code{,} or
 #'   \code{.}.
-#' @param tz Default time zone.
+#' @param tz Default tz. This is used both for input (if the time zone isn't
+#'   present in individual strings), and for output (to control the default
+#'   display). The default is to use "UTC", a time zone that does not use
+#'   daylight savings time (DST) and hence is typically most useful for data.
+#'   The absense of time zones makes it approximately 50x faster to generate
+#'   UTC times than any other time zone.
+#'
+#'   Use \code{""} to use the system default time zone, but beware that this
+#'   will not be reproducible across systems.
+#'
+#'   For a complete list of possible time zones, see \code{\link{OlsonNames}()}.
+#'   Americans, note that "EST" is a Canadian time zone that does not have
+#'   DST. It is \emph{not} Eastern Standard Time. It's better to use
+#'   "US/Eastern", "US/Central" etc.
 #' @param encoding Default encoding. This only affects how the file is
 #'   read - readr always converts the output to UTF-8.
 #' @export
@@ -70,6 +83,9 @@ default_locale <- function() {
 
 check_tz <- function(x) {
   stopifnot(is.character(x), length(x) == 1)
+
+  if (identical(x, ""))
+    return(TRUE)
 
   if (x %in% OlsonNames())
     return(TRUE)
