@@ -13,8 +13,8 @@ default_locale()
 }
 \arguments{
 \item{date_names}{Character representations of day and month names. Either
-a string, which is passed on to \code{\link{date_names_locale}}, or
-an object created by \code{\link{date_names}}.}
+the language code as string (passed on to \code{\link{date_names_lang}})
+or an object created by \code{\link{date_names}}.}
 
 \item{date_format,time_format}{Default date and time formats.}
 

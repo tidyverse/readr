@@ -10,12 +10,12 @@
 #' @param am_pm Names used for AM and PM.
 #' @export
 #' @examples
-#' date_names_locale("en")
-#' date_names_locale("ko")
+#' date_names_lang("en")
+#' date_names_lang("ko")
 #'
-#' date_names_locale("fr")
+#' date_names_lang("fr")
 #' if (require("stringi")) {
-#'   date_names_locale("fr", as_ascii = TRUE)
+#'   date_names_lang("fr", as_ascii = TRUE)
 #' }
 date_names <- function(mon, mon_ab = mon, day, day_ab = day,
                        am_pm = c("AM", "PM")) {
@@ -32,24 +32,24 @@ date_names <- function(mon, mon_ab = mon, day, day_ab = day,
 
 #' @export
 #' @rdname date_names
-#' @param locale A BCP 47 locale, made up of a languge and a region,
+#' @param language A BCP 47 locale, made up of a languge and a region,
 #'   e.g. \code{en_US} for American English. See \code{date_names_locales()}
 #'   for a complete list of available locales.
 #' @param as_ascii Should accents be stripped and the names converted to ASCII?
 #'   This is useful if you're dealing with ASCII data where the correct
 #'   spellings have been lost. Requires the \pkg{stringi} package.
-date_names_locale <- function(locale, as_ascii = FALSE) {
-  stopifnot(is.character(locale), length(locale) == 1)
+date_names_lang <- function(language, as_ascii = FALSE) {
+  stopifnot(is.character(language), length(language) == 1)
 
-  symbols <- date_symbols[[locale]]
+  symbols <- date_symbols[[language]]
   if (is.null(symbols)) {
     # See if we have a set for the base language
-    base <- strsplit(locale, "_", fixed = TRUE)[[1]][1]
+    base <- strsplit(language, "_", fixed = TRUE)[[1]][1]
     symbols <- date_symbols[[base]]
   }
 
   if (is.null(symbols)) {
-    stop("Unknown locale '", locale, "'", call. = FALSE)
+    stop("Unknown language '", language, "'", call. = FALSE)
   }
 
   if (as_ascii) {
@@ -61,7 +61,7 @@ date_names_locale <- function(locale, as_ascii = FALSE) {
 
 #' @export
 #' @rdname date_names
-date_names_locales <- function() {
+date_names_langs <- function() {
   names(date_symbols)
 }
 

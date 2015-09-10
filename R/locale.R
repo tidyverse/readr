@@ -6,8 +6,8 @@
 #' match R (i.e. US English) as closely as possible.
 #'
 #' @param date_names Character representations of day and month names. Either
-#'   a string, which is passed on to \code{\link{date_names_locale}}, or
-#'   an object created by \code{\link{date_names}}.
+#'   the language code as string (passed on to \code{\link{date_names_lang}})
+#'   or an object created by \code{\link{date_names}}.
 #' @param date_format,time_format Default date and time formats.
 #' @param decimal_mark,grouping_mark Symbols used to indicate the decimal
 #'   place, and to chunk larger numbers. Decimal mark can only be \code{,} or
@@ -40,7 +40,7 @@ locale <- function(date_names = "en",
                    decimal_mark = ".", grouping_mark = NULL,
                    tz = "UTC", encoding = "UTF-8") {
   if (is.character(date_names)) {
-    date_names <- date_names_locale(date_names)
+    date_names <- date_names_lang(date_names)
   }
   stopifnot(is.date_names(date_names))
   stopifnot(decimal_mark %in% c(".", ","))
