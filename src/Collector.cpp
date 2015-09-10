@@ -22,7 +22,8 @@ CollectorPtr Collector::create(List spec, LocaleInfo* pLocale) {
   if (subclass == "collector_character")
     return CollectorPtr(new CollectorCharacter(&pLocale->encoder_));
   if (subclass == "collector_date") {
-    std::string format = as<std::string>(spec["format"]);
+    SEXP format_ = spec["format"];
+    std::string format = (Rf_isNull(format_)) ? pLocale->dateFormat_ : as<std::string>(format_);
     return CollectorPtr(new CollectorDate(pLocale, format));
   }
   if (subclass == "collector_datetime") {

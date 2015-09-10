@@ -15,7 +15,7 @@ col_datetime(format = "")
 
 parse_date(x, format = "\%Y-\%m-\%d", locale = default_locale())
 
-col_date(format = "\%Y-\%m-\%d")
+col_date(format = NULL)
 
 parse_time(x, format = "\%H:\%M", locale = default_locale())
 

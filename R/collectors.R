@@ -319,7 +319,7 @@ parse_date <- function(x, format = "%Y-%m-%d", locale = default_locale()) {
 
 #' @rdname parse_datetime
 #' @export
-col_date <- function(format = "%Y-%m-%d") {
+col_date <- function(format = NULL) {
   collector("date", format = format)
 }
 

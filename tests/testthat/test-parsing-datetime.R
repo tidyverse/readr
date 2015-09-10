@@ -107,6 +107,11 @@ test_that("locale affects am/pm", {
   expect_equal(a, b)
 })
 
+test_that("locale affects both guessing and parsing", {
+  out <- parse_auto("01/02/2013", locale = locale(date_format = "%m/%d/%Y"))
+  expect_equal(out, as.Date("2013-01-02"))
+})
+
 # Time zones ------------------------------------------------------------------
 
 test_that("same times with different offsets parsed as same time", {
