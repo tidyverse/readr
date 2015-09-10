@@ -75,6 +75,17 @@ locale <- function(date_names = "en",
 }
 
 #' @export
+print.locale <- function(x, ...) {
+  cat("<locale>\n")
+  cat("Numbers:  ", prettyNum(123456.78, big.mark = x$grouping_mark,
+    decimal.mark = x$decimal_mark, digits = 8), "\n", sep = "")
+  cat("Formats:  ", x$date_format, " / ", x$time_format, "\n", sep = "")
+  cat("Timezone: ", x$tz, "\n", sep = "")
+  cat("Encoding: ", x$encoding, "\n", sep = "")
+  print(x$date_names)
+}
+
+#' @export
 #' @rdname locale
 default_locale <- function() {
   loc <- getOption("readr.default_locale")

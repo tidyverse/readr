@@ -43,12 +43,12 @@ All of the parsing function in readr take a `locale` argument. You'll most often
 ### Names of months and days
 
 ```{r}
-date_names_lang("ko") # Korean
-date_names_lang("fr") # French
-date_names_lang("mas") # Masai
+locale("ko") # Korean
+locale("fr") # French
+locale("mas") # Masai
 ```
 
-Note that the quality of the translations is variable, especially for the rarer languages. If you discover that they're not quite right for your data, you can customise by using `date_names()`.
+Note that the quality of the translations is variable, especially for the rarer languages. If you discover that they're not quite right for your data, you can create your own with `date_names()`.
 
 This allows you to parse dates in other languages:
 
