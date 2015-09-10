@@ -46,17 +46,6 @@ BEGIN_RCPP
     return __result;
 END_RCPP
 }
-// date_time_locale
-List date_time_locale(std::string locale);
-RcppExport SEXP readr_date_time_locale(SEXP localeSEXP) {
-BEGIN_RCPP
-    Rcpp::RObject __result;
-    Rcpp::RNGScope __rngScope;
-    Rcpp::traits::input_parameter< std::string >::type locale(localeSEXP);
-    __result = Rcpp::wrap(date_time_locale(locale));
-    return __result;
-END_RCPP
-}
 // dim_tokens_
 IntegerVector dim_tokens_(List sourceSpec, List tokenizerSpec);
 RcppExport SEXP readr_dim_tokens_(SEXP sourceSpecSEXP, SEXP tokenizerSpecSEXP) {

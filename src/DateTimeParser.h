@@ -3,7 +3,6 @@
 
 #include <ctime>
 #include "DateTime.h"
-#include "DateTimeLocale.h"
 #include "LocaleInfo.h"
 
 #include <boost/algorithm/string/predicate.hpp>
