@@ -23,16 +23,15 @@ CollectorPtr Collector::create(List spec, LocaleInfo* pLocale) {
     return CollectorPtr(new CollectorCharacter(&pLocale->encoder_));
   if (subclass == "collector_date") {
     std::string format = as<std::string>(spec["format"]);
-    return CollectorPtr(new CollectorDate(format));
+    return CollectorPtr(new CollectorDate(pLocale, format));
   }
   if (subclass == "collector_datetime") {
     std::string format = as<std::string>(spec["format"]);
-    std::string tz = as<std::string>(spec["tz"]);
-    return CollectorPtr(new CollectorDateTime(format, tz));
+    return CollectorPtr(new CollectorDateTime(pLocale, format));
   }
   if (subclass == "collector_time") {
     std::string format = as<std::string>(spec["format"]);
-    return CollectorPtr(new CollectorTime(format));
+    return CollectorPtr(new CollectorTime(pLocale, format));
   }
   if (subclass == "collector_factor") {
     CharacterVector levels = as<CharacterVector>(spec["levels"]);

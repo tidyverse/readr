@@ -90,6 +90,17 @@ test_that("%b and %B are case insensitve", {
   expect_equal(parse_date("2001 JANUARY 01", "%Y %B %d"), ref)
 })
 
+
+# Locales -----------------------------------------------------------------
+
+test_that("locale affects months", {
+  jan1 <- as.Date("2010-01-01")
+
+  fr <- locale("fr")
+  expect_equal(parse_date("1 janv. 2010", "%d %b %Y", locale = fr), jan1)
+  expect_equal(parse_date("1 janvier 2010", "%d %B %Y", locale = fr), jan1)
+})
+
 # Time zones ------------------------------------------------------------------
 
 test_that("same times with different offsets parsed as same time", {
@@ -108,16 +119,17 @@ test_that("offsets can cross date boundaries", {
 })
 
 test_that("unambiguous times with and without daylight savings", {
+  melb <- locale(tz = "Australia/Melbourne")
   # Melbourne had daylight savings in 2015 that ended the morning of 2015-04-05
   expect_equal(
-    parse_datetime(c("2015-04-04 12:00:00", "2015-04-06 12:00:00"),
-                   tz="Australia/Melbourne"),
+    parse_datetime(c("2015-04-04 12:00:00", "2015-04-06 12:00:00"), locale = melb),
     as.POSIXct(c("2015-04-04 12:00:00", "2015-04-06 12:00:00"),
                tz = "Australia/Melbourne")
   )
   # Japan didn't have daylight savings in 2015
+  ja <- locale(tz = "Japan")
   expect_equal(
-    parse_datetime(c("2015-04-04 12:00:00", "2015-04-06 12:00:00"), tz="Japan"),
+    parse_datetime(c("2015-04-04 12:00:00", "2015-04-06 12:00:00"), locale = ja),
     as.POSIXct(c("2015-04-04 12:00:00", "2015-04-06 12:00:00"), tz = "Japan")
   )
 })

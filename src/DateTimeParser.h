@@ -4,6 +4,7 @@
 #include <ctime>
 #include "DateTime.h"
 #include "DateTimeLocale.h"
+#include "LocaleInfo.h"
 
 #include <boost/algorithm/string/predicate.hpp>
 #include <boost/spirit/include/qi.hpp>
@@ -21,15 +22,15 @@ class DateTimeParser {
   int tzOffsetHours_, tzOffsetMinutes_;
   std::string tz_;
 
-  const DateTimeLocale& locale_;
+  LocaleInfo* pLocale_;
   std::string tzDefault_;
 
   const char* dateItr_;
   const char* dateEnd_;
 
 public:
-  DateTimeParser(const DateTimeLocale& locale, const std::string& tzDefault = ""):
-  locale_(locale), tzDefault_(tzDefault)
+  DateTimeParser(LocaleInfo* pLocale):
+  pLocale_(pLocale), tzDefault_(pLocale->tz_)
   {
   }
 
@@ -123,11 +124,11 @@ public:
           return false;
         break;
       case 'b': // abbreviated month name
-        if (!consumeString(locale_.monthAbbrev(), &mon_))
+        if (!consumeString(pLocale_->monAb_, &mon_))
           return false;
         break;
       case 'B': // month name
-        if (!consumeString(locale_.month(), &mon_))
+        if (!consumeString(pLocale_->mon_, &mon_))
           return false;
         break;
       case 'd': // day

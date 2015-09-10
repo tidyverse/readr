@@ -294,20 +294,20 @@ col_skip <- function() {
 #' parse_datetime("1979-10-14T1010", tz = "US/Central")
 #' parse_datetime("1979-10-14T1010-0500", tz = "US/Central")
 #' parse_datetime("1979-10-14T1010Z", tz = "US/Central")
-parse_datetime <- function(x, format = "", tz = "UTC") {
-  parse_vector(x, col_datetime(format, tz))
+parse_datetime <- function(x, format = "", locale = default_locale()) {
+  parse_vector(x, col_datetime(format), locale = locale)
 }
 
 #' @rdname parse_datetime
 #' @export
-col_datetime <- function(format = "", tz = "UTC") {
-  collector("datetime", format = format, tz = tz)
+col_datetime <- function(format = "") {
+  collector("datetime", format = format)
 }
 
 #' @rdname parse_datetime
 #' @export
-parse_date <- function(x, format = "%Y-%m-%d") {
-  parse_vector(x, col_date(format))
+parse_date <- function(x, format = "%Y-%m-%d", locale = default_locale()) {
+  parse_vector(x, col_date(format), locale = locale)
 }
 
 #' @rdname parse_datetime
@@ -318,8 +318,8 @@ col_date <- function(format = "%Y-%m-%d") {
 
 #' @rdname parse_datetime
 #' @export
-parse_time <- function(x, format = "%H:%M") {
-  parse_vector(x, col_time(format))
+parse_time <- function(x, format = "%H:%M", locale = default_locale()) {
+  parse_vector(x, col_time(format), locale = locale)
 }
 
 #' @rdname parse_datetime

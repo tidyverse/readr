@@ -90,13 +90,12 @@ public:
 class CollectorDate : public Collector {
   std::string format_;
   DateTimeParser parser_;
-  DateTimeLocale locale_;
 
 public:
-  CollectorDate(const std::string& format):
+  CollectorDate(LocaleInfo* pLocale, const std::string& format):
     Collector(Rcpp::IntegerVector()),
     format_(format),
-    parser_(locale_, "UTC")
+    parser_(pLocale)
   {
   }
 
@@ -112,18 +111,18 @@ public:
 // Date time -------------------------------------------------------------------
 
 class CollectorDateTime : public Collector {
-  std::string format_, tz_;
-  DateTimeLocale locale_;
+  std::string format_;
   DateTimeParser parser_;
+  std::string tz_;
   TzManager tzMan_;
 
 public:
-  CollectorDateTime(const std::string& format, const std::string& tz):
+  CollectorDateTime(LocaleInfo* pLocale, const std::string& format):
     Collector(Rcpp::NumericVector()),
     format_(format),
-    tz_(tz),
-    parser_(locale_, tz),
-    tzMan_(tz)
+    parser_(pLocale),
+    tz_(pLocale->tz_),
+    tzMan_(tz_)
   {
   }
 
@@ -207,13 +206,12 @@ public:
 class CollectorTime : public Collector {
   std::string format_;
   DateTimeParser parser_;
-  DateTimeLocale locale_;
 
 public:
-  CollectorTime(const std::string& format):
+  CollectorTime(LocaleInfo* pLocale, const std::string& format):
     Collector(Rcpp::IntegerVector()),
     format_(format),
-    parser_(locale_, "UTC")
+    parser_(pLocale)
   {
   }
 
