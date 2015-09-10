@@ -8,7 +8,7 @@
 \usage{
 date_names(mon, mon_ab = mon, day, day_ab = day, am_pm = c("AM", "PM"))
 
-date_names_lang(language, as_ascii = FALSE)
+date_names_lang(language)
 
 date_names_langs()
 }
@@ -22,10 +22,6 @@ date_names_langs()
 \item{language}{A BCP 47 locale, made up of a languge and a region,
 e.g. \code{en_US} for American English. See \code{date_names_locales()}
 for a complete list of available locales.}
-
-\item{as_ascii}{Should accents be stripped and the names converted to ASCII?
-This is useful if you're dealing with ASCII data where the correct
-spellings have been lost. Requires the \pkg{stringi} package.}
 }
 \description{
 When parsing dates, you often need to know how weekdays of the week and
@@ -36,10 +32,6 @@ derived from ICU (\url{http://site.icu-project.org}) via the stringi package.
 \examples{
 date_names_lang("en")
 date_names_lang("ko")
-
 date_names_lang("fr")
-if (require("stringi")) {
-  date_names_lang("fr", as_ascii = TRUE)
-}
 }
 

@@ -57,6 +57,12 @@ parse_date("1 janvier 2015", "%d %B %Y", locale = locale("fr"))
 parse_date("14 oct. 1979", "%d %b %Y", locale = locale("fr"))
 ```
 
+It's not uncommon to find that diacritics have been stripped in date files, so they can be stored as ASCII without encoding problems. You can tell the locale that with the `asciify` option:
+
+```{r}
+locale("fr", asciify = TRUE)
+```
+
 Currently readr has `r length(date_names_langs())` languages available:
 
 ```{r}
@@ -161,7 +167,9 @@ Additionally, when writing out big numbers, you might have `1,000,000`, `1.000.0
 
 ```{r}
 parse_number("$1,234.56")
-parse_number("$1.234,56", locale = locale(decimal_mark = ",", grouping_mark = "."))
+parse_number("$1.234,56", 
+  locale = locale(decimal_mark = ",", grouping_mark = ".")
+)
 
 # dplyr is smart enough to guess that if you're using , for decimals then
 # you're probably using . for grouping:

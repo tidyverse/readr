@@ -12,11 +12,7 @@
 #' @examples
 #' date_names_lang("en")
 #' date_names_lang("ko")
-#'
 #' date_names_lang("fr")
-#' if (require("stringi")) {
-#'   date_names_lang("fr", as_ascii = TRUE)
-#' }
 date_names <- function(mon, mon_ab = mon, day, day_ab = day,
                        am_pm = c("AM", "PM")) {
   stopifnot(is.character(mon), length(mon) == 12)
@@ -35,10 +31,7 @@ date_names <- function(mon, mon_ab = mon, day, day_ab = day,
 #' @param language A BCP 47 locale, made up of a languge and a region,
 #'   e.g. \code{en_US} for American English. See \code{date_names_locales()}
 #'   for a complete list of available locales.
-#' @param as_ascii Should accents be stripped and the names converted to ASCII?
-#'   This is useful if you're dealing with ASCII data where the correct
-#'   spellings have been lost. Requires the \pkg{stringi} package.
-date_names_lang <- function(language, as_ascii = FALSE) {
+date_names_lang <- function(language) {
   stopifnot(is.character(language), length(language) == 1)
 
   symbols <- date_symbols[[language]]
@@ -50,10 +43,6 @@ date_names_lang <- function(language, as_ascii = FALSE) {
 
   if (is.null(symbols)) {
     stop("Unknown language '", language, "'", call. = FALSE)
-  }
-
-  if (as_ascii) {
-    symbols[] <- lapply(symbols, stringi::stri_trans_general, id = "latin-ascii")
   }
 
   symbols
