@@ -23,6 +23,10 @@ collector_find <- function(name) {
 #' parse_vector(x, col_integer())
 #' parse_vector(x, col_double())
 parse_vector <- function(x, collector, na = c("", "NA"), locale = default_locale()) {
+  if (is.character(collector)) {
+    collector <- collector_find(collector)
+  }
+
   warn_problems(parse_vector_(x, collector, na = na, locale_ = locale))
 }
 
@@ -54,6 +58,12 @@ parse_vector <- function(x, collector, na = c("", "NA"), locale = default_locale
 #' # Or flag values as missing
 #' parse_double(x, na = "-")
 NULL
+
+#' @rdname collector
+#' @export
+parse_auto <- function(x, na = c("", "NA"), locale = default_locale()) {
+  parse_vector(x, collectorGuess(x, locale), na = na, locale = locale)
+}
 
 #' @rdname collector
 #' @export

@@ -1,5 +1,7 @@
 # readr 0.1.1.9000
 
+* New `parse_auto()` which guesses and then passes.
+
 * New `col_time()` allows you to parse times (hours, minutes, seconds) in
   to number of seconds since midnight.
 
