@@ -90,82 +90,6 @@ public:
     return true;
   }
 
-  // Adjust a struct tm to be a valid date-time.
-  // Return 0 if valid, -1 if invalid and uncorrectable, or a positive
-  // integer approximating the number of corrections needed.
-  int repair() {
-    int tmp, fixes = 0;
-
-    if (sec_ < 0 || sec_ > 60) { /* 61 POSIX, 60 draft ISO C */
-      fixes++;
-      int extra_mins = sec_ / 60;
-      sec_ -= 60 * extra_mins;
-      min_ += extra_mins;
-      if (sec_ < 0) {
-        sec_ += 60;
-        min_--;
-      }
-    }
-
-    fixes += repair_hour_min();
-
-    /* defer fixing mday until we know the year */
-    if (mon_ < 0 || mon_ > 11) {
-      fixes++;
-      tmp = mon_/12;
-      mon_ -= 12 * tmp;
-      year_ += tmp;
-
-      if(mon_ < 0) {
-        mon_ += 12;
-        year_--;
-      }
-    }
-
-    // Never fix more than 10 years worth of days
-    if (abs(day_) > 366 * 10)
-      return -1;
-
-    if (abs(day_) > 366) {
-      fixes++;
-      // first spin back until January
-      while(mon_ > 0) {
-        --mon_;
-        day_ += days_in_month();
-      }
-      // then spin years
-      while(day_ < 1) {
-        year_--;
-        day_ += days_in_year();
-      }
-      while(day_ > (tmp = days_in_year())) {
-        year_++;
-        day_ -= tmp;
-      }
-    }
-
-    while(day_ < 1) {
-      fixes++;
-      mon_--;
-      if(mon_ < 0) {
-        mon_ += 12;
-        year_--;
-      }
-      day_ += days_in_month();
-    }
-
-    while(day_ > (tmp = days_in_month())) {
-      fixes++;
-      mon_++;
-      if(mon_ > 11) {
-        mon_ -= 12;
-        year_++;
-      }
-      day_ -= tmp;
-    }
-    return fixes;
-  }
-
   double time(TzManager* pTzManager) const {
     return (tz_ == "UTC") ? utctime() : localtime(pTzManager);
   }
@@ -179,50 +103,6 @@ public:
   }
 
 private:
-
-  int repair_hour_min() {
-    int fixes = 0, tmp = 0;
-
-    if (min_ < 0 || min_ > 59) {
-      fixes++;
-      tmp = min_ / 60;
-      min_ -= 60 * tmp;
-      hour_ += tmp;
-      if (min_ < 0) {
-        min_ += 60;
-        hour_--;
-      }
-    }
-
-    if (hour_ == 24 && min_ == 0 && sec_ == 0) {
-      hour_ = 0;
-      day_++;
-
-      if (mon_ >= 0 && mon_ <= 11) {
-        if (day_ > days_in_month()) {
-          mon_++;
-          day_ = 1;
-          if (min_ == 12) {
-            year_++;
-            mon_ = 0;
-          }
-        }
-      }
-    }
-
-    if (hour_ < 0 || hour_ > 23) {
-      fixes++;
-      tmp = hour_ / 24;
-      hour_ -= 24 * tmp;
-      day_ += tmp;
-      if(hour_ < 0) {
-        hour_ += 24;
-        day_--;
-      }
-    }
-
-    return fixes;
-  }
 
   // Number of number of seconds since 1970-01-01T00:00:00Z.
   // Compared to usual implementations this returns a double, and supports
