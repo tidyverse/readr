@@ -12,7 +12,7 @@
 class DateTimeParser {
   int year_, mon_, day_, hour_, min_, sec_;
   double psec_;
-  bool isPM_;
+  int amPm_;
 
   int tzOffsetHours_, tzOffsetMinutes_;
   std::string tz_;
@@ -155,7 +155,7 @@ public:
         break;
 
       case 'p': // AM/PM
-        if (!consumeAMPM(&isPM_))
+        if (!consumeString(pLocale_->amPm_, &amPm_))
           return false;
         break;
 
@@ -207,7 +207,7 @@ public:
   }
 
   DateTime makeDateTime() {
-    DateTime dt(year_, mon_, day_, hour_ + (isPM_ ? 12 : 0), min_, sec_, psec_, tz_);
+    DateTime dt(year_, mon_, day_, hour(), min_, sec_, psec_, tz_);
     if (tz_ == "UTC")
       dt.setOffset(-tzOffsetHours_ * 3600 - tzOffsetMinutes_ * 60);
 
@@ -218,11 +218,15 @@ public:
     return dt;
   }
   DateTime makeTime() {
-    DateTime dt(0, 0, 0, hour_ + (isPM_ ? 12 : 0), min_, sec_, psec_, "UTC");
+    DateTime dt(0, 0, 0, hour(), min_, sec_, psec_, "UTC");
     return dt;
   }
 
 private:
+  int hour() {
+    return hour_ + (amPm_ == 1 ? 12 : 0);
+  }
+
   inline bool consumeSeconds(int* pSec, double* pPartialSec) {
     double sec;
     if (!consumeDouble(&sec))
@@ -393,7 +397,7 @@ private:
     min_ = 0;
     sec_ = 0;
     psec_ = 0;
-    isPM_ = false;
+    amPm_ = 0;
 
     tzOffsetHours_ = 0;
     tzOffsetMinutes_ = 0;

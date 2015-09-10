@@ -101,6 +101,12 @@ test_that("locale affects months", {
   expect_equal(parse_date("1 janvier 2010", "%d %B %Y", locale = fr), jan1)
 })
 
+test_that("locale affects am/pm", {
+  a <- parse_time("1:30 PM", "%H:%M %p")
+  b <- parse_time("오후 1시 30분", "%p %H시 %M분", locale = locale("ko"))
+  expect_equal(a, b)
+})
+
 # Time zones ------------------------------------------------------------------
 
 test_that("same times with different offsets parsed as same time", {
