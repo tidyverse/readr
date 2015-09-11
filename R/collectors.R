@@ -23,6 +23,10 @@ collector_find <- function(name) {
 #' parse_vector(x, col_integer())
 #' parse_vector(x, col_double())
 parse_vector <- function(x, collector, na = c("", "NA"), locale = default_locale()) {
+  if (is.character(collector)) {
+    collector <- collector_find(collector)
+  }
+
   warn_problems(parse_vector_(x, collector, na = na, locale_ = locale))
 }
 
@@ -54,6 +58,12 @@ parse_vector <- function(x, collector, na = c("", "NA"), locale = default_locale
 #' # Or flag values as missing
 #' parse_double(x, na = "-")
 NULL
+
+#' @rdname collector
+#' @export
+parse_auto <- function(x, na = c("", "NA"), locale = default_locale()) {
+  parse_vector(x, collectorGuess(x, locale), na = na, locale = locale)
+}
 
 #' @rdname collector
 #' @export
@@ -226,20 +236,7 @@ col_skip <- function() {
 #'
 #'   Unlike \code{\link{strptime}}, the format specification must match
 #'   the complete string.
-#' @param tz Default tz. This is used both for input (if the time zone isn't
-#'   present in individual strings), and for output (to control the default
-#'   display). The default is to use "UTC", a time zone that does not use
-#'   daylight savings time (DST) and hence is typically most useful for data.
-#'   The absense of time zones makes it approximately 50x faster to generate
-#'   UTC times than any other time zone.
-#'
-#'   Use \code{""} to use the system default time zone, but beware that this
-#'   will not be reproducible across systems.
-#'
-#'   For a complete list of possible time zones, see \code{\link{OlsonNames}()}.
-#'   Americans, note that "EST" is a Canadian time zone that does not have
-#'   DST. It is \emph{not} Eastern Standard Time. It's better to use
-#'   "US/Eastern", "US/Central" etc.
+#' @inheritParams read_delim
 #' @return A \code{\link{POSIXct}} vector with \code{tzone} attribute set to
 #'   \code{tz}. Elements that could not be parsed (or did not generate valid
 #'   dates) will bes set to \code{NA}, and a warning message will inform
@@ -263,10 +260,12 @@ col_skip <- function() {
 #' # Or from offsets
 #' parse_datetime("2010/01/01 12:00 -0600", "%Y/%m/%d %H:%M %z")
 #'
-#' # Use the tz parameter to control the default time zone
+#' # Use the locale parameter to control the default time zone
 #' # (but note UTC is considerably faster than other options)
-#' parse_datetime("2010/01/01 12:00", "%Y/%m/%d %H:%M", tz = "US/Central")
-#' parse_datetime("2010/01/01 12:00", "%Y/%m/%d %H:%M", tz = "US/Eastern")
+#' parse_datetime("2010/01/01 12:00", "%Y/%m/%d %H:%M",
+#'   locale = locale(tz = "US/Central"))
+#' parse_datetime("2010/01/01 12:00", "%Y/%m/%d %H:%M",
+#'   locale = locale(tz = "US/Eastern"))
 #'
 #' # Unlike strptime, the format specification must match the complete
 #' # string (ignoring leading and trailing whitespace). This avoids common
@@ -277,6 +276,11 @@ col_skip <- function() {
 #' # Failures -------------------------------------------------------------
 #' parse_datetime("01/01/2010", "%d/%m/%Y")
 #' parse_datetime(c("01/ab/2010", "32/01/2010"), "%d/%m/%Y")
+#'
+#' # Locales --------------------------------------------------------------
+#' # By default, readr expects English date/times, but that's easy to change
+#' parse_datetime("1 janvier 2015", "%d %B %Y", locale = locale("fr"))
+#' parse_datetime("1 enero 2015", "%d %B %Y", locale = locale("es"))
 #'
 #' # ISO8601 --------------------------------------------------------------
 #' # With separators
@@ -291,27 +295,42 @@ col_skip <- function() {
 #' parse_datetime("19791014T101112")
 #'
 #' # Time zones
-#' parse_datetime("1979-10-14T1010", tz = "US/Central")
-#' parse_datetime("1979-10-14T1010-0500", tz = "US/Central")
-#' parse_datetime("1979-10-14T1010Z", tz = "US/Central")
-parse_datetime <- function(x, format = "", tz = "UTC") {
-  parse_vector(x, col_datetime(format, tz))
+#' us_central <- locale(tz = "US/Central")
+#' parse_datetime("1979-10-14T1010", locale = us_central)
+#' parse_datetime("1979-10-14T1010-0500", locale = us_central)
+#' parse_datetime("1979-10-14T1010Z", locale = us_central)
+#' # Your current time zone
+#' parse_datetime("1979-10-14T1010", locale = locale(tz = ""))
+parse_datetime <- function(x, format = "", locale = default_locale()) {
+  parse_vector(x, col_datetime(format), locale = locale)
 }
 
 #' @rdname parse_datetime
 #' @export
-col_datetime <- function(format = "", tz = "UTC") {
-  collector("datetime", format = format, tz = tz)
+col_datetime <- function(format = "") {
+  collector("datetime", format = format)
 }
 
 #' @rdname parse_datetime
 #' @export
-parse_date <- function(x, format = "%Y-%m-%d") {
-  parse_vector(x, col_date(format))
+parse_date <- function(x, format = "%Y-%m-%d", locale = default_locale()) {
+  parse_vector(x, col_date(format), locale = locale)
 }
 
 #' @rdname parse_datetime
 #' @export
-col_date <- function(format = "%Y-%m-%d") {
+col_date <- function(format = NULL) {
   collector("date", format = format)
+}
+
+#' @rdname parse_datetime
+#' @export
+parse_time <- function(x, format = "%H:%M", locale = default_locale()) {
+  parse_vector(x, col_time(format), locale = locale)
+}
+
+#' @rdname parse_datetime
+#' @export
+col_time <- function(format = "%H:%M.%S") {
+  collector("time", format = format)
 }

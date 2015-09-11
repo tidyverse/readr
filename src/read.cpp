@@ -83,7 +83,7 @@ RObject read_tokens(List sourceSpec, List tokenizerSpec, ListOf<List> colSpecs,
   tokenizer->tokenize(source->begin(), source->end());
   tokenizer->setWarnings(&warnings);
 
-  std::vector<CollectorPtr> collectors = collectorsCreate(colSpecs, locale, &warnings);
+  std::vector<CollectorPtr> collectors = collectorsCreate(colSpecs, &locale, &warnings);
 
   Progress progressBar;
 
@@ -181,26 +181,30 @@ std::vector<std::string> collectorsGuess(List sourceSpec, List tokenizerSpec,
   tokenizer->tokenize(source->begin(), source->end());
   tokenizer->setWarnings(&warnings); // silence warnings
 
-  std::vector<CollectorCharacter> collectors;
+  LocaleInfo locale(locale_);
+
+  std::vector<CollectorPtr> collectors;
   for (Token t = tokenizer->nextToken(); t.type() != TOKEN_EOF; t = tokenizer->nextToken()) {
     if (t.row() >= (size_t) n)
       break;
 
     // Add new collectors, if needed
     if (t.col() >= collectors.size()) {
-      int old_p = collectors.size();
-      collectors.resize(t.col() + 1);
-      for (size_t j = old_p; j < collectors.size(); ++j) {
-        collectors[j].resize(n);
+      int p = collectors.size() - t.col() + 1;
+      for (int j = 0; j < p; ++j) {
+        CollectorPtr col = CollectorPtr(new CollectorCharacter(&locale.encoder_));
+        col->setWarnings(&warnings);
+        col->resize(n);
+        collectors.push_back(col);
       }
     }
 
-    collectors[t.col()].setValue(t.row(), t);
+    collectors[t.col()]->setValue(t.row(), t);
   }
 
   std::vector<std::string> out;
   for (size_t j = 0; j < collectors.size(); ++j) {
-    CharacterVector col = as<CharacterVector>(collectors[j].vector());
+    CharacterVector col = as<CharacterVector>(collectors[j]->vector());
     out.push_back(collectorGuess(col, locale_));
   }
 

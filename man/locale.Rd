@@ -7,14 +7,14 @@
 \usage{
 locale(date_names = "en", date_format = "\%Y\%.\%m\%.\%d",
   time_format = "\%H:\%M", decimal_mark = ".", grouping_mark = NULL,
-  tz = "UTC", encoding = "UTF-8")
+  tz = "UTC", encoding = "UTF-8", asciify = FALSE)
 
 default_locale()
 }
 \arguments{
 \item{date_names}{Character representations of day and month names. Either
-a string, which is passed on to \code{\link{date_names_locale}}, or
-an object created by \code{\link{date_names}}.}
+the language code as string (passed on to \code{\link{date_names_lang}})
+or an object created by \code{\link{date_names}}.}
 
 \item{date_format,time_format}{Default date and time formats.}
 
@@ -22,9 +22,27 @@ an object created by \code{\link{date_names}}.}
 place, and to chunk larger numbers. Decimal mark can only be \code{,} or
 \code{.}.}
 
-\item{tz}{Default time zone.}
+\item{tz}{Default tz. This is used both for input (if the time zone isn't
+  present in individual strings), and for output (to control the default
+  display). The default is to use "UTC", a time zone that does not use
+  daylight savings time (DST) and hence is typically most useful for data.
+  The absense of time zones makes it approximately 50x faster to generate
+  UTC times than any other time zone.
 
-\item{encoding}{Default encoding}
+  Use \code{""} to use the system default time zone, but beware that this
+  will not be reproducible across systems.
+
+  For a complete list of possible time zones, see \code{\link{OlsonNames}()}.
+  Americans, note that "EST" is a Canadian time zone that does not have
+  DST. It is \emph{not} Eastern Standard Time. It's better to use
+  "US/Eastern", "US/Central" etc.}
+
+\item{encoding}{Default encoding. This only affects how the file is
+read - readr always converts the output to UTF-8.}
+
+\item{asciify}{Should diacritics be stripped from date names and converted to
+ASCII? This is useful if you're dealing with ASCII data where the correct
+spellings have been lost. Requires the \pkg{stringi} package.}
 }
 \description{
 A locale object tries to capture all the defaults that can vary between

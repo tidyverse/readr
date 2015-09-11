@@ -1,7 +1,7 @@
 library(stringi)
 
 locs <- stri_locale_list()
-base <- stri_split_fixed(locs, "_", n = 2, simplify = TRUE)[, 1]
+base <- unique(stri_split_fixed(locs, "_", n = 2, simplify = TRUE)[, 1])
 
 locale_info <- function(x) {
 
@@ -17,12 +17,7 @@ locale_info <- function(x) {
   )
 }
 
-locs_info <- lapply(locs, locale_info)
-names(locs_info) <- locs
-
-same_as_base <- mapply(identical, locs_info, locs_info[base])
-
-needed <- locs[!same_as_base | locs %in% base]
-date_symbols <- locs_info[needed]
+date_symbols <- lapply(base, locale_info)
+names(date_symbols) <- base
 
 devtools::use_data(date_symbols, internal = TRUE, overwrite = TRUE)

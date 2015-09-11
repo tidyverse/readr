@@ -3,17 +3,23 @@
 \name{parse_datetime}
 \alias{col_date}
 \alias{col_datetime}
+\alias{col_time}
 \alias{parse_date}
 \alias{parse_datetime}
+\alias{parse_time}
 \title{Parse a character vector of dates or date times.}
 \usage{
-parse_datetime(x, format = "", tz = "UTC")
+parse_datetime(x, format = "", locale = default_locale())
 
-col_datetime(format = "", tz = "UTC")
+col_datetime(format = "")
 
-parse_date(x, format = "\%Y-\%m-\%d")
+parse_date(x, format = "\%Y-\%m-\%d", locale = default_locale())
 
-col_date(format = "\%Y-\%m-\%d")
+col_date(format = NULL)
+
+parse_time(x, format = "\%H:\%M", locale = default_locale())
+
+col_time(format = "\%H:\%M.\%S")
 }
 \arguments{
 \item{x}{A character vector of dates to parse.}
@@ -25,20 +31,11 @@ col_date(format = "\%Y-\%m-\%d")
   Unlike \code{\link{strptime}}, the format specification must match
   the complete string.}
 
-\item{tz}{Default tz. This is used both for input (if the time zone isn't
-  present in individual strings), and for output (to control the default
-  display). The default is to use "UTC", a time zone that does not use
-  daylight savings time (DST) and hence is typically most useful for data.
-  The absense of time zones makes it approximately 50x faster to generate
-  UTC times than any other time zone.
-
-  Use \code{""} to use the system default time zone, but beware that this
-  will not be reproducible across systems.
-
-  For a complete list of possible time zones, see \code{\link{OlsonNames}()}.
-  Americans, note that "EST" is a Canadian time zone that does not have
-  DST. It is \emph{not} Eastern Standard Time. It's better to use
-  "US/Eastern", "US/Central" etc.}
+\item{locale}{The locale controls defaults that vary from place to place.
+The default locale is US-centric (like R), but you can use
+\code{\link{locale}} to create your own locale that controls things like
+the default time zone, encoding, decimal mark, big mark, and day/month
+names.}
 }
 \value{
 A \code{\link{POSIXct}} vector with \code{tzone} attribute set to
@@ -118,10 +115,12 @@ parse_datetime("2010/01/01 12:00 US/Central", "\%Y/\%m/\%d \%H:\%M \%Z")
 # Or from offsets
 parse_datetime("2010/01/01 12:00 -0600", "\%Y/\%m/\%d \%H:\%M \%z")
 
-# Use the tz parameter to control the default time zone
+# Use the locale parameter to control the default time zone
 # (but note UTC is considerably faster than other options)
-parse_datetime("2010/01/01 12:00", "\%Y/\%m/\%d \%H:\%M", tz = "US/Central")
-parse_datetime("2010/01/01 12:00", "\%Y/\%m/\%d \%H:\%M", tz = "US/Eastern")
+parse_datetime("2010/01/01 12:00", "\%Y/\%m/\%d \%H:\%M",
+  locale = locale(tz = "US/Central"))
+parse_datetime("2010/01/01 12:00", "\%Y/\%m/\%d \%H:\%M",
+  locale = locale(tz = "US/Eastern"))
 
 # Unlike strptime, the format specification must match the complete
 # string (ignoring leading and trailing whitespace). This avoids common
@@ -132,6 +131,11 @@ parse_datetime("01/02/2010", "\%d/\%m/\%y")
 # Failures -------------------------------------------------------------
 parse_datetime("01/01/2010", "\%d/\%m/\%Y")
 parse_datetime(c("01/ab/2010", "32/01/2010"), "\%d/\%m/\%Y")
+
+# Locales --------------------------------------------------------------
+# By default, readr expects English date/times, but that's easy to change
+parse_datetime("1 janvier 2015", "\%d \%B \%Y", locale = locale("fr"))
+parse_datetime("1 enero 2015", "\%d \%B \%Y", locale = locale("es"))
 
 # ISO8601 --------------------------------------------------------------
 # With separators
@@ -146,8 +150,11 @@ parse_datetime("19791014")
 parse_datetime("19791014T101112")
 
 # Time zones
-parse_datetime("1979-10-14T1010", tz = "US/Central")
-parse_datetime("1979-10-14T1010-0500", tz = "US/Central")
-parse_datetime("1979-10-14T1010Z", tz = "US/Central")
+us_central <- locale(tz = "US/Central")
+parse_datetime("1979-10-14T1010", locale = us_central)
+parse_datetime("1979-10-14T1010-0500", locale = us_central)
+parse_datetime("1979-10-14T1010Z", locale = us_central)
+# Your current time zone
+parse_datetime("1979-10-14T1010", locale = locale(tz = ""))
 }
 

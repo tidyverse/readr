@@ -9,12 +9,8 @@ read_connection_ <- function(con, chunk_size = 64 * 1024L) {
     .Call('readr_read_connection_', PACKAGE = 'readr', con, chunk_size)
 }
 
-utctime <- function(year, month, day, hour, min, sec, psec, repair = FALSE) {
-    .Call('readr_utctime', PACKAGE = 'readr', year, month, day, hour, min, sec, psec, repair)
-}
-
-date_time_locale <- function(locale = "C") {
-    .Call('readr_date_time_locale', PACKAGE = 'readr', locale)
+utctime <- function(year, month, day, hour, min, sec, psec) {
+    .Call('readr_utctime', PACKAGE = 'readr', year, month, day, hour, min, sec, psec)
 }
 
 dim_tokens_ <- function(sourceSpec, tokenizerSpec) {

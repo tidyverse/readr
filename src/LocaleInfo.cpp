@@ -3,7 +3,9 @@
 
 using namespace Rcpp;
 
-LocaleInfo::LocaleInfo(List x) {
+LocaleInfo::LocaleInfo(List x):
+    encoding_(as<std::string>(x["encoding"])),
+    encoder_(Iconv(encoding_)) {
   std::string klass = x.attr("class");
   if (klass != "locale")
     stop("Invalid input: must be of class locale");
@@ -22,5 +24,4 @@ LocaleInfo::LocaleInfo(List x) {
   timeFormat_ = as<std::string>(x["time_format"]);
 
   tz_ = as<std::string>(x["tz"]);
-  encoding_ = as<std::string>(x["encoding"]);
 }
