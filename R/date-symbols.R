@@ -36,12 +36,6 @@ date_names_lang <- function(language) {
 
   symbols <- date_symbols[[language]]
   if (is.null(symbols)) {
-    # See if we have a set for the base language
-    base <- strsplit(language, "_", fixed = TRUE)[[1]][1]
-    symbols <- date_symbols[[base]]
-  }
-
-  if (is.null(symbols)) {
     stop("Unknown language '", language, "'", call. = FALSE)
   }
 
