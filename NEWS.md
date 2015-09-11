@@ -1,5 +1,10 @@
 # readr 0.1.1.9000
 
+* New `parse_auto()` which guesses and then passes.
+
+* New `col_time()` allows you to parse times (hours, minutes, seconds) in
+  to number of seconds since midnight.
+
 * readr now has a new strategy for dealing with settings that vary from
   place to place: locales. The default locale is still US-English centric
   (because R itself is), but you can now easily override the default
@@ -15,6 +20,14 @@
     * `parse_number()` has a more conservative strategy: it starts at 
       the first numeric value and continues until it reach the end of the 
       number. It uses `groupingMark` to define what a number is.
+      
+    * The default encoding is now UTF-8. To load files that are not 
+      in UTF-8, set the encoding parameter of the locale (#40)
+      
+    * `parse_datetime()` and `parse_date()` with `%B` and `%b` use the
+      month names (full and abbreviate) defined in the locale (#242).
+      They also inherit the tz from the locale, rather than using an
+      explicit `tz` parameter.
       
 * `parse_numeric()` has been deprecated because the name is confusing - 
   it's a flexible number parser, not a parser of "numerics", as R collectively

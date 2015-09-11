@@ -3,33 +3,29 @@
 
 #include <ctime>
 #include "DateTime.h"
-#include "DateTimeLocale.h"
-
+#include "LocaleInfo.h"
 #include <boost/algorithm/string/predicate.hpp>
-#include <boost/spirit/include/qi.hpp>
-#include <boost/spirit/include/phoenix_core.hpp>
-#include <boost/spirit/include/phoenix_operator.hpp>
-namespace qi = boost::spirit::qi;
+#include "QiParsers.h"
 
 // Parsing ---------------------------------------------------------------------
 
 class DateTimeParser {
   int year_, mon_, day_, hour_, min_, sec_;
   double psec_;
-  bool isPM_;
+  int amPm_;
 
   int tzOffsetHours_, tzOffsetMinutes_;
   std::string tz_;
 
-  const DateTimeLocale& locale_;
+  LocaleInfo* pLocale_;
   std::string tzDefault_;
 
   const char* dateItr_;
   const char* dateEnd_;
 
 public:
-  DateTimeParser(const DateTimeLocale& locale, const std::string& tzDefault = ""):
-  locale_(locale), tzDefault_(tzDefault)
+  DateTimeParser(LocaleInfo* pLocale):
+  pLocale_(pLocale), tzDefault_(pLocale->tz_)
   {
   }
 
@@ -74,7 +70,7 @@ public:
     if (!consumeTzOffset(&tzOffsetHours_, &tzOffsetMinutes_))
       return false;
 
-    return isComplete() && isValid();
+    return isComplete();
   }
 
   bool isComplete() {
@@ -123,11 +119,11 @@ public:
           return false;
         break;
       case 'b': // abbreviated month name
-        if (!consumeString(locale_.monthAbbrev(), &mon_))
+        if (!consumeString(pLocale_->monAb_, &mon_))
           return false;
         break;
       case 'B': // month name
-        if (!consumeString(locale_.month(), &mon_))
+        if (!consumeString(pLocale_->mon_, &mon_))
           return false;
         break;
       case 'd': // day
@@ -159,7 +155,7 @@ public:
         break;
 
       case 'p': // AM/PM
-        if (!consumeAMPM(&isPM_))
+        if (!consumeString(pLocale_->amPm_, &amPm_))
           return false;
         break;
 
@@ -207,11 +203,11 @@ public:
 
     consumeWhiteSpace(); // always consume trailing whitespace
 
-    return isComplete() && isValid();
+    return isComplete();
   }
 
   DateTime makeDateTime() {
-    DateTime dt(year_, mon_, day_, hour_ + (isPM_ ? 12 : 0), min_, sec_, psec_, tz_);
+    DateTime dt(year_, mon_, day_, hour(), min_, sec_, psec_, tz_);
     if (tz_ == "UTC")
       dt.setOffset(-tzOffsetHours_ * 3600 - tzOffsetMinutes_ * 60);
 
@@ -221,14 +217,14 @@ public:
     DateTime dt(year_, mon_, day_, 0, 0, 0, 0, "UTC");
     return dt;
   }
+  DateTime makeTime() {
+    DateTime dt(0, 0, 0, hour(), min_, sec_, psec_, "UTC");
+    return dt;
+  }
 
 private:
-  bool isValid() {
-    // Must have year, month and day
-    if (year_ == -1 || mon_ == -1 || day_ == -1)
-      return false;
-
-    return true;
+  int hour() {
+    return hour_ + (amPm_ == 1 ? 12 : 0);
   }
 
   inline bool consumeSeconds(int* pSec, double* pPartialSec) {
@@ -260,7 +256,8 @@ private:
     if (dateItr_ == dateEnd_ || *dateItr_ == '-' || *dateItr_ == '+')
       return false;
 
-    return qi::parse(dateItr_, std::min(dateItr_ + n, dateEnd_), qi::int_, *pOut);
+    const char* end = std::min(dateItr_ + n, dateEnd_);
+    return parseInt(dateItr_, end, *pOut);
   }
 
   // Integer indexed from 1 (i.e. month and date)
@@ -283,7 +280,7 @@ private:
   inline bool consumeDouble(double* pOut) {
     if (dateItr_ == dateEnd_ || *dateItr_ == '-' || *dateItr_ == '+')
       return false;
-    return qi::parse(dateItr_, dateEnd_, qi::double_, *pOut);
+    return parseDouble(pLocale_->decimalMark_, dateItr_, dateEnd_, *pOut);
   }
 
   inline bool consumeWhiteSpace() {
@@ -400,7 +397,7 @@ private:
     min_ = 0;
     sec_ = 0;
     psec_ = 0;
-    isPM_ = false;
+    amPm_ = 0;
 
     tzOffsetHours_ = 0;
     tzOffsetMinutes_ = 0;

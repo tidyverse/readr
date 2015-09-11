@@ -19,7 +19,7 @@ Currently, readr automatically recognises the following types of columns:
 * `col_euro_double()` [e], "Euro" doubles that use `,` as decimal separator.
 * `col_character()` [c], everything else.
 * `col_date(format = "")` [D]: Y-m-d dates.
-* `col_datetime(format = "", tz = "UTC")` [T]: ISO8601 date times
+* `col_datetime(format = "")` [T]: ISO8601 date times
 * `col_number()` [n], finds the first number in the field. A number is defined
    as a sequence of -, "0-9", `decimal_mark` and `grouping_mark`. This is
    useful for currencies and percentages. It will only be guessed automatically
@@ -35,6 +35,8 @@ You can also manually specify other column types:
 
 * `col_datetime(format, tz)`, date times with given format. If the timezone
   is UTC, this is >20x faster than loading then parsing with `strptime()`.
+
+* `col_time(format)`, times. Returned as number of seconds past midnight.
 
 * `col_factor(levels, ordered)`, parse a fixed set of known values into a 
   factor

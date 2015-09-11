@@ -11,6 +11,7 @@
 \alias{col_numeric}
 \alias{col_skip}
 \alias{collector}
+\alias{parse_auto}
 \alias{parse_character}
 \alias{parse_double}
 \alias{parse_euro_double}
@@ -21,6 +22,8 @@
 \alias{parse_numeric}
 \title{Parse character vectors into typed columns.}
 \usage{
+parse_auto(x, na = c("", "NA"), locale = default_locale())
+
 col_character()
 
 parse_character(x, na = c("", "NA"), locale = default_locale())

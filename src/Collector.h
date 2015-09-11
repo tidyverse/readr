@@ -3,6 +3,7 @@
 
 #include <Rcpp.h>
 #include <boost/shared_ptr.hpp>
+#include "Iconv.h"
 #include "LocaleInfo.h"
 #include "Token.h"
 #include "Warnings.h"
@@ -68,17 +69,19 @@ public:
     warn(row, col, expected, std::string(actual.first, actual.second));
   }
 
-  static CollectorPtr create(Rcpp::List spec, const LocaleInfo& locale);
+  static CollectorPtr create(Rcpp::List spec, LocaleInfo* pLocale);
 
 };
 
 // Character -------------------------------------------------------------------
 
 class CollectorCharacter : public Collector {
-  cetype_t encoding_;
+  Iconv* pEncoder_;
 
 public:
-  CollectorCharacter(): Collector(Rcpp::CharacterVector()), encoding_(CE_NATIVE) {}
+  CollectorCharacter(Iconv* pEncoder):
+    Collector(Rcpp::CharacterVector()),
+    pEncoder_(pEncoder) {}
   void setValue(int i, const Token& t);
 };
 
@@ -87,13 +90,12 @@ public:
 class CollectorDate : public Collector {
   std::string format_;
   DateTimeParser parser_;
-  DateTimeLocale locale_;
 
 public:
-  CollectorDate(const std::string& format):
+  CollectorDate(LocaleInfo* pLocale, const std::string& format):
     Collector(Rcpp::IntegerVector()),
     format_(format),
-    parser_(locale_, "UTC")
+    parser_(pLocale)
   {
   }
 
@@ -109,18 +111,18 @@ public:
 // Date time -------------------------------------------------------------------
 
 class CollectorDateTime : public Collector {
-  std::string format_, tz_;
-  DateTimeLocale locale_;
+  std::string format_;
   DateTimeParser parser_;
+  std::string tz_;
   TzManager tzMan_;
 
 public:
-  CollectorDateTime(const std::string& format, const std::string& tz):
+  CollectorDateTime(LocaleInfo* pLocale, const std::string& format):
     Collector(Rcpp::NumericVector()),
     format_(format),
-    tz_(tz),
-    parser_(locale_, tz),
-    tzMan_(tz)
+    parser_(pLocale),
+    tz_(pLocale->tz_),
+    tzMan_(tz_)
   {
   }
 
@@ -198,6 +200,32 @@ public:
   bool isNum(char c);
 };
 
+// Time ---------------------------------------------------------------------
+
+
+class CollectorTime : public Collector {
+  std::string format_;
+  DateTimeParser parser_;
+
+public:
+  CollectorTime(LocaleInfo* pLocale, const std::string& format):
+    Collector(Rcpp::IntegerVector()),
+    format_(format),
+    parser_(pLocale)
+  {
+  }
+
+  void setValue(int i, const Token& t);
+
+  Rcpp::RObject vector() {
+    column_.attr("class") = "time";
+    return column_;
+  };
+
+};
+
+// Skip ---------------------------------------------------------------------
+
 class CollectorSkip : public Collector {
 public:
   CollectorSkip() : Collector(R_NilValue) {}
@@ -210,7 +238,7 @@ public:
 
 // Helpers ---------------------------------------------------------------------
 
-std::vector<CollectorPtr> collectorsCreate(Rcpp::ListOf<Rcpp::List> specs, const LocaleInfo& locale, Warnings* pWarning);
+std::vector<CollectorPtr> collectorsCreate(Rcpp::ListOf<Rcpp::List> specs, LocaleInfo* pLocale, Warnings* pWarning);
 void collectorsResize(std::vector<CollectorPtr>& collectors, int n);
 std::string collectorGuess(Rcpp::CharacterVector input, Rcpp::List locale_);
 

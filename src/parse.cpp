@@ -86,7 +86,7 @@ SEXP parse_vector_(CharacterVector x, List collectorSpec,
 
   LocaleInfo locale(locale_);
 
-  boost::shared_ptr<Collector> col = Collector::create(collectorSpec, locale);
+  boost::shared_ptr<Collector> col = Collector::create(collectorSpec, &locale);
   col->setWarnings(&warnings);
   col->resize(n);
 

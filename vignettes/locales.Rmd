@@ -1,0 +1,177 @@
+---
+title: "readr locales"
+author: "Hadley Wickham"
+date: "`r Sys.Date()`"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{readr locales}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+library(readr)
+knitr::opts_chunk$set(collapse = TRUE, comment = "#>")
+```
+
+The goal of readr's locales is to encapsulate the common options that vary between languages and different regions of the world. This includes:
+
+* Names of months and days, used when parsing dates.
+* The default time zones, used when parsing date times.
+* The character encoding, used when reading non-ASCII strings.
+* Default date and time formats, used when guessing column types.
+* The decimal and grouping marks, used when reading numbers.
+
+Readr is designed to be independent of your current locale settings. This makes a bit more hassle in the short term, but makes it much much easier to share your code with others: if your readr code works locally, it will also work for everyone else in the world. The same is not true for base R code, since it often inherits defaults from your system settings. Just because data ingest code works for you doesn't mean that it will work for someone else in another country.
+
+(Stricly speaking these are not locales in the usual technical sense of the word because they also contain information about time zones and encoding. I'm hoping that for most people you'll be able to build up a handful of custom locale that let you 95% of the data files that you see)
+
+## Locales
+
+To create a new locale, you use the `locale()` function:
+
+```{r}
+locale()
+```
+
+This rest of this vignette will explain what each of the vignettes do.
+
+All of the parsing function in readr take a `locale` argument. You'll most often use it with `read_csv()`, `read_fwf()` or `read_table()`. However, in this documentation I'm going to use the `parse_*()` functions. Rather than working with a file on disk, these functions work with a character vector, so they're easier to use in examples. They're also useful in their own right if you need to do custom parsing, and see `type_convert()` if you need to apply multiple parsers to a data frame.
+
+## Dates and times
+
+### Names of months and days
+
+```{r}
+locale("ko") # Korean
+locale("fr") # French
+locale("mas") # Masai
+```
+
+Note that the quality of the translations is variable, especially for the rarer languages. If you discover that they're not quite right for your data, you can create your own with `date_names()`.
+
+This allows you to parse dates in other languages:
+
+```{r}
+parse_date("1 janvier 2015", "%d %B %Y", locale = locale("fr"))
+parse_date("14 oct. 1979", "%d %b %Y", locale = locale("fr"))
+```
+
+It's not uncommon to find that diacritics have been stripped in date files, so they can be stored as ASCII without encoding problems. You can tell the locale that with the `asciify` option:
+
+```{r}
+locale("fr", asciify = TRUE)
+```
+
+Currently readr has `r length(date_names_langs())` languages available:
+
+```{r}
+date_names_langs()
+```
+
+These are ISO 639 language codes. If you don't already know the code for your language, [Wikipedia](https://en.wikipedia.org/wiki/List_of_ISO_639-1_codes) has a good list 
+
+### Timezones
+
+Unless otherwise specified, readr assumes that times are in UTC, Universal Coordinated Time. (It's basically a successor to GMT and for almost all intents is identical). UTC is most suitable for data because it doesn't have time zones - this avoids a whole class of potential problems. But your data might not already be in UTC. In this case, you'll need to supply a tz in the locale.
+
+If you're American, note that "EST" is a Canadian time zone that does not have DST. It's not Eastern Standard Time! Instead use:
+
+* PST/PDT = "US/Pacific"
+* CST/CDT = "US/Central"
+* MST/MDT = "US/Mountain"
+* EST/EDT = "US/Eastern"
+
+(note that there are more specific time zones for smaller areas that don't follow the same rules. For example, "US/Arizona", which follows mostly follows mountain time, but doesn't have daylight savings. If you're dealing with historical data, you might need an even more specific zone like "America/North_Dakota/New_Salem" - that will get you the most accurate time zones.)
+
+Note that these are only used as defaults. If individual times have timezones and you're using "%Z" (as name, e.g. "America/Chicago") or "%z" (as offset from UTC, e.g. "+0800"), they'll override the defaults. There's currently no good way to parse times that use US abbreviations.
+
+If you've loaded non-UTC data, you might want to display it as UTC in R. That's as easy as:
+
+```{r, eval = FALSE}
+is_datetime <- sapply(df, inherits, "POSIXct")
+df[is_datetime] <- lapply(df[is_datetime], function(x) {
+  attr(x, "tz") <- "UTC"
+  x
+})
+```
+
+Note that once you have the date in R, changing the time zone just changes its printed representation - it still represents the same instance of time.
+
+### Default formats
+
+Locales also provide default date and time formats. The time format isn't currently used for anything, but the date format is used when guessing column types. The default date format is `%Y-%m-%d` because that's unambiguous:
+
+```{r}
+str(parse_auto("2010-10-10"))
+```
+
+If you're an American, you might want you use your illogical date sytem::
+
+```{r}
+str(parse_auto("01/02/2013"))
+str(parse_auto("01/02/2013", locale = locale(date_format = "%d/%m/%Y")))
+```
+
+## Character
+
+All readr functions yield strings encoded in UTF-8. This encoding is the most likely to give good results in the widest variety of settings. By default, readr assumes that you're input is also in UTF-8. This is less likely to be the case, especially when you're working with older datasets.
+
+The following code illustrates the problems with encodings:
+
+```{r}
+library(stringi)
+x <- "Émigré cause célèbre déjà vu"
+y <- stri_conv(x, "UTF-8", "latin1")
+
+# These strings look like they're identical:
+x
+y
+identical(x, y)
+
+# But they have difference encodings:
+Encoding(x)
+Encoding(y)
+
+# That means while they print the same, their raw (binary)
+# representation is actually quite different:
+charToRaw(x)
+charToRaw(y)
+
+# readr expects strings to be encoded as UTF-8. If they're
+# not, you'll get weird characters
+parse_character(x)
+parse_character(y)
+
+# If you know the encoding, supply it:
+parse_character(x, locale = locale(encoding = "latin1"))
+parse_character(y, locale = locale(encoding = "latin1"))
+
+# If you don't know the encoding, you can use stringi to try 
+# and guess it: (it's hard for a short string, but stringi
+# still does well)
+head(as.data.frame(stri_enc_detect(x)))
+head(as.data.frame(stri_enc_detect(y)))
+# (NB ISO-8859-1 is another name for latin1)
+```
+
+## Numbers
+
+Some countries use the decimal point, while others use the decimal comma. The `decimal_mark` option controls which readr uses when parsing doubles:
+
+```{r}
+parse_double("1,23", locale = locale(decimal_mark = ","))
+```
+
+Additionally, when writing out big numbers, you might have `1,000,000`, `1.000.000`, `1 000 000`, or `1'000'000`. This is used by the more flexible number parser:
+
+```{r}
+parse_number("$1,234.56")
+parse_number("$1.234,56", 
+  locale = locale(decimal_mark = ",", grouping_mark = ".")
+)
+
+# dplyr is smart enough to guess that if you're using , for decimals then
+# you're probably using . for grouping:
+parse_number("$1.234,56", locale = locale(decimal_mark = ","))
+```

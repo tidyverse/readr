@@ -2,15 +2,15 @@
 % Please edit documentation in R/date-symbols.R
 \name{date_names}
 \alias{date_names}
-\alias{date_names_locale}
-\alias{date_names_locales}
+\alias{date_names_lang}
+\alias{date_names_langs}
 \title{Create or retrieve date names}
 \usage{
 date_names(mon, mon_ab = mon, day, day_ab = day, am_pm = c("AM", "PM"))
 
-date_names_locale(locale, as_ascii = FALSE)
+date_names_lang(language)
 
-date_names_locales()
+date_names_langs()
 }
 \arguments{
 \item{mon,mon_ab}{Full and abbreviated month names. Starts with Sunday.}
@@ -19,13 +19,9 @@ date_names_locales()
 
 \item{am_pm}{Names used for AM and PM.}
 
-\item{locale}{A BCP 47 locale, made up of a languge and a region,
+\item{language}{A BCP 47 locale, made up of a languge and a region,
 e.g. \code{en_US} for American English. See \code{date_names_locales()}
 for a complete list of available locales.}
-
-\item{as_ascii}{Should accents be stripped and the names converted to ASCII?
-This is useful if you're dealing with ASCII data where the correct
-spellings have been lost. Requires the \pkg{stringi} package.}
 }
 \description{
 When parsing dates, you often need to know how weekdays of the week and
@@ -34,12 +30,8 @@ create your own, or retrieve from a standard list. The standard list is
 derived from ICU (\url{http://site.icu-project.org}) via the stringi package.
 }
 \examples{
-date_names_locale("en")
-date_names_locale("ko")
-
-date_names_locale("fr")
-if (require("stringi")) {
-  date_names_locale("fr", as_ascii = TRUE)
-}
+date_names_lang("en")
+date_names_lang("ko")
+date_names_lang("fr")
 }
 
