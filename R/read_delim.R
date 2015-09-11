@@ -124,14 +124,13 @@ read_delimited <- function(file, tokenizer, col_names = TRUE, col_types = NULL,
     data <- file
   }
 
-  ds <- datasource(data, skip = skip)
-
   if (isTRUE(col_names))
     skip <- skip + 1
-  col_names <- col_names_standardise(col_names, header(ds, tokenizer))
-
   ds <- datasource(data, skip = skip)
+
+  col_names <- col_names_standardise(col_names, header(ds, tokenizer))
   col_types <- col_types_standardise(col_types, col_names, types(ds, tokenizer, locale, n_max = n_max))
+
   out <- read_tokens(ds, tokenizer, col_types, col_names, locale_ = locale,
     n_max = n_max, progress = progress)
 
