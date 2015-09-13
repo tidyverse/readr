@@ -27,7 +27,19 @@ col_types_standardise <- function(col_types, col_names, guessed_types) {
   } else if (is.character(col_types) && length(col_types) == 1) {
     col_types_concise(col_types, guessed_types)
   } else if (is.list(col_types)) {
-    col_types_full(col_types, col_names, guessed_types)
+    if (is.null(attr(col_types, "regex"))) { 
+      col_types_full(col_types, col_names, guessed_types)
+    } else { 
+      if (length(col_types[[1]]) != length(col_types[[2]])) { 
+        stop("`col_types` require the same number of regex and types")
+      }
+      cls <- rep("_", length(col_names))
+      for(i in seq_along(col_types[[1]])) { 
+        cls[grep(col_types[[1]][i], col_names)] <- col_types[[2]][i]
+      }
+      cls <- paste(cls, collapse = "") 
+      col_types_concise(cls, guessed_types)
+    }
   } else {
     stop("`col_types` must be NULL, a list or a string", call. = FALSE)
   }

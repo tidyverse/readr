@@ -177,6 +177,19 @@ col_skip <- function() {
   collector("skip")
 }
 
+# Selecting Columns by regular expressions --------------------------------
+#' @param regex a character vector of regular expressions for selecting the
+#' name(s) of columns
+#' @param type  a character vector of concise column types, same length as the
+#' character vector \code{regex}.
+#' @rdname collector
+#' @export
+col_regex_type <- function(regex, type) { 
+  rtn <- list(regex, type)
+  attr(rtn, "regex") <- TRUE
+  rtn
+}
+
 # More complex ------------------------------------------------------------
 
 #' Parse a character vector of dates or date times.

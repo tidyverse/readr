@@ -9,6 +9,7 @@
 \alias{col_logical}
 \alias{col_number}
 \alias{col_numeric}
+\alias{col_regex_type}
 \alias{col_skip}
 \alias{collector}
 \alias{parse_auto}
@@ -54,6 +55,8 @@ parse_factor(x, levels, ordered = FALSE, na = c("", "NA"),
   locale = default_locale())
 
 col_skip()
+
+col_regex_type(regex, type)
 }
 \arguments{
 \item{x}{Character vector of values to parse.}
@@ -70,6 +73,12 @@ names.}
 \item{levels}{Character vector providing set of allowed levels.}
 
 \item{ordered}{Is it an ordered factor?}
+
+\item{regex}{a character vector of regular expressions for selecting the
+name(s) of columns}
+
+\item{type}{a character vector of concise column types, same length as the
+character vector \code{regex}.}
 }
 \description{
 Use \code{parse_} if you have a character vector you want to parse. Use
