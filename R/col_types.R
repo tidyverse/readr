@@ -1,6 +1,6 @@
 #' Standardise column types.
 #'
-#' @param col_types One of \code{NULL}, a list, a named list or a string.
+#' @param col_types One of \code{NULL}, a list, a named list or a string.  
 #'   See \code{vignette("column-types")} for more details.
 #'
 #'   If \code{NULL}, the column type will be imputed from the first 1000 rows
@@ -16,6 +16,13 @@
 #'   Alternatively, you can use a compact string representation where each
 #'   character represents one column: c = character, d = double, i = integer,
 #'   l = logical, ? = guess, or \code{_}/\code{-} to skip the column.
+#'
+#'   To select a subset of columns, and set the types, by regular expressions
+#'   you may pass a list with two elements and \code{attr(., 'regex') == TRUE},
+#'   or use the function \code{col_regex_type()} to generate said list.  
+#'   The first element of the list is a character vector or regular expressions,
+#'   the second element is a character vector of "l", "d", "i", etc. to denote
+#'   the data type of the columns.  
 #' @param col_names A character vector naming the columns.
 #' @param rows A data frame containing the first few rows, parsed as
 #'   character vectors.
