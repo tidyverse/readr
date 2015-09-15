@@ -45,7 +45,14 @@ read_log(file, col_names = FALSE, col_types = NULL, skip = 0,
 
   Alternatively, you can use a compact string representation where each
   character represents one column: c = character, d = double, i = integer,
-  l = logical, ? = guess, or \code{_}/\code{-} to skip the column.}
+  l = logical, ? = guess, or \code{_}/\code{-} to skip the column.
+
+  To select a subset of columns, and set the types, by regular expressions
+  you may pass a list with two elements and \code{attr(., 'regex') == TRUE},
+  or use the function \code{col_regex_type()} to generate said list.
+  The first element of the list is a character vector or regular expressions,
+  the second element is a character vector of "l", "d", "i", etc. to denote
+  the data type of the columns.}
 
 \item{skip}{Number of lines to skip before reading data.}
 
