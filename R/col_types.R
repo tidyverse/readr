@@ -40,7 +40,7 @@ col_types_concise <- function(x, guessed_types) {
   # after col_euro_double is removed from the package so can the following check
   # for `e` in the concise string.
   euros <- grepl("e", letters)
-  if (any(euros) > 0) { 
+  if (any(euros)) { 
     warning("col_euro_double() has been deprecated.  Please set locale.  Substituting `d` for `e`.", call. = FALSE)
     letters[euros] <- "d"
   }
