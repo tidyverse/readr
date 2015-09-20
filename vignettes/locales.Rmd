@@ -91,12 +91,12 @@ If you've loaded non-UTC data, you might want to display it as UTC in R. That's 
 ```{r, eval = FALSE}
 is_datetime <- sapply(df, inherits, "POSIXct")
 df[is_datetime] <- lapply(df[is_datetime], function(x) {
-  attr(x, "tz") <- "UTC"
+  attr(x, "tzone") <- "UTC"
   x
 })
 ```
 
-Note that once you have the date in R, changing the time zone just changes its printed representation - it still represents the same instance of time.
+Note that once you have the date in R, changing the time zone just changes its printed representation - it still represents the same instants of time.
 
 ### Default formats
 
