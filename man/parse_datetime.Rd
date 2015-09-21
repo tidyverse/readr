@@ -17,16 +17,17 @@ parse_date(x, format = "\%Y-\%m-\%d", locale = default_locale())
 
 col_date(format = NULL)
 
-parse_time(x, format = "\%H:\%M", locale = default_locale())
+parse_time(x, format = "", locale = default_locale())
 
-col_time(format = "\%H:\%M.\%S")
+col_time(format = "")
 }
 \arguments{
 \item{x}{A character vector of dates to parse.}
 
 \item{format}{A format specification, as described below. If omitted,
   parses dates according to the ISO8601 specification (with caveats,
-  as described below).
+  as described below). Times are parsed like ISO8601 times, but also
+  accept an optional am/pm specification.
 
   Unlike \code{\link{strptime}}, the format specification must match
   the complete string.}

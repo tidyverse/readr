@@ -236,7 +236,8 @@ col_skip <- function() {
 #' @param x A character vector of dates to parse.
 #' @param format A format specification, as described below. If omitted,
 #'   parses dates according to the ISO8601 specification (with caveats,
-#'   as described below).
+#'   as described below). Times are parsed like ISO8601 times, but also
+#'   accept an optional am/pm specification.
 #'
 #'   Unlike \code{\link{strptime}}, the format specification must match
 #'   the complete string.
@@ -329,12 +330,12 @@ col_date <- function(format = NULL) {
 
 #' @rdname parse_datetime
 #' @export
-parse_time <- function(x, format = "%H:%M", locale = default_locale()) {
+parse_time <- function(x, format = "", locale = default_locale()) {
   parse_vector(x, col_time(format), locale = locale)
 }
 
 #' @rdname parse_datetime
 #' @export
-col_time <- function(format = "%H:%M.%S") {
+col_time <- function(format = "") {
   collector("time", format = format)
 }

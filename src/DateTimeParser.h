@@ -73,6 +73,23 @@ public:
     return isComplete();
   }
 
+  // A flexible time parser for the most common formats
+  bool parseTime() {
+    if (!consumeInteger(2, &hour_))
+      return false;
+    consumeThisChar(':');
+    if (!consumeInteger(2, &min_))
+      return false;
+    consumeThisChar(':');
+    consumeSeconds(&sec_, NULL);
+
+    consumeWhiteSpace();
+    consumeString(pLocale_->amPm_, &amPm_);
+    consumeWhiteSpace();
+
+    return isComplete();
+  }
+
   bool isComplete() {
     return dateItr_ == dateEnd_;
   }

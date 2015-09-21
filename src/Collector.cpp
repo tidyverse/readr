@@ -329,7 +329,7 @@ void CollectorTime::setValue(int i, const Token& t) {
     std::string std_string(string.first, string.second);
 
     parser_.setDate(std_string.c_str());
-    bool res = parser_.parse(format_);
+    bool res = (format_ == "") ? parser_.parseTime() : parser_.parse(format_);
 
     if (!res) {
       warn(t.row(), t.col(), "time like " +  format_, std_string);

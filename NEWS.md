@@ -3,7 +3,9 @@
 * New `parse_auto()` which guesses and then passes.
 
 * New `col_time()` allows you to parse times (hours, minutes, seconds) in
-  to number of seconds since midnight.
+  to number of seconds since midnight. If the format is omitted, it uses
+  a flexible parser that looks for hours, then optional colon, then minutes,
+  then optional colon, then optional seconds, then optional am/pm (#249).
 
 * readr now has a new strategy for dealing with settings that vary from
   place to place: locales. The default locale is still US-English centric
