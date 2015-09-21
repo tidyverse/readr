@@ -34,8 +34,17 @@ col_types_standardise <- function(col_types, col_names, guessed_types) {
 }
 
 
-col_types_concise <- function(x, guessed_types) {
+col_types_concise <- function(x, guessed_types) { 
   letters <- strsplit(x, "")[[1]]
+
+  # after col_euro_double is removed from the package so can the following check
+  # for `e` in the concise string.
+  euros <- grepl("e", letters)
+  if (any(euros)) { 
+    warning("col_euro_double() has been deprecated.  Please set locale.  Substituting `d` for `e`.", call. = FALSE)
+    letters[euros] <- "d"
+  }
+
   lookup <- list(
     c = col_character(),
     d = col_double(),
@@ -46,7 +55,6 @@ col_types_concise <- function(x, guessed_types) {
     "_" = col_skip(),
     "-" = col_skip(),
     n = col_number(),
-    e = col_euro_double(),
     "?" = NULL
   )
 
