@@ -30,6 +30,8 @@
       They also inherit the tz from the locale, rather than using an
       explicit `tz` parameter.
       
+  See `vignette("locales")` for more details.
+      
 * `parse_numeric()` has been deprecated because the name is confusing - 
   it's a flexible number parser, not a parser of "numerics", as R collectively
   calls doubles and integers. Instead use `parse_number()`. Parse number
