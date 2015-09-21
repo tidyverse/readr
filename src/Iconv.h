@@ -13,6 +13,13 @@ public:
   virtual ~Iconv();
 
   SEXP makeSEXP(const char* start, const char* end);
+  std::string
+    makeString(const char* start, const char* end);
+
+private:
+
+  // Returns number of characters in buffer
+  size_t convert(const char* start, const char* end);
 
 };
 

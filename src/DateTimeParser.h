@@ -239,10 +239,11 @@ private:
   }
 
   inline bool consumeString(const std::vector<std::string>& haystack, int* pOut) {
-    boost::iterator_range<const char*> needle(dateItr_, dateEnd_);
+    // haystack is always in UTF-8
+    std::string needleUTF8 = pLocale_->encoder_.makeString(dateItr_, dateEnd_);
 
     for(size_t i = 0; i < haystack.size(); ++i) {
-      if (boost::istarts_with(needle, haystack[i])) {
+      if (boost::istarts_with(needleUTF8, haystack[i])) {
         *pOut = i;
         dateItr_ += haystack[i].size();
         return true;

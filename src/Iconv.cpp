@@ -29,10 +29,8 @@ Iconv::~Iconv() {
   }
 }
 
-SEXP Iconv::makeSEXP(const char* start, const char* end) {
+size_t Iconv::convert(const char* start, const char* end) {
   size_t n = end - start;
-  if (cd_ == NULL)
-    return Rf_mkCharLenCE(start, n, CE_UTF8);
 
   // Ensure buffer is big enough: one input byte can never generate
   // more than 4 output bytes
@@ -53,5 +51,20 @@ SEXP Iconv::makeSEXP(const char* start, const char* end) {
     }
   }
 
-  return Rf_mkCharLenCE(&buffer_[0], max_size - outbytesleft, CE_UTF8);
+  return max_size - outbytesleft;
+}
+
+SEXP Iconv::makeSEXP(const char* start, const char* end) {
+  if (cd_ == NULL)
+    return Rf_mkCharLenCE(start, end - start, CE_UTF8);
+
+  int n = convert(start, end);
+  return Rf_mkCharLenCE(&buffer_[0], n, CE_UTF8);
+}
+std::string Iconv::makeString(const char* start, const char* end) {
+  if (cd_ == NULL)
+    return std::string(start, end);
+
+  int n = convert(start, end);
+  return std::string(&buffer_[0], n);
 }

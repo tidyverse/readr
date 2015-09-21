@@ -21,7 +21,13 @@ date_names <- function(mon, mon_ab = mon, day, day_ab = day,
   stopifnot(is.character(day_ab), length(day_ab) == 7)
 
   structure(
-    list(mon = mon, mon_ab = mon_ab, day = day, day_ab = day_ab, am_pm = am_pm),
+    list(
+      mon = enc2utf8(mon),
+      mon_ab = enc2utf8(mon_ab),
+      day = enc2utf8(day),
+      day_ab = enc2utf8(day_ab),
+      am_pm = enc2utf8(am_pm)
+    ),
     class = "date_names"
   )
 }
