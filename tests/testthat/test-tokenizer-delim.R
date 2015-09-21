@@ -10,7 +10,7 @@ parse_d <- function(x, ...) {
   tokenize(datasource_string(x, 0), tok)
 }
 
-test_that("simple sequence parsec correctly", {
+test_that("simple sequence parsed correctly", {
   expect_equal(parse_d('1,2,3'), list(c("1", "2", "3")))
 })
 
@@ -53,6 +53,10 @@ test_that("empty fields become empty strings", {
 test_that("bare NA becomes missing value", {
   expect_equal(parse_b('NA,"NA"'), list(c("[MISSING]", "NA")))
   expect_equal(parse_d('NA,"NA"'), list(c("[MISSING]", "NA")))
+})
+
+test_that("NA with spaces becomes missing value", {
+  expect_equal(parse_b(' NA '), list(c("[MISSING]")))
 })
 
 test_that("string can be ended by new line", {

@@ -214,9 +214,9 @@ private:
   Token fieldToken(SourceIterator begin, SourceIterator end, bool hasEscapeB,
                    int row, int col) {
     Token t(begin, end, row, col, (hasEscapeB) ? this : NULL);
-    t.flagNA(NA_);
     if (trimWS_)
       t.trim();
+    t.flagNA(NA_);
     return t;
   }
 
