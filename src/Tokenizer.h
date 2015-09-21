@@ -2,10 +2,7 @@
 #define FASTREAD_TOKENIZER_H_
 
 #include <Rcpp.h>
-
-#include <boost/noncopyable.hpp>
-#include <boost/shared_ptr.hpp>
-#include <boost/container/string.hpp>
+#include "boost.h"
 #include "Warnings.h"
 class Token;
 

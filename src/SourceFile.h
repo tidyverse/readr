@@ -2,10 +2,7 @@
 #define FASTREAD_SOURCEFILE_H_
 
 #include <Rcpp.h>
-
-#include <boost/interprocess/file_mapping.hpp>
-#include <boost/interprocess/mapped_region.hpp>
-
+#include "boost.h"
 #include "Source.h"
 
 class SourceFile : public Source {

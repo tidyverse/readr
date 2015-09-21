@@ -1,7 +1,7 @@
 #ifndef FASTREAD_QI_PARSERS
 #define FASTREAD_QI_PARSERS
 
-#include <boost/spirit/include/qi.hpp>
+#include "boost.h"
 
 struct DecimalCommaPolicy : public boost::spirit::qi::real_policies<double> {
   template <typename Iterator>

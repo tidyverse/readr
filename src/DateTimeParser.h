@@ -2,9 +2,9 @@
 #define FASTREAD_DATE_TIME_PARSER_H_
 
 #include <ctime>
+#include "boost.h"
 #include "DateTime.h"
 #include "LocaleInfo.h"
-#include <boost/algorithm/string/predicate.hpp>
 #include "QiParsers.h"
 
 // Parsing ---------------------------------------------------------------------
