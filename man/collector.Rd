@@ -9,6 +9,7 @@
 \alias{col_logical}
 \alias{col_number}
 \alias{col_numeric}
+\alias{col_regex_type}
 \alias{col_skip}
 \alias{collector}
 \alias{parse_auto}
@@ -54,6 +55,8 @@ parse_factor(x, levels, ordered = FALSE, na = c("", "NA"),
   locale = default_locale())
 
 col_skip()
+
+col_regex_type(regex, type)
 }
 \arguments{
 \item{x}{Character vector of values to parse.}
@@ -70,6 +73,12 @@ names.}
 \item{levels}{Character vector providing set of allowed levels.}
 
 \item{ordered}{Is it an ordered factor?}
+
+\item{regex}{a character vector of regular expressions for selecting the
+name(s) of columns}
+
+\item{type}{a character vector of concise column types, same length as the
+character vector \code{regex}.}
 }
 \description{
 Use \code{parse_} if you have a character vector you want to parse. Use
@@ -91,6 +100,21 @@ x <- c("1", "2", "3", "-")
 parse_double(x)
 # Or flag values as missing
 parse_double(x, na = "-")
+input_data <- cbind(1:5,
+                    matrix(rexp(100), nrow = 5),
+                    matrix(sample(letters, 100, replace = TRUE), nrow = 5))
+colnames(input_data) <- c("sid", paste0("proc", 1:20), paste0("diag", 1:20))
+
+
+tf <- tempfile()
+write.csv(input_data, tf, row.names = FALSE)
+
+# read in the sid, odd numbered procs, and the first 5 diags as an integer,
+# doubles, and characters respectively.
+read_csv(tf, col_type = col_regex_type(c("sid", "proc\\\\d*[13579]$", "diag[1-5]$"),
+                                       c("i", "d", "c")))
+
+unlink(tf)
 }
 \seealso{
 \code{\link{parse_datetime}}, \code{\link{type_convert}} to

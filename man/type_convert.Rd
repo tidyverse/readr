@@ -25,7 +25,14 @@ type_convert(df, col_types = NULL, na = c("", "NA"), trim_ws = TRUE,
 
   Alternatively, you can use a compact string representation where each
   character represents one column: c = character, d = double, i = integer,
-  l = logical, ? = guess, or \code{_}/\code{-} to skip the column.}
+  l = logical, ? = guess, or \code{_}/\code{-} to skip the column.
+
+  To select a subset of columns, and set the types, by regular expressions
+  you may pass a list with two elements and \code{attr(., 'regex') == TRUE},
+  or use the function \code{col_regex_type()} to generate said list.
+  The first element of the list is a character vector or regular expressions,
+  the second element is a character vector of "l", "d", "i", etc. to denote
+  the data type of the columns.}
 
 \item{na}{Character vector of strings to use for missing values. Set this
 option to \code{character()} to indicate no missing values.}

@@ -1,6 +1,6 @@
 #' Standardise column types.
 #'
-#' @param col_types One of \code{NULL}, a list, a named list or a string.
+#' @param col_types One of \code{NULL}, a list, a named list or a string.  
 #'   See \code{vignette("column-types")} for more details.
 #'
 #'   If \code{NULL}, the column type will be imputed from the first 1000 rows
@@ -16,6 +16,13 @@
 #'   Alternatively, you can use a compact string representation where each
 #'   character represents one column: c = character, d = double, i = integer,
 #'   l = logical, ? = guess, or \code{_}/\code{-} to skip the column.
+#'
+#'   To select a subset of columns, and set the types, by regular expressions
+#'   you may pass a list with two elements and \code{attr(., 'regex') == TRUE},
+#'   or use the function \code{col_regex_type()} to generate said list.  
+#'   The first element of the list is a character vector or regular expressions,
+#'   the second element is a character vector of "l", "d", "i", etc. to denote
+#'   the data type of the columns.  
 #' @param col_names A character vector naming the columns.
 #' @param rows A data frame containing the first few rows, parsed as
 #'   character vectors.
@@ -27,7 +34,19 @@ col_types_standardise <- function(col_types, col_names, guessed_types) {
   } else if (is.character(col_types) && length(col_types) == 1) {
     col_types_concise(col_types, guessed_types)
   } else if (is.list(col_types)) {
-    col_types_full(col_types, col_names, guessed_types)
+    if (is.null(attr(col_types, "regex"))) { 
+      col_types_full(col_types, col_names, guessed_types)
+    } else { 
+      if (length(col_types[[1]]) != length(col_types[[2]])) { 
+        stop("`col_types` require the same number of regex and types")
+      }
+      cls <- rep("_", length(col_names))
+      for(i in seq_along(col_types[[1]])) { 
+        cls[grep(col_types[[1]][i], col_names)] <- col_types[[2]][i]
+      }
+      cls <- paste(cls, collapse = "") 
+      col_types_concise(cls, guessed_types)
+    }
   } else {
     stop("`col_types` must be NULL, a list or a string", call. = FALSE)
   }

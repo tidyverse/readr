@@ -181,6 +181,35 @@ col_skip <- function() {
   collector("skip")
 }
 
+# Selecting Columns by regular expressions --------------------------------
+#' @param regex a character vector of regular expressions for selecting the
+#' name(s) of columns
+#' @param type  a character vector of concise column types, same length as the
+#' character vector \code{regex}.
+#' @rdname collector
+#' @examples
+#' input_data <- cbind(1:5, 
+#'                     matrix(rexp(100), nrow = 5),
+#'                     matrix(sample(letters, 100, replace = TRUE), nrow = 5))
+#' colnames(input_data) <- c("sid", paste0("proc", 1:20), paste0("diag", 1:20))
+#' 
+#' 
+#' tf <- tempfile()
+#' write.csv(input_data, tf, row.names = FALSE)
+#' 
+#' # read in the sid, odd numbered procs, and the first 5 diags as an integer,
+#' # doubles, and characters respectively.
+#' read_csv(tf, col_type = col_regex_type(c("sid", "proc\\d*[13579]$", "diag[1-5]$"),
+#'                                        c("i", "d", "c")))
+#' 
+#' unlink(tf)
+#' @export
+col_regex_type <- function(regex, type) { 
+  rtn <- list(regex, type)
+  attr(rtn, "regex") <- TRUE
+  rtn
+}
+
 # More complex ------------------------------------------------------------
 
 #' Parse a character vector of dates or date times.
