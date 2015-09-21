@@ -27,7 +27,7 @@ type_convert <- function(df, col_types = NULL, na = c("", "NA"), trim_ws = TRUE,
   char_cols <- df[is_character]
   guesses <- lapply(char_cols, function(x) {
     x[x %in% na] <- NA
-    collectorGuess(x, locale)
+    collector_guess(x, locale)
   })
   col_types <- col_types_standardise(col_types, names(char_cols), guesses)
 

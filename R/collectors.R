@@ -2,6 +2,10 @@ collector <- function(type, ...) {
   structure(list(...), class = c(paste0("collector_", type), "collector"))
 }
 
+collector_guess <- function(x, locale = default_locale()) {
+  collectorGuess(x, locale)
+}
+
 #' @export
 print.collector <- function(x, ...) {
   cat("<", class(x)[1], ">\n", sep = "")
@@ -62,7 +66,7 @@ NULL
 #' @rdname collector
 #' @export
 parse_auto <- function(x, na = c("", "NA"), locale = default_locale()) {
-  parse_vector(x, collectorGuess(x, locale), na = na, locale = locale)
+  parse_vector(x, collector_guess(x, locale), na = na, locale = locale)
 }
 
 #' @rdname collector

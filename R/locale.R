@@ -37,7 +37,7 @@
 #' locale("fr")
 #'
 #' # South American locale
-#' locale("es_MX", decimal_mark = ",")
+#' locale("es", decimal_mark = ",")
 locale <- function(date_names = "en",
                    date_format = "%Y%.%m%.%d", time_format = "%H:%M",
                    decimal_mark = ".", grouping_mark = NULL,

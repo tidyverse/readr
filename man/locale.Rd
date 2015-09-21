@@ -55,6 +55,6 @@ locale()
 locale("fr")
 
 # South American locale
-locale("es_MX", decimal_mark = ",")
+locale("es", decimal_mark = ",")
 }
 
