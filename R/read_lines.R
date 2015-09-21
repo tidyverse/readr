@@ -10,7 +10,8 @@
 #' read_lines(system.file("extdata/mtcars.csv", package = "readr"))
 #' read_lines("1\n\n2")
 #' read_lines("\n")
-read_lines <- function(file, skip = 0, n_max = -1L, progress = interactive()) {
+read_lines <- function(file, skip = 0, n_max = -1L, locale = default_locale(),
+                       progress = interactive()) {
   ds <- datasource(file, skip = skip)
-  read_lines_(ds, n_max = n_max, progress = progress)
+  read_lines_(ds, locale_ = locale, n_max = n_max, progress = progress)
 }

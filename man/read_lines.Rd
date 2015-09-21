@@ -4,7 +4,8 @@
 \alias{read_lines}
 \title{Read lines from a file or string.}
 \usage{
-read_lines(file, skip = 0, n_max = -1L, progress = interactive())
+read_lines(file, skip = 0, n_max = -1L, locale = default_locale(),
+  progress = interactive())
 }
 \arguments{
 \item{file}{Either a path to a file, a connection, or literal data
@@ -22,6 +23,12 @@ read_lines(file, skip = 0, n_max = -1L, progress = interactive())
 
 \item{n_max}{Number of lines to read. If \code{n} is -1, all lines in
 file will be read.}
+
+\item{locale}{The locale controls defaults that vary from place to place.
+The default locale is US-centric (like R), but you can use
+\code{\link{locale}} to create your own locale that controls things like
+the default time zone, encoding, decimal mark, big mark, and day/month
+names.}
 
 \item{progress}{Display a progress bar? By default it will only display
 in an interactive session. The display is updated every 50,000 values

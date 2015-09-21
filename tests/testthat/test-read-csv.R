@@ -57,6 +57,11 @@ test_that("can read more than 100 columns", {
   expect_equal(ncol(read_csv(y)), 150)
 })
 
+test_that("encoding affects text and headers", {
+  x <- read_csv("enc-iso-8859-1.txt", locale = locale(encoding = "ISO-8859-1"))
+  expect_identical(names(x), "français")
+  expect_identical(x[[1]], "élève")
+})
 
 # Column warnings ---------------------------------------------------------
 

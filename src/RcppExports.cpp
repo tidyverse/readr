@@ -71,6 +71,19 @@ BEGIN_RCPP
     return __result;
 END_RCPP
 }
+// read_header_
+RObject read_header_(List sourceSpec, List tokenizerSpec, List locale_);
+RcppExport SEXP readr_read_header_(SEXP sourceSpecSEXP, SEXP tokenizerSpecSEXP, SEXP locale_SEXP) {
+BEGIN_RCPP
+    Rcpp::RObject __result;
+    Rcpp::RNGScope __rngScope;
+    Rcpp::traits::input_parameter< List >::type sourceSpec(sourceSpecSEXP);
+    Rcpp::traits::input_parameter< List >::type tokenizerSpec(tokenizerSpecSEXP);
+    Rcpp::traits::input_parameter< List >::type locale_(locale_SEXP);
+    __result = Rcpp::wrap(read_header_(sourceSpec, tokenizerSpec, locale_));
+    return __result;
+END_RCPP
+}
 // tokenize_
 RObject tokenize_(List sourceSpec, List tokenizerSpec, int n_max);
 RcppExport SEXP readr_tokenize_(SEXP sourceSpecSEXP, SEXP tokenizerSpecSEXP, SEXP n_maxSEXP) {
@@ -99,26 +112,28 @@ BEGIN_RCPP
 END_RCPP
 }
 // read_file_
-CharacterVector read_file_(List sourceSpec);
-RcppExport SEXP readr_read_file_(SEXP sourceSpecSEXP) {
+CharacterVector read_file_(List sourceSpec, List locale_);
+RcppExport SEXP readr_read_file_(SEXP sourceSpecSEXP, SEXP locale_SEXP) {
 BEGIN_RCPP
     Rcpp::RObject __result;
     Rcpp::RNGScope __rngScope;
     Rcpp::traits::input_parameter< List >::type sourceSpec(sourceSpecSEXP);
-    __result = Rcpp::wrap(read_file_(sourceSpec));
+    Rcpp::traits::input_parameter< List >::type locale_(locale_SEXP);
+    __result = Rcpp::wrap(read_file_(sourceSpec, locale_));
     return __result;
 END_RCPP
 }
 // read_lines_
-CharacterVector read_lines_(List sourceSpec, int n_max, bool progress);
-RcppExport SEXP readr_read_lines_(SEXP sourceSpecSEXP, SEXP n_maxSEXP, SEXP progressSEXP) {
+CharacterVector read_lines_(List sourceSpec, List locale_, int n_max, bool progress);
+RcppExport SEXP readr_read_lines_(SEXP sourceSpecSEXP, SEXP locale_SEXP, SEXP n_maxSEXP, SEXP progressSEXP) {
 BEGIN_RCPP
     Rcpp::RObject __result;
     Rcpp::RNGScope __rngScope;
     Rcpp::traits::input_parameter< List >::type sourceSpec(sourceSpecSEXP);
+    Rcpp::traits::input_parameter< List >::type locale_(locale_SEXP);
     Rcpp::traits::input_parameter< int >::type n_max(n_maxSEXP);
     Rcpp::traits::input_parameter< bool >::type progress(progressSEXP);
-    __result = Rcpp::wrap(read_lines_(sourceSpec, n_max, progress));
+    __result = Rcpp::wrap(read_lines_(sourceSpec, locale_, n_max, progress));
     return __result;
 END_RCPP
 }

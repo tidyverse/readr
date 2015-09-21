@@ -49,6 +49,30 @@ std::vector<int> count_fields_(List sourceSpec, List tokenizerSpec, int n_max) {
 }
 
 // [[Rcpp::export]]
+RObject read_header_(List sourceSpec, List tokenizerSpec, List locale_) {
+  LocaleInfo locale(locale_);
+  SourcePtr source = Source::create(sourceSpec);
+  TokenizerPtr tokenizer = Tokenizer::create(tokenizerSpec);
+  tokenizer->tokenize(source->begin(), source->end());
+
+  CollectorCharacter out(&locale.encoder_);
+
+  for (Token t = tokenizer->nextToken(); t.type() != TOKEN_EOF; t = tokenizer->nextToken()) {
+    if (t.row() > (size_t) 0) // only read one row
+      break;
+
+    if (t.col() >= out.size()) {
+      out.resize(t.col() + 1);
+    }
+
+    out.setValue(t.col(), t);
+  }
+
+  return out.vector();
+}
+
+
+// [[Rcpp::export]]
 RObject tokenize_(List sourceSpec, List tokenizerSpec, int n_max) {
   Warnings warnings;
 

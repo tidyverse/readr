@@ -1,8 +1,10 @@
 #ifndef FASTREAD_TOKEN_H_
 #define FASTREAD_TOKEN_H_
 
+#include <Rcpp.h>
 #include <string>
 #include "Source.h"
+#include "Iconv.h"
 #include "Tokenizer.h"
 
 enum TokenType {
@@ -49,6 +51,19 @@ public:
     }
 
     return "";
+  }
+
+  SEXP asSEXP(Iconv* pEncoder) const {
+    switch(type_) {
+    case TOKEN_STRING:   {
+      boost::container::string buffer;
+      SourceIterators string = getString(&buffer);
+
+      return pEncoder->makeSEXP(string.first, string.second);
+    }
+    default:
+      return NA_STRING;
+    }
   }
 
   TokenType type() const {

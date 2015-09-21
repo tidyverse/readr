@@ -1,6 +1,7 @@
 #include <Rcpp.h>
 using namespace Rcpp;
 
+#include "Locale.h"
 #include "Source.h"
 #include "Tokenizer.h"
 #include "TokenizerLine.h"
@@ -9,19 +10,23 @@ using namespace Rcpp;
 #include "Warnings.h"
 
 // [[Rcpp::export]]
-CharacterVector read_file_(List sourceSpec) {
+CharacterVector read_file_(List sourceSpec, List locale_) {
   SourcePtr source = Source::create(sourceSpec);
+  LocaleInfo locale(locale_);
 
-  CharacterVector out(1);
-  out[0] = Rf_mkCharLenCE(source->begin(), source->end() - source->begin(), CE_UTF8);
-  return out;
+  return CharacterVector::create(
+    locale.encoder_.makeSEXP(source->begin(), source->end())
+  );
 }
 
 // [[Rcpp::export]]
-CharacterVector read_lines_(List sourceSpec, int n_max = -1, bool progress = true) {
+CharacterVector read_lines_(List sourceSpec, List locale_, int n_max = -1,
+                            bool progress = true) {
+
   SourcePtr source = Source::create(sourceSpec);
   TokenizerLine tokenizer;
   tokenizer.tokenize(source->begin(), source->end());
+  LocaleInfo locale(locale_);
   Progress progressBar;
 
   int n = (n_max < 0) ? 10000 : n_max;
@@ -43,7 +48,7 @@ CharacterVector read_lines_(List sourceSpec, int n_max = -1, bool progress = tru
     }
 
     if (t.type() == TOKEN_STRING)
-      out[i] = t.asString();
+      out[i] = t.asSEXP(&locale.encoder_);
 
     ++i;
   }

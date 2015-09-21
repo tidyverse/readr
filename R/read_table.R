@@ -37,7 +37,7 @@ read_table <- function(file, col_names = TRUE, col_types = NULL,
 
   if (isTRUE(col_names))
     skip <- skip + 1
-  col_names <- col_names_standardise(col_names, header(ds, tokenizer))
+  col_names <- col_names_standardise(col_names, read_header(ds, tokenizer, locale))
 
   ds <- datasource(file, skip = skip)
   col_types <- col_types_standardise(col_types, col_names,

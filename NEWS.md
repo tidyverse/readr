@@ -12,7 +12,8 @@
   encoding.
   
     * `read_csv()`, `read_tsv()`, `read_fwf()`, `read_table()`, 
-      `type_convert()`, `parse_vector()` all gain a `locale` argument.
+      `read_lines()`, `read_file()`, `type_convert()`, `parse_vector()` 
+      all gain a `locale` argument.
 
     * `col_euro_double()` and `parse_euro_double()` have been deprecated.
       Please use the `decimal_mark` parameter to `locale()` instead.
@@ -22,7 +23,7 @@
       number. It uses `groupingMark` to define what a number is.
       
     * The default encoding is now UTF-8. To load files that are not 
-      in UTF-8, set the encoding parameter of the locale (#40)
+      in UTF-8, set the encoding parameter of the locale (#40).
       
     * `parse_datetime()` and `parse_date()` with `%B` and `%b` use the
       month names (full and abbreviate) defined in the locale (#242).

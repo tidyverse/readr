@@ -21,6 +21,10 @@ count_fields_ <- function(sourceSpec, tokenizerSpec, n_max) {
     .Call('readr_count_fields_', PACKAGE = 'readr', sourceSpec, tokenizerSpec, n_max)
 }
 
+read_header_ <- function(sourceSpec, tokenizerSpec, locale_) {
+    .Call('readr_read_header_', PACKAGE = 'readr', sourceSpec, tokenizerSpec, locale_)
+}
+
 tokenize_ <- function(sourceSpec, tokenizerSpec, n_max) {
     .Call('readr_tokenize_', PACKAGE = 'readr', sourceSpec, tokenizerSpec, n_max)
 }
@@ -29,12 +33,12 @@ parse_vector_ <- function(x, collectorSpec, locale_, na) {
     .Call('readr_parse_vector_', PACKAGE = 'readr', x, collectorSpec, locale_, na)
 }
 
-read_file_ <- function(sourceSpec) {
-    .Call('readr_read_file_', PACKAGE = 'readr', sourceSpec)
+read_file_ <- function(sourceSpec, locale_) {
+    .Call('readr_read_file_', PACKAGE = 'readr', sourceSpec, locale_)
 }
 
-read_lines_ <- function(sourceSpec, n_max = -1L, progress = TRUE) {
-    .Call('readr_read_lines_', PACKAGE = 'readr', sourceSpec, n_max, progress)
+read_lines_ <- function(sourceSpec, locale_, n_max = -1L, progress = TRUE) {
+    .Call('readr_read_lines_', PACKAGE = 'readr', sourceSpec, locale_, n_max, progress)
 }
 
 read_tokens <- function(sourceSpec, tokenizerSpec, colSpecs, colNames, locale_, n_max = -1L, progress = TRUE) {

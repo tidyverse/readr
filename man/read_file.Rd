@@ -4,7 +4,7 @@
 \alias{read_file}
 \title{Read a file into a string.}
 \usage{
-read_file(file)
+read_file(file, locale = default_locale())
 }
 \arguments{
 \item{file}{Either a path to a file, a connection, or literal data
@@ -17,6 +17,12 @@ read_file(file)
 
    Literal data is most useful for examples and tests. It must contain at
    least one new line to be recognised as data (instead of a path).}
+
+\item{locale}{The locale controls defaults that vary from place to place.
+The default locale is US-centric (like R), but you can use
+\code{\link{locale}} to create your own locale that controls things like
+the default time zone, encoding, decimal mark, big mark, and day/month
+names.}
 }
 \description{
 Read a file into a string.

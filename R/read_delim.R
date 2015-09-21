@@ -128,7 +128,7 @@ read_delimited <- function(file, tokenizer, col_names = TRUE, col_types = NULL,
 
   if (isTRUE(col_names))
     skip <- skip + 1
-  col_names <- col_names_standardise(col_names, header(ds, tokenizer))
+  col_names <- col_names_standardise(col_names, read_header(ds, tokenizer, locale))
 
   ds <- datasource(data, skip = skip)
   col_types <- col_types_standardise(col_types, col_names, types(ds, tokenizer, locale, n_max = n_max))
@@ -139,11 +139,6 @@ read_delimited <- function(file, tokenizer, col_names = TRUE, col_types = NULL,
   warn_problems(out, name)
 }
 
-# The header is the first row, parsed into fields
-header <- function(datasource, tokenizer) {
-  suppressWarnings(tokenize(datasource, tokenizer = tokenizer, n_max = 1)[[1]])
-}
-
 types <- function(source, tokenizer, locale, n = 1000, n_max = -1) {
   if (n_max > 0) {
     n <- min(n, n_max)
@@ -152,4 +147,6 @@ types <- function(source, tokenizer, locale, n = 1000, n_max = -1) {
   collectorsGuess(source, tokenizer, locale, n = n)
 }
 
-
+read_header <- function(datasource, tokenizer, locale = default_locale()) {
+  read_header_(datasource, tokenizer, locale)
+}
