@@ -1,5 +1,10 @@
 # readr 0.1.1.9000
 
+* `read_fwf()` is now much more careful with new lines. The last column 
+  can now be ragged: the width of the last field is silently extended until
+  it hits the next line break (#146). If a line is too short, you'll get
+  a warning instead of a silent misreading (#166, #254).
+
 * New `parse_auto()` which guesses and then passes.
 
 * New `col_time()` allows you to parse times (hours, minutes, seconds) in

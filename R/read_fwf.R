@@ -15,7 +15,8 @@
 #' @inheritParams read_delim
 #' @param col_positions Column positions, as created by \code{fwf_empty},
 #'   \code{fwf_widths} or \code{fwf_positions}. To read in only selected fields,
-#'   use \code{fwf_positions}.
+#'   use \code{fwf_positions}. The width of the last column will be silently
+#'   extended to the next line break.
 #' @export
 #' @examples
 #' fwf_sample <- system.file("extdata/fwf-sample.txt", package = "readr")

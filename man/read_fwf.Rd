@@ -30,7 +30,8 @@ fwf_positions(start, end, col_names = NULL)
 
 \item{col_positions}{Column positions, as created by \code{fwf_empty},
 \code{fwf_widths} or \code{fwf_positions}. To read in only selected fields,
-use \code{fwf_positions}.}
+use \code{fwf_positions}. The width of the last column will be silently
+extended to the next line break.}
 
 \item{col_types}{One of \code{NULL}, a list, a named list or a string.
   See \code{vignette("column-types")} for more details.

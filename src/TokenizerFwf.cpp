@@ -3,6 +3,7 @@ using namespace Rcpp;
 
 #include "Source.h"
 #include "Tokenizer.h"
+#include "TokenizerFwf.h"
 #include "utils.h"
 
 std::vector<bool> emptyCols_(SourceIterator begin, SourceIterator end, size_t n = 100) {
@@ -64,3 +65,119 @@ List whitespaceColumns(List sourceSpec, int n = 100) {
     _["end"] = end
   );
 }
+
+// TokenizerFwf ---------------------------------------------------------------
+
+#include <Rcpp.h>
+#include "TokenizerFwf.h"
+
+TokenizerFwf::TokenizerFwf(const std::vector<int>& beginOffset, const std::vector<int>& endOffset,
+                           std::vector<std::string> NA):
+  beginOffset_(beginOffset),
+  endOffset_(endOffset),
+  NA_(NA),
+  cols_(beginOffset.size()),
+  moreTokens_(false)
+{
+  if (beginOffset_.size() != endOffset_.size())
+    Rcpp::stop("Begin (%i) and end (%i) specifications must have equal length",
+      beginOffset_.size(), endOffset_.size());
+
+  max_ = 0;
+  for (int j = 0; j < cols_; ++j) {
+    if (endOffset_[j] <= beginOffset_[j])
+      Rcpp::stop("Begin offset (%i) must be smaller than end offset (%i)",
+        beginOffset_[j], endOffset_[j]);
+
+    if (endOffset_[j] > max_)
+      max_ = endOffset_[j];
+  }
+}
+
+void TokenizerFwf::tokenize(SourceIterator begin, SourceIterator end) {
+  curLine_ = begin;
+  begin_ = begin;
+  end_ = end;
+
+  row_ = 0;
+  col_ = 0;
+  moreTokens_ = true;
+}
+
+std::pair<double,size_t> TokenizerFwf::progress() {
+  size_t bytes = curLine_ - begin_;
+  return std::make_pair(bytes / (double) (end_ - begin_), bytes);
+}
+
+// bool advance(SourceIterator start, SourceIterator end, int n) {
+//   for(int i = 0; i < n; ++i) {
+//     start++;
+//     if (start == end)
+//       return false;
+//
+//     if (*start == '\r' || *start == '\n')
+//       return false;
+//   }
+//
+//   return true;
+// }
+
+Token TokenizerFwf::nextToken() {
+  if (!moreTokens_)
+    return Token(TOKEN_EOF, 0, 0);
+
+  SourceIterator fieldBegin = curLine_ + beginOffset_[col_];
+  if (fieldBegin >= end_) {
+    moreTokens_ = false;
+    return Token(TOKEN_EOF, 0, 0);
+  }
+
+  SourceIterator fieldEnd = fieldBegin;
+  int width = endOffset_[col_] - beginOffset_[col_];
+  bool lastCol = (col_ == cols_ - 1), tooShort = false;
+
+  // Find the end of the field, stopping for newlines
+  for(int i = 0; i < width; ++i) {
+    if (fieldEnd == end_ || *fieldEnd == '\n' || *fieldEnd == '\r') {
+      warn(row_, col_, tfm::format("%i chars", width), tfm::format("%i", i));
+
+      tooShort = true;
+      break;
+    }
+
+    fieldEnd++;
+  }
+  // Last column is often ragged, so read until end of line (ignoring width)
+  if (lastCol) {
+    while(fieldEnd != end_ && *fieldEnd != '\r' && *fieldEnd != '\n')
+      fieldEnd++;
+  }
+
+  Token t = fieldToken(fieldBegin, fieldEnd);
+
+  if (lastCol || tooShort) {
+    row_++;
+    col_ = 0;
+
+    curLine_ = fieldEnd;
+    advanceForLF(&curLine_, end_);
+    if (curLine_ != end_)
+      curLine_++;
+  } else {
+    col_++;
+  }
+
+  return t;
+}
+
+Token TokenizerFwf::fieldToken(SourceIterator begin, SourceIterator end) {
+  if (begin == end)
+    return Token(TOKEN_MISSING, row_, col_);
+
+  Token t = Token(begin, end, row_, col_);
+  t.trim();
+  t.flagNA(NA_);
+
+  return t;
+}
+

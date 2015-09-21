@@ -13,3 +13,22 @@ test_that("passing \"\" to read_fwf's 'na' option", {
   expect_equal(read_fwf('foobar\nfoo   ', fwf_widths(c(3, 3)), na = "")[[2]],
                c("bar", NA))
 })
+
+test_that("ragged last column silently expanded", {
+  x <- read_fwf("1a\n2ab\n3abc", fwf_widths(c(1, 1)))
+  expect_equal(x$X2, c("a", "ab", "abc"))
+  expect_equal(n_problems(x), 0)
+})
+
+test_that("ragged last column shrunk with warning", {
+  x <- read_fwf("1a\n2ab\n3abc", fwf_widths(c(1, 3)))
+  expect_equal(x$X2, c("a", "ab", "abc"))
+  expect_equal(n_problems(x), 2)
+})
+
+# read_table -------------------------------------------------------------------
+
+test_that("read_table silently reads ragged last column", {
+  x <- read_table("foo bar\n1   2\n3   4\n5   6\n")
+  expect_equal(x$foo, c(1, 3, 5))
+})
