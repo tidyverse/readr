@@ -71,6 +71,9 @@ warn_problems <- function(x, name = "input") {
 }
 
 name_problems <- function(x) {
+  if (n_problems(x) == 0)
+    return(x)
+
   problems <- problems(x)
   problems$col <- names(x)[problems$col]
   attr(x, "problems") <- problems
