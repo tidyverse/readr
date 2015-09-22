@@ -13,7 +13,7 @@
 #' @inheritParams datasource
 #' @inheritParams tokenizer_fwf
 #' @inheritParams col_names_standardise
-#' @inheritParams col_types_standardise
+#' @inheritParams col_spec_standardise
 #' @inheritParams read_delim
 #' @export
 #' @examples
@@ -40,7 +40,7 @@ read_table <- function(file, col_names = TRUE, col_types = NULL,
   col_names <- col_names_standardise(col_names, read_header(ds, tokenizer, locale))
 
   ds <- datasource(file, skip = skip)
-  col_types <- col_types_standardise(col_types, col_names,
+  col_types <- col_spec_standardise(col_types, col_names,
     types(ds, tokenizer, locale))
   read_tokens(ds, tokenizer, col_types, col_names, locale_ = locale,
     n_max = n_max)

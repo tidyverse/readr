@@ -71,8 +71,11 @@ test_that("nuls are silently dropped", {
 # Column warnings ---------------------------------------------------------
 
 test_that("warnings based on number of columns (not output columns)", {
-  out <- readr::read_csv("1,2,3\n4,5,6", "z", "__i")
-  expect_equal(n_problems(out), 0)
+  out1 <- readr::read_csv("1,2,3\n4,5,6", c("", "", "z"), "__i")
+  out2 <- readr::read_csv("1,2,3\n4,5,6", FALSE, cols_only(X3 = "i"))
+
+  expect_equal(n_problems(out1), 0)
+  expect_equal(n_problems(out2), 0)
 })
 
 # read_csv2 ---------------------------------------------------------------

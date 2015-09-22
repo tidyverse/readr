@@ -2,6 +2,8 @@ collector <- function(type, ...) {
   structure(list(...), class = c(paste0("collector_", type), "collector"))
 }
 
+is.collector <- function(x) inherits(x, "collector")
+
 collector_guess <- function(x, locale = default_locale()) {
   collectorGuess(x, locale)
 }
@@ -12,6 +14,10 @@ print.collector <- function(x, ...) {
 }
 
 collector_find <- function(name) {
+  if (is.na(name)) {
+    return(col_character())
+  }
+
   get(paste0("col_", name), envir = asNamespace("readr"))()
 }
 

@@ -14,7 +14,7 @@ NULL
 #' @inheritParams datasource
 #' @inheritParams tokenizer_delim
 #' @inheritParams col_names_standardise
-#' @inheritParams col_types_standardise
+#' @inheritParams col_spec_standardise
 #' @param locale The locale controls defaults that vary from place to place.
 #'   The default locale is US-centric (like R), but you can use
 #'   \code{\link{locale}} to create your own locale that controls things like
@@ -136,7 +136,7 @@ read_delimited <- function(file, tokenizer, col_names = TRUE, col_types = NULL,
   col_names <- col_names_standardise(col_names, read_header(ds, tokenizer, locale))
 
   ds <- datasource(data, skip = skip)
-  col_types <- col_types_standardise(col_types, col_names, types(ds, tokenizer, locale, n_max = n_max))
+  col_types <- col_spec_standardise(col_types, col_names, types(ds, tokenizer, locale, n_max = n_max))
   out <- read_tokens(ds, tokenizer, col_types, col_names, locale_ = locale,
     n_max = n_max, progress = progress)
 

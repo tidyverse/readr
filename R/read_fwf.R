@@ -11,7 +11,7 @@
 #' @inheritParams datasource
 #' @inheritParams tokenizer_fwf
 #' @inheritParams col_names_standardise
-#' @inheritParams col_types_standardise
+#' @inheritParams col_spec_standardise
 #' @inheritParams read_delim
 #' @param col_positions Column positions, as created by \code{fwf_empty},
 #'   \code{fwf_widths} or \code{fwf_positions}. To read in only selected fields,
@@ -35,7 +35,7 @@ read_fwf <- function(file, col_positions, col_types = NULL,
   ds <- datasource(file, skip = skip)
   tokenizer <- tokenizer_fwf(col_positions$begin, col_positions$end, na = na)
 
-  col_types <- col_types_standardise(col_types, col_positions$col_names,
+  col_types <- col_spec_standardise(col_types, col_positions$col_names,
     types(ds, tokenizer, locale))
   out <- read_tokens(ds, tokenizer, col_types, col_positions$col_names,
     locale_ = locale, n_max = n_max, progress = progress)

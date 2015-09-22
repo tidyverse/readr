@@ -115,9 +115,9 @@ RObject read_tokens(List sourceSpec, List tokenizerSpec, ListOf<List> colSpecs,
       outNames[cj++] = tfm::format("X%i", j + 1);
     }
   }
-  if (colNames.size() != pOut) {
+  if (colNames.size() != p) {
     warnings.addWarning(-1, -1,
-      tfm::format("%i col names", pOut),
+      tfm::format("%i col names", p),
       tfm::format("%i col names", colNames.size()));
   }
 

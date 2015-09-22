@@ -1,5 +1,10 @@
 # readr 0.1.1.9000
 
+* You can now use `cols_only()` to load only selected named columns. You can
+  also choose to override the default column type in `cols()`. In cols, you
+  can choose to refer to parsers either with their full name (e.g. 
+  `col_character()`) or their one letter abbreviation (e.g. `c`) (#72, #148).
+
 * Pathological zero row inputs (due to empty input, `skip` or `n_max`) now
   return zero row data frames (#119).
 

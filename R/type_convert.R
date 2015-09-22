@@ -5,7 +5,7 @@
 #' then let readr take another stab at parsing it.
 #'
 #' @param df A data frame.
-#' @inheritParams col_types_standardise
+#' @inheritParams col_spec_standardise
 #' @inheritParams tokenizer_delim
 #' @inheritParams read_csv
 #' @export
@@ -29,7 +29,7 @@ type_convert <- function(df, col_types = NULL, na = c("", "NA"), trim_ws = TRUE,
     x[x %in% na] <- NA
     collector_guess(x, locale)
   })
-  col_types <- col_types_standardise(col_types, names(char_cols), guesses)
+  col_types <- col_spec_standardise(col_types, names(char_cols), guesses)
 
   df[is_character] <- lapply(seq_along(char_cols), function(i) {
     type_convert_col(char_cols[[i]], col_types[[i]], which(is_character)[i],

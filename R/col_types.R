@@ -1,17 +1,124 @@
+#' Create column specification
+#'
+#' @param ... Either column objects created by \code{col_*}, or their
+#'   abbreviated character names. If you're only overriding a few columns,
+#'   it's best to refer to columns by name. If not named, the column types
+#'   must match the column names exactly.
+#' @param .default Any named columns not explicitly overridden in \code{...}
+#'   will be read with this column type.
+#' @export
+#' @examples
+#' cols(a = col_integer())
+#' cols_only(a = col_integer())
+#'
+#' # You can also use the standard abreviations
+#' cols(a = "i")
+#' cols(a = "i", b = "d", c = "_")
+cols <- function(..., .default = col_guess()) {
+  col_types <- list(...)
+  is_character <- vapply(col_types, is.character, logical(1))
+  col_types[is_character] <- lapply(col_types[is_character], col_concise)
+
+  col_spec(col_types, .default)
+}
+
+#' @export
+#' @rdname cols
+cols_only <- function(...) {
+  cols(..., .default = col_skip())
+}
+
+
+# col_spec ----------------------------------------------------------------
+
+col_spec <- function(col_types, default = col_guess()) {
+  stopifnot(is.list(col_types))
+  stopifnot(is.collector(default))
+
+  is_collector <- vapply(col_types, is.collector, logical(1))
+  if (any(!is_collector)) {
+    stop("Some `col_types` are not S3 collector objects: ",
+      paste(which(!is_collector), collapse = ", "), call. = FALSE)
+  }
+
+  structure(
+    list(
+      cols = col_types,
+      default = default
+    ),
+    class = "col_spec"
+  )
+}
+
+is.col_spec <- function(x) inherits(x, "col_spec")
+
+#' @export
+print.col_spec <- function(x, ...) {
+  cat("<col_spec>\n")
+
+  col_class <- function(x) gsub("collector_", "", class(x)[[1]])
+
+  cols <- x$cols
+  class <- vapply(cols, col_class, character(1))
+  if (is.null(names(cols))) {
+    cat(paste0("* ", class, collapse = "\n"), "\n", sep = "")
+  } else {
+    cat(paste0("* ", names(cols), ": ", class, collapse = "\n"), "\n", sep = "")
+  }
+  cat("* default: ", col_class(x$default), "\n", sep = "")
+}
+
+as.col_spec <- function(x) UseMethod("as.col_spec")
+#' @export
+as.col_spec.character <- function(x) {
+  letters <- strsplit(x, "")[[1]]
+  col_spec(lapply(letters, col_concise), col_guess())
+}
+#' @export
+as.col_spec.list <- function(x) {
+  col_spec(x)
+}
+#' @export
+as.col_spec.col_spec <- function(x) x
+#' @export
+as.col_spec.default <- function(x) {
+  stop("`col_types` must be NULL, a list or a string", call. = FALSE)
+}
+
+col_guess <- function() {
+  collector("guess")
+}
+
+col_concise <- function(x) {
+  switch(x,
+    c = col_character(),
+    d = col_double(),
+    e = col_euro_double(),
+    D = col_date(),
+    T = col_datetime(),
+    t = col_time(),
+    i = col_integer(),
+    l = col_logical(),
+    "_" = ,
+    "-" = col_skip(),
+    n = col_number(),
+    "?" = col_guess(),
+    stop("Unknown shortcut: ", x, call. = FALSE)
+  )
+}
+
 #' Standardise column types.
 #'
-#' @param col_types One of \code{NULL}, a list, a named list or a string.
-#'   See \code{vignette("column-types")} for more details.
+#' @param col_types One of \code{NULL}, a \code{\link{cols}}, specification of
+#'   a string. See \code{vignette("column-types")} for more details.
 #'
-#'   If \code{NULL}, the column type will be imputed from the first 1000 rows
+#'   If \code{NULL}, all column types will be imputed from the first 1000 rows
 #'   on the input. This is convenient (and fast), but not robust. If the
 #'   imputation fails, you'll need to supply the correct types yourself.
 #'
-#'   If a list, it must contain one "\code{\link{collector}}" for each column.
-#'   If you only want to read a subset of the columns, you can use a named list
-#'   (where the names give the column names). If a column is not mentioned by
-#'   name, it will be parsed with the default collector (as determined by
-#'   reading the first 1000 rows).
+#'   If a column specification created by \code{\link{cols}}, it must contain
+#'   one "\code{\link{collector}}" for each column. If you only want to read a
+#'   subset of the columns, use \code{\link{cols_only}}.
 #'
 #'   Alternatively, you can use a compact string representation where each
 #'   character represents one column: c = character, d = double, i = integer,
@@ -21,92 +128,45 @@
 #'   character vectors.
 #' @export
 #' @keywords internal
-col_types_standardise <- function(col_types, col_names, guessed_types) {
+#' @examples
+#' col_spec_standardise("ii", c("a", "b"))
+col_spec_standardise <- function(col_types, col_names, guessed_types) {
   if (is.null(col_types)) {
-    col_types <- lapply(guessed_types, collector_find)
-    # Pad out any missing types with characters - this happens mostly in
-    # pathological situations like where there's only one row
-    if (length(col_types) < length(col_names)) {
-      n_miss <- length(col_names) - length(col_types)
-      chars <- rep(list(col_character()), n_miss)
-      col_types <- c(col_types, chars)
-    }
-    col_types
-  } else if (is.character(col_types) && length(col_types) == 1) {
-    col_types_concise(col_types, guessed_types)
-  } else if (is.list(col_types)) {
-    col_types_full(col_types, col_names, guessed_types)
-  } else {
-    stop("`col_types` must be NULL, a list or a string", call. = FALSE)
-  }
-}
-
-
-col_types_concise <- function(x, guessed_types) {
-  letters <- strsplit(x, "")[[1]]
-
-  # after col_euro_double is removed from the package so can the following check
-  # for `e` in the concise string.
-  euros <- grepl("e", letters)
-  if (any(euros)) {
-    warning("col_euro_double() has been deprecated.  Please set locale.  Substituting `d` for `e`.", call. = FALSE)
-    letters[euros] <- "d"
+    col_types <- rep(list(col_guess()), length(col_names))
   }
 
-  lookup <- list(
-    c = col_character(),
-    d = col_double(),
-    D = col_date(),
-    T = col_datetime(),
-    i = col_integer(),
-    l = col_logical(),
-    "_" = col_skip(),
-    "-" = col_skip(),
-    n = col_number(),
-    "?" = NULL
-  )
+  spec <- as.col_spec(col_types)
+  type_names <- names(spec$cols)
 
-  bad <- setdiff(letters, names(lookup))
-  if (length(bad) > 0) {
-    stop("Unknown shortcuts: ", paste(unique(bad), collapse = ", "))
-  }
-
-  collectors <- unname(lookup[letters])
-
-  is_guess <- vapply(collectors, is.null, logical(1))
-  collectors[is_guess] <- lapply(guessed_types[is_guess], collector_find)
-
-  collectors
-}
-
-col_types_full <- function(col_types, col_names, guessed_types) {
-  is_collector <- vapply(col_types, inherits, "collector", FUN.VALUE = logical(1))
-  if (any(!is_collector)) {
-    stop("Some col_types are not S3 collector objects: ",
-      paste(which(!is_collector), collapse = ", "), call. = FALSE)
-  }
-
-
-  if (is.null(names(col_types))) {
-    if (length(col_types) != length(col_names)) {
-      stop("Unnamed columns must have the same length as col_names",
+  if (is.null(type_names)) {
+    if (length(spec$cols) != length(col_names)) {
+      stop("Unnamed `col_types` must have the same length as `col_names`.",
         call. = FALSE)
     }
-
-    col_types
+    names(spec$cols) <- col_names
   } else {
-    unmatched_names <- setdiff(names(col_types), col_names)
-    if (length(unmatched_names) > 0) {
+    bad_types <- !(type_names %in% col_names)
+    if (any(bad_types)) {
       warning("The following named parsers don't match the column names: ",
-        paste0(unmatched_names, collapse = ", "), call. = FALSE)
+        paste0(type_names[bad_types], collapse = ", "), call. = FALSE)
+      spec$cols <- spec$cols[!bad_types]
+      type_names <- type_names[!bad_types]
     }
 
-    skip <- setdiff(col_names, names(col_types))
-    if (length(skip) > 0) {
-      names(guessed_types) <- col_names
-      col_types[skip] <- lapply(guessed_types[skip], collector_find)
+    default_types <- !(col_names %in% type_names)
+    if (any(default_types)) {
+      defaults <- rep(list(spec$default), sum(default_types))
+      names(defaults) <- col_names[default_types]
+      spec$cols[names(defaults)] <- defaults
     }
 
-    col_types[match(col_names, names(col_types))]
+    spec$cols <- spec$cols[col_names]
   }
+
+  is_guess <- vapply(spec$cols, function(x) inherits(x, "collector_guess"), logical(1))
+  if (any(is_guess)) {
+    spec$cols[is_guess] <- lapply(guessed_types[is_guess], collector_find)
+  }
+
+  spec$cols
 }
