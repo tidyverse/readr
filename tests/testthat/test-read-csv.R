@@ -74,3 +74,10 @@ test_that("warnings based on number of columns (not output columns)", {
   out <- readr::read_csv("1,2,3\n4,5,6", "z", "__i")
   expect_equal(n_problems(out), 0)
 })
+
+# read_csv2 ---------------------------------------------------------------
+
+test_that("decimal mark automatically set to ,", {
+  x <- read_csv2("x\n1,23")
+  expect_equal(x[[1]], 1.23)
+})

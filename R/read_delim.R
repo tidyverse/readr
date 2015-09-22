@@ -93,6 +93,11 @@ read_csv2 <- function(file, col_names = TRUE, col_types = NULL,
                       trim_ws = TRUE, skip = 0, n_max = -1,
                       progress = interactive()) {
 
+  if (locale$decimal_mark == ".") {
+    locale$decimal_mark <- ","
+    locale$grouping_mark <- "."
+  }
+
   tokenizer <- tokenizer_delim(delim = ";", na = na, trim_ws = trim_ws)
   read_delimited(file, tokenizer, col_names = col_names, col_types = col_types,
     locale = locale, skip = skip, n_max = n_max, progress = progress)
