@@ -38,6 +38,8 @@ bool isLogical(const std::string& x, LocaleInfo* pLocale) {
 bool isInteger(const std::string& x, LocaleInfo* pLocale) {
   int res = 0;
   std::string::const_iterator begin = x.begin(), end = x.end();
+  if (x[0] == '0' && x.size() > 1)
+    return false;
 
   return parseInt(begin, end, res) && begin == end;
 }
@@ -55,6 +57,10 @@ bool canParseNumber(CharacterVector x, LocaleInfo* pLocale) {
     std::string xstr = std::string(x[i]);
     std::string::const_iterator begin = xstr.begin(), end = xstr.end();
 
+    // Leading zero not followed by decimal mark
+    if (xstr[0] == '0' && xstr.size() > 1 && xstr[1] != pLocale->decimalMark_)
+      return false;
+
     bool ok = parseNumber(pLocale->decimalMark_, pLocale->groupingMark_,
       begin, end, tmp);
     if (!ok)
@@ -69,6 +75,10 @@ bool canParseNumber(CharacterVector x, LocaleInfo* pLocale) {
 }
 
 bool isDouble(const std::string& x, LocaleInfo* pLocale) {
+  // Leading zero not followed by decimal mark
+  if (x[0] == '0' && x.size() > 1 && x[1] != pLocale->decimalMark_)
+    return false;
+
   double res = 0;
   std::string::const_iterator begin = x.begin(), end = x.end();
 

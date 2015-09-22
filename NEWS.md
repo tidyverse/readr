@@ -1,5 +1,8 @@
 # readr 0.1.1.9000
 
+* Numbers with leading zeros now default to being parsed as text, rather than
+  as integers/doubles. Override with `col_integer()` or `col_double()` (#266).
+
 * `read_fwf()` is now much more careful with new lines. The last column 
   can now be ragged: the width of the last field is silently extended until
   it hits the next line break (#146). If a line is too short, you'll get

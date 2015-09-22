@@ -20,6 +20,14 @@ test_that("leading/trailing ws ignored when parsing", {
 })
 
 
+# Leading zeros -----------------------------------------------------------
+
+test_that("leading zeros are not numbers", {
+  expect_equal(collector_guess("0"), "integer")
+  expect_equal(collector_guess("0."), "double")
+  expect_equal(collector_guess("0001"), "character")
+})
+
 # Flexible number parsing -------------------------------------------------
 es_MX <- locale("es", decimal_mark = ",")
 
