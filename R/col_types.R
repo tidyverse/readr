@@ -19,6 +19,10 @@ cols <- function(..., .default = col_guess()) {
   is_character <- vapply(col_types, is.character, logical(1))
   col_types[is_character] <- lapply(col_types[is_character], col_concise)
 
+  if (is.character(.default)) {
+    .default <- col_concise(.default)
+  }
+
   col_spec(col_types, .default)
 }
 
@@ -60,10 +64,12 @@ print.col_spec <- function(x, ...) {
 
   cols <- x$cols
   class <- vapply(cols, col_class, character(1))
-  if (is.null(names(cols))) {
-    cat(paste0("* ", class, collapse = "\n"), "\n", sep = "")
-  } else {
-    cat(paste0("* ", names(cols), ": ", class, collapse = "\n"), "\n", sep = "")
+  if (length(cols) > 0) {
+    if (is.null(names(cols))) {
+      cat(paste0("* ", class, collapse = "\n"), "\n", sep = "")
+    } else {
+      cat(paste0("* ", names(cols), ": ", class, collapse = "\n"), "\n", sep = "")
+    }
   }
   cat("* default: ", col_class(x$default), "\n", sep = "")
 }
