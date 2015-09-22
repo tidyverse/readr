@@ -1,5 +1,8 @@
 # readr 0.1.1.9000
 
+* readr has better support for embedded nul values in strings: any characters
+  after the nul are silently dropped (#202).
+
 * Numbers with leading zeros now default to being parsed as text, rather than
   as integers/doubles. Override with `col_integer()` or `col_double()` (#266).
 

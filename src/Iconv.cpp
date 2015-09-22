@@ -54,13 +54,21 @@ size_t Iconv::convert(const char* start, const char* end) {
   return max_size - outbytesleft;
 }
 
+// To be safe, we need to check for nulls - this also needs to emit
+// a warning, but this behaviour is better than crashing
+SEXP safeMakeChar(const char* start, size_t n) {
+  int m = strnlen(start, n);
+  return Rf_mkCharLenCE(start, m, CE_UTF8);
+}
+
 SEXP Iconv::makeSEXP(const char* start, const char* end) {
   if (cd_ == NULL)
-    return Rf_mkCharLenCE(start, end - start, CE_UTF8);
+    return safeMakeChar(start, end - start);
 
   int n = convert(start, end);
-  return Rf_mkCharLenCE(&buffer_[0], n, CE_UTF8);
+  return safeMakeChar(&buffer_[0], n);
 }
+
 std::string Iconv::makeString(const char* start, const char* end) {
   if (cd_ == NULL)
     return std::string(start, end);

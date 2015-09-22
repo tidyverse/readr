@@ -63,6 +63,11 @@ test_that("encoding affects text and headers", {
   expect_identical(x[[1]], "élève")
 })
 
+test_that("nuls are silently dropped", {
+  x <- read_csv("raw.csv")
+  expect_equal(names(x), c("ab", "def"))
+})
+
 # Column warnings ---------------------------------------------------------
 
 test_that("warnings based on number of columns (not output columns)", {
