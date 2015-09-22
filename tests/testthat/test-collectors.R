@@ -20,14 +20,24 @@ test_that("guess decimal commas with correct locale", {
 
 # Numbers -----------------------------------------------------------------
 
-test_that("skipping more than 4 characters fails", {
+test_that("skipping more than 6 characters fails", {
   expect_equal(collector_guess("USD 1,300"), "number")
-  expect_equal(collector_guess("USDX 1,300"), "character")
+  expect_equal(collector_guess("USDABC 1,300"), "character")
 })
 
 test_that("dates don't parse as numbers", {
   expect_equal(collector_guess("02/02/1900"), "character")
 })
+
+test_that("prefix/suffix must have same length", {
+  expect_equal(collector_guess(c("ABC 1", "DE 2")), "character")
+  expect_equal(collector_guess(c("1 ABC", "2 DE")), "character")
+})
+
+test_that("prefix/suffix can't contain numbers", {
+  expect_equal(collector_guess("1/2"), "character")
+})
+
 
 # Concise collectors specification ----------------------------------------
 

@@ -46,6 +46,7 @@ bool isInteger(const std::string& x, LocaleInfo* pLocale) {
 
 bool canParseNumber(CharacterVector x, LocaleInfo* pLocale) {
   double tmp = 0;
+  int prefix = -1, suffix = -1;
 
   for (int i = 0; i < x.size(); ++i) {
     if (x[i] == NA_STRING)
@@ -66,10 +67,29 @@ bool canParseNumber(CharacterVector x, LocaleInfo* pLocale) {
     if (!ok)
       return false;
 
-    int nskip = (begin - xstr.begin()) + (xstr.end() - end);
-    if (nskip > 4)
+    // Make sure no more than 6 characters in prefix/suffix
+    int curPrefix = begin - xstr.begin(), curSuffix = xstr.end() - end;
+    if (curPrefix + curSuffix > 6)
       return false;
 
+    // Make sure every value has same prefix and suffix length
+    if (prefix == -1)
+      prefix = curPrefix;
+    if (suffix == -1)
+      suffix = curSuffix;
+
+    if (suffix != curSuffix || prefix != curPrefix)
+      return false;
+
+    // Make sure suffix/prefix don't contain any numbers
+    for(std::string::const_iterator cur = xstr.begin(); cur < begin; ++cur) {
+      if (*cur >= '0' && *cur <= '9')
+        return false;
+    }
+    for(std::string::const_iterator cur = end; cur < xstr.end(); ++cur) {
+      if (*cur >= '0' && *cur <= '9')
+        return false;
+    }
   }
   return true;
 }
