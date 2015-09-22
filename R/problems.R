@@ -41,6 +41,14 @@ n_problems <- function(x) {
   if (is.null(probs)) 0 else nrow(probs)
 }
 
+problem_rows <- function(x) {
+  if (n_problems(x) == 0)
+    return(x[0, , drop = FALSE])
+
+  probs <- problems(x)
+  x[unique(probs$row), , drop = FALSE]
+}
+
 warn_problems <- function(x, name = "input") {
   n <- n_problems(x)
   if (n == 0)
