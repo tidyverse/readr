@@ -1,5 +1,8 @@
 # readr 0.1.1.9000
 
+* Pathological zero row inputs (due to empty input, `skip` or `n_max`) now
+  return zero row data frames (#119).
+
 * readr has better support for embedded nul values in strings: any characters
   after the nul are silently dropped (#202).
 

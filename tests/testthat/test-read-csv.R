@@ -81,3 +81,26 @@ test_that("decimal mark automatically set to ,", {
   x <- read_csv2("x\n1,23")
   expect_equal(x[[1]], 1.23)
 })
+
+# Zero rows ---------------------------------------------------------------
+
+test_that("header only df gets character columns", {
+  x <- read_csv("a,b\n")
+  expect_equal(dim(x), c(0, 2))
+  expect_equal(class(x$a), "character")
+  expect_equal(class(x$b), "character")
+})
+
+test_that("n_max 0 gives zero row data frame", {
+  x <- read_csv("a,b\n1,2", n_max = 0)
+  expect_equal(dim(x), c(0, 2))
+  expect_equal(class(x$a), "integer")
+  expect_equal(class(x$b), "integer")
+})
+
+test_that("empty file with col_names and col_types creates correct columns", {
+  x <- read_csv(datasource_string("", 0), c("a", "b"), "ii")
+  expect_equal(dim(x), c(0, 2))
+  expect_equal(class(x$a), "integer")
+  expect_equal(class(x$b), "integer")
+})

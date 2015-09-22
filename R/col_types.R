@@ -23,7 +23,15 @@
 #' @keywords internal
 col_types_standardise <- function(col_types, col_names, guessed_types) {
   if (is.null(col_types)) {
-    lapply(guessed_types, collector_find)
+    col_types <- lapply(guessed_types, collector_find)
+    # Pad out any missing types with characters - this happens mostly in
+    # pathological situations like where there's only one row
+    if (length(col_types) < length(col_names)) {
+      n_miss <- length(col_names) - length(col_types)
+      chars <- rep(list(col_character()), n_miss)
+      col_types <- c(col_types, chars)
+    }
+    col_types
   } else if (is.character(col_types) && length(col_types) == 1) {
     col_types_concise(col_types, guessed_types)
   } else if (is.list(col_types)) {
@@ -34,13 +42,13 @@ col_types_standardise <- function(col_types, col_names, guessed_types) {
 }
 
 
-col_types_concise <- function(x, guessed_types) { 
+col_types_concise <- function(x, guessed_types) {
   letters <- strsplit(x, "")[[1]]
 
   # after col_euro_double is removed from the package so can the following check
   # for `e` in the concise string.
   euros <- grepl("e", letters)
-  if (any(euros)) { 
+  if (any(euros)) {
     warning("col_euro_double() has been deprecated.  Please set locale.  Substituting `d` for `e`.", call. = FALSE)
     letters[euros] <- "d"
   }
