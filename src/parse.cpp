@@ -123,8 +123,8 @@ SEXP parse_vector_(CharacterVector x, List collectorSpec,
     } else {
       SEXP string = x[i];
       t = Token(CHAR(string), CHAR(string) + Rf_length(string), i, -1);
-      t.flagNA(na);
       t.trim();
+      t.flagNA(na);
     }
     col->setValue(i, t);
   }
