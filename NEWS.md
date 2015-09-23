@@ -2,15 +2,17 @@
 
 ## Internationalisation
 
-readr now has a strategy for dealing with settings that vary from place to place: locales. The default locale is still US centric (because R itself is), but you can now easily override the default tz, decimal separator, grouping mark, day & month names, date format, and 
+readr now has a strategy for dealing with settings that vary from place to place: locales. The default locale is still US centric (because R itself is), but you can now easily override the default timezone, decimal separator, grouping mark, day & month names, date format, and 
 encoding. This has lead to a number of changes:
 
 * `read_csv()`, `read_tsv()`, `read_fwf()`, `read_table()`, 
   `read_lines()`, `read_file()`, `type_convert()`, `parse_vector()` 
   all gain a `locale` argument.
+  
+* `locale()` controls all the input settings that vary from place-to-place.
 
 * `col_euro_double()` and `parse_euro_double()` have been deprecated.
-  Please use the `decimal_mark` parameter to `locale()` instead.
+  Use the `decimal_mark` parameter to `locale()` instead.
   
 * The default encoding is now UTF-8. To load files that are not 
   in UTF-8, set the `encoding` parameter of the `locale()` (#40).
@@ -22,37 +24,40 @@ encoding. This has lead to a number of changes:
   
 See `vignette("locales")` for more details.
 
-## Parsing improvements
+## File parsing improvements
+
+* `cols()` lets you pick the default column type for columns not otherwise
+  explicitly named (#148). You can refer to parsers either with their full 
+  name (e.g. `col_character()`) or their one letter abbreviation (e.g. `c`).
+
+* `cols_only()` allows you to load only named columns. You can also choose to 
+  override the default column type in `cols()` (#72).
 
 * `read_fwf()` is now much more careful with new lines. The last column 
   can now be ragged: the width of the last field is silently extended until
   it hits the next line break (#146). If a line is too short, you'll get
-  a warning instead of a silent misreading (#166, #254).
+  a warning instead of a silent mistake (#166, #254).
 
-* You can now use `cols_only()` to load only selected named columns. You can
-  also choose to override the default column type in `cols()`. In cols, you
-  can choose to refer to parsers either with their full name (e.g. 
-  `col_character()`) or their one letter abbreviation (e.g. `c`) (#72, #148).
-
-* `read_delim()` and friends gains a `comment` argument. Any data after the
-  comment string will be silently ignored (#68).
-
-* Specifying the wrong number of column names, or the having rows which
-  are different lengths now generates a warning, rather than an error (#189).
-
-* `read_delim()` etc gains a `trim_ws` argument that controls whether leading
-  and trailing whitespace is automatically removed. It defaults to `TRUE`. (#137)
-
-* Multiple strings can now be specified to indicate missing values (#125), and
-  the default for missing strings has been changed to `na = c("", "NA")`.
-  Specifying `na = ""` now works as expected with character columns (#114).
+* In `read_csv()`, `read_tsv()`, `read_delim()` etc:
+ 
+  * `comment` argument allows you to ignored comments (#68).
   
+  * `trim_ws` argument controls whether leading and trailing whitespace is 
+     automatically removed. It defaults to `TRUE` (#137).
+  
+  * Specifying the wrong number of column names, or the having rows which
+    are different lengths generates a warning, rather than an error (#189).
+
+  * Multiple strings can now be specified to indicate missing values (#125), 
+    and the default for missing strings has been changed to `na = c("", "NA")`.
+    Specifying `na = ""` now works as expected with character columns (#114).
+
 ## Column parsing improvements
 
 Readr gains `vignette("col-types")` which describes how the defaults work and how to override them (#122).
 
 * `parse_character()` gains better support for embedded nulls: any characters 
-  after the null are dropped with a warning (#202).
+  after the first null are dropped with a warning (#202).
 
 * `parse_integer()` and `parse_double()` no longer silently ignore trailing
   letters after the number. (#221)
