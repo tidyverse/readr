@@ -46,7 +46,6 @@ bool isInteger(const std::string& x, LocaleInfo* pLocale) {
 
 bool canParseNumber(CharacterVector x, LocaleInfo* pLocale) {
   double tmp = 0;
-  int prefix = -1, suffix = -1;
 
   for (int i = 0; i < x.size(); ++i) {
     if (x[i] == NA_STRING)
@@ -58,7 +57,6 @@ bool canParseNumber(CharacterVector x, LocaleInfo* pLocale) {
     std::string xstr = std::string(x[i]);
     std::string::const_iterator begin = xstr.begin(), end = xstr.end();
 
-    // Leading zero not followed by decimal mark
     if (xstr[0] == '0' && xstr.size() > 1 && xstr[1] != pLocale->decimalMark_)
       return false;
 
@@ -67,29 +65,8 @@ bool canParseNumber(CharacterVector x, LocaleInfo* pLocale) {
     if (!ok)
       return false;
 
-    // Make sure no more than 6 characters in prefix/suffix
-    int curPrefix = begin - xstr.begin(), curSuffix = xstr.end() - end;
-    if (curPrefix + curSuffix > 6)
+    if (begin != xstr.begin() || end != xstr.end())
       return false;
-
-    // Make sure every value has same prefix and suffix length
-    if (prefix == -1)
-      prefix = curPrefix;
-    if (suffix == -1)
-      suffix = curSuffix;
-
-    if (suffix != curSuffix || prefix != curPrefix)
-      return false;
-
-    // Make sure suffix/prefix don't contain any numbers
-    for(std::string::const_iterator cur = xstr.begin(); cur < begin; ++cur) {
-      if (*cur >= '0' && *cur <= '9')
-        return false;
-    }
-    for(std::string::const_iterator cur = end; cur < xstr.end(); ++cur) {
-      if (*cur >= '0' && *cur <= '9')
-        return false;
-    }
   }
   return true;
 }

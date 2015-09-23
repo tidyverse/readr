@@ -99,9 +99,8 @@ As well as improvements to the parser, I've also made a number of tweaks to the 
   Numbers with leading zeros now default to being parsed as text, rather than
   as integers/doubles (#266).
   
-* A column is guessed as `col_number()` if there are no more than six non-number 
-  characters, and the number is the same across rows. I've tried to err on the 
-  side of caution: you can alway use `col_number()` to force it.
+* A column is guessed as `col_number()` only if it parses as a regular number
+  when you ignoring the grouping marks.
 
 ## Minor improvements and bug fixes
 
