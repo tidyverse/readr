@@ -4,6 +4,7 @@
 #' for caveats.
 #'
 #' @rdname encoding
+#' @inheritParams datasource
 #' @inheritParams read_lines
 #' @param threshold Only report guesses above this threshold of certainty.
 #' @export

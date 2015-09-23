@@ -48,5 +48,7 @@ Read lines from a file or string.
 read_lines(system.file("extdata/mtcars.csv", package = "readr"))
 read_lines("1\\n\\n2")
 read_lines("\\n")
+
+read_lines_raw(system.file("extdata/mtcars.csv", package = "readr"))
 }
 
