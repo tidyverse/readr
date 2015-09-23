@@ -167,7 +167,9 @@ col_spec_standardise <- function(col_types, col_names, guessed_types) {
 
   is_guess <- vapply(spec$cols, function(x) inherits(x, "collector_guess"), logical(1))
   if (any(is_guess)) {
-    spec$cols[is_guess] <- lapply(guessed_types[is_guess], collector_find)
+    # Need to be careful here: there might be more guesses than types/names
+    guesses <- guessed_types[seq_along(spec$cols)][is_guess]
+    spec$cols[is_guess] <- lapply(guesses, collector_find)
   }
 
   spec$cols

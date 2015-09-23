@@ -98,6 +98,25 @@ test_that("missing lines generates warning", {
   expect_equal(problems(out)$expected, rep("2 columns", 2))
 })
 
+test_that("extra columns generates warnings", {
+  out1 <- read_csv("a,b\n1,2,3\n")
+  out2 <- read_csv("a,b\n1,2,3", col_types = "ii")
+  out3 <- read_csv("1,2,3\n", c("a", "b"))
+  out4 <- read_csv("1,2,3\n", c("a", "b"), "ii")
+
+  expect_equal(problems(out1)$expected, "2 columns")
+  expect_equal(problems(out2)$expected, "2 columns")
+  expect_equal(problems(out3)$expected, "2 columns")
+  expect_equal(problems(out4)$expected, "2 columns")
+})
+
+test_that("can standardise spec with more guesses than names", {
+  guesses <- c("integer", "integer", "integer")
+  out <- evaluate_promise(col_spec_standardise(NULL, c("a", "b"), guesses))
+
+  expect_equal(length(out$warnings), 0)
+})
+
 # read_csv2 ---------------------------------------------------------------
 
 test_that("decimal mark automatically set to ,", {
