@@ -1,5 +1,11 @@
 # readr 0.1.1.9000
 
+* `read_lines_raw()` allows you to read a file into a list of raw vectors,
+  one element for each line.
+
+* `guess_encoding()` uses stringi to guess the encoding of a file on disk,
+  using the first 10,000 lines.
+
 * You can now read from a remote gz compressed file (#163).
 
 * `read_delim()` and friends gains a `comment` argument. Any data after the

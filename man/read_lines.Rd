@@ -2,10 +2,13 @@
 % Please edit documentation in R/read_lines.R
 \name{read_lines}
 \alias{read_lines}
+\alias{read_lines_raw}
 \title{Read lines from a file or string.}
 \usage{
 read_lines(file, skip = 0, n_max = -1L, locale = default_locale(),
   progress = interactive())
+
+read_lines_raw(file, skip = 0, n_max = -1L, progress = interactive())
 }
 \arguments{
 \item{file}{Either a path to a file, a connection, or literal data

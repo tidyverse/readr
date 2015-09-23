@@ -41,6 +41,10 @@ read_lines_ <- function(sourceSpec, locale_, n_max = -1L, progress = TRUE) {
     .Call('readr_read_lines_', PACKAGE = 'readr', sourceSpec, locale_, n_max, progress)
 }
 
+read_lines_raw_ <- function(sourceSpec, n_max = -1L, progress = FALSE) {
+    .Call('readr_read_lines_raw_', PACKAGE = 'readr', sourceSpec, n_max, progress)
+}
+
 read_tokens <- function(sourceSpec, tokenizerSpec, colSpecs, colNames, locale_, n_max = -1L, progress = TRUE) {
     .Call('readr_read_tokens', PACKAGE = 'readr', sourceSpec, tokenizerSpec, colSpecs, colNames, locale_, n_max, progress)
 }

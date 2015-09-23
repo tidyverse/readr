@@ -53,6 +53,16 @@ public:
     return "";
   }
 
+  SEXP asRaw() const {
+    int n = (type_ == TOKEN_STRING) ? end_ - begin_ : 0;
+    Rcpp::RawVector out(n);
+
+    if (n > 0)
+      memcpy(RAW(out), begin_, n);
+
+    return out;
+  }
+
   SEXP asSEXP(Iconv* pEncoder) const {
     switch(type_) {
     case TOKEN_STRING:   {

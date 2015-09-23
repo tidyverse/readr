@@ -64,6 +64,49 @@ CharacterVector read_lines_(List sourceSpec, List locale_, int n_max = -1,
   return out;
 }
 
+// [[Rcpp::export]]
+List read_lines_raw_(List sourceSpec, int n_max = -1, bool progress = false) {
+
+  SourcePtr source = Source::create(sourceSpec);
+  TokenizerLine tokenizer;
+  tokenizer.tokenize(source->begin(), source->end());
+  Progress progressBar;
+
+  int n = (n_max < 0) ? 10000 : n_max;
+  List out(n);
+
+  int i = 0;
+  for (Token t = tokenizer.nextToken(); t.type() != TOKEN_EOF; t = tokenizer.nextToken()) {
+    if (progress && (i + 1) % 25000 == 0)
+      progressBar.show(tokenizer.progress());
+
+    if (i >= n) {
+      if (n_max < 0) {
+        // Estimate rows in full dataset
+        n = (i / tokenizer.progress().first) * 1.2;
+        out = Rf_lengthgets(out, n);
+      } else {
+        break;
+      }
+    }
+
+    if (t.type() == TOKEN_STRING)
+      out[i] = t.asRaw();
+
+    ++i;
+  }
+
+  if (i < n) {
+    out = Rf_lengthgets(out, i);
+  }
+
+  if (progress)
+    progressBar.show(tokenizer.progress());
+  progressBar.stop();
+
+  return out;
+}
+
 typedef std::vector<CollectorPtr>::iterator CollectorItr;
 void checkColumns(Warnings *pWarnings, int i, int j, int n) {
   if (j + 1 == n)
