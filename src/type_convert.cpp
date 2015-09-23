@@ -21,7 +21,7 @@ RObject type_convert_col(CharacterVector x, List spec, List locale_, int col,
       t = Token(TOKEN_MISSING, i - 1, col - 1);
     } else {
       const char* begin = CHAR(string);
-      t = Token(begin, begin + Rf_length(string), i - 1, col - 1);
+      t = Token(begin, begin + Rf_length(string), i - 1, col - 1, false);
       if (trim_ws)
         t.trim();
       t.flagNA(na);

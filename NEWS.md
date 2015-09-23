@@ -19,8 +19,8 @@
 * Pathological zero row inputs (due to empty input, `skip` or `n_max`) now
   return zero row data frames (#119).
 
-* readr has better support for embedded nul values in strings: any characters
-  after the nul are silently dropped (#202).
+* readr has better support for embedded null values in strings: any characters
+  after the null are dropped with a warning (#202).
 
 * Numbers with leading zeros now default to being parsed as text, rather than
   as integers/doubles. Override with `col_integer()` or `col_double()` (#266).

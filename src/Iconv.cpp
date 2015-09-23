@@ -56,17 +56,17 @@ size_t Iconv::convert(const char* start, const char* end) {
 
 // To be safe, we need to check for nulls - this also needs to emit
 // a warning, but this behaviour is better than crashing
-SEXP safeMakeChar(const char* start, size_t n) {
-  int m = strnlen(start, n);
+SEXP safeMakeChar(const char* start, size_t n, bool hasNull) {
+  int m = hasNull ? strnlen(start, n) : n;
   return Rf_mkCharLenCE(start, m, CE_UTF8);
 }
 
-SEXP Iconv::makeSEXP(const char* start, const char* end) {
+SEXP Iconv::makeSEXP(const char* start, const char* end, bool hasNull) {
   if (cd_ == NULL)
-    return safeMakeChar(start, end - start);
+    return safeMakeChar(start, end - start, hasNull);
 
   int n = convert(start, end);
-  return safeMakeChar(&buffer_[0], n);
+  return safeMakeChar(&buffer_[0], n, hasNull);
 }
 
 std::string Iconv::makeString(const char* start, const char* end) {

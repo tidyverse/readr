@@ -12,9 +12,8 @@ public:
   Iconv(const std::string& from, const std::string& to = "UTF-8");
   virtual ~Iconv();
 
-  SEXP makeSEXP(const char* start, const char* end);
-  std::string
-    makeString(const char* start, const char* end);
+  SEXP makeSEXP(const char* start, const char* end, bool hasNull = true);
+  std::string makeString(const char* start, const char* end);
 
 private:
 

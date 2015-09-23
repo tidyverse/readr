@@ -27,7 +27,7 @@ public:
 
 private:
 
-  Token fieldToken(SourceIterator begin, SourceIterator end);
+  Token fieldToken(SourceIterator begin, SourceIterator end, bool hasNull);
 };
 
 #endif

@@ -134,7 +134,7 @@ Token TokenizerFwf::nextToken() {
 
   SourceIterator fieldEnd = fieldBegin;
   int width = endOffset_[col_] - beginOffset_[col_];
-  bool lastCol = (col_ == cols_ - 1), tooShort = false;
+  bool lastCol = (col_ == cols_ - 1), tooShort = false, hasNull = false;
 
   // Find the end of the field, stopping for newlines
   for(int i = 0; i < width; ++i) {
@@ -144,16 +144,21 @@ Token TokenizerFwf::nextToken() {
       tooShort = true;
       break;
     }
+    if (*fieldEnd == '\0')
+      hasNull = true;
 
     fieldEnd++;
   }
   // Last column is often ragged, so read until end of line (ignoring width)
   if (lastCol) {
-    while(fieldEnd != end_ && *fieldEnd != '\r' && *fieldEnd != '\n')
+    while(fieldEnd != end_ && *fieldEnd != '\r' && *fieldEnd != '\n') {
+      if (*fieldEnd == '\0')
+        hasNull = true;
       fieldEnd++;
+    }
   }
 
-  Token t = fieldToken(fieldBegin, fieldEnd);
+  Token t = fieldToken(fieldBegin, fieldEnd, hasNull);
 
   if (lastCol || tooShort) {
     row_++;
@@ -170,11 +175,11 @@ Token TokenizerFwf::nextToken() {
   return t;
 }
 
-Token TokenizerFwf::fieldToken(SourceIterator begin, SourceIterator end) {
+Token TokenizerFwf::fieldToken(SourceIterator begin, SourceIterator end, bool hasNull) {
   if (begin == end)
     return Token(TOKEN_MISSING, row_, col_);
 
-  Token t = Token(begin, end, row_, col_);
+  Token t = Token(begin, end, row_, col_, hasNull);
   t.trim();
   t.flagNA(NA_);
 

@@ -18,6 +18,7 @@ class Token {
   TokenType type_;
   SourceIterator begin_, end_;
   size_t row_, col_;
+  bool hasNull_;
 
   Tokenizer* pTokenizer_;
 
@@ -25,12 +26,14 @@ public:
 
   Token(): type_(TOKEN_EMPTY), row_(0), col_(0) {}
   Token(TokenType type, int row, int col): type_(type), row_(row), col_(col) {}
-  Token(SourceIterator begin, SourceIterator end, int row, int col, Tokenizer* pTokenizer = NULL):
+  Token(SourceIterator begin, SourceIterator end, int row, int col, bool hasNull,
+        Tokenizer* pTokenizer = NULL):
     type_(TOKEN_STRING),
     begin_(begin),
     end_(end),
     row_(row),
     col_(col),
+    hasNull_(hasNull),
     pTokenizer_(pTokenizer)
   {
     if (begin_ == end_)
@@ -69,7 +72,7 @@ public:
       boost::container::string buffer;
       SourceIterators string = getString(&buffer);
 
-      return pEncoder->makeSEXP(string.first, string.second);
+      return pEncoder->makeSEXP(string.first, string.second, hasNull_);
     }
     default:
       return NA_STRING;
@@ -93,6 +96,10 @@ public:
   }
   size_t col() const {
     return col_;
+  }
+
+  bool hasNull() const {
+    return hasNull_;
   }
 
   Token& trim() {

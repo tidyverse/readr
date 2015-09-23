@@ -57,10 +57,10 @@ private:
   Token emptyToken(int row, int col);
 
   Token fieldToken(SourceIterator begin, SourceIterator end, bool hasEscapeB,
-    int row, int col);
+    bool hasNull, int row, int col);
 
   Token stringToken(SourceIterator begin, SourceIterator end, bool hasEscapeB,
-    bool hasEscapeD, int row, int col);
+    bool hasEscapeD, bool hasNull, int row, int col);
 
   void unescapeBackslash(SourceIterator begin, SourceIterator end,
     boost::container::string* pOut);

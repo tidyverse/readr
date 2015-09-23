@@ -58,6 +58,7 @@ RObject read_header_(List sourceSpec, List tokenizerSpec, List locale_) {
   tokenizer->setWarnings(&warnings);
 
   CollectorCharacter out(&locale.encoder_);
+  out.setWarnings(&warnings);
 
   for (Token t = tokenizer->nextToken(); t.type() != TOKEN_EOF; t = tokenizer->nextToken()) {
     if (t.row() > (size_t) 0) // only read one row
@@ -122,7 +123,7 @@ SEXP parse_vector_(CharacterVector x, List collectorSpec,
       t = Token(TOKEN_MISSING, i, -1);
     } else {
       SEXP string = x[i];
-      t = Token(CHAR(string), CHAR(string) + Rf_length(string), i, -1);
+      t = Token(CHAR(string), CHAR(string) + Rf_length(string), i, -1, false);
       t.trim();
       t.flagNA(na);
     }
