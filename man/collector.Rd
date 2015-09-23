@@ -5,24 +5,25 @@
 \alias{col_double}
 \alias{col_euro_double}
 \alias{col_factor}
+\alias{col_guess}
 \alias{col_integer}
 \alias{col_logical}
 \alias{col_number}
 \alias{col_numeric}
 \alias{col_skip}
 \alias{collector}
-\alias{parse_auto}
 \alias{parse_character}
 \alias{parse_double}
 \alias{parse_euro_double}
 \alias{parse_factor}
+\alias{parse_guess}
 \alias{parse_integer}
 \alias{parse_logical}
 \alias{parse_number}
 \alias{parse_numeric}
 \title{Parse character vectors into typed columns.}
 \usage{
-parse_auto(x, na = c("", "NA"), locale = default_locale())
+parse_guess(x, na = c("", "NA"), locale = default_locale())
 
 col_character()
 
@@ -54,6 +55,8 @@ parse_factor(x, levels, ordered = FALSE, na = c("", "NA"),
   locale = default_locale())
 
 col_skip()
+
+col_guess()
 }
 \arguments{
 \item{x}{Character vector of values to parse.}

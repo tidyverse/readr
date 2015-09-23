@@ -91,10 +91,6 @@ as.col_spec.default <- function(x) {
   stop("`col_types` must be NULL, a list or a string", call. = FALSE)
 }
 
-col_guess <- function() {
-  collector("guess")
-}
-
 col_concise <- function(x) {
   switch(x,
     c = col_character(),

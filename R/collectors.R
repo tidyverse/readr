@@ -71,7 +71,7 @@ NULL
 
 #' @rdname collector
 #' @export
-parse_auto <- function(x, na = c("", "NA"), locale = default_locale()) {
+parse_guess <- function(x, na = c("", "NA"), locale = default_locale()) {
   parse_vector(x, collector_guess(x, locale), na = na, locale = locale)
 }
 
@@ -185,6 +185,12 @@ parse_factor <- function(x, levels, ordered = FALSE, na = c("", "NA"),
 #' @export
 col_skip <- function() {
   collector("skip")
+}
+
+#' @rdname collector
+#' @export
+col_guess <- function() {
+  collector("guess")
 }
 
 # More complex ------------------------------------------------------------
