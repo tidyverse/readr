@@ -142,8 +142,11 @@ col_spec_standardise <- function(col_types, col_names, guessed_types) {
 
   if (is.null(type_names)) {
     if (length(spec$cols) != length(col_names)) {
-      stop("Unnamed `col_types` must have the same length as `col_names`.",
-        call. = FALSE)
+      warning("Unnamed `col_types` should have the same length as `col_names`. ",
+        "Using smaller of the two.", call. = FALSE)
+      n <- min(length(col_names), length(col_types))
+      col_types <- col_types[seq_len(n)]
+      col_names <- col_names[seq_len(n)]
     }
     names(spec$cols) <- col_names
   } else {
