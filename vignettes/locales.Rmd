@@ -155,6 +155,8 @@ head(as.data.frame(stri_enc_detect(y)))
 # (NB ISO-8859-1 is another name for latin1)
 ```
 
+If you don't know what encoding the file uses, try `guess_encoding()`. It's not 100% perfect (as by necessity it's fundamentally a heuristic), but should at least get you pointed in the right direction.
+
 ## Numbers
 
 Some countries use the decimal point, while others use the decimal comma. The `decimal_mark` option controls which readr uses when parsing doubles:
