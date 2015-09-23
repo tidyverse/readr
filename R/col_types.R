@@ -93,18 +93,18 @@ as.col_spec.default <- function(x) {
 
 col_concise <- function(x) {
   switch(x,
-    c = col_character(),
-    d = col_double(),
-    e = col_euro_double(),
-    D = col_date(),
-    T = col_datetime(),
-    t = col_time(),
-    i = col_integer(),
-    l = col_logical(),
     "_" = ,
     "-" = col_skip(),
-    n = col_number(),
     "?" = col_guess(),
+    c = col_character(),
+    D = col_date(),
+    d = col_double(),
+    e = col_euro_double(),
+    i = col_integer(),
+    l = col_logical(),
+    n = col_number(),
+    T = col_datetime(),
+    t = col_time(),
     stop("Unknown shortcut: ", x, call. = FALSE)
   )
 }
