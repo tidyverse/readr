@@ -24,10 +24,10 @@ NULL
 #' @param progress Display a progress bar? By default it will only display
 #'   in an interactive session. The display is updated every 50,000 values
 #'   and will only display if estimated reading time is 5 seconds or more.
-#' @usage read_delim(file, delim, quote = '"', escape_backslash = FALSE,
+#' @usage read_delim(file, delim, quote = "\"", escape_backslash = FALSE,
 #'   escape_double = TRUE, col_names = TRUE, col_types = NULL,
-#'   locale = default_locale(), na = c("", "NA"), skip = 0, n_max = -1,
-#'   progress = interactive())
+#'   locale = default_locale(), na = c("", "NA"), comment = "", skip = 0,
+#'   n_max = -1, progress = interactive())
 #' @return A data frame. If there are parsing problems, a warning tells you
 #'   how many, and you can retrieve the details with \code{\link{problems}()}.
 #' @export
@@ -64,11 +64,12 @@ NULL
 read_delim <- function(file, delim, quote = '"',
                        escape_backslash = FALSE, escape_double = TRUE,
                        col_names = TRUE, col_types = NULL,
-                       locale = default_locale(), na = c("", "NA"),
+                       locale = default_locale(),
+                       na = c("", "NA"), comment = "",
                        skip = 0, n_max = -1, progress = interactive()) {
   tokenizer <- tokenizer_delim(delim, quote = quote,
     escape_backslash = escape_backslash, escape_double = escape_double,
-    na = na)
+    na = na, comment = comment)
   read_delimited(file, tokenizer, col_names = col_names, col_types = col_types,
     locale = locale, skip = skip, n_max = n_max, progress = progress)
 }
@@ -76,11 +77,11 @@ read_delim <- function(file, delim, quote = '"',
 #' @rdname read_delim
 #' @export
 read_csv <- function(file, col_names = TRUE, col_types = NULL,
-                     locale = default_locale(), na = c("", "NA"),
+                     locale = default_locale(), na = c("", "NA"), comment = "",
                      trim_ws = TRUE, skip = 0, n_max = -1,
                      progress = interactive()) {
 
-  tokenizer <- tokenizer_csv(na = na, trim_ws = trim_ws)
+  tokenizer <- tokenizer_csv(na = na, comment = comment, trim_ws = trim_ws)
   read_delimited(file, tokenizer, col_names = col_names, col_types = col_types,
     locale = locale, skip = skip, n_max = n_max, progress = progress)
 }
@@ -89,7 +90,7 @@ read_csv <- function(file, col_names = TRUE, col_types = NULL,
 #' @export
 read_csv2 <- function(file, col_names = TRUE, col_types = NULL,
                       locale = default_locale(),
-                      na = c("", "NA"),
+                      na = c("", "NA"), comment = "",
                       trim_ws = TRUE, skip = 0, n_max = -1,
                       progress = interactive()) {
 
@@ -98,7 +99,8 @@ read_csv2 <- function(file, col_names = TRUE, col_types = NULL,
     locale$grouping_mark <- "."
   }
 
-  tokenizer <- tokenizer_delim(delim = ";", na = na, trim_ws = trim_ws)
+  tokenizer <- tokenizer_delim(delim = ";", na = na, comment = comment,
+    trim_ws = trim_ws)
   read_delimited(file, tokenizer, col_names = col_names, col_types = col_types,
     locale = locale, skip = skip, n_max = n_max, progress = progress)
 }
@@ -107,11 +109,12 @@ read_csv2 <- function(file, col_names = TRUE, col_types = NULL,
 #' @rdname read_delim
 #' @export
 read_tsv <- function(file, col_names = TRUE, col_types = NULL,
-                     locale = default_locale(), na = c("", "NA"),
+                     locale = default_locale(),
+                     na = c("", "NA"), comment = "",
                      trim_ws = TRUE, skip = 0, n_max = -1,
                      progress = interactive()) {
 
-  tokenizer <- tokenizer_tsv(na = na, trim_ws = trim_ws)
+  tokenizer <- tokenizer_tsv(na = na, comment = comment, trim_ws = trim_ws)
   read_delimited(file, tokenizer, col_names = col_names, col_types = col_types,
     locale = locale, skip = skip, n_max = n_max, progress = progress)
 }

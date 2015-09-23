@@ -107,3 +107,28 @@ test_that("empty file with col_names and col_types creates correct columns", {
   expect_equal(class(x$a), "integer")
   expect_equal(class(x$b), "integer")
 })
+
+
+# Comments ----------------------------------------------------------------
+
+test_that("comments are ignored regardless of where they appear", {
+  out1 <- read_csv('x\n1#comment',comment = "#")
+  out2 <- read_csv('x\n1#comment\n#comment', comment = "#")
+  out3 <- read_csv('x\n"1"#comment', comment = "#")
+
+  expect_equal(out1$x, 1)
+  expect_equal(out2$x, 1)
+  expect_equal(out3$x, 1)
+
+  out4 <- read_csv('x,y\n1,#comment', comment = "#")
+  expect_equal(out4$y, NA_character_)
+})
+
+test_that("escaped/quoted comments are ignored", {
+  out1 <- read_delim('x\n\\#', comment = "#", delim = ",",
+    escape_backslash = TRUE, escape_double = FALSE)
+  out2 <- read_csv('x\n"#"', comment = "#")
+
+  expect_equal(out1$x, "#")
+  expect_equal(out2$x, "#")
+})

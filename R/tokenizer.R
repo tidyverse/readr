@@ -35,6 +35,8 @@ NULL
 
 #' @export
 #' @rdname Tokenizers
+#' @param comment A string used to identify comments. Any text after the
+#'   comment characters will be silently ignored.
 #' @param na Character vector of strings to use for missing values. Set this
 #'   option to \code{character()} to indicate no missing values.
 #' @param delim Single character used to separate fields within a record.
@@ -48,7 +50,9 @@ NULL
 #'   characters? This is more general than \code{escape_double} as backslashes
 #'   can be used to escape the delimeter character, the quote characer, or
 #'   to add special characters like \code{\\n}.
-tokenizer_delim <- function(delim, quote = '"', na = "NA",
+#' @usage tokenizer_delim(delim, quote = "\\"", na = "NA", comment = "",
+#'   trim_ws = TRUE, escape_double = TRUE, escape_backslash = FALSE)
+tokenizer_delim <- function(delim, quote = '"', na = "NA", comment = "",
                             trim_ws = TRUE,
                             escape_double = TRUE,
                             escape_backslash = FALSE) {
@@ -57,6 +61,7 @@ tokenizer_delim <- function(delim, quote = '"', na = "NA",
       delim = delim,
       quote = quote,
       na = na,
+      comment = comment,
       trim_ws = trim_ws,
       escape_double = escape_double,
       escape_backslash = escape_backslash
@@ -67,11 +72,12 @@ tokenizer_delim <- function(delim, quote = '"', na = "NA",
 
 #' @export
 #' @rdname Tokenizers
-tokenizer_csv <- function(na = "NA", trim_ws = TRUE) {
+tokenizer_csv <- function(na = "NA", comment = "", trim_ws = TRUE) {
   tokenizer_delim(
     delim = ",",
     quote = '"',
     na = na,
+    comment = comment,
     trim_ws = trim_ws,
     escape_double = TRUE,
     escape_backslash = FALSE
@@ -80,11 +86,12 @@ tokenizer_csv <- function(na = "NA", trim_ws = TRUE) {
 
 #' @export
 #' @rdname Tokenizers
-tokenizer_tsv <- function(na = "NA", trim_ws = TRUE) {
+tokenizer_tsv <- function(na = "NA", comment = "", trim_ws = TRUE) {
   tokenizer_delim(
     delim = "\t",
     quote = '"',
     na = na,
+    comment = comment,
     trim_ws = trim_ws,
     escape_double = TRUE,
     escape_backslash = FALSE

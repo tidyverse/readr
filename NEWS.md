@@ -1,5 +1,8 @@
 # readr 0.1.1.9000
 
+* `read_delim()` and friends gains a `comment` argument. Any data after the
+  comment string will be silently ignored (#68).
+
 * You can now use `cols_only()` to load only selected named columns. You can
   also choose to override the default column type in `cols()`. In cols, you
   can choose to refer to parsers either with their full name (e.g. 
