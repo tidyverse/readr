@@ -53,6 +53,6 @@ test_that("read_file works via https", {
 })
 
 test_that("read_file works via https on gz file", {
-  url <- "https://github.com/DanRuderman/readr/raw/test_updates/tests/testthat/eol-cr.txt.gz"
+  url <- "https://raw.githubusercontent.com/hadley/readr/master/tests/testthat/eol-cr.txt.gz"
   expect_equal(read_file(url), eol_cr_text)
 })
