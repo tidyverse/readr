@@ -13,7 +13,8 @@ tokenize(file, tokenizer = tokenizer_csv(), skip = 0, n_max = -1L)
    Files ending in \code{.gz}, \code{.bz2}, \code{.xz}, or \code{.zip} will
    be automatically uncompressed. Files starting with \code{http://},
    \code{https://}, \code{ftp://}, or \code{ftps://} will be automatically
-   downloaded.
+   downloaded. Remote gz files can also be automatically downloaded &
+   decompressed.
 
    Literal data is most useful for examples and tests. It must contain at
    least one new line to be recognised as data (instead of a path).}

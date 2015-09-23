@@ -1,5 +1,7 @@
 # readr 0.1.1.9000
 
+* You can now read from a remote gz compressed file (#163).
+
 * `read_delim()` and friends gains a `comment` argument. Any data after the
   comment string will be silently ignored (#68).
 

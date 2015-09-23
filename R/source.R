@@ -6,7 +6,8 @@
 #'    Files ending in \code{.gz}, \code{.bz2}, \code{.xz}, or \code{.zip} will
 #'    be automatically uncompressed. Files starting with \code{http://},
 #'    \code{https://}, \code{ftp://}, or \code{ftps://} will be automatically
-#'    downloaded.
+#'    downloaded. Remote gz files can also be automatically downloaded &
+#'    decompressed.
 #'
 #'    Literal data is most useful for examples and tests. It must contain at
 #'    least one new line to be recognised as data (instead of a path).
@@ -93,8 +94,13 @@ standardise_path <- function(path) {
   if (grepl("\n", path))
     return(path)
 
-  if (is_url(path))
-    return(curl::curl(path))
+  if (is_url(path)) {
+    if (identical(tools::file_ext(path), "gz")) {
+      return(gzcon(curl::curl(path)))
+    } else {
+      return(curl::curl(path))
+    }
+  }
 
   path <- check_path(path)
   switch(tools::file_ext(path),
