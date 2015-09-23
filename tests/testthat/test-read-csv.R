@@ -79,6 +79,25 @@ test_that("warnings based on number of columns (not output columns)", {
   expect_equal(n_problems(out2), 0)
 })
 
+test_that("missing last field generates warning", {
+  out <- read_csv("a,b\n2")
+  expect_equal(problems(out)$expected, "2 columns")
+})
+
+test_that("missing lines generates warning", {
+  # first
+  out <- read_csv("a,b\n\n\n1,2")
+  expect_equal(problems(out)$expected, rep("2 columns", 2))
+
+  # middle
+  out <- read_csv("a,b\n1,2\n\n\n2,3\n")
+  expect_equal(problems(out)$expected, rep("2 columns", 2))
+
+  # last (trailing \n is ngored)
+  out <- read_csv("a,b\n1,2\n\n\n")
+  expect_equal(problems(out)$expected, rep("2 columns", 2))
+})
+
 # read_csv2 ---------------------------------------------------------------
 
 test_that("decimal mark automatically set to ,", {
