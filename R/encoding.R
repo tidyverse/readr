@@ -13,7 +13,7 @@ guess_encoding <- function(file, n_max = 1e4, threshold = 0.20) {
     stop("stringi package required for encoding operations")
   }
 
-  lines <- read_lines_raw(file, n_max = n)
+  lines <- read_lines_raw(file, n_max = n_max)
   all <- unlist(lines)
 
   if (stringi::stri_enc_isascii(all)) {
