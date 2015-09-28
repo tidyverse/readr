@@ -13,8 +13,30 @@ NULL
 #'
 #' @inheritParams datasource
 #' @inheritParams tokenizer_delim
-#' @inheritParams col_names_standardise
-#' @inheritParams col_spec_standardise
+#' @param col_names Either \code{TRUE}, \code{FALSE} or a character vector
+#'   of column names.
+#'
+#'   If \code{TRUE}, the first row of the input will be used as the column
+#'   names, and will not be included in the data frame. If \code{FALSE}, column
+#'   names will be generated automatically: X1, X2, X3 etc.
+#'
+#'   If \code{col_names} is a character vector, the values will be used as the
+#'   names of the columns, and the first row of the input will be read into
+#'   the first row of the output data frame.
+#' @param col_types One of \code{NULL}, a \code{\link{cols}}, specification of
+#'   a string. See \code{vignette("column-types")} for more details.
+#'
+#'   If \code{NULL}, all column types will be imputed from the first 1000 rows
+#'   on the input. This is convenient (and fast), but not robust. If the
+#'   imputation fails, you'll need to supply the correct types yourself.
+#'
+#'   If a column specification created by \code{\link{cols}}, it must contain
+#'   one "\code{\link{collector}}" for each column. If you only want to read a
+#'   subset of the columns, use \code{\link{cols_only}}.
+#'
+#'   Alternatively, you can use a compact string representation where each
+#'   character represents one column: c = character, d = double, i = integer,
+#'   l = logical, ? = guess, or \code{_}/\code{-} to skip the column.
 #' @param locale The locale controls defaults that vary from place to place.
 #'   The default locale is US-centric (like R), but you can use
 #'   \code{\link{locale}} to create your own locale that controls things like
@@ -132,29 +154,16 @@ read_delimited <- function(file, tokenizer, col_names = TRUE, col_types = NULL,
     data <- file
   }
 
-  ds <- datasource(data, skip = skip)
+  col_types <- col_spec_standardise(
+    data, skip = skip, n_max = n_max,
+    col_names = col_names, col_types = col_types,
+    tokenizer = tokenizer, locale = locale)
 
-  if (isTRUE(col_names))
-    skip <- skip + 1
-  col_names <- col_names_standardise(col_names, read_header(ds, tokenizer, locale))
+  ds <- datasource(data, skip = skip + isTRUE(col_names))
 
-  ds <- datasource(data, skip = skip)
-  col_types <- col_spec_standardise(col_types, col_names, types(ds, tokenizer, locale, n_max = n_max))
-  out <- read_tokens(ds, tokenizer, col_types, col_names, locale_ = locale,
+  out <- read_tokens(ds, tokenizer, col_types, names(col_types), locale_ = locale,
     n_max = n_max, progress = progress)
 
   out <- name_problems(out)
   warn_problems(out, name)
-}
-
-types <- function(source, tokenizer, locale, n = 1000, n_max = -1) {
-  if (n_max > 0) {
-    n <- min(n, n_max)
-  }
-
-  collectorsGuess(source, tokenizer, locale, n = n)
-}
-
-read_header <- function(datasource, tokenizer, locale = default_locale()) {
-  read_header_(datasource, tokenizer, locale)
 }

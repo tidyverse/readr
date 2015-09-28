@@ -72,7 +72,7 @@ test_that("nuls are dropped with a warning", {
 # Column warnings ---------------------------------------------------------
 
 test_that("warnings based on number of columns (not output columns)", {
-  out1 <- readr::read_csv("1,2,3\n4,5,6", c("", "", "z"), "__i")
+  out1 <- readr::read_csv("1,2,3\n4,5,6", "z", "__i")
   out2 <- readr::read_csv("1,2,3\n4,5,6", FALSE, cols_only(X3 = "i"))
 
   expect_equal(n_problems(out1), 0)
@@ -108,13 +108,6 @@ test_that("extra columns generates warnings", {
   expect_equal(problems(out2)$expected, "2 columns")
   expect_equal(problems(out3)$expected, "2 columns")
   expect_equal(problems(out4)$expected, "2 columns")
-})
-
-test_that("can standardise spec with more guesses than names", {
-  guesses <- c("integer", "integer", "integer")
-  out <- evaluate_promise(col_spec_standardise(NULL, c("a", "b"), guesses))
-
-  expect_equal(length(out$warnings), 0)
 })
 
 # read_csv2 ---------------------------------------------------------------

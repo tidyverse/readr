@@ -12,8 +12,6 @@
 #'   tabular data with non-standard formatting.
 #' @inheritParams datasource
 #' @inheritParams tokenizer_fwf
-#' @inheritParams col_names_standardise
-#' @inheritParams col_spec_standardise
 #' @inheritParams read_delim
 #' @export
 #' @examples
@@ -31,17 +29,15 @@ read_table <- function(file, col_names = TRUE, col_types = NULL,
                        locale = default_locale(), na = "NA",
                        skip = 0, n_max = -1) {
   columns <- fwf_empty(file, skip = skip)
-
-  ds <- datasource(file, skip = skip)
   tokenizer <- tokenizer_fwf(columns$begin, columns$end, na = na)
 
-  if (isTRUE(col_names))
-    skip <- skip + 1
-  col_names <- col_names_standardise(col_names, read_header(ds, tokenizer, locale))
+  col_types <- col_spec_standardise(
+    file = file, skip = skip, n_max = n_max,
+    col_names = col_names, col_types = col_types,
+    locale = locale, tokenizer = tokenizer
+  )
 
-  ds <- datasource(file, skip = skip)
-  col_types <- col_spec_standardise(col_types, col_names,
-    types(ds, tokenizer, locale))
-  read_tokens(ds, tokenizer, col_types, col_names, locale_ = locale,
+  ds <- datasource(file, skip = skip + isTRUE(col_names))
+  read_tokens(ds, tokenizer, col_types, names(col_types), locale_ = locale,
     n_max = n_max)
 }

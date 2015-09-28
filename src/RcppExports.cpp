@@ -71,16 +71,16 @@ BEGIN_RCPP
     return __result;
 END_RCPP
 }
-// read_header_
-RObject read_header_(List sourceSpec, List tokenizerSpec, List locale_);
-RcppExport SEXP readr_read_header_(SEXP sourceSpecSEXP, SEXP tokenizerSpecSEXP, SEXP locale_SEXP) {
+// guess_header_
+RObject guess_header_(List sourceSpec, List tokenizerSpec, List locale_);
+RcppExport SEXP readr_guess_header_(SEXP sourceSpecSEXP, SEXP tokenizerSpecSEXP, SEXP locale_SEXP) {
 BEGIN_RCPP
     Rcpp::RObject __result;
     Rcpp::RNGScope __rngScope;
     Rcpp::traits::input_parameter< List >::type sourceSpec(sourceSpecSEXP);
     Rcpp::traits::input_parameter< List >::type tokenizerSpec(tokenizerSpecSEXP);
     Rcpp::traits::input_parameter< List >::type locale_(locale_SEXP);
-    __result = Rcpp::wrap(read_header_(sourceSpec, tokenizerSpec, locale_));
+    __result = Rcpp::wrap(guess_header_(sourceSpec, tokenizerSpec, locale_));
     return __result;
 END_RCPP
 }
@@ -167,9 +167,9 @@ BEGIN_RCPP
     return __result;
 END_RCPP
 }
-// collectorsGuess
-std::vector<std::string> collectorsGuess(List sourceSpec, List tokenizerSpec, Rcpp::List locale_, int n);
-RcppExport SEXP readr_collectorsGuess(SEXP sourceSpecSEXP, SEXP tokenizerSpecSEXP, SEXP locale_SEXP, SEXP nSEXP) {
+// guess_types_
+std::vector<std::string> guess_types_(List sourceSpec, List tokenizerSpec, Rcpp::List locale_, int n);
+RcppExport SEXP readr_guess_types_(SEXP sourceSpecSEXP, SEXP tokenizerSpecSEXP, SEXP locale_SEXP, SEXP nSEXP) {
 BEGIN_RCPP
     Rcpp::RObject __result;
     Rcpp::RNGScope __rngScope;
@@ -177,7 +177,7 @@ BEGIN_RCPP
     Rcpp::traits::input_parameter< List >::type tokenizerSpec(tokenizerSpecSEXP);
     Rcpp::traits::input_parameter< Rcpp::List >::type locale_(locale_SEXP);
     Rcpp::traits::input_parameter< int >::type n(nSEXP);
-    __result = Rcpp::wrap(collectorsGuess(sourceSpec, tokenizerSpec, locale_, n));
+    __result = Rcpp::wrap(guess_types_(sourceSpec, tokenizerSpec, locale_, n));
     return __result;
 END_RCPP
 }

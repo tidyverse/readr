@@ -109,30 +109,31 @@ col_concise <- function(x) {
   )
 }
 
-#' Standardise column types.
-#'
-#' @param col_types One of \code{NULL}, a \code{\link{cols}}, specification of
-#'   a string. See \code{vignette("column-types")} for more details.
-#'
-#'   If \code{NULL}, all column types will be imputed from the first 1000 rows
-#'   on the input. This is convenient (and fast), but not robust. If the
-#'   imputation fails, you'll need to supply the correct types yourself.
-#'
-#'   If a column specification created by \code{\link{cols}}, it must contain
-#'   one "\code{\link{collector}}" for each column. If you only want to read a
-#'   subset of the columns, use \code{\link{cols_only}}.
-#'
-#'   Alternatively, you can use a compact string representation where each
-#'   character represents one column: c = character, d = double, i = integer,
-#'   l = logical, ? = guess, or \code{_}/\code{-} to skip the column.
-#' @param col_names A character vector naming the columns.
-#' @param rows A data frame containing the first few rows, parsed as
-#'   character vectors.
-#' @export
-#' @keywords internal
-#' @examples
-#' col_spec_standardise("ii", c("a", "b"))
-col_spec_standardise <- function(col_types, col_names, guessed_types) {
+col_spec_standardise <- function(file, col_names = TRUE, col_types = NULL,
+                                 guessed_types = NULL,
+                                 skip = 0, n_max = -1,
+                                 tokenizer = tokenizer_csv(),
+                                 locale = default_locale()) {
+
+  # Figure out the column names -----------------------------------------------
+  if (is.logical(col_names) && length(col_names) == 1) {
+    ds_header <- datasource(file, skip = skip)
+    if (col_names) {
+      col_names <- guess_header(ds_header, tokenizer, locale)
+    } else {
+      n <- length(guess_header(ds_header, tokenizer, locale))
+      col_names <- paste0("X", seq_len(n))
+    }
+    guessed_names <- TRUE
+    skip <- skip + 1
+  } else if (is.character(col_names)) {
+    guessed_names <- FALSE
+  } else {
+    stop("`col_names` must be TRUE, FALSE or a character vector", call. = FALSE)
+  }
+
+  # Figure out column types ----------------------------------------------------
+
   if (is.null(col_types)) {
     col_types <- rep(list(col_guess()), length(col_names))
   }
@@ -140,16 +141,43 @@ col_spec_standardise <- function(col_types, col_names, guessed_types) {
   spec <- as.col_spec(col_types)
   type_names <- names(spec$cols)
 
-  if (is.null(type_names)) {
+  if (is.null(type_names) && guessed_names) {
+    # unnamed types & names guessed from header: match exactly
+
     if (length(spec$cols) != length(col_names)) {
       warning("Unnamed `col_types` should have the same length as `col_names`. ",
         "Using smaller of the two.", call. = FALSE)
       n <- min(length(col_names), length(col_types))
-      col_types <- col_types[seq_len(n)]
+      spec$cols <- spec$cols[seq_len(n)]
       col_names <- col_names[seq_len(n)]
+    }
+
+    names(spec$cols) <- col_names
+  } else if (is.null(type_names) && !guessed_names) {
+    # unnamed types & names supplied: match non-skipped columns
+    skipped <- vapply(spec$cols, inherits, "collector_skip",
+      FUN.VALUE = logical(1))
+    n_read <- sum(!skipped)
+    n_names <- length(col_names)
+
+    n_new <- abs(n_names - n_read)
+    if (n_read < n_names) {
+      warning("Insufficient `col_types`. Guessing ", n_new, " columns.",
+        call. = FALSE)
+      spec$cols <- c(spec$cols, list(rep(col_guess(), n_new)))
+    } else if (n_read > n_names) {
+      warning("Insufficient `col_names`. Adding ", n_new, " names.",
+        call. = FALSE)
+      col_names <- c(col_names, paste0("X", seq_len(n_new) + n_read - 1))
+    } else {
+      col_names2 <- rep("", length(spec$cols))
+      col_names2[!skipped] <- col_names
+      col_names <- col_names2
     }
     names(spec$cols) <- col_names
   } else {
+    # names types
+
     bad_types <- !(type_names %in% col_names)
     if (any(bad_types)) {
       warning("The following named parsers don't match the column names: ",
@@ -168,12 +196,30 @@ col_spec_standardise <- function(col_types, col_names, guessed_types) {
     spec$cols <- spec$cols[col_names]
   }
 
+  # Guess any types that need to be guessed ------------------------------------
+
   is_guess <- vapply(spec$cols, function(x) inherits(x, "collector_guess"), logical(1))
   if (any(is_guess)) {
+    if (is.null(guessed_types)) {
+      ds <- datasource(file, skip = skip)
+      guessed_types <- guess_types(ds, tokenizer, locale, n_max = n_max)
+    }
+
     # Need to be careful here: there might be more guesses than types/names
     guesses <- guessed_types[seq_along(spec$cols)][is_guess]
     spec$cols[is_guess] <- lapply(guesses, collector_find)
   }
 
   spec$cols
+}
+
+guess_types <- function(datasource, tokenizer, locale, n = 1000, n_max = -1) {
+  if (n_max > 0) {
+    n <- min(n, n_max)
+  }
+  guess_types_(datasource, tokenizer, locale, n = n)
+}
+
+guess_header <- function(datasource, tokenizer, locale = default_locale()) {
+  guess_header_(datasource, tokenizer, locale)
 }

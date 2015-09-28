@@ -21,8 +21,8 @@ count_fields_ <- function(sourceSpec, tokenizerSpec, n_max) {
     .Call('readr_count_fields_', PACKAGE = 'readr', sourceSpec, tokenizerSpec, n_max)
 }
 
-read_header_ <- function(sourceSpec, tokenizerSpec, locale_) {
-    .Call('readr_read_header_', PACKAGE = 'readr', sourceSpec, tokenizerSpec, locale_)
+guess_header_ <- function(sourceSpec, tokenizerSpec, locale_) {
+    .Call('readr_guess_header_', PACKAGE = 'readr', sourceSpec, tokenizerSpec, locale_)
 }
 
 tokenize_ <- function(sourceSpec, tokenizerSpec, n_max) {
@@ -49,8 +49,8 @@ read_tokens <- function(sourceSpec, tokenizerSpec, colSpecs, colNames, locale_, 
     .Call('readr_read_tokens', PACKAGE = 'readr', sourceSpec, tokenizerSpec, colSpecs, colNames, locale_, n_max, progress)
 }
 
-collectorsGuess <- function(sourceSpec, tokenizerSpec, locale_, n = 100L) {
-    .Call('readr_collectorsGuess', PACKAGE = 'readr', sourceSpec, tokenizerSpec, locale_, n)
+guess_types_ <- function(sourceSpec, tokenizerSpec, locale_, n = 100L) {
+    .Call('readr_guess_types_', PACKAGE = 'readr', sourceSpec, tokenizerSpec, locale_, n)
 }
 
 whitespaceColumns <- function(sourceSpec, n = 100L) {

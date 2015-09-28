@@ -122,6 +122,7 @@ void checkColumns(Warnings *pWarnings, int i, int j, int n) {
 RObject read_tokens(List sourceSpec, List tokenizerSpec, ListOf<List> colSpecs,
                     CharacterVector colNames, List locale_, int n_max = -1,
                     bool progress = true) {
+
   Warnings warnings;
   LocaleInfo locale(locale_);
 
@@ -135,33 +136,27 @@ RObject read_tokens(List sourceSpec, List tokenizerSpec, ListOf<List> colSpecs,
 
   Progress progressBar;
 
-  size_t p = collectors.size();
   // Work out how many output columns we have
+  size_t p = collectors.size();
   size_t pOut = 0;
-  for(CollectorItr cur = collectors.begin(); cur != collectors.end(); ++cur) {
-    if (!(*cur)->skip())
-      pOut++;
+  for (size_t j = 0; j < p; ++j) {
+    if (collectors[j]->skip())
+      continue;
+    pOut++;
   }
 
-  // Match colNames to with non-skipped collectors, shrinking or growing
-  // as needed
+  // Match colNames to with non-skipped collectors
+  if (p != colNames.size())
+    stop("colSpec and colNames must be same size");
+
   CharacterVector outNames(pOut);
   int cj = 0;
   for (size_t j = 0; j < p; ++j) {
     if (collectors[j]->skip())
       continue;
-    if (cj >= pOut)
-      break;
-    if (j < colNames.size()) {
-      outNames[cj++] = colNames[j];
-    } else {
-      outNames[cj++] = tfm::format("X%i", j + 1);
-    }
-  }
-  if (colNames.size() != p) {
-    warnings.addWarning(-1, -1,
-      tfm::format("%i col names", p),
-      tfm::format("%i col names", colNames.size()));
+
+    outNames[cj] = colNames[j];
+    cj++;
   }
 
   size_t n = (n_max < 0) ? 1000 : n_max;
@@ -221,8 +216,8 @@ RObject read_tokens(List sourceSpec, List tokenizerSpec, ListOf<List> colSpecs,
 
 
 // [[Rcpp::export]]
-std::vector<std::string> collectorsGuess(List sourceSpec, List tokenizerSpec,
-                                         Rcpp::List locale_, int n = 100) {
+std::vector<std::string> guess_types_(List sourceSpec, List tokenizerSpec,
+                                      Rcpp::List locale_, int n = 100) {
   Warnings warnings;
   SourcePtr source = Source::create(sourceSpec);
   TokenizerPtr tokenizer = Tokenizer::create(tokenizerSpec);

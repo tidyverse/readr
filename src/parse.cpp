@@ -49,7 +49,7 @@ std::vector<int> count_fields_(List sourceSpec, List tokenizerSpec, int n_max) {
 }
 
 // [[Rcpp::export]]
-RObject read_header_(List sourceSpec, List tokenizerSpec, List locale_) {
+RObject guess_header_(List sourceSpec, List tokenizerSpec, List locale_) {
   Warnings warnings;
   LocaleInfo locale(locale_);
   SourcePtr source = Source::create(sourceSpec);
