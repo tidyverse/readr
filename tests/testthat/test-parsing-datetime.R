@@ -113,11 +113,17 @@ test_that("locale affects both guessing and parsing", {
 })
 
 test_that("text re-encoded before strings are parsed", {
-  x <- "1 février 2010"
+  x <- "1 f\u00e9vrier 2010"
   y <- iconv(x, to = "ISO-8859-1")
   feb01 <- as.Date(ISOdate(2010, 02, 01))
 
-  expect_equal(parse_date(x, "%d %B %Y", locale = locale("fr")), feb01)
+  if (Encoding(x) == "UTF-8") {
+    expect_equal(
+      parse_date(x, "%d %B %Y", locale = locale("fr")),
+      feb01
+    )
+  }
+
   expect_equal(
     parse_date(y, "%d %B %Y", locale = locale("fr", encoding = "ISO-8859-1")),
     feb01
