@@ -8,9 +8,12 @@
 #' @inheritParams read_lines
 #' @param threshold Only report guesses above this threshold of certainty.
 #' @export
+#' @examples
+#' guess_encoding(system.file("extdata/mtcars.csv", package = "readr"))
+#' guess_encoding("a\nµµ")
 guess_encoding <- function(file, n_max = 1e4, threshold = 0.20) {
   if (!requireNamespace("stringi", quietly = TRUE)) {
-    stop("stringi package required for encoding operations")
+    stop("stringi package required for encoding operations", call. = FALSE)
   }
 
   lines <- read_lines_raw(file, n_max = n_max)

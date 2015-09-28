@@ -28,4 +28,8 @@ file will be read.}
 Uses \code{\link[stringi]{stri_enc_detect}}: see the documentation there
 for caveats.
 }
+\examples{
+guess_encoding(system.file("extdata/mtcars.csv", package = "readr"))
+guess_encoding("a\\nµµ")
+}
 
