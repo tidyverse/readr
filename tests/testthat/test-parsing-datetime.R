@@ -90,6 +90,16 @@ test_that("%b and %B are case insensitve", {
   expect_equal(parse_date("2001 JANUARY 01", "%Y %B %d"), ref)
 })
 
+test_that("%z detects named time zones", {
+  ref <- ISOdatetime(2010, 10, 01, 01, 00, 00, tz = "US/Central")
+  ct <- locale(tz = "US/Central")
+
+  expect_equal(parse_datetime("2010-10-01 01:00", locale = ct), ref)
+  expect_equal(
+    parse_datetime("2010-10-01 01:00 US/Central", "%Y-%m-%d %H:%M %Z", locale = ct),
+    ref
+  )
+})
 
 # Locales -----------------------------------------------------------------
 
