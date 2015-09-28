@@ -2,8 +2,7 @@
 
 ## Internationalisation
 
-readr now has a strategy for dealing with settings that vary from place to place: locales. The default locale is still US centric (because R itself is), but you can now easily override the default timezone, decimal separator, grouping mark, day & month names, date format, and 
-encoding. This has lead to a number of changes:
+readr now has a strategy for dealing with settings that vary from place to place: locales. The default locale is still US centric (because R itself is), but you can now easily override the default timezone, decimal separator, grouping mark, day & month names, date format, and encoding. This has lead to a number of changes:
 
 * `read_csv()`, `read_tsv()`, `read_fwf()`, `read_table()`, 
   `read_lines()`, `read_file()`, `type_convert()`, `parse_vector()` 
@@ -16,6 +15,8 @@ encoding. This has lead to a number of changes:
   
 * The default encoding is now UTF-8. To load files that are not 
   in UTF-8, set the `encoding` parameter of the `locale()` (#40).
+  New `guess_encoding()` function uses stringi to help you figure out the
+  encoding of a file.
   
 * `parse_datetime()` and `parse_date()` with `%B` and `%b` use the
   month names (full and abbreviate) defined in the locale (#242).
@@ -33,34 +34,36 @@ See `vignette("locales")` for more details.
 * `cols_only()` allows you to load only named columns. You can also choose to 
   override the default column type in `cols()` (#72).
 
-* `read_fwf()` is now much more careful with new lines. The last column 
-  can now be ragged: the width of the last field is silently extended until
-  it hits the next line break (#146). If a line is too short, you'll get
-  a warning instead of a silent mistake (#166, #254).
+* `read_fwf()` is now much more careful with new lines. If a line is too short, 
+  you'll get a warning instead of a silent mistake (#166, #254). Additionally,
+  the last column can now be ragged: the width of the last field is silently 
+  extended until it hits the next line break (#146). This appears to be a
+  common feature of "fixed" width files in the wild.
 
 * In `read_csv()`, `read_tsv()`, `read_delim()` etc:
  
-  * `comment` argument allows you to ignored comments (#68).
+  * `comment` argument allows you to ignore comments (#68).
   
   * `trim_ws` argument controls whether leading and trailing whitespace is 
-     automatically removed. It defaults to `TRUE` (#137).
+    removed. It defaults to `TRUE` (#137).
   
-  * Specifying the wrong number of column names, or the having rows which
-    are different lengths generates a warning, rather than an error (#189).
+  * Specifying the wrong number of column names, or having rows with an 
+    unexpected number of columns, generates a warning, rather than an error 
+    (#189).
 
-  * Multiple strings can now be specified to indicate missing values (#125), 
-    and the default for missing strings has been changed to `na = c("", "NA")`.
-    Specifying `na = ""` now works as expected with character columns (#114).
+  * Multiple NA values can be specified by passing a character vector to 
+    `na` (#125). The default has been changed to `na = c("", "NA")`. Specifying 
+    `na = ""` now works as expected with character columns (#114).
 
 ## Column parsing improvements
 
-Readr gains `vignette("col-types")` which describes how the defaults work and how to override them (#122).
+Readr gains `vignette("column-types")` which describes how the defaults work and how to override them (#122).
 
 * `parse_character()` gains better support for embedded nulls: any characters 
   after the first null are dropped with a warning (#202).
 
 * `parse_integer()` and `parse_double()` no longer silently ignore trailing
-  letters after the number. (#221)
+  letters after the number (#221).
 
 * New `parse_time()` and `col_time()` allows you to parse times (hours, minutes, 
   seconds) into number of seconds since midnight. If the format is omitted, it 
@@ -72,8 +75,8 @@ Readr gains `vignette("col-types")` which describes how the defaults work and ho
 
     * `parse_datetime()` no longer incorrectly reads partial dates (e.g. 19, 
       1900, 1900-01) (#136). These triggered common false positives and after 
-      re-reading  the spec, I believe they actually refer to periods of time, 
-      and should not be translated in to a specific instant (#228). 
+      re-reading the ISO8601 spec, I believe they actually refer to periods of 
+      time, and should not be translated in to a specific instant (#228). 
       
     * Compound formats "%D", "%F", "%R", "%X", "%T", "%x" are now parsed 
       correctly, instead of using the  ISO8601 parser (#178, @kmillar). 
@@ -92,7 +95,7 @@ Readr gains `vignette("col-types")` which describes how the defaults work and ho
   
 * `parse_numeric()` has been deprecated because the name is confusing - 
   it's a flexible number parser, not a parser of "numerics", as R collectively
-  calls doubles and integers. Instead use `parse_number()`. 
+  calls doubles and integers. Use `parse_number()` instead. 
 
 As well as improvements to the parser, I've also made a number of tweaks to the heuristics that readr uses to guess column types:
 
@@ -109,7 +112,7 @@ As well as improvements to the parser, I've also made a number of tweaks to the 
 
 ## Minor improvements and bug fixes
 
-* Now use R's platform independent `iconv` wrapper thanks to BDR (#149).
+* Now use R's platform independent `iconv` wrapper, thanks to BDR (#149).
 
 * Pathological zero row inputs (due to empty input, `skip` or `n_max`) now
   return zero row data frames (#119).
@@ -117,15 +120,12 @@ As well as improvements to the parser, I've also made a number of tweaks to the 
 * When guessing field types, and there's no information to go on, use
   character instead of logical (#124, #128).
 
-* Concise `col_types` specification now understands `?` (guess the type) and
-  `-` skip the column (#188).
+* Concise `col_types` specification now understands `?` (guess) and
+  `-` (skip) (#188).
 
 * `count_fields()` starts counting from 1, not 0 (#200).
 
 * `fwf_empty()` now works correctly when `col_names` supplied (#186, #222).
-
-* `guess_encoding()` uses stringi to guess the encoding of a file on disk,
-  by default using the first 10,000 lines.
 
 * `parse_*()` gains a `na` argument that allows you to specify which values 
   should be converted to missing.
@@ -134,19 +134,19 @@ As well as improvements to the parser, I've also made a number of tweaks to the 
   Whenever there is a problem, the first five problems are printing out 
   in a warning message, so you can more easily see what's wrong.
 
-* `read_*()` now throw a warning instead of an error is `col_types`
+* `read_*()` throws a warning instead of an error is `col_types`
   specifies a non-existent column (#145, @alyst).
 
-* `read_*()` can now read from a remote gz compressed file (#163).
+* `read_*()` can read from a remote gz compressed file (#163).
 
-* `read_delim()` now defaults to `escape_backslash = FALSE` and 
-  `escape_double = TRUE` for consistency. `n_max` now also affects the number 
+* `read_delim()` defaults to `escape_backslash = FALSE` and 
+  `escape_double = TRUE` for consistency. `n_max` also affects the number 
   of rows read to guess the column types (#224).
 
 * `read_lines()` gains a progress bar. It now also correctly checks for 
   interrupts every 500,000 lines so you can interrupt long running jobs.
   It also correctly estimates the number of lines in the file, considerably
-  speeding up the reading of large files (60s -> 15s for a 1.5 Gb file)
+  speeding up the reading of large files (60s -> 15s for a 1.5 Gb file).
 
 * `read_lines_raw()` allows you to read a file into a list of raw vectors,
   one element for each line.
@@ -155,12 +155,12 @@ As well as improvements to the parser, I've also made a number of tweaks to the 
   values before determining column types.
 
 * `write_delim()` generalises `write_csv()` to write any delimited format (#135).
-  `write_tsv()` is a helpful wrapper for another common format.
+  `write_tsv()` is a helpful wrapper for tab separated files.
   
     * Quotes are only used when they're needed (#116): when the string contains 
       a quote, the delimiter, a new line or NA. 
       
-    * Double vectors are saved with same amount of precision as 
+    * Double vectors are saved using same amount of precision as 
       `as.character()` (#117). 
       
     * New `na` argument that specifies how missing values should be written 
