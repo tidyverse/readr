@@ -21,7 +21,7 @@ Suggests:
     DiagrammeR,
     rmarkdown,
     stringi
-License: GPL (>= 2)
+License: GPL (>= 2) | file LICENSE
 BugReports: https://github.com/hadley/readr/issues
 URL: https://github.com/hadley/readr
 VignetteBuilder: knitr
