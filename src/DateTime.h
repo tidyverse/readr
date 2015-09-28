@@ -141,7 +141,6 @@ private:
 
 
   double localtime(TzManager* pTzManager) const {
-    pTzManager->setTz(tz_);
     if (!validDateTime())
       return NA_REAL;
 
@@ -157,6 +156,7 @@ private:
     // and less than zero if the information is not available.
     tm.tm_isdst = -1;
 
+    pTzManager->setTz(tz_);
     time_t time = mktime(&tm);
     return time + psec_ + offset_;
   }
