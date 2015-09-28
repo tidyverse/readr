@@ -36,39 +36,26 @@ bool isLogical(const std::string& x, LocaleInfo* pLocale) {
 }
 
 bool isInteger(const std::string& x, LocaleInfo* pLocale) {
-  int res = 0;
-  std::string::const_iterator begin = x.begin(), end = x.end();
   if (x[0] == '0' && x.size() > 1)
     return false;
+
+  int res = 0;
+  std::string::const_iterator begin = x.begin(), end = x.end();
 
   return parseInt(begin, end, res) && begin == end;
 }
 
-bool canParseNumber(CharacterVector x, LocaleInfo* pLocale) {
-  double tmp = 0;
+bool isNumber(const std::string& x, LocaleInfo* pLocale) {
+  // Leading zero not followed by decimal mark
+  if (x[0] == '0' && x.size() > 1 && x[1] != pLocale->decimalMark_)
+    return false;
 
-  for (int i = 0; i < x.size(); ++i) {
-    if (x[i] == NA_STRING)
-      continue;
+  double res = 0;
+  std::string::const_iterator begin = x.begin(), end = x.end();
 
-    if (x[i].size() == 0)
-      return false;
-
-    std::string xstr = std::string(x[i]);
-    std::string::const_iterator begin = xstr.begin(), end = xstr.end();
-
-    if (xstr[0] == '0' && xstr.size() > 1 && xstr[1] != pLocale->decimalMark_)
-      return false;
-
-    bool ok = parseNumber(pLocale->decimalMark_, pLocale->groupingMark_,
-      begin, end, tmp);
-    if (!ok)
-      return false;
-
-    if (begin != xstr.begin() || end != xstr.end())
-      return false;
-  }
-  return true;
+  bool ok = parseNumber(pLocale->decimalMark_, pLocale->groupingMark_,
+    begin, end, res);
+  return ok && begin == x.begin() && end == x.end();
 }
 
 bool isDouble(const std::string& x, LocaleInfo* pLocale) {
@@ -111,7 +98,7 @@ std::string collectorGuess(CharacterVector input, List locale_) {
     return "integer";
   if (canParse(input, isDouble, &locale))
     return "double";
-  if (canParseNumber(input, &locale))
+  if (canParse(input, isNumber, &locale))
     return "number";
   if (canParse(input, isDate, &locale))
     return "date";
