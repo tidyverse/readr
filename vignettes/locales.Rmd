@@ -1,10 +1,10 @@
 ---
-title: "readr locales"
+title: "Locales"
 author: "Hadley Wickham"
 date: "`r Sys.Date()`"
 output: rmarkdown::html_vignette
 vignette: >
-  %\VignetteIndexEntry{readr locales}
+  %\VignetteIndexEntry{Locales}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---

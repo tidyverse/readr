@@ -4,37 +4,47 @@ author: "Hadley Wickham"
 date: "`r Sys.Date()`"
 output: rmarkdown::html_vignette
 vignette: >
-  %\VignetteIndexEntry{Vignette Title}
+  %\VignetteIndexEntry{Column types}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---
+
+```{r, include = FALSE}
+library(readr)
+knitr::opts_chunk$set(collapse = TRUE, comment = "#>")
+```
 
 ## Column types
 
 Currently, readr automatically recognises the following types of columns:
 
 * `col_logical()` [l], containing only `T`, `F`, `TRUE` or `FALSE`.
+
 * `col_integer()` [i], integers.
+
 * `col_double()` [d], doubles.
-* `col_euro_double()` [e], "Euro" doubles that use `,` as decimal separator.
+
 * `col_character()` [c], everything else.
+
 * `col_date(format = "")` [D]: Y-m-d dates.
+
 * `col_datetime(format = "")` [T]: ISO8601 date times
+
 * `col_number()` [n], finds the first number in the field. A number is defined
    as a sequence of -, "0-9", `decimal_mark` and `grouping_mark`. This is
-   useful for currencies and percentages. It will only be guessed automatically
-   if no more than 4 characters are skipped at the start + end.
+   useful for currencies and percentages. 
 
-To recognise these columns, it reads the first 100 rows of your dataset. This is not guaranteed to be perfect, but it's fast and a reasonable heuristic. If you get a lot of parsing failures, you'll need to re-read the file, overriding the default choices as described below.
+To recognise these columns, readr inspects the first 1000 rows of your dataset. This is not guaranteed to be perfect, but it's fast and a reasonable heuristic. If you get a lot of parsing failures, you'll need to re-read the file, overriding the default choices as described below.
 
 You can also manually specify other column types:
 
-* `col_skip()` [_], don't import this column.
+* `col_skip()` [_, -], don't import this column.
 
-* `col_datetime(date)`, dates with given format.
+* `col_date(format)`, dates with given format.
 
 * `col_datetime(format, tz)`, date times with given format. If the timezone
-  is UTC, this is >20x faster than loading then parsing with `strptime()`.
+  is UTC (the default), this is >20x faster than loading then parsing with
+  `strptime()`.
 
 * `col_time(format)`, times. Returned as number of seconds past midnight.
 
@@ -50,7 +60,7 @@ Use the `col_types` argument to override the default choices. There are two ways
 * With a (named) list of col objects:
 
     ```R
-    read_csv("iris.csv", col_types = list(
+    read_csv("iris.csv", col_types = cols(
       Sepal.Length = col_double(),
       Sepal.Width = col_double(),
       Petal.Length = col_double(),
@@ -59,11 +69,89 @@ Use the `col_types` argument to override the default choices. There are two ways
     ))
     ```
     
+    Or, with their abbreviations:
+    
+    ```R
+      read_csv("iris.csv", col_types = cols(
+      Sepal.Length = "d",
+      Sepal.Width = "d",
+      Petal.Length = "d",
+      Petal.Width = "d",
+      Species = col_factor(c("setosa", "versicolor", "virginica"))
+    ))
+    ```
+    
     Any omitted columns will be parsed automatically, so the previous call is 
     equivalent to:
     
     ```R
-    read_csv("iris.csv", col_types = list(
+    read_csv("iris.csv", col_types = cols(
       Species = col_factor(c("setosa", "versicolor", "virginica"))
     )
     ```
+    
+    If you only want to read specified columns, use `cols_only()`:
+    
+    ```R
+    read_csv("iris.csv", col_types = cols_only(
+      Species = col_factor(c("setosa", "versicolor", "virginica"))
+    )
+    ```
+
+## Column parsers
+
+As well as specifying how to parse a column from a file on disk, each of the `col_xyz()` functions has an equivalent `parse_xyz()` that parsers a character vector. These are useful for testing and examples, and for rapidly experimenting to figure out how to parse a vector given a few examples.
+
+### Base types
+
+`parse_logical()`, `parse_integer()`, `parse_double()`, and `parse_character()` are straightforward parsers that produce the corresponding atomic vector. 
+
+Make sure to read `vignette("locales")` to learn how to deal with doubles.
+
+### Numbers
+
+`parse_integer()` and `parse_double()` are strict: the input string must be a single number with no leading or trailing characters. `parse_number()` is more flexible: it ignores non-numeric prefixes and suffixes, and knows how to deal with grouping marks. This makes it suitable for reading currencies and percentages:
+
+```{r}
+parse_number(c("0%", "10%", "150%"))
+parse_number(c("$1,234.5", "$12.45"))
+```
+
+Note that `parse_guess()` will only guess that a string is a number if it has no leading or trailing characters, otherwise it's too prone to false positives. That means you'll typically needed to explicitly supply the column type for number columns.
+
+```{r}
+str(parse_guess("$1,234"))
+str(parse_guess("1,234"))
+```
+
+### Date times
+
+readr supports three types of date/time data:
+
+* dates: number of days since 1970-01-01.
+* times: number of seconds since midnight.
+* datetimes: number of seconds since midnight 1970-01-01.
+
+readr will guess date and date time fields if they're in ISO8601 format:
+
+```{r}
+parse_datetime("2010-10-01 21:45")
+parse_date("2010-10-01")
+```
+
+Otherwise, you'll need to specify the format yourself:
+
+```{r}
+parse_datetime("1 January, 2010", "%d %B, %Y")
+parse_datetime("02/02/15", "%m/%d/%y")
+```
+
+### Factors
+
+When reading a column that has a known set of values, you can read directly into a factor.
+
+```{r}
+parse_factor(c("a", "b", "a"), levels = c("a", "b", "c"))
+```
+
+readr will never turn a character vector into a factor unless you explicitly ask for it.
