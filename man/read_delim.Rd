@@ -74,7 +74,7 @@ a single quote, \code{\"}.}
 
   Alternatively, you can use a compact string representation where each
   character represents one column: c = character, d = double, i = integer,
-  l = logical, ? = guess, or \code{_}/\code{-} to skip the column.}
+  l = logical, D = date, ? = guess, or \code{_}/\code{-} to skip the column.}
 
 \item{locale}{The locale controls defaults that vary from place to place.
 The default locale is US-centric (like R), but you can use

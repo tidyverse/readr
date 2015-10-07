@@ -23,7 +23,7 @@ type_convert(df, col_types = NULL, na = c("", "NA"), trim_ws = TRUE,
 
   Alternatively, you can use a compact string representation where each
   character represents one column: c = character, d = double, i = integer,
-  l = logical, ? = guess, or \code{_}/\code{-} to skip the column.}
+  l = logical, D = date, ? = guess, or \code{_}/\code{-} to skip the column.}
 
 \item{na}{Character vector of strings to use for missing values. Set this
 option to \code{character()} to indicate no missing values.}
