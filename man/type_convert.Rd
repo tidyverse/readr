@@ -22,8 +22,11 @@ type_convert(df, col_types = NULL, na = c("", "NA"), trim_ws = TRUE,
   subset of the columns, use \code{\link{cols_only}}.
 
   Alternatively, you can use a compact string representation where each
-  character represents one column: c = character, d = double, i = integer,
-  l = logical, D = date, ? = guess, or \code{_}/\code{-} to skip the column.}
+  character represents one column:
+  c = character, i = integer, n = number,
+  d = double, e = European-style double, l = logical,
+  D = date, T = date time, t = time, ? = guess, or
+  \code{_}/\code{-} to skip the column.}
 
 \item{na}{Character vector of strings to use for missing values. Set this
 option to \code{character()} to indicate no missing values.}
