@@ -25,3 +25,4 @@ License: GPL (>= 2) | file LICENSE
 BugReports: https://github.com/hadley/readr/issues
 URL: https://github.com/hadley/readr
 VignetteBuilder: knitr
+RoxygenNote: 4.1.1.9000

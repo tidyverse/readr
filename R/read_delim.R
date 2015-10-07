@@ -46,10 +46,6 @@ NULL
 #' @param progress Display a progress bar? By default it will only display
 #'   in an interactive session. The display is updated every 50,000 values
 #'   and will only display if estimated reading time is 5 seconds or more.
-#' @usage read_delim(file, delim, quote = "\"", escape_backslash = FALSE,
-#'   escape_double = TRUE, col_names = TRUE, col_types = NULL,
-#'   locale = default_locale(), na = c("", "NA"), comment = "", skip = 0,
-#'   n_max = -1, progress = interactive())
 #' @return A data frame. If there are parsing problems, a warning tells you
 #'   how many, and you can retrieve the details with \code{\link{problems}()}.
 #' @export

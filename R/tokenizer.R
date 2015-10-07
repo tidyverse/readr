@@ -50,8 +50,6 @@ NULL
 #'   characters? This is more general than \code{escape_double} as backslashes
 #'   can be used to escape the delimeter character, the quote characer, or
 #'   to add special characters like \code{\\n}.
-#' @usage tokenizer_delim(delim, quote = "\\"", na = "NA", comment = "",
-#'   trim_ws = TRUE, escape_double = TRUE, escape_backslash = FALSE)
 tokenizer_delim <- function(delim, quote = '"', na = "NA", comment = "",
                             trim_ws = TRUE,
                             escape_double = TRUE,
