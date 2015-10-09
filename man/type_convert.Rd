@@ -23,8 +23,7 @@ type_convert(df, col_types = NULL, na = c("", "NA"), trim_ws = TRUE,
 
   Alternatively, you can use a compact string representation where each
   character represents one column:
-  c = character, i = integer, n = number,
-  d = double, e = European-style double, l = logical,
+  c = character, i = integer, n = number, d = double, l = logical,
   D = date, T = date time, t = time, ? = guess, or
   \code{_}/\code{-} to skip the column.}
 
