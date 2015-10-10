@@ -47,8 +47,8 @@ extended to the next line break.}
 
   Alternatively, you can use a compact string representation where each
   character represents one column:
-  c = character, i = integer, n = number, d = double, l = logical,
-  D = date, T = date time, t = time, ? = guess, or
+  c = character, i = integer, n = number, d = double,
+  l = logical, D = date, T = date time, t = time, ? = guess, or
   \code{_}/\code{-} to skip the column.}
 
 \item{locale}{The locale controls defaults that vary from place to place.
