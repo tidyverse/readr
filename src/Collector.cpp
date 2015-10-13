@@ -117,6 +117,7 @@ void CollectorDate::setValue(int i, const Token& t) {
   case TOKEN_MISSING:
   case TOKEN_EMPTY:
     INTEGER(column_)[i] = NA_INTEGER;
+    return;
   case TOKEN_EOF:
     Rcpp::stop("Invalid token");
   }
