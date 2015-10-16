@@ -3,6 +3,7 @@
 \name{write_delim}
 \alias{format_csv}
 \alias{format_delim}
+\alias{format_tsv}
 \alias{output_column}
 \alias{write_csv}
 \alias{write_delim}
@@ -17,6 +18,8 @@ write_csv(x, path, na = "NA", append = FALSE, col_names = !append)
 write_tsv(x, path, na = "NA", append = FALSE, col_names = !append)
 
 format_csv(x, na = "NA", append = FALSE, col_names = !append)
+
+format_tsv(x, na = "NA", append = FALSE, col_names = !append)
 
 format_delim(x, delim, na = "NA", append = FALSE, col_names = !append)
 
@@ -67,8 +70,8 @@ head(read_csv(tmp))
 
 # format_* is useful for testing and reprexes
 cat(format_csv(head(mtcars)))
+cat(format_tsv(head(mtcars)))
 cat(format_delim(head(mtcars), ";"))
-cat(format_delim(head(mtcars), "_"))
 
 df <- data.frame(x = c(1, 2, NA))
 format_csv(df, na = ".")
@@ -76,15 +79,5 @@ format_csv(df, na = ".")
 # Quotes are automatically as needed
 df <- data.frame(x = c("a", '"', ",", "\\n"))
 cat(format_csv(df))
-cat(write_csv(head(mtcars), ""))
-cat(write_csv(head(iris), ""))
-
-df <- data.frame(x = c("a", '"', ",", "\\n"))
-read_csv(write_csv(df, ""))
-cat(write_tsv(head(mtcars), ""))
-cat(write_tsv(head(iris), ""))
-
-df <- data.frame(x = c("a", '"', ",", "\\n"))
-read_tsv(write_tsv(df, ""))
 }
 

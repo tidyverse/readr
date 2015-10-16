@@ -34,8 +34,8 @@
 #'
 #' # format_* is useful for testing and reprexes
 #' cat(format_csv(head(mtcars)))
+#' cat(format_tsv(head(mtcars)))
 #' cat(format_delim(head(mtcars), ";"))
-#' cat(format_delim(head(mtcars), "_"))
 #'
 #' df <- data.frame(x = c(1, 2, NA))
 #' format_csv(df, na = ".")
@@ -57,12 +57,6 @@ write_delim <- function(x, path, delim = " ", na = "NA", append = FALSE,
 
 #' @rdname write_delim
 #' @export
-#' @examples
-#' cat(write_csv(head(mtcars), ""))
-#' cat(write_csv(head(iris), ""))
-#'
-#' df <- data.frame(x = c("a", '"', ",", "\n"))
-#' read_csv(write_csv(df, ""))
 write_csv <- function(x, path, na = "NA", append = FALSE, col_names = !append) {
   if (identical(path, "")) {
     stop("Please use format_csv instead.", call. = FALSE)
@@ -76,21 +70,20 @@ write_csv <- function(x, path, na = "NA", append = FALSE, col_names = !append) {
 
 #' @rdname write_delim
 #' @export
-#' @examples
-#' cat(write_tsv(head(mtcars), ""))
-#' cat(write_tsv(head(iris), ""))
-#'
-#' df <- data.frame(x = c("a", '"', ",", "\n"))
-#' read_tsv(write_tsv(df, ""))
 write_tsv <- function(x, path, na = "NA", append = FALSE, col_names = !append) {
   write_delim(x, path, delim = '\t', na = na, append, col_names)
 }
-
 
 #' @export
 #' @rdname write_delim
 format_csv <- function(x, na = "NA", append = FALSE, col_names = !append) {
   format_delim(x, delim = ",", na = na, append = append, col_names = col_names)
+}
+
+#' @export
+#' @rdname write_delim
+format_tsv <- function(x, na = "NA", append = FALSE, col_names = !append) {
+  format_delim(x, delim = "\t", na = na, append = append, col_names = col_names)
 }
 
 #' @export
