@@ -167,7 +167,7 @@ private:
   }
 
   Token fieldToken(SourceIterator begin, SourceIterator end, int row, int col) {
-    return Token(begin, end, false, row, col).flagNA(std::vector<std::string>(1, "-"));
+    return Token(begin, end, row, col, false).flagNA(std::vector<std::string>(1, "-"));
   }
 
 };
