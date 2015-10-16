@@ -9,7 +9,7 @@ test_that("T and F parsed", {
 })
 
 test_that("other values generate warnings", {
-  out <- parse_logical(c("A", "AB", "ABCD", "ABCDE", "NA"))
+  expect_warning(out <- parse_logical(c("A", "AB", "ABCD", "ABCDE", "NA")))
   expect_equivalent(out, rep(NA, 5))
   expect_equal(n_problems(out), 4)
 })

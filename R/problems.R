@@ -19,7 +19,7 @@
 #' y <- parse_integer(c("1", "2", "3"))
 #' problems(y)
 problems <- function(x) {
-  probs <- attr(suppressWarnings(x), "problems")
+  probs <- probs(x)
   if (is.null(probs)) {
     structure(
       data.frame(
@@ -36,8 +36,12 @@ problems <- function(x) {
   }
 }
 
+probs <- function(x) {
+  attr(suppressWarnings(x), "problems")
+}
+
 n_problems <- function(x) {
-  probs <- attr(x, "problems")
+  probs <- probs(x)
   if (is.null(probs)) 0 else nrow(probs)
 }
 

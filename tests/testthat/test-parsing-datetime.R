@@ -57,23 +57,28 @@ test_that("%OS captures partial seconds", {
 })
 
 test_that("invalid dates return NA", {
-  expect_true(is.na(parse_datetime("2010-02-30", "%Y-%m-%d")))
+  expect_warning(x <- parse_datetime("2010-02-30", "%Y-%m-%d"))
+  expect_true(is.na(x))
 })
 
 test_that("failed parsing returns NA", {
-  expect_true(is.na(parse_datetime("2010-02", "%Y-%m-%d")))
-  expect_true(is.na(parse_datetime("2010-02-ab", "%Y-%m-%d")))
-  expect_true(is.na(parse_datetime("2010/02-ab", "%Y-%m-%d")))
+  expect_warning({
+    x <- parse_datetime(c("2010-02-ab", "2010-02", "2010/02/01"), "%Y-%m-%d")
+  })
+  expect_equal(is.na(x), c(TRUE, TRUE, TRUE))
+  expect_equal(n_problems(x), 3)
 })
 
 test_that("invalid specs returns NA", {
-  expect_true(is.na(parse_datetime("2010-02-02", "%Y-%m-%m")))
+  expect_warning(x <- parse_datetime("2010-02-02", "%Y-%m-%m"))
+  expect_equal(is.na(x), TRUE)
+  expect_equal(n_problems(x), 1)
 })
 
 test_that("ISO8601 partial dates are not parsed", {
-  expect_true(is.na(parse_datetime("20")))
-  expect_true(is.na(parse_datetime("2001")))
-  expect_true(is.na(parse_datetime("2001-01")))
+  expect_equal(n_problems(parse_datetime("20")), 1)
+  expect_equal(n_problems(parse_datetime("2001")), 1)
+  expect_equal(n_problems(parse_datetime("2001-01")), 1)
 })
 
 test_that("%p detects AM/PM", {
@@ -90,7 +95,7 @@ test_that("%b and %B are case insensitve", {
   expect_equal(parse_date("2001 JANUARY 01", "%Y %B %d"), ref)
 })
 
-test_that("%z detects named time zones", {
+test_that("%Z detects named time zones", {
   ref <- ISOdatetime(2010, 10, 01, 01, 00, 00, tz = "US/Central")
   ct <- locale(tz = "US/Central")
 

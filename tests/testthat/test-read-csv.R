@@ -64,7 +64,7 @@ test_that("encoding affects text and headers", {
 })
 
 test_that("nuls are dropped with a warning", {
-  x <- read_csv("raw.csv")
+  expect_warning(x <- read_csv("raw.csv"))
   expect_equal(n_problems(x), 1)
   expect_equal(x$abc, "ab")
 })
@@ -80,29 +80,29 @@ test_that("warnings based on number of columns (not output columns)", {
 })
 
 test_that("missing last field generates warning", {
-  out <- read_csv("a,b\n2")
+  expect_warning(out <- read_csv("a,b\n2"))
   expect_equal(problems(out)$expected, "2 columns")
 })
 
 test_that("missing lines generates warning", {
   # first
-  out <- read_csv("a,b\n\n\n1,2")
+  expect_warning(out <- read_csv("a,b\n\n\n1,2"))
   expect_equal(problems(out)$expected, rep("2 columns", 2))
 
   # middle
-  out <- read_csv("a,b\n1,2\n\n\n2,3\n")
+  expect_warning(out <- read_csv("a,b\n1,2\n\n\n2,3\n"))
   expect_equal(problems(out)$expected, rep("2 columns", 2))
 
   # last (trailing \n is ngored)
-  out <- read_csv("a,b\n1,2\n\n\n")
+  expect_warning(out <- read_csv("a,b\n1,2\n\n\n"))
   expect_equal(problems(out)$expected, rep("2 columns", 2))
 })
 
 test_that("extra columns generates warnings", {
-  out1 <- read_csv("a,b\n1,2,3\n")
-  out2 <- read_csv("a,b\n1,2,3", col_types = "ii")
-  out3 <- read_csv("1,2,3\n", c("a", "b"))
-  out4 <- read_csv("1,2,3\n", c("a", "b"), "ii")
+  expect_warning(out1 <- read_csv("a,b\n1,2,3\n"))
+  expect_warning(out2 <- read_csv("a,b\n1,2,3", col_types = "ii"))
+  expect_warning(out3 <- read_csv("1,2,3\n", c("a", "b")))
+  expect_warning(out4 <- read_csv("1,2,3\n", c("a", "b"), "ii"))
 
   expect_equal(problems(out1)$expected, "2 columns")
   expect_equal(problems(out2)$expected, "2 columns")
@@ -152,7 +152,7 @@ test_that("comments are ignored regardless of where they appear", {
   expect_equal(out2$x, 1)
   expect_equal(out3$x, 1)
 
-  out4 <- read_csv('x,y\n1,#comment', comment = "#")
+  expect_warning(out4 <- read_csv('x,y\n1,#comment', comment = "#"))
   expect_equal(out4$y, NA_character_)
 })
 

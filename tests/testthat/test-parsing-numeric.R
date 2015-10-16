@@ -1,13 +1,13 @@
 context("Parsing, numeric")
 
 test_that("non-numeric integer/double matches fail", {
-  expect_true(is.na(parse_double("d")))
-  expect_true(is.na(parse_integer("d")))
+  expect_equal(n_problems(parse_double("d")), 1)
+  expect_equal(n_problems(parse_integer("d")), 1)
 })
 
 test_that("partial integer/double matches fail", {
-  expect_true(is.na(parse_double("3d")))
-  expect_true(is.na(parse_integer("3d")))
+  expect_equal(n_problems(parse_double("3d")), 1)
+  expect_equal(n_problems(parse_integer("3d")), 1)
 })
 
 test_that("parse functions converts NAs", {
@@ -41,7 +41,7 @@ test_that("col_number helps with currency", {
 })
 
 test_that("invalid numbers don't parse", {
-  x <- parse_number(c("..", "--", "3.3.3", "4-1"))
+  expect_warning(x <- parse_number(c("..", "--", "3.3.3", "4-1")))
   expect_equal(n_problems(x), 4)
   expect_equal(is.na(x), c(TRUE, TRUE, TRUE, TRUE))
 })

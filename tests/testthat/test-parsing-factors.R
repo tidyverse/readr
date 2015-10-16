@@ -11,7 +11,7 @@ test_that("can generate ordered factor", {
 })
 
 test_that("warning if value not in levels", {
-  x <- parse_factor(c("a", "b", "c"), levels = c("a", "b"))
+  expect_warning(x <- parse_factor(c("a", "b", "c"), levels = c("a", "b")))
   expect_equal(n_problems(x), 1)
   expect_equal(is.na(x), c(FALSE, FALSE, TRUE))
 })
