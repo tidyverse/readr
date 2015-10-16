@@ -154,7 +154,8 @@ Token TokenizerDelim::nextToken() {
     case STATE_COMMENT:
       if (*cur_ == '\r' || *cur_ == '\n') {
         advanceForLF(&cur_, end_);
-        newRecord();
+        state_ = STATE_DELIM;
+        token_begin = cur_ + 1;
       }
 
       break;
