@@ -3,7 +3,7 @@
 
 #include <ctime>
 #include <stdlib.h>
-#include "TzManager.h"
+#include "localtime.h"
 
 // Much of this code is adapted from R's src/main/datetime.c.
 // Author: The R Core Team.
@@ -90,8 +90,8 @@ public:
     return true;
   }
 
-  double time(TzManager* pTzManager) const {
-    return (tz_ == "UTC") ? utctime() : localtime(pTzManager);
+  double datetime() const {
+    return (tz_ == "UTC") ? utctime() : localtime();
   }
 
   int date() const {
@@ -140,11 +140,11 @@ private:
   }
 
 
-  double localtime(TzManager* pTzManager) const {
+  double localtime() const {
     if (!validDateTime())
       return NA_REAL;
 
-    struct tm tm;
+    struct Rtm tm;
     tm.tm_year = year_ - 1900;
     tm.tm_mon = mon_;
     tm.tm_mday = day_ + 1;
@@ -156,8 +156,7 @@ private:
     // and less than zero if the information is not available.
     tm.tm_isdst = -1;
 
-    pTzManager->setTz(tz_);
-    time_t time = mktime(&tm);
+    time_t time = my_mktime(&tm, tz_.c_str());
     return time + psec_ + offset_;
   }
 

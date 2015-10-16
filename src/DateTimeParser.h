@@ -25,8 +25,9 @@ class DateTimeParser {
 
 public:
   DateTimeParser(LocaleInfo* pLocale):
-  pLocale_(pLocale), tzDefault_(pLocale->tz_)
+  pLocale_(pLocale), tzDefault_(pLocale->tz_), dateItr_(NULL), dateEnd_(NULL)
   {
+    reset();
   }
 
   // Parse ISO8601 date time. In benchmarks this only seems ~30% faster than
@@ -95,8 +96,9 @@ public:
   }
 
   void setDate(const char* date) {
-    init(date);
     reset();
+    dateItr_ = date;
+    dateEnd_ = date + strlen(date);
   }
 
   bool parse(const std::string& format) {
@@ -396,16 +398,6 @@ private:
     return tzStart != dateItr_;
   }
 
-
-  void init(const char* date) {
-    reset();
-    dateItr_ = date;
-
-    // find terminating null character
-    dateEnd_ = date;
-    while (*dateEnd_)
-      dateEnd_++;
-  }
 
   void reset() {
     year_ = -1;

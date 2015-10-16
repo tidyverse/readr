@@ -148,7 +148,7 @@ void CollectorDateTime::setValue(int i, const Token& t) {
       return;
     }
 
-    REAL(column_)[i] = dt.time(&tzMan_);
+    REAL(column_)[i] = dt.datetime();
     return;
   }
   case TOKEN_MISSING:

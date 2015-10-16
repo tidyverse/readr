@@ -114,15 +114,13 @@ class CollectorDateTime : public Collector {
   std::string format_;
   DateTimeParser parser_;
   std::string tz_;
-  TzManager tzMan_;
 
 public:
   CollectorDateTime(LocaleInfo* pLocale, const std::string& format):
     Collector(Rcpp::NumericVector()),
     format_(format),
     parser_(pLocale),
-    tz_(pLocale->tz_),
-    tzMan_(tz_)
+    tz_(pLocale->tz_)
   {
   }
 
