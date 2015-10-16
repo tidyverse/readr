@@ -7,4 +7,4 @@
 ^NEWS\.md$
 ^data-raw$
 ^revdep$
-^vignettes/design\.Rmd$
+^notes$
