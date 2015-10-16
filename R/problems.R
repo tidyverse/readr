@@ -61,7 +61,7 @@ warn_problems <- function(x, name = "input") {
   probs <- attr(x, "problems")
   many_problems <- nrow(probs) > 5
 
-  probs_f <- format(head(probs, 5), justify = "left")
+  probs_f <- format(utils::head(probs, 5), justify = "left")
   probs_f[probs_f == "NA"] <- "--"
   probs_f <- rbind(names(probs), probs_f)
   probs_f <- lapply(probs_f, format, justify = "right")
