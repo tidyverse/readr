@@ -125,6 +125,9 @@ As well as improvements to the parser, I've also made a number of tweaks to the 
 
 * `count_fields()` starts counting from 1, not 0 (#200).
 
+* `format_csv()` and `format_delim()` make it easy to render a csv or 
+  delimited file into a string.
+
 * `fwf_empty()` now works correctly when `col_names` supplied (#186, #222).
 
 * `parse_*()` gains a `na` argument that allows you to specify which values 
@@ -153,6 +156,9 @@ As well as improvements to the parser, I've also made a number of tweaks to the 
 
 * `type_convert()` gains `NA` and `trim_ws` arguments, and removes missing
   values before determining column types.
+
+* `write_csv()`, `write_delim()`, and `write_rds()` all invisably return their
+  input so you can use them in a pipe (#290).
 
 * `write_delim()` generalises `write_csv()` to write any delimited format (#135).
   `write_tsv()` is a helpful wrapper for tab separated files.

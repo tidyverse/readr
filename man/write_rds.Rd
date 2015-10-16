@@ -17,6 +17,9 @@ write_rds(x, path, compress = c("none", "gz", "bz2", "xz"), ...)
 the space-time trade-off of different compression methods with
 \code{compression}. See \code{\link{connections}} for more details.}
 }
+\value{
+The input \code{x}, invisibly.
+}
 \description{
 Consistent wrapper around \code{\link{saveRDS}}. \code{write_rds} does not
 compress by default as space is generally cheaper than time.

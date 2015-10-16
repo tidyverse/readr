@@ -14,8 +14,7 @@
 #' Values are only quoted if needed: if they contain a comma, quote or newline.
 #'
 #' @param x A data frame to write to disk
-#' @param path Path to write to. If \code{""} will return the csv file as
-#'   a string.
+#' @param path Path to write to.
 #' @param append If \code{FALSE}, will overwrite existing file. If \code{TRUE},
 #'   will append to existing file. In both cases, if file does not exist a new
 #'   file is created.
@@ -25,13 +24,25 @@
 #' @param na String used for missing values. Defaults to NA. Missing values
 #'   will never be quoted; strings with the same value as \code{na} will
 #'   always be quoted.
+#' @return \code{write_*} returns in the input \code{x} invisibily,
+#'   \code{format_*} returns a string.
 #' @export
 #' @examples
-#' cat(write_delim(head(mtcars), "", "_"))
-#' cat(write_delim(head(iris), "", ";"))
+#' tmp <- tempfile()
+#' write_csv(mtcars, tmp)
+#' head(read_csv(tmp))
 #'
+#' # format_* is useful for testing and reprexes
+#' cat(format_csv(head(mtcars)))
+#' cat(format_delim(head(mtcars), ";"))
+#' cat(format_delim(head(mtcars), "_"))
+#'
+#' df <- data.frame(x = c(1, 2, NA))
+#' format_csv(df, na = ".")
+#'
+#' # Quotes are automatically as needed
 #' df <- data.frame(x = c("a", '"', ",", "\n"))
-#' read_delim(write_delim(df, "", "_"), "_")
+#' cat(format_csv(df))
 write_delim <- function(x, path, delim = " ", na = "NA", append = FALSE,
                         col_names = !append) {
   stopifnot(is.data.frame(x))
@@ -53,8 +64,15 @@ write_delim <- function(x, path, delim = " ", na = "NA", append = FALSE,
 #' df <- data.frame(x = c("a", '"', ",", "\n"))
 #' read_csv(write_csv(df, ""))
 write_csv <- function(x, path, na = "NA", append = FALSE, col_names = !append) {
-  write_delim(x, path, delim = ',', na = na, append, col_names)
+  if (identical(path, "")) {
+    stop("Please use format_csv instead.", call. = FALSE)
+  }
+
+  write_delim(x, path, delim = ',', na = na,append = append,
+    col_names = col_names)
+  invisible(path)
 }
+
 
 #' @rdname write_delim
 #' @export
@@ -67,6 +85,20 @@ write_csv <- function(x, path, na = "NA", append = FALSE, col_names = !append) {
 write_tsv <- function(x, path, na = "NA", append = FALSE, col_names = !append) {
   write_delim(x, path, delim = '\t', na = na, append, col_names)
 }
+
+
+#' @export
+#' @rdname write_delim
+format_csv <- function(x, na = "NA", append = FALSE, col_names = !append) {
+  format_delim(x, delim = ",", na = na, append = append, col_names = col_names)
+}
+
+#' @export
+#' @rdname write_delim
+format_delim <- function(x, delim, na = "NA", append = FALSE, col_names = !append) {
+  write_delim(x, "", delim = delim, na = na, append = append, col_names = col_names)
+}
+
 
 #' @rdname write_delim
 #' @export
@@ -102,6 +134,7 @@ output_column.POSIXt <- function(x) {
 #'   the space-time trade-off of different compression methods with
 #'   \code{compression}. See \code{\link{connections}} for more details.
 #' @export
+#' @return The input \code{x}, invisibly.
 #' @examples
 #' \dontrun{
 #' write_rds(mtcars, "mtcars.rds")
@@ -117,4 +150,6 @@ write_rds <- function(x, path, compress = c("none", "gz", "bz2", "xz"), ...) {
          xz   = xzfile(path, ...))
   on.exit(close(con), add = TRUE)
   saveRDS(x, con)
+
+  invisible(x)
 }

@@ -295,7 +295,7 @@ col_guess <- function() {
 #' parse_datetime(c("01/ab/2010", "32/01/2010"), "%d/%m/%Y")
 #'
 #' # Locales --------------------------------------------------------------
-#' # By default, readr expects English date/times, but that's easy to change
+#' # By default, readr expects English date/times, but that's easy to change'
 #' parse_datetime("1 janvier 2015", "%d %B %Y", locale = locale("fr"))
 #' parse_datetime("1 enero 2015", "%d %B %Y", locale = locale("es"))
 #'

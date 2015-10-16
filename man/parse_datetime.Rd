@@ -78,6 +78,7 @@ There are three types of element:
   \item Shortcuts: "\%D" = "\%m/\%d/\%y",  "\%F" = "\%Y-\%m-\%d",
       "\%R" = "\%H:\%M", "\%T" = "\%H:\%M:\%S",  "\%x" = "\%y/\%m/\%d".
 }
+
 }
 
 \section{ISO8601 support}{
@@ -97,6 +98,7 @@ The parser is also a little laxer than ISO8601:
 \item Dates and times can be separated with a space, not just T.
 \item Mostly correct specifications like "2009-05-19 14:" and  "200912-01" work.
 }
+
 }
 \examples{
 # Format strings --------------------------------------------------------
@@ -134,7 +136,7 @@ parse_datetime("01/01/2010", "\%d/\%m/\%Y")
 parse_datetime(c("01/ab/2010", "32/01/2010"), "\%d/\%m/\%Y")
 
 # Locales --------------------------------------------------------------
-# By default, readr expects English date/times, but that's easy to change
+# By default, readr expects English date/times, but that's easy to change'
 parse_datetime("1 janvier 2015", "\%d \%B \%Y", locale = locale("fr"))
 parse_datetime("1 enero 2015", "\%d \%B \%Y", locale = locale("es"))
 

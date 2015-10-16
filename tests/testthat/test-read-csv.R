@@ -52,7 +52,7 @@ test_that("n_max also affects column guessing", {
 test_that("can read more than 100 columns", {
   set.seed(2015-3-13)
   x <- as.data.frame(matrix(rbinom(300, 2, .5), nrow = 2))
-  y <- write_csv(x, "")
+  y <- format_csv(x)
 
   expect_equal(ncol(read_csv(y)), 150)
 })
