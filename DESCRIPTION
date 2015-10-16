@@ -18,7 +18,6 @@ Imports:
 Suggests:
     testthat,
     knitr,
-    DiagrammeR,
     rmarkdown,
     stringi
 License: GPL (>= 2) | file LICENSE
