@@ -89,6 +89,9 @@ Compared to the corresponding base functions, readr functions:
 
 * Have a helpful progress bar if loading is going to take a while.
 
+* All functions work exactly the same way regardless of the current locale.
+  To override the US-centric defaults, use `locale()`.
+
 ## Compared to `fread()`
 
 [data.table](https://github.com/Rdatatable/data.table) has a function similar to `read_csv()` called fread. Compared to fread, readr:
