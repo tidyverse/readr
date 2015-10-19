@@ -80,9 +80,17 @@ static bool isDateTime(const std::string& x, LocaleInfo* pLocale) {
   DateTimeParser parser(pLocale);
 
   parser.setDate(x.c_str());
-  return parser.parseISO8601();
-}
+  bool ok = parser.parseISO8601();
 
+  if (!ok)
+    return false;
+
+  if (!parser.compactDate())
+    return true;
+
+  // Values like 00014567 are unlikely to be dates, so don't guess
+  return parser.year() > 999;
+}
 
 // [[Rcpp::export]]
 std::string collectorGuess(CharacterVector input, List locale_) {

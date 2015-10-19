@@ -13,6 +13,7 @@ class DateTimeParser {
   int year_, mon_, day_, hour_, min_, sec_;
   double psec_;
   int amPm_;
+  bool compactDate_; // used for guessing
 
   int tzOffsetHours_, tzOffsetMinutes_;
   std::string tz_;
@@ -37,10 +38,12 @@ public:
     // Date: YYYY-MM-DD, YYYYMMDD
     if (!consumeInteger(4, &year_))
       return false;
-    consumeThisChar('-');
+    if (consumeThisChar('-'))
+      compactDate_ = false;
     if (!consumeInteger1(2, &mon_))
       return false;
-    consumeThisChar('-');
+    if (!compactDate_ && !consumeThisChar('-'))
+      return false;
     if (!consumeInteger1(2, &day_))
       return false;
 
@@ -247,6 +250,14 @@ public:
     return dt;
   }
 
+  bool compactDate() {
+    return compactDate_;
+  }
+
+  int year() {
+    return year_;
+  }
+
 private:
   int hour() {
     return hour_ + (amPm_ == 1 ? 12 : 0);
@@ -417,6 +428,7 @@ private:
     sec_ = 0;
     psec_ = 0;
     amPm_ = 0;
+    compactDate_ = true;
 
     tzOffsetHours_ = 0;
     tzOffsetMinutes_ = 0;
