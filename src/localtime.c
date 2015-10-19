@@ -43,6 +43,8 @@ Additional modifications made by Hadley Wickham, (c) RStudio:
 #include <limits.h>        /* for CHAR_BIT et al. */
 #include <time.h>
 #include <errno.h>
+#include <sys/stat.h>
+#include <sys/types.h>
 #ifndef EOVERFLOW
 # define EOVERFLOW 79
 #endif
@@ -261,6 +263,7 @@ static int                tzload(const char * name, struct state * sp,
                                 int doextend);
 static int                tzparse(const char * name, struct state * sp,
                                 int lastditch);
+static int tzdir(char* buf);
 
 static struct state        lclmem;
 static struct state        gmtmem;
@@ -352,6 +355,7 @@ differ_by_repeat(const time_t t1, const time_t t0)
 }
 
 extern void Rf_warning(const char *, ...);
+extern void Rf_error(const char *, ...);
 
 static int
 tzload(const char * name, struct state * const sp, const int doextend)
@@ -392,17 +396,11 @@ tzload(const char * name, struct state * const sp, const int doextend)
         doaccess = name[0] == '/';
         if (!doaccess) {
             char buf[1000];
-            p = getenv("TZDIR");
-            if (p == NULL) {
-                p = getenv("R_SHARE_DIR");
-                if(p)
-                    snprintf(buf, 1000, "%s/zoneinfo", p);
-                else
-                    snprintf(buf, 1000, "%s/share/zoneinfo", getenv("R_HOME"));
-                buf[999] = '\0';
-                p = buf;
+            if (tzdir(buf) != 0) {
+              return -1;
             }
-            /* if ((p = TZDIR) == NULL) return -1; */
+            p = buf;
+
             if ((strlen(p) + strlen(name) + 1) >= sizeof fullname)
                 return -1;
             (void) strcpy(fullname, p);
@@ -1847,4 +1845,41 @@ time1(stm *const tmp,
 time_t my_mktime(stm* const tmp, const char* name) {
   tzset_name(name);
   return time1(tmp, localsub, 0L);
+}
+
+// S_ISDIR macro returns non-zero if the file is a directory.
+int is_dir (const char* path) {
+  struct stat sb;
+  if (stat(path, &sb) == -1)
+    return 0;
+
+  return S_ISDIR(sb.st_mode);
+}
+
+static int tzdir(char* buf) {
+  const char* p = getenv("TZDIR");
+  if (p != NULL && is_dir(p) != 0) {
+    strncpy(buf, p, 1000);
+    return 0;
+  }
+
+  p = getenv("R_SHARE_DIR");
+  if (p != NULL) {
+    snprintf(buf, 1000, "%s/zoneinfo", p);
+    if (is_dir(buf) != 0) {
+      return 0;
+    }
+  }
+
+  snprintf(buf, 1000, "%s/share/zoneinfo", getenv("R_HOME"));
+  if (is_dir(buf) != 0) {
+    return 0;
+  }
+
+  strncpy(buf, "/usr/share/zoneinfo/", 1000);
+  if (is_dir(buf) == 0) {
+    return 0;
+  }
+
+  return -1;
 }
