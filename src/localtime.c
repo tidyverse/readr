@@ -1215,10 +1215,17 @@ void tzset_name(const char * name) {
     lclptr->ttis[0].tt_gmtoff = 0;
     lclptr->ttis[0].tt_abbrind = 0;
     (void) strcpy(lclptr->chars, gmt);
-  } else if (tzload(name, lclptr, TRUE) != 0)
-    if (name[0] == ':' || tzparse(name, lclptr, FALSE) != 0)
-      (void) gmtload(lclptr);
-    settzname();
+  } else {
+    int ok = tzload(name, lclptr, TRUE);
+    if (ok != 0) {
+      Rf_warning("Failed to load tz %s: falling back to %s", name, gmt);
+
+      if (name[0] == ':' || tzparse(name, lclptr, FALSE) != 0)
+        (void) gmtload(lclptr);
+    }
+  }
+
+  settzname();
 }
 
 void tzset(void) {
