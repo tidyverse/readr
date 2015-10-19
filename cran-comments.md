@@ -4,7 +4,12 @@
 * win-builder (devel and release)
 
 ## R CMD check results
-There were no ERRORs or WARNINGs. 
+There were no ERRORs, WARNINGs. There was one NOTE:
+
+* This release fixes the "non-cross-platform calls to iconv()", so the
+  package can now be un-orphaned.
+
+This release also fixes the new vignette building problems with diagrammeR.
 
 ## Reverse dependencies
 
