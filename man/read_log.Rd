@@ -43,8 +43,10 @@ read_log(file, col_names = FALSE, col_types = NULL, skip = 0,
   subset of the columns, use \code{\link{cols_only}}.
 
   Alternatively, you can use a compact string representation where each
-  character represents one column: c = character, d = double, i = integer,
-  l = logical, ? = guess, or \code{_}/\code{-} to skip the column.}
+  character represents one column:
+  c = character, i = integer, n = number, d = double,
+  l = logical, D = date, T = date time, t = time, ? = guess, or
+  \code{_}/\code{-} to skip the column.}
 
 \item{skip}{Number of lines to skip before reading data.}
 
