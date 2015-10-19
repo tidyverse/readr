@@ -91,7 +91,8 @@ read_delim <- function(file, delim, quote = '"',
     escape_backslash = escape_backslash, escape_double = escape_double,
     na = na, comment = comment)
   read_delimited(file, tokenizer, col_names = col_names, col_types = col_types,
-    locale = locale, skip = skip, n_max = n_max, progress = progress)
+    locale = locale, skip = skip, comment = comment, n_max = n_max,
+    progress = progress)
 }
 
 #' @rdname read_delim
@@ -103,7 +104,8 @@ read_csv <- function(file, col_names = TRUE, col_types = NULL,
 
   tokenizer <- tokenizer_csv(na = na, comment = comment, trim_ws = trim_ws)
   read_delimited(file, tokenizer, col_names = col_names, col_types = col_types,
-    locale = locale, skip = skip, n_max = n_max, progress = progress)
+    locale = locale, skip = skip, comment = comment, n_max = n_max,
+    progress = progress)
 }
 
 #' @rdname read_delim
@@ -122,7 +124,8 @@ read_csv2 <- function(file, col_names = TRUE, col_types = NULL,
   tokenizer <- tokenizer_delim(delim = ";", na = na, comment = comment,
     trim_ws = trim_ws)
   read_delimited(file, tokenizer, col_names = col_names, col_types = col_types,
-    locale = locale, skip = skip, n_max = n_max, progress = progress)
+    locale = locale, skip = skip, comment = comment, n_max = n_max,
+    progress = progress)
 }
 
 
@@ -136,13 +139,14 @@ read_tsv <- function(file, col_names = TRUE, col_types = NULL,
 
   tokenizer <- tokenizer_tsv(na = na, comment = comment, trim_ws = trim_ws)
   read_delimited(file, tokenizer, col_names = col_names, col_types = col_types,
-    locale = locale, skip = skip, n_max = n_max, progress = progress)
+    locale = locale, skip = skip, comment = comment, n_max = n_max,
+    progress = progress)
 }
 
 # Helper functions for reading from delimited files ----------------------------
 read_delimited <- function(file, tokenizer, col_names = TRUE, col_types = NULL,
-                           locale = default_locale(), skip = 0, n_max = -1,
-                           progress = interactive()) {
+                           locale = default_locale(), skip = 0, comment = "",
+                           n_max = -1, progress = interactive()) {
   name <- source_name(file)
   # If connection needed, read once.
   file <- standardise_path(file)
@@ -153,11 +157,11 @@ read_delimited <- function(file, tokenizer, col_names = TRUE, col_types = NULL,
   }
 
   col_types <- col_spec_standardise(
-    data, skip = skip, n_max = n_max,
+    data, skip = skip, comment = comment, n_max = n_max,
     col_names = col_names, col_types = col_types,
     tokenizer = tokenizer, locale = locale)
 
-  ds <- datasource(data, skip = skip + isTRUE(col_names))
+  ds <- datasource(data, skip = skip + isTRUE(col_names), comment = comment)
 
   out <- read_tokens(ds, tokenizer, col_types, names(col_types), locale_ = locale,
     n_max = n_max, progress = progress)

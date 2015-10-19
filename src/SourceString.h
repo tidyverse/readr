@@ -10,14 +10,15 @@ class SourceString : public Source {
   const char* begin_;
   const char* end_;
 public:
-  SourceString(Rcpp::CharacterVector x, int skip = 0) {
+  SourceString(Rcpp::CharacterVector x, int skip = 0,
+               const std::string& comment = "") {
     string_ = x[0];
 
     begin_ = CHAR(string_);
     end_ = begin_ + Rf_length(string_);
 
     // Skip lines, if needed
-    begin_ = skipLines(begin_, end_, skip);
+    begin_ = skipLines(begin_, end_, skip, comment);
   }
 
   const char* begin() {

@@ -27,22 +27,22 @@
 #'
 #' # Connection
 #' datasource(rawConnection(charToRaw("abc\n123")))
-datasource <- function(file, skip = 0) {
+datasource <- function(file, skip = 0, comment = "") {
   if (inherits(file, "source")) {
     file
   } else if (is.connection(file)) {
-    datasource_connection(file, skip)
+    datasource_connection(file, skip, comment)
   } else if (is.raw(file)) {
-    datasource_raw(file, skip)
+    datasource_raw(file, skip, comment)
   } else if (is.character(file)) {
     if (grepl("\n", file)) {
-      datasource_string(file, skip)
+      datasource_string(file, skip, comment)
     } else {
       file <- standardise_path(file)
       if (is.connection(file)) {
-        datasource_connection(file, skip)
+        datasource_connection(file, skip, comment)
       } else {
-        datasource_file(file, skip)
+        datasource_file(file, skip, comment)
       }
     }
   } else {
@@ -52,26 +52,26 @@ datasource <- function(file, skip = 0) {
 
 # Constructors -----------------------------------------------------------------
 
-new_datasource <- function(type, x, skip, ...) {
-  structure(list(x, skip = skip, ...),
+new_datasource <- function(type, x, skip, comment = "", ...) {
+  structure(list(x, skip = skip, comment = comment, ...),
     class = c(paste0("source_", type), "source"))
 }
 
-datasource_string <- function(text, skip) {
-  new_datasource("string", text, skip = skip)
+datasource_string <- function(text, skip, comment = "") {
+  new_datasource("string", text, skip = skip, comment = comment)
 }
 
-datasource_file <- function(path, skip) {
+datasource_file <- function(path, skip, comment = "") {
   path <- check_path(path)
-  new_datasource("file", path, skip = skip)
+  new_datasource("file", path, skip = skip, comment = comment)
 }
 
-datasource_connection <- function(path, skip) {
-  datasource_raw(read_connection(path), skip)
+datasource_connection <- function(path, skip, comment = "") {
+  datasource_raw(read_connection(path), skip, comment = comment)
 }
 
-datasource_raw <- function(text, skip) {
-  new_datasource("raw", text, skip = skip)
+datasource_raw <- function(text, skip, comment) {
+  new_datasource("raw", text, skip = skip, comment = comment)
 }
 
 # Helpers ----------------------------------------------------------------------

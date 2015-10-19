@@ -10,12 +10,14 @@ class SourceRaw : public Source {
   const char* end_;
 
 public:
-  SourceRaw(Rcpp::RawVector x, int skip = 0): x_(x) {
+  SourceRaw(Rcpp::RawVector x, int skip = 0, const std::string& comment = ""):
+      x_(x)
+  {
     begin_ = (const char*) RAW(x);
     end_ = (const char*) RAW(x) + Rf_length(x);
 
     // Skip lines, if needed
-    begin_ = skipLines(begin_, end_, skip);
+    begin_ = skipLines(begin_, end_, skip, comment);
   }
 
   const char* begin() {

@@ -164,3 +164,22 @@ test_that("escaped/quoted comments are ignored", {
   expect_equal(out1$x, "#")
   expect_equal(out2$x, "#")
 })
+
+test_that("leading comments are ignored", {
+  out <- read_csv("#a\n#b\nx\n1", comment = "#")
+
+  expect_equal(ncol(out), 1)
+  expect_equal(out$x, 1L)
+})
+
+test_that("skip respects comments", {
+  read_x <- function(...) {
+    read_csv("#a\nb\nc", col_names = FALSE, ...)[[1]]
+  }
+
+  expect_equal(read_x(), c("#a", "b", "c"))
+  expect_equal(read_x(skip = 1), c("b", "c"))
+  expect_equal(read_x(comment = "#"), c("b", "c"))
+  expect_equal(read_x(comment = "#", skip = 1), c("c"))
+})
+

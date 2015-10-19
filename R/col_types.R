@@ -115,13 +115,13 @@ col_concise <- function(x) {
 
 col_spec_standardise <- function(file, col_names = TRUE, col_types = NULL,
                                  guessed_types = NULL,
-                                 skip = 0, n_max = -1,
+                                 comment = "", skip = 0, n_max = -1,
                                  tokenizer = tokenizer_csv(),
                                  locale = default_locale()) {
 
   # Figure out the column names -----------------------------------------------
   if (is.logical(col_names) && length(col_names) == 1) {
-    ds_header <- datasource(file, skip = skip)
+    ds_header <- datasource(file, skip = skip, comment = comment)
     if (col_names) {
       col_names <- guess_header(ds_header, tokenizer, locale)
     } else {
@@ -206,7 +206,7 @@ col_spec_standardise <- function(file, col_names = TRUE, col_types = NULL,
   is_guess <- vapply(spec$cols, function(x) inherits(x, "collector_guess"), logical(1))
   if (any(is_guess)) {
     if (is.null(guessed_types)) {
-      ds <- datasource(file, skip = skip)
+      ds <- datasource(file, skip = skip, comment = comment)
       guessed_types <- guess_types(ds, tokenizer, locale, n_max = n_max)
     }
 
