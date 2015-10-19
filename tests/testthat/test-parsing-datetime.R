@@ -96,9 +96,7 @@ test_that("%b and %B are case insensitve", {
 })
 
 test_that("%Z detects named time zones", {
-  ref <- ISOdatetime(2010, 10, 01, 06, 00, 00, tz = "UTC")
-  attr(ref, "tzone") <- "US/Central"
-
+  ref <- POSIXct(1285912800, "US/Central")
   ct <- locale(tz = "US/Central")
 
   expect_equal(parse_datetime("2010-10-01 01:00", locale = ct), ref)
@@ -171,14 +169,13 @@ test_that("unambiguous times with and without daylight savings", {
   # Melbourne had daylight savings in 2015 that ended the morning of 2015-04-05
   expect_equal(
     parse_datetime(c("2015-04-04 12:00:00", "2015-04-06 12:00:00"), locale = melb),
-    as.POSIXct(c("2015-04-04 12:00:00", "2015-04-06 12:00:00"),
-               tz = "Australia/Melbourne")
+    POSIXct(c(1428109200, 1428285600), "Australia/Melbourne")
   )
   # Japan didn't have daylight savings in 2015
   ja <- locale(tz = "Japan")
   expect_equal(
     parse_datetime(c("2015-04-04 12:00:00", "2015-04-06 12:00:00"), locale = ja),
-    as.POSIXct(c("2015-04-04 12:00:00", "2015-04-06 12:00:00"), tz = "Japan")
+    POSIXct(c(1428116400, 1428289200), "Japan")
   )
 })
 
