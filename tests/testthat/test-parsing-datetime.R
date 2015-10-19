@@ -96,7 +96,9 @@ test_that("%b and %B are case insensitve", {
 })
 
 test_that("%Z detects named time zones", {
-  ref <- ISOdatetime(2010, 10, 01, 01, 00, 00, tz = "US/Central")
+  ref <- ISOdatetime(2010, 10, 01, 06, 00, 00, tz = "UTC")
+  attr(ref, "tzone") <- "US/Central"
+
   ct <- locale(tz = "US/Central")
 
   expect_equal(parse_datetime("2010-10-01 01:00", locale = ct), ref)
