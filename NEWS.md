@@ -1,4 +1,4 @@
-# readr 0.1.1.9000
+# readr 0.2.0
 
 ## Internationalisation
 

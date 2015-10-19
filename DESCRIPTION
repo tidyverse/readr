@@ -1,5 +1,5 @@
 Package: readr
-Version: 0.1.1.9000
+Version: 0.2.0
 Title: Read Tabular Data
 Description: Read flat/tabular text files from disk (or a connection).
 Authors@R: c(
