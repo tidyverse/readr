@@ -32,3 +32,12 @@ test_that("col_types expanded to col_names by guessing", {
   expect_equal(names(out), c("a", "b", "c"))
   expect_equal(out[[3]], col_integer())
 })
+
+test_that("defaults expanded to match names", {
+  out <- col_spec_standardise("a,b,c\n1,2,3", col_types = cols(.default = "c"))
+  expect_equal(out, list(
+    a = col_character(),
+    b = col_character(),
+    c = col_character()
+  ))
+})

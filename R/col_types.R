@@ -81,6 +81,10 @@ as.col_spec.character <- function(x) {
   col_spec(lapply(letters, col_concise), col_guess())
 }
 #' @export
+as.col_spec.NULL <- function(x) {
+  col_spec(list())
+}
+#' @export
 as.col_spec.list <- function(x) {
   col_spec(x)
 }
@@ -134,14 +138,15 @@ col_spec_standardise <- function(file, col_names = TRUE, col_types = NULL,
 
   # Figure out column types ----------------------------------------------------
 
-  if (is.null(col_types)) {
-    col_types <- rep(list(col_guess()), length(col_names))
-  }
-
   spec <- as.col_spec(col_types)
   type_names <- names(spec$cols)
 
-  if (is.null(type_names) && guessed_names) {
+  if (length(spec$cols) == 0) {
+    # no types specified so use defaults
+
+    spec$cols <- rep(list(spec$default), length(col_names))
+    names(spec$cols) <- col_names
+  } else if (is.null(type_names) && guessed_names) {
     # unnamed types & names guessed from header: match exactly
 
     if (length(spec$cols) != length(col_names)) {
