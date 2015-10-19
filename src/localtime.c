@@ -1847,7 +1847,7 @@ time_t my_mktime(stm* const tmp, const char* name) {
   return time1(tmp, localsub, 0L);
 }
 
-// S_ISDIR macro returns non-zero if the file is a directory.
+// Returns non-zero if the file is a directory (like S_ISDIR)
 int is_dir (const char* path) {
   struct stat sb;
   if (stat(path, &sb) == -1)
@@ -1877,7 +1877,7 @@ static int tzdir(char* buf) {
   }
 
   strncpy(buf, "/usr/share/zoneinfo/", 1000);
-  if (is_dir(buf) == 0) {
+  if (is_dir(buf) != 0) {
     return 0;
   }
 
