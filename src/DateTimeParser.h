@@ -47,7 +47,7 @@ public:
     if (isComplete())
       return true;
 
-    // Technically, spec requires T, but very common to use
+    // Spec requires T, but common to use space instead
     char next;
     if (!consumeChar(&next))
       return false;
