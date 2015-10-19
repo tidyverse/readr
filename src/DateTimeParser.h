@@ -190,7 +190,13 @@ public:
 
         // Extensions
       case '.':
-        consumeNonDigit();
+        if (!consumeNonDigit())
+          return false;
+        break;
+
+      case '+':
+        if (!consumeNonDigits())
+          return false;
         break;
 
       case '*':
@@ -319,6 +325,9 @@ private:
   }
 
   inline bool consumeNonDigits() {
+    if (!consumeNonDigit())
+      return false;
+
     while (dateItr_ != dateEnd_ && !std::isdigit(*dateItr_))
       dateItr_++;
 

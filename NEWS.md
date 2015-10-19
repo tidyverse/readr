@@ -81,6 +81,8 @@ Readr gains `vignette("column-types")` which describes how the defaults work and
     * Compound formats "%D", "%F", "%R", "%X", "%T", "%x" are now parsed 
       correctly, instead of using the  ISO8601 parser (#178, @kmillar). 
       
+    * "%." now requires a non-digit. New "%+" skips one or more non-digits.
+      
     * You can now use `%p` to refer to AM/PM (and am/pm) (#126).
       
     * `%b` and `%B` formats (month and abbreviated month name) ignore case 

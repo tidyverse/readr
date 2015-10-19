@@ -95,6 +95,16 @@ test_that("%b and %B are case insensitve", {
   expect_equal(parse_date("2001 JANUARY 01", "%Y %B %d"), ref)
 })
 
+test_that("%. requires a value", {
+  ref <- parse_date("2001-01-01")
+  expect_equal(parse_date("2001?01?01", "%Y%.%m%.%d"), ref)
+
+  expect_warning(
+    out <- parse_date("20010101", "%Y%.%m%.%d")
+  )
+  expect_equal(n_problems(out), 1)
+})
+
 test_that("%Z detects named time zones", {
   ref <- POSIXct(1285912800, "US/Central")
   ct <- locale(tz = "US/Central")
