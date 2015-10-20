@@ -30,6 +30,6 @@ for caveats.
 }
 \examples{
 guess_encoding(system.file("extdata/mtcars.csv", package = "readr"))
-guess_encoding("a\\nµµ")
+guess_encoding("a\\n\\u00b5\\u00b5")
 }
 
