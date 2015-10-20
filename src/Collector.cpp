@@ -74,7 +74,7 @@ void CollectorCharacter::setValue(int i, const Token& t) {
     if (t.hasNull())
       warn(t.row(), t.col(), "", "embedded null");
 
-    SET_STRING_ELT(column_, i, pEncoder_->makeSEXP(string.first, string.second));
+    SET_STRING_ELT(column_, i, pEncoder_->makeSEXP(string.first, string.second, t.hasNull()));
     break;
   };
   case TOKEN_MISSING:

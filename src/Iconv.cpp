@@ -54,10 +54,24 @@ size_t Iconv::convert(const char* start, const char* end) {
   return max_size - outbytesleft;
 }
 
+int my_strnlen (const char *s, int maxlen){
+  for(int n = 0; n < maxlen; ++n) {
+    if(s[n] == '\0')
+      return n;
+  }
+  return maxlen;
+}
+
+#if defined(__sun)
+#define readr_strnlen my_strnlen
+#else
+#define readr_strnlen strnlen
+#endif
+
 // To be safe, we need to check for nulls - this also needs to emit
 // a warning, but this behaviour is better than crashing
 SEXP safeMakeChar(const char* start, size_t n, bool hasNull) {
-  int m = hasNull ? strnlen(start, n) : n;
+  int m = hasNull ? readr_strnlen(start, n) : n;
   return Rf_mkCharLenCE(start, m, CE_UTF8);
 }
 
