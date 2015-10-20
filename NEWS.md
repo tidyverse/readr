@@ -1,4 +1,6 @@
-# readr 0.2.0.9000
+# readr 0.2.1
+
+* Fixes so that readr works on Solaris.
 
 # readr 0.2.0
 

@@ -1,15 +1,14 @@
+# Release summary
+
+This version fixes the outstanding solaris problems. Unfortunately my access to solaris is limited but now R CMD check passes without problems on R 3.1.1 on both sparc-sun-solaris2.10 (32-bit) and i386-pc-solaris2.11 (32-bit) (R and gcc installed from https://www.opencsw.org/packages/CSWr-base/).
+
 ## Test environments
 * local OS X install, R 3.2.2
 * ubuntu 12.04 (on travis-ci), R 3.2.2
 * win-builder (devel and release)
 
 ## R CMD check results
-There were no ERRORs, WARNINGs. There was one NOTE:
-
-* This release fixes the "non-cross-platform calls to iconv()", so the
-  package can now be un-orphaned.
-
-This release also fixes the new vignette building problems with diagrammeR.
+There were no ERRORs, WARNINGs, or NOTEs.
 
 ## Reverse dependencies
 
