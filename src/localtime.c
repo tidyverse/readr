@@ -1876,10 +1876,16 @@ static int tzdir(char* buf) {
     return 0;
   }
 
+  // Common linux location
   strncpy(buf, "/usr/share/zoneinfo/", 1000);
   if (is_dir(buf) != 0) {
     return 0;
   }
 
+  // Common solaris location
+  strncpy(buf, "/usr/share/lib/zoneinfo/", 1000);
+  if (is_dir(buf) != 0) {
+    return 0;
+  }
   return -1;
 }
