@@ -1,6 +1,6 @@
 # Release summary
 
-This version fixes the outstanding solaris problems. Unfortunately my access to solaris is limited but now R CMD check passes without problems on R 3.1.1 on both sparc-sun-solaris2.10 (32-bit) and i386-pc-solaris2.11 (32-bit) (R and gcc installed from https://www.opencsw.org/packages/CSWr-base/).
+This version should fix the UBSAN problems (and hopefully the crash on OSX which I couldn't replicate locally). Sorry for the multiple releases :(
 
 ## Test environments
 * local OS X install, R 3.2.2
