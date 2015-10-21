@@ -64,7 +64,7 @@ RObject guess_header_(List sourceSpec, List tokenizerSpec, List locale_) {
     if (t.row() > (size_t) 0) // only read one row
       break;
 
-    if (t.col() >= out.size()) {
+    if (t.col() >= (size_t) out.size()) {
       out.resize(t.col() + 1);
     }
 

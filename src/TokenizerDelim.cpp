@@ -15,10 +15,10 @@ TokenizerDelim::TokenizerDelim(char delim, char quote,
     trimWS_(trimWS),
     escapeBackslash_(escapeBackslash),
     escapeDouble_(escapeDouble),
-    moreTokens_(false),
-    hasEmptyNA_(false)
+    hasEmptyNA_(false),
+    moreTokens_(false)
 {
-  for (int i = 0; i < NA_.size(); ++i) {
+  for (size_t i = 0; i < NA_.size(); ++i) {
     if (NA_[i] == "") {
       hasEmptyNA_ = true;
       break;

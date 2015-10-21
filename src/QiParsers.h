@@ -49,7 +49,6 @@ inline bool parseNumber(char decimalMark, char groupingMark, Iterator& first,
   if (first == last)
     return false;
 
-  int sign = 1;
   double sum = 0, denom = 1;
   NumberState state = STATE_INIT;
 
@@ -59,7 +58,6 @@ inline bool parseNumber(char decimalMark, char groupingMark, Iterator& first,
     case STATE_INIT:
       if (*cur == '-') {
         state = STATE_LHS;
-        sign = -1;
       } else if (*cur == decimalMark) {
         state = STATE_RHS;
       } else if (*cur >= '0' && *cur <= '9') {

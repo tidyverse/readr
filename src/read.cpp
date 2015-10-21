@@ -146,7 +146,7 @@ RObject read_tokens(List sourceSpec, List tokenizerSpec, ListOf<List> colSpecs,
   }
 
   // Match colNames to with non-skipped collectors
-  if (p != colNames.size())
+  if (p != (size_t) colNames.size())
     stop("colSpec and colNames must be same size");
 
   CharacterVector outNames(pOut);
@@ -162,7 +162,7 @@ RObject read_tokens(List sourceSpec, List tokenizerSpec, ListOf<List> colSpecs,
   size_t n = (n_max < 0) ? 1000 : n_max;
   collectorsResize(collectors, n);
 
-  size_t i = -1, j = -1, cells = 0;
+  int i = -1, j = -1, cells = 0;
   for (Token t = tokenizer->nextToken(); t.type() != TOKEN_EOF; t = tokenizer->nextToken()) {
     if (progress && (cells++) % 250000 == 0)
       progressBar.show(tokenizer->progress());
@@ -192,7 +192,7 @@ RObject read_tokens(List sourceSpec, List tokenizerSpec, ListOf<List> colSpecs,
     progressBar.show(tokenizer->progress());
   progressBar.stop();
 
-  if (i != n - 1) {
+  if (i != (int) n - 1) {
     collectorsResize(collectors, i + 1);
   }
 
