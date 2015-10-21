@@ -15,8 +15,15 @@ TokenizerDelim::TokenizerDelim(char delim, char quote,
     trimWS_(trimWS),
     escapeBackslash_(escapeBackslash),
     escapeDouble_(escapeDouble),
-    moreTokens_(false)
+    moreTokens_(false),
+    hasEmptyNA_(false)
 {
+  for (int i = 0; i < NA_.size(); ++i) {
+    if (NA_[i] == "") {
+      hasEmptyNA_ = true;
+      break;
+    }
+  }
 }
 
 void TokenizerDelim::tokenize(SourceIterator begin, SourceIterator end) {
@@ -216,7 +223,7 @@ void TokenizerDelim::newRecord() {
 }
 
 Token TokenizerDelim::emptyToken(int row, int col) {
-  return Token(TOKEN_EMPTY, row, col).flagNA(NA_);
+  return Token(hasEmptyNA_ ? TOKEN_MISSING : TOKEN_EMPTY, row, col);
 }
 
 Token TokenizerDelim::fieldToken(SourceIterator begin, SourceIterator end,

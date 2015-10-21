@@ -1,5 +1,8 @@
 # readr 0.2.1.9000
 
+* Fix bug when checking empty values for missingness (caused valgrind issue
+  and random crashes).
+
 # readr 0.2.1
 
 * Fixes so that readr works on Solaris.

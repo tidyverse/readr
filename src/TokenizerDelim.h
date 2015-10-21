@@ -22,7 +22,7 @@ class TokenizerDelim : public Tokenizer {
   std::vector<std::string> NA_;
   std::string comment_;
 
-  bool hasComment_, trimWS_, escapeBackslash_, escapeDouble_;
+  bool hasComment_, trimWS_, escapeBackslash_, escapeDouble_, hasEmptyNA_;
 
   SourceIterator begin_, cur_, end_;
   DelimState state_;
