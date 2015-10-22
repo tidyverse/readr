@@ -1,3 +1,5 @@
+# readr 0.2.2.9000
+
 # readr 0.2.2
 
 * Fix bug when checking empty values for missingness (caused valgrind issue
