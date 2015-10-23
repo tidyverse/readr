@@ -126,31 +126,6 @@ static time_t const time_t_max = MAXVAL(time_t, TYPE_BIT(time_t));
 #define OPEN_MODE        O_RDONLY
 #endif /* !defined O_BINARY */
 
-#ifndef WILDABBR
-/*
-** Someone might make incorrect use of a time zone abbreviation:
-**        1.        They might reference tzname[0] before calling tzset (explicitly
-**                or implicitly).
-**        2.        They might reference tzname[1] before calling tzset (explicitly
-**                or implicitly).
-**        3.        They might reference tzname[1] after setting to a time zone
-**                in which Daylight Saving Time is never observed.
-**        4.        They might reference tzname[0] after setting to a time zone
-**                in which Standard Time is never observed.
-**        5.        They might reference tm.TM_ZONE after calling offtime.
-** What's best to do in the above cases is open to debate;
-** for now, we just set things up so that in any of the five cases
-** WILDABBR is used. Another possibility: initialize tzname[0] to the
-** string "tzname[0] used before set", and similarly for the other cases.
-** And another: initialize tzname[0] to "ERA", with an explanation in the
-** manual page of what this "time zone abbreviation" means (doing this so
-** that tzname[0] has the "normal" length of three characters).
-*/
-#define WILDABBR        "   "
-#endif /* !defined WILDABBR */
-
-static char                wildabbr[] = WILDABBR;
-
 static const char        gmt[] = "GMT";
 
 /*
@@ -239,7 +214,6 @@ static int                normalize_overflow32(int_fast32_t * tensptr,
                                 int * unitsptr, int base);
 static int                normalize_overflow(int * tensptr, int * unitsptr,
                                 int base);
-static void                settzname(void);
 static time_t                time1(stm * tmp,
                                 stm * (*funcp)(const time_t *,
                                 int_fast32_t, stm *),
@@ -277,11 +251,6 @@ static struct state        gmtmem;
 static char                lcl_TZname[TZ_STRLEN_MAX + 1];
 static int                lcl_is_set;
 
-char * tzname[2] = {
-    wildabbr,
-    wildabbr
-};
-
 /*
 ** Section 4.12.3 of X3.159-1989 requires that
 **        Except for the strftime function, these functions [asctime,
@@ -306,43 +275,6 @@ detzcode64(const char *const codep)
     for (int i = 0; i < 8; ++i)
         result = (result << 8) | (codep[i] & 0xff);
     return result;
-}
-
-static void
-settzname(void)
-{
-    struct state * const sp = lclptr;
-
-    tzname[0] = wildabbr;
-    tzname[1] = wildabbr;
-    /*
-    ** And to get the latest zone names into tzname. . .
-    */
-    for (int i = 0; i < sp->typecnt; ++i) {
-        const struct ttinfo * const ttisp = &sp->ttis[i];
-        tzname[ttisp->tt_isdst] = &sp->chars[ttisp->tt_abbrind];
-    }
-    for (int i = 0; i < sp->timecnt; ++i) {
-        const struct ttinfo * const ttisp = &sp->ttis[sp->types[i]];
-        tzname[ttisp->tt_isdst] = &sp->chars[ttisp->tt_abbrind];
-    }
-    /*
-    ** Finally, scrub the abbreviations.
-    ** First, replace bogus characters.
-    */
-    for (int i = 0; i < sp->charcnt; ++i)
-        if (strchr(TZ_ABBR_CHAR_SET, sp->chars[i]) == NULL)
-            sp->chars[i] = TZ_ABBR_ERR_CHAR;
-    /*
-    ** Second, truncate long abbreviations.
-    */
-    for (int i = 0; i < sp->typecnt; ++i) {
-        const struct ttinfo * const ttisp = &sp->ttis[i];
-        char * cp = &sp->chars[ttisp->tt_abbrind];
-
-        if (strlen(cp) > TZ_ABBR_MAX_LEN && strcmp(cp, GRANDPARENTED) != 0)
-            *(cp + TZ_ABBR_MAX_LEN) = '\0';
-    }
 }
 
 static int
@@ -1185,7 +1117,6 @@ R_tzsetwall(void)
     lcl_is_set = -1;
 
     if (tzload((char *) NULL, lclptr, TRUE) != 0) gmtload(lclptr);
-    settzname();
 }
 
 void tzset_name(const char * name) {
@@ -1223,7 +1154,6 @@ void tzset_name(const char * name) {
     }
   }
 
-  settzname();
 }
 
 void tzset(void) {
