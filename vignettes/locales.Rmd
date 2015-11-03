@@ -184,7 +184,7 @@ parse_number("$1.234,56",
   locale = locale(decimal_mark = ",", grouping_mark = ".")
 )
 
-# dplyr is smart enough to guess that if you're using , for decimals then
+# readr is smart enough to guess that if you're using , for decimals then
 # you're probably using . for grouping:
 parse_number("$1.234,56", locale = locale(decimal_mark = ","))
 ```
