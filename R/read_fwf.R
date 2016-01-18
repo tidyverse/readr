@@ -13,8 +13,8 @@
 #' @inheritParams read_delim
 #' @param col_positions Column positions, as created by \code{fwf_empty},
 #'   \code{fwf_widths} or \code{fwf_positions}. To read in only selected fields,
-#'   use \code{fwf_positions}. The width of the last column will be silently
-#'   extended to the next line break.
+#'   use \code{fwf_positions}. If the width of the last column is variable (a
+#'   ragged fwf file), supply the last end position as NA, Inf or simply ommit it.
 #' @export
 #' @examples
 #' fwf_sample <- system.file("extdata/fwf-sample.txt", package = "readr")
@@ -65,7 +65,8 @@ fwf_empty <- function(file, skip = 0, col_names = NULL) {
 
 #' @rdname read_fwf
 #' @export
-#' @param widths Width of each field.
+#' @param widths Width of each field. Use NA or Inf as width of last field when
+#'    reading a ragged fwf file.
 #' @param col_names Either NULL, or a character vector column names.
 fwf_widths <- function(widths, col_names = NULL) {
   pos <- cumsum(c(1, widths))
@@ -76,6 +77,7 @@ fwf_widths <- function(widths, col_names = NULL) {
 #' @rdname read_fwf
 #' @export
 #' @param start,end Starting and ending (inclusive) positions of each field.
+#'    Use NA or Inf as last end field when reading a ragged fwf file.
 fwf_positions <- function(start, end, col_names = NULL) {
 
   # Support for Ragged fwf files. Remove last end element when it is Inf or NA
