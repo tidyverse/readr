@@ -77,7 +77,13 @@ fwf_widths <- function(widths, col_names = NULL) {
 #' @export
 #' @param start,end Starting and ending (inclusive) positions of each field.
 fwf_positions <- function(start, end, col_names = NULL) {
-  stopifnot(length(start) == length(end))
+
+  # Support for Ragged fwf files. Remove last end element when it is Inf or NA
+  if (is.infinite(end[length(end)]) || is.na(end[length(end)])) {
+    end <- end[-length(end)]
+  }
+
+  stopifnot((length(start)-length(end)) %in% 0:1)
 
   if (is.null(col_names)) {
     col_names <- paste0("X", seq_along(start))

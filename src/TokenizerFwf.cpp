@@ -79,12 +79,16 @@ TokenizerFwf::TokenizerFwf(const std::vector<int>& beginOffset, const std::vecto
   cols_(beginOffset.size()),
   moreTokens_(false)
 {
-  if (beginOffset_.size() != endOffset_.size())
+  // File is assumed to be ragged (last column can have variable width)
+  // when length of end vector is one shorter then begin vector.
+  isRagged_ = beginOffset_.size()==(endOffset_.size()+1L);
+
+  if (!isRagged_ && (beginOffset_.size() != endOffset_.size()))
     Rcpp::stop("Begin (%i) and end (%i) specifications must have equal length",
       beginOffset_.size(), endOffset_.size());
 
   max_ = 0;
-  for (int j = 0; j < cols_; ++j) {
+  for (int j = 0; j < (cols_-isRagged_); ++j) {
     if (endOffset_[j] <= beginOffset_[j])
       Rcpp::stop("Begin offset (%i) must be smaller than end offset (%i)",
         beginOffset_[j], endOffset_[j]);
@@ -133,27 +137,30 @@ Token TokenizerFwf::nextToken() {
   }
 
   SourceIterator fieldEnd = fieldBegin;
-  int width = endOffset_[col_] - beginOffset_[col_];
   bool lastCol = (col_ == cols_ - 1), tooShort = false, hasNull = false;
 
-  // Find the end of the field, stopping for newlines
-  for(int i = 0; i < width; ++i) {
-    if (fieldEnd == end_ || *fieldEnd == '\n' || *fieldEnd == '\r') {
-      warn(row_, col_, tfm::format("%i chars", width), tfm::format("%i", i));
-
-      tooShort = true;
-      break;
+  if (lastCol && isRagged_) {
+    // Last column is ragged, so read until end of line (ignoring width)
+    if (lastCol) {
+      while(fieldEnd != end_ && *fieldEnd != '\r' && *fieldEnd != '\n') {
+        if (*fieldEnd == '\0')
+          hasNull = true;
+        fieldEnd++;
+      }
     }
-    if (*fieldEnd == '\0')
-      hasNull = true;
+  } else {
+    int width = endOffset_[col_] - beginOffset_[col_];
+    // Find the end of the field, stopping for newlines
+    for(int i = 0; i < width; ++i) {
+      if (fieldEnd == end_ || *fieldEnd == '\n' || *fieldEnd == '\r') {
+        warn(row_, col_, tfm::format("%i chars", width), tfm::format("%i", i));
 
-    fieldEnd++;
-  }
-  // Last column is often ragged, so read until end of line (ignoring width)
-  if (lastCol) {
-    while(fieldEnd != end_ && *fieldEnd != '\r' && *fieldEnd != '\n') {
+        tooShort = true;
+        break;
+      }
       if (*fieldEnd == '\0')
         hasNull = true;
+
       fieldEnd++;
     }
   }
@@ -163,6 +170,14 @@ Token TokenizerFwf::nextToken() {
   if (lastCol || tooShort) {
     row_++;
     col_ = 0;
+
+    // Proceed to the end of the line. This is needed in case the last column
+    // in the file is not being read.
+    while(fieldEnd != end_ && *fieldEnd != '\r' && *fieldEnd != '\n') {
+      if (*fieldEnd == '\0')
+        hasNull = true;
+      fieldEnd++;
+    }
 
     curLine_ = fieldEnd;
     advanceForLF(&curLine_, end_);
