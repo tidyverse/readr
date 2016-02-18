@@ -57,6 +57,6 @@ test_that("roundtrip preserves dates and datetimes", {
   expect_equal(output$y, y)
 })
 
-test_that("fails to create file in non-existent direction", {
+test_that("fails to create file in non-existent directory", {
   expect_error(write_csv(mtcars, file.path(tempdir(), "/x/y")), "Failed to open")
 })

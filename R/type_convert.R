@@ -21,6 +21,7 @@
 #' str(type_convert(df))
 type_convert <- function(df, col_types = NULL, na = c("", "NA"), trim_ws = TRUE,
                          locale = default_locale()) {
+  stopifnot(is.data.frame(df))
   is_character <- vapply(df, is.character, logical(1))
 
   char_cols <- df[is_character]
