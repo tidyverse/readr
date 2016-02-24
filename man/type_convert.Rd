@@ -10,7 +10,7 @@ type_convert(df, col_types = NULL, na = c("", "NA"), trim_ws = TRUE,
 \arguments{
 \item{df}{A data frame.}
 
-\item{col_types}{One of \code{NULL}, a \code{\link{cols}}, specification of
+\item{col_types}{One of \code{NULL}, a \code{\link{cols}} specification, or
   a string. See \code{vignette("column-types")} for more details.
 
   If \code{NULL}, all column types will be imputed from the first 1000 rows

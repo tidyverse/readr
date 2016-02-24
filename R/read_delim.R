@@ -23,7 +23,7 @@ NULL
 #'   If \code{col_names} is a character vector, the values will be used as the
 #'   names of the columns, and the first row of the input will be read into
 #'   the first row of the output data frame.
-#' @param col_types One of \code{NULL}, a \code{\link{cols}}, specification of
+#' @param col_types One of \code{NULL}, a \code{\link{cols}} specification, or
 #'   a string. See \code{vignette("column-types")} for more details.
 #'
 #'   If \code{NULL}, all column types will be imputed from the first 1000 rows

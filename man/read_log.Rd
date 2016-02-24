@@ -31,7 +31,7 @@ read_log(file, col_names = FALSE, col_types = NULL, skip = 0,
   names of the columns, and the first row of the input will be read into
   the first row of the output data frame.}
 
-\item{col_types}{One of \code{NULL}, a \code{\link{cols}}, specification of
+\item{col_types}{One of \code{NULL}, a \code{\link{cols}} specification, or
   a string. See \code{vignette("column-types")} for more details.
 
   If \code{NULL}, all column types will be imputed from the first 1000 rows
