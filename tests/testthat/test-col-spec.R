@@ -18,10 +18,18 @@ test_that("guess col names matches all col types", {
 
 test_that("col_names expanded to col_types with dummy names", {
   expect_warning(
-    out <- col_spec_standardise("1,2,3\n", c("a", "b"), "iii"),
+    out <- col_spec_standardise("1,2,3,4\n", c("a", "b"), "iiii"),
     "Insufficient `col_names`"
   )
-  expect_equal(names(out), c("a", "b", "X3"))
+  expect_equal(names(out), c("a", "b", "X3", "X4"))
+})
+
+test_that("col_names expanded to match col_types, with skipping", {
+  expect_warning(
+    out <- col_spec_standardise(col_types = "c_c", col_names = "a"),
+    "Insufficient `col_names`"
+  )
+  expect_equal(names(out), c("a", "", "X2"))
 })
 
 test_that("col_types expanded to col_names by guessing", {

@@ -1,5 +1,7 @@
 # readr 0.2.2.9000
 
+* When column names are insufficient, the added names are numbered correctly and won't be `NA` (#374, @jennybc).
+
 * `parse_time("NA")` works as expected (#398).
 
 * Quick hack to return something instead of NA for missing column names
