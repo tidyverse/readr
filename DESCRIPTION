@@ -14,6 +14,7 @@ LinkingTo: Rcpp,
     BH
 Imports:
     Rcpp (>= 0.11.5),
+    tibble,
     curl
 Suggests:
     testthat,
@@ -24,4 +25,4 @@ License: GPL (>= 2) | file LICENSE
 BugReports: https://github.com/hadley/readr/issues
 URL: https://github.com/hadley/readr
 VignetteBuilder: knitr
-RoxygenNote: 4.1.1.9001
+RoxygenNote: 5.0.1
