@@ -1,9 +1,9 @@
 #' @export
 format.time <- function(x, ...) {
   x <- as.integer(x)
-  h <- x %/% 3600L
-  m <- (x - h * 3600L) %/% 60L
-  s <- x %% 60L
+  h <- trunc(x / 3600L)
+  m <- abs(x - h * 3600L) %/% 60L
+  s <- abs(x) %% 60L
 
   hms <- paste0(
     format(h, align = "right"), ":",
