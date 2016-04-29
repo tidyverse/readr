@@ -60,6 +60,8 @@ RObject guess_header_(List sourceSpec, List tokenizerSpec, List locale_) {
   CollectorCharacter out(&locale.encoder_);
   out.setWarnings(&warnings);
 
+  int bad_i = 1;
+
   for (Token t = tokenizer->nextToken(); t.type() != TOKEN_EOF; t = tokenizer->nextToken()) {
     if (t.row() > (size_t) 0) // only read one row
       break;
@@ -68,7 +70,11 @@ RObject guess_header_(List sourceSpec, List tokenizerSpec, List locale_) {
       out.resize(t.col() + 1);
     }
 
-    out.setValue(t.col(), t);
+    if (t.type() == TOKEN_STRING) {
+      out.setValue(t.col(), t);
+    } else {
+      out.setValue(t.col(), tfm::format("X%i", bad_i++));
+    }
   }
 
   return out.vector();

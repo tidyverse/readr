@@ -88,6 +88,10 @@ void CollectorCharacter::setValue(int i, const Token& t) {
   }
 }
 
+void CollectorCharacter::setValue(int i, const std::string& s) {
+  SET_STRING_ELT(column_, i, Rf_mkCharCE(s.c_str(), CE_UTF8));
+}
+
 void CollectorDate::setValue(int i, const Token& t) {
   switch(t.type()) {
   case TOKEN_STRING: {

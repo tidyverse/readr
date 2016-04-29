@@ -1,5 +1,8 @@
 # readr 0.2.2.9000
 
+* Quick hack to return something instead of NA for missing column names
+  (#318)
+
 # readr 0.2.2
 
 * Fix bug when checking empty values for missingness (caused valgrind issue

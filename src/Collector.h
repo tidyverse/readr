@@ -83,6 +83,7 @@ public:
     Collector(Rcpp::CharacterVector()),
     pEncoder_(pEncoder) {}
   void setValue(int i, const Token& t);
+  void setValue(int i, const std::string& s);
 };
 
 // Date ------------------------------------------------------------------------
