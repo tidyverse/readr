@@ -2,6 +2,8 @@
 
 * Quick hack to return something instead of NA for missing column names
   (#318)
+  
+* Add support for parsing years with col_date("%Y") or col_datetime("%Y") 
 
 # readr 0.2.2
 

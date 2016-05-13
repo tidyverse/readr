@@ -204,7 +204,8 @@ col_guess <- function() {
 #' \enumerate{
 #'   \item Date components are specified with "\%" followed by a letter.
 #'     For example "\%Y" matches a 4 digit year, "\%m", matches a 2 digit
-#'     month and "\%d" matches a 2 digit day.
+#'     month and "\%d" matches a 2 digit day. Month and day default to \code{1},
+#'     (i.e. Jan 1st) if not present, for example if only a year is given.
 #'   \item Whitespace is any sequence of zero or more whitespace characters.
 #'   \item Any other character is matched exactly.
 #' }

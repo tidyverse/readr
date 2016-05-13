@@ -421,8 +421,8 @@ private:
 
   void reset() {
     year_ = -1;
-    mon_ = -1;
-    day_ = -1;
+    mon_ = 0;
+    day_ = 0;
     hour_ = 0;
     min_ = 0;
     sec_ = 0;
