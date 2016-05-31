@@ -264,23 +264,23 @@ void CollectorLogical::setValue(int i, const Token& t) {
 
     switch(size) {
     case 1:
-      if (*string.first == 'T') {
+      if (*string.first == 'T' || *string.first == 't' || *string.first == '1') {
         LOGICAL(column_)[i] = 1;
         return;
       }
-      if (*string.first == 'F') {
+      if (*string.first == 'F' || *string.first == 'f' || *string.first == '0') {
         LOGICAL(column_)[i] = 0;
         return;
       }
       break;
     case 4:
-      if (strncmp(string.first, "TRUE", 4) == 0) {
+      if (strncmp(string.first, "TRUE", 4) == 0 || strncmp(string.first, "true", 4) == 0) {
         LOGICAL(column_)[i] = 1;
         return;
       }
       break;
     case 5:
-      if (strncmp(string.first, "FALSE", 5) == 0) {
+      if (strncmp(string.first, "FALSE", 5) == 0 || strncmp(string.first, "false", 5) == 0) {
         LOGICAL(column_)[i] = 0;
         return;
       }
@@ -289,7 +289,7 @@ void CollectorLogical::setValue(int i, const Token& t) {
       break;
     }
 
-    warn(t.row(), t.col(), "T/F/TRUE/FALSE", string);
+    warn(t.row(), t.col(), "1/0/T/F/TRUE/FALSE", string);
     LOGICAL(column_)[i] = NA_LOGICAL;
     return;
   };

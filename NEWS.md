@@ -3,6 +3,8 @@
 * Quick hack to return something instead of NA for missing column names
   (#318)
 
+* `parse_logical()` now accepts `0`, `1` as well as lowercase `t`, `f`, `true`, `false`. 
+
 # readr 0.2.2
 
 * Fix bug when checking empty values for missingness (caused valgrind issue
