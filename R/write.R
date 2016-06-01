@@ -64,7 +64,7 @@ write_csv <- function(x, path, na = "NA", append = FALSE, col_names = !append) {
 
   write_delim(x, path, delim = ',', na = na,append = append,
     col_names = col_names)
-  invisible(path)
+  invisible(x)
 }
 
 
