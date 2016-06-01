@@ -34,7 +34,7 @@ fwf_positions(start, end, col_names = NULL)
 use \code{fwf_positions}. The width of the last column will be silently
 extended to the next line break.}
 
-\item{col_types}{One of \code{NULL}, a \code{\link{cols}}, specification of
+\item{col_types}{One of \code{NULL}, a \code{\link{cols}} specification, or
   a string. See \code{vignette("column-types")} for more details.
 
   If \code{NULL}, all column types will be imputed from the first 1000 rows
