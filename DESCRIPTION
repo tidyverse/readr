@@ -19,7 +19,8 @@ Suggests:
     testthat,
     knitr,
     rmarkdown,
-    stringi
+    stringi,
+    covr
 License: GPL (>= 2) | file LICENSE
 BugReports: https://github.com/hadley/readr/issues
 URL: https://github.com/hadley/readr

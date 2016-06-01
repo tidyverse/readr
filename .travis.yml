@@ -1,13 +1,8 @@
-language: r
-warnings_are_errors: true
+# R for travis: see documentation at https://docs.travis-ci.com/user/languages/r
 
-r_packages:
-  - rmarkdown
+language: R
+sudo: false
+cache: packages
 
-r_github_packages:
-  - jimhester/covr
 after_success:
   - Rscript -e 'covr::codecov()'
-
-apt_packages:
-  - libv8-dev
