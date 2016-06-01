@@ -61,7 +61,6 @@ as ISO8601.
 All columns are encoded as UTF-8.
 
 Values are only quoted if needed: if they contain a comma, quote or newline.
-
 }
 \examples{
 tmp <- tempfile()
