@@ -24,7 +24,7 @@
 #' @param na String used for missing values. Defaults to NA. Missing values
 #'   will never be quoted; strings with the same value as \code{na} will
 #'   always be quoted.
-#' @return \code{write_*} returns in the input \code{x} invisibily,
+#' @return \code{write_*} returns in the input \code{x} invisibly,
 #'   \code{format_*} returns a string.
 #' @export
 #' @examples
