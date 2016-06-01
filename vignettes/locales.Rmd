@@ -30,7 +30,7 @@ To create a new locale, you use the `locale()` function:
 locale()
 ```
 
-This rest of this vignette will explain what each of the vignettes do.
+This rest of this vignette will explain what each of the options do.
 
 All of the parsing function in readr take a `locale` argument. You'll most often use it with `read_csv()`, `read_fwf()` or `read_table()`. Readr is designed to work the same way across systems, so the default locale is English centric like R. If you're not in an English speaking country, this makes initial import a little harder, because you have to override the defaults. But the payoff is big: you can share your code and know that it will work on any other system. Base R takes a different philosophy. It uses system defaults, so typical data import is a little easier, but sharing code is harder.
 
