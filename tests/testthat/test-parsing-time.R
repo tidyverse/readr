@@ -10,3 +10,9 @@ test_that("default format captures cases", {
   expect_equal(parse_time("22:20:05"), late_night + 5)
   expect_equal(parse_time("10:20:05 pm"), late_night + 5)
 })
+
+test_that("parses NA/empty correctly", {
+  out <- parse_time(c("NA", ""))
+  exp <- structure(c(NA_real_, NA_real_), class = "time")
+  expect_equal(out, exp)
+})
