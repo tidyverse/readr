@@ -14,6 +14,7 @@ LinkingTo: Rcpp,
     BH
 Imports:
     Rcpp (>= 0.11.5),
+    tibble,
     curl
 Suggests:
     testthat,
