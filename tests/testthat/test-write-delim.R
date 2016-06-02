@@ -3,10 +3,19 @@ context("write_delim")
 test_that("strings are only quoted if needed", {
   x <- c("a", ',')
 
-  csv <- write_delim(data.frame(x), "", delim = ",",col_names = FALSE)
+  csv <- write_delim(data.frame(x), "", delim = ",", col_names = FALSE)
   expect_equal(csv, 'a\n\",\"\n')
-  ssv <- write_delim(data.frame(x), "", delim = " ",col_names = FALSE)
+  ssv <- write_delim(data.frame(x), "", delim = " ", col_names = FALSE)
   expect_equal(ssv, 'a\n,\n')
+})
+
+test_that("input is invisibly returned", {
+  csv_in <- read_csv("basic-df.csv")
+  csv_out <- write_csv(csv_in, "basic-df-write.csv")
+  expect_true(inherits(csv_out, class(csv_in)))
+
+  csv_out2 <- write_delim(csv_in, "basic-df-write.csv", delim = ",")
+  expect_true(inherits(csv_out2, class(csv_in)))
 })
 
 test_that("a literal NA is quoted", {

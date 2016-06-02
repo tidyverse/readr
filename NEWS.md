@@ -177,7 +177,7 @@ As well as improvements to the parser, I've also made a number of tweaks to the 
 * `type_convert()` gains `NA` and `trim_ws` arguments, and removes missing
   values before determining column types.
 
-* `write_csv()`, `write_delim()`, and `write_rds()` all invisably return their
+* `write_csv()`, `write_delim()`, and `write_rds()` all invisibly return their
   input so you can use them in a pipe (#290).
 
 * `write_delim()` generalises `write_csv()` to write any delimited format (#135).

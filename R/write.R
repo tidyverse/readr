@@ -48,11 +48,11 @@ write_delim <- function(x, path, delim = " ", na = "NA", append = FALSE,
   stopifnot(is.data.frame(x))
   path <- normalizePath(path, mustWork = FALSE)
 
-  x <- lapply(x, output_column)
+  x_out <- lapply(x, output_column)
 
-  out <- stream_delim(x, path, delim, col_names = col_names, append = append,
-    na = na)
-  if (path == "") out else invisible()
+  out <- stream_delim(x_out, path, delim, col_names = col_names,
+                      append = append, na = na)
+  if (path == "") out else invisible(x)
 }
 
 #' @rdname write_delim
@@ -62,9 +62,7 @@ write_csv <- function(x, path, na = "NA", append = FALSE, col_names = !append) {
     stop("Please use format_csv instead.", call. = FALSE)
   }
 
-  write_delim(x, path, delim = ',', na = na,append = append,
-    col_names = col_names)
-  invisible(path)
+  write_delim(x, path, delim = ',', na = na, append, col_names)
 }
 
 
