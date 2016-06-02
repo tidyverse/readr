@@ -15,6 +15,8 @@
 
 * `parse_logical()` now accepts `0`, `1` as well as lowercase `t`, `f`, `true`, `false`. 
 
+* `read_delim()` gains a `trim_ws` argument (#312, noamross)
+
 # readr 0.2.2
 
 * Fix bug when checking empty values for missingness (caused valgrind issue
