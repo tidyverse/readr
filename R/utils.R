@@ -1,3 +1,7 @@
+# Silence R CMD check note
+#' @importFrom tibble tibble
+NULL
+
 isFALSE <- function(x) identical(x, FALSE)
 
 is.connection <- function(x) inherits(x, "connection")
