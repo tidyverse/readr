@@ -1,5 +1,7 @@
 # readr 0.2.2.9000
 
+* When column names are insufficient, the added names are numbered correctly and won't be `NA` (#374, @jennybc).
+
 * `write_delim()` and `write_csv()` now invisibly return the input data frame
   as documented (#363).
 
