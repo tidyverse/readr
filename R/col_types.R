@@ -173,9 +173,10 @@ col_spec_standardise <- function(file, col_names = TRUE, col_types = NULL,
     } else if (n_read > n_names) {
       warning("Insufficient `col_names`. Adding ", n_new, " names.",
         call. = FALSE)
-      tmp <- rep("", length(spec$cols))
-      tmp[!skipped] <- c(col_names, paste0("X", seq_len(n_new) + n_names))
-      col_names <- tmp
+
+      col_names2 <- rep("", length(spec$cols))
+      col_names2[!skipped] <- c(col_names, paste0("X", seq_len(n_new) + n_names))
+      col_names <- col_names2
     } else {
       col_names2 <- rep("", length(spec$cols))
       col_names2[!skipped] <- col_names
