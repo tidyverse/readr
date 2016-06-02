@@ -1,5 +1,8 @@
 # readr 0.2.2.9000
 
+* `write_delim()` and `write_csv()` now invisibly return the input data frame
+  as documented (#363).
+
 * `parse_time("NA")` works as expected (#398).
 
 * Quick hack to return something instead of NA for missing column names

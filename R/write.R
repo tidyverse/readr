@@ -24,7 +24,7 @@
 #' @param na String used for missing values. Defaults to NA. Missing values
 #'   will never be quoted; strings with the same value as \code{na} will
 #'   always be quoted.
-#' @return \code{write_*} returns in the input \code{x} invisibly,
+#' @return \code{write_*} returns the input \code{x} invisibly,
 #'   \code{format_*} returns a string.
 #' @export
 #' @examples
@@ -48,30 +48,23 @@ write_delim <- function(x, path, delim = " ", na = "NA", append = FALSE,
   stopifnot(is.data.frame(x))
   path <- normalizePath(path, mustWork = FALSE)
 
-  x <- lapply(x, output_column)
-
-  out <- stream_delim(x, path, delim, col_names = col_names, append = append,
+  x_out <- lapply(x, output_column)
+  stream_delim(x_out, path, delim, col_names = col_names, append = append,
     na = na)
-  if (path == "") out else invisible()
+
+  invisible(x)
 }
 
 #' @rdname write_delim
 #' @export
 write_csv <- function(x, path, na = "NA", append = FALSE, col_names = !append) {
-  if (identical(path, "")) {
-    stop("Please use format_csv instead.", call. = FALSE)
-  }
-
-  write_delim(x, path, delim = ',', na = na,append = append,
-    col_names = col_names)
-  invisible(path)
+  write_delim(x, path, delim = ',', na = na,append = append, col_names = col_names)
 }
-
 
 #' @rdname write_delim
 #' @export
 write_tsv <- function(x, path, na = "NA", append = FALSE, col_names = !append) {
-  write_delim(x, path, delim = '\t', na = na, append, col_names)
+  write_delim(x, path, delim = '\t', na = na, append = append, col_names = col_names)
 }
 
 #' @export
@@ -89,7 +82,10 @@ format_tsv <- function(x, na = "NA", append = FALSE, col_names = !append) {
 #' @export
 #' @rdname write_delim
 format_delim <- function(x, delim, na = "NA", append = FALSE, col_names = !append) {
-  write_delim(x, "", delim = delim, na = na, append = append, col_names = col_names)
+  stopifnot(is.data.frame(x))
+
+  x <- lapply(x, output_column)
+  stream_delim(x, "", delim, col_names = col_names, append = append, na = na)
 }
 
 

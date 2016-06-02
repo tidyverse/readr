@@ -3,9 +3,9 @@ context("write_delim")
 test_that("strings are only quoted if needed", {
   x <- c("a", ',')
 
-  csv <- write_delim(data.frame(x), "", delim = ",",col_names = FALSE)
+  csv <- format_delim(data.frame(x), delim = ",",col_names = FALSE)
   expect_equal(csv, 'a\n\",\"\n')
-  ssv <- write_delim(data.frame(x), "", delim = " ",col_names = FALSE)
+  ssv <- format_delim(data.frame(x), delim = " ",col_names = FALSE)
   expect_equal(ssv, 'a\n,\n')
 })
 

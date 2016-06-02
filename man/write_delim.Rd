@@ -44,7 +44,7 @@ file is created.}
 \item{col_names}{Write columns names at the top of the file?}
 }
 \value{
-\code{write_*} returns in the input \code{x} invisibly,
+\code{write_*} returns the input \code{x} invisibly,
   \code{format_*} returns a string.
 }
 \description{
