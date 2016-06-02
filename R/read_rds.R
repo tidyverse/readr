@@ -1,7 +1,7 @@
 #' Read object from RDS file.
 #'
 #' This is a minimal wrapper around \code{\link{readRDS}} that uses the
-#' same naming scheme as all other functions in \pkg{readR}.
+#' same naming scheme as all other functions in \pkg{readr}.
 #'
 #' @param path Path of file
 #' @export
