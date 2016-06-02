@@ -25,7 +25,7 @@ read_lines_raw(file, skip = 0, n_max = -1L, progress = interactive())
 
 \item{skip}{Number of lines to skip before reading data.}
 
-\item{n_max}{Number of lines to read. If \code{n} is -1, all lines in
+\item{n_max}{Number of lines to read. If \code{n_max} is -1, all lines in
 file will be read.}
 
 \item{locale}{The locale controls defaults that vary from place to place.

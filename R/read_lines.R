@@ -2,7 +2,7 @@
 #'
 #' @inheritParams datasource
 #' @inheritParams read_delim
-#' @param n_max Number of lines to read. If \code{n} is -1, all lines in
+#' @param n_max Number of lines to read. If \code{n_max} is -1, all lines in
 #'   file will be read.
 #' @return A character vector with one element for each line.
 #' @export

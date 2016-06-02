@@ -19,7 +19,7 @@ guess_encoding(file, n_max = 10000, threshold = 0.2)
    Literal data is most useful for examples and tests. It must contain at
    least one new line to be recognised as data (instead of a path).}
 
-\item{n_max}{Number of lines to read. If \code{n} is -1, all lines in
+\item{n_max}{Number of lines to read. If \code{n_max} is -1, all lines in
 file will be read.}
 
 \item{threshold}{Only report guesses above this threshold of certainty.}
