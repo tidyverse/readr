@@ -6,3 +6,8 @@ test_that("missing values removed before guessing col type", {
 
   expect_equal(df2$x, c(NA, 10L))
 })
+
+test_that("requires data.frame input", {
+  not_df <- matrix(letters[1:4], nrow = 2)
+  expect_error(type_convert(not_df))
+})
