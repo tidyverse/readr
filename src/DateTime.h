@@ -71,6 +71,8 @@ public:
   }
 
   bool validDate() const {
+    if (year_ < 0)
+      return false;
     if (mon_ < 0 || mon_ > 11)
       return false;
     if (day_ < 0 || day_ >= days_in_month())
