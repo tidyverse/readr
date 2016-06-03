@@ -79,13 +79,13 @@ TokenizerFwf::TokenizerFwf(const std::vector<int>& beginOffset, const std::vecto
   cols_(beginOffset.size()),
   moreTokens_(false)
 {
-  // File is assumed to be ragged (last column can have variable width)
-  // when length of end vector is one shorter then begin vector.
-  isRagged_ = beginOffset_.size()==(endOffset_.size()+1L);
-
-  if (!isRagged_ && (beginOffset_.size() != endOffset_.size()))
+  if (beginOffset_.size() != endOffset_.size())
     Rcpp::stop("Begin (%i) and end (%i) specifications must have equal length",
-      beginOffset_.size(), endOffset_.size());
+               beginOffset_.size(), endOffset_.size());
+
+  // File is assumed to be ragged (last column can have variable width)
+  // when the last element of endOffset_ is NA
+  isRagged_ = endOffset_[endOffset_.size()-1L] == NA_INTEGER;
 
   max_ = 0;
   for (int j = 0; j < (cols_-isRagged_); ++j) {
@@ -141,12 +141,10 @@ Token TokenizerFwf::nextToken() {
 
   if (lastCol && isRagged_) {
     // Last column is ragged, so read until end of line (ignoring width)
-    if (lastCol) {
-      while(fieldEnd != end_ && *fieldEnd != '\r' && *fieldEnd != '\n') {
-        if (*fieldEnd == '\0')
-          hasNull = true;
-        fieldEnd++;
-      }
+    while(fieldEnd != end_ && *fieldEnd != '\r' && *fieldEnd != '\n') {
+      if (*fieldEnd == '\0')
+        hasNull = true;
+      fieldEnd++;
     }
   } else {
     int width = endOffset_[col_] - beginOffset_[col_];
@@ -171,12 +169,14 @@ Token TokenizerFwf::nextToken() {
     row_++;
     col_ = 0;
 
-    // Proceed to the end of the line. This is needed in case the last column
-    // in the file is not being read.
-    while(fieldEnd != end_ && *fieldEnd != '\r' && *fieldEnd != '\n') {
-      if (*fieldEnd == '\0')
-        hasNull = true;
-      fieldEnd++;
+    if (!(tooShort || isRagged_)) {
+      // Proceed to the end of the line when you are possibly not there.
+      // This is needed in case the last column in the file is not being read.
+      while(fieldEnd != end_ && *fieldEnd != '\r' && *fieldEnd != '\n') {
+        if (*fieldEnd == '\0')
+          hasNull = true;
+        fieldEnd++;
+      }
     }
 
     curLine_ = fieldEnd;

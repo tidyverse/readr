@@ -14,7 +14,7 @@
 #' @param col_positions Column positions, as created by \code{fwf_empty},
 #'   \code{fwf_widths} or \code{fwf_positions}. To read in only selected fields,
 #'   use \code{fwf_positions}. If the width of the last column is variable (a
-#'   ragged fwf file), supply the last end position as NA, Inf or simply ommit it.
+#'   ragged fwf file), supply the last end position as NA.
 #' @export
 #' @examples
 #' fwf_sample <- system.file("extdata/fwf-sample.txt", package = "readr")
@@ -65,7 +65,7 @@ fwf_empty <- function(file, skip = 0, col_names = NULL) {
 
 #' @rdname read_fwf
 #' @export
-#' @param widths Width of each field. Use NA or Inf as width of last field when
+#' @param widths Width of each field. Use NA as width of last field when
 #'    reading a ragged fwf file.
 #' @param col_names Either NULL, or a character vector column names.
 fwf_widths <- function(widths, col_names = NULL) {
@@ -80,12 +80,7 @@ fwf_widths <- function(widths, col_names = NULL) {
 #'    Use NA or Inf as last end field when reading a ragged fwf file.
 fwf_positions <- function(start, end, col_names = NULL) {
 
-  # Support for Ragged fwf files. Remove last end element when it is Inf or NA
-  if (is.infinite(end[length(end)]) || is.na(end[length(end)])) {
-    end <- end[-length(end)]
-  }
-
-  stopifnot((length(start)-length(end)) %in% 0:1)
+  stopifnot(length(start) == length(end))
 
   if (is.null(col_names)) {
     col_names <- paste0("X", seq_along(start))
