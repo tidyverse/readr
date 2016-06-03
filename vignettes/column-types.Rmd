@@ -81,12 +81,22 @@ Use the `col_types` argument to override the default choices. There are two ways
     ))
     ```
     
-    Any omitted columns will be parsed automatically, so the previous call is 
-    equivalent to:
+    Any omitted columns will be parsed automatically, so the previous call  
+    will lead to the same result as:
     
     ```R
     read_csv("iris.csv", col_types = cols(
-      Species = col_factor(c("setosa", "versicolor", "virginica"))
+      Species = col_factor(c("setosa", "versicolor", "virginica")))
+    )
+    ```
+    
+    You can also set a default type that will be used instead of 
+    relying on the automatic detection for columns you don't specify:
+    
+    ```R
+    read_csv("iris.csv", col_types = cols(
+      Species = col_factor(c("setosa", "versicolor", "virginica")),
+      .default = "d")
     )
     ```
     
