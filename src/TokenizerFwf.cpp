@@ -85,10 +85,10 @@ TokenizerFwf::TokenizerFwf(const std::vector<int>& beginOffset, const std::vecto
 
   // File is assumed to be ragged (last column can have variable width)
   // when the last element of endOffset_ is NA
-  isRagged_ = endOffset_[endOffset_.size()-1L] == NA_INTEGER;
+  isRagged_ = endOffset_[endOffset_.size() - 1L] == NA_INTEGER;
 
   max_ = 0;
-  for (int j = 0; j < (cols_-isRagged_); ++j) {
+  for (int j = 0; j < (cols_ - isRagged_); ++j) {
     if (endOffset_[j] <= beginOffset_[j])
       Rcpp::stop("Begin offset (%i) must be smaller than end offset (%i)",
         beginOffset_[j], endOffset_[j]);

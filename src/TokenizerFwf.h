@@ -12,7 +12,7 @@ class TokenizerFwf : public Tokenizer {
 
   SourceIterator begin_, curLine_, end_;
   int row_, col_, cols_, max_;
-  bool moreTokens_,isRagged_;
+  bool moreTokens_, isRagged_;
 
 public:
 
