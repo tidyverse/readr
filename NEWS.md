@@ -12,6 +12,8 @@
 
 * Quick hack to return something instead of NA for missing column names
   (#318)
+  
+* Add support for parsing years with col_date("%Y") or col_datetime("%Y") 
 
 * `parse_logical()` now accepts `0`, `1` as well as lowercase `t`, `f`, `true`, `false`. 
 

@@ -70,7 +70,7 @@ test_that("failed parsing returns NA", {
 })
 
 test_that("invalid specs returns NA", {
-  expect_warning(x <- parse_datetime("2010-02-02", "%Y-%m-%m"))
+  expect_warning(x <- parse_datetime("2010-02-20", "%Y-%m-%m"))
   expect_equal(is.na(x), TRUE)
   expect_equal(n_problems(x), 1)
 })
@@ -79,6 +79,11 @@ test_that("ISO8601 partial dates are not parsed", {
   expect_equal(n_problems(parse_datetime("20")), 1)
   expect_equal(n_problems(parse_datetime("2001")), 1)
   expect_equal(n_problems(parse_datetime("2001-01")), 1)
+})
+
+test_that("Year only gets parsed", {
+  expect_equal(parse_datetime("2010", "%Y"), ISOdate(2010, 1, 1, 0, tz = "UTC"))
+  expect_equal(parse_datetime("2010-06", "%Y-%m"),ISOdate(2010, 6, 1, 0, tz = "UTC"))
 })
 
 test_that("%p detects AM/PM", {
