@@ -1,5 +1,8 @@
 # readr 0.2.2.9000
 
+* Fix bug when detecting column types for single row files without headers
+  (#333, @jimhester).
+
 * Fix bug in `read_fwf()`, it will now properly read a subset of columns.
   If the final column is ragged, supply an NA as the final end `fwf_positions`
   or final width `fwf_widths` position (#353,@ghaarsma).
@@ -23,8 +26,6 @@
 
 * `read_delim()` gains a `trim_ws` argument (#312, noamross)
 
-=======
->>>>>>> Updated and appended read_fwf tests and NEWS.md
 # readr 0.2.2
 
 * Fix bug when checking empty values for missingness (caused valgrind issue
