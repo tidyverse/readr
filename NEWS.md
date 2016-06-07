@@ -1,10 +1,18 @@
 # readr 0.2.2.9000
 
+* The flexible time parser now requires colons between hours and minutes and
+  optional seconds. (#424, @jimhester)
+
+* `collector_guess()` now guesses time formats as well (#384, @jimhester).
+
 * Fix bug when guessing type for numbers with a trailing character (#316,
+  @jimhester).
+
 * Export `collector_guess()` (#377, @jimhester).
 
 * Fix bug when parsing negative number returns a positive value (#308,
   @jimhester).
+
 * Fix bug in `parse_date()` constructing dates based on integer vectors rather
   than numeric vectors (#357, @jimhester).
 * Add `na` arguments to `parse_date()` `parse_time()` and `parse_datetime()`
