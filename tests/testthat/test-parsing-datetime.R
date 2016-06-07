@@ -124,7 +124,7 @@ test_that("%Z detects named time zones", {
 test_that("parse_date returns a double like as.Date()", {
   ref <- parse_date("2001-01-01")
 
-  expect_typeof(parse_datetime("2001-01-01"), "double")
+  expect_type(parse_datetime("2001-01-01"), "double")
 })
 
 test_that("parses NA/empty correctly", {
