@@ -1,6 +1,9 @@
 # readr 0.2.2.9000
 
 * Fix bug when guessing type for numbers with a trailing character (#316,
+* Export `collector_guess()` (#377, @jimhester).
+
+* Fix bug when parsing negative number returns a positive value (#308,
   @jimhester).
 
 * Fix bug when detecting column types for single row files without headers
