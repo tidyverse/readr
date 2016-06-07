@@ -1,7 +1,11 @@
 # readr 0.2.2.9000
 
+* Fix bug when guessing type for numbers with a trailing character (#316,
+  @jimhester).
+
 * Fix bug when detecting column types for single row files without headers
   (#333, @jimhester).
+
 * Fix bug in `collector_guess()`, single '-' or '.' are now parsed as
   characters rather than numeric (#297, @jimhester).
 

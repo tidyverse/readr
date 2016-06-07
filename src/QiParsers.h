@@ -108,7 +108,10 @@ inline bool parseNumber(char decimalMark, char groupingMark, Iterator& first,
   // Hit the end of the string, so must be done
   last = cur;
   res = sum;
-  return seenNumber;
+
+  // Only true if we saw a number and reached the end of the string without
+  // finishing the number
+  return seenNumber && state != STATE_FIN;
 }
 
 

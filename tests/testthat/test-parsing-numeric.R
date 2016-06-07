@@ -28,6 +28,11 @@ test_that("lone - or decimal marks are not numbers", {
   expect_equal(n_problems(parse_numeric(c(".", "-"))), 2)
 })
 
+test_that("Numbers with trailing characters are parsed as characters", {
+  expect_equal(collector_guess("13T"), "character")
+
+  expect_equal(collector_guess(collector_guess(c("13T","13T","10N"))), "character")
+})
 
 # Leading zeros -----------------------------------------------------------
 
