@@ -2,6 +2,8 @@
 
 * Fix bug when detecting column types for single row files without headers
   (#333, @jimhester).
+* Fix bug in `collector_guess()`, single '-' or '.' are now parsed as
+  characters rather than numeric (#297, @jimhester).
 
 * Fix bug in `read_fwf()`, it will now properly read a subset of columns.
   If the final column is ragged, supply an NA as the final end `fwf_positions`
