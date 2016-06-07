@@ -2,6 +2,8 @@
 
 * Fix bug when guessing type for numbers with a trailing character (#316,
   @jimhester).
+* Fix bug in `parse_date()` constructing dates based on integer vectors rather
+  than numeric vectors (#357, @jimhester).
 
 * Fix bug when detecting column types for single row files without headers
   (#333, @jimhester).

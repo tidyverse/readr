@@ -94,7 +94,7 @@ class CollectorDate : public Collector {
 
 public:
   CollectorDate(LocaleInfo* pLocale, const std::string& format):
-    Collector(Rcpp::IntegerVector()),
+    Collector(Rcpp::NumericVector()),
     format_(format),
     parser_(pLocale)
   {

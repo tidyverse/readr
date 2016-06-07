@@ -121,6 +121,12 @@ test_that("%Z detects named time zones", {
   )
 })
 
+test_that("parse_date returns a double like as.Date()", {
+  ref <- parse_date("2001-01-01")
+
+  expect_typeof(parse_datetime("2001-01-01"), "double")
+})
+
 # Locales -----------------------------------------------------------------
 
 test_that("locale affects months", {
@@ -212,4 +218,3 @@ test_that("must have either two - or none", {
   expect_equal(collector_guess("200010-10"), "character")
   expect_equal(collector_guess("20001010"), "integer")
 })
-
