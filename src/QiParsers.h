@@ -52,6 +52,7 @@ inline bool parseNumber(char decimalMark, char groupingMark, Iterator& first,
   double sum = 0, denom = 1;
   NumberState state = STATE_INIT;
   bool seenNumber = false;
+  double sign = 1.0;
 
   Iterator cur = first;
   for(; cur != last; ++cur) {
@@ -59,6 +60,7 @@ inline bool parseNumber(char decimalMark, char groupingMark, Iterator& first,
     case STATE_INIT:
       if (*cur == '-') {
         state = STATE_LHS;
+        sign = -1.0;
       } else if (*cur == decimalMark) {
         state = STATE_RHS;
       } else if (*cur >= '0' && *cur <= '9') {
@@ -100,14 +102,14 @@ inline bool parseNumber(char decimalMark, char groupingMark, Iterator& first,
       break;
     case STATE_FIN:
       last = cur++;
-      res = sum;
+      res = sign * sum;
       return seenNumber;
     }
   }
 
   // Hit the end of the string, so must be done
   last = cur;
-  res = sum;
+  res = sign * sum;
 
   // Only true if we saw a number and reached the end of the string without
   // finishing the number
