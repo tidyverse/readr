@@ -4,6 +4,16 @@ collector <- function(type, ...) {
 
 is.collector <- function(x) inherits(x, "collector")
 
+#' Guess the type of a vector.
+#'
+#' @param x Character vector of elements to guess.
+#' @inheritParams read_delim
+#' @keywords internal
+#' @export
+#' @examples
+#' collector_guess(c("1", "2", "3"))
+#' collector_guess(c("T", "F", "T"))
+#' collector_guess(c("a", "b", "c"))
 collector_guess <- function(x, locale = default_locale()) {
   collectorGuess(x, locale)
 }
