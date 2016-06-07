@@ -105,22 +105,22 @@ void CollectorDate::setValue(int i, const Token& t) {
 
     if (!res) {
       warn(t.row(), t.col(), "date like " +  format_, std_string);
-      INTEGER(column_)[i] = NA_INTEGER;
+      REAL(column_)[i] = NA_REAL;
       return;
     }
 
     DateTime dt = parser_.makeDate();
     if (!dt.validDate()) {
       warn(t.row(), t.col(), "valid date", std_string);
-      INTEGER(column_)[i] = NA_INTEGER;
+      REAL(column_)[i] = NA_REAL;
       return;
     }
-    INTEGER(column_)[i] = dt.date();
+    REAL(column_)[i] = dt.date();
     return;
   }
   case TOKEN_MISSING:
   case TOKEN_EMPTY:
-    INTEGER(column_)[i] = NA_INTEGER;
+    REAL(column_)[i] = NA_REAL;
     return;
   case TOKEN_EOF:
     Rcpp::stop("Invalid token");
