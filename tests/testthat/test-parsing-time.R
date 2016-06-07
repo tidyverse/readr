@@ -15,4 +15,7 @@ test_that("parses NA/empty correctly", {
   out <- parse_time(c("NA", ""))
   exp <- structure(c(NA_real_, NA_real_), class = "time")
   expect_equal(out, exp)
+
+  expect_equal(parse_time("TeSt", na = "TeSt"),
+    structure(NA_real_, class = "time"))
 })

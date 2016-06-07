@@ -36,6 +36,7 @@ collector_find <- function(name) {
 #' @param x Character vector of elements to parse.
 #' @param collector Column specification.
 #' @inheritParams read_delim
+#' @inheritParams tokenizer_delim
 #' @keywords internal
 #' @export
 #' @examples
@@ -266,6 +267,7 @@ col_guess <- function() {
 #'   Unlike \code{\link{strptime}}, the format specification must match
 #'   the complete string.
 #' @inheritParams read_delim
+#' @inheritParams tokenizer_delim
 #' @return A \code{\link{POSIXct}} vector with \code{tzone} attribute set to
 #'   \code{tz}. Elements that could not be parsed (or did not generate valid
 #'   dates) will bes set to \code{NA}, and a warning message will inform
@@ -330,8 +332,8 @@ col_guess <- function() {
 #' parse_datetime("1979-10-14T1010Z", locale = us_central)
 #' # Your current time zone
 #' parse_datetime("1979-10-14T1010", locale = locale(tz = ""))
-parse_datetime <- function(x, format = "", locale = default_locale()) {
-  parse_vector(x, col_datetime(format), locale = locale)
+parse_datetime <- function(x, format = "", na = c("", "NA"), locale = default_locale()) {
+  parse_vector(x, col_datetime(format), na = na, locale = locale)
 }
 
 #' @rdname parse_datetime
@@ -342,8 +344,8 @@ col_datetime <- function(format = "") {
 
 #' @rdname parse_datetime
 #' @export
-parse_date <- function(x, format = "%Y-%m-%d", locale = default_locale()) {
-  parse_vector(x, col_date(format), locale = locale)
+parse_date <- function(x, format = "%Y-%m-%d", na = c("", "NA"), locale = default_locale()) {
+  parse_vector(x, col_date(format), na = na, locale = locale)
 }
 
 #' @rdname parse_datetime
@@ -354,8 +356,8 @@ col_date <- function(format = NULL) {
 
 #' @rdname parse_datetime
 #' @export
-parse_time <- function(x, format = "", locale = default_locale()) {
-  parse_vector(x, col_time(format), locale = locale)
+parse_time <- function(x, format = "", na = c("", "NA"), locale = default_locale()) {
+  parse_vector(x, col_time(format), na = na, locale = locale)
 }
 
 #' @rdname parse_datetime

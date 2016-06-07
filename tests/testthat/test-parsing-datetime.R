@@ -127,6 +127,17 @@ test_that("parse_date returns a double like as.Date()", {
   expect_typeof(parse_datetime("2001-01-01"), "double")
 })
 
+test_that("parses NA/empty correctly", {
+  expect_equal(parse_datetime(""), POSIXct(NA_real_))
+  expect_equal(parse_date(""), as.Date(NA))
+
+  expect_equal(parse_datetime("NA"), POSIXct(NA_real_))
+  expect_equal(parse_date("NA"), as.Date(NA))
+
+  expect_equal(parse_datetime("TeSt", na = "TeSt"), POSIXct(NA_real_))
+  expect_equal(parse_date("TeSt", na = "TeSt"), as.Date(NA))
+})
+
 # Locales -----------------------------------------------------------------
 
 test_that("locale affects months", {
