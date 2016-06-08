@@ -208,7 +208,7 @@ class CollectorTime : public Collector {
 
 public:
   CollectorTime(LocaleInfo* pLocale, const std::string& format):
-    Collector(Rcpp::IntegerVector()),
+    Collector(Rcpp::NumericVector()),
     format_(format),
     parser_(pLocale)
   {
@@ -217,7 +217,8 @@ public:
   void setValue(int i, const Token& t);
 
   Rcpp::RObject vector() {
-    column_.attr("class") = "time";
+    column_.attr("class") = Rcpp::CharacterVector::create("hms", "difftime");
+    column_.attr("units") = "secs";
     return column_;
   };
 

@@ -1,4 +1,6 @@
 # readr 0.2.2.9000
+* time objects returned by `parse_time()` are now `hms` objects rather than a
+  custom `time` class (#409, @jimhester).
 
 * The flexible time parser now requires colons between hours and minutes and
   optional seconds. (#424, @jimhester)

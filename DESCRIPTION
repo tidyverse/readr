@@ -15,7 +15,8 @@ LinkingTo: Rcpp,
 Imports:
     Rcpp (>= 0.11.5),
     curl,
-    tibble
+    tibble,
+    hms
 Suggests:
     testthat,
     knitr,
