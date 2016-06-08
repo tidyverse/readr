@@ -75,3 +75,11 @@ test_that("read_tsv passes on decimal_mark", {
   out <- read_tsv("x\n1,5", locale = es_MX)
   expect_equal(out$x, 1.5)
 })
+
+# Negative numbers -----------------------------------------------------------
+
+test_that("negative numbers return negative values", {
+  expect_equal(parse_number("-2"), -2)
+
+  expect_equal(parse_number("-100,000.00"), -100000)
+})

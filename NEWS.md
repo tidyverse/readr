@@ -9,6 +9,8 @@
   than numeric vectors (#357, @jimhester).
 * Add `na` arguments to `parse_date()` `parse_time()` and `parse_datetime()`
   (#413, @jimhester).
+* Fix bug when parsing negative number returns a positive value (#308,
+  @jimhester).
 
 * Fix bug when detecting column types for single row files without headers
   (#333, @jimhester).
