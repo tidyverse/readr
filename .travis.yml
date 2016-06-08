@@ -4,5 +4,9 @@ language: R
 sudo: false
 cache: packages
 
+env:
+  global:
+    - MAKEFLAGS="-j 2"
+
 after_success:
   - Rscript -e 'covr::codecov()'
