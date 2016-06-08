@@ -1,5 +1,8 @@
 # readr 0.2.2.9000
 
+* parse_datetime()` and `parse_time()` now support `%I` for 12 hour time
+  format (#340, @jimhester).
+
 * The flexible time parser now requires colons between hours and minutes and
   optional seconds. (#424, @jimhester)
 

@@ -87,10 +87,23 @@ test_that("Year only gets parsed", {
 })
 
 test_that("%p detects AM/PM", {
-  am <- parse_datetime(c("2015-01-01 01:00 AM", "2015-01-01 01:00 am"), "%F %R %p")
-  pm <- parse_datetime(c("2015-01-01 01:00 PM", "2015-01-01 01:00 pm"), "%F %R %p")
+  am <- parse_datetime(c("2015-01-01 01:00 AM", "2015-01-01 01:00 am"), "%F %I:%M %p")
+  pm <- parse_datetime(c("2015-01-01 01:00 PM", "2015-01-01 01:00 pm"), "%F %I:%M %p")
 
   expect_equal(pm, am + 12 * 3600)
+
+  expect_equal(parse_datetime("12/31/1991 12:01 AM", "%m/%d/%Y %I:%M %p"),
+    POSIXct(694137660, "UTC"))
+
+  expect_equal(parse_datetime("12/31/1991 12:01 PM", "%m/%d/%Y %I:%M %p"),
+    POSIXct(694180860, "UTC"))
+
+  expect_equal(parse_datetime("12/31/1991 1:01 AM", "%m/%d/%Y %I:%M %p"),
+    POSIXct(694141260, "UTC"))
+
+  expect_warning(x <- parse_datetime(c("12/31/1991 00:01 PM", "12/31/1991 13:01 PM"),
+      "%m/%d/%Y %I:%M %p"))
+  expect_equal(n_problems(x), 2)
 })
 
 test_that("%b and %B are case insensitve", {
