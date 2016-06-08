@@ -341,22 +341,22 @@ void CollectorTime::setValue(int i, const Token& t) {
 
     if (!res) {
       warn(t.row(), t.col(), "time like " +  format_, std_string);
-      INTEGER(column_)[i] = NA_INTEGER;
+      REAL(column_)[i] = NA_REAL;
       return;
     }
 
     DateTime dt = parser_.makeTime();
     if (!dt.validTime()) {
       warn(t.row(), t.col(), "valid date", std_string);
-      INTEGER(column_)[i] = NA_INTEGER;
+      REAL(column_)[i] = NA_REAL;
       return;
     }
-    INTEGER(column_)[i] = dt.time();
+    REAL(column_)[i] = dt.time();
     return;
   }
   case TOKEN_MISSING:
   case TOKEN_EMPTY:
-    INTEGER(column_)[i] = NA_INTEGER;
+    REAL(column_)[i] = NA_REAL;
     return;
   case TOKEN_EOF:
     Rcpp::stop("Invalid token");
