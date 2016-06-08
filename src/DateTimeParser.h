@@ -81,7 +81,8 @@ public:
   bool parseTime() {
     if (!consumeInteger(2, &hour_))
       return false;
-    consumeThisChar(':');
+    if (!consumeThisChar(':'))
+      return false;
     if (!consumeInteger(2, &min_))
       return false;
     consumeThisChar(':');
