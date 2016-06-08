@@ -3,7 +3,8 @@
   custom `time` class (#409, @jimhester).
 
 * The flexible time parser now requires colons between hours and minutes and
-  optional seconds. (#424, @jimhester)
+  optional seconds. You can explicitly parse without colons by specifying the
+  column type like `col_time("%H%M")` (#424, @jimhester).
 
 * `collector_guess()` now guesses time formats as well (#384, @jimhester).
 
