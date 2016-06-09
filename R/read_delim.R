@@ -153,6 +153,9 @@ read_delimited <- function(file, tokenizer, col_names = TRUE, col_types = NULL,
   if (is.connection(file)) {
     data <- read_connection(file)
   } else {
+    if (empty_file(file)) {
+       return(tibble::data_frame())
+    }
     data <- file
   }
 

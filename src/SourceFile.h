@@ -22,7 +22,7 @@ public:
       mr_ = boost::interprocess::mapped_region(fm_,
         boost::interprocess::read_only);
     } catch(boost::interprocess::interprocess_exception& e) {
-      Rcpp::stop("Cannot read file %s", path) ;
+      Rcpp::stop("Cannot read file %s: %s", path, e.what());
     }
 
     begin_ = static_cast<char*>(mr_.get_address());

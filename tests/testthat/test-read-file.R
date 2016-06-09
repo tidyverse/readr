@@ -56,3 +56,7 @@ test_that("read_file works via https on gz file", {
   url <- "https://raw.githubusercontent.com/hadley/readr/master/tests/testthat/eol-cr.txt.gz"
   expect_equal(read_file(url), eol_cr_text)
 })
+
+test_that("read_file returns \"\" on an empty file", {
+   expect_equal(read_file("empty-file"), "")
+})
