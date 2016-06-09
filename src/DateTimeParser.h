@@ -116,7 +116,7 @@ public:
         continue;
       }
 
-      // Any other characters much much exactly.
+      // Any other characters must much exactly.
       if (*formatItr != '%') {
         if (!consumeThisChar(*formatItr))
           return false;
@@ -160,6 +160,14 @@ public:
       case 'H': // hour
         if (!consumeInteger(2, &hour_))
           return false;
+        break;
+      case 'I': // hour
+        if (!consumeInteger(2, &hour_))
+          return false;
+        if (hour_ < 1 || hour_ > 12) {
+          return false;
+        }
+        hour_ %= 12;
         break;
       case 'M': // minute
         if (!consumeInteger(2, &min_))
