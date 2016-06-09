@@ -1,4 +1,8 @@
 # readr 0.2.2.9000
+
+* Negative column widths are now allowed in `fwf_widths()` to facilitate
+  compatibility with the `widths` argument in `read.fwf()`. (#380, @leeper)
+
 * time objects returned by `parse_time()` are now `hms` objects rather than a
   custom `time` class (#409, @jimhester).
 
