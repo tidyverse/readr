@@ -39,6 +39,9 @@ CollectorPtr Collector::create(List spec, LocaleInfo* pLocale) {
     bool ordered = as<bool>(spec["ordered"]);
     return CollectorPtr(new CollectorFactor(levels, ordered));
   }
+  if (subclass == "collector_deparsed") {
+    return CollectorPtr(new CollectorDeparsed());
+  }
 
   Rcpp::stop("Unsupported column type");
   return CollectorPtr(new CollectorSkip());
@@ -362,4 +365,37 @@ void CollectorTime::setValue(int i, const Token& t) {
     Rcpp::stop("Invalid token");
   }
 
+}
+
+void CollectorDeparsed::setValue(int i, const Token& t) {
+  switch(t.type()) {
+  case TOKEN_STRING: {
+    boost::container::string buffer;
+    SourceIterators string = t.getString(&buffer);
+    std::string std_string(string.first, string.second);
+    RObject ans = R_NilValue;
+
+    ParseStatus status;
+
+    CharacterVector c(std_string);
+    ExpressionVector r = R_ParseVector(c, -1, &status, R_NilValue);
+    if (status == PARSE_OK) {
+      for(R_len_t i = 0; i < Rf_length(r); i++) {
+        ans = Rf_eval(VECTOR_ELT(r, i), R_GlobalEnv);
+      }
+
+      SET_VECTOR_ELT(column_, i, ans);
+    } else {
+      // parse error
+      Rcpp::stop("Invalid expression %s", c);
+    }
+    return;
+  }
+  case TOKEN_MISSING:
+  case TOKEN_EMPTY:
+    SET_VECTOR_ELT(column_, i, R_NilValue);
+    return;
+  case TOKEN_EOF:
+    Rcpp::stop("Invalid token");
+  }
 }

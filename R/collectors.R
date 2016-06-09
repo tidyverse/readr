@@ -68,6 +68,7 @@ parse_vector <- function(x, collector, na = c("", "NA"), locale = default_locale
 #' parse_double(c("1", "2", "3.123"))
 #' parse_factor(c("a", "b"), letters)
 #' parse_number("$1,123,456.00")
+#' parse_deparsed(c("c(1, 2, 3)", paste(collapse = "", deparse(head(iris)))))
 #'
 #' # Use locale to override default decimal and grouping marks
 #' es_MX <- locale("es", decimal_mark = ",")
@@ -364,4 +365,16 @@ parse_time <- function(x, format = "", na = c("", "NA"), locale = default_locale
 #' @export
 col_time <- function(format = "") {
   collector("time", format = format)
+}
+
+#' @rdname collector
+#' @export
+col_deparsed <- function() {
+  collector("deparsed")
+}
+
+#' @rdname collector
+#' @export
+parse_deparsed <- function(x, na = c("", "NA"), locale = default_locale()) {
+  parse_vector_(x, col_deparsed(), na = na, locale = locale)
 }
