@@ -21,11 +21,8 @@ type_convert(df, col_types = NULL, na = c("", "NA"), trim_ws = TRUE,
   one "\code{\link{collector}}" for each column. If you only want to read a
   subset of the columns, use \code{\link{cols_only}}.
 
-  Alternatively, you can use a compact string representation where each
-  character represents one column:
-  c = character, i = integer, n = number, d = double,
-  l = logical, D = date, T = date time, t = time, ? = guess, or
-  \code{_}/\code{-} to skip the column.}
+  Unlike other functions \code{type_convert} does not allow character
+  specificatinos of \code{col_types}.}
 
 \item{na}{Character vector of strings to use for missing values. Set this
 option to \code{character()} to indicate no missing values.}

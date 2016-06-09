@@ -9,6 +9,8 @@
 
 * Negative column widths are now allowed in `fwf_widths()` to facilitate
   compatibility with the `widths` argument in `read.fwf()`. (#380, @leeper)
+* `type_covert()` now accepts only `NULL` or a `cols` specification for
+  `col_types` (#369, @jimhester).
 
 * time objects returned by `parse_time()` are now `hms` objects rather than a
   custom `time` class (#409, @jimhester).
