@@ -69,7 +69,7 @@ fwf_empty <- function(file, skip = 0, col_names = NULL) {
 #'    reading a ragged fwf file.
 #' @param col_names Either NULL, or a character vector column names.
 fwf_widths <- function(widths, col_names = NULL) {
-  pos <- cumsum(c(1, widths))
+  pos <- cumsum(c(1, abs(widths)))
 
   fwf_positions(pos[-length(pos)], pos[-1] - 1, col_names)
 }
