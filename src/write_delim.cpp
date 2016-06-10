@@ -1,6 +1,7 @@
 #include <Rcpp.h>
 using namespace Rcpp;
 #include <fstream>
+#include "grisu3.h"
 
 // Defined later to make copyright clearer
 template <class Stream>
@@ -143,7 +144,9 @@ void stream_delim(Stream& output, const RObject& x, int i, char delim, const std
         output << "-Inf";
       }
     } else {
-      output << value;
+      char str[32];
+      int len = dtoa_grisu3(value, str);
+      output << str;
     }
     break;
   }
