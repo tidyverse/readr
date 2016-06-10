@@ -210,12 +210,12 @@ BEGIN_RCPP
 END_RCPP
 }
 // stream_delim
-std::string stream_delim(List df, const std::string& path, char delim, const std::string& na, bool col_names, bool append);
+std::string stream_delim(const List& df, const std::string& path, char delim, const std::string& na, bool col_names, bool append);
 RcppExport SEXP readr_stream_delim(SEXP dfSEXP, SEXP pathSEXP, SEXP delimSEXP, SEXP naSEXP, SEXP col_namesSEXP, SEXP appendSEXP) {
 BEGIN_RCPP
     Rcpp::RObject __result;
     Rcpp::RNGScope __rngScope;
-    Rcpp::traits::input_parameter< List >::type df(dfSEXP);
+    Rcpp::traits::input_parameter< const List& >::type df(dfSEXP);
     Rcpp::traits::input_parameter< const std::string& >::type path(pathSEXP);
     Rcpp::traits::input_parameter< char >::type delim(delimSEXP);
     Rcpp::traits::input_parameter< const std::string& >::type na(naSEXP);

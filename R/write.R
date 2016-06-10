@@ -103,7 +103,7 @@ output_column.default <- function(x) {
 
 #' @export
 output_column.double <- function(x) {
-  as.character(x)
+  x
 }
 
 #' @export
