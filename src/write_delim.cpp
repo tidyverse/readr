@@ -146,7 +146,7 @@ void stream_delim(Stream& output, const RObject& x, int i, char delim, const std
     } else {
       char str[32];
       int len = dtoa_grisu3(value, str);
-      output << str;
+      output.write(str, len);
     }
     break;
   }
