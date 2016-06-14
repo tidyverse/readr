@@ -29,10 +29,10 @@ CharacterVector read_lines_(List sourceSpec, List locale_, int n_max = -1,
   LocaleInfo locale(locale_);
   Progress progressBar;
 
-  int n = (n_max < 0) ? 10000 : n_max;
+  R_len_t n = (n_max < 0) ? 10000 : n_max;
   CharacterVector out(n);
 
-  int i = 0;
+  R_len_t i = 0;
   for (Token t = tokenizer.nextToken(); t.type() != TOKEN_EOF; t = tokenizer.nextToken()) {
     if (progress && (i + 1) % 25000 == 0)
       progressBar.show(tokenizer.progress());
@@ -41,7 +41,7 @@ CharacterVector read_lines_(List sourceSpec, List locale_, int n_max = -1,
       if (n_max < 0) {
         // Estimate rows in full dataset
         n = (i / tokenizer.progress().first) * 1.2;
-        out = Rf_lengthgets(out, n);
+        out = Rf_xlengthgets(out, n);
       } else {
         break;
       }
@@ -54,7 +54,7 @@ CharacterVector read_lines_(List sourceSpec, List locale_, int n_max = -1,
   }
 
   if (i < n) {
-    out = Rf_lengthgets(out, i);
+    out = Rf_xlengthgets(out, i);
   }
 
   if (progress)
@@ -72,10 +72,10 @@ List read_lines_raw_(List sourceSpec, int n_max = -1, bool progress = false) {
   tokenizer.tokenize(source->begin(), source->end());
   Progress progressBar;
 
-  int n = (n_max < 0) ? 10000 : n_max;
+  R_len_t n = (n_max < 0) ? 10000 : n_max;
   List out(n);
 
-  int i = 0;
+  R_len_t i = 0;
   for (Token t = tokenizer.nextToken(); t.type() != TOKEN_EOF; t = tokenizer.nextToken()) {
     if (progress && (i + 1) % 25000 == 0)
       progressBar.show(tokenizer.progress());
@@ -84,7 +84,7 @@ List read_lines_raw_(List sourceSpec, int n_max = -1, bool progress = false) {
       if (n_max < 0) {
         // Estimate rows in full dataset
         n = (i / tokenizer.progress().first) * 1.2;
-        out = Rf_lengthgets(out, n);
+        out = Rf_xlengthgets(out, n);
       } else {
         break;
       }
@@ -97,7 +97,7 @@ List read_lines_raw_(List sourceSpec, int n_max = -1, bool progress = false) {
   }
 
   if (i < n) {
-    out = Rf_lengthgets(out, i);
+    out = Rf_xlengthgets(out, i);
   }
 
   if (progress)

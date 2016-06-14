@@ -14,7 +14,7 @@ public:
       x_(x)
   {
     begin_ = (const char*) RAW(x);
-    end_ = (const char*) RAW(x) + Rf_length(x);
+    end_ = (const char*) RAW(x) + Rf_xlength(x);
 
     // Skip lines, if needed
     begin_ = skipLines(begin_, end_, skip, comment);
