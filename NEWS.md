@@ -1,5 +1,12 @@
 # readr 0.2.2.9000
 
+* Printing of double values now uses an
+  [implementation](https://github.com/juj/MathGeoLib/blob/master/src/Math/grisu3.c)
+  of the [grisu3
+  algorithm](http://www.cs.tufts.edu/~nr/cs257/archive/florian-loitsch/printf.pdf)
+  which speeds up writing of large numeric data frames by ~10X. (#432,
+  @jimhester)
+
 * Negative column widths are now allowed in `fwf_widths()` to facilitate
   compatibility with the `widths` argument in `read.fwf()`. (#380, @leeper)
 
