@@ -11,3 +11,7 @@ test_that("requires data.frame input", {
   not_df <- matrix(letters[1:4], nrow = 2)
   expect_error(type_convert(not_df), "is.data.frame")
 })
+
+test_that("character specifications of col_types not allowed", {
+  expect_error(type_convert(mtcars, col_types = "dididddiiii"), "must be `NULL` or a `cols` specification")
+})
