@@ -11,6 +11,9 @@ parse_vector(x, collector, na = c("", "NA"), locale = default_locale())
 
 \item{collector}{Column specification.}
 
+\item{na}{Character vector of strings to use for missing values. Set this
+option to \code{character()} to indicate no missing values.}
+
 \item{locale}{The locale controls defaults that vary from place to place.
 The default locale is US-centric (like R), but you can use
 \code{\link{locale}} to create your own locale that controls things like

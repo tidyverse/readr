@@ -9,8 +9,8 @@
 \usage{
 read_delim(file, delim, quote = "\\"", escape_backslash = FALSE,
   escape_double = TRUE, col_names = TRUE, col_types = NULL,
-  locale = default_locale(), na = c("", "NA"), comment = "", skip = 0,
-  n_max = -1, progress = interactive())
+  locale = default_locale(), na = c("", "NA"), comment = "",
+  trim_ws = FALSE, skip = 0, n_max = -1, progress = interactive())
 
 read_csv(file, col_names = TRUE, col_types = NULL,
   locale = default_locale(), na = c("", "NA"), comment = "",
@@ -90,6 +90,9 @@ option to \code{character()} to indicate no missing values.}
 \item{comment}{A string used to identify comments. Any text after the
 comment characters will be silently ignored.}
 
+\item{trim_ws}{Should leading and trailing whitespace be trimmed from
+each field before parsing it?}
+
 \item{skip}{Number of lines to skip before reading data.}
 
 \item{n_max}{Maximum number of records to read.}
@@ -97,9 +100,6 @@ comment characters will be silently ignored.}
 \item{progress}{Display a progress bar? By default it will only display
 in an interactive session. The display is updated every 50,000 values
 and will only display if estimated reading time is 5 seconds or more.}
-
-\item{trim_ws}{Should leading and trailing whitespace be trimmed from
-each field before parsing it?}
 }
 \value{
 A data frame. If there are parsing problems, a warning tells you

@@ -4,6 +4,16 @@ collector <- function(type, ...) {
 
 is.collector <- function(x) inherits(x, "collector")
 
+#' Guess the type of a vector.
+#'
+#' @param x Character vector of elements to guess.
+#' @inheritParams read_delim
+#' @keywords internal
+#' @export
+#' @examples
+#' collector_guess(c("1", "2", "3"))
+#' collector_guess(c("T", "F", "T"))
+#' collector_guess(c("a", "b", "c"))
 collector_guess <- function(x, locale = default_locale()) {
   collectorGuess(x, locale)
 }
@@ -26,6 +36,7 @@ collector_find <- function(name) {
 #' @param x Character vector of elements to parse.
 #' @param collector Column specification.
 #' @inheritParams read_delim
+#' @inheritParams tokenizer_delim
 #' @keywords internal
 #' @export
 #' @examples
@@ -204,7 +215,8 @@ col_guess <- function() {
 #' \enumerate{
 #'   \item Date components are specified with "\%" followed by a letter.
 #'     For example "\%Y" matches a 4 digit year, "\%m", matches a 2 digit
-#'     month and "\%d" matches a 2 digit day.
+#'     month and "\%d" matches a 2 digit day. Month and day default to \code{1},
+#'     (i.e. Jan 1st) if not present, for example if only a year is given.
 #'   \item Whitespace is any sequence of zero or more whitespace characters.
 #'   \item Any other character is matched exactly.
 #' }
@@ -255,6 +267,7 @@ col_guess <- function() {
 #'   Unlike \code{\link{strptime}}, the format specification must match
 #'   the complete string.
 #' @inheritParams read_delim
+#' @inheritParams tokenizer_delim
 #' @return A \code{\link{POSIXct}} vector with \code{tzone} attribute set to
 #'   \code{tz}. Elements that could not be parsed (or did not generate valid
 #'   dates) will bes set to \code{NA}, and a warning message will inform
@@ -319,8 +332,8 @@ col_guess <- function() {
 #' parse_datetime("1979-10-14T1010Z", locale = us_central)
 #' # Your current time zone
 #' parse_datetime("1979-10-14T1010", locale = locale(tz = ""))
-parse_datetime <- function(x, format = "", locale = default_locale()) {
-  parse_vector(x, col_datetime(format), locale = locale)
+parse_datetime <- function(x, format = "", na = c("", "NA"), locale = default_locale()) {
+  parse_vector(x, col_datetime(format), na = na, locale = locale)
 }
 
 #' @rdname parse_datetime
@@ -331,8 +344,8 @@ col_datetime <- function(format = "") {
 
 #' @rdname parse_datetime
 #' @export
-parse_date <- function(x, format = "%Y-%m-%d", locale = default_locale()) {
-  parse_vector(x, col_date(format), locale = locale)
+parse_date <- function(x, format = "%Y-%m-%d", na = c("", "NA"), locale = default_locale()) {
+  parse_vector(x, col_date(format), na = na, locale = locale)
 }
 
 #' @rdname parse_datetime
@@ -343,8 +356,8 @@ col_date <- function(format = NULL) {
 
 #' @rdname parse_datetime
 #' @export
-parse_time <- function(x, format = "", locale = default_locale()) {
-  parse_vector(x, col_time(format), locale = locale)
+parse_time <- function(x, format = "", na = c("", "NA"), locale = default_locale()) {
+  parse_vector(x, col_time(format), na = na, locale = locale)
 }
 
 #' @rdname parse_datetime

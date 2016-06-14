@@ -1,20 +1,22 @@
 #include <Rcpp.h>
 using namespace Rcpp;
 #include <fstream>
+#include "grisu3.h"
 
 // Defined later to make copyright clearer
 template <class Stream>
-void stream_delim(Stream& output, Rcpp::RObject x, int i, char delim, const std::string& na);
+void stream_delim(Stream& output, const RObject& x, int i, char delim, const std::string& na);
 
 template <class Stream>
-void stream_delim_row(Stream& output, Rcpp::List x, int i, char delim, const std::string& na) {
+void stream_delim_row(Stream& output, const Rcpp::List& x, int i, char delim, const std::string& na) {
   int p = Rf_length(x);
 
-  for (int j = 0; j < p; ++j) {
-    stream_delim(output, x[j], i, delim, na);
-    if (j != p - 1)
-      output << delim;
+  for (int j = 0; j < p - 1; ++j) {
+    stream_delim(output, x.at(j), i, delim, na);
+    output << delim;
   }
+  stream_delim(output, x.at(p - 1), i, delim, na);
+
   output << '\n';
 }
 
@@ -52,7 +54,7 @@ void stream_delim(Stream& output, const char* string, char delim, const std::str
 }
 
 template <class Stream>
-void stream_delim(Stream& output, List df, char delim, const std::string& na,
+void stream_delim(Stream& output, const List& df, char delim, const std::string& na,
                   bool col_names = true, bool append = false) {
   int p = Rf_length(df);
   if (p == 0)
@@ -77,11 +79,17 @@ void stream_delim(Stream& output, List df, char delim, const std::string& na,
 }
 
 // [[Rcpp::export]]
-std::string stream_delim(List df, const std::string& path, char delim, const std::string& na,
+std::string stream_delim(const List& df, const std::string& path, char delim, const std::string& na,
                          bool col_names = true, bool append = false) {
+
+  // From the max_digits10 proposal http://www2.open-std.org/JTC1/SC22/WG21/docs/papers/2005/n1822.pdf
+  // This will be 17 for IEEE doubles
+  const int digits = 2 + std::numeric_limits<double>::digits * 3010/10000;
+
   if (path == "") {
     std::ostringstream output;
-    output.precision(17);
+
+    output.precision(digits);
     stream_delim(output, df, delim, na, col_names, append);
     return output.str();
   } else {
@@ -89,7 +97,7 @@ std::string stream_delim(List df, const std::string& path, char delim, const std
     if (output.fail()) {
       stop("Failed to open '%s'.", path);
     }
-    output.precision(17);
+    output.precision(digits);
     stream_delim(output, df, delim, na, col_names, append);
     return "";
   }
@@ -101,7 +109,7 @@ std::string stream_delim(List df, const std::string& path, char delim, const std
 // License: GPL-2
 
 template <class Stream>
-void stream_delim(Stream& output, RObject x, int i, char delim, const std::string& na) {
+void stream_delim(Stream& output, const RObject& x, int i, char delim, const std::string& na) {
   switch (TYPEOF(x)) {
   case LGLSXP: {
     int value = LOGICAL(x)[i];
@@ -136,13 +144,14 @@ void stream_delim(Stream& output, RObject x, int i, char delim, const std::strin
         output << "-Inf";
       }
     } else {
-      output << value;
+      char str[32];
+      int len = dtoa_grisu3(value, str);
+      output.write(str, len);
     }
     break;
   }
   case STRSXP: {
-    RObject value = STRING_ELT(x, i);
-    if (value == NA_STRING) {
+    if (STRING_ELT(x, i) == NA_STRING) {
       output << na;
     } else {
       stream_delim(output, Rf_translateCharUTF8(STRING_ELT(x, i)), delim, na);

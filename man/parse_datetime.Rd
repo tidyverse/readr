@@ -9,15 +9,17 @@
 \alias{parse_time}
 \title{Parse a character vector of dates or date times.}
 \usage{
-parse_datetime(x, format = "", locale = default_locale())
+parse_datetime(x, format = "", na = c("", "NA"),
+  locale = default_locale())
 
 col_datetime(format = "")
 
-parse_date(x, format = "\%Y-\%m-\%d", locale = default_locale())
+parse_date(x, format = "\%Y-\%m-\%d", na = c("", "NA"),
+  locale = default_locale())
 
 col_date(format = NULL)
 
-parse_time(x, format = "", locale = default_locale())
+parse_time(x, format = "", na = c("", "NA"), locale = default_locale())
 
 col_time(format = "")
 }
@@ -31,6 +33,9 @@ col_time(format = "")
 
   Unlike \code{\link{strptime}}, the format specification must match
   the complete string.}
+
+\item{na}{Character vector of strings to use for missing values. Set this
+option to \code{character()} to indicate no missing values.}
 
 \item{locale}{The locale controls defaults that vary from place to place.
 The default locale is US-centric (like R), but you can use
@@ -55,7 +60,8 @@ There are three types of element:
 \enumerate{
   \item Date components are specified with "\%" followed by a letter.
     For example "\%Y" matches a 4 digit year, "\%m", matches a 2 digit
-    month and "\%d" matches a 2 digit day.
+    month and "\%d" matches a 2 digit day. Month and day default to \code{1},
+    (i.e. Jan 1st) if not present, for example if only a year is given.
   \item Whitespace is any sequence of zero or more whitespace characters.
   \item Any other character is matched exactly.
 }

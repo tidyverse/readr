@@ -31,8 +31,8 @@ fwf_positions(start, end, col_names = NULL)
 
 \item{col_positions}{Column positions, as created by \code{fwf_empty},
 \code{fwf_widths} or \code{fwf_positions}. To read in only selected fields,
-use \code{fwf_positions}. The width of the last column will be silently
-extended to the next line break.}
+use \code{fwf_positions}. If the width of the last column is variable (a
+ragged fwf file), supply the last end position as NA.}
 
 \item{col_types}{One of \code{NULL}, a \code{\link{cols}} specification, or
   a string. See \code{vignette("column-types")} for more details.
@@ -70,9 +70,11 @@ and will only display if estimated reading time is 5 seconds or more.}
 
 \item{col_names}{Either NULL, or a character vector column names.}
 
-\item{widths}{Width of each field.}
+\item{widths}{Width of each field. Use NA as width of last field when
+reading a ragged fwf file.}
 
-\item{start, end}{Starting and ending (inclusive) positions of each field.}
+\item{start, end}{Starting and ending (inclusive) positions of each field.
+Use NA as last end field when reading a ragged fwf file.}
 }
 \description{
 A fixed width file can be a very compact representation of numeric data.

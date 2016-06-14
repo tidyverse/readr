@@ -1,5 +1,56 @@
 # readr 0.2.2.9000
 
+* Printing of double values now uses an
+  [implementation](https://github.com/juj/MathGeoLib/blob/master/src/Math/grisu3.c)
+  of the [grisu3
+  algorithm](http://www.cs.tufts.edu/~nr/cs257/archive/florian-loitsch/printf.pdf)
+  which speeds up writing of large numeric data frames by ~10X. (#432,
+  @jimhester)
+
+* Negative column widths are now allowed in `fwf_widths()` to facilitate
+  compatibility with the `widths` argument in `read.fwf()`. (#380, @leeper)
+* `type_covert()` now accepts only `NULL` or a `cols` specification for
+  `col_types` (#369, @jimhester).
+* `read_file()`, `read_lines()` and `read_csv()` now return empty objects
+  rather than signaling an error when run on an empty file (#356, @jimhester).
+
+* time objects returned by `parse_time()` are now `hms` objects rather than a
+  custom `time` class (#409, @jimhester).
+
+* parse_datetime()` and `parse_time()` now support `%I` for 12 hour time
+  format (#340, @jimhester).
+
+* The flexible time parser now requires colons between hours and minutes and
+  optional seconds. You can explicitly parse without colons by specifying the
+  column type like `col_time("%H%M")` (#424, @jimhester).
+
+* `collector_guess()` now guesses time formats as well (#384, @jimhester).
+
+* Fix bug when guessing type for numbers with a trailing character (#316,
+  @jimhester).
+
+* Export `collector_guess()` (#377, @jimhester).
+
+* Fix bug when parsing negative number returns a positive value (#308,
+  @jimhester).
+
+* Fix bug in `parse_date()` constructing dates based on integer vectors rather
+  than numeric vectors (#357, @jimhester).
+* Add `na` arguments to `parse_date()` `parse_time()` and `parse_datetime()`
+  (#413, @jimhester).
+* Fix bug when parsing negative number returns a positive value (#308,
+  @jimhester).
+
+* Fix bug when detecting column types for single row files without headers
+  (#333, @jimhester).
+
+* Fix bug in `collector_guess()`, single '-' or '.' are now parsed as
+  characters rather than numeric (#297, @jimhester).
+
+* Fix bug in `read_fwf()`, it will now properly read a subset of columns.
+  If the final column is ragged, supply an NA as the final end `fwf_positions`
+  or final width `fwf_widths` position (#353,@ghaarsma).
+
 * readr now imports tibble so that you get consistent `tbl_df` behaviour 
   (#317, #385).
 
@@ -12,8 +63,12 @@
 
 * Quick hack to return something instead of NA for missing column names
   (#318)
+  
+* Add support for parsing years with col_date("%Y") or col_datetime("%Y") 
 
 * `parse_logical()` now accepts `0`, `1` as well as lowercase `t`, `f`, `true`, `false`. 
+
+* `read_delim()` gains a `trim_ws` argument (#312, noamross)
 
 # readr 0.2.2
 

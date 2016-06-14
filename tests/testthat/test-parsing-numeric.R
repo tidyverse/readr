@@ -1,4 +1,5 @@
 context("Parsing, numeric")
+es_MX <- locale("es", decimal_mark = ",")
 
 test_that("non-numeric integer/double matches fail", {
   expect_equal(n_problems(parse_double("d")), 1)
@@ -19,6 +20,19 @@ test_that("leading/trailing ws ignored when parsing", {
   expect_equal(read_csv("x\n 1.5\n1.5\n1.5 \n")$x, rep(1.5, 3))
 })
 
+test_that("lone - or decimal marks are not numbers", {
+  expect_equal(collector_guess("-"), "character")
+  expect_equal(collector_guess("."), "character")
+  expect_equal(collector_guess(",", locale = es_MX), "character")
+
+  expect_equal(n_problems(parse_numeric(c(".", "-"))), 2)
+})
+
+test_that("Numbers with trailing characters are parsed as characters", {
+  expect_equal(collector_guess("13T"), "character")
+
+  expect_equal(collector_guess(collector_guess(c("13T","13T","10N"))), "character")
+})
 
 # Leading zeros -----------------------------------------------------------
 
@@ -29,8 +43,6 @@ test_that("leading zeros are not numbers", {
 })
 
 # Flexible number parsing -------------------------------------------------
-es_MX <- locale("es", decimal_mark = ",")
-
 test_that("col_number only takes first number", {
   expect_equal(parse_number("XYZ 123,000 BLAH 456"), 123000)
 })
@@ -62,4 +74,12 @@ test_that("type_convert passes along decimal_mark", {
 test_that("read_tsv passes on decimal_mark", {
   out <- read_tsv("x\n1,5", locale = es_MX)
   expect_equal(out$x, 1.5)
+})
+
+# Negative numbers -----------------------------------------------------------
+
+test_that("negative numbers return negative values", {
+  expect_equal(parse_number("-2"), -2)
+
+  expect_equal(parse_number("-100,000.00"), -100000)
 })

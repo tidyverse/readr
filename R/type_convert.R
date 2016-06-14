@@ -5,6 +5,19 @@
 #' then let readr take another stab at parsing it.
 #'
 #' @param df A data frame.
+#' @param col_types One of \code{NULL}, a \code{\link{cols}} specification, or
+#'   a string. See \code{vignette("column-types")} for more details.
+#'
+#'   If \code{NULL}, all column types will be imputed from the first 1000 rows
+#'   on the input. This is convenient (and fast), but not robust. If the
+#'   imputation fails, you'll need to supply the correct types yourself.
+#'
+#'   If a column specification created by \code{\link{cols}}, it must contain
+#'   one "\code{\link{collector}}" for each column. If you only want to read a
+#'   subset of the columns, use \code{\link{cols_only}}.
+#'
+#'   Unlike other functions \code{type_convert} does not allow character
+#'   specificatinos of \code{col_types}.
 #' @inheritParams tokenizer_delim
 #' @inheritParams read_delim
 #' @export
@@ -29,6 +42,12 @@ type_convert <- function(df, col_types = NULL, na = c("", "NA"), trim_ws = TRUE,
     x[x %in% na] <- NA
     collector_guess(x, locale)
   })
+
+  if (is.character(col_types)) {
+    stop("`col_types` must be `NULL` or a `cols` specification for `type_convert()`.",
+      call. = FALSE)
+  }
+
   col_types <- col_spec_standardise(
     col_types = col_types,
     col_names = names(char_cols),

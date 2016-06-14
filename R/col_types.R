@@ -124,12 +124,12 @@ col_spec_standardise <- function(file, col_names = TRUE, col_types = NULL,
     ds_header <- datasource(file, skip = skip, comment = comment)
     if (col_names) {
       col_names <- guess_header(ds_header, tokenizer, locale)
+      skip <- skip + 1
     } else {
       n <- length(guess_header(ds_header, tokenizer, locale))
       col_names <- paste0("X", seq_len(n))
     }
     guessed_names <- TRUE
-    skip <- skip + 1
   } else if (is.character(col_names)) {
     guessed_names <- FALSE
   } else {

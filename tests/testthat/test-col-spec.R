@@ -49,3 +49,7 @@ test_that("defaults expanded to match names", {
     c = col_character()
   ))
 })
+
+test_that("col_spec_standardise works properly with 1 row inputs and no header columns (#333)", {
+  expect_is(col_spec_standardise("1\n", col_names = FALSE)$X1, "collector_integer")
+})

@@ -85,11 +85,11 @@ read_delim <- function(file, delim, quote = '"',
                        escape_backslash = FALSE, escape_double = TRUE,
                        col_names = TRUE, col_types = NULL,
                        locale = default_locale(),
-                       na = c("", "NA"), comment = "",
+                       na = c("", "NA"), comment = "", trim_ws = FALSE,
                        skip = 0, n_max = -1, progress = interactive()) {
   tokenizer <- tokenizer_delim(delim, quote = quote,
     escape_backslash = escape_backslash, escape_double = escape_double,
-    na = na, comment = comment)
+    na = na, comment = comment, trim_ws = trim_ws)
   read_delimited(file, tokenizer, col_names = col_names, col_types = col_types,
     locale = locale, skip = skip, comment = comment, n_max = n_max,
     progress = progress)
@@ -153,6 +153,9 @@ read_delimited <- function(file, tokenizer, col_names = TRUE, col_types = NULL,
   if (is.connection(file)) {
     data <- read_connection(file)
   } else {
+    if (empty_file(file)) {
+       return(tibble::data_frame())
+    }
     data <- file
   }
 

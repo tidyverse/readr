@@ -81,7 +81,8 @@ public:
   bool parseTime() {
     if (!consumeInteger(2, &hour_))
       return false;
-    consumeThisChar(':');
+    if (!consumeThisChar(':'))
+      return false;
     if (!consumeInteger(2, &min_))
       return false;
     consumeThisChar(':');
@@ -115,7 +116,7 @@ public:
         continue;
       }
 
-      // Any other characters much much exactly.
+      // Any other characters must much exactly.
       if (*formatItr != '%') {
         if (!consumeThisChar(*formatItr))
           return false;
@@ -159,6 +160,14 @@ public:
       case 'H': // hour
         if (!consumeInteger(2, &hour_))
           return false;
+        break;
+      case 'I': // hour
+        if (!consumeInteger(2, &hour_))
+          return false;
+        if (hour_ < 1 || hour_ > 12) {
+          return false;
+        }
+        hour_ %= 12;
         break;
       case 'M': // minute
         if (!consumeInteger(2, &min_))
@@ -421,8 +430,8 @@ private:
 
   void reset() {
     year_ = -1;
-    mon_ = -1;
-    day_ = -1;
+    mon_ = 0;
+    day_ = 0;
     hour_ = 0;
     min_ = 0;
     sec_ = 0;
