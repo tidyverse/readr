@@ -183,3 +183,6 @@ test_that("skip respects comments", {
   expect_equal(read_x(comment = "#", skip = 1), c("c"))
 })
 
+test_that("read_csv returns an empty data.frame on an empty file", {
+   expect_equal(read_csv("empty-file"), tibble::data_frame())
+})
