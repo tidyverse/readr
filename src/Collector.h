@@ -235,6 +235,19 @@ public:
   }
 };
 
+// Deparsed ---------------------------------------------------------------------
+
+class CollectorDeparsed : public Collector {
+public:
+  CollectorDeparsed():
+    Collector(Rcpp::List()){}
+  void setValue(int i, const Token& t);
+
+    Rcpp::RObject vector() {
+       return column_;
+    }
+};
+
 
 // Helpers ---------------------------------------------------------------------
 
