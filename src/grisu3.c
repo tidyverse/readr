@@ -1,3 +1,31 @@
+/* Copyright Jukka Jylänki
+   Licensed under the Apache License, Version 2.0 (the "License");
+   you may not use this file except in compliance with the License.
+   You may obtain a copy of the License at
+       http://www.apache.org/licenses/LICENSE-2.0
+   Unless required by applicable law or agreed to in writing, software
+   distributed under the License is distributed on an "AS IS" BASIS,
+   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+   See the License for the specific language governing permissions and
+   limitations under the License. */
+
+
+/* Modifcations to dtoa_grisu3() referenced mikkelfj: are under the following
+ * Copyright (c) 2016 Mikkel F. Jørgensen, dvide.com
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License. http://www.apache.org/licenses/LICENSE-2.0
+ */
+
 /* This file is part of an implementation of the "grisu3" double to string
 	conversion algorithm described in the research paper
 
@@ -9,6 +37,7 @@
 #include <assert.h> // assert
 #include <math.h> // ceil
 #include <stdio.h> // sprintf
+#include <string.h>
 
 #ifdef _MSC_VER
 #pragma warning(disable : 4204) // nonstandard extension used : non-constant aggregate initializer
@@ -331,28 +360,34 @@ int dtoa_grisu3(double v, char *dst)
 	// If grisu3 was not able to convert the number to a string, then use old sprintf (suboptimal).
 	if (!success) return sprintf(s2, "%.17g", v) + (int)(s2 - dst);
 
-    // We now have an integer string of form "151324135" and a base-10 exponent for that number.
-    // Next, decide the best presentation for that string by whether to use a decimal point, or the scientific exponent notation 'e'.
-    // We don't pick the absolute shortest representation, but pick a balance between readability and shortness, e.g.
-    // 1.545056189557677e-308 could be represented in a shorter form
-    // 1545056189557677e-323 but that would be somewhat unreadable.
+	// We now have an integer string of form "151324135" and a base-10 exponent for that number.
+	// Next, decide the best presentation for that string by whether to use a decimal point, or the scientific exponent notation 'e'.
+	// We don't pick the absolute shortest representation, but pick a balance between readability and shortness, e.g.
+	// 1.545056189557677e-308 could be represented in a shorter form
+	// 1545056189557677e-323 but that would be somewhat unreadable.
 	decimals = MIN(-d_exp, MAX(1, len-1));
-	if (d_exp < 0 && len > 1) // Add decimal point?
+	// mikkelfj:
+	// fix zero prefix .1 => 0.1, important for JSON export.
+	// prefer unscientific notation at same length:
+	// -1.2345e-4 over -1.00012345,
+	// -1.0012345 over -1.2345e-3
+	if (d_exp < 0 && (len + d_exp) > -3 && len <= -d_exp)
+	{
+		// mikkelfj: fix zero prefix .1 => 0.1, and short exponents 1.3e-2 => 0.013.
+		memmove(s2 + 2 - d_exp - len, s2, len);
+		s2[0] = '0';
+		s2[1] = '.';
+		for (i = 2; i < 2-d_exp-len; ++i) s2[i] = '0';
+		len += i;
+	}
+	else if (d_exp < 0 && len > 1) // Add decimal point?
 	{
 		for(i = 0; i < decimals; ++i) s2[len-i] = s2[len-i-1];
 		s2[len++ - decimals] = '.';
 		d_exp += decimals;
 		// Need scientific notation as well?
 		if (d_exp != 0) { s2[len++] = 'e'; len += i_to_str(d_exp, s2+len); }
-	}
-	else if (d_exp < 0 && d_exp >= -3) // Add decimal point for numbers of form 0.000x where it's shorter?
-	{
-		for(i = 0; i < len; ++i) s2[len-d_exp-1-i] = s2[len-i-1];
-		s2[0] = '.';
-		for(i = 1; i < -d_exp; ++i) s2[i] = '0';
-		len += -d_exp;
-	}
-	// Add scientific notation?
+	}// Add scientific notation?
 	else if (d_exp < 0 || d_exp > 2) { s2[len++] = 'e'; len += i_to_str(d_exp, s2+len); }
 	// Add zeroes instead of scientific notation?
 	else if (d_exp > 0) { while(d_exp-- > 0) s2[len++] = '0'; }
