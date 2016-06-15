@@ -52,51 +52,31 @@ public:
     /* Unicode Byte Order Marks
        https://en.wikipedia.org/wiki/Byte_order_mark#Representations_of_byte_order_marks_by_encoding
 
-       00 00 FE FF: UTF-32BE
-       FF FE 00 00: UTF-32LE
-       FE FF:       UTF-16BE
-       FF FE:       UTF-16LE
        EF BB BF:    UTF-8
+       FF FE 00 00: UTF-32LE
+       FF FE:       UTF-16LE
+       FE FF:       UTF-16BE
+       00 00 FE FF: UTF-32BE
    */
+    boost::iterator_range<const char*> haystack(begin, end);
 
-    switch(begin[0]) {
-      // UTF-32BE
-      case '\x00':
-        if (end - begin >= 4 && begin[1] == '\x00' && begin[2] == '\xFE' && begin[3] == '\xFF') {
-          return begin + 4;
-        }
-        break;
-
-      // UTF-8
-      case '\xEF':
-        if (end - begin >= 3 && begin[1] == '\xBB' && begin[2] == '\xBF') {
-          return begin + 3;
-        }
-        break;
-
-      // UTF-16BE
-      case '\xfe':
-        if (end - begin >= 2 && begin[1] == '\xff') {
-          return begin + 2;
-        }
-        break;
-
-      case '\xff':
-        if (end - begin >= 2 && begin[1] == '\xfe') {
-
-          // UTF-32 LE
-          if (end - begin >= 4 && begin[2] == '\x00' && begin[3] == '\x00') {
-            return begin + 4;
-          }
-
-          // UTF-16 LE
-          return begin + 2;
-        }
-        break;
+    if (boost::starts_with(haystack, "\xEF\xBB\xBF")) {
+      return begin + 3;
+    }
+    if (boost::starts_with(haystack, "\xFF\xFE\x00\x00")) {
+      return begin + 4;
+    }
+    if (boost::starts_with(haystack, "\xFF\xFE")) {
+      return begin + 2;
+    }
+    if (boost::starts_with(haystack, "\xFE\xFF")) {
+      return begin + 2;
+    }
+    if (boost::starts_with(haystack, "\x00\x00\xFE\xFF")) {
+      return begin + 4;
     }
     return begin;
   }
-
 
   static SourcePtr create(Rcpp::List spec);
 
