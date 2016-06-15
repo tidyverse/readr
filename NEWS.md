@@ -2,6 +2,13 @@
 
 * `col_euro_double()`, `parse_euro_double()`, `col_numeric()`, and 
   `parse_numeric()` have been removed.
+# readr 0.2.2.9000
+* Skip Unicode byte order markers if they exist (#263, @jimhester).
+
+* Supports reading into long vectors (#309, @jimhester).
+
+* `default_locale()` now sets the default locale in `readr.default_locale`
+  rather than regenerating it for each call. (#416, @jimhester).
 
 * `guess_encoding()` returns a tibble, and works better with lists of 
   raw vectors (as returned by `read_lines_raw()`).
