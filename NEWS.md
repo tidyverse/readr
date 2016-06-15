@@ -1,6 +1,8 @@
 # readr 0.2.2.9000
+* Skip Unicode byte order markers if they exist (#263, @jimhester).
 
 * Supports reading into long vectors (#309, @jimhester).
+
 * `default_locale()` now sets the default locale in `readr.default_locale`
   rather than regenerating it for each call. (#416, @jimhester).
 
