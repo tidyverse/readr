@@ -2,18 +2,18 @@ context("col_spec")
 
 test_that("supplied col names must match non-skipped col types", {
   out <- col_spec_standardise(col_types = "c_c", col_names = c("a", "c"))
-  expect_equal(names(out), c("a", "", "c"))
+  expect_equal(names(out[[1]]), c("a", "", "c"))
 })
 
 test_that("supplied col names matches to non-skipped col types", {
   out <- col_spec_standardise("a,b,c\n1,2,3", col_types = "i_i")
-  expect_equal(names(out), c("a", "b", "c"))
+  expect_equal(names(out[[1]]), c("a", "b", "c"))
 })
 
 test_that("guess col names matches all col types", {
   out <- col_spec_standardise("a,b,c\n", col_types = "i_i")
-  expect_equal(names(out), c("a", "b", "c"))
-  expect_equal(out[[2]], col_skip())
+  expect_equal(names(out[[1]]), c("a", "b", "c"))
+  expect_equal(out[[1]][[2]], col_skip())
 })
 
 test_that("col_names expanded to col_types with dummy names", {
@@ -21,7 +21,7 @@ test_that("col_names expanded to col_types with dummy names", {
     out <- col_spec_standardise("1,2,3,4\n", c("a", "b"), "iiii"),
     "Insufficient `col_names`"
   )
-  expect_equal(names(out), c("a", "b", "X3", "X4"))
+  expect_equal(names(out[[1]]), c("a", "b", "X3", "X4"))
 })
 
 test_that("col_names expanded to match col_types, with skipping", {
@@ -29,7 +29,7 @@ test_that("col_names expanded to match col_types, with skipping", {
     out <- col_spec_standardise(col_types = "c_c", col_names = "a"),
     "Insufficient `col_names`"
   )
-  expect_equal(names(out), c("a", "", "X2"))
+  expect_equal(names(out[[1]]), c("a", "", "X2"))
 })
 
 test_that("col_types expanded to col_names by guessing", {
@@ -37,13 +37,13 @@ test_that("col_types expanded to col_names by guessing", {
     out <- col_spec_standardise("1,2,3\n", c("a", "b", "c"), "ii"),
     "Insufficient `col_types`"
   )
-  expect_equal(names(out), c("a", "b", "c"))
-  expect_equal(out[[3]], col_integer())
+  expect_equal(names(out[[1]]), c("a", "b", "c"))
+  expect_equal(out[[1]][[3]], col_integer())
 })
 
 test_that("defaults expanded to match names", {
   out <- col_spec_standardise("a,b,c\n1,2,3", col_types = cols(.default = "c"))
-  expect_equal(out, list(
+  expect_equal(out[[1]], list(
     a = col_character(),
     b = col_character(),
     c = col_character()
@@ -51,5 +51,5 @@ test_that("defaults expanded to match names", {
 })
 
 test_that("col_spec_standardise works properly with 1 row inputs and no header columns (#333)", {
-  expect_is(col_spec_standardise("1\n", col_names = FALSE)$X1, "collector_integer")
+  expect_is(col_spec_standardise("1\n", col_names = FALSE)[[1]]$X1, "collector_integer")
 })

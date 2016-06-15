@@ -27,17 +27,21 @@
 #' read_table(epa, col_names = FALSE)
 read_table <- function(file, col_names = TRUE, col_types = NULL,
                        locale = default_locale(), na = "NA",
-                       skip = 0, n_max = -1) {
+                       skip = 0, n_max = -1, return_spec = FALSE) {
   columns <- fwf_empty(file, skip = skip)
   tokenizer <- tokenizer_fwf(columns$begin, columns$end, na = na)
 
-  col_types <- col_spec_standardise(
+  specs <- col_spec_standardise(
     file = file, skip = skip, n_max = n_max,
     col_names = col_names, col_types = col_types,
     locale = locale, tokenizer = tokenizer
   )
 
+  if (return_spec) {
+     return(specs)
+  }
+
   ds <- datasource(file, skip = skip + isTRUE(col_names))
-  read_tokens(ds, tokenizer, col_types, names(col_types), locale_ = locale,
+  read_tokens(ds, tokenizer, specs$cols, names(specs$cols), locale_ = locale,
     n_max = n_max)
 }

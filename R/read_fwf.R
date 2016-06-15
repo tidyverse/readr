@@ -29,17 +29,20 @@
 #' read_fwf(fwf_sample, fwf_positions(c(1, 4), c(2, 10)))
 read_fwf <- function(file, col_positions, col_types = NULL,
                      locale = default_locale(), na = c("", "NA"),
-                     skip = 0, n_max = -1, progress = interactive()) {
+                     skip = 0, n_max = -1, progress = interactive(), return_spec = FALSE) {
   ds <- datasource(file, skip = skip)
   tokenizer <- tokenizer_fwf(col_positions$begin, col_positions$end, na = na)
 
-  col_types <- col_spec_standardise(
+  spec <- col_spec_standardise(
     file, skip = skip, n_max = n_max,
     tokenizer = tokenizer, locale = locale,
-    col_names = col_positions$col_names, col_types = col_types
-  )
+    col_names = col_positions$col_names, col_types = col_types)
 
-  out <- read_tokens(ds, tokenizer, col_types, names(col_types),
+  if (return_spec) {
+    return(spec)
+  }
+
+  out <- read_tokens(ds, tokenizer, spec$cols, names(spec$cols),
     locale_ = locale, n_max = n_max, progress = progress)
 
   out <- name_problems(out)
@@ -94,4 +97,3 @@ fwf_positions <- function(start, end, col_names = NULL) {
     col_names = col_names
   )
 }
-

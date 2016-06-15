@@ -5,7 +5,8 @@
 \title{Read text file where columns are separated by whitespace.}
 \usage{
 read_table(file, col_names = TRUE, col_types = NULL,
-  locale = default_locale(), na = "NA", skip = 0, n_max = -1)
+  locale = default_locale(), na = "NA", skip = 0, n_max = -1,
+  return_spec = FALSE)
 }
 \arguments{
 \item{file}{Either a path to a file, a connection, or literal data
@@ -60,6 +61,10 @@ option to \code{character()} to indicate no missing values.}
 \item{skip}{Number of lines to skip before reading data.}
 
 \item{n_max}{Maximum number of records to read.}
+
+\item{return_spec}{if \code{TRUE} return a column specification rather than
+reading the file. This can then be passed to col_types directly when
+reading files with the same specification.}
 }
 \description{
 This is designed to read the type of textual data where each column is

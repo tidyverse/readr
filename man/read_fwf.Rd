@@ -8,7 +8,8 @@
 \title{Read a fixed width file.}
 \usage{
 read_fwf(file, col_positions, col_types = NULL, locale = default_locale(),
-  na = c("", "NA"), skip = 0, n_max = -1, progress = interactive())
+  na = c("", "NA"), skip = 0, n_max = -1, progress = interactive(),
+  return_spec = FALSE)
 
 fwf_empty(file, skip = 0, col_names = NULL)
 
@@ -67,6 +68,10 @@ option to \code{character()} to indicate no missing values.}
 \item{progress}{Display a progress bar? By default it will only display
 in an interactive session. The display is updated every 50,000 values
 and will only display if estimated reading time is 5 seconds or more.}
+
+\item{return_spec}{if \code{TRUE} return a column specification rather than
+reading the file. This can then be passed to col_types directly when
+reading files with the same specification.}
 
 \item{col_names}{Either NULL, or a character vector column names.}
 

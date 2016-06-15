@@ -218,7 +218,7 @@ col_spec_standardise <- function(file, col_names = TRUE, col_types = NULL,
     spec$cols[is_guess] <- lapply(guesses, collector_find)
   }
 
-  spec$cols
+  spec
 }
 
 guess_types <- function(datasource, tokenizer, locale, n = 1000, n_max = -1) {
