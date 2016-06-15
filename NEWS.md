@@ -13,8 +13,9 @@
 
 * Negative column widths are now allowed in `fwf_widths()` to facilitate
   compatibility with the `widths` argument in `read.fwf()`. (#380, @leeper)
-* `type_covert()` now accepts only `NULL` or a `cols` specification for
+* `type_convert()` now accepts only `NULL` or a `cols` specification for
   `col_types` (#369, @jimhester).
+* If `col_types` is too long, it is subsetted correctly. (#372, @jennybc)
 * `read_file()`, `read_lines()` and `read_csv()` now return empty objects
   rather than signaling an error when run on an empty file (#356, @jimhester).
 
