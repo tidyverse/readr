@@ -1,12 +1,16 @@
 # R for travis: see documentation at https://docs.travis-ci.com/user/languages/r
 
-language: R
+language: r
 sudo: false
 cache: packages
+r:
+  - oldrel
+  - release
+  - devel
 
 env:
   global:
     - MAKEFLAGS="-j 2"
 
 after_success:
-  - Rscript -e 'covr::codecov()'
+  - test $TRAVIS_R_VERSION_STRING = "release" && Rscript -e 'covr::codecov()'
