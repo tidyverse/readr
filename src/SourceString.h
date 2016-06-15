@@ -15,7 +15,7 @@ public:
     string_ = x[0];
 
     begin_ = CHAR(string_);
-    end_ = begin_ + Rf_length(string_);
+    end_ = begin_ + Rf_xlength(string_);
 
     // Skip lines, if needed
     begin_ = skipLines(begin_, end_, skip, comment);

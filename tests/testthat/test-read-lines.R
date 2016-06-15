@@ -8,3 +8,18 @@ test_that("read_lines respects encoding", {
 test_that("read_lines returns an empty character vector on an empty file", {
    expect_equal(read_lines("empty-file"), character())
 })
+
+# These tests are slow so are commented out
+#test_that("long vectors are supported", {
+  #tmp <- tempfile(fileext = ".gz")
+  #on.exit(unlink(tmp))
+
+  #x <- rep(paste(rep("a", 2 ^ 16), collapse = ''), 2 ^ 15)
+  #con <- gzfile(tmp, open = "w", compression = 0)
+  #writeLines(x, con)
+  #close(con)
+
+  #expect_equal(length(read_lines(tmp)), 2^15)
+
+  #expect_equal(length(read_lines_raw(tmp)), 2^15)
+#})

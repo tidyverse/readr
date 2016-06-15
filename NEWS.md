@@ -1,5 +1,7 @@
 # readr 0.2.2.9000
 
+* Supports reading into long vectors (#309, @jimhester).
+
 * Printing of double values now uses an
   [implementation](https://github.com/juj/MathGeoLib/blob/master/src/Math/grisu3.c)
   of the [grisu3
