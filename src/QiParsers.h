@@ -19,10 +19,10 @@ inline bool parseDouble(const char decimalMark, Iterator& first, Iterator& last,
 
   if (decimalMark == '.') {
     return boost::spirit::qi::parse(first, last,
-      boost::spirit::qi::double_, res);
+      boost::spirit::qi::long_double, res);
   } else if (decimalMark == ',') {
     return boost::spirit::qi::parse(first, last,
-      boost::spirit::qi::real_parser<double, DecimalCommaPolicy>(), res);
+      boost::spirit::qi::real_parser<long double, DecimalCommaPolicy>(), res);
   } else {
     return false;
   }
