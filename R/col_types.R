@@ -99,10 +99,10 @@ as.col_spec.default <- function(x) {
 as.character.col_spec <- function(x) {
   paste0("cols(\n  ",
     paste(collapse = ",\n  ",
-    vapply(x$cols,
-      function(xx) {
-        fun <- sub("^collector_", "col_", class(xx)[[1]])
-        paste0(fun, "(", paste(names(xx), xx, sep = " = ", collapse = ", "), ")")
+    vapply(seq_along(x$cols),
+      function(i) {
+        fun <- sub("^collector_", "col_", class(x$cols[[i]])[[1]])
+        paste0(names(x$cols)[[i]], " = ", fun, "(", paste(names(x$cols[[i]]), x$cols[[i]], sep = " = ", collapse = ", "), ")")
       },
       character(1)
     )),
