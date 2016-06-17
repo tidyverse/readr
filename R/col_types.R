@@ -56,24 +56,6 @@ col_spec <- function(col_types, default = col_guess()) {
 
 is.col_spec <- function(x) inherits(x, "col_spec")
 
-#' @export
-print.col_spec <- function(x, ...) {
-  cat("<col_spec>\n")
-
-  col_class <- function(x) gsub("collector_", "", class(x)[[1]])
-
-  cols <- x$cols
-  class <- vapply(cols, col_class, character(1))
-  if (length(cols) > 0) {
-    if (is.null(names(cols))) {
-      cat(paste0("* ", class, collapse = "\n"), "\n", sep = "")
-    } else {
-      cat(paste0("* ", names(cols), ": ", class, collapse = "\n"), "\n", sep = "")
-    }
-  }
-  cat("* default: ", col_class(x$default), "\n", sep = "")
-}
-
 as.col_spec <- function(x) UseMethod("as.col_spec")
 #' @export
 as.col_spec.character <- function(x) {
@@ -96,8 +78,18 @@ as.col_spec.default <- function(x) {
 }
 
 #' @export
-as.character.col_spec <- function(x, ...) {
-  paste0("cols(\n  ",
+print.col_spec <- function(x, n = Inf, ...) {
+  if (inherits(x$default, "collector_guess")) {
+    fun_type <- "cols(\n  "
+  } else if (inherits(x$default, "collector_skip")) {
+    fun_type <- "cols_only(\n  "
+  } else {
+    type <- sub("^collector_", "", class(x$default)[[1]])
+    fun_type <- paste0("cols(.default = col_", type, "(),\n  ")
+  }
+
+  cols <- x$cols[seq_len(min(length(x$cols), n))]
+  cat(fun_type,
     paste(collapse = ",\n  ",
     vapply(seq_along(x$cols),
       function(i) {
@@ -105,8 +97,19 @@ as.character.col_spec <- function(x, ...) {
         paste0(names(x$cols)[[i]], " = ", fun, "(", paste(names(x$cols[[i]]), x$cols[[i]], sep = " = ", collapse = ", "), ")")
       },
       character(1)
-    )),
-  ")\n")
+    )), sep = "")
+
+  if (length(x$cols) >= n) {
+    cat("\n  # ... with", length(x$cols) - n, "more columns\n")
+  }
+  cat(")\n")
+
+  invisible(x)
+}
+
+spec <- function(x) {
+  stopifnot(inherits(x, "tbl_df"))
+  attr(x, "spec")
 }
 
 col_concise <- function(x) {

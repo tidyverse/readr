@@ -69,10 +69,6 @@ option to \code{character()} to indicate no missing values.}
 in an interactive session. The display is updated every 50,000 values
 and will only display if estimated reading time is 5 seconds or more.}
 
-\item{return_spec}{if \code{TRUE} return a column specification rather than
-reading the file. This can then be passed to col_types directly when
-reading files with the same specification.}
-
 \item{col_names}{Either NULL, or a character vector column names.}
 
 \item{widths}{Width of each field. Use NA as width of last field when

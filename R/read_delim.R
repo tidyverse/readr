@@ -9,7 +9,8 @@ NULL
 #' flat file data, comma separated values and tab separated values,
 #' respectively. \code{read_csv2} uses \code{;} for separators, instead of
 #' \code{,}. This is common in European countries which use \code{,} as the
-#' decimal separator.
+#' decimal separator. The \code{spec_*} versions return the column
+#' specification instead of the full data frame.
 #'
 #' @inheritParams datasource
 #' @inheritParams tokenizer_delim
@@ -48,13 +49,8 @@ NULL
 #' @param progress Display a progress bar? By default it will only display
 #'   in an interactive session. The display is updated every 50,000 values
 #'   and will only display if estimated reading time is 5 seconds or more.
-#' @param return_spec if \code{TRUE} return a column specification rather than
-#'   reading the file. This can then be passed to col_types directly when
-#'   reading files with the same specification.
 #' @return A data frame. If there are parsing problems, a warning tells you
 #'   how many, and you can retrieve the details with \code{\link{problems}()}.
-#'   If \code{return_spec} is \code{TRUE} return a column specification instead
-#'   of a data frame.
 #' @export
 #' @examples
 #' # Input sources -------------------------------------------------------------
@@ -91,8 +87,7 @@ read_delim <- function(file, delim, quote = '"',
                        col_names = TRUE, col_types = NULL,
                        locale = default_locale(),
                        na = c("", "NA"), comment = "", trim_ws = FALSE,
-                       skip = 0, n_max = -1, progress = interactive(),
-                       return_spec = FALSE) {
+                       skip = 0, n_max = -1, progress = interactive()) {
   tokenizer <- tokenizer_delim(delim, quote = quote,
     escape_backslash = escape_backslash, escape_double = escape_double,
     na = na, comment = comment, trim_ws = trim_ws)
@@ -106,12 +101,12 @@ read_delim <- function(file, delim, quote = '"',
 read_csv <- function(file, col_names = TRUE, col_types = NULL,
                      locale = default_locale(), na = c("", "NA"), comment = "",
                      trim_ws = TRUE, skip = 0, n_max = -1,
-                     progress = interactive(), return_spec = FALSE) {
+                     progress = interactive()) {
 
   tokenizer <- tokenizer_csv(na = na, comment = comment, trim_ws = trim_ws)
   read_delimited(file, tokenizer, col_names = col_names, col_types = col_types,
     locale = locale, skip = skip, comment = comment, n_max = n_max,
-    progress = progress, return_spec = return_spec)
+    progress = progress)
 }
 
 #' @rdname read_delim
@@ -120,7 +115,7 @@ read_csv2 <- function(file, col_names = TRUE, col_types = NULL,
                       locale = default_locale(),
                       na = c("", "NA"), comment = "",
                       trim_ws = TRUE, skip = 0, n_max = -1,
-                      progress = interactive(), return_spec = FALSE) {
+                      progress = interactive()) {
 
   if (locale$decimal_mark == ".") {
     locale$decimal_mark <- ","
@@ -131,7 +126,7 @@ read_csv2 <- function(file, col_names = TRUE, col_types = NULL,
     trim_ws = trim_ws)
   read_delimited(file, tokenizer, col_names = col_names, col_types = col_types,
     locale = locale, skip = skip, comment = comment, n_max = n_max,
-    progress = progress, return_spec = return_spec)
+    progress = progress)
 }
 
 
@@ -141,18 +136,18 @@ read_tsv <- function(file, col_names = TRUE, col_types = NULL,
                      locale = default_locale(),
                      na = c("", "NA"), comment = "",
                      trim_ws = TRUE, skip = 0, n_max = -1,
-                     progress = interactive(), return_spec = FALSE) {
+                     progress = interactive()) {
 
   tokenizer <- tokenizer_tsv(na = na, comment = comment, trim_ws = trim_ws)
   read_delimited(file, tokenizer, col_names = col_names, col_types = col_types,
     locale = locale, skip = skip, comment = comment, n_max = n_max,
-    progress = progress, return_spec = return_spec)
+    progress = progress)
 }
 
 # Helper functions for reading from delimited files ----------------------------
 read_delimited <- function(file, tokenizer, col_names = TRUE, col_types = NULL,
                            locale = default_locale(), skip = 0, comment = "",
-                           n_max = -1, progress = interactive(), return_spec = FALSE) {
+                           n_max = -1, progress = interactive()) {
   name <- source_name(file)
   # If connection needed, read once.
   file <- standardise_path(file)
@@ -170,8 +165,8 @@ read_delimited <- function(file, tokenizer, col_names = TRUE, col_types = NULL,
     col_names = col_names, col_types = col_types,
     tokenizer = tokenizer, locale = locale)
 
-  if (return_spec) {
-     return(spec)
+  if (progress) {
+     print(spec, n = getOption("readr.num_columns", 20))
   }
 
   ds <- datasource(data, skip = skip + isTRUE(col_names), comment = comment)
@@ -180,5 +175,37 @@ read_delimited <- function(file, tokenizer, col_names = TRUE, col_types = NULL,
     n_max = n_max, progress = progress)
 
   out <- name_problems(out)
+  attr(out, "spec") <- spec
   warn_problems(out, name)
 }
+
+generate_spec_fun <- function(x) {
+  formals(x)$n_max <- 1000
+
+  args <- formals(x)
+
+  body(x) <-
+    call("attr",
+      as.call(c(substitute(x), stats::setNames(lapply(names(args), as.symbol), names(args)))),
+      "spec")
+
+  formals(x) <- args
+
+  x
+}
+
+#' @export
+#' @rdname read_delim
+spec_delim <- generate_spec_fun(read_delim)
+
+#' @rdname read_delim
+#' @export
+spec_csv <- generate_spec_fun(read_csv)
+
+#' @rdname read_delim
+#' @export
+spec_csv2 <- generate_spec_fun(read_csv2)
+
+#' @rdname read_delim
+#' @export
+spec_tsv <- generate_spec_fun(read_tsv)

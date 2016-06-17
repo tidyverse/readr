@@ -5,28 +5,45 @@
 \alias{read_csv2}
 \alias{read_delim}
 \alias{read_tsv}
+\alias{spec_csv}
+\alias{spec_csv2}
+\alias{spec_delim}
+\alias{spec_tsv}
 \title{Read a delimited file into a data frame.}
 \usage{
 read_delim(file, delim, quote = "\\"", escape_backslash = FALSE,
   escape_double = TRUE, col_names = TRUE, col_types = NULL,
   locale = default_locale(), na = c("", "NA"), comment = "",
-  trim_ws = FALSE, skip = 0, n_max = -1, progress = interactive(),
-  return_spec = FALSE)
+  trim_ws = FALSE, skip = 0, n_max = -1, progress = interactive())
 
 read_csv(file, col_names = TRUE, col_types = NULL,
   locale = default_locale(), na = c("", "NA"), comment = "",
-  trim_ws = TRUE, skip = 0, n_max = -1, progress = interactive(),
-  return_spec = FALSE)
+  trim_ws = TRUE, skip = 0, n_max = -1, progress = interactive())
 
 read_csv2(file, col_names = TRUE, col_types = NULL,
   locale = default_locale(), na = c("", "NA"), comment = "",
-  trim_ws = TRUE, skip = 0, n_max = -1, progress = interactive(),
-  return_spec = FALSE)
+  trim_ws = TRUE, skip = 0, n_max = -1, progress = interactive())
 
 read_tsv(file, col_names = TRUE, col_types = NULL,
   locale = default_locale(), na = c("", "NA"), comment = "",
-  trim_ws = TRUE, skip = 0, n_max = -1, progress = interactive(),
-  return_spec = FALSE)
+  trim_ws = TRUE, skip = 0, n_max = -1, progress = interactive())
+
+spec_delim(file, delim, quote = "\\"", escape_backslash = FALSE,
+  escape_double = TRUE, col_names = TRUE, col_types = NULL,
+  locale = default_locale(), na = c("", "NA"), comment = "",
+  trim_ws = FALSE, skip = 0, n_max = 1000, progress = interactive())
+
+spec_csv(file, col_names = TRUE, col_types = NULL,
+  locale = default_locale(), na = c("", "NA"), comment = "",
+  trim_ws = TRUE, skip = 0, n_max = 1000, progress = interactive())
+
+spec_csv2(file, col_names = TRUE, col_types = NULL,
+  locale = default_locale(), na = c("", "NA"), comment = "",
+  trim_ws = TRUE, skip = 0, n_max = 1000, progress = interactive())
+
+spec_tsv(file, col_names = TRUE, col_types = NULL,
+  locale = default_locale(), na = c("", "NA"), comment = "",
+  trim_ws = TRUE, skip = 0, n_max = 1000, progress = interactive())
 }
 \arguments{
 \item{file}{Either a path to a file, a connection, or literal data
@@ -104,16 +121,10 @@ each field before parsing it?}
 \item{progress}{Display a progress bar? By default it will only display
 in an interactive session. The display is updated every 50,000 values
 and will only display if estimated reading time is 5 seconds or more.}
-
-\item{return_spec}{if \code{TRUE} return a column specification rather than
-reading the file. This can then be passed to col_types directly when
-reading files with the same specification.}
 }
 \value{
 A data frame. If there are parsing problems, a warning tells you
   how many, and you can retrieve the details with \code{\link{problems}()}.
-  If \code{return_spec} is \code{TRUE} return a column specification instead
-  of a data frame.
 }
 \description{
 \code{read_csv} and \code{read_tsv} are special cases of the general
@@ -121,7 +132,8 @@ A data frame. If there are parsing problems, a warning tells you
 flat file data, comma separated values and tab separated values,
 respectively. \code{read_csv2} uses \code{;} for separators, instead of
 \code{,}. This is common in European countries which use \code{,} as the
-decimal separator.
+decimal separator. The \code{spec_*} versions return the column
+specification instead of the full data frame.
 }
 \examples{
 # Input sources -------------------------------------------------------------
