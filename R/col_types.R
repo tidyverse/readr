@@ -96,7 +96,7 @@ as.col_spec.default <- function(x) {
 }
 
 #' @export
-as.character.col_spec <- function(x) {
+as.character.col_spec <- function(x, ...) {
   paste0("cols(\n  ",
     paste(collapse = ",\n  ",
     vapply(seq_along(x$cols),
