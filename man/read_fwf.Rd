@@ -8,8 +8,7 @@
 \title{Read a fixed width file.}
 \usage{
 read_fwf(file, col_positions, col_types = NULL, locale = default_locale(),
-  na = c("", "NA"), skip = 0, n_max = -1, progress = interactive(),
-  return_spec = FALSE)
+  na = c("", "NA"), skip = 0, n_max = -1, progress = interactive())
 
 fwf_empty(file, skip = 0, col_names = NULL)
 

@@ -91,10 +91,12 @@ print.col_spec <- function(x, n = Inf, ...) {
   cols <- x$cols[seq_len(min(length(x$cols), n))]
   cat(fun_type,
     paste(collapse = ",\n  ",
-    vapply(seq_along(x$cols),
+    vapply(seq_along(cols),
       function(i) {
-        fun <- sub("^collector_", "col_", class(x$cols[[i]])[[1]])
-        paste0(names(x$cols)[[i]], " = ", fun, "(", paste(names(x$cols[[i]]), x$cols[[i]], sep = " = ", collapse = ", "), ")")
+        col_names <- names(cols)[[i]]
+        col_funs <- sub("^collector_", "col_", class(cols[[i]])[[1]])
+        args <- paste(names(cols[[i]]), cols[[i]], sep = " = ", collapse = ", ")
+        paste0(col_names, " = ", col_funs, "(", args, ")")
       },
       character(1)
     )), sep = "")
@@ -107,6 +109,11 @@ print.col_spec <- function(x, n = Inf, ...) {
   invisible(x)
 }
 
+#' Extract the column specification from an data frame
+#'
+#' @param x The data frame object to extract from
+#' @return The col_spec object used for that data frame.
+#' @export
 spec <- function(x) {
   stopifnot(inherits(x, "tbl_df"))
   attr(x, "spec")
