@@ -95,6 +95,20 @@ as.col_spec.default <- function(x) {
   stop("`col_types` must be NULL, a list or a string", call. = FALSE)
 }
 
+#' @export
+as.character.col_spec <- function(x) {
+  paste0("cols(\n  ",
+    paste(collapse = ",\n  ",
+    vapply(x$cols,
+      function(xx) {
+        fun <- sub("^collector_", "col_", class(xx)[[1]])
+        paste0(fun, "(", paste(names(xx), xx, sep = " = ", collapse = ", "), ")")
+      },
+      character(1)
+    )),
+  ")\n")
+}
+
 col_concise <- function(x) {
   switch(x,
     "_" = ,
