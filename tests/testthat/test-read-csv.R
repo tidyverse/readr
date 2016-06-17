@@ -138,8 +138,8 @@ test_that("header only df gets character columns", {
 test_that("n_max 0 gives zero row data frame", {
   x <- read_csv("a,b\n1,2", n_max = 0, progress = FALSE)
   expect_equal(dim(x), c(0, 2))
-  expect_equal(class(x$a), "integer")
-  expect_equal(class(x$b), "integer")
+  expect_equal(class(x$a), "character")
+  expect_equal(class(x$b), "character")
 })
 
 test_that("empty file with col_names and col_types creates correct columns", {

@@ -6,12 +6,12 @@
 \title{Read text file where columns are separated by whitespace.}
 \usage{
 read_table(file, col_names = TRUE, col_types = NULL,
-  locale = default_locale(), na = "NA", skip = 0, n_max = -1,
-  progress = interactive())
+  locale = default_locale(), na = "NA", skip = 0, n_max = Inf,
+  guess_max = min(n_max, 1000), progress = interactive())
 
 spec_table(file, col_names = TRUE, col_types = NULL,
-  locale = default_locale(), na = "NA", skip = 0, n_max = 1000,
-  progress = interactive())
+  locale = default_locale(), na = "NA", skip = 0, n_max = 0,
+  guess_max = 1000, progress = interactive())
 }
 \arguments{
 \item{file}{Either a path to a file, a connection, or literal data
@@ -66,6 +66,8 @@ option to \code{character()} to indicate no missing values.}
 \item{skip}{Number of lines to skip before reading data.}
 
 \item{n_max}{Maximum number of records to read.}
+
+\item{guess_max}{Maximum number of records to use for guessing column types.}
 
 \item{progress}{Display a progress bar? By default it will only display
 in an interactive session. The display is updated every 50,000 values

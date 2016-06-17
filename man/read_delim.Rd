@@ -14,36 +14,44 @@
 read_delim(file, delim, quote = "\\"", escape_backslash = FALSE,
   escape_double = TRUE, col_names = TRUE, col_types = NULL,
   locale = default_locale(), na = c("", "NA"), comment = "",
-  trim_ws = FALSE, skip = 0, n_max = -1, progress = interactive())
+  trim_ws = FALSE, skip = 0, n_max = Inf, guess_max = min(1000, n_max),
+  progress = interactive())
 
 read_csv(file, col_names = TRUE, col_types = NULL,
   locale = default_locale(), na = c("", "NA"), comment = "",
-  trim_ws = TRUE, skip = 0, n_max = -1, progress = interactive())
+  trim_ws = TRUE, skip = 0, n_max = Inf, guess_max = min(1000, n_max),
+  progress = interactive())
 
 read_csv2(file, col_names = TRUE, col_types = NULL,
   locale = default_locale(), na = c("", "NA"), comment = "",
-  trim_ws = TRUE, skip = 0, n_max = -1, progress = interactive())
+  trim_ws = TRUE, skip = 0, n_max = Inf, guess_max = min(1000, n_max),
+  progress = interactive())
 
 read_tsv(file, col_names = TRUE, col_types = NULL,
   locale = default_locale(), na = c("", "NA"), comment = "",
-  trim_ws = TRUE, skip = 0, n_max = -1, progress = interactive())
+  trim_ws = TRUE, skip = 0, n_max = Inf, guess_max = min(1000, n_max),
+  progress = interactive())
 
 spec_delim(file, delim, quote = "\\"", escape_backslash = FALSE,
   escape_double = TRUE, col_names = TRUE, col_types = NULL,
   locale = default_locale(), na = c("", "NA"), comment = "",
-  trim_ws = FALSE, skip = 0, n_max = 1000, progress = interactive())
+  trim_ws = FALSE, skip = 0, n_max = 0, guess_max = 1000,
+  progress = interactive())
 
 spec_csv(file, col_names = TRUE, col_types = NULL,
   locale = default_locale(), na = c("", "NA"), comment = "",
-  trim_ws = TRUE, skip = 0, n_max = 1000, progress = interactive())
+  trim_ws = TRUE, skip = 0, n_max = 0, guess_max = 1000,
+  progress = interactive())
 
 spec_csv2(file, col_names = TRUE, col_types = NULL,
   locale = default_locale(), na = c("", "NA"), comment = "",
-  trim_ws = TRUE, skip = 0, n_max = 1000, progress = interactive())
+  trim_ws = TRUE, skip = 0, n_max = 0, guess_max = 1000,
+  progress = interactive())
 
 spec_tsv(file, col_names = TRUE, col_types = NULL,
   locale = default_locale(), na = c("", "NA"), comment = "",
-  trim_ws = TRUE, skip = 0, n_max = 1000, progress = interactive())
+  trim_ws = TRUE, skip = 0, n_max = 0, guess_max = 1000,
+  progress = interactive())
 }
 \arguments{
 \item{file}{Either a path to a file, a connection, or literal data
@@ -117,6 +125,8 @@ each field before parsing it?}
 \item{skip}{Number of lines to skip before reading data.}
 
 \item{n_max}{Maximum number of records to read.}
+
+\item{guess_max}{Maximum number of records to use for guessing column types.}
 
 \item{progress}{Display a progress bar? By default it will only display
 in an interactive session. The display is updated every 50,000 values

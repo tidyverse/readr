@@ -119,7 +119,7 @@ void checkColumns(Warnings *pWarnings, int i, int j, int n) {
 }
 
 // [[Rcpp::export]]
-RObject read_tokens(List sourceSpec, List tokenizerSpec, ListOf<List> colSpecs,
+RObject read_tokens_(List sourceSpec, List tokenizerSpec, ListOf<List> colSpecs,
                     CharacterVector colNames, List locale_, int n_max = -1,
                     bool progress = true) {
 

@@ -8,7 +8,8 @@
 \title{Read a fixed width file.}
 \usage{
 read_fwf(file, col_positions, col_types = NULL, locale = default_locale(),
-  na = c("", "NA"), skip = 0, n_max = -1, progress = interactive())
+  na = c("", "NA"), skip = 0, n_max = Inf, guess_max = min(n_max, 1000),
+  progress = interactive())
 
 fwf_empty(file, skip = 0, col_names = NULL)
 
@@ -63,6 +64,8 @@ option to \code{character()} to indicate no missing values.}
 \item{skip}{Number of lines to skip before reading data.}
 
 \item{n_max}{Maximum number of records to read.}
+
+\item{guess_max}{Maximum number of records to use for guessing column types.}
 
 \item{progress}{Display a progress bar? By default it will only display
 in an interactive session. The display is updated every 50,000 values

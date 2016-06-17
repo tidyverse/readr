@@ -27,13 +27,14 @@
 #' cat(read_file(epa))
 #' read_table(epa, col_names = FALSE)
 read_table <- function(file, col_names = TRUE, col_types = NULL,
-                       locale = default_locale(), na = "NA",
-                       skip = 0, n_max = -1, progress = interactive()) {
+                       locale = default_locale(), na = "NA", skip = 0,
+                       n_max = Inf, guess_max = min(n_max, 1000),
+                       progress = interactive()) {
   columns <- fwf_empty(file, skip = skip)
   tokenizer <- tokenizer_fwf(columns$begin, columns$end, na = na)
 
   spec <- col_spec_standardise(
-    file = file, skip = skip, n_max = n_max,
+    file = file, skip = skip, n = guess_max,
     col_names = col_names, col_types = col_types,
     locale = locale, tokenizer = tokenizer
   )

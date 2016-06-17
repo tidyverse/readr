@@ -139,7 +139,7 @@ col_concise <- function(x) {
 
 col_spec_standardise <- function(file, col_names = TRUE, col_types = NULL,
                                  guessed_types = NULL,
-                                 comment = "", skip = 0, n_max = -1,
+                                 comment = "", skip = 0, n = 1000,
                                  tokenizer = tokenizer_csv(),
                                  locale = default_locale()) {
 
@@ -234,7 +234,7 @@ col_spec_standardise <- function(file, col_names = TRUE, col_types = NULL,
   if (any(is_guess)) {
     if (is.null(guessed_types)) {
       ds <- datasource(file, skip = skip, comment = comment)
-      guessed_types <- guess_types(ds, tokenizer, locale, n_max = n_max)
+      guessed_types <- guess_types(ds, tokenizer, locale, n = n)
     }
 
     # Need to be careful here: there might be more guesses than types/names
@@ -245,10 +245,7 @@ col_spec_standardise <- function(file, col_names = TRUE, col_types = NULL,
   spec
 }
 
-guess_types <- function(datasource, tokenizer, locale, n = 1000, n_max = -1) {
-  if (n_max > 0) {
-    n <- min(n, n_max)
-  }
+guess_types <- function(datasource, tokenizer, locale, n = 1000) {
   guess_types_(datasource, tokenizer, locale, n = n)
 }
 

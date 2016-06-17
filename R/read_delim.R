@@ -46,6 +46,7 @@ NULL
 #'   the default time zone, encoding, decimal mark, big mark, and day/month
 #'   names.
 #' @param n_max Maximum number of records to read.
+#' @param guess_max Maximum number of records to use for guessing column types.
 #' @param progress Display a progress bar? By default it will only display
 #'   in an interactive session. The display is updated every 50,000 values
 #'   and will only display if estimated reading time is 5 seconds or more.
@@ -87,26 +88,26 @@ read_delim <- function(file, delim, quote = '"',
                        col_names = TRUE, col_types = NULL,
                        locale = default_locale(),
                        na = c("", "NA"), comment = "", trim_ws = FALSE,
-                       skip = 0, n_max = -1, progress = interactive()) {
+                       skip = 0, n_max = Inf, guess_max = min(1000, n_max), progress = interactive()) {
   tokenizer <- tokenizer_delim(delim, quote = quote,
     escape_backslash = escape_backslash, escape_double = escape_double,
     na = na, comment = comment, trim_ws = trim_ws)
   read_delimited(file, tokenizer, col_names = col_names, col_types = col_types,
-    locale = locale, skip = skip, comment = comment, n_max = n_max,
-    progress = progress)
+    locale = locale, skip = skip, comment = comment, n_max = n_max, guess_max =
+      guess_max, progress = progress)
 }
 
 #' @rdname read_delim
 #' @export
 read_csv <- function(file, col_names = TRUE, col_types = NULL,
                      locale = default_locale(), na = c("", "NA"), comment = "",
-                     trim_ws = TRUE, skip = 0, n_max = -1,
+                     trim_ws = TRUE, skip = 0, n_max = Inf, guess_max = min(1000, n_max),
                      progress = interactive()) {
 
   tokenizer <- tokenizer_csv(na = na, comment = comment, trim_ws = trim_ws)
   read_delimited(file, tokenizer, col_names = col_names, col_types = col_types,
-    locale = locale, skip = skip, comment = comment, n_max = n_max,
-    progress = progress)
+    locale = locale, skip = skip, comment = comment, n_max = n_max, guess_max =
+      guess_max, progress = progress)
 }
 
 #' @rdname read_delim
@@ -114,8 +115,8 @@ read_csv <- function(file, col_names = TRUE, col_types = NULL,
 read_csv2 <- function(file, col_names = TRUE, col_types = NULL,
                       locale = default_locale(),
                       na = c("", "NA"), comment = "",
-                      trim_ws = TRUE, skip = 0, n_max = -1,
-                      progress = interactive()) {
+                      trim_ws = TRUE, skip = 0, n_max = Inf,
+                      guess_max = min(1000, n_max), progress = interactive()) {
 
   if (locale$decimal_mark == ".") {
     locale$decimal_mark <- ","
@@ -126,7 +127,7 @@ read_csv2 <- function(file, col_names = TRUE, col_types = NULL,
     trim_ws = trim_ws)
   read_delimited(file, tokenizer, col_names = col_names, col_types = col_types,
     locale = locale, skip = skip, comment = comment, n_max = n_max,
-    progress = progress)
+    guess_max = guess_max, progress = progress)
 }
 
 
@@ -135,19 +136,26 @@ read_csv2 <- function(file, col_names = TRUE, col_types = NULL,
 read_tsv <- function(file, col_names = TRUE, col_types = NULL,
                      locale = default_locale(),
                      na = c("", "NA"), comment = "",
-                     trim_ws = TRUE, skip = 0, n_max = -1,
+                     trim_ws = TRUE, skip = 0, n_max = Inf, guess_max = min(1000, n_max),
                      progress = interactive()) {
 
   tokenizer <- tokenizer_tsv(na = na, comment = comment, trim_ws = trim_ws)
   read_delimited(file, tokenizer, col_names = col_names, col_types = col_types,
     locale = locale, skip = skip, comment = comment, n_max = n_max,
-    progress = progress)
+    guess_max = guess_max, progress = progress)
 }
 
 # Helper functions for reading from delimited files ----------------------------
+read_tokens <- function(data, tokenizer, col_specs, col_names, locale_, n_max, progress) {
+  if (n_max == Inf) {
+    n_max <- -1
+  }
+  read_tokens_(data, tokenizer, col_specs, col_names, locale_, n_max, progress)
+}
+
 read_delimited <- function(file, tokenizer, col_names = TRUE, col_types = NULL,
                            locale = default_locale(), skip = 0, comment = "",
-                           n_max = -1, progress = interactive()) {
+                           n_max = Inf, guess_max = min(1000, n_max), progress = interactive()) {
   name <- source_name(file)
   # If connection needed, read once.
   file <- standardise_path(file)
@@ -161,9 +169,9 @@ read_delimited <- function(file, tokenizer, col_names = TRUE, col_types = NULL,
   }
 
   spec <- col_spec_standardise(
-    data, skip = skip, comment = comment, n_max = n_max,
-    col_names = col_names, col_types = col_types,
-    tokenizer = tokenizer, locale = locale)
+    data, skip = skip, comment = comment, n = guess_max,
+    col_names = col_names, col_types = col_types, tokenizer = tokenizer,
+    locale = locale)
 
   if (progress) {
      print(spec, n = getOption("readr.num_columns", 20))
@@ -180,7 +188,8 @@ read_delimited <- function(file, tokenizer, col_names = TRUE, col_types = NULL,
 }
 
 generate_spec_fun <- function(x) {
-  formals(x)$n_max <- 1000
+  formals(x)$n_max <- 0
+  formals(x)$guess_max <- 1000
 
   args <- formals(x)
 
