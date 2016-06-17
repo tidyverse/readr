@@ -28,9 +28,6 @@ public:
     begin_ = static_cast<char*>(mr_.get_address());
     end_ = begin_ + mr_.get_size();
 
-    // Skip byte order mark, if needed
-    begin_ = skipBom(begin_, end_);
-
     // Skip lines, if needed
     begin_ = skipLines(begin_, end_, skip, comment);
   }
