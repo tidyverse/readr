@@ -15,19 +15,19 @@ if (FALSE) {
 }
 
 test_that("read_csv standardises line breaks", {
-  expect_equal(read_csv("eol-lf.csv")$y, letters[1:3])
-  expect_equal(read_csv("eol-cr.csv")$y, letters[1:3])
-  expect_equal(read_csv("eol-crlf.csv")$y, letters[1:3])
+  expect_equal(read_csv("eol-lf.csv", progress = FALSE)$y, letters[1:3])
+  expect_equal(read_csv("eol-cr.csv", progress = FALSE)$y, letters[1:3])
+  expect_equal(read_csv("eol-crlf.csv", progress = FALSE)$y, letters[1:3])
 })
 
 test_that("read_lines standardises line breaks", {
-  lf <- read_lines("eol-lf.csv")
-  expect_equal(read_lines("eol-cr.csv"), lf)
-  expect_equal(read_lines("eol-crlf.csv"), lf)
+  lf <- read_lines("eol-lf.csv", progress = FALSE)
+  expect_equal(read_lines("eol-cr.csv", progress = FALSE), lf)
+  expect_equal(read_lines("eol-crlf.csv", progress = FALSE), lf)
 })
 
 test_that("read_fwf/read_table standardises line breaks", {
-  expect_equal(read_table("eol-lf.txt")$y, letters[1:3])
-  expect_equal(read_table("eol-cr.txt")$y, letters[1:3])
-  expect_equal(read_table("eol-crlf.txt")$y, letters[1:3])
+  expect_equal(read_table("eol-lf.txt", progress = FALSE)$y, letters[1:3])
+  expect_equal(read_table("eol-cr.txt", progress = FALSE)$y, letters[1:3])
+  expect_equal(read_table("eol-crlf.txt", progress = FALSE)$y, letters[1:3])
 })
