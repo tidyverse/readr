@@ -17,9 +17,6 @@ public:
     begin_ = CHAR(string_);
     end_ = begin_ + Rf_xlength(string_);
 
-    // Skip byte order mark, if needed
-    begin_ = skipBom(begin_, end_);
-
     // Skip lines, if needed
     begin_ = skipLines(begin_, end_, skip, comment);
   }
