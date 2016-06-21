@@ -96,7 +96,7 @@ Use the `col_types` argument to override the default choices. There are two ways
     ```R
     read_csv("iris.csv", col_types = cols(
       Species = col_factor(c("setosa", "versicolor", "virginica")),
-      .default = "d")
+      .default = col_double())
     )
     ```
     
