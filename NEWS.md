@@ -1,8 +1,11 @@
 # readr 1.0.0.9000
 
 * Bugfix for chunked reading to properly allow stopping of a stream by returning FALSE from the callback.
+* `read_csv2()` gives a message if it updates the default locale (#443, @krlmlr).
+
 * `col_euro_double()`, `parse_euro_double()`, `col_numeric()`, and 
   `parse_numeric()` have been removed.
+
 # readr 0.2.2.9000
 * Skip Unicode byte order markers if they exist (#263, @jimhester).
 
