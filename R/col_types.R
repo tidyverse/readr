@@ -89,6 +89,10 @@ print.col_spec <- function(x, n = Inf, ...) {
   }
 
   cols <- x$cols[seq_len(min(length(x$cols), n))]
+  if (length(cols) == 0) {
+    return(invisible(x))
+  }
+
   cat(fun_type,
     paste(collapse = ",\n  ",
     vapply(seq_along(cols),
