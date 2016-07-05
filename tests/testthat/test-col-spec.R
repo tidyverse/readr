@@ -53,3 +53,50 @@ test_that("defaults expanded to match names", {
 test_that("col_spec_standardise works properly with 1 row inputs and no header columns (#333)", {
   expect_is(col_spec_standardise("1\n", col_names = FALSE)[[1]]$X1, "collector_integer")
 })
+
+regex_escape <- function(x) {
+  chars <- c("*", ".", "?", "^", "+", "$", "|", "(", ")", "[", "]", "{", "}", "\\")
+  gsub(paste0("([\\", paste0(collapse = "\\", chars), "])"), "\\\\\\1", x, perl = TRUE)
+}
+
+test_that("print(col_spec) with collector_guess", {
+  out <- col_spec_standardise("a,b,c\n1,2,3")
+  expect_output(print(out),
+    regex_escape(
+"cols(
+  a = col_integer(),
+  b = col_integer(),
+  c = col_integer())"))
+})
+
+test_that("print(col_spec) with collector_skip", {
+  out <- cols_only(a = col_integer(), c = col_integer())
+  expect_output(print(out),
+    regex_escape(
+"cols_only(
+  a = col_integer(),
+  c = col_integer())"))
+})
+
+test_that("print(col_spec) with truncated output", {
+  out <- col_spec_standardise("a,b,c\n1,2,3", col_types = cols(.default = "c"))
+  expect_output(print(out, n = 2),
+    regex_escape(
+"cols(.default = col_character(),
+  a = col_character(),
+  b = col_character()
+  # ... with 1 more columns
+)"))
+})
+
+test_that("spec object attached to read data", {
+
+  test_data <- read_csv("basic-df.csv", col_types = NULL, col_names = TRUE, progress = FALSE)
+
+  expect_equal(spec(test_data),
+    cols(
+       a = col_logical(),
+       b = col_integer(),
+       c = col_double(),
+       d = col_character()))
+})
