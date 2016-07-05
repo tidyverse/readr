@@ -115,6 +115,41 @@ columns to be printed, setting the value to 0 disables printing.
 readr attaches the spec used for the file to the output. It can be retrieved by
 calling `spec()` on the object.
 
+```{r}
+write_csv(mtcars, "mtcars.csv")
+data <- read_csv("mtcars.csv")
+
+data
+
+# Every table returned has a spec attribute
+s <- spec(data)
+s
+
+# Alternatively you can use a spec function instead, which will only read the
+# first 1000 rows (user configurable with guess_max)
+s <- spec_csv("mtcars.csv")
+s
+
+# If the spec has a default of skip then uses cols_only
+s$default <- col_skip()
+s
+
+# Otherwise set the default to the proper type
+s$default <- col_character()
+s
+
+# The print method takes a n parameter to return only that number of columns
+print(s, n=5)
+
+# When reading this is set to 20 by default, set options("readr.num_columns" = x) to change
+options("readr.num_columns" = 5)
+data <- read_csv("mtcars.csv")
+
+# Setting it to 0 disables printing
+options("readr.num_columns" = 0)
+data <- read_csv("mtcars.csv")
+```
+
 ### Spec types
 
 ## Column parsers
