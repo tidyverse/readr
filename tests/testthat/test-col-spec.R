@@ -126,6 +126,17 @@ test_that("print(col_spec) with unnamed columns", {
   c = col_character())"))
 })
 
+test_that("print(cols_only()) prints properly", {
+  out <- cols_only(
+    a = col_character(),
+    c = col_integer())
+  expect_output(print(out),
+    regex_escape(
+"cols_only(
+  a = col_character(),
+  c = col_integer())"))
+})
+
 test_that("print(col_spec) with n == 0 prints nothing", {
   out <- col_spec_standardise("a,b,c\n1,2,3")
   expect_silent(print(out, n = 0))
