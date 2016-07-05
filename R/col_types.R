@@ -97,7 +97,12 @@ print.col_spec <- function(x, n = Inf, ...) {
         col_funs <- sub("^collector_", "col_", class(cols[[i]])[[1]])
         args <- vapply(cols[[i]], deparse, character(1))
         args <- paste(names(args), args, sep = " = ", collapse = ", ")
-        paste0(col_names, " = ", col_funs, "(", args, ")")
+
+        # Need to special case skipped columns without names
+        named <- col_names != ""
+        out <- paste0(col_names, " = ", col_funs, "(", args, ")")
+        out[!named] <- paste0(col_funs, "(", args, ")")
+        out
       },
       character(1)
     )), sep = "")

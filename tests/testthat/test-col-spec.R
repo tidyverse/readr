@@ -115,3 +115,13 @@ test_that("print(col_spec) works with dates", {
   b = col_date(format = NULL),
   c = col_date(format = NULL))"))
 })
+
+test_that("print(col_spec) with unnamed columns", {
+  out <- col_spec_standardise(col_types = "c_c", col_names = c("a", "c"))
+  expect_output(print(out),
+    regex_escape(
+"cols(
+  a = col_character(),
+  col_skip(),
+  c = col_character())"))
+})
