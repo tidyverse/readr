@@ -100,3 +100,18 @@ test_that("spec object attached to read data", {
        c = col_double(),
        d = col_character()))
 })
+
+
+test_that("print(col_spec) works with dates", {
+  out <- col_spec_standardise("a,b,c\n",
+    col_types = cols(a = col_date(format = "%Y-%m-%d"),
+      b = col_date(),
+      c = col_date()))
+
+  expect_output(print(out),
+    regex_escape(
+"cols(
+  a = col_date(format = \"%Y-%m-%d\"),
+  b = col_date(format = NULL),
+  c = col_date(format = NULL))"))
+})

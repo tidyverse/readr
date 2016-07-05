@@ -95,7 +95,8 @@ print.col_spec <- function(x, n = Inf, ...) {
       function(i) {
         col_names <- names(cols)[[i]]
         col_funs <- sub("^collector_", "col_", class(cols[[i]])[[1]])
-        args <- paste(names(cols[[i]]), cols[[i]], sep = " = ", collapse = ", ")
+        args <- vapply(cols[[i]], deparse, character(1))
+        args <- paste(names(args), args, sep = " = ", collapse = ", ")
         paste0(col_names, " = ", col_funs, "(", args, ")")
       },
       character(1)
