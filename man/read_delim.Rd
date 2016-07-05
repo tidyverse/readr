@@ -144,6 +144,9 @@ respectively. \code{read_csv2} uses \code{;} for separators, instead of
 \code{,}. This is common in European countries which use \code{,} as the
 decimal separator. The \code{spec_*} versions return the column
 specification instead of the full data frame.
+By default the types of the first 20 columns are printed,
+\code{options(readr.num_columns)} can be used to modify this (a value of 0
+turns off printing).
 }
 \examples{
 # Input sources -------------------------------------------------------------
