@@ -39,7 +39,8 @@ in an interactive session. The display is updated every 50,000 values
 and will only display if estimated reading time is 5 seconds or more.}
 }
 \value{
-A character vector with one element for each line.
+\code{read_lines}: A character vector with one element for each line.
+  \code{read_lines_raw}: A list containing a raw vector for each line.
 }
 \description{
 Read lines from a file or string.

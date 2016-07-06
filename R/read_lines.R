@@ -4,7 +4,8 @@
 #' @inheritParams read_delim
 #' @param n_max Number of lines to read. If \code{n_max} is -1, all lines in
 #'   file will be read.
-#' @return A character vector with one element for each line.
+#' @return \code{read_lines}: A character vector with one element for each line.
+#'   \code{read_lines_raw}: A list containing a raw vector for each line.
 #' @export
 #' @examples
 #' read_lines(system.file("extdata/mtcars.csv", package = "readr"))
