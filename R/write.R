@@ -9,7 +9,9 @@
 #' take advantage of R's nice output for doubles. POSIXct's are formatted
 #' as ISO8601.
 #'
-#' All columns are encoded as UTF-8.
+#' All columns are encoded as UTF-8. \code{write_excel_csv} also includes a
+#' \href{https://en.wikipedia.org/wiki/Byte_order_mark}{UTF-8 Byte order mark}
+#' which indicates to Excel the csv is UTF-8 encoded.
 #'
 #' Values are only quoted if needed: if they contain a comma, quote or newline.
 #'
@@ -58,7 +60,20 @@ write_delim <- function(x, path, delim = " ", na = "NA", append = FALSE,
 #' @rdname write_delim
 #' @export
 write_csv <- function(x, path, na = "NA", append = FALSE, col_names = !append) {
-  write_delim(x, path, delim = ',', na = na,append = append, col_names = col_names)
+  write_delim(x, path, delim = ",", na = na,append = append, col_names = col_names)
+}
+
+#' @rdname write_delim
+#' @export
+write_excel_csv <- function(x, path, na = "NA", append = FALSE, col_names = !append) {
+  stopifnot(is.data.frame(x))
+  path <- normalizePath(path, mustWork = FALSE)
+
+  x_out <- lapply(x, output_column)
+  stream_delim(x_out, path, ",", col_names = col_names, append = append,
+    na = na, bom = TRUE)
+
+  invisible(x)
 }
 
 #' @rdname write_delim
