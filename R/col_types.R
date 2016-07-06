@@ -57,21 +57,25 @@ col_spec <- function(col_types, default = col_guess()) {
 is.col_spec <- function(x) inherits(x, "col_spec")
 
 as.col_spec <- function(x) UseMethod("as.col_spec")
+
 #' @export
 as.col_spec.character <- function(x) {
   letters <- strsplit(x, "")[[1]]
   col_spec(lapply(letters, col_concise), col_guess())
 }
+
 #' @export
 as.col_spec.NULL <- function(x) {
   col_spec(list())
 }
+
 #' @export
 as.col_spec.list <- function(x) {
-  col_spec(x)
+  do.call(cols, x)
 }
 #' @export
 as.col_spec.col_spec <- function(x) x
+
 #' @export
 as.col_spec.default <- function(x) {
   stop("`col_types` must be NULL, a list or a string", call. = FALSE)

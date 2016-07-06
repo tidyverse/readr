@@ -1,5 +1,7 @@
 # readr 0.2.2.9000
 
+* Named lists can now be used as input to `col_types()` (#401, @jimhester).
+
 * Column specifications are now printed by default when reading, and can be
   retrieved from objects with `spec()` (#314, @jimhester).
 * `write_excel_csv()` can be used to write a csv file with a UTF-8 Byte order

@@ -6,6 +6,9 @@ test_that("read_csv col imputation, col_name detection and NA detection works", 
     c("logical", "integer", "numeric", "character"))
   expect_equal(names(test_data), c("a", "b", "c", "d"))
   expect_equal(sum(is.na(test_data$d)), 1)
+
+  test_data2 <- read_csv("basic-df.csv", col_types = list(a = "l", b = "i", c = "d", d = "c"), col_names = TRUE, progress = FALSE)
+  expect_identical(test_data, test_data2)
 })
 
 test_that("read_csv's 'NA' option genuinely changes the NA values", {
