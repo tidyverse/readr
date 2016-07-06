@@ -3,6 +3,8 @@
 * `locale()` now automatically sets decimal mark if you set the grouping 
   mark. It throws an error if you accidentally set decimal and grouping marks
   to the same character (#450).
+* `read_file_raw()` function to read a complete file into a raw vector (#451,
+  @jimhester).
 
 * Named lists can now be used as input to `col_types()` (#401, @jimhester).
 

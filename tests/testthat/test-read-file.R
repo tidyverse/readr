@@ -60,3 +60,13 @@ test_that("read_file works via https on gz file", {
 test_that("read_file returns \"\" on an empty file", {
    expect_equal(read_file("empty-file"), "")
 })
+
+# read_file_raw ---------------------------------------------------------------
+
+test_that("read_file_raw works with a local text file", {
+  expect_equal(read_file_raw("sample_text.txt"), charToRaw("abc\n123"))
+})
+
+test_that("read_file_raw works with a character datasource", {
+  expect_equal(read_file_raw("abc\n123"), charToRaw("abc\n123"))
+})

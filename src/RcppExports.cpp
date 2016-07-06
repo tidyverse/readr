@@ -123,6 +123,17 @@ BEGIN_RCPP
     return __result;
 END_RCPP
 }
+// read_file_raw_
+RawVector read_file_raw_(List sourceSpec);
+RcppExport SEXP readr_read_file_raw_(SEXP sourceSpecSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject __result;
+    Rcpp::RNGScope __rngScope;
+    Rcpp::traits::input_parameter< List >::type sourceSpec(sourceSpecSEXP);
+    __result = Rcpp::wrap(read_file_raw_(sourceSpec));
+    return __result;
+END_RCPP
+}
 // read_lines_
 CharacterVector read_lines_(List sourceSpec, List locale_, int n_max, bool progress);
 RcppExport SEXP readr_read_lines_(SEXP sourceSpecSEXP, SEXP locale_SEXP, SEXP n_maxSEXP, SEXP progressSEXP) {
