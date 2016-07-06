@@ -56,24 +56,6 @@ col_spec <- function(col_types, default = col_guess()) {
 
 is.col_spec <- function(x) inherits(x, "col_spec")
 
-#' @export
-print.col_spec <- function(x, ...) {
-  cat("<col_spec>\n")
-
-  col_class <- function(x) gsub("collector_", "", class(x)[[1]])
-
-  cols <- x$cols
-  class <- vapply(cols, col_class, character(1))
-  if (length(cols) > 0) {
-    if (is.null(names(cols))) {
-      cat(paste0("* ", class, collapse = "\n"), "\n", sep = "")
-    } else {
-      cat(paste0("* ", names(cols), ": ", class, collapse = "\n"), "\n", sep = "")
-    }
-  }
-  cat("* default: ", col_class(x$default), "\n", sep = "")
-}
-
 as.col_spec <- function(x) UseMethod("as.col_spec")
 #' @export
 as.col_spec.character <- function(x) {
@@ -93,6 +75,58 @@ as.col_spec.col_spec <- function(x) x
 #' @export
 as.col_spec.default <- function(x) {
   stop("`col_types` must be NULL, a list or a string", call. = FALSE)
+}
+
+#' @export
+print.col_spec <- function(x, n = Inf, ...) {
+  if (inherits(x$default, "collector_guess")) {
+    fun_type <- "cols(\n  "
+  } else if (inherits(x$default, "collector_skip")) {
+    fun_type <- "cols_only(\n  "
+  } else {
+    type <- sub("^collector_", "", class(x$default)[[1]])
+    fun_type <- paste0("cols(.default = col_", type, "(),\n  ")
+  }
+
+  cols <- x$cols[seq_len(min(length(x$cols), n))]
+  if (length(cols) == 0) {
+    return(invisible(x))
+  }
+
+  cat(fun_type,
+    paste(collapse = ",\n  ",
+    vapply(seq_along(cols),
+      function(i) {
+        col_names <- names(cols)[[i]]
+        col_funs <- sub("^collector_", "col_", class(cols[[i]])[[1]])
+        args <- vapply(cols[[i]], deparse, character(1))
+        args <- paste(names(args), args, sep = " = ", collapse = ", ")
+
+        # Need to special case skipped columns without names
+        named <- col_names != ""
+        out <- paste0(col_names, " = ", col_funs, "(", args, ")")
+        out[!named] <- paste0(col_funs, "(", args, ")")
+        out
+      },
+      character(1)
+    )), sep = "")
+
+  if (length(x$cols) >= n) {
+    cat("\n  # ... with", length(x$cols) - n, "more columns\n")
+  }
+  cat(")\n")
+
+  invisible(x)
+}
+
+#' Extract the column specification from an data frame
+#'
+#' @param x The data frame object to extract from
+#' @return The col_spec object used for that data frame.
+#' @export
+spec <- function(x) {
+  stopifnot(inherits(x, "tbl_df"))
+  attr(x, "spec")
 }
 
 col_concise <- function(x) {
@@ -115,7 +149,7 @@ col_concise <- function(x) {
 
 col_spec_standardise <- function(file, col_names = TRUE, col_types = NULL,
                                  guessed_types = NULL,
-                                 comment = "", skip = 0, n_max = -1,
+                                 comment = "", skip = 0, n = 1000,
                                  tokenizer = tokenizer_csv(),
                                  locale = default_locale()) {
 
@@ -210,7 +244,7 @@ col_spec_standardise <- function(file, col_names = TRUE, col_types = NULL,
   if (any(is_guess)) {
     if (is.null(guessed_types)) {
       ds <- datasource(file, skip = skip, comment = comment)
-      guessed_types <- guess_types(ds, tokenizer, locale, n_max = n_max)
+      guessed_types <- guess_types(ds, tokenizer, locale, n = n)
     }
 
     # Need to be careful here: there might be more guesses than types/names
@@ -218,13 +252,10 @@ col_spec_standardise <- function(file, col_names = TRUE, col_types = NULL,
     spec$cols[is_guess] <- lapply(guesses, collector_find)
   }
 
-  spec$cols
+  spec
 }
 
-guess_types <- function(datasource, tokenizer, locale, n = 1000, n_max = -1) {
-  if (n_max > 0) {
-    n <- min(n, n_max)
-  }
+guess_types <- function(datasource, tokenizer, locale, n = 1000) {
   guess_types_(datasource, tokenizer, locale, n = n)
 }
 

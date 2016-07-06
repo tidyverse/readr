@@ -2,10 +2,16 @@
 % Please edit documentation in R/read_table.R
 \name{read_table}
 \alias{read_table}
+\alias{spec_table}
 \title{Read text file where columns are separated by whitespace.}
 \usage{
 read_table(file, col_names = TRUE, col_types = NULL,
-  locale = default_locale(), na = "NA", skip = 0, n_max = -1)
+  locale = default_locale(), na = "NA", skip = 0, n_max = Inf,
+  guess_max = min(n_max, 1000), progress = interactive())
+
+spec_table(file, col_names = TRUE, col_types = NULL,
+  locale = default_locale(), na = "NA", skip = 0, n_max = 0,
+  guess_max = 1000, progress = interactive())
 }
 \arguments{
 \item{file}{Either a path to a file, a connection, or literal data
@@ -60,6 +66,12 @@ option to \code{character()} to indicate no missing values.}
 \item{skip}{Number of lines to skip before reading data.}
 
 \item{n_max}{Maximum number of records to read.}
+
+\item{guess_max}{Maximum number of records to use for guessing column types.}
+
+\item{progress}{Display a progress bar? By default it will only display
+in an interactive session. The display is updated every 50,000 values
+and will only display if estimated reading time is 5 seconds or more.}
 }
 \description{
 This is designed to read the type of textual data where each column is
@@ -67,7 +79,8 @@ separate by one (or more) columns of space. Each line is the same length,
 and each field is in the same position in every line. It's similar to
 \code{\link{read.table}}, but rather parsing like a file delimited by
 arbitrary amounts of whitespace, it first finds empty columns and then
-parses like a fixed width file.
+parses like a fixed width file. \code{spec_table} returns the column
+specification rather than a data frame.
 }
 \examples{
 # One corner from http://www.masseyratings.com/cf/compare.htm

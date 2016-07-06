@@ -1,5 +1,8 @@
 # readr 0.2.2.9000
 
+* Column specifications are now printed by default when reading, and can be
+  retrieved from objects with `spec()` (#314, @jimhester).
+
 * Parse doubles with `boost::spirit::qi::long_double` to work around a bug in the
   spirit library when parsing large numbers (#412, @jimhester).
 

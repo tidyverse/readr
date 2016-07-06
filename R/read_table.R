@@ -5,7 +5,8 @@
 #' and each field is in the same position in every line. It's similar to
 #' \code{\link{read.table}}, but rather parsing like a file delimited by
 #' arbitrary amounts of whitespace, it first finds empty columns and then
-#' parses like a fixed width file.
+#' parses like a fixed width file. \code{spec_table} returns the column
+#' specification rather than a data frame.
 #'
 #' @seealso \code{\link{read_fwf}} to read fixed width files where each column
 #'   is not separated by whitespace. \code{read_fwf} is also useful for reading
@@ -26,18 +27,30 @@
 #' cat(read_file(epa))
 #' read_table(epa, col_names = FALSE)
 read_table <- function(file, col_names = TRUE, col_types = NULL,
-                       locale = default_locale(), na = "NA",
-                       skip = 0, n_max = -1) {
+                       locale = default_locale(), na = "NA", skip = 0,
+                       n_max = Inf, guess_max = min(n_max, 1000),
+                       progress = interactive()) {
   columns <- fwf_empty(file, skip = skip)
   tokenizer <- tokenizer_fwf(columns$begin, columns$end, na = na)
 
-  col_types <- col_spec_standardise(
-    file = file, skip = skip, n_max = n_max,
+  spec <- col_spec_standardise(
+    file = file, skip = skip, n = guess_max,
     col_names = col_names, col_types = col_types,
     locale = locale, tokenizer = tokenizer
   )
 
+  if (progress) {
+     print(spec, n = getOption("readr.num_columns", 20))
+  }
+
   ds <- datasource(file, skip = skip + isTRUE(col_names))
-  read_tokens(ds, tokenizer, col_types, names(col_types), locale_ = locale,
-    n_max = n_max)
+  res <- read_tokens(ds, tokenizer, spec$cols, names(spec$cols), locale_ = locale,
+    n_max = n_max, progress = progress)
+  attr(res, "spec") <- spec
+
+  res
 }
+
+#' @rdname read_table
+#' @export
+spec_table <- generate_spec_fun(read_table)

@@ -17,7 +17,7 @@ test_that("parse functions converts NAs", {
 
 test_that("leading/trailing ws ignored when parsing", {
   expect_equal(parse_double(c(" 1.5", "1.5", "1.5 ")), rep(1.5, 3))
-  expect_equal(read_csv("x\n 1.5\n1.5\n1.5 \n")$x, rep(1.5, 3))
+  expect_equal(read_csv("x\n 1.5\n1.5\n1.5 \n", progress = FALSE)$x, rep(1.5, 3))
 })
 
 test_that("lone - or decimal marks are not numbers", {
@@ -72,7 +72,7 @@ test_that("type_convert passes along decimal_mark", {
 })
 
 test_that("read_tsv passes on decimal_mark", {
-  out <- read_tsv("x\n1,5", locale = es_MX)
+  out <- read_tsv("x\n1,5", locale = es_MX, progress = FALSE)
   expect_equal(out$x, 1.5)
 })
 

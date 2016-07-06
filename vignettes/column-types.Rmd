@@ -32,7 +32,7 @@ Currently, readr automatically recognises the following types of columns:
 
 * `col_number()` [n], finds the first number in the field. A number is defined
    as a sequence of -, "0-9", `decimal_mark` and `grouping_mark`. This is
-   useful for currencies and percentages. 
+   useful for currencies and percentages.
 
 To recognise these columns, readr inspects the first 1000 rows of your dataset. This is not guaranteed to be perfect, but it's fast and a reasonable heuristic. If you get a lot of parsing failures, you'll need to re-read the file, overriding the default choices as described below.
 
@@ -48,7 +48,7 @@ You can also manually specify other column types:
 
 * `col_time(format)`, times. Returned as number of seconds past midnight.
 
-* `col_factor(levels, ordered)`, parse a fixed set of known values into a 
+* `col_factor(levels, ordered)`, parse a fixed set of known values into a
   factor
 
 Use the `col_types` argument to override the default choices. There are two ways to use it:
@@ -68,9 +68,9 @@ Use the `col_types` argument to override the default choices. There are two ways
       Species = col_factor(c("setosa", "versicolor", "virginica"))
     ))
     ```
-    
+
     Or, with their abbreviations:
-    
+
     ```R
       read_csv("iris.csv", col_types = cols(
       Sepal.Length = "d",
@@ -80,33 +80,77 @@ Use the `col_types` argument to override the default choices. There are two ways
       Species = col_factor(c("setosa", "versicolor", "virginica"))
     ))
     ```
-    
-    Any omitted columns will be parsed automatically, so the previous call  
+
+    Any omitted columns will be parsed automatically, so the previous call
     will lead to the same result as:
-    
+
     ```R
     read_csv("iris.csv", col_types = cols(
       Species = col_factor(c("setosa", "versicolor", "virginica")))
     )
     ```
-    
-    You can also set a default type that will be used instead of 
+
+    You can also set a default type that will be used instead of
     relying on the automatic detection for columns you don't specify:
-    
+
     ```R
     read_csv("iris.csv", col_types = cols(
       Species = col_factor(c("setosa", "versicolor", "virginica")),
       .default = col_double())
     )
     ```
-    
+
     If you only want to read specified columns, use `cols_only()`:
-    
+
     ```R
     read_csv("iris.csv", col_types = cols_only(
       Species = col_factor(c("setosa", "versicolor", "virginica"))
     )
     ```
+
+When reading files interactively the first 20 rows of the `col_spec()` used are
+printed. `option(readr.num_columns)` can be used to change the number of
+columns to be printed, setting the value to 0 disables printing.
+
+readr attaches the spec used for the file to the output. It can be retrieved by
+calling `spec()` on the object.
+
+```{r}
+write_csv(mtcars, "mtcars.csv")
+data <- read_csv("mtcars.csv")
+
+data
+
+# Every table returned has a spec attribute
+s <- spec(data)
+s
+
+# Alternatively you can use a spec function instead, which will only read the
+# first 1000 rows (user configurable with guess_max)
+s <- spec_csv("mtcars.csv")
+s
+
+# If the spec has a default of skip then uses cols_only
+s$default <- col_skip()
+s
+
+# Otherwise set the default to the proper type
+s$default <- col_character()
+s
+
+# The print method takes a n parameter to return only that number of columns
+print(s, n=5)
+
+# When reading this is set to 20 by default, set options("readr.num_columns" = x) to change
+options("readr.num_columns" = 5)
+data <- read_csv("mtcars.csv")
+
+# Setting it to 0 disables printing
+options("readr.num_columns" = 0)
+data <- read_csv("mtcars.csv")
+```
+
+### Spec types
 
 ## Column parsers
 
@@ -114,7 +158,7 @@ As well as specifying how to parse a column from a file on disk, each of the `co
 
 ### Base types
 
-`parse_logical()`, `parse_integer()`, `parse_double()`, and `parse_character()` are straightforward parsers that produce the corresponding atomic vector. 
+`parse_logical()`, `parse_integer()`, `parse_double()`, and `parse_character()` are straightforward parsers that produce the corresponding atomic vector.
 
 Make sure to read `vignette("locales")` to learn how to deal with doubles.
 

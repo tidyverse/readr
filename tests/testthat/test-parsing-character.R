@@ -1,12 +1,12 @@
 context("Parsing, character")
 
 test_that("ws dropped by default", {
-  df <- read_csv("x\n a \n    b\n")
+  df <- read_csv("x\n a \n    b\n", progress = FALSE)
   expect_equal(df$x, c("a", "b"))
 })
 
 test_that("trim_ws = FALSE keeps ws", {
-  df <- read_csv("x\n a\nb \n", trim_ws = FALSE)
+  df <- read_csv("x\n a\nb \n", trim_ws = FALSE, progress = FALSE)
   expect_equal(df$x, c(" a", "b "))
 })
 
