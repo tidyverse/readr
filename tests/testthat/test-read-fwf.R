@@ -59,6 +59,10 @@ test_that("read columns with width, ragged", {
   expect_equal(n_problems(x), 0)
 })
 
+test_that("read_fwf returns an empty data.frame on an empty file", {
+   expect_equal(read_fwf("empty-file", progress = FALSE), tibble::data_frame())
+})
+
 # read_table -------------------------------------------------------------------
 
 test_that("read_table silently reads ragged last column", {

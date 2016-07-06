@@ -5,6 +5,7 @@
   to the same character (#450).
 * `read_file_raw()` function to read a complete file into a raw vector (#451,
   @jimhester).
+* read_fwf() on an empty file returns an empty tibble (#441, @jimhester).
 
 * Named lists can now be used as input to `col_types()` (#401, @jimhester).
 
