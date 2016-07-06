@@ -60,3 +60,18 @@ test_that("roundtrip preserves dates and datetimes", {
 test_that("fails to create file in non-existent directory", {
   expect_error(write_csv(mtcars, file.path(tempdir(), "/x/y")), "Failed to open")
 })
+
+test_that("write_excel_csv includes a byte order mark", {
+  tmp <- tempfile()
+  on.exit(unlink(tmp))
+
+  write_excel_csv(mtcars, tmp)
+
+  output <- readBin(tmp, "raw", file.info(tmp)$size)
+
+  # BOM is there
+  expect_equal(output[1:3], charToRaw("\xEF\xBB\xBF"))
+
+  # Rest of file also there
+  expect_equal(output[4:6], charToRaw("mpg"))
+})

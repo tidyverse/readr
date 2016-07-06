@@ -7,6 +7,7 @@
 \alias{output_column}
 \alias{write_csv}
 \alias{write_delim}
+\alias{write_excel_csv}
 \alias{write_tsv}
 \title{Save a data frame to a delimited file.}
 \usage{
@@ -14,6 +15,8 @@ write_delim(x, path, delim = " ", na = "NA", append = FALSE,
   col_names = !append)
 
 write_csv(x, path, na = "NA", append = FALSE, col_names = !append)
+
+write_excel_csv(x, path, na = "NA", append = FALSE, col_names = !append)
 
 write_tsv(x, path, na = "NA", append = FALSE, col_names = !append)
 
@@ -58,7 +61,9 @@ Factors are coerced to character. Doubles are coerced to character to
 take advantage of R's nice output for doubles. POSIXct's are formatted
 as ISO8601.
 
-All columns are encoded as UTF-8.
+All columns are encoded as UTF-8. \code{write_excel_csv} also includes a
+\href{https://en.wikipedia.org/wiki/Byte_order_mark}{UTF-8 Byte order mark}
+which indicates to Excel the csv is UTF-8 encoded.
 
 Values are only quoted if needed: if they contain a comma, quote or newline.
 }

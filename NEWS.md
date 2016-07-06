@@ -2,6 +2,9 @@
 
 * Column specifications are now printed by default when reading, and can be
   retrieved from objects with `spec()` (#314, @jimhester).
+* `write_excel_csv()` can be used to write a csv file with a UTF-8 Byte order
+  mark included, which allows Excel to detect that it is UTF-8 encoded. (#375,
+  @jimhester).
 
 * Parse doubles with `boost::spirit::qi::long_double` to work around a bug in the
   spirit library when parsing large numbers (#412, @jimhester).
