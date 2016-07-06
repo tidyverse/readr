@@ -82,14 +82,9 @@ void stream_delim(Stream& output, const List& df, char delim, const std::string&
 std::string stream_delim(const List& df, const std::string& path, char delim, const std::string& na,
                          bool col_names = true, bool append = false) {
 
-  // From the max_digits10 proposal http://www2.open-std.org/JTC1/SC22/WG21/docs/papers/2005/n1822.pdf
-  // This will be 17 for IEEE doubles
-  const int digits = 2 + std::numeric_limits<double>::digits * 3010/10000;
-
   if (path == "") {
     std::ostringstream output;
 
-    output.precision(digits);
     stream_delim(output, df, delim, na, col_names, append);
     return output.str();
   } else {
@@ -97,7 +92,6 @@ std::string stream_delim(const List& df, const std::string& path, char delim, co
     if (output.fail()) {
       stop("Failed to open '%s'.", path);
     }
-    output.precision(digits);
     stream_delim(output, df, delim, na, col_names, append);
     return "";
   }
