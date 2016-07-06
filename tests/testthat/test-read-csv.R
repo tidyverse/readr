@@ -110,6 +110,15 @@ test_that("extra columns generates warnings", {
   expect_equal(problems(out4)$expected, "2 columns")
 })
 
+test_that("too few or extra col_types generates warnings", {
+  expect_warning(out1 <- read_csv("v1,v2\n1,2", col_types = "i"))
+  expect_equal(problems(out1)$expected, "1 columns")
+  expect_equal(  problems(out1)$actual, "2 columns")
+
+  expect_warning(out2 <- read_csv("v1,v2\n1,2", col_types = "iii"))
+  expect_equal(ncol(out2), 2)
+})
+
 # read_csv2 ---------------------------------------------------------------
 
 test_that("decimal mark automatically set to ,", {

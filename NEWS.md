@@ -1,5 +1,12 @@
 # readr 0.2.2.9000
 
+* Parse doubles with `boost::spirit::qi::long_double` to work around a bug in the
+  spirit library when parsing large numbers (#412, @jimhester).
+
+* Supports reading into long vectors (#309, @jimhester).
+* `default_locale()` now sets the default locale in `readr.default_locale`
+  rather than regenerating it for each call. (#416, @jimhester).
+
 * Printing of double values now uses an
   [implementation](https://github.com/juj/MathGeoLib/blob/master/src/Math/grisu3.c)
   of the [grisu3
@@ -9,8 +16,9 @@
 
 * Negative column widths are now allowed in `fwf_widths()` to facilitate
   compatibility with the `widths` argument in `read.fwf()`. (#380, @leeper)
-* `type_covert()` now accepts only `NULL` or a `cols` specification for
+* `type_convert()` now accepts only `NULL` or a `cols` specification for
   `col_types` (#369, @jimhester).
+* If `col_types` is too long, it is subsetted correctly. (#372, @jennybc)
 * `read_file()`, `read_lines()` and `read_csv()` now return empty objects
   rather than signaling an error when run on an empty file (#356, @jimhester).
 

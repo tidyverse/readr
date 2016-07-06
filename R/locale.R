@@ -90,11 +90,8 @@ print.locale <- function(x, ...) {
 default_locale <- function() {
   loc <- getOption("readr.default_locale")
   if (is.null(loc)) {
-    return(locale())
-  }
-
-  if (interactive()) {
-    message("Using non-default locale")
+    loc <- locale()
+    options("readr.default_locale" = loc)
   }
 
   loc
