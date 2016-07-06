@@ -26,6 +26,9 @@ read_lines <- function(file, skip = 0, n_max = -1L,
 #' @export
 #' @rdname read_lines
 read_lines_raw <- function(file, skip = 0, n_max = -1L, progress = interactive()) {
+  if (empty_file(file)) {
+    return(list())
+  }
   ds <- datasource(file, skip = skip)
   read_lines_raw_(ds, n_max = n_max, progress = progress)
 }
