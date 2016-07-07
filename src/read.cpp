@@ -20,6 +20,15 @@ CharacterVector read_file_(List sourceSpec, List locale_) {
 }
 
 // [[Rcpp::export]]
+RawVector read_file_raw_(List sourceSpec) {
+  SourcePtr source = Source::create(sourceSpec);
+
+  RawVector res(source->end() - source->begin());
+  std::copy(source->begin(), source->end(), res.begin());
+  return res;
+}
+
+// [[Rcpp::export]]
 CharacterVector read_lines_(List sourceSpec, List locale_, int n_max = -1,
                             bool progress = true) {
 
