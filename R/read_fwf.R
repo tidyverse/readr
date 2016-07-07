@@ -31,6 +31,11 @@ read_fwf <- function(file, col_positions, col_types = NULL,
                      locale = default_locale(), na = c("", "NA"),
                      skip = 0, n_max = Inf, guess_max = min(n_max, 1000), progress = interactive()) {
   ds <- datasource(file, skip = skip)
+
+  if (inherits(ds, "source_file") && empty_file(file)) {
+    return(tibble::data_frame())
+  }
+
   tokenizer <- tokenizer_fwf(col_positions$begin, col_positions$end, na = na)
 
   spec <- col_spec_standardise(
