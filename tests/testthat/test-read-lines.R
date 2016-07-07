@@ -6,7 +6,11 @@ test_that("read_lines respects encoding", {
 })
 
 test_that("read_lines returns an empty character vector on an empty file", {
-   expect_equal(read_lines("empty-file", progress = FALSE), character())
+  expect_equal(read_lines("empty-file", progress = FALSE), character())
+})
+
+test_that("read_lines handles embedded nuls", {
+  expect_equal(read_lines("null-file", progress = FALSE), c("a,b,c", "1,2,", "3,4,5"))
 })
 
 # These tests are slow so are commented out
