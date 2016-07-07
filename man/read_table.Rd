@@ -45,7 +45,7 @@ spec_table(file, col_names = TRUE, col_types = NULL,
   imputation fails, you'll need to supply the correct types yourself.
 
   If a column specification created by \code{\link{cols}}, it must contain
-  one "\code{\link{collector}}" for each column. If you only want to read a
+  one column specification for each column. If you only want to read a
   subset of the columns, use \code{\link{cols_only}}.
 
   Alternatively, you can use a compact string representation where each

@@ -12,14 +12,14 @@
 parse_datetime(x, format = "", na = c("", "NA"),
   locale = default_locale())
 
-col_datetime(format = "")
-
 parse_date(x, format = "\%Y-\%m-\%d", na = c("", "NA"),
   locale = default_locale())
 
-col_date(format = NULL)
-
 parse_time(x, format = "", na = c("", "NA"), locale = default_locale())
+
+col_datetime(format = "")
+
+col_date(format = NULL)
 
 col_time(format = "")
 }
@@ -164,5 +164,10 @@ parse_datetime("1979-10-14T1010-0500", locale = us_central)
 parse_datetime("1979-10-14T1010Z", locale = us_central)
 # Your current time zone
 parse_datetime("1979-10-14T1010", locale = locale(tz = ""))
+}
+\seealso{
+Other parser: \code{\link{parse_atomic}},
+  \code{\link{parse_factor}}, \code{\link{parse_guess}},
+  \code{\link{parse_number}}
 }
 

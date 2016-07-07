@@ -18,7 +18,7 @@ type_convert(df, col_types = NULL, na = c("", "NA"), trim_ws = TRUE,
   imputation fails, you'll need to supply the correct types yourself.
 
   If a column specification created by \code{\link{cols}}, it must contain
-  one "\code{\link{collector}}" for each column. If you only want to read a
+  one column specification for each column. If you only want to read a
   subset of the columns, use \code{\link{cols_only}}.
 
   Unlike other functions \code{type_convert} does not allow character
