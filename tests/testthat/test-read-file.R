@@ -70,3 +70,7 @@ test_that("read_file_raw works with a local text file", {
 test_that("read_file_raw works with a character datasource", {
   expect_equal(read_file_raw("abc\n123"), charToRaw("abc\n123"))
 })
+
+test_that("read_file_raw returns raw() on an empty file", {
+  expect_equal(read_file_raw("empty-file"), raw())
+})

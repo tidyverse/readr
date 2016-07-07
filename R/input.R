@@ -22,7 +22,7 @@ read_file <- function(file, locale = default_locale()) {
 #' @rdname read_file
 read_file_raw <- function(file) {
   if (empty_file(file)) {
-    return("")
+    return(raw())
   }
 
   ds <- datasource(file)
