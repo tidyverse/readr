@@ -2,9 +2,12 @@
 % Please edit documentation in R/input.R
 \name{read_file}
 \alias{read_file}
+\alias{read_file_raw}
 \title{Read a file into a string.}
 \usage{
 read_file(file, locale = default_locale())
+
+read_file_raw(file)
 }
 \arguments{
 \item{file}{Either a path to a file, a connection, or literal data
@@ -25,10 +28,16 @@ The default locale is US-centric (like R), but you can use
 the default time zone, encoding, decimal mark, big mark, and day/month
 names.}
 }
+\value{
+\code{read_file}: A length 1 character vector with the entire file contents.
+  \code{read_lines_raw}: A raw vector with the entire file contents.
+}
 \description{
 Read a file into a string.
 }
 \examples{
 read_file(file.path(R.home(), "COPYING"))
+
+read_lines_raw(system.file("extdata/mtcars.csv", package = "readr"))
 }
 
