@@ -1,5 +1,7 @@
 # readr 0.2.2.9000
 
+* `write_lines()` function to write a character vector to a file (#302,
+  @jimhester).
 * `locale()` now automatically sets decimal mark if you set the grouping 
   mark. It throws an error if you accidentally set decimal and grouping marks
   to the same character (#450).

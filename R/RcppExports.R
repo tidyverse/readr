@@ -69,3 +69,7 @@ stream_delim <- function(df, path, delim, na, col_names = TRUE, append = FALSE, 
     .Call('readr_stream_delim', PACKAGE = 'readr', df, path, delim, na, col_names, append, bom)
 }
 
+write_lines_ <- function(lines, path, na, append = FALSE) {
+    invisible(.Call('readr_write_lines_', PACKAGE = 'readr', lines, path, na, append))
+}
+

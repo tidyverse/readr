@@ -237,3 +237,16 @@ BEGIN_RCPP
     return __result;
 END_RCPP
 }
+// write_lines_
+void write_lines_(const CharacterVector& lines, const std::string& path, const std::string& na, bool append);
+RcppExport SEXP readr_write_lines_(SEXP linesSEXP, SEXP pathSEXP, SEXP naSEXP, SEXP appendSEXP) {
+BEGIN_RCPP
+    Rcpp::RNGScope __rngScope;
+    Rcpp::traits::input_parameter< const CharacterVector& >::type lines(linesSEXP);
+    Rcpp::traits::input_parameter< const std::string& >::type path(pathSEXP);
+    Rcpp::traits::input_parameter< const std::string& >::type na(naSEXP);
+    Rcpp::traits::input_parameter< bool >::type append(appendSEXP);
+    write_lines_(lines, path, na, append);
+    return R_NilValue;
+END_RCPP
+}
