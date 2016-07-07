@@ -1,5 +1,9 @@
 # readr 0.2.2.9000
 
+* `locale()` now automatically sets decimal mark if you set the grouping 
+  mark. It throws an error if you accidentally set decimal and grouping marks
+  to the same character (#450).
+
 * Named lists can now be used as input to `col_types()` (#401, @jimhester).
 
 * Column specifications are now printed by default when reading, and can be
