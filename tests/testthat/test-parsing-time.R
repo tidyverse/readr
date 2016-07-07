@@ -19,11 +19,11 @@ test_that("parses NA/empty correctly", {
 })
 
 test_that("times are guessed as expected", {
-  expect_equal(collector_guess("12:01"), "time")
+  expect_equal(guess_parser("12:01"), "time")
 
   expect_equal(
-    collector_guess("12:01:01"), "time")
+    guess_parser("12:01:01"), "time")
 
   expect_equal(
-    collector_guess(c("04:00:00", "04:30:00", "14:00:22")), "time")
+    guess_parser(c("04:00:00", "04:30:00", "14:00:22")), "time")
 })

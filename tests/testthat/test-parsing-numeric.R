@@ -21,25 +21,24 @@ test_that("leading/trailing ws ignored when parsing", {
 })
 
 test_that("lone - or decimal marks are not numbers", {
-  expect_equal(collector_guess("-"), "character")
-  expect_equal(collector_guess("."), "character")
-  expect_equal(collector_guess(",", locale = es_MX), "character")
+  expect_equal(guess_parser("-"), "character")
+  expect_equal(guess_parser("."), "character")
+  expect_equal(guess_parser(",", locale = es_MX), "character")
 
   expect_equal(n_problems(parse_numeric(c(".", "-"))), 2)
 })
 
 test_that("Numbers with trailing characters are parsed as characters", {
-  expect_equal(collector_guess("13T"), "character")
-
-  expect_equal(collector_guess(collector_guess(c("13T", "13T", "10N"))), "character")
+  expect_equal(guess_parser("13T"), "character")
+  expect_equal(guess_parser(c("13T", "13T", "10N")), "character")
 })
 
 # Leading zeros -----------------------------------------------------------
 
 test_that("leading zeros are not numbers", {
-  expect_equal(collector_guess("0"), "integer")
-  expect_equal(collector_guess("0."), "double")
-  expect_equal(collector_guess("0001"), "character")
+  expect_equal(guess_parser("0"), "integer")
+  expect_equal(guess_parser("0."), "double")
+  expect_equal(guess_parser("0001"), "character")
 })
 
 # Flexible number parsing -------------------------------------------------

@@ -2,12 +2,15 @@
 % Please edit documentation in R/collectors.R
 \name{parse_guess}
 \alias{col_guess}
+\alias{guess_parser}
 \alias{parse_guess}
-\title{Parse a character vector into the "best" type}
+\title{Parse a character vector into the "best" type.}
 \usage{
 parse_guess(x, na = c("", "NA"), locale = default_locale())
 
 col_guess()
+
+guess_parser(x, locale = default_locale())
 }
 \arguments{
 \item{x}{Character vector of values to parse.}
@@ -22,9 +25,11 @@ the default time zone, encoding, decimal mark, big mark, and day/month
 names.}
 }
 \description{
-Parse guess uses a number of heuristics to determine which type of vector
-is "best". Generally it tries to err of the side of safety, as it's
-straightforward to override the parsing choice if needed.
+\code{parse_guess()} returns the parser vector; \code{guess_parser()}
+returns the name of the parser. These functions use a number of heuristics
+to determine which type of vector is "best". Generally they try to err of
+the side of safety, as it's straightforward to override the parsing choice
+if needed.
 }
 \examples{
 # Logical vectors
@@ -35,9 +40,11 @@ parse_guess(c("1","2","3"))
 parse_guess(c("1.6","2.6","3.4"))
 
 # Numbers containing grouping mark
+guess_parser("1,234,566")
 parse_guess("1,234,566")
 
 # ISO 8601 date times
+guess_parser(c("2010-10-10"))
 parse_guess(c("2010-10-10"))
 }
 \seealso{

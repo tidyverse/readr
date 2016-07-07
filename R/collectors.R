@@ -4,20 +4,6 @@ collector <- function(type, ...) {
 
 is.collector <- function(x) inherits(x, "collector")
 
-#' Guess the type of a vector.
-#'
-#' @param x Character vector of elements to guess.
-#' @inheritParams read_delim
-#' @keywords internal
-#' @export
-#' @examples
-#' collector_guess(c("1", "2", "3"))
-#' collector_guess(c("T", "F", "T"))
-#' collector_guess(c("a", "b", "c"))
-collector_guess <- function(x, locale = default_locale()) {
-  collectorGuess(x, locale)
-}
-
 #' @export
 print.collector <- function(x, ...) {
   cat("<", class(x)[1], ">\n", sep = "")
@@ -156,11 +142,13 @@ col_number <- function() {
 }
 
 
-#' Parse a character vector into the "best" type
+#' Parse a character vector into the "best" type.
 #'
-#' Parse guess uses a number of heuristics to determine which type of vector
-#' is "best". Generally it tries to err of the side of safety, as it's
-#' straightforward to override the parsing choice if needed.
+#' \code{parse_guess()} returns the parser vector; \code{guess_parser()}
+#' returns the name of the parser. These functions use a number of heuristics
+#' to determine which type of vector is "best". Generally they try to err of
+#' the side of safety, as it's straightforward to override the parsing choice
+#' if needed.
 #'
 #' @inheritParams parse_atomic
 #' @inheritParams tokenizer_delim
@@ -176,18 +164,26 @@ col_number <- function() {
 #' parse_guess(c("1.6","2.6","3.4"))
 #'
 #' # Numbers containing grouping mark
+#' guess_parser("1,234,566")
 #' parse_guess("1,234,566")
 #'
 #' # ISO 8601 date times
+#' guess_parser(c("2010-10-10"))
 #' parse_guess(c("2010-10-10"))
 parse_guess <- function(x, na = c("", "NA"), locale = default_locale()) {
-  parse_vector(x, collector_guess(x, locale), na = na, locale = locale)
+  parse_vector(x, guess_parser(x, locale), na = na, locale = locale)
 }
 
 #' @rdname parse_guess
 #' @export
 col_guess <- function() {
   collector("guess")
+}
+
+#' @rdname parse_guess
+#' @export
+guess_parser <- function(x, locale = default_locale()) {
+  collectorGuess(x, locale)
 }
 
 #' Parse a character vector into a factor

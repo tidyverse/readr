@@ -59,7 +59,7 @@ regex_escape <- function(x) {
   gsub(paste0("([\\", paste0(collapse = "\\", chars), "])"), "\\\\\\1", x, perl = TRUE)
 }
 
-test_that("print(col_spec) with collector_guess", {
+test_that("print(col_spec) with guess_parser", {
   out <- col_spec_standardise("a,b,c\n1,2,3")
   expect_output(print(out),
     regex_escape(

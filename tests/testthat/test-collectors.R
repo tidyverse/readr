@@ -1,28 +1,28 @@
 context("Collectors")
 
 test_that("guess for empty strings is character", {
-  expect_equal(collector_guess(c("", "")), "character")
+  expect_equal(guess_parser(c("", "")), "character")
 })
 
 test_that("guess for missing vector is character", {
-  expect_equal(collector_guess(NA_character_), "character")
+  expect_equal(guess_parser(NA_character_), "character")
 })
 
 test_that("empty + NA ignored when determining type", {
-  expect_equal(collector_guess(c("1", "")), "integer")
-  expect_equal(collector_guess(c("1", NA)), "integer")
+  expect_equal(guess_parser(c("1", "")), "integer")
+  expect_equal(guess_parser(c("1", NA)), "integer")
 })
 
 test_that("guess decimal commas with correct locale", {
-  expect_equal(collector_guess("1,300"), "number")
-  expect_equal(collector_guess("1,300", locale(decimal_mark = ",")), "double")
+  expect_equal(guess_parser("1,300"), "number")
+  expect_equal(guess_parser("1,300", locale(decimal_mark = ",")), "double")
 })
 
 # Numbers -----------------------------------------------------------------
 
 test_that("only accept numbers with grouping mark", {
-  expect_equal(collector_guess("1,300"), "number")
-  expect_equal(collector_guess("1,300.00"), "number")
+  expect_equal(guess_parser("1,300"), "number")
+  expect_equal(guess_parser("1,300.00"), "number")
 })
 
 # Concise collectors specification ----------------------------------------

@@ -40,7 +40,7 @@ type_convert <- function(df, col_types = NULL, na = c("", "NA"), trim_ws = TRUE,
   char_cols <- df[is_character]
   guesses <- lapply(char_cols, function(x) {
     x[x %in% na] <- NA
-    collector_guess(x, locale)
+    guess_parser(x, locale)
   })
 
   if (is.character(col_types)) {

@@ -228,17 +228,17 @@ test_that("unambiguous times with and without daylight savings", {
 # Guessing ---------------------------------------------------------------------
 
 test_that("DDDD-DD not parsed as date (i.e. doesn't trigger partial date match)", {
-  expect_equal(collector_guess(c("1989-90", "1990-91")), "character")
+  expect_equal(guess_parser(c("1989-90", "1990-91")), "character")
 })
 
 test_that("leading zeros don't get parsed as date without explicit separator", {
-  expect_equal(collector_guess("00010203"), "character")
-  expect_equal(collector_guess("0001-02-03"), "date")
+  expect_equal(guess_parser("00010203"), "character")
+  expect_equal(guess_parser("0001-02-03"), "date")
 })
 
 test_that("must have either two - or none", {
-  expect_equal(collector_guess("2000-10-10"), "date")
-  expect_equal(collector_guess("2000-1010"), "character")
-  expect_equal(collector_guess("200010-10"), "character")
-  expect_equal(collector_guess("20001010"), "integer")
+  expect_equal(guess_parser("2000-10-10"), "date")
+  expect_equal(guess_parser("2000-1010"), "character")
+  expect_equal(guess_parser("200010-10"), "character")
+  expect_equal(guess_parser("20001010"), "integer")
 })
