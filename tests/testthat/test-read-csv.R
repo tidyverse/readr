@@ -166,6 +166,19 @@ test_that("comments are ignored regardless of where they appear", {
 
   expect_warning(out4 <- read_csv('x,y\n1,#comment', comment = "#", progress = FALSE))
   expect_equal(out4$y, NA_character_)
+
+  expect_warning(out5 <- read_csv("x1,x2,x3\nA2,B2,C2\nA3#,B2,C2\nA4,A5,A6", comment = "#", progress = FALSE))
+  expect_warning(out6 <- read_csv("x1,x2,x3\nA2,B2,C2\nA3,#B2,C2\nA4,A5,A6", comment = "#", progress = FALSE))
+  expect_warning(out7 <- read_csv("x1,x2,x3\nA2,B2,C2\nA3,#B2,C2\n#comment\nA4,A5,A6", comment = "#", progress = FALSE))
+
+  chk <- tibble::data_frame(
+    x1 = c("A2", "A3", "A4"),
+    x2 = c("B2", NA_character_, "A5"),
+    x3 = c("C2", NA_character_, "A6"))
+
+  expect_equal(chk, out5)
+  expect_equal(chk, out6)
+  expect_equal(chk, out7)
 })
 
 test_that("escaped/quoted comments are ignored", {

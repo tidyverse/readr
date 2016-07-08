@@ -19,6 +19,7 @@
 
 * New example `extdata/challenge.csv` which is carefully created to cause 
   problems with the default column type guessing heuristics.
+* Bugfix for comment parsing with full line comments (#381, @jimhester).
 
 * `write_lines()` function to write a character vector to a file (#302,
   @jimhester).

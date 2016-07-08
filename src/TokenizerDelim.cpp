@@ -88,6 +88,7 @@ Token TokenizerDelim::nextToken() {
         newRecord();
         return fieldToken(token_begin, advanceForLF(&cur_, end_), hasEscapeB, hasNull, row, col);
       } else if (isComment(cur_)) {
+        newField();
         state_ = STATE_COMMENT;
         return fieldToken(token_begin, cur_, hasEscapeB, hasNull, row, col);
       } else if (escapeBackslash_ && *cur_ == '\\') {
@@ -160,9 +161,17 @@ Token TokenizerDelim::nextToken() {
 
     case STATE_COMMENT:
       if (*cur_ == '\r' || *cur_ == '\n') {
+
+        // If we have read at least one record on the current row go to the
+        // next row, line, otherwise just ignore the line.
+        if (col_ > 0) {
+          newRecord();
+          ++row;
+          col = 0;
+        }
         advanceForLF(&cur_, end_);
-        state_ = STATE_DELIM;
         token_begin = cur_ + 1;
+        state_ = STATE_DELIM;
       }
 
       break;
