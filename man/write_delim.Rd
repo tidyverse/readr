@@ -57,9 +57,8 @@ columns to suitable output.
 }
 \section{Output}{
 
-Factors are coerced to character. Doubles are coerced to character to
-take advantage of R's nice output for doubles. POSIXct's are formatted
-as ISO8601.
+Factors are coerced to character. Doubles are formatted using the grisu3
+algorithm. POSIXct's are formatted as ISO8601.
 
 All columns are encoded as UTF-8. \code{write_excel_csv} also includes a
 \href{https://en.wikipedia.org/wiki/Byte_order_mark}{UTF-8 Byte order mark}
@@ -83,5 +82,10 @@ format_csv(df, na = ".")
 # Quotes are automatically as needed
 df <- data.frame(x = c("a", '"', ",", "\\n"))
 cat(format_csv(df))
+}
+\references{
+Florian Loitsch, Printing Floating-Point Numbers Quickly and
+Accurately with Integers, PLDI '10,
+\url{http://www.cs.tufts.edu/~nr/cs257/archive/florian-loitsch/printf.pdf}
 }
 
