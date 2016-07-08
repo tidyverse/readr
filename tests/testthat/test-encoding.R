@@ -6,5 +6,5 @@ test_that("guess_encoding() works", {
 
   x <- guess_encoding("a\n\u00b5\u00b5")
   expect_equal(as.character(x$encoding), "UTF-8")
-  expect_equal(x$confidence, 8)
+  expect_equal(x$confidence, 0.8)
 })
