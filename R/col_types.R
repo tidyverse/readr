@@ -83,7 +83,7 @@ as.col_spec.default <- function(x) {
 
 #' @export
 print.col_spec <- function(x, n = Inf, ...) {
-  cat(format.col_spec(x, n = n, ...), "\n")
+  cat(format.col_spec(x, n = n, ...))
 
   invisible(x)
 }
@@ -101,7 +101,7 @@ format.col_spec <- function(x, n = Inf, ...) {
 
   cols <- x$cols[seq_len(min(length(x$cols), n))]
   if (length(cols) == 0) {
-    return(invisible(x))
+    return("")
   }
 
   out <- paste0(fun_type,
@@ -123,9 +123,9 @@ format.col_spec <- function(x, n = Inf, ...) {
     )), sep = "")
 
   if (length(x$cols) >= n) {
-    out <- paste0(out, "\n  # ... with", length(x$cols) - n, "more columns\n")
+    out <- paste0(out, "\n  # ... with ", length(x$cols) - n, " more columns\n")
   }
-  out <- paste0(out, ")")
+  out <- paste0(out, ")\n")
 
   out
 }
