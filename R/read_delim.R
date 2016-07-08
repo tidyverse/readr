@@ -184,7 +184,7 @@ read_delimited <- function(file, tokenizer, col_names = TRUE, col_types = NULL,
       message("Parsed with column specification:\n",
         format(spec, n = n), appendLF = FALSE)
       if (length(spec$cols) >= n) {
-        message("See spec(...) for full column specifications used.")
+        message("See spec(...) for full column specifications.")
       }
     }
   }
