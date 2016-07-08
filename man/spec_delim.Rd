@@ -108,11 +108,25 @@ in an interactive session. The display is updated every 50,000 values
 and will only display if estimated reading time is 5 seconds or more.}
 }
 \value{
-The \code{\link{col_spec}} generated for the file.
+The \code{col_spec} generated for the file.
 }
 \description{
 By default the types of the first 20 columns are printed,
 \code{options(readr.num_columns)} can be used to modify this (a value of 0
 turns off printing).
+}
+\examples{
+# Input sources -------------------------------------------------------------
+# Retrieve specs from a path
+spec_csv(system.file("extdata/mtcars.csv", package = "readr"))
+spec_csv(system.file("extdata/mtcars.csv.zip", package = "readr"))
+
+# Or directly from a string (must contain a newline)
+spec_csv("x,y\\n1,2\\n3,4")
+
+# Column types --------------------------------------------------------------
+# By default, readr guess the columns types, looking at the first 1000 rows.
+# You can specify the number of rows used with guess_max.
+spec_csv(system.file("extdata/mtcars.csv", package = "readr"), guess_max = 20)
 }
 
