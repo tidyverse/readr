@@ -12,21 +12,20 @@
 parse_datetime(x, format = "", na = c("", "NA"),
   locale = default_locale())
 
-parse_date(x, format = "\%Y-\%m-\%d", na = c("", "NA"),
-  locale = default_locale())
+parse_date(x, format = "", na = c("", "NA"), locale = default_locale())
 
 parse_time(x, format = "", na = c("", "NA"), locale = default_locale())
 
 col_datetime(format = "")
 
-col_date(format = NULL)
+col_date(format = "")
 
 col_time(format = "")
 }
 \arguments{
 \item{x}{A character vector of dates to parse.}
 
-\item{format}{A format specification, as described below. If omitted,
+\item{format}{A format specification, as described below. If set to "",
   parses dates according to the ISO8601 specification (with caveats,
   as described below). Times are parsed like ISO8601 times, but also
   accept an optional am/pm specification.

@@ -77,6 +77,14 @@ public:
     return isComplete();
   }
 
+  bool parseLocaleTime() {
+    return parse(pLocale_->timeFormat_);
+  }
+
+  bool parseLocaleDate() {
+    return parse(pLocale_->dateFormat_);
+  }
+
   // A flexible time parser for the most common formats
   bool parseTime() {
     if (!consumeInteger(2, &hour_))

@@ -263,7 +263,7 @@ col_factor <- function(levels, ordered = FALSE) {
 #' }
 #'
 #' @param x A character vector of dates to parse.
-#' @param format A format specification, as described below. If omitted,
+#' @param format A format specification, as described below. If set to "",
 #'   parses dates according to the ISO8601 specification (with caveats,
 #'   as described below). Times are parsed like ISO8601 times, but also
 #'   accept an optional am/pm specification.
@@ -343,7 +343,7 @@ parse_datetime <- function(x, format = "", na = c("", "NA"), locale = default_lo
 
 #' @rdname parse_datetime
 #' @export
-parse_date <- function(x, format = "%Y-%m-%d", na = c("", "NA"), locale = default_locale()) {
+parse_date <- function(x, format = "", na = c("", "NA"), locale = default_locale()) {
   parse_vector(x, col_date(format), na = na, locale = locale)
 }
 
@@ -361,7 +361,7 @@ col_datetime <- function(format = "") {
 
 #' @rdname parse_datetime
 #' @export
-col_date <- function(format = NULL) {
+col_date <- function(format = "") {
   collector("date", format = format)
 }
 
