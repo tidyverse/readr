@@ -48,7 +48,7 @@ public:
       switch(*cur_) {
       case '\r':
       case '\n':
-        return Token(token_begin, advanceForLF(&cur_, end_), hasNull, line_++, 0);
+        return Token(token_begin, advanceForLF(&cur_, end_), line_++, 0, hasNull);
       default:
         break;
       }
@@ -59,7 +59,7 @@ public:
     if (token_begin == end_) {
       return Token(TOKEN_EOF, line_++, 0);
     } else {
-      return Token(token_begin, end_, hasNull, line_++, 0);
+      return Token(token_begin, end_, line_++, 0, hasNull);
     }
   }
 
