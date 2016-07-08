@@ -179,7 +179,7 @@ read_delimited <- function(file, tokenizer, col_names = TRUE, col_types = NULL,
   ds <- datasource(data, skip = skip + isTRUE(col_names), comment = comment)
 
   if (progress && !inherits(ds, "source_string")) {
-     print(spec, n = getOption("readr.num_columns", 20))
+     message(format(spec, n = getOption("readr.num_columns", 20)))
   }
 
   out <- read_tokens(ds, tokenizer, spec$cols, names(spec$cols), locale_ = locale,
