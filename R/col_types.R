@@ -83,6 +83,13 @@ as.col_spec.default <- function(x) {
 
 #' @export
 print.col_spec <- function(x, n = Inf, ...) {
+  cat(format.col_spec(x, n = n, ...))
+
+  invisible(x)
+}
+
+#' @export
+format.col_spec <- function(x, n = Inf, ...) {
   if (inherits(x$default, "collector_guess")) {
     fun_type <- "cols(\n  "
   } else if (inherits(x$default, "collector_skip")) {
@@ -94,10 +101,10 @@ print.col_spec <- function(x, n = Inf, ...) {
 
   cols <- x$cols[seq_len(min(length(x$cols), n))]
   if (length(cols) == 0) {
-    return(invisible(x))
+    return("")
   }
 
-  cat(fun_type,
+  out <- paste0(fun_type,
     paste(collapse = ",\n  ",
     vapply(seq_along(cols),
       function(i) {
@@ -116,11 +123,11 @@ print.col_spec <- function(x, n = Inf, ...) {
     )), sep = "")
 
   if (length(x$cols) >= n) {
-    cat("\n  # ... with", length(x$cols) - n, "more columns\n")
+    out <- paste0(out, "\n  # ... with ", length(x$cols) - n, " more columns\n")
   }
-  cat(")\n")
+  out <- paste0(out, ")\n")
 
-  invisible(x)
+  out
 }
 
 #' Extract the column specification from an data frame
