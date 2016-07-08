@@ -9,12 +9,7 @@ NULL
 #' flat file data, comma separated values and tab separated values,
 #' respectively. \code{read_csv2} uses \code{;} for separators, instead of
 #' \code{,}. This is common in European countries which use \code{,} as the
-#' decimal separator. The \code{spec_*} versions return the column
-#' specification instead of the full data frame.
-#' By default the types of the first 20 columns are printed,
-#' \code{options(readr.num_columns)} can be used to modify this (a value of 0
-#' turns off printing).
-#'
+#' decimal separator.
 #' @inheritParams datasource
 #' @inheritParams tokenizer_delim
 #' @param col_names Either \code{TRUE}, \code{FALSE} or a character vector
@@ -206,18 +201,25 @@ generate_spec_fun <- function(x) {
   x
 }
 
+#' Retrieve the column specification of a file.
+#'
+#' By default the types of the first 20 columns are printed,
+#' \code{options(readr.num_columns)} can be used to modify this (a value of 0
+#' turns off printing).
+#'
+#' @return The \code{\link{col_spec}} generated for the file.
+#' @inheritParams read_delim
 #' @export
-#' @rdname read_delim
 spec_delim <- generate_spec_fun(read_delim)
 
-#' @rdname read_delim
+#' @rdname spec_delim
 #' @export
 spec_csv <- generate_spec_fun(read_csv)
 
-#' @rdname read_delim
+#' @rdname spec_delim
 #' @export
 spec_csv2 <- generate_spec_fun(read_csv2)
 
-#' @rdname read_delim
+#' @rdname spec_delim
 #' @export
 spec_tsv <- generate_spec_fun(read_tsv)
