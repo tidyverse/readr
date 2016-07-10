@@ -66,7 +66,8 @@ test_that("print(col_spec) with guess_parser", {
 "cols(
   a = col_integer(),
   b = col_integer(),
-  c = col_integer())"))
+  c = col_integer()
+)"))
 })
 
 test_that("print(col_spec) with collector_skip", {
@@ -75,7 +76,8 @@ test_that("print(col_spec) with collector_skip", {
     regex_escape(
 "cols_only(
   a = col_integer(),
-  c = col_integer())"))
+  c = col_integer()
+)"))
 })
 
 test_that("print(col_spec) with truncated output", {
@@ -113,7 +115,8 @@ test_that("print(col_spec) works with dates", {
 "cols(
   a = col_date(format = \"%Y-%m-%d\"),
   b = col_date(format = NULL),
-  c = col_date(format = NULL))"))
+  c = col_date(format = NULL)
+)"))
 })
 
 test_that("print(col_spec) with unnamed columns", {
@@ -123,7 +126,8 @@ test_that("print(col_spec) with unnamed columns", {
 "cols(
   a = col_character(),
   col_skip(),
-  c = col_character())"))
+  c = col_character()
+)"))
 })
 
 test_that("print(cols_only()) prints properly", {
@@ -134,7 +138,8 @@ test_that("print(cols_only()) prints properly", {
     regex_escape(
 "cols_only(
   a = col_character(),
-  c = col_integer())"))
+  c = col_integer()
+)"))
 })
 
 test_that("print(col_spec) with n == 0 prints nothing", {
