@@ -76,8 +76,8 @@ warn_problems <- function(x, name = "input") {
 
   probs_f <- do.call(paste, c(probs_f, list(sep = " ", collapse = "\n")))
   warning(n, " parsing failure", if (n > 1) "s", ".\n",
-    "See spec(...) for column specifications used.\n", probs_f,
-    if (many_problems) "\n.See problems(...) for more details.",
+    probs_f, "\n",
+    if (many_problems) "See problems(...) for more details.\n",
     call. = FALSE, immediate. = TRUE, noBreaks. = TRUE)
 
   x

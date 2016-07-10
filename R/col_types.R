@@ -125,7 +125,7 @@ format.col_spec <- function(x, n = Inf, ...) {
   if (length(x$cols) >= n) {
     out <- paste0(out, "\n  # ... with ", length(x$cols) - n, " more columns\n")
   }
-  out <- paste0(out, ")\n")
+  out <- paste0(out, "\n)\n")
 
   out
 }

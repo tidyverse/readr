@@ -178,7 +178,7 @@ read_delimited <- function(file, tokenizer, col_names = TRUE, col_types = NULL,
 
   ds <- datasource(data, skip = skip + isTRUE(col_names), comment = comment)
 
-  if (progress && !inherits(ds, "source_string")) {
+  if (is.null(col_types) && progress && !inherits(ds, "source_string")) {
     n <- getOption("readr.num_columns", 20)
     if (n > 0) {
       message("Parsed with column specification:\n",
