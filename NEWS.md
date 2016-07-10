@@ -1,5 +1,8 @@
 # readr 0.2.2.9000
 
+* New `stop_for_problems(x)` throws an error if `x` had any parsing problems 
+  (#465).
+
 * New `readr_example()` helper to easily access example files bundled
   with readr.
 

@@ -4,6 +4,9 @@
 #' way. However, there are lots of potential problems that you might want to
 #' know about - these are stored in the \code{problems} attribute of the
 #' output, which you can easily access with this function.
+#' \code{stop_for_problems()} will throw an error if there are any parsing
+#' problems: this is useful for automated scripts where you want to throw
+#' an error as soon as you encounter a problem.
 #'
 #' @param x An data frame (from \code{read_*}) or a vector
 #'   (from \code{parse_*}).
@@ -34,6 +37,16 @@ problems <- function(x) {
   } else {
     probs
   }
+}
+
+#' @export
+#' @rdname problems
+stop_for_problems <- function(x) {
+  n <- n_problems(x)
+  if (n == 0)
+    return(invisible())
+
+  stop(n, " parsing failure", if (n > 1) "s", call. = FALSE)
 }
 
 probs <- function(x) {
