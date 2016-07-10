@@ -8,7 +8,7 @@
 #' @examples
 #' read_file(file.path(R.home(), "COPYING"))
 #'
-#' read_lines_raw(system.file("extdata/mtcars.csv", package = "readr"))
+#' read_lines_raw(readr_example("mtcars.csv"))
 read_file <- function(file, locale = default_locale()) {
   if (empty_file(file)) {
     return("")

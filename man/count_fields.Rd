@@ -32,7 +32,6 @@ This is useful for diagnosing problems with functions that fail
 to parse correctly.
 }
 \examples{
-count_fields(system.file("extdata/mtcars.csv", package = "readr"),
- tokenizer_csv())
+count_fields(readr_example("mtcars.csv"), tokenizer_csv())
 }
 

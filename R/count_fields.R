@@ -10,8 +10,7 @@
 #' @param n_max Optionally, maximum number of rows to count fields for.
 #' @export
 #' @examples
-#' count_fields(system.file("extdata/mtcars.csv", package = "readr"),
-#'  tokenizer_csv())
+#' count_fields(readr_example("mtcars.csv"), tokenizer_csv())
 count_fields <- function(file, tokenizer, skip = 0, n_max = -1L) {
   ds <- datasource(file, skip = skip)
   count_fields_(ds, tokenizer, n_max)

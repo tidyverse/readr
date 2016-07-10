@@ -87,7 +87,7 @@ describe the length of every field. Readr aims to make it as easy as possible
 by providing a number of different ways to describe the field structure.
 }
 \examples{
-fwf_sample <- system.file("extdata/fwf-sample.txt", package = "readr")
+fwf_sample <- readr_example("fwf-sample.txt")
 cat(read_lines(fwf_sample))
 
 # You can specify column positions in three ways:

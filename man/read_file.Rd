@@ -38,6 +38,6 @@ Read a file into a string.
 \examples{
 read_file(file.path(R.home(), "COPYING"))
 
-read_lines_raw(system.file("extdata/mtcars.csv", package = "readr"))
+read_lines_raw(readr_example("mtcars.csv"))
 }
 

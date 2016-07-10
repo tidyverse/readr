@@ -1,5 +1,8 @@
 # readr 0.2.2.9000
 
+* New `readr_example()` helper to easily access example files bundled
+  with readr.
+
 * New example `extdata/challenge.csv` which is carefully created to cause 
   problems with the default column type guessing heuristics.
 

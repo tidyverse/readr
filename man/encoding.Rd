@@ -29,7 +29,7 @@ Uses \code{\link[stringi]{stri_enc_detect}}: see the documentation there
 for caveats.
 }
 \examples{
-guess_encoding(system.file("extdata/mtcars.csv", package = "readr"))
+guess_encoding(readr_example("mtcars.csv"))
 guess_encoding("a\\n\\u00b5\\u00b5")
 }
 

@@ -8,11 +8,11 @@
 #'   \code{read_lines_raw}: A list containing a raw vector for each line.
 #' @export
 #' @examples
-#' read_lines(system.file("extdata/mtcars.csv", package = "readr"))
+#' read_lines(readr_example("mtcars.csv"))
 #' read_lines("1\n\n2")
 #' read_lines("\n")
 #'
-#' read_lines_raw(system.file("extdata/mtcars.csv", package = "readr"))
+#' read_lines_raw(readr_example("mtcars.csv"))
 read_lines <- function(file, skip = 0, n_max = -1L,
                        locale = default_locale(),
                        progress = interactive()) {

@@ -9,7 +9,7 @@
 #' @param threshold Only report guesses above this threshold of certainty.
 #' @export
 #' @examples
-#' guess_encoding(system.file("extdata/mtcars.csv", package = "readr"))
+#' guess_encoding(readr_example("mtcars.csv"))
 #' guess_encoding("a\n\u00b5\u00b5")
 guess_encoding <- function(file, n_max = 1e4, threshold = 0.20) {
   if (!requireNamespace("stringi", quietly = TRUE)) {

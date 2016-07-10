@@ -1,6 +1,6 @@
 context("Encoding")
 test_that("guess_encoding() works", {
-  x <- guess_encoding(system.file("extdata/mtcars.csv", package = "readr"))
+  x <- guess_encoding(readr_example("mtcars.csv"))
   expect_equal(as.character(x$encoding), "ASCII")
   expect_equal(x$confidence, 1)
 

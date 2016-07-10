@@ -84,13 +84,13 @@ specification rather than a data frame.
 }
 \examples{
 # One corner from http://www.masseyratings.com/cf/compare.htm
-massey <- system.file("extdata/massey-rating.txt", package = "readr")
+massey <- readr_example("massey-rating.txt")
 cat(read_file(massey))
 read_table(massey)
 
 # Sample of 1978 fuel economy data from
 # http://www.fueleconomy.gov/feg/epadata/78data.zip
-epa <- system.file("extdata/epa78.txt", package = "readr")
+epa <- readr_example("epa78.txt")
 cat(read_file(epa))
 read_table(epa, col_names = FALSE)
 }

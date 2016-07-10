@@ -62,6 +62,6 @@ and square brackets for quoting, and there may be literal quotes embedded
 in a quoted string. The dash, "-", is used for missing values.
 }
 \examples{
-read_log(system.file("extdata/example.log", package = "readr"))
+read_log(readr_example("example.log"))
 }
 

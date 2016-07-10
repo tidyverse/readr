@@ -17,7 +17,7 @@
 #'   ragged fwf file), supply the last end position as NA.
 #' @export
 #' @examples
-#' fwf_sample <- system.file("extdata/fwf-sample.txt", package = "readr")
+#' fwf_sample <- readr_example("fwf-sample.txt")
 #' cat(read_lines(fwf_sample))
 #'
 #' # You can specify column positions in three ways:

@@ -7,7 +7,7 @@
 #' @inheritParams read_delim
 #' @export
 #' @examples
-#' read_log(system.file("extdata/example.log", package = "readr"))
+#' read_log(readr_example("example.log"))
 read_log <- function(file, col_names = FALSE, col_types = NULL,
                       skip = 0, n_max = -1, progress = interactive()) {
 

@@ -46,10 +46,10 @@ and will only display if estimated reading time is 5 seconds or more.}
 Read lines from a file or string.
 }
 \examples{
-read_lines(system.file("extdata/mtcars.csv", package = "readr"))
+read_lines(readr_example("mtcars.csv"))
 read_lines("1\\n\\n2")
 read_lines("\\n")
 
-read_lines_raw(system.file("extdata/mtcars.csv", package = "readr"))
+read_lines_raw(readr_example("mtcars.csv"))
 }
 

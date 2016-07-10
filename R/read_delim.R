@@ -59,9 +59,9 @@ NULL
 #' @examples
 #' # Input sources -------------------------------------------------------------
 #' # Read from a path
-#' read_csv(system.file("extdata/mtcars.csv", package = "readr"))
-#' read_csv(system.file("extdata/mtcars.csv.zip", package = "readr"))
-#' read_csv(system.file("extdata/mtcars.csv.bz2", package = "readr"))
+#' read_csv(readr_example("mtcars.csv"))
+#' read_csv(readr_example("mtcars.csv.zip"))
+#' read_csv(readr_example("mtcars.csv.bz2"))
 #' read_csv("https://github.com/hadley/readr/raw/master/inst/extdata/mtcars.csv")
 #'
 #' # Or directly from a string (must contain a newline)
