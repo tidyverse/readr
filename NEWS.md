@@ -1,5 +1,8 @@
 # readr 0.2.2.9000
 
+* New example `extdata/challenge.csv` which is carefully created to cause 
+  problems with the default column type guessing heuristics.
+
 * `write_lines()` function to write a character vector to a file (#302,
   @jimhester).
 * Bugfix in `read_line()` which was not properly ignoring embedded null's in
