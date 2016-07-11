@@ -9,12 +9,7 @@ NULL
 #' flat file data, comma separated values and tab separated values,
 #' respectively. \code{read_csv2} uses \code{;} for separators, instead of
 #' \code{,}. This is common in European countries which use \code{,} as the
-#' decimal separator. The \code{spec_*} versions return the column
-#' specification instead of the full data frame.
-#' By default the types of the first 20 columns are printed,
-#' \code{options(readr.num_columns)} can be used to modify this (a value of 0
-#' turns off printing).
-#'
+#' decimal separator.
 #' @inheritParams datasource
 #' @inheritParams tokenizer_delim
 #' @param col_names Either \code{TRUE}, \code{FALSE} or a character vector
@@ -213,18 +208,38 @@ generate_spec_fun <- function(x) {
   x
 }
 
+#' Retrieve the column specification of a file.
+#'
+#' By default the types of the first 20 columns are printed,
+#' \code{options(readr.num_columns)} can be used to modify this (a value of 0
+#' turns off printing).
+#'
+#' @return The \code{col_spec} generated for the file.
+#' @inheritParams read_delim
 #' @export
-#' @rdname read_delim
+#' @examples
+#' # Input sources -------------------------------------------------------------
+#' # Retrieve specs from a path
+#' spec_csv(system.file("extdata/mtcars.csv", package = "readr"))
+#' spec_csv(system.file("extdata/mtcars.csv.zip", package = "readr"))
+#'
+#' # Or directly from a string (must contain a newline)
+#' spec_csv("x,y\n1,2\n3,4")
+#'
+#' # Column types --------------------------------------------------------------
+#' # By default, readr guess the columns types, looking at the first 1000 rows.
+#' # You can specify the number of rows used with guess_max.
+#' spec_csv(system.file("extdata/mtcars.csv", package = "readr"), guess_max = 20)
 spec_delim <- generate_spec_fun(read_delim)
 
-#' @rdname read_delim
+#' @rdname spec_delim
 #' @export
 spec_csv <- generate_spec_fun(read_csv)
 
-#' @rdname read_delim
+#' @rdname spec_delim
 #' @export
 spec_csv2 <- generate_spec_fun(read_csv2)
 
-#' @rdname read_delim
+#' @rdname spec_delim
 #' @export
 spec_tsv <- generate_spec_fun(read_tsv)
