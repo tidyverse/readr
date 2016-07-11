@@ -22,7 +22,7 @@ by setting the default column type to the most frequent type and only
 listing columns with a different type.
 }
 \examples{
-df <- read_csv(system.file("mtcars.csv", package = "readr"))
+df <- read_csv(system.file("extdata/mtcars.csv", package = "readr"))
 s <- spec(df)
 s
 
