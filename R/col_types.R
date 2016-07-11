@@ -164,7 +164,7 @@ format.col_spec <- function(x, n = Inf, condense = FALSE, ...) {
 #' @return A col_spec object.
 #' @export
 #' @examples
-#' df <- read_csv(system.file("extdata/mtcars.csv", package = "readr"))
+#' df <- read_csv(readr_example("mtcars.csv"))
 #' s <- spec(df)
 #' s
 #'
