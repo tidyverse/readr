@@ -73,8 +73,7 @@ inline bool parseNumber(char decimalMark, char groupingMark, Iterator& first,
         state = STATE_LHS;
         sum = *cur - '0';
       } else {
-        cur--;
-        state = STATE_FIN;
+        goto end;
       }
       break;
     case STATE_LHS:
@@ -87,8 +86,7 @@ inline bool parseNumber(char decimalMark, char groupingMark, Iterator& first,
         sum *= 10;
         sum += *cur - '0';
       } else {
-        cur--;
-        state = STATE_FIN;
+        goto end;
       }
       break;
     case STATE_RHS:
@@ -99,14 +97,15 @@ inline bool parseNumber(char decimalMark, char groupingMark, Iterator& first,
         denom *= 10;
         sum += (*cur - '0') / denom;
       } else {
-        cur--;
-        state = STATE_FIN;
+        goto end;
       }
       break;
     case STATE_FIN:
-      break;
+      goto end;
     }
   }
+
+end:
 
   // Set last to point to final character used
   last = cur;
