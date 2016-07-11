@@ -146,3 +146,18 @@ test_that("print(col_spec) with n == 0 prints nothing", {
   out <- col_spec_standardise("a,b,c\n1,2,3")
   expect_silent(print(out, n = 0))
 })
+
+test_that("print(col_spec, condense = TRUE) condenses the spec", {
+  out <- col_spec_standardise("a,b,c,d\n1,2,3,a")
+  expect_output(print(out, condense = TRUE),
+    regex_escape(
+"cols(.default = col_integer(),
+  d = col_character()
+)"))
+
+  out <- col_spec_standardise("a,b,c,d\n1,2,3,4")
+  expect_output(print(out, condense = TRUE),
+    regex_escape(
+"cols(.default = col_integer()
+)"))
+})

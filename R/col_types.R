@@ -82,25 +82,43 @@ as.col_spec.default <- function(x) {
 }
 
 #' @export
-print.col_spec <- function(x, n = Inf, ...) {
-  cat(format.col_spec(x, n = n, ...))
+print.col_spec <- function(x, n = Inf, condense = FALSE, ...) {
+  cat(format.col_spec(x, n = n, condense = condense, ...))
 
   invisible(x)
 }
 
+condense_spec <- function(x) {
+  types <- vapply(x$cols, function(xx) class(xx)[[1]], character(1))
+  counts <- table(types)
+  most_common <- names(counts)[counts == max(counts)][[1]]
+
+  x$default <- x$cols[types == most_common][[1]]
+  x$cols <- x$cols[types != most_common]
+  x
+}
+
 #' @export
-format.col_spec <- function(x, n = Inf, ...) {
+format.col_spec <- function(x, n = Inf, condense = FALSE, ...) {
+
+  if (isTRUE(condense)) {
+    x <- condense_spec(x)
+  }
+
+  # truncate to minumum of n or length
+  cols <- x$cols[seq_len(min(length(x$cols), n))]
+
   if (inherits(x$default, "collector_guess")) {
     fun_type <- "cols(\n  "
   } else if (inherits(x$default, "collector_skip")) {
     fun_type <- "cols_only(\n  "
   } else {
     type <- sub("^collector_", "", class(x$default)[[1]])
-    fun_type <- paste0("cols(.default = col_", type, "(),\n  ")
+    fun_type <- paste0("cols(.default = col_", type, "()",
+      if (length(cols) > 0) ",\n  ")
   }
 
-  cols <- x$cols[seq_len(min(length(x$cols), n))]
-  if (length(cols) == 0) {
+  if (length(cols) == 0 & inherits(x$default, c("collector_skip", "collector_guess"))) {
     return("")
   }
 
