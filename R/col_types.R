@@ -88,6 +88,8 @@ print.col_spec <- function(x, n = Inf, condense = FALSE, ...) {
   invisible(x)
 }
 
+#' @rdname spec
+#' @export
 condense_spec <- function(x) {
   types <- vapply(x$cols, function(xx) class(xx)[[1]], character(1))
   counts <- table(types)
@@ -148,11 +150,22 @@ format.col_spec <- function(x, n = Inf, condense = FALSE, ...) {
   out
 }
 
-#' Extract the column specification from an data frame
+#' Examine the column specifications for a data frame
+#'
+#' \code{\link{spec}} extracts the full column specifications.
+#' \code{\link{condense_spec}} takes a spec object and condenses its definition
+#' by setting the default column type to the most frequent type and only
+#' listing columns with a different type.
 #'
 #' @param x The data frame object to extract from
-#' @return The col_spec object used for that data frame.
+#' @return A col_spec object.
 #' @export
+#' @examples
+#' df <- read_csv(system.file("mtcars.csv", package = "readr"))
+#' s <- spec(df)
+#' s
+#'
+#' condense_spec(s)
 spec <- function(x) {
   stopifnot(inherits(x, "tbl_df"))
   attr(x, "spec")
