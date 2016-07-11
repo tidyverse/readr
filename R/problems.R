@@ -44,7 +44,7 @@ problems <- function(x) {
 stop_for_problems <- function(x) {
   n <- n_problems(x)
   if (n == 0)
-    return(invisible())
+    return(invisible(x))
 
   stop(n, " parsing failure", if (n > 1) "s", call. = FALSE)
 }
