@@ -110,22 +110,22 @@ format.col_spec <- function(x, n = Inf, condense = FALSE, ...) {
   # truncate to minumum of n or length
   cols <- x$cols[seq_len(min(length(x$cols), n))]
 
+  default <- NULL
   if (inherits(x$default, "collector_guess")) {
-    fun_type <- "cols(\n  "
+    fun_type <- "cols"
   } else if (inherits(x$default, "collector_skip")) {
-    fun_type <- "cols_only(\n  "
+    fun_type <- "cols_only"
   } else {
+    fun_type <- "cols"
     type <- sub("^collector_", "", class(x$default)[[1]])
-    fun_type <- paste0("cols(.default = col_", type, "()",
-      if (length(cols) > 0) ",\n  ")
+    default <- paste0(".default = col_", type, "()")
   }
 
   if (length(cols) == 0 & inherits(x$default, c("collector_skip", "collector_guess"))) {
     return("")
   }
 
-  out <- paste0(fun_type,
-    paste(collapse = ",\n  ",
+  cols_args <- c(default,
     vapply(seq_along(cols),
       function(i) {
         col_names <- names(cols)[[i]]
@@ -140,7 +140,10 @@ format.col_spec <- function(x, n = Inf, condense = FALSE, ...) {
         out
       },
       character(1)
-    )), sep = "")
+    )
+  )
+
+  out <- paste0(fun_type, "(\n  ", paste(collapse = ",\n  ", cols_args))
 
   if (length(x$cols) >= n) {
     out <- paste0(out, "\n  # ... with ", length(x$cols) - n, " more columns")

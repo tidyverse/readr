@@ -84,7 +84,8 @@ test_that("print(col_spec) with truncated output", {
   out <- col_spec_standardise("a,b,c\n1,2,3", col_types = cols(.default = "c"))
   expect_output(print(out, n = 2),
     regex_escape(
-"cols(.default = col_character(),
+"cols(
+  .default = col_character(),
   a = col_character(),
   b = col_character()
   # ... with 1 more columns
@@ -151,13 +152,15 @@ test_that("print(col_spec, condense = TRUE) condenses the spec", {
   out <- col_spec_standardise("a,b,c,d\n1,2,3,a")
   expect_output(print(out, condense = TRUE),
     regex_escape(
-"cols(.default = col_integer(),
+"cols(
+  .default = col_integer(),
   d = col_character()
 )"))
 
   out <- col_spec_standardise("a,b,c,d\n1,2,3,4")
   expect_output(print(out, condense = TRUE),
     regex_escape(
-"cols(.default = col_integer()
+"cols(
+  .default = col_integer()
 )"))
 })
