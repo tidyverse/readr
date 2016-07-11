@@ -82,7 +82,7 @@ test_that("print(col_spec) with collector_skip", {
 
 test_that("print(col_spec) with truncated output", {
   out <- col_spec_standardise("a,b,c\n1,2,3", col_types = cols(.default = "c"))
-  expect_output(print(out, n = 2),
+  expect_output(print(out, n = 2, condense = FALSE),
     regex_escape(
 "cols(
   .default = col_character(),

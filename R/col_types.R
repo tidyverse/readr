@@ -82,7 +82,7 @@ as.col_spec.default <- function(x) {
 }
 
 #' @export
-print.col_spec <- function(x, n = Inf, condense = FALSE, ...) {
+print.col_spec <- function(x, n = Inf, condense = NULL, ...) {
   cat(format.col_spec(x, n = n, condense = condense, ...))
 
   invisible(x)
@@ -101,9 +101,15 @@ condense_spec <- function(x) {
 }
 
 #' @export
-format.col_spec <- function(x, n = Inf, condense = FALSE, ...) {
+format.col_spec <- function(x, n = Inf, condense = NULL, ...) {
 
-  if (length(x$cols) > n && isTRUE(condense)) {
+  if (n == 0) {
+    return("")
+  }
+
+  # condense if cols >= n
+  condense <- condense %||% length(x$cols) >= n
+  if (isTRUE(condense)) {
     x <- condense_spec(x)
   }
 
@@ -119,10 +125,6 @@ format.col_spec <- function(x, n = Inf, condense = FALSE, ...) {
     fun_type <- "cols"
     type <- sub("^collector_", "", class(x$default)[[1]])
     default <- paste0(".default = col_", type, "()")
-  }
-
-  if (length(cols) == 0 & inherits(x$default, c("collector_skip", "collector_guess"))) {
-    return("")
   }
 
   cols_args <- c(default,
