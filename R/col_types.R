@@ -103,7 +103,7 @@ condense_spec <- function(x) {
 #' @export
 format.col_spec <- function(x, n = Inf, condense = FALSE, ...) {
 
-  if (isTRUE(condense)) {
+  if (length(x$cols) > n && isTRUE(condense)) {
     x <- condense_spec(x)
   }
 
