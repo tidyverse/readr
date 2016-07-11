@@ -53,8 +53,16 @@ test_that("col_number helps with currency", {
 
 test_that("invalid numbers don't parse", {
   expect_warning(x <- parse_number(c("..", "--", "3.3.3", "4-1")))
-  expect_equal(n_problems(x), 4)
-  expect_equal(is.na(x), c(TRUE, TRUE, TRUE, TRUE))
+  expect_equal(n_problems(x), 2)
+  expect_equal(c(x), c(NA, NA, 3.3, 4.0))
+})
+
+test_that("number not guess if leading/trailing", {
+  expect_equal(guess_parser("X1"), "character")
+  expect_equal(parse_number("X1"), 1)
+
+  expect_equal(guess_parser("1X"), "character")
+  expect_equal(parse_number("1X"), 1)
 })
 
 # Decimal comma -----------------------------------------------------------

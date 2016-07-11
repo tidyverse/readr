@@ -36,6 +36,8 @@ enum NumberState {
 };
 
 
+// First and last are updated to point to first/last successfully parsed
+// character
 template <typename Iterator, typename Attr>
 inline bool parseNumber(char decimalMark, char groupingMark, Iterator& first,
                         Iterator& last, Attr& res) {
@@ -56,6 +58,9 @@ inline bool parseNumber(char decimalMark, char groupingMark, Iterator& first,
 
   Iterator cur = first;
   for(; cur != last; ++cur) {
+    if (state == STATE_FIN)
+      break;
+
     switch(state) {
     case STATE_INIT:
       if (*cur == '-') {
@@ -68,7 +73,8 @@ inline bool parseNumber(char decimalMark, char groupingMark, Iterator& first,
         state = STATE_LHS;
         sum = *cur - '0';
       } else {
-        return false;
+        cur--;
+        state = STATE_FIN;
       }
       break;
     case STATE_LHS:
@@ -80,40 +86,33 @@ inline bool parseNumber(char decimalMark, char groupingMark, Iterator& first,
         seenNumber = true;
         sum *= 10;
         sum += *cur - '0';
-      } else if (*cur == '-') {
-        return false;
       } else {
+        cur--;
         state = STATE_FIN;
-        break;
       }
       break;
     case STATE_RHS:
       if (*cur == groupingMark) {
         // do nothing
-      } else if (*cur == decimalMark) {
-        return false;
       } else if (*cur >= '0' && *cur <= '9') {
         seenNumber = true;
         denom *= 10;
         sum += (*cur - '0') / denom;
       } else {
+        cur--;
         state = STATE_FIN;
       }
       break;
     case STATE_FIN:
-      last = cur++;
-      res = sign * sum;
-      return seenNumber;
+      break;
     }
   }
 
-  // Hit the end of the string, so must be done
+  // Set last to point to final character used
   last = cur;
-  res = sign * sum;
 
-  // Only true if we saw a number and reached the end of the string without
-  // finishing the number
-  return seenNumber && state != STATE_FIN;
+  res = sign * sum;
+  return seenNumber;
 }
 
 

@@ -1,5 +1,9 @@
 # readr 0.2.2.9000
 
+* `parse_number()` is slightly more flexible - it now parses numbers up
+  to the first ill-formed character. For example `parse_number("-3-")`
+  and `parse_number("...3...")` now return -3 and 3 respectively.
+
 * New `stop_for_problems(x)` throws an error if `x` had any parsing problems 
   (#465).
 
