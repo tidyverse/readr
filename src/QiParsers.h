@@ -3,7 +3,7 @@
 
 #include "boost.h"
 
-struct DecimalCommaPolicy : public boost::spirit::qi::real_policies<double> {
+struct DecimalCommaPolicy : public boost::spirit::qi::real_policies<long double> {
   template <typename Iterator>
   static bool parse_dot(Iterator& first, Iterator const& last) {
     if (first == last || *first != ',')
