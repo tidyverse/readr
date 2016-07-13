@@ -51,8 +51,17 @@ test_that("empty fields become empty strings", {
 })
 
 test_that("bare NA becomes missing value", {
-  expect_equal(parse_b('NA,"NA"'), list(c("[MISSING]", "NA")))
-  expect_equal(parse_d('NA,"NA"'), list(c("[MISSING]", "NA")))
+  expect_equal(parse_b('NA,"NA"', quoted_na = FALSE), list(c("[MISSING]", "NA")))
+  expect_equal(parse_d('NA,"NA"', quoted_na = FALSE), list(c("[MISSING]", "NA")))
+})
+
+test_that("quoted NA also becomes missing value", {
+  expect_equal(parse_b('NA,"NA"', quoted_na = TRUE), list(c("[MISSING]", "[MISSING]")))
+  expect_equal(parse_d('NA,"NA"', quoted_na = TRUE), list(c("[MISSING]", "[MISSING]")))
+})
+
+test_that("empty string become missing values", {
+  expect_equal(parse_b('NA,""', na = ""), list(c("NA", "[MISSING]")))
 })
 
 test_that("NA with spaces becomes missing value", {

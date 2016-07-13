@@ -3,6 +3,9 @@
 * Missing colum name names are now given a default name (`X2`, `X7` etc) (#318).
   Duplicated column names are now deduplicated. Both changes generate a warning;
   to suppress it supply explicit `col_names` (setting skip = 1 if needed).
+* `read_*()` functions gain a `quoted_na` argument to control whether missing
+  values within quotes are treated as missing values or as strings (#295,
+  @jimhester).
 
 * `parse_number()` is slightly more flexible - it now parses numbers up
   to the first ill-formed character. For example `parse_number("-3-")`

@@ -9,24 +9,24 @@
 \usage{
 read_delim(file, delim, quote = "\\"", escape_backslash = FALSE,
   escape_double = TRUE, col_names = TRUE, col_types = NULL,
-  locale = default_locale(), na = c("", "NA"), comment = "",
-  trim_ws = FALSE, skip = 0, n_max = Inf, guess_max = min(1000, n_max),
-  progress = interactive())
+  locale = default_locale(), na = c("", "NA"), quoted_na = TRUE,
+  comment = "", trim_ws = FALSE, skip = 0, n_max = Inf,
+  guess_max = min(1000, n_max), progress = interactive())
 
 read_csv(file, col_names = TRUE, col_types = NULL,
-  locale = default_locale(), na = c("", "NA"), comment = "",
-  trim_ws = TRUE, skip = 0, n_max = Inf, guess_max = min(1000, n_max),
-  progress = interactive())
+  locale = default_locale(), na = c("", "NA"), quoted_na = TRUE,
+  comment = "", trim_ws = TRUE, skip = 0, n_max = Inf,
+  guess_max = min(1000, n_max), progress = interactive())
 
 read_csv2(file, col_names = TRUE, col_types = NULL,
-  locale = default_locale(), na = c("", "NA"), comment = "",
-  trim_ws = TRUE, skip = 0, n_max = Inf, guess_max = min(1000, n_max),
-  progress = interactive())
+  locale = default_locale(), na = c("", "NA"), quoted_na = TRUE,
+  comment = "", trim_ws = TRUE, skip = 0, n_max = Inf,
+  guess_max = min(1000, n_max), progress = interactive())
 
 read_tsv(file, col_names = TRUE, col_types = NULL,
-  locale = default_locale(), na = c("", "NA"), comment = "",
-  trim_ws = TRUE, skip = 0, n_max = Inf, guess_max = min(1000, n_max),
-  progress = interactive())
+  locale = default_locale(), na = c("", "NA"), quoted_na = TRUE,
+  comment = "", trim_ws = TRUE, skip = 0, n_max = Inf,
+  guess_max = min(1000, n_max), progress = interactive())
 }
 \arguments{
 \item{file}{Either a path to a file, a connection, or literal data
@@ -94,6 +94,9 @@ names.}
 
 \item{na}{Character vector of strings to use for missing values. Set this
 option to \code{character()} to indicate no missing values.}
+
+\item{quoted_na}{Should missing values inside quotes be treated as missing
+values (the default) or strings.}
 
 \item{comment}{A string used to identify comments. Any text after the
 comment characters will be silently ignored.}
