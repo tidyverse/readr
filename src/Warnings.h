@@ -2,7 +2,7 @@
 #define READ_WARNINGS_H_
 
 class Warnings {
-  std::vector<int> row_, col_;
+  std::vector<int> line_, row_, col_;
   std::vector<std::string> expected_, actual_;
 
 public:
@@ -11,8 +11,9 @@ public:
   }
 
   // row and col should be zero-indexed. addWarning converts into one-indexed
-  void addWarning(int row, int col, const std::string& expected,
+  void addWarning(int line, int row, int col, const std::string& expected,
                   const std::string& actual) {
+    line_.push_back(line == -1 ? NA_INTEGER : line + 1);
     row_.push_back(row == -1 ? NA_INTEGER : row + 1);
     col_.push_back(col == -1 ? NA_INTEGER : col + 1);
     expected_.push_back(expected);
@@ -33,6 +34,7 @@ public:
 
   Rcpp::List asDataFrame() {
     Rcpp::List out = Rcpp::List::create(
+      Rcpp::_["line"] = Rcpp::wrap(line_),
       Rcpp::_["row"] = Rcpp::wrap(row_),
       Rcpp::_["col"] = Rcpp::wrap(col_),
       Rcpp::_["expected"] = Rcpp::wrap(expected_),

@@ -36,13 +36,13 @@ public:
     pWarnings_ = pWarnings;
   }
 
-  inline void warn(int row, int col, const std::string& expected,
+  inline void warn(int line, int row, int col, const std::string& expected,
                    const std::string& actual = "") {
     if (pWarnings_ == NULL) {
-      Rcpp::warning("[%i, %i]: expected %s", row + 1, col + 1, expected);
+      Rcpp::warning("[%i, %i, %i]: expected %s", line + 1, row + 1, col + 1, expected);
       return;
     }
-    pWarnings_->addWarning(row, col, expected, actual);
+    pWarnings_->addWarning(line, row, col, expected, actual);
   }
 
   static TokenizerPtr create(Rcpp::List spec);
