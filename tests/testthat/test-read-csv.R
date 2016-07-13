@@ -17,15 +17,15 @@ test_that("read_csv's 'NA' option genuinely changes the NA values", {
 
 test_that("read_csv's 'NA' option works with multiple NA values", {
   expect_equal(read_csv("a\nNA\n\nmiss\n13", na = c("13", "miss"), progress = FALSE)$a,
-               c("NA", "", NA, NA))
+               c("NA", NA, NA))
 })
 
 test_that('passing character() to read_csv\'s "NA" option reads "" correctly', {
-  expect_equal(read_csv("a\nfoo\n\n", na = character(), progress = FALSE)$a, c("foo", ""))
+  expect_equal(read_csv("a\nfoo\n\n", na = character(), progress = FALSE)$a, "foo")
 })
 
 test_that("passing \"\" to read_csv's 'NA' option reads \"\" correctly", {
-  expect_equal(read_csv("a\nfoo\n\n", na = "", progress = FALSE)$a, c("foo", NA))
+  expect_equal(read_csv("a,b\nfoo,bar\nfoo,\n", na = "", progress = FALSE)$b, c("bar", NA))
 })
 
 test_that("read_csv's 'skip' option allows for skipping'", {
@@ -87,18 +87,31 @@ test_that("missing last field generates warning", {
   expect_equal(problems(out)$expected, "2 columns")
 })
 
-test_that("missing lines generates warning", {
-  # first
-  expect_warning(out <- read_csv("a,b\n\n\n1,2", progress = FALSE))
-  expect_equal(problems(out)$expected, rep("2 columns", 2))
+test_that("missing lines are skipped without warning", {
+   # first
+  expect_silent(out <- read_csv("a,b\n\n\n1,2", progress = FALSE))
 
-  # middle
-  expect_warning(out <- read_csv("a,b\n1,2\n\n\n2,3\n", progress = FALSE))
-  expect_equal(problems(out)$expected, rep("2 columns", 2))
+   # middle
+  expect_silent(out <- read_csv("a,b\n1,2\n\n\n2,3\n", progress = FALSE))
 
-  # last (trailing \n is ngored)
-  expect_warning(out <- read_csv("a,b\n1,2\n\n\n", progress = FALSE))
-  expect_equal(problems(out)$expected, rep("2 columns", 2))
+  # last (trailing \n is ignored)
+  expect_silent(out <- read_csv("a,b\n1,2\n\n\n", progress = FALSE))
+})
+
+test_that("warning lines are correct after skipping", {
+  expect_warning(out1 <- read_csv("v1,v2\n\n1,2", col_types = "i", progress = FALSE))
+  expect_warning(out2 <- read_csv("v1,v2\n#foo\n1,2", col_types = "i", comment = "#", progress = FALSE))
+
+  expect_equal(problems(out1)$row, 1)
+
+  expect_equal(problems(out2)$row, 1)
+
+  expect_warning(out3 <- read_csv("v1,v2\n\n1,2\n\n3,4", col_types = "i", progress = FALSE))
+  expect_warning(out4 <- read_csv("v1,v2\n#foo\n1,2\n#bar\n3,4", col_types = "i", comment = "#", progress = FALSE))
+
+  expect_equal(problems(out3)$row, c(1, 2))
+
+  expect_equal(problems(out4)$row, c(1, 2))
 })
 
 test_that("extra columns generates warnings", {

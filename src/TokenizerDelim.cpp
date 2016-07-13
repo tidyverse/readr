@@ -73,8 +73,12 @@ Token TokenizerDelim::nextToken() {
     switch(state_) {
     case STATE_DELIM:
       if (*cur_ == '\r' || *cur_ == '\n') {
+        if (col_ == 0) {
+          advanceForLF(&cur_, end_);
+          token_begin = cur_ + 1;
+          break;
+        }
         newRecord();
-        advanceForLF(&cur_, end_);
         return emptyToken(row, col);
       } else if (isComment(cur_)) {
         state_ = STATE_COMMENT;
@@ -172,10 +176,10 @@ Token TokenizerDelim::nextToken() {
         // If we have read at least one record on the current row go to the
         // next row, line, otherwise just ignore the line.
         if (col_ > 0) {
-          newRecord();
-          ++row;
-          col = 0;
+          row_++; row++;
+          col_ = 0;
         }
+        col = 0;
         advanceForLF(&cur_, end_);
         token_begin = cur_ + 1;
         state_ = STATE_DELIM;
