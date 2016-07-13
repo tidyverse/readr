@@ -90,7 +90,7 @@ print.col_spec <- function(x, n = Inf, condense = NULL, ...) {
 
 #' @rdname spec
 #' @export
-condense_spec <- function(x) {
+cols_condense <- function(x) {
   types <- vapply(x$cols, function(xx) class(xx)[[1]], character(1))
   counts <- table(types)
   most_common <- names(counts)[counts == max(counts)][[1]]
@@ -110,7 +110,7 @@ format.col_spec <- function(x, n = Inf, condense = NULL, ...) {
   # condense if cols >= n
   condense <- condense %||% length(x$cols) >= n
   if (isTRUE(condense)) {
-    x <- condense_spec(x)
+    x <- cols_condense(x)
   }
 
   # truncate to minumum of n or length
@@ -158,7 +158,7 @@ format.col_spec <- function(x, n = Inf, condense = NULL, ...) {
 #' Examine the column specifications for a data frame
 #'
 #' \code{\link{spec}} extracts the full column specifications.
-#' \code{\link{condense_spec}} takes a spec object and condenses its definition
+#' \code{\link{cols_condense}} takes a spec object and condenses its definition
 #' by setting the default column type to the most frequent type and only
 #' listing columns with a different type.
 #'
@@ -170,7 +170,7 @@ format.col_spec <- function(x, n = Inf, condense = NULL, ...) {
 #' s <- spec(df)
 #' s
 #'
-#' condense_spec(s)
+#' cols_condense(s)
 spec <- function(x) {
   stopifnot(inherits(x, "tbl_df"))
   attr(x, "spec")
