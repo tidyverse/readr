@@ -43,6 +43,11 @@ read_fwf <- function(file, col_positions, col_types = NULL,
     tokenizer = tokenizer, locale = locale,
     col_names = col_positions$col_names, col_types = col_types)
 
+
+  if (is.null(col_types) && progress && !inherits(ds, "source_string")) {
+    show_cols_spec(spec)
+  }
+
   out <- read_tokens(ds, tokenizer, spec$cols, names(spec$cols),
     locale_ = locale, n_max = if (n_max == Inf) -1 else n_max, progress = progress)
 

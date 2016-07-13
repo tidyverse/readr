@@ -183,3 +183,14 @@ test_that("print(col_spec, condense = TRUE) condenses the spec", {
   .default = col_integer()
 )"))
 })
+
+test_that("print(col_spec) with no columns specified", {
+  out <- cols()
+  expect_output(print(out), regex_escape("cols()"))
+
+  out <- cols(.default = col_character())
+  expect_output(print(out), regex_escape(
+"cols(
+  .default = col_character()
+)"))
+})

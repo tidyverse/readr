@@ -144,6 +144,10 @@ format.col_spec <- function(x, n = Inf, condense = NULL, ...) {
       character(1)
     )
   )
+  if (length(x$cols) == 0 && length(cols_args) == 0) {
+    return(paste0(fun_type, "()\n"))
+  }
+
 
   out <- paste0(fun_type, "(\n  ", paste(collapse = ",\n  ", cols_args))
 
@@ -154,6 +158,18 @@ format.col_spec <- function(x, n = Inf, condense = NULL, ...) {
 
   out
 }
+
+# Used in read_delim(), read_fwf() and type_convert()
+show_cols_spec <- function(spec, n = getOption("readr.num_columns", 20)) {
+  if (n > 0) {
+    message("Parsed with column specification:\n",
+      format(spec, n = n, condense = NULL), appendLF = FALSE)
+    if (length(spec$cols) >= n) {
+      message("See spec(...) for full column specifications.")
+    }
+  }
+}
+
 
 #' Examine the column specifications for a data frame
 #'
