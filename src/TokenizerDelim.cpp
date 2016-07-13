@@ -31,15 +31,8 @@ void TokenizerDelim::tokenize(SourceIterator begin, SourceIterator end) {
   begin_ = begin;
   end_ = end;
 
-  // Current row in the output
   row_ = 0;
-
-  // Current column in the output
   col_ = 0;
-
-  // Current row in the file
-  line_ = 0;
-
   state_ = STATE_DELIM;
   moreTokens_ = true;
 }
@@ -51,7 +44,7 @@ std::pair<double,size_t> TokenizerDelim::progress() {
 
 Token TokenizerDelim::nextToken() {
   // Capture current position
-  int row = row_, col = col_, line = line_;
+  int row = row_, col = col_;
 
   if (!moreTokens_)
     return Token(TOKEN_EOF, row, col);
@@ -132,7 +125,7 @@ Token TokenizerDelim::nextToken() {
         return stringToken(token_begin + 1, cur_ - 1,
           hasEscapeB, hasEscapeD, hasNull, row, col);
       } else {
-        warn(line, row, col, "delimiter or quote", std::string(cur_, cur_ + 1));
+        warn(row, col, "delimiter or quote", std::string(cur_, cur_ + 1));
         state_ = STATE_STRING;
       }
       break;
@@ -205,12 +198,12 @@ Token TokenizerDelim::nextToken() {
     return stringToken(token_begin + 1, end_ - 1, hasEscapeB, hasEscapeD, hasNull, row, col);
 
   case STATE_STRING:
-    warn(line, row, col, "closing quote at end of file");
+    warn(row, col, "closing quote at end of file");
     return stringToken(token_begin + 1, end_, hasEscapeB, hasEscapeD, hasNull, row, col);
 
   case STATE_ESCAPE_S:
   case STATE_ESCAPE_F:
-    warn(line, row, col, "closing escape at end of file");
+    warn(row, col, "closing escape at end of file");
     return stringToken(token_begin, end_ - 1, hasEscapeB, hasEscapeD, hasNull, row, col);
 
   case STATE_FIELD:
@@ -320,7 +313,7 @@ void TokenizerDelim::unescapeBackslash(SourceIterator begin, SourceIterator end,
         } else {
           pOut->push_back('\\');
           pOut->push_back(*cur);
-          warn(line_, row_, col_, "standard escape", "\\" + std::string(cur, 1));
+          warn(row_, col_, "standard escape", "\\" + std::string(cur, 1));
         }
         break;
       }

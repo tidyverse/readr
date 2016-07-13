@@ -26,7 +26,7 @@ class TokenizerDelim : public Tokenizer {
 
   SourceIterator begin_, cur_, end_;
   DelimState state_;
-  int row_, col_, line_;
+  int row_, col_;
   bool moreTokens_;
 
 public:

@@ -151,7 +151,7 @@ Token TokenizerFwf::nextToken() {
     // Find the end of the field, stopping for newlines
     for(int i = 0; i < width; ++i) {
       if (fieldEnd == end_ || *fieldEnd == '\n' || *fieldEnd == '\r') {
-        warn(row_, row_, col_, tfm::format("%i chars", width), tfm::format("%i", i));
+        warn(row_, col_, tfm::format("%i chars", width), tfm::format("%i", i));
 
         tooShort = true;
         break;

@@ -57,12 +57,12 @@ public:
   inline void warn(int row, int col, std::string expected, std::string actual) {
     if (pWarnings_ == NULL) {
       Rcpp::warning(
-        "[%i, %i, %i]: expected %s, but got '%s'",
-        row + 1, row + 1, col + 1, expected, actual);
+        "[%i, %i]: expected %s, but got '%s'",
+        row + 1, col + 1, expected, actual);
       return;
     }
 
-    pWarnings_->addWarning(row, row, col, expected, actual);
+    pWarnings_->addWarning(row, col, expected, actual);
   }
   inline void warn(int row, int col, std::string expected,
                    SourceIterators actual) {

@@ -139,11 +139,11 @@ public:
       return fieldToken(token_begin + 1, end_, row, col);
 
     case LOG_ESCAPE:
-      warn(row, row, col, "closing escape at end of file");
+      warn(row, col, "closing escape at end of file");
       return fieldToken(token_begin + 1, end_, row, col);
 
     case LOG_DATE:
-      warn(row, row, col, "closing ] at end of file");
+      warn(row, col, "closing ] at end of file");
       return fieldToken(token_begin + 1, end_, row, col);
 
     case LOG_FIELD:

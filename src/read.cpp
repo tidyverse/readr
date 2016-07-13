@@ -121,7 +121,7 @@ void checkColumns(Warnings *pWarnings, int i, int j, int n) {
   if (j + 1 == n)
     return;
 
-  pWarnings->addWarning(i, i, -1,
+  pWarnings->addWarning(i, -1,
     tfm::format("%i columns", n),
     tfm::format("%i columns", j + 1)
   );
