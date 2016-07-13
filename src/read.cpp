@@ -117,11 +117,11 @@ List read_lines_raw_(List sourceSpec, int n_max = -1, bool progress = false) {
 }
 
 typedef std::vector<CollectorPtr>::iterator CollectorItr;
-void checkColumns(Warnings *pWarnings, int i, int j, int n) {
+void checkColumns(Warnings *pWarnings, int i, int j, int k, int n) {
   if (j + 1 == n)
     return;
 
-  pWarnings->addWarning(i, i, -1,
+  pWarnings->addWarning(k, i, -1,
     tfm::format("%i columns", n),
     tfm::format("%i columns", j + 1)
   );
@@ -171,13 +171,13 @@ RObject read_tokens_(List sourceSpec, List tokenizerSpec, ListOf<List> colSpecs,
   size_t n = (n_max < 0) ? 1000 : n_max;
   collectorsResize(collectors, n);
 
-  int i = -1, j = -1, cells = 0;
+  int i = -1, j = -1, k = -1, cells = 0;
   for (Token t = tokenizer->nextToken(); t.type() != TOKEN_EOF; t = tokenizer->nextToken()) {
     if (progress && (cells++) % 250000 == 0)
       progressBar.show(tokenizer->progress());
 
     if (t.col() == 0 && i != -1)
-      checkColumns(&warnings, i, j, p);
+      checkColumns(&warnings, i, j, k, p);
 
     if (t.row() >= n) {
       if (n_max >= 0)
@@ -193,9 +193,10 @@ RObject read_tokens_(List sourceSpec, List tokenizerSpec, ListOf<List> colSpecs,
 
     i = t.row();
     j = t.col();
+    k = t.line();
   }
   if (i != -1)
-    checkColumns(&warnings, i, j, p);
+    checkColumns(&warnings, i, j, k, p);
 
   if (progress)
     progressBar.show(tokenizer->progress());

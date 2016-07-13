@@ -17,15 +17,16 @@ enum TokenType {
 class Token {
   TokenType type_;
   SourceIterator begin_, end_;
-  size_t row_, col_;
+  size_t row_, col_, line_;
   bool hasNull_;
 
   Tokenizer* pTokenizer_;
 
 public:
 
-  Token(): type_(TOKEN_EMPTY), row_(0), col_(0) {}
-  Token(TokenType type, int row, int col): type_(type), row_(row), col_(col) {}
+  Token(): type_(TOKEN_EMPTY), row_(0), col_(0), line_(0) {}
+  Token(TokenType type, int row, int col): type_(type), row_(row), col_(col), line_(row) {}
+  Token(TokenType type, int row, int col, int line): type_(type), row_(row), col_(col), line_(line) {}
   Token(SourceIterator begin, SourceIterator end, int row, int col, bool hasNull,
         Tokenizer* pTokenizer = NULL):
     type_(TOKEN_STRING),
@@ -33,6 +34,20 @@ public:
     end_(end),
     row_(row),
     col_(col),
+    hasNull_(hasNull),
+    pTokenizer_(pTokenizer)
+  {
+    if (begin_ == end_)
+      type_ = TOKEN_EMPTY;
+  }
+  Token(SourceIterator begin, SourceIterator end, int row, int col, int line, bool hasNull,
+        Tokenizer* pTokenizer = NULL):
+    type_(TOKEN_STRING),
+    begin_(begin),
+    end_(end),
+    row_(row),
+    col_(col),
+    line_(line),
     hasNull_(hasNull),
     pTokenizer_(pTokenizer)
   {
@@ -96,6 +111,9 @@ public:
   }
   size_t col() const {
     return col_;
+  }
+  size_t line() const {
+    return line_;
   }
 
   bool hasNull() const {

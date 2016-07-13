@@ -72,7 +72,7 @@ void CollectorCharacter::setValue(int i, const Token& t) {
     SourceIterators string = t.getString(&buffer);
 
     if (t.hasNull())
-      warn(t.row(), t.col(), "", "embedded null");
+      warn(t.line(), t.row(), t.col(), "", "embedded null");
 
     SET_STRING_ELT(column_, i, pEncoder_->makeSEXP(string.first, string.second, t.hasNull()));
     break;
@@ -104,14 +104,14 @@ void CollectorDate::setValue(int i, const Token& t) {
       : parser_.parse(format_);
 
     if (!res) {
-      warn(t.row(), t.col(), "date like " +  format_, std_string);
+      warn(t.line(), t.row(), t.col(), "date like " +  format_, std_string);
       REAL(column_)[i] = NA_REAL;
       return;
     }
 
     DateTime dt = parser_.makeDate();
     if (!dt.validDate()) {
-      warn(t.row(), t.col(), "valid date", std_string);
+      warn(t.line(), t.row(), t.col(), "valid date", std_string);
       REAL(column_)[i] = NA_REAL;
       return;
     }
@@ -140,14 +140,14 @@ void CollectorDateTime::setValue(int i, const Token& t) {
       : parser_.parse(format_);
 
     if (!res) {
-      warn(t.row(), t.col(), "date like " +  format_, std_string);
+      warn(t.line(), t.row(), t.col(), "date like " +  format_, std_string);
       REAL(column_)[i] = NA_REAL;
       return;
     }
 
     DateTime dt = parser_.makeDateTime();
     if (!dt.validDateTime()) {
-      warn(t.row(), t.col(), "valid date", std_string);
+      warn(t.line(), t.row(), t.col(), "valid date", std_string);
       REAL(column_)[i] = NA_REAL;
       return;
     }
@@ -175,13 +175,13 @@ void CollectorDouble::setValue(int i, const Token& t) {
     bool ok = parseDouble(decimalMark_, str.first, str.second, REAL(column_)[i]);
     if (!ok) {
       REAL(column_)[i] = NA_REAL;
-      warn(t.row(), t.col(), "a double", str);
+      warn(t.line(), t.row(), t.col(), "a double", str);
       return;
     }
 
     if (str.first != str.second) {
       REAL(column_)[i] = NA_REAL;
-      warn(t.row(), t.col(), "no trailing characters", str);
+      warn(t.line(), t.row(), t.col(), "no trailing characters", str);
       return;
     }
 
@@ -206,7 +206,7 @@ void CollectorFactor::setValue(int i, const Token& t) {
     std::string std_string(string.first, string.second);
     std::map<std::string,int>::iterator it = levelset_.find(std_string);
     if (it == levelset_.end()) {
-      warn(t.row(), t.col(), "value in level set", std_string);
+      warn(t.line(), t.row(), t.col(), "value in level set", std_string);
       INTEGER(column_)[i] = NA_INTEGER;
       return;
     } else {
@@ -233,12 +233,12 @@ void CollectorInteger::setValue(int i, const Token& t) {
     bool ok = parseInt(str.first, str.second, INTEGER(column_)[i]);
     if (!ok) {
       INTEGER(column_)[i] = NA_INTEGER;
-      warn(t.row(), t.col(), "an integer", str);
+      warn(t.line(), t.row(), t.col(), "an integer", str);
       return;
     }
 
     if (str.first != str.second) {
-      warn(t.row(), t.col(), "no trailing characters", str);
+      warn(t.line(), t.row(), t.col(), "no trailing characters", str);
       INTEGER(column_)[i] = NA_INTEGER;
       return;
     }
@@ -289,7 +289,7 @@ void CollectorLogical::setValue(int i, const Token& t) {
       break;
     }
 
-    warn(t.row(), t.col(), "1/0/T/F/TRUE/FALSE", string);
+    warn(t.line(), t.row(), t.col(), "1/0/T/F/TRUE/FALSE", string);
     LOGICAL(column_)[i] = NA_LOGICAL;
     return;
   };
@@ -314,7 +314,7 @@ void CollectorNumeric::setValue(int i, const Token& t) {
 
     if (!ok) {
       REAL(column_)[i] = NA_REAL;
-      warn(t.row(), t.col(), "a number", str);
+      warn(t.line(), t.row(), t.col(), "a number", str);
       return;
     }
 
@@ -340,14 +340,14 @@ void CollectorTime::setValue(int i, const Token& t) {
     bool res = (format_ == "") ? parser_.parseTime() : parser_.parse(format_);
 
     if (!res) {
-      warn(t.row(), t.col(), "time like " +  format_, std_string);
+      warn(t.line(), t.row(), t.col(), "time like " +  format_, std_string);
       REAL(column_)[i] = NA_REAL;
       return;
     }
 
     DateTime dt = parser_.makeTime();
     if (!dt.validTime()) {
-      warn(t.row(), t.col(), "valid date", std_string);
+      warn(t.line(), t.row(), t.col(), "valid date", std_string);
       REAL(column_)[i] = NA_REAL;
       return;
     }
