@@ -1,5 +1,8 @@
 # readr 0.2.2.9000
 
+* `read_fwf()` now can now skip columns without adding an extranous column of 
+  missing values (#322).
+
 * `%y` and `%Y` are now stricter and require 2 or 4 characters respectively.
 
 * If omitted `col_date()` and `col_time()` (and `parse_date()` and 

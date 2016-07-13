@@ -39,10 +39,15 @@ read_fwf <- function(file, col_positions, col_types = NULL,
   tokenizer <- tokenizer_fwf(col_positions$begin, col_positions$end, na = na)
 
   spec <- col_spec_standardise(
-    file, skip = skip, n = guess_max,
-    tokenizer = tokenizer, locale = locale,
-    col_names = col_positions$col_names, col_types = col_types)
-
+    file,
+    skip = skip,
+    n = guess_max,
+    tokenizer = tokenizer,
+    locale = locale,
+    col_names = col_positions$col_names,
+    col_types = col_types,
+    drop_skipped_names = TRUE
+  )
 
   if (is.null(col_types) && progress && !inherits(ds, "source_string")) {
     show_cols_spec(spec)

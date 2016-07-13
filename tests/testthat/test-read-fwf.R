@@ -9,6 +9,17 @@ test_that("trailing spaces ommitted", {
   expect_equal(df$X1, df$X2)
 })
 
+test_that("skipping column doesn't pad col_names", {
+  x <- "1 2 3\n4 5 6"
+
+  out1 <- read_fwf(x, fwf_empty(x), col_types = 'd-d')
+  expect_named(out1, c("X1", "X3"))
+
+  names <- c("a", "b", "c")
+  out2 <- read_fwf(x, fwf_empty(x, col_names = names), col_types = 'd-d')
+  expect_named(out2, c("a", "c"))
+})
+
 test_that("passing \"\" to read_fwf's 'na' option", {
   expect_equal(read_fwf('foobar\nfoo   ', fwf_widths(c(3, 3)), na = "", progress = FALSE)[[2]],
                c("bar", NA))

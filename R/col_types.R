@@ -214,7 +214,8 @@ col_spec_standardise <- function(file, col_names = TRUE, col_types = NULL,
                                  guessed_types = NULL,
                                  comment = "", skip = 0, n = 1000,
                                  tokenizer = tokenizer_csv(),
-                                 locale = default_locale()) {
+                                 locale = default_locale(),
+                                 drop_skipped_names = FALSE) {
 
   # Figure out the column names -----------------------------------------------
   if (is.logical(col_names) && length(col_names) == 1) {
@@ -291,6 +292,13 @@ col_spec_standardise <- function(file, col_names = TRUE, col_types = NULL,
     # unnamed types & names supplied: match non-skipped columns
     skipped <- vapply(spec$cols, inherits, "collector_skip",
       FUN.VALUE = logical(1))
+
+    # Needed for read_fwf() because width generator functions have name for
+    # every column, even those that are skipped. Not need for read_delim()
+    if (drop_skipped_names) {
+      col_names <- col_names[!skipped]
+    }
+
     n_read <- sum(!skipped)
     n_names <- length(col_names)
 
