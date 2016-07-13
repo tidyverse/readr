@@ -82,30 +82,52 @@ as.col_spec.default <- function(x) {
 }
 
 #' @export
-print.col_spec <- function(x, n = Inf, ...) {
-  cat(format.col_spec(x, n = n, ...))
+print.col_spec <- function(x, n = Inf, condense = NULL, ...) {
+  cat(format.col_spec(x, n = n, condense = condense, ...))
 
   invisible(x)
 }
 
+#' @rdname spec
 #' @export
-format.col_spec <- function(x, n = Inf, ...) {
-  if (inherits(x$default, "collector_guess")) {
-    fun_type <- "cols(\n  "
-  } else if (inherits(x$default, "collector_skip")) {
-    fun_type <- "cols_only(\n  "
-  } else {
-    type <- sub("^collector_", "", class(x$default)[[1]])
-    fun_type <- paste0("cols(.default = col_", type, "(),\n  ")
-  }
+cols_condense <- function(x) {
+  types <- vapply(x$cols, function(xx) class(xx)[[1]], character(1))
+  counts <- table(types)
+  most_common <- names(counts)[counts == max(counts)][[1]]
 
-  cols <- x$cols[seq_len(min(length(x$cols), n))]
-  if (length(cols) == 0) {
+  x$default <- x$cols[types == most_common][[1]]
+  x$cols <- x$cols[types != most_common]
+  x
+}
+
+#' @export
+format.col_spec <- function(x, n = Inf, condense = NULL, ...) {
+
+  if (n == 0) {
     return("")
   }
 
-  out <- paste0(fun_type,
-    paste(collapse = ",\n  ",
+  # condense if cols >= n
+  condense <- condense %||% length(x$cols) >= n
+  if (isTRUE(condense)) {
+    x <- cols_condense(x)
+  }
+
+  # truncate to minumum of n or length
+  cols <- x$cols[seq_len(min(length(x$cols), n))]
+
+  default <- NULL
+  if (inherits(x$default, "collector_guess")) {
+    fun_type <- "cols"
+  } else if (inherits(x$default, "collector_skip")) {
+    fun_type <- "cols_only"
+  } else {
+    fun_type <- "cols"
+    type <- sub("^collector_", "", class(x$default)[[1]])
+    default <- paste0(".default = col_", type, "()")
+  }
+
+  cols_args <- c(default,
     vapply(seq_along(cols),
       function(i) {
         col_names <- names(cols)[[i]]
@@ -120,7 +142,10 @@ format.col_spec <- function(x, n = Inf, ...) {
         out
       },
       character(1)
-    )), sep = "")
+    )
+  )
+
+  out <- paste0(fun_type, "(\n  ", paste(collapse = ",\n  ", cols_args))
 
   if (length(x$cols) >= n) {
     out <- paste0(out, "\n  # ... with ", length(x$cols) - n, " more columns")
@@ -130,11 +155,22 @@ format.col_spec <- function(x, n = Inf, ...) {
   out
 }
 
-#' Extract the column specification from an data frame
+#' Examine the column specifications for a data frame
+#'
+#' \code{\link{spec}} extracts the full column specifications.
+#' \code{\link{cols_condense}} takes a spec object and condenses its definition
+#' by setting the default column type to the most frequent type and only
+#' listing columns with a different type.
 #'
 #' @param x The data frame object to extract from
-#' @return The col_spec object used for that data frame.
+#' @return A col_spec object.
 #' @export
+#' @examples
+#' df <- read_csv(readr_example("mtcars.csv"))
+#' s <- spec(df)
+#' s
+#'
+#' cols_condense(s)
 spec <- function(x) {
   stopifnot(inherits(x, "tbl_df"))
   attr(x, "spec")
