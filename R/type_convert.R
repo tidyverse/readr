@@ -54,6 +54,10 @@ type_convert <- function(df, col_types = NULL, na = c("", "NA"), trim_ws = TRUE,
     guessed_types =  guesses
   )
 
+  if (is.null(col_types)) {
+    show_cols_spec(specs)
+  }
+
   df[is_character] <- lapply(seq_along(char_cols), function(i) {
     type_convert_col(char_cols[[i]], specs$cols[[i]], which(is_character)[i],
       locale_ = locale, na = na, trim_ws = trim_ws)

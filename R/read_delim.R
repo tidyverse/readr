@@ -174,14 +174,7 @@ read_delimited <- function(file, tokenizer, col_names = TRUE, col_types = NULL,
   ds <- datasource(data, skip = skip + isTRUE(col_names), comment = comment)
 
   if (is.null(col_types) && progress && !inherits(ds, "source_string")) {
-    n <- getOption("readr.num_columns", 20)
-    if (n > 0) {
-      message("Parsed with column specification:\n",
-        format(spec, n = n, condense = NULL), appendLF = FALSE)
-      if (length(spec$cols) >= n) {
-        message("See spec(...) for full column specifications.")
-      }
-    }
+    show_cols_spec(spec)
   }
 
   out <- read_tokens(ds, tokenizer, spec$cols, names(spec$cols), locale_ = locale,
