@@ -16,6 +16,7 @@
 * Missing colum name names are now given a default name (`X2`, `X7` etc) (#318).
   Duplicated column names are now deduplicated. Both changes generate a warning;
   to suppress it supply explicit `col_names` (setting skip = 1 if needed).
+
 * `read_*()` functions gain a `quoted_na` argument to control whether missing
   values within quotes are treated as missing values or as strings (#295,
   @jimhester).
@@ -23,7 +24,9 @@
 * `parse_number()` is slightly more flexible - it now parses numbers up
   to the first ill-formed character. For example `parse_number("-3-")`
   and `parse_number("...3...")` now return -3 and 3 respectively.
+
 * `condense_spec()` function to condense a column specification, useful when
+
 * `cols_condense()` function to condense a column specification, useful when
   only a handful of columns are of a different type (#466, @jimhester).
 
@@ -38,28 +41,33 @@
 
 * `write_lines()` function to write a character vector to a file (#302,
   @jimhester).
+
 * Bugfix in `read_line()` which was not properly ignoring embedded null's in
   strings. (#338, @jimhester).
 
 * `locale()` now automatically sets decimal mark if you set the grouping 
   mark. It throws an error if you accidentally set decimal and grouping marks
   to the same character (#450).
+
 * `read_file_raw()` function to read a complete file into a raw vector (#451,
   @jimhester).
+
 * read_fwf() on an empty file returns an empty tibble (#441, @jimhester).
 
 * Named lists can now be used as input to `col_types()` (#401, @jimhester).
 
 * Column specifications are now printed by default when reading, and can be
   retrieved from objects with `spec()` (#314, @jimhester).
+
 * `write_excel_csv()` can be used to write a csv file with a UTF-8 Byte order
   mark included, which allows Excel to detect that it is UTF-8 encoded. (#375,
   @jimhester).
 
-* Parse doubles with `boost::spirit::qi::long_double` to work around a bug in the
-  spirit library when parsing large numbers (#412, @jimhester).
+* Parse doubles with `boost::spirit::qi::long_double` to work around a bug in 
+  the spirit library when parsing large numbers (#412, @jimhester).
 
 * Supports reading into long vectors (#309, @jimhester).
+
 * `default_locale()` now sets the default locale in `readr.default_locale`
   rather than regenerating it for each call. (#416, @jimhester).
 
@@ -72,9 +80,12 @@
 
 * Negative column widths are now allowed in `fwf_widths()` to facilitate
   compatibility with the `widths` argument in `read.fwf()`. (#380, @leeper)
+
 * `type_convert()` now accepts only `NULL` or a `cols` specification for
   `col_types` (#369, @jimhester).
+
 * If `col_types` is too long, it is subsetted correctly. (#372, @jennybc)
+
 * `read_file()`, `read_lines()` and `read_csv()` now return empty objects
   rather than signaling an error when run on an empty file (#356, @jimhester).
 
@@ -100,8 +111,10 @@
 
 * Fix bug in `parse_date()` constructing dates based on integer vectors rather
   than numeric vectors (#357, @jimhester).
+
 * Add `na` arguments to `parse_date()` `parse_time()` and `parse_datetime()`
   (#413, @jimhester).
+
 * Fix bug when parsing negative number returns a positive value (#308,
   @jimhester).
 
@@ -118,7 +131,8 @@
 * readr now imports tibble so that you get consistent `tbl_df` behaviour 
   (#317, #385).
 
-* When column names are insufficient, the added names are numbered correctly and won't be `NA` (#374, @jennybc).
+* When column names are insufficient, the added names are numbered correctly 
+  and won't be `NA` (#374, @jennybc).
 
 * `write_delim()` and `write_csv()` now invisibly return the input data frame
   as documented (#363).
