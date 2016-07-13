@@ -5,9 +5,9 @@
 \alias{locale}
 \title{Create locales}
 \usage{
-locale(date_names = "en", date_format = "\%Y\%.\%m\%.\%d",
-  time_format = "\%H:\%M", decimal_mark = ".", grouping_mark = ",",
-  tz = "UTC", encoding = "UTF-8", asciify = FALSE)
+locale(date_names = "en", date_format = "\%AD", time_format = "\%AT",
+  decimal_mark = ".", grouping_mark = ",", tz = "UTC",
+  encoding = "UTF-8", asciify = FALSE)
 
 default_locale()
 }

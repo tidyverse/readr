@@ -1,5 +1,15 @@
 # readr 0.2.2.9000
 
+* `%y` and `%Y` are now stricter and require 2 or 4 characters respectively.
+
+* If omitted `col_date()` and `col_time()` (and `parse_date()` and 
+  `parse_time()`) use the date and time formats specified in the locale.
+  
+* The default `date_format` and `time_format`s are `%AD` and `%AT` respectively.
+  These are "automatic" date and time parsers that are moderately flexible.
+  The automatic date parser is somewhat flexible than it used to be - it 
+  requires a four digit year, and only accepts `-` and `/` as separators (#442).
+
 * Missing colum name names are now given a default name (`X2`, `X7` etc) (#318).
   Duplicated column names are now deduplicated. Both changes generate a warning;
   to suppress it supply explicit `col_names` (setting skip = 1 if needed).

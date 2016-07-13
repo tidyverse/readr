@@ -39,7 +39,7 @@
 #' # South American locale
 #' locale("es", decimal_mark = ",")
 locale <- function(date_names = "en",
-                   date_format = "%Y%.%m%.%d", time_format = "%H:%M",
+                   date_format = "%AD", time_format = "%AT",
                    decimal_mark = ".", grouping_mark = ",",
                    tz = "UTC", encoding = "UTF-8",
                    asciify = FALSE) {
@@ -79,6 +79,8 @@ locale <- function(date_names = "en",
     class = "locale"
   )
 }
+
+is.locale <- function(x) inherits(x, "locale")
 
 #' @export
 print.locale <- function(x, ...) {

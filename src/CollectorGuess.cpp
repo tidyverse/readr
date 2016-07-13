@@ -73,14 +73,14 @@ bool isTime(const std::string& x, LocaleInfo* pLocale) {
   DateTimeParser parser(pLocale);
 
   parser.setDate(x.c_str());
-  return parser.parseTime();
+  return parser.parseLocaleTime();
 }
 
 bool isDate(const std::string& x, LocaleInfo* pLocale) {
   DateTimeParser parser(pLocale);
 
   parser.setDate(x.c_str());
-  return parser.parse(pLocale->dateFormat_);
+  return parser.parseLocaleDate();
 }
 
 static bool isDateTime(const std::string& x, LocaleInfo* pLocale) {

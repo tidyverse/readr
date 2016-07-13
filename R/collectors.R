@@ -183,6 +183,7 @@ col_guess <- function() {
 #' @rdname parse_guess
 #' @export
 guess_parser <- function(x, locale = default_locale()) {
+  stopifnot(is.locale(locale))
   collectorGuess(x, locale)
 }
 
@@ -241,6 +242,8 @@ col_factor <- function(levels, ordered = FALSE) {
 #'   \item Non-digits: "\%." skips one non-digit character,
 #'     "\%+" skips one or more non-digit characters,
 #'     "\%*" skips any number of non-digits characters.
+#'   \item Automatic parsers: "\%AD" parses with a flexible YMD parser,
+#'      "\%AT" parses with a flexible HMS parser.
 #'   \item Shortcuts: "\%D" = "\%m/\%d/\%y",  "\%F" = "\%Y-\%m-\%d",
 #'       "\%R" = "\%H:\%M", "\%T" = "\%H:\%M:\%S",  "\%x" = "\%y/\%m/\%d".
 #' }
@@ -263,10 +266,9 @@ col_factor <- function(levels, ordered = FALSE) {
 #' }
 #'
 #' @param x A character vector of dates to parse.
-#' @param format A format specification, as described below. If omitted,
-#'   parses dates according to the ISO8601 specification (with caveats,
-#'   as described below). Times are parsed like ISO8601 times, but also
-#'   accept an optional am/pm specification.
+#' @param format A format specification, as described below. If set to "",
+#'   date times are parsed as ISO8601, dates and times used the date and
+#'   time formats specified in the \code{\link{locale}}.
 #'
 #'   Unlike \code{\link{strptime}}, the format specification must match
 #'   the complete string.
@@ -343,7 +345,7 @@ parse_datetime <- function(x, format = "", na = c("", "NA"), locale = default_lo
 
 #' @rdname parse_datetime
 #' @export
-parse_date <- function(x, format = "%Y-%m-%d", na = c("", "NA"), locale = default_locale()) {
+parse_date <- function(x, format = "", na = c("", "NA"), locale = default_locale()) {
   parse_vector(x, col_date(format), na = na, locale = locale)
 }
 
@@ -361,7 +363,7 @@ col_datetime <- function(format = "") {
 
 #' @rdname parse_datetime
 #' @export
-col_date <- function(format = NULL) {
+col_date <- function(format = "") {
   collector("date", format = format)
 }
 

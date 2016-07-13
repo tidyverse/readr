@@ -134,8 +134,8 @@ test_that("print(col_spec) works with dates", {
     regex_escape(
 "cols(
   a = col_date(format = \"%Y-%m-%d\"),
-  b = col_date(format = NULL),
-  c = col_date(format = NULL)
+  b = col_date(format = \"\"),
+  c = col_date(format = \"\")
 )"))
 })
 

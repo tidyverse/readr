@@ -56,6 +56,12 @@ test_that("%OS captures partial seconds", {
   expect_equal(as.POSIXlt(x)$sec, 1.333, tol = 1e-6)
 })
 
+test_that("%y requries 4 digits", {
+  expect_warning(parse_date("003-01-01", "%Y-%m-%d"), "parsing failure")
+  expect_warning(parse_date("03-01-01", "%Y-%m-%d"), "parsing failure")
+  expect_warning(parse_date("00003-01-01", "%Y-%m-%d"), "parsing failure")
+})
+
 test_that("invalid dates return NA", {
   expect_warning(x <- parse_datetime("2010-02-30", "%Y-%m-%d"))
   expect_true(is.na(x))
