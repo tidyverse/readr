@@ -39,6 +39,8 @@ NULL
 #'   comment characters will be silently ignored.
 #' @param na Character vector of strings to use for missing values. Set this
 #'   option to \code{character()} to indicate no missing values.
+#' @param quoted_na Should missing values inside quotes be treated as missing
+#'   values (the default) or strings.
 #' @param delim Single character used to separate fields within a record.
 #' @param quote Single character used to quote strings.
 #' @param trim_ws Should leading and trailing whitespace be trimmed from
@@ -50,7 +52,7 @@ NULL
 #'   characters? This is more general than \code{escape_double} as backslashes
 #'   can be used to escape the delimeter character, the quote characer, or
 #'   to add special characters like \code{\\n}.
-tokenizer_delim <- function(delim, quote = '"', na = "NA", comment = "",
+tokenizer_delim <- function(delim, quote = '"', na = "NA", quoted_na = TRUE, comment = "",
                             trim_ws = TRUE,
                             escape_double = TRUE,
                             escape_backslash = FALSE) {
@@ -59,6 +61,7 @@ tokenizer_delim <- function(delim, quote = '"', na = "NA", comment = "",
       delim = delim,
       quote = quote,
       na = na,
+      quoted_na = quoted_na,
       comment = comment,
       trim_ws = trim_ws,
       escape_double = escape_double,
@@ -70,11 +73,12 @@ tokenizer_delim <- function(delim, quote = '"', na = "NA", comment = "",
 
 #' @export
 #' @rdname Tokenizers
-tokenizer_csv <- function(na = "NA", comment = "", trim_ws = TRUE) {
+tokenizer_csv <- function(na = "NA", quoted_na = TRUE, comment = "", trim_ws = TRUE) {
   tokenizer_delim(
     delim = ",",
     quote = '"',
     na = na,
+    quoted_na = quoted_na,
     comment = comment,
     trim_ws = trim_ws,
     escape_double = TRUE,
@@ -84,11 +88,12 @@ tokenizer_csv <- function(na = "NA", comment = "", trim_ws = TRUE) {
 
 #' @export
 #' @rdname Tokenizers
-tokenizer_tsv <- function(na = "NA", comment = "", trim_ws = TRUE) {
+tokenizer_tsv <- function(na = "NA", quoted_na = TRUE, comment = "", trim_ws = TRUE) {
   tokenizer_delim(
     delim = "\t",
     quote = '"',
     na = na,
+    quoted_na = quoted_na,
     comment = comment,
     trim_ws = trim_ws,
     escape_double = TRUE,
