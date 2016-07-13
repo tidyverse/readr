@@ -54,19 +54,19 @@ public:
     pWarnings_ = pWarnings;
   }
 
-  inline void warn(int line, int row, int col, std::string expected, std::string actual) {
+  inline void warn(int row, int col, std::string expected, std::string actual) {
     if (pWarnings_ == NULL) {
       Rcpp::warning(
         "[%i, %i, %i]: expected %s, but got '%s'",
-        line + 1, row + 1, col + 1, expected, actual);
+        row + 1, row + 1, col + 1, expected, actual);
       return;
     }
 
     pWarnings_->addWarning(row, row, col, expected, actual);
   }
-  inline void warn(int line, int row, int col, std::string expected,
+  inline void warn(int row, int col, std::string expected,
                    SourceIterators actual) {
-    warn(line, row, col, expected, std::string(actual.first, actual.second));
+    warn(row, col, expected, std::string(actual.first, actual.second));
   }
 
   static CollectorPtr create(Rcpp::List spec, LocaleInfo* pLocale);

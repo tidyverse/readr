@@ -54,13 +54,13 @@ private:
 
   void newRecord();
 
-  Token emptyToken(int row, int col, int line);
+  Token emptyToken(int row, int col);
 
   Token fieldToken(SourceIterator begin, SourceIterator end, bool hasEscapeB,
-    bool hasNull, int row, int col, int line);
+    bool hasNull, int row, int col);
 
   Token stringToken(SourceIterator begin, SourceIterator end, bool hasEscapeB,
-    bool hasEscapeD, bool hasNull, int row, int col, int line);
+    bool hasEscapeD, bool hasNull, int row, int col);
 
   void unescapeBackslash(SourceIterator begin, SourceIterator end,
     boost::container::string* pOut);

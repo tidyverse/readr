@@ -73,20 +73,14 @@ Token TokenizerDelim::nextToken() {
     switch(state_) {
     case STATE_DELIM:
       if (*cur_ == '\r' || *cur_ == '\n') {
-        advanceForLF(&cur_, end_);
-        if (col_ == 0) {
-          advanceForLF(&cur_, end_);
-          line_++; line++;
-          token_begin = cur_ + 1;
-          break;
-        }
         newRecord();
-        return emptyToken(row, col, line);
+        advanceForLF(&cur_, end_);
+        return emptyToken(row, col);
       } else if (isComment(cur_)) {
         state_ = STATE_COMMENT;
       } else if (*cur_ == delim_) {
         newField();
-        return emptyToken(row, col, line);
+        return emptyToken(row, col);
       } else if (*cur_ == quote_) {
         state_ = STATE_STRING;
       } else if (escapeBackslash_ && *cur_ == '\\') {
@@ -99,16 +93,16 @@ Token TokenizerDelim::nextToken() {
     case STATE_FIELD:
       if (*cur_ == '\r' || *cur_ == '\n') {
         newRecord();
-        return fieldToken(token_begin, advanceForLF(&cur_, end_), hasEscapeB, hasNull, row, col, line);
+        return fieldToken(token_begin, advanceForLF(&cur_, end_), hasEscapeB, hasNull, row, col);
       } else if (isComment(cur_)) {
         newField();
         state_ = STATE_COMMENT;
-        return fieldToken(token_begin, cur_, hasEscapeB, hasNull, row, col, line);
+        return fieldToken(token_begin, cur_, hasEscapeB, hasNull, row, col);
       } else if (escapeBackslash_ && *cur_ == '\\') {
         state_ = STATE_ESCAPE_F;
       } else if (*cur_ == delim_) {
         newField();
-        return fieldToken(token_begin, cur_, hasEscapeB, hasNull, row, col, line);
+        return fieldToken(token_begin, cur_, hasEscapeB, hasNull, row, col);
       }
       break;
 
@@ -124,15 +118,15 @@ Token TokenizerDelim::nextToken() {
       } else if (*cur_ == '\r' || *cur_ == '\n') {
         newRecord();
         return stringToken(token_begin + 1, advanceForLF(&cur_, end_) - 1,
-          hasEscapeB, hasEscapeD, hasNull, row, col, line);
+          hasEscapeB, hasEscapeD, hasNull, row, col);
       } else if (isComment(cur_)) {
         state_ = STATE_COMMENT;
         return stringToken(token_begin + 1, cur_ - 1,
-          hasEscapeB, hasEscapeD, hasNull, row, col, line);
+          hasEscapeB, hasEscapeD, hasNull, row, col);
       } else if (*cur_ == delim_) {
         newField();
         return stringToken(token_begin + 1, cur_ - 1,
-          hasEscapeB, hasEscapeD, hasNull, row, col, line);
+          hasEscapeB, hasEscapeD, hasNull, row, col);
       } else {
         warn(line, row, col, "delimiter or quote", std::string(cur_, cur_ + 1));
         state_ = STATE_STRING;
@@ -155,13 +149,13 @@ Token TokenizerDelim::nextToken() {
       if (*cur_ == '\r' || *cur_ == '\n') {
         newRecord();
         return stringToken(token_begin + 1, advanceForLF(&cur_, end_) - 1,
-          hasEscapeB, hasEscapeD, hasNull, row, col, line);
+          hasEscapeB, hasEscapeD, hasNull, row, col);
       } else if (isComment(cur_)) {
         state_ = STATE_COMMENT;
-        return stringToken(token_begin + 1, cur_ - 1, hasEscapeB, hasEscapeD, hasNull, row, col, line);
+        return stringToken(token_begin + 1, cur_ - 1, hasEscapeB, hasEscapeD, hasNull, row, col);
       } else if (*cur_ == delim_) {
         newField();
-        return stringToken(token_begin + 1, cur_ - 1, hasEscapeB, hasEscapeD, hasNull, row, col, line);
+        return stringToken(token_begin + 1, cur_ - 1, hasEscapeB, hasEscapeD, hasNull, row, col);
       } else {
         state_ = STATE_FIELD;
       }
@@ -176,14 +170,13 @@ Token TokenizerDelim::nextToken() {
       if (*cur_ == '\r' || *cur_ == '\n') {
 
         // If we have read at least one record on the current row go to the
-        // next row, otherwise just ignore the line.
+        // next row, line, otherwise just ignore the line.
         if (col_ > 0) {
-          row_++; row++;
-          col_ = 0;
+          newRecord();
+          ++row;
+          col = 0;
         }
-        col = 0;
         advanceForLF(&cur_, end_);
-        line_++; line++;
         token_begin = cur_ + 1;
         state_ = STATE_DELIM;
       }
@@ -200,24 +193,24 @@ Token TokenizerDelim::nextToken() {
     if (col_ == 0) {
       return Token(TOKEN_EOF, row, col);
     } else {
-      return emptyToken(row, col, line);
+      return emptyToken(row, col);
     }
 
   case STATE_STRING_END:
   case STATE_QUOTE:
-    return stringToken(token_begin + 1, end_ - 1, hasEscapeB, hasEscapeD, hasNull, row, col, line);
+    return stringToken(token_begin + 1, end_ - 1, hasEscapeB, hasEscapeD, hasNull, row, col);
 
   case STATE_STRING:
     warn(line, row, col, "closing quote at end of file");
-    return stringToken(token_begin + 1, end_, hasEscapeB, hasEscapeD, hasNull, row, col, line);
+    return stringToken(token_begin + 1, end_, hasEscapeB, hasEscapeD, hasNull, row, col);
 
   case STATE_ESCAPE_S:
   case STATE_ESCAPE_F:
     warn(line, row, col, "closing escape at end of file");
-    return stringToken(token_begin, end_ - 1, hasEscapeB, hasEscapeD, hasNull, row, col, line);
+    return stringToken(token_begin, end_ - 1, hasEscapeB, hasEscapeD, hasNull, row, col);
 
   case STATE_FIELD:
-    return fieldToken(token_begin, end_, hasEscapeB, hasNull, row, col, line);
+    return fieldToken(token_begin, end_, hasEscapeB, hasNull, row, col);
 
   case STATE_COMMENT:
     return Token(TOKEN_EOF, row, col);
@@ -241,19 +234,18 @@ void TokenizerDelim::newField() {
 
 void TokenizerDelim::newRecord() {
   row_++;
-  line_++;
   col_ = 0;
   state_ = STATE_DELIM;
 }
 
-Token TokenizerDelim::emptyToken(int row, int col, int line) {
-  return Token(hasEmptyNA_ ? TOKEN_MISSING : TOKEN_EMPTY, row, col, line);
+Token TokenizerDelim::emptyToken(int row, int col) {
+  return Token(hasEmptyNA_ ? TOKEN_MISSING : TOKEN_EMPTY, row, col);
 }
 
 Token TokenizerDelim::fieldToken(SourceIterator begin, SourceIterator end,
                                  bool hasEscapeB, bool hasNull,
-                                 int row, int col, int line)  {
-  Token t(begin, end, row, col, line, hasNull, (hasEscapeB) ? this : NULL);
+                                 int row, int col)  {
+  Token t(begin, end, row, col, hasNull, (hasEscapeB) ? this : NULL);
   if (trimWS_)
     t.trim();
   t.flagNA(NA_);
@@ -262,8 +254,8 @@ Token TokenizerDelim::fieldToken(SourceIterator begin, SourceIterator end,
 
 Token TokenizerDelim::stringToken(SourceIterator begin, SourceIterator end,
                                   bool hasEscapeB, bool hasEscapeD, bool hasNull,
-                                  int row, int col, int line) {
-  Token t(begin, end, row, col, line, hasNull, (hasEscapeD || hasEscapeB) ? this : NULL);
+                                  int row, int col) {
+  Token t(begin, end, row, col, hasNull, (hasEscapeD || hasEscapeB) ? this : NULL);
   if (trimWS_)
     t.trim();
   return t;
