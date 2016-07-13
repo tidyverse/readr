@@ -51,8 +51,9 @@ See `vignette("column-types")` on how readr parses columns, and how you can over
 * Characters are never automatically converted to factors (i.e. no more 
   `stringsAsFactors = FALSE`).
 
-* Column names are left as is, not munged into valid R identifiers
-  (i.e. there is no `check.names = TRUE`).
+* Valid column names are left as is, not munged into valid R identifiers
+  (i.e. there is no `check.names = TRUE`). Missing column names are filled
+  in with `X1`, `X2` etc, and duplicated column names are deduplicated.
 
 * The data frame is given class `c("tbl_df", "tbl", "data.frame")` so 
   if you also use [dplyr](https://github.com/hadley/dplyr/) you'll get an 

@@ -217,6 +217,38 @@ col_spec_standardise <- function(file, col_names = TRUE, col_types = NULL,
     stop("`col_names` must be TRUE, FALSE or a character vector", call. = FALSE)
   }
 
+  missing_names <- is.na(col_names)
+  if (any(missing_names)) {
+    new_names <- paste0("X", seq_along(col_names)[missing_names])
+    col_names[missing_names] <- new_names
+    warning(
+      "Missing column names filled in: ",
+      paste0(
+        encodeString(new_names, quote = "'"),
+        " [", which(missing_names), "]",
+        collapse = ", "
+      ), call. = FALSE
+    )
+  }
+
+  if (anyDuplicated(col_names)) {
+    dups <- duplicated(col_names)
+
+    old_names <- col_names
+    col_names <- make.unique(col_names, sep = "_")
+
+    warning(
+      "Duplicated column names deduplicated: ",
+      paste0(
+        encodeString(old_names[dups], quote = "'"),
+        " => ",
+        encodeString(col_names[dups], quote = "'"),
+        " [", which(dups), "]",
+        collapse = ", "
+      ), call. = FALSE
+    )
+  }
+
   # Figure out column types ----------------------------------------------------
 
   spec <- as.col_spec(col_types)

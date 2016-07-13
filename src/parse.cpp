@@ -72,8 +72,6 @@ RObject guess_header_(List sourceSpec, List tokenizerSpec, List locale_) {
 
     if (t.type() == TOKEN_STRING) {
       out.setValue(t.col(), t);
-    } else {
-      out.setValue(t.col(), tfm::format("X%i", bad_i++));
     }
   }
 

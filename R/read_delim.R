@@ -22,6 +22,10 @@ NULL
 #'   If \code{col_names} is a character vector, the values will be used as the
 #'   names of the columns, and the first row of the input will be read into
 #'   the first row of the output data frame.
+#'
+#'   Missing (\code{NA}) column names will generate a warning, and be filled
+#'   in with dummy names \code{X1}, \code{X2} etc. Duplicate column names
+#'   will generate a warning and be made unique with a numeric prefix.
 #' @param col_types One of \code{NULL}, a \code{\link{cols}} specification, or
 #'   a string. See \code{vignette("column-types")} for more details.
 #'

@@ -54,6 +54,25 @@ test_that("col_spec_standardise works properly with 1 row inputs and no header c
   expect_is(col_spec_standardise("1\n", col_names = FALSE)[[1]]$X1, "collector_integer")
 })
 
+test_that("warns about duplicated names", {
+  expect_warning(col_spec_standardise("a,a\n1,2"), "Duplicated column names")
+  expect_warning(col_spec_standardise("X2,\n1,2"), "Duplicated column names")
+  expect_warning(
+    col_spec_standardise("1,2\n1,2", col_names = c("X", "X")),
+    "Duplicated column names"
+  )
+})
+
+test_that("warn about missing col names and fill in", {
+  expect_warning(col_spec_standardise(",\n1,2"), "Missing column names")
+  expect_warning(
+    col_spec_standardise("1,2\n1,2", col_names = c("X", NA)),
+    "Missing column names"
+  )
+})
+
+# Printing ----------------------------------------------------------------
+
 regex_escape <- function(x) {
   chars <- c("*", ".", "?", "^", "+", "$", "|", "(", ")", "[", "]", "{", "}", "\\")
   gsub(paste0("([\\", paste0(collapse = "\\", chars), "])"), "\\\\\\1", x, perl = TRUE)

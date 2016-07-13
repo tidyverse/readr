@@ -1,5 +1,9 @@
 # readr 0.2.2.9000
 
+* Missing colum name names are now given a default name (`X2`, `X7` etc) (#318).
+  Duplicated column names are now deduplicated. Both changes generate a warning;
+  to suppress it supply explicit `col_names` (setting skip = 1 if needed).
+
 * `parse_number()` is slightly more flexible - it now parses numbers up
   to the first ill-formed character. For example `parse_number("-3-")`
   and `parse_number("...3...")` now return -3 and 3 respectively.
@@ -105,9 +109,6 @@
 
 * `parse_time("NA")` works as expected (#398).
 
-* Quick hack to return something instead of NA for missing column names
-  (#318)
-  
 * Add support for parsing years with col_date("%Y") or col_datetime("%Y") 
 
 * `parse_logical()` now accepts `0`, `1` as well as lowercase `t`, `f`, `true`, `false`. 
