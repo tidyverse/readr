@@ -26,9 +26,8 @@ col_time(format = "")
 \item{x}{A character vector of dates to parse.}
 
 \item{format}{A format specification, as described below. If set to "",
-  parses dates according to the ISO8601 specification (with caveats,
-  as described below). Times are parsed like ISO8601 times, but also
-  accept an optional am/pm specification.
+  date times are parsed as ISO8601, dates and times used the date and
+  time formats specified in the \code{\link{locale}}.
 
   Unlike \code{\link{strptime}}, the format specification must match
   the complete string.}
@@ -81,6 +80,8 @@ There are three types of element:
   \item Non-digits: "\%." skips one non-digit character,
     "\%+" skips one or more non-digit characters,
     "\%*" skips any number of non-digits characters.
+  \item Automatic parsers: "\%AD" parses with a flexible YMD parser,
+     "\%AT" parses with a flexible HMS parser.
   \item Shortcuts: "\%D" = "\%m/\%d/\%y",  "\%F" = "\%Y-\%m-\%d",
       "\%R" = "\%H:\%M", "\%T" = "\%H:\%M:\%S",  "\%x" = "\%y/\%m/\%d".
 }

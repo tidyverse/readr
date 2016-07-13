@@ -103,6 +103,22 @@ public:
     return isComplete();
   }
 
+  bool parseDate() {
+    // Date: YYYY-MM-DD, YYYY/MM/DD
+    if (!consumeInteger(4, &year_))
+      return false;
+    if (!consumeThisChar('-') && !consumeThisChar('/'))
+      return false;
+    if (!consumeInteger1(2, &mon_))
+      return false;
+    if (!consumeThisChar('-') && !consumeThisChar('/'))
+      return false;
+    if (!consumeInteger1(2, &day_))
+      return false;
+
+    return isComplete();
+  }
+
   bool isComplete() {
     return dateItr_ == dateEnd_;
   }
@@ -146,7 +162,7 @@ public:
         year_ += (year_ < 69) ? 2000 : 1900;
         break;
       case 'm': // month
-        if (!consumeInteger1(2, &mon_))
+        if (!consumeInteger1(2, &mon_, false))
           return false;
         break;
       case 'b': // abbreviated month name
@@ -158,7 +174,7 @@ public:
           return false;
         break;
       case 'd': // day
-        if (!consumeInteger1(2, &day_))
+        if (!consumeInteger1(2, &day_, false))
           return false;
         break;
       case 'e': // day with optional leading space
@@ -166,11 +182,11 @@ public:
           return false;
         break;
       case 'H': // hour
-        if (!consumeInteger(2, &hour_))
+        if (!consumeInteger(2, &hour_, false))
           return false;
         break;
       case 'I': // hour
-        if (!consumeInteger(2, &hour_))
+        if (!consumeInteger(2, &hour_, false))
           return false;
         if (hour_ < 1 || hour_ > 12) {
           return false;
@@ -221,6 +237,24 @@ public:
 
       case '*':
         consumeNonDigits();
+        break;
+
+      case 'A': // auto date / time
+        if (formatItr + 1 == formatEnd)
+          Rcpp::stop("Invalid format: %%A must be followed by another letter");
+        formatItr++;
+        switch(*formatItr) {
+        case 'D':
+          if (!parseDate())
+            return false;
+          break;
+        case 'T':
+          if (!parseTime())
+            return false;
+          break;
+        default:
+          Rcpp::stop("Invalid %%A auto parser");
+        }
         break;
 
         // Compound formats
@@ -306,17 +340,20 @@ private:
     return false;
   }
 
-  inline bool consumeInteger(int n, int* pOut) {
+  inline bool consumeInteger(int n, int* pOut, bool exact = true) {
     if (dateItr_ == dateEnd_ || *dateItr_ == '-' || *dateItr_ == '+')
       return false;
 
+    const char* start = dateItr_;
     const char* end = std::min(dateItr_ + n, dateEnd_);
-    return parseInt(dateItr_, end, *pOut);
+    bool ok = parseInt(dateItr_, end, *pOut);
+
+    return ok && (!exact || (dateItr_ - start) == n);
   }
 
   // Integer indexed from 1 (i.e. month and date)
-  inline bool consumeInteger1(int n, int* pOut) {
-    if (!consumeInteger(n, pOut))
+  inline bool consumeInteger1(int n, int* pOut, bool exact = true) {
+    if (!consumeInteger(n, pOut, exact))
       return false;
 
     (*pOut)--;
