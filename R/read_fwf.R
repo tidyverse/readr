@@ -67,6 +67,7 @@ fwf_empty <- function(file, skip = 0, col_names = NULL) {
   ds <- datasource(file, skip = skip)
 
   out <- whitespaceColumns(ds)
+  out$end[length(out$end)] <- NA
 
   if (is.null(col_names)) {
     col_names <- paste0("X", seq_along(out$begin))

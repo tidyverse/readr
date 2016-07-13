@@ -10,7 +10,7 @@ class TokenizerFwf : public Tokenizer {
   std::vector<int> beginOffset_, endOffset_;
   std::vector<std::string> NA_;
 
-  SourceIterator begin_, curLine_, end_;
+  SourceIterator begin_, cur_, curLine_, end_;
   int row_, col_, cols_, max_;
   bool moreTokens_, isRagged_;
 

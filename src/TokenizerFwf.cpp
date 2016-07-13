@@ -99,7 +99,9 @@ TokenizerFwf::TokenizerFwf(const std::vector<int>& beginOffset, const std::vecto
 }
 
 void TokenizerFwf::tokenize(SourceIterator begin, SourceIterator end) {
+  cur_ = begin;
   curLine_ = begin;
+
   begin_ = begin;
   end_ = end;
 
@@ -109,33 +111,47 @@ void TokenizerFwf::tokenize(SourceIterator begin, SourceIterator end) {
 }
 
 std::pair<double,size_t> TokenizerFwf::progress() {
-  size_t bytes = curLine_ - begin_;
+  size_t bytes = cur_ - begin_;
   return std::make_pair(bytes / (double) (end_ - begin_), bytes);
 }
-
-// bool advance(SourceIterator start, SourceIterator end, int n) {
-//   for(int i = 0; i < n; ++i) {
-//     start++;
-//     if (start == end)
-//       return false;
-//
-//     if (*start == '\r' || *start == '\n')
-//       return false;
-//   }
-//
-//   return true;
-// }
 
 Token TokenizerFwf::nextToken() {
   if (!moreTokens_)
     return Token(TOKEN_EOF, 0, 0);
 
-  SourceIterator fieldBegin = curLine_ + beginOffset_[col_];
-  if (fieldBegin >= end_) {
+  // Find start of field
+  SourceIterator fieldBegin = cur_;
+  findBeginning:
+  int skip = beginOffset_[col_] - (cur_ - curLine_);
+  for (int i = 0; i < skip; ++i) {
+    if (fieldBegin == end_)
+      break;
+
+    if (*fieldBegin == '\n' || *fieldBegin == '\r') {
+      warn(row_, col_,
+        tfm::format("%i chars between fields", skip),
+        tfm::format("%i chars until end of line", i)
+      );
+
+      row_++;
+      col_ = 0;
+
+      advanceForLF(&fieldBegin, end_);
+      if (fieldBegin != end_)
+        fieldBegin++;
+      cur_ = curLine_ = fieldBegin;
+      goto findBeginning;
+    }
+    fieldBegin++;
+  }
+
+  if (fieldBegin == end_) {
+    // need to warn here if col != 0/cols - 1
     moreTokens_ = false;
     return Token(TOKEN_EOF, 0, 0);
   }
 
+  // Find end of field
   SourceIterator fieldEnd = fieldBegin;
   bool lastCol = (col_ == cols_ - 1), tooShort = false, hasNull = false;
 
@@ -183,8 +199,10 @@ Token TokenizerFwf::nextToken() {
     advanceForLF(&curLine_, end_);
     if (curLine_ != end_)
       curLine_++;
+    cur_ = curLine_;
   } else {
     col_++;
+    cur_ = fieldEnd;
   }
 
   return t;

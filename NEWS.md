@@ -1,5 +1,10 @@
 # readr 0.2.2.9000
 
+* `read_fwf()` now checks for line breaks in between specified columns (#469).
+
+* `fwf_empty()` returns sets last end value to NA to automatically trim
+  ragged columns.
+
 * `read_fwf()` now can now skip columns without adding an extranous column of 
   missing values (#322).
 

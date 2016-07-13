@@ -1,9 +1,9 @@
 context("read_fwf")
 
 test_that("trailing spaces ommitted", {
-  spec <- fwf_empty("fwf-trailing.txt")
+  spec <- fwf_empty(test_path("fwf-trailing.txt"))
   expect_equal(spec$begin, c(0, 4))
-  expect_equal(spec$end, c(3, 7))
+  expect_equal(spec$end, c(3, NA))
 
   df <- read_fwf("fwf-trailing.txt", spec, progress = FALSE)
   expect_equal(df$X1, df$X2)
@@ -72,6 +72,31 @@ test_that("read columns with width, ragged", {
 
 test_that("read_fwf returns an empty data.frame on an empty file", {
    expect_equal(read_fwf("empty-file", progress = FALSE), tibble::data_frame())
+})
+
+test_that("check for line breaks in between widths", {
+  txt1 <- paste(
+    "1 1",
+    "2",
+    "1 1 ",
+    sep = "\n"
+  )
+  expect_warning(out1 <- read_fwf(txt1, fwf_empty(txt1)))
+  expect_equal(n_problems(out1), 2)
+
+  txt2 <- paste(
+    " 1 1",
+    " 2",
+    " 1 1 ",
+    sep = "\n"
+  )
+  expect_warning(out2 <- read_fwf(txt2, fwf_empty(txt2)))
+  expect_equal(n_problems(out2), 2)
+
+  exp <- tibble::tibble(X1 = c(1L, 2L, 1L), X2 = c(1L, NA, 1L))
+  expect_equal(out1, exp)
+  expect_equal(out2, exp)
+
 })
 
 # read_table -------------------------------------------------------------------
