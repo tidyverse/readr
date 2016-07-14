@@ -4,6 +4,7 @@ Title: Read Tabular Data
 Description: Read flat/tabular text files from disk (or a connection).
 Authors@R: c(
     person("Hadley", "Wickham", , "hadley@rstudio.com", c("aut", "cre")),
+    person("Jim", "Hester", , "jim.hester@rstudio.com", "aut"),
     person("Romain", "Francois", role = "aut"),
     person("R Core Team", role = "ctb", comment = "Date time code adapted from R"),
     person("RStudio", role = "cph"),

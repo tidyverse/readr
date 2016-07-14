@@ -1,156 +1,176 @@
 # readr 0.2.2.9000
 
-* `read_fwf()` now checks for line breaks in between specified columns (#469).
+## Column guessing
 
-* `fwf_empty()` returns sets last end value to NA to automatically trim
-  ragged columns.
+The process by which readr guesses the types of columns has received a substantial overhaul to make it easier to fix problems when the initial guesses aren't correct, and to make it easier to generate reproducible code. Now column specifications are printing by default when you read from a file:
 
-* `read_fwf()` now can now skip columns without adding an extranous column of 
-  missing values (#322).
+```R
+challenge <- read_csv(readr_example("challenge.csv"))
+#> Parsed with column specification:
+#> cols(
+#>   x = col_integer(),
+#>   y = col_character()
+#> )
+```
 
-* `%y` and `%Y` are now stricter and require 2 or 4 characters respectively.
+And you can extract those values after the fact with `spec()`:
 
-* If omitted `col_date()` and `col_time()` (and `parse_date()` and 
-  `parse_time()`) use the date and time formats specified in the locale.
-  
-* The default `date_format` and `time_format`s are `%AD` and `%AT` respectively.
-  These are "automatic" date and time parsers that are moderately flexible.
-  The automatic date parser is somewhat flexible than it used to be - it 
-  requires a four digit year, and only accepts `-` and `/` as separators (#442).
+```R
+spec(challenge)
+#> cols(
+#>   x = col_integer(),
+#>   y = col_character()
+#> )
+```
 
-* Missing column name names are now given a default name (`X2`, `X7` etc) (#318).
-  Duplicated column names are now de-duplicated. Both changes generate a warning;
-  to suppress it supply explicit `col_names` (setting skip = 1 if needed).
+This makes it easier to quickly identify parsing problems and fix them (#314). If the column specification is long, the new `cols_condense()` is used to condense the spec by identifying the most common type and setting it as the default. This is particularly useful when only a handful of columns have a different type (#466).
 
-* `read_*()` functions gain a `quoted_na` argument to control whether missing
-  values within quotes are treated as missing values or as strings (#295,
-  @jimhester).
+You can also generating an initial specification without parsing the file using `spec_csv()`, `spec_tsv()`, etc.
 
-* `parse_number()` is slightly more flexible - it now parses numbers up
-  to the first ill-formed character. For example `parse_number("-3-")`
-  and `parse_number("...3...")` now return -3 and 3 respectively.
+Once you have figured out the correct column types for a file, it's often useful to make the parsing strict. You can do this either by copying and pasting the printed output, or for very long specs, saving the spec to disk with `write_rds()`. In production scripts, combine this with `stop_for_problems()` (#465): if the input data changes form, you'll fail fast with an error.
 
-* `condense_spec()` function to condense a column specification, useful when
+You can now also adjust the number of rows that readr uses to guess the column types with `guess_max`:
 
-* `cols_condense()` function to condense a column specification, useful when
-  only a handful of columns are of a different type (#466, @jimhester).
+```R
+challenge <- read_csv(readr_example("challenge.csv"), guess_max = 1500)
+#> Parsed with column specification:
+#> cols(
+#>   x = col_double(),
+#>   y = col_date(format = "")
+#> )
+```
 
-* New `stop_for_problems(x)` throws an error if `x` had any parsing problems 
-  (#465).
-
-* New `readr_example()` helper to easily access example files bundled
-  with readr.
+You can now access the guessing algorithm from R. `guess_parser()` will tell you which parser readr will select for a character vector (#377). We've made a number of fixes to the guessing algorithm:
 
 * New example `extdata/challenge.csv` which is carefully created to cause 
   problems with the default column type guessing heuristics.
+
 * Blank lines and lines with only comments are now skipped automatically
-  without warning (#381, #321 @jimhester).
+  without warning (#381, #321).
 
-* `write_lines()` function to write a character vector to a file (#302,
-  @jimhester).
+* Single '-' or '.' are now parsed as characters, not numbers (#297).
 
-* Bugfix in `read_line()` which was not properly ignoring embedded null's in
-  strings. (#338, @jimhester).
+* Numbers followed by a single trailing character are parsed as character,
+  not numbers (#316).
+
+* We now guess at times using the `time_format` specified in the `locale()`.
+
+We have made a number of improvements to the reification of the `col_types`, `col_names` and the actual data:
+
+* If `col_types` is too long, it is subsetted correctly (#372, @jennybc).
+
+* If `col_names` is too short, the added names are numbered correctly 
+  (#374, @jennybc).
+  
+* Missing colum name names are now given a default name (`X2`, `X7` etc) (#318).
+  Duplicated column names are now deduplicated. Both changes generate a warning;
+  to suppress it supply an explicit `col_names` (setting `skip = 1` if there's
+  an existing ill-formed header).
+
+* `col_types()` accepts a named list as input (#401).
+
+## Column parsing
+
+The date time parsers recognise three new format strings:
+
+* `%I` for 12 hour time format (#340).
+
+* `%AD` and `%AT` are "automatic" date and time parsers. They are both slightly
+  less flexible than previous defaults. The automatic date parser requires a 
+  four digit year, and only accepts `-` and `/` as separators (#442). The 
+  flexible time parser now requires colons between hours and minutes and 
+  optional seconds (#424). 
+
+`%y` and `%Y` are now strict and require 2 or 4 characters respectively.
+
+Date and time parsing functions received a number of small enhancements:
+
+* `parse_time()` returns `hms` objects rather than a custom `time` class (#409).
+  It now correctly parses missing values (#398).
+
+* `parse_date()` returns a numeric vector (instead of an integer vector) (#357).
+
+* `parse_date()`, `parse_time()` and `parse_datetime()` gain an `na` 
+  argument to match all other parsers (#413).
+  
+* If the format argument is omitted `parse_date()` or `parse_time()`, 
+  date and time formats specified in the locale will be used. These now
+  default to `%AD` and `%AT` respectively.
+  
+* You can now parse partial dates with `parse_date()` and 
+ `parse_datetime()`, e.g. `parse_date("2001", "%Y")` returns `2001-01-01`.
+
+`parse_number()` is slightly more flexible - it now parses numbers up to the first ill-formed character. For example `parse_number("-3-")` and `parse_number("...3...")` now return -3 and 3 respectively. We also fixed a major bug where parsing negative numbers yielded positive values (#308).
+
+`parse_logical()` now accepts `0`, `1` as well as lowercase `t`, `f`, `true`, `false`. 
+
+## New readers and writers
+
+* `read_file_raw()` reads a complete file into a single raw vector (#451).
+
+* `read_*()` functions gain a `quoted_na` argument to control whether missing
+  values within quotes are treated as missing values or as strings (#295).
+  
+* `write_excel_csv()` can be used to write a csv file with a UTF-8 BOM at the
+  start, which forces Excel to read it as UTF-8 encoded (#375).
+  
+* `write_lines()` writes a character vector to a file (#302).
+
+## Minor features and bug fixes
+
+* Printing double values now uses an
+  [implementation](https://github.com/juj/MathGeoLib/blob/master/src/Math/grisu3.c)
+  of the [grisu3 algorithm](http://www.cs.tufts.edu/~nr/cs257/archive/florian-loitsch/printf.pdf)
+  which speeds up writing of large numeric data frames by ~10X. (#432)
+
+* readr imports tibble so that you get consistent `tbl_df` behaviour 
+  (#317, #385).
+  
+* New example `extdata/challenge.csv` which is carefully created to cause 
+  problems with the default column type guessing heuristics.
+
+* `default_locale()` now sets the default locale in `readr.default_locale`
+  rather than regenerating it for each call. (#416).
 
 * `locale()` now automatically sets decimal mark if you set the grouping 
   mark. It throws an error if you accidentally set decimal and grouping marks
   to the same character (#450).
 
-* `read_file_raw()` function to read a complete file into a raw vector (#451,
-  @jimhester).
+* All `read_*()` can read into long vectors, substantially increasing the
+  number of rows you can read (#309).
 
-* read_fwf() on an empty file returns an empty tibble (#441, @jimhester).
-
-* Named lists can now be used as input to `col_types()` (#401, @jimhester).
-
-* Column specifications are now printed by default when reading, and can be
-  retrieved from objects with `spec()` (#314, @jimhester).
-
-* `write_excel_csv()` can be used to write a csv file with a UTF-8 Byte order
-  mark included, which allows Excel to detect that it is UTF-8 encoded. (#375,
-  @jimhester).
-
-* Parse doubles with `boost::spirit::qi::long_double` to work around a bug in 
-  the spirit library when parsing large numbers (#412, @jimhester).
-
-* Supports reading into long vectors (#309, @jimhester).
-
-* `default_locale()` now sets the default locale in `readr.default_locale`
-  rather than regenerating it for each call. (#416, @jimhester).
-
-* Printing of double values now uses an
-  [implementation](https://github.com/juj/MathGeoLib/blob/master/src/Math/grisu3.c)
-  of the [grisu3
-  algorithm](http://www.cs.tufts.edu/~nr/cs257/archive/florian-loitsch/printf.pdf)
-  which speeds up writing of large numeric data frames by ~10X. (#432,
-  @jimhester)
-
-* Negative column widths are now allowed in `fwf_widths()` to facilitate
-  compatibility with the `widths` argument in `read.fwf()`. (#380, @leeper)
-
-* `type_convert()` now accepts only `NULL` or a `cols` specification for
-  `col_types` (#369, @jimhester).
-
-* If `col_types` is too long, it is subsetted correctly. (#372, @jennybc)
-
-* `read_file()`, `read_lines()` and `read_csv()` now return empty objects
-  rather than signaling an error when run on an empty file (#356, @jimhester).
-
-* time objects returned by `parse_time()` are now `hms` objects rather than a
-  custom `time` class (#409, @jimhester).
-
-* parse_datetime()` and `parse_time()` now support `%I` for 12 hour time
-  format (#340, @jimhester).
-
-* The flexible time parser now requires colons between hours and minutes and
-  optional seconds. You can explicitly parse without colons by specifying the
-  column type like `col_time("%H%M")` (#424, @jimhester).
-
-* `collector_guess()` now guesses time formats as well (#384, @jimhester).
-
-* Fix bug when guessing type for numbers with a trailing character (#316,
-  @jimhester).
-
-* Export `collector_guess()` (#377, @jimhester).
-
-* Fix bug when parsing negative number returns a positive value (#308,
-  @jimhester).
-
-* Fix bug in `parse_date()` constructing dates based on integer vectors rather
-  than numeric vectors (#357, @jimhester).
-
-* Add `na` arguments to `parse_date()` `parse_time()` and `parse_datetime()`
-  (#413, @jimhester).
-
-* Fix bug when parsing negative number returns a positive value (#308,
-  @jimhester).
-
-* Fix bug when detecting column types for single row files without headers
-  (#333, @jimhester).
-
-* Fix bug in `collector_guess()`, single '-' or '.' are now parsed as
-  characters rather than numeric (#297, @jimhester).
-
-* Fix bug in `read_fwf()`, it will now properly read a subset of columns.
-  If the final column is ragged, supply an NA as the final end `fwf_positions`
-  or final width `fwf_widths` position (#353,@ghaarsma).
-
-* readr now imports tibble so that you get consistent `tbl_df` behaviour 
-  (#317, #385).
-
-* When column names are insufficient, the added names are numbered correctly 
-  and won't be `NA` (#374, @jennybc).
-
-* `write_delim()` and `write_csv()` now invisibly return the input data frame
-  as documented (#363).
-
-* `parse_time("NA")` works as expected (#398).
-
-* Add support for parsing years with col_date("%Y") or col_datetime("%Y") 
-
-* `parse_logical()` now accepts `0`, `1` as well as lowercase `t`, `f`, `true`, `false`. 
+* All `read_*()` functions return empty objects rather than signaling an error 
+  when run on an empty file (#356, #441).
 
 * `read_delim()` gains a `trim_ws` argument (#312, noamross)
+
+* `read_fwf()` received a number of improvements:
+
+  * `read_fwf()` now can now reliably read only a partial set of columns
+    (#322, #353, #469)
+   
+  * `fwf_widths()` accepts negative column widths for compatibility with the 
+    `widths` argument in `read.fwf()` (#380, @leeper).
+  
+  * You can now read fixed width files with ragged final columns, by setting
+    the final end position in `fwf_positions()` or final width in `fwf_widths()` 
+    to `NA` (#353, @ghaarsma). `fwf_empty()` does this automatically.
+
+* `read_line()` ignores embedded null's in strings (#338).
+
+* `readr_example()` makes it easy to access example files bundled with readr.
+
+* `type_convert()` now accepts only `NULL` or a `cols` specification for
+  `col_types` (#369).
+
+* `write_delim()` and `write_csv()` now invisibly return the input data frame
+  (as documented, #363).
+
+* Doubles are parsed with `boost::spirit::qi::long_double` to work around a bug 
+  in the spirit library when parsing large numbers (#412).
+
+* Fix bug when detecting column types for single row files without headers
+  (#333).
 
 # readr 0.2.2
 
