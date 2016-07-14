@@ -8,10 +8,10 @@
 \title{Read a fixed width file.}
 \usage{
 read_fwf(file, col_positions, col_types = NULL, locale = default_locale(),
-  na = c("", "NA"), skip = 0, n_max = Inf, guess_max = min(n_max, 1000),
-  progress = interactive())
+  na = c("", "NA"), comment = "", skip = 0, n_max = Inf,
+  guess_max = min(n_max, 1000), progress = interactive())
 
-fwf_empty(file, skip = 0, col_names = NULL)
+fwf_empty(file, skip = 0, col_names = NULL, comment = "")
 
 fwf_widths(widths, col_names = NULL)
 
@@ -61,6 +61,9 @@ names.}
 \item{na}{Character vector of strings to use for missing values. Set this
 option to \code{character()} to indicate no missing values.}
 
+\item{comment}{A string used to identify comments. Any text after the
+comment characters will be silently ignored.}
+
 \item{skip}{Number of lines to skip before reading data.}
 
 \item{n_max}{Maximum number of records to read.}
@@ -92,11 +95,11 @@ cat(read_lines(fwf_sample))
 
 # You can specify column positions in three ways:
 # 1. Guess based on position of empty columns
-read_fwf(fwf_sample, fwf_empty(fwf_sample))
+read_fwf(fwf_sample, fwf_empty(fwf_sample, col_names = c("first", "last", "state", "ssn")))
 # 2. A vector of field widths
-read_fwf(fwf_sample, fwf_widths(c(2, 5, 3)))
+read_fwf(fwf_sample, fwf_widths(c(20, 10, 12), c("name", "state", "ssn")))
 # 3. Paired vectors of start and end positions
-read_fwf(fwf_sample, fwf_positions(c(1, 4), c(2, 10)))
+read_fwf(fwf_sample, fwf_positions(c(1, 30), c(10, 42), c("name", "ssn")))
 }
 \seealso{
 \code{\link{read_table}} to read fixed width files where each

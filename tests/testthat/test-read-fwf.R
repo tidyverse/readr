@@ -20,6 +20,13 @@ test_that("skipping column doesn't pad col_names", {
   expect_named(out2, c("a", "c"))
 })
 
+test_that("fwf_empty can skip comments", {
+  x <- "1 2 3\nCOMMENT\n4 5 6"
+
+  out1 <- read_fwf(x, fwf_empty(x, comment = "COMMENT"), comment = "COMMENT")
+  expect_equal(dim(out1), c(2, 3))
+})
+
 test_that("passing \"\" to read_fwf's 'na' option", {
   expect_equal(read_fwf('foobar\nfoo   ', fwf_widths(c(3, 3)), na = "", progress = FALSE)[[2]],
                c("bar", NA))
@@ -97,6 +104,21 @@ test_that("check for line breaks in between widths", {
   expect_equal(out1, exp)
   expect_equal(out2, exp)
 
+})
+
+test_that("ignore commented lines anywhere in file", {
+  col_pos <- fwf_positions(c(1,3,6),c(2,5,6))
+  x1 <- read_fwf('COMMENT\n12345A\n67890BBBBBBBBB\n54321C',col_positions = col_pos, comment = "COMMENT", progress = FALSE)
+  x2 <- read_fwf('12345A\n67890BBBBBBBBB\nCOMMENT\n54321C',col_positions = col_pos, comment = "COMMENT", progress = FALSE)
+  x3 <- read_fwf('12345A\n67890BBBBBBBBB\n54321C\nCOMMENT',col_positions = col_pos, comment = "COMMENT", progress = FALSE)
+  x4 <- read_fwf('COMMENT\n12345A\nCOMMENT\n67890BBBBBBBBB\n54321C\nCOMMENT',col_positions = col_pos, comment = "COMMENT", progress = FALSE)
+
+  expect_identical(x1, x2)
+  expect_identical(x1, x3)
+  expect_identical(x1, x4)
+
+  expect_equal(x1$X3, c("A", "B", "C"))
+  expect_equal(n_problems(x1), 0)
 })
 
 # read_table -------------------------------------------------------------------
