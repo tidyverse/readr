@@ -18,8 +18,8 @@
   The automatic date parser is somewhat flexible than it used to be - it 
   requires a four digit year, and only accepts `-` and `/` as separators (#442).
 
-* Missing colum name names are now given a default name (`X2`, `X7` etc) (#318).
-  Duplicated column names are now deduplicated. Both changes generate a warning;
+* Missing column name names are now given a default name (`X2`, `X7` etc) (#318).
+  Duplicated column names are now de-duplicated. Both changes generate a warning;
   to suppress it supply explicit `col_names` (setting skip = 1 if needed).
 
 * `read_*()` functions gain a `quoted_na` argument to control whether missing
