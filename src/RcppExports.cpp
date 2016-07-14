@@ -193,14 +193,15 @@ BEGIN_RCPP
 END_RCPP
 }
 // whitespaceColumns
-List whitespaceColumns(List sourceSpec, int n);
-RcppExport SEXP readr_whitespaceColumns(SEXP sourceSpecSEXP, SEXP nSEXP) {
+List whitespaceColumns(List sourceSpec, int n, std::string comment);
+RcppExport SEXP readr_whitespaceColumns(SEXP sourceSpecSEXP, SEXP nSEXP, SEXP commentSEXP) {
 BEGIN_RCPP
     Rcpp::RObject __result;
     Rcpp::RNGScope __rngScope;
     Rcpp::traits::input_parameter< List >::type sourceSpec(sourceSpecSEXP);
     Rcpp::traits::input_parameter< int >::type n(nSEXP);
-    __result = Rcpp::wrap(whitespaceColumns(sourceSpec, n));
+    Rcpp::traits::input_parameter< std::string >::type comment(commentSEXP);
+    __result = Rcpp::wrap(whitespaceColumns(sourceSpec, n, comment));
     return __result;
 END_RCPP
 }

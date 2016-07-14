@@ -22,21 +22,22 @@
 #'
 #' # You can specify column positions in three ways:
 #' # 1. Guess based on position of empty columns
-#' read_fwf(fwf_sample, fwf_empty(fwf_sample))
+#' read_fwf(fwf_sample, fwf_empty(fwf_sample, col_names = c("first", "last", "state", "ssn")))
 #' # 2. A vector of field widths
-#' read_fwf(fwf_sample, fwf_widths(c(2, 5, 3)))
+#' read_fwf(fwf_sample, fwf_widths(c(20, 10, 12), c("name", "state", "ssn")))
 #' # 3. Paired vectors of start and end positions
-#' read_fwf(fwf_sample, fwf_positions(c(1, 4), c(2, 10)))
+#' read_fwf(fwf_sample, fwf_positions(c(1, 30), c(10, 42), c("name", "ssn")))
 read_fwf <- function(file, col_positions, col_types = NULL,
                      locale = default_locale(), na = c("", "NA"),
-                     skip = 0, n_max = Inf, guess_max = min(n_max, 1000), progress = interactive()) {
+                     comment = "", skip = 0, n_max = Inf,
+                     guess_max = min(n_max, 1000), progress = interactive()) {
   ds <- datasource(file, skip = skip)
 
   if (inherits(ds, "source_file") && empty_file(file)) {
     return(tibble::data_frame())
   }
 
-  tokenizer <- tokenizer_fwf(col_positions$begin, col_positions$end, na = na)
+  tokenizer <- tokenizer_fwf(col_positions$begin, col_positions$end, na = na, comment = comment)
 
   spec <- col_spec_standardise(
     file,
@@ -63,10 +64,10 @@ read_fwf <- function(file, col_positions, col_types = NULL,
 
 #' @rdname read_fwf
 #' @export
-fwf_empty <- function(file, skip = 0, col_names = NULL) {
+fwf_empty <- function(file, skip = 0, col_names = NULL, comment = "") {
   ds <- datasource(file, skip = skip)
 
-  out <- whitespaceColumns(ds)
+  out <- whitespaceColumns(ds, comment = comment)
   out$end[length(out$end)] <- NA
 
   if (is.null(col_names)) {

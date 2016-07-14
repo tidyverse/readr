@@ -6,14 +6,25 @@ using namespace Rcpp;
 #include "TokenizerFwf.h"
 #include "utils.h"
 
-std::vector<bool> emptyCols_(SourceIterator begin, SourceIterator end, size_t n = 100) {
+std::vector<bool> emptyCols_(SourceIterator begin, SourceIterator end, size_t n = 100, std::string comment = "") {
 
   std::vector<bool> is_white;
 
   size_t row = 0, col = 0;
+  bool hasComment = comment.length() > 0;
   for (SourceIterator cur = begin; cur != end; ++cur) {
     if (row > n)
       break;
+
+    if (col == 0 && hasComment) {
+      boost::iterator_range<const char*> haystack(cur, end);
+      if (boost::starts_with(haystack, comment)) {
+          // Skip rest of line
+          while(cur != end && *cur != '\n' && *cur != '\r') {
+            ++cur;
+          }
+      }
+    }
 
     switch(*cur) {
     case '\n':
@@ -39,10 +50,10 @@ std::vector<bool> emptyCols_(SourceIterator begin, SourceIterator end, size_t n 
 }
 
 // [[Rcpp::export]]
-List whitespaceColumns(List sourceSpec, int n = 100) {
+List whitespaceColumns(List sourceSpec, int n = 100, std::string comment = "") {
   SourcePtr source = Source::create(sourceSpec);
 
-  std::vector<bool> empty = emptyCols_(source->begin(), source->end(), n);
+  std::vector<bool> empty = emptyCols_(source->begin(), source->end(), n, comment);
   std::vector<int> begin, end;
 
   bool in_col = false;
@@ -72,12 +83,14 @@ List whitespaceColumns(List sourceSpec, int n = 100) {
 #include "TokenizerFwf.h"
 
 TokenizerFwf::TokenizerFwf(const std::vector<int>& beginOffset, const std::vector<int>& endOffset,
-                           std::vector<std::string> NA):
+                           std::vector<std::string> NA, std::string comment):
   beginOffset_(beginOffset),
   endOffset_(endOffset),
   NA_(NA),
   cols_(beginOffset.size()),
-  moreTokens_(false)
+  moreTokens_(false),
+  comment_(comment),
+  hasComment_(comment.size() > 0)
 {
   if (beginOffset_.size() != endOffset_.size())
     Rcpp::stop("Begin (%i) and end (%i) specifications must have equal length",
@@ -118,6 +131,19 @@ std::pair<double,size_t> TokenizerFwf::progress() {
 Token TokenizerFwf::nextToken() {
   if (!moreTokens_)
     return Token(TOKEN_EOF, 0, 0);
+
+  // Check for comments only at start of line
+  if (col_ == 0 && isComment(cur_)) {
+    // Skip rest of line
+    while(cur_ != end_ && *cur_ != '\n' && *cur_ != '\r') {
+      ++cur_;
+    }
+    advanceForLF(&cur_, end_);
+    if (cur_ != end_) {
+      ++cur_;
+    }
+    curLine_ = cur_;
+  }
 
   // Find start of field
   SourceIterator fieldBegin = cur_;
@@ -219,3 +245,10 @@ Token TokenizerFwf::fieldToken(SourceIterator begin, SourceIterator end, bool ha
   return t;
 }
 
+bool TokenizerFwf::isComment(const char* cur) const {
+  if (!hasComment_)
+    return false;
+
+  boost::iterator_range<const char*> haystack(cur, end_);
+  return boost::starts_with(haystack, comment_);
+}

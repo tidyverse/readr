@@ -22,7 +22,7 @@ tokenizer_line()
 
 tokenizer_log()
 
-tokenizer_fwf(begin, end, na = "NA")
+tokenizer_fwf(begin, end, na = "NA", comment = "")
 }
 \arguments{
 \item{delim}{Single character used to separate fields within a record.}

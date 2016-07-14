@@ -156,6 +156,9 @@ Date and time parsing functions received a number of small enhancements:
     the final end position in `fwf_positions()` or final width in `fwf_widths()` 
     to `NA` (#353, @ghaarsma). `fwf_empty()` does this automatically.
 
+  * `read_fwf()` and `fwf_empty()` can now skip commented lines by setting a
+    `comment` argument (#334).
+
 * `read_line()` ignores embedded null's in strings (#338).
 
 * `readr_example()` makes it easy to access example files bundled with readr.
