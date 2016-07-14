@@ -116,6 +116,9 @@ Date and time parsing functions received a number of small enhancements:
   
 * `write_lines()` writes a character vector to a file (#302).
 
+* `write_file()` and `write_file_raw()` write a single character or raw vector
+  to a file (#474).
+
 ## Minor features and bug fixes
 
 * Printing double values now uses an
