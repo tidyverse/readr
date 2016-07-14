@@ -104,7 +104,7 @@ Use the `col_types` argument to override the default choices. There are two ways
 
     ```R
     read_csv("iris.csv", col_types = cols_only(
-      Species = col_factor(c("setosa", "versicolor", "virginica"))
+      Species = col_factor(c("setosa", "versicolor", "virginica")))
     )
     ```
 
