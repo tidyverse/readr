@@ -26,15 +26,15 @@ Currently, readr automatically recognises the following types of columns:
 
 * `col_character()` [c], everything else.
 
-* `col_date(format = "")` [D]: Y-m-d dates.
+* `col_date(format = "")` [D]: with the locale's `date_format`.
+
+* `col_time(format = "")` [t]: with the locale's `time_format`.
 
 * `col_datetime(format = "")` [T]: ISO8601 date times
 
-* `col_number()` [n], finds the first number in the field. A number is defined
-   as a sequence of -, "0-9", `decimal_mark` and `grouping_mark`. This is
-   useful for currencies and percentages.
+* `col_number()` [n], numbers containing the `grouping_mark`
 
-To recognise these columns, readr inspects the first 1000 rows of your dataset. This is not guaranteed to be perfect, but it's fast and a reasonable heuristic. If you get a lot of parsing failures, you'll need to re-read the file, overriding the default choices as described below.
+To recognise these columns, readr inspects the first 1000 rows of your dataset. This is not guaranteed to be perfect, but it's fast and a reasonable heuristic. If you get a lot of parsing failures, you'll need to re-read the file, either increasing `guess_max` to overriding the default choices as described below.
 
 You can also manually specify other column types:
 
@@ -116,9 +116,7 @@ readr attaches the spec used for the file to the output. It can be retrieved by
 calling `spec()` on the object.
 
 ```{r}
-write_csv(mtcars, "mtcars.csv")
-data <- read_csv("mtcars.csv")
-
+data <- read_csv(readr_example("mtcars.csv"))
 data
 
 # Every table returned has a spec attribute
@@ -127,8 +125,11 @@ s
 
 # Alternatively you can use a spec function instead, which will only read the
 # first 1000 rows (user configurable with guess_max)
-s <- spec_csv("mtcars.csv")
+s <- spec_csv(readr_example("mtcars.csv"))
 s
+
+# Automatically set the default to the most common type
+cols_condense(s)
 
 # If the spec has a default of skip then uses cols_only
 s$default <- col_skip()
@@ -139,15 +140,16 @@ s$default <- col_character()
 s
 
 # The print method takes a n parameter to return only that number of columns
-print(s, n=5)
+print(s, n = 5)
 
-# When reading this is set to 20 by default, set options("readr.num_columns" = x) to change
+# When reading this is set to 20 by default, set 
+# options("readr.num_columns" = x) to change
 options("readr.num_columns" = 5)
-data <- read_csv("mtcars.csv")
+data <- read_csv(readr_example("mtcars.csv"))
 
 # Setting it to 0 disables printing
 options("readr.num_columns" = 0)
-data <- read_csv("mtcars.csv")
+data <- read_csv(readr_example("mtcars.csv"))
 ```
 
 ### Spec types
@@ -171,11 +173,11 @@ parse_number(c("0%", "10%", "150%"))
 parse_number(c("$1,234.5", "$12.45"))
 ```
 
-Note that `parse_guess()` will only guess that a string is a number if it has no leading or trailing characters (after trimming whitespace), otherwise it's too prone to false positives. That means you'll typically needed to explicitly supply the column type for number columns.
+Note that `guess_parser()` will only guess that a string is a number if it has no leading or trailing characters (after trimming whitespace), otherwise it's too prone to false positives. That means you'll typically needed to explicitly supply the column type for number columns.
 
 ```{r}
-str(parse_guess("$1,234"))
-str(parse_guess("1,234"))
+guess_parser("$1,234")
+guess_parser("1,234")
 ```
 
 ### Date times
@@ -186,7 +188,7 @@ readr supports three types of date/time data:
 * times: number of seconds since midnight.
 * datetimes: number of seconds since midnight 1970-01-01.
 
-readr will guess date and date time fields if they're in ISO8601 format:
+readr will guess date time fields if they're in ISO8601 format:
 
 ```{r}
 parse_datetime("2010-10-01 21:45")
