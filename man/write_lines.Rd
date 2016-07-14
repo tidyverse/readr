@@ -3,7 +3,7 @@
 \name{write_lines}
 \alias{write_file}
 \alias{write_lines}
-\title{Write line to a file or string.}
+\title{Write lines/ a file}
 \usage{
 write_lines(x, path, na = "NA", append = FALSE)
 
@@ -23,15 +23,21 @@ will append to existing file. In both cases, if file does not exist a new
 file is created.}
 }
 \value{
-returns the input \code{x} invisibly.
+The input \code{x}, invisibly.
 }
 \description{
-Write line to a file or string.
+\code{write_lines} takes a character vector, appending a new line
+after entry. \code{write_file} takes a single string, or a raw vector,
+and writes it exactly as is.
 }
 \examples{
 tmp <- tempfile()
+
 write_lines(rownames(mtcars), tmp)
+read_lines(tmp)
+read_file(tmp) # note trailing \\n
 
 write_lines(airquality$Ozone, tmp, na = "-1")
+read_lines(tmp)
 }
 
