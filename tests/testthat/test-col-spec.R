@@ -194,3 +194,14 @@ test_that("print(col_spec) with no columns specified", {
   .default = col_character()
 )"))
 })
+
+test_that("print(col_spec) and condense edge cases", {
+  out <- cols(a = col_integer(), b = col_integer(), c = col_double())
+
+  expect_equal(format(out, n = 1, condense = TRUE),
+"cols(
+  .default = col_integer(),
+  c = col_double()
+)
+")
+})
