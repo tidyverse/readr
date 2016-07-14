@@ -17,3 +17,20 @@ write_lines <- function(x, path, na = "NA", append = FALSE) {
 
   invisible(x)
 }
+
+
+#' @rdname write_lines
+#' @export
+write_file <- function(x, path, append = FALSE) {
+  path <- normalizePath(path, mustWork = FALSE)
+
+  if (is.raw(x)) {
+    write_file_raw_(x, path, append = append)
+  } else {
+    stopifnot(is.character(x))
+
+    write_file_(x, path, append = append)
+  }
+
+  invisible(x)
+}

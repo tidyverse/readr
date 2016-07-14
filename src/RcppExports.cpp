@@ -251,3 +251,27 @@ BEGIN_RCPP
     return R_NilValue;
 END_RCPP
 }
+// write_file_raw_
+void write_file_raw_(RawVector x, const std::string& path, bool append);
+RcppExport SEXP readr_write_file_raw_(SEXP xSEXP, SEXP pathSEXP, SEXP appendSEXP) {
+BEGIN_RCPP
+    Rcpp::RNGScope __rngScope;
+    Rcpp::traits::input_parameter< RawVector >::type x(xSEXP);
+    Rcpp::traits::input_parameter< const std::string& >::type path(pathSEXP);
+    Rcpp::traits::input_parameter< bool >::type append(appendSEXP);
+    write_file_raw_(x, path, append);
+    return R_NilValue;
+END_RCPP
+}
+// write_file_
+void write_file_(std::string x, const std::string& path, bool append);
+RcppExport SEXP readr_write_file_(SEXP xSEXP, SEXP pathSEXP, SEXP appendSEXP) {
+BEGIN_RCPP
+    Rcpp::RNGScope __rngScope;
+    Rcpp::traits::input_parameter< std::string >::type x(xSEXP);
+    Rcpp::traits::input_parameter< const std::string& >::type path(pathSEXP);
+    Rcpp::traits::input_parameter< bool >::type append(appendSEXP);
+    write_file_(x, path, append);
+    return R_NilValue;
+END_RCPP
+}

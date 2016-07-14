@@ -7,7 +7,7 @@ test_that("write_lines uses UTF-8 encoding", {
   expect_equal(x, c("fran\u00e7ais", "\u00e9l\u00e8ve"))
 })
 
-test_that("write_lines writes and empty file if given a empty character vector", {
+test_that("write_lines writes an empty file if given a empty character vector", {
   tmp <- tempfile()
   on.exit(unlink(tmp))
   write_lines(character(), tmp)
@@ -34,4 +34,52 @@ test_that("write_lines can append to a file", {
   write_lines(c("first", "last"), tmp, append = TRUE)
 
   expect_equal(read_lines(tmp), c("first", "last", "first", "last"))
+})
+
+# write_file ------------------------------------------------------------------
+test_that("write_file round trips", {
+  tmp <- tempfile()
+  on.exit(unlink(tmp))
+
+  x <- "foo\nbar"
+  write_file(x, tmp)
+
+  expect_equal(read_file(tmp), x)
+})
+
+test_that("write_file round trips with an empty vector", {
+  tmp <- tempfile()
+  on.exit(unlink(tmp))
+
+  x <- ""
+  write_file(x, tmp)
+
+  expect_equal(read_file(tmp), x)
+})
+
+test_that("write_file errors if given a character vector of length != 1", {
+  tmp <- tempfile()
+
+  expect_error(write_file(character(), tmp))
+  expect_error(write_file(c("foo", "bar"), tmp))
+})
+
+test_that("write_file with raw round trips", {
+  tmp <- tempfile()
+  on.exit(unlink(tmp))
+
+  x <- charToRaw("foo\nbar")
+  write_file(x, tmp)
+
+  expect_equal(read_file_raw(tmp), x)
+})
+
+test_that("write_file with raw round trips with an empty vector", {
+  tmp <- tempfile()
+  on.exit(unlink(tmp))
+
+  x <- raw()
+  write_file(x, tmp)
+
+  expect_equal(read_file_raw(tmp), x)
 })

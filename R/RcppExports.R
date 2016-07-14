@@ -73,3 +73,11 @@ write_lines_ <- function(lines, path, na, append = FALSE) {
     invisible(.Call('readr_write_lines_', PACKAGE = 'readr', lines, path, na, append))
 }
 
+write_file_raw_ <- function(x, path, append = FALSE) {
+    invisible(.Call('readr_write_file_raw_', PACKAGE = 'readr', x, path, append))
+}
+
+write_file_ <- function(x, path, append = FALSE) {
+    invisible(.Call('readr_write_file_', PACKAGE = 'readr', x, path, append))
+}
+
