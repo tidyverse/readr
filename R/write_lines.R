@@ -22,23 +22,15 @@ write_lines <- function(x, path, na = "NA", append = FALSE) {
 #' @rdname write_lines
 #' @export
 write_file <- function(x, path, append = FALSE) {
-  stopifnot(is.character(x))
-
   path <- normalizePath(path, mustWork = FALSE)
 
-  write_file_(x, path, append = append)
+  if (is.raw(x)) {
+    write_file_raw_(x, path, append = append)
+  } else {
+    stopifnot(is.character(x))
 
-  invisible(x)
-}
-
-#' @rdname write_lines
-#' @export
-write_file_raw <- function(x, path, append = FALSE) {
-  stopifnot(is.raw(x))
-
-  path <- normalizePath(path, mustWork = FALSE)
-
-  write_file_raw_(x, path, append = append)
+    write_file_(x, path, append = append)
+  }
 
   invisible(x)
 }

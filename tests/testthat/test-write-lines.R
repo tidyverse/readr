@@ -64,25 +64,22 @@ test_that("write_file errors if given a character vector of length != 1", {
   expect_error(write_file(c("foo", "bar"), tmp))
 })
 
-
-# write_file_raw ------------------------------------------------------------------
-
-test_that("write_file_raw round trips", {
+test_that("write_file with raw round trips", {
   tmp <- tempfile()
   on.exit(unlink(tmp))
 
   x <- charToRaw("foo\nbar")
-  write_file_raw(x, tmp)
+  write_file(x, tmp)
 
   expect_equal(read_file_raw(tmp), x)
 })
 
-test_that("write_file_raw round trips with an empty vector", {
+test_that("write_file with raw round trips with an empty vector", {
   tmp <- tempfile()
   on.exit(unlink(tmp))
 
   x <- raw()
-  write_file_raw(x, tmp)
+  write_file(x, tmp)
 
   expect_equal(read_file_raw(tmp), x)
 })
