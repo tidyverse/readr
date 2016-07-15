@@ -162,7 +162,8 @@ Date and time parsing functions received a number of small enhancements:
   * `read_fwf()` and `fwf_empty()` can now skip commented lines by setting a
     `comment` argument (#334).
 
-* `read_line()` ignores embedded null's in strings (#338).
+* `read_lines()` ignores embedded null's in strings (#338) and gains a `na`
+  argument (#479).
 
 * `readr_example()` makes it easy to access example files bundled with readr.
 

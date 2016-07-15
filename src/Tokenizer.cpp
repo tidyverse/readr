@@ -32,7 +32,8 @@ TokenizerPtr Tokenizer::create(List spec) {
 
     return TokenizerPtr(new TokenizerFwf(begin, end, na, comment));
   } else if (subclass == "tokenizer_line") {
-    return TokenizerPtr(new TokenizerLine());
+    std::vector<std::string> na = as<std::vector<std::string> >(spec["na"]);
+    return TokenizerPtr(new TokenizerLine(na));
   } else if (subclass == "tokenizer_log") {
     return TokenizerPtr(new TokenizerLog());
   }
