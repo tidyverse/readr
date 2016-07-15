@@ -18,7 +18,7 @@ tokenizer_csv(na = "NA", quoted_na = TRUE, comment = "", trim_ws = TRUE)
 
 tokenizer_tsv(na = "NA", quoted_na = TRUE, comment = "", trim_ws = TRUE)
 
-tokenizer_line()
+tokenizer_line(na = character())
 
 tokenizer_log()
 

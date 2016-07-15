@@ -20,7 +20,7 @@ test_that("write_lines respects the NA argument", {
   on.exit(unlink(c(tmp, tmp2)))
 
   write_lines(c("first", NA_character_, "last"), tmp)
-  expect_equal(read_lines(tmp, na = ""), c("first", "NA", "last"))
+  expect_equal(read_lines(tmp), c("first", "NA", "last"))
 
   write_lines(c("first", NA_character_, "last"), tmp2, na = "test")
   expect_equal(read_lines(tmp2), c("first", "test", "last"))

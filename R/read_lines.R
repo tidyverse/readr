@@ -15,7 +15,7 @@
 #' read_lines_raw(readr_example("mtcars.csv"))
 read_lines <- function(file, skip = 0, n_max = -1L,
                        locale = default_locale(),
-                       na = "NA",
+                       na = character(),
                        progress = interactive()) {
   if (empty_file(file)) {
     return(character())

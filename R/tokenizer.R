@@ -103,7 +103,7 @@ tokenizer_tsv <- function(na = "NA", quoted_na = TRUE, comment = "", trim_ws = T
 
 #' @export
 #' @rdname Tokenizers
-tokenizer_line <- function(na = "NA") {
+tokenizer_line <- function(na = character()) {
   structure(list(na = na), class = "tokenizer_line")
 }
 
