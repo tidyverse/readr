@@ -135,16 +135,17 @@ BEGIN_RCPP
 END_RCPP
 }
 // read_lines_
-CharacterVector read_lines_(List sourceSpec, List locale_, int n_max, bool progress);
-RcppExport SEXP readr_read_lines_(SEXP sourceSpecSEXP, SEXP locale_SEXP, SEXP n_maxSEXP, SEXP progressSEXP) {
+CharacterVector read_lines_(List sourceSpec, List locale_, std::vector<std::string> na, int n_max, bool progress);
+RcppExport SEXP readr_read_lines_(SEXP sourceSpecSEXP, SEXP locale_SEXP, SEXP naSEXP, SEXP n_maxSEXP, SEXP progressSEXP) {
 BEGIN_RCPP
     Rcpp::RObject __result;
     Rcpp::RNGScope __rngScope;
     Rcpp::traits::input_parameter< List >::type sourceSpec(sourceSpecSEXP);
     Rcpp::traits::input_parameter< List >::type locale_(locale_SEXP);
+    Rcpp::traits::input_parameter< std::vector<std::string> >::type na(naSEXP);
     Rcpp::traits::input_parameter< int >::type n_max(n_maxSEXP);
     Rcpp::traits::input_parameter< bool >::type progress(progressSEXP);
-    __result = Rcpp::wrap(read_lines_(sourceSpec, locale_, n_max, progress));
+    __result = Rcpp::wrap(read_lines_(sourceSpec, locale_, na, n_max, progress));
     return __result;
 END_RCPP
 }

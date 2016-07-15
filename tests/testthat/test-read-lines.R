@@ -13,6 +13,22 @@ test_that("read_lines handles embedded nuls", {
   expect_equal(read_lines("null-file", progress = FALSE), c("a,b,c", "1,2,", "3,4,5"))
 })
 
+test_that("read_lines uses na argument", {
+  expect_equal(read_lines("sample_text.txt", na = "abc", progress = FALSE), c(NA_character_, "123"))
+  expect_equal(read_lines("sample_text.txt", na = "123", progress = FALSE), c("abc", NA_character_))
+  expect_equal(read_lines("sample_text.txt", na = c("abc", "123"), progress = FALSE), c(NA_character_, NA_character_))
+})
+
+test_that("blank lines are passed unchanged", {
+  tmp <- tempfile()
+  on.exit(unlink(tmp))
+
+  x <- c("abc", "", "123")
+  write_lines(path = tmp, x)
+  expect_equal(read_lines(tmp), x)
+  expect_equal(read_lines(tmp, na = ""), c("abc", NA_character_, "123"))
+})
+
 # These tests are slow so are commented out
 #test_that("long vectors are supported", {
   #tmp <- tempfile(fileext = ".gz")

@@ -15,12 +15,13 @@
 #' read_lines_raw(readr_example("mtcars.csv"))
 read_lines <- function(file, skip = 0, n_max = -1L,
                        locale = default_locale(),
+                       na = character(),
                        progress = interactive()) {
   if (empty_file(file)) {
     return(character())
   }
   ds <- datasource(file, skip = skip)
-  read_lines_(ds, locale_ = locale, n_max = n_max, progress = progress)
+  read_lines_(ds, locale_ = locale, na = na, n_max = n_max, progress = progress)
 }
 
 #' @export

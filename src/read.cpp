@@ -29,11 +29,11 @@ RawVector read_file_raw_(List sourceSpec) {
 }
 
 // [[Rcpp::export]]
-CharacterVector read_lines_(List sourceSpec, List locale_, int n_max = -1,
+CharacterVector read_lines_(List sourceSpec, List locale_, std::vector<std::string> na, int n_max = -1,
                             bool progress = true) {
 
   SourcePtr source = Source::create(sourceSpec);
-  TokenizerLine tokenizer;
+  TokenizerLine tokenizer(na);
   tokenizer.tokenize(source->begin(), source->end());
   LocaleInfo locale(locale_);
   Progress progressBar;
@@ -56,7 +56,7 @@ CharacterVector read_lines_(List sourceSpec, List locale_, int n_max = -1,
       }
     }
 
-    if (t.type() == TOKEN_STRING)
+    if (t.type() == TOKEN_STRING || t.type() == TOKEN_MISSING)
       out[i] = t.asSEXP(&locale.encoder_);
 
     ++i;
@@ -77,7 +77,7 @@ CharacterVector read_lines_(List sourceSpec, List locale_, int n_max = -1,
 List read_lines_raw_(List sourceSpec, int n_max = -1, bool progress = false) {
 
   SourcePtr source = Source::create(sourceSpec);
-  TokenizerLine tokenizer;
+  TokenizerLine tokenizer((std::vector<std::string>()));
   tokenizer.tokenize(source->begin(), source->end());
   Progress progressBar;
 

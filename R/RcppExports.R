@@ -41,8 +41,8 @@ read_file_raw_ <- function(sourceSpec) {
     .Call('readr_read_file_raw_', PACKAGE = 'readr', sourceSpec)
 }
 
-read_lines_ <- function(sourceSpec, locale_, n_max = -1L, progress = TRUE) {
-    .Call('readr_read_lines_', PACKAGE = 'readr', sourceSpec, locale_, n_max, progress)
+read_lines_ <- function(sourceSpec, locale_, na, n_max = -1L, progress = TRUE) {
+    .Call('readr_read_lines_', PACKAGE = 'readr', sourceSpec, locale_, na, n_max, progress)
 }
 
 read_lines_raw_ <- function(sourceSpec, n_max = -1L, progress = FALSE) {
