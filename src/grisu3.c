@@ -352,7 +352,7 @@ int dtoa_grisu3(double v, char *dst)
 	// Prehandle negative values.
 	if ((u64 & D64_SIGN) != 0) { *s2++ = '-'; v = -v; u64 ^= D64_SIGN; }
 	// Prehandle zero.
-	if (!u64) { *s2++ = '0'; *s2 = '\0'; return (int)(s2 - dst); }
+	if (!u64) { *s2++ = '0'; *s2++ = '.'; *s2++ = '0'; *s2 = '\0'; return (int)(s2 - dst); }
 	// Prehandle infinity.
 	if (u64 == D64_EXP_MASK) { *s2++ = 'i'; *s2++ = 'n'; *s2++ = 'f'; *s2 = '\0'; return (int)(s2 - dst); }
 
@@ -360,6 +360,14 @@ int dtoa_grisu3(double v, char *dst)
 	// If grisu3 was not able to convert the number to a string, then use old sprintf (suboptimal).
 	if (!success) return sprintf(s2, "%.17g", v) + (int)(s2 - dst);
 
+	// handle whole numbers
+	if (d_exp >= 0 && d_exp <= 2) {
+		while(d_exp-- > 0) s2[len++] = '0';
+		 s2[len++] = '.';
+		 s2[len++] = '0';
+		 s2[len] = '\0';
+		 return (int)(s2+len-dst);
+	}
 	// We now have an integer string of form "151324135" and a base-10 exponent for that number.
 	// Next, decide the best presentation for that string by whether to use a decimal point, or the scientific exponent notation 'e'.
 	// We don't pick the absolute shortest representation, but pick a balance between readability and shortness, e.g.
@@ -390,7 +398,6 @@ int dtoa_grisu3(double v, char *dst)
 	}// Add scientific notation?
 	else if (d_exp < 0 || d_exp > 2) { s2[len++] = 'e'; len += i_to_str(d_exp, s2+len); }
 	// Add zeroes instead of scientific notation?
-	else if (d_exp > 0) { while(d_exp-- > 0) s2[len++] = '0'; }
 	s2[len] = '\0'; // grisu3 doesn't null terminate, so ensure termination.
 	return (int)(s2+len-dst);
 }
