@@ -124,7 +124,9 @@ Date and time parsing functions received a number of small enhancements:
 * Printing double values now uses an
   [implementation](https://github.com/juj/MathGeoLib/blob/master/src/Math/grisu3.c)
   of the [grisu3 algorithm](http://www.cs.tufts.edu/~nr/cs257/archive/florian-loitsch/printf.pdf)
-  which speeds up writing of large numeric data frames by ~10X. (#432)
+  which speeds up writing of large numeric data frames by ~10X. (#432) '.0' is
+  appended to whole number doubles, to ensure they will be read as doubles as
+  well. (#483)
 
 * readr imports tibble so that you get consistent `tbl_df` behaviour 
   (#317, #385).
