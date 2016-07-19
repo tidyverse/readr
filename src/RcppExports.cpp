@@ -166,8 +166,8 @@ BEGIN_RCPP
 END_RCPP
 }
 // read_tokens_
-RObject read_tokens_(List sourceSpec, List tokenizerSpec, ListOf<List> colSpecs, CharacterVector colNames, List locale_, int n_max, bool progress);
-RcppExport SEXP readr_read_tokens_(SEXP sourceSpecSEXP, SEXP tokenizerSpecSEXP, SEXP colSpecsSEXP, SEXP colNamesSEXP, SEXP locale_SEXP, SEXP n_maxSEXP, SEXP progressSEXP) {
+RObject read_tokens_(List sourceSpec, List tokenizerSpec, ListOf<List> colSpecs, CharacterVector colNames, List locale_, Environment callback, int chunk_size, int n_max, bool progress);
+RcppExport SEXP readr_read_tokens_(SEXP sourceSpecSEXP, SEXP tokenizerSpecSEXP, SEXP colSpecsSEXP, SEXP colNamesSEXP, SEXP locale_SEXP, SEXP callbackSEXP, SEXP chunk_sizeSEXP, SEXP n_maxSEXP, SEXP progressSEXP) {
 BEGIN_RCPP
     Rcpp::RObject __result;
     Rcpp::RNGScope __rngScope;
@@ -176,9 +176,11 @@ BEGIN_RCPP
     Rcpp::traits::input_parameter< ListOf<List> >::type colSpecs(colSpecsSEXP);
     Rcpp::traits::input_parameter< CharacterVector >::type colNames(colNamesSEXP);
     Rcpp::traits::input_parameter< List >::type locale_(locale_SEXP);
+    Rcpp::traits::input_parameter< Environment >::type callback(callbackSEXP);
+    Rcpp::traits::input_parameter< int >::type chunk_size(chunk_sizeSEXP);
     Rcpp::traits::input_parameter< int >::type n_max(n_maxSEXP);
     Rcpp::traits::input_parameter< bool >::type progress(progressSEXP);
-    __result = Rcpp::wrap(read_tokens_(sourceSpec, tokenizerSpec, colSpecs, colNames, locale_, n_max, progress));
+    __result = Rcpp::wrap(read_tokens_(sourceSpec, tokenizerSpec, colSpecs, colNames, locale_, callback, chunk_size, n_max, progress));
     return __result;
 END_RCPP
 }

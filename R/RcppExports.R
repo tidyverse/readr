@@ -49,8 +49,8 @@ read_lines_raw_ <- function(sourceSpec, n_max = -1L, progress = FALSE) {
     .Call('readr_read_lines_raw_', PACKAGE = 'readr', sourceSpec, n_max, progress)
 }
 
-read_tokens_ <- function(sourceSpec, tokenizerSpec, colSpecs, colNames, locale_, n_max = -1L, progress = TRUE) {
-    .Call('readr_read_tokens_', PACKAGE = 'readr', sourceSpec, tokenizerSpec, colSpecs, colNames, locale_, n_max, progress)
+read_tokens_ <- function(sourceSpec, tokenizerSpec, colSpecs, colNames, locale_, callback, chunk_size = -1L, n_max = -1L, progress = TRUE) {
+    .Call('readr_read_tokens_', PACKAGE = 'readr', sourceSpec, tokenizerSpec, colSpecs, colNames, locale_, callback, chunk_size, n_max, progress)
 }
 
 guess_types_ <- function(sourceSpec, tokenizerSpec, locale_, n = 100L) {

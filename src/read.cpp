@@ -70,11 +70,11 @@ CharacterVector read_lines_(List sourceSpec, List locale_, std::vector<std::stri
         if (!R6method(callback, "continue")()) {
           break;
         }
-      }
       out = Rf_xlengthgets(out, i);
       R6method(callback, "receive")(out, pos);
       pos = i + 1;
       i = 0;
+      }
     }
 
     if (t.type() == TOKEN_STRING || t.type() == TOKEN_MISSING)
@@ -152,7 +152,7 @@ void checkColumns(Warnings *pWarnings, int i, int j, int n) {
 }
 
 // Save individual columns into a data frame
-List collectorsToDf(std::vector<CollectorPtr> &collectors, const CharacterVector& outNames) {
+List collectorsToDf(std::vector<CollectorPtr>& collectors, const CharacterVector& outNames, int rows) {
   List out(outNames.length());
   int i = 0;
   for(CollectorItr cur = collectors.begin(); cur != collectors.end(); ++cur) {
@@ -164,7 +164,7 @@ List collectorsToDf(std::vector<CollectorPtr> &collectors, const CharacterVector
   }
 
   out.attr("class") = CharacterVector::create("tbl_df", "tbl", "data.frame");
-  out.attr("row.names") = IntegerVector::create(NA_INTEGER, -(i + 1));
+  out.attr("row.names") = IntegerVector::create(NA_INTEGER, -rows);
   out.attr("names") = outNames;
   return out;
 }
@@ -213,7 +213,10 @@ RObject read_tokens_(List sourceSpec, List tokenizerSpec, ListOf<List> colSpecs,
     cj++;
   }
 
-  size_t n = (n_max < 0) ? 1000 : n_max;
+  R_len_t n =
+    chunked ? chunk_size :
+    (n_max < 0) ? 10000 : n_max;
+
   collectorsResize(collectors, n);
 
   int i = -1, j = -1, cells = 0;
@@ -225,29 +228,32 @@ RObject read_tokens_(List sourceSpec, List tokenizerSpec, ListOf<List> colSpecs,
     if (t.col() == 0 && i != -1)
       checkColumns(&warnings, i, j, p);
 
-    if (chunked && i >= chunk_size) {
-      if (!as<Function>(callback["continue"])()) {
-        break;
-      }
-      List out = collectorsToDf(collectors, outNames);
-      as<Function>(callback["receive"])(out, pos);
-      pos = i + 1;
-      i = 0;
-    } else if (!chunked && t.row() >= n) {
-      if (n_max >= 0)
-        break;
+    if (t.row() >= n) {
+      if (!chunked) {
+        if (n_max >= 0)
+          break;
 
-      // Estimate rows in full dataset
-      n = (i / tokenizer->progress().first) * 1.2;
-      collectorsResize(collectors, n);
+        // Estimate rows in full dataset
+        n = (i / tokenizer->progress().first) * 1.2;
+        collectorsResize(collectors, n);
+      } else {
+        if (!R6method(callback, "continue")()) {
+          break;
+        }
+        List out = collectorsToDf(collectors, outNames, i + 1);
+        R6method(callback, "receive")(out, pos);
+        pos = i + 1;
+        i = 0;
+      }
     }
 
     if (t.col() < p)
       collectors[t.col()]->setValue(t.row(), t);
 
-    i = t.row() - pos;
+    i = t.row();
     j = t.col();
   }
+
   if (i != -1)
     checkColumns(&warnings, i, j, p);
 
@@ -259,14 +265,16 @@ RObject read_tokens_(List sourceSpec, List tokenizerSpec, ListOf<List> colSpecs,
     if (i != chunk_size) {
       collectorsResize(collectors, i + 1);
     }
-    List out = collectorsToDf(collectors, outNames);
+    List out = collectorsToDf(collectors, outNames, i + 1);
     as<Function>(callback["receive"])(out, pos);
     return warnings.addAsAttribute(out);
-  } else if (!chunked && i != (int) n - 1) {
-    collectorsResize(collectors, i + 1);
+  } else {
+    if (i != (int) n - 1) {
+      collectorsResize(collectors, i + 1);
+    }
   }
 
-  List out = collectorsToDf(collectors, outNames);
+  List out = collectorsToDf(collectors, outNames, i + 1);
   return warnings.addAsAttribute(out);
 }
 

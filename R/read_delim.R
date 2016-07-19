@@ -154,7 +154,7 @@ read_tokens <- function(data, tokenizer, col_specs, col_names, locale_, n_max, p
   if (n_max == Inf) {
     n_max <- -1
   }
-  read_tokens_(data, tokenizer, col_specs, col_names, locale_, n_max, progress)
+  read_tokens_(data, tokenizer, col_specs, col_names, locale_, callback = emptyenv(), chunk_size = -1, n_max, progress)
 }
 
 read_delimited <- function(file, tokenizer, col_names = TRUE, col_types = NULL,
