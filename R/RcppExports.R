@@ -41,16 +41,8 @@ read_file_raw_ <- function(sourceSpec) {
     .Call('readr_read_file_raw_', PACKAGE = 'readr', sourceSpec)
 }
 
-read_lines_ <- function(sourceSpec, locale_, na, n_max = -1L, progress = TRUE) {
-    .Call('readr_read_lines_', PACKAGE = 'readr', sourceSpec, locale_, na, n_max, progress)
-}
-
-read_lines_chunked_init_ <- function(sourceSpec, na) {
-    .Call('readr_read_lines_chunked_init_', PACKAGE = 'readr', sourceSpec, na)
-}
-
-read_lines_chunked_ <- function(tokenizer, locale_, chunk_size = 10000L) {
-    .Call('readr_read_lines_chunked_', PACKAGE = 'readr', tokenizer, locale_, chunk_size)
+read_lines_ <- function(sourceSpec, locale_, na, callback, chunk_size = -1L, n_max = -1L, progress = TRUE) {
+    .Call('readr_read_lines_', PACKAGE = 'readr', sourceSpec, locale_, na, callback, chunk_size, n_max, progress)
 }
 
 read_lines_raw_ <- function(sourceSpec, n_max = -1L, progress = FALSE) {

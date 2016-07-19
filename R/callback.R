@@ -1,5 +1,5 @@
-read_lines_chunked <- function(file, callback, skip = 0, size = 10000,
-                       locale = default_locale(), na = character()) {
+read_lines_chunked <- function(file, callback, skip = 0, n_max = -1L, chunk_size = 10000,
+                       locale = default_locale(), na = character(), progress = interactive()) {
   if (empty_file(file)) {
     return(character())
   }
@@ -8,30 +8,8 @@ read_lines_chunked <- function(file, callback, skip = 0, size = 10000,
   callback <- as_chunk_callback(callback)
   on.exit(callback$finally(), add = TRUE)
   pos <- 1
-  handles <- read_lines_chunked_init_(ds, na = na)
 
-  data <- read_lines_chunked_(handles[[1]], locale_ = locale, size)
-  while (callback$continue() && length(data) > 0) {
-    callback$receive(data, pos)
-    pos <- pos + length(data)
-    data <- read_lines_chunked_(handles[[1]], locale_ = locale, size)
-  }
-
-  return(callback$result())
-}
-
-read_csv_chunked <- function(num = 1000, ..., callback) {
-  callback <- as_chunk_callback(callback)
-
-  callback$begin()
-  on.exit(callback$finally(), add = TRUE)
-  pos <- 1
-
-  while (callback$continue() && has_more_rows()) {
-    data <- read_more_rows()
-    callback$receive(data, pos)
-    pos <- pos + nrow(data)
-  }
+  read_lines_(ds, locale, na, callback, chunk_size, n_max, progress)
 
   return(callback$result())
 }

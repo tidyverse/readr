@@ -136,42 +136,19 @@ BEGIN_RCPP
 END_RCPP
 }
 // read_lines_
-CharacterVector read_lines_(List sourceSpec, List locale_, std::vector<std::string> na, int n_max, bool progress);
-RcppExport SEXP readr_read_lines_(SEXP sourceSpecSEXP, SEXP locale_SEXP, SEXP naSEXP, SEXP n_maxSEXP, SEXP progressSEXP) {
+CharacterVector read_lines_(List sourceSpec, List locale_, std::vector<std::string> na, Environment callback, int chunk_size, int n_max, bool progress);
+RcppExport SEXP readr_read_lines_(SEXP sourceSpecSEXP, SEXP locale_SEXP, SEXP naSEXP, SEXP callbackSEXP, SEXP chunk_sizeSEXP, SEXP n_maxSEXP, SEXP progressSEXP) {
 BEGIN_RCPP
     Rcpp::RObject __result;
     Rcpp::RNGScope __rngScope;
     Rcpp::traits::input_parameter< List >::type sourceSpec(sourceSpecSEXP);
     Rcpp::traits::input_parameter< List >::type locale_(locale_SEXP);
     Rcpp::traits::input_parameter< std::vector<std::string> >::type na(naSEXP);
+    Rcpp::traits::input_parameter< Environment >::type callback(callbackSEXP);
+    Rcpp::traits::input_parameter< int >::type chunk_size(chunk_sizeSEXP);
     Rcpp::traits::input_parameter< int >::type n_max(n_maxSEXP);
     Rcpp::traits::input_parameter< bool >::type progress(progressSEXP);
-    __result = Rcpp::wrap(read_lines_(sourceSpec, locale_, na, n_max, progress));
-    return __result;
-END_RCPP
-}
-// read_lines_chunked_init_
-List read_lines_chunked_init_(List sourceSpec, std::vector<std::string> na);
-RcppExport SEXP readr_read_lines_chunked_init_(SEXP sourceSpecSEXP, SEXP naSEXP) {
-BEGIN_RCPP
-    Rcpp::RObject __result;
-    Rcpp::RNGScope __rngScope;
-    Rcpp::traits::input_parameter< List >::type sourceSpec(sourceSpecSEXP);
-    Rcpp::traits::input_parameter< std::vector<std::string> >::type na(naSEXP);
-    __result = Rcpp::wrap(read_lines_chunked_init_(sourceSpec, na));
-    return __result;
-END_RCPP
-}
-// read_lines_chunked_
-CharacterVector read_lines_chunked_(XPtrTokenizerLine tokenizer, List locale_, R_len_t chunk_size);
-RcppExport SEXP readr_read_lines_chunked_(SEXP tokenizerSEXP, SEXP locale_SEXP, SEXP chunk_sizeSEXP) {
-BEGIN_RCPP
-    Rcpp::RObject __result;
-    Rcpp::RNGScope __rngScope;
-    Rcpp::traits::input_parameter< XPtrTokenizerLine >::type tokenizer(tokenizerSEXP);
-    Rcpp::traits::input_parameter< List >::type locale_(locale_SEXP);
-    Rcpp::traits::input_parameter< R_len_t >::type chunk_size(chunk_sizeSEXP);
-    __result = Rcpp::wrap(read_lines_chunked_(tokenizer, locale_, chunk_size));
+    __result = Rcpp::wrap(read_lines_(sourceSpec, locale_, na, callback, chunk_size, n_max, progress));
     return __result;
 END_RCPP
 }

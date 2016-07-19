@@ -30,7 +30,7 @@ RawVector read_file_raw_(List sourceSpec) {
 }
 
 // [[Rcpp::export]]
-CharacterVector read_lines_(List sourceSpec, List locale_, std::vector<std::string> na, int n_max = -1,
+CharacterVector read_lines_(List sourceSpec, List locale_, std::vector<std::string> na, Environment callback, int chunk_size = -1, int n_max = -1,
                             bool progress = true) {
 
   SourcePtr source = Source::create(sourceSpec);
@@ -39,15 +39,27 @@ CharacterVector read_lines_(List sourceSpec, List locale_, std::vector<std::stri
   LocaleInfo locale(locale_);
   Progress progressBar;
 
+  bool chunked = chunk_size != -1;
+
   R_len_t n = (n_max < 0) ? 10000 : n_max;
+
   CharacterVector out(n);
 
   R_len_t i = 0;
+  R_len_t pos = i + 1;
   for (Token t = tokenizer.nextToken(); t.type() != TOKEN_EOF; t = tokenizer.nextToken()) {
     if (progress && (i + 1) % 25000 == 0)
       progressBar.show(tokenizer.progress());
 
-    if (i >= n) {
+    if (chunked && i >= chunk_size) {
+      if (!as<Function>(callback["continue"])()) {
+        break;
+      }
+      out = Rf_xlengthgets(out, i);
+      as<Function>(callback["receive"])(out, pos);
+      pos = i + 1;
+      i = 0;
+    } else if (!chunked && i >= n) {
       if (n_max < 0) {
         // Estimate rows in full dataset
         n = (i / tokenizer.progress().first) * 1.2;
@@ -63,51 +75,18 @@ CharacterVector read_lines_(List sourceSpec, List locale_, std::vector<std::stri
     ++i;
   }
 
-  if (i < n) {
+  if (chunked) {
+    if (i != chunk_size) {
+      out = Rf_xlengthgets(out, i);
+    }
+    as<Function>(callback["receive"])(out, pos);
+  } else if (!chunked && i < n) {
     out = Rf_xlengthgets(out, i);
   }
 
   if (progress)
     progressBar.show(tokenizer.progress());
   progressBar.stop();
-
-  return out;
-}
-
-// [[Rcpp::export]]
-List read_lines_chunked_init_(List sourceSpec, std::vector<std::string> na) {
-  XPtrSource source(Source::createDumbPtr(sourceSpec));
-  XPtrTokenizerLine tokenizer(new TokenizerLine(na));
-  tokenizer->tokenize(source->begin(), source->end());
-  List res = List();
-  res.push_back(tokenizer);
-  res.push_back(source);
-  return(res);
-}
-
-// [[Rcpp::export]]
-CharacterVector read_lines_chunked_(XPtrTokenizerLine tokenizer, List locale_, R_len_t chunk_size = 10000) {
-
-  LocaleInfo locale(locale_);
-
-  CharacterVector out(chunk_size);
-
-  R_len_t i = 0;
-  while(i < chunk_size) {
-    Token t = tokenizer->nextToken();
-    if (t.type() == TOKEN_EOF) {
-       break;
-    }
-    if (t.type() == TOKEN_STRING) {
-      out[i] = t.asSEXP(&locale.encoder_);
-    }
-
-    ++i;
-  }
-
-  if (i < chunk_size) {
-    out = Rf_xlengthgets(out, i);
-  }
 
   return out;
 }
