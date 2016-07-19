@@ -29,6 +29,10 @@ RawVector read_file_raw_(List sourceSpec) {
   return res;
 }
 
+Function R6method(Environment env, const std::string& method) {
+  return as<Function>(env[method]);
+}
+
 // [[Rcpp::export]]
 CharacterVector read_lines_(List sourceSpec, List locale_, std::vector<std::string> na, Environment callback, int chunk_size = -1, int n_max = -1,
                             bool progress = true) {
@@ -52,11 +56,11 @@ CharacterVector read_lines_(List sourceSpec, List locale_, std::vector<std::stri
       progressBar.show(tokenizer.progress());
 
     if (chunked && i >= chunk_size) {
-      if (!as<Function>(callback["continue"])()) {
+      if (!R6method(callback, "continue")()) {
         break;
       }
       out = Rf_xlengthgets(out, i);
-      as<Function>(callback["receive"])(out, pos);
+      R6method(callback, "receive")(out, pos);
       pos = i + 1;
       i = 0;
     } else if (!chunked && i >= n) {
@@ -79,7 +83,7 @@ CharacterVector read_lines_(List sourceSpec, List locale_, std::vector<std::stri
     if (i != chunk_size) {
       out = Rf_xlengthgets(out, i);
     }
-    as<Function>(callback["receive"])(out, pos);
+    R6method(callback, "receive")(out, pos);
   } else if (!chunked && i < n) {
     out = Rf_xlengthgets(out, i);
   }
