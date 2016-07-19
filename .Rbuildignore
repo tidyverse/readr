@@ -9,3 +9,4 @@
 ^revdep$
 ^notes$
 ^codecov\.yml$
+^\.httr-oauth$

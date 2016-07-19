@@ -4,6 +4,6 @@
 src/*.o
 src/*.so
 bench/*.csv
-
 inst/doc
 .DS_Store
+.httr-oauth
