@@ -1,5 +1,5 @@
 read_lines_chunked <- function(file, callback, skip = 0, size = 10000,
-                       locale = default_locale()) {
+                       locale = default_locale(), na = character()) {
   if (empty_file(file)) {
     return(character())
   }
@@ -8,7 +8,7 @@ read_lines_chunked <- function(file, callback, skip = 0, size = 10000,
   callback <- as_chunk_callback(callback)
   on.exit(callback$finally(), add = TRUE)
   pos <- 1
-  handles <- read_lines_chunked_init_(ds)
+  handles <- read_lines_chunked_init_(ds, na = na)
 
   data <- read_lines_chunked_(handles[[1]], locale_ = locale, size)
   while (callback$continue() && length(data) > 0) {
@@ -49,15 +49,12 @@ as_chunk_callback.ChunkCallback <- function(x) {
 
 ChunkCallback <- R6::R6Class("ChunkCallback",
   private = list(
-    callback = NULL,
-    cancel = FALSE
+    callback = NULL
   ),
   public = list(
     initialize = function() NULL,
     receive = function() NULL,
-    continue = function() {
-      !private$cancel
-    },
+    continue = function() TRUE,
     finally = function() NULL,
     result = function() NULL
   )
@@ -65,6 +62,9 @@ ChunkCallback <- R6::R6Class("ChunkCallback",
 
 # This would be used if the result should be thrown away
 SideEffectChunkCallback <- R6::R6Class("SideEffectChunkCallback", inherit = ChunkCallback,
+  private = list(
+     cancel = FALSE
+    ),
   public = list(
     initialize = function(callback) {
       check_callback_fun(callback)

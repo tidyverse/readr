@@ -45,8 +45,8 @@ read_lines_ <- function(sourceSpec, locale_, na, n_max = -1L, progress = TRUE) {
     .Call('readr_read_lines_', PACKAGE = 'readr', sourceSpec, locale_, na, n_max, progress)
 }
 
-read_lines_chunked_init_ <- function(sourceSpec) {
-    .Call('readr_read_lines_chunked_init_', PACKAGE = 'readr', sourceSpec)
+read_lines_chunked_init_ <- function(sourceSpec, na) {
+    .Call('readr_read_lines_chunked_init_', PACKAGE = 'readr', sourceSpec, na)
 }
 
 read_lines_chunked_ <- function(tokenizer, locale_, chunk_size = 10000L) {

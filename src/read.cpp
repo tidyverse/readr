@@ -75,9 +75,9 @@ CharacterVector read_lines_(List sourceSpec, List locale_, std::vector<std::stri
 }
 
 // [[Rcpp::export]]
-List read_lines_chunked_init_(List sourceSpec) {
+List read_lines_chunked_init_(List sourceSpec, std::vector<std::string> na) {
   XPtrSource source(Source::createDumbPtr(sourceSpec));
-  XPtrTokenizerLine tokenizer(new TokenizerLine);
+  XPtrTokenizerLine tokenizer(new TokenizerLine(na));
   tokenizer->tokenize(source->begin(), source->end());
   List res = List();
   res.push_back(tokenizer);

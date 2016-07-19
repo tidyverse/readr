@@ -151,13 +151,14 @@ BEGIN_RCPP
 END_RCPP
 }
 // read_lines_chunked_init_
-List read_lines_chunked_init_(List sourceSpec);
-RcppExport SEXP readr_read_lines_chunked_init_(SEXP sourceSpecSEXP) {
+List read_lines_chunked_init_(List sourceSpec, std::vector<std::string> na);
+RcppExport SEXP readr_read_lines_chunked_init_(SEXP sourceSpecSEXP, SEXP naSEXP) {
 BEGIN_RCPP
     Rcpp::RObject __result;
     Rcpp::RNGScope __rngScope;
     Rcpp::traits::input_parameter< List >::type sourceSpec(sourceSpecSEXP);
-    __result = Rcpp::wrap(read_lines_chunked_init_(sourceSpec));
+    Rcpp::traits::input_parameter< std::vector<std::string> >::type na(naSEXP);
+    __result = Rcpp::wrap(read_lines_chunked_init_(sourceSpec, na));
     return __result;
 END_RCPP
 }
