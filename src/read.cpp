@@ -8,6 +8,7 @@ using namespace Rcpp;
 #include "Collector.h"
 #include "Progress.h"
 #include "Warnings.h"
+#include "readr_types.h"
 
 // [[Rcpp::export]]
 CharacterVector read_file_(List sourceSpec, List locale_) {
@@ -69,6 +70,44 @@ CharacterVector read_lines_(List sourceSpec, List locale_, std::vector<std::stri
   if (progress)
     progressBar.show(tokenizer.progress());
   progressBar.stop();
+
+  return out;
+}
+
+// [[Rcpp::export]]
+List read_lines_chunked_init_(List sourceSpec) {
+  XPtrSource source(Source::createDumbPtr(sourceSpec));
+  XPtrTokenizerLine tokenizer(new TokenizerLine);
+  tokenizer->tokenize(source->begin(), source->end());
+  List res = List();
+  res.push_back(tokenizer);
+  res.push_back(source);
+  return(res);
+}
+
+// [[Rcpp::export]]
+CharacterVector read_lines_chunked_(XPtrTokenizerLine tokenizer, List locale_, R_len_t chunk_size = 10000) {
+
+  LocaleInfo locale(locale_);
+
+  CharacterVector out(chunk_size);
+
+  R_len_t i = 0;
+  while(i < chunk_size) {
+    Token t = tokenizer->nextToken();
+    if (t.type() == TOKEN_EOF) {
+       break;
+    }
+    if (t.type() == TOKEN_STRING) {
+      out[i] = t.asSEXP(&locale.encoder_);
+    }
+
+    ++i;
+  }
+
+  if (i < chunk_size) {
+    out = Rf_xlengthgets(out, i);
+  }
 
   return out;
 }
