@@ -45,7 +45,9 @@ CharacterVector read_lines_(List sourceSpec, List locale_, std::vector<std::stri
 
   bool chunked = chunk_size != -1;
 
-  R_len_t n = (n_max < 0) ? 10000 : n_max;
+  R_len_t n =
+    chunked ? chunk_size :
+    (n_max < 0) ? 10000 : n_max;
 
   CharacterVector out(n);
 
@@ -55,22 +57,24 @@ CharacterVector read_lines_(List sourceSpec, List locale_, std::vector<std::stri
     if (progress && (i + 1) % 25000 == 0)
       progressBar.show(tokenizer.progress());
 
-    if (chunked && i >= chunk_size) {
-      if (!R6method(callback, "continue")()) {
-        break;
+    if (i >= n) {
+      if (!chunked) {
+        if (n_max < 0) {
+          // Estimate rows in full dataset
+          n = (i / tokenizer.progress().first) * 1.2;
+          out = Rf_xlengthgets(out, n);
+        } else {
+          break;
+        }
+      } else {
+        if (!R6method(callback, "continue")()) {
+          break;
+        }
       }
       out = Rf_xlengthgets(out, i);
       R6method(callback, "receive")(out, pos);
       pos = i + 1;
       i = 0;
-    } else if (!chunked && i >= n) {
-      if (n_max < 0) {
-        // Estimate rows in full dataset
-        n = (i / tokenizer.progress().first) * 1.2;
-        out = Rf_xlengthgets(out, n);
-      } else {
-        break;
-      }
     }
 
     if (t.type() == TOKEN_STRING || t.type() == TOKEN_MISSING)
@@ -79,13 +83,11 @@ CharacterVector read_lines_(List sourceSpec, List locale_, std::vector<std::stri
     ++i;
   }
 
-  if (chunked) {
-    if (i != chunk_size) {
-      out = Rf_xlengthgets(out, i);
-    }
-    R6method(callback, "receive")(out, pos);
-  } else if (!chunked && i < n) {
+  if (i < n) {
     out = Rf_xlengthgets(out, i);
+  }
+  if (chunked) {
+    R6method(callback, "receive")(out, pos);
   }
 
   if (progress)
@@ -149,9 +151,28 @@ void checkColumns(Warnings *pWarnings, int i, int j, int n) {
   );
 }
 
+// Save individual columns into a data frame
+List collectorsToDf(std::vector<CollectorPtr> &collectors, const CharacterVector& outNames) {
+  List out(outNames.length());
+  int i = 0;
+  for(CollectorItr cur = collectors.begin(); cur != collectors.end(); ++cur) {
+    if ((*cur)->skip())
+      continue;
+
+    out[i] = (*cur)->vector();
+    i++;
+  }
+
+  out.attr("class") = CharacterVector::create("tbl_df", "tbl", "data.frame");
+  out.attr("row.names") = IntegerVector::create(NA_INTEGER, -(i + 1));
+  out.attr("names") = outNames;
+  return out;
+}
+
 // [[Rcpp::export]]
 RObject read_tokens_(List sourceSpec, List tokenizerSpec, ListOf<List> colSpecs,
-                    CharacterVector colNames, List locale_, int n_max = -1,
+                    CharacterVector colNames, List locale_,
+                    Environment callback, int chunk_size = -1, int n_max = -1,
                     bool progress = true) {
 
   Warnings warnings;
@@ -166,6 +187,8 @@ RObject read_tokens_(List sourceSpec, List tokenizerSpec, ListOf<List> colSpecs,
   std::vector<CollectorPtr> collectors = collectorsCreate(colSpecs, &locale, &warnings);
 
   Progress progressBar;
+
+  bool chunked = chunk_size != -1;
 
   // Work out how many output columns we have
   size_t p = collectors.size();
@@ -194,6 +217,7 @@ RObject read_tokens_(List sourceSpec, List tokenizerSpec, ListOf<List> colSpecs,
   collectorsResize(collectors, n);
 
   int i = -1, j = -1, cells = 0;
+  int pos = i + 1;
   for (Token t = tokenizer->nextToken(); t.type() != TOKEN_EOF; t = tokenizer->nextToken()) {
     if (progress && (cells++) % 250000 == 0)
       progressBar.show(tokenizer->progress());
@@ -201,7 +225,15 @@ RObject read_tokens_(List sourceSpec, List tokenizerSpec, ListOf<List> colSpecs,
     if (t.col() == 0 && i != -1)
       checkColumns(&warnings, i, j, p);
 
-    if (t.row() >= n) {
+    if (chunked && i >= chunk_size) {
+      if (!as<Function>(callback["continue"])()) {
+        break;
+      }
+      List out = collectorsToDf(collectors, outNames);
+      as<Function>(callback["receive"])(out, pos);
+      pos = i + 1;
+      i = 0;
+    } else if (!chunked && t.row() >= n) {
       if (n_max >= 0)
         break;
 
@@ -213,7 +245,7 @@ RObject read_tokens_(List sourceSpec, List tokenizerSpec, ListOf<List> colSpecs,
     if (t.col() < p)
       collectors[t.col()]->setValue(t.row(), t);
 
-    i = t.row();
+    i = t.row() - pos;
     j = t.col();
   }
   if (i != -1)
@@ -223,28 +255,20 @@ RObject read_tokens_(List sourceSpec, List tokenizerSpec, ListOf<List> colSpecs,
     progressBar.show(tokenizer->progress());
   progressBar.stop();
 
-  if (i != (int) n - 1) {
+  if (chunked) {
+    if (i != chunk_size) {
+      collectorsResize(collectors, i + 1);
+    }
+    List out = collectorsToDf(collectors, outNames);
+    as<Function>(callback["receive"])(out, pos);
+    return warnings.addAsAttribute(out);
+  } else if (!chunked && i != (int) n - 1) {
     collectorsResize(collectors, i + 1);
   }
 
-  // Save individual columns into a data frame
-  List out(pOut);
-  j = 0;
-  for(CollectorItr cur = collectors.begin(); cur != collectors.end(); ++cur) {
-    if ((*cur)->skip())
-      continue;
-
-    out[j] = (*cur)->vector();
-    j++;
-  }
-
-  out.attr("class") = CharacterVector::create("tbl_df", "tbl", "data.frame");
-  out.attr("row.names") = IntegerVector::create(NA_INTEGER, -(i + 1));
-  out.attr("names") = outNames;
-
+  List out = collectorsToDf(collectors, outNames);
   return warnings.addAsAttribute(out);
 }
-
 
 // [[Rcpp::export]]
 std::vector<std::string> guess_types_(List sourceSpec, List tokenizerSpec,
