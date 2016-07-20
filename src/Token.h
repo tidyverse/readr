@@ -74,6 +74,9 @@ public:
 
       return pEncoder->makeSEXP(string.first, string.second, hasNull_);
     }
+    case TOKEN_EMPTY: {
+      return R_BlankString;
+    }
     default:
       return NA_STRING;
     }

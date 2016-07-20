@@ -33,6 +33,12 @@ Function R6method(Environment env, const std::string& method) {
   return as<Function>(env[method]);
 }
 
+CharacterVector toCharacterVector(const std::vector<SEXP>& x) {
+  CharacterVector out(x.size());
+  std::copy(x.begin(), x.end(), out.begin());
+  return(out);
+}
+
 // [[Rcpp::export]]
 CharacterVector read_lines_(List sourceSpec, List locale_, std::vector<std::string> na, Environment callback, int chunk_size = -1, int n_max = -1,
                             bool progress = true) {
@@ -45,56 +51,38 @@ CharacterVector read_lines_(List sourceSpec, List locale_, std::vector<std::stri
 
   bool chunked = chunk_size != -1;
 
-  R_len_t n =
-    chunked ? chunk_size :
-    (n_max < 0) ? 10000 : n_max;
+  std::vector<SEXP> out;
 
-  CharacterVector out(n);
+  R_len_t pos = 1;
+  Token t = tokenizer.nextToken();
+  bool moreLines = t.type() != TOKEN_EOF;
 
-  R_len_t i = 0;
-  R_len_t pos = i + 1;
-  for (Token t = tokenizer.nextToken(); t.type() != TOKEN_EOF; t = tokenizer.nextToken()) {
-    if (progress && (i + 1) % 25000 == 0)
+  while(moreLines && (!chunked || R6method(callback, "continue")())) {
+    if (progress && (out.size() + 1) % 25000 == 0)
       progressBar.show(tokenizer.progress());
 
-    if (i >= n) {
-      if (!chunked) {
-        if (n_max < 0) {
-          // Estimate rows in full dataset
-          n = (i / tokenizer.progress().first) * 1.2;
-          out = Rf_xlengthgets(out, n);
-        } else {
-          break;
-        }
-      } else {
-        if (!R6method(callback, "continue")()) {
-          break;
-        }
-      out = Rf_xlengthgets(out, i);
-      R6method(callback, "receive")(out, pos);
-      pos = i + 1;
-      i = 0;
-      }
+    out.push_back(t.asSEXP(&locale.encoder_));
+
+    if (chunked && out.size() == chunk_size) {
+      R6method(callback, "receive")(toCharacterVector(out), pos);
+      pos += out.size();
+      out.clear();
     }
 
-    if (t.type() == TOKEN_STRING || t.type() == TOKEN_MISSING)
-      out[i] = t.asSEXP(&locale.encoder_);
-
-    ++i;
-  }
-
-  if (i < n) {
-    out = Rf_xlengthgets(out, i);
-  }
-  if (chunked) {
-    R6method(callback, "receive")(out, pos);
+    t = tokenizer.nextToken();
+    moreLines = t.type() != TOKEN_EOF && (n_max < 0 || out.size() <= n_max);
   }
 
   if (progress)
     progressBar.show(tokenizer.progress());
   progressBar.stop();
 
-  return out;
+  if (chunked && out.size() > 0) {
+    R6method(callback, "receive")(toCharacterVector(out), pos);
+    return "";
+  } else {
+    return(toCharacterVector(out));
+  }
 }
 
 // [[Rcpp::export]]
