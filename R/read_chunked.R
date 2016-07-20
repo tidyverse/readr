@@ -7,7 +7,6 @@ read_lines_chunked <- function(file, callback, skip = 0, n_max = -1L, chunk_size
 
   callback <- as_chunk_callback(callback)
   on.exit(callback$finally(), add = TRUE)
-  pos <- 1
 
   read_lines_(ds, locale, na, callback, chunk_size, n_max, progress)
 
