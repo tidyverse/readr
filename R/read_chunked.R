@@ -30,11 +30,11 @@ ChunkCallback <- R6::R6Class("ChunkCallback",
     callback = NULL
   ),
   public = list(
-    initialize = function() NULL,
-    receive = function() NULL,
+    initialize = function(callback) NULL,
+    receive = function(data, index) NULL,
     continue = function() TRUE,
-    finally = function() NULL,
-    result = function() NULL
+    result = function() NULL,
+    finally = function() NULL
   )
 )
 
@@ -69,7 +69,7 @@ DataFrameCallback <- R6::R6Class("DataFrameCallback", inherit = ChunkCallback,
       result <- private$callback(data, index)
       private$results <- c(private$results, list(result))
     },
-    finally = function() {
+    result = function() {
       dplyr::bind_rows(private$results)
     }
   )
