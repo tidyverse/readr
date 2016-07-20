@@ -33,12 +33,6 @@ Function R6method(Environment env, const std::string& method) {
   return as<Function>(env[method]);
 }
 
-CharacterVector toCharacterVector(const std::vector<SEXP>& x) {
-  CharacterVector out(x.size());
-  std::copy(x.begin(), x.end(), out.begin());
-  return(out);
-}
-
 // [[Rcpp::export]]
 CharacterVector read_lines_(List sourceSpec, List locale_, std::vector<std::string> na, Environment callback, int chunk_size = -1, int n_max = -1,
                             bool progress = true) {
@@ -51,37 +45,52 @@ CharacterVector read_lines_(List sourceSpec, List locale_, std::vector<std::stri
 
   bool chunked = chunk_size != -1;
 
-  std::vector<SEXP> out;
+  R_len_t n =
+    chunked ? chunk_size :
+    (n_max < 0) ? 10000 : n_max;
 
-  R_len_t pos = 1;
+  CharacterVector out(n);
+
+  R_len_t i = 0, pos = 1;
+
   Token t = tokenizer.nextToken();
   bool moreLines = t.type() != TOKEN_EOF;
 
   while(moreLines && (!chunked || R6method(callback, "continue")())) {
-    if (progress && (out.size() + 1) % 25000 == 0)
+    if (progress && (i + 1) % 25000 == 0)
       progressBar.show(tokenizer.progress());
 
-    out.push_back(t.asSEXP(&locale.encoder_));
+    out[i++] = t.asSEXP(&locale.encoder_);
 
-    if (chunked && out.size() == chunk_size) {
-      R6method(callback, "receive")(toCharacterVector(out), pos);
-      pos += out.size();
-      out.clear();
+    if (chunked && i == chunk_size) {
+      R6method(callback, "receive")(out, pos);
+      pos += i;
+      out = CharacterVector(n);
+      i = 0;
+    }
+
+    if (!chunked && i >= n) {
+      n = (i / tokenizer.progress().first) * 1.2;
+      out = Rf_xlengthgets(out, n);
     }
 
     t = tokenizer.nextToken();
-    moreLines = t.type() != TOKEN_EOF && (n_max < 0 || out.size() <= n_max);
+    moreLines = t.type() != TOKEN_EOF && (n_max < 0 || i <= n_max);
+  }
+
+  if (i < n) {
+    out = Rf_xlengthgets(out, i);
   }
 
   if (progress)
     progressBar.show(tokenizer.progress());
   progressBar.stop();
 
-  if (chunked && out.size() > 0) {
-    R6method(callback, "receive")(toCharacterVector(out), pos);
+  if (chunked && i > 0) {
+    R6method(callback, "receive")(out, pos);
     return "";
   } else {
-    return(toCharacterVector(out));
+    return out;
   }
 }
 
