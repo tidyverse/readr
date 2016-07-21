@@ -55,12 +55,6 @@ std::vector<CollectorPtr> collectorsCreate(ListOf<List> specs,
   return collectors;
 }
 
-void collectorsResize(std::vector<CollectorPtr>& collectors, int n) {
-  for (size_t j = 0; j < collectors.size(); ++j) {
-    collectors[j]->resize(n);
-  }
-}
-
 // Implementations ------------------------------------------------------------
 
 void CollectorCharacter::setValue(int i, const Token& t) {

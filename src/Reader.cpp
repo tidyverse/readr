@@ -64,7 +64,7 @@ int Reader::read(int lines) {
 
   int n = (lines < 0) ? 1000 : lines;
 
-  collectorsResize(collectors_, n);
+  collectorsResize(n);
 
   int last_row = -1, last_col = -1, cells = 0;
   for (Token t = tokenizer_->nextToken(); t.type() != TOKEN_EOF; t = tokenizer_->nextToken()) {
@@ -83,7 +83,7 @@ int Reader::read(int lines) {
     if (t.row() >= n) {
       // Estimate rows in full dataset and resize collectors
       n = (last_row / tokenizer_->progress().first) * 1.1;
-      collectorsResize(collectors_, n);
+      collectorsResize(n);
     }
 
     // only set value if within the expected number of columns
@@ -109,7 +109,7 @@ int Reader::read(int lines) {
   // Resize the collectors to the final size (if it is not already at that
   // size)
   if (last_row < n - 1) {
-    collectorsResize(collectors_, last_row + 1);
+    collectorsResize(last_row + 1);
   }
 
   return last_row;
@@ -123,4 +123,10 @@ void Reader::checkColumns(int i, int j, int n) {
       tfm::format("%i columns", n),
       tfm::format("%i columns", j + 1)
       );
+}
+
+void Reader::collectorsResize(int n) {
+  for (size_t j = 0; j < collectors_.size(); ++j) {
+    collectors_[j]->resize(n);
+  }
 }

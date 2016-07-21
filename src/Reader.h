@@ -22,6 +22,13 @@ class Reader {
       return as<T>(collectors_[0]->vector());
     }
 
+    template<typename T>
+      RObject readToVectorWithWarnings(int lines) {
+        read(lines);
+
+        warnings_.addAsAttribute(as<T>(collectors_[0]->vector()));
+      }
+
   private:
     Warnings warnings_;
     SourcePtr source_;
@@ -37,4 +44,6 @@ class Reader {
     void init(CharacterVector colNames);
     int read(int lines = -1);
     void checkColumns(int i, int j, int n);
+
+    void collectorsResize(int n);
 };
