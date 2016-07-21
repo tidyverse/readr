@@ -130,13 +130,18 @@ format.col_spec <- function(x, n = Inf, condense = NULL, ...) {
   cols_args <- c(default,
     vapply(seq_along(cols),
       function(i) {
-        col_names <- names(cols)[[i]]
         col_funs <- sub("^collector_", "col_", class(cols[[i]])[[1]])
         args <- vapply(cols[[i]], deparse, character(1))
         args <- paste(names(args), args, sep = " = ", collapse = ", ")
 
-        # Need to special case skipped columns without names
+        col_names <- names(cols)[[i]]
+
+        # Need to handle unnamed columns and columns with non-syntactic names
         named <- col_names != ""
+
+        non_syntactic <- !is_syntactic(col_names) & named
+        col_names[non_syntactic] <- paste0("`", col_names[non_syntactic], "`")
+
         out <- paste0(col_names, " = ", col_funs, "(", args, ")")
         out[!named] <- paste0(col_funs, "(", args, ")")
         out

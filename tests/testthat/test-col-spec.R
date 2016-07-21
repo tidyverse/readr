@@ -205,3 +205,14 @@ test_that("print(col_spec) and condense edge cases", {
 )
 ")
 })
+
+test_that("non-syntatic names are escaped", {
+  x <- read_csv("a b,_c,1\n1,2,3")
+  expect_equal(format(spec(x)),
+"cols(
+  `a b` = col_integer(),
+  `_c` = col_integer(),
+  `1` = col_integer()
+)
+")
+})
