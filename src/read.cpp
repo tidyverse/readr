@@ -33,45 +33,15 @@ RawVector read_file_raw_(List sourceSpec) {
 CharacterVector read_lines_(List sourceSpec, List locale_, std::vector<std::string> na, int n_max = -1,
                             bool progress = true) {
 
-  SourcePtr source = Source::create(sourceSpec);
-  TokenizerLine tokenizer(na);
-  tokenizer.tokenize(source->begin(), source->end());
-  LocaleInfo locale(locale_);
-  Progress progressBar;
+  SourcePtr s = Source::create(sourceSpec);
+  TokenizerPtr t(new TokenizerLine(na));
+  LocaleInfo l(locale_);
+  std::vector<CollectorPtr> c;
+  c.push_back(CollectorPtr(new CollectorCharacter(&l.encoder_)));
 
-  R_len_t n = (n_max < 0) ? 10000 : n_max;
-  CharacterVector out(n);
+  Reader r(s, t, c, CharacterVector(), &l, progress ? 25000 : 0);
 
-  R_len_t i = 0;
-  for (Token t = tokenizer.nextToken(); t.type() != TOKEN_EOF; t = tokenizer.nextToken()) {
-    if (progress && (i + 1) % 25000 == 0)
-      progressBar.show(tokenizer.progress());
-
-    if (i >= n) {
-      if (n_max < 0) {
-        // Estimate rows in full dataset
-        n = (i / tokenizer.progress().first) * 1.2;
-        out = Rf_xlengthgets(out, n);
-      } else {
-        break;
-      }
-    }
-
-    if (t.type() == TOKEN_STRING || t.type() == TOKEN_MISSING)
-      out[i] = t.asSEXP(&locale.encoder_);
-
-    ++i;
-  }
-
-  if (i < n) {
-    out = Rf_xlengthgets(out, i);
-  }
-
-  if (progress)
-    progressBar.show(tokenizer.progress());
-  progressBar.stop();
-
-  return out;
+  return r.readToVector<CharacterVector>(n_max);
 }
 
 // [[Rcpp::export]]

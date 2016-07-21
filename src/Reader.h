@@ -8,10 +8,16 @@ using namespace Rcpp;
 class Reader {
   public:
     Reader(SourcePtr source, TokenizerPtr tokenizer, std::vector<CollectorPtr> collectors,
-        CharacterVector colNames, LocaleInfo* locale,
-        int progress = 10000);
+        CharacterVector colNames, LocaleInfo* locale, int progress = 10000);
 
     RObject readToDataFrame(int lines = -1);
+
+    template <typename T>
+    T readToVector(int lines) {
+      read(lines);
+
+      return as<T>(collectors_[0]->vector());
+    }
 
   private:
     Warnings warnings_;
