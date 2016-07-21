@@ -238,7 +238,7 @@ public:
 
 // Helpers ---------------------------------------------------------------------
 
-std::vector<CollectorPtr> collectorsCreate(Rcpp::ListOf<Rcpp::List> specs, LocaleInfo* pLocale, Warnings* pWarning);
+std::vector<CollectorPtr> collectorsCreate(Rcpp::ListOf<Rcpp::List> specs, LocaleInfo* pLocale);
 void collectorsResize(std::vector<CollectorPtr>& collectors, int n);
 std::string collectorGuess(Rcpp::CharacterVector input, Rcpp::List locale_);
 

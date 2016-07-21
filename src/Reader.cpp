@@ -1,21 +1,24 @@
 #include "Reader.h"
 
-Reader::Reader(List sourceSpec, List tokenizerSpec, ListOf<List> colSpecs,
-                    CharacterVector colNames, List locale,
-                    int progress) : locale_(locale) {
-  source_ = Source::create(sourceSpec);
+Reader::Reader(SourcePtr source, TokenizerPtr tokenizer, std::vector<CollectorPtr> collectors,
+                    CharacterVector colNames, LocaleInfo* locale,
+                    int progress) :
+  source_(source),
+  tokenizer_(tokenizer),
+  collectors_(collectors),
+  locale_(locale),
+  progress_(progress) {
 
-  tokenizer_ = Tokenizer::create(tokenizerSpec);
   tokenizer_->tokenize(source_->begin(), source_->end());
   tokenizer_->setWarnings(&warnings_);
 
-  collectors_ = collectorsCreate(colSpecs, &locale_, &warnings_);
 
-  // Work out which output columns we are keeping
+  // Work out which output columns we are keeping and set the locale for each collectors
   size_t p = collectors_.size();
   for (size_t j = 0; j < p; ++j) {
     if (!collectors_[j]->skip()) {
       keptColumns_.push_back(j);
+      collectors_[j]->setWarnings(&warnings_);
     }
   }
 

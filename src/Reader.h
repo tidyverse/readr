@@ -7,15 +7,15 @@ using namespace Rcpp;
 
 class Reader {
   public:
-    Reader(List sourceSpec, List tokenizerSpec, ListOf<List> colSpecs,
-        CharacterVector colNames, List locale,
+    Reader(SourcePtr source, TokenizerPtr tokenizer, std::vector<CollectorPtr> collectors,
+        CharacterVector colNames, LocaleInfo* locale,
         int progress = 10000);
 
     RObject readToDataFrame(int lines = -1);
 
   private:
     Warnings warnings_;
-    LocaleInfo locale_;
+    LocaleInfo* locale_;
     TokenizerPtr tokenizer_;
     SourcePtr source_;
     std::vector<CollectorPtr> collectors_;

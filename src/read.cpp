@@ -124,7 +124,13 @@ RObject read_tokens_(List sourceSpec, List tokenizerSpec, ListOf<List> colSpecs,
                     CharacterVector colNames, List locale_, int n_max = -1,
                     bool progress = true) {
 
-  Reader r(sourceSpec, tokenizerSpec, colSpecs, colNames, locale_, progress);
+  SourcePtr s = Source::create(sourceSpec);
+  LocaleInfo l(locale_);
+  std::vector<CollectorPtr> c = collectorsCreate(colSpecs, &l);
+  TokenizerPtr t = Tokenizer::create(tokenizerSpec);
+
+  Reader r(s, t, c, colNames, &l, progress ? 250000 : 0);
+
   return r.readToDataFrame(n_max);
 }
 

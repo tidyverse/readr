@@ -45,12 +45,10 @@ CollectorPtr Collector::create(List spec, LocaleInfo* pLocale) {
 }
 
 std::vector<CollectorPtr> collectorsCreate(ListOf<List> specs,
-                                           LocaleInfo* pLocale,
-                                           Warnings* pWarning) {
+                                           LocaleInfo* pLocale) {
   std::vector<CollectorPtr> collectors;
   for (int j = 0; j < specs.size(); ++j) {
     CollectorPtr col = Collector::create(specs[j], pLocale);
-    col->setWarnings(pWarning);
     collectors.push_back(col);
   }
 
