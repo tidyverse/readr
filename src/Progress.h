@@ -1,4 +1,5 @@
-#pragma once
+#ifndef FASTREAD_PROGRESS_H_
+#define FASTREAD_PROGRESS_H_
 
 #include <time.h>
 
@@ -79,3 +80,4 @@ public:
 
 };
 
+#endif

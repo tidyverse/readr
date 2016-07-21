@@ -1,3 +1,6 @@
+#ifndef FASTREAD_GRISU3_H_
+#define FASTREAD_GRISU3_H_
+
 /* Copyright Jukka Jylänki
    Licensed under the Apache License, Version 2.0 (the "License");
    you may not use this file except in compliance with the License.
@@ -15,7 +18,6 @@
 	"Printing Floating-Point Numbers Quickly And Accurately with Integers"
 	by Florian Loitsch, available at
 	http://www.cs.tufts.edu/~nr/cs257/archive/florian-loitsch/printf.pdf */
-#pragma once
 
 extern "C"
 {
@@ -39,5 +41,7 @@ int dtoa_grisu3(double v, char *dst);
 
 #include <string>
 std::string dtoa_grisu3_string(double v);
+
+#endif
 
 #endif
