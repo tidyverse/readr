@@ -22,13 +22,13 @@ Reader::Reader(SourcePtr source, TokenizerPtr tokenizer, std::vector<CollectorPt
     }
   }
 
-    if (colNames.size() > 0) {
-      outNames_ = CharacterVector(keptColumns_.size());
-      int i = 0;
-      for (std::vector<int>::const_iterator it = keptColumns_.begin(); it != keptColumns_.end(); ++it) {
-        outNames_[i++] = colNames[*it];
-      }
+  if (colNames.size() > 0) {
+    outNames_ = CharacterVector(keptColumns_.size());
+    int i = 0;
+    for (std::vector<int>::const_iterator it = keptColumns_.begin(); it != keptColumns_.end(); ++it) {
+      outNames_[i++] = colNames[*it];
     }
+  }
 }
 
 RObject Reader::readToDataFrame(int lines) {
