@@ -21,7 +21,7 @@ read_lines <- function(file, skip = 0, n_max = -1L,
     return(character())
   }
   ds <- datasource(file, skip = skip)
-  read_lines_(ds, locale_ = locale, na = na, n_max = n_max, progress = progress)
+  read_lines_(ds, locale_ = locale, na = na, callback = emptyenv(), chunk_size = -1L, n_max = n_max, progress = progress)
 }
 
 #' @export

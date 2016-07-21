@@ -97,6 +97,7 @@ public:
     return begin;
   }
 
+  static Source* createDumbPtr(Rcpp::List spec);
   static SourcePtr create(Rcpp::List spec);
 
 private:
