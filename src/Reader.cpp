@@ -1,17 +1,29 @@
 #include "Reader.h"
 
 Reader::Reader(SourcePtr source, TokenizerPtr tokenizer, std::vector<CollectorPtr> collectors,
-                    CharacterVector colNames, LocaleInfo* locale,
-                    int progress) :
+        bool progress, LocaleInfo* locale, CharacterVector colNames) :
   source_(source),
   tokenizer_(tokenizer),
   collectors_(collectors),
-  locale_(locale),
-  progress_(progress) {
+  progress_(progress),
+  locale_(locale) {
+    init(colNames);
+}
 
+Reader::Reader(SourcePtr source, TokenizerPtr tokenizer,
+    CollectorPtr collector, bool progress, LocaleInfo* locale, CharacterVector colNames) :
+  source_(source),
+  tokenizer_(tokenizer),
+  progress_(progress),
+  locale_(locale) {
+
+  collectors_.push_back(collector);
+  init(colNames);
+}
+
+void Reader::init(CharacterVector colNames) {
   tokenizer_->tokenize(source_->begin(), source_->end());
   tokenizer_->setWarnings(&warnings_);
-
 
   // Work out which output columns we are keeping and set the locale for each collectors
   size_t p = collectors_.size();
@@ -56,7 +68,7 @@ int Reader::read(int lines) {
 
   int last_row = -1, last_col = -1, cells = 0;
   for (Token t = tokenizer_->nextToken(); t.type() != TOKEN_EOF; t = tokenizer_->nextToken()) {
-    if (progress_ && (cells++) % progressStep_ == 0) {
+    if (progress_ && (++cells) % progressStep_ == 0) {
       progressBar_.show(tokenizer_->progress());
     }
 

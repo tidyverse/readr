@@ -33,13 +33,13 @@ RawVector read_file_raw_(List sourceSpec) {
 CharacterVector read_lines_(List sourceSpec, List locale_, std::vector<std::string> na, int n_max = -1,
                             bool progress = true) {
 
-  SourcePtr s = Source::create(sourceSpec);
-  TokenizerPtr t(new TokenizerLine(na));
-  LocaleInfo l(locale_);
-  std::vector<CollectorPtr> c;
-  c.push_back(CollectorPtr(new CollectorCharacter(&l.encoder_)));
-
-  Reader r(s, t, c, CharacterVector(), &l, progress ? 25000 : 0);
+  LocaleInfo locale(locale_);
+  Reader r(
+    Source::create(sourceSpec),
+    TokenizerPtr(new TokenizerLine(na)),
+    CollectorPtr(new CollectorCharacter(&locale.encoder_)),
+    progress,
+    &locale);
 
   return r.readToVector<CharacterVector>(n_max);
 }
@@ -47,12 +47,11 @@ CharacterVector read_lines_(List sourceSpec, List locale_, std::vector<std::stri
 // [[Rcpp::export]]
 List read_lines_raw_(List sourceSpec, int n_max = -1, bool progress = false) {
 
-  SourcePtr s = Source::create(sourceSpec);
-  TokenizerPtr t(new TokenizerLine());
-  std::vector<CollectorPtr> c;
-  c.push_back(CollectorPtr(new CollectorRaw()));
-
-  Reader r(s, t, c, CharacterVector(), NULL, progress ? 25000 : 0);
+  Reader r(
+    Source::create(sourceSpec),
+    TokenizerPtr(new TokenizerLine()),
+    CollectorPtr(new CollectorRaw()),
+    progress);
 
   return r.readToVector<List>(n_max);
 }
@@ -64,12 +63,14 @@ RObject read_tokens_(List sourceSpec, List tokenizerSpec, ListOf<List> colSpecs,
                     CharacterVector colNames, List locale_, int n_max = -1,
                     bool progress = true) {
 
-  SourcePtr s = Source::create(sourceSpec);
   LocaleInfo l(locale_);
-  std::vector<CollectorPtr> c = collectorsCreate(colSpecs, &l);
-  TokenizerPtr t = Tokenizer::create(tokenizerSpec);
-
-  Reader r(s, t, c, colNames, &l, progress ? 250000 : 0);
+  Reader r(
+    Source::create(sourceSpec),
+    Tokenizer::create(tokenizerSpec),
+    collectorsCreate(colSpecs, &l),
+    progress,
+    &l,
+    colNames);
 
   return r.readToDataFrame(n_max);
 }
