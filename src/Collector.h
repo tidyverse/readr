@@ -235,6 +235,14 @@ public:
   }
 };
 
+// Raw -------------------------------------------------------------------------
+class CollectorRaw : public Collector {
+public:
+  CollectorRaw() : Collector(Rcpp::List()) {}
+  void setValue(int i, const Token& t);
+};
+
+
 
 // Helpers ---------------------------------------------------------------------
 

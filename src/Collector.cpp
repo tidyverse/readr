@@ -360,3 +360,11 @@ void CollectorTime::setValue(int i, const Token& t) {
   }
 
 }
+
+void CollectorRaw::setValue(int i, const Token& t) {
+  if (t.type() == TOKEN_EOF) {
+    Rcpp::stop("Invalid token");
+  }
+  SET_VECTOR_ELT(column_, i, t.asRaw());
+  return;
+}
