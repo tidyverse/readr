@@ -140,7 +140,7 @@ format.col_spec <- function(x, n = Inf, condense = NULL, ...) {
         named <- col_names != ""
 
         non_syntactic <- !is_syntactic(col_names) & named
-        col_names[non_syntactic] <- paste0("`", col_names[non_syntactic], "`")
+        col_names[non_syntactic] <- paste0("`", gsub("`", "\\\\`", col_names[non_syntactic]), "`")
 
         out <- paste0(col_names, " = ", col_funs, "(", args, ")")
         out[!named] <- paste0(col_funs, "(", args, ")")
