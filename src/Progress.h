@@ -1,3 +1,5 @@
+#pragma once
+
 #include <time.h>
 
 inline int now() {

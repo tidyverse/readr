@@ -8,6 +8,7 @@ using namespace Rcpp;
 #include "Collector.h"
 #include "Progress.h"
 #include "Warnings.h"
+#include "Reader.h"
 
 // [[Rcpp::export]]
 CharacterVector read_file_(List sourceSpec, List locale_) {
@@ -117,112 +118,15 @@ List read_lines_raw_(List sourceSpec, int n_max = -1, bool progress = false) {
 }
 
 typedef std::vector<CollectorPtr>::iterator CollectorItr;
-void checkColumns(Warnings *pWarnings, int i, int j, int n) {
-  if (j + 1 == n)
-    return;
-
-  pWarnings->addWarning(i, -1,
-    tfm::format("%i columns", n),
-    tfm::format("%i columns", j + 1)
-  );
-}
 
 // [[Rcpp::export]]
 RObject read_tokens_(List sourceSpec, List tokenizerSpec, ListOf<List> colSpecs,
                     CharacterVector colNames, List locale_, int n_max = -1,
                     bool progress = true) {
 
-  Warnings warnings;
-  LocaleInfo locale(locale_);
-
-  SourcePtr source = Source::create(sourceSpec);
-
-  TokenizerPtr tokenizer = Tokenizer::create(tokenizerSpec);
-  tokenizer->tokenize(source->begin(), source->end());
-  tokenizer->setWarnings(&warnings);
-
-  std::vector<CollectorPtr> collectors = collectorsCreate(colSpecs, &locale, &warnings);
-
-  Progress progressBar;
-
-  // Work out how many output columns we have
-  size_t p = collectors.size();
-  size_t pOut = 0;
-  for (size_t j = 0; j < p; ++j) {
-    if (collectors[j]->skip())
-      continue;
-    pOut++;
-  }
-
-  // Match colNames to with non-skipped collectors
-  if (p != (size_t) colNames.size())
-    stop("colSpec and colNames must be same size");
-
-  CharacterVector outNames(pOut);
-  int cj = 0;
-  for (size_t j = 0; j < p; ++j) {
-    if (collectors[j]->skip())
-      continue;
-
-    outNames[cj] = colNames[j];
-    cj++;
-  }
-
-  size_t n = (n_max < 0) ? 1000 : n_max;
-  collectorsResize(collectors, n);
-
-  int i = -1, j = -1, cells = 0;
-  for (Token t = tokenizer->nextToken(); t.type() != TOKEN_EOF; t = tokenizer->nextToken()) {
-    if (progress && (cells++) % 250000 == 0)
-      progressBar.show(tokenizer->progress());
-
-    if (t.col() == 0 && i != -1)
-      checkColumns(&warnings, i, j, p);
-
-    if (t.row() >= n) {
-      if (n_max >= 0)
-        break;
-
-      // Estimate rows in full dataset
-      n = (i / tokenizer->progress().first) * 1.2;
-      collectorsResize(collectors, n);
-    }
-
-    if (t.col() < p)
-      collectors[t.col()]->setValue(t.row(), t);
-
-    i = t.row();
-    j = t.col();
-  }
-  if (i != -1)
-    checkColumns(&warnings, i, j, p);
-
-  if (progress)
-    progressBar.show(tokenizer->progress());
-  progressBar.stop();
-
-  if (i != (int) n - 1) {
-    collectorsResize(collectors, i + 1);
-  }
-
-  // Save individual columns into a data frame
-  List out(pOut);
-  j = 0;
-  for(CollectorItr cur = collectors.begin(); cur != collectors.end(); ++cur) {
-    if ((*cur)->skip())
-      continue;
-
-    out[j] = (*cur)->vector();
-    j++;
-  }
-
-  out.attr("class") = CharacterVector::create("tbl_df", "tbl", "data.frame");
-  out.attr("row.names") = IntegerVector::create(NA_INTEGER, -(i + 1));
-  out.attr("names") = outNames;
-
-  return warnings.addAsAttribute(out);
+  Reader r(sourceSpec, tokenizerSpec, colSpecs, colNames, locale_, progress);
+  return r.readToDataFrame(n_max);
 }
-
 
 // [[Rcpp::export]]
 std::vector<std::string> guess_types_(List sourceSpec, List tokenizerSpec,
