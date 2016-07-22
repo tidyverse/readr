@@ -45,6 +45,10 @@ read_lines_ <- function(sourceSpec, locale_, na, n_max = -1L, progress = TRUE) {
     .Call('readr_read_lines_', PACKAGE = 'readr', sourceSpec, locale_, na, n_max, progress)
 }
 
+read_lines_chunked_ <- function(sourceSpec, locale_, na, chunk_size, callback, progress = TRUE) {
+    invisible(.Call('readr_read_lines_chunked_', PACKAGE = 'readr', sourceSpec, locale_, na, chunk_size, callback, progress))
+}
+
 read_lines_raw_ <- function(sourceSpec, n_max = -1L, progress = FALSE) {
     .Call('readr_read_lines_raw_', PACKAGE = 'readr', sourceSpec, n_max, progress)
 }

@@ -6,7 +6,8 @@ Reader::Reader(SourcePtr source, TokenizerPtr tokenizer, std::vector<CollectorPt
   tokenizer_(tokenizer),
   collectors_(collectors),
   progress_(progress),
-  locale_(locale) {
+  locale_(locale),
+  begun_(false) {
     init(colNames);
 }
 
@@ -15,7 +16,8 @@ Reader::Reader(SourcePtr source, TokenizerPtr tokenizer,
   source_(source),
   tokenizer_(tokenizer),
   progress_(progress),
-  locale_(locale) {
+  locale_(locale),
+  begun_(false) {
 
   collectors_.push_back(collector);
   init(colNames);
@@ -57,6 +59,8 @@ RObject Reader::readToDataFrame(int lines) {
   out.attr("row.names") = IntegerVector::create(NA_INTEGER, -(rows + 1));
   out.attr("names") = outNames_;
 
+  collectorsClear();
+
   return warnings_.addAsAttribute(out);
 }
 
@@ -67,32 +71,43 @@ int Reader::read(int lines) {
   collectorsResize(n);
 
   int last_row = -1, last_col = -1, cells = 0;
-  for (Token t = tokenizer_->nextToken(); t.type() != TOKEN_EOF; t = tokenizer_->nextToken()) {
+  int first_row;
+  if (!begun_) {
+    t_ = tokenizer_->nextToken();
+    begun_ = true;
+    first_row = 0;
+  } else {
+    first_row = t_.row();
+  }
+
+  while (t_.type() != TOKEN_EOF) {
+
     if (progress_ && (++cells) % progressStep_ == 0) {
       progressBar_.show(tokenizer_->progress());
     }
 
-    if (t.col() == 0 && last_row > -1) {
+    if (t_.col() == 0 && t_.row() != first_row) {
       checkColumns(last_row, last_col, collectors_.size());
     }
 
-    if (lines >= 0 && t.row() >= lines) {
+    if (lines >= 0 && t_.row() - first_row >= lines) {
       break;
     }
 
-    if (t.row() >= n) {
+    if (last_row - first_row >= n) {
       // Estimate rows in full dataset and resize collectors
-      n = (last_row / tokenizer_->progress().first) * 1.1;
+      n = (last_row - first_row / tokenizer_->progress().first) * 1.1;
       collectorsResize(n);
     }
 
     // only set value if within the expected number of columns
-    if (t.col() < collectors_.size()) {
-      collectors_[t.col()]->setValue(t.row(), t);
+    if (t_.col() < collectors_.size()) {
+      collectors_[t_.col()]->setValue(t_.row() - first_row, t_);
     }
 
-    last_row = t.row();
-    last_col = t.col();
+    last_row = t_.row();
+    last_col = t_.col();
+    t_ = tokenizer_->nextToken();
   }
 
 
@@ -108,8 +123,10 @@ int Reader::read(int lines) {
 
   // Resize the collectors to the final size (if it is not already at that
   // size)
-  if (last_row < n - 1) {
-    collectorsResize(last_row + 1);
+  if (last_row == -1) {
+     collectorsResize(0);
+  } else if (last_row - first_row < n - 1) {
+    collectorsResize((last_row - first_row) + 1);
   }
 
   return last_row;
@@ -130,3 +147,10 @@ void Reader::collectorsResize(int n) {
     collectors_[j]->resize(n);
   }
 }
+
+void Reader::collectorsClear() {
+  for (size_t j = 0; j < collectors_.size(); ++j) {
+    collectors_[j]->clear();
+  }
+}
+

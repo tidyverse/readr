@@ -44,6 +44,33 @@ CharacterVector read_lines_(List sourceSpec, List locale_, std::vector<std::stri
   return r.readToVector<CharacterVector>(n_max);
 }
 
+Function R6method(Environment env, const std::string& method) {
+  return as<Function>(env[method]);
+}
+
+// [[Rcpp::export]]
+void read_lines_chunked_(List sourceSpec, List locale_, std::vector<std::string> na, int chunk_size, Environment callback,
+                            bool progress = true) {
+
+  LocaleInfo locale(locale_);
+  Reader r(
+    Source::create(sourceSpec),
+    TokenizerPtr(new TokenizerLine(na)),
+    CollectorPtr(new CollectorCharacter(&locale.encoder_)),
+    progress,
+    &locale);
+
+  CharacterVector out = r.readToVector<CharacterVector>(chunk_size);
+  int pos = 1;
+  while (out.size() > 0 && R6method(callback, "continue")()) {
+    R6method(callback, "receive")(out, pos);
+    pos += out.size();
+    out = r.readToVector<CharacterVector>(chunk_size);
+  }
+
+  return;
+}
+
 // [[Rcpp::export]]
 List read_lines_raw_(List sourceSpec, int n_max = -1, bool progress = false) {
 
