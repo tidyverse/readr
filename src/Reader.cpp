@@ -59,12 +59,19 @@ RObject Reader::readToDataFrame(int lines) {
   out.attr("row.names") = IntegerVector::create(NA_INTEGER, -(rows + 1));
   out.attr("names") = outNames_;
 
-  collectorsClear();
+  out = warnings_.addAsAttribute(out);
 
-  return warnings_.addAsAttribute(out);
+  //collectorsClear();
+  warnings_.clear();
+
+  return out;
 }
 
 int Reader::read(int lines) {
+
+  if (t_.type() == TOKEN_EOF) {
+    return(-1);
+  }
 
   int n = (lines < 0) ? 1000 : lines;
 
@@ -94,9 +101,9 @@ int Reader::read(int lines) {
       break;
     }
 
-    if (last_row - first_row >= n) {
+    if ((last_row - first_row) > n) {
       // Estimate rows in full dataset and resize collectors
-      n = (last_row - first_row / tokenizer_->progress().first) * 1.1;
+      n = ((last_row - first_row) / tokenizer_->progress().first) * 1.1;
       collectorsResize(n);
     }
 
@@ -125,11 +132,11 @@ int Reader::read(int lines) {
   // size)
   if (last_row == -1) {
      collectorsResize(0);
-  } else if (last_row - first_row < n - 1) {
+  } else if ((last_row - first_row) < (n - 1)) {
     collectorsResize((last_row - first_row) + 1);
   }
 
-  return last_row;
+  return last_row - first_row;
 }
 
 void Reader::checkColumns(int i, int j, int n) {

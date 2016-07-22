@@ -103,6 +103,30 @@ RObject read_tokens_(List sourceSpec, List tokenizerSpec, ListOf<List> colSpecs,
 }
 
 // [[Rcpp::export]]
+void read_tokens_chunked_(List sourceSpec, Environment callback, int chunkSize, List tokenizerSpec, ListOf<List> colSpecs,
+                    CharacterVector colNames, List locale_, bool progress = true) {
+
+  LocaleInfo l(locale_);
+  Reader r(
+    Source::create(sourceSpec),
+    Tokenizer::create(tokenizerSpec),
+    collectorsCreate(colSpecs, &l),
+    progress,
+    &l,
+    colNames);
+
+  DataFrame out = r.readToDataFrame(chunkSize);
+  int pos = 1;
+  while (out.nrows() > 0 && R6method(callback, "continue")()) {
+    R6method(callback, "receive")(out, pos);
+    pos += out.nrows();
+    out = r.readToDataFrame(chunkSize);
+  }
+
+  return;
+}
+
+// [[Rcpp::export]]
 std::vector<std::string> guess_types_(List sourceSpec, List tokenizerSpec,
                                       Rcpp::List locale_, int n = 100) {
   Warnings warnings;
