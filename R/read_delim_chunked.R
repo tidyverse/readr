@@ -84,6 +84,7 @@ read_delimited_chunked <- generate_read_delimited_chunked(read_delimited)
 #' @inheritParams read_delim
 #' @param callback A callback function to call on each chunk
 #' @param chunk_size The number of rows to include in each chunk
+#' @keywords internal
 #' @export
 read_delim_chunked <- generate_chunked_fun(read_delim)
 

@@ -42,4 +42,5 @@ and will only display if estimated reading time is 5 seconds or more.}
 \description{
 Read lines from a file or string by chunk.
 }
+\keyword{internal}
 

@@ -119,4 +119,5 @@ and will only display if estimated reading time is 5 seconds or more.}
 \description{
 Read a delimited file by chunks
 }
+\keyword{internal}
 

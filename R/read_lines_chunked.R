@@ -2,6 +2,7 @@
 #'
 #' @inheritParams datasource
 #' @inheritParams read_delim_chunked
+#' @keywords internal
 #' @export
 read_lines_chunked <- function(file, callback, chunk_size = 10000, skip = 0,
   locale = default_locale(), na = character(), progress = interactive()) {
@@ -17,4 +18,3 @@ read_lines_chunked <- function(file, callback, chunk_size = 10000, skip = 0,
 
   return(callback$result())
 }
-
