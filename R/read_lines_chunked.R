@@ -1,3 +1,8 @@
+#' Read lines from a file or string by chunk.
+#'
+#' @inheritParams datasource
+#' @inheritParams read_delim_chunked
+#' @export
 read_lines_chunked <- function(file, callback, chunk_size = 10000, skip = 0,
   locale = default_locale(), na = character(), progress = interactive()) {
   if (empty_file(file)) {
