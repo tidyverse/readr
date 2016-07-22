@@ -13,15 +13,15 @@ generate_chunked_fun <- function(x) {
   b <- as.list(body(x))
 
   # Change read_delimited to read_delimited_chunked
-  b[[3]][[1]] <- quote(read_delimited_chunked)
+  b[[length(b)]][[1]] <- quote(read_delimited_chunked)
 
-  call_args <- as.list(b[[3]])
+  call_args <- as.list(b[[length(b)]])
 
   # Remove the n_max argument
   call_args <- call_args[!names(call_args) == "n_max"]
 
   # add the callback and chunk_size arguments
-  b[[3]] <- as.call(append(call_args, alist(callback = callback, chunk_size = chunk_size), 2))
+  b[[length(b)]] <- as.call(append(call_args, alist(callback = callback, chunk_size = chunk_size), 2))
 
   body(x) <- as.call(b)
 
@@ -35,6 +35,9 @@ generate_read_delimited_chunked <- function(x) {
   args <- formals(x)
   args <- args[names(args) != "n_max"]
   args <- append(args, alist(callback =, chunk_size = 10000), 1)
+
+  # Change guess_max default to use chunk_size
+  args$guess_max[[3]] <- quote(chunk_size)
 
   b <- as.list(body(x))
 
@@ -71,6 +74,8 @@ read_tokens_chunked <- function(data, callback, chunk_size, tokenizer, col_specs
 
   return(callback$result())
 }
+
+utils::globalVariables(c("callback", "chunk_size"))
 
 read_delimited_chunked <- generate_read_delimited_chunked(read_delimited)
 
