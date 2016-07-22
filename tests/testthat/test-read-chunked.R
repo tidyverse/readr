@@ -47,3 +47,24 @@ test_that("read_delim_chunked", {
   expect_true(all(vapply(dims[1:6], identical, logical(1), c(5L, 11L))))
   expect_true(identical(dims[[7]], c(2L, 11L)))
 })
+
+test_that("DataFrameCallback works as intended", {
+  f <- readr_example("mtcars.csv")
+  unchunked <- read_csv(f)
+  fun3 <- DataFrameCallback$new(function(x, pos) subset(x, gear == 3))
+
+  out1 <- read_csv_chunked(f, fun3)
+  out2 <- read_csv_chunked(readr_example("mtcars.csv"), fun3, chunk_size = 10)
+
+  expect_equal(subset(unchunked, gear == 3), out1)
+  expect_equal(out1, out2)
+
+
+  # No matching rows
+  fun5 <- DataFrameCallback$new(function(x, pos) subset(x, gear == 5))
+  out3 <- read_csv_chunked(readr_example("mtcars.csv"), fun5)
+  out4 <- read_csv_chunked(readr_example("mtcars.csv"), fun5, chunk_size = 10)
+
+  expect_equal(subset(unchunked, gear == 5), out3)
+  expect_equal(out3, out4)
+})
