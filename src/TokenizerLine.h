@@ -16,6 +16,8 @@ public:
 
   TokenizerLine(std::vector<std::string> NA): NA_(NA), moreTokens_(false) {}
 
+  TokenizerLine(): moreTokens_(false) {}
+
   void tokenize(SourceIterator begin, SourceIterator end) {
     begin_ = begin;
     cur_ = begin;

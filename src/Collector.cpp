@@ -45,22 +45,14 @@ CollectorPtr Collector::create(List spec, LocaleInfo* pLocale) {
 }
 
 std::vector<CollectorPtr> collectorsCreate(ListOf<List> specs,
-                                           LocaleInfo* pLocale,
-                                           Warnings* pWarning) {
+                                           LocaleInfo* pLocale) {
   std::vector<CollectorPtr> collectors;
   for (int j = 0; j < specs.size(); ++j) {
     CollectorPtr col = Collector::create(specs[j], pLocale);
-    col->setWarnings(pWarning);
     collectors.push_back(col);
   }
 
   return collectors;
-}
-
-void collectorsResize(std::vector<CollectorPtr>& collectors, int n) {
-  for (size_t j = 0; j < collectors.size(); ++j) {
-    collectors[j]->resize(n);
-  }
 }
 
 // Implementations ------------------------------------------------------------
@@ -361,4 +353,12 @@ void CollectorTime::setValue(int i, const Token& t) {
     Rcpp::stop("Invalid token");
   }
 
+}
+
+void CollectorRaw::setValue(int i, const Token& t) {
+  if (t.type() == TOKEN_EOF) {
+    Rcpp::stop("Invalid token");
+  }
+  SET_VECTOR_ELT(column_, i, t.asRaw());
+  return;
 }

@@ -1,3 +1,6 @@
+#ifndef FASTREAD_PROGRESS_H_
+#define FASTREAD_PROGRESS_H_
+
 #include <time.h>
 
 inline int now() {
@@ -77,3 +80,4 @@ public:
 
 };
 
+#endif
