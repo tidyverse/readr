@@ -119,5 +119,14 @@ and will only display if estimated reading time is 5 seconds or more.}
 \description{
 Read a delimited file by chunks
 }
+\examples{
+# Cars with 3 gears
+f <- function(x, pos) subset(x, gear == 3)
+read_csv_chunked(readr_example("mtcars.csv"), DataFrameCallback$new(f), chunk_size = 5)
+}
+\seealso{
+Other chunked: \code{\link{callback}},
+  \code{\link{read_lines_chunked}}
+}
 \keyword{internal}
 

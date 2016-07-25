@@ -22,17 +22,22 @@ as_chunk_callback.ChunkCallback <- function(x) {
 #' @format NULL
 #' @name callback
 #' @keywords internal
+#' @family chunked
 #' @examples
-#' # If given a regular function it is converted to a SideEffectChunkCallback
+#' ## If given a regular function it is converted to a SideEffectChunkCallback
+#'
+#' # view structure of each chunk
 #' read_lines_chunked(readr_example("mtcars.csv"), str, chunk_size = 5)
-#' read_lines_chunked(readr_example("mtcars.csv"), function(x, pos) print(pos), chunk_size = 5)
+#'
+#' # Print starting line of each chunk
 #' f <- function(x, pos) print(pos)
 #' read_lines_chunked(readr_example("mtcars.csv"), SideEffectChunkCallback$new(f), chunk_size = 5)
 #'
-#' # If results are desired you can use the DataFrameCallback
+#' ## If combined results are desired you can use the DataFrameCallback
+#'
 #' # Cars with 3 gears
-#' read_csv_chunked(readr_example("mtcars.csv"),
-#'   function(x, pos) subset(x, gear == 3), chunk_size = 5)
+#' f <- function(x, pos) subset(x, gear == 3)
+#' read_csv_chunked(readr_example("mtcars.csv"), DataFrameCallback$new(f), chunk_size = 5)
 #' @export
 ChunkCallback <- R6::R6Class("ChunkCallback",
   private = list(

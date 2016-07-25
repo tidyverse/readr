@@ -85,7 +85,12 @@ read_delimited_chunked <- generate_read_delimited_chunked(read_delimited)
 #' @param callback A callback function to call on each chunk
 #' @param chunk_size The number of rows to include in each chunk
 #' @keywords internal
+#' @family chunked
 #' @export
+#' @examples
+#' # Cars with 3 gears
+#' f <- function(x, pos) subset(x, gear == 3)
+#' read_csv_chunked(readr_example("mtcars.csv"), DataFrameCallback$new(f), chunk_size = 5)
 read_delim_chunked <- generate_chunked_fun(read_delim)
 
 #' @rdname read_delim_chunked

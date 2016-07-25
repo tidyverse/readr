@@ -42,5 +42,9 @@ and will only display if estimated reading time is 5 seconds or more.}
 \description{
 Read lines from a file or string by chunk.
 }
+\seealso{
+Other chunked: \code{\link{callback}},
+  \code{\link{read_delim_chunked}}
+}
 \keyword{internal}
 
