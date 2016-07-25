@@ -62,15 +62,12 @@ void read_lines_chunked_(List sourceSpec, List locale_,
     &locale);
 
   CharacterVector out;
-  bool moreLines = R6method(callback, "continue")() &&
-    (out = r.readToVector<CharacterVector>(chunkSize)).size();
 
   int pos = 1;
-  while (moreLines) {
+  while (R6method(callback, "continue")() &&
+      (out = r.readToVector<CharacterVector>(chunkSize)).size()) {
     R6method(callback, "receive")(out, pos);
     pos += out.size();
-    moreLines = R6method(callback, "continue")() &&
-      (out = r.readToVector<CharacterVector>(chunkSize)).size();
   }
 
   return;
@@ -123,15 +120,11 @@ void read_tokens_chunked_(List sourceSpec, Environment callback, int chunkSize,
 
   DataFrame out;
 
-  bool moreLines = R6method(callback, "continue")() &&
-    (out = r.readToDataFrame(chunkSize)).nrows();
-
   int pos = 1;
-  while (moreLines) {
+  while (R6method(callback, "continue")() &&
+      (out = r.readToDataFrame(chunkSize)).nrows()) {
     R6method(callback, "receive")(out, pos);
     pos += out.nrows();
-    moreLines = R6method(callback, "continue")() &&
-      (out = r.readToDataFrame(chunkSize)).nrows();
   }
 
   return;
