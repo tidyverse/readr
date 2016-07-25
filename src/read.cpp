@@ -30,8 +30,8 @@ RawVector read_file_raw_(List sourceSpec) {
 }
 
 // [[Rcpp::export]]
-CharacterVector read_lines_(List sourceSpec, List locale_, std::vector<std::string> na, int n_max = -1,
-                            bool progress = true) {
+CharacterVector read_lines_(List sourceSpec, List locale_,
+    std::vector<std::string> na, int n_max = -1, bool progress = true) {
 
   LocaleInfo locale(locale_);
   Reader r(
@@ -49,8 +49,9 @@ Function R6method(Environment env, const std::string& method) {
 }
 
 // [[Rcpp::export]]
-void read_lines_chunked_(List sourceSpec, List locale_, std::vector<std::string> na, int chunk_size, Environment callback,
-                            bool progress = true) {
+void read_lines_chunked_(List sourceSpec, List locale_,
+    std::vector<std::string> na, int chunkSize, Environment callback,
+    bool progress = true) {
 
   LocaleInfo locale(locale_);
   Reader r(
@@ -60,12 +61,16 @@ void read_lines_chunked_(List sourceSpec, List locale_, std::vector<std::string>
     progress,
     &locale);
 
-  CharacterVector out = r.readToVector<CharacterVector>(chunk_size);
+  CharacterVector out;
+  bool moreLines = R6method(callback, "continue")() &&
+    (out = r.readToVector<CharacterVector>(chunkSize)).size();
+
   int pos = 1;
-  while (out.size() > 0 && R6method(callback, "continue")()) {
+  while (moreLines) {
     R6method(callback, "receive")(out, pos);
     pos += out.size();
-    out = r.readToVector<CharacterVector>(chunk_size);
+    moreLines = R6method(callback, "continue")() &&
+      (out = r.readToVector<CharacterVector>(chunkSize)).size();
   }
 
   return;
@@ -103,8 +108,9 @@ RObject read_tokens_(List sourceSpec, List tokenizerSpec, ListOf<List> colSpecs,
 }
 
 // [[Rcpp::export]]
-void read_tokens_chunked_(List sourceSpec, Environment callback, int chunkSize, List tokenizerSpec, ListOf<List> colSpecs,
-                    CharacterVector colNames, List locale_, bool progress = true) {
+void read_tokens_chunked_(List sourceSpec, Environment callback, int chunkSize,
+    List tokenizerSpec, ListOf<List> colSpecs, CharacterVector colNames,
+    List locale_, bool progress = true) {
 
   LocaleInfo l(locale_);
   Reader r(
@@ -115,12 +121,17 @@ void read_tokens_chunked_(List sourceSpec, Environment callback, int chunkSize, 
     &l,
     colNames);
 
-  DataFrame out = r.readToDataFrame(chunkSize);
+  DataFrame out;
+
+  bool moreLines = R6method(callback, "continue")() &&
+    (out = r.readToDataFrame(chunkSize)).nrows();
+
   int pos = 1;
-  while (out.nrows() > 0 && R6method(callback, "continue")()) {
+  while (moreLines) {
     R6method(callback, "receive")(out, pos);
     pos += out.nrows();
-    out = r.readToDataFrame(chunkSize);
+    moreLines = R6method(callback, "continue")() &&
+      (out = r.readToDataFrame(chunkSize)).nrows();
   }
 
   return;
