@@ -9,6 +9,11 @@ test_that("default format captures cases", {
   expect_equal(parse_time("10:20:05 pm"), hms::as.hms(late_night + 5))
 })
 
+test_that("accepts single digit hour", {
+  early_morn <- hms::hms(seconds = 1 * 3600 + 20 * 60)
+  expect_equal(parse_time("1:20 am"), early_morn)
+})
+
 test_that("parses NA/empty correctly", {
   out <- parse_time(c("NA", ""))
   exp <- hms::hms(seconds = c(NA_real_, NA_real_))

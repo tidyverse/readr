@@ -87,7 +87,7 @@ public:
 
   // A flexible time parser for the most common formats
   bool parseTime() {
-    if (!consumeInteger(2, &hour_))
+    if (!consumeInteger(2, &hour_, false))
       return false;
     if (!consumeThisChar(':'))
       return false;
