@@ -50,7 +50,7 @@ read_fwf <- function(file, col_positions, col_types = NULL,
     drop_skipped_names = TRUE
   )
 
-  if (is.null(col_types) && progress && !inherits(ds, "source_string")) {
+  if (is.null(col_types) && !inherits(ds, "source_string")) {
     show_cols_spec(spec)
   }
 
