@@ -19,7 +19,9 @@ class Reader {
     T readToVector(int lines) {
       read(lines);
 
-      return as<T>(collectors_[0]->vector());
+      T out = as<T>(collectors_[0]->vector());
+      collectorsClear();
+      return out;
     }
 
     template<typename T>
@@ -37,13 +39,17 @@ class Reader {
     bool progress_;
     LocaleInfo* locale_;
     Progress progressBar_;
-    const static int progressStep_ = 10000;
     std::vector<int> keptColumns_;
     CharacterVector outNames_;
+    bool begun_;
+    Token t_;
+
+    const static int progressStep_ = 10000;
 
     void init(CharacterVector colNames);
     int read(int lines = -1);
     void checkColumns(int i, int j, int n);
 
     void collectorsResize(int n);
+    void collectorsClear();
 };

@@ -50,6 +50,10 @@ public:
     column_ = Rf_lengthgets(column_, n);
   }
 
+  void clear() {
+    resize(0);
+  }
+
   void setWarnings(Warnings* pWarnings) {
     pWarnings_ = pWarnings;
   }
@@ -248,6 +252,7 @@ public:
 
 std::vector<CollectorPtr> collectorsCreate(Rcpp::ListOf<Rcpp::List> specs, LocaleInfo* pLocale);
 void collectorsResize(std::vector<CollectorPtr>& collectors, int n);
+void collectorsClear(std::vector<CollectorPtr>& collectors);
 std::string collectorGuess(Rcpp::CharacterVector input, Rcpp::List locale_);
 
 #endif

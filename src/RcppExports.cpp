@@ -149,6 +149,21 @@ BEGIN_RCPP
     return __result;
 END_RCPP
 }
+// read_lines_chunked_
+void read_lines_chunked_(List sourceSpec, List locale_, std::vector<std::string> na, int chunkSize, Environment callback, bool progress);
+RcppExport SEXP readr_read_lines_chunked_(SEXP sourceSpecSEXP, SEXP locale_SEXP, SEXP naSEXP, SEXP chunkSizeSEXP, SEXP callbackSEXP, SEXP progressSEXP) {
+BEGIN_RCPP
+    Rcpp::RNGScope __rngScope;
+    Rcpp::traits::input_parameter< List >::type sourceSpec(sourceSpecSEXP);
+    Rcpp::traits::input_parameter< List >::type locale_(locale_SEXP);
+    Rcpp::traits::input_parameter< std::vector<std::string> >::type na(naSEXP);
+    Rcpp::traits::input_parameter< int >::type chunkSize(chunkSizeSEXP);
+    Rcpp::traits::input_parameter< Environment >::type callback(callbackSEXP);
+    Rcpp::traits::input_parameter< bool >::type progress(progressSEXP);
+    read_lines_chunked_(sourceSpec, locale_, na, chunkSize, callback, progress);
+    return R_NilValue;
+END_RCPP
+}
 // read_lines_raw_
 List read_lines_raw_(List sourceSpec, int n_max, bool progress);
 RcppExport SEXP readr_read_lines_raw_(SEXP sourceSpecSEXP, SEXP n_maxSEXP, SEXP progressSEXP) {
@@ -177,6 +192,23 @@ BEGIN_RCPP
     Rcpp::traits::input_parameter< bool >::type progress(progressSEXP);
     __result = Rcpp::wrap(read_tokens_(sourceSpec, tokenizerSpec, colSpecs, colNames, locale_, n_max, progress));
     return __result;
+END_RCPP
+}
+// read_tokens_chunked_
+void read_tokens_chunked_(List sourceSpec, Environment callback, int chunkSize, List tokenizerSpec, ListOf<List> colSpecs, CharacterVector colNames, List locale_, bool progress);
+RcppExport SEXP readr_read_tokens_chunked_(SEXP sourceSpecSEXP, SEXP callbackSEXP, SEXP chunkSizeSEXP, SEXP tokenizerSpecSEXP, SEXP colSpecsSEXP, SEXP colNamesSEXP, SEXP locale_SEXP, SEXP progressSEXP) {
+BEGIN_RCPP
+    Rcpp::RNGScope __rngScope;
+    Rcpp::traits::input_parameter< List >::type sourceSpec(sourceSpecSEXP);
+    Rcpp::traits::input_parameter< Environment >::type callback(callbackSEXP);
+    Rcpp::traits::input_parameter< int >::type chunkSize(chunkSizeSEXP);
+    Rcpp::traits::input_parameter< List >::type tokenizerSpec(tokenizerSpecSEXP);
+    Rcpp::traits::input_parameter< ListOf<List> >::type colSpecs(colSpecsSEXP);
+    Rcpp::traits::input_parameter< CharacterVector >::type colNames(colNamesSEXP);
+    Rcpp::traits::input_parameter< List >::type locale_(locale_SEXP);
+    Rcpp::traits::input_parameter< bool >::type progress(progressSEXP);
+    read_tokens_chunked_(sourceSpec, callback, chunkSize, tokenizerSpec, colSpecs, colNames, locale_, progress);
+    return R_NilValue;
 END_RCPP
 }
 // guess_types_

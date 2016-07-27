@@ -31,6 +31,13 @@ public:
     return row_.size();
   }
 
+  void clear() {
+    row_.clear();
+    col_.clear();
+    expected_.clear();
+    actual_.clear();
+  }
+
   Rcpp::List asDataFrame() {
     Rcpp::List out = Rcpp::List::create(
       Rcpp::_["row"] = Rcpp::wrap(row_),

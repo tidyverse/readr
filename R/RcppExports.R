@@ -45,12 +45,20 @@ read_lines_ <- function(sourceSpec, locale_, na, n_max = -1L, progress = TRUE) {
     .Call('readr_read_lines_', PACKAGE = 'readr', sourceSpec, locale_, na, n_max, progress)
 }
 
+read_lines_chunked_ <- function(sourceSpec, locale_, na, chunkSize, callback, progress = TRUE) {
+    invisible(.Call('readr_read_lines_chunked_', PACKAGE = 'readr', sourceSpec, locale_, na, chunkSize, callback, progress))
+}
+
 read_lines_raw_ <- function(sourceSpec, n_max = -1L, progress = FALSE) {
     .Call('readr_read_lines_raw_', PACKAGE = 'readr', sourceSpec, n_max, progress)
 }
 
 read_tokens_ <- function(sourceSpec, tokenizerSpec, colSpecs, colNames, locale_, n_max = -1L, progress = TRUE) {
     .Call('readr_read_tokens_', PACKAGE = 'readr', sourceSpec, tokenizerSpec, colSpecs, colNames, locale_, n_max, progress)
+}
+
+read_tokens_chunked_ <- function(sourceSpec, callback, chunkSize, tokenizerSpec, colSpecs, colNames, locale_, progress = TRUE) {
+    invisible(.Call('readr_read_tokens_chunked_', PACKAGE = 'readr', sourceSpec, callback, chunkSize, tokenizerSpec, colSpecs, colNames, locale_, progress))
 }
 
 guess_types_ <- function(sourceSpec, tokenizerSpec, locale_, n = 100L) {

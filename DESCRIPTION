@@ -19,7 +19,8 @@ Imports:
     Rcpp (>= 0.11.5),
     curl,
     tibble,
-    hms
+    hms,
+    R6
 Suggests:
     testthat,
     knitr,

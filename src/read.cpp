@@ -30,8 +30,8 @@ RawVector read_file_raw_(List sourceSpec) {
 }
 
 // [[Rcpp::export]]
-CharacterVector read_lines_(List sourceSpec, List locale_, std::vector<std::string> na, int n_max = -1,
-                            bool progress = true) {
+CharacterVector read_lines_(List sourceSpec, List locale_,
+    std::vector<std::string> na, int n_max = -1, bool progress = true) {
 
   LocaleInfo locale(locale_);
   Reader r(
@@ -42,6 +42,35 @@ CharacterVector read_lines_(List sourceSpec, List locale_, std::vector<std::stri
     &locale);
 
   return r.readToVector<CharacterVector>(n_max);
+}
+
+Function R6method(Environment env, const std::string& method) {
+  return as<Function>(env[method]);
+}
+
+// [[Rcpp::export]]
+void read_lines_chunked_(List sourceSpec, List locale_,
+    std::vector<std::string> na, int chunkSize, Environment callback,
+    bool progress = true) {
+
+  LocaleInfo locale(locale_);
+  Reader r(
+    Source::create(sourceSpec),
+    TokenizerPtr(new TokenizerLine(na)),
+    CollectorPtr(new CollectorCharacter(&locale.encoder_)),
+    progress,
+    &locale);
+
+  CharacterVector out;
+
+  int pos = 1;
+  while (R6method(callback, "continue")() &&
+      (out = r.readToVector<CharacterVector>(chunkSize)).size()) {
+    R6method(callback, "receive")(out, pos);
+    pos += out.size();
+  }
+
+  return;
 }
 
 // [[Rcpp::export]]
@@ -73,6 +102,32 @@ RObject read_tokens_(List sourceSpec, List tokenizerSpec, ListOf<List> colSpecs,
     colNames);
 
   return r.readToDataFrame(n_max);
+}
+
+// [[Rcpp::export]]
+void read_tokens_chunked_(List sourceSpec, Environment callback, int chunkSize,
+    List tokenizerSpec, ListOf<List> colSpecs, CharacterVector colNames,
+    List locale_, bool progress = true) {
+
+  LocaleInfo l(locale_);
+  Reader r(
+    Source::create(sourceSpec),
+    Tokenizer::create(tokenizerSpec),
+    collectorsCreate(colSpecs, &l),
+    progress,
+    &l,
+    colNames);
+
+  DataFrame out;
+
+  int pos = 1;
+  while (R6method(callback, "continue")() &&
+      (out = r.readToDataFrame(chunkSize)).nrows()) {
+    R6method(callback, "receive")(out, pos);
+    pos += out.nrows();
+  }
+
+  return;
 }
 
 // [[Rcpp::export]]

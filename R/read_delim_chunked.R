@@ -1,0 +1,106 @@
+# Generates the chunked definition from the read_* definition
+generate_chunked_fun <- function(x) {
+  args <- formals(x)
+
+  # Remove n_max argument
+  args <- args[names(args) != "n_max"]
+
+  # Change guess_max default to use chunk_size
+  args$guess_max[[3]] <- quote(chunk_size)
+
+  args <- append(args, alist(callback =, chunk_size = 10000), 1)
+
+  b <- as.list(body(x))
+
+  # Change read_delimited to read_delimited_chunked
+  b[[length(b)]][[1]] <- quote(read_delimited_chunked)
+
+  call_args <- as.list(b[[length(b)]])
+
+  # Remove the n_max argument
+  call_args <- call_args[!names(call_args) == "n_max"]
+
+  # add the callback and chunk_size arguments
+  b[[length(b)]] <- as.call(append(call_args, alist(callback = callback, chunk_size = chunk_size), 2))
+
+  body(x) <- as.call(b)
+
+  formals(x) <- args
+
+  x
+}
+
+# Generates the modified read_delimited function
+generate_read_delimited_chunked <- function(x) {
+  args <- formals(x)
+  args <- args[names(args) != "n_max"]
+  args <- append(args, alist(callback =, chunk_size = 10000), 1)
+
+  # Change guess_max default to use chunk_size
+  args$guess_max[[3]] <- quote(chunk_size)
+
+  b <- as.list(body(x))
+
+  for (i in seq_along(b)) {
+    if (is.call(b[[i]]) && identical(b[[i]][[1]], as.symbol("<-")) &&
+        is.call(b[[i]][[3]]) && identical(b[[i]][[3]][[1]], quote(read_tokens))) {
+
+      # Change read_tokens() to read_tokens_chunked
+      b[[i]][[3]][[1]] <- quote(read_tokens_chunked)
+      chunked_call <- as.list(b[[i]][[3]])
+
+      # Remove the n_max argument
+      chunked_call <- chunked_call[!names(chunked_call) == "n_max"]
+
+      # Add the callback and chunk_size arguments
+      b[[i]] <- as.call(append(chunked_call, alist(callback = callback, chunk_size = chunk_size), 2))
+
+      # Remove additional calls
+      b <- b[-seq(i + 1, length(b))]
+      body(x) <- as.call(b)
+      formals(x) <- args
+      return(x)
+    }
+  }
+
+  x
+}
+
+read_tokens_chunked <- function(data, callback, chunk_size, tokenizer, col_specs, col_names, locale_, progress) {
+  callback <- as_chunk_callback(callback)
+  on.exit(callback$finally(), add = TRUE)
+
+  read_tokens_chunked_(data, callback, chunk_size, tokenizer, col_specs, col_names, locale_, progress)
+
+  return(callback$result())
+}
+
+utils::globalVariables(c("callback", "chunk_size"))
+
+read_delimited_chunked <- generate_read_delimited_chunked(read_delimited)
+
+#' Read a delimited file by chunks
+#'
+#' @inheritParams read_delim
+#' @param callback A callback function to call on each chunk
+#' @param chunk_size The number of rows to include in each chunk
+#' @keywords internal
+#' @family chunked
+#' @export
+#' @examples
+#' # Cars with 3 gears
+#' f <- function(x, pos) subset(x, gear == 3)
+#' read_csv_chunked(readr_example("mtcars.csv"), DataFrameCallback$new(f), chunk_size = 5)
+read_delim_chunked <- generate_chunked_fun(read_delim)
+
+#' @rdname read_delim_chunked
+#' @export
+read_csv_chunked <- generate_chunked_fun(read_csv)
+
+#' @rdname read_delim_chunked
+#' @export
+read_csv2_chunked <- generate_chunked_fun(read_csv2)
+
+#' @rdname read_delim_chunked
+#' @export
+read_tsv_chunked <- generate_chunked_fun(read_tsv)

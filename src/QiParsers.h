@@ -117,7 +117,7 @@ end:
 
 template <typename Iterator, typename Attr>
 inline bool parseInt(Iterator& first, Iterator& last, Attr& res) {
-  return  boost::spirit::qi::parse(first, last, boost::spirit::qi::int_, res);
+  return boost::spirit::qi::parse(first, last, boost::spirit::qi::int_, res);
 }
 
 #endif
