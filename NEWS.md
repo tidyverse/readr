@@ -119,6 +119,9 @@ Date and time parsing functions received a number of small enhancements:
 * `write_file()` to write a single character or raw vector
   to a file (#474).
 
+* Experimental support for chunked reading a writing (`read_*_chunked()`)
+  functions. The API is unstable and subject to change in the future (#427).
+
 ## Minor features and bug fixes
 
 * Printing double values now uses an
