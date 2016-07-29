@@ -99,9 +99,9 @@ int Reader::read(int lines) {
       break;
     }
 
-    if (last_row != -1 && (last_row - first_row) >= n) {
+    if (t_.row() - first_row >= n) {
       // Estimate rows in full dataset and resize collectors
-      n = ((last_row - first_row) / tokenizer_->progress().first) * 1.1;
+      n = ((t_.row() - first_row) / tokenizer_->progress().first) * 1.1;
       collectorsResize(n);
     }
 

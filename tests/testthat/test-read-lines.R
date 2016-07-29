@@ -29,6 +29,15 @@ test_that("blank lines are passed unchanged", {
   expect_equal(read_lines(tmp, na = ""), c("abc", NA_character_, "123"))
 })
 
+test_that("allocation works as expected", {
+  tmp <- tempfile(fileext = ".gz")
+  on.exit(unlink(tmp))
+
+  x <- rep(paste(rep("a", 2 ^ 10), collapse = ''), 2 ^ 11)
+  writeLines(x, tmp)
+  expect_equal(length(read_lines(tmp)), 2^11)
+})
+
 # These tests are slow so are commented out
 #test_that("long vectors are supported", {
   #tmp <- tempfile(fileext = ".gz")
