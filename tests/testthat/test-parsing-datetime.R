@@ -130,12 +130,12 @@ test_that("%. requires a value", {
 })
 
 test_that("%Z detects named time zones", {
-  ref <- POSIXct(1285912800, "US/Central")
-  ct <- locale(tz = "US/Central")
+  ref <- POSIXct(1285912800, "America/Chicago")
+  ct <- locale(tz = "America/Chicago")
 
   expect_equal(parse_datetime("2010-10-01 01:00", locale = ct), ref)
   expect_equal(
-    parse_datetime("2010-10-01 01:00 US/Central", "%Y-%m-%d %H:%M %Z", locale = ct),
+    parse_datetime("2010-10-01 01:00 America/Chicago", "%Y-%m-%d %H:%M %Z", locale = ct),
     ref
   )
 })
