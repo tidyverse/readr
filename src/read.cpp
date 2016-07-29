@@ -38,8 +38,7 @@ CharacterVector read_lines_(List sourceSpec, List locale_,
     Source::create(sourceSpec),
     TokenizerPtr(new TokenizerLine(na)),
     CollectorPtr(new CollectorCharacter(&locale.encoder_)),
-    progress,
-    &locale);
+    progress);
 
   return r.readToVector<CharacterVector>(n_max);
 }
@@ -58,8 +57,7 @@ void read_lines_chunked_(List sourceSpec, List locale_,
     Source::create(sourceSpec),
     TokenizerPtr(new TokenizerLine(na)),
     CollectorPtr(new CollectorCharacter(&locale.encoder_)),
-    progress,
-    &locale);
+    progress);
 
   CharacterVector out;
 
@@ -98,7 +96,6 @@ RObject read_tokens_(List sourceSpec, List tokenizerSpec, ListOf<List> colSpecs,
     Tokenizer::create(tokenizerSpec),
     collectorsCreate(colSpecs, &l),
     progress,
-    &l,
     colNames);
 
   return r.readToDataFrame(n_max);
@@ -115,7 +112,6 @@ void read_tokens_chunked_(List sourceSpec, Environment callback, int chunkSize,
     Tokenizer::create(tokenizerSpec),
     collectorsCreate(colSpecs, &l),
     progress,
-    &l,
     colNames);
 
   DataFrame out;

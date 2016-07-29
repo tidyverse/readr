@@ -8,10 +8,10 @@ using namespace Rcpp;
 class Reader {
   public:
     Reader(SourcePtr source, TokenizerPtr tokenizer, std::vector<CollectorPtr> collectors, bool progress = true,
-        LocaleInfo* locale = NULL, CharacterVector colNames = CharacterVector());
+        CharacterVector colNames = CharacterVector());
 
     Reader(SourcePtr source, TokenizerPtr tokenizer, CollectorPtr collector, bool progress = true,
-        LocaleInfo* locale = NULL, CharacterVector colNames = CharacterVector());
+        CharacterVector colNames = CharacterVector());
 
     RObject readToDataFrame(int lines = -1);
 
@@ -37,7 +37,6 @@ class Reader {
     TokenizerPtr tokenizer_;
     std::vector<CollectorPtr> collectors_;
     bool progress_;
-    LocaleInfo* locale_;
     Progress progressBar_;
     std::vector<int> keptColumns_;
     CharacterVector outNames_;

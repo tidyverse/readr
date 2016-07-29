@@ -1,22 +1,20 @@
 #include "Reader.h"
 
 Reader::Reader(SourcePtr source, TokenizerPtr tokenizer, std::vector<CollectorPtr> collectors,
-        bool progress, LocaleInfo* locale, CharacterVector colNames) :
+        bool progress, CharacterVector colNames) :
   source_(source),
   tokenizer_(tokenizer),
   collectors_(collectors),
   progress_(progress),
-  locale_(locale),
   begun_(false) {
     init(colNames);
 }
 
 Reader::Reader(SourcePtr source, TokenizerPtr tokenizer,
-    CollectorPtr collector, bool progress, LocaleInfo* locale, CharacterVector colNames) :
+    CollectorPtr collector, bool progress, CharacterVector colNames) :
   source_(source),
   tokenizer_(tokenizer),
   progress_(progress),
-  locale_(locale),
   begun_(false) {
 
   collectors_.push_back(collector);
@@ -27,7 +25,7 @@ void Reader::init(CharacterVector colNames) {
   tokenizer_->tokenize(source_->begin(), source_->end());
   tokenizer_->setWarnings(&warnings_);
 
-  // Work out which output columns we are keeping and set the locale for each collectors
+  // Work out which output columns we are keeping and set warnings for each collector
   size_t p = collectors_.size();
   for (size_t j = 0; j < p; ++j) {
     if (!collectors_[j]->skip()) {
