@@ -23,7 +23,7 @@
 |knitr     |   |1.13       |2016-05-09 |CRAN (R 3.3.0)                   |
 |R6        |   |2.1.2      |2016-01-26 |CRAN (R 3.3.0)                   |
 |Rcpp      |   |0.12.6     |2016-07-19 |cran (@0.12.6)                   |
-|readr     |   |0.2.2.9000 |2016-07-29 |local (hadley/readr@9d09872)     |
+|readr     |   |0.2.2.9000 |2016-07-29 |local (hadley/readr@8f8793a)     |
 |rmarkdown |   |1.0        |2016-07-08 |cran (@1.0)                      |
 |stringi   |   |1.1.1      |2016-05-27 |cran (@1.1.1)                    |
 |testthat  |*  |1.0.2.9000 |2016-07-19 |Github (hadley/testthat@46d15da) |
@@ -81,34 +81,25 @@ Bug reports: https://github.com/USGS-R/dataRetrieval/issues
 Maintainer: Dean Attali <daattali@gmail.com>  
 Bug reports: https://github.com/daattali/ddpcr/issues
 
-1 error  | 1 warning  | 0 notes
+1 error  | 0 warnings | 0 notes
 
 ```
 checking tests ... ERROR
 Running the tests in ‘tests/testthat.R’ failed.
 Last 13 lines of output:
+  )
+  Parsed with column specification:
+  cols(
+    `Assay1 Amplitude` = col_double(),
+    `Assay2 Amplitude` = col_double(),
+    Cluster = col_integer()
+  )
   testthat results ================================================================
-  OK: 220 SKIPPED: 0 FAILED: 8
-  1. Error: classify works (@test-custom_thresholds.R#38) 
-  2. Error: get_empty_cutoff works (@test-empty.R#6) 
-  3. Error: get_empty_cutoff for pnpp works (@test-empty.R#20) 
-  4. Error: is_well_success works (@test-failures.R#6) 
-  5. Error: test basic plate attribute getters/setters (@test-plate-attribs.R#30) 
-  6. Error: reset works (@test-plate.R#12) 
-  7. Error: next_step and analyze work (@test-plate.R#46) 
-  8. Failure: get_filled_drops works (@test-pnpp_experiment-filled.R#22) 
+  OK: 261 SKIPPED: 0 FAILED: 1
+  1. Failure: get_filled_drops works (@test-pnpp_experiment-filled.R#22) 
   
   Error: testthat unit tests failed
   Execution halted
-
-checking re-building of vignette outputs ... WARNING
-Error in re-building vignettes:
-  ...
-Quitting from lines 205-213 (extend.Rmd) 
-Error: processing vignette 'extend.Rmd' failed with diagnostics:
-NA/NaN/Inf in foreign function call (arg 1)
-Execution halted
-
 ```
 
 ## eechidna (0.1)
@@ -120,64 +111,7 @@ Maintainer: Ben Marwick <benmarwick@gmail.com>
 Maintainer: Philippe Massicotte <pm@bios.au.dk>  
 Bug reports: https://github.com/PMassicotte/eemR/issues
 
-2 errors | 1 warning  | 0 notes
-
-```
-checking examples ... ERROR
-Running examples in ‘eemR-Ex.R’ failed
-The error most likely occurred in:
-
-> base::assign(".ptime", proc.time(), pos = "CheckExEnv")
-> ### Name: eem_bind
-> ### Title: Bind eem or eemlist
-> ### Aliases: eem_bind
-> 
-> ### ** Examples
-> 
-> file <- system.file("extdata/cary/scans_day_1/", "sample1.csv", package = "eemR")
-> eem <- eem_read(file)
-Error in read_lines_(ds, locale_ = locale, na = na, n_max = n_max, progress = progress) : 
-  attempt to set index 1000/1000 in SET_STRING_ELT
-Calls: eem_read ... lapply -> FUN -> read_lines -> read_lines_ -> .Call
-Execution halted
-
-checking tests ... ERROR
-Running the tests in ‘tests/testthat.R’ failed.
-Last 13 lines of output:
-  4: read_lines(file)
-  5: read_lines_(ds, locale_ = locale, na = na, n_max = n_max, progress = progress) at /Users/hadley/Documents/ingest/readr/R/read_lines.R:24
-  
-  Error in read_lines_(ds, locale_ = locale, na = na, n_max = n_max, progress = progress) : 
-    attempt to set index 1000/1000 in SET_STRING_ELT
-  Calls: test_check ... lapply -> FUN -> read_lines -> read_lines_ -> .Call
-  testthat results ================================================================
-  OK: 0 SKIPPED: 0 FAILED: 2
-  1. Error: grouped blank correction works (@test-blank-correction.R#6) 
-  2. Error: single blank correction works (@test-blank-correction.R#20) 
-  
-  Error: testthat unit tests failed
-  Execution halted
-
-checking re-building of vignette outputs ... WARNING
-Error in re-building vignettes:
-  ...
-
-Attaching package: 'dplyr'
-
-The following objects are masked from 'package:stats':
-
-    filter, lag
-
-The following objects are masked from 'package:base':
-
-    intersect, setdiff, setequal, union
-
-Quitting from lines 32-48 (introduction.Rmd) 
-Error: processing vignette 'introduction.Rmd' failed with diagnostics:
-attempt to set index 1000/1000 in SET_STRING_ELT
-Execution halted
-
-```
+0 errors | 0 warnings | 0 notes
 
 ## efreadr (0.1.1)
 Maintainer: Marco Bascietto <marco.bascietto@crea.gov.it>
@@ -197,32 +131,7 @@ Maintainer: Simon Barthelme <simon.barthelme@gipsa-lab.fr>
 ## fuzzyjoin (0.1.1)
 Maintainer: David Robinson <drobinson@stackoverflow.com>
 
-1 error  | 0 warnings | 0 notes
-
-```
-checking examples ... ERROR
-Running examples in ‘fuzzyjoin-Ex.R’ failed
-The error most likely occurred in:
-
-> base::assign(".ptime", proc.time(), pos = "CheckExEnv")
-> ### Name: misspellings
-> ### Title: A corpus of common misspellings, for examples and practice
-> ### Aliases: misspellings
-> ### Keywords: datasets
-> 
-... 33 lines ...
-+   html_nodes("pre") %>%
-+   html_text() %>%
-+   readr::read_delim(col_names = c("misspelling", "correct"), delim = ">",
-+                     skip = 1) %>%
-+   mutate(misspelling = str_sub(misspelling, 1, -2)) %>%
-+   unnest(correct = str_split(correct, ", ")) %>%
-+   filter(Encoding(correct) != "UTF-8")
-Error in read_tokens_(data, tokenizer, col_specs, col_names, locale_,  : 
-  attempt to set index 1000/1000 in SET_STRING_ELT
-Calls: %>% ... read_delimited -> read_tokens -> read_tokens_ -> .Call
-Execution halted
-```
+0 errors | 0 warnings | 0 notes
 
 ## geojsonio (0.2.0)
 Maintainer: Scott Chamberlain <myrmecocystus@gmail.com>  
@@ -256,49 +165,7 @@ Maintainer: Dirk Eddelbuettel <edd@debian.org>
 Maintainer: David Robinson <admiral.david@gmail.com>  
 Bug reports: http://github.com/ropenscilabs/gutenbergr/issues
 
-1 error  | 1 warning  | 0 notes
-
-```
-checking tests ... ERROR
-Running the tests in ‘tests/testthat.R’ failed.
-Last 13 lines of output:
-  sum(str_detect(d$text, "Aristotle")) is not strictly more than 50. Difference: -50
-  
-  
-  testthat results ================================================================
-  OK: 49 SKIPPED: 0 FAILED: 5
-  1. Failure: Can download Charles Dickens' Christmas Carol and Jane Austen's Persuasion (@test-download.R#22) 
-  2. Failure: Can download Charles Dickens' Christmas Carol and Jane Austen's Persuasion (@test-download.R#23) 
-  3. Failure: Can download Charles Dickens' Christmas Carol and Jane Austen's Persuasion (@test-download.R#31) 
-  4. Failure: Can download Charles Dickens' Christmas Carol and Jane Austen's Persuasion (@test-download.R#32) 
-  5. Failure: We can download a file that only has a -8 version (@test-download.R#50) 
-  
-  Error: testthat unit tests failed
-  Execution halted
-
-checking re-building of vignette outputs ... WARNING
-Error in re-building vignettes:
-  ...
-
-    filter, lag
-
-The following objects are masked from 'package:base':
-
-    intersect, setdiff, setequal, union
-
-... 8 lines ...
-Warning in .f(.x[[i]], ...) :
-  Could not download a book at http://www.gutenberg.lib.md.us/7/6/768/768.zip
-Warning in .f(.x[[i]], ...) :
-  Could not download a book at http://www.gutenberg.lib.md.us/1/2/6/1260/1260.zip
-Warning: Unknown column 'text'
-Warning in is.na(text) :
-  is.na() applied to non-(list or vector) of type 'NULL'
-Quitting from lines 119-131 (intro.Rmd) 
-Error: processing vignette 'intro.Rmd' failed with diagnostics:
-invalid 'times' argument
-Execution halted
-```
+0 errors | 0 warnings | 0 notes
 
 ## httr (1.2.1)
 Maintainer: Hadley Wickham <hadley@rstudio.com>
@@ -316,7 +183,7 @@ Maintainer: Ben Baumer <ben.baumer@gmail.com>
 
 0 errors | 0 warnings | 0 notes
 
-## mosaic (0.14)
+## mosaic (0.14.4)
 Maintainer: Randall Pruim <rpruim@calvin.edu>  
 Bug reports: https://github.com/ProjectMOSAIC/mosaic/issues
 
@@ -358,48 +225,7 @@ Maintainer: Bradley Buchsbaum <brad.buchsbaum@gmail.com>
 Maintainer: Pedro J. Aphalo <pedro.aphalo@helsinki.fi>  
 Bug reports: https://bitbucket.org/aphalo/photobiologyinout/
 
-1 error  | 1 warning  | 0 notes
-
-```
-checking tests ... ERROR
-Running the tests in ‘tests/testthat.R’ failed.
-Last 13 lines of output:
-  Read 18 items
-  Read 3 items
-  Read 16 items
-  Read 3 items
-  Read 16 items
-  Read 4 items
-  testthat results ================================================================
-  OK: 202 SKIPPED: 0 FAILED: 2
-  1. Failure: single spectrum (quantum) (@test-avantes.R#16) 
-  2. Failure: single spectrum (quantum) (@test-avantes.R#17) 
-  
-  Error: testthat unit tests failed
-  Execution halted
-
-checking re-building of vignette outputs ... WARNING
-Error in re-building vignettes:
-  ...
-Read 3 items
-Read 16 items
-Read 4 items
-Read 18 items
-Read 4 items
-Read 18 items
-Read 4 items
-Read 18 items
-Read 4 items
-Read 18 items
-Read 3 items
-Read 16 items
-Read 12 items
-Quitting from lines 334-336 (user-guide.Rnw) 
-Error: processing vignette 'user-guide.Rnw' failed with diagnostics:
-'vec' must be sorted non-decreasingly and not contain NAs
-Execution halted
-
-```
+0 errors | 0 warnings | 0 notes
 
 ## pollstR (1.4.0)
 Maintainer: Jeffrey B. Arnold <jeffrey.arnold@gmail.com>  
@@ -454,29 +280,9 @@ Execution halted
 Maintainer: Maëlle Salmon <maelle.salmon@yahoo.se>  
 Bug reports: http://github.com/ropenscilabs/riem/issues
 
-0 errors | 1 warning  | 1 note 
+0 errors | 0 warnings | 1 note 
 
 ```
-checking re-building of vignette outputs ... WARNING
-Error in re-building vignettes:
-  ...
-
-Attaching package: 'dplyr'
-
-The following objects are masked from 'package:stats':
-
-    filter, lag
-
-The following objects are masked from 'package:base':
-
-    intersect, setdiff, setequal, union
-
-Quitting from lines 96-97 (riem_package.Rmd) 
-Error: processing vignette 'riem_package.Rmd' failed with diagnostics:
-attempt to set index 1000/1000 in SET_STRING_ELT
-Execution halted
-
-
 checking DESCRIPTION meta-information ... NOTE
 Authors@R field gives persons with no valid roles:
   Brooke Anderson [rev] (Brooke Anderson reviewed the package for rOpenSci, see https://github.com/ropensci/onboarding/issues/39.)
@@ -513,26 +319,9 @@ Bug reports: https://github.com/Chicago/RSocrata/issues
 Maintainer: Richard Iannone <riannone@me.com>  
 Bug reports: https://github.com/rich-iannone/stationaRy/issues
 
-1 error  | 0 warnings | 1 note 
+0 errors | 0 warnings | 1 note 
 
 ```
-checking tests ... ERROR
-Running the tests in ‘tests/testthat.R’ failed.
-Last 13 lines of output:
-     <dbl> <dbl>                  <chr>   <chr> <chr>  <dbl>  <dbl> <dbl> <dbl>
-  1 710040 99999 CYPRESS BOWL FREESTYLE      CA       49.400 -123.2   969  2007
-  2 715620 99999 CYPRESS BOWL SNOWBOARD      CA       49.383 -123.2  1180  2010
-  3 716930 99999     CYPRESS BOWL SOUTH      CA       49.383 -123.2   886  2007
-  # ... with 7 more variables: end <dbl>, gmt_offset <dbl>, time_zone_id <chr>,
-  #   country_name <chr>, country_code <chr>, iso3166_2_subd <chr>,
-  #   fips10_4_subd <chr>
-  testthat results ================================================================
-  OK: 41 SKIPPED: 0 FAILED: 1
-  1. Error: get_isd_station_data returns correct number of columns (@test-get_isd_station_data.R#6) 
-  
-  Error: testthat unit tests failed
-  Execution halted
-
 checking installed package size ... NOTE
   installed size is  8.1Mb
 ```
@@ -547,32 +336,7 @@ Bug reports: https://github.com/ropensci/stplanr/issues
 Maintainer: Julia Silge <julia.silge@gmail.com>  
 Bug reports: http://github.com/juliasilge/tidytext/issues
 
-0 errors | 1 warning  | 0 notes
-
-```
-checking re-building of vignette outputs ... WARNING
-Error in re-building vignettes:
-  ...
-
-The following object is masked from 'package:tidyr':
-
-    smiths
-
-Joining, by = "word"
-Joining, by = "word"
-... 8 lines ...
-Warning in .f(.x[[i]], ...) :
-  Could not download a book at http://www.gutenberg.lib.md.us/1/3/4/1342/1342.zip
-Warning in .f(.x[[i]], ...) :
-  Could not download a book at http://www.gutenberg.lib.md.us/1/4/0/1400/1400.zip
-Warning: Unknown column 'text'
-Warning in is.na(text) :
-  is.na() applied to non-(list or vector) of type 'NULL'
-Quitting from lines 51-71 (topic_modeling.Rmd) 
-Error: processing vignette 'topic_modeling.Rmd' failed with diagnostics:
-invalid 'times' argument
-Execution halted
-```
+0 errors | 0 warnings | 0 notes
 
 ## traits (0.2.0)
 Maintainer: Scott Chamberlain <myrmecocystus@gmail.com>  
