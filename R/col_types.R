@@ -108,7 +108,7 @@ format.col_spec <- function(x, n = Inf, condense = NULL, ...) {
   }
 
   # condense if cols >= n
-  condense <- condense %||% length(x$cols) >= n
+  condense <- condense %||% (length(x$cols) >= n)
   if (isTRUE(condense)) {
     x <- cols_condense(x)
   }
