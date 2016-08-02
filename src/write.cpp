@@ -6,7 +6,7 @@ using namespace Rcpp;
 // [[Rcpp::export]]
 void write_lines_(const CharacterVector &lines, const std::string &path, const std::string& na, bool append = false) {
 
-  std::ofstream output(path.c_str(), append ? std::ofstream::app : std::ofstream::trunc);
+  std::ofstream output(path.c_str(), std::ofstream::binary | (append ? std::ofstream::app : std::ofstream::trunc));
   if (output.fail()) {
     stop("Failed to open '%s'.", path);
   }
@@ -24,7 +24,7 @@ void write_lines_(const CharacterVector &lines, const std::string &path, const s
 
 // [[Rcpp::export]]
 void write_file_raw_(RawVector x, const std::string &path, bool append = false) {
-  std::ofstream output(path.c_str(), append ? std::ofstream::app : std::ofstream::trunc);
+  std::ofstream output(path.c_str(), std::ofstream::binary | (append ? std::ofstream::app : std::ofstream::trunc));
 
   if (output.fail()) {
     stop("Failed to open '%s'.", path);
@@ -37,7 +37,7 @@ void write_file_raw_(RawVector x, const std::string &path, bool append = false) 
 
 // [[Rcpp::export]]
 void write_file_(std::string x, const std::string &path, bool append = false) {
-  std::ofstream output(path.c_str(), append ? std::ofstream::app : std::ofstream::trunc);
+  std::ofstream output(path.c_str(), std::ofstream::binary | (append ? std::ofstream::app : std::ofstream::trunc));
 
   if (output.fail()) {
     stop("Failed to open '%s'.", path);
