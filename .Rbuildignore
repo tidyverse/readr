@@ -10,3 +10,4 @@
 ^notes$
 ^codecov\.yml$
 ^\.httr-oauth$
+^appveyor\.yml$
