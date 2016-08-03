@@ -91,15 +91,15 @@ int Reader::read(int lines) {
       progressBar_.show(tokenizer_->progress());
     }
 
-    if (t_.col() == 0 && t_.row() != first_row) {
+    if (t_.col() == 0 && static_cast<int>(t_.row()) != first_row) {
       checkColumns(last_row, last_col, collectors_.size());
     }
 
-    if (lines >= 0 && t_.row() - first_row >= lines) {
+    if (lines >= 0 && static_cast<int>(t_.row()) - first_row >= lines) {
       break;
     }
 
-    if (t_.row() - first_row >= n) {
+    if (static_cast<int>(t_.row()) - first_row >= n) {
       // Estimate rows in full dataset and resize collectors
       n = ((t_.row() - first_row) / tokenizer_->progress().first) * 1.1;
       collectorsResize(n);

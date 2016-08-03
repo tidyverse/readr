@@ -88,8 +88,8 @@ TokenizerFwf::TokenizerFwf(const std::vector<int>& beginOffset, const std::vecto
   endOffset_(endOffset),
   NA_(NA),
   cols_(beginOffset.size()),
-  moreTokens_(false),
   comment_(comment),
+  moreTokens_(false),
   hasComment_(comment.size() > 0)
 {
   if (beginOffset_.size() != endOffset_.size())
