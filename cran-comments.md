@@ -1,7 +1,7 @@
 ## Test environments
-* local OS X install, R 3.2.3
-* ubuntu 12.04 (on travis-ci), R 3.2.3
-* win-builder (devel and release)
+* local OS X install, R 3.3.1
+* ubuntu 12.04 (on travis-ci), R 3.3.1
+* win-builder (R-devel)
 
 ## R CMD check results
 There were no ERRORs, WARNINGs, or NOTEs.
@@ -24,4 +24,4 @@ There are still UBSAN and ASAN warnings. Unfortunately these come from `localtim
 
   * biomartr, myTAI: I couldn't automatically install dependencies.
   
-* I notified all authors on July 19, and again today.
+* I notified all authors on Sep 25, and again today.

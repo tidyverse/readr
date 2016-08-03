@@ -1,4 +1,4 @@
-# readr 0.2.2.9000
+# readr 1.0.0
 
 ## Column guessing
 
