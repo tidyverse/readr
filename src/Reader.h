@@ -28,7 +28,7 @@ class Reader {
       RObject readToVectorWithWarnings(int lines) {
         read(lines);
 
-        warnings_.addAsAttribute(as<T>(collectors_[0]->vector()));
+        return warnings_.addAsAttribute(as<T>(collectors_[0]->vector()));
       }
 
   private:
