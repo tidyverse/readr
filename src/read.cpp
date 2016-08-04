@@ -47,7 +47,10 @@ Function R6method(Environment env, const std::string& method) {
   return as<Function>(env[method]);
 }
 bool isTrue(SEXP x) {
-  return TYPEOF(x) == LGLSXP && Rf_length(x) == 1 && LOGICAL(x)[0] == TRUE;
+  if (!(TYPEOF(x) == LGLSXP && Rf_length(x) == 1)) {
+    stop("`continue()` must return a length 1 logical vector");
+  }
+  return LOGICAL(x)[0] == TRUE;
 }
 
 // [[Rcpp::export]]
