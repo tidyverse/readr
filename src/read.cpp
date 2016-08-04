@@ -46,6 +46,9 @@ CharacterVector read_lines_(List sourceSpec, List locale_,
 Function R6method(Environment env, const std::string& method) {
   return as<Function>(env[method]);
 }
+bool isTrue(SEXP x) {
+  return TYPEOF(x) == LGLSXP && Rf_length(x) == 1 && LOGICAL(x)[0] == TRUE;
+}
 
 // [[Rcpp::export]]
 void read_lines_chunked_(List sourceSpec, List locale_,
@@ -62,7 +65,7 @@ void read_lines_chunked_(List sourceSpec, List locale_,
   CharacterVector out;
 
   int pos = 1;
-  while (R6method(callback, "continue")() &&
+  while (isTrue(R6method(callback, "continue")()) &&
       (out = r.readToVector<CharacterVector>(chunkSize)).size()) {
     R6method(callback, "receive")(out, pos);
     pos += out.size();
@@ -117,7 +120,7 @@ void read_tokens_chunked_(List sourceSpec, Environment callback, int chunkSize,
   DataFrame out;
 
   int pos = 1;
-  while (R6method(callback, "continue")() &&
+  while (isTrue(R6method(callback, "continue")()) &&
       (out = r.readToDataFrame(chunkSize)).nrows()) {
     R6method(callback, "receive")(out, pos);
     pos += out.nrows();

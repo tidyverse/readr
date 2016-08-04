@@ -1,5 +1,7 @@
 # readr 1.0.0.9000
 
+* Bugfix for chunked reading to properly allow stopping of a stream by returning FALSE from the callback.
+
 # readr 1.0.0
 
 ## Column guessing
