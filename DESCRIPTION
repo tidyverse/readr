@@ -8,7 +8,7 @@ Authors@R: c(
     person("Romain", "Francois", role = "aut"),
     person("R Core Team", role = "ctb", comment = "Date time code adapted from R"),
     person("RStudio", role = "cph"),
-    person("Jukka", "Jäylnki", role = c("ctb", "cph"), comment = "grisu3 implementation"),
+    person("Jukka", "Jylänki", role = c("ctb", "cph"), comment = "grisu3 implementation"),
     person("Mikkel", "Jørgensen", role = c("ctb", "cph"), comment = "grisu3 implementation"))
 Encoding: UTF-8
 Depends:
