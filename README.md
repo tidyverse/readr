@@ -78,7 +78,7 @@ problems(df)
 #> 2   2   2 a double      b
 ```
 
-It's likely that there will be cases that you can never load without some manual regexp-based munging in R. Load those columns with `col_character()`, fix them up as needed, then use `convert_types()` to re-run the automated conversion on every character column in the data frame. Alternatively, you can use `parse_integer()`, `parse_numeric()`, `parse_date()` etc to parse a single character vector at a time.
+It's likely that there will be cases that you can never load without some manual regexp-based munging in R. Load those columns with `col_character()`, fix them up as needed, then use `type_convert()` to re-run the automated conversion on every character column in the data frame. Alternatively, you can use `parse_integer()`, `parse_numeric()`, `parse_date()` etc to parse a single character vector at a time.
 
 ## Compared to base functions
 
