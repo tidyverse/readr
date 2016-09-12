@@ -100,6 +100,31 @@ DataFrameCallback <- R6::R6Class("DataFrameCallback", inherit = ChunkCallback,
   )
 )
 
+#' @usage NULL
+#' @format NULL
+#' @rdname callback
+#' @export
+ListCallback <- R6::R6Class("ListCallback", inherit = ChunkCallback,
+  private = list(
+    results = list()
+  ),
+  public = list(
+    initialize = function(callback) {
+      private$callback <- callback
+    },
+    receive = function(data, index) {
+      result <- private$callback(data, index)
+      private$results <- c(private$results, list(result))
+    },
+    result = function() {
+        private$results
+    },
+    finally = function() {
+      private$results <- list()
+    }
+  )
+)
+
 check_callback_fun <- function(callback) {
   n_args <- length(formals(callback))
   if (n_args < 2) {
