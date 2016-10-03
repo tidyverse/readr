@@ -52,6 +52,9 @@ NULL
 #' @param progress Display a progress bar? By default it will only display
 #'   in an interactive session. The display is updated every 50,000 values
 #'   and will only display if estimated reading time is 5 seconds or more.
+#' @param include_spec Whether or not to include the specification (the assumptions
+#'   made about the type of each column) as an attribute of the object. TRUE by
+#'   default.
 #' @return A data frame. If there are parsing problems, a warning tells you
 #'   how many, and you can retrieve the details with \code{\link{problems}()}.
 #' @export
@@ -91,13 +94,15 @@ read_delim <- function(file, delim, quote = '"',
                        locale = default_locale(),
                        na = c("", "NA"), quoted_na = TRUE,
                        comment = "", trim_ws = FALSE,
-                       skip = 0, n_max = Inf, guess_max = min(1000, n_max), progress = interactive()) {
+                       skip = 0, n_max = Inf,
+                       guess_max = min(1000, n_max), progress = interactive(),
+                       include_spec = TRUE) {
   tokenizer <- tokenizer_delim(delim, quote = quote,
     escape_backslash = escape_backslash, escape_double = escape_double,
     na = na, quoted_na = quoted_na, comment = comment, trim_ws = trim_ws)
   read_delimited(file, tokenizer, col_names = col_names, col_types = col_types,
     locale = locale, skip = skip, comment = comment, n_max = n_max, guess_max =
-      guess_max, progress = progress)
+      guess_max, progress = progress, include_spec = include_spec)
 }
 
 #' @rdname read_delim
@@ -106,12 +111,12 @@ read_csv <- function(file, col_names = TRUE, col_types = NULL,
                      locale = default_locale(), na = c("", "NA"),
                      quoted_na = TRUE, comment = "", trim_ws = TRUE, skip = 0,
                      n_max = Inf, guess_max = min(1000, n_max),
-                     progress = interactive()) {
+                     progress = interactive(), include_spec = TRUE) {
 
   tokenizer <- tokenizer_csv(na = na, quoted_na = TRUE, comment = comment, trim_ws = trim_ws)
   read_delimited(file, tokenizer, col_names = col_names, col_types = col_types,
     locale = locale, skip = skip, comment = comment, n_max = n_max, guess_max =
-      guess_max, progress = progress)
+      guess_max, progress = progress, include_spec = include_spec)
 }
 
 #' @rdname read_delim
@@ -120,7 +125,8 @@ read_csv2 <- function(file, col_names = TRUE, col_types = NULL,
                       locale = default_locale(),
                       na = c("", "NA"), quoted_na = TRUE, comment = "",
                       trim_ws = TRUE, skip = 0, n_max = Inf,
-                      guess_max = min(1000, n_max), progress = interactive()) {
+                      guess_max = min(1000, n_max), progress = interactive(),
+                      include_spec = TRUE) {
 
   if (locale$decimal_mark == ".") {
     locale$decimal_mark <- ","
@@ -131,7 +137,7 @@ read_csv2 <- function(file, col_names = TRUE, col_types = NULL,
     comment = comment, trim_ws = trim_ws)
   read_delimited(file, tokenizer, col_names = col_names, col_types = col_types,
     locale = locale, skip = skip, comment = comment, n_max = n_max,
-    guess_max = guess_max, progress = progress)
+    guess_max = guess_max, progress = progress, include_spec = include_spec)
 }
 
 
@@ -141,12 +147,13 @@ read_tsv <- function(file, col_names = TRUE, col_types = NULL,
                      locale = default_locale(),
                      na = c("", "NA"), quoted_na = TRUE,
                      comment = "", trim_ws = TRUE, skip = 0, n_max = Inf,
-                     guess_max = min(1000, n_max), progress = interactive()) {
+                     guess_max = min(1000, n_max), progress = interactive(),
+                     include_spec = TRUE) {
 
   tokenizer <- tokenizer_tsv(na = na, quoted_na = quoted_na, comment = comment, trim_ws = trim_ws)
   read_delimited(file, tokenizer, col_names = col_names, col_types = col_types,
     locale = locale, skip = skip, comment = comment, n_max = n_max,
-    guess_max = guess_max, progress = progress)
+    guess_max = guess_max, progress = progress, include_spec = include_spec)
 }
 
 # Helper functions for reading from delimited files ----------------------------
@@ -159,7 +166,8 @@ read_tokens <- function(data, tokenizer, col_specs, col_names, locale_, n_max, p
 
 read_delimited <- function(file, tokenizer, col_names = TRUE, col_types = NULL,
                            locale = default_locale(), skip = 0, comment = "",
-                           n_max = Inf, guess_max = min(1000, n_max), progress = interactive()) {
+                           n_max = Inf, guess_max = min(1000, n_max), progress = interactive(),
+                           include_spec = TRUE) {
   name <- source_name(file)
   # If connection needed, read once.
   file <- standardise_path(file)
@@ -187,7 +195,9 @@ read_delimited <- function(file, tokenizer, col_names = TRUE, col_types = NULL,
     n_max = n_max, progress = progress)
 
   out <- name_problems(out)
-  attr(out, "spec") <- spec
+  if(include_spec){
+    attr(out, "spec") <- spec
+  }
   warn_problems(out, name)
 }
 

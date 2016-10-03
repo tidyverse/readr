@@ -121,9 +121,18 @@ test_that("ignore commented lines anywhere in file", {
   expect_equal(n_problems(x1), 0)
 })
 
+test_that("read_fwf respects the include_spec parameter", {
+  x <- "1 2 3\n4 5 6"
+  expect_true(is.list(attr(x = read_fwf(x, fwf_empty(x)), which = "spec")))
+  expect_null(attr(x = read_fwf(x, fwf_empty(x), include_spec = FALSE),
+                   which = "spec"))
+})
+
+
 # read_table -------------------------------------------------------------------
 
 test_that("read_table silently reads ragged last column", {
   x <- read_table("foo bar\n1   2\n3   4\n5   6\n", progress = FALSE)
   expect_equal(x$foo, c(1, 3, 5))
 })
+

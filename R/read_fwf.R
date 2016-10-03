@@ -30,7 +30,8 @@
 read_fwf <- function(file, col_positions, col_types = NULL,
                      locale = default_locale(), na = c("", "NA"),
                      comment = "", skip = 0, n_max = Inf,
-                     guess_max = min(n_max, 1000), progress = interactive()) {
+                     guess_max = min(n_max, 1000), progress = interactive(),
+                     include_spec = TRUE) {
   ds <- datasource(file, skip = skip)
 
   if (inherits(ds, "source_file") && empty_file(file)) {
@@ -58,7 +59,9 @@ read_fwf <- function(file, col_positions, col_types = NULL,
     locale_ = locale, n_max = if (n_max == Inf) -1 else n_max, progress = progress)
 
   out <- name_problems(out)
-  attr(out, "spec") <- spec
+  if(include_spec){
+    attr(out, "spec") <- spec
+  }
   warn_problems(out, source_name(file))
 }
 

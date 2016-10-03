@@ -11,22 +11,22 @@ spec_delim(file, delim, quote = "\\"", escape_backslash = FALSE,
   escape_double = TRUE, col_names = TRUE, col_types = NULL,
   locale = default_locale(), na = c("", "NA"), quoted_na = TRUE,
   comment = "", trim_ws = FALSE, skip = 0, n_max = 0,
-  guess_max = 1000, progress = interactive())
+  guess_max = 1000, progress = interactive(), include_spec = TRUE)
 
 spec_csv(file, col_names = TRUE, col_types = NULL,
   locale = default_locale(), na = c("", "NA"), quoted_na = TRUE,
   comment = "", trim_ws = TRUE, skip = 0, n_max = 0, guess_max = 1000,
-  progress = interactive())
+  progress = interactive(), include_spec = TRUE)
 
 spec_csv2(file, col_names = TRUE, col_types = NULL,
   locale = default_locale(), na = c("", "NA"), quoted_na = TRUE,
   comment = "", trim_ws = TRUE, skip = 0, n_max = 0, guess_max = 1000,
-  progress = interactive())
+  progress = interactive(), include_spec = TRUE)
 
 spec_tsv(file, col_names = TRUE, col_types = NULL,
   locale = default_locale(), na = c("", "NA"), quoted_na = TRUE,
   comment = "", trim_ws = TRUE, skip = 0, n_max = 0, guess_max = 1000,
-  progress = interactive())
+  progress = interactive(), include_spec = TRUE)
 }
 \arguments{
 \item{file}{Either a path to a file, a connection, or literal data
@@ -113,6 +113,10 @@ each field before parsing it?}
 \item{progress}{Display a progress bar? By default it will only display
 in an interactive session. The display is updated every 50,000 values
 and will only display if estimated reading time is 5 seconds or more.}
+
+\item{include_spec}{Whether or not to include the specification (the assumptions
+made about the type of each column) as an attribute of the object. TRUE by
+default.}
 }
 \value{
 The \code{col_spec} generated for the file.
