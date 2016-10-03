@@ -9,7 +9,8 @@
 \usage{
 read_fwf(file, col_positions, col_types = NULL, locale = default_locale(),
   na = c("", "NA"), comment = "", skip = 0, n_max = Inf,
-  guess_max = min(n_max, 1000), progress = interactive())
+  guess_max = min(n_max, 1000), progress = interactive(),
+  include_spec = TRUE)
 
 fwf_empty(file, skip = 0, col_names = NULL, comment = "")
 
@@ -73,6 +74,10 @@ comment characters will be silently ignored.}
 \item{progress}{Display a progress bar? By default it will only display
 in an interactive session. The display is updated every 50,000 values
 and will only display if estimated reading time is 5 seconds or more.}
+
+\item{include_spec}{Whether or not to include the specification (the assumptions
+made about the type of each column) as an attribute of the object. TRUE by
+default.}
 
 \item{col_names}{Either NULL, or a character vector column names.}
 

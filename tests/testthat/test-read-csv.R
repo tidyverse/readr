@@ -222,5 +222,13 @@ test_that("skip respects comments", {
 })
 
 test_that("read_csv returns an empty data.frame on an empty file", {
-   expect_equal(read_csv("empty-file", progress = FALSE), tibble::data_frame())
+  expect_equal(read_csv("empty-file", progress = FALSE), tibble::data_frame())
+})
+
+test_that("read_csv respects the include_spec parameter", {
+  expect_true(is.list(attr(x = read_csv("#a\n#b\nx\n1", comment = "#", progress = FALSE),
+                           which = "spec")))
+  expect_null(attr(x = read_csv("#a\n#b\nx\n1", comment = "#",
+                                progress = FALSE, include_spec = FALSE),
+                   which = "spec"))
 })
