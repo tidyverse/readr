@@ -113,6 +113,8 @@ each field before parsing it?}
 \item{progress}{Display a progress bar? By default it will only display
 in an interactive session. The display is updated every 50,000 values
 and will only display if estimated reading time is 5 seconds or more.}
+
+\item{...}{prevent unused arguments for read_csv}
 }
 \value{
 The \code{col_spec} generated for the file.
