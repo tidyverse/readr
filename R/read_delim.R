@@ -106,7 +106,7 @@ read_csv <- function(file, col_names = TRUE, col_types = NULL,
                      locale = default_locale(), na = c("", "NA"),
                      quoted_na = TRUE, comment = "", trim_ws = TRUE, skip = 0,
                      n_max = Inf, guess_max = min(1000, n_max),
-                     progress = interactive()) {
+                     progress = interactive(), ...) {
 
   tokenizer <- tokenizer_csv(na = na, quoted_na = TRUE, comment = comment, trim_ws = trim_ws)
   read_delimited(file, tokenizer, col_names = col_names, col_types = col_types,
