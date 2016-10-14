@@ -16,7 +16,7 @@ spec_delim(file, delim, quote = "\\"", escape_backslash = FALSE,
 spec_csv(file, col_names = TRUE, col_types = NULL,
   locale = default_locale(), na = c("", "NA"), quoted_na = TRUE,
   comment = "", trim_ws = TRUE, skip = 0, n_max = 0, guess_max = 1000,
-  progress = interactive())
+  progress = interactive(), ...)
 
 spec_csv2(file, col_names = TRUE, col_types = NULL,
   locale = default_locale(), na = c("", "NA"), quoted_na = TRUE,
