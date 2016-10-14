@@ -16,7 +16,7 @@ read_delim_chunked(file, callback, chunk_size = 10000, delim, quote = "\\"",
 read_csv_chunked(file, callback, chunk_size = 10000, col_names = TRUE,
   col_types = NULL, locale = default_locale(), na = c("", "NA"),
   quoted_na = TRUE, comment = "", trim_ws = TRUE, skip = 0,
-  guess_max = min(1000, chunk_size), progress = interactive())
+  guess_max = min(1000, chunk_size), progress = interactive(), ...)
 
 read_csv2_chunked(file, callback, chunk_size = 10000, col_names = TRUE,
   col_types = NULL, locale = default_locale(), na = c("", "NA"),
