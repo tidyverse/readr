@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Write a single R object to a file — write_rds • readr</title>
+<title>Skip a column. — col_skip • readr</title>
 
 <!-- jquery -->
 <script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha384-nrOSfDHtoPMzJHjVTdCopGqIqeYETSXhZDFyniQ8ZHcVy08QesyHcnOUpMpqnmWq" crossorigin="anonymous"></script>
@@ -77,44 +77,25 @@
       </header>
 
       <div class="page-header">
-  <h1>Write a single R object to a file</h1>
+  <h1>Skip a column.</h1>
 </div>
 
 <div class="row">
   <div class="col-md-9">
     
-    <p>Consistent wrapper around <code>saveRDS</code>. <code>write_rds</code> does not
-compress by default as space is generally cheaper than time.</p>
+    <p>Use this function to ignore a column.</p>
     
 
-    <pre><span class='fu'>write_rds</span>(<span class='no'>x</span>, <span class='no'>path</span>, <span class='kw'>compress</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='st'>"none"</span>, <span class='st'>"gz"</span>, <span class='st'>"bz2"</span>, <span class='st'>"xz"</span>), <span class='no'>...</span>)</pre>
-    
-    <h2>Arguments</h2>
-    <dl class="dl-horizontal">
-      <dt>x</dt>
-      <dd>R object to write to serialise.</dd>
-      <dt>path</dt>
-      <dd>Path to write to.</dd>
-      <dt>compress</dt>
-      <dd>Compression method to use: &quot;none&quot;, &quot;gz&quot; ,&quot;bz&quot;, or &quot;xz&quot;.</dd>
-      <dt>...</dt>
-      <dd>Additional arguments to connection function. For example, control
-the space-time trade-off of different compression methods with
-<code>compression</code>. See <code>connections</code> for more details.</dd>
-    </dl>
-    
-    <div class="Value">
-      <h2>Value</h2>
+    <pre><span class='fu'>col_skip</span>()</pre>
+        
+    <div class="See also">
+      <h2>See also</h2>
 
-      <p>The input <code>x</code>, invisibly.</p>
+      <p>Other parsers: <code><a href='parse_datetime.html'>parse_datetime</a></code>,
+  <code><a href='parse_factor.html'>parse_factor</a></code>, <code><a href='parse_guess.html'>parse_guess</a></code>,
+  <code><a href='parse_atomic.html'>parse_logical</a></code>, <code><a href='parse_number.html'>parse_number</a></code></p>
     </div>
-    
-    <h2 id="examples">Examples</h2>
-    <pre class="examples"><div class='input'><span class='co'>## Not run: ------------------------------------</span>
-<span class='co'># write_rds(mtcars, "mtcars.rds")</span>
-<span class='co'># write_rds(mtcars, "compressed_mtc.rds", "xz", compression = 9L)</span>
-<span class='co'>## ---------------------------------------------</span></div></pre>
-  </div>
+      </div>
   <div class="col-md-3">
   </div>
 </div>

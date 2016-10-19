@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Write a single R object to a file — write_rds • readr</title>
+<title>readr: Read Tabular Data — readr-package • readr</title>
 
 <!-- jquery -->
 <script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha384-nrOSfDHtoPMzJHjVTdCopGqIqeYETSXhZDFyniQ8ZHcVy08QesyHcnOUpMpqnmWq" crossorigin="anonymous"></script>
@@ -77,45 +77,58 @@
       </header>
 
       <div class="page-header">
-  <h1>Write a single R object to a file</h1>
+  <h1>readr: Read Tabular Data</h1>
 </div>
 
 <div class="row">
   <div class="col-md-9">
     
-    <p>Consistent wrapper around <code>saveRDS</code>. <code>write_rds</code> does not
-compress by default as space is generally cheaper than time.</p>
+    <p>Read flat/tabular text files from disk (or a connection).</p>
     
 
-    <pre><span class='fu'>write_rds</span>(<span class='no'>x</span>, <span class='no'>path</span>, <span class='kw'>compress</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='st'>"none"</span>, <span class='st'>"gz"</span>, <span class='st'>"bz2"</span>, <span class='st'>"xz"</span>), <span class='no'>...</span>)</pre>
-    
-    <h2>Arguments</h2>
-    <dl class="dl-horizontal">
-      <dt>x</dt>
-      <dd>R object to write to serialise.</dd>
-      <dt>path</dt>
-      <dd>Path to write to.</dd>
-      <dt>compress</dt>
-      <dd>Compression method to use: &quot;none&quot;, &quot;gz&quot; ,&quot;bz&quot;, or &quot;xz&quot;.</dd>
-      <dt>...</dt>
-      <dd>Additional arguments to connection function. For example, control
-the space-time trade-off of different compression methods with
-<code>compression</code>. See <code>connections</code> for more details.</dd>
-    </dl>
-    
-    <div class="Value">
-      <h2>Value</h2>
+        
+    <div class="See also">
+      <h2>See also</h2>
 
-      <p>The input <code>x</code>, invisibly.</p>
+      <p>Useful links:
+<ul>
+<li> <a href = 'http://readr.tidyverse.org'>http://readr.tidyverse.org</a>
+  </li>
+<li> <a href = 'https://github.com/tidyverse/readr'>https://github.com/tidyverse/readr</a>
+  </li>
+<li> Report bugs at <a href = 'https://github.com/tidyverse/readr/issues'>https://github.com/tidyverse/readr/issues</a>
+</li>
+</ul></p>
     </div>
-    
-    <h2 id="examples">Examples</h2>
-    <pre class="examples"><div class='input'><span class='co'>## Not run: ------------------------------------</span>
-<span class='co'># write_rds(mtcars, "mtcars.rds")</span>
-<span class='co'># write_rds(mtcars, "compressed_mtc.rds", "xz", compression = 9L)</span>
-<span class='co'>## ---------------------------------------------</span></div></pre>
-  </div>
+      </div>
   <div class="col-md-3">
+    <h2>Author</h2>
+    
+<strong>Maintainer</strong>: Hadley Wickham <a href='mailto:hadley@rstudio.com'>hadley@rstudio.com</a>
+
+Authors:
+<ul>
+<li> Jim Hester <a href='mailto:jim.hester@rstudio.com'>jim.hester@rstudio.com</a>
+  </li>
+<li> Romain Francois
+</li>
+</ul>
+
+
+Other contributors:
+<ul>
+<li> R Core Team (Date time code adapted from R) [contributor]
+  </li>
+<li> RStudio [copyright holder]
+  </li>
+<li> Jukka Jylänki (grisu3 implementation) [contributor, copyright holder]
+  </li>
+<li> Mikkel Jørgensen (grisu3 implementation) [contributor, copyright holder]
+</li>
+</ul>
+
+
+
   </div>
 </div>
 

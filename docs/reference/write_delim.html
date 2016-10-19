@@ -95,15 +95,7 @@ columns to suitable output.</p>
 
 <span class='fu'>write_excel_csv</span>(<span class='no'>x</span>, <span class='no'>path</span>, <span class='kw'>na</span> <span class='kw'>=</span> <span class='st'>"NA"</span>, <span class='kw'>append</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>col_names</span> <span class='kw'>=</span> !<span class='no'>append</span>)
 
-<span class='fu'>write_tsv</span>(<span class='no'>x</span>, <span class='no'>path</span>, <span class='kw'>na</span> <span class='kw'>=</span> <span class='st'>"NA"</span>, <span class='kw'>append</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>col_names</span> <span class='kw'>=</span> !<span class='no'>append</span>)
-
-<span class='fu'>format_csv</span>(<span class='no'>x</span>, <span class='kw'>na</span> <span class='kw'>=</span> <span class='st'>"NA"</span>, <span class='kw'>append</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>col_names</span> <span class='kw'>=</span> !<span class='no'>append</span>)
-
-<span class='fu'>format_tsv</span>(<span class='no'>x</span>, <span class='kw'>na</span> <span class='kw'>=</span> <span class='st'>"NA"</span>, <span class='kw'>append</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>col_names</span> <span class='kw'>=</span> !<span class='no'>append</span>)
-
-<span class='fu'>format_delim</span>(<span class='no'>x</span>, <span class='no'>delim</span>, <span class='kw'>na</span> <span class='kw'>=</span> <span class='st'>"NA"</span>, <span class='kw'>append</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>col_names</span> <span class='kw'>=</span> !<span class='no'>append</span>)
-
-<span class='fu'>output_column</span>(<span class='no'>x</span>)</pre>
+<span class='fu'>write_tsv</span>(<span class='no'>x</span>, <span class='no'>path</span>, <span class='kw'>na</span> <span class='kw'>=</span> <span class='st'>"NA"</span>, <span class='kw'>append</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>col_names</span> <span class='kw'>=</span> !<span class='no'>append</span>)</pre>
     
     <h2>Arguments</h2>
     <dl class="dl-horizontal">
@@ -156,7 +148,20 @@ Accurately with Integers, PLDI &#39;10,
     <h2 id="examples">Examples</h2>
     <pre class="examples"><div class='input'><span class='no'>tmp</span> <span class='kw'>&lt;-</span> <span class='fu'>tempfile</span>()
 <span class='fu'>write_csv</span>(<span class='no'>mtcars</span>, <span class='no'>tmp</span>)
-<span class='fu'>head</span>(<span class='fu'><a href='read_delim.html'>read_csv</a></span>(<span class='no'>tmp</span>))</div><div class='output co'>#&gt; # A tibble: 6 × 11
+<span class='fu'>head</span>(<span class='fu'><a href='read_delim.html'>read_csv</a></span>(<span class='no'>tmp</span>))</div><div class='output'><strong class='text-info'>Parsed with column specification:
+cols(
+  mpg = col_double(),
+  cyl = col_double(),
+  disp = col_double(),
+  hp = col_double(),
+  drat = col_double(),
+  wt = col_double(),
+  qsec = col_double(),
+  vs = col_double(),
+  am = col_double(),
+  gear = col_double(),
+  carb = col_double()
+)</strong></div><div class='output co'>#&gt; # A tibble: 6 × 11
 #&gt;     mpg   cyl  disp    hp  drat    wt  qsec    vs    am  gear  carb
 #&gt;   &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;
 #&gt; 1  21.0     6   160   110  3.90 2.620 16.46     0     1     4     4
@@ -167,21 +172,21 @@ Accurately with Integers, PLDI &#39;10,
 #&gt; 6  18.1     6   225   105  2.76 3.460 20.22     1     0     3     1
 #&gt; </div><div class='input'>
 <span class='co'># format_* is useful for testing and reprexes</span>
-<span class='fu'>cat</span>(<span class='fu'>format_csv</span>(<span class='fu'>head</span>(<span class='no'>mtcars</span>)))</div><div class='output co'>#&gt; mpg,cyl,disp,hp,drat,wt,qsec,vs,am,gear,carb
+<span class='fu'>cat</span>(<span class='fu'><a href='format_delim.html'>format_csv</a></span>(<span class='fu'>head</span>(<span class='no'>mtcars</span>)))</div><div class='output co'>#&gt; mpg,cyl,disp,hp,drat,wt,qsec,vs,am,gear,carb
 #&gt; 21.0,6.0,160.0,110.0,3.9,2.62,16.46,0.0,1.0,4.0,4.0
 #&gt; 21.0,6.0,160.0,110.0,3.9,2.875,17.02,0.0,1.0,4.0,4.0
 #&gt; 22.8,4.0,108.0,93.0,3.85,2.32,18.61,1.0,1.0,4.0,1.0
 #&gt; 21.4,6.0,258.0,110.0,3.08,3.215,19.44,1.0,0.0,3.0,1.0
 #&gt; 18.7,8.0,360.0,175.0,3.15,3.44,17.02,0.0,0.0,3.0,2.0
 #&gt; 18.1,6.0,225.0,105.0,2.76,3.46,20.22,1.0,0.0,3.0,1.0
-#&gt; </div><div class='input'><span class='fu'>cat</span>(<span class='fu'>format_tsv</span>(<span class='fu'>head</span>(<span class='no'>mtcars</span>)))</div><div class='output co'>#&gt; mpg	cyl	disp	hp	drat	wt	qsec	vs	am	gear	carb
+#&gt; </div><div class='input'><span class='fu'>cat</span>(<span class='fu'><a href='format_delim.html'>format_tsv</a></span>(<span class='fu'>head</span>(<span class='no'>mtcars</span>)))</div><div class='output co'>#&gt; mpg	cyl	disp	hp	drat	wt	qsec	vs	am	gear	carb
 #&gt; 21.0	6.0	160.0	110.0	3.9	2.62	16.46	0.0	1.0	4.0	4.0
 #&gt; 21.0	6.0	160.0	110.0	3.9	2.875	17.02	0.0	1.0	4.0	4.0
 #&gt; 22.8	4.0	108.0	93.0	3.85	2.32	18.61	1.0	1.0	4.0	1.0
 #&gt; 21.4	6.0	258.0	110.0	3.08	3.215	19.44	1.0	0.0	3.0	1.0
 #&gt; 18.7	8.0	360.0	175.0	3.15	3.44	17.02	0.0	0.0	3.0	2.0
 #&gt; 18.1	6.0	225.0	105.0	2.76	3.46	20.22	1.0	0.0	3.0	1.0
-#&gt; </div><div class='input'><span class='fu'>cat</span>(<span class='fu'>format_delim</span>(<span class='fu'>head</span>(<span class='no'>mtcars</span>), <span class='st'>";"</span>))</div><div class='output co'>#&gt; mpg;cyl;disp;hp;drat;wt;qsec;vs;am;gear;carb
+#&gt; </div><div class='input'><span class='fu'>cat</span>(<span class='fu'><a href='format_delim.html'>format_delim</a></span>(<span class='fu'>head</span>(<span class='no'>mtcars</span>), <span class='st'>";"</span>))</div><div class='output co'>#&gt; mpg;cyl;disp;hp;drat;wt;qsec;vs;am;gear;carb
 #&gt; 21.0;6.0;160.0;110.0;3.9;2.62;16.46;0.0;1.0;4.0;4.0
 #&gt; 21.0;6.0;160.0;110.0;3.9;2.875;17.02;0.0;1.0;4.0;4.0
 #&gt; 22.8;4.0;108.0;93.0;3.85;2.32;18.61;1.0;1.0;4.0;1.0
@@ -190,11 +195,11 @@ Accurately with Integers, PLDI &#39;10,
 #&gt; 18.1;6.0;225.0;105.0;2.76;3.46;20.22;1.0;0.0;3.0;1.0
 #&gt; </div><div class='input'>
 <span class='no'>df</span> <span class='kw'>&lt;-</span> <span class='fu'>data.frame</span>(<span class='kw'>x</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='fl'>1</span>, <span class='fl'>2</span>, <span class='fl'>NA</span>))
-<span class='fu'>format_csv</span>(<span class='no'>df</span>, <span class='kw'>na</span> <span class='kw'>=</span> <span class='st'>"."</span>)</div><div class='output co'>#&gt; [1] &quot;x\n1.0\n2.0\n.\n&quot;
+<span class='fu'><a href='format_delim.html'>format_csv</a></span>(<span class='no'>df</span>, <span class='kw'>na</span> <span class='kw'>=</span> <span class='st'>"."</span>)</div><div class='output co'>#&gt; [1] &quot;x\n1.0\n2.0\n.\n&quot;
 #&gt; </div><div class='input'>
 <span class='co'># Quotes are automatically as needed</span>
 <span class='no'>df</span> <span class='kw'>&lt;-</span> <span class='fu'>data.frame</span>(<span class='kw'>x</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='st'>"a"</span>, <span class='st'>'"'</span>, <span class='st'>","</span>, <span class='st'>"\n"</span>))
-<span class='fu'>cat</span>(<span class='fu'>format_csv</span>(<span class='no'>df</span>))</div><div class='output co'>#&gt; x
+<span class='fu'>cat</span>(<span class='fu'><a href='format_delim.html'>format_csv</a></span>(<span class='no'>df</span>))</div><div class='output co'>#&gt; x
 #&gt; a
 #&gt; &quot;&quot;&quot;&quot;
 #&gt; &quot;,&quot;

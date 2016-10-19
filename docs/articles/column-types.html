@@ -61,7 +61,7 @@
 <li><p><code><a href="../reference/parse_number.html">col_number()</a></code> [n], numbers containing the <code>grouping_mark</code></p></li>
 </ul><p>To recognise these columns, readr inspects the first 1000 rows of your dataset. This is not guaranteed to be perfect, but it&rsquo;s fast and a reasonable heuristic. If you get a lot of parsing failures, you&rsquo;ll need to re-read the file, either increasing <code>guess_max</code> to overriding the default choices as described below.</p>
 <p>You can also manually specify other column types:</p>
-<ul><li><p><code><a href="../reference/parse_atomic.html">col_skip()</a></code> [_, -], don&rsquo;t import this column.</p></li>
+<ul><li><p><code><a href="../reference/col_skip.html">col_skip()</a></code> [_, -], don&rsquo;t import this column.</p></li>
 <li><p><code>col_date(format)</code>, dates with given format.</p></li>
 <li><p><code>col_datetime(format, tz)</code>, date times with given format. If the timezone is UTC (the default), this is &gt;20x faster than loading then parsing with <code>strptime()</code>.</p></li>
 <li><p><code>col_time(format)</code>, times. Returned as number of seconds past midnight.</p></li>
@@ -100,6 +100,20 @@
 </ul><p>When reading files interactively the first 20 rows of the <code>col_spec()</code> used are printed. <code>option(readr.num_columns)</code> can be used to change the number of columns to be printed, setting the value to 0 disables printing.</p>
 <p>readr attaches the spec used for the file to the output. It can be retrieved by calling <code><a href="../reference/cols_condense.html">spec()</a></code> on the object.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">data &lt;-<span class="st"> </span><span class="kw"><a href="../reference/read_delim.html">read_csv</a></span>(<span class="kw"><a href="../reference/readr_example.html">readr_example</a></span>(<span class="st">"mtcars.csv"</span>))
+<span class="co">#&gt; Parsed with column specification:</span>
+<span class="co">#&gt; cols(</span>
+<span class="co">#&gt;   mpg = col_double(),</span>
+<span class="co">#&gt;   cyl = col_integer(),</span>
+<span class="co">#&gt;   disp = col_double(),</span>
+<span class="co">#&gt;   hp = col_integer(),</span>
+<span class="co">#&gt;   drat = col_double(),</span>
+<span class="co">#&gt;   wt = col_double(),</span>
+<span class="co">#&gt;   qsec = col_double(),</span>
+<span class="co">#&gt;   vs = col_integer(),</span>
+<span class="co">#&gt;   am = col_integer(),</span>
+<span class="co">#&gt;   gear = col_integer(),</span>
+<span class="co">#&gt;   carb = col_integer()</span>
+<span class="co">#&gt; )</span>
 data
 <span class="co">#&gt; # A tibble: 32 &times; 11</span>
 <span class="co">#&gt;      mpg   cyl  disp    hp  drat    wt  qsec    vs    am  gear  carb</span>
@@ -136,6 +150,20 @@ s
 <span class="co"># Alternatively you can use a spec function instead, which will only read the</span>
 <span class="co"># first 1000 rows (user configurable with guess_max)</span>
 s &lt;-<span class="st"> </span><span class="kw"><a href="../reference/spec_delim.html">spec_csv</a></span>(<span class="kw"><a href="../reference/readr_example.html">readr_example</a></span>(<span class="st">"mtcars.csv"</span>))
+<span class="co">#&gt; Parsed with column specification:</span>
+<span class="co">#&gt; cols(</span>
+<span class="co">#&gt;   mpg = col_double(),</span>
+<span class="co">#&gt;   cyl = col_integer(),</span>
+<span class="co">#&gt;   disp = col_double(),</span>
+<span class="co">#&gt;   hp = col_integer(),</span>
+<span class="co">#&gt;   drat = col_double(),</span>
+<span class="co">#&gt;   wt = col_double(),</span>
+<span class="co">#&gt;   qsec = col_double(),</span>
+<span class="co">#&gt;   vs = col_integer(),</span>
+<span class="co">#&gt;   am = col_integer(),</span>
+<span class="co">#&gt;   gear = col_integer(),</span>
+<span class="co">#&gt;   carb = col_integer()</span>
+<span class="co">#&gt; )</span>
 s
 <span class="co">#&gt; cols(</span>
 <span class="co">#&gt;   mpg = col_double(),</span>
@@ -163,7 +191,7 @@ s
 <span class="co">#&gt; )</span>
 
 <span class="co"># If the spec has a default of skip then uses cols_only</span>
-s$default &lt;-<span class="st"> </span><span class="kw"><a href="../reference/parse_atomic.html">col_skip</a></span>()
+s$default &lt;-<span class="st"> </span><span class="kw"><a href="../reference/col_skip.html">col_skip</a></span>()
 s
 <span class="co">#&gt; cols_only(</span>
 <span class="co">#&gt;   mpg = col_double(),</span>

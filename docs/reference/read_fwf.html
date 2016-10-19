@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Read a fixed width file. — read_fwf • readr</title>
+<title>Read a fixed width file into a tibble — read_fwf • readr</title>
 
 <!-- jquery -->
 <script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha384-nrOSfDHtoPMzJHjVTdCopGqIqeYETSXhZDFyniQ8ZHcVy08QesyHcnOUpMpqnmWq" crossorigin="anonymous"></script>
@@ -77,7 +77,7 @@
       </header>
 
       <div class="page-header">
-  <h1>Read a fixed width file.</h1>
+  <h1>Read a fixed width file into a tibble</h1>
 </div>
 
 <div class="row">
@@ -180,21 +180,36 @@ Use NA as last end field when reading a ragged fwf file.</dd>
 <span class='fu'>cat</span>(<span class='fu'><a href='read_lines.html'>read_lines</a></span>(<span class='no'>fwf_sample</span>))</div><div class='output co'>#&gt; John Smith          WA        418-Y11-4111 Mary Hartford       CA        319-Z19-4341 Evan Nolan          IL        219-532-c301</div><div class='input'>
 <span class='co'># You can specify column positions in three ways:</span>
 <span class='co'># 1. Guess based on position of empty columns</span>
-<span class='fu'>read_fwf</span>(<span class='no'>fwf_sample</span>, <span class='fu'>fwf_empty</span>(<span class='no'>fwf_sample</span>, <span class='kw'>col_names</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='st'>"first"</span>, <span class='st'>"last"</span>, <span class='st'>"state"</span>, <span class='st'>"ssn"</span>)))</div><div class='output co'>#&gt; # A tibble: 3 × 4
+<span class='fu'>read_fwf</span>(<span class='no'>fwf_sample</span>, <span class='fu'>fwf_empty</span>(<span class='no'>fwf_sample</span>, <span class='kw'>col_names</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='st'>"first"</span>, <span class='st'>"last"</span>, <span class='st'>"state"</span>, <span class='st'>"ssn"</span>)))</div><div class='output'><strong class='text-info'>Parsed with column specification:
+cols(
+  first = col_character(),
+  last = col_character(),
+  state = col_character(),
+  ssn = col_character()
+)</strong></div><div class='output co'>#&gt; # A tibble: 3 × 4
 #&gt;   first     last state          ssn
 #&gt;   &lt;chr&gt;    &lt;chr&gt; &lt;chr&gt;        &lt;chr&gt;
 #&gt; 1  John    Smith    WA 418-Y11-4111
 #&gt; 2  Mary Hartford    CA 319-Z19-4341
 #&gt; 3  Evan    Nolan    IL 219-532-c301
 #&gt; </div><div class='input'><span class='co'># 2. A vector of field widths</span>
-<span class='fu'>read_fwf</span>(<span class='no'>fwf_sample</span>, <span class='fu'>fwf_widths</span>(<span class='fu'>c</span>(<span class='fl'>20</span>, <span class='fl'>10</span>, <span class='fl'>12</span>), <span class='fu'>c</span>(<span class='st'>"name"</span>, <span class='st'>"state"</span>, <span class='st'>"ssn"</span>)))</div><div class='output co'>#&gt; # A tibble: 3 × 3
+<span class='fu'>read_fwf</span>(<span class='no'>fwf_sample</span>, <span class='fu'>fwf_widths</span>(<span class='fu'>c</span>(<span class='fl'>20</span>, <span class='fl'>10</span>, <span class='fl'>12</span>), <span class='fu'>c</span>(<span class='st'>"name"</span>, <span class='st'>"state"</span>, <span class='st'>"ssn"</span>)))</div><div class='output'><strong class='text-info'>Parsed with column specification:
+cols(
+  name = col_character(),
+  state = col_character(),
+  ssn = col_character()
+)</strong></div><div class='output co'>#&gt; # A tibble: 3 × 3
 #&gt;            name state          ssn
 #&gt;           &lt;chr&gt; &lt;chr&gt;        &lt;chr&gt;
 #&gt; 1    John Smith    WA 418-Y11-4111
 #&gt; 2 Mary Hartford    CA 319-Z19-4341
 #&gt; 3    Evan Nolan    IL 219-532-c301
 #&gt; </div><div class='input'><span class='co'># 3. Paired vectors of start and end positions</span>
-<span class='fu'>read_fwf</span>(<span class='no'>fwf_sample</span>, <span class='fu'>fwf_positions</span>(<span class='fu'>c</span>(<span class='fl'>1</span>, <span class='fl'>30</span>), <span class='fu'>c</span>(<span class='fl'>10</span>, <span class='fl'>42</span>), <span class='fu'>c</span>(<span class='st'>"name"</span>, <span class='st'>"ssn"</span>)))</div><div class='output co'>#&gt; # A tibble: 3 × 2
+<span class='fu'>read_fwf</span>(<span class='no'>fwf_sample</span>, <span class='fu'>fwf_positions</span>(<span class='fu'>c</span>(<span class='fl'>1</span>, <span class='fl'>30</span>), <span class='fu'>c</span>(<span class='fl'>10</span>, <span class='fl'>42</span>), <span class='fu'>c</span>(<span class='st'>"name"</span>, <span class='st'>"ssn"</span>)))</div><div class='output'><strong class='text-info'>Parsed with column specification:
+cols(
+  name = col_character(),
+  ssn = col_character()
+)</strong></div><div class='output co'>#&gt; # A tibble: 3 × 2
 #&gt;         name          ssn
 #&gt;        &lt;chr&gt;        &lt;chr&gt;
 #&gt; 1 John Smith 418-Y11-4111

@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Write a single R object to a file — write_rds • readr</title>
+<title>Write a string to a file — write_file • readr</title>
 
 <!-- jquery -->
 <script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha384-nrOSfDHtoPMzJHjVTdCopGqIqeYETSXhZDFyniQ8ZHcVy08QesyHcnOUpMpqnmWq" crossorigin="anonymous"></script>
@@ -77,30 +77,28 @@
       </header>
 
       <div class="page-header">
-  <h1>Write a single R object to a file</h1>
+  <h1>Write a string to a file</h1>
 </div>
 
 <div class="row">
   <div class="col-md-9">
     
-    <p>Consistent wrapper around <code>saveRDS</code>. <code>write_rds</code> does not
-compress by default as space is generally cheaper than time.</p>
+    <p><code>write_file</code> takes a single string, or a raw vector,
+and writes it exactly as is.</p>
     
 
-    <pre><span class='fu'>write_rds</span>(<span class='no'>x</span>, <span class='no'>path</span>, <span class='kw'>compress</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='st'>"none"</span>, <span class='st'>"gz"</span>, <span class='st'>"bz2"</span>, <span class='st'>"xz"</span>), <span class='no'>...</span>)</pre>
+    <pre><span class='fu'>write_file</span>(<span class='no'>x</span>, <span class='no'>path</span>, <span class='kw'>append</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</pre>
     
     <h2>Arguments</h2>
     <dl class="dl-horizontal">
       <dt>x</dt>
-      <dd>R object to write to serialise.</dd>
+      <dd>A data frame to write to disk</dd>
       <dt>path</dt>
       <dd>Path to write to.</dd>
-      <dt>compress</dt>
-      <dd>Compression method to use: &quot;none&quot;, &quot;gz&quot; ,&quot;bz&quot;, or &quot;xz&quot;.</dd>
-      <dt>...</dt>
-      <dd>Additional arguments to connection function. For example, control
-the space-time trade-off of different compression methods with
-<code>compression</code>. See <code>connections</code> for more details.</dd>
+      <dt>append</dt>
+      <dd>If <code>FALSE</code>, will overwrite existing file. If <code>TRUE</code>,
+will append to existing file. In both cases, if file does not exist a new
+file is created.</dd>
     </dl>
     
     <div class="Value">
@@ -110,10 +108,20 @@ the space-time trade-off of different compression methods with
     </div>
     
     <h2 id="examples">Examples</h2>
-    <pre class="examples"><div class='input'><span class='co'>## Not run: ------------------------------------</span>
-<span class='co'># write_rds(mtcars, "mtcars.rds")</span>
-<span class='co'># write_rds(mtcars, "compressed_mtc.rds", "xz", compression = 9L)</span>
-<span class='co'>## ---------------------------------------------</span></div></pre>
+    <pre class="examples"><div class='input'><span class='no'>tmp</span> <span class='kw'>&lt;-</span> <span class='fu'>tempfile</span>()
+
+<span class='no'>x</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='format_delim.html'>format_csv</a></span>(<span class='no'>mtcars</span>[<span class='fl'>1</span>:<span class='fl'>6</span>, ])
+<span class='fu'>write_file</span>(<span class='no'>x</span>, <span class='no'>tmp</span>)
+<span class='fu'>identical</span>(<span class='no'>x</span>, <span class='fu'><a href='read_file.html'>read_file</a></span>(<span class='no'>tmp</span>))</div><div class='output co'>#&gt; [1] TRUE
+#&gt; </div><div class='input'>
+<span class='fu'><a href='read_lines.html'>read_lines</a></span>(<span class='no'>x</span>)</div><div class='output co'>#&gt; [1] &quot;mpg,cyl,disp,hp,drat,wt,qsec,vs,am,gear,carb&quot;         
+#&gt; [2] &quot;21.0,6.0,160.0,110.0,3.9,2.62,16.46,0.0,1.0,4.0,4.0&quot;  
+#&gt; [3] &quot;21.0,6.0,160.0,110.0,3.9,2.875,17.02,0.0,1.0,4.0,4.0&quot; 
+#&gt; [4] &quot;22.8,4.0,108.0,93.0,3.85,2.32,18.61,1.0,1.0,4.0,1.0&quot;  
+#&gt; [5] &quot;21.4,6.0,258.0,110.0,3.08,3.215,19.44,1.0,0.0,3.0,1.0&quot;
+#&gt; [6] &quot;18.7,8.0,360.0,175.0,3.15,3.44,17.02,0.0,0.0,3.0,2.0&quot; 
+#&gt; [7] &quot;18.1,6.0,225.0,105.0,2.76,3.46,20.22,1.0,0.0,3.0,1.0&quot; 
+#&gt; </div></pre>
   </div>
   <div class="col-md-3">
   </div>

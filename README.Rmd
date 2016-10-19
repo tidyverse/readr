@@ -21,7 +21,8 @@ knitr::opts_chunk$set(
 
 The goal of readr is to provide a fast and friendly way to read tabular data into R. The most important functions are:
 
-* Read delimited files: `read_delim()`, `read_csv()`, `read_tsv()`, `read_csv2()`.
+* Read delimited files: `read_delim()`, `read_csv()`, `read_tsv()`,
+  `read_csv2()`.
 * Read fixed width files: `read_fwf()`, `read_table()`.
 * Read lines: `read_lines()`.
 * Read whole file: `read_file()`.
@@ -46,55 +47,16 @@ devtools::install_github("tidyverse/readr")
 ```{r}
 library(readr)
 
-mtcars_path <- tempfile(fileext = ".csv")
-write_csv(mtcars, mtcars_path)
-
 # Read a csv file into a data frame
-read_csv(mtcars_path)
-# Read lines into a vector
-read_lines(mtcars_path)
-# Read whole file into a single string
-read_file(mtcars_path)
+read_csv(readr_example("mtcars.csv"))
 ```
 
 See `vignette("column-types")` on how readr parses columns, and how you can override the defaults.
 
-## Output
 
-`read_csv()` produces a data frame with the following properties:
+## Comparison
 
-* Characters are never automatically converted to factors (i.e. no more 
-  `stringsAsFactors = FALSE`).
-
-* Valid column names are left as is, not munged into valid R identifiers
-  (i.e. there is no `check.names = TRUE`). Missing column names are filled
-  in with `X1`, `X2` etc, and duplicated column names are deduplicated.
-
-* The data frame is given class `c("tbl_df", "tbl", "data.frame")` so 
-  if you also use [dplyr](https://github.com/hadley/dplyr/) you'll get an 
-  enhanced display.
-
-* Row names are never set.
-
-## Problems
-
-If there are any problems parsing the file, the `read_` function will throw a warning telling you how many problems there are. You can then use the `problems()` function to access a data frame that gives information about each problem:
-
-```R
-df <- read_csv(col_types = "dd", col_names = c("x", "y"), skip = 1, "
-1,2
-a,b
-")
-#> Warning message: There were 2 problems. See problems(x) for more details
-problems(df)
-#>   row col expected actual
-#> 1   2   1 a double      a
-#> 2   2   2 a double      b
-```
-
-It's likely that there will be cases that you can never load without some manual regexp-based munging in R. Load those columns with `col_character()`, fix them up as needed, then use `convert_types()` to re-run the automated conversion on every character column in the data frame. Alternatively, you can use `parse_integer()`, `parse_numeric()`, `parse_date()` etc to parse a single character vector at a time.
-
-## Compared to base functions
+### To base R
 
 Compared to the corresponding base functions, readr functions:
 
@@ -108,7 +70,7 @@ Compared to the corresponding base functions, readr functions:
 * All functions work exactly the same way regardless of the current locale.
   To override the US-centric defaults, use `locale()`.
 
-## Compared to `fread()`
+### To `fread()`
 
 [data.table](https://github.com/Rdatatable/data.table) has a function similar to `read_csv()` called fread. Compared to fread, readr:
 

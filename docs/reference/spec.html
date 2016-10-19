@@ -106,8 +106,20 @@ listing columns with a different type.</p>
     </div>
     
     <h2 id="examples">Examples</h2>
-    <pre class="examples"><div class='input'><span class='no'>df</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='read_delim.html'>read_csv</a></span>(<span class='fu'><a href='readr_example.html'>readr_example</a></span>(<span class='st'>"mtcars.csv"</span>))
-<span class='no'>s</span> <span class='kw'>&lt;-</span> <span class='fu'>spec</span>(<span class='no'>df</span>)
+    <pre class="examples"><div class='input'><span class='no'>df</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='read_delim.html'>read_csv</a></span>(<span class='fu'><a href='readr_example.html'>readr_example</a></span>(<span class='st'>"mtcars.csv"</span>))</div><div class='output'><strong class='text-info'>Parsed with column specification:
+cols(
+  mpg = col_double(),
+  cyl = col_integer(),
+  disp = col_double(),
+  hp = col_integer(),
+  drat = col_double(),
+  wt = col_double(),
+  qsec = col_double(),
+  vs = col_integer(),
+  am = col_integer(),
+  gear = col_integer(),
+  carb = col_integer()
+)</strong></div><div class='input'><span class='no'>s</span> <span class='kw'>&lt;-</span> <span class='fu'>spec</span>(<span class='no'>df</span>)
 <span class='no'>s</span></div><div class='output co'>#&gt; cols(
 #&gt;   mpg = col_double(),
 #&gt;   cyl = col_integer(),

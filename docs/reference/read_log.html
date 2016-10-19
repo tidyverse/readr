@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Read common/combined log file. — read_log • readr</title>
+<title>Read common/combined log file into a tibble — read_log • readr</title>
 
 <!-- jquery -->
 <script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha384-nrOSfDHtoPMzJHjVTdCopGqIqeYETSXhZDFyniQ8ZHcVy08QesyHcnOUpMpqnmWq" crossorigin="anonymous"></script>
@@ -77,7 +77,7 @@
       </header>
 
       <div class="page-header">
-  <h1>Read common/combined log file.</h1>
+  <h1>Read common/combined log file into a tibble</h1>
 </div>
 
 <div class="row">
@@ -148,7 +148,16 @@ and will only display if estimated reading time is 5 seconds or more.</dd>
     </dl>
         
     <h2 id="examples">Examples</h2>
-    <pre class="examples"><div class='input'><span class='fu'>read_log</span>(<span class='fu'><a href='readr_example.html'>readr_example</a></span>(<span class='st'>"example.log"</span>))</div><div class='output co'>#&gt; # A tibble: 2 × 7
+    <pre class="examples"><div class='input'><span class='fu'>read_log</span>(<span class='fu'><a href='readr_example.html'>readr_example</a></span>(<span class='st'>"example.log"</span>))</div><div class='output'><strong class='text-info'>Parsed with column specification:
+cols(
+  X1 = col_character(),
+  X2 = col_character(),
+  X3 = col_character(),
+  X4 = col_character(),
+  X5 = col_character(),
+  X6 = col_integer(),
+  X7 = col_integer()
+)</strong></div><div class='output co'>#&gt; # A tibble: 2 × 7
 #&gt;             X1    X2                 X3                         X4
 #&gt;          &lt;chr&gt; &lt;chr&gt;              &lt;chr&gt;                      &lt;chr&gt;
 #&gt; 1 172.21.13.45  &lt;NA&gt; Microsoft\\JohnDoe 08/Apr/2001:17:39:04 -0800

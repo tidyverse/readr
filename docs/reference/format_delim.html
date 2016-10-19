@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Write a single R object to a file — write_rds • readr</title>
+<title>Convert a data frame to a delimited string — format_delim • readr</title>
 
 <!-- jquery -->
 <script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha384-nrOSfDHtoPMzJHjVTdCopGqIqeYETSXhZDFyniQ8ZHcVy08QesyHcnOUpMpqnmWq" crossorigin="anonymous"></script>
@@ -77,44 +77,67 @@
       </header>
 
       <div class="page-header">
-  <h1>Write a single R object to a file</h1>
+  <h1>Convert a data frame to a delimited string</h1>
 </div>
 
 <div class="row">
   <div class="col-md-9">
     
-    <p>Consistent wrapper around <code>saveRDS</code>. <code>write_rds</code> does not
-compress by default as space is generally cheaper than time.</p>
+    <p>These functions are equivalent to <code><a href='write_delim.html'>write_csv</a></code> etc, but instead
+of writing to disk, they return a string.</p>
     
 
-    <pre><span class='fu'>write_rds</span>(<span class='no'>x</span>, <span class='no'>path</span>, <span class='kw'>compress</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='st'>"none"</span>, <span class='st'>"gz"</span>, <span class='st'>"bz2"</span>, <span class='st'>"xz"</span>), <span class='no'>...</span>)</pre>
+    <pre><span class='fu'>format_delim</span>(<span class='no'>x</span>, <span class='no'>delim</span>, <span class='kw'>na</span> <span class='kw'>=</span> <span class='st'>"NA"</span>, <span class='kw'>append</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>col_names</span> <span class='kw'>=</span> !<span class='no'>append</span>)
+
+<span class='fu'>format_csv</span>(<span class='no'>x</span>, <span class='kw'>na</span> <span class='kw'>=</span> <span class='st'>"NA"</span>, <span class='kw'>append</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>col_names</span> <span class='kw'>=</span> !<span class='no'>append</span>)
+
+<span class='fu'>format_tsv</span>(<span class='no'>x</span>, <span class='kw'>na</span> <span class='kw'>=</span> <span class='st'>"NA"</span>, <span class='kw'>append</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>col_names</span> <span class='kw'>=</span> !<span class='no'>append</span>)</pre>
     
     <h2>Arguments</h2>
     <dl class="dl-horizontal">
       <dt>x</dt>
-      <dd>R object to write to serialise.</dd>
-      <dt>path</dt>
-      <dd>Path to write to.</dd>
-      <dt>compress</dt>
-      <dd>Compression method to use: &quot;none&quot;, &quot;gz&quot; ,&quot;bz&quot;, or &quot;xz&quot;.</dd>
-      <dt>...</dt>
-      <dd>Additional arguments to connection function. For example, control
-the space-time trade-off of different compression methods with
-<code>compression</code>. See <code>connections</code> for more details.</dd>
+      <dd>A data frame to write to disk</dd>
+      <dt>delim</dt>
+      <dd>Delimiter used to seperate values. Defaults to <code>&quot; &quot;</code>. Must be
+a single character.</dd>
+      <dt>na</dt>
+      <dd>String used for missing values. Defaults to NA. Missing values
+will never be quoted; strings with the same value as <code>na</code> will
+always be quoted.</dd>
+      <dt>append</dt>
+      <dd>If <code>FALSE</code>, will overwrite existing file. If <code>TRUE</code>,
+will append to existing file. In both cases, if file does not exist a new
+file is created.</dd>
+      <dt>col_names</dt>
+      <dd>Write columns names at the top of the file?</dd>
     </dl>
     
     <div class="Value">
       <h2>Value</h2>
 
-      <p>The input <code>x</code>, invisibly.</p>
+      <p>A string.</p>
     </div>
-    
-    <h2 id="examples">Examples</h2>
-    <pre class="examples"><div class='input'><span class='co'>## Not run: ------------------------------------</span>
-<span class='co'># write_rds(mtcars, "mtcars.rds")</span>
-<span class='co'># write_rds(mtcars, "compressed_mtc.rds", "xz", compression = 9L)</span>
-<span class='co'>## ---------------------------------------------</span></div></pre>
-  </div>
+
+    <div class="Output">
+      <h2>Output</h2>
+
+      <p></p>
+      <p>Factors are coerced to character. Doubles are formatted using the grisu3
+algorithm. POSIXct&#39;s are formatted as ISO8601.</p>
+      <p>All columns are encoded as UTF-8. <code>write_excel_csv</code> also includes a
+<a href = 'UTF-8 Byte order mark'>https://en.wikipedia.org/wiki/Byte_order_mark</a>
+which indicates to Excel the csv is UTF-8 encoded.</p>
+      <p>Values are only quoted if needed: if they contain a comma, quote or newline.</p>
+    </div>
+
+    <div class="References">
+      <h2>References</h2>
+
+      <p>Florian Loitsch, Printing Floating-Point Numbers Quickly and
+Accurately with Integers, PLDI &#39;10,
+<a href = 'http://www.cs.tufts.edu/~nr/cs257/archive/florian-loitsch/printf.pdf'>http://www.cs.tufts.edu/~nr/cs257/archive/florian-loitsch/printf.pdf</a></p>
+    </div>
+      </div>
   <div class="col-md-3">
   </div>
 </div>
