@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Write a single R object to a file — write_rds • readr</title>
+<title>Preprocess column for output — output_column • readr</title>
 
 <!-- jquery -->
 <script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha384-nrOSfDHtoPMzJHjVTdCopGqIqeYETSXhZDFyniQ8ZHcVy08QesyHcnOUpMpqnmWq" crossorigin="anonymous"></script>
@@ -77,43 +77,29 @@
       </header>
 
       <div class="page-header">
-  <h1>Write a single R object to a file</h1>
+  <h1>Preprocess column for output</h1>
 </div>
 
 <div class="row">
   <div class="col-md-9">
     
-    <p>Consistent wrapper around <code>saveRDS</code>. <code>write_rds</code> does not
-compress by default as space is generally cheaper than time.</p>
+    <p>This is a generic function that applied to each column before it is saved
+to disk. It provides a hook for S3 classes that need special handling.</p>
     
 
-    <pre><span class='fu'>write_rds</span>(<span class='no'>x</span>, <span class='no'>path</span>, <span class='kw'>compress</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='st'>"none"</span>, <span class='st'>"gz"</span>, <span class='st'>"bz2"</span>, <span class='st'>"xz"</span>), <span class='no'>...</span>)</pre>
+    <pre><span class='fu'>output_column</span>(<span class='no'>x</span>)</pre>
     
     <h2>Arguments</h2>
     <dl class="dl-horizontal">
       <dt>x</dt>
-      <dd>R object to write to serialise.</dd>
-      <dt>path</dt>
-      <dd>Path to write to.</dd>
-      <dt>compress</dt>
-      <dd>Compression method to use: &quot;none&quot;, &quot;gz&quot; ,&quot;bz&quot;, or &quot;xz&quot;.</dd>
-      <dt>...</dt>
-      <dd>Additional arguments to connection function. For example, control
-the space-time trade-off of different compression methods with
-<code>compression</code>. See <code>connections</code> for more details.</dd>
+      <dd>A vector</dd>
     </dl>
-    
-    <div class="Value">
-      <h2>Value</h2>
-
-      <p>The input <code>x</code>, invisibly.</p>
-    </div>
-    
+        
     <h2 id="examples">Examples</h2>
-    <pre class="examples"><div class='input'><span class='co'>## Not run: ------------------------------------</span>
-<span class='co'># write_rds(mtcars, "mtcars.rds")</span>
-<span class='co'># write_rds(mtcars, "compressed_mtc.rds", "xz", compression = 9L)</span>
-<span class='co'>## ---------------------------------------------</span></div></pre>
+    <pre class="examples"><div class='input'><span class='co'># Most columns are left as is, but POSIXct are</span>
+<span class='co'># converted to ISO8601.</span>
+<span class='fu'>output_column</span>(<span class='fu'>Sys.time</span>())</div><div class='output co'>#&gt; [1] &quot;2016-10-19T22:29:05Z&quot;
+#&gt; </div></pre>
   </div>
   <div class="col-md-3">
   </div>

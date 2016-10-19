@@ -77,7 +77,12 @@
       </header>
 
       <div class="row">
+
   <div class="col-md-9">
+    <div class="page-header">
+      <h1>Change log <small>All releases</small></h1>
+    </div>
+
     <div id="readr-1.0.0.9000" class="section level1">
 <h1>readr 1.0.0.9000</h1>
 </div>
@@ -141,7 +146,7 @@
 <li><p><code>read_*()</code> functions gain a <code>quoted_na</code> argument to control whether missing values within quotes are treated as missing values or as strings (#295).</p></li>
 <li><p><code><a href="../reference/write_delim.html">write_excel_csv()</a></code> can be used to write a csv file with a UTF-8 BOM at the start, which forces Excel to read it as UTF-8 encoded (#375).</p></li>
 <li><p><code><a href="../reference/write_lines.html">write_lines()</a></code> writes a character vector to a file (#302).</p></li>
-<li><p><code><a href="../reference/write_lines.html">write_file()</a></code> to write a single character or raw vector to a file (#474).</p></li>
+<li><p><code><a href="../reference/write_file.html">write_file()</a></code> to write a single character or raw vector to a file (#474).</p></li>
 <li><p>Experimental support for chunked reading a writing (<code>read_*_chunked()</code>) functions. The API is unstable and subject to change in the future (#427).</p></li>
 </ul></div>
 <div id="minor-features-and-bug-fixes" class="section level2">
@@ -228,7 +233,7 @@
 <li><p>When guessing field types, and there’s no information to go on, use character instead of logical (#124, #128).</p></li>
 <li><p>Concise <code>col_types</code> specification now understands <code>?</code> (guess) and <code>-</code> (skip) (#188).</p></li>
 <li><p><code><a href="../reference/count_fields.html">count_fields()</a></code> starts counting from 1, not 0 (#200).</p></li>
-<li><p><code><a href="../reference/write_delim.html">format_csv()</a></code> and <code><a href="../reference/write_delim.html">format_delim()</a></code> make it easy to render a csv or delimited file into a string.</p></li>
+<li><p><code><a href="../reference/format_delim.html">format_csv()</a></code> and <code><a href="../reference/format_delim.html">format_delim()</a></code> make it easy to render a csv or delimited file into a string.</p></li>
 <li><p><code><a href="../reference/read_fwf.html">fwf_empty()</a></code> now works correctly when <code>col_names</code> supplied (#186, #222).</p></li>
 <li><p><code>parse_*()</code> gains a <code>na</code> argument that allows you to specify which values should be converted to missing.</p></li>
 <li><p><code><a href="../reference/problems.html">problems()</a></code> now reports column names rather than column numbers (#143). Whenever there is a problem, the first five problems are printing out in a warning message, so you can more easily see what’s wrong.</p></li>

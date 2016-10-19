@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Read text file where columns are separated by whitespace. — read_table • readr</title>
+<title>Read whitespace-separated columns into a tibble — read_table • readr</title>
 
 <!-- jquery -->
 <script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha384-nrOSfDHtoPMzJHjVTdCopGqIqeYETSXhZDFyniQ8ZHcVy08QesyHcnOUpMpqnmWq" crossorigin="anonymous"></script>
@@ -77,7 +77,7 @@
       </header>
 
       <div class="page-header">
-  <h1>Read text file where columns are separated by whitespace.</h1>
+  <h1>Read whitespace-separated columns into a tibble</h1>
 </div>
 
 <div class="row">
@@ -94,11 +94,7 @@ specification rather than a data frame.</p>
 
     <pre><span class='fu'>read_table</span>(<span class='no'>file</span>, <span class='kw'>col_names</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>col_types</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
   <span class='kw'>locale</span> <span class='kw'>=</span> <span class='fu'><a href='locale.html'>default_locale</a></span>(), <span class='kw'>na</span> <span class='kw'>=</span> <span class='st'>"NA"</span>, <span class='kw'>skip</span> <span class='kw'>=</span> <span class='fl'>0</span>, <span class='kw'>n_max</span> <span class='kw'>=</span> <span class='fl'>Inf</span>,
-  <span class='kw'>guess_max</span> <span class='kw'>=</span> <span class='fu'>min</span>(<span class='no'>n_max</span>, <span class='fl'>1000</span>), <span class='kw'>progress</span> <span class='kw'>=</span> <span class='fu'>interactive</span>())
-
-<span class='fu'>spec_table</span>(<span class='no'>file</span>, <span class='kw'>col_names</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>col_types</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>locale</span> <span class='kw'>=</span> <span class='fu'><a href='locale.html'>default_locale</a></span>(), <span class='kw'>na</span> <span class='kw'>=</span> <span class='st'>"NA"</span>, <span class='kw'>skip</span> <span class='kw'>=</span> <span class='fl'>0</span>, <span class='kw'>n_max</span> <span class='kw'>=</span> <span class='fl'>0</span>,
-  <span class='kw'>guess_max</span> <span class='kw'>=</span> <span class='fl'>1000</span>, <span class='kw'>progress</span> <span class='kw'>=</span> <span class='fu'>interactive</span>())</pre>
+  <span class='kw'>guess_max</span> <span class='kw'>=</span> <span class='fu'>min</span>(<span class='no'>n_max</span>, <span class='fl'>1000</span>), <span class='kw'>progress</span> <span class='kw'>=</span> <span class='fu'>interactive</span>())</pre>
     
     <h2>Arguments</h2>
     <dl class="dl-horizontal">
@@ -189,7 +185,22 @@ and will only display if estimated reading time is 5 seconds or more.</dd>
 #&gt;   8   8   9   9  10     5   7   7  10   7    8 Baylor           B12 
 #&gt;   9  11   8  13  11    11  12   9  14   9    9 Georgia Tech     ACC 
 #&gt;  13  10  13  11   8     9  10  11   9  10   10 Mississippi      SEC 
-#&gt; </div><div class='input'><span class='fu'>read_table</span>(<span class='no'>massey</span>)</div><div class='output co'>#&gt; # A tibble: 10 × 13
+#&gt; </div><div class='input'><span class='fu'>read_table</span>(<span class='no'>massey</span>)</div><div class='output co'>#&gt; cols(
+#&gt;   UCC = col_integer(),
+#&gt;   PAY = col_integer(),
+#&gt;   LAZ = col_integer(),
+#&gt;   KPK = col_integer(),
+#&gt;   RT = col_integer(),
+#&gt;   COF = col_integer(),
+#&gt;   BIH = col_integer(),
+#&gt;   DII = col_integer(),
+#&gt;   ENG = col_integer(),
+#&gt;   ACU = col_integer(),
+#&gt;   Rank = col_integer(),
+#&gt;   Team = col_character(),
+#&gt;   Conf = col_character()
+#&gt; )
+#&gt; </div><div class='output co'>#&gt; # A tibble: 10 × 13
 #&gt;      UCC   PAY   LAZ   KPK    RT   COF   BIH   DII   ENG   ACU  Rank
 #&gt;    &lt;int&gt; &lt;int&gt; &lt;int&gt; &lt;int&gt; &lt;int&gt; &lt;int&gt; &lt;int&gt; &lt;int&gt; &lt;int&gt; &lt;int&gt; &lt;int&gt;
 #&gt; 1      1     1     1     1     1     1     1     1     1     1     1
@@ -227,7 +238,21 @@ and will only display if estimated reading time is 5 seconds or more.</dd>
 #&gt; 5000                                 04  90 15            90 15                5000                 78050153
 #&gt; AVANTI                                                                         AVANTI               78065002
 #&gt; AVANTI II                            02  75  8    75  8                        AVANTI II            78065053
-#&gt; </div><div class='input'><span class='fu'>read_table</span>(<span class='no'>epa</span>, <span class='kw'>col_names</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</div><div class='output co'>#&gt; # A tibble: 20 × 12
+#&gt; </div><div class='input'><span class='fu'>read_table</span>(<span class='no'>epa</span>, <span class='kw'>col_names</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</div><div class='output co'>#&gt; cols(
+#&gt;   X1 = col_character(),
+#&gt;   X2 = col_character(),
+#&gt;   X3 = col_integer(),
+#&gt;   X4 = col_integer(),
+#&gt;   X5 = col_integer(),
+#&gt;   X6 = col_integer(),
+#&gt;   X7 = col_integer(),
+#&gt;   X8 = col_integer(),
+#&gt;   X9 = col_integer(),
+#&gt;   X10 = col_integer(),
+#&gt;   X11 = col_character(),
+#&gt;   X12 = col_integer()
+#&gt; )
+#&gt; </div><div class='output co'>#&gt; # A tibble: 20 × 12
 #&gt;               X1    X2    X3    X4    X5    X6    X7    X8    X9   X10
 #&gt;            &lt;chr&gt; &lt;chr&gt; &lt;int&gt; &lt;int&gt; &lt;int&gt; &lt;int&gt; &lt;int&gt; &lt;int&gt; &lt;int&gt; &lt;int&gt;
 #&gt; 1     ALFA ROMEO          NA    NA    NA    NA    NA    NA    NA    NA

@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Read a file into a string. — read_file • readr</title>
+<title>Read a file into a string or raw vector — read_file • readr</title>
 
 <!-- jquery -->
 <script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha384-nrOSfDHtoPMzJHjVTdCopGqIqeYETSXhZDFyniQ8ZHcVy08QesyHcnOUpMpqnmWq" crossorigin="anonymous"></script>
@@ -77,13 +77,15 @@
       </header>
 
       <div class="page-header">
-  <h1>Read a file into a string.</h1>
+  <h1>Read a file into a string or raw vector</h1>
 </div>
 
 <div class="row">
   <div class="col-md-9">
     
-    <p>Read a file into a string.</p>
+    <p>Reads a complete file into a single object: either a character vector of
+length one, or a raw vector. Raw vectors are useful when dealing with
+binary data, or if you have text data with unknown encoding.</p>
     
 
     <pre><span class='fu'>read_file</span>(<span class='no'>file</span>, <span class='kw'>locale</span> <span class='kw'>=</span> <span class='fu'><a href='locale.html'>default_locale</a></span>())
@@ -115,146 +117,49 @@ names.</dd>
     <div class="Value">
       <h2>Value</h2>
 
-      <p><code>read_file</code>: A length 1 character vector with the entire file contents.
-  <code>read_lines_raw</code>: A raw vector with the entire file contents.</p>
+      <p><code>read_file</code>: A length 1 character vector.
+  <code>read_lines_raw</code>: A raw vector.</p>
     </div>
     
     <h2 id="examples">Examples</h2>
-    <pre class="examples"><div class='input'><span class='fu'>read_file</span>(<span class='fu'>file.path</span>(<span class='fu'>R.home</span>(), <span class='st'>"COPYING"</span>))</div><div class='output co'>#&gt; [1] &quot;\t\t    GNU GENERAL PUBLIC LICENSE\n\t\t       Version 2, June 1991\n\n Copyright (C) 1989, 1991 Free Software Foundation, Inc.\n                       51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA\n Everyone is permitted to copy and distribute verbatim copies\n of this license document, but changing it is not allowed.\n\n\t\t\t    Preamble\n\n  The licenses for most software are designed to take away your\nfreedom to share and change it.  By contrast, the GNU General Public\nLicense is intended to guarantee your freedom to share and change free\nsoftware--to make sure the software is free for all its users.  This\nGeneral Public License applies to most of the Free Software\nFoundation&#39;s software and to any other program whose authors commit to\nusing it.  (Some other Free Software Foundation software is covered by\nthe GNU Library General Public License instead.)  You can apply it to\nyour programs, too.\n\n  When we speak of free software, we are referring to freedom, not\nprice.  Our General Public Licenses are designed to make sure that you\nhave the freedom to distribute copies of free software (and charge for\nthis service if you wish), that you receive source code or can get it\nif you want it, that you can change the software or use pieces of it\nin new free programs; and that you know you can do these things.\n\n  To protect your rights, we need to make restrictions that forbid\nanyone to deny you these rights or to ask you to surrender the rights.\nThese restrictions translate to certain responsibilities for you if you\ndistribute copies of the software, or if you modify it.\n\n  For example, if you distribute copies of such a program, whether\ngratis or for a fee, you must give the recipients all the rights that\nyou have.  You must make sure that they, too, receive or can get the\nsource code.  And you must show them these terms so they know their\nrights.\n\n  We protect your rights with two steps: (1) copyright the software, and\n(2) offer you this license which gives you legal permission to copy,\ndistribute and/or modify the software.\n\n  Also, for each author&#39;s protection and ours, we want to make certain\nthat everyone understands that there is no warranty for this free\nsoftware.  If the software is modified by someone else and passed on, we\nwant its recipients to know that what they have is not the original, so\nthat any problems introduced by others will not reflect on the original\nauthors&#39; reputations.\n\n  Finally, any free program is threatened constantly by software\npatents.  We wish to avoid the danger that redistributors of a free\nprogram will individually obtain patent licenses, in effect making the\nprogram proprietary.  To prevent this, we have made it clear that any\npatent must be licensed for everyone&#39;s free use or not licensed at all.\n\n  The precise terms and conditions for copying, distribution and\nmodification follow.\n\f\n\t\t    GNU GENERAL PUBLIC LICENSE\n   TERMS AND CONDITIONS FOR COPYING, DISTRIBUTION AND MODIFICATION\n\n  0. This License applies to any program or other work which contains\na notice placed by the copyright holder saying it may be distributed\nunder the terms of this General Public License.  The \&quot;Program\&quot;, below,\nrefers to any such program or work, and a \&quot;work based on the Program\&quot;\nmeans either the Program or any derivative work under copyright law:\nthat is to say, a work containing the Program or a portion of it,\neither verbatim or with modifications and/or translated into another\nlanguage.  (Hereinafter, translation is included without limitation in\nthe term \&quot;modification\&quot;.)  Each licensee is addressed as \&quot;you\&quot;.\n\nActivities other than copying, distribution and modification are not\ncovered by this License; they are outside its scope.  The act of\nrunning the Program is not restricted, and the output from the Program\nis covered only if its contents constitute a work based on the\nProgram (independent of having been made by running the Program).\nWhether that is true depends on what the Program does.\n\n  1. You may copy and distribute verbatim copies of the Program&#39;s\nsource code as you receive it, in any medium, provided that you\nconspicuously and appropriately publish on each copy an appropriate\ncopyright notice and disclaimer of warranty; keep intact all the\nnotices that refer to this License and to the absence of any warranty;\nand give any other recipients of the Program a copy of this License\nalong with the Program.\n\nYou may charge a fee for the physical act of transferring a copy, and\nyou may at your option offer warranty protection in exchange for a fee.\n\n  2. You may modify your copy or copies of the Program or any portion\nof it, thus forming a work based on the Program, and copy and\ndistribute such modifications or work under the terms of Section 1\nabove, provided that you also meet all of these conditions:\n\n    a) You must cause the modified files to carry prominent notices\n    stating that you changed the files and the date of any change.\n\n    b) You must cause any work that you distribute or publish, that in\n    whole or in part contains or is derived from the Program or any\n    part thereof, to be licensed as a whole at no charge to all third\n    parties under the terms of this License.\n\n    c) If the modified program normally reads commands interactively\n    when run, you must cause it, when started running for such\n    interactive use in the most ordinary way, to print or display an\n    announcement including an appropriate copyright notice and a\n    notice that there is no warranty (or else, saying that you provide\n    a warranty) and that users may redistribute the program under\n    these conditions, and telling the user how to view a copy of this\n    License.  (Exception: if the Program itself is interactive but\n    does not normally print such an announcement, your work based on\n    the Program is not required to print an announcement.)\n\f\nThese requirements apply to the modified work as a whole.  If\nidentifiable sections of that work are not derived from the Program,\nand can be reasonably considered independent and separate works in\nthemselves, then this License, and its terms, do not apply to those\nsections when you distribute them as separate works.  But when you\ndistribute the same sections as part of a whole which is a work based\non the Program, the distribution of the whole must be on the terms of\nthis License, whose permissions for other licensees extend to the\nentire whole, and thus to each and every part regardless of who wrote it.\n\nThus, it is not the intent of this section to claim rights or contest\nyour rights to work written entirely by you; rather, the intent is to\nexercise the right to control the distribution of derivative or\ncollective works based on the Program.\n\nIn addition, mere aggregation of another work not based on the Program\nwith the Program (or with a work based on the Program) on a volume of\na storage or distribution medium does not bring the other work under\nthe scope of this License.\n\n  3. You may copy and distribute the Program (or a work based on it,\nunder Section 2) in object code or executable form under the terms of\nSections 1 and 2 above provided that you also do one of the following:\n\n    a) Accompany it with the complete corresponding machine-readable\n    source code, which must be distributed under the terms of Sections\n    1 and 2 above on a medium customarily used for software interchange; or,\n\n    b) Accompany it with a written offer, valid for at least three\n    years, to give any third party, for a charge no more than your\n    cost of physically performing source distribution, a complete\n    machine-readable copy of the corresponding source code, to be\n    distributed under the terms of Sections 1 and 2 above on a medium\n    customarily used for software interchange; or,\n\n    c) Accompany it with the information you received as to the offer\n    to distribute corresponding source code.  (This alternative is\n    allowed only for noncommercial distribution and only if you\n    received the program in object code or executable form with such\n    an offer, in accord with Subsection b above.)\n\nThe source code for a work means the preferred form of the work for\nmaking modifications to it.  For an executable work, complete source\ncode means all the source code for all modules it contains, plus any\nassociated interface definition files, plus the scripts used to\ncontrol compilation and installation of the executable.  However, as a\nspecial exception, the source code distributed need not include\nanything that is normally distributed (in either source or binary\nform) with the major components (compiler, kernel, and so on) of the\noperating system on which the executable runs, unless that component\nitself accompanies the executable.\n\nIf distribution of executable or object code is made by offering\naccess to copy from a designated place, then offering equivalent\naccess to copy the source code from the same place counts as\ndistribution of the source code, even though third parties are not\ncompelled to copy the source along with the object code.\n\f\n  4. You may not copy, modify, sublicense, or distribute the Program\nexcept as expressly provided under this License.  Any attempt\notherwise to copy, modify, sublicense or distribute the Program is\nvoid, and will automatically terminate your rights under this License.\nHowever, parties who have received copies, or rights, from you under\nthis License will not have their licenses terminated so long as such\nparties remain in full compliance.\n\n  5. You are not required to accept this License, since you have not\nsigned it.  However, nothing else grants you permission to modify or\ndistribute the Program or its derivative works.  These actions are\nprohibited by law if you do not accept this License.  Therefore, by\nmodifying or distributing the Program (or any work based on the\nProgram), you indicate your acceptance of this License to do so, and\nall its terms and conditions for copying, distributing or modifying\nthe Program or works based on it.\n\n  6. Each time you redistribute the Program (or any work based on the\nProgram), the recipient automatically receives a license from the\noriginal licensor to copy, distribute or modify the Program subject to\nthese terms and conditions.  You may not impose any further\nrestrictions on the recipients&#39; exercise of the rights granted herein.\nYou are not responsible for enforcing compliance by third parties to\nthis License.\n\n  7. If, as a consequence of a court judgment or allegation of patent\ninfringement or for any other reason (not limited to patent issues),\nconditions are imposed on you (whether by court order, agreement or\notherwise) that contradict the conditions of this License, they do not\nexcuse you from the conditions of this License.  If you cannot\ndistribute so as to satisfy simultaneously your obligations under this\nLicense and any other pertinent obligations, then as a consequence you\nmay not distribute the Program at all.  For example, if a patent\nlicense would not permit royalty-free redistribution of the Program by\nall those who receive copies directly or indirectly through you, then\nthe only way you could satisfy both it and this License would be to\nrefrain entirely from distribution of the Program.\n\nIf any portion of this section is held invalid or unenforceable under\nany particular circumstance, the balance of the section is intended to\napply and the section as a whole is intended to apply in other\ncircumstances.\n\nIt is not the purpose of this section to induce you to infringe any\npatents or other property right claims or to contest validity of any\nsuch claims; this section has the sole purpose of protecting the\nintegrity of the free software distribution system, which is\nimplemented by public license practices.  Many people have made\ngenerous contributions to the wide range of software distributed\nthrough that system in reliance on consistent application of that\nsystem; it is up to the author/donor to decide if he or she is willing\nto distribute software through any other system and a licensee cannot\nimpose that choice.\n\nThis section is intended to make thoroughly clear what is believed to\nbe a consequence of the rest of this License.\n\f\n  8. If the distribution and/or use of the Program is restricted in\ncertain countries either by patents or by copyrighted interfaces, the\noriginal copyright holder who places the Program under this License\nmay add an explicit geographical distribution limitation excluding\nthose countries, so that distribution is permitted only in or among\ncountries not thus excluded.  In such case, this License incorporates\nthe limitation as if written in the body of this License.\n\n  9. The Free Software Foundation may publish revised and/or new versions\nof the General Public License from time to time.  Such new versions will\nbe similar in spirit to the present version, but may differ in detail to\naddress new problems or concerns.\n\nEach version is given a distinguishing version number.  If the Program\nspecifies a version number of this License which applies to it and \&quot;any\nlater version\&quot;, you have the option of following the terms and conditions\neither of that version or of any later version published by the Free\nSoftware Foundation.  If the Program does not specify a version number of\nthis License, you may choose any version ever published by the Free Software\nFoundation.\n\n  10. If you wish to incorporate parts of the Program into other free\nprograms whose distribution conditions are different, write to the author\nto ask for permission.  For software which is copyrighted by the Free\nSoftware Foundation, write to the Free Software Foundation; we sometimes\nmake exceptions for this.  Our decision will be guided by the two goals\nof preserving the free status of all derivatives of our free software and\nof promoting the sharing and reuse of software generally.\n\n\t\t\t    NO WARRANTY\n\n  11. BECAUSE THE PROGRAM IS LICENSED FREE OF CHARGE, THERE IS NO WARRANTY\nFOR THE PROGRAM, TO THE EXTENT PERMITTED BY APPLICABLE LAW.  EXCEPT WHEN\nOTHERWISE STATED IN WRITING THE COPYRIGHT HOLDERS AND/OR OTHER PARTIES\nPROVIDE THE PROGRAM \&quot;AS IS\&quot; WITHOUT WARRANTY OF ANY KIND, EITHER EXPRESSED\nOR IMPLIED, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF\nMERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE.  THE ENTIRE RISK AS\nTO THE QUALITY AND PERFORMANCE OF THE PROGRAM IS WITH YOU.  SHOULD THE\nPROGRAM PROVE DEFECTIVE, YOU ASSUME THE COST OF ALL NECESSARY SERVICING,\nREPAIR OR CORRECTION.\n\n  12. IN NO EVENT UNLESS REQUIRED BY APPLICABLE LAW OR AGREED TO IN WRITING\nWILL ANY COPYRIGHT HOLDER, OR ANY OTHER PARTY WHO MAY MODIFY AND/OR\nREDISTRIBUTE THE PROGRAM AS PERMITTED ABOVE, BE LIABLE TO YOU FOR DAMAGES,\nINCLUDING ANY GENERAL, SPECIAL, INCIDENTAL OR CONSEQUENTIAL DAMAGES ARISING\nOUT OF THE USE OR INABILITY TO USE THE PROGRAM (INCLUDING BUT NOT LIMITED\nTO LOSS OF DATA OR DATA BEING RENDERED INACCURATE OR LOSSES SUSTAINED BY\nYOU OR THIRD PARTIES OR A FAILURE OF THE PROGRAM TO OPERATE WITH ANY OTHER\nPROGRAMS), EVEN IF SUCH HOLDER OR OTHER PARTY HAS BEEN ADVISED OF THE\nPOSSIBILITY OF SUCH DAMAGES.\n\n\t\t     END OF TERMS AND CONDITIONS\n\f\n\t    How to Apply These Terms to Your New Programs\n\n  If you develop a new program, and you want it to be of the greatest\npossible use to the public, the best way to achieve this is to make it\nfree software which everyone can redistribute and change under these terms.\n\n  To do so, attach the following notices to the program.  It is safest\nto attach them to the start of each source file to most effectively\nconvey the exclusion of warranty; and each file should have at least\nthe \&quot;copyright\&quot; line and a pointer to where the full notice is found.\n\n    &lt;one line to give the program&#39;s name and a brief idea of what it does.&gt;\n    Copyright (C) &lt;year&gt;  &lt;name of author&gt;\n\n    This program is free software; you can redistribute it and/or modify\n    it under the terms of the GNU General Public License as published by\n    the Free Software Foundation; either version 2 of the License, or\n    (at your option) any later version.\n\n    This program is distributed in the hope that it will be useful,\n    but WITHOUT ANY WARRANTY; without even the implied warranty of\n    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the\n    GNU General Public License for more details.\n\n    You should have received a copy of the GNU General Public License\n    along with this program; if not, write to the Free Software\n    Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA\n\n\nAlso add information on how to contact you by electronic and paper mail.\n\nIf the program is interactive, make it output a short notice like this\nwhen it starts in an interactive mode:\n\n    Gnomovision version 69, Copyright (C) year name of author\n    Gnomovision comes with ABSOLUTELY NO WARRANTY; for details type `show w&#39;.\n    This is free software, and you are welcome to redistribute it\n    under certain conditions; type `show c&#39; for details.\n\nThe hypothetical commands `show w&#39; and `show c&#39; should show the appropriate\nparts of the General Public License.  Of course, the commands you use may\nbe called something other than `show w&#39; and `show c&#39;; they could even be\nmouse-clicks or menu items--whatever suits your program.\n\nYou should also get your employer (if you work as a programmer) or your\nschool, if any, to sign a \&quot;copyright disclaimer\&quot; for the program, if\nnecessary.  Here is a sample; alter the names:\n\n  Yoyodyne, Inc., hereby disclaims all copyright interest in the program\n  `Gnomovision&#39; (which makes passes at compilers) written by James Hacker.\n\n  &lt;signature of Ty Coon&gt;, 1 April 1989\n  Ty Coon, President of Vice\n\nThis General Public License does not permit incorporating your program into\nproprietary programs.  If your program is a subroutine library, you may\nconsider it more useful to permit linking proprietary applications with the\nlibrary.  If this is what you want to do, use the GNU Library General\nPublic License instead of this License.\n&quot;
-#&gt; </div><div class='input'>
-<span class='fu'><a href='read_lines.html'>read_lines_raw</a></span>(<span class='fu'><a href='readr_example.html'>readr_example</a></span>(<span class='st'>"mtcars.csv"</span>))</div><div class='output co'>#&gt; [[1]]
-#&gt;  [1] 22 6d 70 67 22 2c 22 63 79 6c 22 2c 22 64 69 73 70 22 2c 22 68 70 22 2c 22
-#&gt; [26] 64 72 61 74 22 2c 22 77 74 22 2c 22 71 73 65 63 22 2c 22 76 73 22 2c 22 61
-#&gt; [51] 6d 22 2c 22 67 65 61 72 22 2c 22 63 61 72 62 22
-#&gt; 
-#&gt; [[2]]
-#&gt;  [1] 32 31 2c 36 2c 31 36 30 2c 31 31 30 2c 33 2e 39 2c 32 2e 36 32 2c 31 36 2e
-#&gt; [26] 34 36 2c 30 2c 31 2c 34 2c 34
-#&gt; 
-#&gt; [[3]]
-#&gt;  [1] 32 31 2c 36 2c 31 36 30 2c 31 31 30 2c 33 2e 39 2c 32 2e 38 37 35 2c 31 37
-#&gt; [26] 2e 30 32 2c 30 2c 31 2c 34 2c 34
-#&gt; 
-#&gt; [[4]]
-#&gt;  [1] 32 32 2e 38 2c 34 2c 31 30 38 2c 39 33 2c 33 2e 38 35 2c 32 2e 33 32 2c 31
-#&gt; [26] 38 2e 36 31 2c 31 2c 31 2c 34 2c 31
-#&gt; 
-#&gt; [[5]]
-#&gt;  [1] 32 31 2e 34 2c 36 2c 32 35 38 2c 31 31 30 2c 33 2e 30 38 2c 33 2e 32 31 35
-#&gt; [26] 2c 31 39 2e 34 34 2c 31 2c 30 2c 33 2c 31
-#&gt; 
-#&gt; [[6]]
-#&gt;  [1] 31 38 2e 37 2c 38 2c 33 36 30 2c 31 37 35 2c 33 2e 31 35 2c 33 2e 34 34 2c
-#&gt; [26] 31 37 2e 30 32 2c 30 2c 30 2c 33 2c 32
-#&gt; 
-#&gt; [[7]]
-#&gt;  [1] 31 38 2e 31 2c 36 2c 32 32 35 2c 31 30 35 2c 32 2e 37 36 2c 33 2e 34 36 2c
-#&gt; [26] 32 30 2e 32 32 2c 31 2c 30 2c 33 2c 31
-#&gt; 
-#&gt; [[8]]
-#&gt;  [1] 31 34 2e 33 2c 38 2c 33 36 30 2c 32 34 35 2c 33 2e 32 31 2c 33 2e 35 37 2c
-#&gt; [26] 31 35 2e 38 34 2c 30 2c 30 2c 33 2c 34
-#&gt; 
-#&gt; [[9]]
-#&gt;  [1] 32 34 2e 34 2c 34 2c 31 34 36 2e 37 2c 36 32 2c 33 2e 36 39 2c 33 2e 31 39
-#&gt; [26] 2c 32 30 2c 31 2c 30 2c 34 2c 32
-#&gt; 
-#&gt; [[10]]
-#&gt;  [1] 32 32 2e 38 2c 34 2c 31 34 30 2e 38 2c 39 35 2c 33 2e 39 32 2c 33 2e 31 35
-#&gt; [26] 2c 32 32 2e 39 2c 31 2c 30 2c 34 2c 32
-#&gt; 
-#&gt; [[11]]
-#&gt;  [1] 31 39 2e 32 2c 36 2c 31 36 37 2e 36 2c 31 32 33 2c 33 2e 39 32 2c 33 2e 34
-#&gt; [26] 34 2c 31 38 2e 33 2c 31 2c 30 2c 34 2c 34
-#&gt; 
-#&gt; [[12]]
-#&gt;  [1] 31 37 2e 38 2c 36 2c 31 36 37 2e 36 2c 31 32 33 2c 33 2e 39 32 2c 33 2e 34
-#&gt; [26] 34 2c 31 38 2e 39 2c 31 2c 30 2c 34 2c 34
-#&gt; 
-#&gt; [[13]]
-#&gt;  [1] 31 36 2e 34 2c 38 2c 32 37 35 2e 38 2c 31 38 30 2c 33 2e 30 37 2c 34 2e 30
-#&gt; [26] 37 2c 31 37 2e 34 2c 30 2c 30 2c 33 2c 33
-#&gt; 
-#&gt; [[14]]
-#&gt;  [1] 31 37 2e 33 2c 38 2c 32 37 35 2e 38 2c 31 38 30 2c 33 2e 30 37 2c 33 2e 37
-#&gt; [26] 33 2c 31 37 2e 36 2c 30 2c 30 2c 33 2c 33
-#&gt; 
-#&gt; [[15]]
-#&gt;  [1] 31 35 2e 32 2c 38 2c 32 37 35 2e 38 2c 31 38 30 2c 33 2e 30 37 2c 33 2e 37
-#&gt; [26] 38 2c 31 38 2c 30 2c 30 2c 33 2c 33
-#&gt; 
-#&gt; [[16]]
-#&gt;  [1] 31 30 2e 34 2c 38 2c 34 37 32 2c 32 30 35 2c 32 2e 39 33 2c 35 2e 32 35 2c
-#&gt; [26] 31 37 2e 39 38 2c 30 2c 30 2c 33 2c 34
-#&gt; 
-#&gt; [[17]]
-#&gt;  [1] 31 30 2e 34 2c 38 2c 34 36 30 2c 32 31 35 2c 33 2c 35 2e 34 32 34 2c 31 37
-#&gt; [26] 2e 38 32 2c 30 2c 30 2c 33 2c 34
-#&gt; 
-#&gt; [[18]]
-#&gt;  [1] 31 34 2e 37 2c 38 2c 34 34 30 2c 32 33 30 2c 33 2e 32 33 2c 35 2e 33 34 35
-#&gt; [26] 2c 31 37 2e 34 32 2c 30 2c 30 2c 33 2c 34
-#&gt; 
-#&gt; [[19]]
-#&gt;  [1] 33 32 2e 34 2c 34 2c 37 38 2e 37 2c 36 36 2c 34 2e 30 38 2c 32 2e 32 2c 31
-#&gt; [26] 39 2e 34 37 2c 31 2c 31 2c 34 2c 31
-#&gt; 
-#&gt; [[20]]
-#&gt;  [1] 33 30 2e 34 2c 34 2c 37 35 2e 37 2c 35 32 2c 34 2e 39 33 2c 31 2e 36 31 35
-#&gt; [26] 2c 31 38 2e 35 32 2c 31 2c 31 2c 34 2c 32
-#&gt; 
-#&gt; [[21]]
-#&gt;  [1] 33 33 2e 39 2c 34 2c 37 31 2e 31 2c 36 35 2c 34 2e 32 32 2c 31 2e 38 33 35
-#&gt; [26] 2c 31 39 2e 39 2c 31 2c 31 2c 34 2c 31
-#&gt; 
-#&gt; [[22]]
-#&gt;  [1] 32 31 2e 35 2c 34 2c 31 32 30 2e 31 2c 39 37 2c 33 2e 37 2c 32 2e 34 36 35
-#&gt; [26] 2c 32 30 2e 30 31 2c 31 2c 30 2c 33 2c 31
-#&gt; 
-#&gt; [[23]]
-#&gt;  [1] 31 35 2e 35 2c 38 2c 33 31 38 2c 31 35 30 2c 32 2e 37 36 2c 33 2e 35 32 2c
-#&gt; [26] 31 36 2e 38 37 2c 30 2c 30 2c 33 2c 32
-#&gt; 
-#&gt; [[24]]
-#&gt;  [1] 31 35 2e 32 2c 38 2c 33 30 34 2c 31 35 30 2c 33 2e 31 35 2c 33 2e 34 33 35
-#&gt; [26] 2c 31 37 2e 33 2c 30 2c 30 2c 33 2c 32
-#&gt; 
-#&gt; [[25]]
-#&gt;  [1] 31 33 2e 33 2c 38 2c 33 35 30 2c 32 34 35 2c 33 2e 37 33 2c 33 2e 38 34 2c
-#&gt; [26] 31 35 2e 34 31 2c 30 2c 30 2c 33 2c 34
-#&gt; 
-#&gt; [[26]]
-#&gt;  [1] 31 39 2e 32 2c 38 2c 34 30 30 2c 31 37 35 2c 33 2e 30 38 2c 33 2e 38 34 35
-#&gt; [26] 2c 31 37 2e 30 35 2c 30 2c 30 2c 33 2c 32
-#&gt; 
-#&gt; [[27]]
-#&gt;  [1] 32 37 2e 33 2c 34 2c 37 39 2c 36 36 2c 34 2e 30 38 2c 31 2e 39 33 35 2c 31
-#&gt; [26] 38 2e 39 2c 31 2c 31 2c 34 2c 31
-#&gt; 
-#&gt; [[28]]
-#&gt;  [1] 32 36 2c 34 2c 31 32 30 2e 33 2c 39 31 2c 34 2e 34 33 2c 32 2e 31 34 2c 31
-#&gt; [26] 36 2e 37 2c 30 2c 31 2c 35 2c 32
-#&gt; 
-#&gt; [[29]]
-#&gt;  [1] 33 30 2e 34 2c 34 2c 39 35 2e 31 2c 31 31 33 2c 33 2e 37 37 2c 31 2e 35 31
-#&gt; [26] 33 2c 31 36 2e 39 2c 31 2c 31 2c 35 2c 32
-#&gt; 
-#&gt; [[30]]
-#&gt;  [1] 31 35 2e 38 2c 38 2c 33 35 31 2c 32 36 34 2c 34 2e 32 32 2c 33 2e 31 37 2c
-#&gt; [26] 31 34 2e 35 2c 30 2c 31 2c 35 2c 34
-#&gt; 
-#&gt; [[31]]
-#&gt;  [1] 31 39 2e 37 2c 36 2c 31 34 35 2c 31 37 35 2c 33 2e 36 32 2c 32 2e 37 37 2c
-#&gt; [26] 31 35 2e 35 2c 30 2c 31 2c 35 2c 36
-#&gt; 
-#&gt; [[32]]
-#&gt;  [1] 31 35 2c 38 2c 33 30 31 2c 33 33 35 2c 33 2e 35 34 2c 33 2e 35 37 2c 31 34
-#&gt; [26] 2e 36 2c 30 2c 31 2c 35 2c 38
-#&gt; 
-#&gt; [[33]]
-#&gt;  [1] 32 31 2e 34 2c 34 2c 31 32 31 2c 31 30 39 2c 34 2e 31 31 2c 32 2e 37 38 2c
-#&gt; [26] 31 38 2e 36 2c 31 2c 31 2c 34 2c 32
-#&gt; 
+    <pre class="examples"><div class='input'><span class='fu'>read_file</span>(<span class='fu'>file.path</span>(<span class='fu'>R.home</span>(<span class='st'>"doc"</span>), <span class='st'>"AUTHORS"</span>))</div><div class='output co'>#&gt; [1] &quot;Authors of R.\n\nR was initially written by Robert Gentleman and Ross Ihaka—also known as \&quot;R &amp; R\&quot;\nof the Statistics Department of the University of Auckland.\n\nSince mid-1997 there has been a core group with write access to the R\nsource, currently consisting of\n\nDouglas Bates\nJohn Chambers\nPeter Dalgaard\nSeth Falcon\nRobert Gentleman\nKurt Hornik\nRoss Ihaka\nMichael Lawrence\nFriedrich Leisch\nUwe Ligges\nThomas Lumley\nMartin Maechler\nMartin Morgan\nDuncan Murdoch\nPaul Murrell\nMartyn Plummer\nBrian Ripley\nDeepayan Sarkar\nDuncan Temple Lang\nLuke Tierney\nSimon Urbanek\n\nplus Heiner Schwarte up to October 1999, Guido Masarotto up to June 2003 and\nStefano Iacus up to July 2014.\n\nCurrent R-core members can be contacted via email to R-project.org\nwith name made up by replacing spaces by dots in the name listed above.\n\n(The authors of code from other projects included in the R distribution\nare listed in the COPYRIGHTS file.)\n&quot;
+#&gt; </div><div class='input'><span class='fu'>read_file_raw</span>(<span class='fu'>file.path</span>(<span class='fu'>R.home</span>(<span class='st'>"doc"</span>), <span class='st'>"AUTHORS"</span>))</div><div class='output co'>#&gt;   [1] 41 75 74 68 6f 72 73 20 6f 66 20 52 2e 0a 0a 52 20 77 61 73 20 69 6e 69 74
+#&gt;  [26] 69 61 6c 6c 79 20 77 72 69 74 74 65 6e 20 62 79 20 52 6f 62 65 72 74 20 47
+#&gt;  [51] 65 6e 74 6c 65 6d 61 6e 20 61 6e 64 20 52 6f 73 73 20 49 68 61 6b 61 e2 80
+#&gt;  [76] 94 61 6c 73 6f 20 6b 6e 6f 77 6e 20 61 73 20 22 52 20 26 20 52 22 0a 6f 66
+#&gt; [101] 20 74 68 65 20 53 74 61 74 69 73 74 69 63 73 20 44 65 70 61 72 74 6d 65 6e
+#&gt; [126] 74 20 6f 66 20 74 68 65 20 55 6e 69 76 65 72 73 69 74 79 20 6f 66 20 41 75
+#&gt; [151] 63 6b 6c 61 6e 64 2e 0a 0a 53 69 6e 63 65 20 6d 69 64 2d 31 39 39 37 20 74
+#&gt; [176] 68 65 72 65 20 68 61 73 20 62 65 65 6e 20 61 20 63 6f 72 65 20 67 72 6f 75
+#&gt; [201] 70 20 77 69 74 68 20 77 72 69 74 65 20 61 63 63 65 73 73 20 74 6f 20 74 68
+#&gt; [226] 65 20 52 0a 73 6f 75 72 63 65 2c 20 63 75 72 72 65 6e 74 6c 79 20 63 6f 6e
+#&gt; [251] 73 69 73 74 69 6e 67 20 6f 66 0a 0a 44 6f 75 67 6c 61 73 20 42 61 74 65 73
+#&gt; [276] 0a 4a 6f 68 6e 20 43 68 61 6d 62 65 72 73 0a 50 65 74 65 72 20 44 61 6c 67
+#&gt; [301] 61 61 72 64 0a 53 65 74 68 20 46 61 6c 63 6f 6e 0a 52 6f 62 65 72 74 20 47
+#&gt; [326] 65 6e 74 6c 65 6d 61 6e 0a 4b 75 72 74 20 48 6f 72 6e 69 6b 0a 52 6f 73 73
+#&gt; [351] 20 49 68 61 6b 61 0a 4d 69 63 68 61 65 6c 20 4c 61 77 72 65 6e 63 65 0a 46
+#&gt; [376] 72 69 65 64 72 69 63 68 20 4c 65 69 73 63 68 0a 55 77 65 20 4c 69 67 67 65
+#&gt; [401] 73 0a 54 68 6f 6d 61 73 20 4c 75 6d 6c 65 79 0a 4d 61 72 74 69 6e 20 4d 61
+#&gt; [426] 65 63 68 6c 65 72 0a 4d 61 72 74 69 6e 20 4d 6f 72 67 61 6e 0a 44 75 6e 63
+#&gt; [451] 61 6e 20 4d 75 72 64 6f 63 68 0a 50 61 75 6c 20 4d 75 72 72 65 6c 6c 0a 4d
+#&gt; [476] 61 72 74 79 6e 20 50 6c 75 6d 6d 65 72 0a 42 72 69 61 6e 20 52 69 70 6c 65
+#&gt; [501] 79 0a 44 65 65 70 61 79 61 6e 20 53 61 72 6b 61 72 0a 44 75 6e 63 61 6e 20
+#&gt; [526] 54 65 6d 70 6c 65 20 4c 61 6e 67 0a 4c 75 6b 65 20 54 69 65 72 6e 65 79 0a
+#&gt; [551] 53 69 6d 6f 6e 20 55 72 62 61 6e 65 6b 0a 0a 70 6c 75 73 20 48 65 69 6e 65
+#&gt; [576] 72 20 53 63 68 77 61 72 74 65 20 75 70 20 74 6f 20 4f 63 74 6f 62 65 72 20
+#&gt; [601] 31 39 39 39 2c 20 47 75 69 64 6f 20 4d 61 73 61 72 6f 74 74 6f 20 75 70 20
+#&gt; [626] 74 6f 20 4a 75 6e 65 20 32 30 30 33 20 61 6e 64 0a 53 74 65 66 61 6e 6f 20
+#&gt; [651] 49 61 63 75 73 20 75 70 20 74 6f 20 4a 75 6c 79 20 32 30 31 34 2e 0a 0a 43
+#&gt; [676] 75 72 72 65 6e 74 20 52 2d 63 6f 72 65 20 6d 65 6d 62 65 72 73 20 63 61 6e
+#&gt; [701] 20 62 65 20 63 6f 6e 74 61 63 74 65 64 20 76 69 61 20 65 6d 61 69 6c 20 74
+#&gt; [726] 6f 20 52 2d 70 72 6f 6a 65 63 74 2e 6f 72 67 0a 77 69 74 68 20 6e 61 6d 65
+#&gt; [751] 20 6d 61 64 65 20 75 70 20 62 79 20 72 65 70 6c 61 63 69 6e 67 20 73 70 61
+#&gt; [776] 63 65 73 20 62 79 20 64 6f 74 73 20 69 6e 20 74 68 65 20 6e 61 6d 65 20 6c
+#&gt; [801] 69 73 74 65 64 20 61 62 6f 76 65 2e 0a 0a 28 54 68 65 20 61 75 74 68 6f 72
+#&gt; [826] 73 20 6f 66 20 63 6f 64 65 20 66 72 6f 6d 20 6f 74 68 65 72 20 70 72 6f 6a
+#&gt; [851] 65 63 74 73 20 69 6e 63 6c 75 64 65 64 20 69 6e 20 74 68 65 20 52 20 64 69
+#&gt; [876] 73 74 72 69 62 75 74 69 6f 6e 0a 61 72 65 20 6c 69 73 74 65 64 20 69 6e 20
+#&gt; [901] 74 68 65 20 43 4f 50 59 52 49 47 48 54 53 20 66 69 6c 65 2e 29 0a
 #&gt; </div></pre>
   </div>
   <div class="col-md-3">

@@ -208,7 +208,20 @@ and will only display if estimated reading time is 5 seconds or more.</dd>
     <h2 id="examples">Examples</h2>
     <pre class="examples"><div class='input'><span class='co'># Cars with 3 gears</span>
 <span class='no'>f</span> <span class='kw'>&lt;-</span> <span class='kw'>function</span>(<span class='no'>x</span>, <span class='no'>pos</span>) <span class='fu'>subset</span>(<span class='no'>x</span>, <span class='no'>gear</span> <span class='kw'>==</span> <span class='fl'>3</span>)
-<span class='fu'>read_csv_chunked</span>(<span class='fu'><a href='readr_example.html'>readr_example</a></span>(<span class='st'>"mtcars.csv"</span>), <span class='no'>DataFrameCallback</span>$<span class='fu'>new</span>(<span class='no'>f</span>), <span class='kw'>chunk_size</span> <span class='kw'>=</span> <span class='fl'>5</span>)</div><div class='output co'>#&gt; # A tibble: 15 × 11
+<span class='fu'>read_csv_chunked</span>(<span class='fu'><a href='readr_example.html'>readr_example</a></span>(<span class='st'>"mtcars.csv"</span>), <span class='no'>DataFrameCallback</span>$<span class='fu'>new</span>(<span class='no'>f</span>), <span class='kw'>chunk_size</span> <span class='kw'>=</span> <span class='fl'>5</span>)</div><div class='output'><strong class='text-info'>Parsed with column specification:
+cols(
+  mpg = col_double(),
+  cyl = col_integer(),
+  disp = col_integer(),
+  hp = col_integer(),
+  drat = col_double(),
+  wt = col_double(),
+  qsec = col_double(),
+  vs = col_integer(),
+  am = col_integer(),
+  gear = col_integer(),
+  carb = col_integer()
+)</strong></div><div class='output co'>#&gt; # A tibble: 15 × 11
 #&gt;      mpg   cyl  disp    hp  drat    wt  qsec    vs    am  gear  carb
 #&gt; *  &lt;dbl&gt; &lt;int&gt; &lt;int&gt; &lt;int&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;int&gt; &lt;int&gt; &lt;int&gt; &lt;int&gt;
 #&gt; 1   21.4     6   258   110  3.08 3.215 19.44     1     0     3     1

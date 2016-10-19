@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Read lines from a file or string. — read_lines • readr</title>
+<title>Read lines from a file — read_lines • readr</title>
 
 <!-- jquery -->
 <script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha384-nrOSfDHtoPMzJHjVTdCopGqIqeYETSXhZDFyniQ8ZHcVy08QesyHcnOUpMpqnmWq" crossorigin="anonymous"></script>
@@ -77,13 +77,15 @@
       </header>
 
       <div class="page-header">
-  <h1>Read lines from a file or string.</h1>
+  <h1>Read lines from a file</h1>
 </div>
 
 <div class="row">
   <div class="col-md-9">
     
-    <p>Read lines from a file or string.</p>
+    <p>Reads up to <code>n_max</code> lines from a file. New lines are not included
+in the output. <code>read_lines_raw</code> is useful
+for handling data with unknown encoding.</p>
     
 
     <pre><span class='fu'>read_lines</span>(<span class='no'>file</span>, <span class='kw'>skip</span> <span class='kw'>=</span> <span class='fl'>0</span>, <span class='kw'>n_max</span> <span class='kw'>=</span> -<span class='fl'>1L</span>, <span class='kw'>locale</span> <span class='kw'>=</span> <span class='fu'><a href='locale.html'>default_locale</a></span>(),
@@ -133,174 +135,53 @@ and will only display if estimated reading time is 5 seconds or more.</dd>
     </div>
     
     <h2 id="examples">Examples</h2>
-    <pre class="examples"><div class='input'><span class='fu'>read_lines</span>(<span class='fu'><a href='readr_example.html'>readr_example</a></span>(<span class='st'>"mtcars.csv"</span>))</div><div class='output co'>#&gt;  [1] &quot;\&quot;mpg\&quot;,\&quot;cyl\&quot;,\&quot;disp\&quot;,\&quot;hp\&quot;,\&quot;drat\&quot;,\&quot;wt\&quot;,\&quot;qsec\&quot;,\&quot;vs\&quot;,\&quot;am\&quot;,\&quot;gear\&quot;,\&quot;carb\&quot;&quot;
-#&gt;  [2] &quot;21,6,160,110,3.9,2.62,16.46,0,1,4,4&quot;                                                     
-#&gt;  [3] &quot;21,6,160,110,3.9,2.875,17.02,0,1,4,4&quot;                                                    
-#&gt;  [4] &quot;22.8,4,108,93,3.85,2.32,18.61,1,1,4,1&quot;                                                   
-#&gt;  [5] &quot;21.4,6,258,110,3.08,3.215,19.44,1,0,3,1&quot;                                                 
-#&gt;  [6] &quot;18.7,8,360,175,3.15,3.44,17.02,0,0,3,2&quot;                                                  
-#&gt;  [7] &quot;18.1,6,225,105,2.76,3.46,20.22,1,0,3,1&quot;                                                  
-#&gt;  [8] &quot;14.3,8,360,245,3.21,3.57,15.84,0,0,3,4&quot;                                                  
-#&gt;  [9] &quot;24.4,4,146.7,62,3.69,3.19,20,1,0,4,2&quot;                                                    
-#&gt; [10] &quot;22.8,4,140.8,95,3.92,3.15,22.9,1,0,4,2&quot;                                                  
-#&gt; [11] &quot;19.2,6,167.6,123,3.92,3.44,18.3,1,0,4,4&quot;                                                 
-#&gt; [12] &quot;17.8,6,167.6,123,3.92,3.44,18.9,1,0,4,4&quot;                                                 
-#&gt; [13] &quot;16.4,8,275.8,180,3.07,4.07,17.4,0,0,3,3&quot;                                                 
-#&gt; [14] &quot;17.3,8,275.8,180,3.07,3.73,17.6,0,0,3,3&quot;                                                 
-#&gt; [15] &quot;15.2,8,275.8,180,3.07,3.78,18,0,0,3,3&quot;                                                   
-#&gt; [16] &quot;10.4,8,472,205,2.93,5.25,17.98,0,0,3,4&quot;                                                  
-#&gt; [17] &quot;10.4,8,460,215,3,5.424,17.82,0,0,3,4&quot;                                                    
-#&gt; [18] &quot;14.7,8,440,230,3.23,5.345,17.42,0,0,3,4&quot;                                                 
-#&gt; [19] &quot;32.4,4,78.7,66,4.08,2.2,19.47,1,1,4,1&quot;                                                   
-#&gt; [20] &quot;30.4,4,75.7,52,4.93,1.615,18.52,1,1,4,2&quot;                                                 
-#&gt; [21] &quot;33.9,4,71.1,65,4.22,1.835,19.9,1,1,4,1&quot;                                                  
-#&gt; [22] &quot;21.5,4,120.1,97,3.7,2.465,20.01,1,0,3,1&quot;                                                 
-#&gt; [23] &quot;15.5,8,318,150,2.76,3.52,16.87,0,0,3,2&quot;                                                  
-#&gt; [24] &quot;15.2,8,304,150,3.15,3.435,17.3,0,0,3,2&quot;                                                  
-#&gt; [25] &quot;13.3,8,350,245,3.73,3.84,15.41,0,0,3,4&quot;                                                  
-#&gt; [26] &quot;19.2,8,400,175,3.08,3.845,17.05,0,0,3,2&quot;                                                 
-#&gt; [27] &quot;27.3,4,79,66,4.08,1.935,18.9,1,1,4,1&quot;                                                    
-#&gt; [28] &quot;26,4,120.3,91,4.43,2.14,16.7,0,1,5,2&quot;                                                    
-#&gt; [29] &quot;30.4,4,95.1,113,3.77,1.513,16.9,1,1,5,2&quot;                                                 
-#&gt; [30] &quot;15.8,8,351,264,4.22,3.17,14.5,0,1,5,4&quot;                                                   
-#&gt; [31] &quot;19.7,6,145,175,3.62,2.77,15.5,0,1,5,6&quot;                                                   
-#&gt; [32] &quot;15,8,301,335,3.54,3.57,14.6,0,1,5,8&quot;                                                     
-#&gt; [33] &quot;21.4,4,121,109,4.11,2.78,18.6,1,1,4,2&quot;                                                   
-#&gt; </div><div class='input'><span class='fu'>read_lines</span>(<span class='st'>"1\n\n2"</span>)</div><div class='output co'>#&gt; [1] &quot;1&quot; &quot;&quot;  &quot;2&quot;
-#&gt; </div><div class='input'><span class='fu'>read_lines</span>(<span class='st'>"\n"</span>)</div><div class='output co'>#&gt; [1] &quot;&quot;
-#&gt; </div><div class='input'>
-<span class='fu'>read_lines_raw</span>(<span class='fu'><a href='readr_example.html'>readr_example</a></span>(<span class='st'>"mtcars.csv"</span>))</div><div class='output co'>#&gt; [[1]]
-#&gt;  [1] 22 6d 70 67 22 2c 22 63 79 6c 22 2c 22 64 69 73 70 22 2c 22 68 70 22 2c 22
-#&gt; [26] 64 72 61 74 22 2c 22 77 74 22 2c 22 71 73 65 63 22 2c 22 76 73 22 2c 22 61
-#&gt; [51] 6d 22 2c 22 67 65 61 72 22 2c 22 63 61 72 62 22
+    <pre class="examples"><div class='input'><span class='fu'>read_lines</span>(<span class='fu'>file.path</span>(<span class='fu'>R.home</span>(<span class='st'>"doc"</span>), <span class='st'>"AUTHORS"</span>), <span class='kw'>n_max</span> <span class='kw'>=</span> <span class='fl'>10</span>)</div><div class='output co'>#&gt;  [1] &quot;Authors of R.&quot;                                                                     
+#&gt;  [2] &quot;&quot;                                                                                  
+#&gt;  [3] &quot;R was initially written by Robert Gentleman and Ross Ihaka—also known as \&quot;R &amp; R\&quot;&quot;
+#&gt;  [4] &quot;of the Statistics Department of the University of Auckland.&quot;                       
+#&gt;  [5] &quot;&quot;                                                                                  
+#&gt;  [6] &quot;Since mid-1997 there has been a core group with write access to the R&quot;             
+#&gt;  [7] &quot;source, currently consisting of&quot;                                                   
+#&gt;  [8] &quot;&quot;                                                                                  
+#&gt;  [9] &quot;Douglas Bates&quot;                                                                     
+#&gt; [10] &quot;John Chambers&quot;                                                                     
+#&gt; </div><div class='input'><span class='fu'>read_lines_raw</span>(<span class='fu'>file.path</span>(<span class='fu'>R.home</span>(<span class='st'>"doc"</span>), <span class='st'>"AUTHORS"</span>), <span class='kw'>n_max</span> <span class='kw'>=</span> <span class='fl'>10</span>)</div><div class='output co'>#&gt; [[1]]
+#&gt;  [1] 41 75 74 68 6f 72 73 20 6f 66 20 52 2e
 #&gt; 
 #&gt; [[2]]
-#&gt;  [1] 32 31 2c 36 2c 31 36 30 2c 31 31 30 2c 33 2e 39 2c 32 2e 36 32 2c 31 36 2e
-#&gt; [26] 34 36 2c 30 2c 31 2c 34 2c 34
+#&gt; raw(0)
 #&gt; 
 #&gt; [[3]]
-#&gt;  [1] 32 31 2c 36 2c 31 36 30 2c 31 31 30 2c 33 2e 39 2c 32 2e 38 37 35 2c 31 37
-#&gt; [26] 2e 30 32 2c 30 2c 31 2c 34 2c 34
+#&gt;  [1] 52 20 77 61 73 20 69 6e 69 74 69 61 6c 6c 79 20 77 72 69 74 74 65 6e 20 62
+#&gt; [26] 79 20 52 6f 62 65 72 74 20 47 65 6e 74 6c 65 6d 61 6e 20 61 6e 64 20 52 6f
+#&gt; [51] 73 73 20 49 68 61 6b 61 e2 80 94 61 6c 73 6f 20 6b 6e 6f 77 6e 20 61 73 20
+#&gt; [76] 22 52 20 26 20 52 22
 #&gt; 
 #&gt; [[4]]
-#&gt;  [1] 32 32 2e 38 2c 34 2c 31 30 38 2c 39 33 2c 33 2e 38 35 2c 32 2e 33 32 2c 31
-#&gt; [26] 38 2e 36 31 2c 31 2c 31 2c 34 2c 31
+#&gt;  [1] 6f 66 20 74 68 65 20 53 74 61 74 69 73 74 69 63 73 20 44 65 70 61 72 74 6d
+#&gt; [26] 65 6e 74 20 6f 66 20 74 68 65 20 55 6e 69 76 65 72 73 69 74 79 20 6f 66 20
+#&gt; [51] 41 75 63 6b 6c 61 6e 64 2e
 #&gt; 
 #&gt; [[5]]
-#&gt;  [1] 32 31 2e 34 2c 36 2c 32 35 38 2c 31 31 30 2c 33 2e 30 38 2c 33 2e 32 31 35
-#&gt; [26] 2c 31 39 2e 34 34 2c 31 2c 30 2c 33 2c 31
+#&gt; raw(0)
 #&gt; 
 #&gt; [[6]]
-#&gt;  [1] 31 38 2e 37 2c 38 2c 33 36 30 2c 31 37 35 2c 33 2e 31 35 2c 33 2e 34 34 2c
-#&gt; [26] 31 37 2e 30 32 2c 30 2c 30 2c 33 2c 32
+#&gt;  [1] 53 69 6e 63 65 20 6d 69 64 2d 31 39 39 37 20 74 68 65 72 65 20 68 61 73 20
+#&gt; [26] 62 65 65 6e 20 61 20 63 6f 72 65 20 67 72 6f 75 70 20 77 69 74 68 20 77 72
+#&gt; [51] 69 74 65 20 61 63 63 65 73 73 20 74 6f 20 74 68 65 20 52
 #&gt; 
 #&gt; [[7]]
-#&gt;  [1] 31 38 2e 31 2c 36 2c 32 32 35 2c 31 30 35 2c 32 2e 37 36 2c 33 2e 34 36 2c
-#&gt; [26] 32 30 2e 32 32 2c 31 2c 30 2c 33 2c 31
+#&gt;  [1] 73 6f 75 72 63 65 2c 20 63 75 72 72 65 6e 74 6c 79 20 63 6f 6e 73 69 73 74
+#&gt; [26] 69 6e 67 20 6f 66
 #&gt; 
 #&gt; [[8]]
-#&gt;  [1] 31 34 2e 33 2c 38 2c 33 36 30 2c 32 34 35 2c 33 2e 32 31 2c 33 2e 35 37 2c
-#&gt; [26] 31 35 2e 38 34 2c 30 2c 30 2c 33 2c 34
+#&gt; raw(0)
 #&gt; 
 #&gt; [[9]]
-#&gt;  [1] 32 34 2e 34 2c 34 2c 31 34 36 2e 37 2c 36 32 2c 33 2e 36 39 2c 33 2e 31 39
-#&gt; [26] 2c 32 30 2c 31 2c 30 2c 34 2c 32
+#&gt;  [1] 44 6f 75 67 6c 61 73 20 42 61 74 65 73
 #&gt; 
 #&gt; [[10]]
-#&gt;  [1] 32 32 2e 38 2c 34 2c 31 34 30 2e 38 2c 39 35 2c 33 2e 39 32 2c 33 2e 31 35
-#&gt; [26] 2c 32 32 2e 39 2c 31 2c 30 2c 34 2c 32
-#&gt; 
-#&gt; [[11]]
-#&gt;  [1] 31 39 2e 32 2c 36 2c 31 36 37 2e 36 2c 31 32 33 2c 33 2e 39 32 2c 33 2e 34
-#&gt; [26] 34 2c 31 38 2e 33 2c 31 2c 30 2c 34 2c 34
-#&gt; 
-#&gt; [[12]]
-#&gt;  [1] 31 37 2e 38 2c 36 2c 31 36 37 2e 36 2c 31 32 33 2c 33 2e 39 32 2c 33 2e 34
-#&gt; [26] 34 2c 31 38 2e 39 2c 31 2c 30 2c 34 2c 34
-#&gt; 
-#&gt; [[13]]
-#&gt;  [1] 31 36 2e 34 2c 38 2c 32 37 35 2e 38 2c 31 38 30 2c 33 2e 30 37 2c 34 2e 30
-#&gt; [26] 37 2c 31 37 2e 34 2c 30 2c 30 2c 33 2c 33
-#&gt; 
-#&gt; [[14]]
-#&gt;  [1] 31 37 2e 33 2c 38 2c 32 37 35 2e 38 2c 31 38 30 2c 33 2e 30 37 2c 33 2e 37
-#&gt; [26] 33 2c 31 37 2e 36 2c 30 2c 30 2c 33 2c 33
-#&gt; 
-#&gt; [[15]]
-#&gt;  [1] 31 35 2e 32 2c 38 2c 32 37 35 2e 38 2c 31 38 30 2c 33 2e 30 37 2c 33 2e 37
-#&gt; [26] 38 2c 31 38 2c 30 2c 30 2c 33 2c 33
-#&gt; 
-#&gt; [[16]]
-#&gt;  [1] 31 30 2e 34 2c 38 2c 34 37 32 2c 32 30 35 2c 32 2e 39 33 2c 35 2e 32 35 2c
-#&gt; [26] 31 37 2e 39 38 2c 30 2c 30 2c 33 2c 34
-#&gt; 
-#&gt; [[17]]
-#&gt;  [1] 31 30 2e 34 2c 38 2c 34 36 30 2c 32 31 35 2c 33 2c 35 2e 34 32 34 2c 31 37
-#&gt; [26] 2e 38 32 2c 30 2c 30 2c 33 2c 34
-#&gt; 
-#&gt; [[18]]
-#&gt;  [1] 31 34 2e 37 2c 38 2c 34 34 30 2c 32 33 30 2c 33 2e 32 33 2c 35 2e 33 34 35
-#&gt; [26] 2c 31 37 2e 34 32 2c 30 2c 30 2c 33 2c 34
-#&gt; 
-#&gt; [[19]]
-#&gt;  [1] 33 32 2e 34 2c 34 2c 37 38 2e 37 2c 36 36 2c 34 2e 30 38 2c 32 2e 32 2c 31
-#&gt; [26] 39 2e 34 37 2c 31 2c 31 2c 34 2c 31
-#&gt; 
-#&gt; [[20]]
-#&gt;  [1] 33 30 2e 34 2c 34 2c 37 35 2e 37 2c 35 32 2c 34 2e 39 33 2c 31 2e 36 31 35
-#&gt; [26] 2c 31 38 2e 35 32 2c 31 2c 31 2c 34 2c 32
-#&gt; 
-#&gt; [[21]]
-#&gt;  [1] 33 33 2e 39 2c 34 2c 37 31 2e 31 2c 36 35 2c 34 2e 32 32 2c 31 2e 38 33 35
-#&gt; [26] 2c 31 39 2e 39 2c 31 2c 31 2c 34 2c 31
-#&gt; 
-#&gt; [[22]]
-#&gt;  [1] 32 31 2e 35 2c 34 2c 31 32 30 2e 31 2c 39 37 2c 33 2e 37 2c 32 2e 34 36 35
-#&gt; [26] 2c 32 30 2e 30 31 2c 31 2c 30 2c 33 2c 31
-#&gt; 
-#&gt; [[23]]
-#&gt;  [1] 31 35 2e 35 2c 38 2c 33 31 38 2c 31 35 30 2c 32 2e 37 36 2c 33 2e 35 32 2c
-#&gt; [26] 31 36 2e 38 37 2c 30 2c 30 2c 33 2c 32
-#&gt; 
-#&gt; [[24]]
-#&gt;  [1] 31 35 2e 32 2c 38 2c 33 30 34 2c 31 35 30 2c 33 2e 31 35 2c 33 2e 34 33 35
-#&gt; [26] 2c 31 37 2e 33 2c 30 2c 30 2c 33 2c 32
-#&gt; 
-#&gt; [[25]]
-#&gt;  [1] 31 33 2e 33 2c 38 2c 33 35 30 2c 32 34 35 2c 33 2e 37 33 2c 33 2e 38 34 2c
-#&gt; [26] 31 35 2e 34 31 2c 30 2c 30 2c 33 2c 34
-#&gt; 
-#&gt; [[26]]
-#&gt;  [1] 31 39 2e 32 2c 38 2c 34 30 30 2c 31 37 35 2c 33 2e 30 38 2c 33 2e 38 34 35
-#&gt; [26] 2c 31 37 2e 30 35 2c 30 2c 30 2c 33 2c 32
-#&gt; 
-#&gt; [[27]]
-#&gt;  [1] 32 37 2e 33 2c 34 2c 37 39 2c 36 36 2c 34 2e 30 38 2c 31 2e 39 33 35 2c 31
-#&gt; [26] 38 2e 39 2c 31 2c 31 2c 34 2c 31
-#&gt; 
-#&gt; [[28]]
-#&gt;  [1] 32 36 2c 34 2c 31 32 30 2e 33 2c 39 31 2c 34 2e 34 33 2c 32 2e 31 34 2c 31
-#&gt; [26] 36 2e 37 2c 30 2c 31 2c 35 2c 32
-#&gt; 
-#&gt; [[29]]
-#&gt;  [1] 33 30 2e 34 2c 34 2c 39 35 2e 31 2c 31 31 33 2c 33 2e 37 37 2c 31 2e 35 31
-#&gt; [26] 33 2c 31 36 2e 39 2c 31 2c 31 2c 35 2c 32
-#&gt; 
-#&gt; [[30]]
-#&gt;  [1] 31 35 2e 38 2c 38 2c 33 35 31 2c 32 36 34 2c 34 2e 32 32 2c 33 2e 31 37 2c
-#&gt; [26] 31 34 2e 35 2c 30 2c 31 2c 35 2c 34
-#&gt; 
-#&gt; [[31]]
-#&gt;  [1] 31 39 2e 37 2c 36 2c 31 34 35 2c 31 37 35 2c 33 2e 36 32 2c 32 2e 37 37 2c
-#&gt; [26] 31 35 2e 35 2c 30 2c 31 2c 35 2c 36
-#&gt; 
-#&gt; [[32]]
-#&gt;  [1] 31 35 2c 38 2c 33 30 31 2c 33 33 35 2c 33 2e 35 34 2c 33 2e 35 37 2c 31 34
-#&gt; [26] 2e 36 2c 30 2c 31 2c 35 2c 38
-#&gt; 
-#&gt; [[33]]
-#&gt;  [1] 32 31 2e 34 2c 34 2c 31 32 31 2c 31 30 39 2c 34 2e 31 31 2c 32 2e 37 38 2c
-#&gt; [26] 31 38 2e 36 2c 31 2c 31 2c 34 2c 32
+#&gt;  [1] 4a 6f 68 6e 20 43 68 61 6d 62 65 72 73
 #&gt; 
 #&gt; </div></pre>
   </div>

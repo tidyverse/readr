@@ -1,0 +1,44 @@
+---
+title: "Vignette Title"
+date: "`r Sys.Date()`"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Vignette Title}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+## Output
+
+`read_csv()` produces a data frame with the following properties:
+
+* Characters are never automatically converted to factors (i.e. no more 
+  `stringsAsFactors = FALSE`).
+
+* Valid column names are left as is, not munged into valid R identifiers
+  (i.e. there is no `check.names = TRUE`). Missing column names are filled
+  in with `X1`, `X2` etc, and duplicated column names are deduplicated.
+
+* The data frame is given class `c("tbl_df", "tbl", "data.frame")` so 
+  if you also use [dplyr](https://github.com/hadley/dplyr/) you'll get an 
+  enhanced display.
+
+* Row names are never set.
+
+## Problems
+
+If there are any problems parsing the file, the `read_` function will throw a warning telling you how many problems there are. You can then use the `problems()` function to access a data frame that gives information about each problem:
+
+```R
+df <- read_csv(col_types = "dd", col_names = c("x", "y"), skip = 1, "
+1,2
+a,b
+")
+#> Warning message: There were 2 problems. See problems(x) for more details
+problems(df)
+#>   row col expected actual
+#> 1   2   1 a double      a
+#> 2   2   2 a double      b
+```
+
+It's likely that there will be cases that you can never load without some manual regexp-based munging in R. Load those columns with `col_character()`, fix them up as needed, then use `convert_types()` to re-run the automated conversion on every character column in the data frame. Alternatively, you can use `parse_integer()`, `parse_numeric()`, `parse_date()` etc to parse a single character vector at a time.
