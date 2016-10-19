@@ -1,9 +1,9 @@
 # readr
 
 [![CRAN_Status_Badge](http://www.r-pkg.org/badges/version/readr)](http://cran.r-project.org/package=readr)
-[![Build Status](https://travis-ci.org/hadley/readr.png?branch=master)](https://travis-ci.org/hadley/readr)
-[![AppVeyor Build Status](https://ci.appveyor.com/api/projects/status/github/hadley/readr?branch=master&svg=true)](https://ci.appveyor.com/project/hadley/readr)
-[![Coverage Status](http://codecov.io/github/hadley/readr/coverage.svg?branch=master)](http://codecov.io/github/hadley/readr?branch=master)
+[![Build Status](https://travis-ci.org/tidyverse/readr.png?branch=master)](https://travis-ci.org/tidyverse/readr)
+[![AppVeyor Build Status](https://ci.appveyor.com/api/projects/status/github/tidyverse/readr?branch=master&svg=true)](https://ci.appveyor.com/project/tidyverse/readr)
+[![Coverage Status](http://codecov.io/github/tidyverse/readr/coverage.svg?branch=master)](http://codecov.io/tidyverse/hadley/readr?branch=master)
 
 The goal of readr is to provide a fast and friendly way to read tabular data into R. The most important functions are:
 
@@ -23,7 +23,7 @@ install.packages("readr")
 You can try out the dev version with:
 ```R
 # install.packages("devtools")
-devtools::install_github("hadley/readr")
+devtools::install_github("tidyverse/readr")
 ```
 
 ## Usage
