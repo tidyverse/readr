@@ -1,7 +1,7 @@
 Package: readr
 Version: 1.0.0.9000
 Title: Read Tabular Data
-Description: Read flat/tabular text files from disk (or a connection).
+Description: Read flat/tabular text files from disk (or a connection). 
 Authors@R: c(
     person("Hadley", "Wickham", , "hadley@rstudio.com", c("aut", "cre")),
     person("Jim", "Hester", , "jim.hester@rstudio.com", "aut"),
@@ -31,4 +31,4 @@ License: GPL (>= 2) | file LICENSE
 BugReports: https://github.com/tidyverse/readr/issues
 URL: http://readr.tidyverse.org, https://github.com/tidyverse/readr
 VignetteBuilder: knitr
-RoxygenNote: 5.0.1
+RoxygenNote: 5.0.1.9000

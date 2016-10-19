@@ -1,4 +1,4 @@
-#' Read common/combined log file.
+#' Read common/combined log file into a tibble
 #'
 #' This is a fairly standard format for log files - it uses both quotes
 #' and square brackets for quoting, and there may be literal quotes embedded

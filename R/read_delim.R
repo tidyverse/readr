@@ -2,7 +2,7 @@
 #' @importClassesFrom Rcpp "C++Object"
 NULL
 
-#' Read a delimited file into a data frame.
+#' Read a delimited file (including csv & tsv) into a tibble
 #'
 #' \code{read_csv} and \code{read_tsv} are special cases of the general
 #' \code{read_delim}. They're useful for reading the most common types of
@@ -207,10 +207,10 @@ generate_spec_fun <- function(x) {
   x
 }
 
-#' Retrieve the column specification of a file.
+#' Compute column specifications
 #'
-#' By default the types of the first 20 columns are printed,
-#' \code{options(readr.num_columns)} can be used to modify this (a value of 0
+#' When printed, only the first 20 columns are printed by default. To override,
+#' set \code{options(readr.num_columns)} can be used to modify this (a value of 0
 #' turns off printing).
 #'
 #' @return The \code{col_spec} generated for the file.

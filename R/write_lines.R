@@ -1,8 +1,7 @@
-#' Write lines/ a file
+#' Write lines to a file
 #'
 #' \code{write_lines} takes a character vector, appending a new line
-#' after entry. \code{write_file} takes a single string, or a raw vector,
-#' and writes it exactly as is.
+#' after each entry.
 #'
 #' @inheritParams write_delim
 #' @return The input \code{x}, invisibly.
@@ -26,9 +25,21 @@ write_lines <- function(x, path, na = "NA", append = FALSE) {
   invisible(x)
 }
 
-
-#' @rdname write_lines
+#' Write a string to a file
+#'
+#' \code{write_file} takes a single string, or a raw vector,
+#' and writes it exactly as is.
+#'
+#' @inherit write_lines
 #' @export
+#' @examples
+#' tmp <- tempfile()
+#'
+#' x <- format_csv(mtcars[1:6, ])
+#' write_file(x, tmp)
+#' identical(x, read_file(tmp))
+#'
+#' read_lines(x)
 write_file <- function(x, path, append = FALSE) {
   path <- normalizePath(path, mustWork = FALSE)
 

@@ -84,20 +84,14 @@ write_tsv <- function(x, path, na = "NA", append = FALSE, col_names = !append) {
   write_delim(x, path, delim = '\t', na = na, append = append, col_names = col_names)
 }
 
+#' Convert a data frame to a delimited string
+#'
+#' These functions are equivalent to \code{\link{write_csv}} etc, but instead
+#' of writing to disk, they return a string.
+#'
+#' @return A string.
+#' @inherit write_delim
 #' @export
-#' @rdname write_delim
-format_csv <- function(x, na = "NA", append = FALSE, col_names = !append) {
-  format_delim(x, delim = ",", na = na, append = append, col_names = col_names)
-}
-
-#' @export
-#' @rdname write_delim
-format_tsv <- function(x, na = "NA", append = FALSE, col_names = !append) {
-  format_delim(x, delim = "\t", na = na, append = append, col_names = col_names)
-}
-
-#' @export
-#' @rdname write_delim
 format_delim <- function(x, delim, na = "NA", append = FALSE, col_names = !append) {
   stopifnot(is.data.frame(x))
 
@@ -105,9 +99,30 @@ format_delim <- function(x, delim, na = "NA", append = FALSE, col_names = !appen
   stream_delim(x, "", delim, col_names = col_names, append = append, na = na)
 }
 
-
-#' @rdname write_delim
 #' @export
+#' @rdname format_delim
+format_csv <- function(x, na = "NA", append = FALSE, col_names = !append) {
+  format_delim(x, delim = ",", na = na, append = append, col_names = col_names)
+}
+
+#' @export
+#' @rdname format_delim
+format_tsv <- function(x, na = "NA", append = FALSE, col_names = !append) {
+  format_delim(x, delim = "\t", na = na, append = append, col_names = col_names)
+}
+
+#' Preprocess column for output
+#'
+#' This is a generic function that applied to each column before it is saved
+#' to disk. It provides a hook for S3 classes that need special handling.
+#'
+#' @keywords internal
+#' @param x A vector
+#' @export
+#' @examples
+#' # Most columns are left as is, but POSIXct are
+#' # converted to ISO8601.
+#' output_column(Sys.time())
 output_column <- function(x) {
   UseMethod("output_column")
 }
@@ -128,7 +143,7 @@ output_column.POSIXt <- function(x) {
   format(x, "%Y-%m-%dT%H:%M:%OSZ", tz = "UTC")
 }
 
-#' Write a single R object to file
+#' Write a single R object to a file
 #'
 #' Consistent wrapper around \code{\link{saveRDS}}. \code{write_rds} does not
 #' compress by default as space is generally cheaper than time.

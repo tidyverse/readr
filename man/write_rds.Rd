@@ -2,7 +2,7 @@
 % Please edit documentation in R/write.R
 \name{write_rds}
 \alias{write_rds}
-\title{Write a single R object to file}
+\title{Write a single R object to a file}
 \usage{
 write_rds(x, path, compress = c("none", "gz", "bz2", "xz"), ...)
 }
