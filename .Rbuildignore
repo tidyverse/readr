@@ -10,3 +10,4 @@
 ^codecov\.yml$
 ^\.httr-oauth$
 ^appveyor\.yml$
+^_pkgdown\.yml$
