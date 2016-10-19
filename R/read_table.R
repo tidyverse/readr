@@ -1,4 +1,4 @@
-#' Read text file where columns are separated by whitespace.
+#' Read whitespace-separated columns into a tibble
 #'
 #' This is designed to read the type of textual data where each column is
 #' separate by one (or more) columns of space. Each line is the same length,
@@ -51,6 +51,6 @@ read_table <- function(file, col_names = TRUE, col_types = NULL,
   res
 }
 
-#' @rdname read_table
+#' @rdname spec_delim
 #' @export
 spec_table <- generate_spec_fun(read_table)

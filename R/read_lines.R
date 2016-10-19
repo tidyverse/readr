@@ -1,4 +1,8 @@
-#' Read lines from a file or string.
+#' Read lines from a file
+#'
+#' Reads up to \code{n_max} lines from a file. New lines are not included
+#' in the output. \code{read_lines_raw} is useful
+#' for handling data with unknown encoding.
 #'
 #' @inheritParams datasource
 #' @inheritParams read_delim
@@ -8,11 +12,8 @@
 #'   \code{read_lines_raw}: A list containing a raw vector for each line.
 #' @export
 #' @examples
-#' read_lines(readr_example("mtcars.csv"))
-#' read_lines("1\n\n2")
-#' read_lines("\n")
-#'
-#' read_lines_raw(readr_example("mtcars.csv"))
+#' read_lines(file.path(R.home("doc"), "AUTHORS"), n_max = 10)
+#' read_lines_raw(file.path(R.home("doc"), "AUTHORS"), n_max = 10)
 read_lines <- function(file, skip = 0, n_max = -1L,
                        locale = default_locale(),
                        na = character(),

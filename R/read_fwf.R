@@ -1,4 +1,4 @@
-#' Read a fixed width file.
+#' Read a fixed width file into a tibble
 #'
 #' A fixed width file can be a very compact representation of numeric data.
 #' It's also very fast to parse, because every field is in the same place in

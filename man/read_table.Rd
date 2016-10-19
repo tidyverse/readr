@@ -2,16 +2,11 @@
 % Please edit documentation in R/read_table.R
 \name{read_table}
 \alias{read_table}
-\alias{spec_table}
-\title{Read text file where columns are separated by whitespace.}
+\title{Read whitespace-separated columns into a tibble}
 \usage{
 read_table(file, col_names = TRUE, col_types = NULL,
   locale = default_locale(), na = "NA", skip = 0, n_max = Inf,
   guess_max = min(n_max, 1000), progress = interactive())
-
-spec_table(file, col_names = TRUE, col_types = NULL,
-  locale = default_locale(), na = "NA", skip = 0, n_max = 0,
-  guess_max = 1000, progress = interactive())
 }
 \arguments{
 \item{file}{Either a path to a file, a connection, or literal data

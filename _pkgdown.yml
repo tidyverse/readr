@@ -1,2 +1,72 @@
 template:
   bootswatch: cerulean
+
+reference:
+- title: Read data frames
+  contents:
+  - read_delim
+  - read_fwf
+  - read_log
+  - read_table
+
+- title: Column specification
+  contents:
+  - problems
+  - cols
+  - cols_condense
+  - spec_delim
+
+- title: Column parsers
+  desc: >
+    Each parser comes in two forms: `parse_xxx()` which is used to parse
+    vectors that already exist in R and `col_xxx()` which is used to parse
+    vectors as they are loaded by a `read_xxx()` function.
+  contents:
+  - parse_character
+  - parse_datetime
+  - parse_factor
+  - parse_guess
+  - parse_number
+
+- title: Locale
+  desc: >
+    The "locale" controls all options that vary from country-to-country or
+    language-to-language.
+  contents:
+  - locale
+  - date_names
+
+- title: Write
+  desc: >
+    Despite its name, readr also provides a number of functions to __write__
+    to disk.
+  contents:
+  - starts_with("format_")
+  - write_csv
+
+- title: Debugging weird files
+  desc: >
+    These functions are helpful for debugging files that don't parse
+    correctly.
+  contents:
+  - count_fields
+  - guess_encoding
+  - type_convert
+
+- title: Low-level IO
+  contents:
+  - read_file
+  - read_lines
+  - read_rds
+  - write_file
+  - write_lines
+  - write_rds
+
+- title: Chunked API
+  desc: >
+    This is an experimental. Please try it out but be aware that it may
+    change in the future.
+  contents:
+  - callback
+  - read_delim_chunked
+  - read_lines_chunked

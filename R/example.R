@@ -5,6 +5,7 @@
 #'
 #' @param path Name of file
 #' @export
+#' @keywords internal
 #' @examples
 #' readr_example("challenge.csv")
 readr_example <- function(path) {

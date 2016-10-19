@@ -3,7 +3,7 @@
 \name{problems}
 \alias{problems}
 \alias{stop_for_problems}
-\title{Retrieve parsing problems.}
+\title{Retrieve parsing problems}
 \usage{
 problems(x)
 
