@@ -11,3 +11,4 @@
 ^\.httr-oauth$
 ^appveyor\.yml$
 ^_pkgdown\.yml$
+^logo\.png$

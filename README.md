@@ -1,4 +1,4 @@
-# readr
+# readr <img src="logo.png" align="right" />
 
 [![CRAN_Status_Badge](http://www.r-pkg.org/badges/version/readr)](http://cran.r-project.org/package=readr)
 [![Build Status](https://travis-ci.org/tidyverse/readr.png?branch=master)](https://travis-ci.org/tidyverse/readr)
