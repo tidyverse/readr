@@ -5,13 +5,7 @@ readr <img src="logo.png" align="right" />
 
 [![CRAN\_Status\_Badge](http://www.r-pkg.org/badges/version/readr)](http://cran.r-project.org/package=readr) [![Build Status](https://travis-ci.org/tidyverse/readr.png?branch=master)](https://travis-ci.org/tidyverse/readr) [![AppVeyor Build Status](https://ci.appveyor.com/api/projects/status/github/tidyverse/readr?branch=master&svg=true)](https://ci.appveyor.com/project/tidyverse/readr) [![Coverage Status](http://codecov.io/github/tidyverse/readr/coverage.svg?branch=master)](http://codecov.io/tidyverse/hadley/readr?branch=master)
 
-The goal of readr is to provide a fast and friendly way to read tabular data into R. The most important functions are:
-
--   Read delimited files: `read_delim()`, `read_csv()`, `read_tsv()`, `read_csv2()`.
--   Read fixed width files: `read_fwf()`, `read_table()`.
--   Read lines: `read_lines()`.
--   Read whole file: `read_file()`.
--   Re-parse existing data frame: `type_convert()`.
+The goal of readr is to provide a fast and friendly way to read rectangular data (like csv, tsv, and fwf). It is designed to flexibly parse many types of data found in the wild, while still cleanly failing when data unexpectedly changes.
 
 Installation
 ------------
@@ -31,11 +25,21 @@ devtools::install_github("tidyverse/readr")
 Usage
 -----
 
-``` r
-library(readr)
+To accurately read a rectangular dataset with readr you combine two pieces: a function that parses the overall file, and a column specification. The column specification describes how each column should be converted from a character vector to the most appropriate data type, and in most cases it's not necessary because readr will guess it for you automatically.
 
-# Read a csv file into a data frame
-read_csv(readr_example("mtcars.csv"))
+readr supports seven file formats with seven `read_` functions:
+
+-   `read_csv()`: comma separated (CSV) files
+-   `read_tsv()`: tab separated files
+-   `read_delim()`: general delimited files
+-   `read_fwf()`: fixed width files
+-   `read_table()`: tabular files where colums are separated by white-space.
+-   `read_log()`: web log files
+
+In many cases, these functions will just work: you supply the path to a file and you get a tibble back. The following example loads a sample file bundled with readr:
+
+``` r
+mtcars <- read_csv(readr_example("mtcars.csv"))
 #> Parsed with column specification:
 #> cols(
 #>   mpg = col_double(),
@@ -50,50 +54,60 @@ read_csv(readr_example("mtcars.csv"))
 #>   gear = col_integer(),
 #>   carb = col_integer()
 #> )
-#> # A tibble: 32 × 11
-#>      mpg   cyl  disp    hp  drat    wt  qsec    vs    am  gear  carb
-#>    <dbl> <int> <dbl> <int> <dbl> <dbl> <dbl> <int> <int> <int> <int>
-#> 1   21.0     6 160.0   110  3.90 2.620 16.46     0     1     4     4
-#> 2   21.0     6 160.0   110  3.90 2.875 17.02     0     1     4     4
-#> 3   22.8     4 108.0    93  3.85 2.320 18.61     1     1     4     1
-#> 4   21.4     6 258.0   110  3.08 3.215 19.44     1     0     3     1
-#> 5   18.7     8 360.0   175  3.15 3.440 17.02     0     0     3     2
-#> 6   18.1     6 225.0   105  2.76 3.460 20.22     1     0     3     1
-#> 7   14.3     8 360.0   245  3.21 3.570 15.84     0     0     3     4
-#> 8   24.4     4 146.7    62  3.69 3.190 20.00     1     0     4     2
-#> 9   22.8     4 140.8    95  3.92 3.150 22.90     1     0     4     2
-#> 10  19.2     6 167.6   123  3.92 3.440 18.30     1     0     4     4
-#> # ... with 22 more rows
 ```
 
-See `vignette("column-types")` on how readr parses columns, and how you can override the defaults.
+Note that readr prints the column specification. This is useful because it allows you to check that the columns have been read in as you expect, and if they haven't, you can easily copy and paste into a new call:
 
-Comparison
-----------
+``` r
+mtcars <- read_csv(readr_example("mtcars.csv"), col_types = 
+  cols(
+    mpg = col_double(),
+    cyl = col_integer(),
+    disp = col_double(),
+    hp = col_integer(),
+    drat = col_double(),
+    vs = col_integer(),
+    wt = col_double(),
+    qsec = col_double(),
+    am = col_integer(),
+    gear = col_integer(),
+    carb = col_integer()
+  )
+)
+```
 
-### To base R
+`vignette("column-types")` gives more detail on how readr guess the column types, how you can override the defaults, and provides some useful tools for debugging parsing problems.
+
+Alternatives
+------------
+
+There are two main alternatives to readr: base R and data.table's `fread()`. The most important differences are discussed below.
+
+### Base R
 
 Compared to the corresponding base functions, readr functions:
 
 -   Use a consistent naming scheme for the parameters (e.g. `col_names` and `col_types` not `header` and `colClasses`).
 
--   Are much faster (up to 10x faster).
+-   Are much faster (up to 10x).
+
+-   Leave strings as is by default, and automatically parse common date/time formats.
 
 -   Have a helpful progress bar if loading is going to take a while.
 
 -   All functions work exactly the same way regardless of the current locale. To override the US-centric defaults, use `locale()`.
 
-### To `fread()`
+### data.table and `fread()`
 
-[data.table](https://github.com/Rdatatable/data.table) has a function similar to `read_csv()` called fread. Compared to fread, readr:
+[data.table](https://github.com/Rdatatable/data.table) has a function similar to `read_csv()` called fread. Compared to fread, readr functions:
 
--   Is slower (currently ~1.2-2x slower. If you want absolutely the best performance, use `data.table::fread()`.
+-   Are slower (currently ~1.2-2x slower. If you want absolutely the best performance, use `data.table::fread()`.
 
--   Readr has a slightly more sophisticated parser, recognising both doubled ("""") and backslash escapes ("""). Readr allows you to read factors and date times directly from disk.
+-   Use a slightly more sophisticated parser, recognising both doubled (`""""`) and backslash escapes (`"\""`), and can produce factors and date/times directly.
 
--   `fread()` saves you work by automatically guessing the delimiter, whether or not the file has a header, how many lines to skip by default and more. Readr forces you to supply these parameters.
+-   Forces you to supply all parameters, where `fread()` saves you work by automatically guessing the delimiter, whether or not the file has a header, and how many lines to skip.
 
--   The underlying designs are quite different. Readr is designed to be general, and dealing with new types of rectangular data just requires implementing a new tokenizer. `fread()` is designed to be as fast as possible. `fread()` is pure C, readr is C++ (and Rcpp).
+-   Are built on a different underlying infrastructure. Readr functions are designed to be quite general, which makes it easier to add support for new rectangular data formats. `fread()` is designed to be as fast as possible.
 
 Acknowledgements
 ----------------
