@@ -1,6 +1,11 @@
 template:
   bootswatch: cerulean
 
+home:
+  links:
+  - text: Learn more at R4DS
+    href: http://r4ds.had.co.nz/data-import.html
+
 reference:
 - title: Read data frames
   contents:
