@@ -7,6 +7,7 @@
 #' @inheritParams datasource
 #' @inheritParams read_lines
 #' @param threshold Only report guesses above this threshold of certainty.
+#' @return A tibble
 #' @export
 #' @examples
 #' guess_encoding(readr_example("mtcars.csv"))
@@ -25,7 +26,7 @@ guess_encoding <- function(file, n_max = 1e4, threshold = 0.20) {
 
   guess <- stringi::stri_enc_detect(all)
 
-  df <- as.data.frame(guess[[1]], stringsAsFactors = FALSE)
+  df <- tibble::as_tibble(guess[[1]])
   names(df) <- tolower(names(df))
-  df[df$confidence > threshold, c("encoding", "confidence"), drop = FALSE]
+  df[df$confidence > threshold, c("encoding", "confidence")]
 }

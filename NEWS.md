@@ -1,5 +1,7 @@
 # readr 1.0.0.9000
 
+* `guess_encoding()` returns a tibble
+
 # readr 1.0.0
 
 ## Column guessing
