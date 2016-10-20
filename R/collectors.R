@@ -377,38 +377,3 @@ col_date <- function(format = "") {
 col_time <- function(format = "") {
   collector("time", format = format)
 }
-
-# Deprecated --------------------------------------------------------------
-
-#' @rdname parse_atomic
-#' @export
-#' @usage NULL
-col_euro_double <- function() {
-  warning("Deprecated: please set locale")
-  collector("double")
-}
-
-#' @rdname parse_atomic
-#' @export
-#' @usage NULL
-parse_euro_double <- function(x, na = c("", "NA")) {
-  warning("Deprecated: please set locale")
-  parse_vector(x, col_double(), na = na)
-}
-
-#' @rdname parse_atomic
-#' @usage NULL
-#' @export
-col_numeric <- function() {
-  warning("Deprecated: please use `col_number()`")
-  collector("number")
-}
-
-#' @rdname parse_atomic
-#' @usage NULL
-#' @export
-parse_numeric <- function(x, na = c("", "NA"), locale = default_locale()) {
-  warning("Deprecated: please use `parse_number()`")
-  parse_vector(x, col_number(), na = na, locale = locale)
-}
-
