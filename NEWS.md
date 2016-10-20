@@ -3,7 +3,8 @@
 * `col_euro_double()`, `parse_euro_double()`, `col_numeric()`, and 
   `parse_numeric()` have been removed.
 
-* `guess_encoding()` returns a tibble
+* `guess_encoding()` returns a tibble, and works better with lists of 
+  raw vectors (as returned by `read_lines_raw()`).
 
 # readr 1.0.0
 
