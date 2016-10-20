@@ -24,6 +24,9 @@ file will be read.}
 
 \item{threshold}{Only report guesses above this threshold of certainty.}
 }
+\value{
+A tibble
+}
 \description{
 Uses \code{\link[stringi]{stri_enc_detect}}: see the documentation there
 for caveats.
