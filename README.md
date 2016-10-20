@@ -5,7 +5,7 @@ readr <img src="logo.png" align="right" />
 
 [![CRAN\_Status\_Badge](http://www.r-pkg.org/badges/version/readr)](http://cran.r-project.org/package=readr) [![Build Status](https://travis-ci.org/tidyverse/readr.png?branch=master)](https://travis-ci.org/tidyverse/readr) [![AppVeyor Build Status](https://ci.appveyor.com/api/projects/status/github/tidyverse/readr?branch=master&svg=true)](https://ci.appveyor.com/project/tidyverse/readr) [![Coverage Status](http://codecov.io/github/tidyverse/readr/coverage.svg?branch=master)](http://codecov.io/tidyverse/hadley/readr?branch=master)
 
-The goal of readr is to provide a fast and friendly way to read rectangular data (like csv, tsv, and fwf). It is designed to flexibly parse many types of data found in the wild, while still cleanly failing when data unexpectedly changes.
+The goal of readr is to provide a fast and friendly way to read rectangular data (like csv, tsv, and fwf). It is designed to flexibly parse many types of data found in the wild, while still cleanly failing when data unexpectedly changes. If you are new to readr, the best place to start is the [data import chapter](http://r4ds.had.co.nz/data-import.html) in R for data science.
 
 Installation
 ------------
@@ -40,20 +40,6 @@ In many cases, these functions will just work: you supply the path to a file and
 
 ``` r
 mtcars <- read_csv(readr_example("mtcars.csv"))
-#> Parsed with column specification:
-#> cols(
-#>   mpg = col_double(),
-#>   cyl = col_integer(),
-#>   disp = col_double(),
-#>   hp = col_integer(),
-#>   drat = col_double(),
-#>   wt = col_double(),
-#>   qsec = col_double(),
-#>   vs = col_integer(),
-#>   am = col_integer(),
-#>   gear = col_integer(),
-#>   carb = col_integer()
-#> )
 ```
 
 Note that readr prints the column specification. This is useful because it allows you to check that the columns have been read in as you expect, and if they haven't, you can easily copy and paste into a new call:
