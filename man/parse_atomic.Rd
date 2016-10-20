@@ -9,10 +9,6 @@
 \alias{col_integer}
 \alias{col_double}
 \alias{col_character}
-\alias{col_euro_double}
-\alias{parse_euro_double}
-\alias{col_numeric}
-\alias{parse_numeric}
 \title{Parse logicals, integers, and reals}
 \usage{
 parse_logical(x, na = c("", "NA"), locale = default_locale())

@@ -1,6 +1,9 @@
 # readr 1.0.0.9000
 
 * Bugfix for chunked reading to properly allow stopping of a stream by returning FALSE from the callback.
+* `col_euro_double()`, `parse_euro_double()`, `col_numeric()`, and 
+  `parse_numeric()` have been removed.
+
 * `guess_encoding()` returns a tibble
 
 # readr 1.0.0
