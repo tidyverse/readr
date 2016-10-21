@@ -33,10 +33,14 @@ datasource(charToRaw("a,b,c\\n1,2,3"))
 datasource(readr_example("mtcars.csv"))
 datasource(readr_example("mtcars.csv.bz2"))
 datasource(readr_example("mtcars.csv.zip"))
+\dontrun{
 datasource("https://github.com/tidyverse/readr/raw/master/inst/extdata/mtcars.csv")
+}
 
 # Connection
-datasource(rawConnection(charToRaw("abc\\n123")))
+con <- rawConnection(charToRaw("abc\\n123"))
+datasource(con)
+close(con)
 }
 \keyword{internal}
 
