@@ -106,7 +106,8 @@ to disk. It provides a hook for S3 classes that need special handling.</p>
     </h2>
     <pre class="examples"><div class='input'><span class='co'># Most columns are left as is, but POSIXct are</span>
 <span class='co'># converted to ISO8601.</span>
-<span class='fu'>output_column</span>(<span class='fu'>Sys.time</span>())</div><div class='output co'>#&gt; [1] &quot;2016-10-27T19:40:48Z&quot;
+<span class='no'>x</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='parse_datetime.html'>parse_datetime</a></span>(<span class='st'>"2016-01-01"</span>)
+<span class='fu'>str</span>(<span class='fu'>output_column</span>(<span class='no'>x</span>))</div><div class='output co'>#&gt;  chr &quot;2016-01-01T00:00:00Z&quot;
 #&gt; </div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">

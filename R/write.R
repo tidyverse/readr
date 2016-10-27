@@ -122,7 +122,8 @@ format_tsv <- function(x, na = "NA", append = FALSE, col_names = !append) {
 #' @examples
 #' # Most columns are left as is, but POSIXct are
 #' # converted to ISO8601.
-#' output_column(Sys.time())
+#' x <- parse_datetime("2016-01-01")
+#' str(output_column(x))
 output_column <- function(x) {
   UseMethod("output_column")
 }

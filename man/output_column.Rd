@@ -16,7 +16,8 @@ to disk. It provides a hook for S3 classes that need special handling.
 \examples{
 # Most columns are left as is, but POSIXct are
 # converted to ISO8601.
-output_column(Sys.time())
+x <- parse_datetime("2016-01-01")
+str(output_column(x))
 }
 \keyword{internal}
 
