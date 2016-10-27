@@ -3,7 +3,8 @@
 #' A locale object tries to capture all the defaults that can vary between
 #' countries. You set the locale in once, and the details are automatically
 #' passed on down to the columns parsers. The defaults have been chosen to
-#' match R (i.e. US English) as closely as possible.
+#' match R (i.e. US English) as closely as possible. See
+#' \code{vignette("locales")} for more details.
 #'
 #' @param date_names Character representations of day and month names. Either
 #'   the language code as string (passed on to \code{\link{date_names_lang}})
