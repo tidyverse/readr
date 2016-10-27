@@ -12,16 +12,15 @@
 <script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha384-nrOSfDHtoPMzJHjVTdCopGqIqeYETSXhZDFyniQ8ZHcVy08QesyHcnOUpMpqnmWq" crossorigin="anonymous"></script>
 
 <!-- Bootstrap -->
-<link href="https://maxcdn.bootstrapcdn.com/bootswatch/3.3.7/cerulean/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous">
-
+<link href="../tidyverse.css" rel="stylesheet">
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
 
 <!-- Font Awesome icons -->
 <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-T8Gy5hrqNKT+hzMclPo118YTQO6cYprQmhrYwIiQ/3axmI1hQomh7Ud2hPOy8SP1" crossorigin="anonymous">
 
-
-<!-- pkgdown -->
+<!-- tidyverse -->
 <link href="../pkgdown.css" rel="stylesheet">
+<script src="../jquery.sticky-kit.min.js"></script>
 <script src="../pkgdown.js"></script>
 
 <!-- mathjax -->
@@ -34,10 +33,9 @@
   </head>
 
   <body>
-    <div class="container">
+    <div class="container template-news">
       <header>
-      
-<div class="navbar navbar-default  navbar-fixed-top" role="navigation">
+      <div class="navbar navbar-default navbar-fixed-top" role="navigation">
   <div class="container">
     <div class="navbar-header">
       <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar">
@@ -45,24 +43,29 @@
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </button>
-      <a class="navbar-brand" href="../index.html">readr</a>
+
+      <div class="navbar-brand-container">
+        <a class="navbar-brand" href="../index.html">readr</a>
+        <small class="tidyverse">part of the <a href="http://tidyverse.org">tidyverse</a></small>
+      </div>
     </div>
     <div id="navbar" class="navbar-collapse collapse">
-      <ul class="nav navbar-nav">
+      <ul class="nav navbar-nav navbar-right">
         <li>
   <a href="../index.html">Home</a>
+</li>
+<li>
+  <a href="../articles/readr.html">Overview</a>
+</li>
+<li>
+  <a href="../articles/locales.html">Locales</a>
 </li>
 <li>
   <a href="../reference/index.html">Reference</a>
 </li>
 <li>
-  <a href="../articles/index.html">Articles</a>
-</li>
-<li>
   <a href="../news/index.html">News</a>
 </li>
-      </ul>
-      <ul class="nav navbar-nav navbar-right">
         <li>
   <a href="https://github.com/tidyverse/readr">
     <span class="fa fa-github fa-lg"></span>
@@ -73,6 +76,7 @@
     </div><!--/.nav-collapse -->
   </div><!--/.container -->
 </div><!--/.navbar -->
+
       
       </header>
 
@@ -83,13 +87,19 @@
       <h1>Change log <small>All releases</small></h1>
     </div>
 
-    <div id="readr-1.0.0.9000" class="section level1">
-<h1>readr 1.0.0.9000</h1>
-</div>
-    <div id="readr-1.0.0" class="section level1">
-<h1>readr 1.0.0</h1>
+    <div class="contents">
+    <div id="readr-1-0-0-9000" class="section level1">
+<h1 class="hasAnchor">
+<a href="#readr-1-0-0-9000" class="anchor"> </a>readr 1.0.0.9000</h1>
+<ul><li><p><code>col_euro_double()</code>, <code>parse_euro_double()</code>, <code>col_numeric()</code>, and <code>parse_numeric()</code> have been removed.</p></li>
+<li><p><code><a href="../reference/guess_encoding.html">guess_encoding()</a></code> returns a tibble, and works better with lists of raw vectors (as returned by <code><a href="../reference/read_lines.html">read_lines_raw()</a></code>).</p></li>
+</ul></div>
+    <div id="readr-1-0-0" class="section level1">
+<h1 class="hasAnchor">
+<a href="#readr-1-0-0" class="anchor"> </a>readr 1.0.0</h1>
 <div id="column-guessing" class="section level2">
-<h2>Column guessing</h2>
+<h2 class="hasAnchor">
+<a href="#column-guessing" class="anchor"> </a>Column guessing</h2>
 <p>The process by which readr guesses the types of columns has received a substantial overhaul to make it easier to fix problems when the initial guesses aren’t correct, and to make it easier to generate reproducible code. Now column specifications are printing by default when you read from a file:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">challenge &lt;-<span class="st"> </span><span class="kw"><a href="../reference/read_delim.html">read_csv</a></span>(<span class="kw"><a href="../reference/readr_example.html">readr_example</a></span>(<span class="st">"challenge.csv"</span>))
 <span class="co">#&gt; Parsed with column specification:</span>
@@ -126,7 +136,8 @@
 <li><p><code>col_types()</code> accepts a named list as input (#401).</p></li>
 </ul></div>
 <div id="column-parsing" class="section level2">
-<h2>Column parsing</h2>
+<h2 class="hasAnchor">
+<a href="#column-parsing" class="anchor"> </a>Column parsing</h2>
 <p>The date time parsers recognise three new format strings:</p>
 <ul><li><p><code>%I</code> for 12 hour time format (#340).</p></li>
 <li><p><code>%AD</code> and <code>%AT</code> are “automatic” date and time parsers. They are both slightly less flexible than previous defaults. The automatic date parser requires a four digit year, and only accepts <code>-</code> and <code>/</code> as separators (#442). The flexible time parser now requires colons between hours and minutes and optional seconds (#424).</p></li>
@@ -136,12 +147,13 @@
 <li><p><code><a href="../reference/parse_datetime.html">parse_date()</a></code> returns a numeric vector (instead of an integer vector) (#357).</p></li>
 <li><p><code><a href="../reference/parse_datetime.html">parse_date()</a></code>, <code><a href="../reference/parse_datetime.html">parse_time()</a></code> and <code><a href="../reference/parse_datetime.html">parse_datetime()</a></code> gain an <code>na</code> argument to match all other parsers (#413).</p></li>
 <li><p>If the format argument is omitted <code><a href="../reference/parse_datetime.html">parse_date()</a></code> or <code><a href="../reference/parse_datetime.html">parse_time()</a></code>, date and time formats specified in the locale will be used. These now default to <code>%AD</code> and <code>%AT</code> respectively.</p></li>
-<li><p>You can now parse partial dates with <code><a href="../reference/parse_datetime.html">parse_date()</a></code> and <code><a href="../reference/parse_datetime.html">parse_datetime()</a></code>, e.g. <code>parse_date("2001", "%Y")</code> returns <code>2001-01-01</code>.</p></li>
-</ul><p><code><a href="../reference/parse_number.html">parse_number()</a></code> is slightly more flexible - it now parses numbers up to the first ill-formed character. For example <code>parse_number("-3-")</code> and <code>parse_number("...3...")</code> now return -3 and 3 respectively. We also fixed a major bug where parsing negative numbers yielded positive values (#308).</p>
+<li><p>You can now parse partial dates with <code><a href="../reference/parse_datetime.html">parse_date()</a></code> and <code><a href="../reference/parse_datetime.html">parse_datetime()</a></code>, e.g. <code><a href="../reference/parse_datetime.html">parse_date("2001", "%Y")</a></code> returns <code>2001-01-01</code>.</p></li>
+</ul><p><code><a href="../reference/parse_number.html">parse_number()</a></code> is slightly more flexible - it now parses numbers up to the first ill-formed character. For example <code><a href="../reference/parse_number.html">parse_number("-3-")</a></code> and <code><a href="../reference/parse_number.html">parse_number("...3...")</a></code> now return -3 and 3 respectively. We also fixed a major bug where parsing negative numbers yielded positive values (#308).</p>
 <p><code><a href="../reference/parse_atomic.html">parse_logical()</a></code> now accepts <code>0</code>, <code>1</code> as well as lowercase <code>t</code>, <code>f</code>, <code>true</code>, <code>false</code>.</p>
 </div>
 <div id="new-readers-and-writers" class="section level2">
-<h2>New readers and writers</h2>
+<h2 class="hasAnchor">
+<a href="#new-readers-and-writers" class="anchor"> </a>New readers and writers</h2>
 <ul><li><p><code><a href="../reference/read_file.html">read_file_raw()</a></code> reads a complete file into a single raw vector (#451).</p></li>
 <li><p><code>read_*()</code> functions gain a <code>quoted_na</code> argument to control whether missing values within quotes are treated as missing values or as strings (#295).</p></li>
 <li><p><code><a href="../reference/write_delim.html">write_excel_csv()</a></code> can be used to write a csv file with a UTF-8 BOM at the start, which forces Excel to read it as UTF-8 encoded (#375).</p></li>
@@ -150,7 +162,8 @@
 <li><p>Experimental support for chunked reading a writing (<code>read_*_chunked()</code>) functions. The API is unstable and subject to change in the future (#427).</p></li>
 </ul></div>
 <div id="minor-features-and-bug-fixes" class="section level2">
-<h2>Minor features and bug fixes</h2>
+<h2 class="hasAnchor">
+<a href="#minor-features-and-bug-fixes" class="anchor"> </a>Minor features and bug fixes</h2>
 <ul><li><p>Printing double values now uses an <a href="https://github.com/juj/MathGeoLib/blob/master/src/Math/grisu3.c">implementation</a> of the <a href="http://www.cs.tufts.edu/~nr/cs257/archive/florian-loitsch/printf.pdf">grisu3 algorithm</a> which speeds up writing of large numeric data frames by ~10X. (#432) ‘.0’ is appended to whole number doubles, to ensure they will be read as doubles as well. (#483)</p></li>
 <li><p>readr imports tibble so that you get consistent <code>tbl_df</code> behaviour (#317, #385).</p></li>
 <li><p>New example <code>extdata/challenge.csv</code> which is carefully created to cause problems with the default column type guessing heuristics.</p></li>
@@ -172,28 +185,33 @@
 <li><p>Fix bug when detecting column types for single row files without headers (#333).</p></li>
 </ul></div>
 </div>
-    <div id="readr-0.2.2" class="section level1">
-<h1>readr 0.2.2</h1>
+    <div id="readr-0-2-2" class="section level1">
+<h1 class="hasAnchor">
+<a href="#readr-0-2-2" class="anchor"> </a>readr 0.2.2</h1>
 <ul><li>Fix bug when checking empty values for missingness (caused valgrind issue and random crashes).</li>
 </ul></div>
-    <div id="readr-0.2.1" class="section level1">
-<h1>readr 0.2.1</h1>
+    <div id="readr-0-2-1" class="section level1">
+<h1 class="hasAnchor">
+<a href="#readr-0-2-1" class="anchor"> </a>readr 0.2.1</h1>
 <ul><li>Fixes so that readr works on Solaris.</li>
 </ul></div>
-    <div id="readr-0.2.0" class="section level1">
-<h1>readr 0.2.0</h1>
+    <div id="readr-0-2-0" class="section level1">
+<h1 class="hasAnchor">
+<a href="#readr-0-2-0" class="anchor"> </a>readr 0.2.0</h1>
 <div id="internationalisation" class="section level2">
-<h2>Internationalisation</h2>
+<h2 class="hasAnchor">
+<a href="#internationalisation" class="anchor"> </a>Internationalisation</h2>
 <p>readr now has a strategy for dealing with settings that vary from place to place: locales. The default locale is still US centric (because R itself is), but you can now easily override the default timezone, decimal separator, grouping mark, day &amp; month names, date format, and encoding. This has lead to a number of changes:</p>
 <ul><li><p><code><a href="../reference/read_delim.html">read_csv()</a></code>, <code><a href="../reference/read_delim.html">read_tsv()</a></code>, <code><a href="../reference/read_fwf.html">read_fwf()</a></code>, <code><a href="../reference/read_table.html">read_table()</a></code>, <code><a href="../reference/read_lines.html">read_lines()</a></code>, <code><a href="../reference/read_file.html">read_file()</a></code>, <code><a href="../reference/type_convert.html">type_convert()</a></code>, <code><a href="../reference/parse_vector.html">parse_vector()</a></code> all gain a <code>locale</code> argument.</p></li>
 <li><p><code><a href="../reference/locale.html">locale()</a></code> controls all the input settings that vary from place-to-place.</p></li>
-<li><p><code><a href="../reference/parse_atomic.html">col_euro_double()</a></code> and <code><a href="../reference/parse_atomic.html">parse_euro_double()</a></code> have been deprecated. Use the <code>decimal_mark</code> parameter to <code><a href="../reference/locale.html">locale()</a></code> instead.</p></li>
+<li><p><code>col_euro_double()</code> and <code>parse_euro_double()</code> have been deprecated. Use the <code>decimal_mark</code> parameter to <code><a href="../reference/locale.html">locale()</a></code> instead.</p></li>
 <li><p>The default encoding is now UTF-8. To load files that are not in UTF-8, set the <code>encoding</code> parameter of the <code><a href="../reference/locale.html">locale()</a></code> (#40). New <code><a href="../reference/guess_encoding.html">guess_encoding()</a></code> function uses stringi to help you figure out the encoding of a file.</p></li>
 <li><p><code><a href="../reference/parse_datetime.html">parse_datetime()</a></code> and <code><a href="../reference/parse_datetime.html">parse_date()</a></code> with <code>%B</code> and <code>%b</code> use the month names (full and abbreviate) defined in the locale (#242). They also inherit the tz from the locale, rather than using an explicit <code>tz</code> parameter.</p></li>
 </ul><p>See <code><a href="../articles/locales.html">vignette("locales")</a></code> for more details.</p>
 </div>
 <div id="file-parsing-improvements" class="section level2">
-<h2>File parsing improvements</h2>
+<h2 class="hasAnchor">
+<a href="#file-parsing-improvements" class="anchor"> </a>File parsing improvements</h2>
 <ul><li><p><code><a href="../reference/cols.html">cols()</a></code> lets you pick the default column type for columns not otherwise explicitly named (#148). You can refer to parsers either with their full name (e.g. <code><a href="../reference/parse_atomic.html">col_character()</a></code>) or their one letter abbreviation (e.g. <code>c</code>).</p></li>
 <li><p><code><a href="../reference/cols.html">cols_only()</a></code> allows you to load only named columns. You can also choose to override the default column type in <code><a href="../reference/cols.html">cols()</a></code> (#72).</p></li>
 <li><p><code><a href="../reference/read_fwf.html">read_fwf()</a></code> is now much more careful with new lines. If a line is too short, you’ll get a warning instead of a silent mistake (#166, #254). Additionally, the last column can now be ragged: the width of the last field is silently extended until it hits the next line break (#146). This appears to be a common feature of “fixed” width files in the wild.</p></li>
@@ -204,7 +222,8 @@
 <li><p>Multiple NA values can be specified by passing a character vector to <code>na</code> (#125). The default has been changed to <code>na = c("", "NA")</code>. Specifying <code>na = ""</code> now works as expected with character columns (#114).</p></li>
 </ul></div>
 <div id="column-parsing-improvements" class="section level2">
-<h2>Column parsing improvements</h2>
+<h2 class="hasAnchor">
+<a href="#column-parsing-improvements" class="anchor"> </a>Column parsing improvements</h2>
 <p>Readr gains <code><a href="../articles/column-types.html">vignette("column-types")</a></code> which describes how the defaults work and how to override them (#122).</p>
 <ul><li><p><code><a href="../reference/parse_atomic.html">parse_character()</a></code> gains better support for embedded nulls: any characters after the first null are dropped with a warning (#202).</p></li>
 <li><p><code><a href="../reference/parse_atomic.html">parse_integer()</a></code> and <code><a href="../reference/parse_atomic.html">parse_double()</a></code> no longer silently ignore trailing letters after the number (#221).</p></li>
@@ -219,7 +238,7 @@
 <li><p>Local (non-UTC) times with and without daylight savings are now parsed correctly (#120, @andres-s).</p></li>
 </ul></li>
 <li><p><code><a href="../reference/parse_number.html">parse_number()</a></code> is a somewhat flexible numeric parser designed to read currencies and percentages. It only reads the first number from a string (using the grouping mark defined by the locale).</p></li>
-<li><p><code><a href="../reference/parse_atomic.html">parse_numeric()</a></code> has been deprecated because the name is confusing - it’s a flexible number parser, not a parser of “numerics”, as R collectively calls doubles and integers. Use <code><a href="../reference/parse_number.html">parse_number()</a></code> instead.</p></li>
+<li><p><code>parse_numeric()</code> has been deprecated because the name is confusing - it’s a flexible number parser, not a parser of “numerics”, as R collectively calls doubles and integers. Use <code><a href="../reference/parse_number.html">parse_number()</a></code> instead.</p></li>
 </ul><p>As well as improvements to the parser, I’ve also made a number of tweaks to the heuristics that readr uses to guess column types:</p>
 <ul><li><p>New <code><a href="../reference/parse_guess.html">parse_guess()</a></code> and <code><a href="../reference/parse_guess.html">col_guess()</a></code> to explicitly guess column type.</p></li>
 <li><p>Bumped up row inspection for column typing guessing from 100 to 1000.</p></li>
@@ -227,7 +246,8 @@
 <li><p>A column is guessed as <code><a href="../reference/parse_number.html">col_number()</a></code> only if it parses as a regular number when you ignoring the grouping marks.</p></li>
 </ul></div>
 <div id="minor-improvements-and-bug-fixes" class="section level2">
-<h2>Minor improvements and bug fixes</h2>
+<h2 class="hasAnchor">
+<a href="#minor-improvements-and-bug-fixes" class="anchor"> </a>Minor improvements and bug fixes</h2>
 <ul><li><p>Now use R’s platform independent <code>iconv</code> wrapper, thanks to BDR (#149).</p></li>
 <li><p>Pathological zero row inputs (due to empty input, <code>skip</code> or <code>n_max</code>) now return zero row data frames (#119).</p></li>
 <li><p>When guessing field types, and there’s no information to go on, use character instead of logical (#124, #128).</p></li>
@@ -255,17 +275,18 @@
 <li><p><code><a href="../reference/write_rds.html">write_rds()</a></code> and <code><a href="../reference/read_rds.html">read_rds()</a></code> wrap around <code>readRDS()</code> and <code>saveRDS()</code>, defaulting to no compression (#140, @nicolasCoutin).</p></li>
 </ul></div>
 </div>
+    </div>
   </div>
 
-  <div class="col-md-3 hidden-xs">
+  <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <div id="tocnav">
       <h2>Contents</h2>
       <ul class="nav nav-pills nav-stacked">
-        <li><a href="#readr-1.0.0.9000">1.0.0.9000</a></li>
-        <li><a href="#readr-1.0.0">1.0.0</a></li>
-        <li><a href="#readr-0.2.2">0.2.2</a></li>
-        <li><a href="#readr-0.2.1">0.2.1</a></li>
-        <li><a href="#readr-0.2.0">0.2.0</a></li>
+        <li><a href="#readr-1-0-0-9000">1.0.0.9000</a></li>
+        <li><a href="#readr-1-0-0">1.0.0</a></li>
+        <li><a href="#readr-0-2-2">0.2.2</a></li>
+        <li><a href="#readr-0-2-1">0.2.1</a></li>
+        <li><a href="#readr-0-2-0">0.2.0</a></li>
       </ul>
     </div>
   </div>
@@ -273,7 +294,14 @@
 </div>
 
       <footer>
-      <p>Built by <a href="http://hadley.github.io/pkgdown/">pkgdown</a>. Styled with <a href="http://getbootstrap.com">Bootstrap 3</a>.</p>
+      <div class="tidyverse">
+  <p>readr is a part of the <strong>tidyverse</strong>, an ecosystem of packages designed with common APIs and a shared philosophy. Learn more at <a href="http://tidyverse.org">tidyverse.org</a>.</p>
+</div>
+
+<div class="author">
+  <p>Developed by <a href='http://hadley.nz'>Hadley Wickham</a>, Jim Hester, Romain Francois, <a href='https://www.rstudio.com'><img src='http://tidyverse.org/rstudio-logo.svg' height='24' /></a>, Jukka Jylänki, Mikkel Jørgensen.</p>
+  <p>Site built by <a href="http://hadley.github.io/pkgdown/">pkgdown</a>.</p>
+</div>
       </footer>
    </div>
 

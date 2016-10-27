@@ -12,16 +12,15 @@
 <script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha384-nrOSfDHtoPMzJHjVTdCopGqIqeYETSXhZDFyniQ8ZHcVy08QesyHcnOUpMpqnmWq" crossorigin="anonymous"></script>
 
 <!-- Bootstrap -->
-<link href="https://maxcdn.bootstrapcdn.com/bootswatch/3.3.7/cerulean/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous">
-
+<link href="../tidyverse.css" rel="stylesheet">
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
 
 <!-- Font Awesome icons -->
 <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-T8Gy5hrqNKT+hzMclPo118YTQO6cYprQmhrYwIiQ/3axmI1hQomh7Ud2hPOy8SP1" crossorigin="anonymous">
 
-
-<!-- pkgdown -->
+<!-- tidyverse -->
 <link href="../pkgdown.css" rel="stylesheet">
+<script src="../jquery.sticky-kit.min.js"></script>
 <script src="../pkgdown.js"></script>
 
 <!-- mathjax -->
@@ -34,10 +33,9 @@
   </head>
 
   <body>
-    <div class="container">
+    <div class="container template-reference-index">
       <header>
-      
-<div class="navbar navbar-default  navbar-fixed-top" role="navigation">
+      <div class="navbar navbar-default navbar-fixed-top" role="navigation">
   <div class="container">
     <div class="navbar-header">
       <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar">
@@ -45,24 +43,29 @@
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </button>
-      <a class="navbar-brand" href="../index.html">readr</a>
+
+      <div class="navbar-brand-container">
+        <a class="navbar-brand" href="../index.html">readr</a>
+        <small class="tidyverse">part of the <a href="http://tidyverse.org">tidyverse</a></small>
+      </div>
     </div>
     <div id="navbar" class="navbar-collapse collapse">
-      <ul class="nav navbar-nav">
+      <ul class="nav navbar-nav navbar-right">
         <li>
   <a href="../index.html">Home</a>
+</li>
+<li>
+  <a href="../articles/readr.html">Overview</a>
+</li>
+<li>
+  <a href="../articles/locales.html">Locales</a>
 </li>
 <li>
   <a href="../reference/index.html">Reference</a>
 </li>
 <li>
-  <a href="../articles/index.html">Articles</a>
-</li>
-<li>
   <a href="../news/index.html">News</a>
 </li>
-      </ul>
-      <ul class="nav navbar-nav navbar-right">
         <li>
   <a href="https://github.com/tidyverse/readr">
     <span class="fa fa-github fa-lg"></span>
@@ -73,134 +76,186 @@
     </div><!--/.nav-collapse -->
   </div><!--/.container -->
 </div><!--/.navbar -->
+
       
       </header>
 
-      <div class="page-header">
-  <h1>Function reference <small>version&nbsp;1.0.0.9000</small></h1>
-</div>
-
-<div class="row">
+      <div class="row">
   <div class="col-md-9">
-    <div class="section ">
-      <h2>Read data frames</h2>
+    <div class="page-header">
+      <h1>Function reference</h1>
+      <h4>version&nbsp;1.0.0.9000</h4>
+    </div>
+
+    <div class="contents">
+      <h2 id="section-read-data-frames" class="hasAnchor"><a href="#section-read-data-frames" class="anchor"></a>Read data frames</h2>
       <p class="section-desc"></p>
 
-      <dl class="dl-horizontal">
-        <dt><a href="read_delim.html">read_delim</a></dt><dt><a href="read_delim.html">read_csv</a></dt><dt><a href="read_delim.html">read_csv2</a></dt><dt><a href="read_delim.html">read_tsv</a></dt>
-        <dd>Read a delimited file (including csv &amp; tsv) into a tibble</dd>
-        <dt><a href="read_fwf.html">read_fwf</a></dt><dt><a href="read_fwf.html">fwf_empty</a></dt><dt><a href="read_fwf.html">fwf_widths</a></dt><dt><a href="read_fwf.html">fwf_positions</a></dt>
-        <dd>Read a fixed width file into a tibble</dd>
-        <dt><a href="read_log.html">read_log</a></dt>
-        <dd>Read common/combined log file into a tibble</dd>
-        <dt><a href="read_table.html">read_table</a></dt>
-        <dd>Read whitespace-separated columns into a tibble</dd>
-      </dl>
-    </div>
-    <div class="section ">
-      <h2>Column specification</h2>
+      <p><a href="read_delim.html">Read a delimited file (including csv &amp; tsv) into a tibble</a></p>
+      <ul>
+        <li><code><a href="read_delim.html">read_delim</a></code></li><li><code><a href="read_delim.html">read_csv</a></code></li><li><code><a href="read_delim.html">read_csv2</a></code></li><li><code><a href="read_delim.html">read_tsv</a></code></li>
+      </ul>
+      <p><a href="read_fwf.html">Read a fixed width file into a tibble</a></p>
+      <ul>
+        <li><code><a href="read_fwf.html">read_fwf</a></code></li><li><code><a href="read_fwf.html">fwf_empty</a></code></li><li><code><a href="read_fwf.html">fwf_widths</a></code></li><li><code><a href="read_fwf.html">fwf_positions</a></code></li>
+      </ul>
+      <p><a href="read_log.html">Read common/combined log file into a tibble</a></p>
+      <ul>
+        <li><code><a href="read_log.html">read_log</a></code></li>
+      </ul>
+      <p><a href="read_table.html">Read whitespace-separated columns into a tibble</a></p>
+      <ul>
+        <li><code><a href="read_table.html">read_table</a></code></li>
+      </ul>
+          <h2 id="section-column-specification" class="hasAnchor"><a href="#section-column-specification" class="anchor"></a>Column specification</h2>
       <p class="section-desc"></p>
 
-      <dl class="dl-horizontal">
-        <dt><a href="cols.html">cols</a></dt><dt><a href="cols.html">cols_only</a></dt>
-        <dd>Create column specification</dd>
-        <dt><a href="problems.html">problems</a></dt><dt><a href="problems.html">stop_for_problems</a></dt>
-        <dd>Retrieve parsing problems</dd>
-        <dt><a href="spec_delim.html">spec_delim</a></dt><dt><a href="spec_delim.html">spec_csv</a></dt><dt><a href="spec_delim.html">spec_csv2</a></dt><dt><a href="spec_delim.html">spec_tsv</a></dt><dt><a href="spec_delim.html">spec_table</a></dt>
-        <dd>Compute column specifications</dd>
-        <dt><a href="spec.html">cols_condense</a></dt><dt><a href="spec.html">spec</a></dt>
-        <dd>Examine the column specifications for a data frame</dd>
-      </dl>
-    </div>
-    <div class="section ">
-      <h2>Column parsers</h2>
+      <p><a href="cols.html">Create column specification</a></p>
+      <ul>
+        <li><code><a href="cols.html">cols</a></code></li><li><code><a href="cols.html">cols_only</a></code></li>
+      </ul>
+      <p><a href="problems.html">Retrieve parsing problems</a></p>
+      <ul>
+        <li><code><a href="problems.html">problems</a></code></li><li><code><a href="problems.html">stop_for_problems</a></code></li>
+      </ul>
+      <p><a href="spec_delim.html">Compute column specifications</a></p>
+      <ul>
+        <li><code><a href="spec_delim.html">spec_delim</a></code></li><li><code><a href="spec_delim.html">spec_csv</a></code></li><li><code><a href="spec_delim.html">spec_csv2</a></code></li><li><code><a href="spec_delim.html">spec_tsv</a></code></li><li><code><a href="spec_delim.html">spec_table</a></code></li>
+      </ul>
+      <p><a href="spec.html">Examine the column specifications for a data frame</a></p>
+      <ul>
+        <li><code><a href="spec.html">cols_condense</a></code></li><li><code><a href="spec.html">spec</a></code></li>
+      </ul>
+          <h2 id="section-column-parsers" class="hasAnchor"><a href="#section-column-parsers" class="anchor"></a>Column parsers</h2>
       <p class="section-desc"><p>Each parser comes in two forms: <code>parse_xxx()</code> which is used to parse vectors that already exist in R and <code>col_xxx()</code> which is used to parse vectors as they are loaded by a <code>read_xxx()</code> function.</p></p>
 
-      <dl class="dl-horizontal">
-        <dt><a href="parse_atomic.html">parse_logical</a></dt><dt><a href="parse_atomic.html">parse_integer</a></dt><dt><a href="parse_atomic.html">parse_double</a></dt><dt><a href="parse_atomic.html">parse_character</a></dt><dt><a href="parse_atomic.html">col_logical</a></dt><dt><a href="parse_atomic.html">col_integer</a></dt><dt><a href="parse_atomic.html">col_double</a></dt><dt><a href="parse_atomic.html">col_character</a></dt><dt><a href="parse_atomic.html">col_euro_double</a></dt><dt><a href="parse_atomic.html">parse_euro_double</a></dt><dt><a href="parse_atomic.html">col_numeric</a></dt><dt><a href="parse_atomic.html">parse_numeric</a></dt>
-        <dd>Parse logicals, integers, and reals</dd>
-        <dt><a href="parse_datetime.html">parse_datetime</a></dt><dt><a href="parse_datetime.html">parse_date</a></dt><dt><a href="parse_datetime.html">parse_time</a></dt><dt><a href="parse_datetime.html">col_datetime</a></dt><dt><a href="parse_datetime.html">col_date</a></dt><dt><a href="parse_datetime.html">col_time</a></dt>
-        <dd>Parse date/times</dd>
-        <dt><a href="parse_factor.html">parse_factor</a></dt><dt><a href="parse_factor.html">col_factor</a></dt>
-        <dd>Parse factors</dd>
-        <dt><a href="parse_guess.html">parse_guess</a></dt><dt><a href="parse_guess.html">col_guess</a></dt><dt><a href="parse_guess.html">guess_parser</a></dt>
-        <dd>Parse using the &quot;best&quot; type</dd>
-        <dt><a href="parse_number.html">parse_number</a></dt><dt><a href="parse_number.html">col_number</a></dt>
-        <dd>Parse numbers, flexibly</dd>
-      </dl>
-    </div>
-    <div class="section ">
-      <h2>Locale</h2>
-      <p class="section-desc"><p>The &ldquo;locale&rdquo; controls all options that vary from country-to-country or language-to-language.</p></p>
+      <p><a href="col_skip.html">Skip a column.</a></p>
+      <ul>
+        <li><code><a href="col_skip.html">col_skip</a></code></li>
+      </ul>
+      <p><a href="parse_atomic.html">Parse logicals, integers, and reals</a></p>
+      <ul>
+        <li><code><a href="parse_atomic.html">parse_logical</a></code></li><li><code><a href="parse_atomic.html">parse_integer</a></code></li><li><code><a href="parse_atomic.html">parse_double</a></code></li><li><code><a href="parse_atomic.html">parse_character</a></code></li><li><code><a href="parse_atomic.html">col_logical</a></code></li><li><code><a href="parse_atomic.html">col_integer</a></code></li><li><code><a href="parse_atomic.html">col_double</a></code></li><li><code><a href="parse_atomic.html">col_character</a></code></li>
+      </ul>
+      <p><a href="parse_datetime.html">Parse date/times</a></p>
+      <ul>
+        <li><code><a href="parse_datetime.html">parse_datetime</a></code></li><li><code><a href="parse_datetime.html">parse_date</a></code></li><li><code><a href="parse_datetime.html">parse_time</a></code></li><li><code><a href="parse_datetime.html">col_datetime</a></code></li><li><code><a href="parse_datetime.html">col_date</a></code></li><li><code><a href="parse_datetime.html">col_time</a></code></li>
+      </ul>
+      <p><a href="parse_factor.html">Parse factors</a></p>
+      <ul>
+        <li><code><a href="parse_factor.html">parse_factor</a></code></li><li><code><a href="parse_factor.html">col_factor</a></code></li>
+      </ul>
+      <p><a href="parse_guess.html">Parse using the &quot;best&quot; type</a></p>
+      <ul>
+        <li><code><a href="parse_guess.html">parse_guess</a></code></li><li><code><a href="parse_guess.html">col_guess</a></code></li><li><code><a href="parse_guess.html">guess_parser</a></code></li>
+      </ul>
+      <p><a href="parse_number.html">Parse numbers, flexibly</a></p>
+      <ul>
+        <li><code><a href="parse_number.html">parse_number</a></code></li><li><code><a href="parse_number.html">col_number</a></code></li>
+      </ul>
+          <h2 id="section-locale" class="hasAnchor"><a href="#section-locale" class="anchor"></a>Locale</h2>
+      <p class="section-desc"><p>The &ldquo;locale&rdquo; controls all options that vary from country-to-country or language-to-language. See <code><a href="../articles/locales.html">vignette("locales")</a></code> for more details.</p></p>
 
-      <dl class="dl-horizontal">
-        <dt><a href="date_names.html">date_names</a></dt><dt><a href="date_names.html">date_names_lang</a></dt><dt><a href="date_names.html">date_names_langs</a></dt>
-        <dd>Create or retrieve date names</dd>
-        <dt><a href="locale.html">locale</a></dt><dt><a href="locale.html">default_locale</a></dt>
-        <dd>Create locales</dd>
-      </dl>
-    </div>
-    <div class="section ">
-      <h2>Write</h2>
+      <p><a href="date_names.html">Create or retrieve date names</a></p>
+      <ul>
+        <li><code><a href="date_names.html">date_names</a></code></li><li><code><a href="date_names.html">date_names_lang</a></code></li><li><code><a href="date_names.html">date_names_langs</a></code></li>
+      </ul>
+      <p><a href="locale.html">Create locales</a></p>
+      <ul>
+        <li><code><a href="locale.html">locale</a></code></li><li><code><a href="locale.html">default_locale</a></code></li>
+      </ul>
+          <h2 id="section-write" class="hasAnchor"><a href="#section-write" class="anchor"></a>Write</h2>
       <p class="section-desc"><p>Despite its name, readr also provides a number of functions to <strong>write</strong> to disk.</p></p>
 
-      <dl class="dl-horizontal">
-        <dt><a href="format_delim.html">format_delim</a></dt><dt><a href="format_delim.html">format_csv</a></dt><dt><a href="format_delim.html">format_tsv</a></dt>
-        <dd>Convert a data frame to a delimited string</dd>
-        <dt><a href="write_delim.html">write_delim</a></dt><dt><a href="write_delim.html">write_csv</a></dt><dt><a href="write_delim.html">write_excel_csv</a></dt><dt><a href="write_delim.html">write_tsv</a></dt>
-        <dd>Save a data frame to a delimited file.</dd>
-      </dl>
-    </div>
-    <div class="section ">
-      <h2>Debugging weird files</h2>
-      <p class="section-desc"><p>These functions are helpful for debugging files that don&rsquo;t parse correctly.</p></p>
+      <p><a href="format_delim.html">Convert a data frame to a delimited string</a></p>
+      <ul>
+        <li><code><a href="format_delim.html">format_delim</a></code></li><li><code><a href="format_delim.html">format_csv</a></code></li><li><code><a href="format_delim.html">format_tsv</a></code></li>
+      </ul>
+      <p><a href="write_delim.html">Save a data frame to a delimited file.</a></p>
+      <ul>
+        <li><code><a href="write_delim.html">write_delim</a></code></li><li><code><a href="write_delim.html">write_csv</a></code></li><li><code><a href="write_delim.html">write_excel_csv</a></code></li><li><code><a href="write_delim.html">write_tsv</a></code></li>
+      </ul>
+          <h2 id="section-low-level-io-and-debugging-tools" class="hasAnchor"><a href="#section-low-level-io-and-debugging-tools" class="anchor"></a>Low-level IO and debugging tools</h2>
+      <p class="section-desc"><p>These functions are useful for non-rectangular files, and to help when debugging files that don&rsquo;t parse correctly.</p></p>
 
-      <dl class="dl-horizontal">
-        <dt><a href="count_fields.html">count_fields</a></dt>
-        <dd>Count the number of fields in each line of a file.</dd>
-        <dt><a href="encoding.html">guess_encoding</a></dt>
-        <dd>Guess encoding of file.</dd>
-        <dt><a href="type_convert.html">type_convert</a></dt>
-        <dd>Re-convert character columns in existing data frame.</dd>
-      </dl>
-    </div>
-    <div class="section ">
-      <h2>Low-level IO</h2>
-      <p class="section-desc"></p>
+      <p><a href="count_fields.html">Count the number of fields in each line of a file.</a></p>
+      <ul>
+        <li><code><a href="count_fields.html">count_fields</a></code></li>
+      </ul>
+      <p><a href="encoding.html">Guess encoding of file.</a></p>
+      <ul>
+        <li><code><a href="encoding.html">guess_encoding</a></code></li>
+      </ul>
+      <p><a href="read_file.html">Read a file into a string or raw vector</a></p>
+      <ul>
+        <li><code><a href="read_file.html">read_file</a></code></li><li><code><a href="read_file.html">read_file_raw</a></code></li>
+      </ul>
+      <p><a href="read_lines.html">Read lines from a file</a></p>
+      <ul>
+        <li><code><a href="read_lines.html">read_lines</a></code></li><li><code><a href="read_lines.html">read_lines_raw</a></code></li>
+      </ul>
+      <p><a href="read_rds.html">Read object from RDS file.</a></p>
+      <ul>
+        <li><code><a href="read_rds.html">read_rds</a></code></li>
+      </ul>
+      <p><a href="type_convert.html">Re-convert character columns in existing data frame.</a></p>
+      <ul>
+        <li><code><a href="type_convert.html">type_convert</a></code></li>
+      </ul>
+      <p><a href="write_file.html">Write a string to a file</a></p>
+      <ul>
+        <li><code><a href="write_file.html">write_file</a></code></li>
+      </ul>
+      <p><a href="write_lines.html">Write lines to a file</a></p>
+      <ul>
+        <li><code><a href="write_lines.html">write_lines</a></code></li>
+      </ul>
+      <p><a href="write_rds.html">Write a single R object to a file</a></p>
+      <ul>
+        <li><code><a href="write_rds.html">write_rds</a></code></li>
+      </ul>
+          <h2 id="section-chunked-api" class="hasAnchor"><a href="#section-chunked-api" class="anchor"></a>Chunked API</h2>
+      <p class="section-desc"><p>The chunked API allows you to read in files that are larger than memory, processing a chunk at a time. The API experimental: please try it out but be aware that it may change in the future.</p></p>
 
-      <dl class="dl-horizontal">
-        <dt><a href="read_file.html">read_file</a></dt><dt><a href="read_file.html">read_file_raw</a></dt>
-        <dd>Read a file into a string or raw vector</dd>
-        <dt><a href="read_lines.html">read_lines</a></dt><dt><a href="read_lines.html">read_lines_raw</a></dt>
-        <dd>Read lines from a file</dd>
-        <dt><a href="read_rds.html">read_rds</a></dt>
-        <dd>Read object from RDS file.</dd>
-        <dt><a href="write_file.html">write_file</a></dt>
-        <dd>Write a string to a file</dd>
-        <dt><a href="write_lines.html">write_lines</a></dt>
-        <dd>Write lines to a file</dd>
-        <dt><a href="write_rds.html">write_rds</a></dt>
-        <dd>Write a single R object to a file</dd>
-      </dl>
+      <p><a href="callback.html">Callback classes</a></p>
+      <ul>
+        <li><code><a href="callback.html">callback</a></code></li><li><code><a href="callback.html">ChunkCallback</a></code></li><li><code><a href="callback.html">SideEffectChunkCallback</a></code></li><li><code><a href="callback.html">DataFrameCallback</a></code></li>
+      </ul>
+      <p><a href="read_delim_chunked.html">Read a delimited file by chunks</a></p>
+      <ul>
+        <li><code><a href="read_delim_chunked.html">read_delim_chunked</a></code></li><li><code><a href="read_delim_chunked.html">read_csv_chunked</a></code></li><li><code><a href="read_delim_chunked.html">read_csv2_chunked</a></code></li><li><code><a href="read_delim_chunked.html">read_tsv_chunked</a></code></li>
+      </ul>
+      <p><a href="read_lines_chunked.html">Read lines from a file or string by chunk.</a></p>
+      <ul>
+        <li><code><a href="read_lines_chunked.html">read_lines_chunked</a></code></li>
+      </ul>
+    
     </div>
-    <div class="section ">
-      <h2>Chunked API</h2>
-      <p class="section-desc"><p>This is an experimental. Please try it out but be aware that it may change in the future.</p></p>
+  </div>
 
-      <dl class="dl-horizontal">
-        <dt><a href="callback.html">callback</a></dt><dt><a href="callback.html">ChunkCallback</a></dt><dt><a href="callback.html">SideEffectChunkCallback</a></dt><dt><a href="callback.html">DataFrameCallback</a></dt>
-        <dd>Callback classes</dd>
-        <dt><a href="read_delim_chunked.html">read_delim_chunked</a></dt><dt><a href="read_delim_chunked.html">read_csv_chunked</a></dt><dt><a href="read_delim_chunked.html">read_csv2_chunked</a></dt><dt><a href="read_delim_chunked.html">read_tsv_chunked</a></dt>
-        <dd>Read a delimited file by chunks</dd>
-        <dt><a href="read_lines_chunked.html">read_lines_chunked</a></dt>
-        <dd>Read lines from a file or string by chunk.</dd>
-      </dl>
-    </div>
+  <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
+    <h2>Contents</h2>
+    <ul class="nav nav-pills nav-stacked">
+      <li><a href="#section-read-data-frames">Read data frames</a></li>
+      <li><a href="#section-column-specification">Column specification</a></li>
+      <li><a href="#section-column-parsers">Column parsers</a></li>
+      <li><a href="#section-locale">Locale</a></li>
+      <li><a href="#section-write">Write</a></li>
+      <li><a href="#section-low-level-io-and-debugging-tools">Low-level IO and debugging tools</a></li>
+      <li><a href="#section-chunked-api">Chunked API</a></li>
+    </ul>
   </div>
 </div>
 
       <footer>
-      <p>Built by <a href="http://hadley.github.io/pkgdown/">pkgdown</a>. Styled with <a href="http://getbootstrap.com">Bootstrap 3</a>.</p>
+      <div class="tidyverse">
+  <p>readr is a part of the <strong>tidyverse</strong>, an ecosystem of packages designed with common APIs and a shared philosophy. Learn more at <a href="http://tidyverse.org">tidyverse.org</a>.</p>
+</div>
+
+<div class="author">
+  <p>Developed by <a href='http://hadley.nz'>Hadley Wickham</a>, Jim Hester, Romain Francois, <a href='https://www.rstudio.com'><img src='http://tidyverse.org/rstudio-logo.svg' height='24' /></a>, Jukka Jylänki, Mikkel Jørgensen.</p>
+  <p>Site built by <a href="http://hadley.github.io/pkgdown/">pkgdown</a>.</p>
+</div>
       </footer>
    </div>
 

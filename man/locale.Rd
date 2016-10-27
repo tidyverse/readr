@@ -48,7 +48,8 @@ spellings have been lost. Requires the \pkg{stringi} package.}
 A locale object tries to capture all the defaults that can vary between
 countries. You set the locale in once, and the details are automatically
 passed on down to the columns parsers. The defaults have been chosen to
-match R (i.e. US English) as closely as possible.
+match R (i.e. US English) as closely as possible. See
+\code{vignette("locales")} for more details.
 }
 \examples{
 locale()

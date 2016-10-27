@@ -12,16 +12,15 @@
 <script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha384-nrOSfDHtoPMzJHjVTdCopGqIqeYETSXhZDFyniQ8ZHcVy08QesyHcnOUpMpqnmWq" crossorigin="anonymous"></script>
 
 <!-- Bootstrap -->
-<link href="https://maxcdn.bootstrapcdn.com/bootswatch/3.3.7/cerulean/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous">
-
+<link href="../tidyverse.css" rel="stylesheet">
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
 
 <!-- Font Awesome icons -->
 <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-T8Gy5hrqNKT+hzMclPo118YTQO6cYprQmhrYwIiQ/3axmI1hQomh7Ud2hPOy8SP1" crossorigin="anonymous">
 
-
-<!-- pkgdown -->
+<!-- tidyverse -->
 <link href="../pkgdown.css" rel="stylesheet">
+<script src="../jquery.sticky-kit.min.js"></script>
 <script src="../pkgdown.js"></script>
 
 <!-- mathjax -->
@@ -34,10 +33,9 @@
   </head>
 
   <body>
-    <div class="container">
+    <div class="container template-reference-topic">
       <header>
-      
-<div class="navbar navbar-default  navbar-fixed-top" role="navigation">
+      <div class="navbar navbar-default navbar-fixed-top" role="navigation">
   <div class="container">
     <div class="navbar-header">
       <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar">
@@ -45,24 +43,29 @@
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </button>
-      <a class="navbar-brand" href="../index.html">readr</a>
+
+      <div class="navbar-brand-container">
+        <a class="navbar-brand" href="../index.html">readr</a>
+        <small class="tidyverse">part of the <a href="http://tidyverse.org">tidyverse</a></small>
+      </div>
     </div>
     <div id="navbar" class="navbar-collapse collapse">
-      <ul class="nav navbar-nav">
+      <ul class="nav navbar-nav navbar-right">
         <li>
   <a href="../index.html">Home</a>
+</li>
+<li>
+  <a href="../articles/readr.html">Overview</a>
+</li>
+<li>
+  <a href="../articles/locales.html">Locales</a>
 </li>
 <li>
   <a href="../reference/index.html">Reference</a>
 </li>
 <li>
-  <a href="../articles/index.html">Articles</a>
-</li>
-<li>
   <a href="../news/index.html">News</a>
 </li>
-      </ul>
-      <ul class="nav navbar-nav navbar-right">
         <li>
   <a href="https://github.com/tidyverse/readr">
     <span class="fa fa-github fa-lg"></span>
@@ -73,15 +76,16 @@
     </div><!--/.nav-collapse -->
   </div><!--/.container -->
 </div><!--/.navbar -->
+
       
       </header>
 
-      <div class="page-header">
-  <h1>Parse logicals, integers, and reals</h1>
-</div>
+      <div class="row">
+  <div class="col-md-9 contents">
+    <div class="page-header">
+    <h1>Parse logicals, integers, and reals</h1>
+    </div>
 
-<div class="row">
-  <div class="col-md-9">
     
     <p>Use <code>parse_</code> if you have a character vector you want to parse. Use
 <code>col_</code> in conjunction with a <code>read_</code> function to parse the
@@ -104,7 +108,7 @@ values as they&#39;re read in.</p>
 
 <span class='fu'>col_character</span>()</pre>
     
-    <h2>Arguments</h2>
+    <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a> Arguments</h2>
     <dl class="dl-horizontal">
       <dt>x</dt>
       <dd>Character vector of values to parse.</dd>
@@ -119,15 +123,17 @@ the default time zone, encoding, decimal mark, big mark, and day/month
 names.</dd>
     </dl>
     
-    <div class="See also">
-      <h2>See also</h2>
+    <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
-      <p>Other parsers: <code><a href='col_skip.html'>col_skip</a></code>,
+    <p>Other parsers: <code><a href='col_skip.html'>col_skip</a></code>,
   <code><a href='parse_datetime.html'>parse_datetime</a></code>, <code><a href='parse_factor.html'>parse_factor</a></code>,
   <code><a href='parse_guess.html'>parse_guess</a></code>, <code><a href='parse_number.html'>parse_number</a></code></p>
-    </div>
     
-    <h2 id="examples">Examples</h2>
+
+    <h2 class="hasAnchor" id="examples">
+      <a class="anchor" href="#examples"></a>
+      Examples
+    </h2>
     <pre class="examples"><div class='input'><span class='fu'>parse_integer</span>(<span class='fu'>c</span>(<span class='st'>"1"</span>, <span class='st'>"2"</span>, <span class='st'>"3"</span>))</div><div class='output co'>#&gt; [1] 1 2 3
 #&gt; </div><div class='input'><span class='fu'>parse_double</span>(<span class='fu'>c</span>(<span class='st'>"1"</span>, <span class='st'>"2"</span>, <span class='st'>"3.123"</span>))</div><div class='output co'>#&gt; [1] 1.000 2.000 3.123
 #&gt; </div><div class='input'><span class='fu'><a href='parse_number.html'>parse_number</a></span>(<span class='st'>"$1,123,456.00"</span>)</div><div class='output co'>#&gt; [1] 1123456
@@ -152,12 +158,28 @@ row col expected actual
 <span class='fu'>parse_double</span>(<span class='no'>x</span>, <span class='kw'>na</span> <span class='kw'>=</span> <span class='st'>"-"</span>)</div><div class='output co'>#&gt; [1]  1  2  3 NA
 #&gt; </div></pre>
   </div>
-  <div class="col-md-3">
+  <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
+    <h2>Contents</h2>
+    <ul class="nav nav-pills nav-stacked">
+      <li><a href="#arguments">Arguments</a></li>
+      
+      <li><a href="#see-also">See also</a></li>
+      
+      <li><a href="#examples">Examples</a></li>
+    </ul>
+
   </div>
 </div>
 
       <footer>
-      <p>Built by <a href="http://hadley.github.io/pkgdown/">pkgdown</a>. Styled with <a href="http://getbootstrap.com">Bootstrap 3</a>.</p>
+      <div class="tidyverse">
+  <p>readr is a part of the <strong>tidyverse</strong>, an ecosystem of packages designed with common APIs and a shared philosophy. Learn more at <a href="http://tidyverse.org">tidyverse.org</a>.</p>
+</div>
+
+<div class="author">
+  <p>Developed by <a href='http://hadley.nz'>Hadley Wickham</a>, Jim Hester, Romain Francois, <a href='https://www.rstudio.com'><img src='http://tidyverse.org/rstudio-logo.svg' height='24' /></a>, Jukka Jylänki, Mikkel Jørgensen.</p>
+  <p>Site built by <a href="http://hadley.github.io/pkgdown/">pkgdown</a>.</p>
+</div>
       </footer>
    </div>
 

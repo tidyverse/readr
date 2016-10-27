@@ -12,16 +12,15 @@
 <script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha384-nrOSfDHtoPMzJHjVTdCopGqIqeYETSXhZDFyniQ8ZHcVy08QesyHcnOUpMpqnmWq" crossorigin="anonymous"></script>
 
 <!-- Bootstrap -->
-<link href="https://maxcdn.bootstrapcdn.com/bootswatch/3.3.7/cerulean/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous">
-
+<link href="../tidyverse.css" rel="stylesheet">
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
 
 <!-- Font Awesome icons -->
 <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-T8Gy5hrqNKT+hzMclPo118YTQO6cYprQmhrYwIiQ/3axmI1hQomh7Ud2hPOy8SP1" crossorigin="anonymous">
 
-
-<!-- pkgdown -->
+<!-- tidyverse -->
 <link href="../pkgdown.css" rel="stylesheet">
+<script src="../jquery.sticky-kit.min.js"></script>
 <script src="../pkgdown.js"></script>
 
 <!-- mathjax -->
@@ -34,10 +33,9 @@
   </head>
 
   <body>
-    <div class="container">
+    <div class="container template-reference-topic">
       <header>
-      
-<div class="navbar navbar-default  navbar-fixed-top" role="navigation">
+      <div class="navbar navbar-default navbar-fixed-top" role="navigation">
   <div class="container">
     <div class="navbar-header">
       <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar">
@@ -45,24 +43,29 @@
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </button>
-      <a class="navbar-brand" href="../index.html">readr</a>
+
+      <div class="navbar-brand-container">
+        <a class="navbar-brand" href="../index.html">readr</a>
+        <small class="tidyverse">part of the <a href="http://tidyverse.org">tidyverse</a></small>
+      </div>
     </div>
     <div id="navbar" class="navbar-collapse collapse">
-      <ul class="nav navbar-nav">
+      <ul class="nav navbar-nav navbar-right">
         <li>
   <a href="../index.html">Home</a>
+</li>
+<li>
+  <a href="../articles/readr.html">Overview</a>
+</li>
+<li>
+  <a href="../articles/locales.html">Locales</a>
 </li>
 <li>
   <a href="../reference/index.html">Reference</a>
 </li>
 <li>
-  <a href="../articles/index.html">Articles</a>
-</li>
-<li>
   <a href="../news/index.html">News</a>
 </li>
-      </ul>
-      <ul class="nav navbar-nav navbar-right">
         <li>
   <a href="https://github.com/tidyverse/readr">
     <span class="fa fa-github fa-lg"></span>
@@ -73,56 +76,79 @@
     </div><!--/.nav-collapse -->
   </div><!--/.container -->
 </div><!--/.navbar -->
+
       
       </header>
 
-      <div class="page-header">
-  <h1>Guess encoding of file.</h1>
-</div>
+      <div class="row">
+  <div class="col-md-9 contents">
+    <div class="page-header">
+    <h1>Guess encoding of file.</h1>
+    </div>
 
-<div class="row">
-  <div class="col-md-9">
     
-    <p>Uses <code><a href='http://www.rdocumentation.org/packages/stri_enc_detect/topics/stringi'>stri_enc_detect</a></code>: see the documentation there
+    <p>Uses <code><a href='http://www.rdocumentation.org/packages/stringi/topics/stri_enc_detect'>stri_enc_detect</a></code>: see the documentation there
 for caveats.</p>
     
 
     <pre><span class='fu'>guess_encoding</span>(<span class='no'>file</span>, <span class='kw'>n_max</span> <span class='kw'>=</span> <span class='fl'>10000</span>, <span class='kw'>threshold</span> <span class='kw'>=</span> <span class='fl'>0.2</span>)</pre>
     
-    <h2>Arguments</h2>
+    <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a> Arguments</h2>
     <dl class="dl-horizontal">
       <dt>file</dt>
-      <dd>Either a path to a file, a connection, or literal data
-   (either a single string or a raw vector).
-
-   Files ending in <code>.gz</code>, <code>.bz2</code>, <code>.xz</code>, or <code>.zip</code> will
-   be automatically uncompressed. Files starting with <code>http://</code>,
-   <code>https://</code>, <code>ftp://</code>, or <code>ftps://</code> will be automatically
-   downloaded. Remote gz files can also be automatically downloaded &amp;
-   decompressed.
-
-   Literal data is most useful for examples and tests. It must contain at
-   least one new line to be recognised as data (instead of a path).</dd>
+      <dd>A character string specifying an input as specified in
+<code><a href='datasource.html'>datasource</a></code>, a raw vector, or a list of raw vectors.</dd>
       <dt>n_max</dt>
       <dd>Number of lines to read. If <code>n_max</code> is -1, all lines in
 file will be read.</dd>
       <dt>threshold</dt>
       <dd>Only report guesses above this threshold of certainty.</dd>
     </dl>
-        
-    <h2 id="examples">Examples</h2>
+    
+    <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
+
+    <p>A tibble</p>
+    
+
+    <h2 class="hasAnchor" id="examples">
+      <a class="anchor" href="#examples"></a>
+      Examples
+    </h2>
     <pre class="examples"><div class='input'><span class='fu'>guess_encoding</span>(<span class='fu'><a href='readr_example.html'>readr_example</a></span>(<span class='st'>"mtcars.csv"</span>))</div><div class='output co'>#&gt;   encoding confidence
 #&gt; 1    ASCII          1
-#&gt; </div><div class='input'><span class='fu'>guess_encoding</span>(<span class='st'>"a\n\u00b5\u00b5"</span>)</div><div class='output co'>#&gt;   encoding confidence
+#&gt; </div><div class='input'><span class='fu'>guess_encoding</span>(<span class='fu'><a href='read_lines.html'>read_lines_raw</a></span>(<span class='fu'><a href='readr_example.html'>readr_example</a></span>(<span class='st'>"mtcars.csv"</span>)))</div><div class='output co'>#&gt;   encoding confidence
+#&gt; 1    ASCII          1
+#&gt; </div><div class='input'><span class='fu'>guess_encoding</span>(<span class='fu'><a href='read_file.html'>read_file_raw</a></span>(<span class='fu'><a href='readr_example.html'>readr_example</a></span>(<span class='st'>"mtcars.csv"</span>)))</div><div class='output co'>#&gt;   encoding confidence
+#&gt; 1    ASCII          1
+#&gt; </div><div class='input'>
+<span class='fu'>guess_encoding</span>(<span class='st'>"a\n\u00b5\u00b5"</span>)</div><div class='output co'>#&gt; # A tibble: 1 × 2
+#&gt;   encoding confidence
+#&gt;      &lt;chr&gt;      &lt;dbl&gt;
 #&gt; 1    UTF-8        0.8
 #&gt; </div></pre>
   </div>
-  <div class="col-md-3">
+  <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
+    <h2>Contents</h2>
+    <ul class="nav nav-pills nav-stacked">
+      <li><a href="#arguments">Arguments</a></li>
+      
+      <li><a href="#value">Value</a></li>
+      
+      <li><a href="#examples">Examples</a></li>
+    </ul>
+
   </div>
 </div>
 
       <footer>
-      <p>Built by <a href="http://hadley.github.io/pkgdown/">pkgdown</a>. Styled with <a href="http://getbootstrap.com">Bootstrap 3</a>.</p>
+      <div class="tidyverse">
+  <p>readr is a part of the <strong>tidyverse</strong>, an ecosystem of packages designed with common APIs and a shared philosophy. Learn more at <a href="http://tidyverse.org">tidyverse.org</a>.</p>
+</div>
+
+<div class="author">
+  <p>Developed by <a href='http://hadley.nz'>Hadley Wickham</a>, Jim Hester, Romain Francois, <a href='https://www.rstudio.com'><img src='http://tidyverse.org/rstudio-logo.svg' height='24' /></a>, Jukka Jylänki, Mikkel Jørgensen.</p>
+  <p>Site built by <a href="http://hadley.github.io/pkgdown/">pkgdown</a>.</p>
+</div>
       </footer>
    </div>
 

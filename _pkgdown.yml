@@ -1,10 +1,30 @@
 template:
-  bootswatch: cerulean
+  package: tidytemplate
+  default_assets: false
 
 home:
+  strip_header: true
   links:
   - text: Learn more at R4DS
     href: http://r4ds.had.co.nz/data-import.html
+
+navbar:
+  type: default
+  left:
+  - text: Home
+    href: index.html
+  - text: Overview
+    href: articles/readr.html
+  - text: Locales
+    href: articles/locales.html
+  - text: Reference
+    href: reference/index.html
+  - text: News
+    href: news/index.html
+  right:
+  - icon: fa-github fa-lg
+    href: https://github.com/tidyverse/readr
+
 
 reference:
 - title: Read data frames
@@ -32,11 +52,12 @@ reference:
   - parse_factor
   - parse_guess
   - parse_number
+  - col_skip
 
 - title: Locale
   desc: >
     The "locale" controls all options that vary from country-to-country or
-    language-to-language.
+    language-to-language. See `vignette("locales")` for more details.
   contents:
   - locale
   - date_names
@@ -49,16 +70,10 @@ reference:
   - starts_with("format_")
   - write_csv
 
-- title: Debugging weird files
+- title: Low-level IO and debugging tools
   desc: >
-    These functions are helpful for debugging files that don't parse
-    correctly.
-  contents:
-  - count_fields
-  - guess_encoding
-  - type_convert
-
-- title: Low-level IO
+    These functions are useful for non-rectangular files, and to help
+    when debugging files that don't parse correctly.
   contents:
   - read_file
   - read_lines
@@ -66,11 +81,15 @@ reference:
   - write_file
   - write_lines
   - write_rds
+  - count_fields
+  - guess_encoding
+  - type_convert
 
 - title: Chunked API
   desc: >
-    This is an experimental. Please try it out but be aware that it may
-    change in the future.
+    The chunked API allows you to read in files that are larger than memory,
+    processing a chunk at a time. The API experimental: please try it out but
+    be aware that it may change in the future.
   contents:
   - callback
   - read_delim_chunked
