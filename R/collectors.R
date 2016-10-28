@@ -194,6 +194,9 @@ guess_parser <- function(x, locale = default_locale()) {
 
 #' Parse factors
 #'
+#' \code{parse_factor} is similar to \code{\link{factor}}, but will generate
+#' warnings if elements of \code{x} are not found in \code{levels}.
+#'
 #' @param levels Character vector providing set of allowed levels.
 #' @param ordered Is it an ordered factor?
 #' @inheritParams parse_atomic
@@ -203,6 +206,15 @@ guess_parser <- function(x, locale = default_locale()) {
 #' @export
 #' @examples
 #' parse_factor(c("a", "b"), letters)
+#'
+#' x <- c("cat", "dog", "caw")
+#' levels <- c("cat", "dog", "cow")
+#'
+#' # Base R factor() silently converts unknown levels to NA
+#' x1 <- factor(x, levels)
+#'
+#' # parse_factor generates a warning & problems
+#' x2 <- parse_factor(x, levels)
 parse_factor <- function(x, levels, ordered = FALSE, na = c("", "NA"),
                          locale = default_locale()) {
   parse_vector(x, col_factor(levels, ordered), na = na, locale = locale)
