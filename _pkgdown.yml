@@ -5,7 +5,7 @@ template:
 home:
   strip_header: true
   links:
-  - text: Learn more at R4DS
+  - text: Learn more
     href: http://r4ds.had.co.nz/data-import.html
 
 navbar:
@@ -27,7 +27,7 @@ navbar:
 
 
 reference:
-- title: Read data frames
+- title: Read rectangular files
   contents:
   - read_delim
   - read_fwf
@@ -54,7 +54,7 @@ reference:
   - parse_number
   - col_skip
 
-- title: Locale
+- title: Locale controls
   desc: >
     The "locale" controls all options that vary from country-to-country or
     language-to-language. See `vignette("locales")` for more details.
@@ -62,7 +62,7 @@ reference:
   - locale
   - date_names
 
-- title: Write
+- title: Write rectangular files
   desc: >
     Despite its name, readr also provides a number of functions to __write__
     data frames to disk, and to convert them to in-memory strings.
