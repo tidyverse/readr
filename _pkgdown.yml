@@ -20,10 +20,17 @@ navbar:
   - text: Reference
     href: reference/index.html
   - text: News
-    href: news/index.html
-  right:
-  - icon: fa-github fa-lg
-    href: https://github.com/tidyverse/readr
+    menu:
+    - text: "Release notes"
+    - text: "Version 1.0.0"
+      href: articles/releases/readr-1.0.0.html
+    - text: "Version 0.2.0"
+      href: articles/releases/readr-0.2.0.html
+    - text: "Version 0.1.0"
+      href: articles/releases/readr-0.1.0.html
+    - text: "------------------"
+    - text: "Change log"
+      href: news/index.html
 
 
 reference:
