@@ -35,6 +35,10 @@ navbar:
 
 reference:
 - title: Read rectangular files
+  desc: >
+    These functions parse rectangular files (like csv or fixed-width format)
+    into tibbles. They specify the overall structure of the file, and how each
+    line is divided up into fields.
   contents:
   - read_delim
   - read_fwf
@@ -42,6 +46,11 @@ reference:
   - read_table
 
 - title: Column specification
+  desc: >
+    The column specification describes how each column is parsed from a
+    character vector in to a more specific data type. readr does make
+    an educated guess about the type of each column, but you'll need override
+    those guesses when it gets them wrong.
   contents:
   - problems
   - cols
@@ -50,7 +59,8 @@ reference:
 
 - title: Column parsers
   desc: >
-    Each parser comes in two forms: `parse_xxx()` which is used to parse
+    Column parsers define how a single column is parsed, or a parse a single
+    vector. Each parser comes in two forms: `parse_xxx()` which is used to parse
     vectors that already exist in R and `col_xxx()` which is used to parse
     vectors as they are loaded by a `read_xxx()` function.
   contents:
@@ -64,7 +74,9 @@ reference:
 - title: Locale controls
   desc: >
     The "locale" controls all options that vary from country-to-country or
-    language-to-language. See `vignette("locales")` for more details.
+    language-to-language. This includes things like the character used as
+    the decimal mark, the names of days of the week, and the encoding. See
+    `vignette("locales")` for more details.
   contents:
   - locale
   - date_names
@@ -72,20 +84,18 @@ reference:
 - title: Write rectangular files
   desc: >
     Despite its name, readr also provides a number of functions to __write__
-    data frames to disk, and to convert them to in-memory strings.
+    data frames to disk, or to convert them to in-memory strings.
   contents:
-  - starts_with("format_")
+  - format_csv
   - write_csv
 
 - title: Low-level IO and debugging tools
   desc: >
-    These functions can be used with non-rectangular files, and to help
-    debug rectangular files that fail to parse.
+    These functions can be used with non-rectangular files, binary data,
+    and to help debug rectangular files that fail to parse.
   contents:
   - read_file
   - read_lines
-  - write_file
-  - write_lines
   - count_fields
   - guess_encoding
   - type_convert
