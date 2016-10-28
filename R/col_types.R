@@ -205,7 +205,6 @@ col_concise <- function(x) {
     c = col_character(),
     D = col_date(),
     d = col_double(),
-    e = col_euro_double(),
     i = col_integer(),
     l = col_logical(),
     n = col_number(),

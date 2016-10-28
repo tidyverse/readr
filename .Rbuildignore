@@ -14,3 +14,4 @@
 ^logo\.png$
 ^README\.Rmd$
 ^README-.*\.png$
+^docs$
