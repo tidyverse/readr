@@ -25,7 +25,7 @@ test_that("lone - or decimal marks are not numbers", {
   expect_equal(guess_parser("."), "character")
   expect_equal(guess_parser(",", locale = es_MX), "character")
 
-  expect_equal(n_problems(parse_numeric(c(".", "-"))), 2)
+  expect_equal(n_problems(parse_number(c(".", "-"))), 2)
 })
 
 test_that("Numbers with trailing characters are parsed as characters", {
