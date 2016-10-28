@@ -27,10 +27,20 @@ the default time zone, encoding, decimal mark, big mark, and day/month
 names.}
 }
 \description{
-Parse factors
+\code{parse_factor} is similar to \code{\link{factor}}, but will generate
+warnings if elements of \code{x} are not found in \code{levels}.
 }
 \examples{
 parse_factor(c("a", "b"), letters)
+
+x <- c("cat", "dog", "caw")
+levels <- c("cat", "dog", "cow")
+
+# Base R factor() silently converts unknown levels to NA
+x1 <- factor(x, levels)
+
+# parse_factor generates a warning & problems
+x2 <- parse_factor(x, levels)
 }
 \seealso{
 Other parsers: \code{\link{col_skip}},
