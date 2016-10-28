@@ -50,7 +50,7 @@
     <div class="page-header toc-ignore">
       <h1>Introduction to readr</h1>
             
-            <h4 class="date">2016-10-27</h4>
+            <h4 class="date">2016-10-28</h4>
           </div>
 
     
@@ -130,9 +130,7 @@
 </div>
 <div id="column-specification" class="section level2">
 <h2 class="hasAnchor"><html><body><a href="#column-specification" class="anchor"> </a></body></html>Column specification</h2>
-<div id="heuristics" class="section level3">
-<h3 class="hasAnchor"><html><body><a href="#heuristics" class="anchor"> </a></body></html>Heuristics</h3>
-<p>It would be tedious if you had to specify the type of every column when reading a file. To avoid this problem, readr uses some heuristics to guess the type of each column. You can access these results yourself using <code><a href="../reference/parse_guess.html">guess_parser()</a></code>:</p>
+<p>It would be tedious if you had to specify the type of every column when reading a file. Instead readr, uses some heuristics to guess the type of each column. You can access these results yourself using <code><a href="../reference/parse_guess.html">guess_parser()</a></code>:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="../reference/parse_guess.html">guess_parser</a></span>(<span class="kw">c</span>(<span class="st">"a"</span>, <span class="st">"b"</span>, <span class="st">"c"</span>))
 <span class="co">#&gt; [1] "character"</span>
 <span class="kw"><a href="../reference/parse_guess.html">guess_parser</a></span>(<span class="kw">c</span>(<span class="st">"1"</span>, <span class="st">"2"</span>, <span class="st">"3"</span>))
@@ -147,87 +145,9 @@
 <span class="kw"><a href="../reference/parse_number.html">parse_number</a></span>(<span class="st">"1,234"</span>)
 <span class="co">#&gt; [1] 1234</span></code></pre></div>
 <p>The are two parsers that will never be guessed: <code><a href="../reference/col_skip.html">col_skip()</a></code> and <code><a href="../reference/parse_factor.html">col_factor()</a></code>. You will always need to supply these explicitly.</p>
-<p>When reading a file, by default readr only looks at the first 1000 rows. This keeps file parsing speedy, but can generate incorrect guesses. For example, take <code>challenge.csv</code>:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">df1 &lt;-<span class="st"> </span><span class="kw"><a href="../reference/read_delim.html">read_csv</a></span>(<span class="kw"><a href="../reference/readr_example.html">readr_example</a></span>(<span class="st">"challenge.csv"</span>))
+<p>You can see the specification that readr would generate for a column file by using <code><a href="../reference/spec_delim.html">spec_csv()</a></code>, <code><a href="../reference/spec_delim.html">spec_tsv()</a></code> and so on:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">x &lt;-<span class="st"> </span><span class="kw"><a href="../reference/spec_delim.html">spec_csv</a></span>(<span class="kw"><a href="../reference/readr_example.html">readr_example</a></span>(<span class="st">"challenge.csv"</span>))
 <span class="co">#&gt; Parsed with column specification:</span>
-<span class="co">#&gt; cols(</span>
-<span class="co">#&gt;   x = col_integer(),</span>
-<span class="co">#&gt;   y = col_character()</span>
-<span class="co">#&gt; )</span>
-<span class="co">#&gt; Warning: 1000 parsing failures.</span>
-<span class="co">#&gt;  row col               expected             actual</span>
-<span class="co">#&gt; 1001   x no trailing characters .23837975086644292</span>
-<span class="co">#&gt; 1002   x no trailing characters .41167997173033655</span>
-<span class="co">#&gt; 1003   x no trailing characters .7460716762579978 </span>
-<span class="co">#&gt; 1004   x no trailing characters .723450553836301  </span>
-<span class="co">#&gt; 1005   x no trailing characters .614524137461558  </span>
-<span class="co">#&gt; .... ... ...................... ..................</span>
-<span class="co">#&gt; See problems(...) for more details.</span>
-<span class="kw">tail</span>(df1)
-<span class="co">#&gt; # A tibble: 6 &times; 2</span>
-<span class="co">#&gt;       x          y</span>
-<span class="co">#&gt;   &lt;int&gt;      &lt;chr&gt;</span>
-<span class="co">#&gt; 1    NA 2019-11-21</span>
-<span class="co">#&gt; 2    NA 2018-03-29</span>
-<span class="co">#&gt; 3    NA 2014-08-04</span>
-<span class="co">#&gt; 4    NA 2015-08-16</span>
-<span class="co">#&gt; 5    NA 2020-02-04</span>
-<span class="co">#&gt; 6    NA 2019-01-06</span></code></pre></div>
-<p>The column types change in row 1001, so readr guesses the wrong types. One way to resolve the problem is to increase the number of rows used to guess the types:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">df2 &lt;-<span class="st"> </span><span class="kw"><a href="../reference/read_delim.html">read_csv</a></span>(<span class="kw"><a href="../reference/readr_example.html">readr_example</a></span>(<span class="st">"challenge.csv"</span>), <span class="dt">guess_max =</span> <span class="dv">1001</span>)
-<span class="co">#&gt; Parsed with column specification:</span>
-<span class="co">#&gt; cols(</span>
-<span class="co">#&gt;   x = col_double(),</span>
-<span class="co">#&gt;   y = col_date(format = "")</span>
-<span class="co">#&gt; )</span>
-<span class="kw">tail</span>(df2)
-<span class="co">#&gt; # A tibble: 6 &times; 2</span>
-<span class="co">#&gt;           x          y</span>
-<span class="co">#&gt;       &lt;dbl&gt;     &lt;date&gt;</span>
-<span class="co">#&gt; 1 0.8052743 2019-11-21</span>
-<span class="co">#&gt; 2 0.1635163 2018-03-29</span>
-<span class="co">#&gt; 3 0.4719390 2014-08-04</span>
-<span class="co">#&gt; 4 0.7183186 2015-08-16</span>
-<span class="co">#&gt; 5 0.2698786 2020-02-04</span>
-<span class="co">#&gt; 6 0.6082372 2019-01-06</span></code></pre></div>
-<p>Another way is to specify the <code>col_type</code>, as described below.</p>
-</div>
-<div id="overriding-the-defaults" class="section level3">
-<h3 class="hasAnchor"><html><body><a href="#overriding-the-defaults" class="anchor"> </a></body></html>Overriding the defaults</h3>
-<p>In the previous examples, you may have noticed that readr printed the column specification that it used to parse the file:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co">#&gt; Parsed with column specification:</span>
-<span class="co">#&gt; cols(</span>
-<span class="co">#&gt;   x = col_integer(),</span>
-<span class="co">#&gt;   y = col_character()</span>
-<span class="co">#&gt; )</span></code></pre></div>
-<p>You can also access after the fact using the <code><a href="../reference/cols_condense.html">spec()</a></code> function:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="../reference/cols_condense.html">spec</a></span>(df1)
-<span class="co">#&gt; cols(</span>
-<span class="co">#&gt;   x = col_integer(),</span>
-<span class="co">#&gt;   y = col_character()</span>
-<span class="co">#&gt; )</span>
-<span class="kw"><a href="../reference/cols_condense.html">spec</a></span>(df2)
-<span class="co">#&gt; cols(</span>
-<span class="co">#&gt;   x = col_double(),</span>
-<span class="co">#&gt;   y = col_date(format = "")</span>
-<span class="co">#&gt; )</span></code></pre></div>
-<p>(This also allows you to access the full column specification if you&rsquo;re reading a very wide file. By default, readr will only print the specification of the first 20 columns.)</p>
-<p>If you want to manually specify the column types, you can start by copying and pasting this code:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">df3 &lt;-<span class="st"> </span><span class="kw"><a href="../reference/read_delim.html">read_csv</a></span>(
-  <span class="kw"><a href="../reference/readr_example.html">readr_example</a></span>(<span class="st">"challenge.csv"</span>), 
-  <span class="dt">col_types =</span> <span class="kw"><a href="../reference/cols.html">cols</a></span>(
-    <span class="dt">x =</span> <span class="kw"><a href="../reference/parse_atomic.html">col_double</a></span>(),
-    <span class="dt">y =</span> <span class="kw"><a href="../reference/parse_datetime.html">col_date</a></span>(<span class="dt">format =</span> <span class="st">""</span>)
-  )
-)</code></pre></div>
-<p>In general, it&rsquo;s good practice to supply an explicit column specification. It is more work, but it ensures that you get warnings if the data changes in unexpected ways. To be really strict, you can use <code><a href="../reference/problems.html">stop_for_problems(df3)</a></code>. This will throw an error if there are any parsing problems, forcing you to fix those problems before proceeding with the analysis.</p>
-<p>It&rsquo;s also possible to generate a specification before you read the file. Each <code>read_</code> function is accompanied by <code>spec_</code> function that returns the specification without full parsing the file:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="../reference/spec_delim.html">spec_csv</a></span>(<span class="kw"><a href="../reference/readr_example.html">readr_example</a></span>(<span class="st">"challenge.csv"</span>))
-<span class="co">#&gt; Parsed with column specification:</span>
-<span class="co">#&gt; cols(</span>
-<span class="co">#&gt;   x = col_integer(),</span>
-<span class="co">#&gt;   y = col_character()</span>
-<span class="co">#&gt; )</span>
 <span class="co">#&gt; cols(</span>
 <span class="co">#&gt;   x = col_integer(),</span>
 <span class="co">#&gt;   y = col_character()</span>
@@ -272,55 +192,97 @@ mtcars_spec
 <span class="co">#&gt;   wt = col_double(),</span>
 <span class="co">#&gt;   qsec = col_double()</span>
 <span class="co">#&gt; )</span></code></pre></div>
-<p>If you want to read only a subset of the columns, use <code><a href="../reference/cols.html">cols_only()</a></code>:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">mtcars2 &lt;-<span class="st"> </span><span class="kw"><a href="../reference/read_delim.html">read_csv</a></span>(
-  <span class="kw"><a href="../reference/readr_example.html">readr_example</a></span>(<span class="st">"mtcars.csv"</span>),
-  <span class="dt">col_types =</span> <span class="kw"><a href="../reference/cols.html">cols_only</a></span>(
-    <span class="dt">mpg =</span> <span class="kw"><a href="../reference/parse_atomic.html">col_double</a></span>(),
-    <span class="dt">gear =</span> <span class="kw"><a href="../reference/parse_atomic.html">col_integer</a></span>()
-  )
-)
-mtcars2
-<span class="co">#&gt; # A tibble: 32 &times; 2</span>
-<span class="co">#&gt;      mpg  gear</span>
-<span class="co">#&gt;    &lt;dbl&gt; &lt;int&gt;</span>
-<span class="co">#&gt; 1   21.0     4</span>
-<span class="co">#&gt; 2   21.0     4</span>
-<span class="co">#&gt; 3   22.8     4</span>
-<span class="co">#&gt; 4   21.4     3</span>
-<span class="co">#&gt; 5   18.7     3</span>
-<span class="co">#&gt; 6   18.1     3</span>
-<span class="co">#&gt; 7   14.3     3</span>
-<span class="co">#&gt; 8   24.4     4</span>
-<span class="co">#&gt; 9   22.8     4</span>
-<span class="co">#&gt; 10  19.2     4</span>
-<span class="co">#&gt; # ... with 22 more rows</span></code></pre></div>
-</div>
+<p>By default readr only looks at the first 1000 rows. This keeps file parsing speedy, but can generate incorrect guesses. For example, in <code>challenge.csv</code> the column types change in row 1001, so readr guesses the wrong types. One way to resolve the problem is to increase the number of rows:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">x &lt;-<span class="st"> </span><span class="kw"><a href="../reference/spec_delim.html">spec_csv</a></span>(<span class="kw"><a href="../reference/readr_example.html">readr_example</a></span>(<span class="st">"challenge.csv"</span>), <span class="dt">guess_max =</span> <span class="dv">1001</span>)
+<span class="co">#&gt; Parsed with column specification:</span>
+<span class="co">#&gt; cols(</span>
+<span class="co">#&gt;   x = col_double(),</span>
+<span class="co">#&gt;   y = col_date(format = "")</span>
+<span class="co">#&gt; )</span></code></pre></div>
+<p>Another way is to manually specify the <code>col_type</code>, as described below.</p>
 </div>
 <div id="rectangular-parsers" class="section level2">
 <h2 class="hasAnchor"><html><body><a href="#rectangular-parsers" class="anchor"> </a></body></html>Rectangular parsers</h2>
+<p>readr comes with five parsers for rectangular file formats:</p>
+<ul><li><code><a href="../reference/read_delim.html">read_csv()</a></code> and <code><a href="../reference/read_delim.html">read_csv2()</a></code> for csv files</li>
+<li><code><a href="../reference/read_delim.html">read_tsv()</a></code> for tabs separated files</li>
+<li><code><a href="../reference/read_fwf.html">read_fwf()</a></code> for fixed-width files</li>
+<li><code><a href="../reference/read_log.html">read_log()</a></code> for web log files</li>
+</ul><p>Each of these functions firsts calls <code>spec_xxx()</code> (as described above), and then parses the file according to that column specification:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">df1 &lt;-<span class="st"> </span><span class="kw"><a href="../reference/read_delim.html">read_csv</a></span>(<span class="kw"><a href="../reference/readr_example.html">readr_example</a></span>(<span class="st">"challenge.csv"</span>))
+<span class="co">#&gt; Parsed with column specification:</span>
+<span class="co">#&gt; cols(</span>
+<span class="co">#&gt;   x = col_integer(),</span>
+<span class="co">#&gt;   y = col_character()</span>
+<span class="co">#&gt; )</span>
+<span class="co">#&gt; Warning: 1000 parsing failures.</span>
+<span class="co">#&gt;  row col               expected             actual</span>
+<span class="co">#&gt; 1001   x no trailing characters .23837975086644292</span>
+<span class="co">#&gt; 1002   x no trailing characters .41167997173033655</span>
+<span class="co">#&gt; 1003   x no trailing characters .7460716762579978 </span>
+<span class="co">#&gt; 1004   x no trailing characters .723450553836301  </span>
+<span class="co">#&gt; 1005   x no trailing characters .614524137461558  </span>
+<span class="co">#&gt; .... ... ...................... ..................</span>
+<span class="co">#&gt; See problems(...) for more details.</span></code></pre></div>
+<p>The rectangular parsing functions almost always succeed; they&rsquo;ll only fail if the format is severely messed up. Instead, readr will generate a data frame of problems. The first few will be printed out, and you can access them all with <code><a href="../reference/problems.html">problems()</a></code>:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="../reference/problems.html">problems</a></span>(df1)
+<span class="co">#&gt; # A tibble: 1,000 &times; 4</span>
+<span class="co">#&gt;      row   col               expected             actual</span>
+<span class="co">#&gt;    &lt;int&gt; &lt;chr&gt;                  &lt;chr&gt;              &lt;chr&gt;</span>
+<span class="co">#&gt; 1   1001     x no trailing characters .23837975086644292</span>
+<span class="co">#&gt; 2   1002     x no trailing characters .41167997173033655</span>
+<span class="co">#&gt; 3   1003     x no trailing characters  .7460716762579978</span>
+<span class="co">#&gt; 4   1004     x no trailing characters   .723450553836301</span>
+<span class="co">#&gt; 5   1005     x no trailing characters   .614524137461558</span>
+<span class="co">#&gt; 6   1006     x no trailing characters   .473980569280684</span>
+<span class="co">#&gt; 7   1007     x no trailing characters  .5784610391128808</span>
+<span class="co">#&gt; 8   1008     x no trailing characters  .2415937229525298</span>
+<span class="co">#&gt; 9   1009     x no trailing characters .11437866208143532</span>
+<span class="co">#&gt; 10  1010     x no trailing characters  .2983446326106787</span>
+<span class="co">#&gt; # ... with 990 more rows</span></code></pre></div>
+<p>You&rsquo;ve already seen one way of handling bad guesses: increasing the number of rows used to guess the type of each column.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">df2 &lt;-<span class="st"> </span><span class="kw"><a href="../reference/read_delim.html">read_csv</a></span>(<span class="kw"><a href="../reference/readr_example.html">readr_example</a></span>(<span class="st">"challenge.csv"</span>), <span class="dt">guess_max =</span> <span class="dv">1001</span>)
+<span class="co">#&gt; Parsed with column specification:</span>
+<span class="co">#&gt; cols(</span>
+<span class="co">#&gt;   x = col_double(),</span>
+<span class="co">#&gt;   y = col_date(format = "")</span>
+<span class="co">#&gt; )</span></code></pre></div>
+<p>Another approach is to manually supply the column specification.</p>
+<div id="overriding-the-defaults" class="section level3">
+<h3 class="hasAnchor"><html><body><a href="#overriding-the-defaults" class="anchor"> </a></body></html>Overriding the defaults</h3>
+<p>In the previous examples, you may have noticed that readr printed the column specification that it used to parse the file:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co">#&gt; Parsed with column specification:</span>
+<span class="co">#&gt; cols(</span>
+<span class="co">#&gt;   x = col_integer(),</span>
+<span class="co">#&gt;   y = col_character()</span>
+<span class="co">#&gt; )</span></code></pre></div>
+<p>You can also access it after the fact using <code><a href="../reference/cols_condense.html">spec()</a></code>:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="../reference/cols_condense.html">spec</a></span>(df1)
+<span class="co">#&gt; cols(</span>
+<span class="co">#&gt;   x = col_integer(),</span>
+<span class="co">#&gt;   y = col_character()</span>
+<span class="co">#&gt; )</span>
+<span class="kw"><a href="../reference/cols_condense.html">spec</a></span>(df2)
+<span class="co">#&gt; cols(</span>
+<span class="co">#&gt;   x = col_double(),</span>
+<span class="co">#&gt;   y = col_date(format = "")</span>
+<span class="co">#&gt; )</span></code></pre></div>
+<p>(This also allows you to access the full column specification if you&rsquo;re reading a very wide file. By default, readr will only print the specification of the first 20 columns.)</p>
+<p>If you want to manually specify the column types, you can start by copying and pasting this code, and then tweaking it fix the parsing problems.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">df3 &lt;-<span class="st"> </span><span class="kw"><a href="../reference/read_delim.html">read_csv</a></span>(
+  <span class="kw"><a href="../reference/readr_example.html">readr_example</a></span>(<span class="st">"challenge.csv"</span>), 
+  <span class="dt">col_types =</span> <span class="kw"><a href="../reference/cols.html">cols</a></span>(
+    <span class="dt">x =</span> <span class="kw"><a href="../reference/parse_atomic.html">col_double</a></span>(),
+    <span class="dt">y =</span> <span class="kw"><a href="../reference/parse_datetime.html">col_date</a></span>(<span class="dt">format =</span> <span class="st">""</span>)
+  )
+)</code></pre></div>
+<p>In general, it&rsquo;s good practice to supply an explicit column specification. It is more work, but it ensures that you get warnings if the data changes in unexpected ways. To be really strict, you can use <code><a href="../reference/problems.html">stop_for_problems(df3)</a></code>. This will throw an error if there are any parsing problems, forcing you to fix those problems before proceeding with the analysis.</p>
 </div>
-<div id="output" class="section level2">
-<h2 class="hasAnchor"><html><body><a href="#output" class="anchor"> </a></body></html>Output</h2>
-<p><code><a href="../reference/read_delim.html">read_csv()</a></code> produces a data frame with the following properties:</p>
-<ul><li><p>Characters are never automatically converted to factors (i.e.&nbsp;no more <code>stringsAsFactors = FALSE</code>).</p></li>
-<li><p>Valid column names are left as is, not munged into valid R identifiers (i.e.&nbsp;there is no <code>check.names = TRUE</code>). Missing column names are filled in with <code>X1</code>, <code>X2</code> etc, and duplicated column names are deduplicated.</p></li>
-<li><p>The data frame is given class <code>c("tbl_df", "tbl", "data.frame")</code> so if you also use <a href="https://github.com/hadley/dplyr/">dplyr</a> you&rsquo;ll get an enhanced display.</p></li>
-<li><p>Row names are never set.</p></li>
-</ul></div>
-<div id="problems" class="section level2">
-<h2 class="hasAnchor"><html><body><a href="#problems" class="anchor"> </a></body></html>Problems</h2>
-<p>If there are any problems parsing the file, the <code>read_</code> function will throw a warning telling you how many problems there are. You can then use the <code><a href="../reference/problems.html">problems()</a></code> function to access a data frame that gives information about each problem:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">df &lt;-<span class="st"> </span><span class="kw"><a href="../reference/read_delim.html">read_csv</a></span>(<span class="dt">col_types =</span> <span class="st">"dd"</span>, <span class="dt">col_names =</span> <span class="kw">c</span>(<span class="st">"x"</span>, <span class="st">"y"</span>), <span class="dt">skip =</span> <span class="dv">1</span>, <span class="st">"</span>
-<span class="st">1,2</span>
-<span class="st">a,b</span>
-<span class="st">"</span>)
-<span class="co">#&gt; Warning message: There were 2 problems. See problems(x) for more details</span>
-<span class="kw"><a href="../reference/problems.html">problems</a></span>(df)
-<span class="co">#&gt;   row col expected actual</span>
-<span class="co">#&gt; 1   2   1 a double      a</span>
-<span class="co">#&gt; 2   2   2 a double      b</span></code></pre></div>
-<p>It&rsquo;s likely that there will be cases that you can never load without some manual regexp-based munging in R. Load those columns with <code><a href="../reference/parse_atomic.html">col_character()</a></code>, fix them up as needed, then use <code>convert_types()</code> to re-run the automated conversion on every character column in the data frame. Alternatively, you can use <code><a href="../reference/parse_atomic.html">parse_integer()</a></code>, <code>parse_numeric()</code>, <code><a href="../reference/parse_datetime.html">parse_date()</a></code> etc to parse a single character vector at a time.</p>
+<div id="output" class="section level3">
+<h3 class="hasAnchor"><html><body><a href="#output" class="anchor"> </a></body></html>Output</h3>
+<p>The output of all these functions is a tibble. Note that characters are never automatically converted to factors (i.e.&nbsp;no more <code>stringsAsFactors = FALSE</code>) and column names are left as is, not munged into valid R identifiers (i.e.&nbsp;there is no <code>check.names = TRUE</code>). Row names are never set.</p>
+<p>Attributes store the column specification (<code><a href="../reference/cols_condense.html">spec()</a></code>) and any parsing problems (<code><a href="../reference/problems.html">problems()</a></code>).</p>
+</div>
 </div>
 </div>
   </div>
@@ -331,8 +293,6 @@ mtcars2
       <ul class="nav nav-pills nav-stacked"><li><a href="#vector-parsers">Vector parsers</a></li>
       <li><a href="#column-specification">Column specification</a></li>
       <li><a href="#rectangular-parsers">Rectangular parsers</a></li>
-      <li><a href="#output">Output</a></li>
-      <li><a href="#problems">Problems</a></li>
       </ul></div>
       </div>
 

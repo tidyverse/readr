@@ -87,10 +87,10 @@
     </div>
 
     
-    <p><code>spec</code> extracts the full column specifications.
-<code>cols_condense</code> takes a spec object and condenses its definition
-by setting the default column type to the most frequent type and only
-listing columns with a different type.</p>
+    <p><code>spec</code> extracts the full column specification from a tibble
+created by readr. <code>cols_condense</code> takes a spec object and
+condenses its definition by setting the default column type to the most
+frequent type and only listing columns with a different type.</p>
     
 
     <pre><span class='fu'>cols_condense</span>(<span class='no'>x</span>)

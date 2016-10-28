@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Re-convert character columns in existing data frame. — type_convert • readr</title>
+<title>Re-convert character columns in existing data frame — type_convert • readr</title>
 
 <!-- jquery -->
 <script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha384-nrOSfDHtoPMzJHjVTdCopGqIqeYETSXhZDFyniQ8ZHcVy08QesyHcnOUpMpqnmWq" crossorigin="anonymous"></script>
@@ -83,13 +83,14 @@
       <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Re-convert character columns in existing data frame.</h1>
+    <h1>Re-convert character columns in existing data frame</h1>
     </div>
 
     
     <p>This is useful if you need to do some manual munging - you can read the
 columns in as character, clean it up with (e.g.) regular expressions and
-then let readr take another stab at parsing it.</p>
+then let readr take another stab at parsing it. The name is a homage to
+the base <code><a href='http://www.rdocumentation.org/packages/utils/topics/type.convert'>type.convert</a>()</code>.</p>
     
 
     <pre><span class='fu'>type_convert</span>(<span class='no'>df</span>, <span class='kw'>col_types</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>na</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='st'>""</span>, <span class='st'>"NA"</span>), <span class='kw'>trim_ws</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
