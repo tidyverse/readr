@@ -21,6 +21,7 @@ body {
   hyphens: auto;
   -ms-hyphens: auto;
   -webkit-hyphens: auto;
+  position:static;
 }
 
 #sidebar h2 {
