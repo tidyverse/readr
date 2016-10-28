@@ -5,7 +5,7 @@
 \alias{write_csv}
 \alias{write_excel_csv}
 \alias{write_tsv}
-\title{Save a data frame to a delimited file.}
+\title{Write a data frame to a delimited file}
 \usage{
 write_delim(x, path, delim = " ", na = "NA", append = FALSE,
   col_names = !append)

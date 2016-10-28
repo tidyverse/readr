@@ -2,7 +2,7 @@
 % Please edit documentation in R/encoding.R
 \name{guess_encoding}
 \alias{guess_encoding}
-\title{Guess encoding of file.}
+\title{Guess encoding of file}
 \usage{
 guess_encoding(file, n_max = 10000, threshold = 0.2)
 }

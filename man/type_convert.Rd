@@ -2,7 +2,7 @@
 % Please edit documentation in R/type_convert.R
 \name{type_convert}
 \alias{type_convert}
-\title{Re-convert character columns in existing data frame.}
+\title{Re-convert character columns in existing data frame}
 \usage{
 type_convert(df, col_types = NULL, na = c("", "NA"), trim_ws = TRUE,
   locale = default_locale())
@@ -39,7 +39,8 @@ names.}
 \description{
 This is useful if you need to do some manual munging - you can read the
 columns in as character, clean it up with (e.g.) regular expressions and
-then let readr take another stab at parsing it.
+then let readr take another stab at parsing it. The name is a homage to
+the base \code{\link[utils]{type.convert}()}.
 }
 \examples{
 df <- data.frame(

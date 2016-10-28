@@ -2,7 +2,7 @@
 % Please edit documentation in R/count_fields.R
 \name{count_fields}
 \alias{count_fields}
-\title{Count the number of fields in each line of a file.}
+\title{Count the number of fields in each line of a file}
 \usage{
 count_fields(file, tokenizer, skip = 0, n_max = -1L)
 }

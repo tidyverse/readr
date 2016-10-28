@@ -207,7 +207,7 @@ generate_spec_fun <- function(x) {
   x
 }
 
-#' Compute column specifications
+#' Generate a column specification
 #'
 #' When printed, only the first 20 columns are printed by default. To override,
 #' set \code{options(readr.num_columns)} can be used to modify this (a value of 0

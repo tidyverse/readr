@@ -65,22 +65,20 @@ reference:
 - title: Write
   desc: >
     Despite its name, readr also provides a number of functions to __write__
-    to disk.
+    data frames to disk, and to convert them to in-memory strings.
   contents:
   - starts_with("format_")
   - write_csv
 
 - title: Low-level IO and debugging tools
   desc: >
-    These functions are useful for non-rectangular files, and to help
-    when debugging files that don't parse correctly.
+    These functions can be used with non-rectangular files, and to help
+    debug rectangular files that fail to parse.
   contents:
   - read_file
   - read_lines
-  - read_rds
   - write_file
   - write_lines
-  - write_rds
   - count_fields
   - guess_encoding
   - type_convert

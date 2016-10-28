@@ -2,12 +2,13 @@
 % Please edit documentation in R/collectors.R
 \name{col_skip}
 \alias{col_skip}
-\title{Skip a column.}
+\title{Skip a column}
 \usage{
 col_skip()
 }
 \description{
-Use this function to ignore a column.
+Use this function to ignore a column when reading in a file.
+To skip all columns not otherwise specified, use \code{\link{cols_only}()}.
 }
 \seealso{
 Other parsers: \code{\link{parse_datetime}},

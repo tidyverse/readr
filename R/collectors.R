@@ -113,9 +113,10 @@ col_character <- function() {
   collector("character")
 }
 
-#' Skip a column.
+#' Skip a column
 #'
-#' Use this function to ignore a column.
+#' Use this function to ignore a column when reading in a file.
+#' To skip all columns not otherwise specified, use \code{\link{cols_only}()}.
 #'
 #' @family parsers
 #' @export
