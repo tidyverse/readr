@@ -3,7 +3,7 @@
 readr <img src="logo.png" align="right" />
 ==========================================
 
-[![CRAN\_Status\_Badge](http://www.r-pkg.org/badges/version/readr)](http://cran.r-project.org/package=readr) [![Build Status](https://travis-ci.org/tidyverse/readr.png?branch=master)](https://travis-ci.org/tidyverse/readr) [![AppVeyor Build Status](https://ci.appveyor.com/api/projects/status/github/tidyverse/readr?branch=master&svg=true)](https://ci.appveyor.com/project/tidyverse/readr) [![Coverage Status](http://codecov.io/github/tidyverse/readr/coverage.svg?branch=master)](http://codecov.io/tidyverse/hadley/readr?branch=master)
+[![CRAN\_Status\_Badge](http://www.r-pkg.org/badges/version/readr)](http://cran.r-project.org/package=readr) [![Build Status](https://travis-ci.org/tidyverse/readr.png?branch=master)](https://travis-ci.org/tidyverse/readr) [![AppVeyor Build Status](https://ci.appveyor.com/api/projects/status/github/tidyverse/readr?branch=master&svg=true)](https://ci.appveyor.com/project/tidyverse/readr) [![Coverage Status](http://codecov.io/github/tidyverse/readr/coverage.svg?branch=master)](http://codecov.io/tidyverse/readr?branch=master)
 
 Overview
 --------
@@ -35,6 +35,7 @@ library(tidyverse)
 #> Loading tidyverse: ggplot2
 #> Loading tidyverse: tibble
 #> Loading tidyverse: tidyr
+#> Loading tidyverse: readr
 #> Loading tidyverse: purrr
 #> Loading tidyverse: dplyr
 #> Conflicts with tidy packages ----------------------------------------------
