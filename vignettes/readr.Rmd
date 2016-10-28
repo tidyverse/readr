@@ -110,9 +110,7 @@ parse_factor(c("a", "b", "d"), levels = c("a", "b", "c"))
 
 ## Column specification
 
-### Heuristics
-
-It would be tedious if you had to specify the type of every column when reading a file. To avoid this problem, readr uses some heuristics to guess the type of each column. You can access these results yourself using `guess_parser()`:
+It would be tedious if you had to specify the type of every column when reading a file. Instead readr, uses some heuristics to guess the type of each column. You can access these results yourself using `guess_parser()`:
 
 ```{r}
 guess_parser(c("a", "b", "c"))
@@ -130,21 +128,58 @@ parse_number("1,234")
 
 The are two parsers that will never be guessed: `col_skip()` and `col_factor()`. You will always need to supply these explicitly.
 
-When reading a file, by default readr only looks at the first 1000 rows. This keeps file parsing speedy, but can generate incorrect guesses. For example, take `challenge.csv`:
+You can see the specification that readr would generate for a column file by using `spec_csv()`, `spec_tsv()` and so on:
+
+```{r}
+x <- spec_csv(readr_example("challenge.csv"))
+```
+
+For bigger files, you can often make the specification simpler by changing the default column type using `cols_condense()`
+
+```{r}
+mtcars_spec <- spec_csv(readr_example("mtcars.csv"))
+mtcars_spec
+
+cols_condense(mtcars_spec)
+```
+
+
+By default readr only looks at the first 1000 rows. This keeps file parsing speedy, but can generate incorrect guesses. For example, in `challenge.csv` the column types change in row 1001, so readr guesses the wrong types. One way to resolve the problem is to increase the number of rows:
+
+```{r}
+x <- spec_csv(readr_example("challenge.csv"), guess_max = 1001)
+```
+
+Another way is to manually specify the `col_type`, as described below.
+
+## Rectangular parsers
+
+readr comes with five parsers for rectangular file formats:
+
+* `read_csv()` and `read_csv2()` for csv files
+* `read_tsv()` for tabs separated files
+* `read_fwf()` for fixed-width files
+* `read_log()` for web log files
+
+Each of these functions firsts calls `spec_xxx()` (as described above), and then parses the file according to that column specification:
 
 ```{r}
 df1 <- read_csv(readr_example("challenge.csv"))
-tail(df1)
 ```
 
-The column types change in row 1001, so readr guesses the wrong types. One way to resolve the problem is to increase the number of rows used to guess the types:
+The rectangular parsing functions almost always succeed; they'll only fail if the format is severely messed up. Instead, readr will generate a data frame of problems. The first few will be printed out, and you can access them all with `problems()`:
+
+```{r}
+problems(df1)
+```
+
+You've already seen one way of handling bad guesses: increasing the number of rows used to guess the type of each column. 
 
 ```{r}
 df2 <- read_csv(readr_example("challenge.csv"), guess_max = 1001)
-tail(df2)
 ```
 
-Another way is to specify the `col_type`, as described below.
+Another approach is to manually supply the column specification.
 
 ### Overriding the defaults
 
@@ -158,7 +193,7 @@ In the previous examples, you may have noticed that readr printed the column spe
 #> )
 ```
 
-You can also access after the fact using the `spec()` function:
+You can also access it after the fact using `spec()`:
 
 ```{r}
 spec(df1)
@@ -167,7 +202,7 @@ spec(df2)
 
 (This also allows you to access the full column specification if you're reading a very wide file. By default, readr will only print the specification of the first 20 columns.)
 
-If you want to manually specify the column types, you can start by copying and pasting this code:
+If you want to manually specify the column types, you can start by copying and pasting this code, and then tweaking it fix the parsing problems.
 
 ```{r}
 df3 <- read_csv(
@@ -181,68 +216,8 @@ df3 <- read_csv(
 
 In general, it's good practice to supply an explicit column specification. It is more work, but it ensures that you get warnings if the data changes in unexpected ways. To be really strict, you can use `stop_for_problems(df3)`. This will throw an error if there are any parsing problems, forcing you to fix those problems before proceeding with the analysis.
 
-It's also possible to generate a specification before you read the file. Each `read_` function is accompanied by `spec_` function that returns the specification without full parsing the file:
+### Output
 
-```{r}
-spec_csv(readr_example("challenge.csv"))
-```
+The output of all these functions is a tibble. Note that characters are never automatically converted to factors (i.e. no more `stringsAsFactors = FALSE`) and column names are left as is, not munged into valid R identifiers (i.e. there is no `check.names = TRUE`). Row names are never set.
 
-For bigger files, you can often make the specification simpler by changing the default column type using `cols_condense()`
-
-```{r}
-mtcars_spec <- spec_csv(readr_example("mtcars.csv"))
-mtcars_spec
-
-cols_condense(mtcars_spec)
-```
-
-If you want to read only a subset of the columns, use `cols_only()`:
-
-```{r}
-mtcars2 <- read_csv(
-  readr_example("mtcars.csv"),
-  col_types = cols_only(
-    mpg = col_double(),
-    gear = col_integer()
-  )
-)
-mtcars2
-```
-
-## Rectangular parsers
-
-
-## Output
-
-`read_csv()` produces a data frame with the following properties:
-
-* Characters are never automatically converted to factors (i.e. no more 
-  `stringsAsFactors = FALSE`).
-
-* Valid column names are left as is, not munged into valid R identifiers
-  (i.e. there is no `check.names = TRUE`). Missing column names are filled
-  in with `X1`, `X2` etc, and duplicated column names are deduplicated.
-
-* The data frame is given class `c("tbl_df", "tbl", "data.frame")` so 
-  if you also use [dplyr](https://github.com/hadley/dplyr/) you'll get an 
-  enhanced display.
-
-* Row names are never set.
-
-## Problems
-
-If there are any problems parsing the file, the `read_` function will throw a warning telling you how many problems there are. You can then use the `problems()` function to access a data frame that gives information about each problem:
-
-```R
-df <- read_csv(col_types = "dd", col_names = c("x", "y"), skip = 1, "
-1,2
-a,b
-")
-#> Warning message: There were 2 problems. See problems(x) for more details
-problems(df)
-#>   row col expected actual
-#> 1   2   1 a double      a
-#> 2   2   2 a double      b
-```
-
-It's likely that there will be cases that you can never load without some manual regexp-based munging in R. Load those columns with `col_character()`, fix them up as needed, then use `convert_types()` to re-run the automated conversion on every character column in the data frame. Alternatively, you can use `parse_integer()`, `parse_numeric()`, `parse_date()` etc to parse a single character vector at a time.
+Attributes store the column specification (`spec()`) and any parsing problems (`problems()`).
