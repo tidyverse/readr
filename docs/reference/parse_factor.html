@@ -87,7 +87,8 @@
     </div>
 
     
-    <p>Parse factors</p>
+    <p><code>parse_factor</code> is similar to <code>factor</code>, but will generate
+warnings if elements of <code>x</code> are not found in <code>levels</code>.</p>
     
 
     <pre><span class='fu'>parse_factor</span>(<span class='no'>x</span>, <span class='no'>levels</span>, <span class='kw'>ordered</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>na</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='st'>""</span>, <span class='st'>"NA"</span>),
@@ -127,7 +128,19 @@ names.</dd>
     </h2>
     <pre class="examples"><div class='input'><span class='fu'>parse_factor</span>(<span class='fu'>c</span>(<span class='st'>"a"</span>, <span class='st'>"b"</span>), <span class='no'>letters</span>)</div><div class='output co'>#&gt; [1] a b
 #&gt; Levels: a b c d e f g h i j k l m n o p q r s t u v w x y z
-#&gt; </div></pre>
+#&gt; </div><div class='input'>
+<span class='no'>x</span> <span class='kw'>&lt;-</span> <span class='fu'>c</span>(<span class='st'>"cat"</span>, <span class='st'>"dog"</span>, <span class='st'>"caw"</span>)
+<span class='no'>levels</span> <span class='kw'>&lt;-</span> <span class='fu'>c</span>(<span class='st'>"cat"</span>, <span class='st'>"dog"</span>, <span class='st'>"cow"</span>)
+
+<span class='co'># Base R factor() silently converts unknown levels to NA</span>
+<span class='no'>x1</span> <span class='kw'>&lt;-</span> <span class='fu'>factor</span>(<span class='no'>x</span>, <span class='no'>levels</span>)
+
+<span class='co'># parse_factor generates a warning &amp; problems</span>
+<span class='no'>x2</span> <span class='kw'>&lt;-</span> <span class='fu'>parse_factor</span>(<span class='no'>x</span>, <span class='no'>levels</span>)</div><div class='output'><strong class='text-warning'>Warning message:
+1 parsing failure.
+row col           expected actual
+  3  -- value in level set    caw
+</strong></div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>

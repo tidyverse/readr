@@ -115,7 +115,7 @@
 <span class="co">#&gt; )</span></code></pre></div>
 <p>This makes it easier to quickly identify parsing problems and fix them (#314). If the column specification is long, the new <code><a href="../reference/cols_condense.html">cols_condense()</a></code> is used to condense the spec by identifying the most common type and setting it as the default. This is particularly useful when only a handful of columns have a different type (#466).</p>
 <p>You can also generating an initial specification without parsing the file using <code><a href="../reference/spec_delim.html">spec_csv()</a></code>, <code><a href="../reference/spec_delim.html">spec_tsv()</a></code>, etc.</p>
-<p>Once you have figured out the correct column types for a file, it’s often useful to make the parsing strict. You can do this either by copying and pasting the printed output, or for very long specs, saving the spec to disk with <code><a href="../reference/write_rds.html">write_rds()</a></code>. In production scripts, combine this with <code><a href="../reference/problems.html">stop_for_problems()</a></code> (#465): if the input data changes form, you’ll fail fast with an error.</p>
+<p>Once you have figured out the correct column types for a file, it’s often useful to make the parsing strict. You can do this either by copying and pasting the printed output, or for very long specs, saving the spec to disk with <code><a href="../reference/read_rds.html">write_rds()</a></code>. In production scripts, combine this with <code><a href="../reference/problems.html">stop_for_problems()</a></code> (#465): if the input data changes form, you’ll fail fast with an error.</p>
 <p>You can now also adjust the number of rows that readr uses to guess the column types with <code>guess_max</code>:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">challenge &lt;-<span class="st"> </span><span class="kw"><a href="../reference/read_delim.html">read_csv</a></span>(<span class="kw"><a href="../reference/readr_example.html">readr_example</a></span>(<span class="st">"challenge.csv"</span>), <span class="dt">guess_max =</span> <span class="dv">1500</span>)
 <span class="co">#&gt; Parsed with column specification:</span>
@@ -157,8 +157,8 @@
 <ul><li><p><code><a href="../reference/read_file.html">read_file_raw()</a></code> reads a complete file into a single raw vector (#451).</p></li>
 <li><p><code>read_*()</code> functions gain a <code>quoted_na</code> argument to control whether missing values within quotes are treated as missing values or as strings (#295).</p></li>
 <li><p><code><a href="../reference/write_delim.html">write_excel_csv()</a></code> can be used to write a csv file with a UTF-8 BOM at the start, which forces Excel to read it as UTF-8 encoded (#375).</p></li>
-<li><p><code><a href="../reference/write_lines.html">write_lines()</a></code> writes a character vector to a file (#302).</p></li>
-<li><p><code><a href="../reference/write_file.html">write_file()</a></code> to write a single character or raw vector to a file (#474).</p></li>
+<li><p><code><a href="../reference/read_lines.html">write_lines()</a></code> writes a character vector to a file (#302).</p></li>
+<li><p><code><a href="../reference/read_file.html">write_file()</a></code> to write a single character or raw vector to a file (#474).</p></li>
 <li><p>Experimental support for chunked reading a writing (<code>read_*_chunked()</code>) functions. The API is unstable and subject to change in the future (#427).</p></li>
 </ul></div>
 <div id="minor-features-and-bug-fixes" class="section level2">
@@ -263,7 +263,7 @@
 <li><p><code><a href="../reference/read_lines.html">read_lines()</a></code> gains a progress bar. It now also correctly checks for interrupts every 500,000 lines so you can interrupt long running jobs. It also correctly estimates the number of lines in the file, considerably speeding up the reading of large files (60s -&gt; 15s for a 1.5 Gb file).</p></li>
 <li><p><code><a href="../reference/read_lines.html">read_lines_raw()</a></code> allows you to read a file into a list of raw vectors, one element for each line.</p></li>
 <li><p><code><a href="../reference/type_convert.html">type_convert()</a></code> gains <code>NA</code> and <code>trim_ws</code> arguments, and removes missing values before determining column types.</p></li>
-<li><p><code><a href="../reference/write_delim.html">write_csv()</a></code>, <code><a href="../reference/write_delim.html">write_delim()</a></code>, and <code><a href="../reference/write_rds.html">write_rds()</a></code> all invisably return their input so you can use them in a pipe (#290).</p></li>
+<li><p><code><a href="../reference/write_delim.html">write_csv()</a></code>, <code><a href="../reference/write_delim.html">write_delim()</a></code>, and <code><a href="../reference/read_rds.html">write_rds()</a></code> all invisably return their input so you can use them in a pipe (#290).</p></li>
 <li>
 <p><code><a href="../reference/write_delim.html">write_delim()</a></code> generalises <code><a href="../reference/write_delim.html">write_csv()</a></code> to write any delimited format (#135). <code><a href="../reference/write_delim.html">write_tsv()</a></code> is a helpful wrapper for tab separated files.</p>
 <ul><li><p>Quotes are only used when they’re needed (#116): when the string contains a quote, the delimiter, a new line or NA.</p></li>
@@ -272,7 +272,7 @@
 <li><p>POSIXt vectors are saved in a ISO8601 compatible format (#134).</p></li>
 <li><p>No longer fails silently if it can’t open the target for writing (#193, #172).</p></li>
 </ul></li>
-<li><p><code><a href="../reference/write_rds.html">write_rds()</a></code> and <code><a href="../reference/read_rds.html">read_rds()</a></code> wrap around <code>readRDS()</code> and <code>saveRDS()</code>, defaulting to no compression (#140, @nicolasCoutin).</p></li>
+<li><p><code><a href="../reference/read_rds.html">write_rds()</a></code> and <code><a href="../reference/read_rds.html">read_rds()</a></code> wrap around <code>readRDS()</code> and <code>saveRDS()</code>, defaulting to no compression (#140, @nicolasCoutin).</p></li>
 </ul></div>
 </div>
     </div>

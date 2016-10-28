@@ -88,7 +88,7 @@
     </div>
 
     <div class="contents">
-      <h2 id="section-read-data-frames" class="hasAnchor"><a href="#section-read-data-frames" class="anchor"></a>Read data frames</h2>
+      <h2 id="section-read-rectangular-files" class="hasAnchor"><a href="#section-read-rectangular-files" class="anchor"></a>Read rectangular files</h2>
       <p class="section-desc"></p>
 
       <p><a href="read_delim.html">Read a delimited file (including csv &amp; tsv) into a tibble</a></p>
@@ -118,7 +118,7 @@
       <ul>
         <li><code><a href="problems.html">problems</a></code></li><li><code><a href="problems.html">stop_for_problems</a></code></li>
       </ul>
-      <p><a href="spec_delim.html">Compute column specifications</a></p>
+      <p><a href="spec_delim.html">Generate a column specification</a></p>
       <ul>
         <li><code><a href="spec_delim.html">spec_delim</a></code></li><li><code><a href="spec_delim.html">spec_csv</a></code></li><li><code><a href="spec_delim.html">spec_csv2</a></code></li><li><code><a href="spec_delim.html">spec_tsv</a></code></li><li><code><a href="spec_delim.html">spec_table</a></code></li>
       </ul>
@@ -129,7 +129,7 @@
           <h2 id="section-column-parsers" class="hasAnchor"><a href="#section-column-parsers" class="anchor"></a>Column parsers</h2>
       <p class="section-desc"><p>Each parser comes in two forms: <code>parse_xxx()</code> which is used to parse vectors that already exist in R and <code>col_xxx()</code> which is used to parse vectors as they are loaded by a <code>read_xxx()</code> function.</p></p>
 
-      <p><a href="col_skip.html">Skip a column.</a></p>
+      <p><a href="col_skip.html">Skip a column</a></p>
       <ul>
         <li><code><a href="col_skip.html">col_skip</a></code></li>
       </ul>
@@ -153,7 +153,7 @@
       <ul>
         <li><code><a href="parse_number.html">parse_number</a></code></li><li><code><a href="parse_number.html">col_number</a></code></li>
       </ul>
-          <h2 id="section-locale" class="hasAnchor"><a href="#section-locale" class="anchor"></a>Locale</h2>
+          <h2 id="section-locale-controls" class="hasAnchor"><a href="#section-locale-controls" class="anchor"></a>Locale controls</h2>
       <p class="section-desc"><p>The &ldquo;locale&rdquo; controls all options that vary from country-to-country or language-to-language. See <code><a href="../articles/locales.html">vignette("locales")</a></code> for more details.</p></p>
 
       <p><a href="date_names.html">Create or retrieve date names</a></p>
@@ -164,55 +164,39 @@
       <ul>
         <li><code><a href="locale.html">locale</a></code></li><li><code><a href="locale.html">default_locale</a></code></li>
       </ul>
-          <h2 id="section-write" class="hasAnchor"><a href="#section-write" class="anchor"></a>Write</h2>
-      <p class="section-desc"><p>Despite its name, readr also provides a number of functions to <strong>write</strong> to disk.</p></p>
+          <h2 id="section-write-rectangular-files" class="hasAnchor"><a href="#section-write-rectangular-files" class="anchor"></a>Write rectangular files</h2>
+      <p class="section-desc"><p>Despite its name, readr also provides a number of functions to <strong>write</strong> data frames to disk, and to convert them to in-memory strings.</p></p>
 
       <p><a href="format_delim.html">Convert a data frame to a delimited string</a></p>
       <ul>
         <li><code><a href="format_delim.html">format_delim</a></code></li><li><code><a href="format_delim.html">format_csv</a></code></li><li><code><a href="format_delim.html">format_tsv</a></code></li>
       </ul>
-      <p><a href="write_delim.html">Save a data frame to a delimited file.</a></p>
+      <p><a href="write_delim.html">Write a data frame to a delimited file</a></p>
       <ul>
         <li><code><a href="write_delim.html">write_delim</a></code></li><li><code><a href="write_delim.html">write_csv</a></code></li><li><code><a href="write_delim.html">write_excel_csv</a></code></li><li><code><a href="write_delim.html">write_tsv</a></code></li>
       </ul>
           <h2 id="section-low-level-io-and-debugging-tools" class="hasAnchor"><a href="#section-low-level-io-and-debugging-tools" class="anchor"></a>Low-level IO and debugging tools</h2>
-      <p class="section-desc"><p>These functions are useful for non-rectangular files, and to help when debugging files that don&rsquo;t parse correctly.</p></p>
+      <p class="section-desc"><p>These functions can be used with non-rectangular files, and to help debug rectangular files that fail to parse.</p></p>
 
-      <p><a href="count_fields.html">Count the number of fields in each line of a file.</a></p>
+      <p><a href="count_fields.html">Count the number of fields in each line of a file</a></p>
       <ul>
         <li><code><a href="count_fields.html">count_fields</a></code></li>
       </ul>
-      <p><a href="encoding.html">Guess encoding of file.</a></p>
+      <p><a href="encoding.html">Guess encoding of file</a></p>
       <ul>
         <li><code><a href="encoding.html">guess_encoding</a></code></li>
       </ul>
-      <p><a href="read_file.html">Read a file into a string or raw vector</a></p>
+      <p><a href="read_file.html">Read/write a complete file</a></p>
       <ul>
-        <li><code><a href="read_file.html">read_file</a></code></li><li><code><a href="read_file.html">read_file_raw</a></code></li>
+        <li><code><a href="read_file.html">read_file</a></code></li><li><code><a href="read_file.html">read_file_raw</a></code></li><li><code><a href="read_file.html">write_file</a></code></li>
       </ul>
-      <p><a href="read_lines.html">Read lines from a file</a></p>
+      <p><a href="read_lines.html">Read/write lines to/from a file</a></p>
       <ul>
-        <li><code><a href="read_lines.html">read_lines</a></code></li><li><code><a href="read_lines.html">read_lines_raw</a></code></li>
+        <li><code><a href="read_lines.html">read_lines</a></code></li><li><code><a href="read_lines.html">read_lines_raw</a></code></li><li><code><a href="read_lines.html">write_lines</a></code></li>
       </ul>
-      <p><a href="read_rds.html">Read object from RDS file.</a></p>
-      <ul>
-        <li><code><a href="read_rds.html">read_rds</a></code></li>
-      </ul>
-      <p><a href="type_convert.html">Re-convert character columns in existing data frame.</a></p>
+      <p><a href="type_convert.html">Re-convert character columns in existing data frame</a></p>
       <ul>
         <li><code><a href="type_convert.html">type_convert</a></code></li>
-      </ul>
-      <p><a href="write_file.html">Write a string to a file</a></p>
-      <ul>
-        <li><code><a href="write_file.html">write_file</a></code></li>
-      </ul>
-      <p><a href="write_lines.html">Write lines to a file</a></p>
-      <ul>
-        <li><code><a href="write_lines.html">write_lines</a></code></li>
-      </ul>
-      <p><a href="write_rds.html">Write a single R object to a file</a></p>
-      <ul>
-        <li><code><a href="write_rds.html">write_rds</a></code></li>
       </ul>
           <h2 id="section-chunked-api" class="hasAnchor"><a href="#section-chunked-api" class="anchor"></a>Chunked API</h2>
       <p class="section-desc"><p>The chunked API allows you to read in files that are larger than memory, processing a chunk at a time. The API experimental: please try it out but be aware that it may change in the future.</p></p>
@@ -236,11 +220,11 @@
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
     <ul class="nav nav-pills nav-stacked">
-      <li><a href="#section-read-data-frames">Read data frames</a></li>
+      <li><a href="#section-read-rectangular-files">Read rectangular files</a></li>
       <li><a href="#section-column-specification">Column specification</a></li>
       <li><a href="#section-column-parsers">Column parsers</a></li>
-      <li><a href="#section-locale">Locale</a></li>
-      <li><a href="#section-write">Write</a></li>
+      <li><a href="#section-locale-controls">Locale controls</a></li>
+      <li><a href="#section-write-rectangular-files">Write rectangular files</a></li>
       <li><a href="#section-low-level-io-and-debugging-tools">Low-level IO and debugging tools</a></li>
       <li><a href="#section-chunked-api">Chunked API</a></li>
     </ul>
