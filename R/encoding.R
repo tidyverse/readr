@@ -1,4 +1,4 @@
-#' Guess encoding of file.
+#' Guess encoding of file
 #'
 #' Uses \code{\link[stringi]{stri_enc_detect}}: see the documentation there
 #' for caveats.

@@ -1,4 +1,4 @@
-#' Count the number of fields in each line of a file.
+#' Count the number of fields in each line of a file
 #'
 #' This is useful for diagnosing problems with functions that fail
 #' to parse correctly.

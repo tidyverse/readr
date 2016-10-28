@@ -1,4 +1,4 @@
-#' Save a data frame to a delimited file.
+#' Write a data frame to a delimited file
 #'
 #' This is about twice as fast as \code{\link{write.csv}}, and never
 #' writes row names. \code{output_column} is a generic method used to coerce
@@ -142,36 +142,4 @@ output_column.double <- function(x) {
 #' @export
 output_column.POSIXt <- function(x) {
   format(x, "%Y-%m-%dT%H:%M:%OSZ", tz = "UTC")
-}
-
-#' Write a single R object to a file
-#'
-#' Consistent wrapper around \code{\link{saveRDS}}. \code{write_rds} does not
-#' compress by default as space is generally cheaper than time.
-#'
-#' @param x R object to write to serialise.
-#' @param path Path to write to.
-#' @param compress Compression method to use: "none", "gz" ,"bz", or "xz".
-#' @param ... Additional arguments to connection function. For example, control
-#'   the space-time trade-off of different compression methods with
-#'   \code{compression}. See \code{\link{connections}} for more details.
-#' @export
-#' @return The input \code{x}, invisibly.
-#' @examples
-#' \dontrun{
-#' write_rds(mtcars, "mtcars.rds")
-#' write_rds(mtcars, "compressed_mtc.rds", "xz", compression = 9L)
-#' }
-write_rds <- function(x, path, compress = c("none", "gz", "bz2", "xz"), ...) {
-
-  compress <- match.arg(compress)
-  con <- switch(compress,
-         none = file(path, ...),
-         gz   = gzfile(path, ...),
-         bz2  = bzfile(path, ...),
-         xz   = xzfile(path, ...))
-  on.exit(close(con), add = TRUE)
-  saveRDS(x, con)
-
-  invisible(x)
 }

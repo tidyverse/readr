@@ -6,7 +6,7 @@
 \alias{spec_csv2}
 \alias{spec_tsv}
 \alias{spec_table}
-\title{Compute column specifications}
+\title{Generate a column specification}
 \usage{
 spec_delim(file, delim, quote = "\\"", escape_backslash = FALSE,
   escape_double = TRUE, col_names = TRUE, col_types = NULL,
