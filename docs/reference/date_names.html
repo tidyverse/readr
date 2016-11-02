@@ -63,8 +63,28 @@
 <li>
   <a href="../reference/index.html">Reference</a>
 </li>
-<li>
-  <a href="../news/index.html">News</a>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+    News
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li class="dropdown-header">Release notes</li>
+    <li>
+      <a href="../articles/releases/readr-1.0.0.html">Version 1.0.0</a>
+    </li>
+    <li>
+      <a href="../articles/releases/readr-0.2.0.html">Version 0.2.0</a>
+    </li>
+    <li>
+      <a href="../articles/releases/readr-0.1.0.html">Version 0.1.0</a>
+    </li>
+    <li class="divider"></li>
+    <li>
+      <a href="../news/index.html">Change log</a>
+    </li>
+  </ul>
 </li>
         <li>
   <a href="https://github.com/tidyverse/readr">
@@ -102,42 +122,36 @@ derived from ICU (<a href = 'http://site.icu-project.org'>http://site.icu-projec
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a> Arguments</h2>
     <dl class="dl-horizontal">
       <dt>mon, mon_ab</dt>
-      <dd>Full and abbreviated month names. Starts with Sunday.</dd>
+      <dd><p>Full and abbreviated month names. Starts with Sunday.</p></dd>
       <dt>day, day_ab</dt>
-      <dd>Full and abbreviated week day names</dd>
+      <dd><p>Full and abbreviated week day names</p></dd>
       <dt>am_pm</dt>
-      <dd>Names used for AM and PM.</dd>
+      <dd><p>Names used for AM and PM.</p></dd>
       <dt>language</dt>
-      <dd>A BCP 47 locale, made up of a languge and a region,
+      <dd><p>A BCP 47 locale, made up of a languge and a region,
 e.g. <code>en_US</code> for American English. See <code>date_names_locales()</code>
-for a complete list of available locales.</dd>
+for a complete list of available locales.</p></dd>
     </dl>
     
 
-    <h2 class="hasAnchor" id="examples">
-      <a class="anchor" href="#examples"></a>
-      Examples
-    </h2>
+    <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='fu'>date_names_lang</span>(<span class='st'>"en"</span>)</div><div class='output co'>#&gt; &lt;date_names&gt;
 #&gt; Days:   Sunday (Sun), Monday (Mon), Tuesday (Tue), Wednesday (Wed), Thursday
 #&gt;         (Thu), Friday (Fri), Saturday (Sat)
 #&gt; Months: January (Jan), February (Feb), March (Mar), April (Apr), May (May),
 #&gt;         June (Jun), July (Jul), August (Aug), September (Sep), October
 #&gt;         (Oct), November (Nov), December (Dec)
-#&gt; AM/PM:  AM/PM
-#&gt; </div><div class='input'><span class='fu'>date_names_lang</span>(<span class='st'>"ko"</span>)</div><div class='output co'>#&gt; &lt;date_names&gt;
+#&gt; AM/PM:  AM/PM</div><div class='input'><span class='fu'>date_names_lang</span>(<span class='st'>"ko"</span>)</div><div class='output co'>#&gt; &lt;date_names&gt;
 #&gt; Days:   일요일 (일), 월요일 (월), 화요일 (화), 수요일 (수), 목요일 (목), 금요일
 #&gt;         (금), 토요일 (토)
 #&gt; Months: 1월, 2월, 3월, 4월, 5월, 6월, 7월, 8월, 9월, 10월, 11월, 12월
-#&gt; AM/PM:  오전/오후
-#&gt; </div><div class='input'><span class='fu'>date_names_lang</span>(<span class='st'>"fr"</span>)</div><div class='output co'>#&gt; &lt;date_names&gt;
+#&gt; AM/PM:  오전/오후</div><div class='input'><span class='fu'>date_names_lang</span>(<span class='st'>"fr"</span>)</div><div class='output co'>#&gt; &lt;date_names&gt;
 #&gt; Days:   dimanche (dim.), lundi (lun.), mardi (mar.), mercredi (mer.), jeudi
 #&gt;         (jeu.), vendredi (ven.), samedi (sam.)
 #&gt; Months: janvier (janv.), février (févr.), mars (mars), avril (avr.), mai (mai),
 #&gt;         juin (juin), juillet (juil.), août (août), septembre (sept.),
 #&gt;         octobre (oct.), novembre (nov.), décembre (déc.)
-#&gt; AM/PM:  AM/PM
-#&gt; </div></pre>
+#&gt; AM/PM:  AM/PM</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
@@ -156,9 +170,19 @@ for a complete list of available locales.</dd>
 </div>
 
 <div class="author">
-  <p>Developed by <a href='http://hadley.nz'>Hadley Wickham</a>, Jim Hester, Romain Francois, <a href='https://www.rstudio.com'><img src='http://tidyverse.org/rstudio-logo.svg' height='24' /></a>, Jukka Jylänki, Mikkel Jørgensen.</p>
+  <p>Developed by <a href='http://hadley.nz'>Hadley Wickham</a>, Jim Hester, Romain Francois, <a href='https://www.rstudio.com'><img src='http://tidyverse.org/rstudio-logo.svg' height='24' /></a>.</p>
   <p>Site built by <a href="http://hadley.github.io/pkgdown/">pkgdown</a>.</p>
 </div>
+
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-67989-18', 'auto');
+  ga('send', 'pageview');
+</script>
       </footer>
    </div>
 

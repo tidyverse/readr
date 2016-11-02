@@ -10,7 +10,7 @@ Authors@R: c(
     person("Jim", "Hester", , "jim.hester@rstudio.com", "aut"),
     person("Romain", "Francois", role = "aut"),
     person("R Core Team", role = "ctb", comment = "Date time code adapted from R"),
-    person("RStudio", role = "cph"),
+    person("RStudio", role = c("cph", "fnd")),
     person("Jukka", "Jylänki", role = c("ctb", "cph"), comment = "grisu3 implementation"),
     person("Mikkel", "Jørgensen", role = c("ctb", "cph"), comment = "grisu3 implementation"))
 Encoding: UTF-8
