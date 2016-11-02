@@ -63,8 +63,28 @@
 <li>
   <a href="../reference/index.html">Reference</a>
 </li>
-<li>
-  <a href="../news/index.html">News</a>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+    News
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li class="dropdown-header">Release notes</li>
+    <li>
+      <a href="../articles/releases/readr-1.0.0.html">Version 1.0.0</a>
+    </li>
+    <li>
+      <a href="../articles/releases/readr-0.2.0.html">Version 0.2.0</a>
+    </li>
+    <li>
+      <a href="../articles/releases/readr-0.1.0.html">Version 0.1.0</a>
+    </li>
+    <li class="divider"></li>
+    <li>
+      <a href="../news/index.html">Change log</a>
+    </li>
+  </ul>
 </li>
         <li>
   <a href="https://github.com/tidyverse/readr">
@@ -97,37 +117,30 @@
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a> Arguments</h2>
     <dl class="dl-horizontal">
       <dt>...</dt>
-      <dd>Either column objects created by <code>col_*</code>, or their
-abbreviated character names. If you&#39;re only overriding a few columns,
-it&#39;s best to refer to columns by name. If not named, the column types
-must match the column names exactly.</dd>
+      <dd><p>Either column objects created by <code>col_*</code>, or their
+abbreviated character names. If you're only overriding a few columns,
+it's best to refer to columns by name. If not named, the column types
+must match the column names exactly.</p></dd>
       <dt>.default</dt>
-      <dd>Any named columns not explicitly overridden in <code>...</code>
-will be read with this column type.</dd>
+      <dd><p>Any named columns not explicitly overridden in <code>...</code>
+will be read with this column type.</p></dd>
     </dl>
     
 
-    <h2 class="hasAnchor" id="examples">
-      <a class="anchor" href="#examples"></a>
-      Examples
-    </h2>
+    <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='fu'>cols</span>(<span class='kw'>a</span> <span class='kw'>=</span> <span class='fu'><a href='parse_atomic.html'>col_integer</a></span>())</div><div class='output co'>#&gt; cols(
 #&gt;   a = col_integer()
-#&gt; )
-#&gt; </div><div class='input'><span class='fu'>cols_only</span>(<span class='kw'>a</span> <span class='kw'>=</span> <span class='fu'><a href='parse_atomic.html'>col_integer</a></span>())</div><div class='output co'>#&gt; cols_only(
+#&gt; )</div><div class='input'><span class='fu'>cols_only</span>(<span class='kw'>a</span> <span class='kw'>=</span> <span class='fu'><a href='parse_atomic.html'>col_integer</a></span>())</div><div class='output co'>#&gt; cols_only(
 #&gt;   a = col_integer()
-#&gt; )
-#&gt; </div><div class='input'>
+#&gt; )</div><div class='input'>
 <span class='co'># You can also use the standard abreviations</span>
 <span class='fu'>cols</span>(<span class='kw'>a</span> <span class='kw'>=</span> <span class='st'>"i"</span>)</div><div class='output co'>#&gt; cols(
 #&gt;   a = col_integer()
-#&gt; )
-#&gt; </div><div class='input'><span class='fu'>cols</span>(<span class='kw'>a</span> <span class='kw'>=</span> <span class='st'>"i"</span>, <span class='kw'>b</span> <span class='kw'>=</span> <span class='st'>"d"</span>, <span class='kw'>c</span> <span class='kw'>=</span> <span class='st'>"_"</span>)</div><div class='output co'>#&gt; cols(
+#&gt; )</div><div class='input'><span class='fu'>cols</span>(<span class='kw'>a</span> <span class='kw'>=</span> <span class='st'>"i"</span>, <span class='kw'>b</span> <span class='kw'>=</span> <span class='st'>"d"</span>, <span class='kw'>c</span> <span class='kw'>=</span> <span class='st'>"_"</span>)</div><div class='output co'>#&gt; cols(
 #&gt;   a = col_integer(),
 #&gt;   b = col_double(),
 #&gt;   c = col_skip()
-#&gt; )
-#&gt; </div></pre>
+#&gt; )</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
@@ -146,9 +159,19 @@ will be read with this column type.</dd>
 </div>
 
 <div class="author">
-  <p>Developed by <a href='http://hadley.nz'>Hadley Wickham</a>, Jim Hester, Romain Francois, <a href='https://www.rstudio.com'><img src='http://tidyverse.org/rstudio-logo.svg' height='24' /></a>, Jukka Jylänki, Mikkel Jørgensen.</p>
+  <p>Developed by <a href='http://hadley.nz'>Hadley Wickham</a>, Jim Hester, Romain Francois, <a href='https://www.rstudio.com'><img src='http://tidyverse.org/rstudio-logo.svg' height='24' /></a>.</p>
   <p>Site built by <a href="http://hadley.github.io/pkgdown/">pkgdown</a>.</p>
 </div>
+
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-67989-18', 'auto');
+  ga('send', 'pageview');
+</script>
       </footer>
    </div>
 

@@ -6,22 +6,22 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Count the number of fields in each line of a file — count_fields • readr</title>
+<title>Authors • readr</title>
 
 <!-- jquery -->
 <script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha384-nrOSfDHtoPMzJHjVTdCopGqIqeYETSXhZDFyniQ8ZHcVy08QesyHcnOUpMpqnmWq" crossorigin="anonymous"></script>
 
 <!-- Bootstrap -->
-<link href="../tidyverse.css" rel="stylesheet">
+<link href="tidyverse.css" rel="stylesheet">
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
 
 <!-- Font Awesome icons -->
 <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-T8Gy5hrqNKT+hzMclPo118YTQO6cYprQmhrYwIiQ/3axmI1hQomh7Ud2hPOy8SP1" crossorigin="anonymous">
 
 <!-- tidyverse -->
-<link href="../pkgdown.css" rel="stylesheet">
-<script src="../jquery.sticky-kit.min.js"></script>
-<script src="../pkgdown.js"></script>
+<link href="pkgdown.css" rel="stylesheet">
+<script src="jquery.sticky-kit.min.js"></script>
+<script src="pkgdown.js"></script>
 
 <!-- mathjax -->
 <script src='https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML'></script>
@@ -33,7 +33,7 @@
   </head>
 
   <body>
-    <div class="container template-reference-topic">
+    <div class="container template-authors">
       <header>
       <div class="navbar navbar-default navbar-fixed-top" role="navigation">
   <div class="container">
@@ -45,23 +45,23 @@
       </button>
 
       <div class="navbar-brand-container">
-        <a class="navbar-brand" href="../index.html">readr</a>
+        <a class="navbar-brand" href="index.html">readr</a>
         <small class="tidyverse">part of the <a href="http://tidyverse.org">tidyverse</a></small>
       </div>
     </div>
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav navbar-right">
         <li>
-  <a href="../index.html">Home</a>
+  <a href="index.html">Home</a>
 </li>
 <li>
-  <a href="../articles/readr.html">Overview</a>
+  <a href="articles/readr.html">Overview</a>
 </li>
 <li>
-  <a href="../articles/locales.html">Locales</a>
+  <a href="articles/locales.html">Locales</a>
 </li>
 <li>
-  <a href="../reference/index.html">Reference</a>
+  <a href="reference/index.html">Reference</a>
 </li>
 <li class="dropdown">
   <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
@@ -72,17 +72,17 @@
   <ul class="dropdown-menu" role="menu">
     <li class="dropdown-header">Release notes</li>
     <li>
-      <a href="../articles/releases/readr-1.0.0.html">Version 1.0.0</a>
+      <a href="articles/releases/readr-1.0.0.html">Version 1.0.0</a>
     </li>
     <li>
-      <a href="../articles/releases/readr-0.2.0.html">Version 0.2.0</a>
+      <a href="articles/releases/readr-0.2.0.html">Version 0.2.0</a>
     </li>
     <li>
-      <a href="../articles/releases/readr-0.1.0.html">Version 0.1.0</a>
+      <a href="articles/releases/readr-0.1.0.html">Version 0.1.0</a>
     </li>
     <li class="divider"></li>
     <li>
-      <a href="../news/index.html">Change log</a>
+      <a href="news/index.html">Change log</a>
     </li>
   </ul>
 </li>
@@ -101,55 +101,46 @@
       </header>
 
       <div class="row">
-  <div class="col-md-9 contents">
+  <div class="contents col-md-12">
     <div class="page-header">
-    <h1>Count the number of fields in each line of a file</h1>
+      <h1>Authors</h1>
     </div>
 
-    
-    <p>This is useful for diagnosing problems with functions that fail
-to parse correctly.</p>
-    
-
-    <pre><span class='fu'>count_fields</span>(<span class='no'>file</span>, <span class='no'>tokenizer</span>, <span class='kw'>skip</span> <span class='kw'>=</span> <span class='fl'>0</span>, <span class='kw'>n_max</span> <span class='kw'>=</span> -<span class='fl'>1L</span>)</pre>
-    
-    <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a> Arguments</h2>
-    <dl class="dl-horizontal">
-      <dt>file</dt>
-      <dd><p>Either a path to a file, a connection, or literal data
-   (either a single string or a raw vector).</p>
-<p>Files ending in <code>.gz</code>, <code>.bz2</code>, <code>.xz</code>, or <code>.zip</code> will
-   be automatically uncompressed. Files starting with <code>http://</code>,
-   <code>https://</code>, <code>ftp://</code>, or <code>ftps://</code> will be automatically
-   downloaded. Remote gz files can also be automatically downloaded &amp;
-   decompressed.</p>
-<p>Literal data is most useful for examples and tests. It must contain at
-   least one new line to be recognised as data (instead of a path).</p></dd>
-      <dt>tokenizer</dt>
-      <dd><p>A tokenizer that specifies how to break the <code>file</code>
-up into fields, e.g., <code><a href='Tokenizers.html'>tokenizer_csv</a></code>,
-<code><a href='Tokenizers.html'>tokenizer_fwf</a></code></p></dd>
-      <dt>skip</dt>
-      <dd><p>Number of lines to skip before reading data.</p></dd>
-      <dt>n_max</dt>
-      <dd><p>Optionally, maximum number of rows to count fields for.</p></dd>
-    </dl>
-    
-
-    <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='fu'>count_fields</span>(<span class='fu'><a href='readr_example.html'>readr_example</a></span>(<span class='st'>"mtcars.csv"</span>), <span class='fu'><a href='Tokenizers.html'>tokenizer_csv</a></span>())</div><div class='output co'>#&gt;  [1] 11 11 11 11 11 11 11 11 11 11 11 11 11 11 11 11 11 11 11 11 11 11 11 11 11
-#&gt; [26] 11 11 11 11 11 11 11 11</div></pre>
-  </div>
-  <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
-    <h2>Contents</h2>
-    <ul class="nav nav-pills nav-stacked">
-      <li><a href="#arguments">Arguments</a></li>
-            
-      <li><a href="#examples">Examples</a></li>
+    <ul class="list-unstyled">
+      <li>
+        <p><strong><a href='http://hadley.nz'>Hadley Wickham</a></strong>. Author, maintainer.
+        </p>
+      </li>
+      <li>
+        <p><strong>Jim Hester</strong>. Author.
+        </p>
+      </li>
+      <li>
+        <p><strong>Romain Francois</strong>. Author.
+        </p>
+      </li>
+      <li>
+        <p><strong>R Core Team</strong>. Contributor.
+        <br /><small>Date time code adapted from R</small></p>
+      </li>
+      <li>
+        <p><strong><a href='https://www.rstudio.com'><img src='http://tidyverse.org/rstudio-logo.svg' height='24' /></a></strong>. Copyright&nbsp;holder, funder.
+        </p>
+      </li>
+      <li>
+        <p><strong>Jukka Jylänki</strong>. Contributor, copyright&nbsp;holder.
+        <br /><small>grisu3 implementation</small></p>
+      </li>
+      <li>
+        <p><strong>Mikkel Jørgensen</strong>. Contributor, copyright&nbsp;holder.
+        <br /><small>grisu3 implementation</small></p>
+      </li>
     </ul>
 
   </div>
+
 </div>
+
 
       <footer>
       <div class="tidyverse">

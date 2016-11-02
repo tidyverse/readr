@@ -63,8 +63,28 @@
 <li>
   <a href="../reference/index.html">Reference</a>
 </li>
-<li>
-  <a href="../news/index.html">News</a>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+    News
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li class="dropdown-header">Release notes</li>
+    <li>
+      <a href="../articles/releases/readr-1.0.0.html">Version 1.0.0</a>
+    </li>
+    <li>
+      <a href="../articles/releases/readr-0.2.0.html">Version 0.2.0</a>
+    </li>
+    <li>
+      <a href="../articles/releases/readr-0.1.0.html">Version 0.1.0</a>
+    </li>
+    <li class="divider"></li>
+    <li>
+      <a href="../news/index.html">Change log</a>
+    </li>
+  </ul>
 </li>
         <li>
   <a href="https://github.com/tidyverse/readr">
@@ -106,23 +126,22 @@
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a> Arguments</h2>
     <dl class="dl-horizontal">
       <dt>x</dt>
-      <dd>A character vector of dates to parse.</dd>
+      <dd><p>A character vector of dates to parse.</p></dd>
       <dt>format</dt>
-      <dd>A format specification, as described below. If set to &quot;&quot;,
+      <dd><p>A format specification, as described below. If set to "",
   date times are parsed as ISO8601, dates and times used the date and
-  time formats specified in the <code><a href='locale.html'>locale</a></code>.
-
-  Unlike <code>strptime</code>, the format specification must match
-  the complete string.</dd>
+  time formats specified in the <code><a href='locale.html'>locale</a></code>.</p>
+<p>Unlike <code>strptime</code>, the format specification must match
+  the complete string.</p></dd>
       <dt>na</dt>
-      <dd>Character vector of strings to use for missing values. Set this
-option to <code>character()</code> to indicate no missing values.</dd>
+      <dd><p>Character vector of strings to use for missing values. Set this
+option to <code>character()</code> to indicate no missing values.</p></dd>
       <dt>locale</dt>
-      <dd>The locale controls defaults that vary from place to place.
+      <dd><p>The locale controls defaults that vary from place to place.
 The default locale is US-centric (like R), but you can use
 <code><a href='locale.html'>locale</a></code> to create your own locale that controls things like
 the default time zone, encoding, decimal mark, big mark, and day/month
-names.</dd>
+names.</p></dd>
     </dl>
     
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
@@ -134,72 +153,47 @@ names.</dd>
     
     <h2 class="hasAnchor" id="format-specification"><a class="anchor" href="#format-specification"></a>Format specification</h2>
 
-    <p></p>
     <p><code>readr</code> uses a format specification similiar to <code>strptime</code>.
-There are three types of element:</p>
-    <p><ol>
-<li> Date components are specified with &quot;%&quot; followed by a letter.
-    For example &quot;%Y&quot; matches a 4 digit year, &quot;%m&quot;, matches a 2 digit
-    month and &quot;%d&quot; matches a 2 digit day. Month and day default to <code>1</code>,
-    (i.e. Jan 1st) if not present, for example if only a year is given.
-  </li>
-<li> Whitespace is any sequence of zero or more whitespace characters.
-  </li>
-<li> Any other character is matched exactly.
-</li>
-</ol></p>
-    <p><code>parse_datetime</code> recognises the following format specifications:
-<ul>
-<li> Year: &quot;%Y&quot; (4 digits). &quot;%y&quot; (2 digits); 00-69 -&gt; 2000-2069,
-    70-99 -&gt; 1970-1999.
-  </li>
-<li> Month: &quot;%m&quot; (2 digits), &quot;%b&quot; (abbreviated name in current
-    locale), &quot;%B&quot; (full name in current locale).
-  </li>
-<li> Day: &quot;%d&quot; (2 digits), &quot;%e&quot; (optional leading space)
-  </li>
-<li> Hour: &quot;%H&quot;
-  </li>
-<li> Minutes: &quot;%M&quot;
-  </li>
-<li> Seconds: &quot;%S&quot; (integer seconds), &quot;%OS&quot; (partial seconds)
-  </li>
-<li> Time zone: &quot;%Z&quot; (as name, e.g. &quot;America/Chicago&quot;), &quot;%z&quot; (as
-    offset from UTC, e.g. &quot;+0800&quot;)
-  </li>
-<li> AM/PM indicator: &quot;%p&quot;.
-  </li>
-<li> Non-digits: &quot;%.&quot; skips one non-digit character,
-    &quot;%+&quot; skips one or more non-digit characters,
-    &quot;%*&quot; skips any number of non-digits characters.
-  </li>
-<li> Automatic parsers: &quot;%AD&quot; parses with a flexible YMD parser,
-     &quot;%AT&quot; parses with a flexible HMS parser.
-  </li>
-<li> Shortcuts: &quot;%D&quot; = &quot;%m/%d/%y&quot;,  &quot;%F&quot; = &quot;%Y-%m-%d&quot;,
-      &quot;%R&quot; = &quot;%H:%M&quot;, &quot;%T&quot; = &quot;%H:%M:%S&quot;,  &quot;%x&quot; = &quot;%y/%m/%d&quot;.
-</li>
-</ul></p>
+There are three types of element:</p><ol>
+<li><p>Date components are specified with "%" followed by a letter.
+    For example "%Y" matches a 4 digit year, "%m", matches a 2 digit
+    month and "%d" matches a 2 digit day. Month and day default to <code>1</code>,
+    (i.e. Jan 1st) if not present, for example if only a year is given.</p></li>
+<li><p>Whitespace is any sequence of zero or more whitespace characters.</p></li>
+<li><p>Any other character is matched exactly.</p></li>
+</ol><p><code>parse_datetime</code> recognises the following format specifications:</p><ul>
+<li><p>Year: "%Y" (4 digits). "%y" (2 digits); 00-69 -&gt; 2000-2069,
+    70-99 -&gt; 1970-1999.</p></li>
+<li><p>Month: "%m" (2 digits), "%b" (abbreviated name in current
+    locale), "%B" (full name in current locale).</p></li>
+<li><p>Day: "%d" (2 digits), "%e" (optional leading space)</p></li>
+<li><p>Hour: "%H"</p></li>
+<li><p>Minutes: "%M"</p></li>
+<li><p>Seconds: "%S" (integer seconds), "%OS" (partial seconds)</p></li>
+<li><p>Time zone: "%Z" (as name, e.g. "America/Chicago"), "%z" (as
+    offset from UTC, e.g. "+0800")</p></li>
+<li><p>AM/PM indicator: "%p".</p></li>
+<li><p>Non-digits: "%." skips one non-digit character,
+    "%+" skips one or more non-digit characters,
+    "%*" skips any number of non-digits characters.</p></li>
+<li><p>Automatic parsers: "%AD" parses with a flexible YMD parser,
+     "%AT" parses with a flexible HMS parser.</p></li>
+<li><p>Shortcuts: "%D" = "%m/%d/%y",  "%F" = "%Y-%m-%d",
+      "%R" = "%H:%M", "%T" = "%H:%M:%S",  "%x" = "%y/%m/%d".</p></li>
+</ul>
     
     <h2 class="hasAnchor" id="iso-support"><a class="anchor" href="#iso-support"></a>ISO8601 support</h2>
 
-    <p></p>
-    <p>Currently, readr does not support all of ISO8601. Missing features:</p>
-    <p><ul>
-<li> Week &amp; weekday specifications, e.g. &quot;2013-W05&quot;, &quot;2013-W05-10&quot;
-</li>
-<li> Ordinal dates, e.g. &quot;2013-095&quot;.
-</li>
-<li> Using commas instead of a period for decimal separator
-</li>
-</ul></p>
-    <p>The parser is also a little laxer than ISO8601:</p>
-    <p><ul>
-<li> Dates and times can be separated with a space, not just T.
-</li>
-<li> Mostly correct specifications like &quot;2009-05-19 14:&quot; and  &quot;200912-01&quot; work.
-</li>
-</ul></p>
+    
+    <p>Currently, readr does not support all of ISO8601. Missing features:</p><ul>
+<li><p>Week &amp; weekday specifications, e.g. "2013-W05", "2013-W05-10"</p></li>
+<li><p>Ordinal dates, e.g. "2013-095".</p></li>
+<li><p>Using commas instead of a period for decimal separator</p></li>
+</ul>
+    <p>The parser is also a little laxer than ISO8601:</p><ul>
+<li><p>Dates and times can be separated with a space, not just T.</p></li>
+<li><p>Mostly correct specifications like "2009-05-19 14:" and  "200912-01" work.</p></li>
+</ul>
     
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
@@ -208,78 +202,45 @@ There are three types of element:</p>
   <code><a href='parse_atomic.html'>parse_logical</a></code>, <code><a href='parse_number.html'>parse_number</a></code></p>
     
 
-    <h2 class="hasAnchor" id="examples">
-      <a class="anchor" href="#examples"></a>
-      Examples
-    </h2>
+    <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='co'># Format strings --------------------------------------------------------</span>
-<span class='fu'>parse_datetime</span>(<span class='st'>"01/02/2010"</span>, <span class='st'>"%d/%m/%Y"</span>)</div><div class='output co'>#&gt; [1] &quot;2010-02-01 UTC&quot;
-#&gt; </div><div class='input'><span class='fu'>parse_datetime</span>(<span class='st'>"01/02/2010"</span>, <span class='st'>"%m/%d/%Y"</span>)</div><div class='output co'>#&gt; [1] &quot;2010-01-02 UTC&quot;
-#&gt; </div><div class='input'><span class='co'># Handle any separator</span>
-<span class='fu'>parse_datetime</span>(<span class='st'>"01/02/2010"</span>, <span class='st'>"%m%.%d%.%Y"</span>)</div><div class='output co'>#&gt; [1] &quot;2010-01-02 UTC&quot;
-#&gt; </div><div class='input'>
+<span class='fu'>parse_datetime</span>(<span class='st'>"01/02/2010"</span>, <span class='st'>"%d/%m/%Y"</span>)</div><div class='output co'>#&gt; [1] "2010-02-01 UTC"</div><div class='input'><span class='fu'>parse_datetime</span>(<span class='st'>"01/02/2010"</span>, <span class='st'>"%m/%d/%Y"</span>)</div><div class='output co'>#&gt; [1] "2010-01-02 UTC"</div><div class='input'><span class='co'># Handle any separator</span>
+<span class='fu'>parse_datetime</span>(<span class='st'>"01/02/2010"</span>, <span class='st'>"%m%.%d%.%Y"</span>)</div><div class='output co'>#&gt; [1] "2010-01-02 UTC"</div><div class='input'>
 <span class='co'># Dates look the same, but internally they use the number of days since</span>
 <span class='co'># 1970-01-01 instead of the number of seconds. This avoids a whole lot</span>
 <span class='co'># of troubles related to time zones, so use if you can.</span>
-<span class='fu'>parse_date</span>(<span class='st'>"01/02/2010"</span>, <span class='st'>"%d/%m/%Y"</span>)</div><div class='output co'>#&gt; [1] &quot;2010-02-01&quot;
-#&gt; </div><div class='input'><span class='fu'>parse_date</span>(<span class='st'>"01/02/2010"</span>, <span class='st'>"%m/%d/%Y"</span>)</div><div class='output co'>#&gt; [1] &quot;2010-01-02&quot;
-#&gt; </div><div class='input'>
+<span class='fu'>parse_date</span>(<span class='st'>"01/02/2010"</span>, <span class='st'>"%d/%m/%Y"</span>)</div><div class='output co'>#&gt; [1] "2010-02-01"</div><div class='input'><span class='fu'>parse_date</span>(<span class='st'>"01/02/2010"</span>, <span class='st'>"%m/%d/%Y"</span>)</div><div class='output co'>#&gt; [1] "2010-01-02"</div><div class='input'>
 <span class='co'># You can parse timezones from strings (as listed in OlsonNames())</span>
-<span class='fu'>parse_datetime</span>(<span class='st'>"2010/01/01 12:00 US/Central"</span>, <span class='st'>"%Y/%m/%d %H:%M %Z"</span>)</div><div class='output co'>#&gt; [1] &quot;2010-01-01 18:00:00 UTC&quot;
-#&gt; </div><div class='input'><span class='co'># Or from offsets</span>
-<span class='fu'>parse_datetime</span>(<span class='st'>"2010/01/01 12:00 -0600"</span>, <span class='st'>"%Y/%m/%d %H:%M %z"</span>)</div><div class='output co'>#&gt; [1] &quot;2010-01-01 18:00:00 UTC&quot;
-#&gt; </div><div class='input'>
+<span class='fu'>parse_datetime</span>(<span class='st'>"2010/01/01 12:00 US/Central"</span>, <span class='st'>"%Y/%m/%d %H:%M %Z"</span>)</div><div class='output co'>#&gt; [1] "2010-01-01 18:00:00 UTC"</div><div class='input'><span class='co'># Or from offsets</span>
+<span class='fu'>parse_datetime</span>(<span class='st'>"2010/01/01 12:00 -0600"</span>, <span class='st'>"%Y/%m/%d %H:%M %z"</span>)</div><div class='output co'>#&gt; [1] "2010-01-01 18:00:00 UTC"</div><div class='input'>
 <span class='co'># Use the locale parameter to control the default time zone</span>
 <span class='co'># (but note UTC is considerably faster than other options)</span>
 <span class='fu'>parse_datetime</span>(<span class='st'>"2010/01/01 12:00"</span>, <span class='st'>"%Y/%m/%d %H:%M"</span>,
-  <span class='kw'>locale</span> <span class='kw'>=</span> <span class='fu'><a href='locale.html'>locale</a></span>(<span class='kw'>tz</span> <span class='kw'>=</span> <span class='st'>"US/Central"</span>))</div><div class='output co'>#&gt; [1] &quot;2010-01-01 12:00:00 CST&quot;
-#&gt; </div><div class='input'><span class='fu'>parse_datetime</span>(<span class='st'>"2010/01/01 12:00"</span>, <span class='st'>"%Y/%m/%d %H:%M"</span>,
-  <span class='kw'>locale</span> <span class='kw'>=</span> <span class='fu'><a href='locale.html'>locale</a></span>(<span class='kw'>tz</span> <span class='kw'>=</span> <span class='st'>"US/Eastern"</span>))</div><div class='output co'>#&gt; [1] &quot;2010-01-01 12:00:00 EST&quot;
-#&gt; </div><div class='input'>
+  <span class='kw'>locale</span> <span class='kw'>=</span> <span class='fu'><a href='locale.html'>locale</a></span>(<span class='kw'>tz</span> <span class='kw'>=</span> <span class='st'>"US/Central"</span>))</div><div class='output co'>#&gt; [1] "2010-01-01 12:00:00 CST"</div><div class='input'><span class='fu'>parse_datetime</span>(<span class='st'>"2010/01/01 12:00"</span>, <span class='st'>"%Y/%m/%d %H:%M"</span>,
+  <span class='kw'>locale</span> <span class='kw'>=</span> <span class='fu'><a href='locale.html'>locale</a></span>(<span class='kw'>tz</span> <span class='kw'>=</span> <span class='st'>"US/Eastern"</span>))</div><div class='output co'>#&gt; [1] "2010-01-01 12:00:00 EST"</div><div class='input'>
 <span class='co'># Unlike strptime, the format specification must match the complete</span>
 <span class='co'># string (ignoring leading and trailing whitespace). This avoids common</span>
 <span class='co'># errors:</span>
-<span class='fu'>strptime</span>(<span class='st'>"01/02/2010"</span>, <span class='st'>"%d/%m/%y"</span>)</div><div class='output co'>#&gt; [1] &quot;2020-02-01 CST&quot;
-#&gt; </div><div class='input'><span class='fu'>parse_datetime</span>(<span class='st'>"01/02/2010"</span>, <span class='st'>"%d/%m/%y"</span>)</div><div class='output'><strong class='text-warning'>Warning message:
-1 parsing failure.
-row col           expected     actual
-  1  -- date like %d/%m/%y 01/02/2010
-</strong></div><div class='output co'>#&gt; [1] NA
-#&gt; </div><div class='input'>
+<span class='fu'>strptime</span>(<span class='st'>"01/02/2010"</span>, <span class='st'>"%d/%m/%y"</span>)</div><div class='output co'>#&gt; [1] "2020-02-01 CST"</div><div class='input'><span class='fu'>parse_datetime</span>(<span class='st'>"01/02/2010"</span>, <span class='st'>"%d/%m/%y"</span>)</div><div class='output co'>#&gt; <span class='warning'>Warning: 1 parsing failure.</span>
+#&gt; <span class='warning'>row col           expected     actual</span>
+#&gt; <span class='warning'>  1  -- date like %d/%m/%y 01/02/2010</span></div><div class='output co'>#&gt; [1] NA</div><div class='input'>
 <span class='co'># Failures -------------------------------------------------------------</span>
-<span class='fu'>parse_datetime</span>(<span class='st'>"01/01/2010"</span>, <span class='st'>"%d/%m/%Y"</span>)</div><div class='output co'>#&gt; [1] &quot;2010-01-01 UTC&quot;
-#&gt; </div><div class='input'><span class='fu'>parse_datetime</span>(<span class='fu'>c</span>(<span class='st'>"01/ab/2010"</span>, <span class='st'>"32/01/2010"</span>), <span class='st'>"%d/%m/%Y"</span>)</div><div class='output'><strong class='text-warning'>Warning message:
-2 parsing failures.
-row col           expected     actual
-  1  -- date like %d/%m/%Y 01/ab/2010
-  2  -- valid date         32/01/2010
-</strong></div><div class='output co'>#&gt; [1] NA NA
-#&gt; </div><div class='input'>
+<span class='fu'>parse_datetime</span>(<span class='st'>"01/01/2010"</span>, <span class='st'>"%d/%m/%Y"</span>)</div><div class='output co'>#&gt; [1] "2010-01-01 UTC"</div><div class='input'><span class='fu'>parse_datetime</span>(<span class='fu'>c</span>(<span class='st'>"01/ab/2010"</span>, <span class='st'>"32/01/2010"</span>), <span class='st'>"%d/%m/%Y"</span>)</div><div class='output co'>#&gt; <span class='warning'>Warning: 2 parsing failures.</span>
+#&gt; <span class='warning'>row col           expected     actual</span>
+#&gt; <span class='warning'>  1  -- date like %d/%m/%Y 01/ab/2010</span>
+#&gt; <span class='warning'>  2  -- valid date         32/01/2010</span></div><div class='output co'>#&gt; [1] NA NA</div><div class='input'>
 <span class='co'># Locales --------------------------------------------------------------</span>
 <span class='co'># By default, readr expects English date/times, but that's easy to change'</span>
-<span class='fu'>parse_datetime</span>(<span class='st'>"1 janvier 2015"</span>, <span class='st'>"%d %B %Y"</span>, <span class='kw'>locale</span> <span class='kw'>=</span> <span class='fu'><a href='locale.html'>locale</a></span>(<span class='st'>"fr"</span>))</div><div class='output co'>#&gt; [1] &quot;2015-01-01 UTC&quot;
-#&gt; </div><div class='input'><span class='fu'>parse_datetime</span>(<span class='st'>"1 enero 2015"</span>, <span class='st'>"%d %B %Y"</span>, <span class='kw'>locale</span> <span class='kw'>=</span> <span class='fu'><a href='locale.html'>locale</a></span>(<span class='st'>"es"</span>))</div><div class='output co'>#&gt; [1] &quot;2015-01-01 UTC&quot;
-#&gt; </div><div class='input'>
+<span class='fu'>parse_datetime</span>(<span class='st'>"1 janvier 2015"</span>, <span class='st'>"%d %B %Y"</span>, <span class='kw'>locale</span> <span class='kw'>=</span> <span class='fu'><a href='locale.html'>locale</a></span>(<span class='st'>"fr"</span>))</div><div class='output co'>#&gt; [1] "2015-01-01 UTC"</div><div class='input'><span class='fu'>parse_datetime</span>(<span class='st'>"1 enero 2015"</span>, <span class='st'>"%d %B %Y"</span>, <span class='kw'>locale</span> <span class='kw'>=</span> <span class='fu'><a href='locale.html'>locale</a></span>(<span class='st'>"es"</span>))</div><div class='output co'>#&gt; [1] "2015-01-01 UTC"</div><div class='input'>
 <span class='co'># ISO8601 --------------------------------------------------------------</span>
 <span class='co'># With separators</span>
-<span class='fu'>parse_datetime</span>(<span class='st'>"1979-10-14"</span>)</div><div class='output co'>#&gt; [1] &quot;1979-10-14 UTC&quot;
-#&gt; </div><div class='input'><span class='fu'>parse_datetime</span>(<span class='st'>"1979-10-14T10"</span>)</div><div class='output co'>#&gt; [1] &quot;1979-10-14 10:00:00 UTC&quot;
-#&gt; </div><div class='input'><span class='fu'>parse_datetime</span>(<span class='st'>"1979-10-14T10:11"</span>)</div><div class='output co'>#&gt; [1] &quot;1979-10-14 10:11:00 UTC&quot;
-#&gt; </div><div class='input'><span class='fu'>parse_datetime</span>(<span class='st'>"1979-10-14T10:11:12"</span>)</div><div class='output co'>#&gt; [1] &quot;1979-10-14 10:11:12 UTC&quot;
-#&gt; </div><div class='input'><span class='fu'>parse_datetime</span>(<span class='st'>"1979-10-14T10:11:12.12345"</span>)</div><div class='output co'>#&gt; [1] &quot;1979-10-14 10:11:12 UTC&quot;
-#&gt; </div><div class='input'>
+<span class='fu'>parse_datetime</span>(<span class='st'>"1979-10-14"</span>)</div><div class='output co'>#&gt; [1] "1979-10-14 UTC"</div><div class='input'><span class='fu'>parse_datetime</span>(<span class='st'>"1979-10-14T10"</span>)</div><div class='output co'>#&gt; [1] "1979-10-14 10:00:00 UTC"</div><div class='input'><span class='fu'>parse_datetime</span>(<span class='st'>"1979-10-14T10:11"</span>)</div><div class='output co'>#&gt; [1] "1979-10-14 10:11:00 UTC"</div><div class='input'><span class='fu'>parse_datetime</span>(<span class='st'>"1979-10-14T10:11:12"</span>)</div><div class='output co'>#&gt; [1] "1979-10-14 10:11:12 UTC"</div><div class='input'><span class='fu'>parse_datetime</span>(<span class='st'>"1979-10-14T10:11:12.12345"</span>)</div><div class='output co'>#&gt; [1] "1979-10-14 10:11:12 UTC"</div><div class='input'>
 <span class='co'># Without separators</span>
-<span class='fu'>parse_datetime</span>(<span class='st'>"19791014"</span>)</div><div class='output co'>#&gt; [1] &quot;1979-10-14 UTC&quot;
-#&gt; </div><div class='input'><span class='fu'>parse_datetime</span>(<span class='st'>"19791014T101112"</span>)</div><div class='output co'>#&gt; [1] &quot;1979-10-14 10:11:12 UTC&quot;
-#&gt; </div><div class='input'>
+<span class='fu'>parse_datetime</span>(<span class='st'>"19791014"</span>)</div><div class='output co'>#&gt; [1] "1979-10-14 UTC"</div><div class='input'><span class='fu'>parse_datetime</span>(<span class='st'>"19791014T101112"</span>)</div><div class='output co'>#&gt; [1] "1979-10-14 10:11:12 UTC"</div><div class='input'>
 <span class='co'># Time zones</span>
 <span class='no'>us_central</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='locale.html'>locale</a></span>(<span class='kw'>tz</span> <span class='kw'>=</span> <span class='st'>"US/Central"</span>)
-<span class='fu'>parse_datetime</span>(<span class='st'>"1979-10-14T1010"</span>, <span class='kw'>locale</span> <span class='kw'>=</span> <span class='no'>us_central</span>)</div><div class='output co'>#&gt; [1] &quot;1979-10-14 10:10:00 CDT&quot;
-#&gt; </div><div class='input'><span class='fu'>parse_datetime</span>(<span class='st'>"1979-10-14T1010-0500"</span>, <span class='kw'>locale</span> <span class='kw'>=</span> <span class='no'>us_central</span>)</div><div class='output co'>#&gt; [1] &quot;1979-10-14 10:10:00 CDT&quot;
-#&gt; </div><div class='input'><span class='fu'>parse_datetime</span>(<span class='st'>"1979-10-14T1010Z"</span>, <span class='kw'>locale</span> <span class='kw'>=</span> <span class='no'>us_central</span>)</div><div class='output co'>#&gt; [1] &quot;1979-10-14 05:10:00 CDT&quot;
-#&gt; </div><div class='input'><span class='co'># Your current time zone</span>
-<span class='fu'>parse_datetime</span>(<span class='st'>"1979-10-14T1010"</span>, <span class='kw'>locale</span> <span class='kw'>=</span> <span class='fu'><a href='locale.html'>locale</a></span>(<span class='kw'>tz</span> <span class='kw'>=</span> <span class='st'>""</span>))</div><div class='output co'>#&gt; [1] &quot;1979-10-14 05:10:00 CDT&quot;
-#&gt; </div></pre>
+<span class='fu'>parse_datetime</span>(<span class='st'>"1979-10-14T1010"</span>, <span class='kw'>locale</span> <span class='kw'>=</span> <span class='no'>us_central</span>)</div><div class='output co'>#&gt; [1] "1979-10-14 10:10:00 CDT"</div><div class='input'><span class='fu'>parse_datetime</span>(<span class='st'>"1979-10-14T1010-0500"</span>, <span class='kw'>locale</span> <span class='kw'>=</span> <span class='no'>us_central</span>)</div><div class='output co'>#&gt; [1] "1979-10-14 10:10:00 CDT"</div><div class='input'><span class='fu'>parse_datetime</span>(<span class='st'>"1979-10-14T1010Z"</span>, <span class='kw'>locale</span> <span class='kw'>=</span> <span class='no'>us_central</span>)</div><div class='output co'>#&gt; [1] "1979-10-14 05:10:00 CDT"</div><div class='input'><span class='co'># Your current time zone</span>
+<span class='fu'>parse_datetime</span>(<span class='st'>"1979-10-14T1010"</span>, <span class='kw'>locale</span> <span class='kw'>=</span> <span class='fu'><a href='locale.html'>locale</a></span>(<span class='kw'>tz</span> <span class='kw'>=</span> <span class='st'>""</span>))</div><div class='output co'>#&gt; [1] "1979-10-14 05:10:00 CDT"</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
@@ -306,9 +267,19 @@ row col           expected     actual
 </div>
 
 <div class="author">
-  <p>Developed by <a href='http://hadley.nz'>Hadley Wickham</a>, Jim Hester, Romain Francois, <a href='https://www.rstudio.com'><img src='http://tidyverse.org/rstudio-logo.svg' height='24' /></a>, Jukka Jylänki, Mikkel Jørgensen.</p>
+  <p>Developed by <a href='http://hadley.nz'>Hadley Wickham</a>, Jim Hester, Romain Francois, <a href='https://www.rstudio.com'><img src='http://tidyverse.org/rstudio-logo.svg' height='24' /></a>.</p>
   <p>Site built by <a href="http://hadley.github.io/pkgdown/">pkgdown</a>.</p>
 </div>
+
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-67989-18', 'auto');
+  ga('send', 'pageview');
+</script>
       </footer>
    </div>
 

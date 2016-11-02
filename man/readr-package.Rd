@@ -32,7 +32,7 @@ Authors:
 Other contributors:
 \itemize{
   \item R Core Team (Date time code adapted from R) [contributor]
-  \item RStudio [copyright holder]
+  \item RStudio [copyright holder, funder]
   \item Jukka Jylänki (grisu3 implementation) [contributor, copyright holder]
   \item Mikkel Jørgensen (grisu3 implementation) [contributor, copyright holder]
 }

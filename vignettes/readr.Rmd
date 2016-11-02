@@ -1,6 +1,5 @@
 ---
 title: "Introduction to readr"
-date: "`r Sys.Date()`"
 output: rmarkdown::html_vignette
 vignette: >
   %\VignetteIndexEntry{Introduction to readr}

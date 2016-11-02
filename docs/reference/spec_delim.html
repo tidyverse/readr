@@ -63,8 +63,28 @@
 <li>
   <a href="../reference/index.html">Reference</a>
 </li>
-<li>
-  <a href="../news/index.html">News</a>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+    News
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li class="dropdown-header">Release notes</li>
+    <li>
+      <a href="../articles/releases/readr-1.0.0.html">Version 1.0.0</a>
+    </li>
+    <li>
+      <a href="../articles/releases/readr-0.2.0.html">Version 0.2.0</a>
+    </li>
+    <li>
+      <a href="../articles/releases/readr-0.1.0.html">Version 0.1.0</a>
+    </li>
+    <li class="divider"></li>
+    <li>
+      <a href="../news/index.html">Change log</a>
+    </li>
+  </ul>
 </li>
         <li>
   <a href="https://github.com/tidyverse/readr">
@@ -120,90 +140,82 @@ turns off printing).</p>
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a> Arguments</h2>
     <dl class="dl-horizontal">
       <dt>file</dt>
-      <dd>Either a path to a file, a connection, or literal data
-   (either a single string or a raw vector).
-
-   Files ending in <code>.gz</code>, <code>.bz2</code>, <code>.xz</code>, or <code>.zip</code> will
+      <dd><p>Either a path to a file, a connection, or literal data
+   (either a single string or a raw vector).</p>
+<p>Files ending in <code>.gz</code>, <code>.bz2</code>, <code>.xz</code>, or <code>.zip</code> will
    be automatically uncompressed. Files starting with <code>http://</code>,
    <code>https://</code>, <code>ftp://</code>, or <code>ftps://</code> will be automatically
    downloaded. Remote gz files can also be automatically downloaded &amp;
-   decompressed.
-
-   Literal data is most useful for examples and tests. It must contain at
-   least one new line to be recognised as data (instead of a path).</dd>
+   decompressed.</p>
+<p>Literal data is most useful for examples and tests. It must contain at
+   least one new line to be recognised as data (instead of a path).</p></dd>
       <dt>delim</dt>
-      <dd>Single character used to separate fields within a record.</dd>
+      <dd><p>Single character used to separate fields within a record.</p></dd>
       <dt>quote</dt>
-      <dd>Single character used to quote strings.</dd>
+      <dd><p>Single character used to quote strings.</p></dd>
       <dt>escape_backslash</dt>
-      <dd>Does the file use backslashes to escape special
+      <dd><p>Does the file use backslashes to escape special
 characters? This is more general than <code>escape_double</code> as backslashes
 can be used to escape the delimeter character, the quote characer, or
-to add special characters like <code>\n</code>.</dd>
+to add special characters like <code>\n</code>.</p></dd>
       <dt>escape_double</dt>
-      <dd>Does the file escape quotes by doubling them?
-i.e. If this option is <code>TRUE</code>, the value <code>&quot;&quot;&quot;&quot;</code> represents
-a single quote, <code>\&quot;</code>.</dd>
+      <dd><p>Does the file escape quotes by doubling them?
+i.e. If this option is <code>TRUE</code>, the value <code>""""</code> represents
+a single quote, <code>\"</code>.</p></dd>
       <dt>col_names</dt>
-      <dd>Either <code>TRUE</code>, <code>FALSE</code> or a character vector
-  of column names.
-
-  If <code>TRUE</code>, the first row of the input will be used as the column
+      <dd><p>Either <code>TRUE</code>, <code>FALSE</code> or a character vector
+  of column names.</p>
+<p>If <code>TRUE</code>, the first row of the input will be used as the column
   names, and will not be included in the data frame. If <code>FALSE</code>, column
-  names will be generated automatically: X1, X2, X3 etc.
-
-  If <code>col_names</code> is a character vector, the values will be used as the
+  names will be generated automatically: X1, X2, X3 etc.</p>
+<p>If <code>col_names</code> is a character vector, the values will be used as the
   names of the columns, and the first row of the input will be read into
-  the first row of the output data frame.
-
-  Missing (<code>NA</code>) column names will generate a warning, and be filled
+  the first row of the output data frame.</p>
+<p>Missing (<code>NA</code>) column names will generate a warning, and be filled
   in with dummy names <code>X1</code>, <code>X2</code> etc. Duplicate column names
-  will generate a warning and be made unique with a numeric prefix.</dd>
+  will generate a warning and be made unique with a numeric prefix.</p></dd>
       <dt>col_types</dt>
-      <dd>One of <code>NULL</code>, a <code><a href='cols.html'>cols</a></code> specification, or
-  a string. See <code>vignette(&quot;column-types&quot;)</code> for more details.
-
-  If <code>NULL</code>, all column types will be imputed from the first 1000 rows
+      <dd><p>One of <code>NULL</code>, a <code><a href='cols.html'>cols</a></code> specification, or
+  a string. See <code>vignette("column-types")</code> for more details.</p>
+<p>If <code>NULL</code>, all column types will be imputed from the first 1000 rows
   on the input. This is convenient (and fast), but not robust. If the
-  imputation fails, you&#39;ll need to supply the correct types yourself.
-
-  If a column specification created by <code><a href='cols.html'>cols</a></code>, it must contain
+  imputation fails, you'll need to supply the correct types yourself.</p>
+<p>If a column specification created by <code><a href='cols.html'>cols</a></code>, it must contain
   one column specification for each column. If you only want to read a
-  subset of the columns, use <code><a href='cols.html'>cols_only</a></code>.
-
-  Alternatively, you can use a compact string representation where each
+  subset of the columns, use <code><a href='cols.html'>cols_only</a></code>.</p>
+<p>Alternatively, you can use a compact string representation where each
   character represents one column:
   c = character, i = integer, n = number, d = double,
   l = logical, D = date, T = date time, t = time, ? = guess, or
-  <code>_</code>/<code>-</code> to skip the column.</dd>
+  <code>_</code>/<code>-</code> to skip the column.</p></dd>
       <dt>locale</dt>
-      <dd>The locale controls defaults that vary from place to place.
+      <dd><p>The locale controls defaults that vary from place to place.
 The default locale is US-centric (like R), but you can use
 <code><a href='locale.html'>locale</a></code> to create your own locale that controls things like
 the default time zone, encoding, decimal mark, big mark, and day/month
-names.</dd>
+names.</p></dd>
       <dt>na</dt>
-      <dd>Character vector of strings to use for missing values. Set this
-option to <code>character()</code> to indicate no missing values.</dd>
+      <dd><p>Character vector of strings to use for missing values. Set this
+option to <code>character()</code> to indicate no missing values.</p></dd>
       <dt>quoted_na</dt>
-      <dd>Should missing values inside quotes be treated as missing
-values (the default) or strings.</dd>
+      <dd><p>Should missing values inside quotes be treated as missing
+values (the default) or strings.</p></dd>
       <dt>comment</dt>
-      <dd>A string used to identify comments. Any text after the
-comment characters will be silently ignored.</dd>
+      <dd><p>A string used to identify comments. Any text after the
+comment characters will be silently ignored.</p></dd>
       <dt>trim_ws</dt>
-      <dd>Should leading and trailing whitespace be trimmed from
-each field before parsing it?</dd>
+      <dd><p>Should leading and trailing whitespace be trimmed from
+each field before parsing it?</p></dd>
       <dt>skip</dt>
-      <dd>Number of lines to skip before reading data.</dd>
+      <dd><p>Number of lines to skip before reading data.</p></dd>
       <dt>n_max</dt>
-      <dd>Maximum number of records to read.</dd>
+      <dd><p>Maximum number of records to read.</p></dd>
       <dt>guess_max</dt>
-      <dd>Maximum number of records to use for guessing column types.</dd>
+      <dd><p>Maximum number of records to use for guessing column types.</p></dd>
       <dt>progress</dt>
-      <dd>Display a progress bar? By default it will only display
+      <dd><p>Display a progress bar? By default it will only display
 in an interactive session. The display is updated every 50,000 values
-and will only display if estimated reading time is 5 seconds or more.</dd>
+and will only display if estimated reading time is 5 seconds or more.</p></dd>
     </dl>
     
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
@@ -211,26 +223,23 @@ and will only display if estimated reading time is 5 seconds or more.</dd>
     <p>The <code>col_spec</code> generated for the file.</p>
     
 
-    <h2 class="hasAnchor" id="examples">
-      <a class="anchor" href="#examples"></a>
-      Examples
-    </h2>
+    <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='co'># Input sources -------------------------------------------------------------</span>
 <span class='co'># Retrieve specs from a path</span>
-<span class='fu'>spec_csv</span>(<span class='fu'>system.file</span>(<span class='st'>"extdata/mtcars.csv"</span>, <span class='kw'>package</span> <span class='kw'>=</span> <span class='st'>"readr"</span>))</div><div class='output'><strong class='text-info'>Parsed with column specification:
-cols(
-  mpg = col_double(),
-  cyl = col_integer(),
-  disp = col_double(),
-  hp = col_integer(),
-  drat = col_double(),
-  wt = col_double(),
-  qsec = col_double(),
-  vs = col_integer(),
-  am = col_integer(),
-  gear = col_integer(),
-  carb = col_integer()
-)</strong></div><div class='output co'>#&gt; cols(
+<span class='fu'>spec_csv</span>(<span class='fu'>system.file</span>(<span class='st'>"extdata/mtcars.csv"</span>, <span class='kw'>package</span> <span class='kw'>=</span> <span class='st'>"readr"</span>))</div><div class='output co'>#&gt; <span class='message'>Parsed with column specification:</span>
+#&gt; <span class='message'>cols(</span>
+#&gt; <span class='message'>  mpg = col_double(),</span>
+#&gt; <span class='message'>  cyl = col_integer(),</span>
+#&gt; <span class='message'>  disp = col_double(),</span>
+#&gt; <span class='message'>  hp = col_integer(),</span>
+#&gt; <span class='message'>  drat = col_double(),</span>
+#&gt; <span class='message'>  wt = col_double(),</span>
+#&gt; <span class='message'>  qsec = col_double(),</span>
+#&gt; <span class='message'>  vs = col_integer(),</span>
+#&gt; <span class='message'>  am = col_integer(),</span>
+#&gt; <span class='message'>  gear = col_integer(),</span>
+#&gt; <span class='message'>  carb = col_integer()</span>
+#&gt; <span class='message'>)</span></div><div class='output co'>#&gt; cols(
 #&gt;   mpg = col_double(),
 #&gt;   cyl = col_integer(),
 #&gt;   disp = col_double(),
@@ -242,21 +251,20 @@ cols(
 #&gt;   am = col_integer(),
 #&gt;   gear = col_integer(),
 #&gt;   carb = col_integer()
-#&gt; )
-#&gt; </div><div class='input'><span class='fu'>spec_csv</span>(<span class='fu'>system.file</span>(<span class='st'>"extdata/mtcars.csv.zip"</span>, <span class='kw'>package</span> <span class='kw'>=</span> <span class='st'>"readr"</span>))</div><div class='output'><strong class='text-info'>Parsed with column specification:
-cols(
-  mpg = col_double(),
-  cyl = col_integer(),
-  disp = col_double(),
-  hp = col_integer(),
-  drat = col_double(),
-  wt = col_double(),
-  qsec = col_double(),
-  vs = col_integer(),
-  am = col_integer(),
-  gear = col_integer(),
-  carb = col_integer()
-)</strong></div><div class='output co'>#&gt; cols(
+#&gt; )</div><div class='input'><span class='fu'>spec_csv</span>(<span class='fu'>system.file</span>(<span class='st'>"extdata/mtcars.csv.zip"</span>, <span class='kw'>package</span> <span class='kw'>=</span> <span class='st'>"readr"</span>))</div><div class='output co'>#&gt; <span class='message'>Parsed with column specification:</span>
+#&gt; <span class='message'>cols(</span>
+#&gt; <span class='message'>  mpg = col_double(),</span>
+#&gt; <span class='message'>  cyl = col_integer(),</span>
+#&gt; <span class='message'>  disp = col_double(),</span>
+#&gt; <span class='message'>  hp = col_integer(),</span>
+#&gt; <span class='message'>  drat = col_double(),</span>
+#&gt; <span class='message'>  wt = col_double(),</span>
+#&gt; <span class='message'>  qsec = col_double(),</span>
+#&gt; <span class='message'>  vs = col_integer(),</span>
+#&gt; <span class='message'>  am = col_integer(),</span>
+#&gt; <span class='message'>  gear = col_integer(),</span>
+#&gt; <span class='message'>  carb = col_integer()</span>
+#&gt; <span class='message'>)</span></div><div class='output co'>#&gt; cols(
 #&gt;   mpg = col_double(),
 #&gt;   cyl = col_integer(),
 #&gt;   disp = col_double(),
@@ -268,31 +276,29 @@ cols(
 #&gt;   am = col_integer(),
 #&gt;   gear = col_integer(),
 #&gt;   carb = col_integer()
-#&gt; )
-#&gt; </div><div class='input'>
+#&gt; )</div><div class='input'>
 <span class='co'># Or directly from a string (must contain a newline)</span>
 <span class='fu'>spec_csv</span>(<span class='st'>"x,y\n1,2\n3,4"</span>)</div><div class='output co'>#&gt; cols(
 #&gt;   x = col_integer(),
 #&gt;   y = col_integer()
-#&gt; )
-#&gt; </div><div class='input'>
+#&gt; )</div><div class='input'>
 <span class='co'># Column types --------------------------------------------------------------</span>
 <span class='co'># By default, readr guess the columns types, looking at the first 1000 rows.</span>
 <span class='co'># You can specify the number of rows used with guess_max.</span>
-<span class='fu'>spec_csv</span>(<span class='fu'>system.file</span>(<span class='st'>"extdata/mtcars.csv"</span>, <span class='kw'>package</span> <span class='kw'>=</span> <span class='st'>"readr"</span>), <span class='kw'>guess_max</span> <span class='kw'>=</span> <span class='fl'>20</span>)</div><div class='output'><strong class='text-info'>Parsed with column specification:
-cols(
-  mpg = col_double(),
-  cyl = col_integer(),
-  disp = col_double(),
-  hp = col_integer(),
-  drat = col_double(),
-  wt = col_double(),
-  qsec = col_double(),
-  vs = col_integer(),
-  am = col_integer(),
-  gear = col_integer(),
-  carb = col_integer()
-)</strong></div><div class='output co'>#&gt; cols(
+<span class='fu'>spec_csv</span>(<span class='fu'>system.file</span>(<span class='st'>"extdata/mtcars.csv"</span>, <span class='kw'>package</span> <span class='kw'>=</span> <span class='st'>"readr"</span>), <span class='kw'>guess_max</span> <span class='kw'>=</span> <span class='fl'>20</span>)</div><div class='output co'>#&gt; <span class='message'>Parsed with column specification:</span>
+#&gt; <span class='message'>cols(</span>
+#&gt; <span class='message'>  mpg = col_double(),</span>
+#&gt; <span class='message'>  cyl = col_integer(),</span>
+#&gt; <span class='message'>  disp = col_double(),</span>
+#&gt; <span class='message'>  hp = col_integer(),</span>
+#&gt; <span class='message'>  drat = col_double(),</span>
+#&gt; <span class='message'>  wt = col_double(),</span>
+#&gt; <span class='message'>  qsec = col_double(),</span>
+#&gt; <span class='message'>  vs = col_integer(),</span>
+#&gt; <span class='message'>  am = col_integer(),</span>
+#&gt; <span class='message'>  gear = col_integer(),</span>
+#&gt; <span class='message'>  carb = col_integer()</span>
+#&gt; <span class='message'>)</span></div><div class='output co'>#&gt; cols(
 #&gt;   mpg = col_double(),
 #&gt;   cyl = col_integer(),
 #&gt;   disp = col_double(),
@@ -304,8 +310,7 @@ cols(
 #&gt;   am = col_integer(),
 #&gt;   gear = col_integer(),
 #&gt;   carb = col_integer()
-#&gt; )
-#&gt; </div></pre>
+#&gt; )</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
@@ -326,9 +331,19 @@ cols(
 </div>
 
 <div class="author">
-  <p>Developed by <a href='http://hadley.nz'>Hadley Wickham</a>, Jim Hester, Romain Francois, <a href='https://www.rstudio.com'><img src='http://tidyverse.org/rstudio-logo.svg' height='24' /></a>, Jukka Jylänki, Mikkel Jørgensen.</p>
+  <p>Developed by <a href='http://hadley.nz'>Hadley Wickham</a>, Jim Hester, Romain Francois, <a href='https://www.rstudio.com'><img src='http://tidyverse.org/rstudio-logo.svg' height='24' /></a>.</p>
   <p>Site built by <a href="http://hadley.github.io/pkgdown/">pkgdown</a>.</p>
 </div>
+
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-67989-18', 'auto');
+  ga('send', 'pageview');
+</script>
       </footer>
    </div>
 

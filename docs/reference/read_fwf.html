@@ -63,8 +63,28 @@
 <li>
   <a href="../reference/index.html">Reference</a>
 </li>
-<li>
-  <a href="../news/index.html">News</a>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+    News
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li class="dropdown-header">Release notes</li>
+    <li>
+      <a href="../articles/releases/readr-1.0.0.html">Version 1.0.0</a>
+    </li>
+    <li>
+      <a href="../articles/releases/readr-0.2.0.html">Version 0.2.0</a>
+    </li>
+    <li>
+      <a href="../articles/releases/readr-0.1.0.html">Version 0.1.0</a>
+    </li>
+    <li class="divider"></li>
+    <li>
+      <a href="../news/index.html">Change log</a>
+    </li>
+  </ul>
 </li>
         <li>
   <a href="https://github.com/tidyverse/readr">
@@ -88,8 +108,8 @@
 
     
     <p>A fixed width file can be a very compact representation of numeric data.
-It&#39;s also very fast to parse, because every field is in the same place in
-every line. Unfortunately, it&#39;s painful to parse because you need to
+It's also very fast to parse, because every field is in the same place in
+every line. Unfortunately, it's painful to parse because you need to
 describe the length of every field. Readr aims to make it as easy as possible
 by providing a number of different ways to describe the field structure.</p>
     
@@ -107,69 +127,64 @@ by providing a number of different ways to describe the field structure.</p>
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a> Arguments</h2>
     <dl class="dl-horizontal">
       <dt>file</dt>
-      <dd>Either a path to a file, a connection, or literal data
-   (either a single string or a raw vector).
-
-   Files ending in <code>.gz</code>, <code>.bz2</code>, <code>.xz</code>, or <code>.zip</code> will
+      <dd><p>Either a path to a file, a connection, or literal data
+   (either a single string or a raw vector).</p>
+<p>Files ending in <code>.gz</code>, <code>.bz2</code>, <code>.xz</code>, or <code>.zip</code> will
    be automatically uncompressed. Files starting with <code>http://</code>,
    <code>https://</code>, <code>ftp://</code>, or <code>ftps://</code> will be automatically
    downloaded. Remote gz files can also be automatically downloaded &amp;
-   decompressed.
-
-   Literal data is most useful for examples and tests. It must contain at
-   least one new line to be recognised as data (instead of a path).</dd>
+   decompressed.</p>
+<p>Literal data is most useful for examples and tests. It must contain at
+   least one new line to be recognised as data (instead of a path).</p></dd>
       <dt>col_positions</dt>
-      <dd>Column positions, as created by <code>fwf_empty</code>,
+      <dd><p>Column positions, as created by <code>fwf_empty</code>,
 <code>fwf_widths</code> or <code>fwf_positions</code>. To read in only selected fields,
 use <code>fwf_positions</code>. If the width of the last column is variable (a
-ragged fwf file), supply the last end position as NA.</dd>
+ragged fwf file), supply the last end position as NA.</p></dd>
       <dt>col_types</dt>
-      <dd>One of <code>NULL</code>, a <code><a href='cols.html'>cols</a></code> specification, or
-  a string. See <code>vignette(&quot;column-types&quot;)</code> for more details.
-
-  If <code>NULL</code>, all column types will be imputed from the first 1000 rows
+      <dd><p>One of <code>NULL</code>, a <code><a href='cols.html'>cols</a></code> specification, or
+  a string. See <code>vignette("column-types")</code> for more details.</p>
+<p>If <code>NULL</code>, all column types will be imputed from the first 1000 rows
   on the input. This is convenient (and fast), but not robust. If the
-  imputation fails, you&#39;ll need to supply the correct types yourself.
-
-  If a column specification created by <code><a href='cols.html'>cols</a></code>, it must contain
+  imputation fails, you'll need to supply the correct types yourself.</p>
+<p>If a column specification created by <code><a href='cols.html'>cols</a></code>, it must contain
   one column specification for each column. If you only want to read a
-  subset of the columns, use <code><a href='cols.html'>cols_only</a></code>.
-
-  Alternatively, you can use a compact string representation where each
+  subset of the columns, use <code><a href='cols.html'>cols_only</a></code>.</p>
+<p>Alternatively, you can use a compact string representation where each
   character represents one column:
   c = character, i = integer, n = number, d = double,
   l = logical, D = date, T = date time, t = time, ? = guess, or
-  <code>_</code>/<code>-</code> to skip the column.</dd>
+  <code>_</code>/<code>-</code> to skip the column.</p></dd>
       <dt>locale</dt>
-      <dd>The locale controls defaults that vary from place to place.
+      <dd><p>The locale controls defaults that vary from place to place.
 The default locale is US-centric (like R), but you can use
 <code><a href='locale.html'>locale</a></code> to create your own locale that controls things like
 the default time zone, encoding, decimal mark, big mark, and day/month
-names.</dd>
+names.</p></dd>
       <dt>na</dt>
-      <dd>Character vector of strings to use for missing values. Set this
-option to <code>character()</code> to indicate no missing values.</dd>
+      <dd><p>Character vector of strings to use for missing values. Set this
+option to <code>character()</code> to indicate no missing values.</p></dd>
       <dt>comment</dt>
-      <dd>A string used to identify comments. Any text after the
-comment characters will be silently ignored.</dd>
+      <dd><p>A string used to identify comments. Any text after the
+comment characters will be silently ignored.</p></dd>
       <dt>skip</dt>
-      <dd>Number of lines to skip before reading data.</dd>
+      <dd><p>Number of lines to skip before reading data.</p></dd>
       <dt>n_max</dt>
-      <dd>Maximum number of records to read.</dd>
+      <dd><p>Maximum number of records to read.</p></dd>
       <dt>guess_max</dt>
-      <dd>Maximum number of records to use for guessing column types.</dd>
+      <dd><p>Maximum number of records to use for guessing column types.</p></dd>
       <dt>progress</dt>
-      <dd>Display a progress bar? By default it will only display
+      <dd><p>Display a progress bar? By default it will only display
 in an interactive session. The display is updated every 50,000 values
-and will only display if estimated reading time is 5 seconds or more.</dd>
+and will only display if estimated reading time is 5 seconds or more.</p></dd>
       <dt>col_names</dt>
-      <dd>Either NULL, or a character vector column names.</dd>
+      <dd><p>Either NULL, or a character vector column names.</p></dd>
       <dt>widths</dt>
-      <dd>Width of each field. Use NA as width of last field when
-reading a ragged fwf file.</dd>
+      <dd><p>Width of each field. Use NA as width of last field when
+reading a ragged fwf file.</p></dd>
       <dt>start, end</dt>
-      <dd>Starting and ending (inclusive) positions of each field.
-Use NA as last end field when reading a ragged fwf file.</dd>
+      <dd><p>Starting and ending (inclusive) positions of each field.
+Use NA as last end field when reading a ragged fwf file.</p></dd>
     </dl>
     
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
@@ -178,50 +193,44 @@ Use NA as last end field when reading a ragged fwf file.</dd>
   column is separated by whitespace.</p>
     
 
-    <h2 class="hasAnchor" id="examples">
-      <a class="anchor" href="#examples"></a>
-      Examples
-    </h2>
+    <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='no'>fwf_sample</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='readr_example.html'>readr_example</a></span>(<span class='st'>"fwf-sample.txt"</span>)
 <span class='fu'>cat</span>(<span class='fu'><a href='read_lines.html'>read_lines</a></span>(<span class='no'>fwf_sample</span>))</div><div class='output co'>#&gt; John Smith          WA        418-Y11-4111 Mary Hartford       CA        319-Z19-4341 Evan Nolan          IL        219-532-c301</div><div class='input'>
 <span class='co'># You can specify column positions in three ways:</span>
 <span class='co'># 1. Guess based on position of empty columns</span>
-<span class='fu'>read_fwf</span>(<span class='no'>fwf_sample</span>, <span class='fu'>fwf_empty</span>(<span class='no'>fwf_sample</span>, <span class='kw'>col_names</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='st'>"first"</span>, <span class='st'>"last"</span>, <span class='st'>"state"</span>, <span class='st'>"ssn"</span>)))</div><div class='output'><strong class='text-info'>Parsed with column specification:
-cols(
-  first = col_character(),
-  last = col_character(),
-  state = col_character(),
-  ssn = col_character()
-)</strong></div><div class='output co'>#&gt; # A tibble: 3 × 4
+<span class='fu'>read_fwf</span>(<span class='no'>fwf_sample</span>, <span class='fu'>fwf_empty</span>(<span class='no'>fwf_sample</span>, <span class='kw'>col_names</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='st'>"first"</span>, <span class='st'>"last"</span>, <span class='st'>"state"</span>, <span class='st'>"ssn"</span>)))</div><div class='output co'>#&gt; <span class='message'>Parsed with column specification:</span>
+#&gt; <span class='message'>cols(</span>
+#&gt; <span class='message'>  first = col_character(),</span>
+#&gt; <span class='message'>  last = col_character(),</span>
+#&gt; <span class='message'>  state = col_character(),</span>
+#&gt; <span class='message'>  ssn = col_character()</span>
+#&gt; <span class='message'>)</span></div><div class='output co'>#&gt; # A tibble: 3 × 4
 #&gt;   first     last state          ssn
 #&gt;   &lt;chr&gt;    &lt;chr&gt; &lt;chr&gt;        &lt;chr&gt;
 #&gt; 1  John    Smith    WA 418-Y11-4111
 #&gt; 2  Mary Hartford    CA 319-Z19-4341
-#&gt; 3  Evan    Nolan    IL 219-532-c301
-#&gt; </div><div class='input'><span class='co'># 2. A vector of field widths</span>
-<span class='fu'>read_fwf</span>(<span class='no'>fwf_sample</span>, <span class='fu'>fwf_widths</span>(<span class='fu'>c</span>(<span class='fl'>20</span>, <span class='fl'>10</span>, <span class='fl'>12</span>), <span class='fu'>c</span>(<span class='st'>"name"</span>, <span class='st'>"state"</span>, <span class='st'>"ssn"</span>)))</div><div class='output'><strong class='text-info'>Parsed with column specification:
-cols(
-  name = col_character(),
-  state = col_character(),
-  ssn = col_character()
-)</strong></div><div class='output co'>#&gt; # A tibble: 3 × 3
+#&gt; 3  Evan    Nolan    IL 219-532-c301</div><div class='input'><span class='co'># 2. A vector of field widths</span>
+<span class='fu'>read_fwf</span>(<span class='no'>fwf_sample</span>, <span class='fu'>fwf_widths</span>(<span class='fu'>c</span>(<span class='fl'>20</span>, <span class='fl'>10</span>, <span class='fl'>12</span>), <span class='fu'>c</span>(<span class='st'>"name"</span>, <span class='st'>"state"</span>, <span class='st'>"ssn"</span>)))</div><div class='output co'>#&gt; <span class='message'>Parsed with column specification:</span>
+#&gt; <span class='message'>cols(</span>
+#&gt; <span class='message'>  name = col_character(),</span>
+#&gt; <span class='message'>  state = col_character(),</span>
+#&gt; <span class='message'>  ssn = col_character()</span>
+#&gt; <span class='message'>)</span></div><div class='output co'>#&gt; # A tibble: 3 × 3
 #&gt;            name state          ssn
 #&gt;           &lt;chr&gt; &lt;chr&gt;        &lt;chr&gt;
 #&gt; 1    John Smith    WA 418-Y11-4111
 #&gt; 2 Mary Hartford    CA 319-Z19-4341
-#&gt; 3    Evan Nolan    IL 219-532-c301
-#&gt; </div><div class='input'><span class='co'># 3. Paired vectors of start and end positions</span>
-<span class='fu'>read_fwf</span>(<span class='no'>fwf_sample</span>, <span class='fu'>fwf_positions</span>(<span class='fu'>c</span>(<span class='fl'>1</span>, <span class='fl'>30</span>), <span class='fu'>c</span>(<span class='fl'>10</span>, <span class='fl'>42</span>), <span class='fu'>c</span>(<span class='st'>"name"</span>, <span class='st'>"ssn"</span>)))</div><div class='output'><strong class='text-info'>Parsed with column specification:
-cols(
-  name = col_character(),
-  ssn = col_character()
-)</strong></div><div class='output co'>#&gt; # A tibble: 3 × 2
+#&gt; 3    Evan Nolan    IL 219-532-c301</div><div class='input'><span class='co'># 3. Paired vectors of start and end positions</span>
+<span class='fu'>read_fwf</span>(<span class='no'>fwf_sample</span>, <span class='fu'>fwf_positions</span>(<span class='fu'>c</span>(<span class='fl'>1</span>, <span class='fl'>30</span>), <span class='fu'>c</span>(<span class='fl'>10</span>, <span class='fl'>42</span>), <span class='fu'>c</span>(<span class='st'>"name"</span>, <span class='st'>"ssn"</span>)))</div><div class='output co'>#&gt; <span class='message'>Parsed with column specification:</span>
+#&gt; <span class='message'>cols(</span>
+#&gt; <span class='message'>  name = col_character(),</span>
+#&gt; <span class='message'>  ssn = col_character()</span>
+#&gt; <span class='message'>)</span></div><div class='output co'>#&gt; # A tibble: 3 × 2
 #&gt;         name          ssn
 #&gt;        &lt;chr&gt;        &lt;chr&gt;
 #&gt; 1 John Smith 418-Y11-4111
 #&gt; 2 Mary Hartf 319-Z19-4341
-#&gt; 3 Evan Nolan 219-532-c301
-#&gt; </div></pre>
+#&gt; 3 Evan Nolan 219-532-c301</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
@@ -242,9 +251,19 @@ cols(
 </div>
 
 <div class="author">
-  <p>Developed by <a href='http://hadley.nz'>Hadley Wickham</a>, Jim Hester, Romain Francois, <a href='https://www.rstudio.com'><img src='http://tidyverse.org/rstudio-logo.svg' height='24' /></a>, Jukka Jylänki, Mikkel Jørgensen.</p>
+  <p>Developed by <a href='http://hadley.nz'>Hadley Wickham</a>, Jim Hester, Romain Francois, <a href='https://www.rstudio.com'><img src='http://tidyverse.org/rstudio-logo.svg' height='24' /></a>.</p>
   <p>Site built by <a href="http://hadley.github.io/pkgdown/">pkgdown</a>.</p>
 </div>
+
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-67989-18', 'auto');
+  ga('send', 'pageview');
+</script>
       </footer>
    </div>
 

@@ -63,8 +63,28 @@
 <li>
   <a href="../reference/index.html">Reference</a>
 </li>
-<li>
-  <a href="../news/index.html">News</a>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+    News
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li class="dropdown-header">Release notes</li>
+    <li>
+      <a href="../articles/releases/readr-1.0.0.html">Version 1.0.0</a>
+    </li>
+    <li>
+      <a href="../articles/releases/readr-0.2.0.html">Version 0.2.0</a>
+    </li>
+    <li>
+      <a href="../articles/releases/readr-0.1.0.html">Version 0.1.0</a>
+    </li>
+    <li class="divider"></li>
+    <li>
+      <a href="../news/index.html">Change log</a>
+    </li>
+  </ul>
 </li>
         <li>
   <a href="https://github.com/tidyverse/readr">
@@ -89,7 +109,7 @@
     
     <p>This is designed to read the type of textual data where each column is
 separate by one (or more) columns of space. Each line is the same length,
-and each field is in the same position in every line. It&#39;s similar to
+and each field is in the same position in every line. It's similar to
 <code>read.table</code>, but rather parsing like a file delimited by
 arbitrary amounts of whitespace, it first finds empty columns and then
 parses like a fixed width file. <code>spec_table</code> returns the column
@@ -103,68 +123,60 @@ specification rather than a data frame.</p>
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a> Arguments</h2>
     <dl class="dl-horizontal">
       <dt>file</dt>
-      <dd>Either a path to a file, a connection, or literal data
-   (either a single string or a raw vector).
-
-   Files ending in <code>.gz</code>, <code>.bz2</code>, <code>.xz</code>, or <code>.zip</code> will
+      <dd><p>Either a path to a file, a connection, or literal data
+   (either a single string or a raw vector).</p>
+<p>Files ending in <code>.gz</code>, <code>.bz2</code>, <code>.xz</code>, or <code>.zip</code> will
    be automatically uncompressed. Files starting with <code>http://</code>,
    <code>https://</code>, <code>ftp://</code>, or <code>ftps://</code> will be automatically
    downloaded. Remote gz files can also be automatically downloaded &amp;
-   decompressed.
-
-   Literal data is most useful for examples and tests. It must contain at
-   least one new line to be recognised as data (instead of a path).</dd>
+   decompressed.</p>
+<p>Literal data is most useful for examples and tests. It must contain at
+   least one new line to be recognised as data (instead of a path).</p></dd>
       <dt>col_names</dt>
-      <dd>Either <code>TRUE</code>, <code>FALSE</code> or a character vector
-  of column names.
-
-  If <code>TRUE</code>, the first row of the input will be used as the column
+      <dd><p>Either <code>TRUE</code>, <code>FALSE</code> or a character vector
+  of column names.</p>
+<p>If <code>TRUE</code>, the first row of the input will be used as the column
   names, and will not be included in the data frame. If <code>FALSE</code>, column
-  names will be generated automatically: X1, X2, X3 etc.
-
-  If <code>col_names</code> is a character vector, the values will be used as the
+  names will be generated automatically: X1, X2, X3 etc.</p>
+<p>If <code>col_names</code> is a character vector, the values will be used as the
   names of the columns, and the first row of the input will be read into
-  the first row of the output data frame.
-
-  Missing (<code>NA</code>) column names will generate a warning, and be filled
+  the first row of the output data frame.</p>
+<p>Missing (<code>NA</code>) column names will generate a warning, and be filled
   in with dummy names <code>X1</code>, <code>X2</code> etc. Duplicate column names
-  will generate a warning and be made unique with a numeric prefix.</dd>
+  will generate a warning and be made unique with a numeric prefix.</p></dd>
       <dt>col_types</dt>
-      <dd>One of <code>NULL</code>, a <code><a href='cols.html'>cols</a></code> specification, or
-  a string. See <code>vignette(&quot;column-types&quot;)</code> for more details.
-
-  If <code>NULL</code>, all column types will be imputed from the first 1000 rows
+      <dd><p>One of <code>NULL</code>, a <code><a href='cols.html'>cols</a></code> specification, or
+  a string. See <code>vignette("column-types")</code> for more details.</p>
+<p>If <code>NULL</code>, all column types will be imputed from the first 1000 rows
   on the input. This is convenient (and fast), but not robust. If the
-  imputation fails, you&#39;ll need to supply the correct types yourself.
-
-  If a column specification created by <code><a href='cols.html'>cols</a></code>, it must contain
+  imputation fails, you'll need to supply the correct types yourself.</p>
+<p>If a column specification created by <code><a href='cols.html'>cols</a></code>, it must contain
   one column specification for each column. If you only want to read a
-  subset of the columns, use <code><a href='cols.html'>cols_only</a></code>.
-
-  Alternatively, you can use a compact string representation where each
+  subset of the columns, use <code><a href='cols.html'>cols_only</a></code>.</p>
+<p>Alternatively, you can use a compact string representation where each
   character represents one column:
   c = character, i = integer, n = number, d = double,
   l = logical, D = date, T = date time, t = time, ? = guess, or
-  <code>_</code>/<code>-</code> to skip the column.</dd>
+  <code>_</code>/<code>-</code> to skip the column.</p></dd>
       <dt>locale</dt>
-      <dd>The locale controls defaults that vary from place to place.
+      <dd><p>The locale controls defaults that vary from place to place.
 The default locale is US-centric (like R), but you can use
 <code><a href='locale.html'>locale</a></code> to create your own locale that controls things like
 the default time zone, encoding, decimal mark, big mark, and day/month
-names.</dd>
+names.</p></dd>
       <dt>na</dt>
-      <dd>Character vector of strings to use for missing values. Set this
-option to <code>character()</code> to indicate no missing values.</dd>
+      <dd><p>Character vector of strings to use for missing values. Set this
+option to <code>character()</code> to indicate no missing values.</p></dd>
       <dt>skip</dt>
-      <dd>Number of lines to skip before reading data.</dd>
+      <dd><p>Number of lines to skip before reading data.</p></dd>
       <dt>n_max</dt>
-      <dd>Maximum number of records to read.</dd>
+      <dd><p>Maximum number of records to read.</p></dd>
       <dt>guess_max</dt>
-      <dd>Maximum number of records to use for guessing column types.</dd>
+      <dd><p>Maximum number of records to use for guessing column types.</p></dd>
       <dt>progress</dt>
-      <dd>Display a progress bar? By default it will only display
+      <dd><p>Display a progress bar? By default it will only display
 in an interactive session. The display is updated every 50,000 values
-and will only display if estimated reading time is 5 seconds or more.</dd>
+and will only display if estimated reading time is 5 seconds or more.</p></dd>
     </dl>
     
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
@@ -174,10 +186,7 @@ and will only display if estimated reading time is 5 seconds or more.</dd>
   tabular data with non-standard formatting.</p>
     
 
-    <h2 class="hasAnchor" id="examples">
-      <a class="anchor" href="#examples"></a>
-      Examples
-    </h2>
+    <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='co'># One corner from http://www.masseyratings.com/cf/compare.htm</span>
 <span class='no'>massey</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='readr_example.html'>readr_example</a></span>(<span class='st'>"massey-rating.txt"</span>)
 <span class='fu'>cat</span>(<span class='fu'><a href='read_file.html'>read_file</a></span>(<span class='no'>massey</span>))</div><div class='output co'>#&gt; UCC PAY LAZ KPK  RT   COF BIH DII ENG ACU Rank Team            Conf
@@ -190,8 +199,7 @@ and will only display if estimated reading time is 5 seconds or more.</dd>
 #&gt;   5   5   5   7   6     8   4   6   5   5    7 Florida St       ACC 
 #&gt;   8   8   9   9  10     5   7   7  10   7    8 Baylor           B12 
 #&gt;   9  11   8  13  11    11  12   9  14   9    9 Georgia Tech     ACC 
-#&gt;  13  10  13  11   8     9  10  11   9  10   10 Mississippi      SEC 
-#&gt; </div><div class='input'><span class='fu'>read_table</span>(<span class='no'>massey</span>)</div><div class='output co'>#&gt; cols(
+#&gt;  13  10  13  11   8     9  10  11   9  10   10 Mississippi      SEC </div><div class='input'><span class='fu'>read_table</span>(<span class='no'>massey</span>)</div><div class='output co'>#&gt; cols(
 #&gt;   UCC = col_integer(),
 #&gt;   PAY = col_integer(),
 #&gt;   LAZ = col_integer(),
@@ -205,8 +213,7 @@ and will only display if estimated reading time is 5 seconds or more.</dd>
 #&gt;   Rank = col_integer(),
 #&gt;   Team = col_character(),
 #&gt;   Conf = col_character()
-#&gt; )
-#&gt; </div><div class='output co'>#&gt; # A tibble: 10 × 13
+#&gt; )</div><div class='output co'>#&gt; # A tibble: 10 × 13
 #&gt;      UCC   PAY   LAZ   KPK    RT   COF   BIH   DII   ENG   ACU  Rank
 #&gt;    &lt;int&gt; &lt;int&gt; &lt;int&gt; &lt;int&gt; &lt;int&gt; &lt;int&gt; &lt;int&gt; &lt;int&gt; &lt;int&gt; &lt;int&gt; &lt;int&gt;
 #&gt; 1      1     1     1     1     1     1     1     1     1     1     1
@@ -219,8 +226,7 @@ and will only display if estimated reading time is 5 seconds or more.</dd>
 #&gt; 8      8     8     9     9    10     5     7     7    10     7     8
 #&gt; 9      9    11     8    13    11    11    12     9    14     9     9
 #&gt; 10    13    10    13    11     8     9    10    11     9    10    10
-#&gt; # ... with 2 more variables: Team &lt;chr&gt;, Conf &lt;chr&gt;
-#&gt; </div><div class='input'>
+#&gt; # ... with 2 more variables: Team &lt;chr&gt;, Conf &lt;chr&gt;</div><div class='input'>
 <span class='co'># Sample of 1978 fuel economy data from</span>
 <span class='co'># http://www.fueleconomy.gov/feg/epadata/78data.zip</span>
 <span class='no'>epa</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='readr_example.html'>readr_example</a></span>(<span class='st'>"epa78.txt"</span>)
@@ -243,8 +249,7 @@ and will only display if estimated reading time is 5 seconds or more.</dd>
 #&gt; FOX WAGON                            07  83 40            83 40                FOX WAGON            78050103
 #&gt; 5000                                 04  90 15            90 15                5000                 78050153
 #&gt; AVANTI                                                                         AVANTI               78065002
-#&gt; AVANTI II                            02  75  8    75  8                        AVANTI II            78065053
-#&gt; </div><div class='input'><span class='fu'>read_table</span>(<span class='no'>epa</span>, <span class='kw'>col_names</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</div><div class='output co'>#&gt; cols(
+#&gt; AVANTI II                            02  75  8    75  8                        AVANTI II            78065053</div><div class='input'><span class='fu'>read_table</span>(<span class='no'>epa</span>, <span class='kw'>col_names</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</div><div class='output co'>#&gt; cols(
 #&gt;   X1 = col_character(),
 #&gt;   X2 = col_character(),
 #&gt;   X3 = col_integer(),
@@ -257,8 +262,7 @@ and will only display if estimated reading time is 5 seconds or more.</dd>
 #&gt;   X10 = col_integer(),
 #&gt;   X11 = col_character(),
 #&gt;   X12 = col_integer()
-#&gt; )
-#&gt; </div><div class='output co'>#&gt; # A tibble: 20 × 12
+#&gt; )</div><div class='output co'>#&gt; # A tibble: 20 × 12
 #&gt;               X1    X2    X3    X4    X5    X6    X7    X8    X9   X10
 #&gt;            &lt;chr&gt; &lt;chr&gt; &lt;int&gt; &lt;int&gt; &lt;int&gt; &lt;int&gt; &lt;int&gt; &lt;int&gt; &lt;int&gt; &lt;int&gt;
 #&gt; 1     ALFA ROMEO          NA    NA    NA    NA    NA    NA    NA    NA
@@ -281,8 +285,7 @@ and will only display if estimated reading time is 5 seconds or more.</dd>
 #&gt; 18          5000    04    90    15    NA    NA    90    15    NA    NA
 #&gt; 19        AVANTI          NA    NA    NA    NA    NA    NA    NA    NA
 #&gt; 20     AVANTI II    02    75     8    75     8    NA    NA    NA    NA
-#&gt; # ... with 2 more variables: X11 &lt;chr&gt;, X12 &lt;int&gt;
-#&gt; </div></pre>
+#&gt; # ... with 2 more variables: X11 &lt;chr&gt;, X12 &lt;int&gt;</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
@@ -303,9 +306,19 @@ and will only display if estimated reading time is 5 seconds or more.</dd>
 </div>
 
 <div class="author">
-  <p>Developed by <a href='http://hadley.nz'>Hadley Wickham</a>, Jim Hester, Romain Francois, <a href='https://www.rstudio.com'><img src='http://tidyverse.org/rstudio-logo.svg' height='24' /></a>, Jukka Jylänki, Mikkel Jørgensen.</p>
+  <p>Developed by <a href='http://hadley.nz'>Hadley Wickham</a>, Jim Hester, Romain Francois, <a href='https://www.rstudio.com'><img src='http://tidyverse.org/rstudio-logo.svg' height='24' /></a>.</p>
   <p>Site built by <a href="http://hadley.github.io/pkgdown/">pkgdown</a>.</p>
 </div>
+
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-67989-18', 'auto');
+  ga('send', 'pageview');
+</script>
       </footer>
    </div>
 

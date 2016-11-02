@@ -63,8 +63,28 @@
 <li>
   <a href="../reference/index.html">Reference</a>
 </li>
-<li>
-  <a href="../news/index.html">News</a>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+    News
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li class="dropdown-header">Release notes</li>
+    <li>
+      <a href="../articles/releases/readr-1.0.0.html">Version 1.0.0</a>
+    </li>
+    <li>
+      <a href="../articles/releases/readr-0.2.0.html">Version 0.2.0</a>
+    </li>
+    <li>
+      <a href="../articles/releases/readr-0.1.0.html">Version 0.1.0</a>
+    </li>
+    <li class="divider"></li>
+    <li>
+      <a href="../news/index.html">Change log</a>
+    </li>
+  </ul>
 </li>
         <li>
   <a href="https://github.com/tidyverse/readr">
@@ -109,55 +129,52 @@ function, but will instead use one of the use friendly wrappers like
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a> Arguments</h2>
     <dl class="dl-horizontal">
       <dt>delim</dt>
-      <dd>Single character used to separate fields within a record.</dd>
+      <dd><p>Single character used to separate fields within a record.</p></dd>
       <dt>quote</dt>
-      <dd>Single character used to quote strings.</dd>
+      <dd><p>Single character used to quote strings.</p></dd>
       <dt>na</dt>
-      <dd>Character vector of strings to use for missing values. Set this
-option to <code>character()</code> to indicate no missing values.</dd>
+      <dd><p>Character vector of strings to use for missing values. Set this
+option to <code>character()</code> to indicate no missing values.</p></dd>
       <dt>quoted_na</dt>
-      <dd>Should missing values inside quotes be treated as missing
-values (the default) or strings.</dd>
+      <dd><p>Should missing values inside quotes be treated as missing
+values (the default) or strings.</p></dd>
       <dt>comment</dt>
-      <dd>A string used to identify comments. Any text after the
-comment characters will be silently ignored.</dd>
+      <dd><p>A string used to identify comments. Any text after the
+comment characters will be silently ignored.</p></dd>
       <dt>trim_ws</dt>
-      <dd>Should leading and trailing whitespace be trimmed from
-each field before parsing it?</dd>
+      <dd><p>Should leading and trailing whitespace be trimmed from
+each field before parsing it?</p></dd>
       <dt>escape_double</dt>
-      <dd>Does the file escape quotes by doubling them?
-i.e. If this option is <code>TRUE</code>, the value <code>&quot;&quot;&quot;&quot;</code> represents
-a single quote, <code>\&quot;</code>.</dd>
+      <dd><p>Does the file escape quotes by doubling them?
+i.e. If this option is <code>TRUE</code>, the value <code>""""</code> represents
+a single quote, <code>\"</code>.</p></dd>
       <dt>escape_backslash</dt>
-      <dd>Does the file use backslashes to escape special
+      <dd><p>Does the file use backslashes to escape special
 characters? This is more general than <code>escape_double</code> as backslashes
 can be used to escape the delimeter character, the quote characer, or
-to add special characters like <code>\n</code>.</dd>
+to add special characters like <code>\n</code>.</p></dd>
       <dt>begin, end</dt>
-      <dd>Begin and end offsets for each file. These are C++
+      <dd><p>Begin and end offsets for each file. These are C++
 offsets so the first column is column zero, and the ranges are
-[begin, end) (i.e inclusive-exclusive).</dd>
+[begin, end) (i.e inclusive-exclusive).</p></dd>
     </dl>
     
 
-    <h2 class="hasAnchor" id="examples">
-      <a class="anchor" href="#examples"></a>
-      Examples
-    </h2>
+    <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='fu'>tokenizer_csv</span>()</div><div class='output co'>#&gt; $delim
-#&gt; [1] &quot;,&quot;
+#&gt; [1] ","
 #&gt; 
 #&gt; $quote
-#&gt; [1] &quot;\&quot;&quot;
+#&gt; [1] "\""
 #&gt; 
 #&gt; $na
-#&gt; [1] &quot;NA&quot;
+#&gt; [1] "NA"
 #&gt; 
 #&gt; $quoted_na
 #&gt; [1] TRUE
 #&gt; 
 #&gt; $comment
-#&gt; [1] &quot;&quot;
+#&gt; [1] ""
 #&gt; 
 #&gt; $trim_ws
 #&gt; [1] TRUE
@@ -168,9 +185,8 @@ offsets so the first column is column zero, and the ranges are
 #&gt; $escape_backslash
 #&gt; [1] FALSE
 #&gt; 
-#&gt; attr(,&quot;class&quot;)
-#&gt; [1] &quot;tokenizer_delim&quot;
-#&gt; </div></pre>
+#&gt; attr(,"class")
+#&gt; [1] "tokenizer_delim"</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
@@ -189,9 +205,19 @@ offsets so the first column is column zero, and the ranges are
 </div>
 
 <div class="author">
-  <p>Developed by <a href='http://hadley.nz'>Hadley Wickham</a>, Jim Hester, Romain Francois, <a href='https://www.rstudio.com'><img src='http://tidyverse.org/rstudio-logo.svg' height='24' /></a>, Jukka Jylänki, Mikkel Jørgensen.</p>
+  <p>Developed by <a href='http://hadley.nz'>Hadley Wickham</a>, Jim Hester, Romain Francois, <a href='https://www.rstudio.com'><img src='http://tidyverse.org/rstudio-logo.svg' height='24' /></a>.</p>
   <p>Site built by <a href="http://hadley.github.io/pkgdown/">pkgdown</a>.</p>
 </div>
+
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-67989-18', 'auto');
+  ga('send', 'pageview');
+</script>
       </footer>
    </div>
 

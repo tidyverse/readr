@@ -63,8 +63,28 @@
 <li>
   <a href="../reference/index.html">Reference</a>
 </li>
-<li>
-  <a href="../news/index.html">News</a>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+    News
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li class="dropdown-header">Release notes</li>
+    <li>
+      <a href="../articles/releases/readr-1.0.0.html">Version 1.0.0</a>
+    </li>
+    <li>
+      <a href="../articles/releases/readr-0.2.0.html">Version 0.2.0</a>
+    </li>
+    <li>
+      <a href="../articles/releases/readr-0.1.0.html">Version 0.1.0</a>
+    </li>
+    <li class="divider"></li>
+    <li>
+      <a href="../news/index.html">Change log</a>
+    </li>
+  </ul>
 </li>
         <li>
   <a href="https://github.com/tidyverse/readr">
@@ -103,31 +123,29 @@ unknown encoding.</p>
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a> Arguments</h2>
     <dl class="dl-horizontal">
       <dt>file</dt>
-      <dd>Either a path to a file, a connection, or literal data
-   (either a single string or a raw vector).
-
-   Files ending in <code>.gz</code>, <code>.bz2</code>, <code>.xz</code>, or <code>.zip</code> will
+      <dd><p>Either a path to a file, a connection, or literal data
+   (either a single string or a raw vector).</p>
+<p>Files ending in <code>.gz</code>, <code>.bz2</code>, <code>.xz</code>, or <code>.zip</code> will
    be automatically uncompressed. Files starting with <code>http://</code>,
    <code>https://</code>, <code>ftp://</code>, or <code>ftps://</code> will be automatically
    downloaded. Remote gz files can also be automatically downloaded &amp;
-   decompressed.
-
-   Literal data is most useful for examples and tests. It must contain at
-   least one new line to be recognised as data (instead of a path).</dd>
+   decompressed.</p>
+<p>Literal data is most useful for examples and tests. It must contain at
+   least one new line to be recognised as data (instead of a path).</p></dd>
       <dt>locale</dt>
-      <dd>The locale controls defaults that vary from place to place.
+      <dd><p>The locale controls defaults that vary from place to place.
 The default locale is US-centric (like R), but you can use
 <code><a href='locale.html'>locale</a></code> to create your own locale that controls things like
 the default time zone, encoding, decimal mark, big mark, and day/month
-names.</dd>
+names.</p></dd>
       <dt>x</dt>
-      <dd>A data frame to write to disk</dd>
+      <dd><p>A data frame to write to disk</p></dd>
       <dt>path</dt>
-      <dd>Path to write to.</dd>
+      <dd><p>Path to write to.</p></dd>
       <dt>append</dt>
-      <dd>If <code>FALSE</code>, will overwrite existing file. If <code>TRUE</code>,
+      <dd><p>If <code>FALSE</code>, will overwrite existing file. If <code>TRUE</code>,
 will append to existing file. In both cases, if file does not exist a new
-file is created.</dd>
+file is created.</p></dd>
     </dl>
     
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
@@ -136,12 +154,8 @@ file is created.</dd>
   <code>read_lines_raw</code>: A raw vector.</p>
     
 
-    <h2 class="hasAnchor" id="examples">
-      <a class="anchor" href="#examples"></a>
-      Examples
-    </h2>
-    <pre class="examples"><div class='input'><span class='fu'>read_file</span>(<span class='fu'>file.path</span>(<span class='fu'>R.home</span>(<span class='st'>"doc"</span>), <span class='st'>"AUTHORS"</span>))</div><div class='output co'>#&gt; [1] &quot;Authors of R.\n\nR was initially written by Robert Gentleman and Ross Ihaka—also known as \&quot;R &amp; R\&quot;\nof the Statistics Department of the University of Auckland.\n\nSince mid-1997 there has been a core group with write access to the R\nsource, currently consisting of\n\nDouglas Bates\nJohn Chambers\nPeter Dalgaard\nSeth Falcon\nRobert Gentleman\nKurt Hornik\nRoss Ihaka\nMichael Lawrence\nFriedrich Leisch\nUwe Ligges\nThomas Lumley\nMartin Maechler\nMartin Morgan\nDuncan Murdoch\nPaul Murrell\nMartyn Plummer\nBrian Ripley\nDeepayan Sarkar\nDuncan Temple Lang\nLuke Tierney\nSimon Urbanek\n\nplus Heiner Schwarte up to October 1999, Guido Masarotto up to June 2003 and\nStefano Iacus up to July 2014.\n\nCurrent R-core members can be contacted via email to R-project.org\nwith name made up by replacing spaces by dots in the name listed above.\n\n(The authors of code from other projects included in the R distribution\nare listed in the COPYRIGHTS file.)\n&quot;
-#&gt; </div><div class='input'><span class='fu'>read_file_raw</span>(<span class='fu'>file.path</span>(<span class='fu'>R.home</span>(<span class='st'>"doc"</span>), <span class='st'>"AUTHORS"</span>))</div><div class='output co'>#&gt;   [1] 41 75 74 68 6f 72 73 20 6f 66 20 52 2e 0a 0a 52 20 77 61 73 20 69 6e 69 74
+    <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
+    <pre class="examples"><div class='input'><span class='fu'>read_file</span>(<span class='fu'>file.path</span>(<span class='fu'>R.home</span>(<span class='st'>"doc"</span>), <span class='st'>"AUTHORS"</span>))</div><div class='output co'>#&gt; [1] "Authors of R.\n\nR was initially written by Robert Gentleman and Ross Ihaka—also known as \"R &amp; R\"\nof the Statistics Department of the University of Auckland.\n\nSince mid-1997 there has been a core group with write access to the R\nsource, currently consisting of\n\nDouglas Bates\nJohn Chambers\nPeter Dalgaard\nSeth Falcon\nRobert Gentleman\nKurt Hornik\nRoss Ihaka\nMichael Lawrence\nFriedrich Leisch\nUwe Ligges\nThomas Lumley\nMartin Maechler\nMartin Morgan\nDuncan Murdoch\nPaul Murrell\nMartyn Plummer\nBrian Ripley\nDeepayan Sarkar\nDuncan Temple Lang\nLuke Tierney\nSimon Urbanek\n\nplus Heiner Schwarte up to October 1999, Guido Masarotto up to June 2003 and\nStefano Iacus up to July 2014.\n\nCurrent R-core members can be contacted via email to R-project.org\nwith name made up by replacing spaces by dots in the name listed above.\n\n(The authors of code from other projects included in the R distribution\nare listed in the COPYRIGHTS file.)\n"</div><div class='input'><span class='fu'>read_file_raw</span>(<span class='fu'>file.path</span>(<span class='fu'>R.home</span>(<span class='st'>"doc"</span>), <span class='st'>"AUTHORS"</span>))</div><div class='output co'>#&gt;   [1] 41 75 74 68 6f 72 73 20 6f 66 20 52 2e 0a 0a 52 20 77 61 73 20 69 6e 69 74
 #&gt;  [26] 69 61 6c 6c 79 20 77 72 69 74 74 65 6e 20 62 79 20 52 6f 62 65 72 74 20 47
 #&gt;  [51] 65 6e 74 6c 65 6d 61 6e 20 61 6e 64 20 52 6f 73 73 20 49 68 61 6b 61 e2 80
 #&gt;  [76] 94 61 6c 73 6f 20 6b 6e 6f 77 6e 20 61 73 20 22 52 20 26 20 52 22 0a 6f 66
@@ -177,22 +191,19 @@ file is created.</dd>
 #&gt; [826] 73 20 6f 66 20 63 6f 64 65 20 66 72 6f 6d 20 6f 74 68 65 72 20 70 72 6f 6a
 #&gt; [851] 65 63 74 73 20 69 6e 63 6c 75 64 65 64 20 69 6e 20 74 68 65 20 52 20 64 69
 #&gt; [876] 73 74 72 69 62 75 74 69 6f 6e 0a 61 72 65 20 6c 69 73 74 65 64 20 69 6e 20
-#&gt; [901] 74 68 65 20 43 4f 50 59 52 49 47 48 54 53 20 66 69 6c 65 2e 29 0a
-#&gt; </div><div class='input'>
+#&gt; [901] 74 68 65 20 43 4f 50 59 52 49 47 48 54 53 20 66 69 6c 65 2e 29 0a</div><div class='input'>
 <span class='no'>tmp</span> <span class='kw'>&lt;-</span> <span class='fu'>tempfile</span>()
 
 <span class='no'>x</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='format_delim.html'>format_csv</a></span>(<span class='no'>mtcars</span>[<span class='fl'>1</span>:<span class='fl'>6</span>, ])
 <span class='fu'>write_file</span>(<span class='no'>x</span>, <span class='no'>tmp</span>)
-<span class='fu'>identical</span>(<span class='no'>x</span>, <span class='fu'>read_file</span>(<span class='no'>tmp</span>))</div><div class='output co'>#&gt; [1] TRUE
-#&gt; </div><div class='input'>
-<span class='fu'><a href='read_lines.html'>read_lines</a></span>(<span class='no'>x</span>)</div><div class='output co'>#&gt; [1] &quot;mpg,blah,disp,hp,drat,wt,qsec,vs,am,gear,carb&quot;        
-#&gt; [2] &quot;21.0,6.0,160.0,110.0,3.9,2.62,16.46,0.0,1.0,4.0,4.0&quot;  
-#&gt; [3] &quot;21.0,6.0,160.0,110.0,3.9,2.875,17.02,0.0,1.0,4.0,4.0&quot; 
-#&gt; [4] &quot;22.8,4.0,108.0,93.0,3.85,2.32,18.61,1.0,1.0,4.0,1.0&quot;  
-#&gt; [5] &quot;21.4,6.0,258.0,110.0,3.08,3.215,19.44,1.0,0.0,3.0,1.0&quot;
-#&gt; [6] &quot;18.7,8.0,360.0,175.0,3.15,3.44,17.02,0.0,0.0,3.0,2.0&quot; 
-#&gt; [7] &quot;18.1,6.0,225.0,105.0,2.76,3.46,20.22,1.0,0.0,3.0,1.0&quot; 
-#&gt; </div></pre>
+<span class='fu'>identical</span>(<span class='no'>x</span>, <span class='fu'>read_file</span>(<span class='no'>tmp</span>))</div><div class='output co'>#&gt; [1] TRUE</div><div class='input'>
+<span class='fu'><a href='read_lines.html'>read_lines</a></span>(<span class='no'>x</span>)</div><div class='output co'>#&gt; [1] "mpg,cyl,disp,hp,drat,wt,qsec,vs,am,gear,carb"         
+#&gt; [2] "21.0,6.0,160.0,110.0,3.9,2.62,16.46,0.0,1.0,4.0,4.0"  
+#&gt; [3] "21.0,6.0,160.0,110.0,3.9,2.875,17.02,0.0,1.0,4.0,4.0" 
+#&gt; [4] "22.8,4.0,108.0,93.0,3.85,2.32,18.61,1.0,1.0,4.0,1.0"  
+#&gt; [5] "21.4,6.0,258.0,110.0,3.08,3.215,19.44,1.0,0.0,3.0,1.0"
+#&gt; [6] "18.7,8.0,360.0,175.0,3.15,3.44,17.02,0.0,0.0,3.0,2.0" 
+#&gt; [7] "18.1,6.0,225.0,105.0,2.76,3.46,20.22,1.0,0.0,3.0,1.0" </div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
@@ -213,9 +224,19 @@ file is created.</dd>
 </div>
 
 <div class="author">
-  <p>Developed by <a href='http://hadley.nz'>Hadley Wickham</a>, Jim Hester, Romain Francois, <a href='https://www.rstudio.com'><img src='http://tidyverse.org/rstudio-logo.svg' height='24' /></a>, Jukka Jylänki, Mikkel Jørgensen.</p>
+  <p>Developed by <a href='http://hadley.nz'>Hadley Wickham</a>, Jim Hester, Romain Francois, <a href='https://www.rstudio.com'><img src='http://tidyverse.org/rstudio-logo.svg' height='24' /></a>.</p>
   <p>Site built by <a href="http://hadley.github.io/pkgdown/">pkgdown</a>.</p>
 </div>
+
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-67989-18', 'auto');
+  ga('send', 'pageview');
+</script>
       </footer>
    </div>
 
