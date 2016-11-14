@@ -1,4 +1,4 @@
-#' Save a data frame to a delimited file.
+#' Write a data frame to a delimited file
 #'
 #' This is about twice as fast as \code{\link{write.csv}}, and never
 #' writes row names. \code{output_column} is a generic method used to coerce
@@ -84,20 +84,14 @@ write_tsv <- function(x, path, na = "NA", append = FALSE, col_names = !append) {
   write_delim(x, path, delim = '\t', na = na, append = append, col_names = col_names)
 }
 
+#' Convert a data frame to a delimited string
+#'
+#' These functions are equivalent to \code{\link{write_csv}} etc, but instead
+#' of writing to disk, they return a string.
+#'
+#' @return A string.
+#' @inherit write_delim
 #' @export
-#' @rdname write_delim
-format_csv <- function(x, na = "NA", append = FALSE, col_names = !append) {
-  format_delim(x, delim = ",", na = na, append = append, col_names = col_names)
-}
-
-#' @export
-#' @rdname write_delim
-format_tsv <- function(x, na = "NA", append = FALSE, col_names = !append) {
-  format_delim(x, delim = "\t", na = na, append = append, col_names = col_names)
-}
-
-#' @export
-#' @rdname write_delim
 format_delim <- function(x, delim, na = "NA", append = FALSE, col_names = !append) {
   stopifnot(is.data.frame(x))
 
@@ -105,9 +99,31 @@ format_delim <- function(x, delim, na = "NA", append = FALSE, col_names = !appen
   stream_delim(x, "", delim, col_names = col_names, append = append, na = na)
 }
 
-
-#' @rdname write_delim
 #' @export
+#' @rdname format_delim
+format_csv <- function(x, na = "NA", append = FALSE, col_names = !append) {
+  format_delim(x, delim = ",", na = na, append = append, col_names = col_names)
+}
+
+#' @export
+#' @rdname format_delim
+format_tsv <- function(x, na = "NA", append = FALSE, col_names = !append) {
+  format_delim(x, delim = "\t", na = na, append = append, col_names = col_names)
+}
+
+#' Preprocess column for output
+#'
+#' This is a generic function that applied to each column before it is saved
+#' to disk. It provides a hook for S3 classes that need special handling.
+#'
+#' @keywords internal
+#' @param x A vector
+#' @export
+#' @examples
+#' # Most columns are left as is, but POSIXct are
+#' # converted to ISO8601.
+#' x <- parse_datetime("2016-01-01")
+#' str(output_column(x))
 output_column <- function(x) {
   UseMethod("output_column")
 }
@@ -126,36 +142,4 @@ output_column.double <- function(x) {
 #' @export
 output_column.POSIXt <- function(x) {
   format(x, "%Y-%m-%dT%H:%M:%OSZ", tz = "UTC")
-}
-
-#' Write a single R object to file
-#'
-#' Consistent wrapper around \code{\link{saveRDS}}. \code{write_rds} does not
-#' compress by default as space is generally cheaper than time.
-#'
-#' @param x R object to write to serialise.
-#' @param path Path to write to.
-#' @param compress Compression method to use: "none", "gz" ,"bz", or "xz".
-#' @param ... Additional arguments to connection function. For example, control
-#'   the space-time trade-off of different compression methods with
-#'   \code{compression}. See \code{\link{connections}} for more details.
-#' @export
-#' @return The input \code{x}, invisibly.
-#' @examples
-#' \dontrun{
-#' write_rds(mtcars, "mtcars.rds")
-#' write_rds(mtcars, "compressed_mtc.rds", "xz", compression = 9L)
-#' }
-write_rds <- function(x, path, compress = c("none", "gz", "bz2", "xz"), ...) {
-
-  compress <- match.arg(compress)
-  con <- switch(compress,
-         none = file(path, ...),
-         gz   = gzfile(path, ...),
-         bz2  = bzfile(path, ...),
-         xz   = xzfile(path, ...))
-  on.exit(close(con), add = TRUE)
-  saveRDS(x, con)
-
-  invisible(x)
 }

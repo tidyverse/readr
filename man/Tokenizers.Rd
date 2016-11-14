@@ -2,12 +2,12 @@
 % Please edit documentation in R/tokenizer.R
 \name{Tokenizers}
 \alias{Tokenizers}
-\alias{tokenizer_csv}
 \alias{tokenizer_delim}
-\alias{tokenizer_fwf}
+\alias{tokenizer_csv}
+\alias{tokenizer_tsv}
 \alias{tokenizer_line}
 \alias{tokenizer_log}
-\alias{tokenizer_tsv}
+\alias{tokenizer_fwf}
 \title{Tokenizers.}
 \usage{
 tokenizer_delim(delim, quote = "\\"", na = "NA", quoted_na = TRUE,

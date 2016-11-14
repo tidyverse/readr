@@ -2,7 +2,7 @@
 % Please edit documentation in R/read_log.R
 \name{read_log}
 \alias{read_log}
-\title{Read common/combined log file.}
+\title{Read common/combined log file into a tibble}
 \usage{
 read_log(file, col_names = FALSE, col_types = NULL, skip = 0,
   n_max = -1, progress = interactive())

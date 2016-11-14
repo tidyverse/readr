@@ -37,17 +37,18 @@ parse_vector <- function(x, collector, na = c("", "NA"), locale = default_locale
   warn_problems(parse_vector_(x, collector, na = na, locale_ = locale))
 }
 
-#' Parse character vector in an atomic vector.
+#' Parse logicals, integers, and reals
 #'
 #' Use \code{parse_} if you have a character vector you want to parse. Use
 #' \code{col_} in conjunction with a \code{read_} function to parse the
 #' values as they're read in.
 #'
 #' @name parse_atomic
+#' @aliases NULL
 #' @param x Character vector of values to parse.
 #' @inheritParams tokenizer_delim
 #' @inheritParams read_delim
-#' @family parser
+#' @family parsers
 #' @examples
 #' parse_integer(c("1", "2", "3"))
 #' parse_double(c("1", "2", "3.123"))
@@ -112,13 +113,18 @@ col_character <- function() {
   collector("character")
 }
 
-#' @rdname parse_atomic
+#' Skip a column
+#'
+#' Use this function to ignore a column when reading in a file.
+#' To skip all columns not otherwise specified, use \code{\link{cols_only}()}.
+#'
+#' @family parsers
 #' @export
 col_skip <- function() {
   collector("skip")
 }
 
-#' Extract numbers out of an atomic vector
+#' Parse numbers, flexibly
 #'
 #' This drops any non-numeric characters before or after the first number.
 #' The grouping mark specified by the locale is ignored inside the number.
@@ -126,7 +132,7 @@ col_skip <- function() {
 #' @inheritParams parse_atomic
 #' @inheritParams tokenizer_delim
 #' @inheritParams read_delim
-#' @family parser
+#' @family parsers
 #' @export
 #' @examples
 #' parse_number("$1000")
@@ -142,7 +148,7 @@ col_number <- function() {
 }
 
 
-#' Parse a character vector into the "best" type.
+#' Parse using the "best" type
 #'
 #' \code{parse_guess()} returns the parser vector; \code{guess_parser()}
 #' returns the name of the parser. These functions use a number of heuristics
@@ -153,7 +159,7 @@ col_number <- function() {
 #' @inheritParams parse_atomic
 #' @inheritParams tokenizer_delim
 #' @inheritParams read_delim
-#' @family parser
+#' @family parsers
 #' @export
 #' @examples
 #' # Logical vectors
@@ -187,17 +193,29 @@ guess_parser <- function(x, locale = default_locale()) {
   collectorGuess(x, locale)
 }
 
-#' Parse a character vector into a factor
+#' Parse factors
+#'
+#' \code{parse_factor} is similar to \code{\link{factor}}, but will generate
+#' warnings if elements of \code{x} are not found in \code{levels}.
 #'
 #' @param levels Character vector providing set of allowed levels.
 #' @param ordered Is it an ordered factor?
 #' @inheritParams parse_atomic
 #' @inheritParams tokenizer_delim
 #' @inheritParams read_delim
-#' @family parser
+#' @family parsers
 #' @export
 #' @examples
 #' parse_factor(c("a", "b"), letters)
+#'
+#' x <- c("cat", "dog", "caw")
+#' levels <- c("cat", "dog", "cow")
+#'
+#' # Base R factor() silently converts unknown levels to NA
+#' x1 <- factor(x, levels)
+#'
+#' # parse_factor generates a warning & problems
+#' x2 <- parse_factor(x, levels)
 parse_factor <- function(x, levels, ordered = FALSE, na = c("", "NA"),
                          locale = default_locale()) {
   parse_vector(x, col_factor(levels, ordered), na = na, locale = locale)
@@ -211,7 +229,7 @@ col_factor <- function(levels, ordered = FALSE) {
 
 # More complex ------------------------------------------------------------
 
-#' Parse a character vector of dates or date times.
+#' Parse date/times
 #'
 #' @section Format specification:
 #' \code{readr} uses a format specification similiar to \code{\link{strptime}}.
@@ -278,7 +296,7 @@ col_factor <- function(levels, ordered = FALSE) {
 #'   \code{tz}. Elements that could not be parsed (or did not generate valid
 #'   dates) will bes set to \code{NA}, and a warning message will inform
 #'   you of the total number of failures.
-#' @family parser
+#' @family parsers
 #' @export
 #' @examples
 #' # Format strings --------------------------------------------------------
@@ -372,38 +390,3 @@ col_date <- function(format = "") {
 col_time <- function(format = "") {
   collector("time", format = format)
 }
-
-# Deprecated --------------------------------------------------------------
-
-#' @rdname parse_atomic
-#' @export
-#' @usage NULL
-col_euro_double <- function() {
-  warning("Deprecated: please set locale")
-  collector("double")
-}
-
-#' @rdname parse_atomic
-#' @export
-#' @usage NULL
-parse_euro_double <- function(x, na = c("", "NA")) {
-  warning("Deprecated: please set locale")
-  parse_vector(x, col_double(), na = na)
-}
-
-#' @rdname parse_atomic
-#' @usage NULL
-#' @export
-col_numeric <- function() {
-  warning("Deprecated: please use `col_number()`")
-  collector("number")
-}
-
-#' @rdname parse_atomic
-#' @usage NULL
-#' @export
-parse_numeric <- function(x, na = c("", "NA"), locale = default_locale()) {
-  warning("Deprecated: please use `parse_number()`")
-  parse_vector(x, col_number(), na = na, locale = locale)
-}
-

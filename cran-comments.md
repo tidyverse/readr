@@ -11,7 +11,7 @@ There are still UBSAN and ASAN warnings. Unfortunately these come from `localtim
 ## Reverse dependencies
 
 * I ran R CMD check on all 40 reverse dependencies on Sep 25 and again today.
-  Results at https://github.com/hadley/readr/blob/master/revdep/
+  Results at https://github.com/tidyverse/readr/blob/master/revdep/
   
 * There were four failures:
 

@@ -178,10 +178,10 @@ show_cols_spec <- function(spec, n = getOption("readr.num_columns", 20)) {
 
 #' Examine the column specifications for a data frame
 #'
-#' \code{\link{spec}} extracts the full column specifications.
-#' \code{\link{cols_condense}} takes a spec object and condenses its definition
-#' by setting the default column type to the most frequent type and only
-#' listing columns with a different type.
+#' \code{\link{spec}} extracts the full column specification from a tibble
+#' created by readr. \code{\link{cols_condense}} takes a spec object and
+#' condenses its definition by setting the default column type to the most
+#' frequent type and only listing columns with a different type.
 #'
 #' @param x The data frame object to extract from
 #' @return A col_spec object.
@@ -205,7 +205,6 @@ col_concise <- function(x) {
     c = col_character(),
     D = col_date(),
     d = col_double(),
-    e = col_euro_double(),
     i = col_integer(),
     l = col_logical(),
     n = col_number(),

@@ -1,13 +1,16 @@
 Package: readr
 Version: 1.0.0.9000
-Title: Read Tabular Data
-Description: Read flat/tabular text files from disk (or a connection).
+Title: Read Rectangular Text Data
+Description: The goal of 'readr' is to provide a fast and friendly way to read 
+   rectangular data (like 'csv', 'tsv', and 'fwf'). It is designed to flexibly 
+   parse many types of data found in the wild, while still cleanly failing when
+   data unexpectedly changes. 
 Authors@R: c(
     person("Hadley", "Wickham", , "hadley@rstudio.com", c("aut", "cre")),
     person("Jim", "Hester", , "jim.hester@rstudio.com", "aut"),
     person("Romain", "Francois", role = "aut"),
     person("R Core Team", role = "ctb", comment = "Date time code adapted from R"),
-    person("RStudio", role = "cph"),
+    person("RStudio", role = c("cph", "fnd")),
     person("Jukka", "Jylänki", role = c("ctb", "cph"), comment = "grisu3 implementation"),
     person("Mikkel", "Jørgensen", role = c("ctb", "cph"), comment = "grisu3 implementation"))
 Encoding: UTF-8
@@ -28,7 +31,7 @@ Suggests:
     stringi,
     covr
 License: GPL (>= 2) | file LICENSE
-BugReports: https://github.com/hadley/readr/issues
-URL: https://github.com/hadley/readr
+BugReports: https://github.com/tidyverse/readr/issues
+URL: http://readr.tidyverse.org, https://github.com/tidyverse/readr
 VignetteBuilder: knitr
-RoxygenNote: 5.0.1
+RoxygenNote: 5.0.1.9000

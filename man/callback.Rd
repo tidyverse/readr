@@ -2,10 +2,10 @@
 % Please edit documentation in R/callback.R
 \docType{data}
 \name{callback}
-\alias{ChunkCallback}
-\alias{DataFrameCallback}
-\alias{SideEffectChunkCallback}
 \alias{callback}
+\alias{ChunkCallback}
+\alias{SideEffectChunkCallback}
+\alias{DataFrameCallback}
 \title{Callback classes}
 \description{
 These classes are used to define callback behaviors.

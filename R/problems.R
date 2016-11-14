@@ -1,4 +1,4 @@
-#' Retrieve parsing problems.
+#' Retrieve parsing problems
 #'
 #' Readr functions will only throw an error if parsing fails in an unrecoverable
 #' way. However, there are lots of potential problems that you might want to
