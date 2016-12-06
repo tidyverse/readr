@@ -29,9 +29,9 @@
 read_table <- function(file, col_names = TRUE, col_types = NULL,
                        locale = default_locale(), na = "NA", skip = 0,
                        n_max = Inf, guess_max = min(n_max, 1000),
-                       progress = interactive()) {
+                       progress = interactive(), comment = "") {
   columns <- fwf_empty(file, skip = skip)
-  tokenizer <- tokenizer_fwf(columns$begin, columns$end, na = na)
+  tokenizer <- tokenizer_fwf(columns$begin, columns$end, na = na, comment = comment)
 
   spec <- col_spec_standardise(
     file = file, skip = skip, n = guess_max,
