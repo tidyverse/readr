@@ -14,6 +14,8 @@
 #' @inheritParams datasource
 #' @inheritParams tokenizer_fwf
 #' @inheritParams read_delim
+#' @param n The number of lines the tokenizer will read to determine the structure
+#'   of the file, 100 by default.
 #' @export
 #' @examples
 #' # One corner from http://www.masseyratings.com/cf/compare.htm
