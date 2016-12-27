@@ -62,8 +62,10 @@ read_fwf <- function(file, col_positions, col_types = NULL,
   warn_problems(out, source_name(file))
 }
 
-#' @rdname read_fwf
+#' @rdname read_fw
 #' @export
+#' @param n Number of lines the tokenizer will read to determine file structure. By default
+#'      it is set to 100.
 fwf_empty <- function(file, skip = 0, col_names = NULL, comment = "", n = 100L) {
   ds <- datasource(file, skip = skip)
 
