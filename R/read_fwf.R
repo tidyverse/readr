@@ -64,10 +64,10 @@ read_fwf <- function(file, col_positions, col_types = NULL,
 
 #' @rdname read_fwf
 #' @export
-fwf_empty <- function(file, skip = 0, col_names = NULL, comment = "") {
+fwf_empty <- function(file, skip = 0, col_names = NULL, comment = "", n = 100L) {
   ds <- datasource(file, skip = skip)
 
-  out <- whitespaceColumns(ds, comment = comment)
+  out <- whitespaceColumns(ds, comment = comment, n=n)
   out$end[length(out$end)] <- NA
 
   if (is.null(col_names)) {
