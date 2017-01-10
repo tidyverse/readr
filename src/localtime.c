@@ -1267,7 +1267,6 @@ localsub(const time_t *const timep, const int_fast32_t offset, stm *const tmp)
     */
     result = timesub(&t, ttisp->tt_gmtoff, sp, tmp);
     tmp->tm_isdst = ttisp->tt_isdst;
-    tzname[tmp->tm_isdst] = &sp->chars[ttisp->tt_abbrind];
 //#ifdef HAVE_TM_ZONE
     tmp->tm_zone = &sp->chars[ttisp->tt_abbrind];
 //#endif
