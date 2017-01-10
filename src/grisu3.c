@@ -54,7 +54,6 @@
 #define MIN_TARGET_EXP   -60
 #define MASK32           0xFFFFFFFFULL
 
-#define CAST_U64(d) (*(uint64_t*)&d)
 #define MIN(x,y) ((x) <= (y) ? (x) : (y))
 #define MAX(x,y) ((x) >= (y) ? (x) : (y))
 
@@ -164,6 +163,13 @@ static const power pow_cache[] =
 	{ 0xaf87023b9bf0ee6bULL,  1066,  340 }
 };
 
+static int64_t cast_dbl_2_int(double d)
+{
+  int64_t l;
+  memcpy(&l, &d, sizeof(int64_t));
+  return l;
+}
+
 static int cached_pow(int exp, diy_fp *p)
 {
 	int k = (int)ceil((exp+DIYFP_FRACT_SIZE-1) * D_1_LOG2_10);
@@ -206,7 +212,7 @@ static diy_fp normalize_diy_fp(diy_fp n)
 static diy_fp double2diy_fp(double d)
 {
 	diy_fp fp;
-	uint64_t u64 = CAST_U64(d);
+	uint64_t u64 = cast_dbl_2_int(d);
 	if (!(u64 & D64_EXP_MASK)) { fp.f = u64 & D64_FRACT_MASK; fp.e = 1 - D64_EXP_BIAS; }
 	else { fp.f = (u64 & D64_FRACT_MASK) + D64_IMPLICIT_ONE; fp.e = (int)((u64 & D64_EXP_MASK) >> D64_EXP_POS) - D64_EXP_BIAS; }
 	return fp;
@@ -293,7 +299,7 @@ static int grisu3(double v, char *buffer, int *length, int *d_exp)
 	diy_fp b_plus = normalize_diy_fp(t);
 	diy_fp b_minus;
 	diy_fp c_mk; // Cached power of ten: 10^-k
-	uint64_t u64 = CAST_U64(v);
+	uint64_t u64 = cast_dbl_2_int(v);
 	assert(v > 0 && v <= 1.7976931348623157e308); // Grisu only handles strictly positive finite numbers.
 	if (!(u64 & D64_FRACT_MASK) && (u64 & D64_EXP_MASK) != 0) { b_minus.f = (dfp.f << 2) - 1; b_minus.e =  dfp.e - 2;} // lower boundary is closer?
 	else { b_minus.f = (dfp.f << 1) - 1; b_minus.e = dfp.e - 1; }
@@ -343,7 +349,7 @@ static int i_to_str(int val, char *str)
 int dtoa_grisu3(double v, char *dst)
 {
 	int d_exp, len, success, decimals, i;
-	uint64_t u64 = CAST_U64(v);
+	uint64_t u64 = cast_dbl_2_int(v);
 	char *s2 = dst;
 	assert(dst);
 
