@@ -163,10 +163,10 @@ static const power pow_cache[] =
 	{ 0xaf87023b9bf0ee6bULL,  1066,  340 }
 };
 
-static int64_t cast_dbl_2_int(double d)
+static uint64_t cast_dbl_2_int(double d)
 {
-  int64_t l;
-  memcpy(&l, &d, sizeof(int64_t));
+  uint64_t l;
+  memcpy(&l, &d, sizeof(uint64_t));
   return l;
 }
 
