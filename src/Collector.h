@@ -233,7 +233,11 @@ public:
 class CollectorSkip : public Collector {
 public:
   CollectorSkip() : Collector(R_NilValue) {}
-  void setValue(int i, const Token& t) {}
+
+  virtual void setValue(int i, const Token& t) {
+    Collector::setValue(i, t);
+  }
+
   bool skip() {
     return true;
   }
