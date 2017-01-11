@@ -123,7 +123,7 @@ std::string collectorGuess(CharacterVector input, List locale_) {
     return "character";
 
   // Work from strictest to most flexible
-  if (canParse(input, isLogical))
+  if (canParseNoLocale(input, isLogical))
     return "logical";
   if (canParseNoLocale(input, isInteger))
     return "integer";
