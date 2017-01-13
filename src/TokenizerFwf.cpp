@@ -96,6 +96,9 @@ TokenizerFwf::TokenizerFwf(const std::vector<int>& beginOffset, const std::vecto
     Rcpp::stop("Begin (%i) and end (%i) specifications must have equal length",
                beginOffset_.size(), endOffset_.size());
 
+  if (beginOffset_.size() == 0)
+    Rcpp::stop("Zero-length begin and end specifications not supported");
+
   // File is assumed to be ragged (last column can have variable width)
   // when the last element of endOffset_ is NA
   isRagged_ = endOffset_[endOffset_.size() - 1L] == NA_INTEGER;
