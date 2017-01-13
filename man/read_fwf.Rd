@@ -105,4 +105,3 @@ read_fwf(fwf_sample, fwf_positions(c(1, 30), c(10, 42), c("name", "ssn")))
 \code{\link{read_table}} to read fixed width files where each
   column is separated by whitespace.
 }
-

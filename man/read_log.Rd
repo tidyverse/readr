@@ -68,4 +68,3 @@ in a quoted string. The dash, "-", is used for missing values.
 \examples{
 read_log(readr_example("example.log"))
 }
-

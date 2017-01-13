@@ -34,4 +34,3 @@ Other parsers: \code{\link{col_skip}},
   \code{\link{parse_datetime}}, \code{\link{parse_factor}},
   \code{\link{parse_guess}}, \code{\link{parse_logical}}
 }
-

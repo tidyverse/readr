@@ -34,4 +34,3 @@ to parse correctly.
 \examples{
 count_fields(readr_example("mtcars.csv"), tokenizer_csv())
 }
-

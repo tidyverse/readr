@@ -28,4 +28,3 @@ s
 
 cols_condense(s)
 }
-

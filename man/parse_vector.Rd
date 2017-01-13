@@ -29,4 +29,3 @@ parse_vector(x, col_integer())
 parse_vector(x, col_double())
 }
 \keyword{internal}
-

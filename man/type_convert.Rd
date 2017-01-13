@@ -54,4 +54,3 @@ str(type_convert(df))
 df <- data.frame(x = c("NA", "10"), stringsAsFactors = FALSE)
 str(type_convert(df))
 }
-

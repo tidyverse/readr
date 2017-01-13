@@ -39,4 +39,3 @@ Other chunked: \code{\link{read_delim_chunked}},
 }
 \keyword{datasets}
 \keyword{internal}
-

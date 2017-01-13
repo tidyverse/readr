@@ -141,4 +141,3 @@ spec_csv("x,y\\n1,2\\n3,4")
 # You can specify the number of rows used with guess_max.
 spec_csv(system.file("extdata/mtcars.csv", package = "readr"), guess_max = 20)
 }
-

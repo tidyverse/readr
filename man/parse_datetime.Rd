@@ -105,6 +105,7 @@ The parser is also a little laxer than ISO8601:
 \item Mostly correct specifications like "2009-05-19 14:" and  "200912-01" work.
 }
 }
+
 \examples{
 # Format strings --------------------------------------------------------
 parse_datetime("01/02/2010", "\%d/\%m/\%Y")
@@ -170,4 +171,3 @@ Other parsers: \code{\link{col_skip}},
   \code{\link{parse_factor}}, \code{\link{parse_guess}},
   \code{\link{parse_logical}}, \code{\link{parse_number}}
 }
-

@@ -38,4 +38,3 @@ write_rds(mtcars, "compressed_mtc.rds", "xz", compression = 9L)
 }
 }
 \keyword{internal}
-

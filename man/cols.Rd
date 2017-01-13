@@ -29,4 +29,3 @@ cols_only(a = col_integer())
 cols(a = "i")
 cols(a = "i", b = "d", c = "_")
 }
-

@@ -47,4 +47,3 @@ Other chunked: \code{\link{callback}},
   \code{\link{read_delim_chunked}}
 }
 \keyword{internal}
-

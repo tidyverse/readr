@@ -129,4 +129,3 @@ Other chunked: \code{\link{callback}},
   \code{\link{read_lines_chunked}}
 }
 \keyword{internal}
-

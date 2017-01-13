@@ -62,4 +62,3 @@ identical(x, read_file(tmp))
 
 read_lines(x)
 }
-

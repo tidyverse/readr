@@ -78,4 +78,3 @@ read_file(tmp) # note trailing \\n
 write_lines(airquality$Ozone, tmp, na = "-1")
 read_lines(tmp)
 }
-

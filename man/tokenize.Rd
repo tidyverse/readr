@@ -38,4 +38,3 @@ tokenize("1,2\\n3,4,5\\n\\n6")
 tokenize("1,2\\n3,4,5\\n\\n6", n = 2)
 }
 \keyword{internal}
-

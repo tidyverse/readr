@@ -34,4 +34,3 @@ date_names_lang("en")
 date_names_lang("ko")
 date_names_lang("fr")
 }
-

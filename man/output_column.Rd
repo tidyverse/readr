@@ -20,4 +20,3 @@ x <- parse_datetime("2016-01-01")
 str(output_column(x))
 }
 \keyword{internal}
-

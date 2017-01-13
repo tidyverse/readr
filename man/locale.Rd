@@ -58,4 +58,3 @@ locale("fr")
 # South American locale
 locale("es", decimal_mark = ",")
 }
-

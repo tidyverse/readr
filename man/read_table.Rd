@@ -98,4 +98,3 @@ read_table(epa, col_names = FALSE)
   is not separated by whitespace. \code{read_fwf} is also useful for reading
   tabular data with non-standard formatting.
 }
-

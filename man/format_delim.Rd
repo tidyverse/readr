@@ -46,9 +46,9 @@ which indicates to Excel the csv is UTF-8 encoded.
 
 Values are only quoted if needed: if they contain a comma, quote or newline.
 }
+
 \references{
 Florian Loitsch, Printing Floating-Point Numbers Quickly and
 Accurately with Integers, PLDI '10,
 \url{http://www.cs.tufts.edu/~nr/cs257/archive/florian-loitsch/printf.pdf}
 }
-
