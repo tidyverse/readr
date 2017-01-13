@@ -7,3 +7,6 @@ bench/*.csv
 inst/doc
 .DS_Store
 .httr-oauth
+/.idea
+/cmake-build-debug
+clion-test.R
