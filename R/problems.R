@@ -2,14 +2,14 @@
 #'
 #' Readr functions will only throw an error if parsing fails in an unrecoverable
 #' way. However, there are lots of potential problems that you might want to
-#' know about - these are stored in the \code{problems} attribute of the
+#' know about - these are stored in the `problems` attribute of the
 #' output, which you can easily access with this function.
-#' \code{stop_for_problems()} will throw an error if there are any parsing
+#' `stop_for_problems()` will throw an error if there are any parsing
 #' problems: this is useful for automated scripts where you want to throw
 #' an error as soon as you encounter a problem.
 #'
-#' @param x An data frame (from \code{read_*}) or a vector
-#'   (from \code{parse_*}).
+#' @param x An data frame (from `read_*()`) or a vector
+#'   (from `parse_*()`).
 #' @return A data frame with one row for each problem and four columns:
 #'   \item{row,col}{Row and column of problem}
 #'   \item{expected}{What readr expected to find}

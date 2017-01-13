@@ -4,15 +4,15 @@
 #' countries. You set the locale in once, and the details are automatically
 #' passed on down to the columns parsers. The defaults have been chosen to
 #' match R (i.e. US English) as closely as possible. See
-#' \code{vignette("locales")} for more details.
+#' `vignette("locales")` for more details.
 #'
 #' @param date_names Character representations of day and month names. Either
-#'   the language code as string (passed on to \code{\link{date_names_lang}})
-#'   or an object created by \code{\link{date_names}}.
+#'   the language code as string (passed on to [date_names_lang()])
+#'   or an object created by [date_names()].
 #' @param date_format,time_format Default date and time formats.
 #' @param decimal_mark,grouping_mark Symbols used to indicate the decimal
-#'   place, and to chunk larger numbers. Decimal mark can only be \code{,} or
-#'   \code{.}.
+#'   place, and to chunk larger numbers. Decimal mark can only be `,` or
+#'   `.`.
 #' @param tz Default tz. This is used both for input (if the time zone isn't
 #'   present in individual strings), and for output (to control the default
 #'   display). The default is to use "UTC", a time zone that does not use
@@ -20,7 +20,7 @@
 #'   The absense of time zones makes it approximately 50x faster to generate
 #'   UTC times than any other time zone.
 #'
-#'   Use \code{""} to use the system default time zone, but beware that this
+#'   Use `""` to use the system default time zone, but beware that this
 #'   will not be reproducible across systems.
 #'
 #'   For a complete list of possible time zones, see \code{\link{OlsonNames}()}.

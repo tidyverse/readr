@@ -1,7 +1,7 @@
 #' Read/write RDS files.
 #'
-#' Consistent wrapper around \code{\link{saveRDS}} and \code{\link{readRDS}}.
-#' \code{write_rds} does notcompress by default as space is generally cheaper
+#' Consistent wrapper around [saveRDS()] and [readRDS()].
+#' `write_rds()` does not compress by default as space is generally cheaper
 #' than time.
 #'
 #' @param path Path to read from/write to.
@@ -24,8 +24,8 @@ read_rds <- function(path) {
 #' @param compress Compression method to use: "none", "gz" ,"bz", or "xz".
 #' @param ... Additional arguments to connection function. For example, control
 #'   the space-time trade-off of different compression methods with
-#'   \code{compression}. See \code{\link{connections}} for more details.
-#' @return \code{write_rds} returns \code{x}, invisibly.
+#'   `compression`. See [connections()] for more details.
+#' @return `write_rds()` returns `x`, invisibly.
 #' @rdname read_rds
 #' @export
 write_rds <- function(x, path, compress = c("none", "gz", "bz2", "xz"), ...) {

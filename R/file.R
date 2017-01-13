@@ -1,7 +1,7 @@
 #' Read/write a complete file
 #'
-#' \code{read_file} reads a complete file into a single object: either a
-#' character vector of length one, or a raw vector. \code{write_file} takes a
+#' `read_file()` reads a complete file into a single object: either a
+#' character vector of length one, or a raw vector. `write_file()` takes a
 #' single string, or a raw vector, and writes it exactly as is.  Raw vectors
 #' are useful when dealing with binary data, or if you have text data with
 #' unknown encoding.
@@ -9,8 +9,8 @@
 #' @inheritParams datasource
 #' @inheritParams read_delim
 #' @return
-#'   \code{read_file}: A length 1 character vector.
-#'   \code{read_lines_raw}: A raw vector.
+#'   `read_file`: A length 1 character vector.
+#'   `read_lines_raw`: A raw vector.
 #' @export
 #' @examples
 #' read_file(file.path(R.home("doc"), "AUTHORS"))

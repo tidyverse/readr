@@ -4,47 +4,47 @@ NULL
 
 #' Read a delimited file (including csv & tsv) into a tibble
 #'
-#' \code{read_csv} and \code{read_tsv} are special cases of the general
-#' \code{read_delim}. They're useful for reading the most common types of
+#' `read_csv()` and `read_tsv()` are special cases of the general
+#' `read_delim()`. They're useful for reading the most common types of
 #' flat file data, comma separated values and tab separated values,
-#' respectively. \code{read_csv2} uses \code{;} for separators, instead of
-#' \code{,}. This is common in European countries which use \code{,} as the
+#' respectively. `read_csv2()` uses `;` for separators, instead of
+#' `,`. This is common in European countries which use `,` as the
 #' decimal separator.
 #' @inheritParams datasource
 #' @inheritParams tokenizer_delim
-#' @param col_names Either \code{TRUE}, \code{FALSE} or a character vector
+#' @param col_names Either `TRUE`, `FALSE` or a character vector
 #'   of column names.
 #'
-#'   If \code{TRUE}, the first row of the input will be used as the column
-#'   names, and will not be included in the data frame. If \code{FALSE}, column
+#'   If `TRUE`, the first row of the input will be used as the column
+#'   names, and will not be included in the data frame. If `FALSE`, column
 #'   names will be generated automatically: X1, X2, X3 etc.
 #'
-#'   If \code{col_names} is a character vector, the values will be used as the
+#'   If `col_names` is a character vector, the values will be used as the
 #'   names of the columns, and the first row of the input will be read into
 #'   the first row of the output data frame.
 #'
-#'   Missing (\code{NA}) column names will generate a warning, and be filled
-#'   in with dummy names \code{X1}, \code{X2} etc. Duplicate column names
+#'   Missing (`NA`) column names will generate a warning, and be filled
+#'   in with dummy names `X1`, `X2` etc. Duplicate column names
 #'   will generate a warning and be made unique with a numeric prefix.
-#' @param col_types One of \code{NULL}, a \code{\link{cols}} specification, or
-#'   a string. See \code{vignette("column-types")} for more details.
+#' @param col_types One of `NULL`, a [cols()] specification, or
+#'   a string. See `vignette("column-types")` for more details.
 #'
-#'   If \code{NULL}, all column types will be imputed from the first 1000 rows
+#'   If `NULL`, all column types will be imputed from the first 1000 rows
 #'   on the input. This is convenient (and fast), but not robust. If the
 #'   imputation fails, you'll need to supply the correct types yourself.
 #'
-#'   If a column specification created by \code{\link{cols}}, it must contain
+#'   If a column specification created by [cols()], it must contain
 #'   one column specification for each column. If you only want to read a
-#'   subset of the columns, use \code{\link{cols_only}}.
+#'   subset of the columns, use [cols_only()].
 #'
 #'   Alternatively, you can use a compact string representation where each
 #'   character represents one column:
 #'   c = character, i = integer, n = number, d = double,
 #'   l = logical, D = date, T = date time, t = time, ? = guess, or
-#'   \code{_}/\code{-} to skip the column.
+#'   `_`/`-` to skip the column.
 #' @param locale The locale controls defaults that vary from place to place.
 #'   The default locale is US-centric (like R), but you can use
-#'   \code{\link{locale}} to create your own locale that controls things like
+#'   [locale()] to create your own locale that controls things like
 #'   the default time zone, encoding, decimal mark, big mark, and day/month
 #'   names.
 #' @param n_max Maximum number of records to read.
@@ -210,10 +210,10 @@ generate_spec_fun <- function(x) {
 #' Generate a column specification
 #'
 #' When printed, only the first 20 columns are printed by default. To override,
-#' set \code{options(readr.num_columns)} can be used to modify this (a value of 0
+#' set `options(readr.num_columns)` can be used to modify this (a value of 0
 #' turns off printing).
 #'
-#' @return The \code{col_spec} generated for the file.
+#' @return The `col_spec` generated for the file.
 #' @inheritParams read_delim
 #' @export
 #' @examples

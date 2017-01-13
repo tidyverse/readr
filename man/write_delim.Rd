@@ -35,12 +35,11 @@ file is created.}
 \item{col_names}{Write columns names at the top of the file?}
 }
 \value{
-\code{write_*} returns the input \code{x} invisibly,
-  \code{format_*} returns a string.
+\code{write_*()} returns the input \code{x} invisibly.
 }
 \description{
-This is about twice as fast as \code{\link{write.csv}}, and never
-writes row names. \code{output_column} is a generic method used to coerce
+This is about twice as fast as \code{\link[=write.csv]{write.csv()}}, and never
+writes row names. \code{output_column()} is a generic method used to coerce
 columns to suitable output.
 }
 \section{Output}{
@@ -48,7 +47,7 @@ columns to suitable output.
 Factors are coerced to character. Doubles are formatted using the grisu3
 algorithm. POSIXct's are formatted as ISO8601.
 
-All columns are encoded as UTF-8. \code{write_excel_csv} also includes a
+All columns are encoded as UTF-8. \code{write_excel_csv()} also includes a
 \href{https://en.wikipedia.org/wiki/Byte_order_mark}{UTF-8 Byte order mark}
 which indicates to Excel the csv is UTF-8 encoded.
 

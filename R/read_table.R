@@ -3,13 +3,13 @@
 #' This is designed to read the type of textual data where each column is
 #' separate by one (or more) columns of space. Each line is the same length,
 #' and each field is in the same position in every line. It's similar to
-#' \code{\link{read.table}}, but rather parsing like a file delimited by
+#' [read.table()], but rather parsing like a file delimited by
 #' arbitrary amounts of whitespace, it first finds empty columns and then
-#' parses like a fixed width file. \code{spec_table} returns the column
+#' parses like a fixed width file. `spec_table()` returns the column
 #' specification rather than a data frame.
 #'
-#' @seealso \code{\link{read_fwf}} to read fixed width files where each column
-#'   is not separated by whitespace. \code{read_fwf} is also useful for reading
+#' @seealso [read_fwf()] to read fixed width files where each column
+#'   is not separated by whitespace. `read_fwf()` is also useful for reading
 #'   tabular data with non-standard formatting.
 #' @inheritParams datasource
 #' @inheritParams tokenizer_fwf

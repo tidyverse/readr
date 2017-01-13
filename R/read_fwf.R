@@ -6,14 +6,14 @@
 #' describe the length of every field. Readr aims to make it as easy as possible
 #' by providing a number of different ways to describe the field structure.
 #'
-#' @seealso \code{\link{read_table}} to read fixed width files where each
+#' @seealso [read_table()] to read fixed width files where each
 #'   column is separated by whitespace.
 #' @inheritParams datasource
 #' @inheritParams tokenizer_fwf
 #' @inheritParams read_delim
-#' @param col_positions Column positions, as created by \code{fwf_empty},
-#'   \code{fwf_widths} or \code{fwf_positions}. To read in only selected fields,
-#'   use \code{fwf_positions}. If the width of the last column is variable (a
+#' @param col_positions Column positions, as created by [fwf_empty()],
+#'   [fwf_widths()] or [fwf_positions()]. To read in only selected fields,
+#'   use [fwf_positions()]. If the width of the last column is variable (a
 #'   ragged fwf file), supply the last end position as NA.
 #' @export
 #' @examples

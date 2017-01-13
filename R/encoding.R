@@ -1,11 +1,11 @@
 #' Guess encoding of file
 #'
-#' Uses \code{\link[stringi]{stri_enc_detect}}: see the documentation there
+#' Uses [stringi::stri_enc_detect()]: see the documentation there
 #' for caveats.
 #'
 #' @rdname encoding
 #' @param file A character string specifying an input as specified in
-#'   \code{\link{datasource}}, a raw vector, or a list of raw vectors.
+#'   [datasource()], a raw vector, or a list of raw vectors.
 #' @inheritParams datasource
 #' @inheritParams read_lines
 #' @param threshold Only report guesses above this threshold of certainty.

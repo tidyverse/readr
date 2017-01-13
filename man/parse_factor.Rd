@@ -22,12 +22,12 @@ option to \code{character()} to indicate no missing values.}
 
 \item{locale}{The locale controls defaults that vary from place to place.
 The default locale is US-centric (like R), but you can use
-\code{\link{locale}} to create your own locale that controls things like
+\code{\link[=locale]{locale()}} to create your own locale that controls things like
 the default time zone, encoding, decimal mark, big mark, and day/month
 names.}
 }
 \description{
-\code{parse_factor} is similar to \code{\link{factor}}, but will generate
+\code{parse_factor} is similar to \code{\link[=factor]{factor()}}, but will generate
 warnings if elements of \code{x} are not found in \code{levels}.
 }
 \examples{

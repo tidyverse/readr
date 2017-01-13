@@ -10,52 +10,52 @@ read_table(file, col_names = TRUE, col_types = NULL,
 }
 \arguments{
 \item{file}{Either a path to a file, a connection, or literal data
-   (either a single string or a raw vector).
+(either a single string or a raw vector).
 
-   Files ending in \code{.gz}, \code{.bz2}, \code{.xz}, or \code{.zip} will
-   be automatically uncompressed. Files starting with \code{http://},
-   \code{https://}, \code{ftp://}, or \code{ftps://} will be automatically
-   downloaded. Remote gz files can also be automatically downloaded &
-   decompressed.
+Files ending in \code{.gz}, \code{.bz2}, \code{.xz}, or \code{.zip} will
+be automatically uncompressed. Files starting with \code{http://},
+\code{https://}, \code{ftp://}, or \code{ftps://} will be automatically
+downloaded. Remote gz files can also be automatically downloaded and
+decompressed.
 
-   Literal data is most useful for examples and tests. It must contain at
-   least one new line to be recognised as data (instead of a path).}
+Literal data is most useful for examples and tests. It must contain at
+least one new line to be recognised as data (instead of a path).}
 
 \item{col_names}{Either \code{TRUE}, \code{FALSE} or a character vector
-  of column names.
+of column names.
 
-  If \code{TRUE}, the first row of the input will be used as the column
-  names, and will not be included in the data frame. If \code{FALSE}, column
-  names will be generated automatically: X1, X2, X3 etc.
+If \code{TRUE}, the first row of the input will be used as the column
+names, and will not be included in the data frame. If \code{FALSE}, column
+names will be generated automatically: X1, X2, X3 etc.
 
-  If \code{col_names} is a character vector, the values will be used as the
-  names of the columns, and the first row of the input will be read into
-  the first row of the output data frame.
+If \code{col_names} is a character vector, the values will be used as the
+names of the columns, and the first row of the input will be read into
+the first row of the output data frame.
 
-  Missing (\code{NA}) column names will generate a warning, and be filled
-  in with dummy names \code{X1}, \code{X2} etc. Duplicate column names
-  will generate a warning and be made unique with a numeric prefix.}
+Missing (\code{NA}) column names will generate a warning, and be filled
+in with dummy names \code{X1}, \code{X2} etc. Duplicate column names
+will generate a warning and be made unique with a numeric prefix.}
 
-\item{col_types}{One of \code{NULL}, a \code{\link{cols}} specification, or
-  a string. See \code{vignette("column-types")} for more details.
+\item{col_types}{One of \code{NULL}, a \code{\link[=cols]{cols()}} specification, or
+a string. See \code{vignette("column-types")} for more details.
 
-  If \code{NULL}, all column types will be imputed from the first 1000 rows
-  on the input. This is convenient (and fast), but not robust. If the
-  imputation fails, you'll need to supply the correct types yourself.
+If \code{NULL}, all column types will be imputed from the first 1000 rows
+on the input. This is convenient (and fast), but not robust. If the
+imputation fails, you'll need to supply the correct types yourself.
 
-  If a column specification created by \code{\link{cols}}, it must contain
-  one column specification for each column. If you only want to read a
-  subset of the columns, use \code{\link{cols_only}}.
+If a column specification created by \code{\link[=cols]{cols()}}, it must contain
+one column specification for each column. If you only want to read a
+subset of the columns, use \code{\link[=cols_only]{cols_only()}}.
 
-  Alternatively, you can use a compact string representation where each
-  character represents one column:
-  c = character, i = integer, n = number, d = double,
-  l = logical, D = date, T = date time, t = time, ? = guess, or
-  \code{_}/\code{-} to skip the column.}
+Alternatively, you can use a compact string representation where each
+character represents one column:
+c = character, i = integer, n = number, d = double,
+l = logical, D = date, T = date time, t = time, ? = guess, or
+\code{_}/\code{-} to skip the column.}
 
 \item{locale}{The locale controls defaults that vary from place to place.
 The default locale is US-centric (like R), but you can use
-\code{\link{locale}} to create your own locale that controls things like
+\code{\link[=locale]{locale()}} to create your own locale that controls things like
 the default time zone, encoding, decimal mark, big mark, and day/month
 names.}
 
@@ -76,9 +76,9 @@ and will only display if estimated reading time is 5 seconds or more.}
 This is designed to read the type of textual data where each column is
 separate by one (or more) columns of space. Each line is the same length,
 and each field is in the same position in every line. It's similar to
-\code{\link{read.table}}, but rather parsing like a file delimited by
+\code{\link[=read.table]{read.table()}}, but rather parsing like a file delimited by
 arbitrary amounts of whitespace, it first finds empty columns and then
-parses like a fixed width file. \code{spec_table} returns the column
+parses like a fixed width file. \code{spec_table()} returns the column
 specification rather than a data frame.
 }
 \examples{
@@ -94,7 +94,7 @@ cat(read_file(epa))
 read_table(epa, col_names = FALSE)
 }
 \seealso{
-\code{\link{read_fwf}} to read fixed width files where each column
-  is not separated by whitespace. \code{read_fwf} is also useful for reading
-  tabular data with non-standard formatting.
+\code{\link[=read_fwf]{read_fwf()}} to read fixed width files where each column
+is not separated by whitespace. \code{read_fwf()} is also useful for reading
+tabular data with non-standard formatting.
 }

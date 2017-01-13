@@ -10,7 +10,7 @@ cols(..., .default = col_guess())
 cols_only(...)
 }
 \arguments{
-\item{...}{Either column objects created by \code{col_*}, or their
+\item{...}{Either column objects created by \code{col_*()}, or their
 abbreviated character names. If you're only overriding a few columns,
 it's best to refer to columns by name. If not named, the column types
 must match the column names exactly.}

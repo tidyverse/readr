@@ -26,64 +26,64 @@ col_time(format = "")
 \item{x}{A character vector of dates to parse.}
 
 \item{format}{A format specification, as described below. If set to "",
-  date times are parsed as ISO8601, dates and times used the date and
-  time formats specified in the \code{\link{locale}}.
+date times are parsed as ISO8601, dates and times used the date and
+time formats specified in the \code{\link[=locale]{locale()}}.
 
-  Unlike \code{\link{strptime}}, the format specification must match
-  the complete string.}
+Unlike \code{\link[=strptime]{strptime()}}, the format specification must match
+the complete string.}
 
 \item{na}{Character vector of strings to use for missing values. Set this
 option to \code{character()} to indicate no missing values.}
 
 \item{locale}{The locale controls defaults that vary from place to place.
 The default locale is US-centric (like R), but you can use
-\code{\link{locale}} to create your own locale that controls things like
+\code{\link[=locale]{locale()}} to create your own locale that controls things like
 the default time zone, encoding, decimal mark, big mark, and day/month
 names.}
 }
 \value{
-A \code{\link{POSIXct}} vector with \code{tzone} attribute set to
-  \code{tz}. Elements that could not be parsed (or did not generate valid
-  dates) will bes set to \code{NA}, and a warning message will inform
-  you of the total number of failures.
+A \code{\link[=POSIXct]{POSIXct()}} vector with \code{tzone} attribute set to
+\code{tz}. Elements that could not be parsed (or did not generate valid
+dates) will bes set to \code{NA}, and a warning message will inform
+you of the total number of failures.
 }
 \description{
 Parse date/times
 }
 \section{Format specification}{
 
-\code{readr} uses a format specification similiar to \code{\link{strptime}}.
+\code{readr} uses a format specification similiar to \code{\link[=strptime]{strptime()}}.
 There are three types of element:
 
 \enumerate{
-  \item Date components are specified with "\%" followed by a letter.
-    For example "\%Y" matches a 4 digit year, "\%m", matches a 2 digit
-    month and "\%d" matches a 2 digit day. Month and day default to \code{1},
-    (i.e. Jan 1st) if not present, for example if only a year is given.
-  \item Whitespace is any sequence of zero or more whitespace characters.
-  \item Any other character is matched exactly.
+\item Date components are specified with "\%" followed by a letter.
+For example "\%Y" matches a 4 digit year, "\%m", matches a 2 digit
+month and "\%d" matches a 2 digit day. Month and day default to \code{1},
+(i.e. Jan 1st) if not present, for example if only a year is given.
+\item Whitespace is any sequence of zero or more whitespace characters.
+\item Any other character is matched exactly.
 }
 
-\code{parse_datetime} recognises the following format specifications:
+\code{parse_datetime()} recognises the following format specifications:
 \itemize{
-  \item Year: "\%Y" (4 digits). "\%y" (2 digits); 00-69 -> 2000-2069,
-    70-99 -> 1970-1999.
-  \item Month: "\%m" (2 digits), "\%b" (abbreviated name in current
-    locale), "\%B" (full name in current locale).
-  \item Day: "\%d" (2 digits), "\%e" (optional leading space)
-  \item Hour: "\%H"
-  \item Minutes: "\%M"
-  \item Seconds: "\%S" (integer seconds), "\%OS" (partial seconds)
-  \item Time zone: "\%Z" (as name, e.g. "America/Chicago"), "\%z" (as
-    offset from UTC, e.g. "+0800")
-  \item AM/PM indicator: "\%p".
-  \item Non-digits: "\%." skips one non-digit character,
-    "\%+" skips one or more non-digit characters,
-    "\%*" skips any number of non-digits characters.
-  \item Automatic parsers: "\%AD" parses with a flexible YMD parser,
-     "\%AT" parses with a flexible HMS parser.
-  \item Shortcuts: "\%D" = "\%m/\%d/\%y",  "\%F" = "\%Y-\%m-\%d",
-      "\%R" = "\%H:\%M", "\%T" = "\%H:\%M:\%S",  "\%x" = "\%y/\%m/\%d".
+\item Year: "\%Y" (4 digits). "\%y" (2 digits); 00-69 -> 2000-2069,
+70-99 -> 1970-1999.
+\item Month: "\%m" (2 digits), "\%b" (abbreviated name in current
+locale), "\%B" (full name in current locale).
+\item Day: "\%d" (2 digits), "\%e" (optional leading space)
+\item Hour: "\%H"
+\item Minutes: "\%M"
+\item Seconds: "\%S" (integer seconds), "\%OS" (partial seconds)
+\item Time zone: "\%Z" (as name, e.g. "America/Chicago"), "\%z" (as
+offset from UTC, e.g. "+0800")
+\item AM/PM indicator: "\%p".
+\item Non-digits: "\%." skips one non-digit character,
+"\%+" skips one or more non-digit characters,
+"\%*" skips any number of non-digits characters.
+\item Automatic parsers: "\%AD" parses with a flexible YMD parser,
+"\%AT" parses with a flexible HMS parser.
+\item Shortcuts: "\%D" = "\%m/\%d/\%y",  "\%F" = "\%Y-\%m-\%d",
+"\%R" = "\%H:\%M", "\%T" = "\%H:\%M:\%S",  "\%x" = "\%y/\%m/\%d".
 }
 }
 

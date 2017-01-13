@@ -14,20 +14,20 @@ write_file(x, path, append = FALSE)
 }
 \arguments{
 \item{file}{Either a path to a file, a connection, or literal data
-   (either a single string or a raw vector).
+(either a single string or a raw vector).
 
-   Files ending in \code{.gz}, \code{.bz2}, \code{.xz}, or \code{.zip} will
-   be automatically uncompressed. Files starting with \code{http://},
-   \code{https://}, \code{ftp://}, or \code{ftps://} will be automatically
-   downloaded. Remote gz files can also be automatically downloaded &
-   decompressed.
+Files ending in \code{.gz}, \code{.bz2}, \code{.xz}, or \code{.zip} will
+be automatically uncompressed. Files starting with \code{http://},
+\code{https://}, \code{ftp://}, or \code{ftps://} will be automatically
+downloaded. Remote gz files can also be automatically downloaded and
+decompressed.
 
-   Literal data is most useful for examples and tests. It must contain at
-   least one new line to be recognised as data (instead of a path).}
+Literal data is most useful for examples and tests. It must contain at
+least one new line to be recognised as data (instead of a path).}
 
 \item{locale}{The locale controls defaults that vary from place to place.
 The default locale is US-centric (like R), but you can use
-\code{\link{locale}} to create your own locale that controls things like
+\code{\link[=locale]{locale()}} to create your own locale that controls things like
 the default time zone, encoding, decimal mark, big mark, and day/month
 names.}
 
@@ -41,11 +41,11 @@ file is created.}
 }
 \value{
 \code{read_file}: A length 1 character vector.
-  \code{read_lines_raw}: A raw vector.
+\code{read_lines_raw}: A raw vector.
 }
 \description{
-\code{read_file} reads a complete file into a single object: either a
-character vector of length one, or a raw vector. \code{write_file} takes a
+\code{read_file()} reads a complete file into a single object: either a
+character vector of length one, or a raw vector. \code{write_file()} takes a
 single string, or a raw vector, and writes it exactly as is.  Raw vectors
 are useful when dealing with binary data, or if you have text data with
 unknown encoding.
