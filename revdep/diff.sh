@@ -47,7 +47,7 @@ git commit -m "revdep update for clean state" || true
 
 git fetch --all
 git rebase
-git push origin HEAD
+git push
 
 R -f revdep/check.R
 #echo $branch >> revdep/README.md
@@ -60,4 +60,4 @@ git commit -m "revdep update with $branch results"
 
 git fetch --all
 git rebase
-git push origin HEAD
+git push
