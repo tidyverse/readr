@@ -311,7 +311,7 @@ public:
 
 private:
   int hour() {
-    return hour_ + (amPm_ == 1 ? 12 : 0);
+    return hour_ + (amPm_ == 1 & hour_ < 12 ? 12 : 0);
   }
 
   inline bool consumeSeconds(int* pSec, double* pPartialSec) {
