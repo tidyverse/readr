@@ -6,6 +6,9 @@
 * `col_euro_double()`, `parse_euro_double()`, `col_numeric()`, and 
   `parse_numeric()` have been removed.
 
+  
+* Added an argument `n` to `read_table()` to control how many lines are read for whitspace before determining column structure. Defaults to 100.
+  
 # readr 0.2.2.9000
 * Skip Unicode byte order markers if they exist (#263, @jimhester).
 
