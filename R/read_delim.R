@@ -50,8 +50,10 @@ NULL
 #' @param n_max Maximum number of records to read.
 #' @param guess_max Maximum number of records to use for guessing column types.
 #' @param progress Display a progress bar? By default it will only display
-#'   in an interactive session. The display is updated every 50,000 values
+#'   in an interactive session and not in knitr.  The display is updated every 50,000 values
 #'   and will only display if estimated reading time is 5 seconds or more.
+#'   The automatic progress bar can be disabled by setting option
+#'   \code{readr.show_progress} to \code{FALSE}.
 #' @return A data frame. If there are parsing problems, a warning tells you
 #'   how many, and you can retrieve the details with \code{\link{problems}()}.
 #' @export
@@ -91,7 +93,8 @@ read_delim <- function(file, delim, quote = '"',
                        locale = default_locale(),
                        na = c("", "NA"), quoted_na = TRUE,
                        comment = "", trim_ws = FALSE,
-                       skip = 0, n_max = Inf, guess_max = min(1000, n_max), progress = interactive()) {
+                       skip = 0, n_max = Inf, guess_max = min(1000, n_max), progress = NULL) {
+  progress <- progress %||% progress_defaults()
   tokenizer <- tokenizer_delim(delim, quote = quote,
     escape_backslash = escape_backslash, escape_double = escape_double,
     na = na, quoted_na = quoted_na, comment = comment, trim_ws = trim_ws)
@@ -106,8 +109,8 @@ read_csv <- function(file, col_names = TRUE, col_types = NULL,
                      locale = default_locale(), na = c("", "NA"),
                      quoted_na = TRUE, comment = "", trim_ws = TRUE, skip = 0,
                      n_max = Inf, guess_max = min(1000, n_max),
-                     progress = interactive()) {
-
+                     progress = NULL) {
+  progress <- progress %||% progress_defaults()
   tokenizer <- tokenizer_csv(na = na, quoted_na = TRUE, comment = comment, trim_ws = trim_ws)
   read_delimited(file, tokenizer, col_names = col_names, col_types = col_types,
     locale = locale, skip = skip, comment = comment, n_max = n_max, guess_max =
@@ -120,13 +123,13 @@ read_csv2 <- function(file, col_names = TRUE, col_types = NULL,
                       locale = default_locale(),
                       na = c("", "NA"), quoted_na = TRUE, comment = "",
                       trim_ws = TRUE, skip = 0, n_max = Inf,
-                      guess_max = min(1000, n_max), progress = interactive()) {
+                      guess_max = min(1000, n_max), progress = NULL) {
 
   if (locale$decimal_mark == ".") {
     locale$decimal_mark <- ","
     locale$grouping_mark <- "."
   }
-
+  progress <- progress %||% progress_defaults()
   tokenizer <- tokenizer_delim(delim = ";", na = na, quoted_na = quoted_na,
     comment = comment, trim_ws = trim_ws)
   read_delimited(file, tokenizer, col_names = col_names, col_types = col_types,
@@ -141,8 +144,8 @@ read_tsv <- function(file, col_names = TRUE, col_types = NULL,
                      locale = default_locale(),
                      na = c("", "NA"), quoted_na = TRUE,
                      comment = "", trim_ws = TRUE, skip = 0, n_max = Inf,
-                     guess_max = min(1000, n_max), progress = interactive()) {
-
+                     guess_max = min(1000, n_max), progress = NULL) {
+  progress <- progress %||% progress_defaults()
   tokenizer <- tokenizer_tsv(na = na, quoted_na = quoted_na, comment = comment, trim_ws = trim_ws)
   read_delimited(file, tokenizer, col_names = col_names, col_types = col_types,
     locale = locale, skip = skip, comment = comment, n_max = n_max,
@@ -154,12 +157,14 @@ read_tokens <- function(data, tokenizer, col_specs, col_names, locale_, n_max, p
   if (n_max == Inf) {
     n_max <- -1
   }
+  progress <- progress %||% progress_defaults()
   read_tokens_(data, tokenizer, col_specs, col_names, locale_, n_max, progress)
 }
 
 read_delimited <- function(file, tokenizer, col_names = TRUE, col_types = NULL,
                            locale = default_locale(), skip = 0, comment = "",
-                           n_max = Inf, guess_max = min(1000, n_max), progress = interactive()) {
+                           n_max = Inf, guess_max = min(1000, n_max), progress = NULL) {
+  progress <- progress %||% progress_defaults()
   name <- source_name(file)
   # If connection needed, read once.
   file <- standardise_path(file)

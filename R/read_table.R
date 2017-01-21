@@ -31,10 +31,11 @@
 read_table <- function(file, col_names = TRUE, col_types = NULL,
                        locale = default_locale(), na = "NA", skip = 0,
                        n_max = Inf, guess_max = min(n_max, 1000),
-                       progress = interactive(),
+                       progress = NULL,
                        n = 100L) {
   columns <- fwf_empty(file, skip = skip, n = n)
   tokenizer <- tokenizer_fwf(columns$begin, columns$end, na = na)
+  progress <- progress %||% progress_defaults()
 
   spec <- col_spec_standardise(
     file = file, skip = skip, n = guess_max,
