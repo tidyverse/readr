@@ -19,6 +19,24 @@
 * `guess_encoding()` returns a tibble, and works better with lists of 
   raw vectors (as returned by `read_lines_raw()`).
 * Bugfix for chunked reading to properly allow stopping of a stream by returning FALSE from the callback.
+* `read_csv2()` gives a message if it updates the default locale (#443, @krlmlr).
+
+* `col_euro_double()`, `parse_euro_double()`, `col_numeric()`, and 
+  `parse_numeric()` have been removed.
+
+  
+* Added an argument `n` to `read_table()` to control how many lines are read for whitspace before determining column structure. Defaults to 100.
+  
+# readr 0.2.2.9000
+* Skip Unicode byte order markers if they exist (#263, @jimhester).
+
+* Supports reading into long vectors (#309, @jimhester).
+
+* `default_locale()` now sets the default locale in `readr.default_locale`
+  rather than regenerating it for each call. (#416, @jimhester).
+
+* `guess_encoding()` returns a tibble, and works better with lists of 
+  raw vectors (as returned by `read_lines_raw()`).
 
 # readr 1.0.0
 
