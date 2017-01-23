@@ -78,7 +78,7 @@ test_that("read columns with width, ragged", {
 })
 
 test_that("read_fwf returns an empty data.frame on an empty file", {
-   expect_equal(read_fwf("empty-file", progress = FALSE), tibble::data_frame())
+   expect_true(all.equal(read_fwf("empty-file", progress = FALSE), tibble::data_frame()))
 })
 
 test_that("check for line breaks in between widths", {
@@ -101,8 +101,8 @@ test_that("check for line breaks in between widths", {
   expect_equal(n_problems(out2), 2)
 
   exp <- tibble::tibble(X1 = c(1L, 2L, 1L), X2 = c(1L, NA, 1L))
-  expect_equal(out1, exp)
-  expect_equal(out2, exp)
+  expect_true(all.equal(out1, exp))
+  expect_true(all.equal(out2, exp))
 
 })
 
