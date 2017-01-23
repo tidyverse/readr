@@ -121,6 +121,12 @@ test_that("ignore commented lines anywhere in file", {
   expect_equal(n_problems(x1), 0)
 })
 
+test_that("error on empty spec (#511, #519)", {
+  txt = "foo\n"
+  pos = fwf_positions(start = numeric(0), end = numeric(0))
+  expect_error(read_fwf(txt, pos), "Zero-length.*specifications not supported")
+})
+
 # read_table -------------------------------------------------------------------
 
 test_that("read_table silently reads ragged last column", {

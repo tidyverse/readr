@@ -30,9 +30,12 @@
 * Skip Unicode byte order markers if they exist (#263, @jimhester).
 
 * Supports reading into long vectors (#309, @jimhester).
+* `read_fwf()` stops with an error (instead of a segmentation fault) if no columns are specified, or if skipping past the end of the file (#511, #519, #574, @krlmlr).
 
-* `default_locale()` now sets the default locale in `readr.default_locale`
-  rather than regenerating it for each call. (#416, @jimhester).
+* `col_euro_double()`, `parse_euro_double()`, `col_numeric()`, and 
+  `parse_numeric()` have been removed.
+
+* Skip Unicode byte order markers if they exist (#263, @jimhester).
 
 * `guess_encoding()` returns a tibble, and works better with lists of 
   raw vectors (as returned by `read_lines_raw()`).
