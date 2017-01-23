@@ -7,9 +7,9 @@
 \title{Read/write lines to/from a file}
 \usage{
 read_lines(file, skip = 0, n_max = -1L, locale = default_locale(),
-  na = character(), progress = interactive())
+  na = character(), progress = show_progress())
 
-read_lines_raw(file, skip = 0, n_max = -1L, progress = interactive())
+read_lines_raw(file, skip = 0, n_max = -1L, progress = show_progress())
 
 write_lines(x, path, na = "NA", append = FALSE)
 }
@@ -41,8 +41,10 @@ names.}
 option to \code{character()} to indicate no missing values.}
 
 \item{progress}{Display a progress bar? By default it will only display
-in an interactive session. The display is updated every 50,000 values
-and will only display if estimated reading time is 5 seconds or more.}
+in an interactive session and not while knitting a document. The display
+is updated every 50,000 values and will only display if estimated reading
+time is 5 seconds or more. The automatic progress bar can be disabled by
+setting option \code{readr.show_progress} to \code{FALSE}.}
 
 \item{x}{A data frame to write to disk}
 

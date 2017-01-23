@@ -12,26 +12,26 @@ spec_delim(file, delim, quote = "\\"", escape_backslash = FALSE,
   escape_double = TRUE, col_names = TRUE, col_types = NULL,
   locale = default_locale(), na = c("", "NA"), quoted_na = TRUE,
   comment = "", trim_ws = FALSE, skip = 0, n_max = 0,
-  guess_max = 1000, progress = interactive())
+  guess_max = 1000, progress = show_progress())
 
 spec_csv(file, col_names = TRUE, col_types = NULL,
   locale = default_locale(), na = c("", "NA"), quoted_na = TRUE,
   comment = "", trim_ws = TRUE, skip = 0, n_max = 0, guess_max = 1000,
-  progress = interactive())
+  progress = show_progress())
 
 spec_csv2(file, col_names = TRUE, col_types = NULL,
   locale = default_locale(), na = c("", "NA"), quoted_na = TRUE,
   comment = "", trim_ws = TRUE, skip = 0, n_max = 0, guess_max = 1000,
-  progress = interactive())
+  progress = show_progress())
 
 spec_tsv(file, col_names = TRUE, col_types = NULL,
   locale = default_locale(), na = c("", "NA"), quoted_na = TRUE,
   comment = "", trim_ws = TRUE, skip = 0, n_max = 0, guess_max = 1000,
-  progress = interactive())
+  progress = show_progress())
 
 spec_table(file, col_names = TRUE, col_types = NULL,
   locale = default_locale(), na = "NA", skip = 0, n_max = 0,
-  guess_max = 1000, progress = interactive())
+  guess_max = 1000, progress = show_progress())
 }
 \arguments{
 \item{file}{Either a path to a file, a connection, or literal data
@@ -116,8 +116,10 @@ each field before parsing it?}
 \item{guess_max}{Maximum number of records to use for guessing column types.}
 
 \item{progress}{Display a progress bar? By default it will only display
-in an interactive session. The display is updated every 50,000 values
-and will only display if estimated reading time is 5 seconds or more.}
+in an interactive session and not while knitting a document. The display
+is updated every 50,000 values and will only display if estimated reading
+time is 5 seconds or more. The automatic progress bar can be disabled by
+setting option \code{readr.show_progress} to \code{FALSE}.}
 }
 \value{
 The \code{col_spec} generated for the file.
