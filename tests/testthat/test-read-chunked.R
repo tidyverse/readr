@@ -80,8 +80,8 @@ test_that("DataFrameCallback works as intended", {
   out1 <- read_csv_chunked(f, fun3)
   out2 <- read_csv_chunked(readr_example("mtcars.csv"), fun3, chunk_size = 10)
 
-  expect_equal(subset(unchunked, gear == 3), out1)
-  expect_equal(out1, out2)
+  expect_true(all.equal(subset(unchunked, gear == 3), out1))
+  expect_true(all.equal(out1, out2))
 
 
   # No matching rows
@@ -89,6 +89,6 @@ test_that("DataFrameCallback works as intended", {
   out3 <- read_csv_chunked(readr_example("mtcars.csv"), fun5)
   out4 <- read_csv_chunked(readr_example("mtcars.csv"), fun5, chunk_size = 10)
 
-  expect_equal(subset(unchunked, gear == 5), out3)
-  expect_equal(out3, out4)
+  expect_true(all.equal(subset(unchunked, gear == 5), out3))
+  expect_true(all.equal(out3, out4))
 })
