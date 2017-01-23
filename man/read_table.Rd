@@ -6,7 +6,7 @@
 \usage{
 read_table(file, col_names = TRUE, col_types = NULL,
   locale = default_locale(), na = "NA", skip = 0, n_max = Inf,
-  guess_max = min(n_max, 1000), progress = interactive(), n = 100L)
+  guess_max = min(n_max, 1000), progress = interactive())
 }
 \arguments{
 \item{file}{Either a path to a file, a connection, or literal data
@@ -71,9 +71,6 @@ option to \code{character()} to indicate no missing values.}
 \item{progress}{Display a progress bar? By default it will only display
 in an interactive session. The display is updated every 50,000 values
 and will only display if estimated reading time is 5 seconds or more.}
-
-\item{n}{The number of lines the tokenizer will read to determine the structure
-of the file, 100 by default.}
 }
 \description{
 This is designed to read the type of textual data where each column is

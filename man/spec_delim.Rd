@@ -31,7 +31,7 @@ spec_tsv(file, col_names = TRUE, col_types = NULL,
 
 spec_table(file, col_names = TRUE, col_types = NULL,
   locale = default_locale(), na = "NA", skip = 0, n_max = 0,
-  guess_max = 1000, progress = interactive(), n = 100L)
+  guess_max = 1000, progress = interactive())
 }
 \arguments{
 \item{file}{Either a path to a file, a connection, or literal data
