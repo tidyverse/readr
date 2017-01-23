@@ -22,6 +22,18 @@ test_that("read_lines_chunked", {
   read_lines_chunked(file, get_sizes, chunk_size = 5)
   expect_true(all(sizes[1:6] == 5))
   expect_true(all(sizes[[7]] == 3))
+
+  # Halting early
+  get_sizes_stop <- function(data, pos) {
+    sizes[[length(sizes) + 1]] <<- length(data)
+    if (pos >= 5) {
+      return(FALSE)
+    }
+  }
+  sizes <- list()
+  read_lines_chunked(file, get_sizes_stop, chunk_size = 5)
+  expect_true(length(sizes) == 2)
+  expect_true(all(sizes[1:2] == 5))
 })
 
 test_that("read_delim_chunked", {
@@ -46,6 +58,18 @@ test_that("read_delim_chunked", {
   read_csv_chunked(file, get_dims, chunk_size = 5)
   expect_true(all(vapply(dims[1:6], identical, logical(1), c(5L, 11L))))
   expect_true(identical(dims[[7]], c(2L, 11L)))
+
+  # Halting early
+  get_dims_stop <- function(data, pos) {
+    dims[[length(dims) + 1]] <<- dim(data)
+    if (pos >= 5) {
+      return(FALSE)
+    }
+  }
+  dims <- list()
+  read_csv_chunked(file, get_dims_stop, chunk_size = 5)
+  expect_true(length(dims) == 2)
+  expect_true(all(vapply(dims[1:2], identical, logical(1), c(5L, 11L))))
 })
 
 test_that("DataFrameCallback works as intended", {

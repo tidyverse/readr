@@ -18,6 +18,7 @@
 
 * `guess_encoding()` returns a tibble, and works better with lists of 
   raw vectors (as returned by `read_lines_raw()`).
+* Bugfix for chunked reading to properly allow stopping of a stream by returning FALSE from the callback.
 
 # readr 1.0.0
 
