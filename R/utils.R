@@ -10,8 +10,8 @@ is.connection <- function(x) inherits(x, "connection")
 
 is_syntactic <- function(x) make.names(x) == x
 
-progress_defaults <- function() {
-  !isTRUE(getOption("readr.show_progress")) || # user sepecifies no progress
+show_progress <- function() {
+  !isTRUE(getOption("readr.show_progress")) || # user disables progress bar
   !interactive() || # not an interactive session
-  !is.null(getOption("knitr.in.progress"))
+  !is.null(getOption("knitr.in.progress")) # Not actively knitting a document
 }

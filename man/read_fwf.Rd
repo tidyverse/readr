@@ -9,7 +9,7 @@
 \usage{
 read_fwf(file, col_positions, col_types = NULL, locale = default_locale(),
   na = c("", "NA"), comment = "", skip = 0, n_max = Inf,
-  guess_max = min(n_max, 1000), progress = interactive())
+  guess_max = min(n_max, 1000), progress = show_progress())
 
 fwf_empty(file, skip = 0, col_names = NULL, comment = "", n = 100L)
 
@@ -71,8 +71,10 @@ comment characters will be silently ignored.}
 \item{guess_max}{Maximum number of records to use for guessing column types.}
 
 \item{progress}{Display a progress bar? By default it will only display
-in an interactive session. The display is updated every 50,000 values
-and will only display if estimated reading time is 5 seconds or more.}
+in an interactive session and not while knitting a document. The display
+is updated every 50,000 values and will only display if estimated reading
+time is 5 seconds or more. The automatic progress bar can be disabled by
+setting option \code{readr.show_progress} to \code{FALSE}.}
 
 \item{col_names}{Either NULL, or a character vector column names.}
 

@@ -6,7 +6,7 @@
 \usage{
 read_table(file, col_names = TRUE, col_types = NULL,
   locale = default_locale(), na = "NA", skip = 0, n_max = Inf,
-  guess_max = min(n_max, 1000), progress = interactive())
+  guess_max = min(n_max, 1000), progress = show_progress())
 }
 \arguments{
 \item{file}{Either a path to a file, a connection, or literal data
@@ -69,8 +69,10 @@ option to \code{character()} to indicate no missing values.}
 \item{guess_max}{Maximum number of records to use for guessing column types.}
 
 \item{progress}{Display a progress bar? By default it will only display
-in an interactive session. The display is updated every 50,000 values
-and will only display if estimated reading time is 5 seconds or more.}
+in an interactive session and not while knitting a document. The display
+is updated every 50,000 values and will only display if estimated reading
+time is 5 seconds or more. The automatic progress bar can be disabled by
+setting option \code{readr.show_progress} to \code{FALSE}.}
 }
 \description{
 This is designed to read the type of textual data where each column is

@@ -1,10 +1,10 @@
 .onLoad <- function(libname, pkgname) {
-  op <- options()
-  op.readr <- list(
+  opt <- options()
+  opt_readr <- list(
     readr.show_progress = TRUE
   )
-  toset <- !(names(op.readr) %in% names(op))
-  if(any(toset)) options(op.readr[toset])
+  to_set <- !(names(opt_readr) %in% names(opt))
+  if(any(to_set)) options(opt_readr[to_set])
   invisible()
 }
 

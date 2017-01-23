@@ -28,8 +28,7 @@
 read_lines <- function(file, skip = 0, n_max = -1L,
                        locale = default_locale(),
                        na = character(),
-                       progress = NULL) {
-  progress <- progress %||% progress_defaults()
+                       progress = show_progress()) {
   if (empty_file(file)) {
     return(character())
   }
@@ -39,11 +38,10 @@ read_lines <- function(file, skip = 0, n_max = -1L,
 
 #' @export
 #' @rdname read_lines
-read_lines_raw <- function(file, skip = 0, n_max = -1L, progress = NULL) {
+read_lines_raw <- function(file, skip = 0, n_max = -1L, progress = show_progress()) {
   if (empty_file(file)) {
     return(list())
   }
-progress <- progress %||% progress_defaults()
   ds <- datasource(file, skip = skip)
   read_lines_raw_(ds, n_max = n_max, progress = progress)
 }

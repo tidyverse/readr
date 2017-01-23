@@ -5,7 +5,7 @@
 \title{Read common/combined log file into a tibble}
 \usage{
 read_log(file, col_names = FALSE, col_types = NULL, skip = 0,
-  n_max = -1, progress = interactive())
+  n_max = -1, progress = show_progress())
 }
 \arguments{
 \item{file}{Either a path to a file, a connection, or literal data
@@ -57,8 +57,10 @@ l = logical, D = date, T = date time, t = time, ? = guess, or
 \item{n_max}{Maximum number of records to read.}
 
 \item{progress}{Display a progress bar? By default it will only display
-in an interactive session. The display is updated every 50,000 values
-and will only display if estimated reading time is 5 seconds or more.}
+in an interactive session and not while knitting a document. The display
+is updated every 50,000 values and will only display if estimated reading
+time is 5 seconds or more. The automatic progress bar can be disabled by
+setting option \code{readr.show_progress} to \code{FALSE}.}
 }
 \description{
 This is a fairly standard format for log files - it uses both quotes
