@@ -265,13 +265,13 @@ void CollectorLogical::setValue(int i, const Token& t) {
       }
       break;
     case 4:
-      if (strncmp(string.first, "TRUE", 4) == 0 || strncmp(string.first, "true", 4) == 0 || strncmp(string.first, "True", 4) == 0) {
+      if (strncasecmp(string.first, "true", 4) == 0) {
         LOGICAL(column_)[i] = 1;
         return;
       }
       break;
     case 5:
-      if (strncmp(string.first, "FALSE", 5) == 0 || strncmp(string.first, "false", 5) == 0 || strncmp(string.first, "False", 5) == 0) {
+      if (strncasecmp(string.first, "false", 5) == 0) {
         LOGICAL(column_)[i] = 0;
         return;
       }
