@@ -16,7 +16,7 @@ read_delim(file, delim, quote = "\\"", escape_backslash = FALSE,
 read_csv(file, col_names = TRUE, col_types = NULL,
   locale = default_locale(), na = c("", "NA"), quoted_na = TRUE,
   comment = "", trim_ws = TRUE, skip = 0, n_max = Inf,
-  guess_max = min(1000, n_max), progress = interactive())
+  guess_max = min(1000, n_max), progress = interactive(), ...)
 
 read_csv2(file, col_names = TRUE, col_types = NULL,
   locale = default_locale(), na = c("", "NA"), quoted_na = TRUE,
@@ -113,6 +113,8 @@ each field before parsing it?}
 \item{progress}{Display a progress bar? By default it will only display
 in an interactive session. The display is updated every 50,000 values
 and will only display if estimated reading time is 5 seconds or more.}
+
+\item{...}{prevent unused arguments for read_csv}
 }
 \value{
 A data frame. If there are parsing problems, a warning tells you

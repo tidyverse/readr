@@ -73,10 +73,6 @@ type_convert_col <- function(x, spec, locale_, col, na, trim_ws) {
     .Call('readr_type_convert_col', PACKAGE = 'readr', x, spec, locale_, col, na, trim_ws)
 }
 
-stream_delim <- function(df, path, delim, na, col_names = TRUE, append = FALSE, bom = FALSE) {
-    .Call('readr_stream_delim', PACKAGE = 'readr', df, path, delim, na, col_names, append, bom)
-}
-
 write_lines_ <- function(lines, path, na, append = FALSE) {
     invisible(.Call('readr_write_lines_', PACKAGE = 'readr', lines, path, na, append))
 }
@@ -87,5 +83,9 @@ write_file_raw_ <- function(x, path, append = FALSE) {
 
 write_file_ <- function(x, path, append = FALSE) {
     invisible(.Call('readr_write_file_', PACKAGE = 'readr', x, path, append))
+}
+
+stream_delim <- function(df, path, delim, na, col_names = TRUE, append = FALSE, bom = FALSE) {
+    .Call('readr_stream_delim', PACKAGE = 'readr', df, path, delim, na, col_names, append, bom)
 }
 
