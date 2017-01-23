@@ -1,7 +1,10 @@
 # readr 1.0.0.9000
 
+* `read_csv2()` gives a message if it updates the default locale (#443, @krlmlr).
+
 * `col_euro_double()`, `parse_euro_double()`, `col_numeric()`, and 
   `parse_numeric()` have been removed.
+
   
 * Added an argument `n` to `read_table()` to control how many lines are read for whitspace before determining column structure. Defaults to 100.
   

@@ -123,6 +123,7 @@ read_csv2 <- function(file, col_names = TRUE, col_types = NULL,
                       guess_max = min(1000, n_max), progress = interactive()) {
 
   if (locale$decimal_mark == ".") {
+    message("Using ',' as decimal and '.' as grouping mark. Use read_delim() for more control.")
     locale$decimal_mark <- ","
     locale$grouping_mark <- "."
   }
