@@ -8,6 +8,10 @@ test_that("true and false parsed", {
   expect_equal(parse_logical(c("true", "false")), c(TRUE, FALSE))
 })
 
+test_that("True and False parsed", {
+  expect_equal(parse_logical(c("True", "False")), c(TRUE, FALSE))
+})
+
 test_that("T and F parsed", {
   expect_equal(parse_logical(c("T", "F")), c(TRUE, FALSE))
 })
