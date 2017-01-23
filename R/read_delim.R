@@ -67,7 +67,7 @@ NULL
 #' read_csv("x,y\n1,2\n3,4")
 #'
 #' # Column types --------------------------------------------------------------
-#' # By default, readr guess the columns types, looking at the first 100 rows.
+#' # By default, readr guesses the columns types, looking at the first 100 rows.
 #' # You can override with a compact specification:
 #' read_csv("x,y\n1,2\n3,4", col_types = "dc")
 #'
@@ -227,7 +227,7 @@ generate_spec_fun <- function(x) {
 #' spec_csv("x,y\n1,2\n3,4")
 #'
 #' # Column types --------------------------------------------------------------
-#' # By default, readr guess the columns types, looking at the first 1000 rows.
+#' # By default, readr guesses the columns types, looking at the first 1000 rows.
 #' # You can specify the number of rows used with guess_max.
 #' spec_csv(system.file("extdata/mtcars.csv", package = "readr"), guess_max = 20)
 spec_delim <- generate_spec_fun(read_delim)
