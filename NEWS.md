@@ -1,5 +1,7 @@
 # readr 1.0.0.9000
 
+* `parse_time()` now correctly handles 12 AM/PM (#579).
+
 * `read_csv2()` gives a message if it updates the default locale (#443, @krlmlr).
 
 * `col_euro_double()`, `parse_euro_double()`, `col_numeric()`, and 
