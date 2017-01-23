@@ -30,9 +30,9 @@
 read_fwf <- function(file, col_positions, col_types = NULL,
                      locale = default_locale(), na = c("", "NA"),
                      comment = "", skip = 0, n_max = Inf,
-                     guess_max = min(n_max, 1000), progress = interactive()) {
+                     guess_max = min(n_max, 1000), progress = NULL) {
   ds <- datasource(file, skip = skip)
-
+  progress <- progress %||% progress_defaults()
   if (inherits(ds, "source_file") && empty_file(file)) {
     return(tibble::data_frame())
   }
