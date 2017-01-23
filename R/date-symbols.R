@@ -5,8 +5,8 @@
 #' create your own, or retrieve from a standard list. The standard list is
 #' derived from ICU (\url{http://site.icu-project.org}) via the stringi package.
 #'
-#' @param mon,mon_ab Full and abbreviated month names. Starts with Sunday.
-#' @param day,day_ab Full and abbreviated week day names
+#' @param mon,mon_ab Full and abbreviated month names.
+#' @param day,day_ab Full and abbreviated week day names. Starts with Sunday.
 #' @param am_pm Names used for AM and PM.
 #' @export
 #' @examples
