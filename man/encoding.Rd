@@ -8,7 +8,7 @@ guess_encoding(file, n_max = 10000, threshold = 0.2)
 }
 \arguments{
 \item{file}{A character string specifying an input as specified in
-\code{\link{datasource}}, a raw vector, or a list of raw vectors.}
+\code{\link[=datasource]{datasource()}}, a raw vector, or a list of raw vectors.}
 
 \item{n_max}{Number of lines to read. If \code{n_max} is -1, all lines in
 file will be read.}
@@ -19,7 +19,7 @@ file will be read.}
 A tibble
 }
 \description{
-Uses \code{\link[stringi]{stri_enc_detect}}: see the documentation there
+Uses \code{\link[stringi:stri_enc_detect]{stringi::stri_enc_detect()}}: see the documentation there
 for caveats.
 }
 \examples{
@@ -29,4 +29,3 @@ guess_encoding(read_file_raw(readr_example("mtcars.csv")))
 
 guess_encoding("a\\n\\u00b5\\u00b5")
 }
-

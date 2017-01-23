@@ -39,8 +39,8 @@ parse_vector <- function(x, collector, na = c("", "NA"), locale = default_locale
 
 #' Parse logicals, integers, and reals
 #'
-#' Use \code{parse_} if you have a character vector you want to parse. Use
-#' \code{col_} in conjunction with a \code{read_} function to parse the
+#' Use `parse_*()` if you have a character vector you want to parse. Use
+#' `col_*()` in conjunction with a `read_*()` function to parse the
 #' values as they're read in.
 #'
 #' @name parse_atomic
@@ -150,7 +150,7 @@ col_number <- function() {
 
 #' Parse using the "best" type
 #'
-#' \code{parse_guess()} returns the parser vector; \code{guess_parser()}
+#' `parse_guess()` returns the parser vector; `guess_parser()`
 #' returns the name of the parser. These functions use a number of heuristics
 #' to determine which type of vector is "best". Generally they try to err of
 #' the side of safety, as it's straightforward to override the parsing choice
@@ -195,8 +195,8 @@ guess_parser <- function(x, locale = default_locale()) {
 
 #' Parse factors
 #'
-#' \code{parse_factor} is similar to \code{\link{factor}}, but will generate
-#' warnings if elements of \code{x} are not found in \code{levels}.
+#' `parse_factor` is similar to [factor()], but will generate
+#' warnings if elements of `x` are not found in `levels`.
 #'
 #' @param levels Character vector providing set of allowed levels.
 #' @param ordered Is it an ordered factor?
@@ -232,19 +232,19 @@ col_factor <- function(levels, ordered = FALSE) {
 #' Parse date/times
 #'
 #' @section Format specification:
-#' \code{readr} uses a format specification similiar to \code{\link{strptime}}.
+#' `readr` uses a format specification similiar to [strptime()].
 #' There are three types of element:
 #'
 #' \enumerate{
 #'   \item Date components are specified with "\%" followed by a letter.
 #'     For example "\%Y" matches a 4 digit year, "\%m", matches a 2 digit
-#'     month and "\%d" matches a 2 digit day. Month and day default to \code{1},
+#'     month and "\%d" matches a 2 digit day. Month and day default to `1`,
 #'     (i.e. Jan 1st) if not present, for example if only a year is given.
 #'   \item Whitespace is any sequence of zero or more whitespace characters.
 #'   \item Any other character is matched exactly.
 #' }
 #'
-#' \code{parse_datetime} recognises the following format specifications:
+#' `parse_datetime()` recognises the following format specifications:
 #' \itemize{
 #'   \item Year: "\%Y" (4 digits). "\%y" (2 digits); 00-69 -> 2000-2069,
 #'     70-99 -> 1970-1999.
@@ -286,15 +286,15 @@ col_factor <- function(levels, ordered = FALSE) {
 #' @param x A character vector of dates to parse.
 #' @param format A format specification, as described below. If set to "",
 #'   date times are parsed as ISO8601, dates and times used the date and
-#'   time formats specified in the \code{\link{locale}}.
+#'   time formats specified in the [locale()].
 #'
-#'   Unlike \code{\link{strptime}}, the format specification must match
+#'   Unlike [strptime()], the format specification must match
 #'   the complete string.
 #' @inheritParams read_delim
 #' @inheritParams tokenizer_delim
-#' @return A \code{\link{POSIXct}} vector with \code{tzone} attribute set to
-#'   \code{tz}. Elements that could not be parsed (or did not generate valid
-#'   dates) will bes set to \code{NA}, and a warning message will inform
+#' @return A [POSIXct()] vector with `tzone` attribute set to
+#'   `tz`. Elements that could not be parsed (or did not generate valid
+#'   dates) will bes set to `NA`, and a warning message will inform
 #'   you of the total number of failures.
 #' @family parsers
 #' @export

@@ -15,16 +15,16 @@ write_lines(x, path, na = "NA", append = FALSE)
 }
 \arguments{
 \item{file}{Either a path to a file, a connection, or literal data
-   (either a single string or a raw vector).
+(either a single string or a raw vector).
 
-   Files ending in \code{.gz}, \code{.bz2}, \code{.xz}, or \code{.zip} will
-   be automatically uncompressed. Files starting with \code{http://},
-   \code{https://}, \code{ftp://}, or \code{ftps://} will be automatically
-   downloaded. Remote gz files can also be automatically downloaded &
-   decompressed.
+Files ending in \code{.gz}, \code{.bz2}, \code{.xz}, or \code{.zip} will
+be automatically uncompressed. Files starting with \code{http://},
+\code{https://}, \code{ftp://}, or \code{ftps://} will be automatically
+downloaded. Remote gz files can also be automatically downloaded and
+decompressed.
 
-   Literal data is most useful for examples and tests. It must contain at
-   least one new line to be recognised as data (instead of a path).}
+Literal data is most useful for examples and tests. It must contain at
+least one new line to be recognised as data (instead of a path).}
 
 \item{skip}{Number of lines to skip before reading data.}
 
@@ -33,7 +33,7 @@ file will be read.}
 
 \item{locale}{The locale controls defaults that vary from place to place.
 The default locale is US-centric (like R), but you can use
-\code{\link{locale}} to create your own locale that controls things like
+\code{\link[=locale]{locale()}} to create your own locale that controls things like
 the default time zone, encoding, decimal mark, big mark, and day/month
 names.}
 
@@ -53,16 +53,16 @@ will append to existing file. In both cases, if file does not exist a new
 file is created.}
 }
 \value{
-\code{read_lines}: A character vector with one element for each line.
-  \code{read_lines_raw}: A list containing a raw vector for each line.
+\code{read_lines()}: A character vector with one element for each line.
+\code{read_lines_raw()}: A list containing a raw vector for each line.
 
-\code{write_lines} returns \code{x}, invisibly.
+\code{write_lines()} returns \code{x}, invisibly.
 }
 \description{
-\code{read_lines} reads up to \code{n_max} lines from a file. New lines are
-not included in the output. \code{read_lines_raw} produces a list of raw
+\code{read_lines()} reads up to \code{n_max} lines from a file. New lines are
+not included in the output. \code{read_lines_raw()} produces a list of raw
 vectors, and is useful for handling data with unknown encoding.
-\code{write_lines} takes a character vector, appending a new line
+\code{write_lines()} takes a character vector, appending a new line
 after each entry.
 }
 \examples{
@@ -78,4 +78,3 @@ read_file(tmp) # note trailing \\n
 write_lines(airquality$Ozone, tmp, na = "-1")
 read_lines(tmp)
 }
-

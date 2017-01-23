@@ -6,19 +6,19 @@
 #' the base \code{\link[utils]{type.convert}()}.
 #'
 #' @param df A data frame.
-#' @param col_types One of \code{NULL}, a \code{\link{cols}} specification, or
-#'   a string. See \code{vignette("column-types")} for more details.
+#' @param col_types One of `NULL`, a [cols()] specification, or
+#'   a string. See `vignette("column-types")` for more details.
 #'
-#'   If \code{NULL}, all column types will be imputed from the first 1000 rows
+#'   If `NULL`, all column types will be imputed from the first 1000 rows
 #'   on the input. This is convenient (and fast), but not robust. If the
 #'   imputation fails, you'll need to supply the correct types yourself.
 #'
-#'   If a column specification created by \code{\link{cols}}, it must contain
+#'   If a column specification created by [cols()], it must contain
 #'   one column specification for each column. If you only want to read a
-#'   subset of the columns, use \code{\link{cols_only}}.
+#'   subset of the columns, use [cols_only()].
 #'
-#'   Unlike other functions \code{type_convert} does not allow character
-#'   specificatinos of \code{col_types}.
+#'   Unlike other functions `type_convert()` does not allow character
+#'   specificatinos of `col_types`.
 #' @inheritParams tokenizer_delim
 #' @inheritParams read_delim
 #' @export

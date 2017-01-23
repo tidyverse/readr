@@ -35,13 +35,13 @@ option to \code{character()} to indicate no missing values.}
 
 \item{locale}{The locale controls defaults that vary from place to place.
 The default locale is US-centric (like R), but you can use
-\code{\link{locale}} to create your own locale that controls things like
+\code{\link[=locale]{locale()}} to create your own locale that controls things like
 the default time zone, encoding, decimal mark, big mark, and day/month
 names.}
 }
 \description{
-Use \code{parse_} if you have a character vector you want to parse. Use
-\code{col_} in conjunction with a \code{read_} function to parse the
+Use \code{parse_*()} if you have a character vector you want to parse. Use
+\code{col_*()} in conjunction with a \code{read_*()} function to parse the
 values as they're read in.
 }
 \examples{
@@ -64,4 +64,3 @@ Other parsers: \code{\link{col_skip}},
   \code{\link{parse_datetime}}, \code{\link{parse_factor}},
   \code{\link{parse_guess}}, \code{\link{parse_number}}
 }
-

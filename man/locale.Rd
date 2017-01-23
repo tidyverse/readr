@@ -13,8 +13,8 @@ default_locale()
 }
 \arguments{
 \item{date_names}{Character representations of day and month names. Either
-the language code as string (passed on to \code{\link{date_names_lang}})
-or an object created by \code{\link{date_names}}.}
+the language code as string (passed on to \code{\link[=date_names_lang]{date_names_lang()}})
+or an object created by \code{\link[=date_names]{date_names()}}.}
 
 \item{date_format, time_format}{Default date and time formats.}
 
@@ -23,19 +23,19 @@ place, and to chunk larger numbers. Decimal mark can only be \code{,} or
 \code{.}.}
 
 \item{tz}{Default tz. This is used both for input (if the time zone isn't
-  present in individual strings), and for output (to control the default
-  display). The default is to use "UTC", a time zone that does not use
-  daylight savings time (DST) and hence is typically most useful for data.
-  The absense of time zones makes it approximately 50x faster to generate
-  UTC times than any other time zone.
+present in individual strings), and for output (to control the default
+display). The default is to use "UTC", a time zone that does not use
+daylight savings time (DST) and hence is typically most useful for data.
+The absense of time zones makes it approximately 50x faster to generate
+UTC times than any other time zone.
 
-  Use \code{""} to use the system default time zone, but beware that this
-  will not be reproducible across systems.
+Use \code{""} to use the system default time zone, but beware that this
+will not be reproducible across systems.
 
-  For a complete list of possible time zones, see \code{\link{OlsonNames}()}.
-  Americans, note that "EST" is a Canadian time zone that does not have
-  DST. It is \emph{not} Eastern Standard Time. It's better to use
-  "US/Eastern", "US/Central" etc.}
+For a complete list of possible time zones, see \code{\link{OlsonNames}()}.
+Americans, note that "EST" is a Canadian time zone that does not have
+DST. It is \emph{not} Eastern Standard Time. It's better to use
+"US/Eastern", "US/Central" etc.}
 
 \item{encoding}{Default encoding. This only affects how the file is
 read - readr always converts the output to UTF-8.}
@@ -58,4 +58,3 @@ locale("fr")
 # South American locale
 locale("es", decimal_mark = ",")
 }
-

@@ -12,9 +12,9 @@ These classes are used to define callback behaviors.
 }
 \details{
 \describe{
- \item{ChunkCallback}{Callback interface definition, all callback functions should inherit from this class.}
- \item{SideEffectChunkCallback}{Callback function that is used only for side effects, no results are returned.}
- \item{DataFrameCallback}{Callback function that combines each result together at the end.}
+\item{ChunkCallback}{Callback interface definition, all callback functions should inherit from this class.}
+\item{SideEffectChunkCallback}{Callback function that is used only for side effects, no results are returned.}
+\item{DataFrameCallback}{Callback function that combines each result together at the end.}
 }
 }
 \examples{
@@ -39,4 +39,3 @@ Other chunked: \code{\link{read_delim_chunked}},
 }
 \keyword{datasets}
 \keyword{internal}
-

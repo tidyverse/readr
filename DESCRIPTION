@@ -35,3 +35,4 @@ BugReports: https://github.com/tidyverse/readr/issues
 URL: http://readr.tidyverse.org, https://github.com/tidyverse/readr
 VignetteBuilder: knitr
 RoxygenNote: 5.0.1.9000
+Roxygen: list(markdown = TRUE)

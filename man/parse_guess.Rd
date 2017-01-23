@@ -20,7 +20,7 @@ option to \code{character()} to indicate no missing values.}
 
 \item{locale}{The locale controls defaults that vary from place to place.
 The default locale is US-centric (like R), but you can use
-\code{\link{locale}} to create your own locale that controls things like
+\code{\link[=locale]{locale()}} to create your own locale that controls things like
 the default time zone, encoding, decimal mark, big mark, and day/month
 names.}
 }
@@ -52,4 +52,3 @@ Other parsers: \code{\link{col_skip}},
   \code{\link{parse_datetime}}, \code{\link{parse_factor}},
   \code{\link{parse_logical}}, \code{\link{parse_number}}
 }
-

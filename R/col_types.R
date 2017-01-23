@@ -1,10 +1,10 @@
 #' Create column specification
 #'
-#' @param ... Either column objects created by \code{col_*}, or their
+#' @param ... Either column objects created by `col_*()`, or their
 #'   abbreviated character names. If you're only overriding a few columns,
 #'   it's best to refer to columns by name. If not named, the column types
 #'   must match the column names exactly.
-#' @param .default Any named columns not explicitly overridden in \code{...}
+#' @param .default Any named columns not explicitly overridden in `...`
 #'   will be read with this column type.
 #' @export
 #' @examples
@@ -88,6 +88,10 @@ print.col_spec <- function(x, n = Inf, condense = NULL, ...) {
   invisible(x)
 }
 
+#' @description
+#' `cols_condense()` takes a spec object and condenses its definition by setting
+#' the default column type to the most frequent type and only listing columns
+#' with a different type.
 #' @rdname spec
 #' @export
 cols_condense <- function(x) {
@@ -178,10 +182,8 @@ show_cols_spec <- function(spec, n = getOption("readr.num_columns", 20)) {
 
 #' Examine the column specifications for a data frame
 #'
-#' \code{\link{spec}} extracts the full column specification from a tibble
-#' created by readr. \code{\link{cols_condense}} takes a spec object and
-#' condenses its definition by setting the default column type to the most
-#' frequent type and only listing columns with a different type.
+#' `spec()` extracts the full column specification from a tibble
+#' created by readr.
 #'
 #' @param x The data frame object to extract from
 #' @return A col_spec object.

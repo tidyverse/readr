@@ -32,7 +32,7 @@ file is created.}
 A string.
 }
 \description{
-These functions are equivalent to \code{\link{write_csv}} etc, but instead
+These functions are equivalent to \code{\link[=write_csv]{write_csv()}} etc., but instead
 of writing to disk, they return a string.
 }
 \section{Output}{
@@ -40,15 +40,15 @@ of writing to disk, they return a string.
 Factors are coerced to character. Doubles are formatted using the grisu3
 algorithm. POSIXct's are formatted as ISO8601.
 
-All columns are encoded as UTF-8. \code{write_excel_csv} also includes a
+All columns are encoded as UTF-8. \code{write_excel_csv()} also includes a
 \href{https://en.wikipedia.org/wiki/Byte_order_mark}{UTF-8 Byte order mark}
 which indicates to Excel the csv is UTF-8 encoded.
 
 Values are only quoted if needed: if they contain a comma, quote or newline.
 }
+
 \references{
 Florian Loitsch, Printing Floating-Point Numbers Quickly and
 Accurately with Integers, PLDI '10,
 \url{http://www.cs.tufts.edu/~nr/cs257/archive/florian-loitsch/printf.pdf}
 }
-

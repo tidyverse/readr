@@ -10,14 +10,14 @@ problems(x)
 stop_for_problems(x)
 }
 \arguments{
-\item{x}{An data frame (from \code{read_*}) or a vector
-(from \code{parse_*}).}
+\item{x}{An data frame (from \code{read_*()}) or a vector
+(from \code{parse_*()}).}
 }
 \value{
 A data frame with one row for each problem and four columns:
-  \item{row,col}{Row and column of problem}
-  \item{expected}{What readr expected to find}
-  \item{actual}{What it actually got}
+\item{row,col}{Row and column of problem}
+\item{expected}{What readr expected to find}
+\item{actual}{What it actually got}
 }
 \description{
 Readr functions will only throw an error if parsing fails in an unrecoverable
@@ -35,4 +35,3 @@ problems(x)
 y <- parse_integer(c("1", "2", "3"))
 problems(y)
 }
-

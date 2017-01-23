@@ -15,4 +15,3 @@ Other parsers: \code{\link{parse_datetime}},
   \code{\link{parse_factor}}, \code{\link{parse_guess}},
   \code{\link{parse_logical}}, \code{\link{parse_number}}
 }
-

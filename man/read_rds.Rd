@@ -18,14 +18,14 @@ write_rds(x, path, compress = c("none", "gz", "bz2", "xz"), ...)
 
 \item{...}{Additional arguments to connection function. For example, control
 the space-time trade-off of different compression methods with
-\code{compression}. See \code{\link{connections}} for more details.}
+\code{compression}. See \code{\link[=connections]{connections()}} for more details.}
 }
 \value{
-\code{write_rds} returns \code{x}, invisibly.
+\code{write_rds()} returns \code{x}, invisibly.
 }
 \description{
-Consistent wrapper around \code{\link{saveRDS}} and \code{\link{readRDS}}.
-\code{write_rds} does notcompress by default as space is generally cheaper
+Consistent wrapper around \code{\link[=saveRDS]{saveRDS()}} and \code{\link[=readRDS]{readRDS()}}.
+\code{write_rds()} does not compress by default as space is generally cheaper
 than time.
 }
 \examples{
@@ -38,4 +38,3 @@ write_rds(mtcars, "compressed_mtc.rds", "xz", compression = 9L)
 }
 }
 \keyword{internal}
-

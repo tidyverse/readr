@@ -1,14 +1,14 @@
 #' Write a data frame to a delimited file
 #'
-#' This is about twice as fast as \code{\link{write.csv}}, and never
-#' writes row names. \code{output_column} is a generic method used to coerce
+#' This is about twice as fast as [write.csv()], and never
+#' writes row names. `output_column()` is a generic method used to coerce
 #' columns to suitable output.
 #'
 #' @section Output:
 #' Factors are coerced to character. Doubles are formatted using the grisu3
 #' algorithm. POSIXct's are formatted as ISO8601.
 #'
-#' All columns are encoded as UTF-8. \code{write_excel_csv} also includes a
+#' All columns are encoded as UTF-8. `write_excel_csv()` also includes a
 #' \href{https://en.wikipedia.org/wiki/Byte_order_mark}{UTF-8 Byte order mark}
 #' which indicates to Excel the csv is UTF-8 encoded.
 #'
@@ -16,17 +16,16 @@
 #'
 #' @param x A data frame to write to disk
 #' @param path Path to write to.
-#' @param append If \code{FALSE}, will overwrite existing file. If \code{TRUE},
+#' @param append If `FALSE`, will overwrite existing file. If `TRUE`,
 #'   will append to existing file. In both cases, if file does not exist a new
 #'   file is created.
 #' @param col_names Write columns names at the top of the file?
-#' @param delim Delimiter used to seperate values. Defaults to \code{" "}. Must be
+#' @param delim Delimiter used to seperate values. Defaults to `" "`. Must be
 #'   a single character.
 #' @param na String used for missing values. Defaults to NA. Missing values
-#'   will never be quoted; strings with the same value as \code{na} will
+#'   will never be quoted; strings with the same value as `na` will
 #'   always be quoted.
-#' @return \code{write_*} returns the input \code{x} invisibly,
-#'   \code{format_*} returns a string.
+#' @return `write_*()` returns the input `x` invisibly.
 #' @references Florian Loitsch, Printing Floating-Point Numbers Quickly and
 #' Accurately with Integers, PLDI '10,
 #' \url{http://www.cs.tufts.edu/~nr/cs257/archive/florian-loitsch/printf.pdf}
@@ -86,7 +85,7 @@ write_tsv <- function(x, path, na = "NA", append = FALSE, col_names = !append) {
 
 #' Convert a data frame to a delimited string
 #'
-#' These functions are equivalent to \code{\link{write_csv}} etc, but instead
+#' These functions are equivalent to [write_csv()] etc., but instead
 #' of writing to disk, they return a string.
 #'
 #' @return A string.

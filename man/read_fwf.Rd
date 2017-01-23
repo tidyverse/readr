@@ -19,42 +19,42 @@ fwf_positions(start, end, col_names = NULL)
 }
 \arguments{
 \item{file}{Either a path to a file, a connection, or literal data
-   (either a single string or a raw vector).
+(either a single string or a raw vector).
 
-   Files ending in \code{.gz}, \code{.bz2}, \code{.xz}, or \code{.zip} will
-   be automatically uncompressed. Files starting with \code{http://},
-   \code{https://}, \code{ftp://}, or \code{ftps://} will be automatically
-   downloaded. Remote gz files can also be automatically downloaded &
-   decompressed.
+Files ending in \code{.gz}, \code{.bz2}, \code{.xz}, or \code{.zip} will
+be automatically uncompressed. Files starting with \code{http://},
+\code{https://}, \code{ftp://}, or \code{ftps://} will be automatically
+downloaded. Remote gz files can also be automatically downloaded and
+decompressed.
 
-   Literal data is most useful for examples and tests. It must contain at
-   least one new line to be recognised as data (instead of a path).}
+Literal data is most useful for examples and tests. It must contain at
+least one new line to be recognised as data (instead of a path).}
 
-\item{col_positions}{Column positions, as created by \code{fwf_empty},
-\code{fwf_widths} or \code{fwf_positions}. To read in only selected fields,
-use \code{fwf_positions}. If the width of the last column is variable (a
+\item{col_positions}{Column positions, as created by \code{\link[=fwf_empty]{fwf_empty()}},
+\code{\link[=fwf_widths]{fwf_widths()}} or \code{\link[=fwf_positions]{fwf_positions()}}. To read in only selected fields,
+use \code{\link[=fwf_positions]{fwf_positions()}}. If the width of the last column is variable (a
 ragged fwf file), supply the last end position as NA.}
 
-\item{col_types}{One of \code{NULL}, a \code{\link{cols}} specification, or
-  a string. See \code{vignette("column-types")} for more details.
+\item{col_types}{One of \code{NULL}, a \code{\link[=cols]{cols()}} specification, or
+a string. See \code{vignette("column-types")} for more details.
 
-  If \code{NULL}, all column types will be imputed from the first 1000 rows
-  on the input. This is convenient (and fast), but not robust. If the
-  imputation fails, you'll need to supply the correct types yourself.
+If \code{NULL}, all column types will be imputed from the first 1000 rows
+on the input. This is convenient (and fast), but not robust. If the
+imputation fails, you'll need to supply the correct types yourself.
 
-  If a column specification created by \code{\link{cols}}, it must contain
-  one column specification for each column. If you only want to read a
-  subset of the columns, use \code{\link{cols_only}}.
+If a column specification created by \code{\link[=cols]{cols()}}, it must contain
+one column specification for each column. If you only want to read a
+subset of the columns, use \code{\link[=cols_only]{cols_only()}}.
 
-  Alternatively, you can use a compact string representation where each
-  character represents one column:
-  c = character, i = integer, n = number, d = double,
-  l = logical, D = date, T = date time, t = time, ? = guess, or
-  \code{_}/\code{-} to skip the column.}
+Alternatively, you can use a compact string representation where each
+character represents one column:
+c = character, i = integer, n = number, d = double,
+l = logical, D = date, T = date time, t = time, ? = guess, or
+\code{_}/\code{-} to skip the column.}
 
 \item{locale}{The locale controls defaults that vary from place to place.
 The default locale is US-centric (like R), but you can use
-\code{\link{locale}} to create your own locale that controls things like
+\code{\link[=locale]{locale()}} to create your own locale that controls things like
 the default time zone, encoding, decimal mark, big mark, and day/month
 names.}
 
@@ -102,7 +102,6 @@ read_fwf(fwf_sample, fwf_widths(c(20, 10, 12), c("name", "state", "ssn")))
 read_fwf(fwf_sample, fwf_positions(c(1, 30), c(10, 42), c("name", "ssn")))
 }
 \seealso{
-\code{\link{read_table}} to read fixed width files where each
-  column is separated by whitespace.
+\code{\link[=read_table]{read_table()}} to read fixed width files where each
+column is separated by whitespace.
 }
-
