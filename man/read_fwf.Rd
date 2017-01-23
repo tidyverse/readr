@@ -11,7 +11,7 @@ read_fwf(file, col_positions, col_types = NULL, locale = default_locale(),
   na = c("", "NA"), comment = "", skip = 0, n_max = Inf,
   guess_max = min(n_max, 1000), progress = interactive())
 
-fwf_empty(file, skip = 0, col_names = NULL, comment = "")
+fwf_empty(file, skip = 0, col_names = NULL, comment = "", n = 100L)
 
 fwf_widths(widths, col_names = NULL)
 
@@ -75,6 +75,9 @@ in an interactive session. The display is updated every 50,000 values
 and will only display if estimated reading time is 5 seconds or more.}
 
 \item{col_names}{Either NULL, or a character vector column names.}
+
+\item{n}{Number of lines the tokenizer will read to determine file structure. By default
+it is set to 100.}
 
 \item{widths}{Width of each field. Use NA as width of last field when
 reading a ragged fwf file.}

@@ -31,7 +31,7 @@ spec_tsv(file, col_names = TRUE, col_types = NULL,
 
 spec_table(file, col_names = TRUE, col_types = NULL,
   locale = default_locale(), na = "NA", skip = 0, n_max = 0,
-  guess_max = 1000, progress = interactive())
+  guess_max = 1000, progress = interactive(), n = 100L)
 }
 \arguments{
 \item{file}{Either a path to a file, a connection, or literal data
@@ -137,7 +137,7 @@ spec_csv(system.file("extdata/mtcars.csv.zip", package = "readr"))
 spec_csv("x,y\\n1,2\\n3,4")
 
 # Column types --------------------------------------------------------------
-# By default, readr guess the columns types, looking at the first 1000 rows.
+# By default, readr guesses the columns types, looking at the first 1000 rows.
 # You can specify the number of rows used with guess_max.
 spec_csv(system.file("extdata/mtcars.csv", package = "readr"), guess_max = 20)
 }

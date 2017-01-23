@@ -13,9 +13,9 @@ date_names_lang(language)
 date_names_langs()
 }
 \arguments{
-\item{mon, mon_ab}{Full and abbreviated month names. Starts with Sunday.}
+\item{mon, mon_ab}{Full and abbreviated month names.}
 
-\item{day, day_ab}{Full and abbreviated week day names}
+\item{day, day_ab}{Full and abbreviated week day names. Starts with Sunday.}
 
 \item{am_pm}{Names used for AM and PM.}
 

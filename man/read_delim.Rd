@@ -138,7 +138,7 @@ read_csv("https://github.com/tidyverse/readr/raw/master/inst/extdata/mtcars.csv"
 read_csv("x,y\\n1,2\\n3,4")
 
 # Column types --------------------------------------------------------------
-# By default, readr guess the columns types, looking at the first 100 rows.
+# By default, readr guesses the columns types, looking at the first 100 rows.
 # You can override with a compact specification:
 read_csv("x,y\\n1,2\\n3,4", col_types = "dc")
 
