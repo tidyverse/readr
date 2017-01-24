@@ -59,6 +59,8 @@ Additional modifications made by Hadley Wickham, (c) RStudio:
 # include <unistd.h> // for access, read, close
 #endif
 
+extern char *tzname[2];
+
 #ifndef TRUE
 #define TRUE        1
 #endif /* !defined TRUE */
