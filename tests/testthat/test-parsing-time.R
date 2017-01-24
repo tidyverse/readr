@@ -9,6 +9,15 @@ test_that("default format captures cases", {
   expect_equal(parse_time("10:20:05 pm"), hms::as.hms(late_night + 5))
 })
 
+test_that("twelve o'clock is parsed properly", {
+  morning <- hms::hms(seconds = 0 * 3600 + 1 * 60)
+  midday <- hms::hms(seconds = 12 * 3600 + 1 * 60)
+
+  expect_equal(parse_time("12:01 AM"), morning)
+  expect_equal(parse_time("12:01 PM"), midday)
+  expect_equal(parse_time("12:01"), midday)
+})
+
 test_that("accepts single digit hour", {
   early_morn <- hms::hms(seconds = 1 * 3600 + 20 * 60)
   expect_equal(parse_time("1:20 am"), early_morn)

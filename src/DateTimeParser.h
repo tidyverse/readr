@@ -311,7 +311,24 @@ public:
 
 private:
   int hour() {
-    return hour_ + (amPm_ == 1 ? 12 : 0);
+    if (hour_ == 12) {
+
+      // 12 AM
+      if (amPm_ == 0) {
+        return hour_ - 12;
+      }
+
+      // 12 PM
+      return hour_;
+    }
+
+    // Rest of PM
+    if (amPm_ == 1) {
+      return hour_ + 12;
+    }
+
+    // 24 hour time
+    return hour_;
   }
 
   inline bool consumeSeconds(int* pSec, double* pPartialSec) {
@@ -481,7 +498,7 @@ private:
     min_ = 0;
     sec_ = 0;
     psec_ = 0;
-    amPm_ = 0;
+    amPm_ = -1;
     compactDate_ = true;
 
     tzOffsetHours_ = 0;
