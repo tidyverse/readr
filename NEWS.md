@@ -7,6 +7,8 @@
 
 * Pass `guess_max` to  fwf_empty, to control how many lines are read for whitespace before determining column structure.
 
+* `read_fwf()` gives error message if specifications have overlapping columns (#534, @gergness)
+
 # readr 0.2.2.9000
 * Skip Unicode byte order markers if they exist (#263, @jimhester).
 
