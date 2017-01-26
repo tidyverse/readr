@@ -1,5 +1,7 @@
 # readr 1.0.0.9000
 
+* parsing problems in `read_delim()` and `read_fwf()` when columns are skipped using col_types now report the correct column name (#573, @cb4ds)
+
 * `parse_time()` now correctly handles 12 AM/PM (#579).
 
 * `read_csv2()` gives a message if it updates the default locale (#443, @krlmlr).
