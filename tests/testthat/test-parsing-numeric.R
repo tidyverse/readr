@@ -33,6 +33,13 @@ test_that("Numbers with trailing characters are parsed as characters", {
   expect_equal(guess_parser(c("13T", "13T", "10N")), "character")
 })
 
+test_that("problems() returns the full failed string if parsing fails (548)", {
+  probs <- problems(read_tsv("x\n1\nx", na = "", col_types = "n"))
+  expect_equal(probs$row, 2)
+  expect_equal(probs$expected, "a number")
+  expect_equal(probs$actual, "x")
+})
+
 # Leading zeros -----------------------------------------------------------
 
 test_that("leading zeros are not numbers", {
