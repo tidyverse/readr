@@ -56,7 +56,7 @@ read_fwf <- function(file, col_positions, col_types = NULL,
   out <- read_tokens(ds, tokenizer, spec$cols, names(spec$cols),
     locale_ = locale, n_max = if (n_max == Inf) -1 else n_max, progress = progress)
 
-  out <- name_problems(out)
+  out <- name_problems(out, names(spec$cols))
   attr(out, "spec") <- spec
   warn_problems(out, source_name(file))
 }
