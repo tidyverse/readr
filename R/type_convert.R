@@ -18,7 +18,7 @@
 #'   subset of the columns, use [cols_only()].
 #'
 #'   Unlike other functions `type_convert()` does not allow character
-#'   specificatinos of `col_types`.
+#'   specifications of `col_types`.
 #' @inheritParams tokenizer_delim
 #' @inheritParams read_delim
 #' @export

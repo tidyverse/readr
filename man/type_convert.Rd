@@ -22,7 +22,7 @@ one column specification for each column. If you only want to read a
 subset of the columns, use \code{\link[=cols_only]{cols_only()}}.
 
 Unlike other functions \code{type_convert()} does not allow character
-specificatinos of \code{col_types}.}
+specifications of \code{col_types}.}
 
 \item{na}{Character vector of strings to use for missing values. Set this
 option to \code{character()} to indicate no missing values.}
