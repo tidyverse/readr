@@ -6,9 +6,9 @@
 \title{Parse factors}
 \usage{
 parse_factor(x, levels, ordered = FALSE, na = c("", "NA"),
-  locale = default_locale())
+  locale = default_locale(), include_na = FALSE)
 
-col_factor(levels, ordered = FALSE)
+col_factor(levels, ordered = FALSE, include_na = FALSE)
 }
 \arguments{
 \item{x}{Character vector of values to parse.}
@@ -25,6 +25,8 @@ The default locale is US-centric (like R), but you can use
 \code{\link[=locale]{locale()}} to create your own locale that controls things like
 the default time zone, encoding, decimal mark, big mark, and day/month
 names.}
+
+\item{include_na}{Should \code{NA} be included as a factor level?}
 }
 \description{
 \code{parse_factor} is similar to \code{\link[=factor]{factor()}}, but will generate

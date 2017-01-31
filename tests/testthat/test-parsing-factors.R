@@ -22,3 +22,7 @@ test_that("NAs silently passed along", {
   expect_equal(x, factor(c("a", "b", NA)))
 })
 
+test_that("NAs included in levels if desired", {
+  x <- parse_factor(c("a", "b", "NA"), levels = c("a", "b"), include_na = TRUE)
+  expect_equal(x, factor(c("a", "b", NA), exclude = NULL))
+})
