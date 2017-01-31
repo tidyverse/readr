@@ -28,3 +28,9 @@ test_that("levels = NULL (497)", {
   expect_equal(n_problems(x), 0)
   expect_equal(x, factor(c("a", "b", "c", "b")))
 })
+
+test_that("NAs included in levels if desired", {
+  x <- parse_factor(c("a", "b", "NA"), levels = c("a", "b"), include_na = TRUE)
+  x <- parse_factor(c("a", "b", "NA"), levels = NULL, include_na = TRUE)
+  expect_equal(x, factor(c("a", "b", NA), exclude = NULL))
+})

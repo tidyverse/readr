@@ -150,12 +150,12 @@ public:
 class CollectorFactor : public Collector {
   Rcpp::CharacterVector levels_;
   std::map<std::string,int> levelset_;
-  bool ordered_, implicitLevels_;
+  bool ordered_, implicitLevels_, includeNa_;
   boost::container::string buffer_;
 
 public:
-  CollectorFactor(Rcpp::Nullable<Rcpp::CharacterVector> levels, bool ordered):
-      Collector(Rcpp::IntegerVector()), ordered_(ordered)
+  CollectorFactor(Rcpp::Nullable<Rcpp::CharacterVector> levels, bool ordered, bool includeNa):
+      Collector(Rcpp::IntegerVector()), levels_(levels), ordered_(ordered), includeNa_(includeNa)
   {
     implicitLevels_ = levels.isNull();
     if (!implicitLevels_) {
@@ -177,6 +177,9 @@ public:
       column_.attr("class") = Rcpp::CharacterVector::create("ordered", "factor");
     } else {
       column_.attr("class") = "factor";
+    }
+    if (includeNa_) {
+      levels_.push_back(NA_STRING);
     }
 
     if (implicitLevels_) {

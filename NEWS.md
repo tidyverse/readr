@@ -20,6 +20,7 @@
 
 * tibble::as.tibble now used to construct tibbles (#538).
 * `parse_factor()` now can accept `levels = NULL`, which allows one to generate factor levels based on the data (like stringsAsFactors = TRUE) (#497).
+* `parse_factor()` gains a `include_na` argument, to include `NA` in the factor levels (#541).
 
 * parsing problems in `read_delim()` and `read_fwf()` when columns are skipped using col_types now report the correct column name (#573, @cb4ds)
 

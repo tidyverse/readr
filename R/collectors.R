@@ -202,6 +202,7 @@ guess_parser <- function(x, locale = default_locale()) {
 #'   will generate levels based on the unique values of `x`, ordered by order
 #'   of appearance in `x`.
 #' @param ordered Is it an ordered factor?
+#' @param include_na If `NA` are present, include as an explicit factor to level?
 #' @inheritParams parse_atomic
 #' @inheritParams tokenizer_delim
 #' @inheritParams read_delim
@@ -222,14 +223,14 @@ guess_parser <- function(x, locale = default_locale()) {
 #' # Using an argument of `NULL` will generate levels based on values of `x`
 #' x2 <- parse_factor(x, levels = NULL)
 parse_factor <- function(x, levels, ordered = FALSE, na = c("", "NA"),
-                         locale = default_locale()) {
-  parse_vector(x, col_factor(levels, ordered), na = na, locale = locale)
+                         locale = default_locale(), include_na = TRUE) {
+  parse_vector(x, col_factor(levels, ordered, include_na), na = na, locale = locale)
 }
 
 #' @rdname parse_factor
 #' @export
-col_factor <- function(levels, ordered = FALSE) {
-  collector("factor", levels = levels, ordered = ordered)
+col_factor <- function(levels, ordered = FALSE, include_na = FALSE) {
+  collector("factor", levels = levels, ordered = ordered, include_na = include_na)
 }
 
 # More complex ------------------------------------------------------------
