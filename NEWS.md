@@ -8,6 +8,7 @@
 * parsing problems now include the filename (#581).
 * Numeric parser now returns the full string if it contains no numbers (#548).
 * `read_table()` can now handle `pipe()` connections (#552).
+* The `guess_max` argument now throws errors on inappropriate inputs (#588).
 
 * parsing problems in `read_delim()` and `read_fwf()` when columns are skipped using col_types now report the correct column name (#573, @cb4ds)
 

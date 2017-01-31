@@ -218,7 +218,7 @@ col_concise <- function(x) {
 
 col_spec_standardise <- function(file, col_names = TRUE, col_types = NULL,
                                  guessed_types = NULL,
-                                 comment = "", skip = 0, n = 1000,
+                                 comment = "", skip = 0, guess_max = 1000,
                                  tokenizer = tokenizer_csv(),
                                  locale = default_locale(),
                                  drop_skipped_names = FALSE) {
@@ -353,7 +353,7 @@ col_spec_standardise <- function(file, col_names = TRUE, col_types = NULL,
   if (any(is_guess)) {
     if (is.null(guessed_types)) {
       ds <- datasource(file, skip = skip, comment = comment)
-      guessed_types <- guess_types(ds, tokenizer, locale, n = n)
+      guessed_types <- guess_types(ds, tokenizer, locale, guess_max = guess_max)
     }
 
     # Need to be careful here: there might be more guesses than types/names
@@ -364,8 +364,18 @@ col_spec_standardise <- function(file, col_names = TRUE, col_types = NULL,
   spec
 }
 
-guess_types <- function(datasource, tokenizer, locale, n = 1000) {
-  guess_types_(datasource, tokenizer, locale, n = n)
+guess_types <- function(datasource, tokenizer, locale, guess_max = 1000, max_limit = .Machine$integer.max %/% 100) {
+  if (is.na(guess_max) || guess_max < 0) {
+    stop("`guess_max` must be a positive integer", call. = FALSE)
+  }
+
+  if (guess_max > max_limit) {
+    warning("`guess_max` is a very large value, setting to `", max_limit,
+      "` to avoid exhausting memory", call. = FALSE)
+    guess_max <- max_limit
+  }
+
+  guess_types_(datasource, tokenizer, locale, n = guess_max)
 }
 
 guess_header <- function(datasource, tokenizer, locale = default_locale()) {

@@ -226,3 +226,10 @@ test_that("long expressions are wrapped (597)", {
 )
 ')
 })
+
+test_that("guess_types errors on invalid inputs", {
+  expect_error(col_spec_standardise("a,b,c\n", guess_max = NA), "`guess_max` must be a positive integer")
+  expect_error(col_spec_standardise("a,b,c\n", guess_max = -1), "`guess_max` must be a positive integer")
+
+  expect_warning(col_spec_standardise("a,b,c\n", guess_max = Inf), "`guess_max` is a very large value")
+})

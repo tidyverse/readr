@@ -41,7 +41,7 @@ read_fwf <- function(file, col_positions, col_types = NULL,
   spec <- col_spec_standardise(
     file,
     skip = skip,
-    n = guess_max,
+    guess_max = guess_max,
     tokenizer = tokenizer,
     locale = locale,
     col_names = col_positions$col_names,

@@ -174,7 +174,7 @@ read_delimited <- function(file, tokenizer, col_names = TRUE, col_types = NULL,
   }
 
   spec <- col_spec_standardise(
-    data, skip = skip, comment = comment, n = guess_max,
+    data, skip = skip, comment = comment, guess_max = guess_max,
     col_names = col_names, col_types = col_types, tokenizer = tokenizer,
     locale = locale)
 

@@ -37,7 +37,7 @@ read_table <- function(file, col_names = TRUE, col_types = NULL,
   tokenizer <- tokenizer_fwf(columns$begin, columns$end, na = na, comment = comment)
 
   spec <- col_spec_standardise(
-    file = ds, skip = skip, n = guess_max,
+    file = ds, skip = skip, guess_max = guess_max,
     col_names = col_names, col_types = col_types,
     locale = locale, tokenizer = tokenizer
   )
