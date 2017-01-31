@@ -1,7 +1,7 @@
 context("read_fwf")
 
 test_that("trailing spaces ommitted", {
-  spec <- fwf_empty(test_path("fwf-trailing.txt"))
+  spec <- fwf_empty("fwf-trailing.txt")
   expect_equal(spec$begin, c(0, 4))
   expect_equal(spec$end, c(3, NA))
 
