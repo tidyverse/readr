@@ -5,7 +5,7 @@
 \title{Read common/combined log file into a tibble}
 \usage{
 read_log(file, col_names = FALSE, col_types = NULL, skip = 0,
-  n_max = -1, progress = show_progress())
+  n_max = Inf, progress = show_progress())
 }
 \arguments{
 \item{file}{Either a path to a file, a connection, or literal data
