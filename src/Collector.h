@@ -151,11 +151,12 @@ class CollectorFactor : public Collector {
   Rcpp::CharacterVector levels_;
   std::map<std::string,int> levelset_;
   bool ordered_;
+  bool includeNa_;
   boost::container::string buffer_;
 
 public:
-  CollectorFactor(Rcpp::CharacterVector levels, bool ordered):
-      Collector(Rcpp::IntegerVector()), levels_(levels), ordered_(ordered)
+  CollectorFactor(Rcpp::CharacterVector levels, bool ordered, bool includeNa):
+      Collector(Rcpp::IntegerVector()), levels_(levels), ordered_(ordered), includeNa_(includeNa)
   {
     int n = levels.size();
 
@@ -172,6 +173,9 @@ public:
       column_.attr("class") = Rcpp::CharacterVector::create("ordered", "factor");
     } else {
       column_.attr("class") = "factor";
+    }
+    if (includeNa_) {
+      levels_.push_back(NA_STRING);
     }
 
     column_.attr("levels") = levels_;

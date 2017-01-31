@@ -200,6 +200,7 @@ guess_parser <- function(x, locale = default_locale()) {
 #'
 #' @param levels Character vector providing set of allowed levels.
 #' @param ordered Is it an ordered factor?
+#' @param include_na Should `NA` be included as a factor level?
 #' @inheritParams parse_atomic
 #' @inheritParams tokenizer_delim
 #' @inheritParams read_delim
@@ -217,14 +218,14 @@ guess_parser <- function(x, locale = default_locale()) {
 #' # parse_factor generates a warning & problems
 #' x2 <- parse_factor(x, levels)
 parse_factor <- function(x, levels, ordered = FALSE, na = c("", "NA"),
-                         locale = default_locale()) {
-  parse_vector(x, col_factor(levels, ordered), na = na, locale = locale)
+                         locale = default_locale(), include_na = FALSE) {
+  parse_vector(x, col_factor(levels, ordered, include_na), na = na, locale = locale)
 }
 
 #' @rdname parse_factor
 #' @export
-col_factor <- function(levels, ordered = FALSE) {
-  collector("factor", levels = levels, ordered = ordered)
+col_factor <- function(levels, ordered = FALSE, include_na = FALSE) {
+  collector("factor", levels = levels, ordered = ordered, include_na = include_na)
 }
 
 # More complex ------------------------------------------------------------
