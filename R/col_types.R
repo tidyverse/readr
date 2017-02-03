@@ -391,3 +391,21 @@ guess_types <- function(datasource, tokenizer, locale, guess_max = 1000,
 guess_header <- function(datasource, tokenizer, locale = default_locale()) {
   guess_header_(datasource, tokenizer, locale)
 }
+
+add_decimal <- function(x, decimal_places){
+  if(is.collector(x) & class(x)[1] == "collector_double"){
+    txt <- paste("double", decimal_places, sep = "")
+    return(collector(txt))
+  }
+}
+
+add_decimal_places <- function(decimal_places, cols){
+  index <- which(decimal_places > 0)
+  to <- length(index)
+  if(to > 0){
+    for(i in 1:to){
+      cols[[index[i]]] <- add_decimal(cols[[index[i]]], decimal_places[index[i]])
+    }
+  }
+  cols
+}

@@ -182,3 +182,11 @@ test_that("read_table can read from a pipe (552)", {
   x <- read_table(pipe("echo a b c && echo 1 2 3 && echo 4 5 6"), progress = FALSE)
   expect_equal(x$a, c(1, 4))
 })
+
+test_that("read_fwf with decimal places", {
+  x <- read_fwf('7892159134\n', col_positions = fwf_positions(c(1,5), c(4,10), decimal_position = c(2,3)), col_types = "dd")
+  expect_equal(x$X1, 78.92)
+  expect_equal(x$X2, 159.134)
+})
+
+

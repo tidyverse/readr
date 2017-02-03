@@ -14,8 +14,13 @@ CollectorPtr Collector::create(List spec, LocaleInfo* pLocale) {
     return CollectorPtr(new CollectorLogical());
   if (subclass == "collector_integer")
     return CollectorPtr(new CollectorInteger());
-  if (subclass == "collector_double") {
-    return CollectorPtr(new CollectorDouble(pLocale->decimalMark_));
+  if (subclass.compare(0,16,"collector_double") == 0) {
+    int decpos = 0;
+    if(subclass.size() >= 17){
+       std::string digits = subclass.substr(16);
+       parseInt(digits, decpos);
+    }
+    return CollectorPtr(new CollectorDouble(pLocale->decimalMark_, decpos));
   }
   if (subclass == "collector_number")
     return CollectorPtr(new CollectorNumeric(pLocale->decimalMark_, pLocale->groupingMark_));
@@ -169,6 +174,8 @@ void CollectorDouble::setValue(int i, const Token& t) {
       REAL(column_)[i] = NA_REAL;
       warn(t.row(), t.col(), "a double", str);
       return;
+    }else if(decimalPosition_ > 0){
+      REAL(column_)[i] = REAL(column_)[i]/pow(10, decimalPosition_);
     }
 
     if (str.first != str.second) {

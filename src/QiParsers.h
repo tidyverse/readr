@@ -124,4 +124,14 @@ inline bool parseInt(Iterator& first, Iterator& last, Attr& res) {
   return boost::spirit::qi::parse(first, last, boost::spirit::qi::int_, res);
 }
 
+inline bool parseInt(std::string& text, int& res) {
+  try{
+    res = boost::lexical_cast<int>(text);
+    return true;
+  }catch(const boost::bad_lexical_cast &){
+    res = 0;
+    return false;
+  }
+}
+
 #endif

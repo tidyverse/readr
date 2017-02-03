@@ -141,9 +141,10 @@ public:
 
 class CollectorDouble : public Collector {
   char decimalMark_;
+  int decimalPosition_;
 public:
-  CollectorDouble(char decimalMark): Collector(Rcpp::NumericVector()),
-      decimalMark_(decimalMark) {}
+  CollectorDouble(char decimalMark, int decpos = 0): Collector(Rcpp::NumericVector()),
+      decimalMark_(decimalMark), decimalPosition_(decpos) {}
   void setValue(int i, const Token& t);
 };
 

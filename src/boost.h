@@ -13,4 +13,6 @@
 #include <boost/algorithm/string/predicate.hpp>
 #include <boost/spirit/include/qi.hpp>
 
+#include <boost/lexical_cast.hpp>
+
 #endif

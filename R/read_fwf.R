@@ -59,11 +59,15 @@ read_fwf <- function(file, col_positions, col_types = NULL,
     show_cols_spec(spec)
   }
 
+  if("decimal_position" %in% names(col_positions) & any(col_positions$decimal_position > 0)){
+    spec$cols <- add_decimal_places(col_positions$decimal_position, spec$cols)
+  }
   out <- read_tokens(ds, tokenizer, spec$cols, names(spec$cols),
     locale_ = locale, n_max = if (n_max == Inf) -1 else n_max,
     progress = progress)
 
   out <- name_problems(out, names(spec$cols), source_name(file))
+
   attr(out, "spec") <- spec
   warn_problems(out)
 }
@@ -97,15 +101,18 @@ fwf_widths <- function(widths, col_names = NULL) {
 #' @export
 #' @param start,end Starting and ending (inclusive) positions of each field.
 #'    Use NA as last end field when reading a ragged fwf file.
-fwf_positions <- function(start, end = NULL, col_names = NULL) {
+#' @param decimal_position Either NULL, or a numeric vector of decimal positions on columns
+fwf_positions <- function(start, end = NULL, col_names = NULL, decimal_position = NULL) {
 
   stopifnot(length(start) == length(end))
   col_names <- fwf_col_names(col_names, length(start))
+  if(is.null(decimal_position)) decimal_position <- rep_len(0, length(start))
 
   tibble(
     begin = start - 1L,
     end = end, # -1 to change to 0 offset, +1 to be exclusive,
-    col_names = col_names
+    col_names = col_names,
+    decimal_position = decimal_position
   )
 }
 
