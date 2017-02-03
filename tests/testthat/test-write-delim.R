@@ -77,18 +77,18 @@ test_that("write_excel_csv includes a byte order mark", {
 })
 
 
-test_that("writes a tailing .0 for whole number doubles", {
-  expect_equal(format_tsv(tibble::data_frame(x = 1)), "x\n1.0\n")
+test_that("does not writes a tailing .0 for whole number doubles", {
+  expect_equal(format_tsv(tibble::data_frame(x = 1)), "x\n1\n")
 
-  expect_equal(format_tsv(tibble::data_frame(x = 0)), "x\n0.0\n")
+  expect_equal(format_tsv(tibble::data_frame(x = 0)), "x\n0\n")
 
-  expect_equal(format_tsv(tibble::data_frame(x = -1)), "x\n-1.0\n")
+  expect_equal(format_tsv(tibble::data_frame(x = -1)), "x\n-1\n")
 
-  expect_equal(format_tsv(tibble::data_frame(x = 999)), "x\n999.0\n")
+  expect_equal(format_tsv(tibble::data_frame(x = 999)), "x\n999\n")
 
-  expect_equal(format_tsv(tibble::data_frame(x = -999)), "x\n-999.0\n")
+  expect_equal(format_tsv(tibble::data_frame(x = -999)), "x\n-999\n")
 
-  expect_equal(format_tsv(tibble::data_frame(x = 123456789)), "x\n123456789.0\n")
+  expect_equal(format_tsv(tibble::data_frame(x = 123456789)), "x\n123456789\n")
 
-  expect_equal(format_tsv(tibble::data_frame(x = -123456789)), "x\n-123456789.0\n")
+  expect_equal(format_tsv(tibble::data_frame(x = -123456789)), "x\n-123456789\n")
 })

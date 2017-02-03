@@ -2,6 +2,7 @@
 
 * Long spec declarations now print properly (#597).
 * `read_table()` can now handle files with many lines of leading comments (#563).
+* Whole number doubles are no longer written with a trailing `.0` decimal (#526).
 
 * parsing problems in `read_delim()` and `read_fwf()` when columns are skipped using col_types now report the correct column name (#573, @cb4ds)
 
