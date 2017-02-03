@@ -1,6 +1,7 @@
 # readr 1.0.0.9000
 
 * Long spec declarations now print properly (#597).
+* `read_table()` can now handle files with many lines of leading comments (#563).
 
 * parsing problems in `read_delim()` and `read_fwf()` when columns are skipped using col_types now report the correct column name (#573, @cb4ds)
 

@@ -21,7 +21,7 @@ test_that("skipping column doesn't pad col_names", {
 })
 
 test_that("fwf_empty can skip comments", {
-  x <- "1 2 3\nCOMMENT\n4 5 6"
+  x <- "COMMENT\n1 2 3\n4 5 6"
 
   out1 <- read_fwf(x, fwf_empty(x, comment = "COMMENT"), comment = "COMMENT")
   expect_equal(dim(out1), c(2, 3))
@@ -132,4 +132,12 @@ test_that("error on empty spec (#511, #519)", {
 test_that("read_table silently reads ragged last column", {
   x <- read_table("foo bar\n1   2\n3   4\n5   6\n", progress = FALSE)
   expect_equal(x$foo, c(1, 3, 5))
+})
+
+test_that("read_table skips all comment lines", {
+  x <- read_table("foo bar\n1   2\n3   4\n5   6\n", progress = FALSE)
+
+  y <- read_table("#comment1\n#comment2\nfoo bar\n1   2\n3   4\n5   6\n", progress = FALSE, comment = "#")
+
+  expect_equal(x, y)
 })

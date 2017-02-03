@@ -6,25 +6,48 @@ using namespace Rcpp;
 #include "TokenizerFwf.h"
 #include "utils.h"
 
+struct skip_t {
+  SourceIterator begin;
+  int lines;
+};
+
+skip_t skip_comments(SourceIterator begin, SourceIterator end, std::string comment = "") {
+  skip_t out;
+  if (comment.length() == 0) {
+    out.begin = begin;
+    out.lines = 0;
+    return out;
+  }
+
+  SourceIterator cur = begin;
+  int skip = 0;
+  boost::iterator_range<const char*> haystack(cur, end);
+  while(boost::starts_with(haystack, comment)) {
+    //Rcpp::Rcout << boost::starts_with(haystack, comment);
+    // Skip rest of line
+    while(cur != end && *cur != '\n' && *cur != '\r') {
+      ++cur;
+    }
+
+    advanceForLF(&cur, end);
+    ++cur;
+    haystack = boost::iterator_range<const char*>(cur, end);
+    ++skip;
+  }
+
+  out.begin = cur;
+  out.lines = skip;
+  return out;
+}
+
 std::vector<bool> emptyCols_(SourceIterator begin, SourceIterator end, size_t n = 100, std::string comment = "") {
 
   std::vector<bool> is_white;
 
   size_t row = 0, col = 0;
-  bool hasComment = comment.length() > 0;
   for (SourceIterator cur = begin; cur != end; ++cur) {
     if (row > n)
       break;
-
-    if (col == 0 && hasComment) {
-      boost::iterator_range<const char*> haystack(cur, end);
-      if (boost::starts_with(haystack, comment)) {
-          // Skip rest of line
-          while(cur != end && *cur != '\n' && *cur != '\r') {
-            ++cur;
-          }
-      }
-    }
 
     switch(*cur) {
     case '\n':
@@ -53,7 +76,9 @@ std::vector<bool> emptyCols_(SourceIterator begin, SourceIterator end, size_t n 
 List whitespaceColumns(List sourceSpec, int n = 100, std::string comment = "") {
   SourcePtr source = Source::create(sourceSpec);
 
-  std::vector<bool> empty = emptyCols_(source->begin(), source->end(), n, comment);
+  skip_t s = skip_comments(source->begin(), source->end(), comment);
+
+  std::vector<bool> empty = emptyCols_(s.begin, source->end(), n);
   std::vector<int> begin, end;
 
   bool in_col = false;
@@ -73,7 +98,8 @@ List whitespaceColumns(List sourceSpec, int n = 100, std::string comment = "") {
 
   return List::create(
     _["begin"] = begin,
-    _["end"] = end
+    _["end"] = end,
+    _["skip"] = s.lines
   );
 }
 
@@ -136,7 +162,7 @@ Token TokenizerFwf::nextToken() {
     return Token(TOKEN_EOF, 0, 0);
 
   // Check for comments only at start of line
-  if (col_ == 0 && isComment(cur_)) {
+  while(cur_ != end_ && col_ == 0 && isComment(cur_)) {
     // Skip rest of line
     while(cur_ != end_ && *cur_ != '\n' && *cur_ != '\r') {
       ++cur_;
