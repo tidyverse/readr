@@ -1,5 +1,9 @@
 # readr 1.0.0.9000
 
+* `read_delim()` now signals an error if given an empty delimiter (#557).
+
+* Whole number doubles are no longer written with a trailing `.0` decimal (#526).
+
 * parsing problems in `read_delim()` and `read_fwf()` when columns are skipped using col_types now report the correct column name (#573, @cb4ds)
 
 * `parse_time()` now correctly handles 12 AM/PM (#579).

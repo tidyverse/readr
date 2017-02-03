@@ -95,6 +95,11 @@ read_delim <- function(file, delim, quote = '"',
                        comment = "", trim_ws = FALSE,
                        skip = 0, n_max = Inf, guess_max = min(1000, n_max),
                        progress = show_progress()) {
+
+  if (!nzchar(delim)) {
+    stop("`delim` must be at least one character, ",
+      "use `read_table()` for whitespace delimited input.", call. = FALSE)
+  }
   tokenizer <- tokenizer_delim(delim, quote = quote,
     escape_backslash = escape_backslash, escape_double = escape_double,
     na = na, quoted_na = quoted_na, comment = comment, trim_ws = trim_ws)
