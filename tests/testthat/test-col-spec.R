@@ -217,3 +217,12 @@ test_that("non-syntatic names are escaped", {
 )
 ")
 })
+
+test_that("long expressions are wrapped (597)", {
+  expect_equal(format(cols(a = col_factor(levels = c("apple", "pear", "banana", "peach", "apricot", "orange", "plum"), ordered = TRUE))),
+'cols(
+  a = col_factor(levels = c("apple", "pear", "banana", "peach", "apricot", "orange", "plum"
+    ), ordered = TRUE)
+)
+')
+})
