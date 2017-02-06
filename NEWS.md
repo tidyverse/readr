@@ -7,6 +7,7 @@
 * ListCallback S6 Class to provide a more flexible return type for callback functions (#568, @mmuurr)
 * parsing problems now include the filename (#581).
 * Numeric parser now returns the full string if it contains no numbers (#548).
+* `read_table()` can now handle `pipe()` connections (#552).
 
 * parsing problems in `read_delim()` and `read_fwf()` when columns are skipped using col_types now report the correct column name (#573, @cb4ds)
 

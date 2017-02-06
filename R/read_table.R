@@ -30,13 +30,14 @@ read_table <- function(file, col_names = TRUE, col_types = NULL,
                        locale = default_locale(), na = "NA", skip = 0,
                        n_max = Inf, guess_max = min(n_max, 1000),
                        progress = show_progress(), comment = "") {
-  columns <- fwf_empty(file, skip = skip, n = guess_max, comment = comment)
+  ds <- datasource(file, skip = skip)
+  columns <- fwf_empty(ds, skip = skip, n = guess_max, comment = comment)
   skip <- skip + columns$skip
 
   tokenizer <- tokenizer_fwf(columns$begin, columns$end, na = na, comment = comment)
 
   spec <- col_spec_standardise(
-    file = file, skip = skip, n = guess_max,
+    file = ds, skip = skip, n = guess_max,
     col_names = col_names, col_types = col_types,
     locale = locale, tokenizer = tokenizer
   )
@@ -45,7 +46,7 @@ read_table <- function(file, col_names = TRUE, col_types = NULL,
      print(spec, n = getOption("readr.num_columns", 20))
   }
 
-  ds <- datasource(file, skip = skip + isTRUE(col_names))
+  ds <- datasource(file = ds, skip = skip + isTRUE(col_names))
   res <- read_tokens(ds, tokenizer, spec$cols, names(spec$cols), locale_ = locale,
     n_max = n_max, progress = progress)
   attr(res, "spec") <- spec

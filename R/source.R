@@ -33,6 +33,8 @@
 #' close(con)
 datasource <- function(file, skip = 0, comment = "") {
   if (inherits(file, "source")) {
+    if (!missing(skip)) { file$skip <- skip }
+    if (!missing(comment)) { file$comment <- comment }
     file
   } else if (is.connection(file)) {
     datasource_connection(file, skip, comment)
