@@ -74,21 +74,34 @@ test_that("read_delim_chunked", {
 
 test_that("DataFrameCallback works as intended", {
   f <- readr_example("mtcars.csv")
-  unchunked <- read_csv(f)
+  out0 <- subset(read_csv(f), gear == 3)
   fun3 <- DataFrameCallback$new(function(x, pos) subset(x, gear == 3))
 
   out1 <- read_csv_chunked(f, fun3)
-  out2 <- read_csv_chunked(readr_example("mtcars.csv"), fun3, chunk_size = 10)
 
-  expect_true(all.equal(subset(unchunked, gear == 3), out1))
-  expect_true(all.equal(out1, out2))
+  # Need to set guess_max higher than 1 to guess correct column types
+  out2 <- read_csv_chunked(f, fun3, chunk_size = 1, guess_max = 10)
+
+  out3 <- read_csv_chunked(f, fun3, chunk_size = 10)
+
+  expect_true(all.equal(out0, out1))
+  expect_true(all.equal(out0, out2))
+  expect_true(all.equal(out0, out3))
 
 
   # No matching rows
-  fun5 <- DataFrameCallback$new(function(x, pos) subset(x, gear == 5))
-  out3 <- read_csv_chunked(readr_example("mtcars.csv"), fun5)
-  out4 <- read_csv_chunked(readr_example("mtcars.csv"), fun5, chunk_size = 10)
+  out0 <- subset(read_csv(f), gear == 5)
 
-  expect_true(all.equal(subset(unchunked, gear == 5), out3))
-  expect_true(all.equal(out3, out4))
+  fun5 <- DataFrameCallback$new(function(x, pos) subset(x, gear == 5))
+
+  out1 <- read_csv_chunked(f, fun5)
+
+  # Need to set guess_max higher than 1 to guess correct column types
+  out2 <- read_csv_chunked(f, fun5, chunk_size = 1, guess_max = 10)
+
+  out3 <- read_csv_chunked(f, fun5, chunk_size = 10)
+
+  expect_true(all.equal(out0, out1))
+  expect_true(all.equal(out0, out2))
+  expect_true(all.equal(out0, out3))
 })
