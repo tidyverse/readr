@@ -31,3 +31,10 @@ test_that("skipping columns gives incorrect problem column (#573)", {
   expect_equal(fwf.sk0.2$col, c("X1", "X3"))
   expect_equal(fwf.sk1.2$col, c("X1", "X3"))
 })
+
+test_that("problems returns the filename (#581)", {
+  files <- problems(read_csv(readr_example("mtcars.csv"), col_types = cols(mpg = col_integer())))$file
+
+  expect_equal(length(files), 28L)
+  expect_equal("mtcars.csv'", basename(files)[[1L]])
+})

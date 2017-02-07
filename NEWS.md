@@ -5,6 +5,7 @@
 * Whole number doubles are no longer written with a trailing `.0` decimal (#526).
 * `write_lines()` now accepts a list of raw vectors (#542).
 * ListCallback S6 Class to provide a more flexible return type for callback functions (#568, @mmuurr)
+* parsing problems now include the filename (#581).
 
 * parsing problems in `read_delim()` and `read_fwf()` when columns are skipped using col_types now report the correct column name (#573, @cb4ds)
 
