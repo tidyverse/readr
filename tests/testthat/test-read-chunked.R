@@ -105,3 +105,13 @@ test_that("DataFrameCallback works as intended", {
   expect_true(all.equal(out0, out2))
   expect_true(all.equal(out0, out3))
 })
+
+test_that("ListCallback works as intended", {
+  f <- readr_example("mtcars.csv")
+  out0 <- read_csv(f)
+
+  fun <- ListCallback$new(function(x, pos) x[["mpg"]])
+  out1 <- read_csv_chunked(f, fun, chunk_size = 10)
+
+  expect_equal(out0[["mpg"]], unlist(out1))
+})
