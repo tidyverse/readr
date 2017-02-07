@@ -150,19 +150,24 @@ public:
 class CollectorFactor : public Collector {
   Rcpp::CharacterVector levels_;
   std::map<std::string,int> levelset_;
-  bool ordered_;
+  bool ordered_, implicitLevels_;
   boost::container::string buffer_;
 
 public:
-  CollectorFactor(Rcpp::CharacterVector levels, bool ordered):
-      Collector(Rcpp::IntegerVector()), levels_(levels), ordered_(ordered)
+  CollectorFactor(Rcpp::Nullable<Rcpp::CharacterVector> levels, bool ordered):
+      Collector(Rcpp::IntegerVector()), ordered_(ordered)
   {
-    int n = levels.size();
+    implicitLevels_ = levels.isNull();
+    if (!implicitLevels_) {
+      Rcpp::CharacterVector lvls = Rcpp::CharacterVector(levels);
+      levels_ = lvls;
+      int n = lvls.size();
 
-    for (int i = 0; i < n; ++i) {
-      const char* level = Rf_translateCharUTF8(STRING_ELT(levels, i));
-      std::string std_level(level);
-      levelset_.insert(std::make_pair(std_level, i));
+      for (int i = 0; i < n; ++i) {
+        const char* level = Rf_translateCharUTF8(STRING_ELT(lvls, i));
+        std::string std_level(level);
+        levelset_.insert(std::make_pair(std_level, i));
+      }
     }
   }
   void setValue(int i, const Token& t);
@@ -174,6 +179,13 @@ public:
       column_.attr("class") = "factor";
     }
 
+    if (implicitLevels_) {
+      levels_ = Rcpp::CharacterVector(levelset_.size());
+      int i = 0;
+      for (std::map<std::string,int>::const_iterator it = levelset_.begin();it != levelset_.end();++it, ++i) {
+        levels_[i] = it->first;
+      }
+    }
     column_.attr("levels") = levels_;
     return column_;
   };

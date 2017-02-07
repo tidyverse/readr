@@ -22,3 +22,9 @@ test_that("NAs silently passed along", {
   expect_equal(x, factor(c("a", "b", NA)))
 })
 
+test_that("levels = NULL (497)", {
+  x <- parse_factor(c("a", "b", "c", "b"), levels = NULL)
+
+  expect_equal(n_problems(x), 0)
+  expect_equal(x, factor(c("a", "b", "c", "b")))
+})
