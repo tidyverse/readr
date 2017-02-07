@@ -198,7 +198,9 @@ guess_parser <- function(x, locale = default_locale()) {
 #' `parse_factor` is similar to [factor()], but will generate
 #' warnings if elements of `x` are not found in `levels`.
 #'
-#' @param levels Character vector providing set of allowed levels.
+#' @param levels Character vector providing set of allowed levels. if `NULL`,
+#'   will generate levels based on the unique values of `x`, ordered by order
+#'   of appearance in `x`.
 #' @param ordered Is it an ordered factor?
 #' @inheritParams parse_atomic
 #' @inheritParams tokenizer_delim
@@ -216,6 +218,9 @@ guess_parser <- function(x, locale = default_locale()) {
 #'
 #' # parse_factor generates a warning & problems
 #' x2 <- parse_factor(x, levels)
+#'
+#' # Using an argument of `NULL` will generate levels based on values of `x`
+#' x2 <- parse_factor(x, levels = NULL)
 parse_factor <- function(x, levels, ordered = FALSE, na = c("", "NA"),
                          locale = default_locale()) {
   parse_vector(x, col_factor(levels, ordered), na = na, locale = locale)
