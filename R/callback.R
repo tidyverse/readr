@@ -33,11 +33,15 @@ as_chunk_callback.ChunkCallback <- function(x) {
 #' f <- function(x, pos) print(pos)
 #' read_lines_chunked(readr_example("mtcars.csv"), SideEffectChunkCallback$new(f), chunk_size = 5)
 #'
-#' ## If combined results are desired you can use the DataFrameCallback
+#' # If combined results are desired you can use the DataFrameCallback
 #'
 #' # Cars with 3 gears
 #' f <- function(x, pos) subset(x, gear == 3)
 #' read_csv_chunked(readr_example("mtcars.csv"), DataFrameCallback$new(f), chunk_size = 5)
+#'
+#' # The ListCallback can be used for more flexible output
+#' f <- function(x, pos) x$mpg[x$hp > 100]
+#' read_csv_chunked(readr_example("mtcars.csv"), ListCallback$new(f), chunk_size = 5)
 #' @export
 ChunkCallback <- R6::R6Class("ChunkCallback",
   private = list(
