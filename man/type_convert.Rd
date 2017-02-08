@@ -57,5 +57,5 @@ str(type_convert(df))
 # Type convert can be used to infer types from an entire dataset
 type_convert(
   read_csv(readr_example("mtcars.csv"),
-    col_types = cols(.default = col_character())))
+           col_types = cols(.default = col_character())))
 }
