@@ -19,3 +19,7 @@ show_progress <- function() {
 deparse2 <- function(expr, ..., sep = "\n") {
   paste(deparse(expr, ...), collapse = sep)
 }
+
+is_integerish <- function(x) {
+  floor(x) == x
+}
