@@ -44,7 +44,7 @@ void Reader::init(CharacterVector colNames) {
 }
 
 RObject Reader::readToDataFrame(int lines) {
-  int rows = read(lines);
+  read(lines);
 
   // Save individual columns into a data frame
   List out(outNames_.size());
@@ -53,16 +53,14 @@ RObject Reader::readToDataFrame(int lines) {
     out[j++] = collectors_[*it]->vector();
   }
 
-  out.attr("class") = CharacterVector::create("tbl_df", "tbl", "data.frame");
-  out.attr("row.names") = IntegerVector::create(NA_INTEGER, -(rows + 1));
   out.attr("names") = outNames_;
-
   out = warnings_.addAsAttribute(out);
 
   collectorsClear();
   warnings_.clear();
 
-  return out;
+  static Function as_tibble("as_tibble", Environment::namespace_env("tibble"));
+  return as_tibble(out);
 }
 
 int Reader::read(int lines) {
