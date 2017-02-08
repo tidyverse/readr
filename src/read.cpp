@@ -68,8 +68,11 @@ void read_lines_chunked_(List sourceSpec, List locale_,
   CharacterVector out;
 
   int pos = 1;
-  while (isTrue(R6method(callback, "continue")()) &&
-      (out = r.readToVector<CharacterVector>(chunkSize)).size()) {
+  while (isTrue(R6method(callback, "continue")())) {
+    CharacterVector out = r.readToVector<CharacterVector>(chunkSize);
+    if (out.size() == 0) {
+      return;
+    }
     R6method(callback, "receive")(out, pos);
     pos += out.size();
   }
@@ -120,11 +123,12 @@ void read_tokens_chunked_(List sourceSpec, Environment callback, int chunkSize,
     progress,
     colNames);
 
-  DataFrame out;
-
   int pos = 1;
-  while (isTrue(R6method(callback, "continue")()) &&
-      (out = r.readToDataFrame(chunkSize)).nrows()) {
+  while (isTrue(R6method(callback, "continue")())) {
+    DataFrame out = r.readToDataFrame(chunkSize);
+    if (out.nrows() == 0) {
+      return;
+    }
     R6method(callback, "receive")(out, pos);
     pos += out.nrows();
   }

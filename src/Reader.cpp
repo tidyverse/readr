@@ -59,7 +59,7 @@ RObject Reader::readToDataFrame(int lines) {
 
   out = warnings_.addAsAttribute(out);
 
-  //collectorsClear();
+  collectorsClear();
   warnings_.clear();
 
   return out;
