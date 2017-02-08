@@ -352,7 +352,7 @@ int dtoa_grisu3(double v, char *dst)
 	// Prehandle negative values.
 	if ((u64 & D64_SIGN) != 0) { *s2++ = '-'; v = -v; u64 ^= D64_SIGN; }
 	// Prehandle zero.
-	if (!u64) { *s2++ = '0'; *s2++ = '.'; *s2++ = '0'; *s2 = '\0'; return (int)(s2 - dst); }
+	if (!u64) { *s2++ = '0'; *s2 = '\0'; return (int)(s2 - dst); }
 	// Prehandle infinity.
 	if (u64 == D64_EXP_MASK) { *s2++ = 'i'; *s2++ = 'n'; *s2++ = 'f'; *s2 = '\0'; return (int)(s2 - dst); }
 
@@ -363,10 +363,8 @@ int dtoa_grisu3(double v, char *dst)
 	// handle whole numbers
 	if (d_exp >= 0 && d_exp <= 2) {
 		while(d_exp-- > 0) s2[len++] = '0';
-		 s2[len++] = '.';
-		 s2[len++] = '0';
-		 s2[len] = '\0';
-		 return (int)(s2+len-dst);
+		s2[len] = '\0';
+		return (int)(s2+len-dst);
 	}
 	// We now have an integer string of form "151324135" and a base-10 exponent for that number.
 	// Next, decide the best presentation for that string by whether to use a decimal point, or the scientific exponent notation 'e'.
