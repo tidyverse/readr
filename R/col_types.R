@@ -366,8 +366,9 @@ col_spec_standardise <- function(file, col_names = TRUE, col_types = NULL,
 
 
 check_guess_max <- function(guess_max, max_limit = .Machine$integer.max %/% 100) {
-  if (!(length(guess_max) == 1 && is.numeric(guess_max) &&
-      is_integerish(guess_max)) || is.na(guess_max) || guess_max < 0) {
+
+  if (length(guess_max) != 1 || !is.numeric(guess_max) || !is_integerish(guess_max) ||
+      is.na(guess_max) || guess_max < 0) {
     stop("`guess_max` must be a positive integer", call. = FALSE)
   }
 
