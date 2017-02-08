@@ -66,7 +66,7 @@ problem_rows <- function(x) {
   x[unique(probs$row), , drop = FALSE]
 }
 
-warn_problems <- function(x, name = "input") {
+warn_problems <- function(x) {
   n <- n_problems(x)
   if (n == 0)
     return(x)
@@ -96,11 +96,13 @@ warn_problems <- function(x, name = "input") {
   x
 }
 
-name_problems <- function(x, all_colnames) {
+name_problems <- function(x, all_colnames, name = "input") {
+
   if (n_problems(x) == 0)
     return(x)
 
   problems <- problems(x)
+  problems$file <- name
   problems$col <- all_colnames[problems$col]
   attr(x, "problems") <- problems
 

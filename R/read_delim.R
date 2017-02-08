@@ -187,9 +187,9 @@ read_delimited <- function(file, tokenizer, col_names = TRUE, col_types = NULL,
   out <- read_tokens(ds, tokenizer, spec$cols, names(spec$cols), locale_ = locale,
     n_max = n_max, progress = progress)
 
-  out <- name_problems(out, names(spec$cols))
+  out <- name_problems(out, names(spec$cols), name)
   attr(out, "spec") <- spec
-  warn_problems(out, name)
+  warn_problems(out)
 }
 
 generate_spec_fun <- function(x) {
