@@ -135,7 +135,7 @@ format.col_spec <- function(x, n = Inf, condense = NULL, ...) {
     vapply(seq_along(cols),
       function(i) {
         col_funs <- sub("^collector_", "col_", class(cols[[i]])[[1]])
-        args <- vapply(cols[[i]], deparse, character(1))
+        args <- vapply(cols[[i]], deparse2, character(1), sep = "\n    ")
         args <- paste(names(args), args, sep = " = ", collapse = ", ")
 
         col_names <- names(cols)[[i]]

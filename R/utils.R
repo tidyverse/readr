@@ -15,3 +15,7 @@ show_progress <- function() {
   !interactive() || # not an interactive session
   !is.null(getOption("knitr.in.progress")) # Not actively knitting a document
 }
+
+deparse2 <- function(expr, ..., sep = "\n") {
+  paste(deparse(expr, ...), collapse = sep)
+}
