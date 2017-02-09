@@ -141,3 +141,8 @@ test_that("read_table skips all comment lines", {
 
   expect_equal(x, y)
 })
+
+test_that("read_table can read from a pipe (552)", {
+  x <- read_table(pipe("echo a b c && echo 1 2 3 && echo 4 5 6"))
+  expect_equal(x$a, c(1, 4))
+})
