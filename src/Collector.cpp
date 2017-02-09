@@ -35,7 +35,7 @@ CollectorPtr Collector::create(List spec, LocaleInfo* pLocale) {
     return CollectorPtr(new CollectorTime(pLocale, format));
   }
   if (subclass == "collector_factor") {
-    CharacterVector levels = as<CharacterVector>(spec["levels"]);
+    Nullable<CharacterVector> levels = as< Nullable<CharacterVector> >(spec["levels"]);
     bool ordered = as<bool>(spec["ordered"]);
     return CollectorPtr(new CollectorFactor(levels, ordered));
   }
@@ -197,8 +197,14 @@ void CollectorFactor::setValue(int i, const Token& t) {
     std::string std_string(string.first, string.second);
     std::map<std::string,int>::iterator it = levelset_.find(std_string);
     if (it == levelset_.end()) {
-      warn(t.row(), t.col(), "value in level set", std_string);
-      INTEGER(column_)[i] = NA_INTEGER;
+      if (implicitLevels_) {
+        int n = levelset_.size();
+        levelset_.insert(std::make_pair(std_string, n));
+        INTEGER(column_)[i] = n + 1;
+      } else {
+        warn(t.row(), t.col(), "value in level set", std_string);
+        INTEGER(column_)[i] = NA_INTEGER;
+      }
       return;
     } else {
       INTEGER(column_)[i] = it->second + 1;
