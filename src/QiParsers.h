@@ -42,21 +42,25 @@ template <typename Iterator, typename Attr>
 inline bool parseNumber(char decimalMark, char groupingMark, Iterator& first,
                         Iterator& last, Attr& res) {
 
+  Iterator cur = first;
+
   // Advance to first non-character
-  for(; first != last; ++first) {
-    if (*first == '-' || *first == decimalMark || (*first >= '0' && *first <= '9'))
+  for(; cur != last; ++cur) {
+    if (*cur == '-' || *cur == decimalMark || (*cur >= '0' && *cur <= '9'))
       break;
   }
 
-  if (first == last)
+  if (cur == last) {
     return false;
+  } else { // Move first to start of number
+    first = cur;
+  }
 
   double sum = 0, denom = 1;
   NumberState state = STATE_INIT;
   bool seenNumber = false;
   double sign = 1.0;
 
-  Iterator cur = first;
   for(; cur != last; ++cur) {
     if (state == STATE_FIN)
       break;
