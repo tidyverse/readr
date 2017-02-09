@@ -110,10 +110,15 @@ standardise_path <- function(path) {
     return(path)
 
   if (is_url(path)) {
-    if (identical(tools::file_ext(path), "gz")) {
-      return(gzcon(curl::curl(path)))
+    if (requireNamespace("curl", quietly = TRUE)) {
+      con <- curl::curl(path)
     } else {
-      return(curl::curl(path))
+      con <- url(path)
+    }
+    if (identical(tools::file_ext(path), "gz")) {
+      return(gzcon(con))
+    } else {
+      return(con)
     }
   }
 
