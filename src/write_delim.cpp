@@ -2,6 +2,8 @@
 using namespace Rcpp;
 #include <fstream>
 #include "grisu3.h"
+#include "write_connection.h"
+#include <boost/iostreams/stream.hpp> // stream
 
 // Defined later to make copyright clearer
 template <class Stream>
@@ -83,7 +85,7 @@ void stream_delim(Stream& output, const List& df, char delim, const std::string&
 }
 
 // [[Rcpp::export]]
-std::string stream_delim(const List& df, const std::string& path, char delim, const std::string& na,
+std::string stream_delim_file(const List& df, const std::string& path, char delim, const std::string& na,
                          bool col_names = true, bool append = false, bool bom = false) {
 
   if (path == "") {
@@ -99,6 +101,14 @@ std::string stream_delim(const List& df, const std::string& path, char delim, co
     stream_delim(output, df, delim, na, col_names, append, bom);
     return "";
   }
+}
+
+// [[Rcpp::export]]
+void stream_delim_connection(const List& df, RObject connection, char delim, const std::string& na,
+                         bool col_names = true, bool append = false, bool bom = false) {
+  boost::iostreams::stream<connection_sink> output(connection);
+  stream_delim(output, df, delim, na, col_names, append, bom);
+  return;
 }
 
 // =============================================================================

@@ -49,7 +49,6 @@
 write_delim <- function(x, path, delim = " ", na = "NA", append = FALSE,
                         col_names = !append) {
   stopifnot(is.data.frame(x))
-  path <- normalizePath(path, mustWork = FALSE)
 
   x_out <- lapply(x, output_column)
   stream_delim(x_out, path, delim, col_names = col_names, append = append,
@@ -68,7 +67,6 @@ write_csv <- function(x, path, na = "NA", append = FALSE, col_names = !append) {
 #' @export
 write_excel_csv <- function(x, path, na = "NA", append = FALSE, col_names = !append) {
   stopifnot(is.data.frame(x))
-  path <- normalizePath(path, mustWork = FALSE)
 
   x_out <- lapply(x, output_column)
   stream_delim(x_out, path, ",", col_names = col_names, append = append,
@@ -141,4 +139,19 @@ output_column.double <- function(x) {
 #' @export
 output_column.POSIXt <- function(x) {
   format(x, "%Y-%m-%dT%H:%M:%OSZ", tz = "UTC")
+}
+
+stream_delim <- function(df, path, ...) {
+  path <- standardise_path(path, check = FALSE)
+
+  if (inherits(path, "connection")) {
+    if (!isOpen(path)) {
+      open(path, "wb")
+      on.exit(close(path))
+    }
+    stream_delim_connection(df, path, ...)
+  } else {
+    path <- normalizePath(path, mustWork = FALSE)
+    stream_delim_file(df, path, ...)
+  }
 }

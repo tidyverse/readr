@@ -92,3 +92,12 @@ test_that("does not writes a tailing .0 for whole number doubles", {
 
   expect_equal(format_tsv(tibble::data_frame(x = -123456789)), "x\n-123456789\n")
 })
+
+test_that("write_csv can write to compressed files", {
+  mt <- read_csv(readr_example("mtcars.csv.bz2"))
+
+  filename <- file.path(tempdir(), "mtcars.csv.bz2")
+  on.exit(unlink(filename))
+  write_csv(mt, filename)
+  expect_equal(mt, read_csv(filename))
+})

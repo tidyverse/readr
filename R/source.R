@@ -102,7 +102,7 @@ read_connection <- function(con) {
   read_connection_(con)
 }
 
-standardise_path <- function(path) {
+standardise_path <- function(path, check = TRUE) {
   if (!is.character(path))
     return(path)
 
@@ -122,7 +122,9 @@ standardise_path <- function(path) {
     }
   }
 
-  path <- check_path(path)
+  if (isTRUE(check)) {
+    path <- check_path(path)
+  }
   switch(tools::file_ext(path),
     gz = gzfile(path, ""),
     bz2 = bzfile(path, ""),

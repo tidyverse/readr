@@ -51,12 +51,29 @@ read_lines_raw <- function(file, skip = 0, n_max = -1L, progress = show_progress
 #' @export
 #' @rdname read_lines
 write_lines <- function(x, path, na = "NA", append = FALSE) {
-  path <- normalizePath(path, mustWork = FALSE)
-  if (is.list(x) && all(vapply(x, inherits, logical(1), "raw"))) {
-    write_lines_raw_(x, path, append)
-  } else {
+  path <- standardise_path(path, check = FALSE)
+
+  is_raw <- is.list(x) && all(vapply(x, inherits, logical(1), "raw"))
+  if (!is_raw) {
     x <- as.character(x)
-    write_lines_(x, path, na, append)
+  }
+
+  if (inherits(path, "connection")) {
+    if (!isOpen(path)) {
+      open(path, "wb")
+      on.exit(close(path))
+    }
+    if (is_raw) {
+      write_lines_raw_connection_(x, path)
+    } else {
+      write_lines_connection_(x, path, na)
+    }
+  } else {
+    if (is_raw) {
+      write_lines_raw_(x, path, append)
+    } else {
+      write_lines_(x, path, na, append)
+    }
   }
 
   invisible(x)
