@@ -8,6 +8,7 @@
 \alias{tokenizer_line}
 \alias{tokenizer_log}
 \alias{tokenizer_fwf}
+\alias{tokenizer_ws}
 \title{Tokenizers.}
 \usage{
 tokenizer_delim(delim, quote = "\\"", na = "NA", quoted_na = TRUE,
@@ -23,6 +24,8 @@ tokenizer_line(na = character())
 tokenizer_log()
 
 tokenizer_fwf(begin, end, na = "NA", comment = "")
+
+tokenizer_ws(na = "NA", comment = "")
 }
 \arguments{
 \item{delim}{Single character used to separate fields within a record.}
@@ -49,6 +52,10 @@ a single quote, \code{\"}.}
 characters? This is more general than \code{escape_double} as backslashes
 can be used to escape the delimeter character, the quote characer, or
 to add special characters like \code{\\n}.}
+
+\item{begin, end}{Begin and end offsets for each file. These are C++
+offsets so the first column is column zero, and the ranges are
+[begin, end) (i.e inclusive-exclusive).}
 
 \item{begin, end}{Begin and end offsets for each file. These are C++
 offsets so the first column is column zero, and the ranges are

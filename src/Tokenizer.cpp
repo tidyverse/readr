@@ -4,6 +4,7 @@ using namespace Rcpp;
 #include "Tokenizer.h"
 #include "TokenizerDelim.h"
 #include "TokenizerFwf.h"
+#include "TokenizerWs.h"
 #include "TokenizerLine.h"
 #include "TokenizerLog.h"
 
@@ -36,6 +37,10 @@ TokenizerPtr Tokenizer::create(List spec) {
     return TokenizerPtr(new TokenizerLine(na));
   } else if (subclass == "tokenizer_log") {
     return TokenizerPtr(new TokenizerLog());
+  } else if (subclass == "tokenizer_ws") {
+    std::vector<std::string> na = as<std::vector<std::string> >(spec["na"]);
+    std::string comment = as<std::string>(spec["comment"]);
+    return TokenizerPtr(new TokenizerWs(na, comment));
   }
 
   Rcpp::stop("Unknown tokenizer type");
