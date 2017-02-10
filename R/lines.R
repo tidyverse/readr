@@ -53,7 +53,7 @@ read_lines_raw <- function(file, skip = 0, n_max = -1L, progress = show_progress
 write_lines <- function(x, path, na = "NA", append = FALSE) {
   path <- standardise_path(path, check = FALSE)
 
-  is_raw <- is.list(x) && all(vapply(x, inherits, logical(1), "raw"))
+  is_raw <- is.list(x) && inherits(x[[1]], "raw")
   if (!is_raw) {
     x <- as.character(x)
   }
