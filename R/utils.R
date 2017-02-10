@@ -11,9 +11,9 @@ is.connection <- function(x) inherits(x, "connection")
 is_syntactic <- function(x) make.names(x) == x
 
 show_progress <- function() {
-  !isTRUE(getOption("readr.show_progress")) || # user disables progress bar
-  !interactive() || # not an interactive session
-  !is.null(getOption("knitr.in.progress")) # Not actively knitting a document
+  isTRUE(getOption("readr.show_progress")) && # user disables progress bar
+  interactive() && # an interactive session
+  is.null(getOption("knitr.in.progress")) # Not actively knitting a document
 }
 
 deparse2 <- function(expr, ..., sep = "\n") {
