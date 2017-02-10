@@ -32,6 +32,8 @@ enum NumberState {
   STATE_INIT,
   STATE_LHS,
   STATE_RHS,
+  STATE_SCIENTIFIC_NOTATION_INIT,   // e/E +/-
+  STATE_SCIENTIFIC_NOTATION_DIGITS, // the digits
   STATE_FIN
 };
 
@@ -60,6 +62,8 @@ inline bool parseNumber(char decimalMark, char groupingMark, Iterator& first,
   NumberState state = STATE_INIT;
   bool seenNumber = false;
   double sign = 1.0;
+  int scientific_notation_exponent = 0;
+  int scientific_notation_exponent_sign = 0;
 
   for(; cur != last; ++cur) {
     if (state == STATE_FIN)
@@ -85,6 +89,9 @@ inline bool parseNumber(char decimalMark, char groupingMark, Iterator& first,
         // do nothing
       } else if (*cur == decimalMark) {
         state = STATE_RHS;
+      } else if (*cur == 'e' || *cur == 'E') {
+        seenNumber = false; // to 'force' it to expect more digits
+        state = STATE_SCIENTIFIC_NOTATION_INIT;
       } else if (*cur >= '0' && *cur <= '9') {
         seenNumber = true;
         sum *= 10;
@@ -96,10 +103,40 @@ inline bool parseNumber(char decimalMark, char groupingMark, Iterator& first,
     case STATE_RHS:
       if (*cur == groupingMark) {
         // do nothing
+      } else if (*cur == 'e' || *cur == 'E') {
+        seenNumber = false; // to 'force' it to expect more digits
+        state = STATE_SCIENTIFIC_NOTATION_INIT;
       } else if (*cur >= '0' && *cur <= '9') {
         seenNumber = true;
         denom *= 10;
         sum += (*cur - '0') / denom;
+      } else {
+        goto end;
+      }
+      break;
+    case STATE_SCIENTIFIC_NOTATION_INIT: // optional initial + or - allowed here. Then one of more digits
+      if (*cur == '+') {
+          scientific_notation_exponent_sign = 1;
+          state = STATE_SCIENTIFIC_NOTATION_DIGITS;
+      } else if (*cur == '-') {
+          scientific_notation_exponent_sign = -1;
+          state = STATE_SCIENTIFIC_NOTATION_DIGITS;
+      } else if (*cur >= '0' && *cur <= '9') { // Default to positive
+          scientific_notation_exponent_sign = 1;
+          state = STATE_SCIENTIFIC_NOTATION_DIGITS;
+          goto STATE_SCIENTIFIC_NOTATION_DIGITS_; // goto immediately, so that we may pick up this initial digit
+      } else {
+          goto end;
+      }
+      break;
+STATE_SCIENTIFIC_NOTATION_DIGITS_:
+    case STATE_SCIENTIFIC_NOTATION_DIGITS:
+      if (*cur == groupingMark) {
+        // do nothing
+      } else if (*cur >= '0' && *cur <= '9') {
+        seenNumber = true;
+        scientific_notation_exponent *= 10;
+        scientific_notation_exponent += (*cur)-'0';
       } else {
         goto end;
       }
@@ -110,6 +147,8 @@ inline bool parseNumber(char decimalMark, char groupingMark, Iterator& first,
   }
 
 end:
+
+  sum *= pow(10, scientific_notation_exponent_sign * scientific_notation_exponent);
 
   // Set last to point to final character used
   last = cur;
