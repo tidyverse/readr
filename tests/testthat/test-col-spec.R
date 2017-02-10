@@ -217,3 +217,30 @@ test_that("non-syntatic names are escaped", {
 )
 ")
 })
+
+test_that("long expressions are wrapped (597)", {
+  expect_equal(format(cols(a = col_factor(levels = c("apple", "pear", "banana", "peach", "apricot", "orange", "plum"), ordered = TRUE))),
+'cols(
+  a = col_factor(levels = c("apple", "pear", "banana", "peach", "apricot", "orange", "plum"
+    ), ordered = TRUE)
+)
+')
+})
+
+test_that("guess_types errors on invalid inputs", {
+  expect_error(col_spec_standardise("a,b,c\n", guess_max = NA), "`guess_max` must be a positive integer")
+  expect_error(col_spec_standardise("a,b,c\n", guess_max = -1), "`guess_max` must be a positive integer")
+
+  expect_warning(col_spec_standardise("a,b,c\n", guess_max = Inf), "`guess_max` is a very large value")
+})
+
+test_that("check_guess_max errors on invalid inputs", {
+  expect_error(check_guess_max(NULL), "`guess_max` must be a positive integer")
+  expect_error(check_guess_max("test"), "`guess_max` must be a positive integer")
+  expect_error(check_guess_max(letters), "`guess_max` must be a positive integer")
+  expect_error(check_guess_max(1:2), "`guess_max` must be a positive integer")
+  expect_error(check_guess_max(NA), "`guess_max` must be a positive integer")
+  expect_error(check_guess_max(-1), "`guess_max` must be a positive integer")
+
+  expect_warning(check_guess_max(Inf), "`guess_max` is a very large value")
+})

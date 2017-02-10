@@ -64,8 +64,8 @@ file is created.}
 \code{read_lines()} reads up to \code{n_max} lines from a file. New lines are
 not included in the output. \code{read_lines_raw()} produces a list of raw
 vectors, and is useful for handling data with unknown encoding.
-\code{write_lines()} takes a character vector, appending a new line
-after each entry.
+\code{write_lines()} takes a character vector or list of raw vectors, appending a
+new line after each entry.
 }
 \examples{
 read_lines(file.path(R.home("doc"), "AUTHORS"), n_max = 10)

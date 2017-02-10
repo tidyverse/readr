@@ -3,8 +3,8 @@
 #' `read_lines()` reads up to `n_max` lines from a file. New lines are
 #' not included in the output. `read_lines_raw()` produces a list of raw
 #' vectors, and is useful for handling data with unknown encoding.
-#' `write_lines()` takes a character vector, appending a new line
-#' after each entry.
+#' `write_lines()` takes a character vector or list of raw vectors, appending a
+#' new line after each entry.
 #'
 #' @inheritParams datasource
 #' @inheritParams read_delim
@@ -51,11 +51,13 @@ read_lines_raw <- function(file, skip = 0, n_max = -1L, progress = show_progress
 #' @export
 #' @rdname read_lines
 write_lines <- function(x, path, na = "NA", append = FALSE) {
-  x <- as.character(x)
-
   path <- normalizePath(path, mustWork = FALSE)
-
-  write_lines_(x, path, na, append)
+  if (is.list(x) && all(vapply(x, inherits, logical(1), "raw"))) {
+    write_lines_raw_(x, path, append)
+  } else {
+    x <- as.character(x)
+    write_lines_(x, path, na, append)
+  }
 
   invisible(x)
 }

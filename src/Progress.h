@@ -2,6 +2,8 @@
 #define FASTREAD_PROGRESS_H_
 
 #include <time.h>
+#include <sstream>
+#include <Rcpp.h>
 
 inline int now() {
   return clock() / CLOCKS_PER_SEC;
@@ -27,7 +29,7 @@ class Progress {
 
 public:
 
-  Progress(int min = 5, int width = 80):
+  Progress(int min = 5, int width = Rf_GetOptionWidth()):
     timeMin_(min),
     timeInit_(now()),
     timeStop_(now()),
@@ -54,16 +56,22 @@ public:
       }
     }
 
-    // double time_left = (1 - prop) * est;
-    int nbars = prop * width_, nspaces = (1 - prop) * width_;
-
-    std::string bars(nbars, '='), spaces(nspaces, ' ');
-    tfm::format(Rcpp::Rcout, "\r|%s%s| %3d%%", bars, spaces, (int) (prop * 100));
+    std::stringstream labelStream;
+    tfm::format(labelStream, " %3d%%", (int) (prop * 100));
     if (size > 0) {
-      tfm::format(Rcpp::Rcout, " %4.0f MB", size);
-    } else {
-      tfm::format(Rcpp::Rcout, "           ");
+      tfm::format(labelStream, " %4.0f MB", size);
     }
+
+    std::string label = labelStream.str();
+
+    int barSize = width_ - label.size() - 2;
+    if (barSize < 0) {
+      return;
+    }
+    int nbars = prop * barSize;
+    int nspaces = (1 - prop) * barSize;
+    std::string bars(nbars, '='), spaces(nspaces, ' ');
+    Rcpp::Rcout << '\r' << '|' << bars << spaces << '|' << label;
   }
 
   ~Progress() {
