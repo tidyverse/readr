@@ -130,6 +130,8 @@ test_that("%. requires a value", {
 })
 
 test_that("%Z detects named time zones", {
+  skip_on_os("linux") # See https://github.com/tidyverse/readr/issues/562
+
   ref <- POSIXct(1285912800, "America/Chicago")
   ct <- locale(tz = "America/Chicago")
 
@@ -213,8 +215,10 @@ test_that("offsets can cross date boundaries", {
   )
 })
 
+
 test_that("unambiguous times with and without daylight savings", {
   skip_on_cran() # need to figure out why this fails
+  skip_on_os("linux") # See https://github.com/tidyverse/readr/issues/562
 
   melb <- locale(tz = "Australia/Melbourne")
   # Melbourne had daylight savings in 2015 that ended the morning of 2015-04-05
@@ -248,3 +252,4 @@ test_that("must have either two - or none", {
   expect_equal(guess_parser("200010-10"), "character")
   expect_equal(guess_parser("20001010"), "integer")
 })
+  

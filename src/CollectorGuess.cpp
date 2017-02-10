@@ -8,6 +8,8 @@ using namespace Rcpp;
 
 typedef bool (*canParseFun)(const std::string&, LocaleInfo* pLocale);
 
+typedef bool (*canParseNoLocaleFun)(const std::string&);
+
 bool canParse(CharacterVector x, const canParseFun& canParse,
               LocaleInfo* pLocale) {
   for (int i = 0; i < x.size(); ++i) {
@@ -23,6 +25,20 @@ bool canParse(CharacterVector x, const canParseFun& canParse,
   return true;
 }
 
+bool canParseNoLocale(CharacterVector x, const canParseNoLocaleFun& canParseNoLocale) {
+  for (int i = 0; i < x.size(); ++i) {
+    if (x[i] == NA_STRING)
+      continue;
+
+    if (x[i].size() == 0)
+      continue;
+
+    if (!canParseNoLocale(std::string(x[i])))
+      return false;
+  }
+  return true;
+}
+
 bool allMissing(CharacterVector x) {
   for (int i = 0; i < x.size(); ++i) {
     if (x[i] != NA_STRING && x[i].size() > 0)
@@ -31,11 +47,11 @@ bool allMissing(CharacterVector x) {
   return true;
 }
 
-bool isLogical(const std::string& x, LocaleInfo* pLocale) {
+bool isLogical(const std::string& x) {
   return x == "T" || x == "F" || x == "TRUE" || x == "FALSE";
 }
 
-bool isInteger(const std::string& x, LocaleInfo* pLocale) {
+bool isInteger(const std::string& x) {
   if (x[0] == '0' && x.size() > 1)
     return false;
 
@@ -107,9 +123,9 @@ std::string collectorGuess(CharacterVector input, List locale_) {
     return "character";
 
   // Work from strictest to most flexible
-  if (canParse(input, isLogical, &locale))
+  if (canParseNoLocale(input, isLogical))
     return "logical";
-  if (canParse(input, isInteger, &locale))
+  if (canParseNoLocale(input, isInteger))
     return "integer";
   if (canParse(input, isDouble, &locale))
     return "double";

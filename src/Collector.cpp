@@ -5,6 +5,8 @@ using namespace Rcpp;
 #include "LocaleInfo.h"
 #include "QiParsers.h"
 
+void Collector::setValue(int i, const Token& t) {}
+
 CollectorPtr Collector::create(List spec, LocaleInfo* pLocale) {
   std::string subclass(as<CharacterVector>(spec.attr("class"))[0]);
 

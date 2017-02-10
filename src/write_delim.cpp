@@ -55,7 +55,7 @@ void stream_delim(Stream& output, const char* string, char delim, const std::str
 
 template <class Stream>
 void stream_delim(Stream& output, const List& df, char delim, const std::string& na,
-                  bool col_names = true, bool append = false, bool bom = false) {
+                  bool col_names = true, bool bom = false) {
   int p = Rf_length(df);
   if (p == 0)
     return;
@@ -89,14 +89,14 @@ std::string stream_delim(const List& df, const std::string& path, char delim, co
   if (path == "") {
     std::ostringstream output;
 
-    stream_delim(output, df, delim, na, col_names, append, bom);
+    stream_delim(output, df, delim, na, col_names, bom);
     return output.str();
   } else {
     std::ofstream output(path.c_str(), append ? std::ofstream::app : std::ofstream::trunc);
     if (output.fail()) {
       stop("Failed to open '%s'.", path);
     }
-    stream_delim(output, df, delim, na, col_names, append, bom);
+    stream_delim(output, df, delim, na, col_names, bom);
     return "";
   }
 }
