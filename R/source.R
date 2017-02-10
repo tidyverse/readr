@@ -102,7 +102,7 @@ read_connection <- function(con) {
   read_connection_(con)
 }
 
-standardise_path <- function(path, check = TRUE) {
+standardise_path <- function(path, input = TRUE) {
   if (!is.character(path))
     return(path)
 
@@ -122,7 +122,7 @@ standardise_path <- function(path, check = TRUE) {
     }
   }
 
-  if (isTRUE(check)) {
+  if (isTRUE(input)) {
     path <- check_path(path)
   }
   switch(tools::file_ext(path),
@@ -130,8 +130,13 @@ standardise_path <- function(path, check = TRUE) {
     bz2 = bzfile(path, ""),
     xz = xzfile(path, ""),
     zip = zipfile(path, ""),
-    path
-  )
+
+    # Use a file connection for output
+    if (!isTRUE(input)) {
+      file(path, "")
+    } else {
+      path
+    })
 }
 
 source_name <- function(x) {

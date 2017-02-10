@@ -254,130 +254,64 @@ BEGIN_RCPP
     return rcpp_result_gen;
 END_RCPP
 }
-// stream_delim_file
-std::string stream_delim_file(const List& df, const std::string& path, char delim, const std::string& na, bool col_names, bool append, bool bom);
-RcppExport SEXP readr_stream_delim_file(SEXP dfSEXP, SEXP pathSEXP, SEXP delimSEXP, SEXP naSEXP, SEXP col_namesSEXP, SEXP appendSEXP, SEXP bomSEXP) {
+// stream_delim_
+std::string stream_delim_(const List& df, RObject connection, char delim, const std::string& na, bool col_names, bool bom);
+RcppExport SEXP readr_stream_delim_(SEXP dfSEXP, SEXP connectionSEXP, SEXP delimSEXP, SEXP naSEXP, SEXP col_namesSEXP, SEXP bomSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
     Rcpp::traits::input_parameter< const List& >::type df(dfSEXP);
-    Rcpp::traits::input_parameter< const std::string& >::type path(pathSEXP);
+    Rcpp::traits::input_parameter< RObject >::type connection(connectionSEXP);
     Rcpp::traits::input_parameter< char >::type delim(delimSEXP);
     Rcpp::traits::input_parameter< const std::string& >::type na(naSEXP);
     Rcpp::traits::input_parameter< bool >::type col_names(col_namesSEXP);
-    Rcpp::traits::input_parameter< bool >::type append(appendSEXP);
     Rcpp::traits::input_parameter< bool >::type bom(bomSEXP);
-    rcpp_result_gen = Rcpp::wrap(stream_delim_file(df, path, delim, na, col_names, append, bom));
+    rcpp_result_gen = Rcpp::wrap(stream_delim_(df, connection, delim, na, col_names, bom));
     return rcpp_result_gen;
 END_RCPP
 }
-// stream_delim_connection
-void stream_delim_connection(const List& df, RObject connection, char delim, const std::string& na, bool col_names, bool append, bool bom);
-RcppExport SEXP readr_stream_delim_connection(SEXP dfSEXP, SEXP connectionSEXP, SEXP delimSEXP, SEXP naSEXP, SEXP col_namesSEXP, SEXP appendSEXP, SEXP bomSEXP) {
-BEGIN_RCPP
-    Rcpp::RNGScope rcpp_rngScope_gen;
-    Rcpp::traits::input_parameter< const List& >::type df(dfSEXP);
-    Rcpp::traits::input_parameter< RObject >::type connection(connectionSEXP);
-    Rcpp::traits::input_parameter< char >::type delim(delimSEXP);
-    Rcpp::traits::input_parameter< const std::string& >::type na(naSEXP);
-    Rcpp::traits::input_parameter< bool >::type col_names(col_namesSEXP);
-    Rcpp::traits::input_parameter< bool >::type append(appendSEXP);
-    Rcpp::traits::input_parameter< bool >::type bom(bomSEXP);
-    stream_delim_connection(df, connection, delim, na, col_names, append, bom);
-    return R_NilValue;
-END_RCPP
-}
 // write_lines_
-void write_lines_(const CharacterVector& lines, const std::string& path, const std::string& na, bool append);
-RcppExport SEXP readr_write_lines_(SEXP linesSEXP, SEXP pathSEXP, SEXP naSEXP, SEXP appendSEXP) {
-BEGIN_RCPP
-    Rcpp::RNGScope rcpp_rngScope_gen;
-    Rcpp::traits::input_parameter< const CharacterVector& >::type lines(linesSEXP);
-    Rcpp::traits::input_parameter< const std::string& >::type path(pathSEXP);
-    Rcpp::traits::input_parameter< const std::string& >::type na(naSEXP);
-    Rcpp::traits::input_parameter< bool >::type append(appendSEXP);
-    write_lines_(lines, path, na, append);
-    return R_NilValue;
-END_RCPP
-}
-// write_lines_connection_
-void write_lines_connection_(const CharacterVector& lines, RObject connection, const std::string& na);
-RcppExport SEXP readr_write_lines_connection_(SEXP linesSEXP, SEXP connectionSEXP, SEXP naSEXP) {
+void write_lines_(const CharacterVector& lines, RObject connection, const std::string& na);
+RcppExport SEXP readr_write_lines_(SEXP linesSEXP, SEXP connectionSEXP, SEXP naSEXP) {
 BEGIN_RCPP
     Rcpp::RNGScope rcpp_rngScope_gen;
     Rcpp::traits::input_parameter< const CharacterVector& >::type lines(linesSEXP);
     Rcpp::traits::input_parameter< RObject >::type connection(connectionSEXP);
     Rcpp::traits::input_parameter< const std::string& >::type na(naSEXP);
-    write_lines_connection_(lines, connection, na);
+    write_lines_(lines, connection, na);
     return R_NilValue;
 END_RCPP
 }
 // write_lines_raw_
-void write_lines_raw_(List x, const std::string& path, bool append);
-RcppExport SEXP readr_write_lines_raw_(SEXP xSEXP, SEXP pathSEXP, SEXP appendSEXP) {
-BEGIN_RCPP
-    Rcpp::RNGScope rcpp_rngScope_gen;
-    Rcpp::traits::input_parameter< List >::type x(xSEXP);
-    Rcpp::traits::input_parameter< const std::string& >::type path(pathSEXP);
-    Rcpp::traits::input_parameter< bool >::type append(appendSEXP);
-    write_lines_raw_(x, path, append);
-    return R_NilValue;
-END_RCPP
-}
-// write_lines_raw_connection_
-void write_lines_raw_connection_(List x, RObject connection);
-RcppExport SEXP readr_write_lines_raw_connection_(SEXP xSEXP, SEXP connectionSEXP) {
+void write_lines_raw_(List x, RObject connection);
+RcppExport SEXP readr_write_lines_raw_(SEXP xSEXP, SEXP connectionSEXP) {
 BEGIN_RCPP
     Rcpp::RNGScope rcpp_rngScope_gen;
     Rcpp::traits::input_parameter< List >::type x(xSEXP);
     Rcpp::traits::input_parameter< RObject >::type connection(connectionSEXP);
-    write_lines_raw_connection_(x, connection);
-    return R_NilValue;
-END_RCPP
-}
-// write_file_raw_
-void write_file_raw_(RawVector x, const std::string& path, bool append);
-RcppExport SEXP readr_write_file_raw_(SEXP xSEXP, SEXP pathSEXP, SEXP appendSEXP) {
-BEGIN_RCPP
-    Rcpp::RNGScope rcpp_rngScope_gen;
-    Rcpp::traits::input_parameter< RawVector >::type x(xSEXP);
-    Rcpp::traits::input_parameter< const std::string& >::type path(pathSEXP);
-    Rcpp::traits::input_parameter< bool >::type append(appendSEXP);
-    write_file_raw_(x, path, append);
-    return R_NilValue;
-END_RCPP
-}
-// write_file_raw_connection_
-void write_file_raw_connection_(RawVector x, RObject connection);
-RcppExport SEXP readr_write_file_raw_connection_(SEXP xSEXP, SEXP connectionSEXP) {
-BEGIN_RCPP
-    Rcpp::RNGScope rcpp_rngScope_gen;
-    Rcpp::traits::input_parameter< RawVector >::type x(xSEXP);
-    Rcpp::traits::input_parameter< RObject >::type connection(connectionSEXP);
-    write_file_raw_connection_(x, connection);
+    write_lines_raw_(x, connection);
     return R_NilValue;
 END_RCPP
 }
 // write_file_
-void write_file_(std::string x, const std::string& path, bool append);
-RcppExport SEXP readr_write_file_(SEXP xSEXP, SEXP pathSEXP, SEXP appendSEXP) {
-BEGIN_RCPP
-    Rcpp::RNGScope rcpp_rngScope_gen;
-    Rcpp::traits::input_parameter< std::string >::type x(xSEXP);
-    Rcpp::traits::input_parameter< const std::string& >::type path(pathSEXP);
-    Rcpp::traits::input_parameter< bool >::type append(appendSEXP);
-    write_file_(x, path, append);
-    return R_NilValue;
-END_RCPP
-}
-// write_file_connection_
-void write_file_connection_(std::string x, RObject connection);
-RcppExport SEXP readr_write_file_connection_(SEXP xSEXP, SEXP connectionSEXP) {
+void write_file_(std::string x, RObject connection);
+RcppExport SEXP readr_write_file_(SEXP xSEXP, SEXP connectionSEXP) {
 BEGIN_RCPP
     Rcpp::RNGScope rcpp_rngScope_gen;
     Rcpp::traits::input_parameter< std::string >::type x(xSEXP);
     Rcpp::traits::input_parameter< RObject >::type connection(connectionSEXP);
-    write_file_connection_(x, connection);
+    write_file_(x, connection);
+    return R_NilValue;
+END_RCPP
+}
+// write_file_raw_
+void write_file_raw_(RawVector x, RObject connection);
+RcppExport SEXP readr_write_file_raw_(SEXP xSEXP, SEXP connectionSEXP) {
+BEGIN_RCPP
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< RawVector >::type x(xSEXP);
+    Rcpp::traits::input_parameter< RObject >::type connection(connectionSEXP);
+    write_file_raw_(x, connection);
     return R_NilValue;
 END_RCPP
 }
