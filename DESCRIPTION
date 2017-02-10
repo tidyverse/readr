@@ -19,17 +19,18 @@ Depends:
 LinkingTo: Rcpp,
     BH
 Imports:
-    Rcpp (>= 0.12.0.5),
     curl,
-    tibble,
     hms,
-    R6
+    R6,
+    Rcpp (>= 0.12.0.5),
+    tibble
 Suggests:
-    testthat,
+    covr,
+    dplyr,
     knitr,
     rmarkdown,
     stringi,
-    covr
+    testthat
 License: GPL (>= 2) | file LICENSE
 BugReports: https://github.com/tidyverse/readr/issues
 URL: http://readr.tidyverse.org, https://github.com/tidyverse/readr

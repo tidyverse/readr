@@ -19,7 +19,6 @@
 |BH        |   |1.62.0-1   |2016-11-19 |cran (@1.62.0-)                  |
 |covr      |   |2.2.2      |2017-01-05 |cran (@2.2.2)                    |
 |curl      |   |2.3        |2016-11-24 |cran (@2.3)                      |
-|dplyr     |   |0.5.0      |2016-06-24 |CRAN (R 3.3.2)                   |
 |hms       |   |0.3        |2016-11-22 |cran (@0.3)                      |
 |knitr     |   |1.15.1     |2016-11-22 |cran (@1.15.1)                   |
 |R6        |   |2.2.0      |2016-10-05 |cran (@2.2.0)                    |
@@ -42,7 +41,7 @@
 |cdcfluview          |0.5.1    |      0|        0|     0|
 |cleanNLP            |0.24     |      0|        0|     0|
 |csvy                |0.1.3    |      0|        0|     0|
-|dataonderivatives   |0.2.1    |      0|        0|     1|
+|dataonderivatives   |0.2.1    |      0|        0|     0|
 |datapasta           |1.1.0    |      0|        0|     0|
 |dataRetrieval       |2.6.3    |      0|        0|     0|
 |ddpcr               |1.6      |      0|        0|     0|
@@ -158,12 +157,7 @@ Maintainer: Thomas J. Leeper <thosjleeper@gmail.com>
 Maintainer: Imanuel Costigan <i.costigan@me.com>  
 Bug reports: https://github.com/imanuelcostigan/dataonderivatives/issues
 
-0 errors | 0 warnings | 1 note 
-
-```
-checking dependencies in R code ... NOTE
-Missing or unexported object: ‘readr::col_numeric’
-```
+0 errors | 0 warnings | 0 notes
 
 ## datapasta (1.1.0)
 Maintainer: Miles McBain <miles.mcbain@gmail.com>  
