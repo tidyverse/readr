@@ -20,13 +20,15 @@
 #' fwf_sample <- readr_example("fwf-sample.txt")
 #' cat(read_lines(fwf_sample))
 #'
-#' # You can specify column positions in three ways:
+#' # You can specify column positions in four ways:
 #' # 1. Guess based on position of empty columns
 #' read_fwf(fwf_sample, fwf_empty(fwf_sample, col_names = c("first", "last", "state", "ssn")))
 #' # 2. A vector of field widths
 #' read_fwf(fwf_sample, fwf_widths(c(20, 10, 12), c("name", "state", "ssn")))
 #' # 3. Paired vectors of start and end positions
 #' read_fwf(fwf_sample, fwf_positions(c(1, 30), c(10, 42), c("name", "ssn")))
+#' # 4. Named list of start and end positions
+#' read_fwf(fwf_sample, fwf_cols(list(name = c(1, 30), ssn = c(10, 42))))
 read_fwf <- function(file, col_positions, col_types = NULL,
                      locale = default_locale(), na = c("", "NA"),
                      comment = "", skip = 0, n_max = Inf,
@@ -111,4 +113,31 @@ fwf_positions <- function(start, end, col_names = NULL) {
     end = end, # -1 to change to 0 offset, +1 to be exclusive,
     col_names = col_names
   )
+}
+
+
+#' @rdname read_fwf
+#' @export
+#' @param .cols Named list of numeric vectors. The names are the
+#'   column names, the numeric vectors must all have length two with the start
+#'   and end positions of the columns.
+#' @param ... Additional named arguments added to the \code{.cols} list.
+fwf_cols <- function(.cols, ...) {
+  .cols <- c(as.list(.cols), list(...))
+  if (!all(vapply(.cols, length, integer(1)) == 2L)) {
+    stop("All elements in `.cols` must have length 2.", call. = FALSE)
+  }
+  if (!all(vapply(.cols, is.numeric, logical(1)))) {
+    stop("All values in `.cols` must be integers.", call. = FALSE)
+  }
+  nms <- names(.cols) %||% rep("", length(.cols))
+  no_names <- which(nms == "")
+  nms[no_names] <- paste0("X", no_names)
+  if (any(nms == "")) {
+    stop("All elements of `.cols` must be named.")
+  }
+  start <- unname(vapply(.cols, `[`, numeric(1), 1L))
+  end <- unname(vapply(.cols, `[`, numeric(1), 2L))
+  col_names <- names(nms)
+  fwf_positions(start, end, col_names = nms)
 }
