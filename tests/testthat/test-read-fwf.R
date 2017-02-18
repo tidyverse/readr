@@ -146,3 +146,32 @@ test_that("read_table can read from a pipe (552)", {
   x <- read_table(pipe("echo a b c && echo 1 2 3 && echo 4 5 6"))
   expect_equal(x$a, c(1, 4))
 })
+
+test_that("fwf_cols produces correct fwf_positions object", {
+  col_pos <- fwf_cols(list(a = c(1, 2), b = c(9, 12)), d = c(4, 6))
+  expect_equal(col_pos, fwf_positions(c(1,  9, 4),
+                                      c(2, 12, 6),
+                                      c("a", "b", "d")))
+
+})
+
+test_that("fwf_cols throws error with non-length 2 vectors", {
+  pattern <- "All elements in `\\.cols` must have length 2."
+  expect_error(fwf_cols(list(a = 1:2, b = 3)), pattern)
+  expect_error(fwf_cols(list(a = 1:3, b = 4:5)), pattern)
+  expect_error(fwf_cols(list(a = c(), b = 4:5)), pattern)
+})
+
+test_that("fwf_cols works with unnamed columns", {
+  col_pos <- expect_equal(
+    fwf_cols(list(c(1, 2), c(9, 12)), c(4, 6)),
+    fwf_positions(c(1, 9, 4),
+                  c(2, 12, 6),
+                  c("X1", "X2", "X3")))
+  col_pos <- expect_equal(
+    fwf_cols(list(a = c(1, 2), c(9, 12)), c(4, 6)),
+    fwf_positions(c(1, 9, 4),
+                  c(2, 12, 6),
+                  c("a", "X2", "X3")))
+})
+
