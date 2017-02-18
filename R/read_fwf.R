@@ -27,8 +27,8 @@
 #' read_fwf(fwf_sample, fwf_widths(c(20, 10, 12), c("name", "state", "ssn")))
 #' # 3. Paired vectors of start and end positions
 #' read_fwf(fwf_sample, fwf_positions(c(1, 30), c(10, 42), c("name", "ssn")))
-#' # 4. Named list of start and end positions
-#' read_fwf(fwf_sample, fwf_cols(list(name = c(1, 10), ssn = c(30, 42))))
+#' # 4. Named arguments with start and end positions
+#' read_fwf(fwf_sample, fwf_cols(name = c(1, 10), ssn = c(30, 42)))
 read_fwf <- function(file, col_positions, col_types = NULL,
                      locale = default_locale(), na = c("", "NA"),
                      comment = "", skip = 0, n_max = Inf,
