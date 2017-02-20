@@ -59,11 +59,7 @@ write_lines <- function(x, path, na = "NA", append = FALSE) {
   path <- standardise_path(path, input = FALSE)
   if (!isOpen(path)) {
     on.exit(close(path), add = TRUE)
-    if (isTRUE(append)) {
-      open(path, "ab")
-    } else {
-      open(path, "wb")
-    }
+    open(path, if (isTRUE(append)) "ab" else "wb")
   }
   if (is_raw) {
     write_lines_raw_(x, path)
