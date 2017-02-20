@@ -113,6 +113,7 @@ standardise_path <- function(path, input = TRUE) {
     if (requireNamespace("curl", quietly = TRUE)) {
       con <- curl::curl(path)
     } else {
+      message("`curl` package not installed, falling back to using `url()`")
       con <- url(path)
     }
     if (identical(tools::file_ext(path), "gz")) {
