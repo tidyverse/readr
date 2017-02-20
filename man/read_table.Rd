@@ -85,8 +85,7 @@ comment characters will be silently ignored.}
 \description{
 \code{read_table()} and \code{read_table2()} are designed to read the type of textual
 data where each column is #' separate by one (or more) columns of space.
-}
-\details{
+
 \code{read_table2()} is like \code{\link[=read.table]{read.table()}}, it allows any number of whitespace
 characters between columns, and the lines can be of different lengths.
 

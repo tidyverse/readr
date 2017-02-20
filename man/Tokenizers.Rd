@@ -56,10 +56,6 @@ to add special characters like \code{\\n}.}
 \item{begin, end}{Begin and end offsets for each file. These are C++
 offsets so the first column is column zero, and the ranges are
 [begin, end) (i.e inclusive-exclusive).}
-
-\item{begin, end}{Begin and end offsets for each file. These are C++
-offsets so the first column is column zero, and the ranges are
-[begin, end) (i.e inclusive-exclusive).}
 }
 \description{
 Explicitly create tokenizer objects. Usually you will not call these

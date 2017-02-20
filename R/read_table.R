@@ -1,5 +1,6 @@
 #' Read whitespace-separated columns into a tibble
 #'
+#' @description
 #' `read_table()` and `read_table2()` are designed to read the type of textual
 #' data where each column is #' separate by one (or more) columns of space.
 #'
