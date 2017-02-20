@@ -99,5 +99,7 @@ test_that("write_csv can write to compressed files", {
   filename <- file.path(tempdir(), "mtcars.csv.bz2")
   on.exit(unlink(filename))
   write_csv(mt, filename)
+
+  expect_true(is_bz2_file(filename))
   expect_equal(mt, read_csv(filename))
 })

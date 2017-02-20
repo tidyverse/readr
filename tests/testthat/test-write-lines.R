@@ -101,6 +101,8 @@ test_that("write_lines can write to compressed files", {
   filename <- file.path(tempdir(), "mtcars.csv.bz2")
   on.exit(unlink(filename))
   write_lines(mt, filename)
+
+  expect_true(is_bz2_file(filename))
   expect_equal(mt, read_lines(filename))
 })
 
@@ -111,5 +113,7 @@ test_that("write_file can write to compressed files", {
   filename <- file.path(tempdir(), "mtcars.csv.bz2")
   on.exit(unlink(filename))
   write_file(mt, filename)
+
+  expect_true(is_bz2_file(filename))
   expect_equal(mt, read_file(filename))
 })
