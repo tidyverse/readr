@@ -5,6 +5,7 @@
 \alias{fwf_empty}
 \alias{fwf_widths}
 \alias{fwf_positions}
+\alias{fwf_cols}
 \title{Read a fixed width file into a tibble}
 \usage{
 read_fwf(file, col_positions, col_types = NULL, locale = default_locale(),
@@ -16,6 +17,8 @@ fwf_empty(file, skip = 0, col_names = NULL, comment = "", n = 100L)
 fwf_widths(widths, col_names = NULL)
 
 fwf_positions(start, end, col_names = NULL)
+
+fwf_cols(.cols, ...)
 }
 \arguments{
 \item{file}{Either a path to a file, a connection, or literal data
@@ -86,6 +89,12 @@ reading a ragged fwf file.}
 
 \item{start, end}{Starting and ending (inclusive) positions of each field.
 Use NA as last end field when reading a ragged fwf file.}
+
+\item{.cols}{Named list of numeric vectors. The names are the
+column names, the numeric vectors must all have length two with the start
+and end positions of the columns.}
+
+\item{...}{Additional named arguments added to the \code{.cols} list.}
 }
 \description{
 A fixed width file can be a very compact representation of numeric data.
@@ -98,13 +107,15 @@ by providing a number of different ways to describe the field structure.
 fwf_sample <- readr_example("fwf-sample.txt")
 cat(read_lines(fwf_sample))
 
-# You can specify column positions in three ways:
+# You can specify column positions in four ways:
 # 1. Guess based on position of empty columns
 read_fwf(fwf_sample, fwf_empty(fwf_sample, col_names = c("first", "last", "state", "ssn")))
 # 2. A vector of field widths
 read_fwf(fwf_sample, fwf_widths(c(20, 10, 12), c("name", "state", "ssn")))
 # 3. Paired vectors of start and end positions
 read_fwf(fwf_sample, fwf_positions(c(1, 30), c(10, 42), c("name", "ssn")))
+# 4. Named list of start and end positions
+read_fwf(fwf_sample, fwf_cols(list(name = c(1, 30), ssn = c(10, 42))))
 }
 \seealso{
 \code{\link[=read_table]{read_table()}} to read fixed width files where each
