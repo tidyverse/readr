@@ -33,6 +33,11 @@ test_that("NAs included in levels if desired", {
   x <- parse_factor(c("NA", "b", "a"), levels = c("a", "b", NA), include_na = TRUE)
   expect_equal(x, factor(c("NA", "b", "a"), exclude = NULL))
 
+  expect_warning(x <- parse_factor(c("NA", "b", "a"), levels = c("a", "b"), include_na = TRUE))
+  expect_equal(n_problems(x), 1)
+  attr(x, "problems") <- NULL
+  expect_equal(x, factor(c(NA, "b", "a")))
+
   x <- parse_factor(c("NA", "b", "a"), levels = NULL, include_na = TRUE)
   expect_equal(x, factor(c("NA", "b", "a"), levels = c(NA, "b", "a"), exclude = NULL))
 
