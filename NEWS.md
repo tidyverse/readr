@@ -1,5 +1,8 @@
 # readr 1.0.0.9000
 
+* `parse_factor()` now converts data to UTF-8 based on the supplied locale (#615).
+* `parse_factor()` now can accept `levels = NULL`, which allows one to generate factor levels based on the data (like stringsAsFactors = TRUE) (#497).
+* `parse_factor()` gains a `include_na` argument, to include `NA` in the factor levels (#541).
 
 * `read_delim()` now signals an error if given an empty delimiter (#557).
 * `read_table2()` which allows any number of whitespace characters as
@@ -19,9 +22,6 @@
 * The `guess_max` argument now throws errors on inappropriate inputs (#588).
 
 * tibble::as.tibble now used to construct tibbles (#538).
-* `parse_factor()` now can accept `levels = NULL`, which allows one to generate factor levels based on the data (like stringsAsFactors = TRUE) (#497).
-* `parse_factor()` gains a `include_na` argument, to include `NA` in the factor levels (#541).
-
 * parsing problems in `read_delim()` and `read_fwf()` when columns are skipped using col_types now report the correct column name (#573, @cb4ds)
 
 * `parse_time()` now correctly handles 12 AM/PM (#579).
