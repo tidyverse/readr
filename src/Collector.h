@@ -166,8 +166,13 @@ public:
       int n = lvls.size();
 
       for (int i = 0; i < n; ++i) {
-        const char* level = Rf_translateCharUTF8(STRING_ELT(lvls, i));
-        Rcpp::String std_level(level);
+        Rcpp::String std_level;
+        if (STRING_ELT(lvls, i) != NA_STRING) {
+          const char* level = Rf_translateCharUTF8(STRING_ELT(lvls, i));
+          std_level = level;
+        } else {
+          std_level = NA_STRING;
+        }
         levels_.push_back(std_level);
         levelset_.insert(std::make_pair(std_level, i));
       }
