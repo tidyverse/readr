@@ -34,3 +34,12 @@ test_that("NAs included in levels if desired", {
   x <- parse_factor(c("a", "b", "NA"), levels = NULL, include_na = TRUE)
   expect_equal(x, factor(c("a", "b", NA), exclude = NULL))
 })
+
+test_that("Factors handle encodings properly (#615)", {
+  x <- read_csv(encoded("test\nA\n\xC4\n", "latin1"),
+    col_types = cols(col_factor(c("A", "\uC4"))),
+    locale = locale(encoding = "latin1"))
+
+  expect_is(x$test, "factor")
+  expect_equal(x$test, factor(c("A", "\uC4")))
+})

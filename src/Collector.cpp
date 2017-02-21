@@ -38,7 +38,7 @@ CollectorPtr Collector::create(List spec, LocaleInfo* pLocale) {
     Nullable<CharacterVector> levels = as< Nullable<CharacterVector> >(spec["levels"]);
     bool ordered = as<bool>(spec["ordered"]);
     bool includeNa = as<bool>(spec["include_na"]);
-    return CollectorPtr(new CollectorFactor(levels, ordered, includeNa));
+    return CollectorPtr(new CollectorFactor(&pLocale->encoder_, levels, ordered, includeNa));
   }
 
   Rcpp::stop("Unsupported column type");
@@ -195,7 +195,7 @@ void CollectorFactor::setValue(int i, const Token& t) {
     boost::container::string buffer;
     SourceIterators string = t.getString(&buffer);
 
-    std::string std_string(string.first, string.second);
+    std::string std_string = pEncoder_->makeString(string.first, string.second);
     std::map<std::string,int>::iterator it = levelset_.find(std_string);
     if (it == levelset_.end()) {
       if (implicitLevels_) {

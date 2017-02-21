@@ -148,14 +148,15 @@ public:
 };
 
 class CollectorFactor : public Collector {
+  Iconv* pEncoder_;
   Rcpp::CharacterVector levels_;
   std::map<std::string,int> levelset_;
   bool ordered_, implicitLevels_, includeNa_;
   boost::container::string buffer_;
 
 public:
-  CollectorFactor(Rcpp::Nullable<Rcpp::CharacterVector> levels, bool ordered, bool includeNa):
-      Collector(Rcpp::IntegerVector()), levels_(levels), ordered_(ordered), includeNa_(includeNa)
+  CollectorFactor(Iconv* pEncoder, Rcpp::Nullable<Rcpp::CharacterVector> levels, bool ordered, bool includeNa):
+      Collector(Rcpp::IntegerVector()), pEncoder_(pEncoder), levels_(levels), ordered_(ordered), includeNa_(includeNa)
   {
     implicitLevels_ = levels.isNull();
     if (!implicitLevels_) {
