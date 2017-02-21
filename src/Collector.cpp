@@ -188,6 +188,23 @@ void CollectorDouble::setValue(int i, const Token& t) {
   }
 }
 
+void CollectorFactor::insert(int i, Rcpp::String str, const Token& t) {
+  std::map<Rcpp::String, int>::iterator it = levelset_.find(str);
+  if (it == levelset_.end()) {
+    if (implicitLevels_) {
+      int n = levelset_.size();
+      levelset_.insert(std::make_pair(str, n));
+      levels_.push_back(str);
+      INTEGER(column_)[i] = n + 1;
+    } else {
+      warn(t.row(), t.col(), "value in level set", str);
+      INTEGER(column_)[i] = NA_INTEGER;
+    }
+  } else {
+    INTEGER(column_)[i] = it->second + 1;
+  }
+}
+
 void CollectorFactor::setValue(int i, const Token& t) {
 
   switch(t.type()) {
@@ -196,35 +213,13 @@ void CollectorFactor::setValue(int i, const Token& t) {
     SourceIterators string = t.getString(&buffer);
 
     Rcpp::String std_string = pEncoder_->makeSEXP(string.first, string.second, t.hasNull());
-    std::map<Rcpp::String, int>::iterator it = levelset_.find(std_string);
-    if (it == levelset_.end()) {
-      if (implicitLevels_) {
-        int n = levelset_.size();
-        levelset_.insert(std::make_pair(std_string, n));
-        levels_.push_back(std_string);
-        INTEGER(column_)[i] = n + 1;
-      } else {
-        warn(t.row(), t.col(), "value in level set", std_string);
-        INTEGER(column_)[i] = NA_INTEGER;
-      }
-      return;
-    } else {
-      INTEGER(column_)[i] = it->second + 1;
-      return;
-    }
+    insert(i, std_string, t);
+    return;
   };
   case TOKEN_MISSING:
   case TOKEN_EMPTY:
     if (includeNa_) {
-      std::map<Rcpp::String, int>::iterator it = levelset_.find(NA_STRING);
-      if (it == levelset_.end()) {
-        int n = levelset_.size();
-        levelset_.insert(std::make_pair(NA_STRING, n));
-        levels_.push_back(NA_STRING);
-        INTEGER(column_)[i] = n + 1;
-      } else {
-        INTEGER(column_)[i] = it->second + 1;
-      }
+      insert(i, NA_STRING, t);
     } else {
       INTEGER(column_)[i] = NA_INTEGER;
     }

@@ -154,6 +154,8 @@ class CollectorFactor : public Collector {
   bool ordered_, implicitLevels_, includeNa_;
   boost::container::string buffer_;
 
+  void insert(int i, Rcpp::String str, const Token& t);
+
 public:
   CollectorFactor(Iconv* pEncoder, Rcpp::Nullable<Rcpp::CharacterVector> levels, bool ordered, bool includeNa):
       Collector(Rcpp::IntegerVector()), pEncoder_(pEncoder), ordered_(ordered), includeNa_(includeNa)
