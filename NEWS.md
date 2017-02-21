@@ -2,6 +2,8 @@
 
 
 * `read_delim()` now signals an error if given an empty delimiter (#557).
+* `read_table2()` which allows any number of whitespace characters as
+  delimiters, a more exact replacement for `utils::read.table()` (#608).
 
 * Long spec declarations now print properly (#597).
 * `read_table()` can now handle files with many lines of leading comments (#563).

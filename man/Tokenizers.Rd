@@ -8,6 +8,7 @@
 \alias{tokenizer_line}
 \alias{tokenizer_log}
 \alias{tokenizer_fwf}
+\alias{tokenizer_ws}
 \title{Tokenizers.}
 \usage{
 tokenizer_delim(delim, quote = "\\"", na = "NA", quoted_na = TRUE,
@@ -23,6 +24,8 @@ tokenizer_line(na = character())
 tokenizer_log()
 
 tokenizer_fwf(begin, end, na = "NA", comment = "")
+
+tokenizer_ws(na = "NA", comment = "")
 }
 \arguments{
 \item{delim}{Single character used to separate fields within a record.}
