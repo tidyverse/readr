@@ -5,6 +5,9 @@
 * `read_table2()` which allows any number of whitespace characters as
   delimiters, a more exact replacement for `utils::read.table()` (#608).
 
+* The `write_*` functions now support writing to binary connections. In
+  addition output filenames with `.gz`, `.bz2` or `.xz` will automatically open
+  the appropriate connection and to write the compressed file. (#348)
 * Long spec declarations now print properly (#597).
 * `read_table()` can now handle files with many lines of leading comments (#563).
 * Whole number doubles are no longer written with a trailing `.0` decimal (#526).

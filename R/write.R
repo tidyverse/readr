@@ -15,7 +15,7 @@
 #' Values are only quoted if needed: if they contain a comma, quote or newline.
 #'
 #' @param x A data frame to write to disk
-#' @param path Path to write to.
+#' @param path Path or connection to write to.
 #' @param append If `FALSE`, will overwrite existing file. If `TRUE`,
 #'   will append to existing file. In both cases, if file does not exist a new
 #'   file is created.
@@ -46,6 +46,13 @@
 #' # Quotes are automatically as needed
 #' df <- data.frame(x = c("a", '"', ",", "\n"))
 #' cat(format_csv(df))
+#'
+#' # A output connection will be automatically created for output filenames
+#' # with appropriate extensions.
+#' dir <- tempdir()
+#' write_tsv(mtcars, file.path(dir, "mtcars.tsv.gz"))
+#' write_tsv(mtcars, file.path(dir, "mtcars.tsv.bz2"))
+#' write_tsv(mtcars, file.path(dir, "mtcars.tsv.xz"))
 write_delim <- function(x, path, delim = " ", na = "NA", append = FALSE,
                         col_names = !append) {
   stopifnot(is.data.frame(x))
