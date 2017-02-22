@@ -11,3 +11,8 @@ is_bz2_file <- function(x) {
   # https://en.wikipedia.org/wiki/Bzip2#File_format
   identical(charToRaw("BZh"), readBin(x, n = 3, what = "raw"))
 }
+
+encoded <- function(x, encoding) {
+  Encoding(x) <- encoding
+  x
+}
