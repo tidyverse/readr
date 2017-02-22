@@ -30,19 +30,20 @@ test_that("levels = NULL (497)", {
 })
 
 test_that("NAs included in levels if desired", {
-  x <- parse_factor(c("NA", "b", "a"), levels = c("a", "b", NA), include_na = TRUE)
-  expect_equal(x, factor(c(NA, "b", "a"), exclude = NULL))
+  x <- parse_factor(c("NA", "b", "a"), levels = c("a", "b", NA))
+  expect_equal(x, factor(c(NA, "b", "a"), levels = c("a", "b", NA), exclude = NULL))
 
-  expect_warning(x <- parse_factor(c("NA", "b", "a"), levels = c("a", "b"), include_na = TRUE))
-  expect_equal(n_problems(x), 1)
-  attr(x, "problems") <- NULL
+  x <- parse_factor(c("NA", "b", "a"), levels = c("a", "b"), include_na = TRUE)
+  expect_equal(x, factor(c(NA, "b", "a"), levels = c("a", "b", NA), exclude = NULL))
+
+  x <- parse_factor(c("NA", "b", "a"), levels = c("a", "b"), include_na = FALSE)
   expect_equal(x, factor(c(NA, "b", "a")))
-
-  x <- parse_factor(c("NA", "b", "a"), levels = NULL, include_na = TRUE)
-  expect_equal(x, factor(c("NA", "b", "a"), levels = c(NA, "b", "a"), exclude = NULL))
 
   x <- parse_factor(c("NA", "b", "a"), levels = NULL, include_na = FALSE)
   expect_equal(x, factor(c("NA", "b", "a"), levels = c("b", "a")))
+
+  x <- parse_factor(c("NA", "b", "a"), levels = NULL, include_na = TRUE)
+  expect_equal(x, factor(c("NA", "b", "a"), levels = c(NA, "b", "a"), exclude = NULL))
 })
 
 test_that("Factors handle encodings properly (#615)", {
