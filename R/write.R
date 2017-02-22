@@ -15,7 +15,7 @@
 #' Values are only quoted if needed: if they contain a comma, quote or newline.
 #'
 #' @param x A data frame to write to disk
-#' @param path Path to write to.
+#' @param path Path or connection to write to.
 #' @param append If `FALSE`, will overwrite existing file. If `TRUE`,
 #'   will append to existing file. In both cases, if file does not exist a new
 #'   file is created.
@@ -46,10 +46,16 @@
 #' # Quotes are automatically as needed
 #' df <- data.frame(x = c("a", '"', ",", "\n"))
 #' cat(format_csv(df))
+#'
+#' # A output connection will be automatically created for output filenames
+#' # with appropriate extensions.
+#' dir <- tempdir()
+#' write_tsv(mtcars, file.path(dir, "mtcars.tsv.gz"))
+#' write_tsv(mtcars, file.path(dir, "mtcars.tsv.bz2"))
+#' write_tsv(mtcars, file.path(dir, "mtcars.tsv.xz"))
 write_delim <- function(x, path, delim = " ", na = "NA", append = FALSE,
                         col_names = !append) {
   stopifnot(is.data.frame(x))
-  path <- normalizePath(path, mustWork = FALSE)
 
   x_out <- lapply(x, output_column)
   stream_delim(x_out, path, delim, col_names = col_names, append = append,
@@ -68,7 +74,6 @@ write_csv <- function(x, path, na = "NA", append = FALSE, col_names = !append) {
 #' @export
 write_excel_csv <- function(x, path, na = "NA", append = FALSE, col_names = !append) {
   stopifnot(is.data.frame(x))
-  path <- normalizePath(path, mustWork = FALSE)
 
   x_out <- lapply(x, output_column)
   stream_delim(x_out, path, ",", col_names = col_names, append = append,
@@ -95,7 +100,7 @@ format_delim <- function(x, delim, na = "NA", append = FALSE, col_names = !appen
   stopifnot(is.data.frame(x))
 
   x <- lapply(x, output_column)
-  stream_delim(x, "", delim, col_names = col_names, append = append, na = na)
+  stream_delim(x, NULL, delim, col_names = col_names, append = append, na = na)
 }
 
 #' @export
@@ -141,4 +146,18 @@ output_column.double <- function(x) {
 #' @export
 output_column.POSIXt <- function(x) {
   format(x, "%Y-%m-%dT%H:%M:%OSZ", tz = "UTC")
+}
+
+stream_delim <- function(df, path, append = FALSE, ...) {
+  path <- standardise_path(path, input = FALSE)
+
+  if (inherits(path, "connection") && !isOpen(path)) {
+    on.exit(close(path), add = TRUE)
+    if (isTRUE(append)) {
+      open(path, "ab")
+    } else {
+      open(path, "wb")
+    }
+  }
+  stream_delim_(df, path, ...)
 }

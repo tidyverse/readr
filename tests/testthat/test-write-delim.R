@@ -58,7 +58,7 @@ test_that("roundtrip preserves dates and datetimes", {
 })
 
 test_that("fails to create file in non-existent directory", {
-  expect_error(write_csv(mtcars, file.path(tempdir(), "/x/y")), "Failed to open")
+  expect_warning(expect_error(write_csv(mtcars, file.path(tempdir(), "/x/y")), "cannot open the connection"), "No such file or directory")
 })
 
 test_that("write_excel_csv includes a byte order mark", {
@@ -91,4 +91,15 @@ test_that("does not writes a tailing .0 for whole number doubles", {
   expect_equal(format_tsv(tibble::data_frame(x = 123456789)), "x\n123456789\n")
 
   expect_equal(format_tsv(tibble::data_frame(x = -123456789)), "x\n-123456789\n")
+})
+
+test_that("write_csv can write to compressed files", {
+  mt <- read_csv(readr_example("mtcars.csv.bz2"))
+
+  filename <- file.path(tempdir(), "mtcars.csv.bz2")
+  on.exit(unlink(filename))
+  write_csv(mt, filename)
+
+  expect_true(is_bz2_file(filename))
+  expect_equal(mt, read_csv(filename))
 })

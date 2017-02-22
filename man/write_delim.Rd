@@ -19,7 +19,7 @@ write_tsv(x, path, na = "NA", append = FALSE, col_names = !append)
 \arguments{
 \item{x}{A data frame to write to disk}
 
-\item{path}{Path to write to.}
+\item{path}{Path or connection to write to.}
 
 \item{delim}{Delimiter used to seperate values. Defaults to \code{" "}. Must be
 a single character.}
@@ -70,6 +70,13 @@ format_csv(df, na = ".")
 # Quotes are automatically as needed
 df <- data.frame(x = c("a", '"', ",", "\\n"))
 cat(format_csv(df))
+
+# A output connection will be automatically created for output filenames
+# with appropriate extensions.
+dir <- tempdir()
+write_tsv(mtcars, file.path(dir, "mtcars.tsv.gz"))
+write_tsv(mtcars, file.path(dir, "mtcars.tsv.bz2"))
+write_tsv(mtcars, file.path(dir, "mtcars.tsv.xz"))
 }
 \references{
 Florian Loitsch, Printing Floating-Point Numbers Quickly and

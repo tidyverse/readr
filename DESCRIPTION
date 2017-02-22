@@ -20,11 +20,11 @@ LinkingTo: Rcpp,
     BH
 Imports:
     Rcpp (>= 0.12.0.5),
-    curl,
     tibble,
     hms,
     R6
 Suggests:
+    curl,
     testthat,
     knitr,
     rmarkdown,

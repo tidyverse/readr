@@ -73,23 +73,23 @@ type_convert_col <- function(x, spec, locale_, col, na, trim_ws) {
     .Call('readr_type_convert_col', PACKAGE = 'readr', x, spec, locale_, col, na, trim_ws)
 }
 
-stream_delim <- function(df, path, delim, na, col_names = TRUE, append = FALSE, bom = FALSE) {
-    .Call('readr_stream_delim', PACKAGE = 'readr', df, path, delim, na, col_names, append, bom)
+stream_delim_ <- function(df, connection, delim, na, col_names = TRUE, bom = FALSE) {
+    .Call('readr_stream_delim_', PACKAGE = 'readr', df, connection, delim, na, col_names, bom)
 }
 
-write_lines_ <- function(lines, path, na, append = FALSE) {
-    invisible(.Call('readr_write_lines_', PACKAGE = 'readr', lines, path, na, append))
+write_lines_ <- function(lines, connection, na) {
+    invisible(.Call('readr_write_lines_', PACKAGE = 'readr', lines, connection, na))
 }
 
-write_lines_raw_ <- function(x, path, append = FALSE) {
-    invisible(.Call('readr_write_lines_raw_', PACKAGE = 'readr', x, path, append))
+write_lines_raw_ <- function(x, connection) {
+    invisible(.Call('readr_write_lines_raw_', PACKAGE = 'readr', x, connection))
 }
 
-write_file_raw_ <- function(x, path, append = FALSE) {
-    invisible(.Call('readr_write_file_raw_', PACKAGE = 'readr', x, path, append))
+write_file_ <- function(x, connection) {
+    invisible(.Call('readr_write_file_', PACKAGE = 'readr', x, connection))
 }
 
-write_file_ <- function(x, path, append = FALSE) {
-    invisible(.Call('readr_write_file_', PACKAGE = 'readr', x, path, append))
+write_file_raw_ <- function(x, connection) {
+    invisible(.Call('readr_write_file_raw_', PACKAGE = 'readr', x, connection))
 }
 
