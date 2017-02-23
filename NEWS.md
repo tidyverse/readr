@@ -1,70 +1,49 @@
 # readr 1.0.0.9000
 
+## New features
+
+### Parsing Improvements
 * `parse_factor()` now converts data to UTF-8 based on the supplied locale (#615).
-* `parse_factor()` now can accept `levels = NULL`, which allows one to generate factor levels based on the data (like stringsAsFactors = TRUE) (#497).
+
+* `parse_factor()` will now can accept `levels = NULL`, which allows one to generate factor levels based on the data (like stringsAsFactors = TRUE) (#497).
 * `parse_factor()` gains a `include_na` argument, to include `NA` in the factor levels (#541).
 
+* parsing problems in `read_delim()` and `read_fwf()` when columns are skipped using col_types now report the correct column name (#573, @cb4ds)
 * `read_delim()` now signals an error if given an empty delimiter (#557).
+* `read_csv2()` gives a message if it updates the default locale (#443, @krlmlr).
+
+* Added an argument `n` to `read_table()` to control how many lines are read for whitespace before determining column structure. Defaults to 100.
+* `read_table()` can now handle files with many lines of leading comments (#563).
 * `read_table2()` which allows any number of whitespace characters as
   delimiters, a more exact replacement for `utils::read.table()` (#608).
+* `read_table()` can now handle `pipe()` connections (#552).
+
 
 * The `write_*` functions now support writing to binary connections. In
   addition output filenames with `.gz`, `.bz2` or `.xz` will automatically open
   the appropriate connection and to write the compressed file. (#348)
-* Long spec declarations now print properly (#597).
-* `read_table()` can now handle files with many lines of leading comments (#563).
-* Whole number doubles are no longer written with a trailing `.0` decimal (#526).
 * `write_lines()` now accepts a list of raw vectors (#542).
-* ListCallback S6 Class to provide a more flexible return type for callback functions (#568, @mmuurr)
-* parsing problems now include the filename (#581).
+
 * Numeric parser now returns the full string if it contains no numbers (#548).
-* `read_table()` can now handle `pipe()` connections (#552).
+* Whole number doubles are no longer written with a trailing `.0` decimal (#526).
+
+* parsing problems now include the filename (#581).
+* Long spec declarations now print properly (#597).
 * The `guess_max` argument now throws errors on inappropriate inputs (#588).
 
 * tibble::as.tibble now used to construct tibbles (#538).
-* parsing problems in `read_delim()` and `read_fwf()` when columns are skipped using col_types now report the correct column name (#573, @cb4ds)
 
 * `parse_time()` now correctly handles 12 AM/PM (#579).
 
-* `read_csv2()` gives a message if it updates the default locale (#443, @krlmlr).
-
-* `col_euro_double()`, `parse_euro_double()`, `col_numeric()`, and 
+* `col_euro_double()`, `parse_euro_double()`, `col_numeric()`, and
   `parse_numeric()` have been removed.
 
 * Pass `guess_max` to  fwf_empty, to control how many lines are read for whitespace before determining column structure.
-
-# readr 0.2.2.9000
-* Skip Unicode byte order markers if they exist (#263, @jimhester).
-
-* Supports reading into long vectors (#309, @jimhester).
-
-* `default_locale()` now sets the default locale in `readr.default_locale`
-  rather than regenerating it for each call. (#416, @jimhester).
-
-* `guess_encoding()` returns a tibble, and works better with lists of 
+* `guess_encoding()` returns a tibble, and works better with lists of
   raw vectors (as returned by `read_lines_raw()`).
+
+* ListCallback S6 Class to provide a more flexible return type for callback functions (#568, @mmuurr)
 * Bugfix for chunked reading to properly allow stopping of a stream by returning FALSE from the callback.
-* `read_csv2()` gives a message if it updates the default locale (#443, @krlmlr).
-
-* `col_euro_double()`, `parse_euro_double()`, `col_numeric()`, and 
-  `parse_numeric()` have been removed.
-
-  
-* Added an argument `n` to `read_table()` to control how many lines are read for whitspace before determining column structure. Defaults to 100.
-  
-# readr 0.2.2.9000
-* Skip Unicode byte order markers if they exist (#263, @jimhester).
-
-* Supports reading into long vectors (#309, @jimhester).
-* `read_fwf()` stops with an error (instead of a segmentation fault) if no columns are specified, or if skipping past the end of the file (#511, #519, #574, @krlmlr).
-
-* `col_euro_double()`, `parse_euro_double()`, `col_numeric()`, and 
-  `parse_numeric()` have been removed.
-
-* Skip Unicode byte order markers if they exist (#263, @jimhester).
-
-* `guess_encoding()` returns a tibble, and works better with lists of 
-  raw vectors (as returned by `read_lines_raw()`).
 
 # readr 1.0.0
 
