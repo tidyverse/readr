@@ -52,7 +52,7 @@ least one new line to be recognised as data (instead of a path).}
 
 \item{escape_backslash}{Does the file use backslashes to escape special
 characters? This is more general than \code{escape_double} as backslashes
-can be used to escape the delimeter character, the quote characer, or
+can be used to escape the delimiter character, the quote character, or
 to add special characters like \code{\\n}.}
 
 \item{escape_double}{Does the file escape quotes by doubling them?
