@@ -3,7 +3,6 @@
 ## New features
 
 ### Parser improvements
-* `write_*()` functions witting whole number doubles are no longer written with a trailing `.0` (#526).
 * `parse_factor()` gains a `include_na` argument, to include `NA` in the factor levels (#541).
 * `parse_factor()` will now can accept `levels = NULL`, which allows one to generate factor levels based on the data (like stringsAsFactors = TRUE) (#497).
 * `parse_numeric()` now returns the full string if it contains no numbers (#548).
@@ -11,23 +10,23 @@
 * `problems()` now returns the file path in additional to the location of the error in the file (#581).
 * `read_csv2()` gives a message if it updates the default locale (#443, @krlmlr).
 * `read_delim()` now signals an error if given an empty delimiter (#557).
+* `write_*()` functions witting whole number doubles are no longer written with a trailing `.0` (#526).
 
 ### Whitespace / fixed width improvements
-* `read_table2()` which allows any number of whitespace characters as delimiters, a more exact replacement for `utils::read.table()` (#608).
-* `read_table()` can now handle files with many lines of leading comments (#563).
 * `fwf_empty()` gains an `n` argument to control how many lines are read for whitespace to determine column structure (#518, @Yeedle).
 * `read_table()` can now handle `pipe()` connections (#552).
+* `read_table()` can now handle files with many lines of leading comments (#563).
+* `read_table2()` which allows any number of whitespace characters as delimiters, a more exact replacement for `utils::read.table()` (#608).
 
 ## Writing to connections
-
 * `write_*()` functions now support writing to binary connections. In addition output filenames with `.gz`, `.bz2` or `.xz` will automatically open the appropriate connection and to write the compressed file. (#348)
 * `write_lines()` now accepts a list of raw vectors (#542).
 
 ## Miscellaneous features
-* `tibble::as.tibble()` now used to construct tibbles (#538).
 * `col_euro_double()`, `parse_euro_double()`, `col_numeric()`, and `parse_numeric()` have been removed.
 * `guess_encoding()` returns a tibble, and works better with lists of raw vectors (as returned by `read_lines_raw()`).
 * `ListCallback` R6 Class to provide a more flexible return type for callback functions (#568, @mmuurr)
+* `tibble::as.tibble()` now used to construct tibbles (#538).
 
 ## Bugfixes
 * `parse_factor()` now converts data to UTF-8 based on the supplied locale (#615).
