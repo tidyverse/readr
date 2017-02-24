@@ -1,3 +1,10 @@
+fwf_col_names <- function(nm, n) {
+  nm <- nm %||% rep("", n)
+  nm_empty <- (nm == "")
+  nm[nm_empty] <- paste0("X", seq_len(n))[nm_empty]
+  nm
+}
+
 #' Read a fixed width file into a tibble
 #'
 #' A fixed width file can be a very compact representation of numeric data.
@@ -38,19 +45,21 @@ read_fwf <- function(file, col_positions, col_types = NULL,
     return(tibble::tibble())
   }
   if (!is.list(col_positions)) {
-    stop("col_positions must be a data frame.", stop. = FALSE)
+    stop("col_positions must be a list.", stop. = FALSE)
   }
   if (all(c("begin", "end") %in% names(col_positions))) {
-    # default case
+    col_positions$col_names <- fwf_col_names(col_positions$col_names,
+                                             length(col_positions$start[[1]]))
   } else if (c("width" %in% names(col_positions))) {
     col_positions <- fwf_widths(col_positions$width,
-                                col_names = col_positions$names)
+                                col_names = col_positions$col_names)
   } else {
     stop("col_positions must contain either 'begin' and 'end' columns",
          " or a 'width' column.", stop. = FALSE)
   }
 
-  tokenizer <- tokenizer_fwf(col_positions$begin, col_positions$end, na = na, comment = comment)
+  tokenizer <- tokenizer_fwf(col_positions$begin, col_positions$end, na = na,
+                             comment = comment)
 
   spec <- col_spec_standardise(
     file,
@@ -68,7 +77,8 @@ read_fwf <- function(file, col_positions, col_types = NULL,
   }
 
   out <- read_tokens(ds, tokenizer, spec$cols, names(spec$cols),
-    locale_ = locale, n_max = if (n_max == Inf) -1 else n_max, progress = progress)
+    locale_ = locale, n_max = if (n_max == Inf) -1 else n_max,
+    progress = progress)
 
   out <- name_problems(out, names(spec$cols), source_name(file))
   attr(out, "spec") <- spec
@@ -85,13 +95,9 @@ fwf_empty <- function(file, skip = 0, col_names = NULL, comment = "", n = 100L) 
   out <- whitespaceColumns(ds, comment = comment, n = n)
   out$end[length(out$end)] <- NA
 
-  if (is.null(col_names)) {
-    col_names <- paste0("X", seq_along(out$begin))
-  } else {
-    stopifnot(length(out$begin) == length(col_names))
-  }
+  col_names <- fwf_col_names(col_names, length(out$begin))
   out$col_names <- col_names
-  tibble::as_tibble(out)
+  out
 }
 
 #' @rdname read_fwf
@@ -110,16 +116,10 @@ fwf_widths <- function(widths, col_names = NULL) {
 #'    Use NA as last end field when reading a ragged fwf file.
 fwf_positions <- function(start, end = NULL, col_names = NULL) {
 
-
   stopifnot(length(start) == length(end))
+  col_names <- fwf_col_names(col_names, length(start))
 
-  if (is.null(col_names)) {
-    col_names <- paste0("X", seq_along(start))
-  } else {
-    stopifnot(length(start) == length(col_names))
-  }
-
-  tibble(
+  list(
     begin = start - 1,
     end = end, # -1 to change to 0 offset, +1 to be exclusive,
     col_names = col_names
@@ -146,15 +146,14 @@ fwf_cols <- function(...) {
   if (inherits(x, "try-error")) {
     stop("All elements in x or ... must be coercible to integer vectors.")
   }
-  names(x) <- names(x) %||% rep("", length(x))
-  names(x)[names(x) == ""] <- paste0("X", which(names(x) == ""))
+  names(x) <- fwf_col_names(names(x), length(x))
   x <- tibble::as_tibble(x)
   if (nrow(x) == 2) {
     fwf_positions(as.integer(x[1, ]),
                   as.integer(x[2, ]),
-                  col_names = names(x))
+                  names(x))
   } else if (nrow(x) == 1) {
-    fwf_widths(as.integer(x[1, ]), col_names = names(x))
+    fwf_widths(as.integer(x[1, ]), names(x))
   } else {
     stop("All variables must have either one (width)",
          "two (start, end) values.", call. = FALSE)

@@ -123,11 +123,8 @@ test_that("ignore commented lines anywhere in file", {
 
 test_that("error on empty spec (#511, #519)", {
   txt = "foo\n"
-  expect_error(fwf_positions(start = numeric(0), end = numeric(0)),
-               "Variables must be length 1 or .*")
-  expect_error(read_fwf(txt, tibble::tibble(begin = integer(0),
-                                            end = integer()),
-                        "Zero-length.*specifications not supported"))
+  pos = fwf_positions(start = numeric(0), end = numeric(0))
+  expect_error(read_fwf(txt, pos), "Zero-length.*specifications not supported")
 })
 
 # fwf_cols
