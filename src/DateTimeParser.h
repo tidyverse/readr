@@ -219,6 +219,10 @@ public:
         if (!consumeTzOffset(&tzOffsetHours_, &tzOffsetMinutes_))
           return false;
         break;
+      case 'Z': // time zone name
+        if (!consumeTzName(&tz_))
+          return false;
+        break;
 
         // Extensions
       case '.':
