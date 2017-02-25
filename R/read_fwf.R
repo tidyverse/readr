@@ -130,12 +130,7 @@ fwf_positions <- function(start, end = NULL, col_names = NULL) {
 #'   Otherwise, the elements of `...` are used to construct a data frame
 #'   with or or two rows as above.
 fwf_cols <- function(...) {
-  x <- list(...)
-  # If first element is a list (including data frame), then
-  if (is.list(x[[1]])) {
-    x <- x[[1]]
-  }
-  x <- lapply(x, as.integer)
+  x <- lapply(list(...), as.integer)
   names(x) <- fwf_col_names(names(x), length(x))
   x <- tibble::as_tibble(x)
   if (nrow(x) == 2) {
