@@ -52,8 +52,7 @@ read_fwf <- function(file, col_positions, col_types = NULL,
          " or a 'width' column.", stop. = FALSE)
   }
 
-  tokenizer <- tokenizer_fwf(col_positions$begin, col_positions$end, na = na,
-                             comment = comment)
+  tokenizer <- tokenizer_fwf(col_positions$begin, col_positions$end, na = na, comment = comment)
 
   spec <- col_spec_standardise(
     file,
