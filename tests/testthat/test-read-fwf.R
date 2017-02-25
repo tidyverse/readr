@@ -127,6 +127,43 @@ test_that("error on empty spec (#511, #519)", {
   expect_error(read_fwf(txt, pos), "Zero-length.*specifications not supported")
 })
 
+# fwf_cols
+test_that("fwf_cols produces correct fwf_positions object with elements of length 2", {
+  expected <- fwf_positions(c(1,  9, 4),
+                            c(2, 12, 6),
+                            c("a", "b", "d"))
+  expect_equal(fwf_cols(a = c(1, 2), b = c(9, 12), d = c(4, 6)), expected)
+  expect_equal(fwf_cols(tibble::tibble(a = c(1, 2), b = c(9, 12), d = c(4, 6))),
+               expected)
+})
+
+test_that("fwf_cols produces correct fwf_positions object with elements of length 1", {
+  expected <- fwf_widths(c(2, 4, 3),
+                         c("a", "b", "c"))
+  expect_equal(fwf_cols(a = 2, b = 4, c = 3), expected)
+  expect_equal(fwf_cols(tibble::tibble(a = 2, b = 4, c = 3)), expected)
+})
+
+
+test_that("fwf_cols throws error when arguments are not length 1 or 2", {
+  pattern <- "Variables must be length 1 or .*"
+  expect_error(fwf_cols(a = 1:3, b = 4:5), pattern)
+  expect_error(fwf_cols(a = c(), b = 4:5), pattern)
+})
+
+test_that("fwf_cols works with unnamed columns", {
+  expect_equal(
+    fwf_cols(c(1, 2), c(9, 12), c(4, 6)),
+    fwf_positions(c(1L, 9L, 4L),
+                  c(2L, 12L, 6L),
+                  c("X1", "X2", "X3")))
+  expect_equal(
+    fwf_cols(a = c(1, 2), c(9, 12), c(4, 6)),
+    fwf_positions(c(1L, 9L, 4L),
+                  c(2L, 12L, 6L),
+                  c("a", "X2", "X3")))
+})
+
 # read_table -------------------------------------------------------------------
 
 test_that("read_table silently reads ragged last column", {
@@ -143,35 +180,6 @@ test_that("read_table skips all comment lines", {
 })
 
 test_that("read_table can read from a pipe (552)", {
-  x <- read_table(pipe("echo a b c && echo 1 2 3 && echo 4 5 6"))
+  x <- read_table(pipe("echo a b c && echo 1 2 3 && echo 4 5 6"), progress = FALSE)
   expect_equal(x$a, c(1, 4))
 })
-
-test_that("fwf_cols produces correct fwf_positions object", {
-  col_pos <- fwf_cols(list(a = c(1, 2), b = c(9, 12)), d = c(4, 6))
-  expect_equal(col_pos, fwf_positions(c(1,  9, 4),
-                                      c(2, 12, 6),
-                                      c("a", "b", "d")))
-
-})
-
-test_that("fwf_cols throws error with non-length 2 vectors", {
-  pattern <- "All elements in `\\.cols` must have length 2."
-  expect_error(fwf_cols(list(a = 1:2, b = 3)), pattern)
-  expect_error(fwf_cols(list(a = 1:3, b = 4:5)), pattern)
-  expect_error(fwf_cols(list(a = c(), b = 4:5)), pattern)
-})
-
-test_that("fwf_cols works with unnamed columns", {
-  col_pos <- expect_equal(
-    fwf_cols(list(c(1, 2), c(9, 12)), c(4, 6)),
-    fwf_positions(c(1, 9, 4),
-                  c(2, 12, 6),
-                  c("X1", "X2", "X3")))
-  col_pos <- expect_equal(
-    fwf_cols(list(a = c(1, 2), c(9, 12)), c(4, 6)),
-    fwf_positions(c(1, 9, 4),
-                  c(2, 12, 6),
-                  c("a", "X2", "X3")))
-})
-

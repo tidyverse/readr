@@ -1,12 +1,18 @@
 #' Read whitespace-separated columns into a tibble
 #'
-#' This is designed to read the type of textual data where each column is
-#' separate by one (or more) columns of space. Each line is the same length,
-#' and each field is in the same position in every line. It's similar to
-#' [read.table()], but rather parsing like a file delimited by
-#' arbitrary amounts of whitespace, it first finds empty columns and then
-#' parses like a fixed width file. `spec_table()` returns the column
-#' specification rather than a data frame.
+#' @description
+#' `read_table()` and `read_table2()` are designed to read the type of textual
+#' data where each column is #' separate by one (or more) columns of space.
+#'
+#' `read_table2()` is like [read.table()], it allows any number of whitespace
+#' characters between columns, and the lines can be of different lengths.
+#'
+#' `read_table()` is more strict, each line must be the same length,
+#' and each field is in the same position in every line. It first finds empty columns and then
+#' parses like a fixed width file.
+#'
+#' `spec_table()` and `spec_table2()` return
+#' the column specifications rather than a data frame.
 #'
 #' @seealso [read_fwf()] to read fixed width files where each column
 #'   is not separated by whitespace. `read_fwf()` is also useful for reading
@@ -52,6 +58,19 @@ read_table <- function(file, col_names = TRUE, col_types = NULL,
   attr(res, "spec") <- spec
 
   res
+}
+
+#' @rdname read_table
+#' @export
+read_table2 <- function(file, col_names = TRUE, col_types = NULL,
+                       locale = default_locale(), na = "NA", skip = 0,
+                       n_max = Inf, guess_max = min(n_max, 1000),
+                       progress = show_progress(), comment = "") {
+
+  tokenizer <- tokenizer_ws(na = na, comment = comment)
+  read_delimited(file, tokenizer, col_names = col_names, col_types = col_types,
+    locale = locale, skip = skip, comment = comment, n_max = n_max, guess_max =
+      guess_max, progress = progress)
 }
 
 #' @rdname spec_delim

@@ -102,7 +102,7 @@ read_connection <- function(con) {
   read_connection_(con)
 }
 
-standardise_path <- function(path) {
+standardise_path <- function(path, input = TRUE) {
   if (!is.character(path))
     return(path)
 
@@ -110,21 +110,34 @@ standardise_path <- function(path) {
     return(path)
 
   if (is_url(path)) {
-    if (identical(tools::file_ext(path), "gz")) {
-      return(gzcon(curl::curl(path)))
+    if (requireNamespace("curl", quietly = TRUE)) {
+      con <- curl::curl(path)
     } else {
-      return(curl::curl(path))
+      message("`curl` package not installed, falling back to using `url()`")
+      con <- url(path)
+    }
+    if (identical(tools::file_ext(path), "gz")) {
+      return(gzcon(con))
+    } else {
+      return(con)
     }
   }
 
-  path <- check_path(path)
+  if (isTRUE(input)) {
+    path <- check_path(path)
+  }
   switch(tools::file_ext(path),
     gz = gzfile(path, ""),
     bz2 = bzfile(path, ""),
     xz = xzfile(path, ""),
     zip = zipfile(path, ""),
-    path
-  )
+
+    # Use a file connection for output
+    if (!isTRUE(input)) {
+      file(path, "")
+    } else {
+      path
+    })
 }
 
 source_name <- function(x) {

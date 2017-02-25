@@ -20,11 +20,11 @@ LinkingTo: Rcpp,
     BH
 Imports:
     Rcpp (>= 0.12.0.5),
-    curl,
     tibble,
     hms,
     R6
 Suggests:
+    curl,
     testthat,
     knitr,
     rmarkdown,
@@ -34,5 +34,5 @@ License: GPL (>= 2) | file LICENSE
 BugReports: https://github.com/tidyverse/readr/issues
 URL: http://readr.tidyverse.org, https://github.com/tidyverse/readr
 VignetteBuilder: knitr
-RoxygenNote: 5.0.1.9000
+RoxygenNote: 6.0.1
 Roxygen: list(markdown = TRUE)

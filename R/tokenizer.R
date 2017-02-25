@@ -122,3 +122,9 @@ tokenizer_log <- function() {
 tokenizer_fwf <- function(begin, end, na = "NA", comment = "") {
   structure(list(begin = begin, end = end, na = na, comment = comment), class = "tokenizer_fwf")
 }
+
+#' @export
+#' @rdname Tokenizers
+tokenizer_ws <- function(na = "NA", comment = "") {
+  structure(list(na = na, comment = comment), class = "tokenizer_ws")
+}

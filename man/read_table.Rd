@@ -2,9 +2,14 @@
 % Please edit documentation in R/read_table.R
 \name{read_table}
 \alias{read_table}
+\alias{read_table2}
 \title{Read whitespace-separated columns into a tibble}
 \usage{
 read_table(file, col_names = TRUE, col_types = NULL,
+  locale = default_locale(), na = "NA", skip = 0, n_max = Inf,
+  guess_max = min(n_max, 1000), progress = show_progress(), comment = "")
+
+read_table2(file, col_names = TRUE, col_types = NULL,
   locale = default_locale(), na = "NA", skip = 0, n_max = Inf,
   guess_max = min(n_max, 1000), progress = show_progress(), comment = "")
 }
@@ -78,13 +83,18 @@ setting option \code{readr.show_progress} to \code{FALSE}.}
 comment characters will be silently ignored.}
 }
 \description{
-This is designed to read the type of textual data where each column is
-separate by one (or more) columns of space. Each line is the same length,
-and each field is in the same position in every line. It's similar to
-\code{\link[=read.table]{read.table()}}, but rather parsing like a file delimited by
-arbitrary amounts of whitespace, it first finds empty columns and then
-parses like a fixed width file. \code{spec_table()} returns the column
-specification rather than a data frame.
+\code{read_table()} and \code{read_table2()} are designed to read the type of textual
+data where each column is #' separate by one (or more) columns of space.
+
+\code{read_table2()} is like \code{\link[=read.table]{read.table()}}, it allows any number of whitespace
+characters between columns, and the lines can be of different lengths.
+
+\code{read_table()} is more strict, each line must be the same length,
+and each field is in the same position in every line. It first finds empty columns and then
+parses like a fixed width file.
+
+\code{spec_table()} and \code{spec_table2()} return
+the column specifications rather than a data frame.
 }
 \examples{
 # One corner from http://www.masseyratings.com/cf/compare.htm

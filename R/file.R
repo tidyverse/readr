@@ -47,14 +47,19 @@ read_file_raw <- function(file) {
 #' @rdname read_file
 #' @export
 write_file <- function(x, path, append = FALSE) {
-  path <- normalizePath(path, mustWork = FALSE)
-
+  path <- standardise_path(path, input = FALSE)
+  if (!isOpen(path)) {
+    on.exit(close(path), add = TRUE)
+    if (isTRUE(append)) {
+      open(path, "ab")
+    } else {
+      open(path, "wb")
+    }
+  }
   if (is.raw(x)) {
-    write_file_raw_(x, path, append = append)
-  } else if (is.character(x)) {
-    write_file_(x, path, append = append)
+    write_file_raw_(x, path)
   } else {
-    stop("`x` must be a raw or character vector", call. = FALSE)
+    write_file_(x, path)
   }
 
   invisible(x)

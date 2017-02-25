@@ -1,8 +1,16 @@
 # readr 1.0.0.9000
 
+* `parse_factor()` now converts data to UTF-8 based on the supplied locale (#615).
+* `parse_factor()` now can accept `levels = NULL`, which allows one to generate factor levels based on the data (like stringsAsFactors = TRUE) (#497).
+* `parse_factor()` gains a `include_na` argument, to include `NA` in the factor levels (#541).
 
 * `read_delim()` now signals an error if given an empty delimiter (#557).
+* `read_table2()` which allows any number of whitespace characters as
+  delimiters, a more exact replacement for `utils::read.table()` (#608).
 
+* The `write_*` functions now support writing to binary connections. In
+  addition output filenames with `.gz`, `.bz2` or `.xz` will automatically open
+  the appropriate connection and to write the compressed file. (#348)
 * Long spec declarations now print properly (#597).
 * `read_table()` can now handle files with many lines of leading comments (#563).
 * Whole number doubles are no longer written with a trailing `.0` decimal (#526).
@@ -14,7 +22,6 @@
 * The `guess_max` argument now throws errors on inappropriate inputs (#588).
 
 * tibble::as.tibble now used to construct tibbles (#538).
-
 * parsing problems in `read_delim()` and `read_fwf()` when columns are skipped using col_types now report the correct column name (#573, @cb4ds)
 
 * `parse_time()` now correctly handles 12 AM/PM (#579).

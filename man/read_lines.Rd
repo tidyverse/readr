@@ -48,7 +48,7 @@ setting option \code{readr.show_progress} to \code{FALSE}.}
 
 \item{x}{A data frame to write to disk}
 
-\item{path}{Path to write to.}
+\item{path}{Path or connection to write to.}
 
 \item{append}{If \code{FALSE}, will overwrite existing file. If \code{TRUE},
 will append to existing file. In both cases, if file does not exist a new

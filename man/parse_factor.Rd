@@ -6,14 +6,16 @@
 \title{Parse factors}
 \usage{
 parse_factor(x, levels, ordered = FALSE, na = c("", "NA"),
-  locale = default_locale())
+  locale = default_locale(), include_na = TRUE)
 
-col_factor(levels, ordered = FALSE)
+col_factor(levels, ordered = FALSE, include_na = FALSE)
 }
 \arguments{
 \item{x}{Character vector of values to parse.}
 
-\item{levels}{Character vector providing set of allowed levels.}
+\item{levels}{Character vector providing set of allowed levels. if \code{NULL},
+will generate levels based on the unique values of \code{x}, ordered by order
+of appearance in \code{x}.}
 
 \item{ordered}{Is it an ordered factor?}
 
@@ -25,6 +27,8 @@ The default locale is US-centric (like R), but you can use
 \code{\link[=locale]{locale()}} to create your own locale that controls things like
 the default time zone, encoding, decimal mark, big mark, and day/month
 names.}
+
+\item{include_na}{If \code{NA} are present, include as an explicit factor to level?}
 }
 \description{
 \code{parse_factor} is similar to \code{\link[=factor]{factor()}}, but will generate
@@ -41,6 +45,9 @@ x1 <- factor(x, levels)
 
 # parse_factor generates a warning & problems
 x2 <- parse_factor(x, levels)
+
+# Using an argument of `NULL` will generate levels based on values of `x`
+x2 <- parse_factor(x, levels = NULL)
 }
 \seealso{
 Other parsers: \code{\link{col_skip}},
