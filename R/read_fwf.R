@@ -135,10 +135,7 @@ fwf_cols <- function(...) {
   if (is.list(x[[1]])) {
     x <- x[[1]]
   }
-  x <- try(lapply(x, as.integer), silent = TRUE)
-  if (inherits(x, "try-error")) {
-    stop("All elements in x or ... must be coercible to integer vectors.")
-  }
+  x <- lapply(x, as.integer)
   names(x) <- fwf_col_names(names(x), length(x))
   x <- tibble::as_tibble(x)
   if (nrow(x) == 2) {
