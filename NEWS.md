@@ -1,5 +1,8 @@
 # readr 1.0.0.9000
 
+* `fwf_cols()` allows for specifying the `col_positions` argument of
+  `read_fwf()` with named arguments of either column positions or widths
+  (#616, @jrnold).
 * `parse_factor()` now converts data to UTF-8 based on the supplied locale (#615).
 * `parse_factor()` now can accept `levels = NULL`, which allows one to generate factor levels based on the data (like stringsAsFactors = TRUE) (#497).
 * `parse_factor()` gains a `include_na` argument, to include `NA` in the factor levels (#541).
