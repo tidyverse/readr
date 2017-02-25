@@ -1,9 +1,4 @@
-fwf_col_names <- function(nm, n) {
-  nm <- nm %||% rep("", n)
-  nm_empty <- (nm == "")
-  nm[nm_empty] <- paste0("X", seq_len(n))[nm_empty]
-  nm
-}
+
 
 #' Read a fixed width file into a tibble
 #'
@@ -158,4 +153,11 @@ fwf_cols <- function(...) {
     stop("All variables must have either one (width)",
          "two (start, end) values.", call. = FALSE)
   }
+}
+
+fwf_col_names <- function(nm, n) {
+  nm <- nm %||% rep("", n)
+  nm_empty <- (nm == "")
+  nm[nm_empty] <- paste0("X", seq_len(n))[nm_empty]
+  nm
 }
