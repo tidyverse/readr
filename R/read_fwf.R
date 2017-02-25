@@ -38,6 +38,19 @@ read_fwf <- function(file, col_positions, col_types = NULL,
     return(tibble::data_frame())
   }
 
+  if (is.data.frame(col_positions)) {
+    if (ncol(col_positions) == 3L) {
+      if (length(setdiff(names(col_positions), c("col_name", "start", "end")) == 0L)) {
+        stop("If col_positions is a data frame with three columns, then they must be col_name, start, and end", call. = FALSE)
+      }
+    } else if (ncol(col_positions) == 2L) {
+      if (length(setdiff(names(col_positions), c("col_name", "width")) == 0L)) {
+        stop("If col_positions is a data frame with two columns, then they must be col_name, start, and end", call. = FALSE)
+      }
+      col_positions <- fwf_widths(col_positions$width, col_names = col_positions$col_names)
+    }
+  }
+
   tokenizer <- tokenizer_fwf(col_positions$begin, col_positions$end, na = na, comment = comment)
 
   spec <- col_spec_standardise(
@@ -108,7 +121,7 @@ fwf_positions <- function(start, end, col_names = NULL) {
     stopifnot(length(start) == length(col_names))
   }
 
-  list(
+  tibble(
     begin = start - 1,
     end = end, # -1 to change to 0 offset, +1 to be exclusive,
     col_names = col_names
@@ -118,26 +131,25 @@ fwf_positions <- function(start, end, col_names = NULL) {
 
 #' @rdname read_fwf
 #' @export
-#' @param .cols Named list of numeric vectors. The names are the
-#'   column names, the numeric vectors must all have length two with the start
-#'   and end positions of the columns.
+#' @param x Data frame of one or two rows.  Each column in \code{x} is a variable
+#'   in the file to be parsed. If \code{x} has one row, then the values
+#'   are the widths of each column. If it has two rows, the first row
+#'   is the start column, and the second row is the end column of the
+#'   variable.
 #' @param ... Additional named arguments added to the \code{.cols} list.
-fwf_cols <- function(.cols, ...) {
-  .cols <- c(as.list(.cols), list(...))
-  if (!all(vapply(.cols, length, integer(1)) == 2L)) {
-    stop("All elements in `.cols` must have length 2.", call. = FALSE)
+fwf_cols <- function(...) {
+  dots <- list(...)
+  if (length(dots) == 1 && is.list(dots[[1]])) {
+  }
+  if (!nrow(x) %in% 1:2) {
+    stop("x must be either one or two rows", call. = FALSE)
   }
   if (!all(vapply(.cols, is.numeric, logical(1)))) {
-    stop("All values in `.cols` must be integers.", call. = FALSE)
+    stop("All columns must be integers.", call. = FALSE)
   }
-  nms <- names(.cols) %||% rep("", length(.cols))
-  no_names <- which(nms == "")
-  nms[no_names] <- paste0("X", no_names)
-  if (any(nms == "")) {
-    stop("All elements of `.cols` must be named.")
+  if (nrow(x) == 1L) {
+    fwf_widths(x[1, ], col_names = names(x))
+  } else if (nrow(x == 2L)) {
+    fwf_positions(x[1, ], x[2, ], col_names = names(x))
   }
-  start <- unname(vapply(.cols, `[`, numeric(1), 1L))
-  end <- unname(vapply(.cols, `[`, numeric(1), 2L))
-  col_names <- names(nms)
-  fwf_positions(start, end, col_names = nms)
 }
