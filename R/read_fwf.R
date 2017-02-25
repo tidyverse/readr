@@ -22,7 +22,7 @@
 #' fwf_sample <- readr_example("fwf-sample.txt")
 #' cat(read_lines(fwf_sample))
 #'
-#' # You can specify column positions in four ways:
+#' # You can specify column positions in several ways:
 #' # 1. Guess based on position of empty columns
 #' read_fwf(fwf_sample, fwf_empty(fwf_sample, col_names = c("first", "last", "state", "ssn")))
 #' # 2. A vector of field widths
@@ -31,6 +31,8 @@
 #' read_fwf(fwf_sample, fwf_positions(c(1, 30), c(10, 42), c("name", "ssn")))
 #' # 4. Named arguments with start and end positions
 #' read_fwf(fwf_sample, fwf_cols(name = c(1, 10), ssn = c(30, 42)))
+#' # 5. Named arguments with column widths
+#' read_fwf(fwf_sample, fwf_cols(name = 20, state = 10, ssn = 12))
 read_fwf <- function(file, col_positions, col_types = NULL,
                      locale = default_locale(), na = c("", "NA"),
                      comment = "", skip = 0, n_max = Inf,
