@@ -134,14 +134,12 @@ fwf_cols <- function(...) {
   names(x) <- fwf_col_names(names(x), length(x))
   x <- tibble::as_tibble(x)
   if (nrow(x) == 2) {
-    fwf_positions(as.integer(x[1, ]),
-                  as.integer(x[2, ]),
-                  names(x))
+    fwf_positions(as.integer(x[1, ]), as.integer(x[2, ]), names(x))
   } else if (nrow(x) == 1) {
     fwf_widths(as.integer(x[1, ]), names(x))
   } else {
-    stop("All variables must have either one (width)",
-         "two (start, end) values.", call. = FALSE)
+    stop("All variables must have either one (width) two (start, end) values.",
+         call. = FALSE)
   }
 }
 
