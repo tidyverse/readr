@@ -41,16 +41,6 @@ read_fwf <- function(file, col_positions, col_types = NULL,
   if (inherits(ds, "source_file") && empty_file(file)) {
     return(tibble::tibble())
   }
-  if (all(c("begin", "end") %in% names(col_positions))) {
-    col_positions$col_names <- fwf_col_names(col_positions$col_names,
-                                             length(col_positions$start[[1]]))
-  } else if (c("width" %in% names(col_positions))) {
-    col_positions <- fwf_widths(col_positions$width,
-                                col_names = col_positions$col_names)
-  } else {
-    stop("col_positions must contain either 'begin' and 'end' columns",
-         " or a 'width' column.", stop. = FALSE)
-  }
 
   tokenizer <- tokenizer_fwf(col_positions$begin, col_positions$end, na = na, comment = comment)
 
