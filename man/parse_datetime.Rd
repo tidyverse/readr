@@ -52,7 +52,7 @@ Parse date/times
 }
 \section{Format specification}{
 
-\code{readr} uses a format specification similiar to \code{\link[=strptime]{strptime()}}.
+\code{readr} uses a format specification similar to \code{\link[=strptime]{strptime()}}.
 There are three types of element:
 
 \enumerate{

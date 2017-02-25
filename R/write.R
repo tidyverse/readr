@@ -20,7 +20,7 @@
 #'   will append to existing file. In both cases, if file does not exist a new
 #'   file is created.
 #' @param col_names Write columns names at the top of the file?
-#' @param delim Delimiter used to seperate values. Defaults to `" "`. Must be
+#' @param delim Delimiter used to separate values. Defaults to `" "`. Must be
 #'   a single character.
 #' @param na String used for missing values. Defaults to NA. Missing values
 #'   will never be quoted; strings with the same value as `na` will
