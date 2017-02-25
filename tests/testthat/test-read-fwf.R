@@ -129,18 +129,13 @@ test_that("error on empty spec (#511, #519)", {
 
 # fwf_cols
 test_that("fwf_cols produces correct fwf_positions object with elements of length 2", {
-  expected <- fwf_positions(c(1,  9, 4), c(2, 12, 6), c("a", "b", "d"))
-  expect_equal(fwf_cols(a = c(1, 2), b = c(9, 12), d = c(4, 6)), expected)
-  expect_equal(
-    fwf_cols(tibble::tibble(a = c(1, 2), b = c(9, 12), d = c(4, 6))),
-    expected
-  )
+  expected <- fwf_positions(c(1L, 9L, 4L), c(2L, 12L, 6L), c("a", "b", "d"))
+  expect_equivalent(fwf_cols(a = c(1, 2), b = c(9, 12), d = c(4, 6)), expected)
 })
 
 test_that("fwf_cols produces correct fwf_positions object with elements of length 1", {
-  expected <- fwf_widths(c(2, 4, 3), c("a", "b", "c"))
-  expect_equal(fwf_cols(a = 2, b = 4, c = 3), expected)
-  expect_equal(fwf_cols(tibble::tibble(a = 2, b = 4, c = 3)), expected)
+  expected <- fwf_widths(c(2L, 4L, 3L), c("a", "b", "c"))
+  expect_equivalent(fwf_cols(a = 2, b = 4, c = 3), expected)
 })
 
 
@@ -151,11 +146,11 @@ test_that("fwf_cols throws error when arguments are not length 1 or 2", {
 })
 
 test_that("fwf_cols works with unnamed columns", {
-  expect_equal(
+  expect_equivalent(
     fwf_cols(c(1, 2), c(9, 12), c(4, 6)),
     fwf_positions(c(1L, 9L, 4L), c(2L, 12L, 6L), c("X1", "X2", "X3"))
   )
-  expect_equal(
+  expect_equivalent(
     fwf_cols(a = c(1, 2), c(9, 12), c(4, 6)),
     fwf_positions(c(1L, 9L, 4L), c(2L, 12L, 6L), c("a", "X2", "X3"))
   )
