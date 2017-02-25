@@ -41,9 +41,6 @@ read_fwf <- function(file, col_positions, col_types = NULL,
   if (inherits(ds, "source_file") && empty_file(file)) {
     return(tibble::tibble())
   }
-  if (!is.list(col_positions)) {
-    stop("col_positions must be a list.", stop. = FALSE)
-  }
   if (all(c("begin", "end") %in% names(col_positions))) {
     col_positions$col_names <- fwf_col_names(col_positions$col_names,
                                              length(col_positions$start[[1]]))
