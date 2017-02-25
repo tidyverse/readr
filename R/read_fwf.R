@@ -89,8 +89,8 @@ fwf_empty <- function(file, skip = 0, col_names = NULL, comment = "", n = 100L) 
 #'    reading a ragged fwf file.
 #' @param col_names Either NULL, or a character vector column names.
 fwf_widths <- function(widths, col_names = NULL) {
-  pos <- cumsum(c(1, abs(widths)))
-  fwf_positions(pos[-length(pos)], pos[-1] - 1, col_names)
+  pos <- cumsum(c(1L, abs(widths)))
+  fwf_positions(pos[-length(pos)], pos[-1] - 1L, col_names)
 }
 
 #' @rdname read_fwf
@@ -103,7 +103,7 @@ fwf_positions <- function(start, end = NULL, col_names = NULL) {
   col_names <- fwf_col_names(col_names, length(start))
 
   tibble(
-    begin = start - 1,
+    begin = start - 1L,
     end = end, # -1 to change to 0 offset, +1 to be exclusive,
     col_names = col_names
   )
