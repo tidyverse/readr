@@ -1,31 +1,5 @@
 # readr 1.1.0
 
-* `fwf_cols()` allows for specifying the `col_positions` argument of
-  `read_fwf()` with named arguments of either column positions or widths
-  (#616, @jrnold).
-* `parse_factor()` now converts data to UTF-8 based on the supplied locale (#615).
-* `parse_factor()` now can accept `levels = NULL`, which allows one to generate factor levels based on the data (like stringsAsFactors = TRUE) (#497).
-* `parse_factor()` gains a `include_na` argument, to include `NA` in the factor levels (#541).
-
-* `read_delim()` now signals an error if given an empty delimiter (#557).
-* `read_table2()` which allows any number of whitespace characters as
-  delimiters, a more exact replacement for `utils::read.table()` (#608).
-
-* The `write_*` functions now support writing to binary connections. In
-  addition output filenames with `.gz`, `.bz2` or `.xz` will automatically open
-  the appropriate connection and to write the compressed file. (#348)
-* Long spec declarations now print properly (#597).
-* `read_table()` can now handle files with many lines of leading comments (#563).
-* Whole number doubles are no longer written with a trailing `.0` decimal (#526).
-* `write_lines()` now accepts a list of raw vectors (#542).
-* ListCallback S6 Class to provide a more flexible return type for callback functions (#568, @mmuurr)
-* parsing problems now include the filename (#581).
-* Numeric parser now returns the full string if it contains no numbers (#548).
-* `read_table()` can now handle `pipe()` connections (#552).
-* The `guess_max` argument now throws errors on inappropriate inputs (#588).
-
-* tibble::as.tibble now used to construct tibbles (#538).
-* parsing problems in `read_delim()` and `read_fwf()` when columns are skipped using col_types now report the correct column name (#573, @cb4ds)
 ## New features
 
 ### Parser improvements
@@ -39,6 +13,10 @@
 * `write_*()` functions witting whole number doubles are no longer written with a trailing `.0` (#526).
 
 ### Whitespace / fixed width improvements
+
+* `fwf_cols()` allows for specifying the `col_positions` argument of
+  `read_fwf()` with named arguments of either column positions or widths
+  (#616, @jrnold).
 * `fwf_empty()` gains an `n` argument to control how many lines are read for whitespace to determine column structure (#518, @Yeedle).
 * `read_table()` can now handle `pipe()` connections (#552).
 * `read_table()` can now handle files with many lines of leading comments (#563).
