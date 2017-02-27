@@ -14,6 +14,7 @@
 
 ### Whitespace / fixed width improvements
 * `fwf_empty()` gains an `n` argument to control how many lines are read for whitespace to determine column structure (#518, @Yeedle).
+* `read_fwf()` gives error message if specifications have overlapping columns (#534, @gergness)
 * `read_table()` can now handle `pipe()` connections (#552).
 * `read_table()` can now handle files with many lines of leading comments (#563).
 * `read_table2()` which allows any number of whitespace characters as delimiters, a more exact replacement for `utils::read.table()` (#608).
