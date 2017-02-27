@@ -5,6 +5,7 @@
 \alias{fwf_empty}
 \alias{fwf_widths}
 \alias{fwf_positions}
+\alias{fwf_cols}
 \title{Read a fixed width file into a tibble}
 \usage{
 read_fwf(file, col_positions, col_types = NULL, locale = default_locale(),
@@ -15,7 +16,9 @@ fwf_empty(file, skip = 0, col_names = NULL, comment = "", n = 100L)
 
 fwf_widths(widths, col_names = NULL)
 
-fwf_positions(start, end, col_names = NULL)
+fwf_positions(start, end = NULL, col_names = NULL)
+
+fwf_cols(...)
 }
 \arguments{
 \item{file}{Either a path to a file, a connection, or literal data
@@ -86,6 +89,14 @@ reading a ragged fwf file.}
 
 \item{start, end}{Starting and ending (inclusive) positions of each field.
 Use NA as last end field when reading a ragged fwf file.}
+
+\item{...}{If the first element is a data frame,
+then it must have all numeric columns and either one or two rows.
+The column names are the variable names, and the column values are the
+variable widths if a length one vector, and variable start and end
+positions.
+Otherwise, the elements of \code{...} are used to construct a data frame
+with or or two rows as above.}
 }
 \description{
 A fixed width file can be a very compact representation of numeric data.
@@ -98,13 +109,17 @@ by providing a number of different ways to describe the field structure.
 fwf_sample <- readr_example("fwf-sample.txt")
 cat(read_lines(fwf_sample))
 
-# You can specify column positions in three ways:
+# You can specify column positions in several ways:
 # 1. Guess based on position of empty columns
 read_fwf(fwf_sample, fwf_empty(fwf_sample, col_names = c("first", "last", "state", "ssn")))
 # 2. A vector of field widths
 read_fwf(fwf_sample, fwf_widths(c(20, 10, 12), c("name", "state", "ssn")))
 # 3. Paired vectors of start and end positions
 read_fwf(fwf_sample, fwf_positions(c(1, 30), c(10, 42), c("name", "ssn")))
+# 4. Named arguments with start and end positions
+read_fwf(fwf_sample, fwf_cols(name = c(1, 10), ssn = c(30, 42)))
+# 5. Named arguments with column widths
+read_fwf(fwf_sample, fwf_cols(name = 20, state = 10, ssn = 12))
 }
 \seealso{
 \code{\link[=read_table]{read_table()}} to read fixed width files where each
