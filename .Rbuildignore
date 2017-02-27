@@ -15,3 +15,5 @@
 ^README\.Rmd$
 ^README-.*\.png$
 ^docs$
+^CMakeLists\.txt$
+^clion-test\.R$
