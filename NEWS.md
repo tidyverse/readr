@@ -13,6 +13,10 @@
 * `write_*()` functions witting whole number doubles are no longer written with a trailing `.0` (#526).
 
 ### Whitespace / fixed width improvements
+
+* `fwf_cols()` allows for specifying the `col_positions` argument of
+  `read_fwf()` with named arguments of either column positions or widths
+  (#616, @jrnold).
 * `fwf_empty()` gains an `n` argument to control how many lines are read for whitespace to determine column structure (#518, @Yeedle).
 * `read_fwf()` gives error message if specifications have overlapping columns (#534, @gergness)
 * `read_table()` can now handle `pipe()` connections (#552).
