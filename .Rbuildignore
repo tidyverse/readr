@@ -15,3 +15,6 @@
 ^README\.Rmd$
 ^README-.*\.png$
 ^docs$
+^src/\.ycm_extra_conf\.pyc?$
+^Makefile$
+^script\.R$
