@@ -10,27 +10,27 @@
 |language |(EN)                                   |
 |collate  |en_US.UTF-8                            |
 |tz       |America/New_York                       |
-|date     |2017-02-24                             |
+|date     |2017-03-03                             |
 
 ## Packages
 
 |package   |*  |version    |date       |source                           |
 |:---------|:--|:----------|:----------|:--------------------------------|
 |BH        |   |1.62.0-1   |2016-11-19 |cran (@1.62.0-)                  |
-|covr      |   |2.2.2      |2017-01-23 |Github (jimhester/covr@accef86)  |
+|covr      |   |2.2.2      |2017-01-05 |cran (@2.2.2)                    |
 |curl      |   |2.3        |2016-11-24 |cran (@2.3)                      |
 |hms       |   |0.3        |2016-11-22 |cran (@0.3)                      |
 |knitr     |   |1.15.1     |2016-11-22 |cran (@1.15.1)                   |
 |R6        |   |2.2.0      |2016-10-05 |cran (@2.2.0)                    |
-|Rcpp      |   |0.12.9.3   |2017-02-24 |Github (RcppCore/Rcpp@8bf15c0)   |
-|readr     |   |1.0.0.9000 |2017-02-24 |local (jimhester/readr@NA)       |
+|Rcpp      |   |0.12.9.4   |2017-03-03 |Github (RcppCore/Rcpp@0566d7c)   |
+|readr     |   |1.0.0.9000 |2017-03-03 |local (jimhester/readr@NA)       |
 |rmarkdown |   |1.3        |2016-12-21 |cran (@1.3)                      |
 |stringi   |   |1.1.2      |2016-10-01 |cran (@1.1.2)                    |
-|testthat  |   |1.0.2.9000 |2017-02-24 |Github (hadley/testthat@b72a228) |
+|testthat  |   |1.0.2.9000 |2017-03-03 |Github (hadley/testthat@b72a228) |
 |tibble    |   |1.2        |2016-08-26 |cran (@1.2)                      |
 
 # Check results
-9 packages with problems
+8 packages with problems
 
 ## biomartr (0.3.0)
 Maintainer: Hajk-Georg Drost <hgd23@cam.ac.uk>  
@@ -62,7 +62,7 @@ Content type 'application/octet-stream;charset=UTF-8' length 4136 bytes
 ==================================================
 downloaded 4136 bytes
 
-Table tsdtr210 cached at /var/folders/dt/r5s12t392tb5sk181j3gs4zw0000gn/T//RtmpzoCu0y/eurostat/tsdtr210_num_code_TF.rds
+Table tsdtr210 cached at /var/folders/dt/r5s12t392tb5sk181j3gs4zw0000gn/T//Rtmp13QYdB/eurostat/tsdtr210_num_code_TF.rds
 trying URL 'http://ec.europa.eu/eurostat/estat-navtree-portlet-prod/BulkDownloadListing?sort=1&file=data%2Ftgs00026.tsv.gz'
 Content type 'application/octet-stream;charset=UTF-8' length 5933 bytes
 ==================================================
@@ -97,11 +97,22 @@ Bug reports: https://www.github.com/rorynolan/filesstrings/issues
 1 error  | 0 warnings | 0 notes
 
 ```
-checking package dependencies ... ERROR
-Package required but not available: ‘ore’
-
-See section ‘The DESCRIPTION file’ in the ‘Writing R Extensions’
-manual.
+checking tests ... ERROR
+Running the tests in ‘tests/testthat.R’ failed.
+Last 13 lines of output:
+  2. Failure: MergeTablesOnDisk works (@test_files.R#82) -------------------------
+  readr::read_csv("merged.csv") not equal to tibble::tibble(x = c(1, 1), y = c(2, 29)).
+  Incompatible type for column x: x integer, y numeric
+  Incompatible type for column y: x integer, y numeric
+  
+  
+  testthat results ================================================================
+  OK: 145 SKIPPED: 0 FAILED: 2
+  1. Failure: MergeTablesOnDisk works (@test_files.R#80) 
+  2. Failure: MergeTablesOnDisk works (@test_files.R#82) 
+  
+  Error: testthat unit tests failed
+  Execution halted
 ```
 
 ## ggCompNet (0.1.0)
@@ -138,31 +149,6 @@ checking installed package size ... NOTE
     doc   6.1Mb
 ```
 
-## gutenbergr (0.1.2)
-Maintainer: David Robinson <admiral.david@gmail.com>  
-Bug reports: http://github.com/ropenscilabs/gutenbergr/issues
-
-1 error  | 0 warnings | 0 notes
-
-```
-checking tests ... ERROR
-Running the tests in ‘tests/testthat.R’ failed.
-Last 13 lines of output:
-  testthat results ================================================================
-  OK: 50 SKIPPED: 0 FAILED: 8
-  1. Error: gutenberg_get_mirror works (@test-download.R#13) 
-  2. Failure: Can download Charles Dickens' Christmas Carol and Jane Austen's Persuasion (@test-download.R#22) 
-  3. Failure: Can download Charles Dickens' Christmas Carol and Jane Austen's Persuasion (@test-download.R#23) 
-  4. Failure: Can download Charles Dickens' Christmas Carol and Jane Austen's Persuasion (@test-download.R#31) 
-  5. Failure: Can download Charles Dickens' Christmas Carol and Jane Austen's Persuasion (@test-download.R#32) 
-  6. Failure: Can download books from a data frame with gutenberg_id column (@test-download.R#43) 
-  7. Failure: We can download a file that only has a -8 version (@test-download.R#50) 
-  8. Failure: read_zip_url can download and read a zip file (@test-utils.R#7) 
-  
-  Error: testthat unit tests failed
-  Execution halted
-```
-
 ## myTAI (0.4.0)
 Maintainer: Hajk-Georg Drost <hgd23@cam.ac.uk>  
 Bug reports: https://github.com/HajkD/myTAI/issues
@@ -177,29 +163,18 @@ See section ‘The DESCRIPTION file’ in the ‘Writing R Extensions’
 manual.
 ```
 
-## tidyquant (0.3.0)
-Maintainer: Matt Dancho <mdancho@gmail.com>  
+## tidyquant (0.4.0)
+Maintainer: Matt Dancho <mdancho@business-science.io>  
 Bug reports: https://github.com/mdancho84/tidyquant/issues
 
 1 error  | 0 warnings | 0 notes
 
 ```
-checking tests ... ERROR
-Running the tests in ‘tests/testthat.R’ failed.
-Last 13 lines of output:
-         AAPL %>% tq_mutate_(ohlc_fun = "close", mutate_fun = mutate_fun)
-     }, paste0("fun = ", mutate_fun, " not a valid option.")) at testthat/test_tq_transform.R:141
-  2: paste0("fun = ", mutate_fun, " not a valid option.") at /private/var/folders/dt/r5s12t392tb5sk181j3gs4zw0000gn/T/RtmpigKor6/devtoolsd627230754fb/hadley-testthat-b72a228/R/expect-output.R:147
-  
-  testthat results ================================================================
-  OK: 144 SKIPPED: 1 FAILED: 4
-  1. Error: Test error on invalid ohlc_fun, x and y inputs. (@test_tq_mutate.R#151) 
-  2. Error: Test error on invalid ohlc_fun, x and y inputs. (@test_tq_mutate.R#169) 
-  3. Error: Test error on invalid ohlc_fun, x and y inputs. (@test_tq_transform.R#123) 
-  4. Error: Test error on invalid ohlc_fun, x and y inputs. (@test_tq_transform.R#141) 
-  
-  Error: testthat unit tests failed
-  Execution halted
+checking package dependencies ... ERROR
+Package required but not available: ‘PerformanceAnalytics’
+
+See section ‘The DESCRIPTION file’ in the ‘Writing R Extensions’
+manual.
 ```
 
 ## tidytext (0.1.2)
