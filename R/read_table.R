@@ -48,11 +48,11 @@ read_table <- function(file, col_names = TRUE, col_types = NULL,
     locale = locale, tokenizer = tokenizer
   )
 
-  if (progress) {
-     print(spec, n = getOption("readr.num_columns", 20))
+  ds <- datasource(file = ds, skip = skip + isTRUE(col_names))
+  if (is.null(col_types) && !inherits(ds, "source_string")) {
+    show_cols_spec(spec)
   }
 
-  ds <- datasource(file = ds, skip = skip + isTRUE(col_names))
   res <- read_tokens(ds, tokenizer, spec$cols, names(spec$cols), locale_ = locale,
     n_max = n_max, progress = progress)
   attr(res, "spec") <- spec
