@@ -1,10 +1,10 @@
 Package: readr
 Version: 1.0.0.9000
 Title: Read Rectangular Text Data
-Description: The goal of 'readr' is to provide a fast and friendly way to read 
-   rectangular data (like 'csv', 'tsv', and 'fwf'). It is designed to flexibly 
-   parse many types of data found in the wild, while still cleanly failing when
-   data unexpectedly changes. 
+Description: The goal of 'readr' is to provide a fast and friendly way to read
+    rectangular data (like 'csv', 'tsv', and 'fwf'). It is designed to flexibly
+    parse many types of data found in the wild, while still cleanly failing when
+    data unexpectedly changes.
 Authors@R: c(
     person("Hadley", "Wickham", , "hadley@rstudio.com", c("aut", "cre")),
     person("Jim", "Hester", , "jim.hester@rstudio.com", "aut"),

@@ -135,8 +135,16 @@ TokenizerFwf::TokenizerFwf(const std::vector<int>& beginOffset, const std::vecto
       Rcpp::stop("Begin offset (%i) must be smaller than end offset (%i)",
         beginOffset_[j], endOffset_[j]);
 
-    if (endOffset_[j] > max_)
+    if (beginOffset_[j] < max_) {
+      Rcpp::stop(
+          "Overlapping specification not supported. "
+          "Begin offset (%i) must be greater than or equal to previous end offset (%i)",
+          beginOffset_[j], max_);
+    }
+
+    if (endOffset_[j] > max_) {
       max_ = endOffset_[j];
+    }
   }
 }
 

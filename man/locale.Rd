@@ -26,7 +26,7 @@ place, and to chunk larger numbers. Decimal mark can only be \code{,} or
 present in individual strings), and for output (to control the default
 display). The default is to use "UTC", a time zone that does not use
 daylight savings time (DST) and hence is typically most useful for data.
-The absense of time zones makes it approximately 50x faster to generate
+The absence of time zones makes it approximately 50x faster to generate
 UTC times than any other time zone.
 
 Use \code{""} to use the system default time zone, but beware that this

@@ -1619,15 +1619,8 @@ time2sub(stm *const tmp,
   /*
   ** Do a binary search (this works whatever time_t's type is).
   */
-  if (!TYPE_SIGNED(time_t)) {
-    lo = 0;
-    hi = lo - 1;
-  } else {
-    lo = 1;
-    for (int i = 0; i < (int) TYPE_BIT(time_t) - 1; ++i)
-      lo *= 2;
-    hi = -(lo + 1);
-  }
+  lo = time_t_min;
+  hi = time_t_max;
   for ( ; ; ) {
     t = lo / 2 + hi / 2;
     if (t < lo)

@@ -15,7 +15,7 @@ format_tsv(x, na = "NA", append = FALSE, col_names = !append)
 \arguments{
 \item{x}{A data frame to write to disk}
 
-\item{delim}{Delimiter used to seperate values. Defaults to \code{" "}. Must be
+\item{delim}{Delimiter used to separate values. Defaults to \code{" "}. Must be
 a single character.}
 
 \item{na}{String used for missing values. Defaults to NA. Missing values

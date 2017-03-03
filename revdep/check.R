@@ -6,4 +6,4 @@ revdep_check()
 revdep_check_save_summary()
 revdep_check_print_problems()
 
-revdep_email(date = "July 29", draft = FALSE)
+#revdep_email(date = "July 29", draft = FALSE)

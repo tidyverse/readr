@@ -21,7 +21,7 @@ write_tsv(x, path, na = "NA", append = FALSE, col_names = !append)
 
 \item{path}{Path or connection to write to.}
 
-\item{delim}{Delimiter used to seperate values. Defaults to \code{" "}. Must be
+\item{delim}{Delimiter used to separate values. Defaults to \code{" "}. Must be
 a single character.}
 
 \item{na}{String used for missing values. Defaults to NA. Missing values

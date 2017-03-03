@@ -238,7 +238,7 @@ col_factor <- function(levels, ordered = FALSE, include_na = FALSE) {
 #' Parse date/times
 #'
 #' @section Format specification:
-#' `readr` uses a format specification similiar to [strptime()].
+#' `readr` uses a format specification similar to [strptime()].
 #' There are three types of element:
 #'
 #' \enumerate{

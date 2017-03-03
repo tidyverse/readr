@@ -61,7 +61,7 @@ Token TokenizerDelim::nextToken() {
     if (*cur_ == '\0')
       hasNull = true;
 
-    if ((row_ + 1) % 100000 == 0 || (col_ + 1) % 100000 == 0)
+    if ((end_ - cur_) % 131072 == 0)
       Rcpp::checkUserInterrupt();
 
     switch(state_) {

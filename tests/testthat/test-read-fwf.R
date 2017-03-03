@@ -127,6 +127,42 @@ test_that("error on empty spec (#511, #519)", {
   expect_error(read_fwf(txt, pos), "Zero-length.*specifications not supported")
 })
 
+test_that("error on overlapping spec (#534)", {
+  expect_error(
+    read_fwf("2015a\n2016b", fwf_positions(c(1, 3, 5), c(4, 4, 5))),
+    "Overlap.*"
+    )
+})
+
+# fwf_cols
+test_that("fwf_cols produces correct fwf_positions object with elements of length 2", {
+  expected <- fwf_positions(c(1L, 9L, 4L), c(2L, 12L, 6L), c("a", "b", "d"))
+  expect_equivalent(fwf_cols(a = c(1, 2), b = c(9, 12), d = c(4, 6)), expected)
+})
+
+test_that("fwf_cols produces correct fwf_positions object with elements of length 1", {
+  expected <- fwf_widths(c(2L, 4L, 3L), c("a", "b", "c"))
+  expect_equivalent(fwf_cols(a = 2, b = 4, c = 3), expected)
+})
+
+
+test_that("fwf_cols throws error when arguments are not length 1 or 2", {
+  pattern <- "Variables must be length 1 or .*"
+  expect_error(fwf_cols(a = 1:3, b = 4:5), pattern)
+  expect_error(fwf_cols(a = c(), b = 4:5), pattern)
+})
+
+test_that("fwf_cols works with unnamed columns", {
+  expect_equivalent(
+    fwf_cols(c(1, 2), c(9, 12), c(4, 6)),
+    fwf_positions(c(1L, 9L, 4L), c(2L, 12L, 6L), c("X1", "X2", "X3"))
+  )
+  expect_equivalent(
+    fwf_cols(a = c(1, 2), c(9, 12), c(4, 6)),
+    fwf_positions(c(1L, 9L, 4L), c(2L, 12L, 6L), c("a", "X2", "X3"))
+  )
+})
+
 # read_table -------------------------------------------------------------------
 
 test_that("read_table silently reads ragged last column", {
