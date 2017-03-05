@@ -28,6 +28,12 @@ test_that("passing \"\" to read_csv's 'NA' option reads \"\" correctly", {
   expect_equal(read_csv("a,b\nfoo,bar\nfoo,\n", na = "", progress = FALSE)$b, c("bar", NA))
 })
 
+test_that("changing read_csv's 'quote' argument works correctly", {
+  test_data <- read_csv("basic-df.csv", col_types = NULL, col_names = TRUE, progress = FALSE)
+  test_data_singlequote <- read_csv("basic-df-singlequote.csv", quote="'")
+  expect_identical(test_data, test_data_singlequote)
+})
+
 test_that("read_csv's 'skip' option allows for skipping'", {
   test_data <- read_csv("basic-df.csv", skip = 1, progress = FALSE)
   expect_equal(nrow(test_data), 9)
@@ -228,6 +234,6 @@ test_that("read_csv returns an empty data.frame on an empty file", {
 })
 
 test_that("read_delim errors on length 0 delimiter (557)", {
-  expect_error(read_delim("a b\n1 2\n", delim = ""), 
+  expect_error(read_delim("a b\n1 2\n", delim = ""),
     "`delim` must be at least one character, use `read_table\\(\\)` for whitespace delimited input\\.")
 })

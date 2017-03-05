@@ -32,6 +32,7 @@
 * `guess_encoding()` returns a tibble, and works better with lists of raw vectors (as returned by `read_lines_raw()`).
 * `ListCallback` R6 Class to provide a more flexible return type for callback functions (#568, @mmuurr)
 * `tibble::as.tibble()` now used to construct tibbles (#538).
+* `read_csv`, `read_csv2`, and `read_tsv` gain a `quote` argument, (#631, @noamross)
 
 ## Bugfixes
 * `parse_factor()` now converts data to UTF-8 based on the supplied locale (#615).

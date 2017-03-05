@@ -112,10 +112,11 @@ read_delim <- function(file, delim, quote = '"',
 #' @export
 read_csv <- function(file, col_names = TRUE, col_types = NULL,
                      locale = default_locale(), na = c("", "NA"),
-                     quoted_na = TRUE, comment = "", trim_ws = TRUE, skip = 0,
-                     n_max = Inf, guess_max = min(1000, n_max),
+                     quoted_na = TRUE, quote = "\"", comment = "", trim_ws = TRUE,
+                     skip = 0, n_max = Inf, guess_max = min(1000, n_max),
                      progress = show_progress()) {
-  tokenizer <- tokenizer_csv(na = na, quoted_na = TRUE, comment = comment, trim_ws = trim_ws)
+  tokenizer <- tokenizer_csv(na = na, quoted_na = TRUE, quote = quote,
+    comment = comment, trim_ws = trim_ws)
   read_delimited(file, tokenizer, col_names = col_names, col_types = col_types,
     locale = locale, skip = skip, comment = comment, n_max = n_max, guess_max =
       guess_max, progress = progress)
@@ -125,8 +126,8 @@ read_csv <- function(file, col_names = TRUE, col_types = NULL,
 #' @export
 read_csv2 <- function(file, col_names = TRUE, col_types = NULL,
                       locale = default_locale(),
-                      na = c("", "NA"), quoted_na = TRUE, comment = "",
-                      trim_ws = TRUE, skip = 0, n_max = Inf,
+                      na = c("", "NA"), quoted_na = TRUE, quote = "\"",
+                      comment = "", trim_ws = TRUE, skip = 0, n_max = Inf,
                       guess_max = min(1000, n_max), progress = show_progress()) {
 
   if (locale$decimal_mark == ".") {
@@ -135,7 +136,7 @@ read_csv2 <- function(file, col_names = TRUE, col_types = NULL,
     locale$grouping_mark <- "."
   }
   tokenizer <- tokenizer_delim(delim = ";", na = na, quoted_na = quoted_na,
-    comment = comment, trim_ws = trim_ws)
+    quote = quote, comment = comment, trim_ws = trim_ws)
   read_delimited(file, tokenizer, col_names = col_names, col_types = col_types,
     locale = locale, skip = skip, comment = comment, n_max = n_max,
     guess_max = guess_max, progress = progress)
@@ -146,10 +147,11 @@ read_csv2 <- function(file, col_names = TRUE, col_types = NULL,
 #' @export
 read_tsv <- function(file, col_names = TRUE, col_types = NULL,
                      locale = default_locale(),
-                     na = c("", "NA"), quoted_na = TRUE,
+                     na = c("", "NA"), quoted_na = TRUE, quote = "\"",
                      comment = "", trim_ws = TRUE, skip = 0, n_max = Inf,
                      guess_max = min(1000, n_max), progress = show_progress()) {
-  tokenizer <- tokenizer_tsv(na = na, quoted_na = quoted_na, comment = comment, trim_ws = trim_ws)
+  tokenizer <- tokenizer_tsv(na = na, quoted_na = quoted_na, quote = quote,
+    comment = comment, trim_ws = trim_ws)
   read_delimited(file, tokenizer, col_names = col_names, col_types = col_types,
     locale = locale, skip = skip, comment = comment, n_max = n_max,
     guess_max = guess_max, progress = progress)

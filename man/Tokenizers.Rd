@@ -15,9 +15,11 @@ tokenizer_delim(delim, quote = "\\"", na = "NA", quoted_na = TRUE,
   comment = "", trim_ws = TRUE, escape_double = TRUE,
   escape_backslash = FALSE)
 
-tokenizer_csv(na = "NA", quoted_na = TRUE, comment = "", trim_ws = TRUE)
+tokenizer_csv(na = "NA", quoted_na = TRUE, quote = "\\"", comment = "",
+  trim_ws = TRUE)
 
-tokenizer_tsv(na = "NA", quoted_na = TRUE, comment = "", trim_ws = TRUE)
+tokenizer_tsv(na = "NA", quoted_na = TRUE, quote = "\\"", comment = "",
+  trim_ws = TRUE)
 
 tokenizer_line(na = character())
 
