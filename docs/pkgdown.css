@@ -1,7 +1,3 @@
-img.icon {
-  float: right;
-}
-
 /* Fixes for fixed navbar --------------------------*/
 
 body {
@@ -21,11 +17,17 @@ body {
 /* Table of contents --------------------------*/
 
 #sidebar {
+  word-wrap: break-word;
+  hyphens: auto;
+  -ms-hyphens: auto;
+  -webkit-hyphens: auto;
+
   /*
     Needed to avoid bug in sticky-kit:
     https://github.com/leafo/sticky-kit/issues/169
   */
   position:static;
+
 }
 
 #sidebar h2 {
@@ -57,10 +59,6 @@ body {
 .slot {font-style:italic;}
 .symbol {color:black ;}
 .prompt {color:black ;}
-
-pre a {
-  font-weight: bolder;
-}
 
 pre img {
   background-color: #fff;

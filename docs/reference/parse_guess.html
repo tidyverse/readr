@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Parse using the "best" type — parse_guess • readr</title>
+<title>Parse using the &quot;best&quot; type — parse_guess • readr</title>
 
 <!-- jquery -->
 <script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha384-nrOSfDHtoPMzJHjVTdCopGqIqeYETSXhZDFyniQ8ZHcVy08QesyHcnOUpMpqnmWq" crossorigin="anonymous"></script>
@@ -103,14 +103,14 @@
       <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Parse using the "best" type</h1>
+    <h1>Parse using the &quot;best&quot; type</h1>
     </div>
 
     
     <p><code>parse_guess()</code> returns the parser vector; <code>guess_parser()</code>
 returns the name of the parser. These functions use a number of heuristics
-to determine which type of vector is "best". Generally they try to err of
-the side of safety, as it's straightforward to override the parsing choice
+to determine which type of vector is &quot;best&quot;. Generally they try to err of
+the side of safety, as it&#39;s straightforward to override the parsing choice
 if needed.</p>
     
 
@@ -123,16 +123,16 @@ if needed.</p>
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a> Arguments</h2>
     <dl class="dl-horizontal">
       <dt>x</dt>
-      <dd><p>Character vector of values to parse.</p></dd>
+      <dd>Character vector of values to parse.</dd>
       <dt>na</dt>
-      <dd><p>Character vector of strings to use for missing values. Set this
-option to <code>character()</code> to indicate no missing values.</p></dd>
+      <dd>Character vector of strings to use for missing values. Set this
+option to <code>character()</code> to indicate no missing values.</dd>
       <dt>locale</dt>
-      <dd><p>The locale controls defaults that vary from place to place.
+      <dd>The locale controls defaults that vary from place to place.
 The default locale is US-centric (like R), but you can use
-<code><a href='locale.html'>locale</a></code> to create your own locale that controls things like
+<code><a href='locale.html'>locale()</a></code> to create your own locale that controls things like
 the default time zone, encoding, decimal mark, big mark, and day/month
-names.</p></dd>
+names.</dd>
     </dl>
     
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
@@ -148,9 +148,9 @@ names.</p></dd>
 <span class='co'># Integers and doubles</span>
 <span class='fu'>parse_guess</span>(<span class='fu'>c</span>(<span class='st'>"1"</span>,<span class='st'>"2"</span>,<span class='st'>"3"</span>))</div><div class='output co'>#&gt; [1] 1 2 3</div><div class='input'><span class='fu'>parse_guess</span>(<span class='fu'>c</span>(<span class='st'>"1.6"</span>,<span class='st'>"2.6"</span>,<span class='st'>"3.4"</span>))</div><div class='output co'>#&gt; [1] 1.6 2.6 3.4</div><div class='input'>
 <span class='co'># Numbers containing grouping mark</span>
-<span class='fu'>guess_parser</span>(<span class='st'>"1,234,566"</span>)</div><div class='output co'>#&gt; [1] "number"</div><div class='input'><span class='fu'>parse_guess</span>(<span class='st'>"1,234,566"</span>)</div><div class='output co'>#&gt; [1] 1234566</div><div class='input'>
+<span class='fu'>guess_parser</span>(<span class='st'>"1,234,566"</span>)</div><div class='output co'>#&gt; [1] &quot;number&quot;</div><div class='input'><span class='fu'>parse_guess</span>(<span class='st'>"1,234,566"</span>)</div><div class='output co'>#&gt; [1] 1234566</div><div class='input'>
 <span class='co'># ISO 8601 date times</span>
-<span class='fu'>guess_parser</span>(<span class='fu'>c</span>(<span class='st'>"2010-10-10"</span>))</div><div class='output co'>#&gt; [1] "date"</div><div class='input'><span class='fu'>parse_guess</span>(<span class='fu'>c</span>(<span class='st'>"2010-10-10"</span>))</div><div class='output co'>#&gt; [1] "2010-10-10"</div></pre>
+<span class='fu'>guess_parser</span>(<span class='fu'>c</span>(<span class='st'>"2010-10-10"</span>))</div><div class='output co'>#&gt; [1] &quot;date&quot;</div><div class='input'><span class='fu'>parse_guess</span>(<span class='fu'>c</span>(<span class='st'>"2010-10-10"</span>))</div><div class='output co'>#&gt; [1] &quot;2010-10-10&quot;</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
@@ -174,16 +174,6 @@ names.</p></dd>
   <p>Developed by <a href='http://hadley.nz'>Hadley Wickham</a>, Jim Hester, Romain Francois, <a href='https://www.rstudio.com'><img src='http://tidyverse.org/rstudio-logo.svg' height='24' /></a>.</p>
   <p>Site built by <a href="http://hadley.github.io/pkgdown/">pkgdown</a>.</p>
 </div>
-
-<script>
-  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
-
-  ga('create', 'UA-67989-18', 'auto');
-  ga('send', 'pageview');
-</script>
       </footer>
    </div>
 

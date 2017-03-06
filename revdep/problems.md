@@ -84,7 +84,7 @@ Bug reports: https://github.com/mlr-org/farff/issues
 ```
 checking whether package ‘farff’ can be installed ... ERROR
 Installation failed.
-See ‘/Users/jhester/Dropbox/projects/readr/revdep/checks/farff.Rcheck/00install.out’ for details.
+See ‘.../revdep/checks/farff.Rcheck/00install.out’ for details.
 
 checking package dependencies ... NOTE
 Packages suggested but not available for checking: ‘RWeka’ ‘OpenML’

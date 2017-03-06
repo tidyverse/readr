@@ -116,7 +116,7 @@ to disk. It provides a hook for S3 classes that need special handling.</p>
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a> Arguments</h2>
     <dl class="dl-horizontal">
       <dt>x</dt>
-      <dd><p>A vector</p></dd>
+      <dd>A vector</dd>
     </dl>
     
 
@@ -124,7 +124,7 @@ to disk. It provides a hook for S3 classes that need special handling.</p>
     <pre class="examples"><div class='input'><span class='co'># Most columns are left as is, but POSIXct are</span>
 <span class='co'># converted to ISO8601.</span>
 <span class='no'>x</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='parse_datetime.html'>parse_datetime</a></span>(<span class='st'>"2016-01-01"</span>)
-<span class='fu'>str</span>(<span class='fu'>output_column</span>(<span class='no'>x</span>))</div><div class='output co'>#&gt;  chr "2016-01-01T00:00:00Z"</div></pre>
+<span class='fu'>str</span>(<span class='fu'>output_column</span>(<span class='no'>x</span>))</div><div class='output co'>#&gt;  chr &quot;2016-01-01T00:00:00Z&quot;</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
@@ -146,16 +146,6 @@ to disk. It provides a hook for S3 classes that need special handling.</p>
   <p>Developed by <a href='http://hadley.nz'>Hadley Wickham</a>, Jim Hester, Romain Francois, <a href='https://www.rstudio.com'><img src='http://tidyverse.org/rstudio-logo.svg' height='24' /></a>.</p>
   <p>Site built by <a href="http://hadley.github.io/pkgdown/">pkgdown</a>.</p>
 </div>
-
-<script>
-  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
-
-  ga('create', 'UA-67989-18', 'auto');
-  ga('send', 'pageview');
-</script>
       </footer>
    </div>
 

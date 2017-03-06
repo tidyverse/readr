@@ -119,30 +119,33 @@ the base <code><a href='http://www.rdocumentation.org/packages/utils/topics/type
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a> Arguments</h2>
     <dl class="dl-horizontal">
       <dt>df</dt>
-      <dd><p>A data frame.</p></dd>
+      <dd>A data frame.</dd>
       <dt>col_types</dt>
-      <dd><p>One of <code>NULL</code>, a <code><a href='cols.html'>cols</a></code> specification, or
-  a string. See <code>vignette("column-types")</code> for more details.</p>
-<p>If <code>NULL</code>, all column types will be imputed from the first 1000 rows
-  on the input. This is convenient (and fast), but not robust. If the
-  imputation fails, you'll need to supply the correct types yourself.</p>
-<p>If a column specification created by <code><a href='cols.html'>cols</a></code>, it must contain
-  one column specification for each column. If you only want to read a
-  subset of the columns, use <code><a href='cols.html'>cols_only</a></code>.</p>
-<p>Unlike other functions <code>type_convert</code> does not allow character
-  specificatinos of <code>col_types</code>.</p></dd>
+      <dd>One of <code>NULL</code>, a <code><a href='cols.html'>cols()</a></code> specification, or
+a string. See <code>vignette(&quot;column-types&quot;)</code> for more details.
+
+If <code>NULL</code>, all column types will be imputed from the first 1000 rows
+on the input. This is convenient (and fast), but not robust. If the
+imputation fails, you&#39;ll need to supply the correct types yourself.
+
+If a column specification created by <code><a href='cols.html'>cols()</a></code>, it must contain
+one column specification for each column. If you only want to read a
+subset of the columns, use <code><a href='cols.html'>cols_only()</a></code>.
+
+Unlike other functions <code>type_convert()</code> does not allow character
+specifications of <code>col_types</code>.</dd>
       <dt>na</dt>
-      <dd><p>Character vector of strings to use for missing values. Set this
-option to <code>character()</code> to indicate no missing values.</p></dd>
+      <dd>Character vector of strings to use for missing values. Set this
+option to <code>character()</code> to indicate no missing values.</dd>
       <dt>trim_ws</dt>
-      <dd><p>Should leading and trailing whitespace be trimmed from
-each field before parsing it?</p></dd>
+      <dd>Should leading and trailing whitespace be trimmed from
+each field before parsing it?</dd>
       <dt>locale</dt>
-      <dd><p>The locale controls defaults that vary from place to place.
+      <dd>The locale controls defaults that vary from place to place.
 The default locale is US-centric (like R), but you can use
-<code><a href='locale.html'>locale</a></code> to create your own locale that controls things like
+<code><a href='locale.html'>locale()</a></code> to create your own locale that controls things like
 the default time zone, encoding, decimal mark, big mark, and day/month
-names.</p></dd>
+names.</dd>
     </dl>
     
 
@@ -152,21 +155,51 @@ names.</p></dd>
   <span class='kw'>y</span> <span class='kw'>=</span> <span class='fu'>as.character</span>(<span class='fu'>sample</span>(<span class='fl'>10</span>)),
   <span class='kw'>stringsAsFactors</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>
 )
-<span class='fu'>str</span>(<span class='no'>df</span>)</div><div class='output co'>#&gt; 'data.frame':	10 obs. of  2 variables:
-#&gt;  $ x: chr  "0.0807501375675201" "0.834333037259057" "0.600760886212811" "0.157208441523835" ...
-#&gt;  $ y: chr  "9" "2" "1" "3" ...</div><div class='input'><span class='fu'>str</span>(<span class='fu'>type_convert</span>(<span class='no'>df</span>))</div><div class='output co'>#&gt; <span class='message'>Parsed with column specification:</span>
+<span class='fu'>str</span>(<span class='no'>df</span>)</div><div class='output co'>#&gt; &#39;data.frame&#39;:	10 obs. of  2 variables:
+#&gt;  $ x: chr  &quot;0.0807501375675201&quot; &quot;0.834333037259057&quot; &quot;0.600760886212811&quot; &quot;0.157208441523835&quot; ...
+#&gt;  $ y: chr  &quot;9&quot; &quot;2&quot; &quot;1&quot; &quot;3&quot; ...</div><div class='input'><span class='fu'>str</span>(<span class='fu'>type_convert</span>(<span class='no'>df</span>))</div><div class='output co'>#&gt; <span class='message'>Parsed with column specification:</span>
 #&gt; <span class='message'>cols(</span>
 #&gt; <span class='message'>  x = col_double(),</span>
 #&gt; <span class='message'>  y = col_integer()</span>
-#&gt; <span class='message'>)</span></div><div class='output co'>#&gt; 'data.frame':	10 obs. of  2 variables:
+#&gt; <span class='message'>)</span></div><div class='output co'>#&gt; &#39;data.frame&#39;:	10 obs. of  2 variables:
 #&gt;  $ x: num  0.0808 0.8343 0.6008 0.1572 0.0074 ...
 #&gt;  $ y: int  9 2 1 3 7 8 10 5 6 4</div><div class='input'>
 <span class='no'>df</span> <span class='kw'>&lt;-</span> <span class='fu'>data.frame</span>(<span class='kw'>x</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='st'>"NA"</span>, <span class='st'>"10"</span>), <span class='kw'>stringsAsFactors</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)
 <span class='fu'>str</span>(<span class='fu'>type_convert</span>(<span class='no'>df</span>))</div><div class='output co'>#&gt; <span class='message'>Parsed with column specification:</span>
 #&gt; <span class='message'>cols(</span>
 #&gt; <span class='message'>  x = col_integer()</span>
-#&gt; <span class='message'>)</span></div><div class='output co'>#&gt; 'data.frame':	2 obs. of  1 variable:
-#&gt;  $ x: int  NA 10</div></pre>
+#&gt; <span class='message'>)</span></div><div class='output co'>#&gt; &#39;data.frame&#39;:	2 obs. of  1 variable:
+#&gt;  $ x: int  NA 10</div><div class='input'>
+<span class='co'># Type convert can be used to infer types from an entire dataset</span>
+<span class='fu'>type_convert</span>(
+  <span class='fu'><a href='read_delim.html'>read_csv</a></span>(<span class='fu'><a href='readr_example.html'>readr_example</a></span>(<span class='st'>"mtcars.csv"</span>),
+           <span class='kw'>col_types</span> <span class='kw'>=</span> <span class='fu'><a href='cols.html'>cols</a></span>(<span class='kw'>.default</span> <span class='kw'>=</span> <span class='fu'><a href='parse_atomic.html'>col_character</a></span>())))</div><div class='output co'>#&gt; <span class='message'>Parsed with column specification:</span>
+#&gt; <span class='message'>cols(</span>
+#&gt; <span class='message'>  mpg = col_double(),</span>
+#&gt; <span class='message'>  cyl = col_integer(),</span>
+#&gt; <span class='message'>  disp = col_double(),</span>
+#&gt; <span class='message'>  hp = col_integer(),</span>
+#&gt; <span class='message'>  drat = col_double(),</span>
+#&gt; <span class='message'>  wt = col_double(),</span>
+#&gt; <span class='message'>  qsec = col_double(),</span>
+#&gt; <span class='message'>  vs = col_integer(),</span>
+#&gt; <span class='message'>  am = col_integer(),</span>
+#&gt; <span class='message'>  gear = col_integer(),</span>
+#&gt; <span class='message'>  carb = col_integer()</span>
+#&gt; <span class='message'>)</span></div><div class='output co'>#&gt; # A tibble: 32 × 11
+#&gt;      mpg   cyl  disp    hp  drat    wt  qsec    vs    am  gear  carb
+#&gt;    &lt;dbl&gt; &lt;int&gt; &lt;dbl&gt; &lt;int&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;int&gt; &lt;int&gt; &lt;int&gt; &lt;int&gt;
+#&gt; 1   21.0     6 160.0   110  3.90 2.620 16.46     0     1     4     4
+#&gt; 2   21.0     6 160.0   110  3.90 2.875 17.02     0     1     4     4
+#&gt; 3   22.8     4 108.0    93  3.85 2.320 18.61     1     1     4     1
+#&gt; 4   21.4     6 258.0   110  3.08 3.215 19.44     1     0     3     1
+#&gt; 5   18.7     8 360.0   175  3.15 3.440 17.02     0     0     3     2
+#&gt; 6   18.1     6 225.0   105  2.76 3.460 20.22     1     0     3     1
+#&gt; 7   14.3     8 360.0   245  3.21 3.570 15.84     0     0     3     4
+#&gt; 8   24.4     4 146.7    62  3.69 3.190 20.00     1     0     4     2
+#&gt; 9   22.8     4 140.8    95  3.92 3.150 22.90     1     0     4     2
+#&gt; 10  19.2     6 167.6   123  3.92 3.440 18.30     1     0     4     4
+#&gt; # ... with 22 more rows</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
@@ -188,16 +221,6 @@ names.</p></dd>
   <p>Developed by <a href='http://hadley.nz'>Hadley Wickham</a>, Jim Hester, Romain Francois, <a href='https://www.rstudio.com'><img src='http://tidyverse.org/rstudio-logo.svg' height='24' /></a>.</p>
   <p>Site built by <a href="http://hadley.github.io/pkgdown/">pkgdown</a>.</p>
 </div>
-
-<script>
-  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
-
-  ga('create', 'UA-67989-18', 'auto');
-  ga('send', 'pageview');
-</script>
       </footer>
    </div>
 

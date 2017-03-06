@@ -228,7 +228,7 @@ Bug reports: https://github.com/mlr-org/farff/issues
 ```
 checking whether package ‘farff’ can be installed ... ERROR
 Installation failed.
-See ‘/Users/jhester/Dropbox/projects/readr/revdep/checks/farff.Rcheck/00install.out’ for details.
+See ‘.../revdep/checks/farff.Rcheck/00install.out’ for details.
 
 checking package dependencies ... NOTE
 Packages suggested but not available for checking: ‘RWeka’ ‘OpenML’
@@ -457,11 +457,11 @@ checking installed package size ... NOTE
 
 checking R code for possible problems ... NOTE
 mMap: no visible binding for global variable ‘facet’
-  (/Users/jhester/Dropbox/projects/readr/revdep/checks/mosaic.Rcheck/00_pkg_src/mosaic/R/mPlots.R:222-230)
+  (.../revdep/checks/mosaic.Rcheck/00_pkg_src/mosaic/R/mPlots.R:222-230)
 mScatter: no visible binding for global variable ‘facet’
-  (/Users/jhester/Dropbox/projects/readr/revdep/checks/mosaic.Rcheck/00_pkg_src/mosaic/R/mPlots.R:339-341)
+  (.../revdep/checks/mosaic.Rcheck/00_pkg_src/mosaic/R/mPlots.R:339-341)
 mUniplot: no visible binding for global variable ‘facet’
-  (/Users/jhester/Dropbox/projects/readr/revdep/checks/mosaic.Rcheck/00_pkg_src/mosaic/R/mPlots.R:509-512)
+  (.../revdep/checks/mosaic.Rcheck/00_pkg_src/mosaic/R/mPlots.R:509-512)
 Undefined global functions or variables:
   facet
 
