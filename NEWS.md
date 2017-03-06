@@ -40,6 +40,7 @@
 * `read_*_chunked()` functions now properly end the stream if `FALSE` is returned from the callback.
 * `read_delim()` and `read_fwf()` when columns are skipped using `col_types` now report the correct column name (#573, @cb4ds).
 * `spec()` declarations that are long now print properly (#597).
+* `read_table()` does not print `spec` when `col_types` is not `NULL` (#630, @jrnold).
 
 # readr 1.0.0
 
