@@ -139,3 +139,41 @@ fwf_col_names <- function(nm, n) {
   nm[nm_empty] <- paste0("X", seq_len(n))[nm_empty]
   nm
 }
+
+#' Reads a file without overlap
+#' Similar to read_fwf but enhanced support overlapping columns
+#' @rdname read_fwf
+#' @export
+#' @inheritParams read_fwf
+read_fwf2 <- function(file, col_positions, col_types = NULL,
+                         locale = default_locale(), na = c("", "NA"),
+                         comment = "", skip = 0, n_max = Inf,
+                         guess_max = min(n_max, 1000), progress = show_progress()){
+
+  overlap.pos = which(col_positions$begin[-1] - col_positions$begin[-length(col_positions$begin)] != col_positions$end[-length(col_positions$begin)] - col_positions$begin[-length(col_positions$begin)])
+  if(length(overlap.pos) > 0){
+    dic.pos = col_positions
+    dic.lis = list()
+    dic.lis[[1]] = col_positions[-overlap.pos,]
+    for(i in 1:length(overlap.pos)){
+      dic.lis[[i+1]] = col_positions[overlap.pos[i],]
+    }
+
+    lapply(dic.lis, function(x) read_fwf(file = file, col_positions = x, col_types = col_types,
+                                         locale = locale, na = na,
+                                         comment = comment, skip = skip, n_max = n_max,
+                                         guess_max = guess_max, progress = progress)) %>% as.data.frame -> d
+
+    d <- d[, col_positions$col_names]
+  } else {
+
+    read_fwf(file = file, col_positions = col_positions, col_types = col_types,
+             locale = locale, na = na,
+             comment = comment, skip = skip, n_max = n_max,
+             guess_max = guess_max, progress = progress) -> d
+  }
+
+  return(d)
+
+
+}

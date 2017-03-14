@@ -6,6 +6,7 @@
 \alias{fwf_widths}
 \alias{fwf_positions}
 \alias{fwf_cols}
+\alias{read_fwf2}
 \title{Read a fixed width file into a tibble}
 \usage{
 read_fwf(file, col_positions, col_types = NULL, locale = default_locale(),
@@ -19,6 +20,10 @@ fwf_widths(widths, col_names = NULL)
 fwf_positions(start, end = NULL, col_names = NULL)
 
 fwf_cols(...)
+
+read_fwf2(file, col_positions, col_types = NULL, locale = default_locale(),
+  na = c("", "NA"), comment = "", skip = 0, n_max = Inf,
+  guess_max = min(n_max, 1000), progress = show_progress())
 }
 \arguments{
 \item{file}{Either a path to a file, a connection, or literal data
@@ -104,6 +109,9 @@ It's also very fast to parse, because every field is in the same place in
 every line. Unfortunately, it's painful to parse because you need to
 describe the length of every field. Readr aims to make it as easy as possible
 by providing a number of different ways to describe the field structure.
+
+Reads a file without overlap
+Similar to read_fwf but enhanced support overlapping columns
 }
 \examples{
 fwf_sample <- readr_example("fwf-sample.txt")

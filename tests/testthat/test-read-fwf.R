@@ -182,3 +182,10 @@ test_that("read_table can read from a pipe (552)", {
   x <- read_table(pipe("echo a b c && echo 1 2 3 && echo 4 5 6"), progress = FALSE)
   expect_equal(x$a, c(1, 4))
 })
+
+test_that("read overlap", {
+  x <- read_fwf2('123456789\n', col_positions = fwf_positions(c(1, 5), c(6, 9)))
+  expect_equal(x$X1, 123456)
+  expect_equal(x$X2, 56789)
+
+})
