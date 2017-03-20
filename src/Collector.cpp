@@ -191,7 +191,7 @@ void CollectorDouble::setValue(int i, const Token& t) {
 void CollectorFactor::insert(int i, Rcpp::String str, const Token& t) {
   std::map<Rcpp::String, int>::iterator it = levelset_.find(str);
   if (it == levelset_.end()) {
-    if (implicitLevels_ || str == NA_STRING && includeNa_) {
+    if (implicitLevels_ || (includeNa_ && str == NA_STRING)) {
       int n = levelset_.size();
       levelset_.insert(std::make_pair(str, n));
       levels_.push_back(str);
