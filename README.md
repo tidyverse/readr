@@ -1,6 +1,6 @@
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
-readr <img src="logo.png" align="right" />
+readr <img src="tools/logo.png" align="right" />
 ==========================================
 
 [![CRAN\_Status\_Badge](http://www.r-pkg.org/badges/version/readr)](http://cran.r-project.org/package=readr) [![Build Status](https://travis-ci.org/tidyverse/readr.svg?branch=master)](https://travis-ci.org/tidyverse/readr) [![AppVeyor Build Status](https://ci.appveyor.com/api/projects/status/github/tidyverse/readr?branch=master&svg=true)](https://ci.appveyor.com/project/tidyverse/readr) [![Coverage Status](http://codecov.io/github/tidyverse/readr/coverage.svg?branch=master)](http://codecov.io/tidyverse/readr?branch=master)
