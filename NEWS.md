@@ -41,6 +41,7 @@
 * `read_delim()` and `read_fwf()` when columns are skipped using `col_types` now report the correct column name (#573, @cb4ds).
 * `spec()` declarations that are long now print properly (#597).
 * `read_table()` does not print `spec` when `col_types` is not `NULL` (#630, @jrnold).
+* `guess_encoding()` now returns a tibble for all ASCII input as well (#641).
 
 # readr 1.0.0
 

@@ -33,7 +33,7 @@ guess_encoding <- function(file, n_max = 1e4, threshold = 0.20) {
   }
 
   if (stringi::stri_enc_isascii(lines)) {
-    return(data.frame(encoding = "ASCII", confidence = 1))
+    return(tibble::tibble(encoding = "ASCII", confidence = 1))
   }
 
   guess <- stringi::stri_enc_detect(lines)
