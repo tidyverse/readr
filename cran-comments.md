@@ -9,7 +9,10 @@
   * Ubuntu Linux 16.04 LTS, R-release, GCC
 
 ## R CMD check results
-There were no ERRORs, WARNINGs, or NOTEs.
+I Jim Hester am taking over maintenance of the readr package from Hadley, there
+is one NOTE to this effect.
+
+There were no ERRORs or WARNINGs.
 
 There were no warnings from UBSAN and ASAN run on R-hub
 (https://builder.r-hub.io/status/readr_1.0.0.9000.tar.gz-7308f26232304b308e6f3949f0e69d75).
