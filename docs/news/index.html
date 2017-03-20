@@ -177,6 +177,8 @@
 <code>ListCallback</code> R6 Class to provide a more flexible return type for callback functions (#568, @mmuurr)</li>
 <li>
 <code>tibble::as.tibble()</code> now used to construct tibbles (#538).</li>
+<li>
+<code>read_csv</code>, <code>read_csv2</code>, and <code>read_tsv</code> gain a <code>quote</code> argument, (#631, @noamross)</li>
 </ul>
 </div>
 <div id="bugfixes" class="section level2">
@@ -193,6 +195,10 @@
 <code><a href="../reference/read_delim.html">read_delim()</a></code> and <code><a href="../reference/read_fwf.html">read_fwf()</a></code> when columns are skipped using <code>col_types</code> now report the correct column name (#573, @cb4ds).</li>
 <li>
 <code><a href="../reference/cols_condense.html">spec()</a></code> declarations that are long now print properly (#597).</li>
+<li>
+<code><a href="../reference/read_table.html">read_table()</a></code> does not print <code>spec</code> when <code>col_types</code> is not <code>NULL</code> (#630, @jrnold).</li>
+<li>
+<code><a href="../reference/guess_encoding.html">guess_encoding()</a></code> now returns a tibble for all ASCII input as well (#641).</li>
 </ul>
 </div>
 </div>

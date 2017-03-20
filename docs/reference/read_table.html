@@ -221,21 +221,22 @@ tabular data with non-standard formatting.</p>
 #&gt;   5   5   5   7   6     8   4   6   5   5    7 Florida St       ACC 
 #&gt;   8   8   9   9  10     5   7   7  10   7    8 Baylor           B12 
 #&gt;   9  11   8  13  11    11  12   9  14   9    9 Georgia Tech     ACC 
-#&gt;  13  10  13  11   8     9  10  11   9  10   10 Mississippi      SEC </div><div class='input'><span class='fu'>read_table</span>(<span class='no'>massey</span>)</div><div class='output co'>#&gt; cols(
-#&gt;   UCC = col_integer(),
-#&gt;   PAY = col_integer(),
-#&gt;   LAZ = col_integer(),
-#&gt;   KPK = col_integer(),
-#&gt;   RT = col_integer(),
-#&gt;   COF = col_integer(),
-#&gt;   BIH = col_integer(),
-#&gt;   DII = col_integer(),
-#&gt;   ENG = col_integer(),
-#&gt;   ACU = col_integer(),
-#&gt;   Rank = col_integer(),
-#&gt;   Team = col_character(),
-#&gt;   Conf = col_character()
-#&gt; )</div><div class='output co'>#&gt; # A tibble: 10 × 13
+#&gt;  13  10  13  11   8     9  10  11   9  10   10 Mississippi      SEC </div><div class='input'><span class='fu'>read_table</span>(<span class='no'>massey</span>)</div><div class='output co'>#&gt; <span class='message'>Parsed with column specification:</span>
+#&gt; <span class='message'>cols(</span>
+#&gt; <span class='message'>  UCC = col_integer(),</span>
+#&gt; <span class='message'>  PAY = col_integer(),</span>
+#&gt; <span class='message'>  LAZ = col_integer(),</span>
+#&gt; <span class='message'>  KPK = col_integer(),</span>
+#&gt; <span class='message'>  RT = col_integer(),</span>
+#&gt; <span class='message'>  COF = col_integer(),</span>
+#&gt; <span class='message'>  BIH = col_integer(),</span>
+#&gt; <span class='message'>  DII = col_integer(),</span>
+#&gt; <span class='message'>  ENG = col_integer(),</span>
+#&gt; <span class='message'>  ACU = col_integer(),</span>
+#&gt; <span class='message'>  Rank = col_integer(),</span>
+#&gt; <span class='message'>  Team = col_character(),</span>
+#&gt; <span class='message'>  Conf = col_character()</span>
+#&gt; <span class='message'>)</span></div><div class='output co'>#&gt; # A tibble: 10 × 13
 #&gt;      UCC   PAY   LAZ   KPK    RT   COF   BIH   DII   ENG   ACU  Rank
 #&gt;    &lt;int&gt; &lt;int&gt; &lt;int&gt; &lt;int&gt; &lt;int&gt; &lt;int&gt; &lt;int&gt; &lt;int&gt; &lt;int&gt; &lt;int&gt; &lt;int&gt;
 #&gt; 1      1     1     1     1     1     1     1     1     1     1     1
@@ -271,20 +272,21 @@ tabular data with non-standard formatting.</p>
 #&gt; FOX WAGON                            07  83 40            83 40                FOX WAGON            78050103
 #&gt; 5000                                 04  90 15            90 15                5000                 78050153
 #&gt; AVANTI                                                                         AVANTI               78065002
-#&gt; AVANTI II                            02  75  8    75  8                        AVANTI II            78065053</div><div class='input'><span class='fu'>read_table</span>(<span class='no'>epa</span>, <span class='kw'>col_names</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</div><div class='output co'>#&gt; cols(
-#&gt;   X1 = col_character(),
-#&gt;   X2 = col_character(),
-#&gt;   X3 = col_integer(),
-#&gt;   X4 = col_integer(),
-#&gt;   X5 = col_integer(),
-#&gt;   X6 = col_integer(),
-#&gt;   X7 = col_integer(),
-#&gt;   X8 = col_integer(),
-#&gt;   X9 = col_integer(),
-#&gt;   X10 = col_integer(),
-#&gt;   X11 = col_character(),
-#&gt;   X12 = col_integer()
-#&gt; )</div><div class='output co'>#&gt; # A tibble: 20 × 12
+#&gt; AVANTI II                            02  75  8    75  8                        AVANTI II            78065053</div><div class='input'><span class='fu'>read_table</span>(<span class='no'>epa</span>, <span class='kw'>col_names</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</div><div class='output co'>#&gt; <span class='message'>Parsed with column specification:</span>
+#&gt; <span class='message'>cols(</span>
+#&gt; <span class='message'>  X1 = col_character(),</span>
+#&gt; <span class='message'>  X2 = col_character(),</span>
+#&gt; <span class='message'>  X3 = col_integer(),</span>
+#&gt; <span class='message'>  X4 = col_integer(),</span>
+#&gt; <span class='message'>  X5 = col_integer(),</span>
+#&gt; <span class='message'>  X6 = col_integer(),</span>
+#&gt; <span class='message'>  X7 = col_integer(),</span>
+#&gt; <span class='message'>  X8 = col_integer(),</span>
+#&gt; <span class='message'>  X9 = col_integer(),</span>
+#&gt; <span class='message'>  X10 = col_integer(),</span>
+#&gt; <span class='message'>  X11 = col_character(),</span>
+#&gt; <span class='message'>  X12 = col_integer()</span>
+#&gt; <span class='message'>)</span></div><div class='output co'>#&gt; # A tibble: 20 × 12
 #&gt;               X1    X2    X3    X4    X5    X6    X7    X8    X9   X10
 #&gt;            &lt;chr&gt; &lt;chr&gt; &lt;int&gt; &lt;int&gt; &lt;int&gt; &lt;int&gt; &lt;int&gt; &lt;int&gt; &lt;int&gt; &lt;int&gt;
 #&gt; 1     ALFA ROMEO          NA    NA    NA    NA    NA    NA    NA    NA
