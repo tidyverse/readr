@@ -21,11 +21,11 @@ Useful links:
 
 }
 \author{
-\strong{Maintainer}: Hadley Wickham \email{hadley@rstudio.com}
+\strong{Maintainer}: Jim Hester \email{james.hester@rstudio.com}
 
 Authors:
 \itemize{
-  \item Jim Hester \email{jim.hester@rstudio.com}
+  \item Hadley Wickham \email{hadley@rstudio.com}
   \item Romain Francois
 }
 
