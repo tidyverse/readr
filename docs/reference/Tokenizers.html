@@ -112,7 +112,7 @@ function, but will instead use one of the use friendly wrappers like
 <code><a href='read_delim.html'>read_csv()</a></code>.</p>
     
 
-    <pre><span class='fu'>tokenizer_delim</span>(<span class='no'>delim</span>, <span class='kw'>quote</span> <span class='kw'>=</span> <span class='st'>"\""</span>, <span class='kw'>na</span> <span class='kw'>=</span> <span class='st'>"NA"</span>, <span class='kw'>quoted_na</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
+    <pre class="usage"><span class='fu'>tokenizer_delim</span>(<span class='no'>delim</span>, <span class='kw'>quote</span> <span class='kw'>=</span> <span class='st'>"\""</span>, <span class='kw'>na</span> <span class='kw'>=</span> <span class='st'>"NA"</span>, <span class='kw'>quoted_na</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
   <span class='kw'>comment</span> <span class='kw'>=</span> <span class='st'>""</span>, <span class='kw'>trim_ws</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>escape_double</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
   <span class='kw'>escape_backslash</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)
 
@@ -131,54 +131,73 @@ function, but will instead use one of the use friendly wrappers like
 <span class='fu'>tokenizer_ws</span>(<span class='kw'>na</span> <span class='kw'>=</span> <span class='st'>"NA"</span>, <span class='kw'>comment</span> <span class='kw'>=</span> <span class='st'>""</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a> Arguments</h2>
-    <dl class="dl-horizontal">
-      <dt>delim</dt>
-      <dd>Single character used to separate fields within a record.</dd>
-      <dt>quote</dt>
-      <dd>Single character used to quote strings.</dd>
-      <dt>na</dt>
-      <dd>Character vector of strings to use for missing values. Set this
-option to <code>character()</code> to indicate no missing values.</dd>
-      <dt>quoted_na</dt>
-      <dd>Should missing values inside quotes be treated as missing
-values (the default) or strings.</dd>
-      <dt>comment</dt>
-      <dd>A string used to identify comments. Any text after the
-comment characters will be silently ignored.</dd>
-      <dt>trim_ws</dt>
-      <dd>Should leading and trailing whitespace be trimmed from
-each field before parsing it?</dd>
-      <dt>escape_double</dt>
-      <dd>Does the file escape quotes by doubling them?
-i.e. If this option is <code>TRUE</code>, the value <code>&quot;&quot;&quot;&quot;</code> represents
-a single quote, <code>\&quot;</code>.</dd>
-      <dt>escape_backslash</dt>
-      <dd>Does the file use backslashes to escape special
+    <table class="ref-arguments">
+    <colgroup><col class="name" /><col class="desc" /></colgroup>
+    <tr>
+      <th>delim</th>
+      <td><p>Single character used to separate fields within a record.</p></td>
+    </tr>
+    <tr>
+      <th>quote</th>
+      <td><p>Single character used to quote strings.</p></td>
+    </tr>
+    <tr>
+      <th>na</th>
+      <td><p>Character vector of strings to use for missing values. Set this
+option to <code>character()</code> to indicate no missing values.</p></td>
+    </tr>
+    <tr>
+      <th>quoted_na</th>
+      <td><p>Should missing values inside quotes be treated as missing
+values (the default) or strings.</p></td>
+    </tr>
+    <tr>
+      <th>comment</th>
+      <td><p>A string used to identify comments. Any text after the
+comment characters will be silently ignored.</p></td>
+    </tr>
+    <tr>
+      <th>trim_ws</th>
+      <td><p>Should leading and trailing whitespace be trimmed from
+each field before parsing it?</p></td>
+    </tr>
+    <tr>
+      <th>escape_double</th>
+      <td><p>Does the file escape quotes by doubling them?
+i.e. If this option is <code>TRUE</code>, the value <code>""""</code> represents
+a single quote, <code>\"</code>.</p></td>
+    </tr>
+    <tr>
+      <th>escape_backslash</th>
+      <td><p>Does the file use backslashes to escape special
 characters? This is more general than <code>escape_double</code> as backslashes
 can be used to escape the delimiter character, the quote character, or
-to add special characters like <code>\n</code>.</dd>
-      <dt>begin, end</dt>
-      <dd>Begin and end offsets for each file. These are C++
+to add special characters like <code>\n</code>.</p></td>
+    </tr>
+    <tr>
+      <th>begin, end</th>
+      <td><p>Begin and end offsets for each file. These are C++
 offsets so the first column is column zero, and the ranges are
-[begin, end) (i.e inclusive-exclusive).</dd>
-    </dl>
+[begin, end) (i.e inclusive-exclusive).</p></td>
+    </tr>
+    </table>
     
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='fu'>tokenizer_csv</span>()</div><div class='output co'>#&gt; $delim
-#&gt; [1] &quot;,&quot;
+#&gt; [1] ","
 #&gt; 
 #&gt; $quote
-#&gt; [1] &quot;\&quot;&quot;
+#&gt; [1] "\""
 #&gt; 
 #&gt; $na
-#&gt; [1] &quot;NA&quot;
+#&gt; [1] "NA"
 #&gt; 
 #&gt; $quoted_na
 #&gt; [1] TRUE
 #&gt; 
 #&gt; $comment
-#&gt; [1] &quot;&quot;
+#&gt; [1] ""
 #&gt; 
 #&gt; $trim_ws
 #&gt; [1] TRUE
@@ -189,8 +208,8 @@ offsets so the first column is column zero, and the ranges are
 #&gt; $escape_backslash
 #&gt; [1] FALSE
 #&gt; 
-#&gt; attr(,&quot;class&quot;)
-#&gt; [1] &quot;tokenizer_delim&quot;</div></pre>
+#&gt; attr(,"class")
+#&gt; [1] "tokenizer_delim"</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
@@ -212,6 +231,16 @@ offsets so the first column is column zero, and the ranges are
   <p>Developed by <a href='http://hadley.nz'>Hadley Wickham</a>, Jim Hester, Romain Francois, <a href='https://www.rstudio.com'><img src='http://tidyverse.org/rstudio-logo.svg' height='24' /></a>.</p>
   <p>Site built by <a href="http://hadley.github.io/pkgdown/">pkgdown</a>.</p>
 </div>
+
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-67989-18', 'auto');
+  ga('send', 'pageview');
+</script>
       </footer>
    </div>
 

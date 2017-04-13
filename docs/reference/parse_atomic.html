@@ -109,10 +109,10 @@
     
     <p>Use <code>parse_*()</code> if you have a character vector you want to parse. Use
 <code>col_*()</code> in conjunction with a <code>read_*()</code> function to parse the
-values as they&#39;re read in.</p>
+values as they're read in.</p>
     
 
-    <pre><span class='fu'>parse_logical</span>(<span class='no'>x</span>, <span class='kw'>na</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='st'>""</span>, <span class='st'>"NA"</span>), <span class='kw'>locale</span> <span class='kw'>=</span> <span class='fu'><a href='locale.html'>default_locale</a></span>())
+    <pre class="usage"><span class='fu'>parse_logical</span>(<span class='no'>x</span>, <span class='kw'>na</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='st'>""</span>, <span class='st'>"NA"</span>), <span class='kw'>locale</span> <span class='kw'>=</span> <span class='fu'><a href='locale.html'>default_locale</a></span>())
 
 <span class='fu'>parse_integer</span>(<span class='no'>x</span>, <span class='kw'>na</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='st'>""</span>, <span class='st'>"NA"</span>), <span class='kw'>locale</span> <span class='kw'>=</span> <span class='fu'><a href='locale.html'>default_locale</a></span>())
 
@@ -129,19 +129,26 @@ values as they&#39;re read in.</p>
 <span class='fu'>col_character</span>()</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a> Arguments</h2>
-    <dl class="dl-horizontal">
-      <dt>x</dt>
-      <dd>Character vector of values to parse.</dd>
-      <dt>na</dt>
-      <dd>Character vector of strings to use for missing values. Set this
-option to <code>character()</code> to indicate no missing values.</dd>
-      <dt>locale</dt>
-      <dd>The locale controls defaults that vary from place to place.
+    <table class="ref-arguments">
+    <colgroup><col class="name" /><col class="desc" /></colgroup>
+    <tr>
+      <th>x</th>
+      <td><p>Character vector of values to parse.</p></td>
+    </tr>
+    <tr>
+      <th>na</th>
+      <td><p>Character vector of strings to use for missing values. Set this
+option to <code>character()</code> to indicate no missing values.</p></td>
+    </tr>
+    <tr>
+      <th>locale</th>
+      <td><p>The locale controls defaults that vary from place to place.
 The default locale is US-centric (like R), but you can use
 <code><a href='locale.html'>locale()</a></code> to create your own locale that controls things like
 the default time zone, encoding, decimal mark, big mark, and day/month
-names.</dd>
-    </dl>
+names.</p></td>
+    </tr>
+    </table>
     
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
@@ -160,7 +167,7 @@ names.</dd>
 <span class='fu'>parse_double</span>(<span class='no'>x</span>)</div><div class='output co'>#&gt; <span class='warning'>Warning: 1 parsing failure.</span>
 #&gt; <span class='warning'>row col expected actual</span>
 #&gt; <span class='warning'>  4  -- a double      -</span></div><div class='output co'>#&gt; [1]  1  2  3 NA
-#&gt; attr(,&quot;problems&quot;)
+#&gt; attr(,"problems")
 #&gt; # A tibble: 1 × 4
 #&gt;     row   col expected actual
 #&gt;   &lt;int&gt; &lt;int&gt;    &lt;chr&gt;  &lt;chr&gt;
@@ -189,6 +196,16 @@ names.</dd>
   <p>Developed by <a href='http://hadley.nz'>Hadley Wickham</a>, Jim Hester, Romain Francois, <a href='https://www.rstudio.com'><img src='http://tidyverse.org/rstudio-logo.svg' height='24' /></a>.</p>
   <p>Site built by <a href="http://hadley.github.io/pkgdown/">pkgdown</a>.</p>
 </div>
+
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-67989-18', 'auto');
+  ga('send', 'pageview');
+</script>
       </footer>
    </div>
 

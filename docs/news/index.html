@@ -110,13 +110,13 @@
     <div class="contents">
     <div id="readr-1-1-0" class="section level1">
 <h1 class="hasAnchor">
-<a href="#readr-1-1-0" class="anchor"> </a>readr 1.1.0</h1>
+<a href="#readr-1-1-0" class="anchor"></a>readr 1.1.0</h1>
 <div id="new-features" class="section level2">
 <h2 class="hasAnchor">
-<a href="#new-features" class="anchor"> </a>New features</h2>
+<a href="#new-features" class="anchor"></a>New features</h2>
 <div id="parser-improvements" class="section level3">
 <h3 class="hasAnchor">
-<a href="#parser-improvements" class="anchor"> </a>Parser improvements</h3>
+<a href="#parser-improvements" class="anchor"></a>Parser improvements</h3>
 <ul>
 <li>
 <code><a href="../reference/parse_factor.html">parse_factor()</a></code> gains a <code>include_na</code> argument, to include <code>NA</code> in the factor levels (#541).</li>
@@ -138,7 +138,7 @@
 </div>
 <div id="whitespace-fixed-width-improvements" class="section level3">
 <h3 class="hasAnchor">
-<a href="#whitespace-fixed-width-improvements" class="anchor"> </a>Whitespace / fixed width improvements</h3>
+<a href="#whitespace-fixed-width-improvements" class="anchor"></a>Whitespace / fixed width improvements</h3>
 <ul>
 <li>
 <code><a href="../reference/read_fwf.html">fwf_cols()</a></code> allows for specifying the <code>col_positions</code> argument of <code><a href="../reference/read_fwf.html">read_fwf()</a></code> with named arguments of either column positions or widths (#616, @jrnold).</li>
@@ -157,7 +157,7 @@
 </div>
 <div id="writing-to-connections" class="section level2">
 <h2 class="hasAnchor">
-<a href="#writing-to-connections" class="anchor"> </a>Writing to connections</h2>
+<a href="#writing-to-connections" class="anchor"></a>Writing to connections</h2>
 <ul>
 <li>
 <code>write_*()</code> functions now support writing to binary connections. In addition output filenames with <code>.gz</code>, <code>.bz2</code> or <code>.xz</code> will automatically open the appropriate connection and to write the compressed file. (#348)</li>
@@ -167,12 +167,12 @@
 </div>
 <div id="miscellaneous-features" class="section level2">
 <h2 class="hasAnchor">
-<a href="#miscellaneous-features" class="anchor"> </a>Miscellaneous features</h2>
+<a href="#miscellaneous-features" class="anchor"></a>Miscellaneous features</h2>
 <ul>
 <li>
 <code>col_euro_double()</code>, <code>parse_euro_double()</code>, <code>col_numeric()</code>, and <code>parse_numeric()</code> have been removed.</li>
 <li>
-<code><a href="../reference/guess_encoding.html">guess_encoding()</a></code> returns a tibble, and works better with lists of raw vectors (as returned by <code><a href="../reference/read_lines.html">read_lines_raw()</a></code>).</li>
+<code><a href="../reference/encoding.html">guess_encoding()</a></code> returns a tibble, and works better with lists of raw vectors (as returned by <code><a href="../reference/read_lines.html">read_lines_raw()</a></code>).</li>
 <li>
 <code>ListCallback</code> R6 Class to provide a more flexible return type for callback functions (#568, @mmuurr)</li>
 <li>
@@ -183,7 +183,7 @@
 </div>
 <div id="bugfixes" class="section level2">
 <h2 class="hasAnchor">
-<a href="#bugfixes" class="anchor"> </a>Bugfixes</h2>
+<a href="#bugfixes" class="anchor"></a>Bugfixes</h2>
 <ul>
 <li>
 <code><a href="../reference/parse_factor.html">parse_factor()</a></code> now converts data to UTF-8 based on the supplied locale (#615).</li>
@@ -194,43 +194,43 @@
 <li>
 <code><a href="../reference/read_delim.html">read_delim()</a></code> and <code><a href="../reference/read_fwf.html">read_fwf()</a></code> when columns are skipped using <code>col_types</code> now report the correct column name (#573, @cb4ds).</li>
 <li>
-<code><a href="../reference/cols_condense.html">spec()</a></code> declarations that are long now print properly (#597).</li>
+<code><a href="../reference/spec.html">spec()</a></code> declarations that are long now print properly (#597).</li>
 <li>
 <code><a href="../reference/read_table.html">read_table()</a></code> does not print <code>spec</code> when <code>col_types</code> is not <code>NULL</code> (#630, @jrnold).</li>
 <li>
-<code><a href="../reference/guess_encoding.html">guess_encoding()</a></code> now returns a tibble for all ASCII input as well (#641).</li>
+<code><a href="../reference/encoding.html">guess_encoding()</a></code> now returns a tibble for all ASCII input as well (#641).</li>
 </ul>
 </div>
 </div>
     <div id="readr-1-0-0" class="section level1">
 <h1 class="hasAnchor">
-<a href="#readr-1-0-0" class="anchor"> </a>readr 1.0.0</h1>
+<a href="#readr-1-0-0" class="anchor"></a>readr 1.0.0</h1>
 <div id="column-guessing" class="section level2">
 <h2 class="hasAnchor">
-<a href="#column-guessing" class="anchor"> </a>Column guessing</h2>
+<a href="#column-guessing" class="anchor"></a>Column guessing</h2>
 <p>The process by which readr guesses the types of columns has received a substantial overhaul to make it easier to fix problems when the initial guesses aren’t correct, and to make it easier to generate reproducible code. Now column specifications are printing by default when you read from a file:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">challenge &lt;-<span class="st"> </span><span class="kw"><a href="../reference/read_delim.html">read_csv</a></span>(<span class="kw"><a href="../reference/readr_example.html">readr_example</a></span>(<span class="st">"challenge.csv"</span>))
+<pre class="sourceCode r"><code class="sourceCode r">challenge &lt;-<span class="st"> </span><span class="kw"><a href="../reference/read_delim.html">read_csv</a></span>(<span class="kw"><a href="../reference/readr_example.html">readr_example</a></span>(<span class="st">"challenge.csv"</span>))
 <span class="co">#&gt; Parsed with column specification:</span>
 <span class="co">#&gt; cols(</span>
 <span class="co">#&gt;   x = col_integer(),</span>
 <span class="co">#&gt;   y = col_character()</span>
-<span class="co">#&gt; )</span></code></pre></div>
-<p>And you can extract those values after the fact with <code><a href="../reference/cols_condense.html">spec()</a></code>:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="../reference/cols_condense.html">spec</a></span>(challenge)
+<span class="co">#&gt; )</span></code></pre>
+<p>And you can extract those values after the fact with <code><a href="../reference/spec.html">spec()</a></code>:</p>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="../reference/spec.html">spec</a></span>(challenge)
 <span class="co">#&gt; cols(</span>
 <span class="co">#&gt;   x = col_integer(),</span>
 <span class="co">#&gt;   y = col_character()</span>
-<span class="co">#&gt; )</span></code></pre></div>
-<p>This makes it easier to quickly identify parsing problems and fix them (#314). If the column specification is long, the new <code><a href="../reference/cols_condense.html">cols_condense()</a></code> is used to condense the spec by identifying the most common type and setting it as the default. This is particularly useful when only a handful of columns have a different type (#466).</p>
+<span class="co">#&gt; )</span></code></pre>
+<p>This makes it easier to quickly identify parsing problems and fix them (#314). If the column specification is long, the new <code><a href="../reference/spec.html">cols_condense()</a></code> is used to condense the spec by identifying the most common type and setting it as the default. This is particularly useful when only a handful of columns have a different type (#466).</p>
 <p>You can also generating an initial specification without parsing the file using <code><a href="../reference/spec_delim.html">spec_csv()</a></code>, <code><a href="../reference/spec_delim.html">spec_tsv()</a></code>, etc.</p>
 <p>Once you have figured out the correct column types for a file, it’s often useful to make the parsing strict. You can do this either by copying and pasting the printed output, or for very long specs, saving the spec to disk with <code><a href="../reference/read_rds.html">write_rds()</a></code>. In production scripts, combine this with <code><a href="../reference/problems.html">stop_for_problems()</a></code> (#465): if the input data changes form, you’ll fail fast with an error.</p>
 <p>You can now also adjust the number of rows that readr uses to guess the column types with <code>guess_max</code>:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">challenge &lt;-<span class="st"> </span><span class="kw"><a href="../reference/read_delim.html">read_csv</a></span>(<span class="kw"><a href="../reference/readr_example.html">readr_example</a></span>(<span class="st">"challenge.csv"</span>), <span class="dt">guess_max =</span> <span class="dv">1500</span>)
+<pre class="sourceCode r"><code class="sourceCode r">challenge &lt;-<span class="st"> </span><span class="kw"><a href="../reference/read_delim.html">read_csv</a></span>(<span class="kw"><a href="../reference/readr_example.html">readr_example</a></span>(<span class="st">"challenge.csv"</span>), <span class="dt">guess_max =</span> <span class="dv">1500</span>)
 <span class="co">#&gt; Parsed with column specification:</span>
 <span class="co">#&gt; cols(</span>
 <span class="co">#&gt;   x = col_double(),</span>
 <span class="co">#&gt;   y = col_date(format = "")</span>
-<span class="co">#&gt; )</span></code></pre></div>
+<span class="co">#&gt; )</span></code></pre>
 <p>You can now access the guessing algorithm from R. <code><a href="../reference/parse_guess.html">guess_parser()</a></code> will tell you which parser readr will select for a character vector (#377). We’ve made a number of fixes to the guessing algorithm:</p>
 <ul>
 <li><p>New example <code>extdata/challenge.csv</code> which is carefully created to cause problems with the default column type guessing heuristics.</p></li>
@@ -249,7 +249,7 @@
 </div>
 <div id="column-parsing" class="section level2">
 <h2 class="hasAnchor">
-<a href="#column-parsing" class="anchor"> </a>Column parsing</h2>
+<a href="#column-parsing" class="anchor"></a>Column parsing</h2>
 <p>The date time parsers recognise three new format strings:</p>
 <ul>
 <li><p><code>%I</code> for 12 hour time format (#340).</p></li>
@@ -269,7 +269,7 @@
 </div>
 <div id="new-readers-and-writers" class="section level2">
 <h2 class="hasAnchor">
-<a href="#new-readers-and-writers" class="anchor"> </a>New readers and writers</h2>
+<a href="#new-readers-and-writers" class="anchor"></a>New readers and writers</h2>
 <ul>
 <li><p><code><a href="../reference/read_file.html">read_file_raw()</a></code> reads a complete file into a single raw vector (#451).</p></li>
 <li><p><code>read_*()</code> functions gain a <code>quoted_na</code> argument to control whether missing values within quotes are treated as missing values or as strings (#295).</p></li>
@@ -281,7 +281,7 @@
 </div>
 <div id="minor-features-and-bug-fixes" class="section level2">
 <h2 class="hasAnchor">
-<a href="#minor-features-and-bug-fixes" class="anchor"> </a>Minor features and bug fixes</h2>
+<a href="#minor-features-and-bug-fixes" class="anchor"></a>Minor features and bug fixes</h2>
 <ul>
 <li><p>Printing double values now uses an <a href="https://github.com/juj/MathGeoLib/blob/master/src/Math/grisu3.c">implementation</a> of the <a href="http://www.cs.tufts.edu/~nr/cs257/archive/florian-loitsch/printf.pdf">grisu3 algorithm</a> which speeds up writing of large numeric data frames by ~10X. (#432) ‘.0’ is appended to whole number doubles, to ensure they will be read as doubles as well. (#483)</p></li>
 <li><p>readr imports tibble so that you get consistent <code>tbl_df</code> behaviour (#317, #385).</p></li>
@@ -307,37 +307,37 @@
 </div>
     <div id="readr-0-2-2" class="section level1">
 <h1 class="hasAnchor">
-<a href="#readr-0-2-2" class="anchor"> </a>readr 0.2.2</h1>
+<a href="#readr-0-2-2" class="anchor"></a>readr 0.2.2</h1>
 <ul>
 <li>Fix bug when checking empty values for missingness (caused valgrind issue and random crashes).</li>
 </ul>
 </div>
     <div id="readr-0-2-1" class="section level1">
 <h1 class="hasAnchor">
-<a href="#readr-0-2-1" class="anchor"> </a>readr 0.2.1</h1>
+<a href="#readr-0-2-1" class="anchor"></a>readr 0.2.1</h1>
 <ul>
 <li>Fixes so that readr works on Solaris.</li>
 </ul>
 </div>
     <div id="readr-0-2-0" class="section level1">
 <h1 class="hasAnchor">
-<a href="#readr-0-2-0" class="anchor"> </a>readr 0.2.0</h1>
+<a href="#readr-0-2-0" class="anchor"></a>readr 0.2.0</h1>
 <div id="internationalisation" class="section level2">
 <h2 class="hasAnchor">
-<a href="#internationalisation" class="anchor"> </a>Internationalisation</h2>
+<a href="#internationalisation" class="anchor"></a>Internationalisation</h2>
 <p>readr now has a strategy for dealing with settings that vary from place to place: locales. The default locale is still US centric (because R itself is), but you can now easily override the default timezone, decimal separator, grouping mark, day &amp; month names, date format, and encoding. This has lead to a number of changes:</p>
 <ul>
 <li><p><code><a href="../reference/read_delim.html">read_csv()</a></code>, <code><a href="../reference/read_delim.html">read_tsv()</a></code>, <code><a href="../reference/read_fwf.html">read_fwf()</a></code>, <code><a href="../reference/read_table.html">read_table()</a></code>, <code><a href="../reference/read_lines.html">read_lines()</a></code>, <code><a href="../reference/read_file.html">read_file()</a></code>, <code><a href="../reference/type_convert.html">type_convert()</a></code>, <code><a href="../reference/parse_vector.html">parse_vector()</a></code> all gain a <code>locale</code> argument.</p></li>
 <li><p><code><a href="../reference/locale.html">locale()</a></code> controls all the input settings that vary from place-to-place.</p></li>
 <li><p><code>col_euro_double()</code> and <code>parse_euro_double()</code> have been deprecated. Use the <code>decimal_mark</code> parameter to <code><a href="../reference/locale.html">locale()</a></code> instead.</p></li>
-<li><p>The default encoding is now UTF-8. To load files that are not in UTF-8, set the <code>encoding</code> parameter of the <code><a href="../reference/locale.html">locale()</a></code> (#40). New <code><a href="../reference/guess_encoding.html">guess_encoding()</a></code> function uses stringi to help you figure out the encoding of a file.</p></li>
+<li><p>The default encoding is now UTF-8. To load files that are not in UTF-8, set the <code>encoding</code> parameter of the <code><a href="../reference/locale.html">locale()</a></code> (#40). New <code><a href="../reference/encoding.html">guess_encoding()</a></code> function uses stringi to help you figure out the encoding of a file.</p></li>
 <li><p><code><a href="../reference/parse_datetime.html">parse_datetime()</a></code> and <code><a href="../reference/parse_datetime.html">parse_date()</a></code> with <code>%B</code> and <code>%b</code> use the month names (full and abbreviate) defined in the locale (#242). They also inherit the tz from the locale, rather than using an explicit <code>tz</code> parameter.</p></li>
 </ul>
 <p>See <code><a href="../articles/locales.html">vignette("locales")</a></code> for more details.</p>
 </div>
 <div id="file-parsing-improvements" class="section level2">
 <h2 class="hasAnchor">
-<a href="#file-parsing-improvements" class="anchor"> </a>File parsing improvements</h2>
+<a href="#file-parsing-improvements" class="anchor"></a>File parsing improvements</h2>
 <ul>
 <li><p><code><a href="../reference/cols.html">cols()</a></code> lets you pick the default column type for columns not otherwise explicitly named (#148). You can refer to parsers either with their full name (e.g. <code><a href="../reference/parse_atomic.html">col_character()</a></code>) or their one letter abbreviation (e.g. <code>c</code>).</p></li>
 <li><p><code><a href="../reference/cols.html">cols_only()</a></code> allows you to load only named columns. You can also choose to override the default column type in <code><a href="../reference/cols.html">cols()</a></code> (#72).</p></li>
@@ -351,7 +351,7 @@
 </div>
 <div id="column-parsing-improvements" class="section level2">
 <h2 class="hasAnchor">
-<a href="#column-parsing-improvements" class="anchor"> </a>Column parsing improvements</h2>
+<a href="#column-parsing-improvements" class="anchor"></a>Column parsing improvements</h2>
 <p>Readr gains <code><a href="../articles/column-types.html">vignette("column-types")</a></code> which describes how the defaults work and how to override them (#122).</p>
 <ul>
 <li><p><code><a href="../reference/parse_atomic.html">parse_character()</a></code> gains better support for embedded nulls: any characters after the first null are dropped with a warning (#202).</p></li>
@@ -381,7 +381,7 @@
 </div>
 <div id="minor-improvements-and-bug-fixes" class="section level2">
 <h2 class="hasAnchor">
-<a href="#minor-improvements-and-bug-fixes" class="anchor"> </a>Minor improvements and bug fixes</h2>
+<a href="#minor-improvements-and-bug-fixes" class="anchor"></a>Minor improvements and bug fixes</h2>
 <ul>
 <li><p>Now use R’s platform independent <code>iconv</code> wrapper, thanks to BDR (#149).</p></li>
 <li><p>Pathological zero row inputs (due to empty input, <code>skip</code> or <code>n_max</code>) now return zero row data frames (#119).</p></li>
@@ -440,6 +440,16 @@
   <p>Developed by <a href='http://hadley.nz'>Hadley Wickham</a>, Jim Hester, Romain Francois, <a href='https://www.rstudio.com'><img src='http://tidyverse.org/rstudio-logo.svg' height='24' /></a>.</p>
   <p>Site built by <a href="http://hadley.github.io/pkgdown/">pkgdown</a>.</p>
 </div>
+
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-67989-18', 'auto');
+  ga('send', 'pageview');
+</script>
       </footer>
    </div>
 

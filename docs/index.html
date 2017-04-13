@@ -96,13 +96,13 @@
 
 <div id="overview" class="section level2">
 <h2 class="hasAnchor">
-<a href="#overview" class="anchor"> </a>Overview</h2>
+<a href="#overview" class="anchor"></a>Overview</h2>
 <p>The goal of readr is to provide a fast and friendly way to read rectangular data (like csv, tsv, and fwf). It is designed to flexibly parse many types of data found in the wild, while still cleanly failing when data unexpectedly changes. If you are new to readr, the best place to start is the <a href="http://r4ds.had.co.nz/data-import.html">data import chapter</a> in R for data science.</p>
 </div>
 <div id="installation" class="section level2">
 <h2 class="hasAnchor">
-<a href="#installation" class="anchor"> </a>Installation</h2>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># The easiest way to get readr is to install the whole tidyverse:</span>
+<a href="#installation" class="anchor"></a>Installation</h2>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="co"># The easiest way to get readr is to install the whole tidyverse:</span>
 <span class="kw">install.packages</span>(<span class="st">"tidyverse"</span>)
 
 <span class="co"># Alternatively, install just readr:</span>
@@ -110,13 +110,22 @@
 
 <span class="co"># Or the the development version from GitHub:</span>
 <span class="co"># install.packages("devtools")</span>
-devtools::<span class="kw">install_github</span>(<span class="st">"tidyverse/readr"</span>)</code></pre></div>
+devtools::<span class="kw">install_github</span>(<span class="st">"tidyverse/readr"</span>)</code></pre>
 </div>
 <div id="usage" class="section level2">
 <h2 class="hasAnchor">
-<a href="#usage" class="anchor"> </a>Usage</h2>
+<a href="#usage" class="anchor"></a>Usage</h2>
 <p>readr is part of the core tidyverse, so load it with:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(tidyverse)</code></pre></div>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(tidyverse)
+<span class="co">#&gt; Loading tidyverse: ggplot2</span>
+<span class="co">#&gt; Loading tidyverse: tibble</span>
+<span class="co">#&gt; Loading tidyverse: tidyr</span>
+<span class="co">#&gt; Loading tidyverse: readr</span>
+<span class="co">#&gt; Loading tidyverse: purrr</span>
+<span class="co">#&gt; Loading tidyverse: dplyr</span>
+<span class="co">#&gt; Conflicts with tidy packages ----------------------------------------------</span>
+<span class="co">#&gt; filter(): dplyr, stats</span>
+<span class="co">#&gt; lag():    dplyr, stats</span></code></pre>
 <p>To accurately read a rectangular dataset with readr you combine two pieces: a function that parses the overall file, and a column specification. The column specification describes how each column should be converted from a character vector to the most appropriate data type, and in most cases it’s not necessary because readr will guess it for you automatically.</p>
 <p>readr supports seven file formats with seven <code>read_</code> functions:</p>
 <ul>
@@ -134,7 +143,7 @@ devtools::<span class="kw">install_github</span>(<span class="st">"tidyverse/rea
 <code><a href="reference/read_log.html">read_log()</a></code>: web log files</li>
 </ul>
 <p>In many cases, these functions will just work: you supply the path to a file and you get a tibble back. The following example loads a sample file bundled with readr:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">mtcars &lt;-<span class="st"> </span><span class="kw"><a href="reference/read_delim.html">read_csv</a></span>(<span class="kw"><a href="reference/readr_example.html">readr_example</a></span>(<span class="st">"mtcars.csv"</span>))
+<pre class="sourceCode r"><code class="sourceCode r">mtcars &lt;-<span class="st"> </span><span class="kw"><a href="reference/read_delim.html">read_csv</a></span>(<span class="kw"><a href="reference/readr_example.html">readr_example</a></span>(<span class="st">"mtcars.csv"</span>))
 <span class="co">#&gt; Parsed with column specification:</span>
 <span class="co">#&gt; cols(</span>
 <span class="co">#&gt;   mpg = col_double(),</span>
@@ -148,9 +157,9 @@ devtools::<span class="kw">install_github</span>(<span class="st">"tidyverse/rea
 <span class="co">#&gt;   am = col_integer(),</span>
 <span class="co">#&gt;   gear = col_integer(),</span>
 <span class="co">#&gt;   carb = col_integer()</span>
-<span class="co">#&gt; )</span></code></pre></div>
+<span class="co">#&gt; )</span></code></pre>
 <p>Note that readr prints the column specification. This is useful because it allows you to check that the columns have been read in as you expect, and if they haven’t, you can easily copy and paste into a new call:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">mtcars &lt;-<span class="st"> </span><span class="kw"><a href="reference/read_delim.html">read_csv</a></span>(<span class="kw"><a href="reference/readr_example.html">readr_example</a></span>(<span class="st">"mtcars.csv"</span>), <span class="dt">col_types =</span> 
+<pre class="sourceCode r"><code class="sourceCode r">mtcars &lt;-<span class="st"> </span><span class="kw"><a href="reference/read_delim.html">read_csv</a></span>(<span class="kw"><a href="reference/readr_example.html">readr_example</a></span>(<span class="st">"mtcars.csv"</span>), <span class="dt">col_types =</span> 
   <span class="kw"><a href="reference/cols.html">cols</a></span>(
     <span class="dt">mpg =</span> <span class="kw"><a href="reference/parse_atomic.html">col_double</a></span>(),
     <span class="dt">cyl =</span> <span class="kw"><a href="reference/parse_atomic.html">col_integer</a></span>(),
@@ -164,16 +173,16 @@ devtools::<span class="kw">install_github</span>(<span class="st">"tidyverse/rea
     <span class="dt">gear =</span> <span class="kw"><a href="reference/parse_atomic.html">col_integer</a></span>(),
     <span class="dt">carb =</span> <span class="kw"><a href="reference/parse_atomic.html">col_integer</a></span>()
   )
-)</code></pre></div>
+)</code></pre>
 <p><code><a href="articles/column-types.html">vignette("column-types")</a></code> gives more detail on how readr guess the column types, how you can override the defaults, and provides some useful tools for debugging parsing problems.</p>
 </div>
 <div id="alternatives" class="section level2">
 <h2 class="hasAnchor">
-<a href="#alternatives" class="anchor"> </a>Alternatives</h2>
+<a href="#alternatives" class="anchor"></a>Alternatives</h2>
 <p>There are two main alternatives to readr: base R and data.table’s <code>fread()</code>. The most important differences are discussed below.</p>
 <div id="base-r" class="section level3">
 <h3 class="hasAnchor">
-<a href="#base-r" class="anchor"> </a>Base R</h3>
+<a href="#base-r" class="anchor"></a>Base R</h3>
 <p>Compared to the corresponding base functions, readr functions:</p>
 <ul>
 <li><p>Use a consistent naming scheme for the parameters (e.g. <code>col_names</code> and <code>col_types</code> not <code>header</code> and <code>colClasses</code>).</p></li>
@@ -185,7 +194,7 @@ devtools::<span class="kw">install_github</span>(<span class="st">"tidyverse/rea
 </div>
 <div id="data-table-and-fread" class="section level3">
 <h3 class="hasAnchor">
-<a href="#data-table-and-fread" class="anchor"> </a>data.table and <code>fread()</code>
+<a href="#data-table-and-fread" class="anchor"></a>data.table and <code>fread()</code>
 </h3>
 <p><a href="https://github.com/Rdatatable/data.table">data.table</a> has a function similar to <code><a href="reference/read_delim.html">read_csv()</a></code> called fread. Compared to fread, readr functions:</p>
 <ul>
@@ -198,7 +207,7 @@ devtools::<span class="kw">install_github</span>(<span class="st">"tidyverse/rea
 </div>
 <div id="acknowledgements" class="section level2">
 <h2 class="hasAnchor">
-<a href="#acknowledgements" class="anchor"> </a>Acknowledgements</h2>
+<a href="#acknowledgements" class="anchor"></a>Acknowledgements</h2>
 <p>Thanks to:</p>
 <ul>
 <li><p><a href="https://github.com/jcheng5">Joe Cheng</a> for showing me the beauty of deterministic finite automata for parsing, and for teaching me why I should write a tokenizer.</p></li>
@@ -234,7 +243,6 @@ devtools::<span class="kw">install_github</span>(<span class="st">"tidyverse/rea
 <a href="https://www.rstudio.com"><img src="http://tidyverse.org/rstudio-logo.svg" height="24"></a> <br><small class="roles"> Copyright holder, funder </small> </li>
 <li><a href="authors.html">All authors...</a></li>
 </ul>
-<html><body>
 <h2>Dev status</h2>
 <ul class="list-unstyled">
 <li><a href="http://cran.r-project.org/package=readr"><img src="http://www.r-pkg.org/badges/version/readr" alt="CRAN_Status_Badge"></a></li>
@@ -242,7 +250,6 @@ devtools::<span class="kw">install_github</span>(<span class="st">"tidyverse/rea
 <li><a href="https://ci.appveyor.com/project/tidyverse/readr"><img src="https://ci.appveyor.com/api/projects/status/github/tidyverse/readr?branch=master&amp;svg=true" alt="AppVeyor Build Status"></a></li>
 <li><a href="http://codecov.io/tidyverse/readr?branch=master"><img src="http://codecov.io/github/tidyverse/readr/coverage.svg?branch=master" alt="Coverage Status"></a></li>
 </ul>
-</body></html>
 </div>
 
 </div>
@@ -256,7 +263,16 @@ devtools::<span class="kw">install_github</span>(<span class="st">"tidyverse/rea
   <p>Developed by <a href="http://hadley.nz">Hadley Wickham</a>, Jim Hester, Romain Francois, <a href="https://www.rstudio.com"><img src="http://tidyverse.org/rstudio-logo.svg" height="24"></a>.</p>
   <p>Site built by <a href="http://hadley.github.io/pkgdown/">pkgdown</a>.</p>
 </div>
-      </footer>
+
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-67989-18', 'auto');
+  ga('send', 'pageview');
+</script></footer>
 </div>
 
   </body>

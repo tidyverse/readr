@@ -111,50 +111,61 @@
 countries. You set the locale in once, and the details are automatically
 passed on down to the columns parsers. The defaults have been chosen to
 match R (i.e. US English) as closely as possible. See
-<code>vignette(&quot;locales&quot;)</code> for more details.</p>
+<code><a href='../articles/locales.html'>vignette("locales")</a></code> for more details.</p>
     
 
-    <pre><span class='fu'>locale</span>(<span class='kw'>date_names</span> <span class='kw'>=</span> <span class='st'>"en"</span>, <span class='kw'>date_format</span> <span class='kw'>=</span> <span class='st'>"%AD"</span>, <span class='kw'>time_format</span> <span class='kw'>=</span> <span class='st'>"%AT"</span>,
+    <pre class="usage"><span class='fu'>locale</span>(<span class='kw'>date_names</span> <span class='kw'>=</span> <span class='st'>"en"</span>, <span class='kw'>date_format</span> <span class='kw'>=</span> <span class='st'>"%AD"</span>, <span class='kw'>time_format</span> <span class='kw'>=</span> <span class='st'>"%AT"</span>,
   <span class='kw'>decimal_mark</span> <span class='kw'>=</span> <span class='st'>"."</span>, <span class='kw'>grouping_mark</span> <span class='kw'>=</span> <span class='st'>","</span>, <span class='kw'>tz</span> <span class='kw'>=</span> <span class='st'>"UTC"</span>,
   <span class='kw'>encoding</span> <span class='kw'>=</span> <span class='st'>"UTF-8"</span>, <span class='kw'>asciify</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)
 
 <span class='fu'>default_locale</span>()</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a> Arguments</h2>
-    <dl class="dl-horizontal">
-      <dt>date_names</dt>
-      <dd>Character representations of day and month names. Either
+    <table class="ref-arguments">
+    <colgroup><col class="name" /><col class="desc" /></colgroup>
+    <tr>
+      <th>date_names</th>
+      <td><p>Character representations of day and month names. Either
 the language code as string (passed on to <code><a href='date_names.html'>date_names_lang()</a></code>)
-or an object created by <code><a href='date_names.html'>date_names()</a></code>.</dd>
-      <dt>date_format, time_format</dt>
-      <dd>Default date and time formats.</dd>
-      <dt>decimal_mark, grouping_mark</dt>
-      <dd>Symbols used to indicate the decimal
+or an object created by <code><a href='date_names.html'>date_names()</a></code>.</p></td>
+    </tr>
+    <tr>
+      <th>date_format, time_format</th>
+      <td><p>Default date and time formats.</p></td>
+    </tr>
+    <tr>
+      <th>decimal_mark, grouping_mark</th>
+      <td><p>Symbols used to indicate the decimal
 place, and to chunk larger numbers. Decimal mark can only be <code>,</code> or
-<code>.</code>.</dd>
-      <dt>tz</dt>
-      <dd>Default tz. This is used both for input (if the time zone isn&#39;t
+<code>.</code>.</p></td>
+    </tr>
+    <tr>
+      <th>tz</th>
+      <td><p>Default tz. This is used both for input (if the time zone isn't
 present in individual strings), and for output (to control the default
-display). The default is to use &quot;UTC&quot;, a time zone that does not use
+display). The default is to use "UTC", a time zone that does not use
 daylight savings time (DST) and hence is typically most useful for data.
 The absence of time zones makes it approximately 50x faster to generate
-UTC times than any other time zone.
-
-Use <code>&quot;&quot;</code> to use the system default time zone, but beware that this
-will not be reproducible across systems.
-
-For a complete list of possible time zones, see <code>OlsonNames()</code>.
-Americans, note that &quot;EST&quot; is a Canadian time zone that does not have
-DST. It is <em>not</em> Eastern Standard Time. It&#39;s better to use
-&quot;US/Eastern&quot;, &quot;US/Central&quot; etc.</dd>
-      <dt>encoding</dt>
-      <dd>Default encoding. This only affects how the file is
-read - readr always converts the output to UTF-8.</dd>
-      <dt>asciify</dt>
-      <dd>Should diacritics be stripped from date names and converted to
-ASCII? This is useful if you&#39;re dealing with ASCII data where the correct
-spellings have been lost. Requires the <span class="pkg">stringi</span> package.</dd>
-    </dl>
+UTC times than any other time zone.</p>
+<p>Use <code>""</code> to use the system default time zone, but beware that this
+will not be reproducible across systems.</p>
+<p>For a complete list of possible time zones, see <code>OlsonNames()</code>.
+Americans, note that "EST" is a Canadian time zone that does not have
+DST. It is <em>not</em> Eastern Standard Time. It's better to use
+"US/Eastern", "US/Central" etc.</p></td>
+    </tr>
+    <tr>
+      <th>encoding</th>
+      <td><p>Default encoding. This only affects how the file is
+read - readr always converts the output to UTF-8.</p></td>
+    </tr>
+    <tr>
+      <th>asciify</th>
+      <td><p>Should diacritics be stripped from date names and converted to
+ASCII? This is useful if you're dealing with ASCII data where the correct
+spellings have been lost. Requires the <span class="pkg">stringi</span> package.</p></td>
+    </tr>
+    </table>
     
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
@@ -215,6 +226,16 @@ spellings have been lost. Requires the <span class="pkg">stringi</span> package.
   <p>Developed by <a href='http://hadley.nz'>Hadley Wickham</a>, Jim Hester, Romain Francois, <a href='https://www.rstudio.com'><img src='http://tidyverse.org/rstudio-logo.svg' height='24' /></a>.</p>
   <p>Site built by <a href="http://hadley.github.io/pkgdown/">pkgdown</a>.</p>
 </div>
+
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-67989-18', 'auto');
+  ga('send', 'pageview');
+</script>
       </footer>
    </div>
 

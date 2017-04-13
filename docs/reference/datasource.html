@@ -110,62 +110,65 @@
     <p>Create a source object.</p>
     
 
-    <pre><span class='fu'>datasource</span>(<span class='no'>file</span>, <span class='kw'>skip</span> <span class='kw'>=</span> <span class='fl'>0</span>, <span class='kw'>comment</span> <span class='kw'>=</span> <span class='st'>""</span>)</pre>
+    <pre class="usage"><span class='fu'>datasource</span>(<span class='no'>file</span>, <span class='kw'>skip</span> <span class='kw'>=</span> <span class='fl'>0</span>, <span class='kw'>comment</span> <span class='kw'>=</span> <span class='st'>""</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a> Arguments</h2>
-    <dl class="dl-horizontal">
-      <dt>file</dt>
-      <dd>Either a path to a file, a connection, or literal data
-(either a single string or a raw vector).
-
-Files ending in <code>.gz</code>, <code>.bz2</code>, <code>.xz</code>, or <code>.zip</code> will
+    <table class="ref-arguments">
+    <colgroup><col class="name" /><col class="desc" /></colgroup>
+    <tr>
+      <th>file</th>
+      <td><p>Either a path to a file, a connection, or literal data
+(either a single string or a raw vector).</p>
+<p>Files ending in <code>.gz</code>, <code>.bz2</code>, <code>.xz</code>, or <code>.zip</code> will
 be automatically uncompressed. Files starting with <code>http://</code>,
 <code>https://</code>, <code>ftp://</code>, or <code>ftps://</code> will be automatically
 downloaded. Remote gz files can also be automatically downloaded and
-decompressed.
-
-Literal data is most useful for examples and tests. It must contain at
-least one new line to be recognised as data (instead of a path).</dd>
-      <dt>skip</dt>
-      <dd>Number of lines to skip before reading data.</dd>
-    </dl>
+decompressed.</p>
+<p>Literal data is most useful for examples and tests. It must contain at
+least one new line to be recognised as data (instead of a path).</p></td>
+    </tr>
+    <tr>
+      <th>skip</th>
+      <td><p>Number of lines to skip before reading data.</p></td>
+    </tr>
+    </table>
     
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='co'># Literal csv</span>
 <span class='fu'>datasource</span>(<span class='st'>"a,b,c\n1,2,3"</span>)</div><div class='output co'>#&gt; [[1]]
-#&gt; [1] &quot;a,b,c\n1,2,3&quot;
+#&gt; [1] "a,b,c\n1,2,3"
 #&gt; 
 #&gt; $skip
 #&gt; [1] 0
 #&gt; 
 #&gt; $comment
-#&gt; [1] &quot;&quot;
+#&gt; [1] ""
 #&gt; 
-#&gt; attr(,&quot;class&quot;)
-#&gt; [1] &quot;source_string&quot; &quot;source&quot;       </div><div class='input'><span class='fu'>datasource</span>(<span class='fu'>charToRaw</span>(<span class='st'>"a,b,c\n1,2,3"</span>))</div><div class='output co'>#&gt; [[1]]
+#&gt; attr(,"class")
+#&gt; [1] "source_string" "source"       </div><div class='input'><span class='fu'>datasource</span>(<span class='fu'>charToRaw</span>(<span class='st'>"a,b,c\n1,2,3"</span>))</div><div class='output co'>#&gt; [[1]]
 #&gt;  [1] 61 2c 62 2c 63 0a 31 2c 32 2c 33
 #&gt; 
 #&gt; $skip
 #&gt; [1] 0
 #&gt; 
 #&gt; $comment
-#&gt; [1] &quot;&quot;
+#&gt; [1] ""
 #&gt; 
-#&gt; attr(,&quot;class&quot;)
-#&gt; [1] &quot;source_raw&quot; &quot;source&quot;    </div><div class='input'>
+#&gt; attr(,"class")
+#&gt; [1] "source_raw" "source"    </div><div class='input'>
 <span class='co'># Strings</span>
 <span class='fu'>datasource</span>(<span class='fu'><a href='readr_example.html'>readr_example</a></span>(<span class='st'>"mtcars.csv"</span>))</div><div class='output co'>#&gt; [[1]]
-#&gt; [1] &quot;.../inst/extdata/mtcars.csv&quot;
+#&gt; [1] "/Users/hadley/Documents/ingest/readr/inst/extdata/mtcars.csv"
 #&gt; 
 #&gt; $skip
 #&gt; [1] 0
 #&gt; 
 #&gt; $comment
-#&gt; [1] &quot;&quot;
+#&gt; [1] ""
 #&gt; 
-#&gt; attr(,&quot;class&quot;)
-#&gt; [1] &quot;source_file&quot; &quot;source&quot;     </div><div class='input'><span class='fu'>datasource</span>(<span class='fu'><a href='readr_example.html'>readr_example</a></span>(<span class='st'>"mtcars.csv.bz2"</span>))</div><div class='output co'>#&gt; [[1]]
+#&gt; attr(,"class")
+#&gt; [1] "source_file" "source"     </div><div class='input'><span class='fu'>datasource</span>(<span class='fu'><a href='readr_example.html'>readr_example</a></span>(<span class='st'>"mtcars.csv.bz2"</span>))</div><div class='output co'>#&gt; [[1]]
 #&gt;    [1] 22 6d 70 67 22 2c 22 63 79 6c 22 2c 22 64 69 73 70 22 2c 22 68 70 22 2c
 #&gt;   [25] 22 64 72 61 74 22 2c 22 77 74 22 2c 22 71 73 65 63 22 2c 22 76 73 22 2c
 #&gt;   [49] 22 61 6d 22 2c 22 67 65 61 72 22 2c 22 63 61 72 62 22 0a 32 31 2c 36 2c
@@ -207,17 +210,29 @@ least one new line to be recognised as data (instead of a path).</dd>
 #&gt;  [913] 2c 30 2c 30 2c 33 2c 32 0a 31 35 2e 32 2c 38 2c 33 30 34 2c 31 35 30 2c
 #&gt;  [937] 33 2e 31 35 2c 33 2e 34 33 35 2c 31 37 2e 33 2c 30 2c 30 2c 33 2c 32 0a
 #&gt;  [961] 31 33 2e 33 2c 38 2c 33 35 30 2c 32 34 35 2c 33 2e 37 33 2c 33 2e 38 34
-#&gt;  [985] 2c 31 35 2e 34 31 2c 30 2c 30 2c 33 2c 34 0a 31
-#&gt;  [ reached getOption(&quot;max.print&quot;) -- omitted 303 entries ]
+#&gt;  [985] 2c 31 35 2e 34 31 2c 30 2c 30 2c 33 2c 34 0a 31 39 2e 32 2c 38 2c 34 30
+#&gt; [1009] 30 2c 31 37 35 2c 33 2e 30 38 2c 33 2e 38 34 35 2c 31 37 2e 30 35 2c 30
+#&gt; [1033] 2c 30 2c 33 2c 32 0a 32 37 2e 33 2c 34 2c 37 39 2c 36 36 2c 34 2e 30 38
+#&gt; [1057] 2c 31 2e 39 33 35 2c 31 38 2e 39 2c 31 2c 31 2c 34 2c 31 0a 32 36 2c 34
+#&gt; [1081] 2c 31 32 30 2e 33 2c 39 31 2c 34 2e 34 33 2c 32 2e 31 34 2c 31 36 2e 37
+#&gt; [1105] 2c 30 2c 31 2c 35 2c 32 0a 33 30 2e 34 2c 34 2c 39 35 2e 31 2c 31 31 33
+#&gt; [1129] 2c 33 2e 37 37 2c 31 2e 35 31 33 2c 31 36 2e 39 2c 31 2c 31 2c 35 2c 32
+#&gt; [1153] 0a 31 35 2e 38 2c 38 2c 33 35 31 2c 32 36 34 2c 34 2e 32 32 2c 33 2e 31
+#&gt; [1177] 37 2c 31 34 2e 35 2c 30 2c 31 2c 35 2c 34 0a 31 39 2e 37 2c 36 2c 31 34
+#&gt; [1201] 35 2c 31 37 35 2c 33 2e 36 32 2c 32 2e 37 37 2c 31 35 2e 35 2c 30 2c 31
+#&gt; [1225] 2c 35 2c 36 0a 31 35 2c 38 2c 33 30 31 2c 33 33 35 2c 33 2e 35 34 2c 33
+#&gt; [1249] 2e 35 37 2c 31 34 2e 36 2c 30 2c 31 2c 35 2c 38 0a 32 31 2e 34 2c 34 2c
+#&gt; [1273] 31 32 31 2c 31 30 39 2c 34 2e 31 31 2c 32 2e 37 38 2c 31 38 2e 36 2c 31
+#&gt; [1297] 2c 31 2c 34 2c 32 0a
 #&gt; 
 #&gt; $skip
 #&gt; [1] 0
 #&gt; 
 #&gt; $comment
-#&gt; [1] &quot;&quot;
+#&gt; [1] ""
 #&gt; 
-#&gt; attr(,&quot;class&quot;)
-#&gt; [1] &quot;source_raw&quot; &quot;source&quot;    </div><div class='input'><span class='fu'>datasource</span>(<span class='fu'><a href='readr_example.html'>readr_example</a></span>(<span class='st'>"mtcars.csv.zip"</span>))</div><div class='output co'>#&gt; [[1]]
+#&gt; attr(,"class")
+#&gt; [1] "source_raw" "source"    </div><div class='input'><span class='fu'>datasource</span>(<span class='fu'><a href='readr_example.html'>readr_example</a></span>(<span class='st'>"mtcars.csv.zip"</span>))</div><div class='output co'>#&gt; [[1]]
 #&gt;    [1] 22 6d 70 67 22 2c 22 63 79 6c 22 2c 22 64 69 73 70 22 2c 22 68 70 22 2c
 #&gt;   [25] 22 64 72 61 74 22 2c 22 77 74 22 2c 22 71 73 65 63 22 2c 22 76 73 22 2c
 #&gt;   [49] 22 61 6d 22 2c 22 67 65 61 72 22 2c 22 63 61 72 62 22 0a 32 31 2c 36 2c
@@ -259,19 +274,31 @@ least one new line to be recognised as data (instead of a path).</dd>
 #&gt;  [913] 2c 30 2c 30 2c 33 2c 32 0a 31 35 2e 32 2c 38 2c 33 30 34 2c 31 35 30 2c
 #&gt;  [937] 33 2e 31 35 2c 33 2e 34 33 35 2c 31 37 2e 33 2c 30 2c 30 2c 33 2c 32 0a
 #&gt;  [961] 31 33 2e 33 2c 38 2c 33 35 30 2c 32 34 35 2c 33 2e 37 33 2c 33 2e 38 34
-#&gt;  [985] 2c 31 35 2e 34 31 2c 30 2c 30 2c 33 2c 34 0a 31
-#&gt;  [ reached getOption(&quot;max.print&quot;) -- omitted 303 entries ]
+#&gt;  [985] 2c 31 35 2e 34 31 2c 30 2c 30 2c 33 2c 34 0a 31 39 2e 32 2c 38 2c 34 30
+#&gt; [1009] 30 2c 31 37 35 2c 33 2e 30 38 2c 33 2e 38 34 35 2c 31 37 2e 30 35 2c 30
+#&gt; [1033] 2c 30 2c 33 2c 32 0a 32 37 2e 33 2c 34 2c 37 39 2c 36 36 2c 34 2e 30 38
+#&gt; [1057] 2c 31 2e 39 33 35 2c 31 38 2e 39 2c 31 2c 31 2c 34 2c 31 0a 32 36 2c 34
+#&gt; [1081] 2c 31 32 30 2e 33 2c 39 31 2c 34 2e 34 33 2c 32 2e 31 34 2c 31 36 2e 37
+#&gt; [1105] 2c 30 2c 31 2c 35 2c 32 0a 33 30 2e 34 2c 34 2c 39 35 2e 31 2c 31 31 33
+#&gt; [1129] 2c 33 2e 37 37 2c 31 2e 35 31 33 2c 31 36 2e 39 2c 31 2c 31 2c 35 2c 32
+#&gt; [1153] 0a 31 35 2e 38 2c 38 2c 33 35 31 2c 32 36 34 2c 34 2e 32 32 2c 33 2e 31
+#&gt; [1177] 37 2c 31 34 2e 35 2c 30 2c 31 2c 35 2c 34 0a 31 39 2e 37 2c 36 2c 31 34
+#&gt; [1201] 35 2c 31 37 35 2c 33 2e 36 32 2c 32 2e 37 37 2c 31 35 2e 35 2c 30 2c 31
+#&gt; [1225] 2c 35 2c 36 0a 31 35 2c 38 2c 33 30 31 2c 33 33 35 2c 33 2e 35 34 2c 33
+#&gt; [1249] 2e 35 37 2c 31 34 2e 36 2c 30 2c 31 2c 35 2c 38 0a 32 31 2e 34 2c 34 2c
+#&gt; [1273] 31 32 31 2c 31 30 39 2c 34 2e 31 31 2c 32 2e 37 38 2c 31 38 2e 36 2c 31
+#&gt; [1297] 2c 31 2c 34 2c 32 0a
 #&gt; 
 #&gt; $skip
 #&gt; [1] 0
 #&gt; 
 #&gt; $comment
-#&gt; [1] &quot;&quot;
+#&gt; [1] ""
 #&gt; 
-#&gt; attr(,&quot;class&quot;)
-#&gt; [1] &quot;source_raw&quot; &quot;source&quot;    </div><div class='input'><span class='co'>## Not run: ------------------------------------</span>
-<span class='co'># datasource("https://github.com/tidyverse/readr/raw/master/inst/extdata/mtcars.csv")</span>
-<span class='co'>## ---------------------------------------------</span>
+#&gt; attr(,"class")
+#&gt; [1] "source_raw" "source"    </div><div class='input'><span class='fu'>not_run</span>({
+  <span class='fu'>datasource</span>(<span class='st'>"https://github.com/tidyverse/readr/raw/master/inst/extdata/mtcars.csv"</span>)
+})
 
 <span class='co'># Connection</span>
 <span class='no'>con</span> <span class='kw'>&lt;-</span> <span class='fu'>rawConnection</span>(<span class='fu'>charToRaw</span>(<span class='st'>"abc\n123"</span>))
@@ -282,10 +309,10 @@ least one new line to be recognised as data (instead of a path).</dd>
 #&gt; [1] 0
 #&gt; 
 #&gt; $comment
-#&gt; [1] &quot;&quot;
+#&gt; [1] ""
 #&gt; 
-#&gt; attr(,&quot;class&quot;)
-#&gt; [1] &quot;source_raw&quot; &quot;source&quot;    </div><div class='input'><span class='fu'>close</span>(<span class='no'>con</span>)</div></pre>
+#&gt; attr(,"class")
+#&gt; [1] "source_raw" "source"    </div><div class='input'><span class='fu'>close</span>(<span class='no'>con</span>)</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
@@ -307,6 +334,16 @@ least one new line to be recognised as data (instead of a path).</dd>
   <p>Developed by <a href='http://hadley.nz'>Hadley Wickham</a>, Jim Hester, Romain Francois, <a href='https://www.rstudio.com'><img src='http://tidyverse.org/rstudio-logo.svg' height='24' /></a>.</p>
   <p>Site built by <a href="http://hadley.github.io/pkgdown/">pkgdown</a>.</p>
 </div>
+
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-67989-18', 'auto');
+  ga('send', 'pageview');
+</script>
       </footer>
    </div>
 

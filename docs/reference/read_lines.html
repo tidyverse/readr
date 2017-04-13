@@ -114,7 +114,7 @@ vectors, and is useful for handling data with unknown encoding.
 new line after each entry.</p>
     
 
-    <pre><span class='fu'>read_lines</span>(<span class='no'>file</span>, <span class='kw'>skip</span> <span class='kw'>=</span> <span class='fl'>0</span>, <span class='kw'>n_max</span> <span class='kw'>=</span> -<span class='fl'>1L</span>, <span class='kw'>locale</span> <span class='kw'>=</span> <span class='fu'><a href='locale.html'>default_locale</a></span>(),
+    <pre class="usage"><span class='fu'>read_lines</span>(<span class='no'>file</span>, <span class='kw'>skip</span> <span class='kw'>=</span> <span class='fl'>0</span>, <span class='kw'>n_max</span> <span class='kw'>=</span> -<span class='fl'>1L</span>, <span class='kw'>locale</span> <span class='kw'>=</span> <span class='fu'><a href='locale.html'>default_locale</a></span>(),
   <span class='kw'>na</span> <span class='kw'>=</span> <span class='fu'>character</span>(), <span class='kw'>progress</span> <span class='kw'>=</span> <span class='fu'>show_progress</span>())
 
 <span class='fu'>read_lines_raw</span>(<span class='no'>file</span>, <span class='kw'>skip</span> <span class='kw'>=</span> <span class='fl'>0</span>, <span class='kw'>n_max</span> <span class='kw'>=</span> -<span class='fl'>1L</span>, <span class='kw'>progress</span> <span class='kw'>=</span> <span class='fu'>show_progress</span>())
@@ -122,67 +122,85 @@ new line after each entry.</p>
 <span class='fu'>write_lines</span>(<span class='no'>x</span>, <span class='no'>path</span>, <span class='kw'>na</span> <span class='kw'>=</span> <span class='st'>"NA"</span>, <span class='kw'>append</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a> Arguments</h2>
-    <dl class="dl-horizontal">
-      <dt>file</dt>
-      <dd>Either a path to a file, a connection, or literal data
-(either a single string or a raw vector).
-
-Files ending in <code>.gz</code>, <code>.bz2</code>, <code>.xz</code>, or <code>.zip</code> will
+    <table class="ref-arguments">
+    <colgroup><col class="name" /><col class="desc" /></colgroup>
+    <tr>
+      <th>file</th>
+      <td><p>Either a path to a file, a connection, or literal data
+(either a single string or a raw vector).</p>
+<p>Files ending in <code>.gz</code>, <code>.bz2</code>, <code>.xz</code>, or <code>.zip</code> will
 be automatically uncompressed. Files starting with <code>http://</code>,
 <code>https://</code>, <code>ftp://</code>, or <code>ftps://</code> will be automatically
 downloaded. Remote gz files can also be automatically downloaded and
-decompressed.
-
-Literal data is most useful for examples and tests. It must contain at
-least one new line to be recognised as data (instead of a path).</dd>
-      <dt>skip</dt>
-      <dd>Number of lines to skip before reading data.</dd>
-      <dt>n_max</dt>
-      <dd>Number of lines to read. If <code>n_max</code> is -1, all lines in
-file will be read.</dd>
-      <dt>locale</dt>
-      <dd>The locale controls defaults that vary from place to place.
+decompressed.</p>
+<p>Literal data is most useful for examples and tests. It must contain at
+least one new line to be recognised as data (instead of a path).</p></td>
+    </tr>
+    <tr>
+      <th>skip</th>
+      <td><p>Number of lines to skip before reading data.</p></td>
+    </tr>
+    <tr>
+      <th>n_max</th>
+      <td><p>Number of lines to read. If <code>n_max</code> is -1, all lines in
+file will be read.</p></td>
+    </tr>
+    <tr>
+      <th>locale</th>
+      <td><p>The locale controls defaults that vary from place to place.
 The default locale is US-centric (like R), but you can use
 <code><a href='locale.html'>locale()</a></code> to create your own locale that controls things like
 the default time zone, encoding, decimal mark, big mark, and day/month
-names.</dd>
-      <dt>na</dt>
-      <dd>Character vector of strings to use for missing values. Set this
-option to <code>character()</code> to indicate no missing values.</dd>
-      <dt>progress</dt>
-      <dd>Display a progress bar? By default it will only display
+names.</p></td>
+    </tr>
+    <tr>
+      <th>na</th>
+      <td><p>Character vector of strings to use for missing values. Set this
+option to <code>character()</code> to indicate no missing values.</p></td>
+    </tr>
+    <tr>
+      <th>progress</th>
+      <td><p>Display a progress bar? By default it will only display
 in an interactive session and not while knitting a document. The display
 is updated every 50,000 values and will only display if estimated reading
 time is 5 seconds or more. The automatic progress bar can be disabled by
-setting option <code>readr.show_progress</code> to <code>FALSE</code>.</dd>
-      <dt>x</dt>
-      <dd>A data frame to write to disk</dd>
-      <dt>path</dt>
-      <dd>Path or connection to write to.</dd>
-      <dt>append</dt>
-      <dd>If <code>FALSE</code>, will overwrite existing file. If <code>TRUE</code>,
+setting option <code>readr.show_progress</code> to <code>FALSE</code>.</p></td>
+    </tr>
+    <tr>
+      <th>x</th>
+      <td><p>A data frame to write to disk</p></td>
+    </tr>
+    <tr>
+      <th>path</th>
+      <td><p>Path or connection to write to.</p></td>
+    </tr>
+    <tr>
+      <th>append</th>
+      <td><p>If <code>FALSE</code>, will overwrite existing file. If <code>TRUE</code>,
 will append to existing file. In both cases, if file does not exist a new
-file is created.</dd>
-    </dl>
+file is created.</p></td>
+    </tr>
+    </table>
     
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
     <p><code>read_lines()</code>: A character vector with one element for each line.
-<code>read_lines_raw()</code>: A list containing a raw vector for each line.</p>
-    <p><code>write_lines()</code> returns <code>x</code>, invisibly.</p>
+<code>read_lines_raw()</code>: A list containing a raw vector for each line.
+
+<code>write_lines()</code> returns <code>x</code>, invisibly.</p>
     
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='fu'>read_lines</span>(<span class='fu'>file.path</span>(<span class='fu'>R.home</span>(<span class='st'>"doc"</span>), <span class='st'>"AUTHORS"</span>), <span class='kw'>n_max</span> <span class='kw'>=</span> <span class='fl'>10</span>)</div><div class='output co'>#&gt;  [1] &quot;Authors of R.&quot;                                                                     
-#&gt;  [2] &quot;&quot;                                                                                  
-#&gt;  [3] &quot;R was initially written by Robert Gentleman and Ross Ihaka—also known as \&quot;R &amp; R\&quot;&quot;
-#&gt;  [4] &quot;of the Statistics Department of the University of Auckland.&quot;                       
-#&gt;  [5] &quot;&quot;                                                                                  
-#&gt;  [6] &quot;Since mid-1997 there has been a core group with write access to the R&quot;             
-#&gt;  [7] &quot;source, currently consisting of&quot;                                                   
-#&gt;  [8] &quot;&quot;                                                                                  
-#&gt;  [9] &quot;Douglas Bates&quot;                                                                     
-#&gt; [10] &quot;John Chambers&quot;                                                                     </div><div class='input'><span class='fu'>read_lines_raw</span>(<span class='fu'>file.path</span>(<span class='fu'>R.home</span>(<span class='st'>"doc"</span>), <span class='st'>"AUTHORS"</span>), <span class='kw'>n_max</span> <span class='kw'>=</span> <span class='fl'>10</span>)</div><div class='output co'>#&gt; [[1]]
+    <pre class="examples"><div class='input'><span class='fu'>read_lines</span>(<span class='fu'>file.path</span>(<span class='fu'>R.home</span>(<span class='st'>"doc"</span>), <span class='st'>"AUTHORS"</span>), <span class='kw'>n_max</span> <span class='kw'>=</span> <span class='fl'>10</span>)</div><div class='output co'>#&gt;  [1] "Authors of R."                                                                     
+#&gt;  [2] ""                                                                                  
+#&gt;  [3] "R was initially written by Robert Gentleman and Ross Ihaka—also known as \"R &amp; R\""
+#&gt;  [4] "of the Statistics Department of the University of Auckland."                       
+#&gt;  [5] ""                                                                                  
+#&gt;  [6] "Since mid-1997 there has been a core group with write access to the R"             
+#&gt;  [7] "source, currently consisting of"                                                   
+#&gt;  [8] ""                                                                                  
+#&gt;  [9] "Douglas Bates"                                                                     
+#&gt; [10] "John Chambers"                                                                     </div><div class='input'><span class='fu'>read_lines_raw</span>(<span class='fu'>file.path</span>(<span class='fu'>R.home</span>(<span class='st'>"doc"</span>), <span class='st'>"AUTHORS"</span>), <span class='kw'>n_max</span> <span class='kw'>=</span> <span class='fl'>10</span>)</div><div class='output co'>#&gt; [[1]]
 #&gt;  [1] 41 75 74 68 6f 72 73 20 6f 66 20 52 2e
 #&gt; 
 #&gt; [[2]]
@@ -223,31 +241,31 @@ file is created.</dd>
 <span class='no'>tmp</span> <span class='kw'>&lt;-</span> <span class='fu'>tempfile</span>()
 
 <span class='fu'>write_lines</span>(<span class='fu'>rownames</span>(<span class='no'>mtcars</span>), <span class='no'>tmp</span>)
-<span class='fu'>read_lines</span>(<span class='no'>tmp</span>)</div><div class='output co'>#&gt;  [1] &quot;Mazda RX4&quot;           &quot;Mazda RX4 Wag&quot;       &quot;Datsun 710&quot;         
-#&gt;  [4] &quot;Hornet 4 Drive&quot;      &quot;Hornet Sportabout&quot;   &quot;Valiant&quot;            
-#&gt;  [7] &quot;Duster 360&quot;          &quot;Merc 240D&quot;           &quot;Merc 230&quot;           
-#&gt; [10] &quot;Merc 280&quot;            &quot;Merc 280C&quot;           &quot;Merc 450SE&quot;         
-#&gt; [13] &quot;Merc 450SL&quot;          &quot;Merc 450SLC&quot;         &quot;Cadillac Fleetwood&quot; 
-#&gt; [16] &quot;Lincoln Continental&quot; &quot;Chrysler Imperial&quot;   &quot;Fiat 128&quot;           
-#&gt; [19] &quot;Honda Civic&quot;         &quot;Toyota Corolla&quot;      &quot;Toyota Corona&quot;      
-#&gt; [22] &quot;Dodge Challenger&quot;    &quot;AMC Javelin&quot;         &quot;Camaro Z28&quot;         
-#&gt; [25] &quot;Pontiac Firebird&quot;    &quot;Fiat X1-9&quot;           &quot;Porsche 914-2&quot;      
-#&gt; [28] &quot;Lotus Europa&quot;        &quot;Ford Pantera L&quot;      &quot;Ferrari Dino&quot;       
-#&gt; [31] &quot;Maserati Bora&quot;       &quot;Volvo 142E&quot;         </div><div class='input'><span class='fu'><a href='read_file.html'>read_file</a></span>(<span class='no'>tmp</span>) <span class='co'># note trailing \n</span></div><div class='output co'>#&gt; [1] &quot;Mazda RX4\nMazda RX4 Wag\nDatsun 710\nHornet 4 Drive\nHornet Sportabout\nValiant\nDuster 360\nMerc 240D\nMerc 230\nMerc 280\nMerc 280C\nMerc 450SE\nMerc 450SL\nMerc 450SLC\nCadillac Fleetwood\nLincoln Continental\nChrysler Imperial\nFiat 128\nHonda Civic\nToyota Corolla\nToyota Corona\nDodge Challenger\nAMC Javelin\nCamaro Z28\nPontiac Firebird\nFiat X1-9\nPorsche 914-2\nLotus Europa\nFord Pantera L\nFerrari Dino\nMaserati Bora\nVolvo 142E\n&quot;</div><div class='input'>
+<span class='fu'>read_lines</span>(<span class='no'>tmp</span>)</div><div class='output co'>#&gt;  [1] "Mazda RX4"           "Mazda RX4 Wag"       "Datsun 710"         
+#&gt;  [4] "Hornet 4 Drive"      "Hornet Sportabout"   "Valiant"            
+#&gt;  [7] "Duster 360"          "Merc 240D"           "Merc 230"           
+#&gt; [10] "Merc 280"            "Merc 280C"           "Merc 450SE"         
+#&gt; [13] "Merc 450SL"          "Merc 450SLC"         "Cadillac Fleetwood" 
+#&gt; [16] "Lincoln Continental" "Chrysler Imperial"   "Fiat 128"           
+#&gt; [19] "Honda Civic"         "Toyota Corolla"      "Toyota Corona"      
+#&gt; [22] "Dodge Challenger"    "AMC Javelin"         "Camaro Z28"         
+#&gt; [25] "Pontiac Firebird"    "Fiat X1-9"           "Porsche 914-2"      
+#&gt; [28] "Lotus Europa"        "Ford Pantera L"      "Ferrari Dino"       
+#&gt; [31] "Maserati Bora"       "Volvo 142E"         </div><div class='input'><span class='fu'><a href='read_file.html'>read_file</a></span>(<span class='no'>tmp</span>) <span class='co'># note trailing \n</span></div><div class='output co'>#&gt; [1] "Mazda RX4\nMazda RX4 Wag\nDatsun 710\nHornet 4 Drive\nHornet Sportabout\nValiant\nDuster 360\nMerc 240D\nMerc 230\nMerc 280\nMerc 280C\nMerc 450SE\nMerc 450SL\nMerc 450SLC\nCadillac Fleetwood\nLincoln Continental\nChrysler Imperial\nFiat 128\nHonda Civic\nToyota Corolla\nToyota Corona\nDodge Challenger\nAMC Javelin\nCamaro Z28\nPontiac Firebird\nFiat X1-9\nPorsche 914-2\nLotus Europa\nFord Pantera L\nFerrari Dino\nMaserati Bora\nVolvo 142E\n"</div><div class='input'>
 <span class='fu'>write_lines</span>(<span class='no'>airquality</span>$<span class='no'>Ozone</span>, <span class='no'>tmp</span>, <span class='kw'>na</span> <span class='kw'>=</span> <span class='st'>"-1"</span>)
-<span class='fu'>read_lines</span>(<span class='no'>tmp</span>)</div><div class='output co'>#&gt;   [1] &quot;41&quot;  &quot;36&quot;  &quot;12&quot;  &quot;18&quot;  &quot;-1&quot;  &quot;28&quot;  &quot;23&quot;  &quot;19&quot;  &quot;8&quot;   &quot;-1&quot;  &quot;7&quot;   &quot;16&quot; 
-#&gt;  [13] &quot;11&quot;  &quot;14&quot;  &quot;18&quot;  &quot;14&quot;  &quot;34&quot;  &quot;6&quot;   &quot;30&quot;  &quot;11&quot;  &quot;1&quot;   &quot;11&quot;  &quot;4&quot;   &quot;32&quot; 
-#&gt;  [25] &quot;-1&quot;  &quot;-1&quot;  &quot;-1&quot;  &quot;23&quot;  &quot;45&quot;  &quot;115&quot; &quot;37&quot;  &quot;-1&quot;  &quot;-1&quot;  &quot;-1&quot;  &quot;-1&quot;  &quot;-1&quot; 
-#&gt;  [37] &quot;-1&quot;  &quot;29&quot;  &quot;-1&quot;  &quot;71&quot;  &quot;39&quot;  &quot;-1&quot;  &quot;-1&quot;  &quot;23&quot;  &quot;-1&quot;  &quot;-1&quot;  &quot;21&quot;  &quot;37&quot; 
-#&gt;  [49] &quot;20&quot;  &quot;12&quot;  &quot;13&quot;  &quot;-1&quot;  &quot;-1&quot;  &quot;-1&quot;  &quot;-1&quot;  &quot;-1&quot;  &quot;-1&quot;  &quot;-1&quot;  &quot;-1&quot;  &quot;-1&quot; 
-#&gt;  [61] &quot;-1&quot;  &quot;135&quot; &quot;49&quot;  &quot;32&quot;  &quot;-1&quot;  &quot;64&quot;  &quot;40&quot;  &quot;77&quot;  &quot;97&quot;  &quot;97&quot;  &quot;85&quot;  &quot;-1&quot; 
-#&gt;  [73] &quot;10&quot;  &quot;27&quot;  &quot;-1&quot;  &quot;7&quot;   &quot;48&quot;  &quot;35&quot;  &quot;61&quot;  &quot;79&quot;  &quot;63&quot;  &quot;16&quot;  &quot;-1&quot;  &quot;-1&quot; 
-#&gt;  [85] &quot;80&quot;  &quot;108&quot; &quot;20&quot;  &quot;52&quot;  &quot;82&quot;  &quot;50&quot;  &quot;64&quot;  &quot;59&quot;  &quot;39&quot;  &quot;9&quot;   &quot;16&quot;  &quot;78&quot; 
-#&gt;  [97] &quot;35&quot;  &quot;66&quot;  &quot;122&quot; &quot;89&quot;  &quot;110&quot; &quot;-1&quot;  &quot;-1&quot;  &quot;44&quot;  &quot;28&quot;  &quot;65&quot;  &quot;-1&quot;  &quot;22&quot; 
-#&gt; [109] &quot;59&quot;  &quot;23&quot;  &quot;31&quot;  &quot;44&quot;  &quot;21&quot;  &quot;9&quot;   &quot;-1&quot;  &quot;45&quot;  &quot;168&quot; &quot;73&quot;  &quot;-1&quot;  &quot;76&quot; 
-#&gt; [121] &quot;118&quot; &quot;84&quot;  &quot;85&quot;  &quot;96&quot;  &quot;78&quot;  &quot;73&quot;  &quot;91&quot;  &quot;47&quot;  &quot;32&quot;  &quot;20&quot;  &quot;23&quot;  &quot;21&quot; 
-#&gt; [133] &quot;24&quot;  &quot;44&quot;  &quot;21&quot;  &quot;28&quot;  &quot;9&quot;   &quot;13&quot;  &quot;46&quot;  &quot;18&quot;  &quot;13&quot;  &quot;24&quot;  &quot;16&quot;  &quot;13&quot; 
-#&gt; [145] &quot;23&quot;  &quot;36&quot;  &quot;7&quot;   &quot;14&quot;  &quot;30&quot;  &quot;-1&quot;  &quot;14&quot;  &quot;18&quot;  &quot;20&quot; </div></pre>
+<span class='fu'>read_lines</span>(<span class='no'>tmp</span>)</div><div class='output co'>#&gt;   [1] "41"  "36"  "12"  "18"  "-1"  "28"  "23"  "19"  "8"   "-1"  "7"   "16" 
+#&gt;  [13] "11"  "14"  "18"  "14"  "34"  "6"   "30"  "11"  "1"   "11"  "4"   "32" 
+#&gt;  [25] "-1"  "-1"  "-1"  "23"  "45"  "115" "37"  "-1"  "-1"  "-1"  "-1"  "-1" 
+#&gt;  [37] "-1"  "29"  "-1"  "71"  "39"  "-1"  "-1"  "23"  "-1"  "-1"  "21"  "37" 
+#&gt;  [49] "20"  "12"  "13"  "-1"  "-1"  "-1"  "-1"  "-1"  "-1"  "-1"  "-1"  "-1" 
+#&gt;  [61] "-1"  "135" "49"  "32"  "-1"  "64"  "40"  "77"  "97"  "97"  "85"  "-1" 
+#&gt;  [73] "10"  "27"  "-1"  "7"   "48"  "35"  "61"  "79"  "63"  "16"  "-1"  "-1" 
+#&gt;  [85] "80"  "108" "20"  "52"  "82"  "50"  "64"  "59"  "39"  "9"   "16"  "78" 
+#&gt;  [97] "35"  "66"  "122" "89"  "110" "-1"  "-1"  "44"  "28"  "65"  "-1"  "22" 
+#&gt; [109] "59"  "23"  "31"  "44"  "21"  "9"   "-1"  "45"  "168" "73"  "-1"  "76" 
+#&gt; [121] "118" "84"  "85"  "96"  "78"  "73"  "91"  "47"  "32"  "20"  "23"  "21" 
+#&gt; [133] "24"  "44"  "21"  "28"  "9"   "13"  "46"  "18"  "13"  "24"  "16"  "13" 
+#&gt; [145] "23"  "36"  "7"   "14"  "30"  "-1"  "14"  "18"  "20" </div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
@@ -271,6 +289,16 @@ file is created.</dd>
   <p>Developed by <a href='http://hadley.nz'>Hadley Wickham</a>, Jim Hester, Romain Francois, <a href='https://www.rstudio.com'><img src='http://tidyverse.org/rstudio-logo.svg' height='24' /></a>.</p>
   <p>Site built by <a href="http://hadley.github.io/pkgdown/">pkgdown</a>.</p>
 </div>
+
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-67989-18', 'auto');
+  ga('send', 'pageview');
+</script>
       </footer>
    </div>
 

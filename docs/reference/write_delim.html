@@ -112,7 +112,7 @@ writes row names. <code>output_column()</code> is a generic method used to coerc
 columns to suitable output.</p>
     
 
-    <pre><span class='fu'>write_delim</span>(<span class='no'>x</span>, <span class='no'>path</span>, <span class='kw'>delim</span> <span class='kw'>=</span> <span class='st'>" "</span>, <span class='kw'>na</span> <span class='kw'>=</span> <span class='st'>"NA"</span>, <span class='kw'>append</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
+    <pre class="usage"><span class='fu'>write_delim</span>(<span class='no'>x</span>, <span class='no'>path</span>, <span class='kw'>delim</span> <span class='kw'>=</span> <span class='st'>" "</span>, <span class='kw'>na</span> <span class='kw'>=</span> <span class='st'>"NA"</span>, <span class='kw'>append</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
   <span class='kw'>col_names</span> <span class='kw'>=</span> !<span class='no'>append</span>)
 
 <span class='fu'>write_csv</span>(<span class='no'>x</span>, <span class='no'>path</span>, <span class='kw'>na</span> <span class='kw'>=</span> <span class='st'>"NA"</span>, <span class='kw'>append</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>col_names</span> <span class='kw'>=</span> !<span class='no'>append</span>)
@@ -122,25 +122,38 @@ columns to suitable output.</p>
 <span class='fu'>write_tsv</span>(<span class='no'>x</span>, <span class='no'>path</span>, <span class='kw'>na</span> <span class='kw'>=</span> <span class='st'>"NA"</span>, <span class='kw'>append</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>col_names</span> <span class='kw'>=</span> !<span class='no'>append</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a> Arguments</h2>
-    <dl class="dl-horizontal">
-      <dt>x</dt>
-      <dd>A data frame to write to disk</dd>
-      <dt>path</dt>
-      <dd>Path or connection to write to.</dd>
-      <dt>delim</dt>
-      <dd>Delimiter used to separate values. Defaults to <code>&quot; &quot;</code>. Must be
-a single character.</dd>
-      <dt>na</dt>
-      <dd>String used for missing values. Defaults to NA. Missing values
+    <table class="ref-arguments">
+    <colgroup><col class="name" /><col class="desc" /></colgroup>
+    <tr>
+      <th>x</th>
+      <td><p>A data frame to write to disk</p></td>
+    </tr>
+    <tr>
+      <th>path</th>
+      <td><p>Path or connection to write to.</p></td>
+    </tr>
+    <tr>
+      <th>delim</th>
+      <td><p>Delimiter used to separate values. Defaults to <code>" "</code>. Must be
+a single character.</p></td>
+    </tr>
+    <tr>
+      <th>na</th>
+      <td><p>String used for missing values. Defaults to NA. Missing values
 will never be quoted; strings with the same value as <code>na</code> will
-always be quoted.</dd>
-      <dt>append</dt>
-      <dd>If <code>FALSE</code>, will overwrite existing file. If <code>TRUE</code>,
+always be quoted.</p></td>
+    </tr>
+    <tr>
+      <th>append</th>
+      <td><p>If <code>FALSE</code>, will overwrite existing file. If <code>TRUE</code>,
 will append to existing file. In both cases, if file does not exist a new
-file is created.</dd>
-      <dt>col_names</dt>
-      <dd>Write columns names at the top of the file?</dd>
-    </dl>
+file is created.</p></td>
+    </tr>
+    <tr>
+      <th>col_names</th>
+      <td><p>Write columns names at the top of the file?</p></td>
+    </tr>
+    </table>
     
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
@@ -148,18 +161,18 @@ file is created.</dd>
     
     <h2 class="hasAnchor" id="output"><a class="anchor" href="#output"></a>Output</h2>
 
-    <p></p>
+    
     <p>Factors are coerced to character. Doubles are formatted using the grisu3
-algorithm. POSIXct&#39;s are formatted as ISO8601.</p>
-    <p>All columns are encoded as UTF-8. <code>write_excel_csv()</code> also includes a
-<a href = 'UTF-8 Byte order mark'>https://en.wikipedia.org/wiki/Byte_order_mark</a>
+algorithm. POSIXct's are formatted as ISO8601.</p>
+<p>All columns are encoded as UTF-8. <code>write_excel_csv()</code> also includes a
+<a href = 'https://en.wikipedia.org/wiki/Byte_order_mark'>UTF-8 Byte order mark</a>
 which indicates to Excel the csv is UTF-8 encoded.</p>
-    <p>Values are only quoted if needed: if they contain a comma, quote or newline.</p>
+<p>Values are only quoted if needed: if they contain a comma, quote or newline.</p>
     
     <h2 class="hasAnchor" id="references"><a class="anchor" href="#references"></a>References</h2>
 
     <p>Florian Loitsch, Printing Floating-Point Numbers Quickly and
-Accurately with Integers, PLDI &#39;10,
+Accurately with Integers, PLDI '10,
 <a href = 'http://www.cs.tufts.edu/~nr/cs257/archive/florian-loitsch/printf.pdf'>http://www.cs.tufts.edu/~nr/cs257/archive/florian-loitsch/printf.pdf</a></p>
     
 
@@ -209,15 +222,15 @@ Accurately with Integers, PLDI &#39;10,
 #&gt; 18.7;8;360;175;3.15;3.44;17.02;0;0;3;2
 #&gt; 18.1;6;225;105;2.76;3.46;20.22;1;0;3;1</div><div class='input'>
 <span class='no'>df</span> <span class='kw'>&lt;-</span> <span class='fu'>data.frame</span>(<span class='kw'>x</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='fl'>1</span>, <span class='fl'>2</span>, <span class='fl'>NA</span>))
-<span class='fu'><a href='format_delim.html'>format_csv</a></span>(<span class='no'>df</span>, <span class='kw'>na</span> <span class='kw'>=</span> <span class='st'>"."</span>)</div><div class='output co'>#&gt; [1] &quot;x\n1\n2\n.\n&quot;</div><div class='input'>
+<span class='fu'><a href='format_delim.html'>format_csv</a></span>(<span class='no'>df</span>, <span class='kw'>na</span> <span class='kw'>=</span> <span class='st'>"."</span>)</div><div class='output co'>#&gt; [1] "x\n1\n2\n.\n"</div><div class='input'>
 <span class='co'># Quotes are automatically as needed</span>
 <span class='no'>df</span> <span class='kw'>&lt;-</span> <span class='fu'>data.frame</span>(<span class='kw'>x</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='st'>"a"</span>, <span class='st'>'"'</span>, <span class='st'>","</span>, <span class='st'>"\n"</span>))
 <span class='fu'>cat</span>(<span class='fu'><a href='format_delim.html'>format_csv</a></span>(<span class='no'>df</span>))</div><div class='output co'>#&gt; x
 #&gt; a
-#&gt; &quot;&quot;&quot;&quot;
-#&gt; &quot;,&quot;
-#&gt; &quot;
-#&gt; &quot;</div><div class='input'>
+#&gt; """"
+#&gt; ","
+#&gt; "
+#&gt; "</div><div class='input'>
 <span class='co'># A output connection will be automatically created for output filenames</span>
 <span class='co'># with appropriate extensions.</span>
 <span class='no'>dir</span> <span class='kw'>&lt;-</span> <span class='fu'>tempdir</span>()
@@ -251,6 +264,16 @@ Accurately with Integers, PLDI &#39;10,
   <p>Developed by <a href='http://hadley.nz'>Hadley Wickham</a>, Jim Hester, Romain Francois, <a href='https://www.rstudio.com'><img src='http://tidyverse.org/rstudio-logo.svg' height='24' /></a>.</p>
   <p>Site built by <a href="http://hadley.github.io/pkgdown/">pkgdown</a>.</p>
 </div>
+
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-67989-18', 'auto');
+  ga('send', 'pageview');
+</script>
       </footer>
    </div>
 
