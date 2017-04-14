@@ -93,7 +93,7 @@
     
 <div class="contents">
 <p>readr 1.0.0 is now available on CRAN. readr makes it easy to read many types of rectangular data, including csv, tsv and fixed width files. Compared to base equivalents like <code>read.csv()</code>, readr is much faster and gives more convenient output: it never converts strings to factors, can parse date/times, and it doesn’t munge the column names. Install the latest version with:</p>
-<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">install.packages</span>(<span class="st">"readr"</span>)</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">install.packages</span>(<span class="st">"readr"</span>)</code></pre></div>
 <p>Releasing a version 1.0.0 was a deliberate choice to reflect the maturity and stability and readr, thanks largely to work by Jim Hester. readr is by no means perfect, but I don’t expect any major changes to the API in the future.</p>
 <p>In this version we:</p>
 <ul>
@@ -106,7 +106,7 @@
 <h2 class="hasAnchor">
 <a href="#column-guessing" class="anchor"></a>Column guessing</h2>
 <p>The process by which readr guesses the types of columns has received a substantial overhaul to make it easier to fix problems when the initial guesses aren’t correct, and to make it easier to generate reproducible code. Now column specifications are printing by default when you read from a file:</p>
-<pre class="sourceCode r"><code class="sourceCode r">mtcars2 &lt;-<span class="st"> </span><span class="kw"><a href="../../reference/read_delim.html">read_csv</a></span>(<span class="kw"><a href="../../reference/readr_example.html">readr_example</a></span>(<span class="st">"mtcars.csv"</span>))
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">mtcars2 &lt;-<span class="st"> </span><span class="kw"><a href="../../reference/read_delim.html">read_csv</a></span>(<span class="kw"><a href="../../reference/readr_example.html">readr_example</a></span>(<span class="st">"mtcars.csv"</span>))
 <span class="co">#&gt; Parsed with column specification:</span>
 <span class="co">#&gt; cols(</span>
 <span class="co">#&gt;   mpg = col_double(),</span>
@@ -120,9 +120,9 @@
 <span class="co">#&gt;   am = col_integer(),</span>
 <span class="co">#&gt;   gear = col_integer(),</span>
 <span class="co">#&gt;   carb = col_integer()</span>
-<span class="co">#&gt; )</span></code></pre>
+<span class="co">#&gt; )</span></code></pre></div>
 <p>The thought is that once you’ve figured out the correct column types for a file, you should make the parsing strict. You can do this either by copying and pasting the printed column specification or by saving the spec to disk:</p>
-<pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Once you've figured out the correct types</span>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Once you've figured out the correct types</span>
 mtcars_spec &lt;-<span class="st"> </span><span class="kw"><a href="../../reference/read_rds.html">write_rds</a></span>(<span class="kw"><a href="../../reference/spec.html">spec</a></span>(mtcars2), <span class="st">"mtcars2-spec.rds"</span>)
 
 <span class="co"># Every subsequent load</span>
@@ -132,9 +132,9 @@ mtcars2 &lt;-<span class="st"> </span><span class="kw"><a href="../../reference/
 )
 <span class="co"># In production, you might want to throw an error if there</span>
 <span class="co"># are any parsing problems.</span>
-<span class="kw"><a href="../../reference/problems.html">stop_for_problems</a></span>(mtcars2)</code></pre>
+<span class="kw"><a href="../../reference/problems.html">stop_for_problems</a></span>(mtcars2)</code></pre></div>
 <p>You can now also adjust the number of rows that readr uses to guess the column types with <code>guess_max</code>:</p>
-<pre class="sourceCode r"><code class="sourceCode r">challenge &lt;-<span class="st"> </span><span class="kw"><a href="../../reference/read_delim.html">read_csv</a></span>(<span class="kw"><a href="../../reference/readr_example.html">readr_example</a></span>(<span class="st">"challenge.csv"</span>))
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">challenge &lt;-<span class="st"> </span><span class="kw"><a href="../../reference/read_delim.html">read_csv</a></span>(<span class="kw"><a href="../../reference/readr_example.html">readr_example</a></span>(<span class="st">"challenge.csv"</span>))
 <span class="co">#&gt; Parsed with column specification:</span>
 <span class="co">#&gt; cols(</span>
 <span class="co">#&gt;   x = col_integer(),</span>
@@ -154,10 +154,10 @@ challenge &lt;-<span class="st"> </span><span class="kw"><a href="../../referenc
 <span class="co">#&gt; cols(</span>
 <span class="co">#&gt;   x = col_double(),</span>
 <span class="co">#&gt;   y = col_date(format = "")</span>
-<span class="co">#&gt; )</span></code></pre>
+<span class="co">#&gt; )</span></code></pre></div>
 <p>(If you want to suppress the printed specification, just provide the dummy spec <code>col_types = cols()</code>)</p>
 <p>You can now access the guessing algorithm from R: <code><a href="../../reference/parse_guess.html">guess_parser()</a></code> will tell you which parser readr will select.</p>
-<pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="../../reference/parse_guess.html">guess_parser</a></span>(<span class="st">"1,234"</span>)
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="../../reference/parse_guess.html">guess_parser</a></span>(<span class="st">"1,234"</span>)
 <span class="co">#&gt; [1] "number"</span>
 
 <span class="co"># Were previously guessed as numbers</span>
@@ -168,7 +168,7 @@ challenge &lt;-<span class="st"> </span><span class="kw"><a href="../../referenc
 
 <span class="co"># Now uses the default time format</span>
 <span class="kw"><a href="../../reference/parse_guess.html">guess_parser</a></span>(<span class="st">"10:30"</span>)
-<span class="co">#&gt; [1] "time"</span></code></pre>
+<span class="co">#&gt; [1] "time"</span></code></pre></div>
 </div>
 <div id="date-time-parsing-improvements" class="section level2">
 <h2 class="hasAnchor">
@@ -177,17 +177,17 @@ challenge &lt;-<span class="st"> </span><span class="kw"><a href="../../referenc
 <ul>
 <li>
 <p><code>%I</code> for 12 hour time format:</p>
-<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(hms)
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(hms)
 <span class="kw"><a href="../../reference/parse_datetime.html">parse_time</a></span>(<span class="st">"1 pm"</span>, <span class="st">"%I %p"</span>)
-<span class="co">#&gt; 13:00:00</span></code></pre>
+<span class="co">#&gt; 13:00:00</span></code></pre></div>
 <p>Note that <code><a href="../../reference/parse_datetime.html">parse_time()</a></code> returns <code>hms</code> from the <a href="https://github.com/rstats-db/hms">hms</a> package, rather than a custom <code>time</code> class</p>
 </li>
 <li>
 <p><code>%AD</code> and <code>%AT</code> are “automatic” date and time parsers. They are both slightly less flexible than previous defaults. The automatic date parser requires a four digit year, and only accepts <code>-</code> and <code>/</code> as separators. The flexible time parser now requires colons between hours and minutes and optional seconds.</p>
-<pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="../../reference/parse_datetime.html">parse_date</a></span>(<span class="st">"2010-01-01"</span>, <span class="st">"%AD"</span>)
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="../../reference/parse_datetime.html">parse_date</a></span>(<span class="st">"2010-01-01"</span>, <span class="st">"%AD"</span>)
 <span class="co">#&gt; [1] "2010-01-01"</span>
 <span class="kw"><a href="../../reference/parse_datetime.html">parse_time</a></span>(<span class="st">"15:01"</span>, <span class="st">"%AT"</span>)
-<span class="co">#&gt; 15:01:00</span></code></pre>
+<span class="co">#&gt; 15:01:00</span></code></pre></div>
 </li>
 </ul>
 <p>If the format argument is omitted in <code><a href="../../reference/parse_datetime.html">parse_date()</a></code> or <code><a href="../../reference/parse_datetime.html">parse_time()</a></code>, the default date and time formats specified in the locale will be used. These now default to <code>%AD</code> and <code>%AT</code> respectively. You may want to override in your standard <code><a href="../../reference/locale.html">locale()</a></code> if the conventions are different where you live.</p>

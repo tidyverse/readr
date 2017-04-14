@@ -99,7 +99,7 @@
 <li><p>Web log files with <code><a href="../../reference/read_log.html">read_log()</a></code>.</p></li>
 </ul>
 <p>You can install it by running:</p>
-<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">install.packages</span>(<span class="st">"readr"</span>)</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">install.packages</span>(<span class="st">"readr"</span>)</code></pre></div>
 <p>Compared to the equivalent base functions, readr functions are around 10x faster. They’re also easier to use because they’re more consistent, they produce data frames that are easier to use (no more <code>stringsAsFactors = FALSE</code>!), they have a more flexible column specification, and any parsing problems are recorded in a data frame. Each of these features is described in more detail below.</p>
 <div id="input" class="section level2">
 <h2 class="hasAnchor">
@@ -109,13 +109,13 @@
 <li>
 <p><code>file</code> gives the file to read; a url or local path. A local path can point to a a zipped, bzipped, xzipped, or gzipped file - it’ll be automatically uncompressed in memory before reading. You can also pass in a connection or a raw vector.</p>
 <p>For small examples, you can also supply literal data: if <code>file</code> contains a new line, then the data will be read directly from the string. Thanks to <a href="https://github.com/Rdatatable/data.table">data.table</a> for this great idea!</p>
-<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(readr)
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(readr)
 <span class="kw"><a href="../../reference/read_delim.html">read_csv</a></span>(<span class="st">"x,y</span><span class="ch">\n</span><span class="st">1,2</span><span class="ch">\n</span><span class="st">3,4"</span>)
 <span class="co">#&gt; # A tibble: 2 × 2</span>
 <span class="co">#&gt;       x     y</span>
 <span class="co">#&gt;   &lt;int&gt; &lt;int&gt;</span>
 <span class="co">#&gt; 1     1     2</span>
-<span class="co">#&gt; 2     3     4</span></code></pre>
+<span class="co">#&gt; 2     3     4</span></code></pre></div>
 </li>
 <li>
 <p><code>col_names</code>: describes the column names (equivalent to <code>header</code> in base R). It has three possible values:</p>
@@ -174,17 +174,17 @@
 <li><p>Use a compact string: <code>"dc__d"</code>. Each letter corresponds to a column so this specification means: read first column as double, second as character, skip the next two and read the last column as a double. (There’s no way to use this form with column types that need parameters.)</p></li>
 <li>
 <p>With a (named) list of col objects:</p>
-<pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="../../reference/read_delim.html">read_csv</a></span>(<span class="st">"iris.csv"</span>, <span class="dt">col_types =</span> <span class="kw">list</span>(
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="../../reference/read_delim.html">read_csv</a></span>(<span class="st">"iris.csv"</span>, <span class="dt">col_types =</span> <span class="kw">list</span>(
   <span class="dt">Sepal.Length =</span> <span class="kw"><a href="../../reference/parse_atomic.html">col_double</a></span>(),
   <span class="dt">Sepal.Width =</span> <span class="kw"><a href="../../reference/parse_atomic.html">col_double</a></span>(),
   <span class="dt">Petal.Length =</span> <span class="kw"><a href="../../reference/parse_atomic.html">col_double</a></span>(),
   <span class="dt">Petal.Width =</span> <span class="kw"><a href="../../reference/parse_atomic.html">col_double</a></span>(),
   <span class="dt">Species =</span> <span class="kw"><a href="../../reference/parse_factor.html">col_factor</a></span>(<span class="kw">c</span>(<span class="st">"setosa"</span>, <span class="st">"versicolor"</span>, <span class="st">"virginica"</span>))
-))</code></pre>
+))</code></pre></div>
 <p>Any omitted columns will be parsed automatically, so the previous call is equivalent to:</p>
-<pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="../../reference/read_delim.html">read_csv</a></span>(<span class="st">"iris.csv"</span>, <span class="dt">col_types =</span> <span class="kw">list</span>(
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="../../reference/read_delim.html">read_csv</a></span>(<span class="st">"iris.csv"</span>, <span class="dt">col_types =</span> <span class="kw">list</span>(
   <span class="dt">Species =</span> <span class="kw"><a href="../../reference/parse_factor.html">col_factor</a></span>(<span class="kw">c</span>(<span class="st">"setosa"</span>, <span class="st">"versicolor"</span>, <span class="st">"virginica"</span>))
-)</code></pre>
+)</code></pre></div>
 </li>
 </ul>
 <div id="dates-and-times" class="section level3">
@@ -208,7 +208,7 @@
 <li><p>Shortcuts: <code>\%D</code> = <code>\%m/\%d/\%y</code>, <code>\%F</code> = <code>\%Y-\%m-\%d</code>, <code>\%R</code> = <code>\%H:\%M</code>, <code>\%T</code> = <code>\%H:\%M:\%S</code>, <code>\%x</code> = <code>\%y/\%m/\%d</code>.</p></li>
 </ul>
 <p>To practice parsing date times with out having to load the file each time, you can use <code><a href="../../reference/parse_datetime.html">parse_datetime()</a></code> and <code><a href="../../reference/parse_datetime.html">parse_date()</a></code>:</p>
-<pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="../../reference/parse_datetime.html">parse_date</a></span>(<span class="st">"2015-10-10"</span>)
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="../../reference/parse_datetime.html">parse_date</a></span>(<span class="st">"2015-10-10"</span>)
 <span class="co">#&gt; [1] "2015-10-10"</span>
 <span class="kw"><a href="../../reference/parse_datetime.html">parse_datetime</a></span>(<span class="st">"2015-10-10 15:14"</span>)
 <span class="co">#&gt; [1] "2015-10-10 15:14:00 UTC"</span>
@@ -216,14 +216,14 @@
 <span class="kw"><a href="../../reference/parse_datetime.html">parse_date</a></span>(<span class="st">"02/01/2015"</span>, <span class="st">"%m/%d/%Y"</span>)
 <span class="co">#&gt; [1] "2015-02-01"</span>
 <span class="kw"><a href="../../reference/parse_datetime.html">parse_date</a></span>(<span class="st">"02/01/2015"</span>, <span class="st">"%d/%m/%Y"</span>)
-<span class="co">#&gt; [1] "2015-01-02"</span></code></pre>
+<span class="co">#&gt; [1] "2015-01-02"</span></code></pre></div>
 </div>
 </div>
 <div id="problems" class="section level2">
 <h2 class="hasAnchor">
 <a href="#problems" class="anchor"></a>Problems</h2>
 <p>If there are any problems parsing the file, the <code>read_</code> function will throw a warning telling you how many problems there are. You can then use the <code><a href="../../reference/problems.html">problems()</a></code> function to access a data frame that gives information about each problem:</p>
-<pre class="sourceCode r"><code class="sourceCode r">csv &lt;-<span class="st"> "x,y</span>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">csv &lt;-<span class="st"> "x,y</span>
 <span class="st">1,a</span>
 <span class="st">b,2</span>
 <span class="st">"</span>
@@ -244,7 +244,7 @@ df
 <span class="co">#&gt;       x     y</span>
 <span class="co">#&gt;   &lt;int&gt; &lt;int&gt;</span>
 <span class="co">#&gt; 1     1    NA</span>
-<span class="co">#&gt; 2    NA     2</span></code></pre>
+<span class="co">#&gt; 2    NA     2</span></code></pre></div>
 </div>
 <div id="helper-functions" class="section level2">
 <h2 class="hasAnchor">

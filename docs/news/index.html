@@ -209,28 +209,28 @@
 <h2 class="hasAnchor">
 <a href="#column-guessing" class="anchor"></a>Column guessing</h2>
 <p>The process by which readr guesses the types of columns has received a substantial overhaul to make it easier to fix problems when the initial guesses aren’t correct, and to make it easier to generate reproducible code. Now column specifications are printing by default when you read from a file:</p>
-<pre class="sourceCode r"><code class="sourceCode r">challenge &lt;-<span class="st"> </span><span class="kw"><a href="../reference/read_delim.html">read_csv</a></span>(<span class="kw"><a href="../reference/readr_example.html">readr_example</a></span>(<span class="st">"challenge.csv"</span>))
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">challenge &lt;-<span class="st"> </span><span class="kw"><a href="../reference/read_delim.html">read_csv</a></span>(<span class="kw"><a href="../reference/readr_example.html">readr_example</a></span>(<span class="st">"challenge.csv"</span>))
 <span class="co">#&gt; Parsed with column specification:</span>
 <span class="co">#&gt; cols(</span>
 <span class="co">#&gt;   x = col_integer(),</span>
 <span class="co">#&gt;   y = col_character()</span>
-<span class="co">#&gt; )</span></code></pre>
+<span class="co">#&gt; )</span></code></pre></div>
 <p>And you can extract those values after the fact with <code><a href="../reference/spec.html">spec()</a></code>:</p>
-<pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="../reference/spec.html">spec</a></span>(challenge)
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="../reference/spec.html">spec</a></span>(challenge)
 <span class="co">#&gt; cols(</span>
 <span class="co">#&gt;   x = col_integer(),</span>
 <span class="co">#&gt;   y = col_character()</span>
-<span class="co">#&gt; )</span></code></pre>
+<span class="co">#&gt; )</span></code></pre></div>
 <p>This makes it easier to quickly identify parsing problems and fix them (#314). If the column specification is long, the new <code><a href="../reference/spec.html">cols_condense()</a></code> is used to condense the spec by identifying the most common type and setting it as the default. This is particularly useful when only a handful of columns have a different type (#466).</p>
 <p>You can also generating an initial specification without parsing the file using <code><a href="../reference/spec_delim.html">spec_csv()</a></code>, <code><a href="../reference/spec_delim.html">spec_tsv()</a></code>, etc.</p>
 <p>Once you have figured out the correct column types for a file, it’s often useful to make the parsing strict. You can do this either by copying and pasting the printed output, or for very long specs, saving the spec to disk with <code><a href="../reference/read_rds.html">write_rds()</a></code>. In production scripts, combine this with <code><a href="../reference/problems.html">stop_for_problems()</a></code> (#465): if the input data changes form, you’ll fail fast with an error.</p>
 <p>You can now also adjust the number of rows that readr uses to guess the column types with <code>guess_max</code>:</p>
-<pre class="sourceCode r"><code class="sourceCode r">challenge &lt;-<span class="st"> </span><span class="kw"><a href="../reference/read_delim.html">read_csv</a></span>(<span class="kw"><a href="../reference/readr_example.html">readr_example</a></span>(<span class="st">"challenge.csv"</span>), <span class="dt">guess_max =</span> <span class="dv">1500</span>)
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">challenge &lt;-<span class="st"> </span><span class="kw"><a href="../reference/read_delim.html">read_csv</a></span>(<span class="kw"><a href="../reference/readr_example.html">readr_example</a></span>(<span class="st">"challenge.csv"</span>), <span class="dt">guess_max =</span> <span class="dv">1500</span>)
 <span class="co">#&gt; Parsed with column specification:</span>
 <span class="co">#&gt; cols(</span>
 <span class="co">#&gt;   x = col_double(),</span>
 <span class="co">#&gt;   y = col_date(format = "")</span>
-<span class="co">#&gt; )</span></code></pre>
+<span class="co">#&gt; )</span></code></pre></div>
 <p>You can now access the guessing algorithm from R. <code><a href="../reference/parse_guess.html">guess_parser()</a></code> will tell you which parser readr will select for a character vector (#377). We’ve made a number of fixes to the guessing algorithm:</p>
 <ul>
 <li><p>New example <code>extdata/challenge.csv</code> which is carefully created to cause problems with the default column type guessing heuristics.</p></li>

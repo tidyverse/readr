@@ -102,7 +102,7 @@
 <div id="installation" class="section level2">
 <h2 class="hasAnchor">
 <a href="#installation" class="anchor"></a>Installation</h2>
-<pre class="sourceCode r"><code class="sourceCode r"><span class="co"># The easiest way to get readr is to install the whole tidyverse:</span>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># The easiest way to get readr is to install the whole tidyverse:</span>
 <span class="kw">install.packages</span>(<span class="st">"tidyverse"</span>)
 
 <span class="co"># Alternatively, install just readr:</span>
@@ -110,13 +110,13 @@
 
 <span class="co"># Or the the development version from GitHub:</span>
 <span class="co"># install.packages("devtools")</span>
-devtools::<span class="kw">install_github</span>(<span class="st">"tidyverse/readr"</span>)</code></pre>
+devtools::<span class="kw">install_github</span>(<span class="st">"tidyverse/readr"</span>)</code></pre></div>
 </div>
 <div id="usage" class="section level2">
 <h2 class="hasAnchor">
 <a href="#usage" class="anchor"></a>Usage</h2>
 <p>readr is part of the core tidyverse, so load it with:</p>
-<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(tidyverse)
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(tidyverse)
 <span class="co">#&gt; Loading tidyverse: ggplot2</span>
 <span class="co">#&gt; Loading tidyverse: tibble</span>
 <span class="co">#&gt; Loading tidyverse: tidyr</span>
@@ -125,7 +125,7 @@ devtools::<span class="kw">install_github</span>(<span class="st">"tidyverse/rea
 <span class="co">#&gt; Loading tidyverse: dplyr</span>
 <span class="co">#&gt; Conflicts with tidy packages ----------------------------------------------</span>
 <span class="co">#&gt; filter(): dplyr, stats</span>
-<span class="co">#&gt; lag():    dplyr, stats</span></code></pre>
+<span class="co">#&gt; lag():    dplyr, stats</span></code></pre></div>
 <p>To accurately read a rectangular dataset with readr you combine two pieces: a function that parses the overall file, and a column specification. The column specification describes how each column should be converted from a character vector to the most appropriate data type, and in most cases it’s not necessary because readr will guess it for you automatically.</p>
 <p>readr supports seven file formats with seven <code>read_</code> functions:</p>
 <ul>
@@ -143,7 +143,7 @@ devtools::<span class="kw">install_github</span>(<span class="st">"tidyverse/rea
 <code><a href="reference/read_log.html">read_log()</a></code>: web log files</li>
 </ul>
 <p>In many cases, these functions will just work: you supply the path to a file and you get a tibble back. The following example loads a sample file bundled with readr:</p>
-<pre class="sourceCode r"><code class="sourceCode r">mtcars &lt;-<span class="st"> </span><span class="kw"><a href="reference/read_delim.html">read_csv</a></span>(<span class="kw"><a href="reference/readr_example.html">readr_example</a></span>(<span class="st">"mtcars.csv"</span>))
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">mtcars &lt;-<span class="st"> </span><span class="kw"><a href="reference/read_delim.html">read_csv</a></span>(<span class="kw"><a href="reference/readr_example.html">readr_example</a></span>(<span class="st">"mtcars.csv"</span>))
 <span class="co">#&gt; Parsed with column specification:</span>
 <span class="co">#&gt; cols(</span>
 <span class="co">#&gt;   mpg = col_double(),</span>
@@ -157,9 +157,9 @@ devtools::<span class="kw">install_github</span>(<span class="st">"tidyverse/rea
 <span class="co">#&gt;   am = col_integer(),</span>
 <span class="co">#&gt;   gear = col_integer(),</span>
 <span class="co">#&gt;   carb = col_integer()</span>
-<span class="co">#&gt; )</span></code></pre>
+<span class="co">#&gt; )</span></code></pre></div>
 <p>Note that readr prints the column specification. This is useful because it allows you to check that the columns have been read in as you expect, and if they haven’t, you can easily copy and paste into a new call:</p>
-<pre class="sourceCode r"><code class="sourceCode r">mtcars &lt;-<span class="st"> </span><span class="kw"><a href="reference/read_delim.html">read_csv</a></span>(<span class="kw"><a href="reference/readr_example.html">readr_example</a></span>(<span class="st">"mtcars.csv"</span>), <span class="dt">col_types =</span> 
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">mtcars &lt;-<span class="st"> </span><span class="kw"><a href="reference/read_delim.html">read_csv</a></span>(<span class="kw"><a href="reference/readr_example.html">readr_example</a></span>(<span class="st">"mtcars.csv"</span>), <span class="dt">col_types =</span> 
   <span class="kw"><a href="reference/cols.html">cols</a></span>(
     <span class="dt">mpg =</span> <span class="kw"><a href="reference/parse_atomic.html">col_double</a></span>(),
     <span class="dt">cyl =</span> <span class="kw"><a href="reference/parse_atomic.html">col_integer</a></span>(),
@@ -173,7 +173,7 @@ devtools::<span class="kw">install_github</span>(<span class="st">"tidyverse/rea
     <span class="dt">gear =</span> <span class="kw"><a href="reference/parse_atomic.html">col_integer</a></span>(),
     <span class="dt">carb =</span> <span class="kw"><a href="reference/parse_atomic.html">col_integer</a></span>()
   )
-)</code></pre>
+)</code></pre></div>
 <p><code><a href="articles/column-types.html">vignette("column-types")</a></code> gives more detail on how readr guess the column types, how you can override the defaults, and provides some useful tools for debugging parsing problems.</p>
 </div>
 <div id="alternatives" class="section level2">
