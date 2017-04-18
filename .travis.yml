@@ -15,7 +15,7 @@ env:
 addons:
   apt:
     packages:
-    - clang-format-3.5
+    - clang-format-3.4
 
 before_install: travis/check_format.sh
 
