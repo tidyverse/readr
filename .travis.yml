@@ -12,7 +12,16 @@ env:
   global:
     - MAKEFLAGS="-j 2"
 
-before_install: travis/check_format.sh
+addons:
+  apt:
+    sources:
+      - llvm-toolchain-precise
+    packages:
+      - clang-format-3.9
+
+before_install:
+  - rm -f /usr/local/bin/clang-format; ln -s $(which clang-format3.9) /usr/local/bin/clang-format
+  - travis/check_format.sh
 
 after_success:
   - test $TRAVIS_R_VERSION_STRING = "release" && Rscript -e 'covr::codecov()'
