@@ -16,10 +16,11 @@ IntegerVector dim_tokens_(List sourceSpec, List tokenizerSpec) {
 
   int rows = -1, cols = -1;
 
-  for (Token t = tokenizer->nextToken(); t.type() != TOKEN_EOF; t = tokenizer->nextToken()) {
+  for (Token t = tokenizer->nextToken(); t.type() != TOKEN_EOF;
+       t = tokenizer->nextToken()) {
     rows = t.row();
 
-    if ((int) t.col() > cols)
+    if ((int)t.col() > cols)
       cols = t.col();
   }
 
@@ -34,8 +35,9 @@ std::vector<int> count_fields_(List sourceSpec, List tokenizerSpec, int n_max) {
 
   std::vector<int> fields;
 
-  for (Token t = tokenizer->nextToken(); t.type() != TOKEN_EOF; t = tokenizer->nextToken()) {
-    if (n_max > 0 && t.row() >= (size_t) n_max)
+  for (Token t = tokenizer->nextToken(); t.type() != TOKEN_EOF;
+       t = tokenizer->nextToken()) {
+    if (n_max > 0 && t.row() >= (size_t)n_max)
       break;
 
     if (t.row() >= fields.size()) {
@@ -60,11 +62,12 @@ RObject guess_header_(List sourceSpec, List tokenizerSpec, List locale_) {
   CollectorCharacter out(&locale.encoder_);
   out.setWarnings(&warnings);
 
-  for (Token t = tokenizer->nextToken(); t.type() != TOKEN_EOF; t = tokenizer->nextToken()) {
-    if (t.row() > (size_t) 0) // only read one row
+  for (Token t = tokenizer->nextToken(); t.type() != TOKEN_EOF;
+       t = tokenizer->nextToken()) {
+    if (t.row() > (size_t)0) // only read one row
       break;
 
-    if (t.col() >= (size_t) out.size()) {
+    if (t.col() >= (size_t)out.size()) {
       out.resize(t.col() + 1);
     }
 
@@ -75,7 +78,6 @@ RObject guess_header_(List sourceSpec, List tokenizerSpec, List locale_) {
 
   return out.vector();
 }
-
 
 // [[Rcpp::export]]
 RObject tokenize_(List sourceSpec, List tokenizerSpec, int n_max) {
@@ -88,15 +90,16 @@ RObject tokenize_(List sourceSpec, List tokenizerSpec, int n_max) {
 
   std::vector<std::vector<std::string> > rows;
 
-  for (Token t = tokenizer->nextToken(); t.type() != TOKEN_EOF; t = tokenizer->nextToken()) {
-    if (n_max > 0 && t.row() >= (size_t) n_max)
+  for (Token t = tokenizer->nextToken(); t.type() != TOKEN_EOF;
+       t = tokenizer->nextToken()) {
+    if (n_max > 0 && t.row() >= (size_t)n_max)
       break;
 
     if (t.row() >= rows.size()) {
       rows.resize(t.row() + 1);
     }
 
-    std::vector<std::string>& row = rows[t.row()];
+    std::vector<std::string> &row = rows[t.row()];
     if (t.col() >= row.size())
       row.resize(t.col() + 1);
 
@@ -108,8 +111,8 @@ RObject tokenize_(List sourceSpec, List tokenizerSpec, int n_max) {
 }
 
 // [[Rcpp::export]]
-SEXP parse_vector_(CharacterVector x, List collectorSpec,
-                   List locale_, const std::vector<std::string>& na) {
+SEXP parse_vector_(CharacterVector x, List collectorSpec, List locale_,
+                   const std::vector<std::string> &na) {
   Warnings warnings;
   int n = x.size();
 

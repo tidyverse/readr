@@ -6,18 +6,16 @@ using namespace Rcpp;
 #include "TokenizerFwf.h"
 #include "utils.h"
 
-// TokenizerWs --------------------------------------------------------------------
+// TokenizerWs
+// --------------------------------------------------------------------
 
-#include <Rcpp.h>
 #include "TokenizerWs.h"
+#include <Rcpp.h>
 #include <cctype>
 
-TokenizerWs::TokenizerWs(std::vector<std::string> NA, std::string comment) :
-  NA_(NA),
-  comment_(comment),
-  moreTokens_(false),
-  hasComment_(comment.size() > 0)
-{ }
+TokenizerWs::TokenizerWs(std::vector<std::string> NA, std::string comment)
+    : NA_(NA), comment_(comment), moreTokens_(false),
+      hasComment_(comment.size() > 0) {}
 
 void TokenizerWs::tokenize(SourceIterator begin, SourceIterator end) {
   cur_ = begin;
@@ -31,9 +29,9 @@ void TokenizerWs::tokenize(SourceIterator begin, SourceIterator end) {
   moreTokens_ = true;
 }
 
-std::pair<double,size_t> TokenizerWs::progress() {
+std::pair<double, size_t> TokenizerWs::progress() {
   size_t bytes = cur_ - begin_;
-  return std::make_pair(bytes / (double) (end_ - begin_), bytes);
+  return std::make_pair(bytes / (double)(end_ - begin_), bytes);
 }
 
 Token TokenizerWs::nextToken() {
@@ -41,9 +39,9 @@ Token TokenizerWs::nextToken() {
     return Token(TOKEN_EOF, 0, 0);
 
   // Check for comments only at start of line
-  while(cur_ != end_ && col_ == 0 && isComment(cur_)) {
+  while (cur_ != end_ && col_ == 0 && isComment(cur_)) {
     // Skip rest of line
-    while(cur_ != end_ && *cur_ != '\n' && *cur_ != '\r') {
+    while (cur_ != end_ && *cur_ != '\n' && *cur_ != '\r') {
       ++cur_;
     }
     advanceForLF(&cur_, end_);
@@ -55,19 +53,18 @@ Token TokenizerWs::nextToken() {
 
   // Find start of field
   SourceIterator fieldBegin = cur_;
-  while(fieldBegin != end_ && isblank(*fieldBegin)) {
+  while (fieldBegin != end_ && isblank(*fieldBegin)) {
     ++fieldBegin;
   }
   SourceIterator fieldEnd = fieldBegin;
-  while(fieldEnd != end_ && !isspace(*fieldEnd)) {
+  while (fieldEnd != end_ && !isspace(*fieldEnd)) {
     ++fieldEnd;
   }
   bool hasNull = *fieldEnd == '\0';
   Token t = fieldToken(fieldBegin, fieldEnd, hasNull);
   cur_ = fieldEnd;
   ++col_;
-  if (cur_ != end_ &&
-      (*cur_ == '\r' || *cur_ == '\n')) {
+  if (cur_ != end_ && (*cur_ == '\r' || *cur_ == '\n')) {
     advanceForLF(&cur_, end_);
     ++cur_;
     row_++;
@@ -76,7 +73,8 @@ Token TokenizerWs::nextToken() {
   return t;
 }
 
-Token TokenizerWs::fieldToken(SourceIterator begin, SourceIterator end, bool hasNull) {
+Token TokenizerWs::fieldToken(SourceIterator begin, SourceIterator end,
+                              bool hasNull) {
   if (begin == end)
     return Token(TOKEN_MISSING, row_, col_);
 
@@ -86,10 +84,10 @@ Token TokenizerWs::fieldToken(SourceIterator begin, SourceIterator end, bool has
 
   return t;
 }
-bool TokenizerWs::isComment(const char* cur) const {
+bool TokenizerWs::isComment(const char *cur) const {
   if (!hasComment_)
     return false;
 
-  boost::iterator_range<const char*> haystack(cur, end_);
+  boost::iterator_range<const char *> haystack(cur, end_);
   return boost::starts_with(haystack, comment_);
 }

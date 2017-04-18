@@ -19,3 +19,6 @@
 ^Makefile$
 ^script\.R$
 ^sanitize\.sh$
+^travis$
+^travis/check_format\.sh$
+^src/\.clang-format$

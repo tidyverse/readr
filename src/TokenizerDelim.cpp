@@ -4,21 +4,13 @@ using namespace Rcpp;
 #include "TokenizerDelim.h"
 
 TokenizerDelim::TokenizerDelim(char delim, char quote,
-  std::vector<std::string> NA, std::string comment,
-  bool trimWS, bool escapeBackslash,
-  bool escapeDouble, bool quotedNA):
-    delim_(delim),
-    quote_(quote),
-    NA_(NA),
-    comment_(comment),
-    hasComment_(comment.size() > 0),
-    trimWS_(trimWS),
-    escapeBackslash_(escapeBackslash),
-    escapeDouble_(escapeDouble),
-    quotedNA_(quotedNA),
-    hasEmptyNA_(false),
-    moreTokens_(false)
-{
+                               std::vector<std::string> NA, std::string comment,
+                               bool trimWS, bool escapeBackslash,
+                               bool escapeDouble, bool quotedNA)
+    : delim_(delim), quote_(quote), NA_(NA), comment_(comment),
+      hasComment_(comment.size() > 0), trimWS_(trimWS),
+      escapeBackslash_(escapeBackslash), escapeDouble_(escapeDouble),
+      quotedNA_(quotedNA), hasEmptyNA_(false), moreTokens_(false) {
   for (size_t i = 0; i < NA_.size(); ++i) {
     if (NA_[i] == "") {
       hasEmptyNA_ = true;
@@ -38,9 +30,9 @@ void TokenizerDelim::tokenize(SourceIterator begin, SourceIterator end) {
   moreTokens_ = true;
 }
 
-std::pair<double,size_t> TokenizerDelim::progress() {
+std::pair<double, size_t> TokenizerDelim::progress() {
   size_t bytes = cur_ - begin_;
-  return std::make_pair(bytes / (double) (end_ - begin_), bytes);
+  return std::make_pair(bytes / (double)(end_ - begin_), bytes);
 }
 
 Token TokenizerDelim::nextToken() {
@@ -64,7 +56,7 @@ Token TokenizerDelim::nextToken() {
     if ((end_ - cur_) % 131072 == 0)
       Rcpp::checkUserInterrupt();
 
-    switch(state_) {
+    switch (state_) {
     case STATE_DELIM:
       if (*cur_ == '\r' || *cur_ == '\n') {
         if (col_ == 0) {
@@ -91,7 +83,8 @@ Token TokenizerDelim::nextToken() {
     case STATE_FIELD:
       if (*cur_ == '\r' || *cur_ == '\n') {
         newRecord();
-        return fieldToken(token_begin, advanceForLF(&cur_, end_), hasEscapeB, hasNull, row, col);
+        return fieldToken(token_begin, advanceForLF(&cur_, end_), hasEscapeB,
+                          hasNull, row, col);
       } else if (isComment(cur_)) {
         newField();
         state_ = STATE_COMMENT;
@@ -116,15 +109,15 @@ Token TokenizerDelim::nextToken() {
       } else if (*cur_ == '\r' || *cur_ == '\n') {
         newRecord();
         return stringToken(token_begin + 1, advanceForLF(&cur_, end_) - 1,
-            hasEscapeB, hasEscapeD, hasNull, row, col);
+                           hasEscapeB, hasEscapeD, hasNull, row, col);
       } else if (isComment(cur_)) {
         state_ = STATE_COMMENT;
-        return stringToken(token_begin + 1, cur_ - 1,
-            hasEscapeB, hasEscapeD, hasNull, row, col);
+        return stringToken(token_begin + 1, cur_ - 1, hasEscapeB, hasEscapeD,
+                           hasNull, row, col);
       } else if (*cur_ == delim_) {
         newField();
-        return stringToken(token_begin + 1, cur_ - 1,
-            hasEscapeB, hasEscapeD, hasNull, row, col);
+        return stringToken(token_begin + 1, cur_ - 1, hasEscapeB, hasEscapeD,
+                           hasNull, row, col);
       } else {
         warn(row, col, "delimiter or quote", std::string(cur_, cur_ + 1));
         state_ = STATE_STRING;
@@ -147,13 +140,15 @@ Token TokenizerDelim::nextToken() {
       if (*cur_ == '\r' || *cur_ == '\n') {
         newRecord();
         return stringToken(token_begin + 1, advanceForLF(&cur_, end_) - 1,
-          hasEscapeB, hasEscapeD, hasNull, row, col);
+                           hasEscapeB, hasEscapeD, hasNull, row, col);
       } else if (isComment(cur_)) {
         state_ = STATE_COMMENT;
-        return stringToken(token_begin + 1, cur_ - 1, hasEscapeB, hasEscapeD, hasNull, row, col);
+        return stringToken(token_begin + 1, cur_ - 1, hasEscapeB, hasEscapeD,
+                           hasNull, row, col);
       } else if (*cur_ == delim_) {
         newField();
-        return stringToken(token_begin + 1, cur_ - 1, hasEscapeB, hasEscapeD, hasNull, row, col);
+        return stringToken(token_begin + 1, cur_ - 1, hasEscapeB, hasEscapeD,
+                           hasNull, row, col);
       } else {
         state_ = STATE_FIELD;
       }
@@ -170,7 +165,8 @@ Token TokenizerDelim::nextToken() {
         // If we have read at least one record on the current row go to the
         // next row, line, otherwise just ignore the line.
         if (col_ > 0) {
-          row_++; row++;
+          row_++;
+          row++;
           col_ = 0;
         }
         col = 0;
@@ -196,16 +192,19 @@ Token TokenizerDelim::nextToken() {
 
   case STATE_STRING_END:
   case STATE_QUOTE:
-    return stringToken(token_begin + 1, end_ - 1, hasEscapeB, hasEscapeD, hasNull, row, col);
+    return stringToken(token_begin + 1, end_ - 1, hasEscapeB, hasEscapeD,
+                       hasNull, row, col);
 
   case STATE_STRING:
     warn(row, col, "closing quote at end of file");
-    return stringToken(token_begin + 1, end_, hasEscapeB, hasEscapeD, hasNull, row, col);
+    return stringToken(token_begin + 1, end_, hasEscapeB, hasEscapeD, hasNull,
+                       row, col);
 
   case STATE_ESCAPE_S:
   case STATE_ESCAPE_F:
     warn(row, col, "closing escape at end of file");
-    return stringToken(token_begin, end_ - 1, hasEscapeB, hasEscapeD, hasNull, row, col);
+    return stringToken(token_begin, end_ - 1, hasEscapeB, hasEscapeD, hasNull,
+                       row, col);
 
   case STATE_FIELD:
     return fieldToken(token_begin, end_, hasEscapeB, hasNull, row, col);
@@ -217,11 +216,11 @@ Token TokenizerDelim::nextToken() {
   return Token(TOKEN_EOF, row, col);
 }
 
-bool TokenizerDelim::isComment(const char* cur) const {
+bool TokenizerDelim::isComment(const char *cur) const {
   if (!hasComment_)
     return false;
 
-  boost::iterator_range<const char*> haystack(cur, end_);
+  boost::iterator_range<const char *> haystack(cur, end_);
   return boost::starts_with(haystack, comment_);
 }
 
@@ -241,8 +240,8 @@ Token TokenizerDelim::emptyToken(int row, int col) {
 }
 
 Token TokenizerDelim::fieldToken(SourceIterator begin, SourceIterator end,
-                                 bool hasEscapeB, bool hasNull,
-                                 int row, int col)  {
+                                 bool hasEscapeB, bool hasNull, int row,
+                                 int col) {
   Token t(begin, end, row, col, hasNull, (hasEscapeB) ? this : NULL);
   if (trimWS_)
     t.trim();
@@ -251,9 +250,10 @@ Token TokenizerDelim::fieldToken(SourceIterator begin, SourceIterator end,
 }
 
 Token TokenizerDelim::stringToken(SourceIterator begin, SourceIterator end,
-                                  bool hasEscapeB, bool hasEscapeD, bool hasNull,
-                                  int row, int col) {
-  Token t(begin, end, row, col, hasNull, (hasEscapeD || hasEscapeB) ? this : NULL);
+                                  bool hasEscapeB, bool hasEscapeD,
+                                  bool hasNull, int row, int col) {
+  Token t(begin, end, row, col, hasNull,
+          (hasEscapeD || hasEscapeB) ? this : NULL);
   if (trimWS_)
     t.trim();
   if (quotedNA_)
@@ -261,9 +261,8 @@ Token TokenizerDelim::stringToken(SourceIterator begin, SourceIterator end,
   return t;
 }
 
-
 void TokenizerDelim::unescape(SourceIterator begin, SourceIterator end,
-  boost::container::string* pOut) {
+                              boost::container::string *pOut) {
   if (escapeDouble_ && !escapeBackslash_) {
     unescapeDouble(begin, end, pOut);
   } else if (escapeBackslash_ && !escapeDouble_) {
@@ -274,7 +273,7 @@ void TokenizerDelim::unescape(SourceIterator begin, SourceIterator end,
 }
 
 void TokenizerDelim::unescapeDouble(SourceIterator begin, SourceIterator end,
-  boost::container::string* pOut)  {
+                                    boost::container::string *pOut) {
   pOut->reserve(end - begin);
 
   bool inEscape = false;
@@ -293,23 +292,43 @@ void TokenizerDelim::unescapeDouble(SourceIterator begin, SourceIterator end,
 }
 
 void TokenizerDelim::unescapeBackslash(SourceIterator begin, SourceIterator end,
-                                       boost::container::string* pOut) {
+                                       boost::container::string *pOut) {
   pOut->reserve(end - begin);
 
   bool inEscape = false;
   for (SourceIterator cur = begin; cur != end; ++cur) {
     if (inEscape) {
-      switch(*cur) {
-      case '\'':  pOut->push_back('\''); break;
-      case '"':   pOut->push_back('"');  break;
-      case '\\':  pOut->push_back('\\'); break;
-      case 'a':   pOut->push_back('\a'); break;
-      case 'b':   pOut->push_back('\b'); break;
-      case 'f':   pOut->push_back('\f'); break;
-      case 'n':   pOut->push_back('\n'); break;
-      case 'r':   pOut->push_back('\r'); break;
-      case 't':   pOut->push_back('\t'); break;
-      case 'v':   pOut->push_back('\v'); break;
+      switch (*cur) {
+      case '\'':
+        pOut->push_back('\'');
+        break;
+      case '"':
+        pOut->push_back('"');
+        break;
+      case '\\':
+        pOut->push_back('\\');
+        break;
+      case 'a':
+        pOut->push_back('\a');
+        break;
+      case 'b':
+        pOut->push_back('\b');
+        break;
+      case 'f':
+        pOut->push_back('\f');
+        break;
+      case 'n':
+        pOut->push_back('\n');
+        break;
+      case 'r':
+        pOut->push_back('\r');
+        break;
+      case 't':
+        pOut->push_back('\t');
+        break;
+      case 'v':
+        pOut->push_back('\v');
+        break;
       default:
         if (*cur == delim_ || *cur == quote_ || isComment(cur)) {
           pOut->push_back(*cur);

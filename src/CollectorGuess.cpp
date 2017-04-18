@@ -6,10 +6,10 @@ using namespace Rcpp;
 #include "LocaleInfo.h"
 #include "QiParsers.h"
 
-typedef bool (*canParseFun)(const std::string&, LocaleInfo* pLocale);
+typedef bool (*canParseFun)(const std::string &, LocaleInfo *pLocale);
 
-bool canParse(CharacterVector x, const canParseFun& canParse,
-              LocaleInfo* pLocale) {
+bool canParse(CharacterVector x, const canParseFun &canParse,
+              LocaleInfo *pLocale) {
   for (int i = 0; i < x.size(); ++i) {
     if (x[i] == NA_STRING)
       continue;
@@ -31,11 +31,11 @@ bool allMissing(CharacterVector x) {
   return true;
 }
 
-bool isLogical(const std::string& x, LocaleInfo* pLocale) {
+bool isLogical(const std::string &x, LocaleInfo *pLocale) {
   return x == "T" || x == "F" || x == "TRUE" || x == "FALSE";
 }
 
-bool isInteger(const std::string& x, LocaleInfo* pLocale) {
+bool isInteger(const std::string &x, LocaleInfo *pLocale) {
   if (x[0] == '0' && x.size() > 1)
     return false;
 
@@ -45,7 +45,7 @@ bool isInteger(const std::string& x, LocaleInfo* pLocale) {
   return parseInt(begin, end, res) && begin == end;
 }
 
-bool isNumber(const std::string& x, LocaleInfo* pLocale) {
+bool isNumber(const std::string &x, LocaleInfo *pLocale) {
   // Leading zero not followed by decimal mark
   if (x[0] == '0' && x.size() > 1 && x[1] != pLocale->decimalMark_)
     return false;
@@ -53,12 +53,12 @@ bool isNumber(const std::string& x, LocaleInfo* pLocale) {
   double res = 0;
   std::string::const_iterator begin = x.begin(), end = x.end();
 
-  bool ok = parseNumber(pLocale->decimalMark_, pLocale->groupingMark_,
-    begin, end, res);
+  bool ok = parseNumber(pLocale->decimalMark_, pLocale->groupingMark_, begin,
+                        end, res);
   return ok && begin == x.begin() && end == x.end();
 }
 
-bool isDouble(const std::string& x, LocaleInfo* pLocale) {
+bool isDouble(const std::string &x, LocaleInfo *pLocale) {
   // Leading zero not followed by decimal mark
   if (x[0] == '0' && x.size() > 1 && x[1] != pLocale->decimalMark_)
     return false;
@@ -69,21 +69,21 @@ bool isDouble(const std::string& x, LocaleInfo* pLocale) {
   return parseDouble(pLocale->decimalMark_, begin, end, res) && begin == end;
 }
 
-bool isTime(const std::string& x, LocaleInfo* pLocale) {
+bool isTime(const std::string &x, LocaleInfo *pLocale) {
   DateTimeParser parser(pLocale);
 
   parser.setDate(x.c_str());
   return parser.parseLocaleTime();
 }
 
-bool isDate(const std::string& x, LocaleInfo* pLocale) {
+bool isDate(const std::string &x, LocaleInfo *pLocale) {
   DateTimeParser parser(pLocale);
 
   parser.setDate(x.c_str());
   return parser.parseLocaleDate();
 }
 
-static bool isDateTime(const std::string& x, LocaleInfo* pLocale) {
+static bool isDateTime(const std::string &x, LocaleInfo *pLocale) {
   DateTimeParser parser(pLocale);
 
   parser.setDate(x.c_str());

@@ -1,11 +1,11 @@
 #ifndef FASTREAD_DATE_TIME_PARSER_H_
 #define FASTREAD_DATE_TIME_PARSER_H_
 
-#include <ctime>
-#include "boost.h"
 #include "DateTime.h"
 #include "LocaleInfo.h"
 #include "QiParsers.h"
+#include "boost.h"
+#include <ctime>
 
 // Parsing ---------------------------------------------------------------------
 
@@ -18,16 +18,16 @@ class DateTimeParser {
   int tzOffsetHours_, tzOffsetMinutes_;
   std::string tz_;
 
-  LocaleInfo* pLocale_;
+  LocaleInfo *pLocale_;
   std::string tzDefault_;
 
-  const char* dateItr_;
-  const char* dateEnd_;
+  const char *dateItr_;
+  const char *dateEnd_;
 
 public:
-  DateTimeParser(LocaleInfo* pLocale):
-  pLocale_(pLocale), tzDefault_(pLocale->tz_), dateItr_(NULL), dateEnd_(NULL)
-  {
+  DateTimeParser(LocaleInfo *pLocale)
+      : pLocale_(pLocale), tzDefault_(pLocale->tz_), dateItr_(NULL),
+        dateEnd_(NULL) {
     reset();
   }
 
@@ -77,13 +77,9 @@ public:
     return isComplete();
   }
 
-  bool parseLocaleTime() {
-    return parse(pLocale_->timeFormat_);
-  }
+  bool parseLocaleTime() { return parse(pLocale_->timeFormat_); }
 
-  bool parseLocaleDate() {
-    return parse(pLocale_->dateFormat_);
-  }
+  bool parseLocaleDate() { return parse(pLocale_->dateFormat_); }
 
   // A flexible time parser for the most common formats
   bool parseTime() {
@@ -119,17 +115,15 @@ public:
     return isComplete();
   }
 
-  bool isComplete() {
-    return dateItr_ == dateEnd_;
-  }
+  bool isComplete() { return dateItr_ == dateEnd_; }
 
-  void setDate(const char* date) {
+  void setDate(const char *date) {
     reset();
     dateItr_ = date;
     dateEnd_ = date + strlen(date);
   }
 
-  bool parse(const std::string& format) {
+  bool parse(const std::string &format) {
     consumeWhiteSpace(); // always consume leading whitespace
 
     std::string::const_iterator formatItr, formatEnd = format.end();
@@ -151,7 +145,7 @@ public:
         Rcpp::stop("Invalid format: trailing %");
       formatItr++;
 
-      switch(*formatItr) {
+      switch (*formatItr) {
       case 'Y': // year with century
         if (!consumeInteger(4, &year_))
           return false;
@@ -224,7 +218,7 @@ public:
           return false;
         break;
 
-        // Extensions
+      // Extensions
       case '.':
         if (!consumeNonDigit())
           return false;
@@ -243,7 +237,7 @@ public:
         if (formatItr + 1 == formatEnd)
           Rcpp::stop("Invalid format: %%A must be followed by another letter");
         formatItr++;
-        switch(*formatItr) {
+        switch (*formatItr) {
         case 'D':
           if (!parseDate())
             return false;
@@ -257,7 +251,7 @@ public:
         }
         break;
 
-        // Compound formats
+      // Compound formats
       case 'D':
         parse("%m/%d/%y");
         break;
@@ -301,13 +295,9 @@ public:
     return dt;
   }
 
-  bool compactDate() {
-    return compactDate_;
-  }
+  bool compactDate() { return compactDate_; }
 
-  int year() {
-    return year_;
-  }
+  int year() { return year_; }
 
 private:
   int hour() {
@@ -331,22 +321,23 @@ private:
     return hour_;
   }
 
-  inline bool consumeSeconds(int* pSec, double* pPartialSec) {
+  inline bool consumeSeconds(int *pSec, double *pPartialSec) {
     double sec;
     if (!consumeDouble(&sec))
       return false;
 
-    *pSec = (int) sec;
+    *pSec = (int)sec;
     if (pPartialSec != NULL)
       *pPartialSec = sec - *pSec;
     return true;
   }
 
-  inline bool consumeString(const std::vector<std::string>& haystack, int* pOut) {
+  inline bool consumeString(const std::vector<std::string> &haystack,
+                            int *pOut) {
     // haystack is always in UTF-8
     std::string needleUTF8 = pLocale_->encoder_.makeString(dateItr_, dateEnd_);
 
-    for(size_t i = 0; i < haystack.size(); ++i) {
+    for (size_t i = 0; i < haystack.size(); ++i) {
       if (boost::istarts_with(needleUTF8, haystack[i])) {
         *pOut = i;
         dateItr_ += haystack[i].size();
@@ -357,19 +348,19 @@ private:
     return false;
   }
 
-  inline bool consumeInteger(int n, int* pOut, bool exact = true) {
+  inline bool consumeInteger(int n, int *pOut, bool exact = true) {
     if (dateItr_ == dateEnd_ || *dateItr_ == '-' || *dateItr_ == '+')
       return false;
 
-    const char* start = dateItr_;
-    const char* end = std::min(dateItr_ + n, dateEnd_);
+    const char *start = dateItr_;
+    const char *end = std::min(dateItr_ + n, dateEnd_);
     bool ok = parseInt(dateItr_, end, *pOut);
 
     return ok && (!exact || (dateItr_ - start) == n);
   }
 
   // Integer indexed from 1 (i.e. month and date)
-  inline bool consumeInteger1(int n, int* pOut, bool exact = true) {
+  inline bool consumeInteger1(int n, int *pOut, bool exact = true) {
     if (!consumeInteger(n, pOut, exact))
       return false;
 
@@ -378,14 +369,14 @@ private:
   }
 
   // Integer indexed from 1 with optional space
-  inline bool consumeInteger1WithSpace(int n, int* pOut) {
+  inline bool consumeInteger1WithSpace(int n, int *pOut) {
     if (consumeThisChar(' '))
       n--;
 
     return consumeInteger1(n, pOut);
   }
 
-  inline bool consumeDouble(double* pOut) {
+  inline bool consumeDouble(double *pOut) {
     if (dateItr_ == dateEnd_ || *dateItr_ == '-' || *dateItr_ == '+')
       return false;
     return parseDouble(pLocale_->decimalMark_, dateItr_, dateEnd_, *pOut);
@@ -416,7 +407,7 @@ private:
     return true;
   }
 
-  inline bool consumeChar(char* pOut) {
+  inline bool consumeChar(char *pOut) {
     if (dateItr_ == dateEnd_)
       return false;
 
@@ -432,7 +423,7 @@ private:
     return true;
   }
 
-  inline bool consumeAMPM(bool* pIsPM) {
+  inline bool consumeAMPM(bool *pIsPM) {
     if (dateItr_ == dateEnd_)
       return false;
 
@@ -455,7 +446,7 @@ private:
   // ±hh:mm
   // ±hhmm
   // ±hh
-  inline bool consumeTzOffset(int* pHours, int* pMinutes) {
+  inline bool consumeTzOffset(int *pHours, int *pMinutes) {
     if (consumeThisChar('Z'))
       return true;
 
@@ -480,15 +471,14 @@ private:
     return true;
   }
 
-  inline bool consumeTzName(std::string* pOut) {
-    const char* tzStart = dateItr_;
+  inline bool consumeTzName(std::string *pOut) {
+    const char *tzStart = dateItr_;
     while (dateItr_ != dateEnd_ && !std::isspace(*dateItr_))
       dateItr_++;
 
     pOut->assign(tzStart, dateItr_);
     return tzStart != dateItr_;
   }
-
 
   void reset() {
     year_ = -1;

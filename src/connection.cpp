@@ -18,7 +18,7 @@ RawVector read_connection_(RObject con, int chunk_size = 64 * 1024) {
   std::vector<RawVector> chunks;
 
   RawVector chunk;
-  while((chunk = read_bin(con, chunk_size)).size() > 0)
+  while ((chunk = read_bin(con, chunk_size)).size() > 0)
     chunks.push_back(chunk);
 
   size_t size = 0;
@@ -34,4 +34,3 @@ RawVector read_connection_(RObject con, int chunk_size = 64 * 1024) {
 
   return out;
 }
-

@@ -1,21 +1,17 @@
 #include "Reader.h"
 
-Reader::Reader(SourcePtr source, TokenizerPtr tokenizer, std::vector<CollectorPtr> collectors,
-        bool progress, CharacterVector colNames) :
-  source_(source),
-  tokenizer_(tokenizer),
-  collectors_(collectors),
-  progress_(progress),
-  begun_(false) {
-    init(colNames);
+Reader::Reader(SourcePtr source, TokenizerPtr tokenizer,
+               std::vector<CollectorPtr> collectors, bool progress,
+               CharacterVector colNames)
+    : source_(source), tokenizer_(tokenizer), collectors_(collectors),
+      progress_(progress), begun_(false) {
+  init(colNames);
 }
 
-Reader::Reader(SourcePtr source, TokenizerPtr tokenizer,
-    CollectorPtr collector, bool progress, CharacterVector colNames) :
-  source_(source),
-  tokenizer_(tokenizer),
-  progress_(progress),
-  begun_(false) {
+Reader::Reader(SourcePtr source, TokenizerPtr tokenizer, CollectorPtr collector,
+               bool progress, CharacterVector colNames)
+    : source_(source), tokenizer_(tokenizer), progress_(progress),
+      begun_(false) {
 
   collectors_.push_back(collector);
   init(colNames);
@@ -25,7 +21,8 @@ void Reader::init(CharacterVector colNames) {
   tokenizer_->tokenize(source_->begin(), source_->end());
   tokenizer_->setWarnings(&warnings_);
 
-  // Work out which output columns we are keeping and set warnings for each collector
+  // Work out which output columns we are keeping and set warnings for each
+  // collector
   size_t p = collectors_.size();
   for (size_t j = 0; j < p; ++j) {
     if (!collectors_[j]->skip()) {
@@ -37,7 +34,8 @@ void Reader::init(CharacterVector colNames) {
   if (colNames.size() > 0) {
     outNames_ = CharacterVector(keptColumns_.size());
     int i = 0;
-    for (std::vector<int>::const_iterator it = keptColumns_.begin(); it != keptColumns_.end(); ++it) {
+    for (std::vector<int>::const_iterator it = keptColumns_.begin();
+         it != keptColumns_.end(); ++it) {
       outNames_[i++] = colNames[*it];
     }
   }
@@ -49,7 +47,8 @@ RObject Reader::readToDataFrame(int lines) {
   // Save individual columns into a data frame
   List out(outNames_.size());
   int j = 0;
-  for (std::vector<int>::const_iterator it = keptColumns_.begin(); it != keptColumns_.end(); ++it) {
+  for (std::vector<int>::const_iterator it = keptColumns_.begin();
+       it != keptColumns_.end(); ++it) {
     out[j++] = collectors_[*it]->vector();
   }
 
@@ -66,7 +65,7 @@ RObject Reader::readToDataFrame(int lines) {
 int Reader::read(int lines) {
 
   if (t_.type() == TOKEN_EOF) {
-    return(-1);
+    return (-1);
   }
 
   int n = (lines < 0) ? 1000 : lines;
@@ -113,7 +112,6 @@ int Reader::read(int lines) {
     t_ = tokenizer_->nextToken();
   }
 
-
   if (last_row != -1) {
     checkColumns(last_row, last_col, collectors_.size());
   }
@@ -127,7 +125,7 @@ int Reader::read(int lines) {
   // Resize the collectors to the final size (if it is not already at that
   // size)
   if (last_row == -1) {
-     collectorsResize(0);
+    collectorsResize(0);
   } else if ((last_row - first_row) < (n - 1)) {
     collectorsResize((last_row - first_row) + 1);
   }
@@ -139,10 +137,8 @@ void Reader::checkColumns(int i, int j, int n) {
   if (j + 1 == n)
     return;
 
-  warnings_.addWarning(i, -1,
-      tfm::format("%i columns", n),
-      tfm::format("%i columns", j + 1)
-      );
+  warnings_.addWarning(i, -1, tfm::format("%i columns", n),
+                       tfm::format("%i columns", j + 1));
 }
 
 void Reader::collectorsResize(int n) {
@@ -156,4 +152,3 @@ void Reader::collectorsClear() {
     collectors_[j]->clear();
   }
 }
-

@@ -1,13 +1,11 @@
 #ifndef FASTREAD_PROGRESS_H_
 #define FASTREAD_PROGRESS_H_
 
-#include <time.h>
-#include <sstream>
 #include <Rcpp.h>
+#include <sstream>
+#include <time.h>
 
-inline int now() {
-  return clock() / CLOCKS_PER_SEC;
-}
+inline int now() { return clock() / CLOCKS_PER_SEC; }
 
 inline std::string clearLine(int width = 50) {
   return "\r" + std::string(' ', width) + "\r";
@@ -28,16 +26,9 @@ class Progress {
   bool show_, stopped_;
 
 public:
-
-  Progress(int min = 5, int width = Rf_GetOptionWidth()):
-    timeMin_(min),
-    timeInit_(now()),
-    timeStop_(now()),
-    width_(width),
-    show_(false),
-    stopped_(false)
-  {
-  }
+  Progress(int min = 5, int width = Rf_GetOptionWidth())
+      : timeMin_(min), timeInit_(now()), timeStop_(now()), width_(width),
+        show_(false), stopped_(false) {}
 
   void stop() {
     timeStop_ = now();
@@ -57,7 +48,7 @@ public:
     }
 
     std::stringstream labelStream;
-    tfm::format(labelStream, " %3d%%", (int) (prop * 100));
+    tfm::format(labelStream, " %3d%%", (int)(prop * 100));
     if (size > 0) {
       tfm::format(labelStream, " %4.0f MB", size);
     }
@@ -83,9 +74,9 @@ public:
         timeStop_ = now();
       Rcpp::Rcout << "\n";
 
-    } catch (...) {}
+    } catch (...) {
+    }
   }
-
 };
 
 #endif
