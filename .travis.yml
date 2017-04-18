@@ -1,7 +1,7 @@
 # R for travis: see documentation at https://docs.travis-ci.com/user/languages/r
 
 language: r
-sudo: false
+sudo: true
 cache: packages
 r:
   - oldrel
@@ -21,9 +21,8 @@ addons:
       - clang-format-3.9
 
 before_install:
-  - ln -s /usr/bin/clang-format-3.9 ~/bin/clang-format
-  #- update-alternatives --install /usr/bin/clang-format clang-format /usr/bin/clang-format-3.9 390
-  - travis/check_format.sh
+  - ln -s /usr/bin/clang-format-3.9 clang-format
+  - PATH=.:$PATH travis/check_format.sh
 
 after_success:
   - test $TRAVIS_R_VERSION_STRING = "release" && Rscript -e 'covr::codecov()'
