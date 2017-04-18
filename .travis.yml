@@ -21,7 +21,8 @@ addons:
       - clang-format-3.9
 
 before_install:
-  - update-alternatives --install /usr/bin/clang-format clang-format /usr/bin/clang-format-3.9 390
+  - ln -s /usr/bin/clang-format-3.9 ~/bin/clang-format
+  #- update-alternatives --install /usr/bin/clang-format clang-format /usr/bin/clang-format-3.9 390
   - travis/check_format.sh
 
 after_success:
