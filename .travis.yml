@@ -20,10 +20,7 @@ addons:
     packages:
       - clang-format-3.9
 
-before_install:
-  - mkdir ~/bin
-  - ln -s /usr/bin/clang-format-3.9 ~/bin/clang-format
-  - PATH=~/bin:$PATH travis/check_format.sh
+before_install: travis/check_format.sh
 
 after_success:
   - test $TRAVIS_R_VERSION_STRING = "release" && Rscript -e 'covr::codecov()'
