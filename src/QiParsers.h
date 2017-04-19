@@ -3,7 +3,8 @@
 
 #include "boost.h"
 
-struct DecimalCommaPolicy : public boost::spirit::qi::real_policies<long double> {
+struct DecimalCommaPolicy
+    : public boost::spirit::qi::real_policies<long double> {
   template <typename Iterator>
   static bool parse_dot(Iterator& first, Iterator const& last) {
     if (first == last || *first != ',')
@@ -14,38 +15,39 @@ struct DecimalCommaPolicy : public boost::spirit::qi::real_policies<long double>
 };
 
 template <typename Iterator, typename Attr>
-inline bool parseDouble(const char decimalMark, Iterator& first, Iterator& last,
-                        Attr& res) {
+inline bool parseDouble(
+    const char decimalMark, Iterator& first, Iterator& last, Attr& res) {
 
   if (decimalMark == '.') {
-    return boost::spirit::qi::parse(first, last,
-      boost::spirit::qi::long_double, res);
+    return boost::spirit::qi::parse(
+        first, last, boost::spirit::qi::long_double, res);
   } else if (decimalMark == ',') {
-    return boost::spirit::qi::parse(first, last,
-      boost::spirit::qi::real_parser<long double, DecimalCommaPolicy>(), res);
+    return boost::spirit::qi::parse(
+        first,
+        last,
+        boost::spirit::qi::real_parser<long double, DecimalCommaPolicy>(),
+        res);
   } else {
     return false;
   }
 }
 
-enum NumberState {
-  STATE_INIT,
-  STATE_LHS,
-  STATE_RHS,
-  STATE_FIN
-};
-
+enum NumberState { STATE_INIT, STATE_LHS, STATE_RHS, STATE_FIN };
 
 // First and last are updated to point to first/last successfully parsed
 // character
 template <typename Iterator, typename Attr>
-inline bool parseNumber(char decimalMark, char groupingMark, Iterator& first,
-                        Iterator& last, Attr& res) {
+inline bool parseNumber(
+    char decimalMark,
+    char groupingMark,
+    Iterator& first,
+    Iterator& last,
+    Attr& res) {
 
   Iterator cur = first;
 
   // Advance to first non-character
-  for(; cur != last; ++cur) {
+  for (; cur != last; ++cur) {
     if (*cur == '-' || *cur == decimalMark || (*cur >= '0' && *cur <= '9'))
       break;
   }
@@ -61,11 +63,11 @@ inline bool parseNumber(char decimalMark, char groupingMark, Iterator& first,
   bool seenNumber = false;
   double sign = 1.0;
 
-  for(; cur != last; ++cur) {
+  for (; cur != last; ++cur) {
     if (state == STATE_FIN)
       break;
 
-    switch(state) {
+    switch (state) {
     case STATE_INIT:
       if (*cur == '-') {
         state = STATE_LHS;
@@ -117,7 +119,6 @@ end:
   res = sign * sum;
   return seenNumber;
 }
-
 
 template <typename Iterator, typename Attr>
 inline bool parseInt(Iterator& first, Iterator& last, Attr& res) {

@@ -4,9 +4,9 @@ using namespace Rcpp;
 #include "Tokenizer.h"
 #include "TokenizerDelim.h"
 #include "TokenizerFwf.h"
-#include "TokenizerWs.h"
 #include "TokenizerLine.h"
 #include "TokenizerLog.h"
+#include "TokenizerWs.h"
 
 TokenizerPtr Tokenizer::create(List spec) {
   std::string subclass(as<CharacterVector>(spec.attr("class"))[0]);
@@ -21,13 +21,18 @@ TokenizerPtr Tokenizer::create(List spec) {
     bool escapeBackslash = as<bool>(spec["escape_backslash"]);
     bool quotedNA = as<bool>(spec["quoted_na"]);
 
-    return TokenizerPtr(new
-      TokenizerDelim(delim, quote, na, comment, trimWs, escapeBackslash, escapeDouble, quotedNA)
-    );
+    return TokenizerPtr(new TokenizerDelim(
+        delim,
+        quote,
+        na,
+        comment,
+        trimWs,
+        escapeBackslash,
+        escapeDouble,
+        quotedNA));
   } else if (subclass == "tokenizer_fwf") {
-    std::vector<int>
-      begin = as<std::vector<int> >(spec["begin"]),
-      end = as<std::vector<int> >(spec["end"]);
+    std::vector<int> begin = as<std::vector<int> >(spec["begin"]),
+                     end = as<std::vector<int> >(spec["end"]);
     std::vector<std::string> na = as<std::vector<std::string> >(spec["na"]);
     std::string comment = as<std::string>(spec["comment"]);
 

@@ -8,8 +8,8 @@ using namespace Rcpp;
 
 typedef bool (*canParseFun)(const std::string&, LocaleInfo* pLocale);
 
-bool canParse(CharacterVector x, const canParseFun& canParse,
-              LocaleInfo* pLocale) {
+bool canParse(
+    CharacterVector x, const canParseFun& canParse, LocaleInfo* pLocale) {
   for (int i = 0; i < x.size(); ++i) {
     if (x[i] == NA_STRING)
       continue;
@@ -53,8 +53,8 @@ bool isNumber(const std::string& x, LocaleInfo* pLocale) {
   double res = 0;
   std::string::const_iterator begin = x.begin(), end = x.end();
 
-  bool ok = parseNumber(pLocale->decimalMark_, pLocale->groupingMark_,
-    begin, end, res);
+  bool ok = parseNumber(
+      pLocale->decimalMark_, pLocale->groupingMark_, begin, end, res);
   return ok && begin == x.begin() && end == x.end();
 }
 

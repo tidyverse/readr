@@ -1,8 +1,8 @@
 #ifndef FASTREAD_SOURCE_H_
 #define FASTREAD_SOURCE_H_
 
-#include <Rcpp.h>
 #include "boost.h"
+#include <Rcpp.h>
 
 class Source;
 typedef boost::shared_ptr<Source> SourcePtr;
@@ -14,14 +14,17 @@ public:
   virtual const char* begin() = 0;
   virtual const char* end() = 0;
 
-  static const char* skipLines(const char* begin, const char* end, int n,
-                               const std::string& comment = "") {
+  static const char* skipLines(
+      const char* begin,
+      const char* end,
+      int n,
+      const std::string& comment = "") {
     bool hasComment = comment != "";
     bool isComment = false, lineStart = true;
 
     const char* cur = begin;
 
-    while(n > 0 && cur != end) {
+    while (n > 0 && cur != end) {
       if (lineStart) {
         isComment = hasComment && inComment(cur, end, comment);
         lineStart = false;
@@ -39,7 +42,6 @@ public:
           n--;
         lineStart = true;
       }
-
 
       cur++;
     }
@@ -59,40 +61,41 @@ public:
        EF BB BF:    UTF-8
    */
 
-    switch(begin[0]) {
-      // UTF-32BE
-      case '\x00':
-        if (end - begin >= 4 && begin[1] == '\x00' && begin[2] == '\xFE' && begin[3] == '\xFF') {
+    switch (begin[0]) {
+    // UTF-32BE
+    case '\x00':
+      if (end - begin >= 4 && begin[1] == '\x00' && begin[2] == '\xFE' &&
+          begin[3] == '\xFF') {
+        return begin + 4;
+      }
+      break;
+
+    // UTF-8
+    case '\xEF':
+      if (end - begin >= 3 && begin[1] == '\xBB' && begin[2] == '\xBF') {
+        return begin + 3;
+      }
+      break;
+
+    // UTF-16BE
+    case '\xfe':
+      if (end - begin >= 2 && begin[1] == '\xff') {
+        return begin + 2;
+      }
+      break;
+
+    case '\xff':
+      if (end - begin >= 2 && begin[1] == '\xfe') {
+
+        // UTF-32 LE
+        if (end - begin >= 4 && begin[2] == '\x00' && begin[3] == '\x00') {
           return begin + 4;
         }
-        break;
 
-      // UTF-8
-      case '\xEF':
-        if (end - begin >= 3 && begin[1] == '\xBB' && begin[2] == '\xBF') {
-          return begin + 3;
-        }
-        break;
-
-      // UTF-16BE
-      case '\xfe':
-        if (end - begin >= 2 && begin[1] == '\xff') {
-          return begin + 2;
-        }
-        break;
-
-      case '\xff':
-        if (end - begin >= 2 && begin[1] == '\xfe') {
-
-          // UTF-32 LE
-          if (end - begin >= 4 && begin[2] == '\x00' && begin[3] == '\x00') {
-            return begin + 4;
-          }
-
-          // UTF-16 LE
-          return begin + 2;
-        }
-        break;
+        // UTF-16 LE
+        return begin + 2;
+      }
+      break;
     }
     return begin;
   }
@@ -100,12 +103,11 @@ public:
   static SourcePtr create(Rcpp::List spec);
 
 private:
-
-  static bool inComment(const char* cur, const char* end, const std::string& comment) {
+  static bool
+  inComment(const char* cur, const char* end, const std::string& comment) {
     boost::iterator_range<const char*> haystack(cur, end);
     return boost::starts_with(haystack, comment);
   }
-
 };
 
 #endif

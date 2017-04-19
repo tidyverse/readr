@@ -8,7 +8,7 @@ Iconv::Iconv(const std::string& from, const std::string& to) {
     cd_ = NULL;
   } else {
     cd_ = Riconv_open(to.c_str(), from.c_str());
-    if (cd_ == (void*) -1) {
+    if (cd_ == (void*)-1) {
       if (errno == EINVAL) {
         stop("Can't convert from %s to %s", from, to);
       } else {
@@ -19,7 +19,6 @@ Iconv::Iconv(const std::string& from, const std::string& to) {
     // Allocate space in buffer
     buffer_.resize(1024);
   }
-
 }
 
 Iconv::~Iconv() {
@@ -42,21 +41,25 @@ size_t Iconv::convert(const char* start, const char* end) {
   size_t inbytesleft = n, outbytesleft = max_size;
   size_t res = Riconv(cd_, &start, &inbytesleft, &outbuf, &outbytesleft);
 
-  if (res == (size_t) -1) {
-    switch(errno) {
-    case EILSEQ: stop("Invalid multibyte sequence");
-    case EINVAL: stop("Incomplete multibyte sequence");
-    case E2BIG:  stop("Iconv buffer too small");
-    default:     stop("Iconv failed to convert for unknown reason");
+  if (res == (size_t)-1) {
+    switch (errno) {
+    case EILSEQ:
+      stop("Invalid multibyte sequence");
+    case EINVAL:
+      stop("Incomplete multibyte sequence");
+    case E2BIG:
+      stop("Iconv buffer too small");
+    default:
+      stop("Iconv failed to convert for unknown reason");
     }
   }
 
   return max_size - outbytesleft;
 }
 
-int my_strnlen (const char *s, int maxlen){
-  for(int n = 0; n < maxlen; ++n) {
-    if(s[n] == '\0')
+int my_strnlen(const char* s, int maxlen) {
+  for (int n = 0; n < maxlen; ++n) {
+    if (s[n] == '\0')
       return n;
   }
   return maxlen;

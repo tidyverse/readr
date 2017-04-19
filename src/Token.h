@@ -1,17 +1,17 @@
 #ifndef FASTREAD_TOKEN_H_
 #define FASTREAD_TOKEN_H_
 
+#include "Iconv.h"
+#include "Source.h"
+#include "Tokenizer.h"
 #include <Rcpp.h>
 #include <string>
-#include "Source.h"
-#include "Iconv.h"
-#include "Tokenizer.h"
 
 enum TokenType {
-  TOKEN_STRING,   // a sequence of characters
-  TOKEN_MISSING,  // an missing value
-  TOKEN_EMPTY,    // an empty value
-  TOKEN_EOF       // end of file
+  TOKEN_STRING,  // a sequence of characters
+  TOKEN_MISSING, // an missing value
+  TOKEN_EMPTY,   // an empty value
+  TOKEN_EOF      // end of file
 };
 
 class Token {
@@ -23,34 +23,40 @@ class Token {
   Tokenizer* pTokenizer_;
 
 public:
-
-  Token(): type_(TOKEN_EMPTY), row_(0), col_(0) {}
-  Token(TokenType type, int row, int col): type_(type), row_(row), col_(col) {}
-  Token(SourceIterator begin, SourceIterator end, int row, int col, bool hasNull,
-        Tokenizer* pTokenizer = NULL):
-    type_(TOKEN_STRING),
-    begin_(begin),
-    end_(end),
-    row_(row),
-    col_(col),
-    hasNull_(hasNull),
-    pTokenizer_(pTokenizer)
-  {
+  Token() : type_(TOKEN_EMPTY), row_(0), col_(0) {}
+  Token(TokenType type, int row, int col) : type_(type), row_(row), col_(col) {}
+  Token(
+      SourceIterator begin,
+      SourceIterator end,
+      int row,
+      int col,
+      bool hasNull,
+      Tokenizer* pTokenizer = NULL)
+      : type_(TOKEN_STRING),
+        begin_(begin),
+        end_(end),
+        row_(row),
+        col_(col),
+        hasNull_(hasNull),
+        pTokenizer_(pTokenizer) {
     if (begin_ == end_)
       type_ = TOKEN_EMPTY;
   }
 
   std::string asString() const {
-    switch(type_) {
-    case TOKEN_STRING:   {
+    switch (type_) {
+    case TOKEN_STRING: {
       boost::container::string buffer;
       SourceIterators string = getString(&buffer);
 
       return std::string(string.first, string.second);
     }
-    case TOKEN_MISSING:  return "[MISSING]";
-    case TOKEN_EMPTY:    return "[EMPTY]";
-    case TOKEN_EOF:      return "[EOF]";
+    case TOKEN_MISSING:
+      return "[MISSING]";
+    case TOKEN_EMPTY:
+      return "[EMPTY]";
+    case TOKEN_EOF:
+      return "[EOF]";
     }
 
     return "";
@@ -67,8 +73,8 @@ public:
   }
 
   SEXP asSEXP(Iconv* pEncoder) const {
-    switch(type_) {
-    case TOKEN_STRING:   {
+    switch (type_) {
+    case TOKEN_STRING: {
       boost::container::string buffer;
       SourceIterators string = getString(&buffer);
 
@@ -79,11 +85,9 @@ public:
     }
   }
 
-  TokenType type() const {
-    return type_;
-  }
+  TokenType type() const { return type_; }
 
-  SourceIterators getString(boost::container::string *pOut) const {
+  SourceIterators getString(boost::container::string* pOut) const {
     if (pTokenizer_ == NULL)
       return std::make_pair(begin_, end_);
 
@@ -91,16 +95,10 @@ public:
     return std::make_pair(pOut->data(), pOut->data() + pOut->size());
   }
 
-  size_t row() const {
-    return row_;
-  }
-  size_t col() const {
-    return col_;
-  }
+  size_t row() const { return row_; }
+  size_t col() const { return col_; }
 
-  bool hasNull() const {
-    return hasNull_;
-  }
+  bool hasNull() const { return hasNull_; }
 
   Token& trim() {
     while (begin_ != end_ && *begin_ == ' ')
@@ -118,7 +116,7 @@ public:
 
     std::vector<std::string>::const_iterator it;
     for (it = NA.begin(); it != NA.end(); ++it) {
-      if ((size_t) (end_ - begin_) != it->size())
+      if ((size_t)(end_ - begin_) != it->size())
         continue;
 
       if (strncmp(begin_, it->data(), it->size()) == 0) {
@@ -129,7 +127,6 @@ public:
 
     return *this;
   }
-
 };
 
 #endif

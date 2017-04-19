@@ -18,12 +18,14 @@ CollectorPtr Collector::create(List spec, LocaleInfo* pLocale) {
     return CollectorPtr(new CollectorDouble(pLocale->decimalMark_));
   }
   if (subclass == "collector_number")
-    return CollectorPtr(new CollectorNumeric(pLocale->decimalMark_, pLocale->groupingMark_));
+    return CollectorPtr(
+        new CollectorNumeric(pLocale->decimalMark_, pLocale->groupingMark_));
   if (subclass == "collector_character")
     return CollectorPtr(new CollectorCharacter(&pLocale->encoder_));
   if (subclass == "collector_date") {
     SEXP format_ = spec["format"];
-    std::string format = (Rf_isNull(format_)) ? pLocale->dateFormat_ : as<std::string>(format_);
+    std::string format =
+        (Rf_isNull(format_)) ? pLocale->dateFormat_ : as<std::string>(format_);
     return CollectorPtr(new CollectorDate(pLocale, format));
   }
   if (subclass == "collector_datetime") {
@@ -35,18 +37,20 @@ CollectorPtr Collector::create(List spec, LocaleInfo* pLocale) {
     return CollectorPtr(new CollectorTime(pLocale, format));
   }
   if (subclass == "collector_factor") {
-    Nullable<CharacterVector> levels = as< Nullable<CharacterVector> >(spec["levels"]);
+    Nullable<CharacterVector> levels =
+        as<Nullable<CharacterVector> >(spec["levels"]);
     bool ordered = as<bool>(spec["ordered"]);
     bool includeNa = as<bool>(spec["include_na"]);
-    return CollectorPtr(new CollectorFactor(&pLocale->encoder_, levels, ordered, includeNa));
+    return CollectorPtr(
+        new CollectorFactor(&pLocale->encoder_, levels, ordered, includeNa));
   }
 
   Rcpp::stop("Unsupported column type");
   return CollectorPtr(new CollectorSkip());
 }
 
-std::vector<CollectorPtr> collectorsCreate(ListOf<List> specs,
-                                           LocaleInfo* pLocale) {
+std::vector<CollectorPtr>
+collectorsCreate(ListOf<List> specs, LocaleInfo* pLocale) {
   std::vector<CollectorPtr> collectors;
   for (int j = 0; j < specs.size(); ++j) {
     CollectorPtr col = Collector::create(specs[j], pLocale);
@@ -59,7 +63,7 @@ std::vector<CollectorPtr> collectorsCreate(ListOf<List> specs,
 // Implementations ------------------------------------------------------------
 
 void CollectorCharacter::setValue(int i, const Token& t) {
-  switch(t.type()) {
+  switch (t.type()) {
   case TOKEN_STRING: {
     boost::container::string buffer;
     SourceIterators string = t.getString(&buffer);
@@ -67,7 +71,10 @@ void CollectorCharacter::setValue(int i, const Token& t) {
     if (t.hasNull())
       warn(t.row(), t.col(), "", "embedded null");
 
-    SET_STRING_ELT(column_, i, pEncoder_->makeSEXP(string.first, string.second, t.hasNull()));
+    SET_STRING_ELT(
+        column_,
+        i,
+        pEncoder_->makeSEXP(string.first, string.second, t.hasNull()));
     break;
   };
   case TOKEN_MISSING:
@@ -86,17 +93,18 @@ void CollectorCharacter::setValue(int i, const std::string& s) {
 }
 
 void CollectorDate::setValue(int i, const Token& t) {
-  switch(t.type()) {
+  switch (t.type()) {
   case TOKEN_STRING: {
     boost::container::string buffer;
     SourceIterators string = t.getString(&buffer);
     std::string std_string(string.first, string.second);
 
     parser_.setDate(std_string.c_str());
-    bool res = (format_ == "") ? parser_.parseLocaleDate() : parser_.parse(format_);
+    bool res =
+        (format_ == "") ? parser_.parseLocaleDate() : parser_.parse(format_);
 
     if (!res) {
-      warn(t.row(), t.col(), "date like " +  format_, std_string);
+      warn(t.row(), t.col(), "date like " + format_, std_string);
       REAL(column_)[i] = NA_REAL;
       return;
     }
@@ -117,22 +125,21 @@ void CollectorDate::setValue(int i, const Token& t) {
   case TOKEN_EOF:
     Rcpp::stop("Invalid token");
   }
-
 }
 
 void CollectorDateTime::setValue(int i, const Token& t) {
-  switch(t.type()) {
+  switch (t.type()) {
   case TOKEN_STRING: {
     boost::container::string buffer;
     SourceIterators string = t.getString(&buffer);
     std::string std_string(string.first, string.second);
 
     parser_.setDate(std_string.c_str());
-    bool res = (format_ == "") ? parser_.parseISO8601()
-      : parser_.parse(format_);
+    bool res =
+        (format_ == "") ? parser_.parseISO8601() : parser_.parse(format_);
 
     if (!res) {
-      warn(t.row(), t.col(), "date like " +  format_, std_string);
+      warn(t.row(), t.col(), "date like " + format_, std_string);
       REAL(column_)[i] = NA_REAL;
       return;
     }
@@ -159,12 +166,13 @@ void CollectorDateTime::setValue(int i, const Token& t) {
 }
 
 void CollectorDouble::setValue(int i, const Token& t) {
-  switch(t.type()) {
+  switch (t.type()) {
   case TOKEN_STRING: {
     boost::container::string buffer;
     SourceIterators str = t.getString(&buffer);
 
-    bool ok = parseDouble(decimalMark_, str.first, str.second, REAL(column_)[i]);
+    bool ok =
+        parseDouble(decimalMark_, str.first, str.second, REAL(column_)[i]);
     if (!ok) {
       REAL(column_)[i] = NA_REAL;
       warn(t.row(), t.col(), "a double", str);
@@ -207,12 +215,13 @@ void CollectorFactor::insert(int i, Rcpp::String str, const Token& t) {
 
 void CollectorFactor::setValue(int i, const Token& t) {
 
-  switch(t.type()) {
+  switch (t.type()) {
   case TOKEN_STRING: {
     boost::container::string buffer;
     SourceIterators string = t.getString(&buffer);
 
-    Rcpp::String std_string = pEncoder_->makeSEXP(string.first, string.second, t.hasNull());
+    Rcpp::String std_string =
+        pEncoder_->makeSEXP(string.first, string.second, t.hasNull());
     insert(i, std_string, t);
     return;
   };
@@ -231,7 +240,7 @@ void CollectorFactor::setValue(int i, const Token& t) {
 
 void CollectorInteger::setValue(int i, const Token& t) {
 
-  switch(t.type()) {
+  switch (t.type()) {
   case TOKEN_STRING: {
     boost::container::string buffer;
     SourceIterators str = t.getString(&buffer);
@@ -262,19 +271,21 @@ void CollectorInteger::setValue(int i, const Token& t) {
 
 void CollectorLogical::setValue(int i, const Token& t) {
 
-  switch(t.type()) {
+  switch (t.type()) {
   case TOKEN_STRING: {
     boost::container::string buffer;
     SourceIterators string = t.getString(&buffer);
     int size = string.second - string.first;
 
-    switch(size) {
+    switch (size) {
     case 1:
-      if (*string.first == 'T' || *string.first == 't' || *string.first == '1') {
+      if (*string.first == 'T' || *string.first == 't' ||
+          *string.first == '1') {
         LOGICAL(column_)[i] = 1;
         return;
       }
-      if (*string.first == 'F' || *string.first == 'f' || *string.first == '0') {
+      if (*string.first == 'F' || *string.first == 'f' ||
+          *string.first == '0') {
         LOGICAL(column_)[i] = 0;
         return;
       }
@@ -310,13 +321,13 @@ void CollectorLogical::setValue(int i, const Token& t) {
 }
 
 void CollectorNumeric::setValue(int i, const Token& t) {
-  switch(t.type()) {
+  switch (t.type()) {
   case TOKEN_STRING: {
     boost::container::string buffer;
     SourceIterators str = t.getString(&buffer);
 
-    bool ok = parseNumber(decimalMark_, groupingMark_, str.first, str.second,
-      REAL(column_)[i]);
+    bool ok = parseNumber(
+        decimalMark_, groupingMark_, str.first, str.second, REAL(column_)[i]);
 
     if (!ok) {
       REAL(column_)[i] = NA_REAL;
@@ -336,17 +347,18 @@ void CollectorNumeric::setValue(int i, const Token& t) {
 }
 
 void CollectorTime::setValue(int i, const Token& t) {
-  switch(t.type()) {
+  switch (t.type()) {
   case TOKEN_STRING: {
     boost::container::string buffer;
     SourceIterators string = t.getString(&buffer);
     std::string std_string(string.first, string.second);
 
     parser_.setDate(std_string.c_str());
-    bool res = (format_ == "") ? parser_.parseLocaleTime() : parser_.parse(format_);
+    bool res =
+        (format_ == "") ? parser_.parseLocaleTime() : parser_.parse(format_);
 
     if (!res) {
-      warn(t.row(), t.col(), "time like " +  format_, std_string);
+      warn(t.row(), t.col(), "time like " + format_, std_string);
       REAL(column_)[i] = NA_REAL;
       return;
     }
@@ -367,7 +379,6 @@ void CollectorTime::setValue(int i, const Token& t) {
   case TOKEN_EOF:
     Rcpp::stop("Invalid token");
   }
-
 }
 
 void CollectorRaw::setValue(int i, const Token& t) {

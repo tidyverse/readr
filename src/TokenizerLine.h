@@ -1,10 +1,10 @@
 #ifndef FASTREAD_TOKENIZERLINE_H_
 #define FASTREAD_TOKENIZERLINE_H_
 
-#include <Rcpp.h>
 #include "Token.h"
 #include "Tokenizer.h"
 #include "utils.h"
+#include <Rcpp.h>
 
 class TokenizerLine : public Tokenizer {
   SourceIterator begin_, cur_, end_;
@@ -13,10 +13,9 @@ class TokenizerLine : public Tokenizer {
   int line_;
 
 public:
+  TokenizerLine(std::vector<std::string> NA) : NA_(NA), moreTokens_(false) {}
 
-  TokenizerLine(std::vector<std::string> NA): NA_(NA), moreTokens_(false) {}
-
-  TokenizerLine(): moreTokens_(false) {}
+  TokenizerLine() : moreTokens_(false) {}
 
   void tokenize(SourceIterator begin, SourceIterator end) {
     begin_ = begin;
@@ -26,9 +25,9 @@ public:
     moreTokens_ = true;
   }
 
-  std::pair<double,size_t> progress() {
+  std::pair<double, size_t> progress() {
     size_t bytes = cur_ - begin_;
-    return std::make_pair(bytes / (double) (end_ - begin_), bytes);
+    return std::make_pair(bytes / (double)(end_ - begin_), bytes);
   }
 
   Token nextToken() {
@@ -48,10 +47,11 @@ public:
       if ((line_ + 1) % 500000 == 0)
         Rcpp::checkUserInterrupt();
 
-      switch(*cur_) {
+      switch (*cur_) {
       case '\r':
       case '\n': {
-        Token t = Token(token_begin, advanceForLF(&cur_, end_), line_++, 0, hasNull);
+        Token t =
+            Token(token_begin, advanceForLF(&cur_, end_), line_++, 0, hasNull);
         t.flagNA(NA_);
         return t;
       }
@@ -70,7 +70,6 @@ public:
       return t;
     }
   }
-
 };
 
 #endif

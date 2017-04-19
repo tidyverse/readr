@@ -1,8 +1,8 @@
 #ifndef FASTREAD_SOURCERAW_H_
 #define FASTREAD_SOURCERAW_H_
 
-#include <Rcpp.h>
 #include "Source.h"
+#include <Rcpp.h>
 
 class SourceRaw : public Source {
   Rcpp::RawVector x_; // Make sure it doesn't get GC'd
@@ -10,11 +10,10 @@ class SourceRaw : public Source {
   const char* end_;
 
 public:
-  SourceRaw(Rcpp::RawVector x, int skip = 0, const std::string& comment = ""):
-      x_(x)
-  {
-    begin_ = (const char*) RAW(x);
-    end_ = (const char*) RAW(x) + Rf_xlength(x);
+  SourceRaw(Rcpp::RawVector x, int skip = 0, const std::string& comment = "")
+      : x_(x) {
+    begin_ = (const char*)RAW(x);
+    end_ = (const char*)RAW(x) + Rf_xlength(x);
 
     // Skip byte order mark, if needed
     begin_ = skipBom(begin_, end_);
@@ -23,13 +22,9 @@ public:
     begin_ = skipLines(begin_, end_, skip, comment);
   }
 
-  const char* begin() {
-    return begin_;
-  }
+  const char* begin() { return begin_; }
 
-  const char* end() {
-    return end_;
-  }
+  const char* end() { return end_; }
 };
 
 #endif

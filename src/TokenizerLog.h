@@ -1,10 +1,10 @@
 #ifndef FASTREAD_TOKENIZER_LOG_H_
 #define FASTREAD_TOKENIZER_LOG_H_
 
-#include <Rcpp.h>
 #include "Token.h"
 #include "Tokenizer.h"
 #include "utils.h"
+#include <Rcpp.h>
 
 enum LogState {
   LOG_DELIM,
@@ -22,9 +22,7 @@ class TokenizerLog : public Tokenizer {
   bool moreTokens_;
 
 public:
-
-  TokenizerLog() {
-  }
+  TokenizerLog() {}
 
   void tokenize(SourceIterator begin, SourceIterator end) {
     cur_ = begin;
@@ -37,9 +35,9 @@ public:
     moreTokens_ = true;
   }
 
-  std::pair<double,size_t> progress() {
+  std::pair<double, size_t> progress() {
     size_t bytes = cur_ - begin_;
-    return std::make_pair(bytes / (double) (end_ - begin_), bytes);
+    return std::make_pair(bytes / (double)(end_ - begin_), bytes);
   }
 
   Token nextToken() {
@@ -57,7 +55,7 @@ public:
       if ((row_ + 1) % 100000 == 0 || (col_ + 1) % 100000 == 0)
         Rcpp::checkUserInterrupt();
 
-      switch(state_) {
+      switch (state_) {
       case LOG_DELIM:
         if (*cur_ == '\r' || *cur_ == '\n') {
           newRecord();
@@ -91,8 +89,8 @@ public:
           return fieldToken(token_begin + 1, cur_ - 1, row, col);
         } else if (*cur_ == '\r' || *cur_ == '\n') {
           newRecord();
-          return fieldToken(token_begin + 1, advanceForLF(&cur_, end_) - 1,
-            row, col);
+          return fieldToken(
+              token_begin + 1, advanceForLF(&cur_, end_) - 1, row, col);
         } else {
           state_ = LOG_STRING;
         }
@@ -154,7 +152,6 @@ public:
   }
 
 private:
-
   void newField() {
     col_++;
     state_ = LOG_DELIM;
@@ -167,9 +164,9 @@ private:
   }
 
   Token fieldToken(SourceIterator begin, SourceIterator end, int row, int col) {
-    return Token(begin, end, row, col, false).flagNA(std::vector<std::string>(1, "-"));
+    return Token(begin, end, row, col, false)
+        .flagNA(std::vector<std::string>(1, "-"));
   }
-
 };
 
 #endif

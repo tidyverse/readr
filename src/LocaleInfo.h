@@ -19,7 +19,6 @@ public:
   Iconv encoder_;
 
   LocaleInfo(Rcpp::List);
-
 };
 
 #endif

@@ -1,0 +1,11 @@
+---
+Language:        Cpp
+BasedOnStyle:  LLVM
+Standard: Cpp03
+AlignAfterOpenBracket: AlwaysBreak
+AllowShortBlocksOnASingleLine: false
+BinPackArguments: false
+BinPackParameters: false
+ConstructorInitializerAllOnOneLineOrOnePerLine: true
+PointerAlignment: Left
+---

@@ -1,11 +1,11 @@
 #ifndef FASTREAD_DATE_TIME_PARSER_H_
 #define FASTREAD_DATE_TIME_PARSER_H_
 
-#include <ctime>
-#include "boost.h"
 #include "DateTime.h"
 #include "LocaleInfo.h"
 #include "QiParsers.h"
+#include "boost.h"
+#include <ctime>
 
 // Parsing ---------------------------------------------------------------------
 
@@ -25,9 +25,11 @@ class DateTimeParser {
   const char* dateEnd_;
 
 public:
-  DateTimeParser(LocaleInfo* pLocale):
-  pLocale_(pLocale), tzDefault_(pLocale->tz_), dateItr_(NULL), dateEnd_(NULL)
-  {
+  DateTimeParser(LocaleInfo* pLocale)
+      : pLocale_(pLocale),
+        tzDefault_(pLocale->tz_),
+        dateItr_(NULL),
+        dateEnd_(NULL) {
     reset();
   }
 
@@ -77,13 +79,9 @@ public:
     return isComplete();
   }
 
-  bool parseLocaleTime() {
-    return parse(pLocale_->timeFormat_);
-  }
+  bool parseLocaleTime() { return parse(pLocale_->timeFormat_); }
 
-  bool parseLocaleDate() {
-    return parse(pLocale_->dateFormat_);
-  }
+  bool parseLocaleDate() { return parse(pLocale_->dateFormat_); }
 
   // A flexible time parser for the most common formats
   bool parseTime() {
@@ -119,9 +117,7 @@ public:
     return isComplete();
   }
 
-  bool isComplete() {
-    return dateItr_ == dateEnd_;
-  }
+  bool isComplete() { return dateItr_ == dateEnd_; }
 
   void setDate(const char* date) {
     reset();
@@ -151,7 +147,7 @@ public:
         Rcpp::stop("Invalid format: trailing %");
       formatItr++;
 
-      switch(*formatItr) {
+      switch (*formatItr) {
       case 'Y': // year with century
         if (!consumeInteger(4, &year_))
           return false;
@@ -224,7 +220,7 @@ public:
           return false;
         break;
 
-        // Extensions
+      // Extensions
       case '.':
         if (!consumeNonDigit())
           return false;
@@ -243,7 +239,7 @@ public:
         if (formatItr + 1 == formatEnd)
           Rcpp::stop("Invalid format: %%A must be followed by another letter");
         formatItr++;
-        switch(*formatItr) {
+        switch (*formatItr) {
         case 'D':
           if (!parseDate())
             return false;
@@ -257,7 +253,7 @@ public:
         }
         break;
 
-        // Compound formats
+      // Compound formats
       case 'D':
         parse("%m/%d/%y");
         break;
@@ -301,13 +297,9 @@ public:
     return dt;
   }
 
-  bool compactDate() {
-    return compactDate_;
-  }
+  bool compactDate() { return compactDate_; }
 
-  int year() {
-    return year_;
-  }
+  int year() { return year_; }
 
 private:
   int hour() {
@@ -336,17 +328,18 @@ private:
     if (!consumeDouble(&sec))
       return false;
 
-    *pSec = (int) sec;
+    *pSec = (int)sec;
     if (pPartialSec != NULL)
       *pPartialSec = sec - *pSec;
     return true;
   }
 
-  inline bool consumeString(const std::vector<std::string>& haystack, int* pOut) {
+  inline bool
+  consumeString(const std::vector<std::string>& haystack, int* pOut) {
     // haystack is always in UTF-8
     std::string needleUTF8 = pLocale_->encoder_.makeString(dateItr_, dateEnd_);
 
-    for(size_t i = 0; i < haystack.size(); ++i) {
+    for (size_t i = 0; i < haystack.size(); ++i) {
       if (boost::istarts_with(needleUTF8, haystack[i])) {
         *pOut = i;
         dateItr_ += haystack[i].size();
@@ -488,7 +481,6 @@ private:
     pOut->assign(tzStart, dateItr_);
     return tzStart != dateItr_;
   }
-
 
   void reset() {
     year_ = -1;

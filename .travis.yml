@@ -12,5 +12,15 @@ env:
   global:
     - MAKEFLAGS="-j 2"
 
+addons:
+  apt:
+    sources:
+      - ubuntu-toolchain-r-test
+      - llvm-toolchain-precise-3.9
+    packages:
+      - clang-format-3.9
+
+before_install: travis/check_format.sh
+
 after_success:
   - test $TRAVIS_R_VERSION_STRING = "release" && Rscript -e 'covr::codecov()'
