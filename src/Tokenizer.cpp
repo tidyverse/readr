@@ -21,9 +21,15 @@ TokenizerPtr Tokenizer::create(List spec) {
     bool escapeBackslash = as<bool>(spec["escape_backslash"]);
     bool quotedNA = as<bool>(spec["quoted_na"]);
 
-    return TokenizerPtr(new TokenizerDelim(delim, quote, na, comment, trimWs,
-                                           escapeBackslash, escapeDouble,
-                                           quotedNA));
+    return TokenizerPtr(new TokenizerDelim(
+        delim,
+        quote,
+        na,
+        comment,
+        trimWs,
+        escapeBackslash,
+        escapeDouble,
+        quotedNA));
   } else if (subclass == "tokenizer_fwf") {
     std::vector<int> begin = as<std::vector<int> >(spec["begin"]),
                      end = as<std::vector<int> >(spec["end"]);

@@ -7,12 +7,12 @@
 class SourceString : public Source {
   Rcpp::RObject string_;
 
-  const char *begin_;
-  const char *end_;
+  const char* begin_;
+  const char* end_;
 
 public:
-  SourceString(Rcpp::CharacterVector x, int skip = 0,
-               const std::string &comment = "") {
+  SourceString(
+      Rcpp::CharacterVector x, int skip = 0, const std::string& comment = "") {
     string_ = x[0];
 
     begin_ = CHAR(string_);
@@ -25,9 +25,9 @@ public:
     begin_ = skipLines(begin_, end_, skip, comment);
   }
 
-  const char *begin() { return begin_; }
+  const char* begin() { return begin_; }
 
-  const char *end() { return end_; }
+  const char* end() { return end_; }
 };
 
 #endif

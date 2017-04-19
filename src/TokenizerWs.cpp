@@ -14,7 +14,9 @@ using namespace Rcpp;
 #include <cctype>
 
 TokenizerWs::TokenizerWs(std::vector<std::string> NA, std::string comment)
-    : NA_(NA), comment_(comment), moreTokens_(false),
+    : NA_(NA),
+      comment_(comment),
+      moreTokens_(false),
       hasComment_(comment.size() > 0) {}
 
 void TokenizerWs::tokenize(SourceIterator begin, SourceIterator end) {
@@ -73,8 +75,8 @@ Token TokenizerWs::nextToken() {
   return t;
 }
 
-Token TokenizerWs::fieldToken(SourceIterator begin, SourceIterator end,
-                              bool hasNull) {
+Token TokenizerWs::fieldToken(
+    SourceIterator begin, SourceIterator end, bool hasNull) {
   if (begin == end)
     return Token(TOKEN_MISSING, row_, col_);
 
@@ -84,10 +86,10 @@ Token TokenizerWs::fieldToken(SourceIterator begin, SourceIterator end,
 
   return t;
 }
-bool TokenizerWs::isComment(const char *cur) const {
+bool TokenizerWs::isComment(const char* cur) const {
   if (!hasComment_)
     return false;
 
-  boost::iterator_range<const char *> haystack(cur, end_);
+  boost::iterator_range<const char*> haystack(cur, end_);
   return boost::starts_with(haystack, comment_);
 }

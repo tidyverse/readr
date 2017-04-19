@@ -89,8 +89,8 @@ public:
           return fieldToken(token_begin + 1, cur_ - 1, row, col);
         } else if (*cur_ == '\r' || *cur_ == '\n') {
           newRecord();
-          return fieldToken(token_begin + 1, advanceForLF(&cur_, end_) - 1, row,
-                            col);
+          return fieldToken(
+              token_begin + 1, advanceForLF(&cur_, end_) - 1, row, col);
         } else {
           state_ = LOG_STRING;
         }

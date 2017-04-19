@@ -1,16 +1,28 @@
 #include "Reader.h"
 
-Reader::Reader(SourcePtr source, TokenizerPtr tokenizer,
-               std::vector<CollectorPtr> collectors, bool progress,
-               CharacterVector colNames)
-    : source_(source), tokenizer_(tokenizer), collectors_(collectors),
-      progress_(progress), begun_(false) {
+Reader::Reader(
+    SourcePtr source,
+    TokenizerPtr tokenizer,
+    std::vector<CollectorPtr> collectors,
+    bool progress,
+    CharacterVector colNames)
+    : source_(source),
+      tokenizer_(tokenizer),
+      collectors_(collectors),
+      progress_(progress),
+      begun_(false) {
   init(colNames);
 }
 
-Reader::Reader(SourcePtr source, TokenizerPtr tokenizer, CollectorPtr collector,
-               bool progress, CharacterVector colNames)
-    : source_(source), tokenizer_(tokenizer), progress_(progress),
+Reader::Reader(
+    SourcePtr source,
+    TokenizerPtr tokenizer,
+    CollectorPtr collector,
+    bool progress,
+    CharacterVector colNames)
+    : source_(source),
+      tokenizer_(tokenizer),
+      progress_(progress),
       begun_(false) {
 
   collectors_.push_back(collector);
@@ -35,7 +47,8 @@ void Reader::init(CharacterVector colNames) {
     outNames_ = CharacterVector(keptColumns_.size());
     int i = 0;
     for (std::vector<int>::const_iterator it = keptColumns_.begin();
-         it != keptColumns_.end(); ++it) {
+         it != keptColumns_.end();
+         ++it) {
       outNames_[i++] = colNames[*it];
     }
   }
@@ -48,7 +61,8 @@ RObject Reader::readToDataFrame(int lines) {
   List out(outNames_.size());
   int j = 0;
   for (std::vector<int>::const_iterator it = keptColumns_.begin();
-       it != keptColumns_.end(); ++it) {
+       it != keptColumns_.end();
+       ++it) {
     out[j++] = collectors_[*it]->vector();
   }
 
@@ -137,8 +151,8 @@ void Reader::checkColumns(int i, int j, int n) {
   if (j + 1 == n)
     return;
 
-  warnings_.addWarning(i, -1, tfm::format("%i columns", n),
-                       tfm::format("%i columns", j + 1));
+  warnings_.addWarning(
+      i, -1, tfm::format("%i columns", n), tfm::format("%i columns", j + 1));
 }
 
 void Reader::collectorsResize(int n) {

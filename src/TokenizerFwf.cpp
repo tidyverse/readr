@@ -11,8 +11,8 @@ struct skip_t {
   int lines;
 };
 
-skip_t skip_comments(SourceIterator begin, SourceIterator end,
-                     std::string comment = "") {
+skip_t skip_comments(
+    SourceIterator begin, SourceIterator end, std::string comment = "") {
   skip_t out;
   if (comment.length() == 0) {
     out.begin = begin;
@@ -22,7 +22,7 @@ skip_t skip_comments(SourceIterator begin, SourceIterator end,
 
   SourceIterator cur = begin;
   int skip = 0;
-  boost::iterator_range<const char *> haystack(cur, end);
+  boost::iterator_range<const char*> haystack(cur, end);
   while (boost::starts_with(haystack, comment)) {
     // Rcpp::Rcout << boost::starts_with(haystack, comment);
     // Skip rest of line
@@ -32,7 +32,7 @@ skip_t skip_comments(SourceIterator begin, SourceIterator end,
 
     advanceForLF(&cur, end);
     ++cur;
-    haystack = boost::iterator_range<const char *>(cur, end);
+    haystack = boost::iterator_range<const char*>(cur, end);
     ++skip;
   }
 
@@ -41,8 +41,11 @@ skip_t skip_comments(SourceIterator begin, SourceIterator end,
   return out;
 }
 
-std::vector<bool> emptyCols_(SourceIterator begin, SourceIterator end,
-                             size_t n = 100, std::string comment = "") {
+std::vector<bool> emptyCols_(
+    SourceIterator begin,
+    SourceIterator end,
+    size_t n = 100,
+    std::string comment = "") {
 
   std::vector<bool> is_white;
 
@@ -105,15 +108,23 @@ List whitespaceColumns(List sourceSpec, int n = 100, std::string comment = "") {
 #include "TokenizerFwf.h"
 #include <Rcpp.h>
 
-TokenizerFwf::TokenizerFwf(const std::vector<int> &beginOffset,
-                           const std::vector<int> &endOffset,
-                           std::vector<std::string> NA, std::string comment)
-    : beginOffset_(beginOffset), endOffset_(endOffset), NA_(NA),
-      cols_(beginOffset.size()), comment_(comment), moreTokens_(false),
+TokenizerFwf::TokenizerFwf(
+    const std::vector<int>& beginOffset,
+    const std::vector<int>& endOffset,
+    std::vector<std::string> NA,
+    std::string comment)
+    : beginOffset_(beginOffset),
+      endOffset_(endOffset),
+      NA_(NA),
+      cols_(beginOffset.size()),
+      comment_(comment),
+      moreTokens_(false),
       hasComment_(comment.size() > 0) {
   if (beginOffset_.size() != endOffset_.size())
-    Rcpp::stop("Begin (%i) and end (%i) specifications must have equal length",
-               beginOffset_.size(), endOffset_.size());
+    Rcpp::stop(
+        "Begin (%i) and end (%i) specifications must have equal length",
+        beginOffset_.size(),
+        endOffset_.size());
 
   if (beginOffset_.size() == 0)
     Rcpp::stop("Zero-length begin and end specifications not supported");
@@ -125,14 +136,18 @@ TokenizerFwf::TokenizerFwf(const std::vector<int> &beginOffset,
   max_ = 0;
   for (int j = 0; j < (cols_ - isRagged_); ++j) {
     if (endOffset_[j] <= beginOffset_[j])
-      Rcpp::stop("Begin offset (%i) must be smaller than end offset (%i)",
-                 beginOffset_[j], endOffset_[j]);
+      Rcpp::stop(
+          "Begin offset (%i) must be smaller than end offset (%i)",
+          beginOffset_[j],
+          endOffset_[j]);
 
     if (beginOffset_[j] < max_) {
-      Rcpp::stop("Overlapping specification not supported. "
-                 "Begin offset (%i) must be greater than or equal to previous "
-                 "end offset (%i)",
-                 beginOffset_[j], max_);
+      Rcpp::stop(
+          "Overlapping specification not supported. "
+          "Begin offset (%i) must be greater than or equal to previous "
+          "end offset (%i)",
+          beginOffset_[j],
+          max_);
     }
 
     if (endOffset_[j] > max_) {
@@ -184,8 +199,11 @@ findBeginning:
       break;
 
     if (*fieldBegin == '\n' || *fieldBegin == '\r') {
-      warn(row_, col_, tfm::format("%i chars between fields", skip),
-           tfm::format("%i chars until end of line", i));
+      warn(
+          row_,
+          col_,
+          tfm::format("%i chars between fields", skip),
+          tfm::format("%i chars until end of line", i));
 
       row_++;
       col_ = 0;
@@ -262,8 +280,8 @@ findBeginning:
   return t;
 }
 
-Token TokenizerFwf::fieldToken(SourceIterator begin, SourceIterator end,
-                               bool hasNull) {
+Token TokenizerFwf::fieldToken(
+    SourceIterator begin, SourceIterator end, bool hasNull) {
   if (begin == end)
     return Token(TOKEN_MISSING, row_, col_);
 
@@ -274,10 +292,10 @@ Token TokenizerFwf::fieldToken(SourceIterator begin, SourceIterator end,
   return t;
 }
 
-bool TokenizerFwf::isComment(const char *cur) const {
+bool TokenizerFwf::isComment(const char* cur) const {
   if (!hasComment_)
     return false;
 
-  boost::iterator_range<const char *> haystack(cur, end_);
+  boost::iterator_range<const char*> haystack(cur, end_);
   return boost::starts_with(haystack, comment_);
 }

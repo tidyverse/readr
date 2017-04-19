@@ -5,7 +5,7 @@ using namespace Rcpp;
 #include "LocaleInfo.h"
 #include "QiParsers.h"
 
-CollectorPtr Collector::create(List spec, LocaleInfo *pLocale) {
+CollectorPtr Collector::create(List spec, LocaleInfo* pLocale) {
   std::string subclass(as<CharacterVector>(spec.attr("class"))[0]);
 
   if (subclass == "collector_skip")
@@ -49,8 +49,8 @@ CollectorPtr Collector::create(List spec, LocaleInfo *pLocale) {
   return CollectorPtr(new CollectorSkip());
 }
 
-std::vector<CollectorPtr> collectorsCreate(ListOf<List> specs,
-                                           LocaleInfo *pLocale) {
+std::vector<CollectorPtr>
+collectorsCreate(ListOf<List> specs, LocaleInfo* pLocale) {
   std::vector<CollectorPtr> collectors;
   for (int j = 0; j < specs.size(); ++j) {
     CollectorPtr col = Collector::create(specs[j], pLocale);
@@ -62,7 +62,7 @@ std::vector<CollectorPtr> collectorsCreate(ListOf<List> specs,
 
 // Implementations ------------------------------------------------------------
 
-void CollectorCharacter::setValue(int i, const Token &t) {
+void CollectorCharacter::setValue(int i, const Token& t) {
   switch (t.type()) {
   case TOKEN_STRING: {
     boost::container::string buffer;
@@ -71,8 +71,10 @@ void CollectorCharacter::setValue(int i, const Token &t) {
     if (t.hasNull())
       warn(t.row(), t.col(), "", "embedded null");
 
-    SET_STRING_ELT(column_, i, pEncoder_->makeSEXP(string.first, string.second,
-                                                   t.hasNull()));
+    SET_STRING_ELT(
+        column_,
+        i,
+        pEncoder_->makeSEXP(string.first, string.second, t.hasNull()));
     break;
   };
   case TOKEN_MISSING:
@@ -86,11 +88,11 @@ void CollectorCharacter::setValue(int i, const Token &t) {
   }
 }
 
-void CollectorCharacter::setValue(int i, const std::string &s) {
+void CollectorCharacter::setValue(int i, const std::string& s) {
   SET_STRING_ELT(column_, i, Rf_mkCharCE(s.c_str(), CE_UTF8));
 }
 
-void CollectorDate::setValue(int i, const Token &t) {
+void CollectorDate::setValue(int i, const Token& t) {
   switch (t.type()) {
   case TOKEN_STRING: {
     boost::container::string buffer;
@@ -125,7 +127,7 @@ void CollectorDate::setValue(int i, const Token &t) {
   }
 }
 
-void CollectorDateTime::setValue(int i, const Token &t) {
+void CollectorDateTime::setValue(int i, const Token& t) {
   switch (t.type()) {
   case TOKEN_STRING: {
     boost::container::string buffer;
@@ -163,7 +165,7 @@ void CollectorDateTime::setValue(int i, const Token &t) {
   return;
 }
 
-void CollectorDouble::setValue(int i, const Token &t) {
+void CollectorDouble::setValue(int i, const Token& t) {
   switch (t.type()) {
   case TOKEN_STRING: {
     boost::container::string buffer;
@@ -194,7 +196,7 @@ void CollectorDouble::setValue(int i, const Token &t) {
   }
 }
 
-void CollectorFactor::insert(int i, Rcpp::String str, const Token &t) {
+void CollectorFactor::insert(int i, Rcpp::String str, const Token& t) {
   std::map<Rcpp::String, int>::iterator it = levelset_.find(str);
   if (it == levelset_.end()) {
     if (implicitLevels_ || (includeNa_ && str == NA_STRING)) {
@@ -211,7 +213,7 @@ void CollectorFactor::insert(int i, Rcpp::String str, const Token &t) {
   }
 }
 
-void CollectorFactor::setValue(int i, const Token &t) {
+void CollectorFactor::setValue(int i, const Token& t) {
 
   switch (t.type()) {
   case TOKEN_STRING: {
@@ -236,7 +238,7 @@ void CollectorFactor::setValue(int i, const Token &t) {
   }
 }
 
-void CollectorInteger::setValue(int i, const Token &t) {
+void CollectorInteger::setValue(int i, const Token& t) {
 
   switch (t.type()) {
   case TOKEN_STRING: {
@@ -267,7 +269,7 @@ void CollectorInteger::setValue(int i, const Token &t) {
   }
 }
 
-void CollectorLogical::setValue(int i, const Token &t) {
+void CollectorLogical::setValue(int i, const Token& t) {
 
   switch (t.type()) {
   case TOKEN_STRING: {
@@ -318,14 +320,14 @@ void CollectorLogical::setValue(int i, const Token &t) {
   }
 }
 
-void CollectorNumeric::setValue(int i, const Token &t) {
+void CollectorNumeric::setValue(int i, const Token& t) {
   switch (t.type()) {
   case TOKEN_STRING: {
     boost::container::string buffer;
     SourceIterators str = t.getString(&buffer);
 
-    bool ok = parseNumber(decimalMark_, groupingMark_, str.first, str.second,
-                          REAL(column_)[i]);
+    bool ok = parseNumber(
+        decimalMark_, groupingMark_, str.first, str.second, REAL(column_)[i]);
 
     if (!ok) {
       REAL(column_)[i] = NA_REAL;
@@ -344,7 +346,7 @@ void CollectorNumeric::setValue(int i, const Token &t) {
   }
 }
 
-void CollectorTime::setValue(int i, const Token &t) {
+void CollectorTime::setValue(int i, const Token& t) {
   switch (t.type()) {
   case TOKEN_STRING: {
     boost::container::string buffer;
@@ -379,7 +381,7 @@ void CollectorTime::setValue(int i, const Token &t) {
   }
 }
 
-void CollectorRaw::setValue(int i, const Token &t) {
+void CollectorRaw::setValue(int i, const Token& t) {
   if (t.type() == TOKEN_EOF) {
     Rcpp::stop("Invalid token");
   }

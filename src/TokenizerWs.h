@@ -15,8 +15,9 @@ class TokenizerWs : public Tokenizer {
   bool moreTokens_, hasComment_;
 
 public:
-  TokenizerWs(std::vector<std::string> NA = std::vector<std::string>(1, "NA"),
-              std::string comment = "");
+  TokenizerWs(
+      std::vector<std::string> NA = std::vector<std::string>(1, "NA"),
+      std::string comment = "");
 
   void tokenize(SourceIterator begin, SourceIterator end);
 
@@ -27,7 +28,7 @@ public:
 private:
   Token fieldToken(SourceIterator begin, SourceIterator end, bool hasNull);
 
-  bool isComment(const char *cur) const;
+  bool isComment(const char* cur) const;
 };
 
 #endif

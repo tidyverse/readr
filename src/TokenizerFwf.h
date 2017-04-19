@@ -16,10 +16,11 @@ class TokenizerFwf : public Tokenizer {
   bool moreTokens_, isRagged_, hasComment_;
 
 public:
-  TokenizerFwf(const std::vector<int> &beginOffset,
-               const std::vector<int> &endOffset,
-               std::vector<std::string> NA = std::vector<std::string>(1, "NA"),
-               std::string comment = "");
+  TokenizerFwf(
+      const std::vector<int>& beginOffset,
+      const std::vector<int>& endOffset,
+      std::vector<std::string> NA = std::vector<std::string>(1, "NA"),
+      std::string comment = "");
 
   void tokenize(SourceIterator begin, SourceIterator end);
 
@@ -30,7 +31,7 @@ public:
 private:
   Token fieldToken(SourceIterator begin, SourceIterator end, bool hasNull);
 
-  bool isComment(const char *cur) const;
+  bool isComment(const char* cur) const;
 };
 
 #endif

@@ -9,10 +9,10 @@
 // Author: The R Core Team.
 // License: GPL >= 2
 
-static const int month_length[12] = {31, 28, 31, 30, 31, 30,
-                                     31, 31, 30, 31, 30, 31};
-static const int month_start[12] = {0,   31,  59,  90,  120, 151,
-                                    181, 212, 243, 273, 304, 334};
+static const int month_length[12] = {
+    31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31};
+static const int month_start[12] = {
+    0, 31, 59, 90, 120, 151, 181, 212, 243, 273, 304, 334};
 
 // Leap days occur in a 400 year cycle: this records the cumulative number
 // of leap days in per cycle. Generated with:
@@ -54,10 +54,24 @@ class DateTime {
   std::string tz_;
 
 public:
-  DateTime(int year, int mon, int day, int hour = 0, int min = 0, int sec = 0,
-           double psec = 0, const std::string &tz = "")
-      : year_(year), mon_(mon), day_(day), hour_(hour), min_(min), sec_(sec),
-        offset_(0), psec_(psec), tz_(tz) {}
+  DateTime(
+      int year,
+      int mon,
+      int day,
+      int hour = 0,
+      int min = 0,
+      int sec = 0,
+      double psec = 0,
+      const std::string& tz = "")
+      : year_(year),
+        mon_(mon),
+        day_(day),
+        hour_(hour),
+        min_(min),
+        sec_(sec),
+        offset_(0),
+        psec_(psec),
+        tz_(tz) {}
 
   // Used to add time zone offsets which can only be easily applied once
   // we've converted into seconds since epoch.

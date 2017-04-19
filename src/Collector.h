@@ -16,17 +16,17 @@ typedef boost::shared_ptr<Collector> CollectorPtr;
 class Collector {
 protected:
   Rcpp::RObject column_;
-  Warnings *pWarnings_;
+  Warnings* pWarnings_;
 
   int n_;
 
 public:
-  Collector(SEXP column, Warnings *pWarnings = NULL)
+  Collector(SEXP column, Warnings* pWarnings = NULL)
       : column_(column), pWarnings_(pWarnings), n_(0) {}
 
   virtual ~Collector(){};
 
-  virtual void setValue(int i, const Token &t) = 0;
+  virtual void setValue(int i, const Token& t) = 0;
 
   virtual Rcpp::RObject vector() { return column_; };
 
@@ -44,35 +44,39 @@ public:
 
   void clear() { resize(0); }
 
-  void setWarnings(Warnings *pWarnings) { pWarnings_ = pWarnings; }
+  void setWarnings(Warnings* pWarnings) { pWarnings_ = pWarnings; }
 
   inline void warn(int row, int col, std::string expected, std::string actual) {
     if (pWarnings_ == NULL) {
-      Rcpp::warning("[%i, %i]: expected %s, but got '%s'", row + 1, col + 1,
-                    expected, actual);
+      Rcpp::warning(
+          "[%i, %i]: expected %s, but got '%s'",
+          row + 1,
+          col + 1,
+          expected,
+          actual);
       return;
     }
 
     pWarnings_->addWarning(row, col, expected, actual);
   }
-  inline void warn(int row, int col, std::string expected,
-                   SourceIterators actual) {
+  inline void
+  warn(int row, int col, std::string expected, SourceIterators actual) {
     warn(row, col, expected, std::string(actual.first, actual.second));
   }
 
-  static CollectorPtr create(Rcpp::List spec, LocaleInfo *pLocale);
+  static CollectorPtr create(Rcpp::List spec, LocaleInfo* pLocale);
 };
 
 // Character -------------------------------------------------------------------
 
 class CollectorCharacter : public Collector {
-  Iconv *pEncoder_;
+  Iconv* pEncoder_;
 
 public:
-  CollectorCharacter(Iconv *pEncoder)
+  CollectorCharacter(Iconv* pEncoder)
       : Collector(Rcpp::CharacterVector()), pEncoder_(pEncoder) {}
-  void setValue(int i, const Token &t);
-  void setValue(int i, const std::string &s);
+  void setValue(int i, const Token& t);
+  void setValue(int i, const std::string& s);
 };
 
 // Date ------------------------------------------------------------------------
@@ -82,10 +86,10 @@ class CollectorDate : public Collector {
   DateTimeParser parser_;
 
 public:
-  CollectorDate(LocaleInfo *pLocale, const std::string &format)
+  CollectorDate(LocaleInfo* pLocale, const std::string& format)
       : Collector(Rcpp::NumericVector()), format_(format), parser_(pLocale) {}
 
-  void setValue(int i, const Token &t);
+  void setValue(int i, const Token& t);
 
   Rcpp::RObject vector() {
     column_.attr("class") = "Date";
@@ -101,11 +105,13 @@ class CollectorDateTime : public Collector {
   std::string tz_;
 
 public:
-  CollectorDateTime(LocaleInfo *pLocale, const std::string &format)
-      : Collector(Rcpp::NumericVector()), format_(format), parser_(pLocale),
+  CollectorDateTime(LocaleInfo* pLocale, const std::string& format)
+      : Collector(Rcpp::NumericVector()),
+        format_(format),
+        parser_(pLocale),
         tz_(pLocale->tz_) {}
 
-  void setValue(int i, const Token &t);
+  void setValue(int i, const Token& t);
 
   Rcpp::RObject vector() {
     column_.attr("class") = Rcpp::CharacterVector::create("POSIXct", "POSIXt");
@@ -120,23 +126,28 @@ class CollectorDouble : public Collector {
 public:
   CollectorDouble(char decimalMark)
       : Collector(Rcpp::NumericVector()), decimalMark_(decimalMark) {}
-  void setValue(int i, const Token &t);
+  void setValue(int i, const Token& t);
 };
 
 class CollectorFactor : public Collector {
-  Iconv *pEncoder_;
+  Iconv* pEncoder_;
   std::vector<Rcpp::String> levels_;
   std::map<Rcpp::String, int> levelset_;
   bool ordered_, implicitLevels_, includeNa_;
   boost::container::string buffer_;
 
-  void insert(int i, Rcpp::String str, const Token &t);
+  void insert(int i, Rcpp::String str, const Token& t);
 
 public:
-  CollectorFactor(Iconv *pEncoder, Rcpp::Nullable<Rcpp::CharacterVector> levels,
-                  bool ordered, bool includeNa)
-      : Collector(Rcpp::IntegerVector()), pEncoder_(pEncoder),
-        ordered_(ordered), includeNa_(includeNa) {
+  CollectorFactor(
+      Iconv* pEncoder,
+      Rcpp::Nullable<Rcpp::CharacterVector> levels,
+      bool ordered,
+      bool includeNa)
+      : Collector(Rcpp::IntegerVector()),
+        pEncoder_(pEncoder),
+        ordered_(ordered),
+        includeNa_(includeNa) {
     implicitLevels_ = levels.isNull();
     if (!implicitLevels_) {
       Rcpp::CharacterVector lvls = Rcpp::CharacterVector(levels);
@@ -145,7 +156,7 @@ public:
       for (int i = 0; i < n; ++i) {
         Rcpp::String std_level;
         if (STRING_ELT(lvls, i) != NA_STRING) {
-          const char *level = Rf_translateCharUTF8(STRING_ELT(lvls, i));
+          const char* level = Rf_translateCharUTF8(STRING_ELT(lvls, i));
           std_level = level;
         } else {
           std_level = NA_STRING;
@@ -155,7 +166,7 @@ public:
       }
     }
   }
-  void setValue(int i, const Token &t);
+  void setValue(int i, const Token& t);
 
   Rcpp::RObject vector() {
     if (ordered_) {
@@ -179,13 +190,13 @@ public:
 class CollectorInteger : public Collector {
 public:
   CollectorInteger() : Collector(Rcpp::IntegerVector()) {}
-  void setValue(int i, const Token &t);
+  void setValue(int i, const Token& t);
 };
 
 class CollectorLogical : public Collector {
 public:
   CollectorLogical() : Collector(Rcpp::LogicalVector()) {}
-  void setValue(int i, const Token &t);
+  void setValue(int i, const Token& t);
 };
 
 class CollectorNumeric : public Collector {
@@ -193,9 +204,10 @@ class CollectorNumeric : public Collector {
 
 public:
   CollectorNumeric(char decimalMark, char groupingMark)
-      : Collector(Rcpp::NumericVector()), decimalMark_(decimalMark),
+      : Collector(Rcpp::NumericVector()),
+        decimalMark_(decimalMark),
         groupingMark_(groupingMark) {}
-  void setValue(int i, const Token &t);
+  void setValue(int i, const Token& t);
   bool isNum(char c);
 };
 
@@ -206,10 +218,10 @@ class CollectorTime : public Collector {
   DateTimeParser parser_;
 
 public:
-  CollectorTime(LocaleInfo *pLocale, const std::string &format)
+  CollectorTime(LocaleInfo* pLocale, const std::string& format)
       : Collector(Rcpp::NumericVector()), format_(format), parser_(pLocale) {}
 
-  void setValue(int i, const Token &t);
+  void setValue(int i, const Token& t);
 
   Rcpp::RObject vector() {
     column_.attr("class") = Rcpp::CharacterVector::create("hms", "difftime");
@@ -223,7 +235,7 @@ public:
 class CollectorSkip : public Collector {
 public:
   CollectorSkip() : Collector(R_NilValue) {}
-  void setValue(int i, const Token &t) {}
+  void setValue(int i, const Token& t) {}
   bool skip() { return true; }
 };
 
@@ -231,15 +243,15 @@ public:
 class CollectorRaw : public Collector {
 public:
   CollectorRaw() : Collector(Rcpp::List()) {}
-  void setValue(int i, const Token &t);
+  void setValue(int i, const Token& t);
 };
 
 // Helpers ---------------------------------------------------------------------
 
-std::vector<CollectorPtr> collectorsCreate(Rcpp::ListOf<Rcpp::List> specs,
-                                           LocaleInfo *pLocale);
-void collectorsResize(std::vector<CollectorPtr> &collectors, int n);
-void collectorsClear(std::vector<CollectorPtr> &collectors);
+std::vector<CollectorPtr>
+collectorsCreate(Rcpp::ListOf<Rcpp::List> specs, LocaleInfo* pLocale);
+void collectorsResize(std::vector<CollectorPtr>& collectors, int n);
+void collectorsClear(std::vector<CollectorPtr>& collectors);
 std::string collectorGuess(Rcpp::CharacterVector input, Rcpp::List locale_);
 
 #endif

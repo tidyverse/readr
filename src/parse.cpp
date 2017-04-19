@@ -99,7 +99,7 @@ RObject tokenize_(List sourceSpec, List tokenizerSpec, int n_max) {
       rows.resize(t.row() + 1);
     }
 
-    std::vector<std::string> &row = rows[t.row()];
+    std::vector<std::string>& row = rows[t.row()];
     if (t.col() >= row.size())
       row.resize(t.col() + 1);
 
@@ -111,8 +111,11 @@ RObject tokenize_(List sourceSpec, List tokenizerSpec, int n_max) {
 }
 
 // [[Rcpp::export]]
-SEXP parse_vector_(CharacterVector x, List collectorSpec, List locale_,
-                   const std::vector<std::string> &na) {
+SEXP parse_vector_(
+    CharacterVector x,
+    List collectorSpec,
+    List locale_,
+    const std::vector<std::string>& na) {
   Warnings warnings;
   int n = x.size();
 

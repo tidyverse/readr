@@ -6,7 +6,7 @@
 struct DecimalCommaPolicy
     : public boost::spirit::qi::real_policies<long double> {
   template <typename Iterator>
-  static bool parse_dot(Iterator &first, Iterator const &last) {
+  static bool parse_dot(Iterator& first, Iterator const& last) {
     if (first == last || *first != ',')
       return false;
     ++first;
@@ -15,16 +15,18 @@ struct DecimalCommaPolicy
 };
 
 template <typename Iterator, typename Attr>
-inline bool parseDouble(const char decimalMark, Iterator &first, Iterator &last,
-                        Attr &res) {
+inline bool parseDouble(
+    const char decimalMark, Iterator& first, Iterator& last, Attr& res) {
 
   if (decimalMark == '.') {
-    return boost::spirit::qi::parse(first, last, boost::spirit::qi::long_double,
-                                    res);
+    return boost::spirit::qi::parse(
+        first, last, boost::spirit::qi::long_double, res);
   } else if (decimalMark == ',') {
     return boost::spirit::qi::parse(
-        first, last,
-        boost::spirit::qi::real_parser<long double, DecimalCommaPolicy>(), res);
+        first,
+        last,
+        boost::spirit::qi::real_parser<long double, DecimalCommaPolicy>(),
+        res);
   } else {
     return false;
   }
@@ -35,8 +37,12 @@ enum NumberState { STATE_INIT, STATE_LHS, STATE_RHS, STATE_FIN };
 // First and last are updated to point to first/last successfully parsed
 // character
 template <typename Iterator, typename Attr>
-inline bool parseNumber(char decimalMark, char groupingMark, Iterator &first,
-                        Iterator &last, Attr &res) {
+inline bool parseNumber(
+    char decimalMark,
+    char groupingMark,
+    Iterator& first,
+    Iterator& last,
+    Attr& res) {
 
   Iterator cur = first;
 
@@ -115,7 +121,7 @@ end:
 }
 
 template <typename Iterator, typename Attr>
-inline bool parseInt(Iterator &first, Iterator &last, Attr &res) {
+inline bool parseInt(Iterator& first, Iterator& last, Attr& res) {
   return boost::spirit::qi::parse(first, last, boost::spirit::qi::int_, res);
 }
 

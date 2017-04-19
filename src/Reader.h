@@ -8,12 +8,19 @@ using namespace Rcpp;
 
 class Reader {
 public:
-  Reader(SourcePtr source, TokenizerPtr tokenizer,
-         std::vector<CollectorPtr> collectors, bool progress = true,
-         CharacterVector colNames = CharacterVector());
+  Reader(
+      SourcePtr source,
+      TokenizerPtr tokenizer,
+      std::vector<CollectorPtr> collectors,
+      bool progress = true,
+      CharacterVector colNames = CharacterVector());
 
-  Reader(SourcePtr source, TokenizerPtr tokenizer, CollectorPtr collector,
-         bool progress = true, CharacterVector colNames = CharacterVector());
+  Reader(
+      SourcePtr source,
+      TokenizerPtr tokenizer,
+      CollectorPtr collector,
+      bool progress = true,
+      CharacterVector colNames = CharacterVector());
 
   RObject readToDataFrame(int lines = -1);
 

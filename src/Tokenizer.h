@@ -6,16 +6,16 @@
 #include <Rcpp.h>
 class Token;
 
-typedef const char *SourceIterator;
+typedef const char* SourceIterator;
 typedef std::pair<SourceIterator, SourceIterator> SourceIterators;
-typedef void (*UnescapeFun)(SourceIterator, SourceIterator,
-                            boost::container::string *);
+typedef void (*UnescapeFun)(
+    SourceIterator, SourceIterator, boost::container::string*);
 
 class Tokenizer;
 typedef boost::shared_ptr<Tokenizer> TokenizerPtr;
 
 class Tokenizer {
-  Warnings *pWarnings_;
+  Warnings* pWarnings_;
 
 public:
   Tokenizer() : pWarnings_(NULL) {}
@@ -26,17 +26,22 @@ public:
   // Percentage & bytes
   virtual std::pair<double, size_t> progress() = 0;
 
-  virtual void unescape(SourceIterator begin, SourceIterator end,
-                        boost::container::string *pOut) {
+  virtual void unescape(
+      SourceIterator begin,
+      SourceIterator end,
+      boost::container::string* pOut) {
     pOut->reserve(end - begin);
     for (SourceIterator cur = begin; cur != end; ++cur)
       pOut->push_back(*cur);
   }
 
-  void setWarnings(Warnings *pWarnings) { pWarnings_ = pWarnings; }
+  void setWarnings(Warnings* pWarnings) { pWarnings_ = pWarnings; }
 
-  inline void warn(int row, int col, const std::string &expected,
-                   const std::string &actual = "") {
+  inline void warn(
+      int row,
+      int col,
+      const std::string& expected,
+      const std::string& actual = "") {
     if (pWarnings_ == NULL) {
       Rcpp::warning("[%i, %i]: expected %s", row + 1, col + 1, expected);
       return;
@@ -52,10 +57,10 @@ public:
 // how loop is exited
 
 class Advance : boost::noncopyable {
-  SourceIterator *pIter_;
+  SourceIterator* pIter_;
 
 public:
-  Advance(SourceIterator *pIter) : pIter_(pIter) {}
+  Advance(SourceIterator* pIter) : pIter_(pIter) {}
   ~Advance() { (*pIter_)++; }
 };
 

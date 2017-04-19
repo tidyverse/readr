@@ -5,7 +5,7 @@
 #include <boost/iostreams/categories.hpp> // sink_tag
 #include <ios>                            // streamsize
 
-typedef struct Rconn *Rconnection;
+typedef struct Rconn* Rconnection;
 Rconnection get_connection(SEXP con);
 
 // http://www.boost.org/doc/libs/1_63_0/libs/iostreams/doc/tutorial/container_sink.html
@@ -20,7 +20,7 @@ public:
   typedef io::sink_tag category;
 
   connection_sink(SEXP con);
-  std::streamsize write(const char *s, std::streamsize n);
+  std::streamsize write(const char* s, std::streamsize n);
 };
 
 #endif

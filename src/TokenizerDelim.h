@@ -31,12 +31,15 @@ class TokenizerDelim : public Tokenizer {
   bool moreTokens_;
 
 public:
-  TokenizerDelim(char delim = ',', char quote = '"',
-                 std::vector<std::string> NA = std::vector<std::string>(1,
-                                                                        "NA"),
-                 std::string comment = "", bool trimWS = true,
-                 bool escapeBackslash = false, bool escapeDouble = true,
-                 bool quotedNA = true);
+  TokenizerDelim(
+      char delim = ',',
+      char quote = '"',
+      std::vector<std::string> NA = std::vector<std::string>(1, "NA"),
+      std::string comment = "",
+      bool trimWS = true,
+      bool escapeBackslash = false,
+      bool escapeDouble = true,
+      bool quotedNA = true);
 
   void tokenize(SourceIterator begin, SourceIterator end);
 
@@ -44,11 +47,11 @@ public:
 
   Token nextToken();
 
-  void unescape(SourceIterator begin, SourceIterator end,
-                boost::container::string *pOut);
+  void unescape(
+      SourceIterator begin, SourceIterator end, boost::container::string* pOut);
 
 private:
-  bool isComment(const char *cur) const;
+  bool isComment(const char* cur) const;
 
   void newField();
 
@@ -56,16 +59,27 @@ private:
 
   Token emptyToken(int row, int col);
 
-  Token fieldToken(SourceIterator begin, SourceIterator end, bool hasEscapeB,
-                   bool hasNull, int row, int col);
+  Token fieldToken(
+      SourceIterator begin,
+      SourceIterator end,
+      bool hasEscapeB,
+      bool hasNull,
+      int row,
+      int col);
 
-  Token stringToken(SourceIterator begin, SourceIterator end, bool hasEscapeB,
-                    bool hasEscapeD, bool hasNull, int row, int col);
+  Token stringToken(
+      SourceIterator begin,
+      SourceIterator end,
+      bool hasEscapeB,
+      bool hasEscapeD,
+      bool hasNull,
+      int row,
+      int col);
 
-  void unescapeBackslash(SourceIterator begin, SourceIterator end,
-                         boost::container::string *pOut);
+  void unescapeBackslash(
+      SourceIterator begin, SourceIterator end, boost::container::string* pOut);
 
-  void unescapeDouble(SourceIterator begin, SourceIterator end,
-                      boost::container::string *pOut);
+  void unescapeDouble(
+      SourceIterator begin, SourceIterator end, boost::container::string* pOut);
 };
 #endif

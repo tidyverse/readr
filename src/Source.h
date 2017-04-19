@@ -11,15 +11,18 @@ class Source {
 public:
   virtual ~Source() {}
 
-  virtual const char *begin() = 0;
-  virtual const char *end() = 0;
+  virtual const char* begin() = 0;
+  virtual const char* end() = 0;
 
-  static const char *skipLines(const char *begin, const char *end, int n,
-                               const std::string &comment = "") {
+  static const char* skipLines(
+      const char* begin,
+      const char* end,
+      int n,
+      const std::string& comment = "") {
     bool hasComment = comment != "";
     bool isComment = false, lineStart = true;
 
-    const char *cur = begin;
+    const char* cur = begin;
 
     while (n > 0 && cur != end) {
       if (lineStart) {
@@ -46,7 +49,7 @@ public:
     return cur;
   }
 
-  static const char *skipBom(const char *begin, const char *end) {
+  static const char* skipBom(const char* begin, const char* end) {
 
     /* Unicode Byte Order Marks
        https://en.wikipedia.org/wiki/Byte_order_mark#Representations_of_byte_order_marks_by_encoding
@@ -100,9 +103,9 @@ public:
   static SourcePtr create(Rcpp::List spec);
 
 private:
-  static bool inComment(const char *cur, const char *end,
-                        const std::string &comment) {
-    boost::iterator_range<const char *> haystack(cur, end);
+  static bool
+  inComment(const char* cur, const char* end, const std::string& comment) {
+    boost::iterator_range<const char*> haystack(cur, end);
     return boost::starts_with(haystack, comment);
   }
 };

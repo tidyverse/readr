@@ -9,8 +9,11 @@ public:
   Warnings() {}
 
   // row and col should be zero-indexed. addWarning converts into one-indexed
-  void addWarning(int row, int col, const std::string &expected,
-                  const std::string &actual) {
+  void addWarning(
+      int row,
+      int col,
+      const std::string& expected,
+      const std::string& actual) {
     row_.push_back(row == -1 ? NA_INTEGER : row + 1);
     col_.push_back(col == -1 ? NA_INTEGER : col + 1);
     expected_.push_back(expected);
@@ -36,7 +39,8 @@ public:
 
   Rcpp::List asDataFrame() {
     Rcpp::List out = Rcpp::List::create(
-        Rcpp::_["row"] = Rcpp::wrap(row_), Rcpp::_["col"] = Rcpp::wrap(col_),
+        Rcpp::_["row"] = Rcpp::wrap(row_),
+        Rcpp::_["col"] = Rcpp::wrap(col_),
         Rcpp::_["expected"] = Rcpp::wrap(expected_),
         Rcpp::_["actual"] = Rcpp::wrap(actual_));
     out.attr("class") =

@@ -27,8 +27,12 @@ class Progress {
 
 public:
   Progress(int min = 5, int width = Rf_GetOptionWidth())
-      : timeMin_(min), timeInit_(now()), timeStop_(now()), width_(width),
-        show_(false), stopped_(false) {}
+      : timeMin_(min),
+        timeInit_(now()),
+        timeStop_(now()),
+        width_(width),
+        show_(false),
+        stopped_(false) {}
 
   void stop() {
     timeStop_ = now();

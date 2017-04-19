@@ -20,15 +20,25 @@ class Token {
   size_t row_, col_;
   bool hasNull_;
 
-  Tokenizer *pTokenizer_;
+  Tokenizer* pTokenizer_;
 
 public:
   Token() : type_(TOKEN_EMPTY), row_(0), col_(0) {}
   Token(TokenType type, int row, int col) : type_(type), row_(row), col_(col) {}
-  Token(SourceIterator begin, SourceIterator end, int row, int col,
-        bool hasNull, Tokenizer *pTokenizer = NULL)
-      : type_(TOKEN_STRING), begin_(begin), end_(end), row_(row), col_(col),
-        hasNull_(hasNull), pTokenizer_(pTokenizer) {
+  Token(
+      SourceIterator begin,
+      SourceIterator end,
+      int row,
+      int col,
+      bool hasNull,
+      Tokenizer* pTokenizer = NULL)
+      : type_(TOKEN_STRING),
+        begin_(begin),
+        end_(end),
+        row_(row),
+        col_(col),
+        hasNull_(hasNull),
+        pTokenizer_(pTokenizer) {
     if (begin_ == end_)
       type_ = TOKEN_EMPTY;
   }
@@ -62,7 +72,7 @@ public:
     return out;
   }
 
-  SEXP asSEXP(Iconv *pEncoder) const {
+  SEXP asSEXP(Iconv* pEncoder) const {
     switch (type_) {
     case TOKEN_STRING: {
       boost::container::string buffer;
@@ -77,7 +87,7 @@ public:
 
   TokenType type() const { return type_; }
 
-  SourceIterators getString(boost::container::string *pOut) const {
+  SourceIterators getString(boost::container::string* pOut) const {
     if (pTokenizer_ == NULL)
       return std::make_pair(begin_, end_);
 
@@ -90,7 +100,7 @@ public:
 
   bool hasNull() const { return hasNull_; }
 
-  Token &trim() {
+  Token& trim() {
     while (begin_ != end_ && *begin_ == ' ')
       begin_++;
     while (end_ != begin_ && *(end_ - 1) == ' ')
@@ -102,7 +112,7 @@ public:
     return *this;
   }
 
-  Token &flagNA(const std::vector<std::string> &NA) {
+  Token& flagNA(const std::vector<std::string>& NA) {
 
     std::vector<std::string>::const_iterator it;
     for (it = NA.begin(); it != NA.end(); ++it) {

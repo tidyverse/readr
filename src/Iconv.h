@@ -5,19 +5,19 @@
 #include <errno.h>
 
 class Iconv {
-  void *cd_;
+  void* cd_;
   std::string buffer_;
 
 public:
-  Iconv(const std::string &from, const std::string &to = "UTF-8");
+  Iconv(const std::string& from, const std::string& to = "UTF-8");
   virtual ~Iconv();
 
-  SEXP makeSEXP(const char *start, const char *end, bool hasNull = true);
-  std::string makeString(const char *start, const char *end);
+  SEXP makeSEXP(const char* start, const char* end, bool hasNull = true);
+  std::string makeString(const char* start, const char* end);
 
 private:
   // Returns number of characters in buffer
-  size_t convert(const char *start, const char *end);
+  size_t convert(const char* start, const char* end);
 };
 
 #endif

@@ -6,8 +6,13 @@ using namespace Rcpp;
 #include "Token.h"
 
 // [[Rcpp::export]]
-RObject type_convert_col(CharacterVector x, List spec, List locale_, int col,
-                         const std::vector<std::string> &na, bool trim_ws) {
+RObject type_convert_col(
+    CharacterVector x,
+    List spec,
+    List locale_,
+    int col,
+    const std::vector<std::string>& na,
+    bool trim_ws) {
   LocaleInfo locale(locale_);
 
   CollectorPtr collector = Collector::create(spec, &locale);
@@ -20,7 +25,7 @@ RObject type_convert_col(CharacterVector x, List spec, List locale_, int col,
     if (string == NA_STRING) {
       t = Token(TOKEN_MISSING, i - 1, col - 1);
     } else {
-      const char *begin = CHAR(string);
+      const char* begin = CHAR(string);
       t = Token(begin, begin + Rf_length(string), i - 1, col - 1, false);
       if (trim_ws)
         t.trim();
