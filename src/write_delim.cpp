@@ -107,7 +107,7 @@ std::string stream_delim_(
   if (connection == R_NilValue) {
     std::ostringstream output;
     stream_delim(output, df, delim, na, col_names, bom);
-    return output.str();
+    Rcpp::Rcout << output.str();
   } else {
     boost::iostreams::stream<connection_sink> output(connection);
     stream_delim(output, df, delim, na, col_names, bom);
