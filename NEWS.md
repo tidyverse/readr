@@ -1,3 +1,9 @@
+# readr 1.1.0.9000
+
+* Column guessing will now never guess an integer type. This avoids issues
+  where double columns are incorrectly guessed as integers if they have only
+  integer values in the first 1000 (#645, #652).
+
 # readr 1.1.0
 
 ## New features

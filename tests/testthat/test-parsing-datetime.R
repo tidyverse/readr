@@ -246,5 +246,5 @@ test_that("must have either two - or none", {
   expect_equal(guess_parser("2000-10-10"), "date")
   expect_equal(guess_parser("2000-1010"), "character")
   expect_equal(guess_parser("200010-10"), "character")
-  expect_equal(guess_parser("20001010"), "integer")
+  expect_equal(guess_parser("20001010"), "double")
 })

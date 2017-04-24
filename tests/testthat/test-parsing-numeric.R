@@ -43,7 +43,7 @@ test_that("problems() returns the full failed string if parsing fails (548)", {
 # Leading zeros -----------------------------------------------------------
 
 test_that("leading zeros are not numbers", {
-  expect_equal(guess_parser("0"), "integer")
+  expect_equal(guess_parser("0"), "double")
   expect_equal(guess_parser("0."), "double")
   expect_equal(guess_parser("0001"), "character")
 })

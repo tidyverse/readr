@@ -38,7 +38,7 @@ test_that("col_types expanded to col_names by guessing", {
     "Insufficient `col_types`"
   )
   expect_equal(names(out[[1]]), c("a", "b", "c"))
-  expect_equal(out[[1]][[3]], col_integer())
+  expect_equal(out[[1]][[3]], col_double())
 })
 
 test_that("defaults expanded to match names", {
@@ -51,7 +51,7 @@ test_that("defaults expanded to match names", {
 })
 
 test_that("col_spec_standardise works properly with 1 row inputs and no header columns (#333)", {
-  expect_is(col_spec_standardise("1\n", col_names = FALSE)[[1]]$X1, "collector_integer")
+  expect_is(col_spec_standardise("1\n", col_names = FALSE)[[1]]$X1, "collector_double")
 })
 
 test_that("warns about duplicated names", {
@@ -83,9 +83,9 @@ test_that("print(col_spec) with guess_parser", {
   expect_output(print(out),
     regex_escape(
 "cols(
-  a = col_integer(),
-  b = col_integer(),
-  c = col_integer()
+  a = col_double(),
+  b = col_double(),
+  c = col_double()
 )"))
 })
 
@@ -118,7 +118,7 @@ test_that("spec object attached to read data", {
   expect_equal(spec(test_data),
     cols(
        a = col_logical(),
-       b = col_integer(),
+       b = col_double(),
        c = col_double(),
        d = col_character()))
 })
@@ -172,7 +172,7 @@ test_that("print(col_spec, condense = TRUE) condenses the spec", {
   expect_output(print(cols_condense(out)),
     regex_escape(
 "cols(
-  .default = col_integer(),
+  .default = col_double(),
   d = col_character()
 )"))
 
@@ -180,7 +180,7 @@ test_that("print(col_spec, condense = TRUE) condenses the spec", {
   expect_output(print(cols_condense(out)),
     regex_escape(
 "cols(
-  .default = col_integer()
+  .default = col_double()
 )"))
 })
 
@@ -210,10 +210,10 @@ test_that("non-syntatic names are escaped", {
   x <- read_csv("a b,_c,1,a`b\n1,2,3,4")
   expect_equal(format(spec(x)),
 "cols(
-  `a b` = col_integer(),
-  `_c` = col_integer(),
-  `1` = col_integer(),
-  `a\\`b` = col_integer()
+  `a b` = col_double(),
+  `_c` = col_double(),
+  `1` = col_double(),
+  `a\\`b` = col_double()
 )
 ")
 })
