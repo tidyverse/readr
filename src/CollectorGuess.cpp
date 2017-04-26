@@ -35,16 +35,6 @@ bool isLogical(const std::string& x, LocaleInfo* pLocale) {
   return x == "T" || x == "F" || x == "TRUE" || x == "FALSE";
 }
 
-bool isInteger(const std::string& x, LocaleInfo* pLocale) {
-  if (x[0] == '0' && x.size() > 1)
-    return false;
-
-  int res = 0;
-  std::string::const_iterator begin = x.begin(), end = x.end();
-
-  return parseInt(begin, end, res) && begin == end;
-}
-
 bool isNumber(const std::string& x, LocaleInfo* pLocale) {
   // Leading zero not followed by decimal mark
   if (x[0] == '0' && x.size() > 1 && x[1] != pLocale->decimalMark_)
@@ -109,8 +99,6 @@ std::string collectorGuess(CharacterVector input, List locale_) {
   // Work from strictest to most flexible
   if (canParse(input, isLogical, &locale))
     return "logical";
-  if (canParse(input, isInteger, &locale))
-    return "integer";
   if (canParse(input, isDouble, &locale))
     return "double";
   if (canParse(input, isNumber, &locale))

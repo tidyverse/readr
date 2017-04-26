@@ -9,8 +9,8 @@ test_that("guess for missing vector is character", {
 })
 
 test_that("empty + NA ignored when determining type", {
-  expect_equal(guess_parser(c("1", "")), "integer")
-  expect_equal(guess_parser(c("1", NA)), "integer")
+  expect_equal(guess_parser(c("1", "")), "double")
+  expect_equal(guess_parser(c("1", NA)), "double")
 })
 
 test_that("guess decimal commas with correct locale", {
