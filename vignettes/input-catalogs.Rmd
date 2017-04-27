@@ -1,0 +1,66 @@
+---
+title: "Input Catalogs"
+author: "Nicolas Coutin"
+date: "`r Sys.Date()`"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Vignette Title}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+
+## What is an input catalog ?
+
+An input catalog (inca for short?) is a table that catalogs the inputs of a project. It is a `data.frame` object where each observation/record/row represents an input: something to be inputed into R relevant to your project.
+
+```{r eg-inca}
+library(readr)
+library(dplyr)
+eg_file <- system.file("extdata/mtcars.csv", package = "readr")
+in_catalog <- data_frame(
+  in_name = c("first-ten-mtcars", "next-ten-mtcars"),
+  in_fun = c("read_csv", "read_csv"),
+  in_args = list(list(file = eg_file, n_max = 10L),
+                 list(file = eg_file, n_max = 10L, skip = 10L)))
+str(in_catalog)
+```
+
+An input catalog allows you to read in many inputs by calling:
+```{r read-catalog}
+read_catalog(in_catalog) 
+```
+
+Note the defining variables of an inca:
+- `in_name` (character) the human-friendly name of the input / analyte
+- `in_fun` (character) the function used to input.
+- `in_agrs` (named list) the arguments to be used in `in_fun` when inputting.
+
+## Why would I use one?
+
+Because storing your inputs this way makes it easy to document exactly what gets inputed into each analysis.
+
+For example, you have 3 figures:
+
+```{r add-filtering-columns}
+in_catalog <- in_catalog %>% 
+  mutate(incl_in_fig1 = c(TRUE, TRUE),
+         incl_in_fig2 = c(TRUE, FALSE),
+         incl_in_fig3 = c(FALSE, TRUE))
+in_catalog
+```
+
+Which makes it easy and obvious in your analysis leading to figure 2:
+
+```{r filter-inca}
+in_catalog %>% 
+  filter(incl_in_fig2)
+```
+
+You can also easily turn your input catalog into an output file that goes along
+with your analysis:
+
+```{r output-inca, eval = FALSE}
+in_catalog %>% write_rds("input-catalog.rds") # not run
+```
+
