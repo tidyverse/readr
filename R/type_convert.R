@@ -7,7 +7,7 @@
 #'
 #' @param df A data frame.
 #' @param col_types One of `NULL`, a [cols()] specification, or
-#'   a string. See `vignette("column-types")` for more details.
+#'   a string. See `vignette("readr")` for more details.
 #'
 #'   If `NULL`, all column types will be imputed from the first 1000 rows
 #'   on the input. This is convenient (and fast), but not robust. If the

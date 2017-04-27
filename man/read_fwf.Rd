@@ -39,7 +39,7 @@ use \code{\link[=fwf_positions]{fwf_positions()}}. If the width of the last colu
 ragged fwf file), supply the last end position as NA.}
 
 \item{col_types}{One of \code{NULL}, a \code{\link[=cols]{cols()}} specification, or
-a string. See \code{vignette("column-types")} for more details.
+a string. See \code{vignette("readr")} for more details.
 
 If \code{NULL}, all column types will be imputed from the first 1000 rows
 on the input. This is convenient (and fast), but not robust. If the

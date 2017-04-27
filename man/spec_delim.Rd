@@ -75,7 +75,7 @@ in with dummy names \code{X1}, \code{X2} etc. Duplicate column names
 will generate a warning and be made unique with a numeric prefix.}
 
 \item{col_types}{One of \code{NULL}, a \code{\link[=cols]{cols()}} specification, or
-a string. See \code{vignette("column-types")} for more details.
+a string. See \code{vignette("readr")} for more details.
 
 If \code{NULL}, all column types will be imputed from the first 1000 rows
 on the input. This is convenient (and fast), but not robust. If the
