@@ -271,25 +271,27 @@ BEGIN_RCPP
 END_RCPP
 }
 // write_lines_
-void write_lines_(const CharacterVector& lines, RObject connection, const std::string& na);
-RcppExport SEXP _readr_write_lines_(SEXP linesSEXP, SEXP connectionSEXP, SEXP naSEXP) {
+void write_lines_(const CharacterVector& lines, RObject connection, const std::string& na, const std::string& sep);
+RcppExport SEXP _readr_write_lines_(SEXP linesSEXP, SEXP connectionSEXP, SEXP naSEXP, SEXP sepSEXP) {
 BEGIN_RCPP
     Rcpp::RNGScope rcpp_rngScope_gen;
     Rcpp::traits::input_parameter< const CharacterVector& >::type lines(linesSEXP);
     Rcpp::traits::input_parameter< RObject >::type connection(connectionSEXP);
     Rcpp::traits::input_parameter< const std::string& >::type na(naSEXP);
-    write_lines_(lines, connection, na);
+    Rcpp::traits::input_parameter< const std::string& >::type sep(sepSEXP);
+    write_lines_(lines, connection, na, sep);
     return R_NilValue;
 END_RCPP
 }
 // write_lines_raw_
-void write_lines_raw_(List x, RObject connection);
-RcppExport SEXP _readr_write_lines_raw_(SEXP xSEXP, SEXP connectionSEXP) {
+void write_lines_raw_(List x, RObject connection, const std::string& sep);
+RcppExport SEXP _readr_write_lines_raw_(SEXP xSEXP, SEXP connectionSEXP, SEXP sepSEXP) {
 BEGIN_RCPP
     Rcpp::RNGScope rcpp_rngScope_gen;
     Rcpp::traits::input_parameter< List >::type x(xSEXP);
     Rcpp::traits::input_parameter< RObject >::type connection(connectionSEXP);
-    write_lines_raw_(x, connection);
+    Rcpp::traits::input_parameter< const std::string& >::type sep(sepSEXP);
+    write_lines_raw_(x, connection, sep);
     return R_NilValue;
 END_RCPP
 }
@@ -336,8 +338,8 @@ static const R_CallMethodDef CallEntries[] = {
     {"_readr_whitespaceColumns", (DL_FUNC) &_readr_whitespaceColumns, 3},
     {"_readr_type_convert_col", (DL_FUNC) &_readr_type_convert_col, 6},
     {"_readr_stream_delim_", (DL_FUNC) &_readr_stream_delim_, 6},
-    {"_readr_write_lines_", (DL_FUNC) &_readr_write_lines_, 3},
-    {"_readr_write_lines_raw_", (DL_FUNC) &_readr_write_lines_raw_, 2},
+    {"_readr_write_lines_", (DL_FUNC) &_readr_write_lines_, 4},
+    {"_readr_write_lines_raw_", (DL_FUNC) &_readr_write_lines_raw_, 3},
     {"_readr_write_file_", (DL_FUNC) &_readr_write_file_, 2},
     {"_readr_write_file_raw_", (DL_FUNC) &_readr_write_file_raw_, 2},
     {NULL, NULL, 0}
