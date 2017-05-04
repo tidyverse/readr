@@ -77,12 +77,12 @@ stream_delim_ <- function(df, connection, delim, na, col_names = TRUE, bom = FAL
     .Call(`_readr_stream_delim_`, df, connection, delim, na, col_names, bom)
 }
 
-write_lines_ <- function(lines, connection, na) {
-    invisible(.Call(`_readr_write_lines_`, lines, connection, na))
+write_lines_ <- function(lines, connection, na, sep = "\n") {
+    invisible(.Call(`_readr_write_lines_`, lines, connection, na, sep))
 }
 
-write_lines_raw_ <- function(x, connection) {
-    invisible(.Call(`_readr_write_lines_raw_`, x, connection))
+write_lines_raw_ <- function(x, connection, sep = "\n") {
+    invisible(.Call(`_readr_write_lines_raw_`, x, connection, sep))
 }
 
 write_file_ <- function(x, connection) {

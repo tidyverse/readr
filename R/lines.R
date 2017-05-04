@@ -12,6 +12,9 @@
 #'   file will be read.
 #' @return `read_lines()`: A character vector with one element for each line.
 #'   `read_lines_raw()`: A list containing a raw vector for each line.
+#' @param sep The line separator. Defaults to `\\n`, commonly used on POSIX
+#' systems like macOS and linux. For native windows (CRLF) separators use
+#' `\\r\\n`.
 #' @export
 #' @examples
 #' read_lines(file.path(R.home("doc"), "AUTHORS"), n_max = 10)
@@ -50,7 +53,7 @@ read_lines_raw <- function(file, skip = 0, n_max = -1L, progress = show_progress
 #' @return `write_lines()` returns `x`, invisibly.
 #' @export
 #' @rdname read_lines
-write_lines <- function(x, path, na = "NA", append = FALSE) {
+write_lines <- function(x, path, sep = "\n", na = "NA", append = FALSE) {
   is_raw <- is.list(x) && inherits(x[[1]], "raw")
   if (!is_raw) {
     x <- as.character(x)
@@ -62,9 +65,9 @@ write_lines <- function(x, path, na = "NA", append = FALSE) {
     open(path, if (isTRUE(append)) "ab" else "wb")
   }
   if (is_raw) {
-    write_lines_raw_(x, path)
+    write_lines_raw_(x, path, sep)
   } else {
-    write_lines_(x, path, na)
+    write_lines_(x, path, na, sep)
   }
 
   invisible(x)
