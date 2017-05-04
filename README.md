@@ -94,7 +94,7 @@ mtcars <- read_csv(readr_example("mtcars.csv"), col_types =
 )
 ```
 
-`vignette("column-types")` gives more detail on how readr guess the column types, how you can override the defaults, and provides some useful tools for debugging parsing problems.
+`vignette("readr")` gives more detail on how readr guess the column types, how you can override the defaults, and provides some useful tools for debugging parsing problems.
 
 Alternatives
 ------------
