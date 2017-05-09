@@ -3,8 +3,9 @@ using namespace Rcpp;
 
 #include "Iconv.h"
 
-Iconv::Iconv(const std::string& from, const std::string& to) {
-  if (from == "UTF-8") {
+Iconv::Iconv(const std::string& from, const std::string& to)
+  : from(from), to(to) {
+  if (from == to) {
     cd_ = NULL;
   } else {
     cd_ = Riconv_open(to.c_str(), from.c_str());
@@ -83,6 +84,9 @@ SEXP Iconv::makeSEXP(const char* start, const char* end, bool hasNull) {
     return safeMakeChar(start, end - start, hasNull);
 
   int n = convert(start, end);
+  if (to != "UTF-8") {
+    stop("makeSEXP not to UTF-8, should not happen");
+  }
   return safeMakeChar(&buffer_[0], n, hasNull);
 }
 
@@ -92,4 +96,13 @@ std::string Iconv::makeString(const char* start, const char* end) {
 
   int n = convert(start, end);
   return std::string(&buffer_[0], n);
+}
+
+std::string Iconv::makeString(const std::string& what) {
+  return makeString(what.c_str(), what.c_str() + what.length());
+}
+
+/* Use only if `what` is a Cstring (strlen works, zero byte marks the end) */
+std::string Iconv::makeString(const char* what) {
+  return makeString(what, what + strlen(what));
 }

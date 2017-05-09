@@ -3,11 +3,11 @@ context("TokenizerDelim")
 
 parse_b <- function(x, ...) {
   tok <- tokenizer_delim(",", escape_double = FALSE, escape_backslash = TRUE, ...)
-  tokenize(datasource_string(x, 0), tok)
+  tokenize(datasource_string(x, skip = 0, comment = "", encoding = "UTF-8"), tok)
 }
 parse_d <- function(x, ...) {
   tok <- tokenizer_delim(",", escape_double = TRUE, escape_backslash = FALSE, ...)
-  tokenize(datasource_string(x, 0), tok)
+  tokenize(datasource_string(x, skip = 0, comment = "", encoding = "UTF-8"), tok)
 }
 
 test_that("simple sequence parsed correctly", {

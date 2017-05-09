@@ -31,7 +31,7 @@
 #' con <- rawConnection(charToRaw("abc\n123"))
 #' datasource(con)
 #' close(con)
-datasource <- function(file, skip = 0, comment = "") {
+datasource <- function(file, skip = 0, comment = "", encoding = default_locale()$encoding) {
   if (inherits(file, "source")) {
 
     # If `skip` and `comment` arguments are expliictly passed, we want to use
@@ -44,20 +44,24 @@ datasource <- function(file, skip = 0, comment = "") {
       file$comment <- comment
     }
 
+    if (!missing(encoding)) {
+      file$encoding <- encoding
+    }
+
     file
   } else if (is.connection(file)) {
-    datasource_connection(file, skip, comment)
+    datasource_connection(file, skip, comment, encoding)
   } else if (is.raw(file)) {
-    datasource_raw(file, skip, comment)
+    datasource_raw(file, skip, comment, encoding)
   } else if (is.character(file)) {
     if (grepl("\n", file)) {
-      datasource_string(file, skip, comment)
+      datasource_string(file, skip, comment, encoding)
     } else {
       file <- standardise_path(file)
       if (is.connection(file)) {
-        datasource_connection(file, skip, comment)
+        datasource_connection(file, skip, comment, encoding)
       } else {
-        datasource_file(file, skip, comment)
+        datasource_file(file, skip, comment, encoding)
       }
     }
   } else {
@@ -65,28 +69,29 @@ datasource <- function(file, skip = 0, comment = "") {
   }
 }
 
+
 # Constructors -----------------------------------------------------------------
 
-new_datasource <- function(type, x, skip, comment = "", ...) {
-  structure(list(x, skip = skip, comment = comment, ...),
+new_datasource <- function(type, x, skip, comment = "", encoding, ...) {
+  structure(list(x, skip = skip, comment = comment, encoding = encoding, ...),
     class = c(paste0("source_", type), "source"))
 }
 
-datasource_string <- function(text, skip, comment = "") {
-  new_datasource("string", text, skip = skip, comment = comment)
+datasource_string <- function(text, skip, comment, encoding) {
+  new_datasource("string", text, skip = skip, comment = comment, encoding = encoding)
 }
 
-datasource_file <- function(path, skip, comment = "") {
+datasource_file <- function(path, skip, comment, encoding) {
   path <- check_path(path)
-  new_datasource("file", path, skip = skip, comment = comment)
+  new_datasource("file", path, skip = skip, comment = comment, encoding = encoding)
 }
 
-datasource_connection <- function(path, skip, comment = "") {
-  datasource_raw(read_connection(path), skip, comment = comment)
+datasource_connection <- function(path, skip, comment, encoding) {
+  datasource_raw(read_connection(path), skip, comment = comment, encoding = encoding)
 }
 
-datasource_raw <- function(text, skip, comment) {
-  new_datasource("raw", text, skip = skip, comment = comment)
+datasource_raw <- function(text, skip, comment, encoding) {
+  new_datasource("raw", text, skip = skip, comment = comment, encoding = encoding)
 }
 
 # Helpers ----------------------------------------------------------------------

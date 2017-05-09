@@ -167,7 +167,8 @@ test_that("n_max 0 gives zero row data frame", {
 })
 
 test_that("empty file with col_names and col_types creates correct columns", {
-  x <- read_csv(datasource_string("", 0), c("a", "b"), "ii", progress = FALSE)
+  x <- read_csv(datasource_string("", skip = 0, comment = "", encoding = "UTF-8"),
+                c("a", "b"), "ii", progress = FALSE)
   expect_equal(dim(x), c(0, 2))
   expect_equal(class(x$a), "integer")
   expect_equal(class(x$b), "integer")

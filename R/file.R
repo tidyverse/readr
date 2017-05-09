@@ -28,7 +28,7 @@ read_file <- function(file, locale = default_locale()) {
     return("")
   }
 
-  ds <- datasource(file)
+  ds <- datasource(file, encoding = locale$encoding)
   read_file_(ds, locale)
 }
 

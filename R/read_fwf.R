@@ -37,7 +37,8 @@ read_fwf <- function(file, col_positions, col_types = NULL,
                      locale = default_locale(), na = c("", "NA"),
                      comment = "", skip = 0, n_max = Inf,
                      guess_max = min(n_max, 1000), progress = show_progress()) {
-  ds <- datasource(file, skip = skip)
+  ds <- datasource(file, skip = skip, comment = comment, encoding = locale$encoding)
+
   if (inherits(ds, "source_file") && empty_file(file)) {
     return(tibble::tibble())
   }
@@ -73,9 +74,9 @@ read_fwf <- function(file, col_positions, col_types = NULL,
 #' @param n Number of lines the tokenizer will read to determine file structure. By default
 #'      it is set to 100.
 fwf_empty <- function(file, skip = 0, col_names = NULL, comment = "", n = 100L) {
-  ds <- datasource(file, skip = skip)
+  ds <- datasource(file, skip = skip, comment = comment)
 
-  out <- whitespaceColumns(ds, comment = comment, n = n)
+  out <- whitespaceColumns(ds, n = n)
   out$end[length(out$end)] <- NA
 
   col_names <- fwf_col_names(col_names, length(out$begin))

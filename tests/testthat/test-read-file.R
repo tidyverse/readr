@@ -21,7 +21,7 @@ test_that("read_file works with a local text file passed as character", {
 
 test_that("read_file works with a local text file, skipping one line", {
   expect_equal(
-    read_file(datasource("sample_text.txt", skip = 1)),
+    read_file(datasource("sample_text.txt", skip = 1, encoding = "UTF-8")),
     paste(tail(strsplit(sample_text_str,"\n")[[1]], -1), collapse = "\n")
   )
 })

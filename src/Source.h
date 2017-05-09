@@ -3,53 +3,55 @@
 
 #include "boost.h"
 #include <Rcpp.h>
+#include "CodePointIterator.h"
 
 class Source;
 typedef boost::shared_ptr<Source> SourcePtr;
 
 class Source {
 public:
+  Source(const std::string& comment, const std::string& encoding) : pComment(comment), pEncoding(encoding) {}
   virtual ~Source() {}
 
   virtual const char* begin() = 0;
   virtual const char* end() = 0;
+  inline std::string encoding() { return pEncoding;}
+  inline std::string comment() { return pComment;}
 
-  static const char* skipLines(
-      const char* begin,
-      const char* end,
-      int n,
-      const std::string& comment = "") {
-    bool hasComment = comment != "";
+  const char *skipLines(int skip) {
+    bool hasComment = pComment != "";
     bool isComment = false, lineStart = true;
 
-    const char* cur = begin;
+    CodePointIterator cur(begin(), end(), encoding());
+    uint32_t cp_lf = cur.cp_lf();
+    uint32_t cp_cr = cur.cp_cr();
+    uint32_t unit;
 
-    while (n > 0 && cur != end) {
+    while (skip > 0 && !cur.is_end()) {
       if (lineStart) {
-        isComment = hasComment && inComment(cur, end, comment);
+        isComment = hasComment && inComment(cur);
         lineStart = false;
       }
 
-      if (*cur == '\r') {
-        if (cur + 1 != end && *(cur + 1) == '\n') {
-          cur++;
-        }
+      unit = *cur;
+
+      if (unit == cp_lf) {
+        cur.advance_if_crlf();
         if (!isComment)
-          n--;
+          skip--;
         lineStart = true;
-      } else if (*cur == '\n') {
+      } else if (unit == cp_cr) {
         if (!isComment)
-          n--;
+          skip--;
         lineStart = true;
       }
-
-      cur++;
+      ++cur;
     }
 
-    return cur;
+    return cur.get_pos();
   }
 
-  static const char* skipBom(const char* begin, const char* end) {
+  const char* skipBom(const char* begin, const char* end) {
 
     /* Unicode Byte Order Marks
        https://en.wikipedia.org/wiki/Byte_order_mark#Representations_of_byte_order_marks_by_encoding
@@ -66,6 +68,11 @@ public:
     case '\x00':
       if (end - begin >= 4 && begin[1] == '\x00' && begin[2] == '\xFE' &&
           begin[3] == '\xFF') {
+        if (pEncoding == "UTF-32" || pEncoding == "UTF32") {
+          pEncoding = "UTF-32BE";
+        } else if (pEncoding == "UCS-4" || pEncoding == "UCS4") {
+          pEncoding = "UCS-4BE";
+        }
         return begin + 4;
       }
       break;
@@ -80,6 +87,11 @@ public:
     // UTF-16BE
     case '\xfe':
       if (end - begin >= 2 && begin[1] == '\xff') {
+        if (pEncoding == "UTF-16" || pEncoding == "UTF16") {
+          pEncoding = "UTF-16BE";
+        } else if (pEncoding == "UCS2" || pEncoding == "UCS-2") {
+          pEncoding = "UCS2-BE";
+        }
         return begin + 2;
       }
       break;
@@ -89,10 +101,20 @@ public:
 
         // UTF-32 LE
         if (end - begin >= 4 && begin[2] == '\x00' && begin[3] == '\x00') {
+          if (pEncoding == "UTF-32" || pEncoding == "UTF32") {
+            pEncoding = "UTF-32LE";
+          } else if (pEncoding == "UCS-4" || pEncoding == "UCS4") {
+            pEncoding = "UCS-4LE";
+          }
           return begin + 4;
         }
 
         // UTF-16 LE
+        if (pEncoding == "UTF-16" || pEncoding == "UTF16") {
+          pEncoding = "UTF-16LE";
+        } else if (pEncoding == "UCS2" || pEncoding == "UCS-2") {
+          pEncoding = "UCS2-LE";
+        }
         return begin + 2;
       }
       break;
@@ -103,10 +125,12 @@ public:
   static SourcePtr create(Rcpp::List spec);
 
 private:
-  static bool
-  inComment(const char* cur, const char* end, const std::string& comment) {
-    boost::iterator_range<const char*> haystack(cur, end);
-    return boost::starts_with(haystack, comment);
+  std::string pEncoding;
+  std::string pComment;
+  bool
+  inComment(CodePointIterator& cur) {
+    boost::iterator_range<const char*> haystack = cur.get_iterator_range();
+    return boost::starts_with(haystack, pComment);
   }
 };
 

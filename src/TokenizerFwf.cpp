@@ -47,12 +47,29 @@ std::vector<bool> emptyCols_(
     size_t n = 100,
     std::string comment = "") {
 
+  bool has_comment = comment != "";
   std::vector<bool> is_white;
+  boost::iterator_range<const char*> haystack;
 
   size_t row = 0, col = 0;
   for (SourceIterator cur = begin; cur != end; ++cur) {
     if (row > n)
       break;
+
+    while (has_comment &&
+           boost::starts_with(boost::iterator_range<const char*>(cur, end), comment)) {
+      while (cur != end && *cur != '\n' && *cur != '\r') {
+        ++cur;
+      }
+      if (cur == end) {
+        return is_white;
+      }
+      advanceForLF(&cur, end);
+      ++cur;
+    }
+    if (cur == end) {
+      return is_white;
+    }
 
     switch (*cur) {
     case '\n':
@@ -77,12 +94,12 @@ std::vector<bool> emptyCols_(
 }
 
 // [[Rcpp::export]]
-List whitespaceColumns(List sourceSpec, int n = 100, std::string comment = "") {
+List whitespaceColumns(List sourceSpec, int n = 100) {
   SourcePtr source = Source::create(sourceSpec);
 
-  skip_t s = skip_comments(source->begin(), source->end(), comment);
+  skip_t s = skip_comments(source->begin(), source->end(), source->comment());
 
-  std::vector<bool> empty = emptyCols_(s.begin, source->end(), n);
+  std::vector<bool> empty = emptyCols_(s.begin, source->end(), n, source->comment());
   std::vector<int> begin, end;
 
   bool in_col = false;

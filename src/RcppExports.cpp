@@ -226,15 +226,14 @@ BEGIN_RCPP
 END_RCPP
 }
 // whitespaceColumns
-List whitespaceColumns(List sourceSpec, int n, std::string comment);
-RcppExport SEXP readr_whitespaceColumns(SEXP sourceSpecSEXP, SEXP nSEXP, SEXP commentSEXP) {
+List whitespaceColumns(List sourceSpec, int n);
+RcppExport SEXP readr_whitespaceColumns(SEXP sourceSpecSEXP, SEXP nSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
     Rcpp::traits::input_parameter< List >::type sourceSpec(sourceSpecSEXP);
     Rcpp::traits::input_parameter< int >::type n(nSEXP);
-    Rcpp::traits::input_parameter< std::string >::type comment(commentSEXP);
-    rcpp_result_gen = Rcpp::wrap(whitespaceColumns(sourceSpec, n, comment));
+    rcpp_result_gen = Rcpp::wrap(whitespaceColumns(sourceSpec, n));
     return rcpp_result_gen;
 END_RCPP
 }
@@ -251,22 +250,6 @@ BEGIN_RCPP
     Rcpp::traits::input_parameter< const std::vector<std::string>& >::type na(naSEXP);
     Rcpp::traits::input_parameter< bool >::type trim_ws(trim_wsSEXP);
     rcpp_result_gen = Rcpp::wrap(type_convert_col(x, spec, locale_, col, na, trim_ws));
-    return rcpp_result_gen;
-END_RCPP
-}
-// stream_delim_
-std::string stream_delim_(const List& df, RObject connection, char delim, const std::string& na, bool col_names, bool bom);
-RcppExport SEXP readr_stream_delim_(SEXP dfSEXP, SEXP connectionSEXP, SEXP delimSEXP, SEXP naSEXP, SEXP col_namesSEXP, SEXP bomSEXP) {
-BEGIN_RCPP
-    Rcpp::RObject rcpp_result_gen;
-    Rcpp::RNGScope rcpp_rngScope_gen;
-    Rcpp::traits::input_parameter< const List& >::type df(dfSEXP);
-    Rcpp::traits::input_parameter< RObject >::type connection(connectionSEXP);
-    Rcpp::traits::input_parameter< char >::type delim(delimSEXP);
-    Rcpp::traits::input_parameter< const std::string& >::type na(naSEXP);
-    Rcpp::traits::input_parameter< bool >::type col_names(col_namesSEXP);
-    Rcpp::traits::input_parameter< bool >::type bom(bomSEXP);
-    rcpp_result_gen = Rcpp::wrap(stream_delim_(df, connection, delim, na, col_names, bom));
     return rcpp_result_gen;
 END_RCPP
 }
@@ -313,5 +296,21 @@ BEGIN_RCPP
     Rcpp::traits::input_parameter< RObject >::type connection(connectionSEXP);
     write_file_raw_(x, connection);
     return R_NilValue;
+END_RCPP
+}
+// stream_delim_
+std::string stream_delim_(const List& df, RObject connection, char delim, const std::string& na, bool col_names, bool bom);
+RcppExport SEXP readr_stream_delim_(SEXP dfSEXP, SEXP connectionSEXP, SEXP delimSEXP, SEXP naSEXP, SEXP col_namesSEXP, SEXP bomSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< const List& >::type df(dfSEXP);
+    Rcpp::traits::input_parameter< RObject >::type connection(connectionSEXP);
+    Rcpp::traits::input_parameter< char >::type delim(delimSEXP);
+    Rcpp::traits::input_parameter< const std::string& >::type na(naSEXP);
+    Rcpp::traits::input_parameter< bool >::type col_names(col_namesSEXP);
+    Rcpp::traits::input_parameter< bool >::type bom(bomSEXP);
+    rcpp_result_gen = Rcpp::wrap(stream_delim_(df, connection, delim, na, col_names, bom));
+    return rcpp_result_gen;
 END_RCPP
 }
