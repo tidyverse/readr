@@ -39,3 +39,28 @@ test_that("read_table2 can read from a pipe (552)", {
   x <- read_table2(pipe("echo a b c && echo 1 2 3 && echo 4 5 6"))
   expect_equal(x$a, c(1, 4))
 })
+
+
+test_that("Source skips comments in header", {
+  x <- "SKIP\nCOMMENT\nSKIP\na b\n1 2"
+  expected_result <- read_table("a b\n1 2", col_names = TRUE)
+  result1 <- read_table(x, skip = 2, comment = "COMMENT", col_names = TRUE)
+  expect_equal(expected_result, result1)
+})
+
+test_that("Source skips comments in header even if comment has a different encoding", {
+  x <- "SKIP\nCÖMMENT\nSKIP\na b\n1 2"
+  Encoding(x) <- "UTF-8"
+  comment <- "CÖMMENT"
+  Encoding(comment) <- "UTF-8"
+  comment_latin1 <- iconv("CÖMMENT", "UTF-8", "latin1")
+  expected_result <- read_table("a b\n1 2", col_names = TRUE)
+  result1 <- read_table(x, comment = comment, col_names = TRUE, skip = 2)
+  result2 <- read_table(x, comment = comment_latin1, col_names = TRUE, skip = 2)
+  expect_equal(expected_result, result1)
+  expect_equal(result1, result2)
+})
+
+
+
+
