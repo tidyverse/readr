@@ -11,10 +11,22 @@ struct skip_t {
   int lines;
 };
 
+static bool is_comment(boost::iterator_range<const char*>haystack,
+                       const std::vector<std::string>& comments) {
+  for (std::vector<std::string>::const_iterator i = comments.begin();
+       i != comments.end();
+       ++i) {
+    if (boost::starts_with(haystack, *i)) {
+      return true;
+    }
+  }
+  return false;
+}
+
 skip_t skip_comments(
-    SourceIterator begin, SourceIterator end, std::string comment = "") {
+    SourceIterator begin, SourceIterator end, const std::vector<std::string>& comments) {
   skip_t out;
-  if (comment.length() == 0) {
+  if (comments.size() == 0) {
     out.begin = begin;
     out.lines = 0;
     return out;
@@ -23,7 +35,7 @@ skip_t skip_comments(
   SourceIterator cur = begin;
   int skip = 0;
   boost::iterator_range<const char*> haystack(cur, end);
-  while (boost::starts_with(haystack, comment)) {
+  while (is_comment(haystack, comments)) {
     // Rcpp::Rcout << boost::starts_with(haystack, comment);
     // Skip rest of line
     while (cur != end && *cur != '\n' && *cur != '\r') {
@@ -44,10 +56,10 @@ skip_t skip_comments(
 std::vector<bool> emptyCols_(
     SourceIterator begin,
     SourceIterator end,
-    size_t n = 100,
-    std::string comment = "") {
+    size_t n,
+    const std::vector<std::string>& comments) {
 
-  bool has_comment = comment != "";
+  bool has_comment = comments.size() > 0;
   std::vector<bool> is_white;
   boost::iterator_range<const char*> haystack;
 
@@ -56,8 +68,7 @@ std::vector<bool> emptyCols_(
     if (row > n)
       break;
 
-    while (has_comment &&
-           boost::starts_with(boost::iterator_range<const char*>(cur, end), comment)) {
+    while (is_comment(boost::iterator_range<const char*>(cur, end), comments)) {
       while (cur != end && *cur != '\n' && *cur != '\r') {
         ++cur;
       }
@@ -97,9 +108,9 @@ std::vector<bool> emptyCols_(
 List whitespaceColumns(List sourceSpec, int n = 100) {
   SourcePtr source = Source::create(sourceSpec);
 
-  skip_t s = skip_comments(source->begin(), source->end(), source->comment());
+  skip_t s = skip_comments(source->begin(), source->end(), source->get_comments());
 
-  std::vector<bool> empty = emptyCols_(s.begin, source->end(), n, source->comment());
+  std::vector<bool> empty = emptyCols_(s.begin, source->end(), n, source->get_comments());
   std::vector<int> begin, end;
 
   bool in_col = false;

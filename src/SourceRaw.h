@@ -10,9 +10,12 @@ class SourceRaw : public Source {
   const char* end_;
 
 public:
-  SourceRaw(Rcpp::RawVector x, int skip, const std::string& comment,
+  SourceRaw(Rcpp::RawVector x, int skip, std::vector<std::string> comments,
             const std::string encoding)
-      : x_(x), Source(comment, encoding) {
+      : x_(x) {
+    set_encoding(encoding);
+    set_comments(comments);
+
     begin_ = (const char*)RAW(x);
     end_ = (const char*)RAW(x) + Rf_xlength(x);
 
