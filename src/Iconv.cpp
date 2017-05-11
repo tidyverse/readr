@@ -5,7 +5,7 @@ using namespace Rcpp;
 
 Iconv::Iconv(const std::string& from, const std::string& to)
     : from(from), to(to) {
-  if (from == to) {
+  if (from == to || from == "bytes" || to == "bytes") {
     cd_ = NULL;
   } else {
     cd_ = Riconv_open(to.c_str(), from.c_str());
