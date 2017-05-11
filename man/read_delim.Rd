@@ -98,8 +98,8 @@ option to \code{character()} to indicate no missing values.}
 \item{quoted_na}{Should missing values inside quotes be treated as missing
 values (the default) or strings.}
 
-\item{comment}{A string used to identify comments. Any text after the
-comment characters will be silently ignored.}
+\item{comment}{A string or character vector used to identify comments. Any
+text after the comment characters will be silently ignored.}
 
 \item{trim_ws}{Should leading and trailing whitespace be trimmed from
 each field before parsing it?}

@@ -73,8 +73,9 @@ read_fwf <- function(file, col_positions, col_types = NULL,
 #' @export
 #' @param n Number of lines the tokenizer will read to determine file structure. By default
 #'      it is set to 100.
-fwf_empty <- function(file, skip = 0, col_names = NULL, comment = "", n = 100L) {
-  ds <- datasource(file, skip = skip, comment = comment)
+fwf_empty <- function(file, skip = 0, col_names = NULL, comment = "", n = 100L,
+                      encoding = default_locale()$encoding) {
+  ds <- datasource(file, skip = skip, comment = comment, encoding = encoding)
 
   out <- whitespaceColumns(ds, n = n)
   out$end[length(out$end)] <- NA

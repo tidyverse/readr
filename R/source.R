@@ -12,6 +12,9 @@
 #'    Literal data is most useful for examples and tests. It must contain at
 #'    least one new line to be recognised as data (instead of a path).
 #' @param skip Number of lines to skip before reading data.
+#' @param comment A string or character vector used to identify comments. Any
+#'                text after the comment characters will be silently ignored.
+#' @param encoding The text encoding of the data given in `file`. "UTF-8" as default
 #' @keywords internal
 #' @export
 #' @examples

@@ -12,7 +12,8 @@ read_fwf(file, col_positions, col_types = NULL, locale = default_locale(),
   na = c("", "NA"), comment = "", skip = 0, n_max = Inf,
   guess_max = min(n_max, 1000), progress = show_progress())
 
-fwf_empty(file, skip = 0, col_names = NULL, comment = "", n = 100L)
+fwf_empty(file, skip = 0, col_names = NULL, comment = "", n = 100L,
+  encoding = default_locale()$encoding)
 
 fwf_widths(widths, col_names = NULL)
 
@@ -64,8 +65,8 @@ names.}
 \item{na}{Character vector of strings to use for missing values. Set this
 option to \code{character()} to indicate no missing values.}
 
-\item{comment}{A string used to identify comments. Any text after the
-comment characters will be silently ignored.}
+\item{comment}{A string or character vector used to identify comments. Any
+text after the comment characters will be silently ignored.}
 
 \item{skip}{Number of lines to skip before reading data.}
 
@@ -83,6 +84,8 @@ setting option \code{readr.show_progress} to \code{FALSE}.}
 
 \item{n}{Number of lines the tokenizer will read to determine file structure. By default
 it is set to 100.}
+
+\item{encoding}{The text encoding of the data given in \code{file}. "UTF-8" as default}
 
 \item{widths}{Width of each field. Use NA as width of last field when
 reading a ragged fwf file.}
