@@ -249,6 +249,19 @@ public:
     return haystack;
   }
 
+  void advance_until_crlf() {
+    uint32_t cr = cp_cr();
+    uint32_t lf = cp_lf();
+    uint32_t unit;
+    for (;!is_end(); ++(*this)) {
+      unit = this->get_code_point();
+      if (unit == cr || unit == lf) {
+        break;
+      }
+    }
+    return;
+  }
+
   void advance_if_crlf() {
     if ( this->get_code_point() == cp_cr() &&
          !((*this + 1).is_end()) &&
