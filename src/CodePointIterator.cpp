@@ -256,7 +256,6 @@ size_t CodePointIterator::get_code_unit_length() const {
     return 0;
 
   if (p_encoding == "UTF-8" || p_encoding == "UTF8") {
-    size_t len = 0;
     const char* pos = p_pos;
     if (UTF8Validator::isContByte(*pos)) {
       stop("UTF-8 continuation byte in a leading position. Encoding error.");
@@ -385,7 +384,6 @@ size_t CodePointIterator::get_code_unit_length() const {
 uint32_t CodePointIterator::get_code_point() const {
   if (p_pos < p_begin || p_pos == p_end)
     return CODEPOINT_ERROR;
-  uint32_t u1, u2, u3, u4;
   size_t len = get_code_unit_length();
   if (p_encoding == "UTF-8" || p_encoding == "UTF8") {
     switch (len) {

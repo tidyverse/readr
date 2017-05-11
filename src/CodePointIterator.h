@@ -33,10 +33,10 @@ public:
       const char* end,
       std::string encoding,
       const char* pos = 0)
-      : p_encoding(encoding),
-        p_pos(pos == 0 ? begin : pos),
+      : p_pos(pos == 0 ? begin : pos),
         p_begin(begin),
-        p_end(end) {
+        p_end(end),
+        p_encoding(encoding) {
     if (encoding == "") {
       stop("Encoding not specified");
     }
@@ -56,7 +56,7 @@ public:
     p_encoding = obj.p_encoding;
   }
 
-  CodePointIterator() : p_begin(NULL), p_pos(NULL), p_end(NULL), p_encoding() {}
+  CodePointIterator() : p_pos(NULL), p_begin(NULL), p_end(NULL), p_encoding() {}
 
   CodePointIterator begin() {
     return CodePointIterator(p_begin, p_end, p_encoding, p_begin);
