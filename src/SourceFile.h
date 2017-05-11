@@ -14,7 +14,9 @@ class SourceFile : public Source {
 
 public:
   SourceFile(
-      const std::string& path, int skip, std::vector<std::string> comments,
+      const std::string& path,
+      int skip,
+      std::vector<std::string> comments,
       const std::string encoding) {
 
     set_encoding(encoding);

@@ -4,7 +4,7 @@ using namespace Rcpp;
 #include "Iconv.h"
 
 Iconv::Iconv(const std::string& from, const std::string& to)
-  : from(from), to(to) {
+    : from(from), to(to) {
   if (from == to) {
     cd_ = NULL;
   } else {

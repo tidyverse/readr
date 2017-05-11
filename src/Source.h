@@ -1,17 +1,17 @@
 #ifndef FASTREAD_SOURCE_H_
 #define FASTREAD_SOURCE_H_
 
-#include "boost.h"
-#include <Rcpp.h>
 #include "CodePointIterator.h"
 #include "Iconv.h"
+#include "boost.h"
+#include <Rcpp.h>
 
 class Source;
 typedef boost::shared_ptr<Source> SourcePtr;
 
 class Source {
 public:
-  Source() { }
+  Source() {}
   virtual ~Source() {}
 
   virtual const char* begin() = 0;
@@ -23,7 +23,7 @@ public:
       return pEncoding;
     }
   }
-  inline const std::vector<std::string>& get_comments() { return pComments;}
+  inline const std::vector<std::string>& get_comments() { return pComments; }
 
   void set_comments(std::vector<std::string> utf8comments) {
     pCommentsUTF8 = utf8comments;
@@ -63,7 +63,7 @@ public:
     return;
   }
 
-  const char *skipLines(int skip) {
+  const char* skipLines(int skip) {
     bool hasComment = pComments.size() != 0;
     bool isComment = false, lineStart = true;
 
@@ -174,8 +174,7 @@ private:
   std::vector<std::string> pComments;
   std::vector<std::string> pCommentsUTF8;
 
-  bool
-  inComment(CodePointIterator& cur) {
+  bool inComment(CodePointIterator& cur) {
     boost::iterator_range<const char*> haystack = cur.get_iterator_range();
     for (std::vector<std::string>::const_iterator i = pComments.begin();
          i != pComments.end();

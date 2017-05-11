@@ -11,8 +11,9 @@ struct skip_t {
   int lines;
 };
 
-static bool is_comment(boost::iterator_range<const char*>haystack,
-                       const std::vector<std::string>& comments) {
+static bool is_comment(
+    boost::iterator_range<const char*> haystack,
+    const std::vector<std::string>& comments) {
   for (std::vector<std::string>::const_iterator i = comments.begin();
        i != comments.end();
        ++i) {
@@ -24,7 +25,9 @@ static bool is_comment(boost::iterator_range<const char*>haystack,
 }
 
 skip_t skip_comments(
-    SourceIterator begin, SourceIterator end, const std::vector<std::string>& comments) {
+    SourceIterator begin,
+    SourceIterator end,
+    const std::vector<std::string>& comments) {
   skip_t out;
   if (comments.size() == 0) {
     out.begin = begin;
@@ -108,9 +111,11 @@ std::vector<bool> emptyCols_(
 List whitespaceColumns(List sourceSpec, int n = 100) {
   SourcePtr source = Source::create(sourceSpec);
 
-  skip_t s = skip_comments(source->begin(), source->end(), source->get_comments());
+  skip_t s =
+      skip_comments(source->begin(), source->end(), source->get_comments());
 
-  std::vector<bool> empty = emptyCols_(s.begin, source->end(), n, source->get_comments());
+  std::vector<bool> empty =
+      emptyCols_(s.begin, source->end(), n, source->get_comments());
   std::vector<int> begin, end;
 
   bool in_col = false;
