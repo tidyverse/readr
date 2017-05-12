@@ -27,8 +27,12 @@ read_file <- function(file, locale = default_locale()) {
   if (empty_file(file)) {
     return("")
   }
-
-  ds <- datasource(file, encoding = locale$encoding)
+  if (missing(locale)) {
+    encoding <- NULL
+  } else {
+    encoding <- locale$encoding
+  }
+  ds <- datasource(file, encoding = encoding)
   read_file_(ds, locale)
 }
 
@@ -39,7 +43,7 @@ read_file_raw <- function(file) {
     return(raw())
   }
 
-  ds <- datasource(file)
+  ds <- datasource(file, encoding = "bytes")
   read_file_raw_(ds)
 }
 

@@ -10,7 +10,12 @@ read_lines_chunked <- function(file, callback, chunk_size = 10000, skip = 0,
   if (empty_file(file)) {
     return(character())
   }
-  ds <- datasource(file, skip = skip)
+  if (missing(locale)) {
+    encoding <- NULL
+  } else {
+    encoding <- locale$encoding
+  }
+  ds <- datasource(file, skip = skip, encoding = encoding)
   callback <- as_chunk_callback(callback)
   on.exit(callback$finally(), add = TRUE)
 

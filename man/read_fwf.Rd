@@ -13,7 +13,7 @@ read_fwf(file, col_positions, col_types = NULL, locale = default_locale(),
   guess_max = min(n_max, 1000), progress = show_progress())
 
 fwf_empty(file, skip = 0, col_names = NULL, comment = "", n = 100L,
-  encoding = default_locale()$encoding)
+  encoding = NULL)
 
 fwf_widths(widths, col_names = NULL)
 
@@ -85,7 +85,10 @@ setting option \code{readr.show_progress} to \code{FALSE}.}
 \item{n}{Number of lines the tokenizer will read to determine file structure. By default
 it is set to 100.}
 
-\item{encoding}{The text encoding of the data given in \code{file}. "UTF-8" as default}
+\item{encoding}{The text encoding of the data given in \code{file}. If \code{NULL} is
+passed (the default), then "UTF-8" is used for files,
+"bytes" is used for connections and raw vectors, and the
+string Encoding will be used for literal data strings.}
 
 \item{widths}{Width of each field. Use NA as width of last field when
 reading a ragged fwf file.}

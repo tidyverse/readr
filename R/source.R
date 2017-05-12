@@ -14,7 +14,10 @@
 #' @param skip Number of lines to skip before reading data.
 #' @param comment A string or character vector used to identify comments. Any
 #'                text after the comment characters will be silently ignored.
-#' @param encoding The text encoding of the data given in `file`. "UTF-8" as default
+#' @param encoding The text encoding of the data given in `file`. If `NULL` is
+#'                 passed (the default), then "UTF-8" is used for files,
+#'                 "bytes" is used for connections and raw vectors, and the
+#'                 string Encoding will be used for literal data strings.
 #' @keywords internal
 #' @export
 #' @examples
@@ -34,7 +37,7 @@
 #' con <- rawConnection(charToRaw("abc\n123"))
 #' datasource(con)
 #' close(con)
-datasource <- function(file, skip = 0, comment = "", encoding = default_locale()$encoding) {
+datasource <- function(file, skip = 0, comment = "", encoding = NULL) {
   if (inherits(file, "source")) {
 
     # If `skip` and `comment` arguments are expliictly passed, we want to use
@@ -47,30 +50,21 @@ datasource <- function(file, skip = 0, comment = "", encoding = default_locale()
       file$comment <- comment
     }
 
-    if (!missing(encoding)) {
+    if (!is.null(encoding)) {
       file$encoding <- encoding
     }
 
     file
   } else if (is.connection(file)) {
-    if (missing(encoding)) {
-      encoding <- "bytes"
-    }
     datasource_connection(file, skip, comment, encoding)
   } else if (is.raw(file)) {
     datasource_raw(file, skip, comment, encoding)
   } else if (is.character(file)) {
-    if (is_literal_data(file)) {
-      if (missing(encoding)) {
-        encoding <- encoding_from_literal_data(file)
-      }
+    if (grepl("\n", file)) {
       datasource_string(file, skip, comment, encoding)
     } else {
       file <- standardise_path(file)
       if (is.connection(file)) {
-        if (missing(encoding)) {
-          encoding <- "bytes"
-        }
         datasource_connection(file, skip, comment, encoding)
       } else {
         datasource_file(file, skip, comment, encoding)
@@ -81,44 +75,41 @@ datasource <- function(file, skip = 0, comment = "", encoding = default_locale()
   }
 }
 
-is_literal_data <- function(text) {
-  is.character(text) && grepl("\n", text)
-}
-
-encoding_from_literal_data <- function(text) {
-  enc <- Encoding(text)
-  if (enc == "unknown") {
-    return("latin1") # assume text is ASCII, and latin1 is faster than UTF-8
-  }
-  enc
-}
-
 # Constructors -----------------------------------------------------------------
 
-new_datasource <- function(type, x, skip, comment = "", encoding, ...) {
+new_datasource <- function(type, x, skip, comment, encoding, ...) {
   structure(list(x, skip = skip, comment = comment, encoding = encoding, ...),
     class = c(paste0("source_", type), "source"))
 }
 
-datasource_string <- function(text, skip, comment,
-                              encoding = encoding_from_literal_data(text)) {
+datasource_string <- function(text, skip, comment, encoding = NULL) {
+  if (is.null(encoding)) {
+    encoding <- Encoding(text)
+    if (encoding == "unknown") {
+      text <- enc2utf8(text)
+      encoding <- "UTF-8"
+    }
+  }
   new_datasource("string", text, skip = skip, comment = comment, encoding = encoding)
 }
 
-datasource_file <- function(path, skip, comment, encoding) {
+datasource_file <- function(path, skip, comment, encoding = NULL) {
   path <- check_path(path)
+  if (is.null(encoding)) {
+    encoding <- "UTF-8"
+  }
   new_datasource("file", path, skip = skip, comment = comment, encoding = encoding)
 }
 
-datasource_connection <- function(path, skip, comment, encoding) {
-  if (missing(encoding)) {
+datasource_connection <- function(path, skip, comment, encoding = NULL) {
+  if (is.null(encoding)) {
     encoding <- "bytes"
   }
   datasource_raw(read_connection(path), skip, comment = comment, encoding = encoding)
 }
 
-datasource_raw <- function(text, skip, comment, encoding) {
-  if (missing(encoding)) {
+datasource_raw <- function(text, skip, comment, encoding = NULL) {
+  if (is.null(encoding)) {
     encoding <- "bytes"
   }
   new_datasource("raw", text, skip = skip, comment = comment, encoding = encoding)

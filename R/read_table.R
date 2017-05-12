@@ -36,7 +36,12 @@ read_table <- function(file, col_names = TRUE, col_types = NULL,
                        locale = default_locale(), na = "NA", skip = 0,
                        n_max = Inf, guess_max = min(n_max, 1000),
                        progress = show_progress(), comment = "") {
-  ds <- datasource(file, skip = skip, comment = comment, encoding = locale$encoding)
+  if (missing(locale)) {
+    encoding <- NULL
+  } else {
+    encoding <- locale$encoding
+  }
+  ds <- datasource(file, skip = skip, comment = comment, encoding = encoding)
   columns <- fwf_empty(ds, skip = skip, n = guess_max, comment = comment)
 
   tokenizer <- tokenizer_fwf(columns$begin, columns$end, na = na, comment = comment)
