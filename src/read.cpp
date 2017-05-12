@@ -13,6 +13,7 @@ using namespace Rcpp;
 // [[Rcpp::export]]
 CharacterVector read_file_(List sourceSpec, List locale_) {
   SourcePtr source = Source::create(sourceSpec);
+  locale_["encoding"] = source->encoding();
   LocaleInfo locale(locale_);
 
   return CharacterVector::create(
@@ -36,9 +37,11 @@ CharacterVector read_lines_(
     int n_max = -1,
     bool progress = true) {
 
+  SourcePtr source = Source::create(sourceSpec);
+  locale_["encoding"] = source->encoding();
   LocaleInfo locale(locale_);
   Reader r(
-      Source::create(sourceSpec),
+      source,
       TokenizerPtr(new TokenizerLine(na)),
       CollectorPtr(new CollectorCharacter(&locale.encoder_)),
       progress);
@@ -65,9 +68,11 @@ void read_lines_chunked_(
     Environment callback,
     bool progress = true) {
 
+  SourcePtr source = Source::create(sourceSpec);
+  locale_["encoding"] = source->encoding();
   LocaleInfo locale(locale_);
   Reader r(
-      Source::create(sourceSpec),
+      source,
       TokenizerPtr(new TokenizerLine(na)),
       CollectorPtr(new CollectorCharacter(&locale.encoder_)),
       progress);
@@ -111,9 +116,11 @@ RObject read_tokens_(
     int n_max = -1,
     bool progress = true) {
 
+  SourcePtr src = Source::create(sourceSpec);
+  locale_["encoding"] = src->encoding();
   LocaleInfo l(locale_);
   Reader r(
-      Source::create(sourceSpec),
+      src,
       Tokenizer::create(tokenizerSpec),
       collectorsCreate(colSpecs, &l),
       progress,
@@ -133,9 +140,11 @@ void read_tokens_chunked_(
     List locale_,
     bool progress = true) {
 
+  SourcePtr src = Source::create(sourceSpec);
+  locale_["encoding"] = src->encoding();
   LocaleInfo l(locale_);
   Reader r(
-      Source::create(sourceSpec),
+      src,
       Tokenizer::create(tokenizerSpec),
       collectorsCreate(colSpecs, &l),
       progress,
@@ -163,6 +172,7 @@ std::vector<std::string> guess_types_(
   tokenizer->tokenize(source->begin(), source->end());
   tokenizer->setWarnings(&warnings); // silence warnings
 
+  locale_["encoding"] = source->encoding();
   LocaleInfo locale(locale_);
 
   std::vector<CollectorPtr> collectors;
