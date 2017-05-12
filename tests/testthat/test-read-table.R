@@ -49,11 +49,11 @@ test_that("Source skips comments in header", {
 })
 
 test_that("Source skips comments in header even if comment has a different encoding", {
-  x <- "SKIP\nCÖMMENT\nSKIP\na b\n1 2"
+  x <- "SKIP\nC\u00d6MMENT\nSKIP\na b\n1 2"
   Encoding(x) <- "UTF-8"
-  comment <- "CÖMMENT"
+  comment <- "C\u00d6MMENT"
   Encoding(comment) <- "UTF-8"
-  comment_latin1 <- iconv("CÖMMENT", "UTF-8", "latin1")
+  comment_latin1 <- iconv("C\u00d6MMENT", "UTF-8", "latin1")
   expected_result <- read_table("a b\n1 2", col_names = TRUE)
   result1 <- read_table(x, comment = comment, col_names = TRUE, skip = 2)
   result2 <- read_table(x, comment = comment_latin1, col_names = TRUE, skip = 2)
@@ -70,8 +70,8 @@ test_that("Source skips multiple comments in header", {
 })
 
 test_that("Encoding conversion for comments in header works", {
-  x <- "KÖMMENT\nCÖMMENT\nSKIP\na b\n1 2"
-  comment <- c(iconv("KÖMMENT", "UTF-8", "latin1"), "CÖMMENT")
+  x <- "C\u00d6MMENT\nK\u00d6MMENT\nSKIP\na b\n1 2"
+  comment <- c(iconv("K\u00d6MMENT", "UTF-8", "latin1"), "C\u00d6MMENT")
   expected_result <- read_table("a b\n1 2", col_names = TRUE)
   result1 <- read_table(x, comment = comment, col_names = TRUE, skip = 1)
   expect_equal(result1, expected_result)
