@@ -13,7 +13,7 @@ SourcePtr Source::create(List spec) {
   int skip = as<int>(spec["skip"]);
   SEXP comment_sexp = spec["comment"];
   std::vector<std::string> comments;
-  for (size_t i = 0; i < Rf_xlength(comment_sexp); ++i) {
+  for (R_xlen_t i = 0; i < Rf_xlength(comment_sexp); ++i) {
     SEXP comm = STRING_ELT(comment_sexp, i);
     std::string comment = Rf_translateCharUTF8(comm);
     if (comment.length() > 0) {

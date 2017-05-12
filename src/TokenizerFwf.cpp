@@ -62,7 +62,6 @@ std::vector<bool> emptyCols_(
     size_t n,
     const std::vector<std::string>& comments) {
 
-  bool has_comment = comments.size() > 0;
   std::vector<bool> is_white;
   boost::iterator_range<const char*> haystack;
 
