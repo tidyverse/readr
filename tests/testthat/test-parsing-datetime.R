@@ -179,10 +179,8 @@ test_that("locale affects both guessing and parsing", {
 })
 
 test_that("text re-encoded before strings are parsed", {
-  skip_on_cran() # need to figure out why this fails
-
   x <- "1 f\u00e9vrier 2010"
-  y <- iconv(x, to = "ISO-8859-1")
+  y <- iconv(x, from = "UTF-8", to = "latin1")
   feb01 <- as.Date(ISOdate(2010, 02, 01))
 
   expect_equal(
@@ -191,7 +189,7 @@ test_that("text re-encoded before strings are parsed", {
   )
 
   expect_equal(
-    parse_date(y, "%d %B %Y", locale = locale("fr", encoding = "ISO-8859-1")),
+    parse_date(y, "%d %B %Y", locale = locale("fr", encoding = "latin1")),
     feb01
   )
 })
