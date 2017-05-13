@@ -147,9 +147,8 @@ test_that("fwf_cols produces correct fwf_positions object with elements of lengt
 
 
 test_that("fwf_cols throws error when arguments are not length 1 or 2", {
-  pattern <- "Variables must be length 1 or .*"
-  expect_error(fwf_cols(a = 1:3, b = 4:5), pattern)
-  expect_error(fwf_cols(a = c(), b = 4:5), pattern)
+  expect_error(fwf_cols(a = 1:3, b = 4:5))
+  expect_error(fwf_cols(a = c(), b = 4:5))
 })
 
 test_that("fwf_cols works with unnamed columns", {
