@@ -7,15 +7,18 @@ using namespace Rcpp;
 #include "CodePointIterator.h"
 
 static inline bool unicode_is_blank(uint32_t cp) {
-  return (cp == 0x20 || cp == 0xA0 || cp == 0x1680 ||
-          (cp >= 0x2000 && cp < 0x200B) ||
-          cp == 0x202F || cp == 0x205F || cp == 0x3000);
+  return (
+      cp == 0x20 || cp == 0xA0 || cp == 0x1680 ||
+      (cp >= 0x2000 && cp < 0x200B) || cp == 0x202F || cp == 0x205F ||
+      cp == 0x3000);
 }
 
 class CodePointIteratorUTF8 : public CodePointIterator {
 public:
-  CodePointIteratorUTF8(const char *begin, const char *end,
-                        std::string encoding, const char *pos) : CodePointIterator(begin, end, encoding, pos) {}
+  CodePointIteratorUTF8(
+      const char* begin, const char* end, std::string encoding, const char* pos)
+      : CodePointIterator(begin, end, encoding, pos) {}
+
 private:
   static inline size_t codeUnitSize(const char c) {
     if (isLeadingSingleByte(c))
@@ -52,7 +55,8 @@ private:
     u2 = u2 & 0x3F;
     return (u1 << 6) | u2;
   }
-  static inline uint32_t get_code_point3(const char c1, const char c2, const char c3) {
+  static inline uint32_t
+  get_code_point3(const char c1, const char c2, const char c3) {
     uint32_t u1, u2, u3;
     u1 = static_cast<uint32_t>(static_cast<unsigned char>(c1));
     u2 = static_cast<uint32_t>(static_cast<unsigned char>(c2));
@@ -62,7 +66,8 @@ private:
     u3 = u3 & 0x3F;
     return (u1 << 12) | (u2 << 6) | u3;
   }
-  static inline uint32_t get_code_point4(const char c1, const char c2, const char c3, const char c4) {
+  static inline uint32_t
+  get_code_point4(const char c1, const char c2, const char c3, const char c4) {
     uint32_t u1, u2, u3, u4;
     u1 = static_cast<uint32_t>(static_cast<unsigned char>(c1));
     u2 = static_cast<uint32_t>(static_cast<unsigned char>(c2));
@@ -97,9 +102,9 @@ private:
     size_t should_be_length = codeUnitSize(*pos);
     if (should_be_length != len) {
       stop(
-        "Encoding error. Leading byte marked %d bytes, found %d",
-        should_be_length,
-        len);
+          "Encoding error. Leading byte marked %d bytes, found %d",
+          should_be_length,
+          len);
     }
     return len;
   }
@@ -140,7 +145,6 @@ private:
       }
     }
     stop("Invalid UTF-8 character at position %d", pos + 1 - p_begin);
-
   }
 
   uint32_t get_code_point() const {
@@ -161,16 +165,16 @@ private:
     }
   }
 
-  inline bool isblank(uint32_t cp) const {
-    return unicode_is_blank(cp);
-  }
+  inline bool isblank(uint32_t cp) const { return unicode_is_blank(cp); }
 };
 
 template <bool BigEndian>
 class CodePointIteratorUCS2 : public CodePointIterator {
 public:
-  CodePointIteratorUCS2(const char *begin, const char *end,
-                        std::string encoding, const char *pos) : CodePointIterator(begin, end, encoding, pos) {}
+  CodePointIteratorUCS2(
+      const char* begin, const char* end, std::string encoding, const char* pos)
+      : CodePointIterator(begin, end, encoding, pos) {}
+
 private:
   static inline uint32_t get_code_unit(const char c1, const char c2) {
     uint32_t u1, u2;
@@ -214,18 +218,16 @@ private:
     return get_code_unit(*p_pos, *(p_pos + 1));
   }
 
-  inline bool isblank(uint32_t cp) const {
-    return unicode_is_blank(cp);
-  }
-
+  inline bool isblank(uint32_t cp) const { return unicode_is_blank(cp); }
 };
 
 template <bool BigEndian>
 class CodePointIteratorUTF16 : public CodePointIterator {
 public:
-  CodePointIteratorUTF16(const char *begin, const char *end,
-                         std::string encoding, const char *pos) :
-  CodePointIterator(begin, end, encoding, pos) {}
+  CodePointIteratorUTF16(
+      const char* begin, const char* end, std::string encoding, const char* pos)
+      : CodePointIterator(begin, end, encoding, pos) {}
+
 private:
   static inline uint32_t get_code_unitBE(const char c1, const char c2) {
     uint32_t u1, u2;
@@ -251,7 +253,8 @@ private:
   static inline uint32_t get_code_pointBE2(const char c1, const char c2) {
     return get_code_unitBE(c1, c2);
   }
-  static inline uint32_t get_code_pointBE4(const char c1, const char c2, const char c3, const char c4) {
+  static inline uint32_t get_code_pointBE4(
+      const char c1, const char c2, const char c3, const char c4) {
     uint32_t u1 = get_code_unitBE(c1, c2);
     uint32_t u2 = get_code_unitBE(c3, c4);
     return codePointFromSurrogates(u1, u2);
@@ -259,7 +262,8 @@ private:
   static inline uint32_t get_code_pointLE2(const char c1, const char c2) {
     return get_code_unitLE(c1, c2);
   }
-  static inline uint32_t get_code_pointLE4(const char c1, const char c2, const char c3, const char c4) {
+  static inline uint32_t get_code_pointLE4(
+      const char c1, const char c2, const char c3, const char c4) {
     uint32_t u1 = get_code_unitLE(c1, c2);
     uint32_t u2 = get_code_unitLE(c3, c4);
     return codePointFromSurrogates(u1, u2);
@@ -271,7 +275,8 @@ private:
       return get_code_pointLE2(c1, c2);
     }
   }
-  static inline uint32_t get_code_point4(const char c1, const char c2, const char c3, const char c4) {
+  static inline uint32_t
+  get_code_point4(const char c1, const char c2, const char c3, const char c4) {
     if (BigEndian) {
       return get_code_pointBE4(c1, c2, c3, c4);
     } else {
@@ -310,12 +315,13 @@ private:
       }
       u1 = get_code_point2((*p_pos - 4), (*p_pos - 3));
       if (!isHighSurrogate(u1)) {
-        stop("Encoding error. Mismatch high/low %s surrogates", p_encoding.c_str());
+        stop(
+            "Encoding error. Mismatch high/low %s surrogates",
+            p_encoding.c_str());
       }
       return 4;
     }
     stop("Invalid UTF16BE character found");
-
   }
 
   size_t get_code_unit_length() const {
@@ -329,19 +335,19 @@ private:
     }
     if (!isHighSurrogate(u1)) {
       stop(
-        "Invalid %s character: high surrogate too large", p_encoding.c_str());
+          "Invalid %s character: high surrogate too large", p_encoding.c_str());
     }
     /* Surrogate pair */
     if (p_pos + 3 >= p_end) {
       stop(
-        "Invalid/Truncated %s character. Surrogate pair ends too soon",
-        p_encoding.c_str());
+          "Invalid/Truncated %s character. Surrogate pair ends too soon",
+          p_encoding.c_str());
     }
     u2 = get_code_unit(*(p_pos + 2), *(p_pos + 3));
     if (!isLowSurrogate(u2)) {
       stop(
-        "Invalid %s character: low surrogate out of range",
-        p_encoding.c_str());
+          "Invalid %s character: low surrogate out of range",
+          p_encoding.c_str());
     }
     return 4;
   }
@@ -359,18 +365,16 @@ private:
     }
   }
 
-  inline bool isblank(uint32_t cp) const {
-    return unicode_is_blank(cp);
-  }
-
+  inline bool isblank(uint32_t cp) const { return unicode_is_blank(cp); }
 };
 
 template <bool BigEndian>
 class CodePointIteratorUTF32 : public CodePointIterator {
 public:
-  CodePointIteratorUTF32(const char *begin, const char *end,
-                         std::string encoding, const char *pos) :
-  CodePointIterator(begin, end, encoding, pos) {}
+  CodePointIteratorUTF32(
+      const char* begin, const char* end, std::string encoding, const char* pos)
+      : CodePointIterator(begin, end, encoding, pos) {}
+
 private:
   static inline uint32_t
   get_code_pointBE(const char c1, const char c2, const char c3, const char c4) {
@@ -410,20 +414,19 @@ private:
       return CODEPOINT_ERROR;
     size_t len = get_code_unit_length();
     if (BigEndian) {
-      return get_code_pointBE(
-        *p_pos, *(p_pos + 1), *(p_pos + 2), *(p_pos + 3));
+      return get_code_pointBE(*p_pos, *(p_pos + 1), *(p_pos + 2), *(p_pos + 3));
     } else {
-      return get_code_pointLE(
-        *p_pos, *(p_pos + 1), *(p_pos + 2), *(p_pos + 3));
+      return get_code_pointLE(*p_pos, *(p_pos + 1), *(p_pos + 2), *(p_pos + 3));
     }
   }
-
 };
 
 class CodePointIteratorEASCII : public CodePointIterator {
 public:
-  CodePointIteratorEASCII(const char *begin, const char *end,
-                        std::string encoding, const char *pos) : CodePointIterator(begin, end, encoding, pos) {}
+  CodePointIteratorEASCII(
+      const char* begin, const char* end, std::string encoding, const char* pos)
+      : CodePointIterator(begin, end, encoding, pos) {}
+
 private:
   size_t get_prev_code_unit_length() const {
     if (p_pos - 1 >= p_end)
@@ -449,44 +452,47 @@ private:
   }
 };
 
-
-CodePointIteratorPtr CodePointIterator::create(const char *begin, const char *end,
-                            std::string encoding, const char *pos) {
+CodePointIteratorPtr CodePointIterator::create(
+    const char* begin, const char* end, std::string encoding, const char* pos) {
   if (encoding == "") {
     stop("Encoding not specified");
   }
   if (encoding == "UTF-16" || encoding == "UTF-32" || encoding == "UCS-2" ||
       encoding == "UCS-4") {
     stop(
-      "Specify endianness in encoding as: %sLE or %sBE",
-      encoding.c_str(),
-      encoding.c_str());
+        "Specify endianness in encoding as: %sLE or %sBE",
+        encoding.c_str(),
+        encoding.c_str());
   }
 
-    if (encoding == "UTF-8" || encoding == "UTF8") {
-      return CodePointIteratorPtr(
+  if (encoding == "UTF-8" || encoding == "UTF8") {
+    return CodePointIteratorPtr(
         new CodePointIteratorUTF8(begin, end, encoding, pos));
-    } else if (encoding == "UCS2-BE" || encoding == "UCS2BE") {
-      return CodePointIteratorPtr(
+  } else if (encoding == "UCS2-BE" || encoding == "UCS2BE") {
+    return CodePointIteratorPtr(
         new CodePointIteratorUCS2<true>(begin, end, encoding, pos));
-    } else if (encoding == "UCS2-LE" || encoding == "UCS2LE") {
-      return CodePointIteratorPtr(
+  } else if (encoding == "UCS2-LE" || encoding == "UCS2LE") {
+    return CodePointIteratorPtr(
         new CodePointIteratorUCS2<false>(begin, end, encoding, pos));
-    } else if (encoding == "UTF16-LE" || encoding == "UTF16LE") {
-      return CodePointIteratorPtr(
+  } else if (encoding == "UTF16-LE" || encoding == "UTF16LE") {
+    return CodePointIteratorPtr(
         new CodePointIteratorUTF16<false>(begin, end, encoding, pos));
-    } else if (encoding == "UTF16-BE" || encoding == "UTF16BE") {
-      return CodePointIteratorPtr(
+  } else if (encoding == "UTF16-BE" || encoding == "UTF16BE") {
+    return CodePointIteratorPtr(
         new CodePointIteratorUTF16<true>(begin, end, encoding, pos));
-    } else if (encoding == "UTF32-BE" || encoding == "UTF32BE" || encoding == "UCS-4BE") {
-      return CodePointIteratorPtr(
+  } else if (
+      encoding == "UTF32-BE" || encoding == "UTF32BE" ||
+      encoding == "UCS-4BE") {
+    return CodePointIteratorPtr(
         new CodePointIteratorUTF32<true>(begin, end, encoding, pos));
-    } else if (encoding == "UTF32-LE" || encoding == "UTF32LE" || encoding == "UCS-4LE") {
-      return CodePointIteratorPtr(
+  } else if (
+      encoding == "UTF32-LE" || encoding == "UTF32LE" ||
+      encoding == "UCS-4LE") {
+    return CodePointIteratorPtr(
         new CodePointIteratorUTF32<false>(begin, end, encoding, pos));
-    } else {
-      /* TO DO: Big5 and ShiftJIS? */
-      return CodePointIteratorPtr(
+  } else {
+    /* TO DO: Big5 and ShiftJIS? */
+    return CodePointIteratorPtr(
         new CodePointIteratorEASCII(begin, end, encoding, pos));
-    }
+  }
 }

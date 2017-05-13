@@ -67,7 +67,8 @@ public:
     bool hasComment = pComments.size() != 0;
     bool isComment = false, lineStart = true;
 
-    CodePointIteratorPtr cur = CodePointIterator::create(begin(), end(), encoding());
+    CodePointIteratorPtr cur =
+        CodePointIterator::create(begin(), end(), encoding());
     uint32_t cp_lf = cur->cp_lf();
     uint32_t cp_cr = cur->cp_cr();
     uint32_t unit;

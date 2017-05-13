@@ -39,7 +39,7 @@ public:
       : p_pos(pos == 0 ? begin : pos),
         p_begin(begin),
         p_end(end),
-        p_encoding(encoding) {};
+        p_encoding(encoding){};
 
   CodePointIterator(const CodePointIterator& obj) {
     p_begin = obj.p_begin;
@@ -106,9 +106,8 @@ public:
 
   const char* get_end() const { return p_end; }
 
-  uint32_t cp() const { return get_code_point();}
-  uint32_t operator*() const { return cp();}
-
+  uint32_t cp() const { return get_code_point(); }
+  uint32_t operator*() const { return cp(); }
 
   static CodePointIteratorPtr shift(const CodePointIterator* pt, int offset) {
     CodePointIteratorPtr tmp = create(*pt);
@@ -124,9 +123,7 @@ public:
     return tmp;
   }
 
-  CodePointIteratorPtr operator+(int i) {
-    return shift(this, i);
-  }
+  CodePointIteratorPtr operator+(int i) { return shift(this, i); }
 
   CodePointIteratorPtr operator-(int i) {
     CodePointIteratorPtr tmp = create(*this);
@@ -144,29 +141,25 @@ public:
 
   /* For most encodings (UTF-8, UTF-16, UTF-32, latin1...), the code points are
      ascii-compatible. Even for encodings like UTF-16, where ASCII characters
-     are represented as code units of 2 bytes, the code point that represents those
+     are represented as code units of 2 bytes, the code point that represents
+     those
      code units is Unicode and the unicode numbering starts like the ASCII.
 
      However, there are some encodings (e.g. CP1026, that is EBCDIC based) where
      there is not ASCII compatibility. If you want to add support to those
-     encodings you just need to modify these cp_* functions, or make them virtual
+     encodings you just need to modify these cp_* functions, or make them
+     virtual
      and edit the inherited function.
   */
   static inline uint32_t cp_null() { return 0x00; }
 
   static inline uint32_t cp_alert() { return 0x07; }
 
-  static inline uint32_t cp_backspace() {
-    return 0x08;
-  }
+  static inline uint32_t cp_backspace() { return 0x08; }
 
-  static inline uint32_t cp_htab() {
-    return 0x09;
-  }
+  static inline uint32_t cp_htab() { return 0x09; }
 
-  static inline uint32_t cp_lf() {
-    return 0x0A;
-  }
+  static inline uint32_t cp_lf() { return 0x0A; }
 
   static inline uint32_t cp_vtab() { return 0x0B; }
 
@@ -219,8 +212,8 @@ public:
   }
 
   static CodePointIteratorPtr create(const CodePointIterator& obj) {
-    return CodePointIterator::create(obj.p_begin, obj.p_end, obj.p_encoding, obj.p_pos);
-
+    return CodePointIterator::create(
+        obj.p_begin, obj.p_end, obj.p_encoding, obj.p_pos);
   }
 
   static CodePointIteratorPtr create(
