@@ -4,6 +4,9 @@
   where double columns are incorrectly guessed as integers if they have only
   integer values in the first 1000 (#645, #652).
 
+* `datasource()` accepts an encoding. This is just ground work needed to parse
+  multibyte encodings (like UTF-16) properly in the future. (#306, #397, @zeehio).
+
 # readr 1.1.0
 
 ## New features
