@@ -1,3 +1,7 @@
+# readr 1.1.1
+
+* Point release for test compatibility with tibble v1.3.1.
+
 # readr 1.1.0
 
 ## New features

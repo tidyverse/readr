@@ -1,5 +1,5 @@
 Package: readr
-Version: 1.1.0
+Version: 1.1.1
 Title: Read Rectangular Text Data
 Description: The goal of 'readr' is to provide a fast and friendly way to read
     rectangular data (like 'csv', 'tsv', and 'fwf'). It is designed to flexibly
