@@ -19,3 +19,4 @@
 ^Makefile$
 ^script\.R$
 ^sanitize\.sh$
+^.vimrc$
