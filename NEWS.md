@@ -1,6 +1,8 @@
 # readr 1.1.1
 
 * Point release for test compatibility with tibble v1.3.1.
+* Fixed undefined behavior in localtime.c when using `locale(tz = "")` after
+  loading a timezone due to incomplete reinitialization of the global locale.
 
 # readr 1.1.0
 
