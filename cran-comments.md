@@ -1,3 +1,13 @@
+This is a minor update that only corrects a test that would fail with the
+upcoming update of the tibble package, which this package imports. Therefore
+I haven't run any checks on downstream dependencies. It also fixes the
+sanitizer warnings in timezone.c, thank you for pointing them out explicitly to
+me.
+
+Note that timezone.c included in readr is derived from the timezone.c shipped
+with R, therefore I opened a PR on the bug tracker with the same fix used here.
+(https://bugs.r-project.org/bugzilla3/show_bug.cgi?id=17272)
+
 ## Test environments
 * local OS X install, R 3.3.1.
 * Ubuntu 12.04 (on travis-ci), R-oldrel, R-release, R-devel
@@ -9,28 +19,5 @@
   * Ubuntu Linux 16.04 LTS, R-release, GCC
 
 ## R CMD check results
-I Jim Hester am taking over maintenance of the readr package from Hadley, there
-is one NOTE to this effect.
 
-There were no ERRORs or WARNINGs.
-
-There were no warnings from UBSAN and ASAN run on R-hub
-(https://builder.r-hub.io/status/readr_1.0.0.9000.tar.gz-7308f26232304b308e6f3949f0e69d75).
-
-## Reverse dependencies
-
-* I ran R CMD check on all 84 reverse dependencies
-  Results at https://github.com/tidyverse/readr/blob/master/revdep/
-
-* There were 8 failures:
-
-  * ggCompNet: There was an error building the vignette, I looked into it but
-    it seems to be unrelated to readr changes.
-
-  * gsheet: Network failure when trying to retrieve a external resource.
-
-  * gutenbergr: Network failure when trying to retrieve a external resource, duplicated on CRAN checks.
-
-  * biomartr, farff, myTAI, tidyquant: I couldn't automatically install dependencies.
-
-  * tidytext: Looked into failures, seem un-releated to readr.
+There were no NOTEs, ERRORs or WARNINGs.

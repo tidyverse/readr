@@ -22,3 +22,4 @@
 ^travis$
 ^travis/check_format\.sh$
 ^src/\.clang-format$
+^.vimrc$
