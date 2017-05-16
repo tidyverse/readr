@@ -1209,6 +1209,7 @@ localsub(const time_t *const timep, const int_fast32_t offset, stm *const tmp)
     int i;
     stm * result;
     const time_t t = *timep;
+    char *tzname[2];
 
     sp = lclptr;
     if ((sp->goback && t < sp->ats[0]) ||
