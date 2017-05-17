@@ -53,8 +53,9 @@ std::vector<int> count_fields_(List sourceSpec, List tokenizerSpec, int n_max) {
 // [[Rcpp::export]]
 RObject guess_header_(List sourceSpec, List tokenizerSpec, List locale_) {
   Warnings warnings;
-  LocaleInfo locale(locale_);
   SourcePtr source = Source::create(sourceSpec);
+  locale_["encoding"] = source->encoding();
+  LocaleInfo locale(locale_);
   TokenizerPtr tokenizer = Tokenizer::create(tokenizerSpec);
   tokenizer->tokenize(source->begin(), source->end());
   tokenizer->setWarnings(&warnings);

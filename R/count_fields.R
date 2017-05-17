@@ -11,7 +11,7 @@
 #' @export
 #' @examples
 #' count_fields(readr_example("mtcars.csv"), tokenizer_csv())
-count_fields <- function(file, tokenizer, skip = 0, n_max = -1L) {
-  ds <- datasource(file, skip = skip)
+count_fields <- function(file, tokenizer, skip = 0, n_max = -1L, encoding = NULL) {
+  ds <- datasource(file, skip = skip, encoding = encoding)
   count_fields_(ds, tokenizer, n_max)
 }

@@ -10,8 +10,15 @@ class SourceRaw : public Source {
   const char* end_;
 
 public:
-  SourceRaw(Rcpp::RawVector x, int skip = 0, const std::string& comment = "")
+  SourceRaw(
+      Rcpp::RawVector x,
+      int skip,
+      std::vector<std::string> comments,
+      const std::string encoding)
       : x_(x) {
+    set_encoding(encoding);
+    set_comments(comments);
+
     begin_ = (const char*)RAW(x);
     end_ = (const char*)RAW(x) + Rf_xlength(x);
 
@@ -19,7 +26,7 @@ public:
     begin_ = skipBom(begin_, end_);
 
     // Skip lines, if needed
-    begin_ = skipLines(begin_, end_, skip, comment);
+    begin_ = skipLines(skip);
   }
 
   const char* begin() { return begin_; }

@@ -4,7 +4,8 @@
 \alias{tokenize}
 \title{Tokenize a file/string.}
 \usage{
-tokenize(file, tokenizer = tokenizer_csv(), skip = 0, n_max = -1L)
+tokenize(file, tokenizer = tokenizer_csv(), skip = 0, n_max = -1L,
+  encoding = NULL)
 }
 \arguments{
 \item{file}{Either a path to a file, a connection, or literal data
@@ -24,6 +25,11 @@ least one new line to be recognised as data (instead of a path).}
 \item{skip}{Number of lines to skip before reading data.}
 
 \item{n_max}{Optionally, maximum number of rows to tokenize.}
+
+\item{encoding}{The text encoding of the data given in \code{file}. If \code{NULL} is
+passed (the default), then "UTF-8" is used for files,
+"bytes" is used for connections and raw vectors, and the
+string Encoding will be used for literal data strings.}
 }
 \description{
 Turns input into a character vector. Usually the tokenization is done purely

@@ -9,6 +9,9 @@
 * Fixed undefined behavior in localtime.c when using `locale(tz = "")` after
   loading a timezone due to incomplete reinitialization of the global locale.
 
+* `datasource()` accepts an encoding. This is just ground work needed to parse
+  multibyte encodings (like UTF-16) properly in the future. (#306, #397, @zeehio).
+
 # readr 1.1.0
 
 ## New features

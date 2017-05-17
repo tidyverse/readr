@@ -14,7 +14,14 @@ class SourceFile : public Source {
 
 public:
   SourceFile(
-      const std::string& path, int skip = 0, const std::string& comment = "") {
+      const std::string& path,
+      int skip,
+      std::vector<std::string> comments,
+      const std::string encoding) {
+
+    set_encoding(encoding);
+    set_comments(comments);
+
     try {
       fm_ = boost::interprocess::file_mapping(
           path.c_str(), boost::interprocess::read_only);
@@ -31,7 +38,7 @@ public:
     begin_ = skipBom(begin_, end_);
 
     // Skip lines, if needed
-    begin_ = skipLines(begin_, end_, skip, comment);
+    begin_ = skipLines(skip);
   }
 
   const char* begin() { return begin_; }

@@ -36,19 +36,24 @@ read_table <- function(file, col_names = TRUE, col_types = NULL,
                        locale = default_locale(), na = "NA", skip = 0,
                        n_max = Inf, guess_max = min(n_max, 1000),
                        progress = show_progress(), comment = "") {
-  ds <- datasource(file, skip = skip)
+  if (missing(locale)) {
+    encoding <- NULL
+  } else {
+    encoding <- locale$encoding
+  }
+  ds <- datasource(file, skip = skip, comment = comment, encoding = encoding)
   columns <- fwf_empty(ds, skip = skip, n = guess_max, comment = comment)
-  skip <- skip + columns$skip
 
   tokenizer <- tokenizer_fwf(columns$begin, columns$end, na = na, comment = comment)
 
   spec <- col_spec_standardise(
     file = ds, skip = skip, guess_max = guess_max,
+    comment = comment,
     col_names = col_names, col_types = col_types,
     locale = locale, tokenizer = tokenizer
   )
 
-  ds <- datasource(file = ds, skip = skip + isTRUE(col_names))
+  ds <- datasource(ds, skip = skip + isTRUE(col_names))
   if (is.null(col_types) && !inherits(ds, "source_string")) {
     show_cols_spec(spec)
   }

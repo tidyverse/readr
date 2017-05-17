@@ -12,7 +12,13 @@ class SourceString : public Source {
 
 public:
   SourceString(
-      Rcpp::CharacterVector x, int skip = 0, const std::string& comment = "") {
+      Rcpp::CharacterVector x,
+      int skip,
+      std::vector<std::string> comments,
+      const std::string encoding) {
+    set_encoding(encoding);
+    set_comments(comments);
+
     string_ = x[0];
 
     begin_ = CHAR(string_);
@@ -22,7 +28,7 @@ public:
     begin_ = skipBom(begin_, end_);
 
     // Skip lines, if needed
-    begin_ = skipLines(begin_, end_, skip, comment);
+    begin_ = skipLines(skip);
   }
 
   const char* begin() { return begin_; }
