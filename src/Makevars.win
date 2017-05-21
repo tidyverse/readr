@@ -1,1 +1,2 @@
+PKG_CXXFLAGS=-std=gnu++0x
 PKG_LIBS=-lRiconv
