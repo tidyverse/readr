@@ -17,7 +17,7 @@ as_chunk_callback.ChunkCallback <- function(x) {
 #'  \item{ChunkCallback}{Callback interface definition, all callback functions should inherit from this class.}
 #'  \item{SideEffectChunkCallback}{Callback function that is used only for side effects, no results are returned.}
 #'  \item{DataFrameCallback}{Callback function that combines each result together at the end.}
-#'  \item{AccumulateCallBack}{Callback function that accumulates a single result.}
+#'  \item{AccumulateCallBack}{Callback function that accumulates a single result. Initial stream value is \code{NULL}}
 #' }
 #' @usage NULL
 #' @format NULL
@@ -140,6 +140,8 @@ AccumulateCallback <- R6::R6Class("AccumulateCallback", inherit = ChunkCallback,
   ),
   public = list(
     initialize = function(callback) {
+      message = "`callback` must have three or more arguments"
+      check_callback_fun(callback, message, required_n_args = 3)
       private$callback <- callback
     },
     receive = function(data, index) {
@@ -151,9 +153,13 @@ AccumulateCallback <- R6::R6Class("AccumulateCallback", inherit = ChunkCallback,
   )
 )
 
-check_callback_fun <- function(callback) {
+check_callback_fun <- function(callback, message, required_n_args = 2) {
+  if(missing(message)){
+    message <- "`callback` must have two or more arguments"
+  }
   n_args <- length(formals(callback))
-  if (n_args < 2) {
-    stop("`callback` must have two or more arguments", call. = FALSE)
+  if (n_args < required_n_args) {
+    stop(message, call. = FALSE)
   }
 }
+
