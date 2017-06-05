@@ -115,3 +115,25 @@ test_that("ListCallback works as intended", {
 
   expect_equal(out0[["mpg"]], unlist(out1))
 })
+
+
+test_that("AccumulateCallback works as intended", {
+  f <- readr_example("mtcars.csv")
+  out0 <- read_csv(f)
+
+  min_chunk <- function(x, pos, acc){
+    f <- function(x){
+      x[order(x$wt), ][1, ]
+    }
+    if(is.null(acc)){
+      acc <- data.frame()
+    }
+    f(rbind(x, acc))
+  }
+
+  fun1 <- ListCallback$new(min_chunk)
+  out1 <- read_csv_chunked(f, fun1, chunk_size = 10)
+
+  expect_true(min_chunk(out0, acc = NULL), out1)
+
+})
