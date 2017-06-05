@@ -17,6 +17,7 @@ as_chunk_callback.ChunkCallback <- function(x) {
 #'  \item{ChunkCallback}{Callback interface definition, all callback functions should inherit from this class.}
 #'  \item{SideEffectChunkCallback}{Callback function that is used only for side effects, no results are returned.}
 #'  \item{DataFrameCallback}{Callback function that combines each result together at the end.}
+#'  \item{AccumulateCallBack}{Callback function that accumulates a single result.}
 #' }
 #' @usage NULL
 #' @format NULL
@@ -125,6 +126,27 @@ ListCallback <- R6::R6Class("ListCallback", inherit = ChunkCallback,
     },
     finally = function() {
       private$results <- list()
+    }
+  )
+)
+
+#' @usage NULL
+#' @format NULL
+#' @rdname callback
+#' @export
+AccumulateCallback <- R6::R6Class("AccumulateCallback", inherit = ChunkCallback,
+  private = list(
+    accumulator = NULL
+  ),
+  public = list(
+    initialize = function(callback) {
+      private$callback <- callback
+    },
+    receive = function(data, index) {
+      private$accumulator <- private$callback(data, index, private$accumulator)
+    },
+    result = function() {
+      private$accumulator
     }
   )
 )
