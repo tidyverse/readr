@@ -4,7 +4,7 @@
 #include "boost.h"
 
 struct DecimalCommaPolicy
-  : public boost::spirit::qi::real_policies<long double> {
+    : public boost::spirit::qi::real_policies<long double> {
   template <typename Iterator>
   static bool parse_dot(Iterator& first, Iterator const& last) {
     if (first == last || *first != ',')
@@ -20,13 +20,13 @@ inline bool parseDouble(
 
   if (decimalMark == '.') {
     return boost::spirit::qi::parse(
-      first, last, boost::spirit::qi::long_double, res);
+        first, last, boost::spirit::qi::long_double, res);
   } else if (decimalMark == ',') {
     return boost::spirit::qi::parse(
-      first,
-      last,
-      boost::spirit::qi::real_parser<long double, DecimalCommaPolicy>(),
-      res);
+        first,
+        last,
+        boost::spirit::qi::real_parser<long double, DecimalCommaPolicy>(),
+        res);
   } else {
     return false;
   }
@@ -128,10 +128,10 @@ inline bool parseNumber(
     }
   }
 
-  end:
+end:
 
-    // Set last to point to final character used
-    last = cur;
+  // Set last to point to final character used
+  last = cur;
 
   res = sign * sum;
 
