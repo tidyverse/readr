@@ -32,7 +32,7 @@ inline bool parseDouble(
   }
 }
 
-enum NumberState { STATE_INIT, STATE_LHS, STATE_RHS, STATE_FIN };
+enum NumberState { STATE_INIT, STATE_LHS, STATE_RHS, STATE_EXP, STATE_FIN };
 
 // First and last are updated to point to first/last successfully parsed
 // character
@@ -58,10 +58,10 @@ inline bool parseNumber(
     first = cur;
   }
 
-  double sum = 0, denom = 1;
+  double sum = 0, denom = 1, exponent = 0;
   NumberState state = STATE_INIT;
-  bool seenNumber = false;
-  double sign = 1.0;
+  bool seenNumber = false, exp_init = true;
+  double sign = 1.0, exp_sign = 1.0;
 
   for (; cur != last; ++cur) {
     if (state == STATE_FIN)
@@ -87,6 +87,8 @@ inline bool parseNumber(
         // do nothing
       } else if (*cur == decimalMark) {
         state = STATE_RHS;
+      } else if (seenNumber && (*cur == 'e' || *cur == 'E')) {
+        state = STATE_EXP;
       } else if (*cur >= '0' && *cur <= '9') {
         seenNumber = true;
         sum *= 10;
@@ -98,10 +100,25 @@ inline bool parseNumber(
     case STATE_RHS:
       if (*cur == groupingMark) {
         // do nothing
+      } else if (seenNumber && (*cur == 'e' || *cur == 'E')) {
+        state = STATE_EXP;
       } else if (*cur >= '0' && *cur <= '9') {
         seenNumber = true;
         denom *= 10;
         sum += (*cur - '0') / denom;
+      } else {
+        goto end;
+      }
+      break;
+    case STATE_EXP:
+      // negative sign only allowed immediately after 'e' or 'E'
+      if (*cur == '-' && exp_init) {
+        exp_sign = -1.0;
+        exp_init = false;
+      } else if (*cur >= '0' && *cur <= '9') {
+        exponent *= 10.0;
+        exponent += *cur - '0';
+        exp_init = false;
       } else {
         goto end;
       }
@@ -117,6 +134,12 @@ end:
   last = cur;
 
   res = sign * sum;
+
+  // If the number was in scientific notation, multiply by 10^exponent
+  if (exponent) {
+    res *= pow(10.0, exp_sign * exponent);
+  }
+
   return seenNumber;
 }
 
