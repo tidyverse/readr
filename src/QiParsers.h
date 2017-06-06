@@ -111,9 +111,12 @@ inline bool parseNumber(
       }
       break;
     case STATE_EXP:
-      // negative sign only allowed immediately after 'e' or 'E'
+      // negative/positive sign only allowed immediately after 'e' or 'E'
       if (*cur == '-' && exp_init) {
         exp_sign = -1.0;
+        exp_init = false;
+      } else if (*cur == '+' && exp_init) {
+        // sign defaults to positive
         exp_init = false;
       } else if (*cur >= '0' && *cur <= '9') {
         exponent *= 10.0;
