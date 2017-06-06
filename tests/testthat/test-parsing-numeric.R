@@ -115,6 +115,8 @@ test_that("large numbers are parsed properly", {
 test_that("scientific notation is parsed properly", {
   expect_equal(parse_number("1e20"), 1e20)
   expect_equal(parse_number("3e2"), 300)
+  expect_equal(parse_number("1e+20"), 1e20)
+  expect_equal(parse_number("3e+2"), 300)
   expect_equal(parse_number("3e0"), 3)
   expect_equal(parse_number("ignore17e4ignore"), 170000)
   expect_equal(parse_number("1.2345e4"), 12345)
