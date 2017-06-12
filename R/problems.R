@@ -71,7 +71,7 @@ warn_problems <- function(x) {
   if (n == 0)
     return(x)
 
-  probs <- attr(x, "problems")
+  probs <- as.data.frame(attr(x, "problems"))
   many_problems <- nrow(probs) > 5
 
   probs_f <- format(utils::head(probs, 5), justify = "left")
