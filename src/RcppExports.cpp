@@ -315,3 +315,35 @@ BEGIN_RCPP
     return R_NilValue;
 END_RCPP
 }
+
+static const R_CallMethodDef CallEntries[] = {
+    {"readr_collectorGuess", (DL_FUNC) &readr_collectorGuess, 2},
+    {"readr_read_connection_", (DL_FUNC) &readr_read_connection_, 2},
+    {"readr_utctime", (DL_FUNC) &readr_utctime, 7},
+    {"readr_dim_tokens_", (DL_FUNC) &readr_dim_tokens_, 2},
+    {"readr_count_fields_", (DL_FUNC) &readr_count_fields_, 3},
+    {"readr_guess_header_", (DL_FUNC) &readr_guess_header_, 3},
+    {"readr_tokenize_", (DL_FUNC) &readr_tokenize_, 3},
+    {"readr_parse_vector_", (DL_FUNC) &readr_parse_vector_, 4},
+    {"readr_read_file_", (DL_FUNC) &readr_read_file_, 2},
+    {"readr_read_file_raw_", (DL_FUNC) &readr_read_file_raw_, 1},
+    {"readr_read_lines_", (DL_FUNC) &readr_read_lines_, 5},
+    {"readr_read_lines_chunked_", (DL_FUNC) &readr_read_lines_chunked_, 6},
+    {"readr_read_lines_raw_", (DL_FUNC) &readr_read_lines_raw_, 3},
+    {"readr_read_tokens_", (DL_FUNC) &readr_read_tokens_, 7},
+    {"readr_read_tokens_chunked_", (DL_FUNC) &readr_read_tokens_chunked_, 8},
+    {"readr_guess_types_", (DL_FUNC) &readr_guess_types_, 4},
+    {"readr_whitespaceColumns", (DL_FUNC) &readr_whitespaceColumns, 3},
+    {"readr_type_convert_col", (DL_FUNC) &readr_type_convert_col, 6},
+    {"readr_stream_delim_", (DL_FUNC) &readr_stream_delim_, 6},
+    {"readr_write_lines_", (DL_FUNC) &readr_write_lines_, 3},
+    {"readr_write_lines_raw_", (DL_FUNC) &readr_write_lines_raw_, 2},
+    {"readr_write_file_", (DL_FUNC) &readr_write_file_, 2},
+    {"readr_write_file_raw_", (DL_FUNC) &readr_write_file_raw_, 2},
+    {NULL, NULL, 0}
+};
+
+RcppExport void R_init_readr(DllInfo *dll) {
+    R_registerRoutines(dll, NULL, CallEntries, NULL, NULL);
+    R_useDynamicSymbols(dll, FALSE);
+}

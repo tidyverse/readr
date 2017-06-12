@@ -1,4 +1,4 @@
-#' @useDynLib readr
+#' @useDynLib readr, .registration = TRUE
 #' @importClassesFrom Rcpp "C++Object"
 NULL
 
