@@ -141,6 +141,16 @@ TokenizerFwf::TokenizerFwf(
           beginOffset_[j],
           endOffset_[j]);
 
+    if (beginOffset_[j] < 0)
+      Rcpp::stop(
+        "Begin offset (%i) must be greater than 0",
+        beginOffset_[j]);
+
+    if (endOffset_[j] < 0)
+      Rcpp::stop(
+        "End offset (%i) must be greater than 0",
+        endOffset_[j]);
+
     if (endOffset_[j] > max_) {
       max_ = endOffset_[j];
     }
