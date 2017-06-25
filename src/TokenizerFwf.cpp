@@ -141,15 +141,6 @@ TokenizerFwf::TokenizerFwf(
           beginOffset_[j],
           endOffset_[j]);
 
-    if (beginOffset_[j] < max_) {
-      Rcpp::stop(
-          "Overlapping specification not supported. "
-          "Begin offset (%i) must be greater than or equal to previous "
-          "end offset (%i)",
-          beginOffset_[j],
-          max_);
-    }
-
     if (endOffset_[j] > max_) {
       max_ = endOffset_[j];
     }
@@ -194,27 +185,31 @@ Token TokenizerFwf::nextToken() {
   SourceIterator fieldBegin = cur_;
 findBeginning:
   int skip = beginOffset_[col_] - (cur_ - curLine_);
-  for (int i = 0; i < skip; ++i) {
-    if (fieldBegin == end_)
-      break;
+  if (skip < 0) { // overlapping case
+    fieldBegin += skip;
+  } else if (skip > 0) { // skipped columns case
+    for (int i = 0; i < skip; ++i) {
+      if (fieldBegin == end_)
+        break;
 
-    if (*fieldBegin == '\n' || *fieldBegin == '\r') {
-      warn(
+      if (*fieldBegin == '\n' || *fieldBegin == '\r') {
+        warn(
           row_,
           col_,
           tfm::format("%i chars between fields", skip),
           tfm::format("%i chars until end of line", i));
 
-      row_++;
-      col_ = 0;
+        row_++;
+        col_ = 0;
 
-      advanceForLF(&fieldBegin, end_);
-      if (fieldBegin != end_)
-        fieldBegin++;
-      cur_ = curLine_ = fieldBegin;
-      goto findBeginning;
+        advanceForLF(&fieldBegin, end_);
+        if (fieldBegin != end_)
+          fieldBegin++;
+        cur_ = curLine_ = fieldBegin;
+        goto findBeginning;
+      }
+      fieldBegin++;
     }
-    fieldBegin++;
   }
 
   if (fieldBegin == end_) {
