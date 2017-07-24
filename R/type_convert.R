@@ -55,7 +55,7 @@ type_convert <- function(df, col_types = NULL, na = c("", "NA"), trim_ws = TRUE,
   }
 
   specs <- col_spec_standardise(
-    col_types = col_types,
+    col_types = col_spec_limit_names(col_types, names(char_cols)),
     col_names = names(char_cols),
     guessed_types =  guesses
   )

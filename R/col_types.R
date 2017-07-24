@@ -365,6 +365,11 @@ col_spec_standardise <- function(file, col_names = TRUE, col_types = NULL,
 }
 
 
+col_spec_limit_names <- function(col_spec, names_only) {
+  col_spec$cols <- col_spec$cols[names(col_spec$cols) %in% names_only]
+  col_spec
+}
+
 check_guess_max <- function(guess_max, max_limit = .Machine$integer.max %/% 100) {
 
   if (length(guess_max) != 1 || !is.numeric(guess_max) || !is_integerish(guess_max) ||
