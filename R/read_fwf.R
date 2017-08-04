@@ -14,12 +14,13 @@
 #' @inheritParams tokenizer_fwf
 #' @inheritParams read_delim
 #' @param col_positions Column positions, as created by [fwf_empty()],
-#'   [fwf_widths()] or [fwf_positions()]. To read in only selected fields,
+#'   [fwf_widths()], [fwf_positions()] or [fwf_header()]. To read in only selected fields,
 #'   use [fwf_positions()]. If the width of the last column is variable (a
 #'   ragged fwf file), supply the last end position as NA.
 #' @export
 #' @examples
 #' fwf_sample <- readr_example("fwf-sample.txt")
+#' fwf_sample_header <- readr_example("fwf-sample-header.txt")
 #' cat(read_lines(fwf_sample))
 #'
 #' # You can specify column positions in several ways:
@@ -33,6 +34,8 @@
 #' read_fwf(fwf_sample, fwf_cols(name = c(1, 10), ssn = c(30, 42)))
 #' # 5. Named arguments with column widths
 #' read_fwf(fwf_sample, fwf_cols(name = 20, state = 10, ssn = 12))
+#' # 6. Guess based on position of names in the header line.
+#' read_fwf(fwf_sample_header, fwf_header("first", "last", "remainder"))
 read_fwf <- function(file, col_positions, col_types = NULL,
                      locale = default_locale(), na = c("", "NA"),
                      comment = "", skip = 0, n_max = Inf,
@@ -112,6 +115,29 @@ fwf_positions <- function(start, end = NULL, col_names = NULL) {
 
 #' @rdname read_fwf
 #' @export
+fwf_header <- function (file, skip = 0, col_names = NULL) {
+  header_line <- tail(readLines(file)[skip + 1])
+
+  start <- 1L
+  begin <-
+    vapply(col_names, function (name) {
+      match <- start - 1L + stringi::stri_locate_first_fixed(substring(header_line, start), name)[1]
+      start <<- match + nchar(name)
+      match
+    }, integer(1))
+
+  list(
+    begin = begin - 1,
+    end = c(begin[-1] - 1, nchar(header)),
+    skip = skip,
+    col_names = col_names
+  )
+}
+
+
+
+#' @rdname read_fwf
+#' @export
 #' @param ... If the first element is a data frame,
 #'   then it must have all numeric columns and either one or two rows.
 #'   The column names are the variable names, and the column values are the
@@ -139,3 +165,4 @@ fwf_col_names <- function(nm, n) {
   nm[nm_empty] <- paste0("X", seq_len(n))[nm_empty]
   nm
 }
+
