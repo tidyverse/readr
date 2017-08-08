@@ -181,10 +181,10 @@ show_cols_spec <- function(spec, n = getOption("readr.num_columns", 20)) {
 
 # This allows str() on a tibble object to print a little nicer.
 #' @export
-str.col_spec <- function(x, ..., indent.str) {
+str.col_spec <- function(object, ..., indent.str = "") {
 
   # Split the formatted column spec into strings
-  specs <- strsplit(format(x), "\n")[[1]]
+  specs <- strsplit(format(object), "\n")[[1]]
   cat(sep = "",
     "\n",
 
