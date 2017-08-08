@@ -179,6 +179,21 @@ show_cols_spec <- function(spec, n = getOption("readr.num_columns", 20)) {
   }
 }
 
+# This allows str() on a tibble object to print a little nicer.
+#' @export
+str.col_spec <- function(x, ..., indent.str) {
+
+  # Split the formatted column spec into strings
+  specs <- strsplit(format(x), "\n")[[1]]
+  cat(sep = "",
+    "\n",
+
+    # Append the current indentation string to the specs
+    paste(indent.str, specs, collapse = "\n"),
+
+    "\n")
+}
+
 
 #' Examine the column specifications for a data frame
 #'
