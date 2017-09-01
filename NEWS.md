@@ -3,6 +3,7 @@
 * Column guessing will now never guess an integer type. This avoids issues
   where double columns are incorrectly guessed as integers if they have only
   integer values in the first 1000 (#645, #652).
+* Allow files to be read via FTP over SSH by recognising `sftp` as a URL protocol (#707, @jdeboer).
 # readr 1.1.1
 
 * Point release for test compatibility with tibble v1.3.1.
