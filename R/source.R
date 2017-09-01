@@ -157,7 +157,7 @@ source_name <- function(x) {
 }
 
 is_url <- function(path) {
-  grepl("^(http|ftp)s?://", path)
+  grepl("^((http|ftp)s?|sftp)://", path)
 }
 
 check_path <- function(path) {
