@@ -1,5 +1,7 @@
 # readr 1.1.0.9000
 
+* Added function `read_lines_raw_chunked()` (@gergness)
+
 * Column guessing will now never guess an integer type. This avoids issues
   where double columns are incorrectly guessed as integers if they have only
   integer values in the first 1000 (#645, #652).

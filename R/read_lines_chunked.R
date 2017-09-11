@@ -18,3 +18,20 @@ read_lines_chunked <- function(file, callback, chunk_size = 10000, skip = 0,
 
   return(callback$result())
 }
+
+
+#' @export
+#' @rdname read_lines_chunked
+read_lines_raw_chunked <- function(file, callback, chunk_size = 10000, skip = 0,
+                                   progress = show_progress()) {
+  if (empty_file(file)) {
+    return(character())
+  }
+  ds <- datasource(file, skip = skip)
+  callback <- as_chunk_callback(callback)
+  on.exit(callback$finally(), add = TRUE)
+
+  read_lines_raw_chunked_(ds, chunk_size, callback, progress)
+
+  return(callback$result())
+}
