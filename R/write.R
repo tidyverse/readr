@@ -76,7 +76,7 @@ write_excel_csv <- function(x, path, delim = ",", na = "NA", append = FALSE, col
   stopifnot(is.data.frame(x))
 
   x_formated <- if(delim == ";") {
-    x %>% dplyr::mutate_if(is.numeric, funs(format(., decimal.mark = ",")))
+    dplyr::mutate_if(x, is.numeric, dplyr::funs(format(., decimal.mark = ",")))
   } else {
     x
   }
