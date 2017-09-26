@@ -4,6 +4,7 @@
 \alias{write_delim}
 \alias{write_csv}
 \alias{write_excel_csv}
+\alias{write_excel_csv2}
 \alias{write_tsv}
 \title{Write a data frame to a delimited file}
 \usage{
@@ -12,7 +13,11 @@ write_delim(x, path, delim = " ", na = "NA", append = FALSE,
 
 write_csv(x, path, na = "NA", append = FALSE, col_names = !append)
 
-write_excel_csv(x, path, na = "NA", append = FALSE, col_names = !append)
+write_excel_csv(x, path, delim = ",", na = "NA", append = FALSE,
+  col_names = !append)
+
+write_excel_csv2(x, path, delim = ";", na = "NA", append = FALSE,
+  col_names = !append)
 
 write_tsv(x, path, na = "NA", append = FALSE, col_names = !append)
 }
@@ -21,8 +26,8 @@ write_tsv(x, path, na = "NA", append = FALSE, col_names = !append)
 
 \item{path}{Path or connection to write to.}
 
-\item{delim}{Delimiter used to separate values. Defaults to \code{" "}. Must be
-a single character.}
+\item{delim}{Delimiter used to separate values. Defaults to \code{" "}. \code{write_excel_csv()} has \code{","} as default and
+\code{write_excel_csv2} has \code{";"} as default. Must be a single character.}
 
 \item{na}{String used for missing values. Defaults to NA. Missing values
 will never be quoted; strings with the same value as \code{na} will
@@ -47,7 +52,7 @@ columns to suitable output.
 Factors are coerced to character. Doubles are formatted using the grisu3
 algorithm. POSIXct's are formatted as ISO8601.
 
-All columns are encoded as UTF-8. \code{write_excel_csv()} also includes a
+All columns are encoded as UTF-8. \code{write_excel_csv()} and \code{write_excel_csv2()} also include a
 \href{https://en.wikipedia.org/wiki/Byte_order_mark}{UTF-8 Byte order mark}
 which indicates to Excel the csv is UTF-8 encoded.
 
