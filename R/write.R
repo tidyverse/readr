@@ -89,8 +89,8 @@ write_excel_csv <- function(x, path, na = "NA", append = FALSE, col_names = !app
 #' @export
 write_excel_csv2 <- function(x, path, na = "NA", append = FALSE, col_names = !append, delim = ";") {
 
-  x_formated <- dplyr::mutate_if(x, is.numeric, dplyr::funs(format(., decimal.mark = ",")))
-  write_excel_csv(x_formated, path, na, append, col_names, delim)
+  x_formatted <- dplyr::mutate_if(x, is.numeric, dplyr::funs(format(., decimal.mark = ",")))
+  write_excel_csv(x_formatted, path, na, append, col_names, delim)
 }
 
 #' @rdname write_delim
