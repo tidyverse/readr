@@ -13,11 +13,11 @@ write_delim(x, path, delim = " ", na = "NA", append = FALSE,
 
 write_csv(x, path, na = "NA", append = FALSE, col_names = !append)
 
-write_excel_csv(x, path, delim = ",", na = "NA", append = FALSE,
-  col_names = !append)
+write_excel_csv(x, path, na = "NA", append = FALSE, col_names = !append,
+  delim = ",")
 
-write_excel_csv2(x, path, delim = ";", na = "NA", append = FALSE,
-  col_names = !append)
+write_excel_csv2(x, path, na = "NA", append = FALSE, col_names = !append,
+  delim = ";")
 
 write_tsv(x, path, na = "NA", append = FALSE, col_names = !append)
 }
@@ -55,6 +55,9 @@ algorithm. POSIXct's are formatted as ISO8601.
 All columns are encoded as UTF-8. \code{write_excel_csv()} and \code{write_excel_csv2()} also include a
 \href{https://en.wikipedia.org/wiki/Byte_order_mark}{UTF-8 Byte order mark}
 which indicates to Excel the csv is UTF-8 encoded.
+
+\code{write_excel_csv2()} was created to allow users with different locale settings save csv files with their default settings
+\code{;} as column separator and \code{,} as decimal separator.
 
 Values are only quoted if needed: if they contain a comma, quote or newline.
 }
