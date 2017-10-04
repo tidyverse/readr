@@ -44,6 +44,9 @@ All columns are encoded as UTF-8. \code{write_excel_csv()} and \code{write_excel
 \href{https://en.wikipedia.org/wiki/Byte_order_mark}{UTF-8 Byte order mark}
 which indicates to Excel the csv is UTF-8 encoded.
 
+\code{write_excel_csv2()} was created to allow users with different locale settings save csv files with their default settings
+\code{;} as column separator and \code{,} as decimal separator.
+
 Values are only quoted if needed: if they contain a comma, quote or newline.
 }
 
