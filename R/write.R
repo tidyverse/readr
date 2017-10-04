@@ -12,6 +12,9 @@
 #' \href{https://en.wikipedia.org/wiki/Byte_order_mark}{UTF-8 Byte order mark}
 #' which indicates to Excel the csv is UTF-8 encoded.
 #'
+#' `write_excel_csv2()` was created to allow users with different locale settings save csv files with their default settings
+#' `;` as column separator and `,` as decimal separator.
+#'
 #' Values are only quoted if needed: if they contain a comma, quote or newline.
 #'
 #' @param x A data frame to write to disk
@@ -72,15 +75,10 @@ write_csv <- function(x, path, na = "NA", append = FALSE, col_names = !append) {
 
 #' @rdname write_delim
 #' @export
-write_excel_csv <- function(x, path, delim = ",", na = "NA", append = FALSE, col_names = !append) {
+write_excel_csv <- function(x, path, na = "NA", append = FALSE, col_names = !append, delim = ",") {
   stopifnot(is.data.frame(x))
 
-  x_formated <- if(delim == ";") {
-    dplyr::mutate_if(x, is.numeric, dplyr::funs(format(., decimal.mark = ",")))
-  } else {
-    x
-  }
-  x_out <- lapply(x_formated, output_column)
+  x_out <- lapply(x, output_column)
   stream_delim(x_out, path, delim, col_names = col_names, append = append,
     na = na, bom = TRUE)
 
@@ -89,8 +87,10 @@ write_excel_csv <- function(x, path, delim = ",", na = "NA", append = FALSE, col
 
 #' @rdname write_delim
 #' @export
-write_excel_csv2 <- function(x, path,  delim = ";", na = "NA", append = FALSE, col_names = !append) {
-  write_excel_csv(x, path, delim, na, append, col_names)
+write_excel_csv2 <- function(x, path, na = "NA", append = FALSE, col_names = !append, delim = ";") {
+
+  x_formated <- dplyr::mutate_if(x, is.numeric, dplyr::funs(format(., decimal.mark = ",")))
+  write_excel_csv(x_formated, path, na, append, col_names, delim)
 }
 
 #' @rdname write_delim
