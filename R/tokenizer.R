@@ -21,6 +21,13 @@ tokenize <- function(file, tokenizer = tokenizer_csv(), skip = 0, n_max = -1L) {
   tokenize_(ds, tokenizer, n_max)
 }
 
+#' @export
+#' @rdname Tokenizers
+tokenize_melt <- function(file, tokenizer = tokenizer_csv(), skip = 0, n_max = -1L, locale = readr::default_locale()) {
+    ds <- datasource(file, skip = skip)
+    tokenize_melt_(ds, tokenizer, n_max, locale)
+}
+
 #' Tokenizers.
 #'
 #' Explicitly create tokenizer objects. Usually you will not call these

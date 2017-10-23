@@ -48,6 +48,17 @@ bool isNumber(const std::string& x, LocaleInfo* pLocale) {
   return ok && begin == x.begin() && end == x.end();
 }
 
+bool isInteger(const std::string& x, LocaleInfo* pLocale) {
+  // Leading zero
+  if (x[0] == '0')
+    return false;
+
+  double res = 0;
+  std::string::const_iterator begin = x.begin(), end = x.end();
+
+  return parseInt(begin, end, res) && begin == end;
+}
+
 bool isDouble(const std::string& x, LocaleInfo* pLocale) {
   // Leading zero not followed by decimal mark
   if (x[0] == '0' && x.size() > 1 && x[1] != pLocale->decimalMark_)
@@ -104,6 +115,32 @@ std::string collectorGuess(CharacterVector input, List locale_) {
   // Work from strictest to most flexible
   if (canParse(input, isLogical, &locale))
     return "logical";
+  if (canParse(input, isDouble, &locale))
+    return "double";
+  if (canParse(input, isNumber, &locale))
+    return "number";
+  if (canParse(input, isTime, &locale))
+    return "time";
+  if (canParse(input, isDate, &locale))
+    return "date";
+  if (canParse(input, isDateTime, &locale))
+    return "datetime";
+
+  // Otherwise can always parse as a character
+  return "character";
+}
+
+std::string collectorGuessInternal(CharacterVector input, List locale_) {
+  LocaleInfo locale(locale_);
+
+  if (input.size() == 0 || allMissing(input))
+    return "character";
+
+  // Work from strictest to most flexible
+  if (canParse(input, isLogical, &locale))
+    return "logical";
+  if (canParse(input, isInteger, &locale))
+    return "integer";
   if (canParse(input, isDouble, &locale))
     return "double";
   if (canParse(input, isNumber, &locale))

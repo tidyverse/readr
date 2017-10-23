@@ -97,6 +97,20 @@ BEGIN_RCPP
     return rcpp_result_gen;
 END_RCPP
 }
+// tokenize_melt_
+List tokenize_melt_(List sourceSpec, List tokenizerSpec, int n_max, List locale_);
+RcppExport SEXP _readr_tokenize_melt_(SEXP sourceSpecSEXP, SEXP tokenizerSpecSEXP, SEXP n_maxSEXP, SEXP locale_SEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< List >::type sourceSpec(sourceSpecSEXP);
+    Rcpp::traits::input_parameter< List >::type tokenizerSpec(tokenizerSpecSEXP);
+    Rcpp::traits::input_parameter< int >::type n_max(n_maxSEXP);
+    Rcpp::traits::input_parameter< List >::type locale_(locale_SEXP);
+    rcpp_result_gen = Rcpp::wrap(tokenize_melt_(sourceSpec, tokenizerSpec, n_max, locale_));
+    return rcpp_result_gen;
+END_RCPP
+}
 // parse_vector_
 SEXP parse_vector_(CharacterVector x, List collectorSpec, List locale_, const std::vector<std::string>& na, const bool trim_ws);
 RcppExport SEXP _readr_parse_vector_(SEXP xSEXP, SEXP collectorSpecSEXP, SEXP locale_SEXP, SEXP naSEXP, SEXP trim_wsSEXP) {
@@ -327,6 +341,7 @@ static const R_CallMethodDef CallEntries[] = {
     {"_readr_count_fields_", (DL_FUNC) &_readr_count_fields_, 3},
     {"_readr_guess_header_", (DL_FUNC) &_readr_guess_header_, 3},
     {"_readr_tokenize_", (DL_FUNC) &_readr_tokenize_, 3},
+    {"_readr_tokenize_melt_", (DL_FUNC) &_readr_tokenize_melt_, 4},
     {"_readr_parse_vector_", (DL_FUNC) &_readr_parse_vector_, 5},
     {"_readr_read_file_", (DL_FUNC) &_readr_read_file_, 2},
     {"_readr_read_file_raw_", (DL_FUNC) &_readr_read_file_raw_, 1},

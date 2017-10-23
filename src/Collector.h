@@ -253,5 +253,6 @@ collectorsCreate(Rcpp::ListOf<Rcpp::List> specs, LocaleInfo* pLocale);
 void collectorsResize(std::vector<CollectorPtr>& collectors, int n);
 void collectorsClear(std::vector<CollectorPtr>& collectors);
 std::string collectorGuess(Rcpp::CharacterVector input, Rcpp::List locale_);
+std::string collectorGuessInternal(Rcpp::CharacterVector input, Rcpp::List locale_);
 
 #endif

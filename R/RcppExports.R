@@ -29,6 +29,10 @@ tokenize_ <- function(sourceSpec, tokenizerSpec, n_max) {
     .Call(`_readr_tokenize_`, sourceSpec, tokenizerSpec, n_max)
 }
 
+tokenize_melt_ <- function(sourceSpec, tokenizerSpec, n_max, locale_) {
+    .Call(`_readr_tokenize_melt_`, sourceSpec, tokenizerSpec, n_max, locale_)
+}
+
 parse_vector_ <- function(x, collectorSpec, locale_, na, trim_ws = TRUE) {
     .Call(`_readr_parse_vector_`, x, collectorSpec, locale_, na, trim_ws)
 }
