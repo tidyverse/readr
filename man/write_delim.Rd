@@ -26,8 +26,8 @@ write_tsv(x, path, na = "NA", append = FALSE, col_names = !append)
 
 \item{path}{Path or connection to write to.}
 
-\item{delim}{Delimiter used to separate values. Defaults to \code{" "}. \code{write_excel_csv()} has \code{","} as default and
-\code{write_excel_csv2} has \code{";"} as default. Must be a single character.}
+\item{delim}{Delimiter used to separate values. Defaults to \code{" "} for \code{write_delim()}, \code{","} for \code{write_excel_csv()} and
+\code{";"} for \code{write_excel_csv2()}. Must be a single character.}
 
 \item{na}{String used for missing values. Defaults to NA. Missing values
 will never be quoted; strings with the same value as \code{na} will

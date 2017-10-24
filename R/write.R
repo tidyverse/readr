@@ -23,8 +23,8 @@
 #'   will append to existing file. In both cases, if file does not exist a new
 #'   file is created.
 #' @param col_names Write columns names at the top of the file?
-#' @param delim Delimiter used to separate values. Defaults to `" "`. `write_excel_csv()` has `","` as default and
-#' `write_excel_csv2` has `";"` as default. Must be a single character.
+#' @param delim Delimiter used to separate values. Defaults to `" "` for `write_delim()`, `","` for `write_excel_csv()` and
+#' `";"` for `write_excel_csv2()`. Must be a single character.
 #' @param na String used for missing values. Defaults to NA. Missing values
 #'   will never be quoted; strings with the same value as `na` will
 #'   always be quoted.
@@ -88,6 +88,7 @@ write_excel_csv <- function(x, path, na = "NA", append = FALSE, col_names = !app
 #' @rdname write_delim
 #' @export
 write_excel_csv2 <- function(x, path, na = "NA", append = FALSE, col_names = !append, delim = ";") {
+  stopifnot(is.data.frame(x))
 
   x_formatted <- dplyr::mutate_if(x, is.numeric, dplyr::funs(format(., decimal.mark = ",")))
   write_excel_csv(x_formatted, path, na, append, col_names, delim)
