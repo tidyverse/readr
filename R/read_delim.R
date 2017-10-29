@@ -176,7 +176,13 @@ read_delimited <- function(file, tokenizer, col_names = TRUE, col_types = NULL,
     if (empty_file(file)) {
        return(tibble::data_frame())
     }
-    data <- file
+    if (is.character(file) && identical(locale, default_locale())) {
+      # When locale is not set, file is probablly marked as its correct encoding.
+      # As default_locale() assumes file is UTF-8, file should be encoded as UTF-8 for non-UTF-8 MBCS locales.
+      data <- enc2utf8(file)
+    } else {
+      data <- file
+    }
   }
 
   spec <- col_spec_standardise(
