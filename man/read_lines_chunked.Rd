@@ -19,7 +19,9 @@ decompressed.
 
 Literal data is most useful for examples and tests. It must contain at
 least one new line to be recognised as data (instead of a path) or be a
-vector of greater than length 1.}
+vector of greater than length 1.
+
+Using a value of \code{\link[=clipboard]{clipboard()}} will read from the system clipboard.}
 
 \item{callback}{A callback function to call on each chunk}
 
