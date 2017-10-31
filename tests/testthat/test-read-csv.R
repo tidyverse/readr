@@ -78,6 +78,10 @@ test_that("nuls are dropped with a warning", {
   expect_equal(x$abc, "ab")
 })
 
+test_that("can read from a multi-line character vector", {
+  expect_identical(nrow(read_csv(c("a,b,c", "1,2,3"))), 1L)
+})
+
 # Column warnings ---------------------------------------------------------
 
 test_that("warnings based on number of columns (not output columns)", {
