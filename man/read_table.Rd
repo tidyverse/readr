@@ -24,7 +24,8 @@ downloaded. Remote gz files can also be automatically downloaded and
 decompressed.
 
 Literal data is most useful for examples and tests. It must contain at
-least one new line to be recognised as data (instead of a path).}
+least one new line to be recognised as data (instead of a path) or be a
+vector of greater than length 1.}
 
 \item{col_names}{Either \code{TRUE}, \code{FALSE} or a character vector
 of column names.
@@ -84,7 +85,7 @@ comment characters will be silently ignored.}
 }
 \description{
 \code{read_table()} and \code{read_table2()} are designed to read the type of textual
-data where each column is #' separate by one (or more) columns of space.
+data where each column is separated by one (or more) columns of space.
 
 \code{read_table2()} is like \code{\link[=read.table]{read.table()}}, it allows any number of whitespace
 characters between columns, and the lines can be of different lengths.
