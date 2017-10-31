@@ -12,6 +12,9 @@
 #'    Literal data is most useful for examples and tests. It must contain at
 #'    least one new line to be recognised as data (instead of a path) or be a
 #'    vector of greater than length 1.
+#'
+#'    Using a value of [clipboard()] will read from the system clipboard.
+#'
 #' @param skip Number of lines to skip before reading data.
 #' @keywords internal
 #' @export
@@ -196,4 +199,13 @@ zipfile <- function(path, open = "r") {
 
 empty_file <- function(x) {
   is.character(x) && file.exists(x) && file.info(x, extra_cols = FALSE)$size == 0
+}
+
+#' Returns values from the clipboard
+#'
+#' This is useful in the [read_delim()] functions to read from the clipboard.
+#' @seealso read_delim
+#' @export
+clipboard <- function() {
+  clipr::read_clip()
 }

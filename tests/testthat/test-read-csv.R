@@ -78,6 +78,12 @@ test_that("nuls are dropped with a warning", {
   expect_equal(x$abc, "ab")
 })
 
+test_that("can read from the clipboard", {
+  skip_if_no_clipboard()
+  clipr::write_clip("a,b,c\n1,2,3")
+  expect_identical(read_csv(clipboard()), read_csv("a,b,c\n1,2,3"))
+})
+
 test_that("can read from a multi-line character vector", {
   expect_identical(nrow(read_csv(c("a,b,c", "1,2,3"))), 1L)
 })
