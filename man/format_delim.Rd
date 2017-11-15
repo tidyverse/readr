@@ -38,7 +38,9 @@ of writing to disk, they return a string.
 \section{Output}{
 
 Factors are coerced to character. Doubles are formatted using the grisu3
-algorithm. POSIXct's are formatted as ISO8601.
+algorithm. POSIXct's are formatted as ISO8601 with a UTC timezone \emph{Note:
+\code{POSIXct}objects in local or non-UTC timezones will be converted to UTC time
+before writing.}
 
 All columns are encoded as UTF-8. \code{write_excel_csv()} also includes a
 \href{https://en.wikipedia.org/wiki/Byte_order_mark}{UTF-8 Byte order mark}
