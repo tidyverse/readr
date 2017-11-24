@@ -15,8 +15,8 @@ format_tsv(x, na = "NA", append = FALSE, col_names = !append)
 \arguments{
 \item{x}{A data frame to write to disk}
 
-\item{delim}{Delimiter used to separate values. Defaults to \code{" "}. Must be
-a single character.}
+\item{delim}{Delimiter used to separate values. Defaults to \code{" "} for \code{write_delim()}, \code{","} for \code{write_excel_csv()} and
+\code{";"} for \code{write_excel_csv2()}. Must be a single character.}
 
 \item{na}{String used for missing values. Defaults to NA. Missing values
 will never be quoted; strings with the same value as \code{na} will
@@ -40,9 +40,12 @@ of writing to disk, they return a string.
 Factors are coerced to character. Doubles are formatted using the grisu3
 algorithm. POSIXct's are formatted as ISO8601.
 
-All columns are encoded as UTF-8. \code{write_excel_csv()} also includes a
+All columns are encoded as UTF-8. \code{write_excel_csv()} and \code{write_excel_csv2()} also include a
 \href{https://en.wikipedia.org/wiki/Byte_order_mark}{UTF-8 Byte order mark}
 which indicates to Excel the csv is UTF-8 encoded.
+
+\code{write_excel_csv2()} was created to allow users with different locale settings save csv files with their default settings
+\code{;} as column separator and \code{,} as decimal separator.
 
 Values are only quoted if needed: if they contain a comma, quote or newline.
 }
