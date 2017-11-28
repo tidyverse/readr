@@ -139,7 +139,9 @@ be automatically uncompressed. Files starting with <code>http://</code>,
 downloaded. Remote gz files can also be automatically downloaded and
 decompressed.</p>
 <p>Literal data is most useful for examples and tests. It must contain at
-least one new line to be recognised as data (instead of a path).</p></td>
+least one new line to be recognised as data (instead of a path) or be a
+vector of greater than length 1.</p>
+<p>Using a value of <code><a href='clipboard.html'>clipboard()</a></code> will read from the system clipboard.</p></td>
     </tr>
     <tr>
       <th>col_positions</th>
@@ -151,7 +153,7 @@ ragged fwf file), supply the last end position as NA.</p></td>
     <tr>
       <th>col_types</th>
       <td><p>One of <code>NULL</code>, a <code><a href='cols.html'>cols()</a></code> specification, or
-a string. See <code><a href='../articles/column-types.html'>vignette("column-types")</a></code> for more details.</p>
+a string. See <code><a href='../articles/readr.html'>vignette("readr")</a></code> for more details.</p>
 <p>If <code>NULL</code>, all column types will be imputed from the first 1000 rows
 on the input. This is convenient (and fast), but not robust. If the
 imputation fails, you'll need to supply the correct types yourself.</p>
@@ -250,7 +252,7 @@ column is separated by whitespace.</p>
 #&gt; <span class='message'>  last = col_character(),</span>
 #&gt; <span class='message'>  state = col_character(),</span>
 #&gt; <span class='message'>  ssn = col_character()</span>
-#&gt; <span class='message'>)</span></div><div class='output co'>#&gt; # A tibble: 3 × 4
+#&gt; <span class='message'>)</span></div><div class='output co'>#&gt; # A tibble: 3 x 4
 #&gt;   first     last state          ssn
 #&gt;   &lt;chr&gt;    &lt;chr&gt; &lt;chr&gt;        &lt;chr&gt;
 #&gt; 1  John    Smith    WA 418-Y11-4111
@@ -261,7 +263,7 @@ column is separated by whitespace.</p>
 #&gt; <span class='message'>  name = col_character(),</span>
 #&gt; <span class='message'>  state = col_character(),</span>
 #&gt; <span class='message'>  ssn = col_character()</span>
-#&gt; <span class='message'>)</span></div><div class='output co'>#&gt; # A tibble: 3 × 3
+#&gt; <span class='message'>)</span></div><div class='output co'>#&gt; # A tibble: 3 x 3
 #&gt;            name state          ssn
 #&gt;           &lt;chr&gt; &lt;chr&gt;        &lt;chr&gt;
 #&gt; 1    John Smith    WA 418-Y11-4111
@@ -271,7 +273,7 @@ column is separated by whitespace.</p>
 #&gt; <span class='message'>cols(</span>
 #&gt; <span class='message'>  name = col_character(),</span>
 #&gt; <span class='message'>  ssn = col_character()</span>
-#&gt; <span class='message'>)</span></div><div class='output co'>#&gt; # A tibble: 3 × 2
+#&gt; <span class='message'>)</span></div><div class='output co'>#&gt; # A tibble: 3 x 2
 #&gt;         name          ssn
 #&gt;        &lt;chr&gt;        &lt;chr&gt;
 #&gt; 1 John Smith 418-Y11-4111
@@ -281,7 +283,7 @@ column is separated by whitespace.</p>
 #&gt; <span class='message'>cols(</span>
 #&gt; <span class='message'>  name = col_character(),</span>
 #&gt; <span class='message'>  ssn = col_character()</span>
-#&gt; <span class='message'>)</span></div><div class='output co'>#&gt; # A tibble: 3 × 2
+#&gt; <span class='message'>)</span></div><div class='output co'>#&gt; # A tibble: 3 x 2
 #&gt;         name          ssn
 #&gt;        &lt;chr&gt;        &lt;chr&gt;
 #&gt; 1 John Smith 418-Y11-4111
@@ -292,7 +294,7 @@ column is separated by whitespace.</p>
 #&gt; <span class='message'>  name = col_character(),</span>
 #&gt; <span class='message'>  state = col_character(),</span>
 #&gt; <span class='message'>  ssn = col_character()</span>
-#&gt; <span class='message'>)</span></div><div class='output co'>#&gt; # A tibble: 3 × 3
+#&gt; <span class='message'>)</span></div><div class='output co'>#&gt; # A tibble: 3 x 3
 #&gt;            name state          ssn
 #&gt;           &lt;chr&gt; &lt;chr&gt;        &lt;chr&gt;
 #&gt; 1    John Smith    WA 418-Y11-4111

@@ -110,22 +110,21 @@
 
 <span class="co"># Or the the development version from GitHub:</span>
 <span class="co"># install.packages("devtools")</span>
-devtools::<span class="kw">install_github</span>(<span class="st">"tidyverse/readr"</span>)</code></pre></div>
+devtools<span class="op">::</span><span class="kw"><a href="http://www.rdocumentation.org/packages/devtools/topics/install_github">install_github</a></span>(<span class="st">"tidyverse/readr"</span>)</code></pre></div>
 </div>
 <div id="usage" class="section level2">
 <h2 class="hasAnchor">
 <a href="#usage" class="anchor"></a>Usage</h2>
 <p>readr is part of the core tidyverse, so load it with:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(tidyverse)
-<span class="co">#&gt; Loading tidyverse: ggplot2</span>
-<span class="co">#&gt; Loading tidyverse: tibble</span>
-<span class="co">#&gt; Loading tidyverse: tidyr</span>
-<span class="co">#&gt; Loading tidyverse: readr</span>
-<span class="co">#&gt; Loading tidyverse: purrr</span>
-<span class="co">#&gt; Loading tidyverse: dplyr</span>
-<span class="co">#&gt; Conflicts with tidy packages ----------------------------------------------</span>
-<span class="co">#&gt; filter(): dplyr, stats</span>
-<span class="co">#&gt; lag():    dplyr, stats</span></code></pre></div>
+<span class="co">#&gt; ── Attaching packages ────────────────────────────────── tidyverse 1.2.1 ──</span>
+<span class="co">#&gt; ✔ ggplot2 2.2.1     ✔ purrr   0.2.4</span>
+<span class="co">#&gt; ✔ tibble  1.3.4     ✔ dplyr   0.7.4</span>
+<span class="co">#&gt; ✔ tidyr   0.7.2     ✔ stringr 1.2.0</span>
+<span class="co">#&gt; ✔ readr   1.1.1     ✔ forcats 0.2.0</span>
+<span class="co">#&gt; ── Conflicts ───────────────────────────────────── tidyverse_conflicts() ──</span>
+<span class="co">#&gt; ✖ dplyr::filter() masks stats::filter()</span>
+<span class="co">#&gt; ✖ dplyr::lag()    masks stats::lag()</span></code></pre></div>
 <p>To accurately read a rectangular dataset with readr you combine two pieces: a function that parses the overall file, and a column specification. The column specification describes how each column should be converted from a character vector to the most appropriate data type, and in most cases it’s not necessary because readr will guess it for you automatically.</p>
 <p>readr supports seven file formats with seven <code>read_</code> functions:</p>
 <ul>
@@ -174,7 +173,7 @@ devtools::<span class="kw">install_github</span>(<span class="st">"tidyverse/rea
     <span class="dt">carb =</span> <span class="kw"><a href="reference/parse_atomic.html">col_integer</a></span>()
   )
 )</code></pre></div>
-<p><code><a href="articles/column-types.html">vignette("column-types")</a></code> gives more detail on how readr guess the column types, how you can override the defaults, and provides some useful tools for debugging parsing problems.</p>
+<p><code><a href="articles/readr.html">vignette("readr")</a></code> gives more detail on how readr guess the column types, how you can override the defaults, and provides some useful tools for debugging parsing problems.</p>
 </div>
 <div id="alternatives" class="section level2">
 <h2 class="hasAnchor">
@@ -198,7 +197,7 @@ devtools::<span class="kw">install_github</span>(<span class="st">"tidyverse/rea
 </h3>
 <p><a href="https://github.com/Rdatatable/data.table">data.table</a> has a function similar to <code><a href="reference/read_delim.html">read_csv()</a></code> called fread. Compared to fread, readr functions:</p>
 <ul>
-<li><p>Are slower (currently ~1.2-2x slower. If you want absolutely the best performance, use <code>data.table::fread()</code>.</p></li>
+<li><p>Are slower (currently ~1.2-2x slower. If you want absolutely the best performance, use <code><a href="http://www.rdocumentation.org/packages/data.table/topics/fread">data.table::fread()</a></code>.</p></li>
 <li><p>Use a slightly more sophisticated parser, recognising both doubled (<code>""""</code>) and backslash escapes (<code>"\""</code>), and can produce factors and date/times directly.</p></li>
 <li><p>Forces you to supply all parameters, where <code>fread()</code> saves you work by automatically guessing the delimiter, whether or not the file has a header, and how many lines to skip.</p></li>
 <li><p>Are built on a different underlying infrastructure. Readr functions are designed to be quite general, which makes it easier to add support for new rectangular data formats. <code>fread()</code> is designed to be as fast as possible.</p></li>
@@ -220,7 +219,8 @@ devtools::<span class="kw">install_github</span>(<span class="st">"tidyverse/rea
   </div>
 
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
-    <h2>Links</h2>
+    <h2 class="hasAnchor">
+<a href="#sidebar" class="anchor"></a>Links</h2>
 <ul class="list-unstyled">
 <li>Download from CRAN at <br><a href="https://cran.r-project.org/package=readr">https://​cran.r-project.org/​package=readr</a>
 </li>
@@ -232,7 +232,7 @@ devtools::<span class="kw">install_github</span>(<span class="st">"tidyverse/rea
 </li>
 </ul>
 <h2>License</h2>
-<p>GPL (&gt;= 2) | file <a href="LICENSE">LICENSE</a></p>
+<p>GPL (&gt;= 2) | file <a href="LICENSE.html">LICENSE</a></p>
 <h2>Developers</h2>
 <ul class="list-unstyled">
 <li>
@@ -240,7 +240,7 @@ devtools::<span class="kw">install_github</span>(<span class="st">"tidyverse/rea
 <li>Jim Hester <br><small class="roles"> Author, maintainer </small> </li>
 <li>Romain Francois <br><small class="roles"> Author </small> </li>
 <li>
-<a href="https://www.rstudio.com"><img src="http://tidyverse.org/rstudio-logo.svg" height="24"></a> <br><small class="roles"> Copyright holder, funder </small> </li>
+<a href="https://www.rstudio.com"><img src="http://tidyverse.org/rstudio-logo.svg" height="24"></a> <br><small class="roles"> Copyright holder, funder </small> </li>
 <li><a href="authors.html">All authors...</a></li>
 </ul>
 <h2>Dev status</h2>

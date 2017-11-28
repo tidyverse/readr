@@ -143,13 +143,13 @@ an error as soon as you encounter a problem.</p>
     <pre class="examples"><div class='input'><span class='no'>x</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='parse_atomic.html'>parse_integer</a></span>(<span class='fu'>c</span>(<span class='st'>"1X"</span>, <span class='st'>"blah"</span>, <span class='st'>"3"</span>))</div><div class='output co'>#&gt; <span class='warning'>Warning: 2 parsing failures.</span>
 #&gt; <span class='warning'>row col               expected actual</span>
 #&gt; <span class='warning'>  1  -- no trailing characters   X   </span>
-#&gt; <span class='warning'>  2  -- an integer               blah</span></div><div class='input'><span class='fu'>problems</span>(<span class='no'>x</span>)</div><div class='output co'>#&gt; # A tibble: 2 × 4
+#&gt; <span class='warning'>  2  -- an integer               blah</span></div><div class='input'><span class='fu'>problems</span>(<span class='no'>x</span>)</div><div class='output co'>#&gt; # A tibble: 2 x 4
 #&gt;     row   col               expected actual
 #&gt;   &lt;int&gt; &lt;int&gt;                  &lt;chr&gt;  &lt;chr&gt;
 #&gt; 1     1    NA no trailing characters      X
 #&gt; 2     2    NA             an integer   blah</div><div class='input'>
 <span class='no'>y</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='parse_atomic.html'>parse_integer</a></span>(<span class='fu'>c</span>(<span class='st'>"1"</span>, <span class='st'>"2"</span>, <span class='st'>"3"</span>))
-<span class='fu'>problems</span>(<span class='no'>y</span>)</div><div class='output co'>#&gt; # A tibble: 0 × 4
+<span class='fu'>problems</span>(<span class='no'>y</span>)</div><div class='output co'>#&gt; # tibble [0 x 4]
 #&gt; # ... with 4 variables: row &lt;int&gt;, col &lt;int&gt;, expected &lt;chr&gt;, actual &lt;chr&gt;</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">

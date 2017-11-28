@@ -128,7 +128,9 @@ be automatically uncompressed. Files starting with <code>http://</code>,
 downloaded. Remote gz files can also be automatically downloaded and
 decompressed.</p>
 <p>Literal data is most useful for examples and tests. It must contain at
-least one new line to be recognised as data (instead of a path).</p></td>
+least one new line to be recognised as data (instead of a path) or be a
+vector of greater than length 1.</p>
+<p>Using a value of <code><a href='clipboard.html'>clipboard()</a></code> will read from the system clipboard.</p></td>
     </tr>
     <tr>
       <th>col_names</th>
@@ -147,7 +149,7 @@ will generate a warning and be made unique with a numeric prefix.</p></td>
     <tr>
       <th>col_types</th>
       <td><p>One of <code>NULL</code>, a <code><a href='cols.html'>cols()</a></code> specification, or
-a string. See <code><a href='../articles/column-types.html'>vignette("column-types")</a></code> for more details.</p>
+a string. See <code><a href='../articles/readr.html'>vignette("readr")</a></code> for more details.</p>
 <p>If <code>NULL</code>, all column types will be imputed from the first 1000 rows
 on the input. This is convenient (and fast), but not robust. If the
 imputation fails, you'll need to supply the correct types yourself.</p>
@@ -187,14 +189,14 @@ setting option <code>readr.show_progress</code> to <code>FALSE</code>.</p></td>
 #&gt; <span class='message'>  X3 = col_character(),</span>
 #&gt; <span class='message'>  X4 = col_character(),</span>
 #&gt; <span class='message'>  X5 = col_character(),</span>
-#&gt; <span class='message'>  X6 = col_integer(),</span>
-#&gt; <span class='message'>  X7 = col_integer()</span>
-#&gt; <span class='message'>)</span></div><div class='output co'>#&gt; # A tibble: 2 × 7
-#&gt;             X1    X2                 X3                         X4
-#&gt;          &lt;chr&gt; &lt;chr&gt;              &lt;chr&gt;                      &lt;chr&gt;
-#&gt; 1 172.21.13.45  &lt;NA&gt; Microsoft\\JohnDoe 08/Apr/2001:17:39:04 -0800
-#&gt; 2    127.0.0.1  &lt;NA&gt;              frank 10/Oct/2000:13:55:36 -0700
-#&gt; # ... with 3 more variables: X5 &lt;chr&gt;, X6 &lt;int&gt;, X7 &lt;int&gt;</div></pre>
+#&gt; <span class='message'>  X6 = col_double(),</span>
+#&gt; <span class='message'>  X7 = col_double()</span>
+#&gt; <span class='message'>)</span></div><div class='output co'>#&gt; # A tibble: 2 x 7
+#&gt;             X1    X2                   X3                         X4
+#&gt;          &lt;chr&gt; &lt;chr&gt;                &lt;chr&gt;                      &lt;chr&gt;
+#&gt; 1 172.21.13.45  &lt;NA&gt; "Microsoft\\JohnDoe" 08/Apr/2001:17:39:04 -0800
+#&gt; 2    127.0.0.1  &lt;NA&gt;                frank 10/Oct/2000:13:55:36 -0700
+#&gt; # ... with 3 more variables: X5 &lt;chr&gt;, X6 &lt;dbl&gt;, X7 &lt;dbl&gt;</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
