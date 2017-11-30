@@ -23,7 +23,8 @@ Imports:
     tibble,
     hms,
     R6,
-    clipr
+    clipr,
+    dplyr
 Suggests:
     curl,
     testthat,
