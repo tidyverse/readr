@@ -155,9 +155,11 @@ file is created.</p></td>
 
     
     <p>Factors are coerced to character. Doubles are formatted using the grisu3
-algorithm. POSIXct's are formatted as ISO8601.</p>
-<p>All columns are encoded as UTF-8. <code>write_excel_csv()</code> also includes a
-<a href = 'https://en.wikipedia.org/wiki/Byte_order_mark'>UTF-8 Byte order mark</a>
+algorithm. POSIXct's are formatted as ISO8601 with a UTC timezone <em>Note:
+<code>POSIXct</code>objects in local or non-UTC timezones will be converted to UTC time
+before writing.</em></p>
+<p>All columns are encoded as UTF-8. <code><a href='write_delim.html'>write_excel_csv()</a></code> also includes a
+<a href='https://en.wikipedia.org/wiki/Byte_order_mark'>UTF-8 Byte order mark</a>
 which indicates to Excel the csv is UTF-8 encoded.</p>
 <p>Values are only quoted if needed: if they contain a comma, quote or newline.</p>
     
@@ -165,7 +167,7 @@ which indicates to Excel the csv is UTF-8 encoded.</p>
 
     <p>Florian Loitsch, Printing Floating-Point Numbers Quickly and
 Accurately with Integers, PLDI '10,
-<a href = 'http://www.cs.tufts.edu/~nr/cs257/archive/florian-loitsch/printf.pdf'>http://www.cs.tufts.edu/~nr/cs257/archive/florian-loitsch/printf.pdf</a></p>
+<a href='http://www.cs.tufts.edu/~nr/cs257/archive/florian-loitsch/printf.pdf'>http://www.cs.tufts.edu/~nr/cs257/archive/florian-loitsch/printf.pdf</a></p>
     
 
   </div>

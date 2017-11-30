@@ -10,7 +10,11 @@
 #'    decompressed.
 #'
 #'    Literal data is most useful for examples and tests. It must contain at
-#'    least one new line to be recognised as data (instead of a path).
+#'    least one new line to be recognised as data (instead of a path) or be a
+#'    vector of greater than length 1.
+#'
+#'    Using a value of [clipboard()] will read from the system clipboard.
+#'
 #' @param skip Number of lines to skip before reading data.
 #' @keywords internal
 #' @export
@@ -50,7 +54,9 @@ datasource <- function(file, skip = 0, comment = "") {
   } else if (is.raw(file)) {
     datasource_raw(file, skip, comment)
   } else if (is.character(file)) {
-    if (grepl("\n", file)) {
+    if (length(file) > 1) {
+      datasource_string(paste(file, collapse = "\n"), skip, comment)
+    } else if (grepl("\n", file)) {
       datasource_string(file, skip, comment)
     } else {
       file <- standardise_path(file)
@@ -106,6 +112,10 @@ standardise_path <- function(path, input = TRUE) {
   if (!is.character(path))
     return(path)
 
+  if (length(path) > 1) {
+    return(paste(path, collapse = "\n"))
+  }
+
   if (grepl("\n", path))
     return(path)
 
@@ -146,7 +156,7 @@ source_name <- function(x) {
   } else if (is.raw(x)) {
     "<raw vector>"
   } else if (is.character(x)) {
-    if (grepl("\n", x)) {
+    if (length(x) > 1 || grepl("\n", x)) {
       "literal data"
     } else {
       paste0("'", x, "'")
@@ -189,4 +199,13 @@ zipfile <- function(path, open = "r") {
 
 empty_file <- function(x) {
   is.character(x) && file.exists(x) && file.info(x, extra_cols = FALSE)$size == 0
+}
+
+#' Returns values from the clipboard
+#'
+#' This is useful in the [read_delim()] functions to read from the clipboard.
+#' @seealso read_delim
+#' @export
+clipboard <- function() {
+  clipr::read_clip()
 }

@@ -111,7 +111,7 @@
 <p>For small examples, you can also supply literal data: if <code>file</code> contains a new line, then the data will be read directly from the string. Thanks to <a href="https://github.com/Rdatatable/data.table">data.table</a> for this great idea!</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(readr)
 <span class="kw"><a href="../../reference/read_delim.html">read_csv</a></span>(<span class="st">"x,y</span><span class="ch">\n</span><span class="st">1,2</span><span class="ch">\n</span><span class="st">3,4"</span>)
-<span class="co">#&gt; # A tibble: 2 × 2</span>
+<span class="co">#&gt; # A tibble: 2 x 2</span>
 <span class="co">#&gt;       x     y</span>
 <span class="co">#&gt;   &lt;int&gt; &lt;int&gt;</span>
 <span class="co">#&gt; 1     1     2</span>
@@ -230,17 +230,15 @@
 
 df &lt;-<span class="st"> </span><span class="kw"><a href="../../reference/read_delim.html">read_csv</a></span>(csv, <span class="dt">col_types =</span> <span class="st">"ii"</span>)
 <span class="co">#&gt; Warning: 2 parsing failures.</span>
-<span class="co">#&gt; row col   expected actual         file</span>
-<span class="co">#&gt;   1   y an integer      a literal data</span>
-<span class="co">#&gt;   2   x an integer      b literal data</span>
+<span class="co">#&gt; row # A tibble: 2 x 5 col     row   col   expected actual         file expected   &lt;int&gt; &lt;chr&gt;      &lt;chr&gt;  &lt;chr&gt;        &lt;chr&gt; actual 1     1     y an integer      a literal data file 2     2     x an integer      b literal data</span>
 <span class="kw"><a href="../../reference/problems.html">problems</a></span>(df)
-<span class="co">#&gt; # A tibble: 2 × 5</span>
+<span class="co">#&gt; # A tibble: 2 x 5</span>
 <span class="co">#&gt;     row   col   expected actual         file</span>
 <span class="co">#&gt;   &lt;int&gt; &lt;chr&gt;      &lt;chr&gt;  &lt;chr&gt;        &lt;chr&gt;</span>
 <span class="co">#&gt; 1     1     y an integer      a literal data</span>
 <span class="co">#&gt; 2     2     x an integer      b literal data</span>
 df
-<span class="co">#&gt; # A tibble: 2 × 2</span>
+<span class="co">#&gt; # A tibble: 2 x 2</span>
 <span class="co">#&gt;       x     y</span>
 <span class="co">#&gt;   &lt;int&gt; &lt;int&gt;</span>
 <span class="co">#&gt; 1     1    NA</span>
@@ -267,7 +265,8 @@ df
 
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
         <div id="tocnav">
-      <h2>Contents</h2>
+      <h2 class="hasAnchor">
+<a href="#tocnav" class="anchor"></a>Contents</h2>
       <ul class="nav nav-pills nav-stacked">
 <li><a href="#input">Input</a></li>
       <li><a href="#output">Output</a></li>

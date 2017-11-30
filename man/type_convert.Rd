@@ -13,9 +13,7 @@ type_convert(df, col_types = NULL, na = c("", "NA"), trim_ws = TRUE,
 \item{col_types}{One of \code{NULL}, a \code{\link[=cols]{cols()}} specification, or
 a string. See \code{vignette("readr")} for more details.
 
-If \code{NULL}, all column types will be imputed from the first 1000 rows
-on the input. This is convenient (and fast), but not robust. If the
-imputation fails, you'll need to supply the correct types yourself.
+If \code{NULL}, column types will be imputed using all rows.
 
 If a column specification created by \code{\link[=cols]{cols()}}, it must contain
 one column specification for each column. If you only want to read a

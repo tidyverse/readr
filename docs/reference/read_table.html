@@ -108,7 +108,7 @@
 
     
     <p><code>read_table()</code> and <code>read_table2()</code> are designed to read the type of textual
-data where each column is #' separate by one (or more) columns of space.
+data where each column is separated by one (or more) columns of space.
 
     <code>read_table2()</code> is like <code>read.table()</code>, it allows any number of whitespace
 characters between columns, and the lines can be of different lengths.
@@ -117,7 +117,7 @@ characters between columns, and the lines can be of different lengths.
 and each field is in the same position in every line. It first finds empty columns and then
 parses like a fixed width file.
 
-    <code>spec_table()</code> and <code>spec_table2()</code> return
+    <code><a href='spec_delim.html'>spec_table()</a></code> and <code>spec_table2()</code> return
 the column specifications rather than a data frame.</p>
     
 
@@ -142,7 +142,9 @@ be automatically uncompressed. Files starting with <code>http://</code>,
 downloaded. Remote gz files can also be automatically downloaded and
 decompressed.</p>
 <p>Literal data is most useful for examples and tests. It must contain at
-least one new line to be recognised as data (instead of a path).</p></td>
+least one new line to be recognised as data (instead of a path) or be a
+vector of greater than length 1.</p>
+<p>Using a value of <code><a href='clipboard.html'>clipboard()</a></code> will read from the system clipboard.</p></td>
     </tr>
     <tr>
       <th>col_names</th>
@@ -161,7 +163,7 @@ will generate a warning and be made unique with a numeric prefix.</p></td>
     <tr>
       <th>col_types</th>
       <td><p>One of <code>NULL</code>, a <code><a href='cols.html'>cols()</a></code> specification, or
-a string. See <code><a href='../articles/column-types.html'>vignette("column-types")</a></code> for more details.</p>
+a string. See <code><a href='../articles/readr.html'>vignette("readr")</a></code> for more details.</p>
 <p>If <code>NULL</code>, all column types will be imputed from the first 1000 rows
 on the input. This is convenient (and fast), but not robust. If the
 imputation fails, you'll need to supply the correct types yourself.</p>
@@ -217,7 +219,7 @@ comment characters will be silently ignored.</p></td>
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
     <p><code><a href='read_fwf.html'>read_fwf()</a></code> to read fixed width files where each column
-is not separated by whitespace. <code>read_fwf()</code> is also useful for reading
+is not separated by whitespace. <code><a href='read_fwf.html'>read_fwf()</a></code> is also useful for reading
 tabular data with non-standard formatting.</p>
     
 
@@ -236,31 +238,31 @@ tabular data with non-standard formatting.</p>
 #&gt;   9  11   8  13  11    11  12   9  14   9    9 Georgia Tech     ACC 
 #&gt;  13  10  13  11   8     9  10  11   9  10   10 Mississippi      SEC </div><div class='input'><span class='fu'>read_table</span>(<span class='no'>massey</span>)</div><div class='output co'>#&gt; <span class='message'>Parsed with column specification:</span>
 #&gt; <span class='message'>cols(</span>
-#&gt; <span class='message'>  UCC = col_integer(),</span>
-#&gt; <span class='message'>  PAY = col_integer(),</span>
-#&gt; <span class='message'>  LAZ = col_integer(),</span>
-#&gt; <span class='message'>  KPK = col_integer(),</span>
-#&gt; <span class='message'>  RT = col_integer(),</span>
-#&gt; <span class='message'>  COF = col_integer(),</span>
-#&gt; <span class='message'>  BIH = col_integer(),</span>
-#&gt; <span class='message'>  DII = col_integer(),</span>
-#&gt; <span class='message'>  ENG = col_integer(),</span>
-#&gt; <span class='message'>  ACU = col_integer(),</span>
-#&gt; <span class='message'>  Rank = col_integer(),</span>
+#&gt; <span class='message'>  UCC = col_double(),</span>
+#&gt; <span class='message'>  PAY = col_double(),</span>
+#&gt; <span class='message'>  LAZ = col_double(),</span>
+#&gt; <span class='message'>  KPK = col_double(),</span>
+#&gt; <span class='message'>  RT = col_double(),</span>
+#&gt; <span class='message'>  COF = col_double(),</span>
+#&gt; <span class='message'>  BIH = col_double(),</span>
+#&gt; <span class='message'>  DII = col_double(),</span>
+#&gt; <span class='message'>  ENG = col_double(),</span>
+#&gt; <span class='message'>  ACU = col_double(),</span>
+#&gt; <span class='message'>  Rank = col_double(),</span>
 #&gt; <span class='message'>  Team = col_character(),</span>
 #&gt; <span class='message'>  Conf = col_character()</span>
-#&gt; <span class='message'>)</span></div><div class='output co'>#&gt; # A tibble: 10 × 13
+#&gt; <span class='message'>)</span></div><div class='output co'>#&gt; # A tibble: 10 x 13
 #&gt;      UCC   PAY   LAZ   KPK    RT   COF   BIH   DII   ENG   ACU  Rank
-#&gt;    &lt;int&gt; &lt;int&gt; &lt;int&gt; &lt;int&gt; &lt;int&gt; &lt;int&gt; &lt;int&gt; &lt;int&gt; &lt;int&gt; &lt;int&gt; &lt;int&gt;
-#&gt; 1      1     1     1     1     1     1     1     1     1     1     1
-#&gt; 2      2     2     2     2     2     2     2     2     4     2     2
-#&gt; 3      3     4     3     4     3     4     3     4     2     3     3
-#&gt; 4      4     3     4     3     4     3     5     3     3     4     4
-#&gt; 5      6     6     6     5     5     7     6     5     6    11     5
-#&gt; 6      7     7     7     6     7     6    11     8     7     8     6
-#&gt; 7      5     5     5     7     6     8     4     6     5     5     7
-#&gt; 8      8     8     9     9    10     5     7     7    10     7     8
-#&gt; 9      9    11     8    13    11    11    12     9    14     9     9
+#&gt;    &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;
+#&gt;  1     1     1     1     1     1     1     1     1     1     1     1
+#&gt;  2     2     2     2     2     2     2     2     2     4     2     2
+#&gt;  3     3     4     3     4     3     4     3     4     2     3     3
+#&gt;  4     4     3     4     3     4     3     5     3     3     4     4
+#&gt;  5     6     6     6     5     5     7     6     5     6    11     5
+#&gt;  6     7     7     7     6     7     6    11     8     7     8     6
+#&gt;  7     5     5     5     7     6     8     4     6     5     5     7
+#&gt;  8     8     8     9     9    10     5     7     7    10     7     8
+#&gt;  9     9    11     8    13    11    11    12     9    14     9     9
 #&gt; 10    13    10    13    11     8     9    10    11     9    10    10
 #&gt; # ... with 2 more variables: Team &lt;chr&gt;, Conf &lt;chr&gt;</div><div class='input'>
 <span class='co'># Sample of 1978 fuel economy data from</span>
@@ -289,28 +291,28 @@ tabular data with non-standard formatting.</p>
 #&gt; <span class='message'>cols(</span>
 #&gt; <span class='message'>  X1 = col_character(),</span>
 #&gt; <span class='message'>  X2 = col_character(),</span>
-#&gt; <span class='message'>  X3 = col_integer(),</span>
-#&gt; <span class='message'>  X4 = col_integer(),</span>
-#&gt; <span class='message'>  X5 = col_integer(),</span>
-#&gt; <span class='message'>  X6 = col_integer(),</span>
-#&gt; <span class='message'>  X7 = col_integer(),</span>
-#&gt; <span class='message'>  X8 = col_integer(),</span>
-#&gt; <span class='message'>  X9 = col_integer(),</span>
-#&gt; <span class='message'>  X10 = col_integer(),</span>
+#&gt; <span class='message'>  X3 = col_double(),</span>
+#&gt; <span class='message'>  X4 = col_double(),</span>
+#&gt; <span class='message'>  X5 = col_double(),</span>
+#&gt; <span class='message'>  X6 = col_double(),</span>
+#&gt; <span class='message'>  X7 = col_double(),</span>
+#&gt; <span class='message'>  X8 = col_double(),</span>
+#&gt; <span class='message'>  X9 = col_double(),</span>
+#&gt; <span class='message'>  X10 = col_double(),</span>
 #&gt; <span class='message'>  X11 = col_character(),</span>
-#&gt; <span class='message'>  X12 = col_integer()</span>
-#&gt; <span class='message'>)</span></div><div class='output co'>#&gt; # A tibble: 20 × 12
+#&gt; <span class='message'>  X12 = col_double()</span>
+#&gt; <span class='message'>)</span></div><div class='output co'>#&gt; # A tibble: 20 x 12
 #&gt;               X1    X2    X3    X4    X5    X6    X7    X8    X9   X10
-#&gt;            &lt;chr&gt; &lt;chr&gt; &lt;int&gt; &lt;int&gt; &lt;int&gt; &lt;int&gt; &lt;int&gt; &lt;int&gt; &lt;int&gt; &lt;int&gt;
-#&gt; 1     ALFA ROMEO          NA    NA    NA    NA    NA    NA    NA    NA
-#&gt; 2        ALFETTA    03    81     8    74     7    89     9    NA    NA
-#&gt; 3    SPIDER 2000    01    NA    NA    NA    NA    NA    NA    NA    NA
-#&gt; 4            AMC          NA    NA    NA    NA    NA    NA    NA    NA
-#&gt; 5        GREMLIN    03    79     9    NA    NA    NA    NA    79     9
-#&gt; 6          PACER    04    89    11    NA    NA    NA    NA    89    11
-#&gt; 7    PACER WAGON    07    90    26    91    26    NA    NA    NA    NA
-#&gt; 8        CONCORD    04    88    12    90    11    90    11    83    16
-#&gt; 9  CONCORD WAGON    07    91    30    NA    NA    91    30    NA    NA
+#&gt;            &lt;chr&gt; &lt;chr&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;
+#&gt;  1    ALFA ROMEO          NA    NA    NA    NA    NA    NA    NA    NA
+#&gt;  2       ALFETTA    03    81     8    74     7    89     9    NA    NA
+#&gt;  3   SPIDER 2000    01    NA    NA    NA    NA    NA    NA    NA    NA
+#&gt;  4           AMC          NA    NA    NA    NA    NA    NA    NA    NA
+#&gt;  5       GREMLIN    03    79     9    NA    NA    NA    NA    79     9
+#&gt;  6         PACER    04    89    11    NA    NA    NA    NA    89    11
+#&gt;  7   PACER WAGON    07    90    26    91    26    NA    NA    NA    NA
+#&gt;  8       CONCORD    04    88    12    90    11    90    11    83    16
+#&gt;  9 CONCORD WAGON    07    91    30    NA    NA    91    30    NA    NA
 #&gt; 10 MATADOR COUPE    05    97    14    97    14    NA    NA    NA    NA
 #&gt; 11 MATADOR SEDAN    06   110    20    NA    NA   110    20    NA    NA
 #&gt; 12 MATADOR WAGON    09   112    50    NA    NA   112    50    NA    NA
@@ -322,7 +324,7 @@ tabular data with non-standard formatting.</p>
 #&gt; 18          5000    04    90    15    NA    NA    90    15    NA    NA
 #&gt; 19        AVANTI          NA    NA    NA    NA    NA    NA    NA    NA
 #&gt; 20     AVANTI II    02    75     8    75     8    NA    NA    NA    NA
-#&gt; # ... with 2 more variables: X11 &lt;chr&gt;, X12 &lt;int&gt;</div></pre>
+#&gt; # ... with 2 more variables: X11 &lt;chr&gt;, X12 &lt;dbl&gt;</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>

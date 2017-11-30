@@ -108,6 +108,20 @@
     </div>
 
     <div class="contents">
+    <div id="readr-1-1-0-9000" class="section level1">
+<h1 class="hasAnchor">
+<a href="#readr-1-1-0-9000" class="anchor"></a>readr 1.1.0.9000</h1>
+<ul>
+<li><p><code>read_*()</code> files now support reading from the clipboard by using <code><a href="../reference/clipboard.html">clipboard()</a></code> (#656).</p></li>
+<li>Column guessing will now never guess an integer type. This avoids issues where double columns are incorrectly guessed as integers if they have only integer values in the first 1000 (#645, #652).</li>
+<li>
+<p>Allow files to be read via FTP over SSH by recognising <code>sftp</code> as a URL protocol (#707, @jdeboer).</p>
+<h1 id="readr-1.1.1">readr 1.1.1</h1>
+</li>
+<li>Point release for test compatibility with tibble v1.3.1.</li>
+<li><p>Fixed undefined behavior in localtime.c when using <code><a href="../reference/locale.html">locale(tz = "")</a></code> after loading a timezone due to incomplete reinitialization of the global locale.</p></li>
+</ul>
+</div>
     <div id="readr-1-1-0" class="section level1">
 <h1 class="hasAnchor">
 <a href="#readr-1-1-0" class="anchor"></a>readr 1.1.0</h1>
@@ -151,7 +165,7 @@
 <li>
 <code><a href="../reference/read_table.html">read_table()</a></code> can now handle files with many lines of leading comments (#563).</li>
 <li>
-<code><a href="../reference/read_table.html">read_table2()</a></code> which allows any number of whitespace characters as delimiters, a more exact replacement for <code>utils::read.table()</code> (#608).</li>
+<code><a href="../reference/read_table.html">read_table2()</a></code> which allows any number of whitespace characters as delimiters, a more exact replacement for <code><a href="http://www.rdocumentation.org/packages/utils/topics/read.table">utils::read.table()</a></code> (#608).</li>
 </ul>
 </div>
 </div>
@@ -176,7 +190,7 @@
 <li>
 <code>ListCallback</code> R6 Class to provide a more flexible return type for callback functions (#568, @mmuurr)</li>
 <li>
-<code>tibble::as.tibble()</code> now used to construct tibbles (#538).</li>
+<code><a href="http://www.rdocumentation.org/packages/tibble/topics/as_tibble">tibble::as.tibble()</a></code> now used to construct tibbles (#538).</li>
 <li>
 <code>read_csv</code>, <code>read_csv2</code>, and <code>read_tsv</code> gain a <code>quote</code> argument, (#631, @noamross)</li>
 </ul>
@@ -352,7 +366,7 @@
 <div id="column-parsing-improvements" class="section level2">
 <h2 class="hasAnchor">
 <a href="#column-parsing-improvements" class="anchor"></a>Column parsing improvements</h2>
-<p>Readr gains <code><a href="../articles/column-types.html">vignette("column-types")</a></code> which describes how the defaults work and how to override them (#122).</p>
+<p>Readr gains <code>vignette("column-types")</code> which describes how the defaults work and how to override them (#122).</p>
 <ul>
 <li><p><code><a href="../reference/parse_atomic.html">parse_character()</a></code> gains better support for embedded nulls: any characters after the first null are dropped with a warning (#202).</p></li>
 <li><p><code><a href="../reference/parse_atomic.html">parse_integer()</a></code> and <code><a href="../reference/parse_atomic.html">parse_double()</a></code> no longer silently ignore trailing letters after the number (#221).</p></li>
@@ -420,6 +434,7 @@
     <div id="tocnav">
       <h2>Contents</h2>
       <ul class="nav nav-pills nav-stacked">
+        <li><a href="#readr-1-1-0-9000">1.1.0.9000</a></li>
         <li><a href="#readr-1-1-0">1.1.0</a></li>
         <li><a href="#readr-1-0-0">1.0.0</a></li>
         <li><a href="#readr-0-2-2">0.2.2</a></li>

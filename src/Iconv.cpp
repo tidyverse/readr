@@ -74,7 +74,10 @@ int my_strnlen(const char* s, int maxlen) {
 // To be safe, we need to check for nulls - this also needs to emit
 // a warning, but this behaviour is better than crashing
 SEXP safeMakeChar(const char* start, size_t n, bool hasNull) {
-  int m = hasNull ? readr_strnlen(start, n) : n;
+  size_t m = hasNull ? readr_strnlen(start, n) : n;
+  if (m > INT_MAX) {
+    Rf_error("R character strings are limited to 2^31-1 bytes");
+  }
   return Rf_mkCharLenCE(start, m, CE_UTF8);
 }
 
