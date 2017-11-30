@@ -23,6 +23,7 @@ Imports:
     tibble,
     hms,
     R6,
+    dplyr,
     clipr
 Suggests:
     curl,

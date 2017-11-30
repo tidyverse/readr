@@ -10,9 +10,12 @@
 #' `POSIXct`objects in local or non-UTC timezones will be converted to UTC time
 #' before writing.*
 #'
-#' All columns are encoded as UTF-8. `write_excel_csv()` also includes a
+#' All columns are encoded as UTF-8. `write_excel_csv()` and `write_excel_csv2()` also include a
 #' \href{https://en.wikipedia.org/wiki/Byte_order_mark}{UTF-8 Byte order mark}
 #' which indicates to Excel the csv is UTF-8 encoded.
+#'
+#' `write_excel_csv2()` was created to allow users with different locale settings save csv files with their default settings
+#' `;` as column separator and `,` as decimal separator.
 #'
 #' Values are only quoted if needed: if they contain a comma, quote or newline.
 #'
@@ -22,8 +25,8 @@
 #'   will append to existing file. In both cases, if file does not exist a new
 #'   file is created.
 #' @param col_names Write columns names at the top of the file?
-#' @param delim Delimiter used to separate values. Defaults to `" "`. Must be
-#'   a single character.
+#' @param delim Delimiter used to separate values. Defaults to `" "` for `write_delim()`, `","` for `write_excel_csv()` and
+#' `";"` for `write_excel_csv2()`. Must be a single character.
 #' @param na String used for missing values. Defaults to NA. Missing values
 #'   will never be quoted; strings with the same value as `na` will
 #'   always be quoted.
@@ -74,14 +77,23 @@ write_csv <- function(x, path, na = "NA", append = FALSE, col_names = !append) {
 
 #' @rdname write_delim
 #' @export
-write_excel_csv <- function(x, path, na = "NA", append = FALSE, col_names = !append) {
+write_excel_csv <- function(x, path, na = "NA", append = FALSE, col_names = !append, delim = ",") {
   stopifnot(is.data.frame(x))
 
   x_out <- lapply(x, output_column)
-  stream_delim(x_out, path, ",", col_names = col_names, append = append,
+  stream_delim(x_out, path, delim, col_names = col_names, append = append,
     na = na, bom = TRUE)
 
   invisible(x)
+}
+
+#' @rdname write_delim
+#' @export
+write_excel_csv2 <- function(x, path, na = "NA", append = FALSE, col_names = !append, delim = ";") {
+  stopifnot(is.data.frame(x))
+
+  x_formatted <- dplyr::mutate_if(x, is.numeric, dplyr::funs(format(., decimal.mark = ",")))
+  write_excel_csv(x_formatted, path, na, append, col_names, delim)
 }
 
 #' @rdname write_delim
