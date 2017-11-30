@@ -140,14 +140,11 @@ mtcars2 &lt;-<span class="st"> </span><span class="kw"><a href="../../reference/
 <span class="co">#&gt;   x = col_integer(),</span>
 <span class="co">#&gt;   y = col_character()</span>
 <span class="co">#&gt; )</span>
+<span class="co">#&gt; Warning in rbind(names(probs), probs_f): number of columns of result is not</span>
+<span class="co">#&gt; a multiple of vector length (arg 1)</span>
 <span class="co">#&gt; Warning: 1000 parsing failures.</span>
-<span class="co">#&gt;  row col               expected             actual                                          file</span>
-<span class="co">#&gt; 1001   x no trailing characters .23837975086644292 '/Users/hadley/R/readr/extdata/challenge.csv'</span>
-<span class="co">#&gt; 1002   x no trailing characters .41167997173033655 '/Users/hadley/R/readr/extdata/challenge.csv'</span>
-<span class="co">#&gt; 1003   x no trailing characters .7460716762579978  '/Users/hadley/R/readr/extdata/challenge.csv'</span>
-<span class="co">#&gt; 1004   x no trailing characters .723450553836301   '/Users/hadley/R/readr/extdata/challenge.csv'</span>
-<span class="co">#&gt; 1005   x no trailing characters .614524137461558   '/Users/hadley/R/readr/extdata/challenge.csv'</span>
-<span class="co">#&gt; .... ... ...................... .................. .............................................</span>
+<span class="co">#&gt; row # A tibble: 5 x 5 col     row   col               expected             actual expected   &lt;int&gt; &lt;chr&gt;                  &lt;chr&gt;              &lt;chr&gt; actual 1  1001     x no trailing characters .23837975086644292 file 2  1002     x no trailing characters .41167997173033655 row 3  1003     x no trailing characters  .7460716762579978 col 4  1004     x no trailing characters   .723450553836301 expected 5  1005     x no trailing characters   .614524137461558 actual # ... with 1 more variables: file &lt;chr&gt;</span>
+<span class="co">#&gt; ... ................. ... ....................................................... ........ ....................................................... ...... ....................................................... .... ....................................................... ... ....................................................... ... ....................................................... ........ ....................................................... ...... .......................................</span>
 <span class="co">#&gt; See problems(...) for more details.</span>
 challenge &lt;-<span class="st"> </span><span class="kw"><a href="../../reference/read_delim.html">read_csv</a></span>(<span class="kw"><a href="../../reference/readr_example.html">readr_example</a></span>(<span class="st">"challenge.csv"</span>), <span class="dt">guess_max =</span> <span class="dv">1500</span>)
 <span class="co">#&gt; Parsed with column specification:</span>
@@ -217,7 +214,8 @@ challenge &lt;-<span class="st"> </span><span class="kw"><a href="../../referenc
 
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
         <div id="tocnav">
-      <h2>Contents</h2>
+      <h2 class="hasAnchor">
+<a href="#tocnav" class="anchor"></a>Contents</h2>
       <ul class="nav nav-pills nav-stacked">
 <li><a href="#column-guessing">Column guessing</a></li>
       <li><a href="#date-time-parsing-improvements">Date-time parsing improvements:</a></li>
