@@ -191,7 +191,7 @@
 <p>Note that these are only used as defaults. If individual times have timezones and you’re using “%Z” (as name, e.g. “America/Chicago”) or “%z” (as offset from UTC, e.g. “+0800”), they’ll override the defaults. There’s currently no good way to parse times that use US abbreviations.</p>
 <p>Note that once you have the date in R, changing the time zone just changes its printed representation - it still represents the same instants of time. If you’ve loaded non-UTC data, and want to display it as UTC, try this snippet of code:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">is_datetime &lt;-<span class="st"> </span><span class="kw">sapply</span>(df, inherits, <span class="st">"POSIXct"</span>)
-df[is_datetime] &lt;-<span class="st"> </span><span class="kw">lapply</span>(df[is_datetime], function(x) {
+df[is_datetime] &lt;-<span class="st"> </span><span class="kw">lapply</span>(df[is_datetime], <span class="cf">function</span>(x) {
   <span class="kw">attr</span>(x, <span class="st">"tzone"</span>) &lt;-<span class="st"> "UTC"</span>
   x
 })</code></pre></div>
@@ -216,7 +216,7 @@ df[is_datetime] &lt;-<span class="st"> </span><span class="kw">lapply</span>(df[
 <p>The following code illustrates the problems with encodings:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(stringi)
 x &lt;-<span class="st"> "Émigré cause célèbre déjà vu.</span><span class="ch">\n</span><span class="st">"</span>
-y &lt;-<span class="st"> </span><span class="kw">stri_conv</span>(x, <span class="st">"UTF-8"</span>, <span class="st">"latin1"</span>)
+y &lt;-<span class="st"> </span><span class="kw"><a href="http://www.rdocumentation.org/packages/stringi/topics/stri_encode">stri_conv</a></span>(x, <span class="st">"UTF-8"</span>, <span class="st">"latin1"</span>)
 
 <span class="co"># These strings look like they're identical:</span>
 x
@@ -253,14 +253,14 @@ y
 <span class="co">#&gt; [1] "Émigré cause célèbre déjà vu.\n"</span></code></pre></div>
 <p>If you don’t know what encoding the file uses, try <code><a href="../reference/encoding.html">guess_encoding()</a></code>. It’s not 100% perfect (as it’s fundamentally a heuristic), but should at least get you pointed in the right direction:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="../reference/encoding.html">guess_encoding</a></span>(x)
-<span class="co">#&gt; # A tibble: 3 × 2</span>
+<span class="co">#&gt; # A tibble: 3 x 2</span>
 <span class="co">#&gt;       encoding confidence</span>
 <span class="co">#&gt;          &lt;chr&gt;      &lt;dbl&gt;</span>
 <span class="co">#&gt; 1        UTF-8       1.00</span>
 <span class="co">#&gt; 2 windows-1250       0.34</span>
 <span class="co">#&gt; 3 windows-1252       0.26</span>
 <span class="kw"><a href="../reference/encoding.html">guess_encoding</a></span>(y)
-<span class="co">#&gt; # A tibble: 2 × 2</span>
+<span class="co">#&gt; # A tibble: 2 x 2</span>
 <span class="co">#&gt;     encoding confidence</span>
 <span class="co">#&gt;        &lt;chr&gt;      &lt;dbl&gt;</span>
 <span class="co">#&gt; 1 ISO-8859-2        0.4</span>
@@ -297,7 +297,8 @@ y
 
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
         <div id="tocnav">
-      <h2>Contents</h2>
+      <h2 class="hasAnchor">
+<a href="#tocnav" class="anchor"></a>Contents</h2>
       <ul class="nav nav-pills nav-stacked">
 <li><a href="#dates-and-times">Dates and times</a></li>
       <li><a href="#character">Character</a></li>

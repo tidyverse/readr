@@ -22,7 +22,8 @@ Imports:
     Rcpp (>= 0.12.0.5),
     tibble,
     hms,
-    R6
+    R6,
+    clipr
 Suggests:
     curl,
     testthat,

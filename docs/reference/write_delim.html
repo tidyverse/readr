@@ -108,7 +108,7 @@
 
     
     <p>This is about twice as fast as <code>write.csv()</code>, and never
-writes row names. <code>output_column()</code> is a generic method used to coerce
+writes row names. <code><a href='output_column.html'>output_column()</a></code> is a generic method used to coerce
 columns to suitable output.</p>
     
 
@@ -163,9 +163,11 @@ file is created.</p></td>
 
     
     <p>Factors are coerced to character. Doubles are formatted using the grisu3
-algorithm. POSIXct's are formatted as ISO8601.</p>
+algorithm. POSIXct's are formatted as ISO8601 with a UTC timezone <em>Note:
+<code>POSIXct</code>objects in local or non-UTC timezones will be converted to UTC time
+before writing.</em></p>
 <p>All columns are encoded as UTF-8. <code>write_excel_csv()</code> also includes a
-<a href = 'https://en.wikipedia.org/wiki/Byte_order_mark'>UTF-8 Byte order mark</a>
+<a href='https://en.wikipedia.org/wiki/Byte_order_mark'>UTF-8 Byte order mark</a>
 which indicates to Excel the csv is UTF-8 encoded.</p>
 <p>Values are only quoted if needed: if they contain a comma, quote or newline.</p>
     
@@ -173,7 +175,7 @@ which indicates to Excel the csv is UTF-8 encoded.</p>
 
     <p>Florian Loitsch, Printing Floating-Point Numbers Quickly and
 Accurately with Integers, PLDI '10,
-<a href = 'http://www.cs.tufts.edu/~nr/cs257/archive/florian-loitsch/printf.pdf'>http://www.cs.tufts.edu/~nr/cs257/archive/florian-loitsch/printf.pdf</a></p>
+<a href='http://www.cs.tufts.edu/~nr/cs257/archive/florian-loitsch/printf.pdf'>http://www.cs.tufts.edu/~nr/cs257/archive/florian-loitsch/printf.pdf</a></p>
     
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
@@ -182,19 +184,19 @@ Accurately with Integers, PLDI '10,
 <span class='fu'>head</span>(<span class='fu'><a href='read_delim.html'>read_csv</a></span>(<span class='no'>tmp</span>))</div><div class='output co'>#&gt; <span class='message'>Parsed with column specification:</span>
 #&gt; <span class='message'>cols(</span>
 #&gt; <span class='message'>  mpg = col_double(),</span>
-#&gt; <span class='message'>  cyl = col_integer(),</span>
+#&gt; <span class='message'>  cyl = col_double(),</span>
 #&gt; <span class='message'>  disp = col_double(),</span>
-#&gt; <span class='message'>  hp = col_integer(),</span>
+#&gt; <span class='message'>  hp = col_double(),</span>
 #&gt; <span class='message'>  drat = col_double(),</span>
 #&gt; <span class='message'>  wt = col_double(),</span>
 #&gt; <span class='message'>  qsec = col_double(),</span>
-#&gt; <span class='message'>  vs = col_integer(),</span>
-#&gt; <span class='message'>  am = col_integer(),</span>
-#&gt; <span class='message'>  gear = col_integer(),</span>
-#&gt; <span class='message'>  carb = col_integer()</span>
-#&gt; <span class='message'>)</span></div><div class='output co'>#&gt; # A tibble: 6 × 11
+#&gt; <span class='message'>  vs = col_double(),</span>
+#&gt; <span class='message'>  am = col_double(),</span>
+#&gt; <span class='message'>  gear = col_double(),</span>
+#&gt; <span class='message'>  carb = col_double()</span>
+#&gt; <span class='message'>)</span></div><div class='output co'>#&gt; # A tibble: 6 x 11
 #&gt;     mpg   cyl  disp    hp  drat    wt  qsec    vs    am  gear  carb
-#&gt;   &lt;dbl&gt; &lt;int&gt; &lt;dbl&gt; &lt;int&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;int&gt; &lt;int&gt; &lt;int&gt; &lt;int&gt;
+#&gt;   &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;
 #&gt; 1  21.0     6   160   110  3.90 2.620 16.46     0     1     4     4
 #&gt; 2  21.0     6   160   110  3.90 2.875 17.02     0     1     4     4
 #&gt; 3  22.8     4   108    93  3.85 2.320 18.61     1     1     4     1

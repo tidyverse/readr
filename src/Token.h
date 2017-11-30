@@ -63,7 +63,7 @@ public:
   }
 
   SEXP asRaw() const {
-    int n = (type_ == TOKEN_STRING) ? end_ - begin_ : 0;
+    size_t n = (type_ == TOKEN_STRING) ? end_ - begin_ : 0;
     Rcpp::RawVector out(n);
 
     if (n > 0)

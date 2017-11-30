@@ -230,7 +230,7 @@ offset from UTC, e.g. "+0800")</p></li>
 <span class='co'># Unlike strptime, the format specification must match the complete</span>
 <span class='co'># string (ignoring leading and trailing whitespace). This avoids common</span>
 <span class='co'># errors:</span>
-<span class='fu'>strptime</span>(<span class='st'>"01/02/2010"</span>, <span class='st'>"%d/%m/%y"</span>)</div><div class='output co'>#&gt; [1] "2020-02-01 CST"</div><div class='input'><span class='fu'>parse_datetime</span>(<span class='st'>"01/02/2010"</span>, <span class='st'>"%d/%m/%y"</span>)</div><div class='output co'>#&gt; <span class='warning'>Warning: 1 parsing failure.</span>
+<span class='fu'>strptime</span>(<span class='st'>"01/02/2010"</span>, <span class='st'>"%d/%m/%y"</span>)</div><div class='output co'>#&gt; [1] "2020-02-01 EST"</div><div class='input'><span class='fu'>parse_datetime</span>(<span class='st'>"01/02/2010"</span>, <span class='st'>"%d/%m/%y"</span>)</div><div class='output co'>#&gt; <span class='warning'>Warning: 1 parsing failure.</span>
 #&gt; <span class='warning'>row col           expected     actual</span>
 #&gt; <span class='warning'>  1  -- date like %d/%m/%y 01/02/2010</span></div><div class='output co'>#&gt; [1] NA</div><div class='input'>
 <span class='co'># Failures -------------------------------------------------------------</span>
@@ -249,7 +249,7 @@ offset from UTC, e.g. "+0800")</p></li>
 <span class='co'># Time zones</span>
 <span class='no'>us_central</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='locale.html'>locale</a></span>(<span class='kw'>tz</span> <span class='kw'>=</span> <span class='st'>"US/Central"</span>)
 <span class='fu'>parse_datetime</span>(<span class='st'>"1979-10-14T1010"</span>, <span class='kw'>locale</span> <span class='kw'>=</span> <span class='no'>us_central</span>)</div><div class='output co'>#&gt; [1] "1979-10-14 10:10:00 CDT"</div><div class='input'><span class='fu'>parse_datetime</span>(<span class='st'>"1979-10-14T1010-0500"</span>, <span class='kw'>locale</span> <span class='kw'>=</span> <span class='no'>us_central</span>)</div><div class='output co'>#&gt; [1] "1979-10-14 10:10:00 CDT"</div><div class='input'><span class='fu'>parse_datetime</span>(<span class='st'>"1979-10-14T1010Z"</span>, <span class='kw'>locale</span> <span class='kw'>=</span> <span class='no'>us_central</span>)</div><div class='output co'>#&gt; [1] "1979-10-14 05:10:00 CDT"</div><div class='input'><span class='co'># Your current time zone</span>
-<span class='fu'>parse_datetime</span>(<span class='st'>"1979-10-14T1010"</span>, <span class='kw'>locale</span> <span class='kw'>=</span> <span class='fu'><a href='locale.html'>locale</a></span>(<span class='kw'>tz</span> <span class='kw'>=</span> <span class='st'>""</span>))</div><div class='output co'>#&gt; [1] "1979-10-14 05:10:00 CDT"</div></pre>
+<span class='fu'>parse_datetime</span>(<span class='st'>"1979-10-14T1010"</span>, <span class='kw'>locale</span> <span class='kw'>=</span> <span class='fu'><a href='locale.html'>locale</a></span>(<span class='kw'>tz</span> <span class='kw'>=</span> <span class='st'>""</span>))</div><div class='output co'>#&gt; [1] "1979-10-14 06:10:00 EDT"</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>

@@ -16,3 +16,10 @@ encoded <- function(x, encoding) {
   Encoding(x) <- encoding
   x
 }
+
+skip_if_no_clipboard <- function() {
+  if (!clipr::clipr_available()) {
+    testthat::skip("System clipboard is not available - skipping test.")
+  }
+  return(invisible(TRUE))
+}

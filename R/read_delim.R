@@ -7,9 +7,8 @@ NULL
 #' `read_csv()` and `read_tsv()` are special cases of the general
 #' `read_delim()`. They're useful for reading the most common types of
 #' flat file data, comma separated values and tab separated values,
-#' respectively. `read_csv2()` uses `;` for separators, instead of
-#' `,`. This is common in European countries which use `,` as the
-#' decimal separator.
+#' respectively. `read_csv2()` uses `;` for the field separator and `,` for the
+#' decimal point. This is common in some European countries.
 #' @inheritParams datasource
 #' @inheritParams tokenizer_delim
 #' @param col_names Either `TRUE`, `FALSE` or a character vector
