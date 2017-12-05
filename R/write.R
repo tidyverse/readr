@@ -93,8 +93,8 @@ write_excel_csv2 <- function(x, path, na = "NA", append = FALSE, col_names = !ap
   stopifnot(is.data.frame(x))
 
   numeric_cols <- vapply(x, is.numeric, logical(1))
-  x_formatted <- lapply(x[numeric_cols], format, decimal.mark = ",")
-  write_excel_csv(x_formatted, path, na, append, col_names, delim)
+  x[numeric_cols] <- lapply(x[numeric_cols], format, decimal.mark = ",")
+  write_excel_csv(x, path, na, append, col_names, delim)
 }
 
 #' @rdname write_delim
