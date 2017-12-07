@@ -1,5 +1,7 @@
 # readr 1.1.0.9000
 
+* `parse_number()` now parses numbers in scientific notation using `e` and `E` (#684, @sambrady3).
+
 * Add `write_excel_csv2()` function to allow writing csv files with comma as a decimal separator and semicolon    as a column separator (#753, @olgamie).
 * `read_*()` files now support reading from the clipboard by using `clipboard()` (#656).
 * `write_file()` gains a `sep` argument, to specify the line separator (#665).
