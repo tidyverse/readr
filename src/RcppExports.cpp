@@ -7,7 +7,7 @@ using namespace Rcpp;
 
 // collectorGuess
 std::string collectorGuess(CharacterVector input, List locale_);
-RcppExport SEXP readr_collectorGuess(SEXP inputSEXP, SEXP locale_SEXP) {
+RcppExport SEXP _readr_collectorGuess(SEXP inputSEXP, SEXP locale_SEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
@@ -19,7 +19,7 @@ END_RCPP
 }
 // read_connection_
 RawVector read_connection_(RObject con, int chunk_size);
-RcppExport SEXP readr_read_connection_(SEXP conSEXP, SEXP chunk_sizeSEXP) {
+RcppExport SEXP _readr_read_connection_(SEXP conSEXP, SEXP chunk_sizeSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
@@ -31,7 +31,7 @@ END_RCPP
 }
 // utctime
 NumericVector utctime(IntegerVector year, IntegerVector month, IntegerVector day, IntegerVector hour, IntegerVector min, IntegerVector sec, NumericVector psec);
-RcppExport SEXP readr_utctime(SEXP yearSEXP, SEXP monthSEXP, SEXP daySEXP, SEXP hourSEXP, SEXP minSEXP, SEXP secSEXP, SEXP psecSEXP) {
+RcppExport SEXP _readr_utctime(SEXP yearSEXP, SEXP monthSEXP, SEXP daySEXP, SEXP hourSEXP, SEXP minSEXP, SEXP secSEXP, SEXP psecSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
@@ -48,7 +48,7 @@ END_RCPP
 }
 // dim_tokens_
 IntegerVector dim_tokens_(List sourceSpec, List tokenizerSpec);
-RcppExport SEXP readr_dim_tokens_(SEXP sourceSpecSEXP, SEXP tokenizerSpecSEXP) {
+RcppExport SEXP _readr_dim_tokens_(SEXP sourceSpecSEXP, SEXP tokenizerSpecSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
@@ -60,7 +60,7 @@ END_RCPP
 }
 // count_fields_
 std::vector<int> count_fields_(List sourceSpec, List tokenizerSpec, int n_max);
-RcppExport SEXP readr_count_fields_(SEXP sourceSpecSEXP, SEXP tokenizerSpecSEXP, SEXP n_maxSEXP) {
+RcppExport SEXP _readr_count_fields_(SEXP sourceSpecSEXP, SEXP tokenizerSpecSEXP, SEXP n_maxSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
@@ -73,7 +73,7 @@ END_RCPP
 }
 // guess_header_
 RObject guess_header_(List sourceSpec, List tokenizerSpec, List locale_);
-RcppExport SEXP readr_guess_header_(SEXP sourceSpecSEXP, SEXP tokenizerSpecSEXP, SEXP locale_SEXP) {
+RcppExport SEXP _readr_guess_header_(SEXP sourceSpecSEXP, SEXP tokenizerSpecSEXP, SEXP locale_SEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
@@ -86,7 +86,7 @@ END_RCPP
 }
 // tokenize_
 RObject tokenize_(List sourceSpec, List tokenizerSpec, int n_max);
-RcppExport SEXP readr_tokenize_(SEXP sourceSpecSEXP, SEXP tokenizerSpecSEXP, SEXP n_maxSEXP) {
+RcppExport SEXP _readr_tokenize_(SEXP sourceSpecSEXP, SEXP tokenizerSpecSEXP, SEXP n_maxSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
@@ -99,7 +99,7 @@ END_RCPP
 }
 // parse_vector_
 SEXP parse_vector_(CharacterVector x, List collectorSpec, List locale_, const std::vector<std::string>& na);
-RcppExport SEXP readr_parse_vector_(SEXP xSEXP, SEXP collectorSpecSEXP, SEXP locale_SEXP, SEXP naSEXP) {
+RcppExport SEXP _readr_parse_vector_(SEXP xSEXP, SEXP collectorSpecSEXP, SEXP locale_SEXP, SEXP naSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
@@ -113,7 +113,7 @@ END_RCPP
 }
 // read_file_
 CharacterVector read_file_(List sourceSpec, List locale_);
-RcppExport SEXP readr_read_file_(SEXP sourceSpecSEXP, SEXP locale_SEXP) {
+RcppExport SEXP _readr_read_file_(SEXP sourceSpecSEXP, SEXP locale_SEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
@@ -125,7 +125,7 @@ END_RCPP
 }
 // read_file_raw_
 RawVector read_file_raw_(List sourceSpec);
-RcppExport SEXP readr_read_file_raw_(SEXP sourceSpecSEXP) {
+RcppExport SEXP _readr_read_file_raw_(SEXP sourceSpecSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
@@ -136,7 +136,7 @@ END_RCPP
 }
 // read_lines_
 CharacterVector read_lines_(List sourceSpec, List locale_, std::vector<std::string> na, int n_max, bool progress);
-RcppExport SEXP readr_read_lines_(SEXP sourceSpecSEXP, SEXP locale_SEXP, SEXP naSEXP, SEXP n_maxSEXP, SEXP progressSEXP) {
+RcppExport SEXP _readr_read_lines_(SEXP sourceSpecSEXP, SEXP locale_SEXP, SEXP naSEXP, SEXP n_maxSEXP, SEXP progressSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
@@ -151,7 +151,7 @@ END_RCPP
 }
 // read_lines_chunked_
 void read_lines_chunked_(List sourceSpec, List locale_, std::vector<std::string> na, int chunkSize, Environment callback, bool progress);
-RcppExport SEXP readr_read_lines_chunked_(SEXP sourceSpecSEXP, SEXP locale_SEXP, SEXP naSEXP, SEXP chunkSizeSEXP, SEXP callbackSEXP, SEXP progressSEXP) {
+RcppExport SEXP _readr_read_lines_chunked_(SEXP sourceSpecSEXP, SEXP locale_SEXP, SEXP naSEXP, SEXP chunkSizeSEXP, SEXP callbackSEXP, SEXP progressSEXP) {
 BEGIN_RCPP
     Rcpp::RNGScope rcpp_rngScope_gen;
     Rcpp::traits::input_parameter< List >::type sourceSpec(sourceSpecSEXP);
@@ -166,7 +166,7 @@ END_RCPP
 }
 // read_lines_raw_
 List read_lines_raw_(List sourceSpec, int n_max, bool progress);
-RcppExport SEXP readr_read_lines_raw_(SEXP sourceSpecSEXP, SEXP n_maxSEXP, SEXP progressSEXP) {
+RcppExport SEXP _readr_read_lines_raw_(SEXP sourceSpecSEXP, SEXP n_maxSEXP, SEXP progressSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
@@ -179,7 +179,7 @@ END_RCPP
 }
 // read_tokens_
 RObject read_tokens_(List sourceSpec, List tokenizerSpec, ListOf<List> colSpecs, CharacterVector colNames, List locale_, int n_max, bool progress);
-RcppExport SEXP readr_read_tokens_(SEXP sourceSpecSEXP, SEXP tokenizerSpecSEXP, SEXP colSpecsSEXP, SEXP colNamesSEXP, SEXP locale_SEXP, SEXP n_maxSEXP, SEXP progressSEXP) {
+RcppExport SEXP _readr_read_tokens_(SEXP sourceSpecSEXP, SEXP tokenizerSpecSEXP, SEXP colSpecsSEXP, SEXP colNamesSEXP, SEXP locale_SEXP, SEXP n_maxSEXP, SEXP progressSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
@@ -196,7 +196,7 @@ END_RCPP
 }
 // read_tokens_chunked_
 void read_tokens_chunked_(List sourceSpec, Environment callback, int chunkSize, List tokenizerSpec, ListOf<List> colSpecs, CharacterVector colNames, List locale_, bool progress);
-RcppExport SEXP readr_read_tokens_chunked_(SEXP sourceSpecSEXP, SEXP callbackSEXP, SEXP chunkSizeSEXP, SEXP tokenizerSpecSEXP, SEXP colSpecsSEXP, SEXP colNamesSEXP, SEXP locale_SEXP, SEXP progressSEXP) {
+RcppExport SEXP _readr_read_tokens_chunked_(SEXP sourceSpecSEXP, SEXP callbackSEXP, SEXP chunkSizeSEXP, SEXP tokenizerSpecSEXP, SEXP colSpecsSEXP, SEXP colNamesSEXP, SEXP locale_SEXP, SEXP progressSEXP) {
 BEGIN_RCPP
     Rcpp::RNGScope rcpp_rngScope_gen;
     Rcpp::traits::input_parameter< List >::type sourceSpec(sourceSpecSEXP);
@@ -213,7 +213,7 @@ END_RCPP
 }
 // guess_types_
 std::vector<std::string> guess_types_(List sourceSpec, List tokenizerSpec, Rcpp::List locale_, int n);
-RcppExport SEXP readr_guess_types_(SEXP sourceSpecSEXP, SEXP tokenizerSpecSEXP, SEXP locale_SEXP, SEXP nSEXP) {
+RcppExport SEXP _readr_guess_types_(SEXP sourceSpecSEXP, SEXP tokenizerSpecSEXP, SEXP locale_SEXP, SEXP nSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
@@ -227,7 +227,7 @@ END_RCPP
 }
 // whitespaceColumns
 List whitespaceColumns(List sourceSpec, int n, std::string comment);
-RcppExport SEXP readr_whitespaceColumns(SEXP sourceSpecSEXP, SEXP nSEXP, SEXP commentSEXP) {
+RcppExport SEXP _readr_whitespaceColumns(SEXP sourceSpecSEXP, SEXP nSEXP, SEXP commentSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
@@ -240,7 +240,7 @@ END_RCPP
 }
 // type_convert_col
 RObject type_convert_col(CharacterVector x, List spec, List locale_, int col, const std::vector<std::string>& na, bool trim_ws);
-RcppExport SEXP readr_type_convert_col(SEXP xSEXP, SEXP specSEXP, SEXP locale_SEXP, SEXP colSEXP, SEXP naSEXP, SEXP trim_wsSEXP) {
+RcppExport SEXP _readr_type_convert_col(SEXP xSEXP, SEXP specSEXP, SEXP locale_SEXP, SEXP colSEXP, SEXP naSEXP, SEXP trim_wsSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
@@ -256,7 +256,7 @@ END_RCPP
 }
 // stream_delim_
 std::string stream_delim_(const List& df, RObject connection, char delim, const std::string& na, bool col_names, bool bom);
-RcppExport SEXP readr_stream_delim_(SEXP dfSEXP, SEXP connectionSEXP, SEXP delimSEXP, SEXP naSEXP, SEXP col_namesSEXP, SEXP bomSEXP) {
+RcppExport SEXP _readr_stream_delim_(SEXP dfSEXP, SEXP connectionSEXP, SEXP delimSEXP, SEXP naSEXP, SEXP col_namesSEXP, SEXP bomSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
@@ -271,31 +271,33 @@ BEGIN_RCPP
 END_RCPP
 }
 // write_lines_
-void write_lines_(const CharacterVector& lines, RObject connection, const std::string& na);
-RcppExport SEXP readr_write_lines_(SEXP linesSEXP, SEXP connectionSEXP, SEXP naSEXP) {
+void write_lines_(const CharacterVector& lines, RObject connection, const std::string& na, const std::string& sep);
+RcppExport SEXP _readr_write_lines_(SEXP linesSEXP, SEXP connectionSEXP, SEXP naSEXP, SEXP sepSEXP) {
 BEGIN_RCPP
     Rcpp::RNGScope rcpp_rngScope_gen;
     Rcpp::traits::input_parameter< const CharacterVector& >::type lines(linesSEXP);
     Rcpp::traits::input_parameter< RObject >::type connection(connectionSEXP);
     Rcpp::traits::input_parameter< const std::string& >::type na(naSEXP);
-    write_lines_(lines, connection, na);
+    Rcpp::traits::input_parameter< const std::string& >::type sep(sepSEXP);
+    write_lines_(lines, connection, na, sep);
     return R_NilValue;
 END_RCPP
 }
 // write_lines_raw_
-void write_lines_raw_(List x, RObject connection);
-RcppExport SEXP readr_write_lines_raw_(SEXP xSEXP, SEXP connectionSEXP) {
+void write_lines_raw_(List x, RObject connection, const std::string& sep);
+RcppExport SEXP _readr_write_lines_raw_(SEXP xSEXP, SEXP connectionSEXP, SEXP sepSEXP) {
 BEGIN_RCPP
     Rcpp::RNGScope rcpp_rngScope_gen;
     Rcpp::traits::input_parameter< List >::type x(xSEXP);
     Rcpp::traits::input_parameter< RObject >::type connection(connectionSEXP);
-    write_lines_raw_(x, connection);
+    Rcpp::traits::input_parameter< const std::string& >::type sep(sepSEXP);
+    write_lines_raw_(x, connection, sep);
     return R_NilValue;
 END_RCPP
 }
 // write_file_
 void write_file_(std::string x, RObject connection);
-RcppExport SEXP readr_write_file_(SEXP xSEXP, SEXP connectionSEXP) {
+RcppExport SEXP _readr_write_file_(SEXP xSEXP, SEXP connectionSEXP) {
 BEGIN_RCPP
     Rcpp::RNGScope rcpp_rngScope_gen;
     Rcpp::traits::input_parameter< std::string >::type x(xSEXP);
@@ -306,7 +308,7 @@ END_RCPP
 }
 // write_file_raw_
 void write_file_raw_(RawVector x, RObject connection);
-RcppExport SEXP readr_write_file_raw_(SEXP xSEXP, SEXP connectionSEXP) {
+RcppExport SEXP _readr_write_file_raw_(SEXP xSEXP, SEXP connectionSEXP) {
 BEGIN_RCPP
     Rcpp::RNGScope rcpp_rngScope_gen;
     Rcpp::traits::input_parameter< RawVector >::type x(xSEXP);
@@ -317,29 +319,29 @@ END_RCPP
 }
 
 static const R_CallMethodDef CallEntries[] = {
-    {"readr_collectorGuess", (DL_FUNC) &readr_collectorGuess, 2},
-    {"readr_read_connection_", (DL_FUNC) &readr_read_connection_, 2},
-    {"readr_utctime", (DL_FUNC) &readr_utctime, 7},
-    {"readr_dim_tokens_", (DL_FUNC) &readr_dim_tokens_, 2},
-    {"readr_count_fields_", (DL_FUNC) &readr_count_fields_, 3},
-    {"readr_guess_header_", (DL_FUNC) &readr_guess_header_, 3},
-    {"readr_tokenize_", (DL_FUNC) &readr_tokenize_, 3},
-    {"readr_parse_vector_", (DL_FUNC) &readr_parse_vector_, 4},
-    {"readr_read_file_", (DL_FUNC) &readr_read_file_, 2},
-    {"readr_read_file_raw_", (DL_FUNC) &readr_read_file_raw_, 1},
-    {"readr_read_lines_", (DL_FUNC) &readr_read_lines_, 5},
-    {"readr_read_lines_chunked_", (DL_FUNC) &readr_read_lines_chunked_, 6},
-    {"readr_read_lines_raw_", (DL_FUNC) &readr_read_lines_raw_, 3},
-    {"readr_read_tokens_", (DL_FUNC) &readr_read_tokens_, 7},
-    {"readr_read_tokens_chunked_", (DL_FUNC) &readr_read_tokens_chunked_, 8},
-    {"readr_guess_types_", (DL_FUNC) &readr_guess_types_, 4},
-    {"readr_whitespaceColumns", (DL_FUNC) &readr_whitespaceColumns, 3},
-    {"readr_type_convert_col", (DL_FUNC) &readr_type_convert_col, 6},
-    {"readr_stream_delim_", (DL_FUNC) &readr_stream_delim_, 6},
-    {"readr_write_lines_", (DL_FUNC) &readr_write_lines_, 3},
-    {"readr_write_lines_raw_", (DL_FUNC) &readr_write_lines_raw_, 2},
-    {"readr_write_file_", (DL_FUNC) &readr_write_file_, 2},
-    {"readr_write_file_raw_", (DL_FUNC) &readr_write_file_raw_, 2},
+    {"_readr_collectorGuess", (DL_FUNC) &_readr_collectorGuess, 2},
+    {"_readr_read_connection_", (DL_FUNC) &_readr_read_connection_, 2},
+    {"_readr_utctime", (DL_FUNC) &_readr_utctime, 7},
+    {"_readr_dim_tokens_", (DL_FUNC) &_readr_dim_tokens_, 2},
+    {"_readr_count_fields_", (DL_FUNC) &_readr_count_fields_, 3},
+    {"_readr_guess_header_", (DL_FUNC) &_readr_guess_header_, 3},
+    {"_readr_tokenize_", (DL_FUNC) &_readr_tokenize_, 3},
+    {"_readr_parse_vector_", (DL_FUNC) &_readr_parse_vector_, 4},
+    {"_readr_read_file_", (DL_FUNC) &_readr_read_file_, 2},
+    {"_readr_read_file_raw_", (DL_FUNC) &_readr_read_file_raw_, 1},
+    {"_readr_read_lines_", (DL_FUNC) &_readr_read_lines_, 5},
+    {"_readr_read_lines_chunked_", (DL_FUNC) &_readr_read_lines_chunked_, 6},
+    {"_readr_read_lines_raw_", (DL_FUNC) &_readr_read_lines_raw_, 3},
+    {"_readr_read_tokens_", (DL_FUNC) &_readr_read_tokens_, 7},
+    {"_readr_read_tokens_chunked_", (DL_FUNC) &_readr_read_tokens_chunked_, 8},
+    {"_readr_guess_types_", (DL_FUNC) &_readr_guess_types_, 4},
+    {"_readr_whitespaceColumns", (DL_FUNC) &_readr_whitespaceColumns, 3},
+    {"_readr_type_convert_col", (DL_FUNC) &_readr_type_convert_col, 6},
+    {"_readr_stream_delim_", (DL_FUNC) &_readr_stream_delim_, 6},
+    {"_readr_write_lines_", (DL_FUNC) &_readr_write_lines_, 4},
+    {"_readr_write_lines_raw_", (DL_FUNC) &_readr_write_lines_raw_, 3},
+    {"_readr_write_file_", (DL_FUNC) &_readr_write_file_, 2},
+    {"_readr_write_file_raw_", (DL_FUNC) &_readr_write_file_raw_, 2},
     {NULL, NULL, 0}
 };
 

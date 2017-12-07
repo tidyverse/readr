@@ -1,5 +1,9 @@
 # readr 1.1.0.9000
 
+* Add `write_excel_csv2()` function to allow writing csv files with comma as a decimal separator and semicolon    as a column separator (#753, @olgamie).
+* `read_*()` files now support reading from the clipboard by using `clipboard()` (#656).
+* `write_file()` gains a `sep` argument, to specify the line separator (#665).
+
 * Column guessing will now never guess an integer type. This avoids issues
   where double columns are incorrectly guessed as integers if they have only
   integer values in the first 1000 (#645, #652).

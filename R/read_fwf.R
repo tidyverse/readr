@@ -114,10 +114,9 @@ fwf_positions <- function(start, end = NULL, col_names = NULL) {
 #' @export
 #' @param ... If the first element is a data frame,
 #'   then it must have all numeric columns and either one or two rows.
-#'   The column names are the variable names, and the column values are the
-#'   variable widths if a length one vector, and variable start and end
-#'   positions.
-#'   Otherwise, the elements of `...` are used to construct a data frame
+#'   The column names are the variable names. The column values are the
+#'   variable widths if a length one vector, and if length two, variable start and end
+#'   positions. The elements of `...` are used to construct a data frame
 #'   with or or two rows as above.
 fwf_cols <- function(...) {
   x <- lapply(list(...), as.integer)

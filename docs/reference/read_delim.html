@@ -110,9 +110,8 @@
     <p><code>read_csv()</code> and <code>read_tsv()</code> are special cases of the general
 <code>read_delim()</code>. They're useful for reading the most common types of
 flat file data, comma separated values and tab separated values,
-respectively. <code>read_csv2()</code> uses <code>;</code> for separators, instead of
-<code>,</code>. This is common in European countries which use <code>,</code> as the
-decimal separator.</p>
+respectively. <code>read_csv2()</code> uses <code>;</code> for the field separator and <code>,</code> for the
+decimal point. This is common in some European countries.</p>
     
 
     <pre class="usage"><span class='fu'>read_delim</span>(<span class='no'>file</span>, <span class='no'>delim</span>, <span class='kw'>quote</span> <span class='kw'>=</span> <span class='st'>"\""</span>, <span class='kw'>escape_backslash</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
@@ -149,7 +148,9 @@ be automatically uncompressed. Files starting with <code>http://</code>,
 downloaded. Remote gz files can also be automatically downloaded and
 decompressed.</p>
 <p>Literal data is most useful for examples and tests. It must contain at
-least one new line to be recognised as data (instead of a path).</p></td>
+least one new line to be recognised as data (instead of a path) or be a
+vector of greater than length 1.</p>
+<p>Using a value of <code><a href='clipboard.html'>clipboard()</a></code> will read from the system clipboard.</p></td>
     </tr>
     <tr>
       <th>delim</th>
@@ -189,7 +190,7 @@ will generate a warning and be made unique with a numeric prefix.</p></td>
     <tr>
       <th>col_types</th>
       <td><p>One of <code>NULL</code>, a <code><a href='cols.html'>cols()</a></code> specification, or
-a string. See <code><a href='../articles/column-types.html'>vignette("column-types")</a></code> for more details.</p>
+a string. See <code><a href='../articles/readr.html'>vignette("readr")</a></code> for more details.</p>
 <p>If <code>NULL</code>, all column types will be imputed from the first 1000 rows
 on the input. This is convenient (and fast), but not robust. If the
 imputation fails, you'll need to supply the correct types yourself.</p>
@@ -264,124 +265,124 @@ how many, and you can retrieve the details with <code><a href='problems.html'>pr
 <span class='fu'>read_csv</span>(<span class='fu'><a href='readr_example.html'>readr_example</a></span>(<span class='st'>"mtcars.csv"</span>))</div><div class='output co'>#&gt; <span class='message'>Parsed with column specification:</span>
 #&gt; <span class='message'>cols(</span>
 #&gt; <span class='message'>  mpg = col_double(),</span>
-#&gt; <span class='message'>  cyl = col_integer(),</span>
+#&gt; <span class='message'>  cyl = col_double(),</span>
 #&gt; <span class='message'>  disp = col_double(),</span>
-#&gt; <span class='message'>  hp = col_integer(),</span>
+#&gt; <span class='message'>  hp = col_double(),</span>
 #&gt; <span class='message'>  drat = col_double(),</span>
 #&gt; <span class='message'>  wt = col_double(),</span>
 #&gt; <span class='message'>  qsec = col_double(),</span>
-#&gt; <span class='message'>  vs = col_integer(),</span>
-#&gt; <span class='message'>  am = col_integer(),</span>
-#&gt; <span class='message'>  gear = col_integer(),</span>
-#&gt; <span class='message'>  carb = col_integer()</span>
-#&gt; <span class='message'>)</span></div><div class='output co'>#&gt; # A tibble: 32 × 11
+#&gt; <span class='message'>  vs = col_double(),</span>
+#&gt; <span class='message'>  am = col_double(),</span>
+#&gt; <span class='message'>  gear = col_double(),</span>
+#&gt; <span class='message'>  carb = col_double()</span>
+#&gt; <span class='message'>)</span></div><div class='output co'>#&gt; # A tibble: 32 x 11
 #&gt;      mpg   cyl  disp    hp  drat    wt  qsec    vs    am  gear  carb
-#&gt;    &lt;dbl&gt; &lt;int&gt; &lt;dbl&gt; &lt;int&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;int&gt; &lt;int&gt; &lt;int&gt; &lt;int&gt;
-#&gt; 1   21.0     6 160.0   110  3.90 2.620 16.46     0     1     4     4
-#&gt; 2   21.0     6 160.0   110  3.90 2.875 17.02     0     1     4     4
-#&gt; 3   22.8     4 108.0    93  3.85 2.320 18.61     1     1     4     1
-#&gt; 4   21.4     6 258.0   110  3.08 3.215 19.44     1     0     3     1
-#&gt; 5   18.7     8 360.0   175  3.15 3.440 17.02     0     0     3     2
-#&gt; 6   18.1     6 225.0   105  2.76 3.460 20.22     1     0     3     1
-#&gt; 7   14.3     8 360.0   245  3.21 3.570 15.84     0     0     3     4
-#&gt; 8   24.4     4 146.7    62  3.69 3.190 20.00     1     0     4     2
-#&gt; 9   22.8     4 140.8    95  3.92 3.150 22.90     1     0     4     2
+#&gt;    &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;
+#&gt;  1  21.0     6 160.0   110  3.90 2.620 16.46     0     1     4     4
+#&gt;  2  21.0     6 160.0   110  3.90 2.875 17.02     0     1     4     4
+#&gt;  3  22.8     4 108.0    93  3.85 2.320 18.61     1     1     4     1
+#&gt;  4  21.4     6 258.0   110  3.08 3.215 19.44     1     0     3     1
+#&gt;  5  18.7     8 360.0   175  3.15 3.440 17.02     0     0     3     2
+#&gt;  6  18.1     6 225.0   105  2.76 3.460 20.22     1     0     3     1
+#&gt;  7  14.3     8 360.0   245  3.21 3.570 15.84     0     0     3     4
+#&gt;  8  24.4     4 146.7    62  3.69 3.190 20.00     1     0     4     2
+#&gt;  9  22.8     4 140.8    95  3.92 3.150 22.90     1     0     4     2
 #&gt; 10  19.2     6 167.6   123  3.92 3.440 18.30     1     0     4     4
 #&gt; # ... with 22 more rows</div><div class='input'><span class='fu'>read_csv</span>(<span class='fu'><a href='readr_example.html'>readr_example</a></span>(<span class='st'>"mtcars.csv.zip"</span>))</div><div class='output co'>#&gt; <span class='message'>Parsed with column specification:</span>
 #&gt; <span class='message'>cols(</span>
 #&gt; <span class='message'>  mpg = col_double(),</span>
-#&gt; <span class='message'>  cyl = col_integer(),</span>
+#&gt; <span class='message'>  cyl = col_double(),</span>
 #&gt; <span class='message'>  disp = col_double(),</span>
-#&gt; <span class='message'>  hp = col_integer(),</span>
+#&gt; <span class='message'>  hp = col_double(),</span>
 #&gt; <span class='message'>  drat = col_double(),</span>
 #&gt; <span class='message'>  wt = col_double(),</span>
 #&gt; <span class='message'>  qsec = col_double(),</span>
-#&gt; <span class='message'>  vs = col_integer(),</span>
-#&gt; <span class='message'>  am = col_integer(),</span>
-#&gt; <span class='message'>  gear = col_integer(),</span>
-#&gt; <span class='message'>  carb = col_integer()</span>
-#&gt; <span class='message'>)</span></div><div class='output co'>#&gt; # A tibble: 32 × 11
+#&gt; <span class='message'>  vs = col_double(),</span>
+#&gt; <span class='message'>  am = col_double(),</span>
+#&gt; <span class='message'>  gear = col_double(),</span>
+#&gt; <span class='message'>  carb = col_double()</span>
+#&gt; <span class='message'>)</span></div><div class='output co'>#&gt; # A tibble: 32 x 11
 #&gt;      mpg   cyl  disp    hp  drat    wt  qsec    vs    am  gear  carb
-#&gt;    &lt;dbl&gt; &lt;int&gt; &lt;dbl&gt; &lt;int&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;int&gt; &lt;int&gt; &lt;int&gt; &lt;int&gt;
-#&gt; 1   21.0     6 160.0   110  3.90 2.620 16.46     0     1     4     4
-#&gt; 2   21.0     6 160.0   110  3.90 2.875 17.02     0     1     4     4
-#&gt; 3   22.8     4 108.0    93  3.85 2.320 18.61     1     1     4     1
-#&gt; 4   21.4     6 258.0   110  3.08 3.215 19.44     1     0     3     1
-#&gt; 5   18.7     8 360.0   175  3.15 3.440 17.02     0     0     3     2
-#&gt; 6   18.1     6 225.0   105  2.76 3.460 20.22     1     0     3     1
-#&gt; 7   14.3     8 360.0   245  3.21 3.570 15.84     0     0     3     4
-#&gt; 8   24.4     4 146.7    62  3.69 3.190 20.00     1     0     4     2
-#&gt; 9   22.8     4 140.8    95  3.92 3.150 22.90     1     0     4     2
+#&gt;    &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;
+#&gt;  1  21.0     6 160.0   110  3.90 2.620 16.46     0     1     4     4
+#&gt;  2  21.0     6 160.0   110  3.90 2.875 17.02     0     1     4     4
+#&gt;  3  22.8     4 108.0    93  3.85 2.320 18.61     1     1     4     1
+#&gt;  4  21.4     6 258.0   110  3.08 3.215 19.44     1     0     3     1
+#&gt;  5  18.7     8 360.0   175  3.15 3.440 17.02     0     0     3     2
+#&gt;  6  18.1     6 225.0   105  2.76 3.460 20.22     1     0     3     1
+#&gt;  7  14.3     8 360.0   245  3.21 3.570 15.84     0     0     3     4
+#&gt;  8  24.4     4 146.7    62  3.69 3.190 20.00     1     0     4     2
+#&gt;  9  22.8     4 140.8    95  3.92 3.150 22.90     1     0     4     2
 #&gt; 10  19.2     6 167.6   123  3.92 3.440 18.30     1     0     4     4
 #&gt; # ... with 22 more rows</div><div class='input'><span class='fu'>read_csv</span>(<span class='fu'><a href='readr_example.html'>readr_example</a></span>(<span class='st'>"mtcars.csv.bz2"</span>))</div><div class='output co'>#&gt; <span class='message'>Parsed with column specification:</span>
 #&gt; <span class='message'>cols(</span>
 #&gt; <span class='message'>  mpg = col_double(),</span>
-#&gt; <span class='message'>  cyl = col_integer(),</span>
+#&gt; <span class='message'>  cyl = col_double(),</span>
 #&gt; <span class='message'>  disp = col_double(),</span>
-#&gt; <span class='message'>  hp = col_integer(),</span>
+#&gt; <span class='message'>  hp = col_double(),</span>
 #&gt; <span class='message'>  drat = col_double(),</span>
 #&gt; <span class='message'>  wt = col_double(),</span>
 #&gt; <span class='message'>  qsec = col_double(),</span>
-#&gt; <span class='message'>  vs = col_integer(),</span>
-#&gt; <span class='message'>  am = col_integer(),</span>
-#&gt; <span class='message'>  gear = col_integer(),</span>
-#&gt; <span class='message'>  carb = col_integer()</span>
-#&gt; <span class='message'>)</span></div><div class='output co'>#&gt; # A tibble: 32 × 11
+#&gt; <span class='message'>  vs = col_double(),</span>
+#&gt; <span class='message'>  am = col_double(),</span>
+#&gt; <span class='message'>  gear = col_double(),</span>
+#&gt; <span class='message'>  carb = col_double()</span>
+#&gt; <span class='message'>)</span></div><div class='output co'>#&gt; # A tibble: 32 x 11
 #&gt;      mpg   cyl  disp    hp  drat    wt  qsec    vs    am  gear  carb
-#&gt;    &lt;dbl&gt; &lt;int&gt; &lt;dbl&gt; &lt;int&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;int&gt; &lt;int&gt; &lt;int&gt; &lt;int&gt;
-#&gt; 1   21.0     6 160.0   110  3.90 2.620 16.46     0     1     4     4
-#&gt; 2   21.0     6 160.0   110  3.90 2.875 17.02     0     1     4     4
-#&gt; 3   22.8     4 108.0    93  3.85 2.320 18.61     1     1     4     1
-#&gt; 4   21.4     6 258.0   110  3.08 3.215 19.44     1     0     3     1
-#&gt; 5   18.7     8 360.0   175  3.15 3.440 17.02     0     0     3     2
-#&gt; 6   18.1     6 225.0   105  2.76 3.460 20.22     1     0     3     1
-#&gt; 7   14.3     8 360.0   245  3.21 3.570 15.84     0     0     3     4
-#&gt; 8   24.4     4 146.7    62  3.69 3.190 20.00     1     0     4     2
-#&gt; 9   22.8     4 140.8    95  3.92 3.150 22.90     1     0     4     2
+#&gt;    &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;
+#&gt;  1  21.0     6 160.0   110  3.90 2.620 16.46     0     1     4     4
+#&gt;  2  21.0     6 160.0   110  3.90 2.875 17.02     0     1     4     4
+#&gt;  3  22.8     4 108.0    93  3.85 2.320 18.61     1     1     4     1
+#&gt;  4  21.4     6 258.0   110  3.08 3.215 19.44     1     0     3     1
+#&gt;  5  18.7     8 360.0   175  3.15 3.440 17.02     0     0     3     2
+#&gt;  6  18.1     6 225.0   105  2.76 3.460 20.22     1     0     3     1
+#&gt;  7  14.3     8 360.0   245  3.21 3.570 15.84     0     0     3     4
+#&gt;  8  24.4     4 146.7    62  3.69 3.190 20.00     1     0     4     2
+#&gt;  9  22.8     4 140.8    95  3.92 3.150 22.90     1     0     4     2
 #&gt; 10  19.2     6 167.6   123  3.92 3.440 18.30     1     0     4     4
 #&gt; # ... with 22 more rows</div><div class='input'><span class='fu'>read_csv</span>(<span class='st'>"https://github.com/tidyverse/readr/raw/master/inst/extdata/mtcars.csv"</span>)</div><div class='output co'>#&gt; <span class='message'>Parsed with column specification:</span>
 #&gt; <span class='message'>cols(</span>
 #&gt; <span class='message'>  mpg = col_double(),</span>
-#&gt; <span class='message'>  cyl = col_integer(),</span>
+#&gt; <span class='message'>  cyl = col_double(),</span>
 #&gt; <span class='message'>  disp = col_double(),</span>
-#&gt; <span class='message'>  hp = col_integer(),</span>
+#&gt; <span class='message'>  hp = col_double(),</span>
 #&gt; <span class='message'>  drat = col_double(),</span>
 #&gt; <span class='message'>  wt = col_double(),</span>
 #&gt; <span class='message'>  qsec = col_double(),</span>
-#&gt; <span class='message'>  vs = col_integer(),</span>
-#&gt; <span class='message'>  am = col_integer(),</span>
-#&gt; <span class='message'>  gear = col_integer(),</span>
-#&gt; <span class='message'>  carb = col_integer()</span>
-#&gt; <span class='message'>)</span></div><div class='output co'>#&gt; # A tibble: 32 × 11
+#&gt; <span class='message'>  vs = col_double(),</span>
+#&gt; <span class='message'>  am = col_double(),</span>
+#&gt; <span class='message'>  gear = col_double(),</span>
+#&gt; <span class='message'>  carb = col_double()</span>
+#&gt; <span class='message'>)</span></div><div class='output co'>#&gt; # A tibble: 32 x 11
 #&gt;      mpg   cyl  disp    hp  drat    wt  qsec    vs    am  gear  carb
-#&gt;    &lt;dbl&gt; &lt;int&gt; &lt;dbl&gt; &lt;int&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;int&gt; &lt;int&gt; &lt;int&gt; &lt;int&gt;
-#&gt; 1   21.0     6 160.0   110  3.90 2.620 16.46     0     1     4     4
-#&gt; 2   21.0     6 160.0   110  3.90 2.875 17.02     0     1     4     4
-#&gt; 3   22.8     4 108.0    93  3.85 2.320 18.61     1     1     4     1
-#&gt; 4   21.4     6 258.0   110  3.08 3.215 19.44     1     0     3     1
-#&gt; 5   18.7     8 360.0   175  3.15 3.440 17.02     0     0     3     2
-#&gt; 6   18.1     6 225.0   105  2.76 3.460 20.22     1     0     3     1
-#&gt; 7   14.3     8 360.0   245  3.21 3.570 15.84     0     0     3     4
-#&gt; 8   24.4     4 146.7    62  3.69 3.190 20.00     1     0     4     2
-#&gt; 9   22.8     4 140.8    95  3.92 3.150 22.90     1     0     4     2
+#&gt;    &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;
+#&gt;  1  21.0     6 160.0   110  3.90 2.620 16.46     0     1     4     4
+#&gt;  2  21.0     6 160.0   110  3.90 2.875 17.02     0     1     4     4
+#&gt;  3  22.8     4 108.0    93  3.85 2.320 18.61     1     1     4     1
+#&gt;  4  21.4     6 258.0   110  3.08 3.215 19.44     1     0     3     1
+#&gt;  5  18.7     8 360.0   175  3.15 3.440 17.02     0     0     3     2
+#&gt;  6  18.1     6 225.0   105  2.76 3.460 20.22     1     0     3     1
+#&gt;  7  14.3     8 360.0   245  3.21 3.570 15.84     0     0     3     4
+#&gt;  8  24.4     4 146.7    62  3.69 3.190 20.00     1     0     4     2
+#&gt;  9  22.8     4 140.8    95  3.92 3.150 22.90     1     0     4     2
 #&gt; 10  19.2     6 167.6   123  3.92 3.440 18.30     1     0     4     4
 #&gt; # ... with 22 more rows</div><div class='input'>
 <span class='co'># Or directly from a string (must contain a newline)</span>
-<span class='fu'>read_csv</span>(<span class='st'>"x,y\n1,2\n3,4"</span>)</div><div class='output co'>#&gt; # A tibble: 2 × 2
+<span class='fu'>read_csv</span>(<span class='st'>"x,y\n1,2\n3,4"</span>)</div><div class='output co'>#&gt; # A tibble: 2 x 2
 #&gt;       x     y
-#&gt;   &lt;int&gt; &lt;int&gt;
+#&gt;   &lt;dbl&gt; &lt;dbl&gt;
 #&gt; 1     1     2
 #&gt; 2     3     4</div><div class='input'>
 <span class='co'># Column types --------------------------------------------------------------</span>
 <span class='co'># By default, readr guesses the columns types, looking at the first 100 rows.</span>
 <span class='co'># You can override with a compact specification:</span>
-<span class='fu'>read_csv</span>(<span class='st'>"x,y\n1,2\n3,4"</span>, <span class='kw'>col_types</span> <span class='kw'>=</span> <span class='st'>"dc"</span>)</div><div class='output co'>#&gt; # A tibble: 2 × 2
+<span class='fu'>read_csv</span>(<span class='st'>"x,y\n1,2\n3,4"</span>, <span class='kw'>col_types</span> <span class='kw'>=</span> <span class='st'>"dc"</span>)</div><div class='output co'>#&gt; # A tibble: 2 x 2
 #&gt;       x     y
 #&gt;   &lt;dbl&gt; &lt;chr&gt;
 #&gt; 1     1     2
 #&gt; 2     3     4</div><div class='input'>
 <span class='co'># Or with a list of column types:</span>
-<span class='fu'>read_csv</span>(<span class='st'>"x,y\n1,2\n3,4"</span>, <span class='kw'>col_types</span> <span class='kw'>=</span> <span class='fu'>list</span>(<span class='fu'><a href='parse_atomic.html'>col_double</a></span>(), <span class='fu'><a href='parse_atomic.html'>col_character</a></span>()))</div><div class='output co'>#&gt; # A tibble: 2 × 2
+<span class='fu'>read_csv</span>(<span class='st'>"x,y\n1,2\n3,4"</span>, <span class='kw'>col_types</span> <span class='kw'>=</span> <span class='fu'>list</span>(<span class='fu'><a href='parse_atomic.html'>col_double</a></span>(), <span class='fu'><a href='parse_atomic.html'>col_character</a></span>()))</div><div class='output co'>#&gt; # A tibble: 2 x 2
 #&gt;       x     y
 #&gt;   &lt;dbl&gt; &lt;chr&gt;
 #&gt; 1     1     2
@@ -390,26 +391,26 @@ how many, and you can retrieve the details with <code><a href='problems.html'>pr
 <span class='co'># more details with problems()</span>
 <span class='no'>y</span> <span class='kw'>&lt;-</span> <span class='fu'>read_csv</span>(<span class='st'>"x\n1\n2\nb"</span>, <span class='kw'>col_types</span> <span class='kw'>=</span> <span class='fu'>list</span>(<span class='fu'><a href='parse_atomic.html'>col_double</a></span>()))</div><div class='output co'>#&gt; <span class='warning'>Warning: 1 parsing failure.</span>
 #&gt; <span class='warning'>row col expected actual         file</span>
-#&gt; <span class='warning'>  3   x a double      b literal data</span></div><div class='input'><span class='no'>y</span></div><div class='output co'>#&gt; # A tibble: 3 × 1
+#&gt; <span class='warning'>  3   x a double      b literal data</span></div><div class='input'><span class='no'>y</span></div><div class='output co'>#&gt; # A tibble: 3 x 1
 #&gt;       x
 #&gt;   &lt;dbl&gt;
 #&gt; 1     1
 #&gt; 2     2
-#&gt; 3    NA</div><div class='input'><span class='fu'><a href='problems.html'>problems</a></span>(<span class='no'>y</span>)</div><div class='output co'>#&gt; # A tibble: 1 × 5
+#&gt; 3    NA</div><div class='input'><span class='fu'><a href='problems.html'>problems</a></span>(<span class='no'>y</span>)</div><div class='output co'>#&gt; # A tibble: 1 x 5
 #&gt;     row   col expected actual         file
 #&gt;   &lt;int&gt; &lt;chr&gt;    &lt;chr&gt;  &lt;chr&gt;        &lt;chr&gt;
 #&gt; 1     3     x a double      b literal data</div><div class='input'>
 <span class='co'># File types ----------------------------------------------------------------</span>
-<span class='fu'>read_csv</span>(<span class='st'>"a,b\n1.0,2.0"</span>)</div><div class='output co'>#&gt; # A tibble: 1 × 2
+<span class='fu'>read_csv</span>(<span class='st'>"a,b\n1.0,2.0"</span>)</div><div class='output co'>#&gt; # A tibble: 1 x 2
 #&gt;       a     b
 #&gt;   &lt;dbl&gt; &lt;dbl&gt;
-#&gt; 1     1     2</div><div class='input'><span class='fu'>read_csv2</span>(<span class='st'>"a;b\n1,0;2,0"</span>)</div><div class='output co'>#&gt; <span class='message'>Using ',' as decimal and '.' as grouping mark. Use read_delim() for more control.</span></div><div class='output co'>#&gt; # A tibble: 1 × 2
+#&gt; 1     1     2</div><div class='input'><span class='fu'>read_csv2</span>(<span class='st'>"a;b\n1,0;2,0"</span>)</div><div class='output co'>#&gt; <span class='message'>Using ',' as decimal and '.' as grouping mark. Use read_delim() for more control.</span></div><div class='output co'>#&gt; # A tibble: 1 x 2
 #&gt;       a     b
 #&gt;   &lt;dbl&gt; &lt;dbl&gt;
-#&gt; 1     1     2</div><div class='input'><span class='fu'>read_tsv</span>(<span class='st'>"a\tb\n1.0\t2.0"</span>)</div><div class='output co'>#&gt; # A tibble: 1 × 2
+#&gt; 1     1     2</div><div class='input'><span class='fu'>read_tsv</span>(<span class='st'>"a\tb\n1.0\t2.0"</span>)</div><div class='output co'>#&gt; # A tibble: 1 x 2
 #&gt;       a     b
 #&gt;   &lt;dbl&gt; &lt;dbl&gt;
-#&gt; 1     1     2</div><div class='input'><span class='fu'>read_delim</span>(<span class='st'>"a|b\n1.0|2.0"</span>, <span class='kw'>delim</span> <span class='kw'>=</span> <span class='st'>"|"</span>)</div><div class='output co'>#&gt; # A tibble: 1 × 2
+#&gt; 1     1     2</div><div class='input'><span class='fu'>read_delim</span>(<span class='st'>"a|b\n1.0|2.0"</span>, <span class='kw'>delim</span> <span class='kw'>=</span> <span class='st'>"|"</span>)</div><div class='output co'>#&gt; # A tibble: 1 x 2
 #&gt;       a     b
 #&gt;   &lt;dbl&gt; &lt;dbl&gt;
 #&gt; 1     1     2</div></pre>

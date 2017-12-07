@@ -166,11 +166,10 @@
 <span class="co">#&gt; Levels: a b c</span>
 <span class="kw"><a href="../reference/parse_factor.html">parse_factor</a></span>(<span class="kw">c</span>(<span class="st">"a"</span>, <span class="st">"b"</span>, <span class="st">"d"</span>), <span class="dt">levels =</span> <span class="kw">c</span>(<span class="st">"a"</span>, <span class="st">"b"</span>, <span class="st">"c"</span>))
 <span class="co">#&gt; Warning: 1 parsing failure.</span>
-<span class="co">#&gt; row col           expected actual</span>
-<span class="co">#&gt;   3  -- value in level set      d</span>
+<span class="co">#&gt; row # A tibble: 1 x 4 col     row   col           expected actual expected   &lt;int&gt; &lt;int&gt;              &lt;chr&gt;  &lt;chr&gt; actual 1     3    NA value in level set      d</span>
 <span class="co">#&gt; [1] a    b    &lt;NA&gt;</span>
 <span class="co">#&gt; attr(,"problems")</span>
-<span class="co">#&gt; # A tibble: 1 × 4</span>
+<span class="co">#&gt; # A tibble: 1 x 4</span>
 <span class="co">#&gt;     row   col           expected actual</span>
 <span class="co">#&gt;   &lt;int&gt; &lt;int&gt;              &lt;chr&gt;  &lt;chr&gt;</span>
 <span class="co">#&gt; 1     3    NA value in level set      d</span>
@@ -272,29 +271,26 @@ mtcars_spec
 <span class="co">#&gt;   x = col_integer(),</span>
 <span class="co">#&gt;   y = col_character()</span>
 <span class="co">#&gt; )</span>
+<span class="co">#&gt; Warning in rbind(names(probs), probs_f): number of columns of result is not</span>
+<span class="co">#&gt; a multiple of vector length (arg 1)</span>
 <span class="co">#&gt; Warning: 1000 parsing failures.</span>
-<span class="co">#&gt;  row col               expected             actual                                          file</span>
-<span class="co">#&gt; 1001   x no trailing characters .23837975086644292 '/Users/hadley/R/readr/extdata/challenge.csv'</span>
-<span class="co">#&gt; 1002   x no trailing characters .41167997173033655 '/Users/hadley/R/readr/extdata/challenge.csv'</span>
-<span class="co">#&gt; 1003   x no trailing characters .7460716762579978  '/Users/hadley/R/readr/extdata/challenge.csv'</span>
-<span class="co">#&gt; 1004   x no trailing characters .723450553836301   '/Users/hadley/R/readr/extdata/challenge.csv'</span>
-<span class="co">#&gt; 1005   x no trailing characters .614524137461558   '/Users/hadley/R/readr/extdata/challenge.csv'</span>
-<span class="co">#&gt; .... ... ...................... .................. .............................................</span>
+<span class="co">#&gt; row # A tibble: 5 x 5 col     row   col               expected             actual expected   &lt;int&gt; &lt;chr&gt;                  &lt;chr&gt;              &lt;chr&gt; actual 1  1001     x no trailing characters .23837975086644292 file 2  1002     x no trailing characters .41167997173033655 row 3  1003     x no trailing characters  .7460716762579978 col 4  1004     x no trailing characters   .723450553836301 expected 5  1005     x no trailing characters   .614524137461558 actual # ... with 1 more variables: file &lt;chr&gt;</span>
+<span class="co">#&gt; ... ................. ... ....................................................... ........ ....................................................... ...... ....................................................... .... ....................................................... ... ....................................................... ... ....................................................... ........ ....................................................... ...... .......................................</span>
 <span class="co">#&gt; See problems(...) for more details.</span></code></pre></div>
 <p>The rectangular parsing functions almost always succeed; they’ll only fail if the format is severely messed up. Instead, readr will generate a data frame of problems. The first few will be printed out, and you can access them all with <code><a href="../reference/problems.html">problems()</a></code>:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="../reference/problems.html">problems</a></span>(df1)
-<span class="co">#&gt; # A tibble: 1,000 × 5</span>
+<span class="co">#&gt; # A tibble: 1,000 x 5</span>
 <span class="co">#&gt;      row   col               expected             actual</span>
 <span class="co">#&gt;    &lt;int&gt; &lt;chr&gt;                  &lt;chr&gt;              &lt;chr&gt;</span>
-<span class="co">#&gt; 1   1001     x no trailing characters .23837975086644292</span>
-<span class="co">#&gt; 2   1002     x no trailing characters .41167997173033655</span>
-<span class="co">#&gt; 3   1003     x no trailing characters  .7460716762579978</span>
-<span class="co">#&gt; 4   1004     x no trailing characters   .723450553836301</span>
-<span class="co">#&gt; 5   1005     x no trailing characters   .614524137461558</span>
-<span class="co">#&gt; 6   1006     x no trailing characters   .473980569280684</span>
-<span class="co">#&gt; 7   1007     x no trailing characters  .5784610391128808</span>
-<span class="co">#&gt; 8   1008     x no trailing characters  .2415937229525298</span>
-<span class="co">#&gt; 9   1009     x no trailing characters .11437866208143532</span>
+<span class="co">#&gt;  1  1001     x no trailing characters .23837975086644292</span>
+<span class="co">#&gt;  2  1002     x no trailing characters .41167997173033655</span>
+<span class="co">#&gt;  3  1003     x no trailing characters  .7460716762579978</span>
+<span class="co">#&gt;  4  1004     x no trailing characters   .723450553836301</span>
+<span class="co">#&gt;  5  1005     x no trailing characters   .614524137461558</span>
+<span class="co">#&gt;  6  1006     x no trailing characters   .473980569280684</span>
+<span class="co">#&gt;  7  1007     x no trailing characters  .5784610391128808</span>
+<span class="co">#&gt;  8  1008     x no trailing characters  .2415937229525298</span>
+<span class="co">#&gt;  9  1009     x no trailing characters .11437866208143532</span>
 <span class="co">#&gt; 10  1010     x no trailing characters  .2983446326106787</span>
 <span class="co">#&gt; # ... with 990 more rows, and 1 more variables: file &lt;chr&gt;</span></code></pre></div>
 <p>You’ve already seen one way of handling bad guesses: increasing the number of rows used to guess the type of each column.</p>
@@ -348,7 +344,8 @@ mtcars_spec
 
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
         <div id="tocnav">
-      <h2>Contents</h2>
+      <h2 class="hasAnchor">
+<a href="#tocnav" class="anchor"></a>Contents</h2>
       <ul class="nav nav-pills nav-stacked">
 <li><a href="#vector-parsers">Vector parsers</a></li>
       <li><a href="#column-specification">Column specification</a></li>

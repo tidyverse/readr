@@ -188,7 +188,7 @@
 <p>All readr functions yield strings encoded in UTF-8. This encoding is the most likely to give good results in the widest variety of settings. By default, readr assumes that your input is also in UTF-8, which is less likely to be the case, especially when you’re working with older datasets. To parse a dataset that’s not in UTF-8, you need to a supply an <code>encoding</code>.</p>
 <p>The following code creates a string encoded with latin1 (aka ISO-8859-1), and shows how it’s different from the string encoded as UTF-8, and how to parse it with readr:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">x &lt;-<span class="st"> "Émigré cause célèbre déjà vu.</span><span class="ch">\n</span><span class="st">"</span>
-y &lt;-<span class="st"> </span>stringi::<span class="kw">stri_conv</span>(x, <span class="st">"UTF-8"</span>, <span class="st">"Latin1"</span>)
+y &lt;-<span class="st"> </span>stringi<span class="op">::</span><span class="kw"><a href="http://www.rdocumentation.org/packages/stringi/topics/stri_encode">stri_conv</a></span>(x, <span class="st">"UTF-8"</span>, <span class="st">"Latin1"</span>)
 
 <span class="co"># These strings look like they're identical:</span>
 x
@@ -225,7 +225,7 @@ y
 <span class="co">#&gt; [1] "Émigré cause célèbre déjà vu.\n"</span></code></pre></div>
 <p>If you don’t know what encoding the file uses, try <code><a href="../../reference/encoding.html">guess_encoding()</a></code>. It’s not 100% perfect (as it’s fundamentally a heuristic), but should at least get you pointed in the right direction:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="../../reference/encoding.html">guess_encoding</a></span>(y)
-<span class="co">#&gt; # A tibble: 2 × 2</span>
+<span class="co">#&gt; # A tibble: 2 x 2</span>
 <span class="co">#&gt;     encoding confidence</span>
 <span class="co">#&gt;        &lt;chr&gt;      &lt;dbl&gt;</span>
 <span class="co">#&gt; 1 ISO-8859-2        0.4</span>
@@ -258,7 +258,7 @@ y
 <div id="column-parsing-improvements" class="section level2">
 <h2 class="hasAnchor">
 <a href="#column-parsing-improvements" class="anchor"></a>Column parsing improvements</h2>
-<p>One of the most useful parts of readr are the column parsers: the tools that turns character input into usefully typed data frame columns. This process is now described more fully in a new vignette: <code><a href="../../articles/column-types.html">vignette("column-types")</a></code>.</p>
+<p>One of the most useful parts of readr are the column parsers: the tools that turns character input into usefully typed data frame columns. This process is now described more fully in a new vignette: <code>vignette("column-types")</code>.</p>
 <p>By default, column types are guessed by looking at the data. I’ve made a number of tweaks to make it more likely that your code will load correctly the first time:</p>
 <ul>
 <li><p>readr now looks at the first 1000 rows (instead of just the first 100) when guessing column types: this only takes a fraction more time, but should hopefully yield better guesses for more inputs.</p></li>
@@ -271,7 +271,7 @@ y
 <li>
 <p>New <code><a href="../../reference/cols.html">cols()</a></code> function takes of assembling the list of column types, and with its <code>.default</code> argument, allows you to control the default column type:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="../../reference/read_delim.html">read_csv</a></span>(<span class="st">"x,y</span><span class="ch">\n</span><span class="st">1,2"</span>, <span class="dt">col_types =</span> <span class="kw"><a href="../../reference/cols.html">cols</a></span>(<span class="dt">.default =</span> <span class="st">"c"</span>))
-<span class="co">#&gt; # A tibble: 1 × 2</span>
+<span class="co">#&gt; # A tibble: 1 x 2</span>
 <span class="co">#&gt;       x     y</span>
 <span class="co">#&gt;   &lt;chr&gt; &lt;chr&gt;</span>
 <span class="co">#&gt; 1     1     2</span></code></pre></div>
@@ -280,7 +280,7 @@ y
 <li>
 <p><code><a href="../../reference/cols.html">cols_only()</a></code> allows you to load only the specified columns:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="../../reference/read_delim.html">read_csv</a></span>(<span class="st">"a,b,c</span><span class="ch">\n</span><span class="st">1,2,3"</span>, <span class="dt">col_types =</span> <span class="kw"><a href="../../reference/cols.html">cols_only</a></span>(<span class="st">"b"</span> =<span class="st"> "?"</span>))
-<span class="co">#&gt; # A tibble: 1 × 1</span>
+<span class="co">#&gt; # A tibble: 1 x 1</span>
 <span class="co">#&gt;       b</span>
 <span class="co">#&gt;   &lt;int&gt;</span>
 <span class="co">#&gt; 1     2</span></code></pre></div>
@@ -302,8 +302,7 @@ y
 <p>New <code><a href="../../reference/parse_datetime.html">parse_time()</a></code> and <code><a href="../../reference/parse_datetime.html">col_time()</a></code> allow you to parse times. They have an optional <code>format</code> argument, that uses the same components as <code><a href="../../reference/parse_datetime.html">parse_datetime()</a></code>. If <code>format</code> is omitted, they use a flexible parser that looks for hours, then an optional colon, then minutes, then an optional colon, then optional seconds, then optional am/pm.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="../../reference/parse_datetime.html">parse_time</a></span>(<span class="kw">c</span>(<span class="st">"1:45 PM"</span>, <span class="st">"1345"</span>, <span class="st">"13:45:00"</span>))
 <span class="co">#&gt; Warning: 1 parsing failure.</span>
-<span class="co">#&gt; row col   expected actual</span>
-<span class="co">#&gt;   2  -- time like    1345</span>
+<span class="co">#&gt; row # A tibble: 1 x 4 col     row   col   expected actual expected   &lt;int&gt; &lt;int&gt;      &lt;chr&gt;  &lt;chr&gt; actual 1     2    NA time like    1345</span>
 <span class="co">#&gt; 13:45:00</span>
 <span class="co">#&gt;       NA</span>
 <span class="co">#&gt; 13:45:00</span></code></pre></div>
@@ -320,7 +319,7 @@ y
 <li>
 <p>Multiple NA values can be specified by passing a character vector to <code>na</code>. The default has been changed to <code>na = c("", "NA")</code>.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="../../reference/read_delim.html">read_csv</a></span>(<span class="st">"a,b</span><span class="ch">\n</span><span class="st">.,NA</span><span class="ch">\n</span><span class="st">1,3"</span>, <span class="dt">na =</span> <span class="kw">c</span>(<span class="st">"."</span>, <span class="st">"NA"</span>))
-<span class="co">#&gt; # A tibble: 2 × 2</span>
+<span class="co">#&gt; # A tibble: 2 x 2</span>
 <span class="co">#&gt;       a     b</span>
 <span class="co">#&gt;   &lt;int&gt; &lt;int&gt;</span>
 <span class="co">#&gt; 1    NA    NA</span>
@@ -334,7 +333,7 @@ y
 <span class="st">a,b</span>
 <span class="st">1,10</span>
 <span class="st">2,20"</span>, <span class="dt">comment =</span> <span class="st">"#"</span>)
-<span class="co">#&gt; # A tibble: 2 × 2</span>
+<span class="co">#&gt; # A tibble: 2 x 2</span>
 <span class="co">#&gt;       a     b</span>
 <span class="co">#&gt;   &lt;int&gt; &lt;int&gt;</span>
 <span class="co">#&gt; 1     1    10</span>
@@ -343,12 +342,12 @@ y
 <li>
 <p><code>trim_ws</code> argument controls whether leading and trailing whitespace is removed. It defaults to <code>TRUE</code>.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="../../reference/read_delim.html">read_csv</a></span>(<span class="st">"a,b</span><span class="ch">\n</span><span class="st">     1,     2"</span>)
-<span class="co">#&gt; # A tibble: 1 × 2</span>
+<span class="co">#&gt; # A tibble: 1 x 2</span>
 <span class="co">#&gt;       a     b</span>
 <span class="co">#&gt;   &lt;int&gt; &lt;int&gt;</span>
 <span class="co">#&gt; 1     1     2</span>
 <span class="kw"><a href="../../reference/read_delim.html">read_csv</a></span>(<span class="st">"a,b</span><span class="ch">\n</span><span class="st">     1,     2"</span>, <span class="dt">trim_ws =</span> <span class="ot">FALSE</span>)
-<span class="co">#&gt; # A tibble: 1 × 2</span>
+<span class="co">#&gt; # A tibble: 1 x 2</span>
 <span class="co">#&gt;        a      b</span>
 <span class="co">#&gt;    &lt;chr&gt;  &lt;chr&gt;</span>
 <span class="co">#&gt; 1      1      2</span></code></pre></div>
@@ -357,10 +356,8 @@ y
 <p>Specifying the wrong number of column names, or having rows with an unexpected number of columns, now gives a warning, rather than an error:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="../../reference/read_delim.html">read_csv</a></span>(<span class="st">"a,b,c</span><span class="ch">\n</span><span class="st">1,2</span><span class="ch">\n</span><span class="st">1,2,3,4"</span>)
 <span class="co">#&gt; Warning: 2 parsing failures.</span>
-<span class="co">#&gt; row col  expected    actual         file</span>
-<span class="co">#&gt;   1  -- 3 columns 2 columns literal data</span>
-<span class="co">#&gt;   2  -- 3 columns 4 columns literal data</span>
-<span class="co">#&gt; # A tibble: 2 × 3</span>
+<span class="co">#&gt; row # A tibble: 2 x 5 col     row   col  expected    actual         file expected   &lt;int&gt; &lt;chr&gt;     &lt;chr&gt;     &lt;chr&gt;        &lt;chr&gt; actual 1     1  &lt;NA&gt; 3 columns 2 columns literal data file 2     2  &lt;NA&gt; 3 columns 4 columns literal data</span>
+<span class="co">#&gt; # A tibble: 2 x 3</span>
 <span class="co">#&gt;       a     b     c</span>
 <span class="co">#&gt;   &lt;int&gt; &lt;int&gt; &lt;int&gt;</span>
 <span class="co">#&gt; 1     1     2    NA</span>
@@ -376,19 +373,19 @@ y
 <li><p><code><a href="../../reference/read_rds.html">write_rds()</a></code> and <code><a href="../../reference/read_rds.html">read_rds()</a></code> wrap around <code>readRDS()</code> and <code>saveRDS()</code>, defaulting to no compression, because you’re usually more interested in saving time (expensive) than disk space (cheap).</p></li>
 </ul>
 <p>All these functions invisibly return their output so you can use them as part of a pipeline:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">my_df %&gt;%
-<span class="st">  </span><span class="kw">some_manipulation</span>() %&gt;%
-<span class="st">  </span><span class="kw"><a href="../../reference/write_delim.html">write_csv</a></span>(<span class="st">"interim-a.csv"</span>) %&gt;%
-<span class="st">  </span><span class="kw">some_more_manipulation</span>() %&gt;%
-<span class="st">  </span><span class="kw"><a href="../../reference/write_delim.html">write_csv</a></span>(<span class="st">"interim-b.csv"</span>) %&gt;%
-<span class="st">  </span><span class="kw">even_more_manipulation</span>() %&gt;%
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">my_df <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">some_manipulation</span>() <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw"><a href="../../reference/write_delim.html">write_csv</a></span>(<span class="st">"interim-a.csv"</span>) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">some_more_manipulation</span>() <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw"><a href="../../reference/write_delim.html">write_csv</a></span>(<span class="st">"interim-b.csv"</span>) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">even_more_manipulation</span>() <span class="op">%&gt;%</span>
 <span class="st">  </span><span class="kw"><a href="../../reference/write_delim.html">write_csv</a></span>(<span class="st">"final.csv"</span>)</code></pre></div>
 <p>You can now control how missing values are written with the <code>na</code> argument, and the quoting algorithm has been further refined to only add quotes when needed: when the string contains a quote, the delimiter, a new line or the same text as missing value.</p>
 <p>Output for doubles now uses the same precision as R, and POSIXt vectors are saved in a ISO8601 compatible format.</p>
 <p>For testing, you can use <code><a href="../../reference/format_delim.html">format_csv()</a></code>, <code><a href="../../reference/format_delim.html">format_tsv()</a></code>, and <code><a href="../../reference/format_delim.html">format_delim()</a></code> to write csv to a string:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">mtcars %&gt;%
-<span class="st">  </span><span class="kw">head</span>(<span class="dv">4</span>) %&gt;%
-<span class="st">  </span><span class="kw"><a href="../../reference/format_delim.html">format_csv</a></span>() %&gt;%
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">mtcars <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">head</span>(<span class="dv">4</span>) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw"><a href="../../reference/format_delim.html">format_csv</a></span>() <span class="op">%&gt;%</span>
 <span class="st">  </span><span class="kw">cat</span>()
 <span class="co">#&gt; mpg,cyl,disp,hp,drat,wt,qsec,vs,am,gear,carb</span>
 <span class="co">#&gt; 21,6,160,110,3.9,2.62,16.46,0,1,4,4</span>
@@ -402,7 +399,8 @@ y
 
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
         <div id="tocnav">
-      <h2>Contents</h2>
+      <h2 class="hasAnchor">
+<a href="#tocnav" class="anchor"></a>Contents</h2>
       <ul class="nav nav-pills nav-stacked">
 <li><a href="#internationalisation">Internationalisation</a></li>
       <li><a href="#column-parsing-improvements">Column parsing improvements</a></li>
