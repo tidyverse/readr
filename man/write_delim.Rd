@@ -37,7 +37,8 @@ always be quoted.}
 will append to existing file. In both cases, if file does not exist a new
 file is created.}
 
-\item{col_names}{Write columns names at the top of the file?}
+\item{col_names}{Write columns names at the top of the file? Must be either
+\code{TRUE} or \code{FALSE}.}
 }
 \value{
 \code{write_*()} returns the input \code{x} invisibly.

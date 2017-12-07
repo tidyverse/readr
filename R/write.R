@@ -24,7 +24,8 @@
 #' @param append If `FALSE`, will overwrite existing file. If `TRUE`,
 #'   will append to existing file. In both cases, if file does not exist a new
 #'   file is created.
-#' @param col_names Write columns names at the top of the file?
+#' @param col_names Write columns names at the top of the file? Must be either
+#'   `TRUE` or `FALSE`.
 #' @param delim Delimiter used to separate values. Defaults to `" "` for `write_delim()`, `","` for `write_excel_csv()` and
 #' `";"` for `write_excel_csv2()`. Must be a single character.
 #' @param na String used for missing values. Defaults to NA. Missing values
