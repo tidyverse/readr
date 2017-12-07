@@ -137,8 +137,8 @@ List tokenize_melt_(List sourceSpec, List tokenizerSpec, int n_max, List locale_
       type.resize(i + 1);
     }
 
-    row[i] = t.row();
-    col[i] = t.col();
+    row[i] = t.row() + 1;
+    col[i] = t.col() + 1;
     val[i] = t.asString();
     type[i] = collectorGuessInternal(t.asString(), locale_);
     ++i;
