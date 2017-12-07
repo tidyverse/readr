@@ -53,7 +53,7 @@ NULL
 #'   is updated every 50,000 values and will only display if estimated reading
 #'   time is 5 seconds or more. The automatic progress bar can be disabled by
 #'   setting option \code{readr.show_progress} to \code{FALSE}.
-#' @return A data frame. If there are parsing problems, a warning tells you
+#' @return A [tibble()]. If there are parsing problems, a warning tells you
 #'   how many, and you can retrieve the details with \code{\link{problems}()}.
 #' @export
 #' @examples

@@ -120,7 +120,7 @@ time is 5 seconds or more. The automatic progress bar can be disabled by
 setting option \code{readr.show_progress} to \code{FALSE}.}
 }
 \value{
-A data frame. If there are parsing problems, a warning tells you
+A \code{\link[=tibble]{tibble()}}. If there are parsing problems, a warning tells you
 how many, and you can retrieve the details with \code{\link{problems}()}.
 }
 \description{
