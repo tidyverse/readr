@@ -50,7 +50,7 @@ bool isNumber(const std::string& x, LocaleInfo* pLocale) {
 
 bool isInteger(const std::string& x, LocaleInfo* pLocale) {
   // Leading zero
-  if (x[0] == '0')
+  if (x[0] == '0' && x.size() > 1)
     return false;
 
   double res = 0;
