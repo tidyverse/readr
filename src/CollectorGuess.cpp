@@ -93,8 +93,13 @@ static bool isDateTime(const std::string& x, LocaleInfo* pLocale) {
 std::string collectorGuess(CharacterVector input, List locale_) {
   LocaleInfo locale(locale_);
 
-  if (input.size() == 0 || allMissing(input))
+  if (input.size() == 0) {
     return "character";
+  }
+
+  if (allMissing(input)) {
+    return "logical";
+  }
 
   // Work from strictest to most flexible
   if (canParse(input, isLogical, &locale))

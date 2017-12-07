@@ -1,5 +1,9 @@
 # readr 1.1.0.9000
 
+* `guess_parser()` now guesses a logical type for columns which are all
+  missing. This is useful when binding multiple files together where some files
+  have missing columns. (#662).
+
 * `parse_number()` now parses numbers in scientific notation using `e` and `E` (#684, @sambrady3).
 
 * Add `write_excel_csv2()` function to allow writing csv files with comma as a decimal separator and semicolon    as a column separator (#753, @olgamie).

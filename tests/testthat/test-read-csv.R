@@ -12,7 +12,7 @@ test_that("read_csv col imputation, col_name detection and NA detection works", 
 })
 
 test_that("read_csv's 'NA' option genuinely changes the NA values", {
-  expect_equal(read_csv("a\nz", na = "z", progress = FALSE)$a, NA_character_)
+  expect_equal(read_csv("a\nz", na = "z", progress = FALSE)$a, NA)
 })
 
 test_that("read_csv's 'NA' option works with multiple NA values", {
