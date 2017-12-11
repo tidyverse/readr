@@ -5,6 +5,9 @@
 // Returns iterator to end of line.
 template <class Iter> inline Iter advanceForLF(Iter* pBegin, Iter end) {
   Iter cur = *pBegin;
+  if (cur == end) {
+    return cur;
+  }
   if (*cur == '\r' && (cur + 1 != end) && *(cur + 1) == '\n')
     (*pBegin)++;
 

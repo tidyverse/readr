@@ -20,6 +20,10 @@ test_that("read_table can read from a pipe (552)", {
   expect_equal(x$a, c(1, 4))
 })
 
+test_that("read_table can read a truncated file without crashing (740)", {
+  expect_error(read_table("table-crash"), NA)
+})
+
 # read_table2 -------------------------------------------------------------------
 
 test_that("read_table2 silently reads ragged columns", {
