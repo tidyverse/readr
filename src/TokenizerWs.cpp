@@ -37,9 +37,6 @@ std::pair<double, size_t> TokenizerWs::progress() {
 }
 
 Token TokenizerWs::nextToken() {
-  if (cur_ == end_)
-    return Token(TOKEN_EOF, 0, 0);
-
   // Check for comments and empty lines only at start of line
   while (cur_ != end_ && col_ == 0 && (isComment(cur_) || isEmpty())) {
     // Skip rest of line
@@ -52,6 +49,8 @@ Token TokenizerWs::nextToken() {
     }
     curLine_ = cur_;
   }
+  if (cur_ == end_)
+    return Token(TOKEN_EOF, 0, 0);
 
   // Find start of field
   SourceIterator fieldBegin = cur_;

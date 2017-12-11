@@ -1,5 +1,8 @@
 # readr 1.1.0.9000
 
+* `read_table2()` now properly ignores blank lines at the end of a file like
+  `read_table()` and `read_delim()` (#657).
+
 * `read_delim()`, `read_table()` and `read_table()` now skip blank lines at the
   start of a file (#680, #747).
 

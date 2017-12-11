@@ -49,3 +49,9 @@ test_that("read_table2 does not duplicate header rows for leading whitespace (74
   expect_equal(nrow(x), 1)
   expect_equal(x$foo, 1)
 })
+
+test_that("read_table2 ignores blank lines at the end of a file (657)", {
+  expect_warning(x <- read_table2("x y\n1 2\n\n"), NA)
+  expect_equal(nrow(x), 1)
+  expect_equal(x$x, 1)
+})
