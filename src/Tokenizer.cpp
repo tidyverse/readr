@@ -35,8 +35,9 @@ TokenizerPtr Tokenizer::create(List spec) {
                      end = as<std::vector<int> >(spec["end"]);
     std::vector<std::string> na = as<std::vector<std::string> >(spec["na"]);
     std::string comment = as<std::string>(spec["comment"]);
+    bool trimWs = as<bool>(spec["trim_ws"]);
 
-    return TokenizerPtr(new TokenizerFwf(begin, end, na, comment));
+    return TokenizerPtr(new TokenizerFwf(begin, end, na, comment, trimWs));
   } else if (subclass == "tokenizer_line") {
     std::vector<std::string> na = as<std::vector<std::string> >(spec["na"]);
     return TokenizerPtr(new TokenizerLine(na));

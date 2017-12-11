@@ -25,7 +25,7 @@ tokenizer_line(na = character())
 
 tokenizer_log()
 
-tokenizer_fwf(begin, end, na = "NA", comment = "")
+tokenizer_fwf(begin, end, na = "NA", comment = "", trim_ws = TRUE)
 
 tokenizer_ws(na = "NA", comment = "")
 }

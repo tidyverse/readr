@@ -112,14 +112,16 @@ TokenizerFwf::TokenizerFwf(
     const std::vector<int>& beginOffset,
     const std::vector<int>& endOffset,
     std::vector<std::string> NA,
-    std::string comment)
+    std::string comment,
+    bool trimWS)
     : beginOffset_(beginOffset),
       endOffset_(endOffset),
       NA_(NA),
       cols_(beginOffset.size()),
       comment_(comment),
       moreTokens_(false),
-      hasComment_(comment.size() > 0) {
+      hasComment_(comment.size() > 0),
+      trimWS_(trimWS) {
   if (beginOffset_.size() != endOffset_.size())
     Rcpp::stop(
         "Begin (%i) and end (%i) specifications must have equal length",
@@ -286,7 +288,9 @@ Token TokenizerFwf::fieldToken(
     return Token(TOKEN_MISSING, row_, col_);
 
   Token t = Token(begin, end, row_, col_, hasNull);
-  t.trim();
+  if (trimWS_) {
+    t.trim();
+  }
   t.flagNA(NA_);
 
   return t;

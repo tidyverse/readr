@@ -121,8 +121,8 @@ tokenizer_log <- function() {
 #' @param begin,end Begin and end offsets for each file. These are C++
 #'   offsets so the first column is column zero, and the ranges are
 #'   [begin, end) (i.e inclusive-exclusive).
-tokenizer_fwf <- function(begin, end, na = "NA", comment = "") {
-  structure(list(begin = begin, end = end, na = na, comment = comment), class = "tokenizer_fwf")
+tokenizer_fwf <- function(begin, end, na = "NA", comment = "", trim_ws = TRUE) {
+  structure(list(begin = begin, end = end, na = na, comment = comment, trim_ws = trim_ws), class = "tokenizer_fwf")
 }
 
 #' @export

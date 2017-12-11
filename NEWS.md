@@ -1,5 +1,7 @@
 # readr 1.1.0.9000
 
+* `read_fwf()` now has a `trim_ws` like `read_delim()` (#636).
+
 * `guess_parser()` now guesses a logical type for columns which are all
   missing. This is useful when binding multiple files together where some files
   have missing columns. (#662).

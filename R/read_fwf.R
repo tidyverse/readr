@@ -35,14 +35,14 @@
 #' read_fwf(fwf_sample, fwf_cols(name = 20, state = 10, ssn = 12))
 read_fwf <- function(file, col_positions, col_types = NULL,
                      locale = default_locale(), na = c("", "NA"),
-                     comment = "", skip = 0, n_max = Inf,
+                     comment = "", trim_ws = TRUE, skip = 0, n_max = Inf,
                      guess_max = min(n_max, 1000), progress = show_progress()) {
   ds <- datasource(file, skip = skip)
   if (inherits(ds, "source_file") && empty_file(file)) {
     return(tibble::tibble())
   }
 
-  tokenizer <- tokenizer_fwf(col_positions$begin, col_positions$end, na = na, comment = comment)
+  tokenizer <- tokenizer_fwf(col_positions$begin, col_positions$end, na = na, comment = comment, trim_ws = trim_ws)
 
   spec <- col_spec_standardise(
     file,
