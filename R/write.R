@@ -116,7 +116,9 @@ format_delim <- function(x, delim, na = "NA", append = FALSE, col_names = !appen
   stopifnot(is.data.frame(x))
 
   x <- lapply(x, output_column)
-  stream_delim(x, NULL, delim, col_names = col_names, append = append, na = na)
+  res <- stream_delim(x, NULL, delim, col_names = col_names, append = append, na = na)
+  Encoding(res) <- "UTF-8"
+  res
 }
 
 #' @export

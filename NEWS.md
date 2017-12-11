@@ -1,5 +1,7 @@
 # readr 1.1.0.9000
 
+* `format_*()` now explicitly marks it's output encoding as UTF-8 (#697).
+
 * The `parse_*()` functions gain a `trim_ws` argument to control whether the
   fields should be trimmed before parsing (#735).
 
