@@ -11,13 +11,17 @@
 \alias{col_character}
 \title{Parse logicals, integers, and reals}
 \usage{
-parse_logical(x, na = c("", "NA"), locale = default_locale())
+parse_logical(x, na = c("", "NA"), locale = default_locale(),
+  trim_ws = TRUE)
 
-parse_integer(x, na = c("", "NA"), locale = default_locale())
+parse_integer(x, na = c("", "NA"), locale = default_locale(),
+  trim_ws = TRUE)
 
-parse_double(x, na = c("", "NA"), locale = default_locale())
+parse_double(x, na = c("", "NA"), locale = default_locale(),
+  trim_ws = TRUE)
 
-parse_character(x, na = c("", "NA"), locale = default_locale())
+parse_character(x, na = c("", "NA"), locale = default_locale(),
+  trim_ws = TRUE)
 
 col_logical()
 
@@ -38,6 +42,9 @@ The default locale is US-centric (like R), but you can use
 \code{\link[=locale]{locale()}} to create your own locale that controls things like
 the default time zone, encoding, decimal mark, big mark, and day/month
 names.}
+
+\item{trim_ws}{Should leading and trailing whitespace be trimmed from
+each field before parsing it?}
 }
 \description{
 Use \code{parse_*()} if you have a character vector you want to parse. Use

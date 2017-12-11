@@ -98,8 +98,8 @@ BEGIN_RCPP
 END_RCPP
 }
 // parse_vector_
-SEXP parse_vector_(CharacterVector x, List collectorSpec, List locale_, const std::vector<std::string>& na);
-RcppExport SEXP _readr_parse_vector_(SEXP xSEXP, SEXP collectorSpecSEXP, SEXP locale_SEXP, SEXP naSEXP) {
+SEXP parse_vector_(CharacterVector x, List collectorSpec, List locale_, const std::vector<std::string>& na, const bool trim_ws);
+RcppExport SEXP _readr_parse_vector_(SEXP xSEXP, SEXP collectorSpecSEXP, SEXP locale_SEXP, SEXP naSEXP, SEXP trim_wsSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
@@ -107,7 +107,8 @@ BEGIN_RCPP
     Rcpp::traits::input_parameter< List >::type collectorSpec(collectorSpecSEXP);
     Rcpp::traits::input_parameter< List >::type locale_(locale_SEXP);
     Rcpp::traits::input_parameter< const std::vector<std::string>& >::type na(naSEXP);
-    rcpp_result_gen = Rcpp::wrap(parse_vector_(x, collectorSpec, locale_, na));
+    Rcpp::traits::input_parameter< const bool >::type trim_ws(trim_wsSEXP);
+    rcpp_result_gen = Rcpp::wrap(parse_vector_(x, collectorSpec, locale_, na, trim_ws));
     return rcpp_result_gen;
 END_RCPP
 }
@@ -326,7 +327,7 @@ static const R_CallMethodDef CallEntries[] = {
     {"_readr_count_fields_", (DL_FUNC) &_readr_count_fields_, 3},
     {"_readr_guess_header_", (DL_FUNC) &_readr_guess_header_, 3},
     {"_readr_tokenize_", (DL_FUNC) &_readr_tokenize_, 3},
-    {"_readr_parse_vector_", (DL_FUNC) &_readr_parse_vector_, 4},
+    {"_readr_parse_vector_", (DL_FUNC) &_readr_parse_vector_, 5},
     {"_readr_read_file_", (DL_FUNC) &_readr_read_file_, 2},
     {"_readr_read_file_raw_", (DL_FUNC) &_readr_read_file_raw_, 1},
     {"_readr_read_lines_", (DL_FUNC) &_readr_read_lines_, 5},

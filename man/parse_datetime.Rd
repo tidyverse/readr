@@ -10,11 +10,13 @@
 \title{Parse date/times}
 \usage{
 parse_datetime(x, format = "", na = c("", "NA"),
-  locale = default_locale())
+  locale = default_locale(), trim_ws = TRUE)
 
-parse_date(x, format = "", na = c("", "NA"), locale = default_locale())
+parse_date(x, format = "", na = c("", "NA"), locale = default_locale(),
+  trim_ws = TRUE)
 
-parse_time(x, format = "", na = c("", "NA"), locale = default_locale())
+parse_time(x, format = "", na = c("", "NA"), locale = default_locale(),
+  trim_ws = TRUE)
 
 col_datetime(format = "")
 
@@ -40,6 +42,9 @@ The default locale is US-centric (like R), but you can use
 \code{\link[=locale]{locale()}} to create your own locale that controls things like
 the default time zone, encoding, decimal mark, big mark, and day/month
 names.}
+
+\item{trim_ws}{Should leading and trailing whitespace be trimmed from
+each field before parsing it?}
 }
 \value{
 A \code{\link[=POSIXct]{POSIXct()}} vector with \code{tzone} attribute set to

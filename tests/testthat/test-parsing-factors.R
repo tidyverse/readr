@@ -54,3 +54,23 @@ test_that("Factors handle encodings properly (#615)", {
   expect_is(x$test, "factor")
   expect_equal(x$test, factor(c("A", "\uC4")))
 })
+
+test_that("factors parse like factor if trim_ws = FALSE (735)", {
+  expect_warning(regexp = "1 parsing failure",
+    expect_equal(
+      as.integer(parse_factor(c("a", "a "), levels = c("a"), trim_ws = FALSE)),
+      as.integer(factor(c("a", "a "), levels = c("a")))))
+
+  expect_warning(regexp = "1 parsing failure",
+    expect_equal(
+      as.integer(parse_factor(c("a", "a "), levels = c("a "), trim_ws = FALSE)),
+      as.integer(factor(c("a", "a "), levels = c("a ")))))
+
+    expect_equal(
+      as.integer(parse_factor(c("a", "a "), levels = c("a", "a "), trim_ws = FALSE)),
+      as.integer(factor(c("a", "a "), levels = c("a", "a "))))
+
+    expect_equal(
+      as.integer(parse_factor(c("a", "a "), levels = c("a ", "a"), trim_ws = FALSE)),
+      as.integer(factor(c("a", "a "), levels = c("a ", "a"))))
+})

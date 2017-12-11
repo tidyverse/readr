@@ -1,5 +1,8 @@
 # readr 1.1.0.9000
 
+* The `parse_*()` functions gain a `trim_ws` argument to control whether the
+  fields should be trimmed before parsing (#735).
+
 * `read_delim()` now ignores whitespace between the delimiter and quoted fields (#668).
 
 * `read_table2()` now properly ignores blank lines at the end of a file like

@@ -4,7 +4,8 @@
 \alias{parse_vector}
 \title{Parse a character vector.}
 \usage{
-parse_vector(x, collector, na = c("", "NA"), locale = default_locale())
+parse_vector(x, collector, na = c("", "NA"), locale = default_locale(),
+  trim_ws = TRUE)
 }
 \arguments{
 \item{x}{Character vector of elements to parse.}
@@ -19,13 +20,16 @@ The default locale is US-centric (like R), but you can use
 \code{\link[=locale]{locale()}} to create your own locale that controls things like
 the default time zone, encoding, decimal mark, big mark, and day/month
 names.}
+
+\item{trim_ws}{Should leading and trailing whitespace be trimmed from
+each field before parsing it?}
 }
 \description{
 Parse a character vector.
 }
 \examples{
 x <- c("1", "2", "3", "NA")
-parse_vector(x, col_integer())
-parse_vector(x, col_double())
+parse_vector(x, col_integer(), trim_ws = trim_ws)
+parse_vector(x, col_double(), trim_ws = trim_ws)
 }
 \keyword{internal}

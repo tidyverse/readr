@@ -6,7 +6,7 @@
 \title{Parse factors}
 \usage{
 parse_factor(x, levels, ordered = FALSE, na = c("", "NA"),
-  locale = default_locale(), include_na = TRUE)
+  locale = default_locale(), include_na = TRUE, trim_ws = TRUE)
 
 col_factor(levels, ordered = FALSE, include_na = FALSE)
 }
@@ -29,6 +29,9 @@ the default time zone, encoding, decimal mark, big mark, and day/month
 names.}
 
 \item{include_na}{If \code{NA} are present, include as an explicit factor to level?}
+
+\item{trim_ws}{Should leading and trailing whitespace be trimmed from
+each field before parsing it?}
 }
 \description{
 \code{parse_factor} is similar to \code{\link[=factor]{factor()}}, but will generate

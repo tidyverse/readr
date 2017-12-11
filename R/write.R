@@ -164,6 +164,11 @@ output_column.POSIXt <- function(x) {
   format(x, "%Y-%m-%dT%H:%M:%OSZ", tz = "UTC")
 }
 
+#' @export
+output_column.hms <- function(x) {
+  format(x, "%Y-%m-%dT%H:%M:%OSZ", tz = "UTC")
+}
+
 stream_delim <- function(df, path, append = FALSE, ...) {
   path <- standardise_path(path, input = FALSE)
 

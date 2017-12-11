@@ -5,7 +5,8 @@
 \alias{col_number}
 \title{Parse numbers, flexibly}
 \usage{
-parse_number(x, na = c("", "NA"), locale = default_locale())
+parse_number(x, na = c("", "NA"), locale = default_locale(),
+  trim_ws = TRUE)
 
 col_number()
 }
@@ -20,6 +21,9 @@ The default locale is US-centric (like R), but you can use
 \code{\link[=locale]{locale()}} to create your own locale that controls things like
 the default time zone, encoding, decimal mark, big mark, and day/month
 names.}
+
+\item{trim_ws}{Should leading and trailing whitespace be trimmed from
+each field before parsing it?}
 }
 \description{
 This drops any non-numeric characters before or after the first number.
