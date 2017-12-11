@@ -1,5 +1,7 @@
 # readr 1.1.0.9000
 
+* `read_delim()` now ignores whitespace between the delimiter and quoted fields (#668).
+
 * `read_table2()` now properly ignores blank lines at the end of a file like
   `read_table()` and `read_delim()` (#657).
 
