@@ -40,8 +40,8 @@ Token TokenizerWs::nextToken() {
   if (cur_ == end_)
     return Token(TOKEN_EOF, 0, 0);
 
-  // Check for comments only at start of line
-  while (cur_ != end_ && col_ == 0 && isComment(cur_)) {
+  // Check for comments and empty lines only at start of line
+  while (cur_ != end_ && col_ == 0 && (isComment(cur_) || isEmpty())) {
     // Skip rest of line
     while (cur_ != end_ && *cur_ != '\n' && *cur_ != '\r') {
       ++cur_;
@@ -92,4 +92,8 @@ bool TokenizerWs::isComment(const char* cur) const {
 
   boost::iterator_range<const char*> haystack(cur, end_);
   return boost::starts_with(haystack, comment_);
+}
+
+bool TokenizerWs::isEmpty() const {
+  return cur_ == end_ || *cur_ == '\r' || *cur_ == '\n';
 }

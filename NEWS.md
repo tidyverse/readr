@@ -1,5 +1,8 @@
 # readr 1.1.0.9000
 
+* `read_delim()`, `read_table()` and `read_table()` now skip blank lines at the
+  start of a file (#680, #747).
+
 * `read_fwf()` now has a `trim_ws` like `read_delim()` (#636).
 
 * `guess_parser()` now guesses a logical type for columns which are all

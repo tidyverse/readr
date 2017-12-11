@@ -247,3 +247,9 @@ test_that("read_delim errors on length 0 delimiter (557)", {
   expect_error(read_delim("a b\n1 2\n", delim = ""),
     "`delim` must be at least one character, use `read_table\\(\\)` for whitespace delimited input\\.")
 })
+
+test_that("read_csv does not duplicate header rows for leading whitespace (747)", {
+  x <- read_csv("\nfoo,bar\n1,2")
+  expect_equal(nrow(x), 1)
+  expect_equal(x$foo, 1)
+})
