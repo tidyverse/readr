@@ -27,8 +27,8 @@ collector_find <- function(name) {
 #' @export
 #' @examples
 #' x <- c("1", "2", "3", "NA")
-#' parse_vector(x, col_integer(), trim_ws = trim_ws)
-#' parse_vector(x, col_double(), trim_ws = trim_ws)
+#' parse_vector(x, col_integer())
+#' parse_vector(x, col_double())
 parse_vector <- function(x, collector, na = c("", "NA"), locale = default_locale(), trim_ws = TRUE) {
   if (is.character(collector)) {
     collector <- collector_find(collector)

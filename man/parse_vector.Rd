@@ -29,7 +29,7 @@ Parse a character vector.
 }
 \examples{
 x <- c("1", "2", "3", "NA")
-parse_vector(x, col_integer(), trim_ws = trim_ws)
-parse_vector(x, col_double(), trim_ws = trim_ws)
+parse_vector(x, col_integer())
+parse_vector(x, col_double())
 }
 \keyword{internal}
