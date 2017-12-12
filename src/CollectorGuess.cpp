@@ -101,7 +101,8 @@ static bool isDateTime(const std::string& x, LocaleInfo* pLocale) {
 }
 
 // [[Rcpp::export]]
-std::string collectorGuess(CharacterVector input, List locale_) {
+std::string
+collectorGuess(CharacterVector input, List locale_, bool guessInteger = false) {
   LocaleInfo locale(locale_);
 
   if (input.size() == 0) {
@@ -115,31 +116,7 @@ std::string collectorGuess(CharacterVector input, List locale_) {
   // Work from strictest to most flexible
   if (canParse(input, isLogical, &locale))
     return "logical";
-  if (canParse(input, isDouble, &locale))
-    return "double";
-  if (canParse(input, isNumber, &locale))
-    return "number";
-  if (canParse(input, isTime, &locale))
-    return "time";
-  if (canParse(input, isDate, &locale))
-    return "date";
-  if (canParse(input, isDateTime, &locale))
-    return "datetime";
-
-  // Otherwise can always parse as a character
-  return "character";
-}
-
-std::string collectorGuessInternal(CharacterVector input, List locale_) {
-  LocaleInfo locale(locale_);
-
-  if (input.size() == 0 || allMissing(input))
-    return "character";
-
-  // Work from strictest to most flexible
-  if (canParse(input, isLogical, &locale))
-    return "logical";
-  if (canParse(input, isInteger, &locale))
+  if (guessInteger && canParse(input, isInteger, &locale))
     return "integer";
   if (canParse(input, isDouble, &locale))
     return "double";

@@ -111,7 +111,8 @@ RObject tokenize_(List sourceSpec, List tokenizerSpec, int n_max) {
 }
 
 // [[Rcpp::export]]
-List tokenize_melt_(List sourceSpec, List tokenizerSpec, int n_max, List locale_) {
+List tokenize_melt_(
+    List sourceSpec, List tokenizerSpec, int n_max, List locale_) {
   Warnings warnings;
 
   SourcePtr source = Source::create(sourceSpec);
@@ -124,32 +125,21 @@ List tokenize_melt_(List sourceSpec, List tokenizerSpec, int n_max, List locale_
   std::vector<std::string> val;
   std::vector<std::string> type;
 
-  int i(0);
   for (Token t = tokenizer->nextToken(); t.type() != TOKEN_EOF;
        t = tokenizer->nextToken()) {
     if (n_max > 0 && t.row() >= (size_t)n_max)
       break;
 
-    if (i >= row.size()) {
-      row.resize(i + 1);
-      col.resize(i + 1);
-      val.resize(i + 1);
-      type.resize(i + 1);
-    }
-
-    row[i] = t.row() + 1;
-    col[i] = t.col() + 1;
-    val[i] = t.asString();
-    type[i] = collectorGuessInternal(t.asString(), locale_);
-    ++i;
+    row.push_back(t.row() + 1);
+    col.push_back(t.col() + 1);
+    val.push_back(t.asString());
+    type.push_back(collectorGuess(t.asString(), locale_, true));
   }
 
-  List out = List::create(_["row"] = row,
-                          _["col"] = col,
-                          _["value"] = val,
-                          _["data_type"] = type);
+  List out = List::create(
+      _["row"] = row, _["col"] = col, _["value"] = val, _["data_type"] = type);
   out.attr("class") = CharacterVector::create("tbl_df", "tbl", "data.frame");
-  out.attr("row.names") = IntegerVector::create(NA_INTEGER, -i);
+  out.attr("row.names") = IntegerVector::create(NA_INTEGER, -row.size());
   return out;
 }
 
