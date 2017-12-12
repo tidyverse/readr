@@ -120,8 +120,8 @@ List tokenize_melt_(
   tokenizer->tokenize(source->begin(), source->end());
   tokenizer->setWarnings(&warnings);
 
-  std::vector<int> row;
-  std::vector<int> col;
+  std::vector<size_t> row;
+  std::vector<size_t> col;
   std::vector<std::string> val;
   std::vector<std::string> type;
 
