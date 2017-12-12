@@ -111,8 +111,8 @@ RObject tokenize_(List sourceSpec, List tokenizerSpec, int n_max) {
 }
 
 // [[Rcpp::export]]
-List tokenize_melt_(
-    List sourceSpec, List tokenizerSpec, int n_max, List locale_) {
+List melt_tokens_(
+    List sourceSpec, List tokenizerSpec, List locale_, int n_max) {
   Warnings warnings;
 
   SourcePtr source = Source::create(sourceSpec);
