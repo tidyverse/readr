@@ -31,6 +31,9 @@
 * Allow files to be read via FTP over SSH by recognising `sftp` as a URL protocol (#707, @jdeboer).
 * `read_*()` now converts string `file`s to UTF-8 before parsing, which is convenient for non-UTF-8 platforms
   in most cases (#730, @yutannihilation).
+
+* `write_csv()` writes integers up to 10^15 without scientific notation (#765, @zeehio)
+
 # readr 1.1.1
 
 * Point release for test compatibility with tibble v1.3.1.
