@@ -21,3 +21,16 @@ test_that("UTF-16 is identified as UTF-16LE or UTF-16BE", {
   ds <- datasource(c(bom_be, text), encoding = "UTF-16")
   expect_equal(source_encoding(ds), "UTF-16BE")
 })
+
+test_that("Support multiple comments in header", {
+  a <- read_table("COMMENT\n#TEST\na b\n1 2", comment = c("COMMENT", "#"))
+  b <- read_table("a b\n1 2")
+  expect_equal(a, b)
+
+})
+
+test_that("Support multiple comments in body", {
+  a <- read_table("a b\n1 2\nCOMMENT potato\n#another\n3 4\n#onemore\n5 6\n#endcomm", comment = c("COMMENT", "#"))
+  b <- read_table("a b\n1 2\n3 4\n5 6")
+  expect_equal(a, b)
+})

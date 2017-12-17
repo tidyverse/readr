@@ -1,6 +1,7 @@
 #ifndef FASTREAD_TOKENIZER_H_
 #define FASTREAD_TOKENIZER_H_
 
+#include "Source.h"
 #include "Warnings.h"
 #include "boost.h"
 #include <Rcpp.h>
@@ -21,7 +22,7 @@ public:
   Tokenizer() : pWarnings_(NULL) {}
   virtual ~Tokenizer() {}
 
-  virtual void tokenize(SourceIterator begin, SourceIterator end) = 0;
+  virtual void tokenize(SourcePtr source) = 0;
   virtual Token nextToken() = 0;
   // Percentage & bytes
   virtual std::pair<double, size_t> progress() = 0;

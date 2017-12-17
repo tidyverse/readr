@@ -5,14 +5,6 @@ collectorGuess <- function(input, locale_) {
     .Call(`_readr_collectorGuess`, input, locale_)
 }
 
-source_encoding <- function(spec) {
-    .Call(`_readr_source_encoding`, spec)
-}
-
-whitespaceColumns <- function(sourceSpec, n = 100L, comment = "") {
-    .Call(`_readr_whitespaceColumns`, sourceSpec, n, comment)
-}
-
 read_connection_ <- function(con, chunk_size = 64 * 1024L) {
     .Call(`_readr_read_connection_`, con, chunk_size)
 }
@@ -71,6 +63,14 @@ read_tokens_chunked_ <- function(sourceSpec, callback, chunkSize, tokenizerSpec,
 
 guess_types_ <- function(sourceSpec, tokenizerSpec, locale_, n = 100L) {
     .Call(`_readr_guess_types_`, sourceSpec, tokenizerSpec, locale_, n)
+}
+
+source_encoding <- function(spec) {
+    .Call(`_readr_source_encoding`, spec)
+}
+
+whitespaceColumns <- function(sourceSpec, n = 100L) {
+    .Call(`_readr_whitespaceColumns`, sourceSpec, n)
 }
 
 type_convert_col <- function(x, spec, locale_, col, na, trim_ws) {

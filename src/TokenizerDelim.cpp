@@ -7,7 +7,6 @@ TokenizerDelim::TokenizerDelim(
     char delim,
     char quote,
     std::vector<std::string> NA,
-    std::string comment,
     bool trimWS,
     bool escapeBackslash,
     bool escapeDouble,
@@ -15,8 +14,6 @@ TokenizerDelim::TokenizerDelim(
     : delim_(delim),
       quote_(quote),
       NA_(NA),
-      comment_(comment),
-      hasComment_(comment.size() > 0),
       trimWS_(trimWS),
       escapeBackslash_(escapeBackslash),
       escapeDouble_(escapeDouble),
@@ -31,10 +28,11 @@ TokenizerDelim::TokenizerDelim(
   }
 }
 
-void TokenizerDelim::tokenize(SourceIterator begin, SourceIterator end) {
-  cur_ = begin;
-  begin_ = begin;
-  end_ = end;
+void TokenizerDelim::tokenize(SourcePtr source) {
+  cur_ = source->begin();
+  begin_ = source->begin();
+  end_ = source->end();
+  source_ = source;
 
   row_ = 0;
   col_ = 0;
@@ -81,7 +79,7 @@ Token TokenizerDelim::nextToken() {
         }
         newRecord();
         return emptyToken(row, col);
-      } else if (isComment(cur_)) {
+      } else if (source_->isComment(cur_)) {
         state_ = STATE_COMMENT;
       } else if (*cur_ == delim_) {
         newField();
@@ -107,7 +105,7 @@ Token TokenizerDelim::nextToken() {
             hasNull,
             row,
             col);
-      } else if (isComment(cur_)) {
+      } else if (source_->isComment(cur_)) {
         newField();
         state_ = STATE_COMMENT;
         return fieldToken(token_begin, cur_, hasEscapeB, hasNull, row, col);
@@ -138,7 +136,7 @@ Token TokenizerDelim::nextToken() {
             hasNull,
             row,
             col);
-      } else if (isComment(cur_)) {
+      } else if (source_->isComment(cur_)) {
         state_ = STATE_COMMENT;
         return stringToken(
             token_begin + 1,
@@ -187,7 +185,7 @@ Token TokenizerDelim::nextToken() {
             hasNull,
             row,
             col);
-      } else if (isComment(cur_)) {
+      } else if (source_->isComment(cur_)) {
         state_ = STATE_COMMENT;
         return stringToken(
             token_begin + 1,
@@ -272,14 +270,6 @@ Token TokenizerDelim::nextToken() {
   }
 
   return Token(TOKEN_EOF, row, col);
-}
-
-bool TokenizerDelim::isComment(const char* cur) const {
-  if (!hasComment_)
-    return false;
-
-  boost::iterator_range<const char*> haystack(cur, end_);
-  return boost::starts_with(haystack, comment_);
 }
 
 void TokenizerDelim::newField() {
@@ -397,7 +387,7 @@ void TokenizerDelim::unescapeBackslash(
         pOut->push_back('\v');
         break;
       default:
-        if (*cur == delim_ || *cur == quote_ || isComment(cur)) {
+        if (*cur == delim_ || *cur == quote_ || source_->isComment(cur)) {
           pOut->push_back(*cur);
         } else {
           pOut->push_back('\\');

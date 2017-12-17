@@ -83,7 +83,8 @@ time is 5 seconds or more. The automatic progress bar can be disabled by
 setting option \code{readr.show_progress} to \code{FALSE}.}
 
 \item{comment}{A string used to identify comments. Any text after the
-comment characters will be silently ignored.}
+comment characters will be silently ignored. Multiple comments can be given
+using a character vector.}
 }
 \description{
 \code{read_table()} and \code{read_table2()} are designed to read the type of textual

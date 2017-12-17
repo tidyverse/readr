@@ -17,30 +17,6 @@ BEGIN_RCPP
     return rcpp_result_gen;
 END_RCPP
 }
-// source_encoding
-CharacterVector source_encoding(List spec);
-RcppExport SEXP _readr_source_encoding(SEXP specSEXP) {
-BEGIN_RCPP
-    Rcpp::RObject rcpp_result_gen;
-    Rcpp::RNGScope rcpp_rngScope_gen;
-    Rcpp::traits::input_parameter< List >::type spec(specSEXP);
-    rcpp_result_gen = Rcpp::wrap(source_encoding(spec));
-    return rcpp_result_gen;
-END_RCPP
-}
-// whitespaceColumns
-List whitespaceColumns(List sourceSpec, int n, std::string comment);
-RcppExport SEXP _readr_whitespaceColumns(SEXP sourceSpecSEXP, SEXP nSEXP, SEXP commentSEXP) {
-BEGIN_RCPP
-    Rcpp::RObject rcpp_result_gen;
-    Rcpp::RNGScope rcpp_rngScope_gen;
-    Rcpp::traits::input_parameter< List >::type sourceSpec(sourceSpecSEXP);
-    Rcpp::traits::input_parameter< int >::type n(nSEXP);
-    Rcpp::traits::input_parameter< std::string >::type comment(commentSEXP);
-    rcpp_result_gen = Rcpp::wrap(whitespaceColumns(sourceSpec, n, comment));
-    return rcpp_result_gen;
-END_RCPP
-}
 // read_connection_
 RawVector read_connection_(RObject con, int chunk_size);
 RcppExport SEXP _readr_read_connection_(SEXP conSEXP, SEXP chunk_sizeSEXP) {
@@ -250,6 +226,29 @@ BEGIN_RCPP
     return rcpp_result_gen;
 END_RCPP
 }
+// source_encoding
+CharacterVector source_encoding(List spec);
+RcppExport SEXP _readr_source_encoding(SEXP specSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< List >::type spec(specSEXP);
+    rcpp_result_gen = Rcpp::wrap(source_encoding(spec));
+    return rcpp_result_gen;
+END_RCPP
+}
+// whitespaceColumns
+List whitespaceColumns(List sourceSpec, int n);
+RcppExport SEXP _readr_whitespaceColumns(SEXP sourceSpecSEXP, SEXP nSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< List >::type sourceSpec(sourceSpecSEXP);
+    Rcpp::traits::input_parameter< int >::type n(nSEXP);
+    rcpp_result_gen = Rcpp::wrap(whitespaceColumns(sourceSpec, n));
+    return rcpp_result_gen;
+END_RCPP
+}
 // type_convert_col
 RObject type_convert_col(CharacterVector x, List spec, List locale_, int col, const std::vector<std::string>& na, bool trim_ws);
 RcppExport SEXP _readr_type_convert_col(SEXP xSEXP, SEXP specSEXP, SEXP locale_SEXP, SEXP colSEXP, SEXP naSEXP, SEXP trim_wsSEXP) {
@@ -332,8 +331,6 @@ END_RCPP
 
 static const R_CallMethodDef CallEntries[] = {
     {"_readr_collectorGuess", (DL_FUNC) &_readr_collectorGuess, 2},
-    {"_readr_source_encoding", (DL_FUNC) &_readr_source_encoding, 1},
-    {"_readr_whitespaceColumns", (DL_FUNC) &_readr_whitespaceColumns, 3},
     {"_readr_read_connection_", (DL_FUNC) &_readr_read_connection_, 2},
     {"_readr_utctime", (DL_FUNC) &_readr_utctime, 7},
     {"_readr_dim_tokens_", (DL_FUNC) &_readr_dim_tokens_, 2},
@@ -349,6 +346,8 @@ static const R_CallMethodDef CallEntries[] = {
     {"_readr_read_tokens_", (DL_FUNC) &_readr_read_tokens_, 7},
     {"_readr_read_tokens_chunked_", (DL_FUNC) &_readr_read_tokens_chunked_, 8},
     {"_readr_guess_types_", (DL_FUNC) &_readr_guess_types_, 4},
+    {"_readr_source_encoding", (DL_FUNC) &_readr_source_encoding, 1},
+    {"_readr_whitespaceColumns", (DL_FUNC) &_readr_whitespaceColumns, 2},
     {"_readr_type_convert_col", (DL_FUNC) &_readr_type_convert_col, 6},
     {"_readr_write_lines_", (DL_FUNC) &_readr_write_lines_, 4},
     {"_readr_write_lines_raw_", (DL_FUNC) &_readr_write_lines_raw_, 3},

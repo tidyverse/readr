@@ -12,7 +12,7 @@ using namespace Rcpp;
 IntegerVector dim_tokens_(List sourceSpec, List tokenizerSpec) {
   SourcePtr source = Source::create(sourceSpec);
   TokenizerPtr tokenizer = Tokenizer::create(tokenizerSpec);
-  tokenizer->tokenize(source->begin(), source->end());
+  tokenizer->tokenize(source);
 
   int rows = -1, cols = -1;
 
@@ -31,7 +31,7 @@ IntegerVector dim_tokens_(List sourceSpec, List tokenizerSpec) {
 std::vector<int> count_fields_(List sourceSpec, List tokenizerSpec, int n_max) {
   SourcePtr source = Source::create(sourceSpec);
   TokenizerPtr tokenizer = Tokenizer::create(tokenizerSpec);
-  tokenizer->tokenize(source->begin(), source->end());
+  tokenizer->tokenize(source);
 
   std::vector<int> fields;
 
@@ -56,15 +56,17 @@ RObject guess_header_(List sourceSpec, List tokenizerSpec, List locale_) {
   LocaleInfo locale(locale_);
   SourcePtr source = Source::create(sourceSpec);
   TokenizerPtr tokenizer = Tokenizer::create(tokenizerSpec);
-  tokenizer->tokenize(source->begin(), source->end());
+  tokenizer->tokenize(source);
   tokenizer->setWarnings(&warnings);
 
   CollectorCharacter out(&locale.encoder_);
   out.setWarnings(&warnings);
 
+  int header_row = -1;
+
   for (Token t = tokenizer->nextToken(); t.type() != TOKEN_EOF;
        t = tokenizer->nextToken()) {
-    if (t.row() > (size_t)0) // only read one row
+    if (header_row != -1 && t.row() != header_row) // only read one row
       break;
 
     if (t.col() >= (size_t)out.size()) {
@@ -73,6 +75,12 @@ RObject guess_header_(List sourceSpec, List tokenizerSpec, List locale_) {
 
     if (t.type() == TOKEN_STRING) {
       out.setValue(t.col(), t);
+    }
+
+    /* A missing header counts as "one row" as well */
+    if (header_row == -1 &&
+        (t.type() == TOKEN_STRING || t.type() == TOKEN_EMPTY)) {
+      header_row = t.row();
     }
   }
 
@@ -85,7 +93,7 @@ RObject tokenize_(List sourceSpec, List tokenizerSpec, int n_max) {
 
   SourcePtr source = Source::create(sourceSpec);
   TokenizerPtr tokenizer = Tokenizer::create(tokenizerSpec);
-  tokenizer->tokenize(source->begin(), source->end());
+  tokenizer->tokenize(source);
   tokenizer->setWarnings(&warnings);
 
   std::vector<std::vector<std::string> > rows;

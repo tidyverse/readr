@@ -35,8 +35,8 @@ NULL
 
 #' @export
 #' @rdname Tokenizers
-#' @param comment A string used to identify comments. Any text after the
-#'   comment characters will be silently ignored.
+#' @param comment This argument is deprecated and will be ignored. Comments are
+#'   now handled by [datasource()].
 #' @param na Character vector of strings to use for missing values. Set this
 #'   option to `character()` to indicate no missing values.
 #' @param quoted_na Should missing values inside quotes be treated as missing
@@ -56,13 +56,15 @@ tokenizer_delim <- function(delim, quote = '"', na = "NA", quoted_na = TRUE, com
                             trim_ws = TRUE,
                             escape_double = TRUE,
                             escape_backslash = FALSE) {
+  if (!missing(comment)) {
+    warning("comment argument in tokenizer is deprecated and will be ignored. Give it to the datasource instead.")
+  }
   structure(
     list(
       delim = delim,
       quote = quote,
       na = na,
       quoted_na = quoted_na,
-      comment = comment,
       trim_ws = trim_ws,
       escape_double = escape_double,
       escape_backslash = escape_backslash
@@ -75,12 +77,14 @@ tokenizer_delim <- function(delim, quote = '"', na = "NA", quoted_na = TRUE, com
 #' @rdname Tokenizers
 tokenizer_csv <- function(na = "NA", quoted_na = TRUE, quote = "\"",
                           comment = "", trim_ws = TRUE) {
+  if (!missing(comment)) {
+    warning("comment argument in tokenizer is deprecated and will be ignored. Give it to the datasource instead.")
+  }
   tokenizer_delim(
     delim = ",",
     na = na,
     quoted_na = quoted_na,
     quote = quote,
-    comment = comment,
     trim_ws = trim_ws,
     escape_double = TRUE,
     escape_backslash = FALSE
@@ -91,12 +95,14 @@ tokenizer_csv <- function(na = "NA", quoted_na = TRUE, quote = "\"",
 #' @rdname Tokenizers
 tokenizer_tsv <- function(na = "NA", quoted_na = TRUE, quote = "\"",
                           comment = "", trim_ws = TRUE) {
+  if (!missing(comment)) {
+    warning("comment argument in tokenizer is deprecated and will be ignored. Give it to the datasource instead.")
+  }
   tokenizer_delim(
     delim = "\t",
     na = na,
     quoted_na = quoted_na,
     quote = quote,
-    comment = comment,
     trim_ws = trim_ws,
     escape_double = TRUE,
     escape_backslash = FALSE
@@ -122,11 +128,17 @@ tokenizer_log <- function() {
 #'   offsets so the first column is column zero, and the ranges are
 #'   [begin, end) (i.e inclusive-exclusive).
 tokenizer_fwf <- function(begin, end, na = "NA", comment = "", trim_ws = TRUE) {
-  structure(list(begin = begin, end = end, na = na, comment = comment, trim_ws = trim_ws), class = "tokenizer_fwf")
+  if (!missing(comment)) {
+    warning("comment argument in tokenizer is deprecated and will be ignored. Give it to the datasource instead.")
+  }
+  structure(list(begin = begin, end = end, na = na, trim_ws = trim_ws), class = "tokenizer_fwf")
 }
 
 #' @export
 #' @rdname Tokenizers
 tokenizer_ws <- function(na = "NA", comment = "") {
-  structure(list(na = na, comment = comment), class = "tokenizer_ws")
+  if (!missing(comment)) {
+    warning("comment argument in tokenizer is deprecated and will be ignored. Give it to the datasource instead.")
+  }
+  structure(list(na = na), class = "tokenizer_ws")
 }

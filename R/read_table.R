@@ -36,19 +36,20 @@ read_table <- function(file, col_names = TRUE, col_types = NULL,
                        locale = default_locale(), na = "NA", skip = 0,
                        n_max = Inf, guess_max = min(n_max, 1000),
                        progress = show_progress(), comment = "") {
-  ds <- datasource(file, skip = skip, encoding = locale$encoding)
+  ds <- datasource(file, skip = skip, comment = comment, encoding = locale$encoding)
   columns <- fwf_empty(ds, skip = skip, n = guess_max, comment = comment)
-  skip <- skip + columns$skip
 
-  tokenizer <- tokenizer_fwf(columns$begin, columns$end, na = na, comment = comment)
+  tokenizer <- tokenizer_fwf(columns$begin, columns$end, na = na)
 
   spec <- col_spec_standardise(
     file = ds, skip = skip, guess_max = guess_max,
     col_names = col_names, col_types = col_types,
+    comment = comment,
     locale = locale, tokenizer = tokenizer
   )
 
-  ds <- datasource(file = ds, skip = skip + isTRUE(col_names), encoding = locale$encoding)
+  ds <- datasource(file = ds, skip = skip + isTRUE(col_names), comment = comment,
+                   encoding = locale$encoding)
   if (is.null(col_types) && !inherits(ds, "source_string")) {
     show_cols_spec(spec)
   }
@@ -67,7 +68,7 @@ read_table2 <- function(file, col_names = TRUE, col_types = NULL,
                        n_max = Inf, guess_max = min(n_max, 1000),
                        progress = show_progress(), comment = "") {
 
-  tokenizer <- tokenizer_ws(na = na, comment = comment)
+  tokenizer <- tokenizer_ws(na = na)
   read_delimited(file, tokenizer, col_names = col_names, col_types = col_types,
     locale = locale, skip = skip, comment = comment, n_max = n_max, guess_max =
       guess_max, progress = progress)

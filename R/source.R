@@ -16,6 +16,9 @@
 #'    Using a value of [clipboard()] will read from the system clipboard.
 #'
 #' @param skip Number of lines to skip before reading data.
+#' @param comment A string used to identify comments. Any text after the
+#'   comment characters will be silently ignored. Multiple comments can be given
+#'   using a character vector.
 #' @param encoding The text encoding of the data given in `file`. "UTF-8" as default.
 #' @keywords internal
 #' @export

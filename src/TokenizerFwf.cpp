@@ -11,48 +11,36 @@ struct skip_t {
   int lines;
 };
 
-skip_t skip_comments(
-    SourceIterator begin, SourceIterator end, std::string comment = "") {
+skip_t skipComments(SourcePtr source) {
   skip_t out;
-  if (comment.length() == 0) {
-    out.begin = begin;
+  if (!source->has_comments()) {
+    out.begin = source->begin();
     out.lines = 0;
     return out;
   }
 
-  SourceIterator cur = begin;
-  int skip = 0;
-  boost::iterator_range<const char*> haystack(cur, end);
-  while (boost::starts_with(haystack, comment)) {
-    // Rcpp::Rcout << boost::starts_with(haystack, comment);
-    // Skip rest of line
-    while (cur != end && *cur != '\n' && *cur != '\r') {
-      ++cur;
-    }
-
-    advanceForLF(&cur, end);
-    ++cur;
-    haystack = boost::iterator_range<const char*>(cur, end);
-    ++skip;
-  }
-
+  SourceIterator cur = source->begin();
+  size_t skip = source->skipComments(&cur);
   out.begin = cur;
   out.lines = skip;
   return out;
 }
 
-std::vector<bool> emptyCols_(
-    SourceIterator begin,
-    SourceIterator end,
-    size_t n = 100,
-    std::string comment = "") {
-
+std::vector<bool> emptyCols_(SourcePtr source, int n, SourceIterator begin) {
+  SourceIterator end = source->end();
   std::vector<bool> is_white;
 
   size_t row = 0, col = 0;
   for (SourceIterator cur = begin; cur != end; ++cur) {
     if (row > n)
       break;
+
+    if (col == 0) {
+      source->skipComments(&cur);
+    }
+    if (cur == end) {
+      break;
+    }
 
     switch (*cur) {
     case '\n':
@@ -77,12 +65,12 @@ std::vector<bool> emptyCols_(
 }
 
 // [[Rcpp::export]]
-List whitespaceColumns(List sourceSpec, int n = 100, std::string comment = "") {
+List whitespaceColumns(List sourceSpec, int n = 100) {
   SourcePtr source = Source::create(sourceSpec);
 
-  skip_t s = skip_comments(source->begin(), source->end(), comment);
+  skip_t s = skipComments(source);
 
-  std::vector<bool> empty = emptyCols_(s.begin, source->end(), n);
+  std::vector<bool> empty = emptyCols_(source, n, s.begin);
   std::vector<int> begin, end;
 
   bool in_col = false;
@@ -100,7 +88,7 @@ List whitespaceColumns(List sourceSpec, int n = 100, std::string comment = "") {
   if (in_col)
     end.push_back(empty.size());
 
-  return List::create(_["begin"] = begin, _["end"] = end, _["skip"] = s.lines);
+  return List::create(_["begin"] = begin, _["end"] = end);
 }
 
   // TokenizerFwf
@@ -113,15 +101,12 @@ TokenizerFwf::TokenizerFwf(
     const std::vector<int>& beginOffset,
     const std::vector<int>& endOffset,
     std::vector<std::string> NA,
-    std::string comment,
     bool trimWS)
     : beginOffset_(beginOffset),
       endOffset_(endOffset),
       NA_(NA),
       cols_(beginOffset.size()),
-      comment_(comment),
       moreTokens_(false),
-      hasComment_(comment.size() > 0),
       trimWS_(trimWS) {
   if (beginOffset_.size() != endOffset_.size())
     Rcpp::stop(
@@ -159,12 +144,13 @@ TokenizerFwf::TokenizerFwf(
   }
 }
 
-void TokenizerFwf::tokenize(SourceIterator begin, SourceIterator end) {
-  cur_ = begin;
-  curLine_ = begin;
+void TokenizerFwf::tokenize(SourcePtr source) {
+  cur_ = source->begin();
+  curLine_ = source->begin();
 
-  begin_ = begin;
-  end_ = end;
+  begin_ = source->begin();
+  end_ = source->end();
+  source_ = source;
 
   row_ = 0;
   col_ = 0;
@@ -180,16 +166,9 @@ Token TokenizerFwf::nextToken() {
   if (!moreTokens_)
     return Token(TOKEN_EOF, 0, 0);
 
-  // Check for comments only at start of line
-  while (cur_ != end_ && col_ == 0 && (isComment(cur_) || isEmpty())) {
-    // Skip rest of line
-    while (cur_ != end_ && *cur_ != '\n' && *cur_ != '\r') {
-      ++cur_;
-    }
-    advanceForLF(&cur_, end_);
-    if (cur_ != end_) {
-      ++cur_;
-    }
+  // Check for comments and empty lines (only at start of line)
+  if (col_ == 0) {
+    source_->skipCommentAndEmptyLines(&cur_);
     curLine_ = cur_;
   }
 
@@ -295,16 +274,4 @@ Token TokenizerFwf::fieldToken(
   t.flagNA(NA_);
 
   return t;
-}
-
-bool TokenizerFwf::isComment(const char* cur) const {
-  if (!hasComment_)
-    return false;
-
-  boost::iterator_range<const char*> haystack(cur, end_);
-  return boost::starts_with(haystack, comment_);
-}
-
-bool TokenizerFwf::isEmpty() const {
-  return cur_ == end_ || *cur_ == '\r' || *cur_ == '\n';
 }

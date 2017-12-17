@@ -24,6 +24,10 @@ Using a value of \code{\link[=clipboard]{clipboard()}} will read from the system
 
 \item{skip}{Number of lines to skip before reading data.}
 
+\item{comment}{A string used to identify comments. Any text after the
+comment characters will be silently ignored. Multiple comments can be given
+using a character vector.}
+
 \item{encoding}{The text encoding of the data given in \code{file}. "UTF-8" as default.}
 }
 \description{

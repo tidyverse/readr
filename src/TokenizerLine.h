@@ -17,10 +17,10 @@ public:
 
   TokenizerLine() : moreTokens_(false) {}
 
-  void tokenize(SourceIterator begin, SourceIterator end) {
-    begin_ = begin;
-    cur_ = begin;
-    end_ = end;
+  void tokenize(SourcePtr source) {
+    begin_ = source->begin();
+    cur_ = source->begin();
+    end_ = source->end();
     line_ = 0;
     moreTokens_ = true;
   }

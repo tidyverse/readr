@@ -99,7 +99,7 @@ The tokenizer (`Tokenizer.h`) turns a source (a stream of characters) into a str
 TokenizerPtr tokenizer = Tokenizer::create(tokenizerSpec);
 
 # Initialise it with a source
-tokenizer->tokenize(source->begin(), source->end());
+tokenizer->tokenize(source);
 
 # Call nextToken until there are no tokens left 
 for (Token t = tokenizer->nextToken(); t.type() != TOKEN_EOF; t = tokenizer->nextToken());

@@ -160,7 +160,7 @@ std::vector<std::string> guess_types_(
   Warnings warnings;
   SourcePtr source = Source::create(sourceSpec);
   TokenizerPtr tokenizer = Tokenizer::create(tokenizerSpec);
-  tokenizer->tokenize(source->begin(), source->end());
+  tokenizer->tokenize(source);
   tokenizer->setWarnings(&warnings); // silence warnings
 
   LocaleInfo locale(locale_);

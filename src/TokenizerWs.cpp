@@ -19,12 +19,13 @@ TokenizerWs::TokenizerWs(std::vector<std::string> NA, std::string comment)
       moreTokens_(false),
       hasComment_(comment.size() > 0) {}
 
-void TokenizerWs::tokenize(SourceIterator begin, SourceIterator end) {
-  cur_ = begin;
-  curLine_ = begin;
+void TokenizerWs::tokenize(SourcePtr source) {
+  cur_ = source->begin();
+  curLine_ = source->begin();
 
-  begin_ = begin;
-  end_ = end;
+  begin_ = source->begin();
+  end_ = source->end();
+  source_ = source;
 
   row_ = 0;
   col_ = 0;
@@ -38,17 +39,10 @@ std::pair<double, size_t> TokenizerWs::progress() {
 
 Token TokenizerWs::nextToken() {
   // Check for comments and empty lines only at start of line
-  while (cur_ != end_ && col_ == 0 && (isComment(cur_) || isEmpty())) {
-    // Skip rest of line
-    while (cur_ != end_ && *cur_ != '\n' && *cur_ != '\r') {
-      ++cur_;
-    }
-    advanceForLF(&cur_, end_);
-    if (cur_ != end_) {
-      ++cur_;
-    }
-    curLine_ = cur_;
+  if (col_ == 0) {
+    source_->skipCommentAndEmptyLines(&cur_);
   }
+
   if (cur_ == end_)
     return Token(TOKEN_EOF, 0, 0);
 
@@ -84,15 +78,4 @@ Token TokenizerWs::fieldToken(
   t.flagNA(NA_);
 
   return t;
-}
-bool TokenizerWs::isComment(const char* cur) const {
-  if (!hasComment_)
-    return false;
-
-  boost::iterator_range<const char*> haystack(cur, end_);
-  return boost::starts_with(haystack, comment_);
-}
-
-bool TokenizerWs::isEmpty() const {
-  return cur_ == end_ || *cur_ == '\r' || *cur_ == '\n';
 }

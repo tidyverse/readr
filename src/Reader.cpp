@@ -30,7 +30,7 @@ Reader::Reader(
 }
 
 void Reader::init(CharacterVector colNames) {
-  tokenizer_->tokenize(source_->begin(), source_->end());
+  tokenizer_->tokenize(source_);
   tokenizer_->setWarnings(&warnings_);
 
   // Work out which output columns we are keeping and set warnings for each

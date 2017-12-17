@@ -15,29 +15,20 @@ TokenizerPtr Tokenizer::create(List spec) {
     char delim = as<char>(spec["delim"]);
     char quote = as<char>(spec["quote"]);
     std::vector<std::string> na = as<std::vector<std::string> >(spec["na"]);
-    std::string comment = as<std::string>(spec["comment"]);
     bool trimWs = as<bool>(spec["trim_ws"]);
     bool escapeDouble = as<bool>(spec["escape_double"]);
     bool escapeBackslash = as<bool>(spec["escape_backslash"]);
     bool quotedNA = as<bool>(spec["quoted_na"]);
 
     return TokenizerPtr(new TokenizerDelim(
-        delim,
-        quote,
-        na,
-        comment,
-        trimWs,
-        escapeBackslash,
-        escapeDouble,
-        quotedNA));
+        delim, quote, na, trimWs, escapeBackslash, escapeDouble, quotedNA));
   } else if (subclass == "tokenizer_fwf") {
     std::vector<int> begin = as<std::vector<int> >(spec["begin"]),
                      end = as<std::vector<int> >(spec["end"]);
     std::vector<std::string> na = as<std::vector<std::string> >(spec["na"]);
-    std::string comment = as<std::string>(spec["comment"]);
     bool trimWs = as<bool>(spec["trim_ws"]);
 
-    return TokenizerPtr(new TokenizerFwf(begin, end, na, comment, trimWs));
+    return TokenizerPtr(new TokenizerFwf(begin, end, na, trimWs));
   } else if (subclass == "tokenizer_line") {
     std::vector<std::string> na = as<std::vector<std::string> >(spec["na"]);
     return TokenizerPtr(new TokenizerLine(na));
@@ -45,8 +36,7 @@ TokenizerPtr Tokenizer::create(List spec) {
     return TokenizerPtr(new TokenizerLog());
   } else if (subclass == "tokenizer_ws") {
     std::vector<std::string> na = as<std::vector<std::string> >(spec["na"]);
-    std::string comment = as<std::string>(spec["comment"]);
-    return TokenizerPtr(new TokenizerWs(na, comment));
+    return TokenizerPtr(new TokenizerWs(na));
   }
 
   Rcpp::stop("Unknown tokenizer type");

@@ -107,7 +107,8 @@ option to \code{character()} to indicate no missing values.}
 values (the default) or strings.}
 
 \item{comment}{A string used to identify comments. Any text after the
-comment characters will be silently ignored.}
+comment characters will be silently ignored. Multiple comments can be given
+using a character vector.}
 
 \item{trim_ws}{Should leading and trailing whitespace be trimmed from
 each field before parsing it?}

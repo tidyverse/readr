@@ -9,38 +9,38 @@ typedef boost::shared_ptr<Source> SourcePtr;
 
 class Source {
 public:
-  Source(std::string encoding) : encoding_(encoding) {}
+  Source(const std::vector<std::string>& comments, std::string encoding)
+      : comments_(comments), encoding_(encoding) {}
   virtual ~Source() {}
 
-  virtual const char* begin() = 0;
-  virtual const char* end() = 0;
+  virtual const char* begin() const = 0;
+  virtual const char* end() const = 0;
   inline std::string encoding() { return encoding_; }
 
-  static const char* skipLines(
-      const char* begin,
-      const char* end,
-      int n,
-      const std::string& comment = "") {
-    bool hasComment = comment != "";
-    bool isComment = false, lineStart = true;
+  inline bool has_comments() const { return comments_.size() != 0; }
 
-    const char* cur = begin;
+  const char* skipLines(int skip) {
+    bool is_comment = false, lineStart = true;
 
-    while (n > 0 && cur != end) {
+    const char* pbegin = begin();
+    const char* cur = pbegin;
+    const char* pend = end();
+
+    while (skip > 0 && cur != pend) {
       if (lineStart) {
-        isComment = hasComment && inComment(cur, end, comment);
+        is_comment = has_comments() && isComment(cur);
       }
 
       if (*cur == '\r') {
-        if (cur + 1 != end && *(cur + 1) == '\n') {
+        if (cur + 1 != pend && *(cur + 1) == '\n') {
           cur++;
         }
-        if (!(isComment || lineStart))
-          n--;
+        if (!(is_comment || lineStart))
+          skip--;
         lineStart = true;
       } else if (*cur == '\n') {
-        if (!(isComment || lineStart))
-          n--;
+        if (!(is_comment || lineStart))
+          skip--;
         lineStart = true;
       } else if (lineStart) {
         lineStart = false;
@@ -125,13 +125,94 @@ public:
 
   static SourcePtr create(Rcpp::List spec);
 
-private:
-  std::string encoding_;
-  static bool
-  inComment(const char* cur, const char* end, const std::string& comment) {
-    boost::iterator_range<const char*> haystack(cur, end);
-    return boost::starts_with(haystack, comment);
+  size_t skipCommentAndEmptyLines(const char** cur) const {
+    size_t skipped = 0;
+    size_t total_skipped = 0;
+    while (true) {
+      skipped = skipComments(cur);
+      skipped += skipEmptyLines(cur);
+      total_skipped += skipped;
+      if (skipped == 0) {
+        return total_skipped;
+      }
+    }
   }
+
+  size_t skipEmptyLines(const char** cur) const {
+    size_t skip = 0;
+    const char* theend = end();
+    if (*cur == theend) {
+      return skip;
+    }
+    while (*cur != theend && (**cur == '\r' || **cur == '\n')) {
+      if (**cur == '\r' && (*cur + 1) != theend && *(*cur + 1) == '\n') {
+        ++(*cur);
+      }
+      ++(*cur);
+      ++skip;
+    }
+    return skip;
+  }
+
+  virtual size_t skipComments(const char** cur) const {
+    const char* theend = end();
+    if (!has_comments()) {
+      return 0;
+    }
+    if (*cur == theend) {
+      return 0;
+    }
+    size_t skip = 0;
+    bool another_line = true;
+    while (another_line) {
+      if ((theend - *cur) % 131072 == 0)
+        Rcpp::checkUserInterrupt();
+      another_line = false;
+      boost::iterator_range<const char*> haystack(*cur, theend);
+      for (std::vector<std::string>::const_iterator i = comments_.begin();
+           i != comments_.end();
+           ++i) {
+        if (boost::starts_with(haystack, *i)) {
+          while (*cur != theend && **cur != '\r' && **cur != '\n') {
+            ++(*cur);
+          }
+          if (*cur != theend && **cur == '\r' && (*cur + 1) != theend &&
+              *(*cur + 1) == '\n') {
+            ++(*cur);
+          }
+          if (**cur == '\n') {
+            ++(*cur);
+          }
+          if (*cur == theend) {
+            return skip;
+          }
+          ++skip;
+          another_line = true;
+          break; /* for loop */
+        }
+      }
+    }
+    return skip;
+  }
+
+  bool isComment(const char* cur) const {
+    if (!has_comments()) {
+      return false;
+    }
+    boost::iterator_range<const char*> haystack(cur, end());
+    for (std::vector<std::string>::const_iterator i = comments_.begin();
+         i != comments_.end();
+         ++i) {
+      if (boost::starts_with(haystack, *i)) {
+        return true;
+      }
+    }
+    return false;
+  }
+
+private:
+  std::vector<std::string> comments_;
+  std::string encoding_;
 };
 
 #endif

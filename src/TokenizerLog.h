@@ -24,10 +24,10 @@ class TokenizerLog : public Tokenizer {
 public:
   TokenizerLog() {}
 
-  void tokenize(SourceIterator begin, SourceIterator end) {
-    cur_ = begin;
-    begin_ = begin;
-    end_ = end;
+  void tokenize(SourcePtr source) {
+    cur_ = source->begin();
+    begin_ = source->begin();
+    end_ = source->end();
 
     row_ = 0;
     col_ = 0;

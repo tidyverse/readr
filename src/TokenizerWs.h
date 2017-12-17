@@ -10,6 +10,7 @@ class TokenizerWs : public Tokenizer {
   std::vector<std::string> NA_;
 
   SourceIterator begin_, cur_, curLine_, end_;
+  SourcePtr source_;
   int row_, col_;
   std::string comment_;
   bool moreTokens_, hasComment_;
@@ -19,7 +20,7 @@ public:
       std::vector<std::string> NA = std::vector<std::string>(1, "NA"),
       std::string comment = "");
 
-  void tokenize(SourceIterator begin, SourceIterator end);
+  void tokenize(SourcePtr source);
 
   std::pair<double, size_t> progress();
 
@@ -27,9 +28,6 @@ public:
 
 private:
   Token fieldToken(SourceIterator begin, SourceIterator end, bool hasNull);
-
-  bool isComment(const char* cur) const;
-  bool isEmpty() const;
 };
 
 #endif
