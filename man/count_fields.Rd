@@ -4,7 +4,7 @@
 \alias{count_fields}
 \title{Count the number of fields in each line of a file}
 \usage{
-count_fields(file, tokenizer, skip = 0, n_max = -1L)
+count_fields(file, tokenizer, skip = 0, n_max = -1L, encoding = "UTF-8")
 }
 \arguments{
 \item{file}{Either a path to a file, a connection, or literal data
@@ -29,6 +29,8 @@ up into fields, e.g., \code{\link[=tokenizer_csv]{tokenizer_csv()}},
 \item{skip}{Number of lines to skip before reading data.}
 
 \item{n_max}{Optionally, maximum number of rows to count fields for.}
+
+\item{encoding}{The text encoding of the data given in \code{file}. "UTF-8" as default.}
 }
 \description{
 This is useful for diagnosing problems with functions that fail

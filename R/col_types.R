@@ -240,7 +240,7 @@ col_spec_standardise <- function(file, col_names = TRUE, col_types = NULL,
 
   # Figure out the column names -----------------------------------------------
   if (is.logical(col_names) && length(col_names) == 1) {
-    ds_header <- datasource(file, skip = skip, comment = comment)
+    ds_header <- datasource(file, skip = skip, comment = comment, encoding = locale$encoding)
     if (col_names) {
       col_names <- guess_header(ds_header, tokenizer, locale)
       skip <- skip + 1
@@ -367,7 +367,7 @@ col_spec_standardise <- function(file, col_names = TRUE, col_types = NULL,
   is_guess <- vapply(spec$cols, function(x) inherits(x, "collector_guess"), logical(1))
   if (any(is_guess)) {
     if (is.null(guessed_types)) {
-      ds <- datasource(file, skip = skip, comment = comment)
+      ds <- datasource(file, skip = skip, comment = comment, encoding = locale$encoding)
       guessed_types <- guess_types(ds, tokenizer, locale, guess_max = guess_max)
     }
 

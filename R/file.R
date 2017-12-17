@@ -28,18 +28,18 @@ read_file <- function(file, locale = default_locale()) {
     return("")
   }
 
-  ds <- datasource(file)
+  ds <- datasource(file, encoding = locale$encoding)
   read_file_(ds, locale)
 }
 
 #' @export
 #' @rdname read_file
-read_file_raw <- function(file) {
+read_file_raw <- function(file, encoding = "UTF-8") {
   if (empty_file(file)) {
     return(raw())
   }
 
-  ds <- datasource(file)
+  ds <- datasource(file, encoding = encoding)
   read_file_raw_(ds)
 }
 

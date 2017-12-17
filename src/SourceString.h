@@ -12,7 +12,11 @@ class SourceString : public Source {
 
 public:
   SourceString(
-      Rcpp::CharacterVector x, int skip = 0, const std::string& comment = "") {
+      Rcpp::CharacterVector x,
+      int skip,
+      const std::string& comment,
+      const std::string encoding)
+      : Source(encoding) {
     string_ = x[0];
 
     begin_ = CHAR(string_);

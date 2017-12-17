@@ -190,7 +190,7 @@ read_delimited <- function(file, tokenizer, col_names = TRUE, col_types = NULL,
     col_names = col_names, col_types = col_types, tokenizer = tokenizer,
     locale = locale)
 
-  ds <- datasource(data, skip = skip + isTRUE(col_names), comment = comment)
+  ds <- datasource(data, skip = skip + isTRUE(col_names), comment = comment, encoding = locale$encoding)
 
   if (is.null(col_types) && !inherits(ds, "source_string")) {
     show_cols_spec(spec)

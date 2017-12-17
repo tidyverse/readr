@@ -8,7 +8,7 @@
 \usage{
 read_file(file, locale = default_locale())
 
-read_file_raw(file)
+read_file_raw(file, encoding = "UTF-8")
 
 write_file(x, path, append = FALSE)
 }
@@ -33,6 +33,8 @@ The default locale is US-centric (like R), but you can use
 \code{\link[=locale]{locale()}} to create your own locale that controls things like
 the default time zone, encoding, decimal mark, big mark, and day/month
 names.}
+
+\item{encoding}{The text encoding of the data given in \code{file}. "UTF-8" as default.}
 
 \item{x}{A data frame to write to disk}
 

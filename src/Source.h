@@ -9,10 +9,12 @@ typedef boost::shared_ptr<Source> SourcePtr;
 
 class Source {
 public:
+  Source(std::string encoding) : encoding_(encoding) {}
   virtual ~Source() {}
 
   virtual const char* begin() = 0;
   virtual const char* end() = 0;
+  inline std::string encoding() { return encoding_; }
 
   static const char* skipLines(
       const char* begin,
@@ -50,7 +52,7 @@ public:
     return cur;
   }
 
-  static const char* skipBom(const char* begin, const char* end) {
+  const char* skipBom(const char* begin, const char* end) {
 
     /* Unicode Byte Order Marks
        https://en.wikipedia.org/wiki/Byte_order_mark#Representations_of_byte_order_marks_by_encoding
@@ -67,6 +69,11 @@ public:
     case '\x00':
       if (end - begin >= 4 && begin[1] == '\x00' && begin[2] == '\xFE' &&
           begin[3] == '\xFF') {
+        if (encoding_ == "UTF-32" || encoding_ == "UTF32") {
+          encoding_ = "UTF-32BE";
+        } else if (encoding_ == "UCS-4" || encoding_ == "UCS4") {
+          encoding_ = "UCS-4BE";
+        }
         return begin + 4;
       }
       break;
@@ -81,6 +88,11 @@ public:
     // UTF-16BE
     case '\xfe':
       if (end - begin >= 2 && begin[1] == '\xff') {
+        if (encoding_ == "UTF-16" || encoding_ == "UTF16") {
+          encoding_ = "UTF-16BE";
+        } else if (encoding_ == "UCS2" || encoding_ == "UCS-2") {
+          encoding_ = "UCS2-BE";
+        }
         return begin + 2;
       }
       break;
@@ -90,10 +102,20 @@ public:
 
         // UTF-32 LE
         if (end - begin >= 4 && begin[2] == '\x00' && begin[3] == '\x00') {
+          if (encoding_ == "UTF-32" || encoding_ == "UTF32") {
+            encoding_ = "UTF-32LE";
+          } else if (encoding_ == "UCS-4" || encoding_ == "UCS4") {
+            encoding_ = "UCS-4LE";
+          }
           return begin + 4;
         }
 
         // UTF-16 LE
+        if (encoding_ == "UTF-16" || encoding_ == "UTF16") {
+          encoding_ = "UTF-16LE";
+        } else if (encoding_ == "UCS2" || encoding_ == "UCS-2") {
+          encoding_ = "UCS2-LE";
+        }
         return begin + 2;
       }
       break;
@@ -104,6 +126,7 @@ public:
   static SourcePtr create(Rcpp::List spec);
 
 private:
+  std::string encoding_;
   static bool
   inComment(const char* cur, const char* end, const std::string& comment) {
     boost::iterator_range<const char*> haystack(cur, end);

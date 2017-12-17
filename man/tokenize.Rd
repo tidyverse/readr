@@ -4,7 +4,8 @@
 \alias{tokenize}
 \title{Tokenize a file/string.}
 \usage{
-tokenize(file, tokenizer = tokenizer_csv(), skip = 0, n_max = -1L)
+tokenize(file, tokenizer = tokenizer_csv(), skip = 0, n_max = -1L,
+  encoding = "UTF-8")
 }
 \arguments{
 \item{file}{Either a path to a file, a connection, or literal data
@@ -27,6 +28,8 @@ Using a value of \code{\link[=clipboard]{clipboard()}} will read from the system
 \item{skip}{Number of lines to skip before reading data.}
 
 \item{n_max}{Optionally, maximum number of rows to tokenize.}
+
+\item{encoding}{The text encoding of the data given in \code{file}. "UTF-8" as default.}
 }
 \description{
 Turns input into a character vector. Usually the tokenization is done purely
