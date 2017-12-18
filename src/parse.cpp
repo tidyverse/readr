@@ -133,7 +133,19 @@ List melt_tokens_(
     row.push_back(t.row() + 1);
     col.push_back(t.col() + 1);
     val.push_back(t.asString());
-    type.push_back(collectorGuess(t.asString(), locale_, true));
+
+    switch (t.type()) {
+    case TOKEN_STRING: {
+      type.push_back(collectorGuess(t.asString(), locale_, true));
+      break;
+    }
+    case TOKEN_MISSING: {
+      type.push_back("missing");
+      break;
+    }
+    case TOKEN_EMPTY:
+      type.push_back("empty");
+    }
   }
 
   List out = List::create(
