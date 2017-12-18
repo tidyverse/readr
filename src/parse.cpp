@@ -149,7 +149,7 @@ List melt_tokens_(
   }
 
   List out = List::create(
-      _["row"] = row, _["col"] = col, _["value"] = val, _["data_type"] = type);
+      _["row"] = row, _["col"] = col, _["data_type"] = type, _["value"] = val);
   out.attr("class") = CharacterVector::create("tbl_df", "tbl", "data.frame");
   out.attr("row.names") = IntegerVector::create(NA_INTEGER, -row.size());
   return out;
