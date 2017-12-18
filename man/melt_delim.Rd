@@ -3,6 +3,7 @@
 \name{melt_delim}
 \alias{melt_delim}
 \alias{melt_csv}
+\alias{melt_csv2}
 \title{Return melted data for each token}
 \usage{
 melt_delim(file, delim, quote = "\\"", escape_backslash = FALSE,
@@ -11,6 +12,10 @@ melt_delim(file, delim, quote = "\\"", escape_backslash = FALSE,
   n_max = Inf)
 
 melt_csv(file, locale = default_locale(), na = c("", "NA"),
+  quoted_na = TRUE, quote = "\\"", comment = "", trim_ws = TRUE,
+  skip = 0, n_max = Inf)
+
+melt_csv2(file, locale = default_locale(), na = c("", "NA"),
   quoted_na = TRUE, quote = "\\"", comment = "", trim_ws = TRUE,
   skip = 0, n_max = Inf)
 }

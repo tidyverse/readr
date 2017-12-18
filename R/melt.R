@@ -32,6 +32,22 @@ melt_csv <- function(file, locale = default_locale(), na = c("", "NA"),
   melt_delimited(file, tokenizer, locale = locale, skip = skip,
                  comment = comment, n_max = n_max)
 }
+
+#' @rdname melt_delim
+#' @export
+melt_csv2 <- function(file, locale = default_locale(), na = c("", "NA"),
+                      quoted_na = TRUE, quote = "\"", comment = "",
+                      trim_ws = TRUE, skip = 0, n_max = Inf) {
+  if (locale$decimal_mark == ".") {
+    message("Using ',' as decimal and '.' as grouping mark. Use melt_delim() for more control.")
+    locale$decimal_mark <- ","
+    locale$grouping_mark <- "."
+  }
+  tokenizer <- tokenizer_delim(delim = ";", na = na, quoted_na = quoted_na,
+    quote = quote, comment = comment, trim_ws = trim_ws)
+  melt_delimited(file, tokenizer, locale = locale, skip = skip,
+                 comment = comment, n_max = n_max)
+}
 melt_tokens <- function(data, tokenizer, locale_, n_max) {
   if (n_max == Inf) {
     n_max <- -1
