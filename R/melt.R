@@ -17,9 +17,8 @@ melt_delim <- function(file, delim, quote = '"',
   tokenizer <- tokenizer_delim(delim, quote = quote,
     escape_backslash = escape_backslash, escape_double = escape_double,
     na = na, quoted_na = quoted_na, comment = comment, trim_ws = trim_ws)
-  file <- standardise_path(file)
-  ds <- datasource(file, skip = skip, comment = comment)
-  melt_delimited(ds, tokenizer, locale, n_max)
+  melt_delimited(file, tokenizer, locale = locale, skip = skip,
+                 comment = comment, n_max = n_max)
 }
 
 #' @rdname melt_delim
