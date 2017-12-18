@@ -88,7 +88,7 @@ melt_delimited <- function(file, tokenizer, locale = default_locale(), skip = 0,
     }
   }
 
-  ds <- datasource(data, comment = comment)
+  ds <- datasource(data, skip = skip, comment = comment)
 
   melt_tokens(ds, tokenizer, locale_ = locale, n_max = n_max)
 }
