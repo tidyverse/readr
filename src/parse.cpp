@@ -127,7 +127,7 @@ List melt_tokens_(
 
   for (Token t = tokenizer->nextToken(); t.type() != TOKEN_EOF;
        t = tokenizer->nextToken()) {
-    if (n_max > 0 && t.row() >= (size_t)n_max)
+    if (n_max >= 0 && t.row() >= (size_t)n_max)
       break;
 
     row.push_back(t.row() + 1);
