@@ -2,12 +2,17 @@
 % Please edit documentation in R/melt.R
 \name{melt_delim}
 \alias{melt_delim}
+\alias{melt_csv}
 \title{Return melted data for each token}
 \usage{
 melt_delim(file, delim, quote = "\\"", escape_backslash = FALSE,
   escape_double = TRUE, locale = default_locale(), na = c("", "NA"),
   quoted_na = TRUE, comment = "", trim_ws = FALSE, skip = 0,
   n_max = Inf)
+
+melt_csv(file, locale = default_locale(), na = c("", "NA"),
+  quoted_na = TRUE, quote = "\\"", comment = "", trim_ws = TRUE,
+  skip = 0, n_max = Inf)
 }
 \arguments{
 \item{file}{Either a path to a file, a connection, or literal data
