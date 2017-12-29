@@ -39,7 +39,8 @@ f <- function(x, pos) x$mpg[x$hp > 100]
 read_csv_chunked(readr_example("mtcars.csv"), ListCallback$new(f), chunk_size = 5)
 }
 \seealso{
-Other chunked: \code{\link{read_delim_chunked}},
+Other chunked: \code{\link{melt_delim_chunked}},
+  \code{\link{read_delim_chunked}},
   \code{\link{read_lines_chunked}}
 }
 \keyword{datasets}

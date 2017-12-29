@@ -229,6 +229,22 @@ BEGIN_RCPP
     return rcpp_result_gen;
 END_RCPP
 }
+// melt_tokens_chunked_
+void melt_tokens_chunked_(List sourceSpec, Environment callback, int chunkSize, List tokenizerSpec, ListOf<List> colSpecs, List locale_, bool progress);
+RcppExport SEXP _readr_melt_tokens_chunked_(SEXP sourceSpecSEXP, SEXP callbackSEXP, SEXP chunkSizeSEXP, SEXP tokenizerSpecSEXP, SEXP colSpecsSEXP, SEXP locale_SEXP, SEXP progressSEXP) {
+BEGIN_RCPP
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< List >::type sourceSpec(sourceSpecSEXP);
+    Rcpp::traits::input_parameter< Environment >::type callback(callbackSEXP);
+    Rcpp::traits::input_parameter< int >::type chunkSize(chunkSizeSEXP);
+    Rcpp::traits::input_parameter< List >::type tokenizerSpec(tokenizerSpecSEXP);
+    Rcpp::traits::input_parameter< ListOf<List> >::type colSpecs(colSpecsSEXP);
+    Rcpp::traits::input_parameter< List >::type locale_(locale_SEXP);
+    Rcpp::traits::input_parameter< bool >::type progress(progressSEXP);
+    melt_tokens_chunked_(sourceSpec, callback, chunkSize, tokenizerSpec, colSpecs, locale_, progress);
+    return R_NilValue;
+END_RCPP
+}
 // guess_types_
 std::vector<std::string> guess_types_(List sourceSpec, List tokenizerSpec, Rcpp::List locale_, int n);
 RcppExport SEXP _readr_guess_types_(SEXP sourceSpecSEXP, SEXP tokenizerSpecSEXP, SEXP locale_SEXP, SEXP nSEXP) {
@@ -353,6 +369,7 @@ static const R_CallMethodDef CallEntries[] = {
     {"_readr_read_tokens_", (DL_FUNC) &_readr_read_tokens_, 7},
     {"_readr_read_tokens_chunked_", (DL_FUNC) &_readr_read_tokens_chunked_, 8},
     {"_readr_melt_tokens_", (DL_FUNC) &_readr_melt_tokens_, 6},
+    {"_readr_melt_tokens_chunked_", (DL_FUNC) &_readr_melt_tokens_chunked_, 7},
     {"_readr_guess_types_", (DL_FUNC) &_readr_guess_types_, 4},
     {"_readr_whitespaceColumns", (DL_FUNC) &_readr_whitespaceColumns, 3},
     {"_readr_type_convert_col", (DL_FUNC) &_readr_type_convert_col, 6},

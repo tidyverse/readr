@@ -172,6 +172,37 @@ RObject melt_tokens_(
 
   return r.meltToDataFrame(locale_, n_max);
 }
+
+// [[Rcpp::export]]
+void melt_tokens_chunked_(
+    List sourceSpec,
+    Environment callback,
+    int chunkSize,
+    List tokenizerSpec,
+    ListOf<List> colSpecs,
+    List locale_,
+    bool progress = true) {
+
+  LocaleInfo l(locale_);
+  Reader r(
+      Source::create(sourceSpec),
+      Tokenizer::create(tokenizerSpec),
+      collectorsCreate(colSpecs, &l),
+      progress);
+
+  int pos = 1;
+  while (isTrue(R6method(callback, "continue")())) {
+    DataFrame out = r.meltToDataFrame(locale_, chunkSize);
+    if (out.nrows() == 0) {
+      return;
+    }
+    R6method(callback, "receive")(out, pos);
+    pos += out.nrows();
+  }
+
+  return;
+}
+
 // [[Rcpp::export]]
 std::vector<std::string> guess_types_(
     List sourceSpec, List tokenizerSpec, Rcpp::List locale_, int n = 100) {
