@@ -155,6 +155,24 @@ void read_tokens_chunked_(
 }
 
 // [[Rcpp::export]]
+RObject melt_tokens_(
+    List sourceSpec,
+    List tokenizerSpec,
+    ListOf<List> colSpecs,
+    List locale_,
+    int n_max = -1,
+    bool progress = true) {
+
+  LocaleInfo l(locale_);
+  Reader r(
+      Source::create(sourceSpec),
+      Tokenizer::create(tokenizerSpec),
+      collectorsCreate(colSpecs, &l),
+      progress);
+
+  return r.meltToDataFrame(locale_, n_max);
+}
+// [[Rcpp::export]]
 std::vector<std::string> guess_types_(
     List sourceSpec, List tokenizerSpec, Rcpp::List locale_, int n = 100) {
   Warnings warnings;

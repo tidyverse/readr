@@ -166,3 +166,104 @@ void Reader::collectorsClear() {
     collectors_[j]->clear();
   }
 }
+
+RObject Reader::meltToDataFrame(List locale_, int lines) {
+  melt(locale_, lines);
+
+  // Save individual columns into a data frame
+  List out(4);
+  out[0] = collectors_[0]->vector();
+  out[1] = collectors_[1]->vector();
+  out[2] = collectors_[2]->vector();
+  out[3] = collectors_[3]->vector();
+
+  out.attr("names") = CharacterVector::create("row", "col", "data_type", "value");
+  out = warnings_.addAsAttribute(out);
+
+  collectorsClear();
+  warnings_.clear();
+
+  out.attr("names") = CharacterVector::create("row", "col", "data_type", "value");
+  static Function as_tibble("as_tibble", Environment::namespace_env("tibble"));
+  return as_tibble(out);
+}
+
+int Reader::melt(List locale_, int lines) {
+
+  if (t_.type() == TOKEN_EOF) {
+    return (-1);
+  }
+
+  int n = (lines < 0) ? 10000 : lines * 10; // Start with 10 cells per line
+
+  collectorsResize(n);
+
+  int last_row = -1, last_col = -1, cells = 0;
+  int first_row;
+  if (!begun_) {
+    t_ = tokenizer_->nextToken();
+    begun_ = true;
+    first_row = 0;
+  } else {
+    first_row = t_.row();
+  }
+
+  while (t_.type() != TOKEN_EOF) {
+    ++cells;
+
+    if (progress_ && cells % progressStep_ == 0) {
+      progressBar_.show(tokenizer_->progress());
+    }
+
+    if (lines >= 0 && static_cast<int>(t_.row()) - first_row >= lines) {
+      --cells;
+      break;
+    }
+
+    if (cells >= n) {
+      // Estimate rows in full dataset and resize collectors
+      n = (cells / tokenizer_->progress().first) * 1.1;
+      collectorsResize(n);
+    }
+
+    collectors_[0]->setValue(cells - 1, t_.row() + 1);
+    collectors_[1]->setValue(cells - 1, t_.col() + 1);
+    collectors_[3]->setValue(cells - 1, t_);
+
+    switch (t_.type()) {
+    case TOKEN_STRING: {
+      collectors_[2]->setValue(cells - 1,
+                               collectorGuess(t_.asString(), locale_, true));
+      break;
+    };
+    case TOKEN_MISSING:
+      collectors_[2]->setValue(cells - 1, "missing");
+      break;
+    case TOKEN_EMPTY:
+      collectors_[2]->setValue(cells - 1, "empty");
+      break;
+    case TOKEN_EOF:
+      Rcpp::stop("Invalid token");
+    }
+
+    last_row = t_.row();
+    last_col = t_.col();
+    t_ = tokenizer_->nextToken();
+  }
+
+  if (progress_) {
+    progressBar_.show(tokenizer_->progress());
+  }
+
+  progressBar_.stop();
+
+  // Resize the collectors to the final size (if it is not already at that
+  // size)
+  if (last_row == -1) {
+    collectorsResize(0);
+  } else if (cells < (n - 1)) {
+    collectorsResize(cells);
+  }
+
+  return cells - 1;
+}

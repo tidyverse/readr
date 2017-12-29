@@ -213,6 +213,22 @@ BEGIN_RCPP
     return R_NilValue;
 END_RCPP
 }
+// melt_tokens_
+RObject melt_tokens_(List sourceSpec, List tokenizerSpec, ListOf<List> colSpecs, List locale_, int n_max, bool progress);
+RcppExport SEXP _readr_melt_tokens_(SEXP sourceSpecSEXP, SEXP tokenizerSpecSEXP, SEXP colSpecsSEXP, SEXP locale_SEXP, SEXP n_maxSEXP, SEXP progressSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< List >::type sourceSpec(sourceSpecSEXP);
+    Rcpp::traits::input_parameter< List >::type tokenizerSpec(tokenizerSpecSEXP);
+    Rcpp::traits::input_parameter< ListOf<List> >::type colSpecs(colSpecsSEXP);
+    Rcpp::traits::input_parameter< List >::type locale_(locale_SEXP);
+    Rcpp::traits::input_parameter< int >::type n_max(n_maxSEXP);
+    Rcpp::traits::input_parameter< bool >::type progress(progressSEXP);
+    rcpp_result_gen = Rcpp::wrap(melt_tokens_(sourceSpec, tokenizerSpec, colSpecs, locale_, n_max, progress));
+    return rcpp_result_gen;
+END_RCPP
+}
 // guess_types_
 std::vector<std::string> guess_types_(List sourceSpec, List tokenizerSpec, Rcpp::List locale_, int n);
 RcppExport SEXP _readr_guess_types_(SEXP sourceSpecSEXP, SEXP tokenizerSpecSEXP, SEXP locale_SEXP, SEXP nSEXP) {
@@ -336,6 +352,7 @@ static const R_CallMethodDef CallEntries[] = {
     {"_readr_read_lines_raw_", (DL_FUNC) &_readr_read_lines_raw_, 3},
     {"_readr_read_tokens_", (DL_FUNC) &_readr_read_tokens_, 7},
     {"_readr_read_tokens_chunked_", (DL_FUNC) &_readr_read_tokens_chunked_, 8},
+    {"_readr_melt_tokens_", (DL_FUNC) &_readr_melt_tokens_, 6},
     {"_readr_guess_types_", (DL_FUNC) &_readr_guess_types_, 4},
     {"_readr_whitespaceColumns", (DL_FUNC) &_readr_whitespaceColumns, 3},
     {"_readr_type_convert_col", (DL_FUNC) &_readr_type_convert_col, 6},

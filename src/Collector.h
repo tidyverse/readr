@@ -27,6 +27,8 @@ public:
   virtual ~Collector(){};
 
   virtual void setValue(int i, const Token& t) = 0;
+  virtual void setValue(int i, const std::string& s) {}; // nocov
+  virtual void setValue(int i, size_t st) {};            // nocov
 
   virtual Rcpp::RObject vector() { return column_; };
 
@@ -127,6 +129,7 @@ public:
   CollectorDouble(char decimalMark)
       : Collector(Rcpp::NumericVector()), decimalMark_(decimalMark) {}
   void setValue(int i, const Token& t);
+  void setValue(int i, size_t st);
 };
 
 class CollectorFactor : public Collector {
