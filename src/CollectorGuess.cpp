@@ -48,6 +48,17 @@ bool isNumber(const std::string& x, LocaleInfo* pLocale) {
   return ok && begin == x.begin() && end == x.end();
 }
 
+bool isInteger(const std::string& x, LocaleInfo* pLocale) {
+  // Leading zero
+  if (x[0] == '0' && x.size() > 1)
+    return false;
+
+  double res = 0;
+  std::string::const_iterator begin = x.begin(), end = x.end();
+
+  return parseInt(begin, end, res) && begin == end;
+}
+
 bool isDouble(const std::string& x, LocaleInfo* pLocale) {
   // Leading zero not followed by decimal mark
   if (x[0] == '0' && x.size() > 1 && x[1] != pLocale->decimalMark_)
@@ -90,7 +101,8 @@ static bool isDateTime(const std::string& x, LocaleInfo* pLocale) {
 }
 
 // [[Rcpp::export]]
-std::string collectorGuess(CharacterVector input, List locale_) {
+std::string
+collectorGuess(CharacterVector input, List locale_, bool guessInteger = false) {
   LocaleInfo locale(locale_);
 
   if (input.size() == 0) {
@@ -104,6 +116,8 @@ std::string collectorGuess(CharacterVector input, List locale_) {
   // Work from strictest to most flexible
   if (canParse(input, isLogical, &locale))
     return "logical";
+  if (guessInteger && canParse(input, isInteger, &locale))
+    return "integer";
   if (canParse(input, isDouble, &locale))
     return "double";
   if (canParse(input, isNumber, &locale))

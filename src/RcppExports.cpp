@@ -6,14 +6,15 @@
 using namespace Rcpp;
 
 // collectorGuess
-std::string collectorGuess(CharacterVector input, List locale_);
-RcppExport SEXP _readr_collectorGuess(SEXP inputSEXP, SEXP locale_SEXP) {
+std::string collectorGuess(CharacterVector input, List locale_, bool guessInteger);
+RcppExport SEXP _readr_collectorGuess(SEXP inputSEXP, SEXP locale_SEXP, SEXP guessIntegerSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
     Rcpp::traits::input_parameter< CharacterVector >::type input(inputSEXP);
     Rcpp::traits::input_parameter< List >::type locale_(locale_SEXP);
-    rcpp_result_gen = Rcpp::wrap(collectorGuess(input, locale_));
+    Rcpp::traits::input_parameter< bool >::type guessInteger(guessIntegerSEXP);
+    rcpp_result_gen = Rcpp::wrap(collectorGuess(input, locale_, guessInteger));
     return rcpp_result_gen;
 END_RCPP
 }
@@ -320,7 +321,7 @@ END_RCPP
 }
 
 static const R_CallMethodDef CallEntries[] = {
-    {"_readr_collectorGuess", (DL_FUNC) &_readr_collectorGuess, 2},
+    {"_readr_collectorGuess", (DL_FUNC) &_readr_collectorGuess, 3},
     {"_readr_read_connection_", (DL_FUNC) &_readr_read_connection_, 2},
     {"_readr_utctime", (DL_FUNC) &_readr_utctime, 7},
     {"_readr_dim_tokens_", (DL_FUNC) &_readr_dim_tokens_, 2},
