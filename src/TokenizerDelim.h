@@ -29,6 +29,7 @@ class TokenizerDelim : public Tokenizer {
   DelimState state_;
   int row_, col_;
   bool moreTokens_;
+  bool skipEmptyRows_;
 
 public:
   TokenizerDelim(
@@ -39,7 +40,8 @@ public:
       bool trimWS = true,
       bool escapeBackslash = false,
       bool escapeDouble = true,
-      bool quotedNA = true);
+      bool quotedNA = true,
+      bool skipEmptyRows = true);
 
   void tokenize(SourceIterator begin, SourceIterator end);
 

@@ -52,10 +52,14 @@ NULL
 #'   characters? This is more general than `escape_double` as backslashes
 #'   can be used to escape the delimiter character, the quote character, or
 #'   to add special characters like `\\n`.
+#' @param skip_empty_rows Should blank rows be ignored altogether? i.e. If this
+#'   option is `TRUE` then blank rows will not be represented at all.  If it is
+#'   `FALSE` then they will be represented by `NA` values in all the columns.
 tokenizer_delim <- function(delim, quote = '"', na = "NA", quoted_na = TRUE, comment = "",
                             trim_ws = TRUE,
                             escape_double = TRUE,
-                            escape_backslash = FALSE) {
+                            escape_backslash = FALSE,
+                            skip_empty_rows = TRUE) {
   structure(
     list(
       delim = delim,
@@ -65,7 +69,8 @@ tokenizer_delim <- function(delim, quote = '"', na = "NA", quoted_na = TRUE, com
       comment = comment,
       trim_ws = trim_ws,
       escape_double = escape_double,
-      escape_backslash = escape_backslash
+      escape_backslash = escape_backslash,
+      skip_empty_rows = skip_empty_rows
     ),
     class = "tokenizer_delim"
   )
@@ -74,7 +79,8 @@ tokenizer_delim <- function(delim, quote = '"', na = "NA", quoted_na = TRUE, com
 #' @export
 #' @rdname Tokenizers
 tokenizer_csv <- function(na = "NA", quoted_na = TRUE, quote = "\"",
-                          comment = "", trim_ws = TRUE) {
+                          comment = "", trim_ws = TRUE,
+                          skip_empty_rows = TRUE) {
   tokenizer_delim(
     delim = ",",
     na = na,
@@ -83,14 +89,16 @@ tokenizer_csv <- function(na = "NA", quoted_na = TRUE, quote = "\"",
     comment = comment,
     trim_ws = trim_ws,
     escape_double = TRUE,
-    escape_backslash = FALSE
+    escape_backslash = FALSE,
+    skip_empty_rows = skip_empty_rows
   )
 }
 
 #' @export
 #' @rdname Tokenizers
 tokenizer_tsv <- function(na = "NA", quoted_na = TRUE, quote = "\"",
-                          comment = "", trim_ws = TRUE) {
+                          comment = "", trim_ws = TRUE,
+                          skip_empty_rows = TRUE) {
   tokenizer_delim(
     delim = "\t",
     na = na,
@@ -99,14 +107,16 @@ tokenizer_tsv <- function(na = "NA", quoted_na = TRUE, quote = "\"",
     comment = comment,
     trim_ws = trim_ws,
     escape_double = TRUE,
-    escape_backslash = FALSE
+    escape_backslash = FALSE,
+    skip_empty_rows = skip_empty_rows
   )
 }
 
 #' @export
 #' @rdname Tokenizers
-tokenizer_line <- function(na = character()) {
-  structure(list(na = na), class = "tokenizer_line")
+tokenizer_line <- function(na = character(), skip_empty_rows = TRUE) {
+  structure(list(na = na, skip_empty_rows = skip_empty_rows),
+            class = "tokenizer_line")
 }
 
 #' @export
@@ -121,12 +131,16 @@ tokenizer_log <- function() {
 #' @param begin,end Begin and end offsets for each file. These are C++
 #'   offsets so the first column is column zero, and the ranges are
 #'   [begin, end) (i.e inclusive-exclusive).
-tokenizer_fwf <- function(begin, end, na = "NA", comment = "", trim_ws = TRUE) {
-  structure(list(begin = begin, end = end, na = na, comment = comment, trim_ws = trim_ws), class = "tokenizer_fwf")
+tokenizer_fwf <- function(begin, end, na = "NA", comment = "", trim_ws = TRUE,
+                          skip_empty_rows = TRUE) {
+  structure(list(begin = begin, end = end, na = na, comment = comment,
+                 trim_ws = trim_ws, skip_empty_rows = skip_empty_rows),
+            class = "tokenizer_fwf")
 }
 
 #' @export
 #' @rdname Tokenizers
-tokenizer_ws <- function(na = "NA", comment = "") {
-  structure(list(na = na, comment = comment), class = "tokenizer_ws")
+tokenizer_ws <- function(na = "NA", comment = "", skip_empty_rows = TRUE) {
+  structure(list(na = na, comment = comment, skip_empty_rows = skip_empty_rows),
+            class = "tokenizer_ws")
 }

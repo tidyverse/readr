@@ -11,22 +11,26 @@ read_delim(file, delim, quote = "\\"", escape_backslash = FALSE,
   escape_double = TRUE, col_names = TRUE, col_types = NULL,
   locale = default_locale(), na = c("", "NA"), quoted_na = TRUE,
   comment = "", trim_ws = FALSE, skip = 0, n_max = Inf,
-  guess_max = min(1000, n_max), progress = show_progress())
+  guess_max = min(1000, n_max), progress = show_progress(),
+  skip_empty_rows = TRUE)
 
 read_csv(file, col_names = TRUE, col_types = NULL,
   locale = default_locale(), na = c("", "NA"), quoted_na = TRUE,
   quote = "\\"", comment = "", trim_ws = TRUE, skip = 0, n_max = Inf,
-  guess_max = min(1000, n_max), progress = show_progress())
+  guess_max = min(1000, n_max), progress = show_progress(),
+  skip_empty_rows = TRUE)
 
 read_csv2(file, col_names = TRUE, col_types = NULL,
   locale = default_locale(), na = c("", "NA"), quoted_na = TRUE,
   quote = "\\"", comment = "", trim_ws = TRUE, skip = 0, n_max = Inf,
-  guess_max = min(1000, n_max), progress = show_progress())
+  guess_max = min(1000, n_max), progress = show_progress(),
+  skip_empty_rows = TRUE)
 
 read_tsv(file, col_names = TRUE, col_types = NULL,
   locale = default_locale(), na = c("", "NA"), quoted_na = TRUE,
   quote = "\\"", comment = "", trim_ws = TRUE, skip = 0, n_max = Inf,
-  guess_max = min(1000, n_max), progress = show_progress())
+  guess_max = min(1000, n_max), progress = show_progress(),
+  skip_empty_rows = TRUE)
 }
 \arguments{
 \item{file}{Either a path to a file, a connection, or literal data
@@ -118,6 +122,10 @@ in an interactive session and not while knitting a document. The display
 is updated every 50,000 values and will only display if estimated reading
 time is 5 seconds or more. The automatic progress bar can be disabled by
 setting option \code{readr.show_progress} to \code{FALSE}.}
+
+\item{skip_empty_rows}{Should blank rows be ignored altogether? i.e. If this
+option is \code{TRUE} then blank rows will not be represented at all.  If it is
+\code{FALSE} then they will be represented by \code{NA} values in all the columns.}
 }
 \value{
 A \code{\link[=tibble]{tibble()}}. If there are parsing problems, a warning tells you

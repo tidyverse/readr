@@ -11,7 +11,8 @@ TokenizerDelim::TokenizerDelim(
     bool trimWS,
     bool escapeBackslash,
     bool escapeDouble,
-    bool quotedNA)
+    bool quotedNA,
+    bool skipEmptyRows)
     : delim_(delim),
       quote_(quote),
       NA_(NA),
@@ -22,7 +23,8 @@ TokenizerDelim::TokenizerDelim(
       escapeDouble_(escapeDouble),
       quotedNA_(quotedNA),
       hasEmptyNA_(false),
-      moreTokens_(false) {
+      moreTokens_(false),
+      skipEmptyRows_(skipEmptyRows){
   for (size_t i = 0; i < NA_.size(); ++i) {
     if (NA_[i] == "") {
       hasEmptyNA_ = true;
@@ -74,7 +76,7 @@ Token TokenizerDelim::nextToken() {
         ++cur_;
       }
       if (*cur_ == '\r' || *cur_ == '\n') {
-        if (col_ == 0) {
+        if (col_ == 0 && skipEmptyRows_) {
           advanceForLF(&cur_, end_);
           token_begin = cur_ + 1;
           break;

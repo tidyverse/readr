@@ -13,11 +13,15 @@ using namespace Rcpp;
 #include <Rcpp.h>
 #include <cctype>
 
-TokenizerWs::TokenizerWs(std::vector<std::string> NA, std::string comment)
+TokenizerWs::TokenizerWs(
+    std::vector<std::string> NA,
+    std::string comment,
+    bool skipEmptyRows)
     : NA_(NA),
       comment_(comment),
       moreTokens_(false),
-      hasComment_(comment.size() > 0) {}
+      hasComment_(comment.size() > 0),
+      skipEmptyRows_(skipEmptyRows) {}
 
 void TokenizerWs::tokenize(SourceIterator begin, SourceIterator end) {
   cur_ = begin;
@@ -38,7 +42,7 @@ std::pair<double, size_t> TokenizerWs::progress() {
 
 Token TokenizerWs::nextToken() {
   // Check for comments and empty lines only at start of line
-  while (cur_ != end_ && col_ == 0 && (isComment(cur_) || isEmpty())) {
+  while (cur_ != end_ && col_ == 0 && (isComment(cur_) || (isEmpty() && skipEmptyRows_))) {
     // Skip rest of line
     while (cur_ != end_ && *cur_ != '\n' && *cur_ != '\r') {
       ++cur_;

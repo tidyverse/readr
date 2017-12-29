@@ -13,11 +13,12 @@ class TokenizerWs : public Tokenizer {
   int row_, col_;
   std::string comment_;
   bool moreTokens_, hasComment_;
+  bool skipEmptyRows_;
 
 public:
   TokenizerWs(
       std::vector<std::string> NA = std::vector<std::string>(1, "NA"),
-      std::string comment = "");
+      std::string comment = "", bool skipEmptyRows = true);
 
   void tokenize(SourceIterator begin, SourceIterator end);
 
