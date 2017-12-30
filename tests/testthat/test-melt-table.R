@@ -57,7 +57,7 @@ test_that("melt_table2 skips all comment lines", {
 })
 
 test_that("melt_table2 can read from a pipe", {
-  x <- melt_table2(pipe("echo a b c && echo 1 2 3 && echo 4 5 6"), progress = FALSE)
+  x <- melt_table2(pipe("echo a b c&& echo 1 2 3&& echo 4 5 6"), progress = FALSE)
   expect_equal(x$value[-1:-3], as.character(1:6))
 })
 
