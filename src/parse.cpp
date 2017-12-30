@@ -111,51 +111,6 @@ RObject tokenize_(List sourceSpec, List tokenizerSpec, int n_max) {
 }
 
 // [[Rcpp::export]]
-List melt_tokens_(
-    List sourceSpec, List tokenizerSpec, List locale_, int n_max) {
-  Warnings warnings;
-
-  SourcePtr source = Source::create(sourceSpec);
-  TokenizerPtr tokenizer = Tokenizer::create(tokenizerSpec);
-  tokenizer->tokenize(source->begin(), source->end());
-  tokenizer->setWarnings(&warnings);
-
-  std::vector<size_t> row;
-  std::vector<size_t> col;
-  std::vector<std::string> val;
-  std::vector<std::string> type;
-
-  for (Token t = tokenizer->nextToken(); t.type() != TOKEN_EOF;
-       t = tokenizer->nextToken()) {
-    if (n_max >= 0 && t.row() >= (size_t)n_max)
-      break;
-
-    row.push_back(t.row() + 1);
-    col.push_back(t.col() + 1);
-    val.push_back(t.asString());
-
-    switch (t.type()) {
-    case TOKEN_STRING: {
-      type.push_back(collectorGuess(t.asString(), locale_, true));
-      break;
-    }
-    case TOKEN_MISSING: {
-      type.push_back("missing");
-      break;
-    }
-    case TOKEN_EMPTY:
-      type.push_back("empty");
-    }
-  }
-
-  List out = List::create(
-      _["row"] = row, _["col"] = col, _["data_type"] = type, _["value"] = val);
-  out.attr("class") = CharacterVector::create("tbl_df", "tbl", "data.frame");
-  out.attr("row.names") = IntegerVector::create(NA_INTEGER, -row.size());
-  return out;
-}
-
-// [[Rcpp::export]]
 SEXP parse_vector_(
     CharacterVector x,
     List collectorSpec,

@@ -6,15 +6,14 @@
 using namespace Rcpp;
 
 // collectorGuess
-std::string collectorGuess(CharacterVector input, List locale_, bool guessInteger);
-RcppExport SEXP _readr_collectorGuess(SEXP inputSEXP, SEXP locale_SEXP, SEXP guessIntegerSEXP) {
+std::string collectorGuess(CharacterVector input, List locale_);
+RcppExport SEXP _readr_collectorGuess(SEXP inputSEXP, SEXP locale_SEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
     Rcpp::traits::input_parameter< CharacterVector >::type input(inputSEXP);
     Rcpp::traits::input_parameter< List >::type locale_(locale_SEXP);
-    Rcpp::traits::input_parameter< bool >::type guessInteger(guessIntegerSEXP);
-    rcpp_result_gen = Rcpp::wrap(collectorGuess(input, locale_, guessInteger));
+    rcpp_result_gen = Rcpp::wrap(collectorGuess(input, locale_));
     return rcpp_result_gen;
 END_RCPP
 }
@@ -95,20 +94,6 @@ BEGIN_RCPP
     Rcpp::traits::input_parameter< List >::type tokenizerSpec(tokenizerSpecSEXP);
     Rcpp::traits::input_parameter< int >::type n_max(n_maxSEXP);
     rcpp_result_gen = Rcpp::wrap(tokenize_(sourceSpec, tokenizerSpec, n_max));
-    return rcpp_result_gen;
-END_RCPP
-}
-// melt_tokens_
-List melt_tokens_(List sourceSpec, List tokenizerSpec, List locale_, int n_max);
-RcppExport SEXP _readr_melt_tokens_(SEXP sourceSpecSEXP, SEXP tokenizerSpecSEXP, SEXP locale_SEXP, SEXP n_maxSEXP) {
-BEGIN_RCPP
-    Rcpp::RObject rcpp_result_gen;
-    Rcpp::RNGScope rcpp_rngScope_gen;
-    Rcpp::traits::input_parameter< List >::type sourceSpec(sourceSpecSEXP);
-    Rcpp::traits::input_parameter< List >::type tokenizerSpec(tokenizerSpecSEXP);
-    Rcpp::traits::input_parameter< List >::type locale_(locale_SEXP);
-    Rcpp::traits::input_parameter< int >::type n_max(n_maxSEXP);
-    rcpp_result_gen = Rcpp::wrap(melt_tokens_(sourceSpec, tokenizerSpec, locale_, n_max));
     return rcpp_result_gen;
 END_RCPP
 }
@@ -335,14 +320,13 @@ END_RCPP
 }
 
 static const R_CallMethodDef CallEntries[] = {
-    {"_readr_collectorGuess", (DL_FUNC) &_readr_collectorGuess, 3},
+    {"_readr_collectorGuess", (DL_FUNC) &_readr_collectorGuess, 2},
     {"_readr_read_connection_", (DL_FUNC) &_readr_read_connection_, 2},
     {"_readr_utctime", (DL_FUNC) &_readr_utctime, 7},
     {"_readr_dim_tokens_", (DL_FUNC) &_readr_dim_tokens_, 2},
     {"_readr_count_fields_", (DL_FUNC) &_readr_count_fields_, 3},
     {"_readr_guess_header_", (DL_FUNC) &_readr_guess_header_, 3},
     {"_readr_tokenize_", (DL_FUNC) &_readr_tokenize_, 3},
-    {"_readr_melt_tokens_", (DL_FUNC) &_readr_melt_tokens_, 4},
     {"_readr_parse_vector_", (DL_FUNC) &_readr_parse_vector_, 5},
     {"_readr_read_file_", (DL_FUNC) &_readr_read_file_, 2},
     {"_readr_read_file_raw_", (DL_FUNC) &_readr_read_file_raw_, 1},
