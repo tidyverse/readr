@@ -58,9 +58,15 @@ melt_table <- function(file, locale = default_locale(), na = "NA", skip = 0,
 melt_table2 <- function(file, locale = default_locale(), na = "NA", skip = 0,
                        n_max = Inf, progress = show_progress(), comment = "",
                        skip_empty_rows = FALSE) {
+  ds <- datasource(file, skip = skip)
+  if (inherits(ds, "source_file") && empty_file(file)) {
+       return(tibble::data_frame(row = double(), col = double(),
+                                 data_type = character(), value = character()))
+  }
   tokenizer <- tokenizer_ws(na = na, comment = comment,
                             skip_empty_rows = skip_empty_rows)
 
-  melt_delimited(file, tokenizer, locale = locale, skip = skip,
+  ds <- datasource(file = ds, skip = skip)
+  melt_delimited(ds, tokenizer, locale = locale, skip = skip,
                  comment = comment, n_max = n_max, progress = progress)
 }
