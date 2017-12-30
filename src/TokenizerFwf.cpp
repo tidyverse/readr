@@ -103,7 +103,8 @@ List whitespaceColumns(List sourceSpec, int n = 100, std::string comment = "") {
   return List::create(_["begin"] = begin, _["end"] = end, _["skip"] = s.lines);
 }
 
-// TokenizerFwf ---------------------------------------------------------------
+  // TokenizerFwf
+  // ---------------------------------------------------------------
 
 #include "TokenizerFwf.h"
 #include <Rcpp.h>
@@ -182,7 +183,8 @@ Token TokenizerFwf::nextToken() {
     return Token(TOKEN_EOF, 0, 0);
 
   // Check for comments only at start of line
-  while (cur_ != end_ && col_ == 0 && (isComment(cur_) || (isEmpty() && skipEmptyRows_))) {
+  while (cur_ != end_ && col_ == 0 &&
+         (isComment(cur_) || (isEmpty() && skipEmptyRows_))) {
     // Skip rest of line
     while (cur_ != end_ && *cur_ != '\n' && *cur_ != '\r') {
       ++cur_;
@@ -244,7 +246,8 @@ findBeginning:
     for (int i = 0; i < width; ++i) {
       if (fieldEnd == end_ || *fieldEnd == '\n' || *fieldEnd == '\r') {
         if (!(col_ == 0 && !skipEmptyRows_))
-          warn(row_, col_, tfm::format("%i chars", width), tfm::format("%i", i));
+          warn(
+              row_, col_, tfm::format("%i chars", width), tfm::format("%i", i));
 
         tooShort = true;
         break;

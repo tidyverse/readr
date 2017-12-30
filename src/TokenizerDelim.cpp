@@ -24,7 +24,7 @@ TokenizerDelim::TokenizerDelim(
       quotedNA_(quotedNA),
       hasEmptyNA_(false),
       moreTokens_(false),
-      skipEmptyRows_(skipEmptyRows){
+      skipEmptyRows_(skipEmptyRows) {
   for (size_t i = 0; i < NA_.size(); ++i) {
     if (NA_[i] == "") {
       hasEmptyNA_ = true;

@@ -177,13 +177,15 @@ RObject Reader::meltToDataFrame(List locale_, int lines) {
   out[2] = collectors_[2]->vector();
   out[3] = collectors_[3]->vector();
 
-  out.attr("names") = CharacterVector::create("row", "col", "data_type", "value");
+  out.attr("names") =
+      CharacterVector::create("row", "col", "data_type", "value");
   out = warnings_.addAsAttribute(out);
 
   collectorsClear();
   warnings_.clear();
 
-  out.attr("names") = CharacterVector::create("row", "col", "data_type", "value");
+  out.attr("names") =
+      CharacterVector::create("row", "col", "data_type", "value");
   static Function as_tibble("as_tibble", Environment::namespace_env("tibble"));
   return as_tibble(out);
 }
@@ -232,8 +234,8 @@ int Reader::melt(List locale_, int lines) {
 
     switch (t_.type()) {
     case TOKEN_STRING: {
-      collectors_[2]->setValue(cells - 1,
-                               collectorGuess(t_.asString(), locale_, true));
+      collectors_[2]->setValue(
+          cells - 1, collectorGuess(t_.asString(), locale_, true));
       break;
     };
     case TOKEN_MISSING:

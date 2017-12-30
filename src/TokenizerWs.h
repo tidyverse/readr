@@ -18,7 +18,8 @@ class TokenizerWs : public Tokenizer {
 public:
   TokenizerWs(
       std::vector<std::string> NA = std::vector<std::string>(1, "NA"),
-      std::string comment = "", bool skipEmptyRows = true);
+      std::string comment = "",
+      bool skipEmptyRows = true);
 
   void tokenize(SourceIterator begin, SourceIterator end);
 
