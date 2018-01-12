@@ -7,15 +7,16 @@
 ## R CMD check results
 There were no ERRORs or WARNINGs.
 
-There were 2 NOTEs:
+There was 1 NOTEs:
 
 * checking compiled code ...NOTE
    File ‘readr/libs/readr.so’:
      Found non-API calls to R: ‘R_GetConnection’, ‘R_WriteConnection’
 
-   Compiled code should not call non-API entry points in R.
-
-   See ‘Writing portable packages’ in the ‘Writing R Extensions’ manual.
+* The xml2 package uses the connections API to read and write files to R
+connections. I don't believe there is an alternative other than using the
+connections API, and the connections code in readr has existed on CRAN since
+version 1.1.0, released on March 22nd, 2017.
 
 ## Downstream dependencies
 I ran `R CMD check` on 189 reverse dependencies
