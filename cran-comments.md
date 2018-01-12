@@ -5,7 +5,19 @@
 * Rhub
 
 ## R CMD check results
+There were no ERRORs or WARNINGs.
 
+There were 2 NOTEs:
+
+* checking compiled code ...NOTE
+   File ‘readr/libs/readr.so’:
+     Found non-API calls to R: ‘R_GetConnection’, ‘R_WriteConnection’
+
+   Compiled code should not call non-API entry points in R.
+
+   See ‘Writing portable packages’ in the ‘Writing R Extensions’ manual.
+
+## Downstream dependencies
 I ran `R CMD check` on 189 reverse dependencies
 (https://github.com/tidyverse/readr/tree/master/revdep#readme). There were 3 errors
 related to changes in readr.
