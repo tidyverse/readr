@@ -185,18 +185,17 @@ setting option <code>readr.show_progress</code> to <code>FALSE</code>.</p></td>
     <pre class="examples"><div class='input'><span class='fu'>read_log</span>(<span class='fu'><a href='readr_example.html'>readr_example</a></span>(<span class='st'>"example.log"</span>))</div><div class='output co'>#&gt; <span class='message'>Parsed with column specification:</span>
 #&gt; <span class='message'>cols(</span>
 #&gt; <span class='message'>  X1 = col_character(),</span>
-#&gt; <span class='message'>  X2 = col_character(),</span>
+#&gt; <span class='message'>  X2 = col_logical(),</span>
 #&gt; <span class='message'>  X3 = col_character(),</span>
 #&gt; <span class='message'>  X4 = col_character(),</span>
 #&gt; <span class='message'>  X5 = col_character(),</span>
 #&gt; <span class='message'>  X6 = col_double(),</span>
 #&gt; <span class='message'>  X7 = col_double()</span>
 #&gt; <span class='message'>)</span></div><div class='output co'>#&gt; # A tibble: 2 x 7
-#&gt;             X1    X2                   X3                         X4
-#&gt;          &lt;chr&gt; &lt;chr&gt;                &lt;chr&gt;                      &lt;chr&gt;
-#&gt; 1 172.21.13.45  &lt;NA&gt; "Microsoft\\JohnDoe" 08/Apr/2001:17:39:04 -0800
-#&gt; 2    127.0.0.1  &lt;NA&gt;                frank 10/Oct/2000:13:55:36 -0700
-#&gt; # ... with 3 more variables: X5 &lt;chr&gt;, X6 &lt;dbl&gt;, X7 &lt;dbl&gt;</div></pre>
+#&gt;   X1           X2    X3                   X4         X5                X6    X7
+#&gt;   &lt;chr&gt;        &lt;lgl&gt; &lt;chr&gt;                &lt;chr&gt;      &lt;chr&gt;          &lt;dbl&gt; &lt;dbl&gt;
+#&gt; 1 172.21.13.45 NA    "Microsoft\\JohnDoe" 08/Apr/20… GET /scripts/…   200  3401
+#&gt; 2 127.0.0.1    NA    frank                10/Oct/20… GET /apache_p…   200  2326</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>

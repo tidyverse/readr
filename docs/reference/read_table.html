@@ -252,19 +252,19 @@ tabular data with non-standard formatting.</p>
 #&gt; <span class='message'>  Team = col_character(),</span>
 #&gt; <span class='message'>  Conf = col_character()</span>
 #&gt; <span class='message'>)</span></div><div class='output co'>#&gt; # A tibble: 10 x 13
-#&gt;      UCC   PAY   LAZ   KPK    RT   COF   BIH   DII   ENG   ACU  Rank
-#&gt;    &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;
-#&gt;  1     1     1     1     1     1     1     1     1     1     1     1
-#&gt;  2     2     2     2     2     2     2     2     2     4     2     2
-#&gt;  3     3     4     3     4     3     4     3     4     2     3     3
-#&gt;  4     4     3     4     3     4     3     5     3     3     4     4
-#&gt;  5     6     6     6     5     5     7     6     5     6    11     5
-#&gt;  6     7     7     7     6     7     6    11     8     7     8     6
-#&gt;  7     5     5     5     7     6     8     4     6     5     5     7
-#&gt;  8     8     8     9     9    10     5     7     7    10     7     8
-#&gt;  9     9    11     8    13    11    11    12     9    14     9     9
-#&gt; 10    13    10    13    11     8     9    10    11     9    10    10
-#&gt; # ... with 2 more variables: Team &lt;chr&gt;, Conf &lt;chr&gt;</div><div class='input'>
+#&gt;      UCC   PAY   LAZ   KPK    RT   COF   BIH   DII   ENG   ACU  Rank Team      
+#&gt;    &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;chr&gt;     
+#&gt;  1  1.00  1.00  1.00  1.00  1.00  1.00  1.00  1.00  1.00  1.00  1.00 Ohio St   
+#&gt;  2  2.00  2.00  2.00  2.00  2.00  2.00  2.00  2.00  4.00  2.00  2.00 Oregon    
+#&gt;  3  3.00  4.00  3.00  4.00  3.00  4.00  3.00  4.00  2.00  3.00  3.00 Alabama   
+#&gt;  4  4.00  3.00  4.00  3.00  4.00  3.00  5.00  3.00  3.00  4.00  4.00 TCU       
+#&gt;  5  6.00  6.00  6.00  5.00  5.00  7.00  6.00  5.00  6.00 11.0   5.00 Michigan …
+#&gt;  6  7.00  7.00  7.00  6.00  7.00  6.00 11.0   8.00  7.00  8.00  6.00 Georgia   
+#&gt;  7  5.00  5.00  5.00  7.00  6.00  8.00  4.00  6.00  5.00  5.00  7.00 Florida St
+#&gt;  8  8.00  8.00  9.00  9.00 10.0   5.00  7.00  7.00 10.0   7.00  8.00 Baylor    
+#&gt;  9  9.00 11.0   8.00 13.0  11.0  11.0  12.0   9.00 14.0   9.00  9.00 Georgia T…
+#&gt; 10 13.0  10.0  13.0  11.0   8.00  9.00 10.0  11.0   9.00 10.0  10.0  Mississip…
+#&gt; # ... with 1 more variable: Conf &lt;chr&gt;</div><div class='input'>
 <span class='co'># Sample of 1978 fuel economy data from</span>
 <span class='co'># http://www.fueleconomy.gov/feg/epadata/78data.zip</span>
 <span class='no'>epa</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='readr_example.html'>readr_example</a></span>(<span class='st'>"epa78.txt"</span>)
@@ -302,29 +302,28 @@ tabular data with non-standard formatting.</p>
 #&gt; <span class='message'>  X11 = col_character(),</span>
 #&gt; <span class='message'>  X12 = col_double()</span>
 #&gt; <span class='message'>)</span></div><div class='output co'>#&gt; # A tibble: 20 x 12
-#&gt;               X1    X2    X3    X4    X5    X6    X7    X8    X9   X10
-#&gt;            &lt;chr&gt; &lt;chr&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;
-#&gt;  1    ALFA ROMEO          NA    NA    NA    NA    NA    NA    NA    NA
-#&gt;  2       ALFETTA    03    81     8    74     7    89     9    NA    NA
-#&gt;  3   SPIDER 2000    01    NA    NA    NA    NA    NA    NA    NA    NA
-#&gt;  4           AMC          NA    NA    NA    NA    NA    NA    NA    NA
-#&gt;  5       GREMLIN    03    79     9    NA    NA    NA    NA    79     9
-#&gt;  6         PACER    04    89    11    NA    NA    NA    NA    89    11
-#&gt;  7   PACER WAGON    07    90    26    91    26    NA    NA    NA    NA
-#&gt;  8       CONCORD    04    88    12    90    11    90    11    83    16
-#&gt;  9 CONCORD WAGON    07    91    30    NA    NA    91    30    NA    NA
-#&gt; 10 MATADOR COUPE    05    97    14    97    14    NA    NA    NA    NA
-#&gt; 11 MATADOR SEDAN    06   110    20    NA    NA   110    20    NA    NA
-#&gt; 12 MATADOR WAGON    09   112    50    NA    NA   112    50    NA    NA
-#&gt; 13  ASTON MARTIN          NA    NA    NA    NA    NA    NA    NA    NA
-#&gt; 14  ASTON MARTIN          NA    NA    NA    NA    NA    NA    NA    NA
-#&gt; 15          AUDI          NA    NA    NA    NA    NA    NA    NA    NA
-#&gt; 16           FOX    03    84    11    84    11    84    11    NA    NA
-#&gt; 17     FOX WAGON    07    83    40    NA    NA    83    40    NA    NA
-#&gt; 18          5000    04    90    15    NA    NA    90    15    NA    NA
-#&gt; 19        AVANTI          NA    NA    NA    NA    NA    NA    NA    NA
-#&gt; 20     AVANTI II    02    75     8    75     8    NA    NA    NA    NA
-#&gt; # ... with 2 more variables: X11 &lt;chr&gt;, X12 &lt;dbl&gt;</div></pre>
+#&gt;    X1      X2       X3    X4    X5    X6    X7    X8    X9   X10 X11        X12
+#&gt;    &lt;chr&gt;   &lt;chr&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;chr&gt;    &lt;dbl&gt;
+#&gt;  1 ALFA R… ""     NA   NA     NA   NA     NA   NA     NA   NA    ALFA R… 7.80e⁷
+#&gt;  2 ALFETTA 03     81.0  8.00  74.0  7.00  89.0  9.00  NA   NA    ALFETTA 7.80e⁷
+#&gt;  3 SPIDER… 01     NA   NA     NA   NA     NA   NA     NA   NA    SPIDER… 7.80e⁷
+#&gt;  4 AMC     ""     NA   NA     NA   NA     NA   NA     NA   NA    AMC     7.80e⁷
+#&gt;  5 GREMLIN 03     79.0  9.00  NA   NA     NA   NA     79.0  9.00 GREMLIN 7.80e⁷
+#&gt;  6 PACER   04     89.0 11.0   NA   NA     NA   NA     89.0 11.0  PACER   7.80e⁷
+#&gt;  7 PACER … 07     90.0 26.0   91.0 26.0   NA   NA     NA   NA    PACER … 7.80e⁷
+#&gt;  8 CONCORD 04     88.0 12.0   90.0 11.0   90.0 11.0   83.0 16.0  CONCORD 7.80e⁷
+#&gt;  9 CONCOR… 07     91.0 30.0   NA   NA     91.0 30.0   NA   NA    CONCOR… 7.80e⁷
+#&gt; 10 MATADO… 05     97.0 14.0   97.0 14.0   NA   NA     NA   NA    MATADO… 7.80e⁷
+#&gt; 11 MATADO… 06    110   20.0   NA   NA    110   20.0   NA   NA    MATADO… 7.80e⁷
+#&gt; 12 MATADO… 09    112   50.0   NA   NA    112   50.0   NA   NA    MATADO… 7.80e⁷
+#&gt; 13 ASTON … ""     NA   NA     NA   NA     NA   NA     NA   NA    ASTON … 7.80e⁷
+#&gt; 14 ASTON … ""     NA   NA     NA   NA     NA   NA     NA   NA    ASTON … 7.80e⁷
+#&gt; 15 AUDI    ""     NA   NA     NA   NA     NA   NA     NA   NA    AUDI    7.81e⁷
+#&gt; 16 FOX     03     84.0 11.0   84.0 11.0   84.0 11.0   NA   NA    FOX     7.81e⁷
+#&gt; 17 FOX WA… 07     83.0 40.0   NA   NA     83.0 40.0   NA   NA    FOX WA… 7.81e⁷
+#&gt; 18 5000    04     90.0 15.0   NA   NA     90.0 15.0   NA   NA    5000    7.81e⁷
+#&gt; 19 AVANTI  ""     NA   NA     NA   NA     NA   NA     NA   NA    AVANTI  7.81e⁷
+#&gt; 20 AVANTI… 02     75.0  8.00  75.0  8.00  NA   NA     NA   NA    AVANTI… 7.81e⁷</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>

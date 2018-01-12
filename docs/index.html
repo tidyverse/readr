@@ -91,40 +91,31 @@
     
 <div class="contents">
 <!-- README.md is generated from README.Rmd. Please edit that file -->
-<div id="readr" class="section level1">
+<section id="readr" class="level1">
 
-
-<div id="overview" class="section level2">
-<h2 class="hasAnchor">
-<a href="#overview" class="anchor"></a>Overview</h2>
+<section id="overview" class="level2"><h2>Overview</h2>
 <p>The goal of readr is to provide a fast and friendly way to read rectangular data (like csv, tsv, and fwf). It is designed to flexibly parse many types of data found in the wild, while still cleanly failing when data unexpectedly changes. If you are new to readr, the best place to start is the <a href="http://r4ds.had.co.nz/data-import.html">data import chapter</a> in R for data science.</p>
-</div>
-<div id="installation" class="section level2">
-<h2 class="hasAnchor">
-<a href="#installation" class="anchor"></a>Installation</h2>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># The easiest way to get readr is to install the whole tidyverse:</span>
-<span class="kw">install.packages</span>(<span class="st">"tidyverse"</span>)
-
-<span class="co"># Alternatively, install just readr:</span>
-<span class="kw">install.packages</span>(<span class="st">"readr"</span>)
-
-<span class="co"># Or the the development version from GitHub:</span>
-<span class="co"># install.packages("devtools")</span>
-devtools<span class="op">::</span><span class="kw"><a href="http://www.rdocumentation.org/packages/devtools/topics/install_github">install_github</a></span>(<span class="st">"tidyverse/readr"</span>)</code></pre></div>
-</div>
-<div id="usage" class="section level2">
-<h2 class="hasAnchor">
-<a href="#usage" class="anchor"></a>Usage</h2>
+</section><section id="installation" class="level2"><h2>Installation</h2>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1-1" data-line-number="1"><span class="co"># The easiest way to get readr is to install the whole tidyverse:</span></a>
+<a class="sourceLine" id="cb1-2" data-line-number="2"><span class="kw">install.packages</span>(<span class="st">"tidyverse"</span>)</a>
+<a class="sourceLine" id="cb1-3" data-line-number="3"></a>
+<a class="sourceLine" id="cb1-4" data-line-number="4"><span class="co"># Alternatively, install just readr:</span></a>
+<a class="sourceLine" id="cb1-5" data-line-number="5"><span class="kw">install.packages</span>(<span class="st">"readr"</span>)</a>
+<a class="sourceLine" id="cb1-6" data-line-number="6"></a>
+<a class="sourceLine" id="cb1-7" data-line-number="7"><span class="co"># Or the the development version from GitHub:</span></a>
+<a class="sourceLine" id="cb1-8" data-line-number="8"><span class="co"># install.packages("devtools")</span></a>
+<a class="sourceLine" id="cb1-9" data-line-number="9">devtools<span class="op">::</span><span class="kw"><a href="http://www.rdocumentation.org/packages/devtools/topics/install_github">install_github</a></span>(<span class="st">"tidyverse/readr"</span>)</a></code></pre></div>
+</section><section id="usage" class="level2"><h2>Usage</h2>
 <p>readr is part of the core tidyverse, so load it with:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(tidyverse)
-<span class="co">#&gt; ── Attaching packages ────────────────────────────────── tidyverse 1.2.1 ──</span>
-<span class="co">#&gt; ✔ ggplot2 2.2.1     ✔ purrr   0.2.4</span>
-<span class="co">#&gt; ✔ tibble  1.3.4     ✔ dplyr   0.7.4</span>
-<span class="co">#&gt; ✔ tidyr   0.7.2     ✔ stringr 1.2.0</span>
-<span class="co">#&gt; ✔ readr   1.1.1     ✔ forcats 0.2.0</span>
-<span class="co">#&gt; ── Conflicts ───────────────────────────────────── tidyverse_conflicts() ──</span>
-<span class="co">#&gt; ✖ dplyr::filter() masks stats::filter()</span>
-<span class="co">#&gt; ✖ dplyr::lag()    masks stats::lag()</span></code></pre></div>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb2-1" data-line-number="1"><span class="kw">library</span>(tidyverse)</a>
+<a class="sourceLine" id="cb2-2" data-line-number="2"><span class="co">#&gt; ── Attaching packages ────────────────────────────────── tidyverse 1.2.1 ──</span></a>
+<a class="sourceLine" id="cb2-3" data-line-number="3"><span class="co">#&gt; ✔ ggplot2 2.2.1          ✔ purrr   0.2.4     </span></a>
+<a class="sourceLine" id="cb2-4" data-line-number="4"><span class="co">#&gt; ✔ tibble  1.4.1          ✔ dplyr   0.7.4     </span></a>
+<a class="sourceLine" id="cb2-5" data-line-number="5"><span class="co">#&gt; ✔ tidyr   0.7.2          ✔ stringr 1.2.0     </span></a>
+<a class="sourceLine" id="cb2-6" data-line-number="6"><span class="co">#&gt; ✔ readr   1.1.1.9000     ✔ forcats 0.2.0</span></a>
+<a class="sourceLine" id="cb2-7" data-line-number="7"><span class="co">#&gt; ── Conflicts ───────────────────────────────────── tidyverse_conflicts() ──</span></a>
+<a class="sourceLine" id="cb2-8" data-line-number="8"><span class="co">#&gt; ✖ dplyr::filter() masks stats::filter()</span></a>
+<a class="sourceLine" id="cb2-9" data-line-number="9"><span class="co">#&gt; ✖ dplyr::lag()    masks stats::lag()</span></a></code></pre></div>
 <p>To accurately read a rectangular dataset with readr you combine two pieces: a function that parses the overall file, and a column specification. The column specification describes how each column should be converted from a character vector to the most appropriate data type, and in most cases it’s not necessary because readr will guess it for you automatically.</p>
 <p>readr supports seven file formats with seven <code>read_</code> functions:</p>
 <ul>
@@ -142,46 +133,41 @@ devtools<span class="op">::</span><span class="kw"><a href="http://www.rdocument
 <code><a href="reference/read_log.html">read_log()</a></code>: web log files</li>
 </ul>
 <p>In many cases, these functions will just work: you supply the path to a file and you get a tibble back. The following example loads a sample file bundled with readr:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">mtcars &lt;-<span class="st"> </span><span class="kw"><a href="reference/read_delim.html">read_csv</a></span>(<span class="kw"><a href="reference/readr_example.html">readr_example</a></span>(<span class="st">"mtcars.csv"</span>))
-<span class="co">#&gt; Parsed with column specification:</span>
-<span class="co">#&gt; cols(</span>
-<span class="co">#&gt;   mpg = col_double(),</span>
-<span class="co">#&gt;   cyl = col_integer(),</span>
-<span class="co">#&gt;   disp = col_double(),</span>
-<span class="co">#&gt;   hp = col_integer(),</span>
-<span class="co">#&gt;   drat = col_double(),</span>
-<span class="co">#&gt;   wt = col_double(),</span>
-<span class="co">#&gt;   qsec = col_double(),</span>
-<span class="co">#&gt;   vs = col_integer(),</span>
-<span class="co">#&gt;   am = col_integer(),</span>
-<span class="co">#&gt;   gear = col_integer(),</span>
-<span class="co">#&gt;   carb = col_integer()</span>
-<span class="co">#&gt; )</span></code></pre></div>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb3-1" data-line-number="1">mtcars &lt;-<span class="st"> </span><span class="kw"><a href="reference/read_delim.html">read_csv</a></span>(<span class="kw"><a href="reference/readr_example.html">readr_example</a></span>(<span class="st">"mtcars.csv"</span>))</a>
+<a class="sourceLine" id="cb3-2" data-line-number="2"><span class="co">#&gt; Parsed with column specification:</span></a>
+<a class="sourceLine" id="cb3-3" data-line-number="3"><span class="co">#&gt; cols(</span></a>
+<a class="sourceLine" id="cb3-4" data-line-number="4"><span class="co">#&gt;   mpg = col_double(),</span></a>
+<a class="sourceLine" id="cb3-5" data-line-number="5"><span class="co">#&gt;   cyl = col_double(),</span></a>
+<a class="sourceLine" id="cb3-6" data-line-number="6"><span class="co">#&gt;   disp = col_double(),</span></a>
+<a class="sourceLine" id="cb3-7" data-line-number="7"><span class="co">#&gt;   hp = col_double(),</span></a>
+<a class="sourceLine" id="cb3-8" data-line-number="8"><span class="co">#&gt;   drat = col_double(),</span></a>
+<a class="sourceLine" id="cb3-9" data-line-number="9"><span class="co">#&gt;   wt = col_double(),</span></a>
+<a class="sourceLine" id="cb3-10" data-line-number="10"><span class="co">#&gt;   qsec = col_double(),</span></a>
+<a class="sourceLine" id="cb3-11" data-line-number="11"><span class="co">#&gt;   vs = col_double(),</span></a>
+<a class="sourceLine" id="cb3-12" data-line-number="12"><span class="co">#&gt;   am = col_double(),</span></a>
+<a class="sourceLine" id="cb3-13" data-line-number="13"><span class="co">#&gt;   gear = col_double(),</span></a>
+<a class="sourceLine" id="cb3-14" data-line-number="14"><span class="co">#&gt;   carb = col_double()</span></a>
+<a class="sourceLine" id="cb3-15" data-line-number="15"><span class="co">#&gt; )</span></a></code></pre></div>
 <p>Note that readr prints the column specification. This is useful because it allows you to check that the columns have been read in as you expect, and if they haven’t, you can easily copy and paste into a new call:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">mtcars &lt;-<span class="st"> </span><span class="kw"><a href="reference/read_delim.html">read_csv</a></span>(<span class="kw"><a href="reference/readr_example.html">readr_example</a></span>(<span class="st">"mtcars.csv"</span>), <span class="dt">col_types =</span> 
-  <span class="kw"><a href="reference/cols.html">cols</a></span>(
-    <span class="dt">mpg =</span> <span class="kw"><a href="reference/parse_atomic.html">col_double</a></span>(),
-    <span class="dt">cyl =</span> <span class="kw"><a href="reference/parse_atomic.html">col_integer</a></span>(),
-    <span class="dt">disp =</span> <span class="kw"><a href="reference/parse_atomic.html">col_double</a></span>(),
-    <span class="dt">hp =</span> <span class="kw"><a href="reference/parse_atomic.html">col_integer</a></span>(),
-    <span class="dt">drat =</span> <span class="kw"><a href="reference/parse_atomic.html">col_double</a></span>(),
-    <span class="dt">vs =</span> <span class="kw"><a href="reference/parse_atomic.html">col_integer</a></span>(),
-    <span class="dt">wt =</span> <span class="kw"><a href="reference/parse_atomic.html">col_double</a></span>(),
-    <span class="dt">qsec =</span> <span class="kw"><a href="reference/parse_atomic.html">col_double</a></span>(),
-    <span class="dt">am =</span> <span class="kw"><a href="reference/parse_atomic.html">col_integer</a></span>(),
-    <span class="dt">gear =</span> <span class="kw"><a href="reference/parse_atomic.html">col_integer</a></span>(),
-    <span class="dt">carb =</span> <span class="kw"><a href="reference/parse_atomic.html">col_integer</a></span>()
-  )
-)</code></pre></div>
+<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb4-1" data-line-number="1">mtcars &lt;-<span class="st"> </span><span class="kw"><a href="reference/read_delim.html">read_csv</a></span>(<span class="kw"><a href="reference/readr_example.html">readr_example</a></span>(<span class="st">"mtcars.csv"</span>), <span class="dt">col_types =</span> </a>
+<a class="sourceLine" id="cb4-2" data-line-number="2">  <span class="kw"><a href="reference/cols.html">cols</a></span>(</a>
+<a class="sourceLine" id="cb4-3" data-line-number="3">    <span class="dt">mpg =</span> <span class="kw"><a href="reference/parse_atomic.html">col_double</a></span>(),</a>
+<a class="sourceLine" id="cb4-4" data-line-number="4">    <span class="dt">cyl =</span> <span class="kw"><a href="reference/parse_atomic.html">col_integer</a></span>(),</a>
+<a class="sourceLine" id="cb4-5" data-line-number="5">    <span class="dt">disp =</span> <span class="kw"><a href="reference/parse_atomic.html">col_double</a></span>(),</a>
+<a class="sourceLine" id="cb4-6" data-line-number="6">    <span class="dt">hp =</span> <span class="kw"><a href="reference/parse_atomic.html">col_integer</a></span>(),</a>
+<a class="sourceLine" id="cb4-7" data-line-number="7">    <span class="dt">drat =</span> <span class="kw"><a href="reference/parse_atomic.html">col_double</a></span>(),</a>
+<a class="sourceLine" id="cb4-8" data-line-number="8">    <span class="dt">vs =</span> <span class="kw"><a href="reference/parse_atomic.html">col_integer</a></span>(),</a>
+<a class="sourceLine" id="cb4-9" data-line-number="9">    <span class="dt">wt =</span> <span class="kw"><a href="reference/parse_atomic.html">col_double</a></span>(),</a>
+<a class="sourceLine" id="cb4-10" data-line-number="10">    <span class="dt">qsec =</span> <span class="kw"><a href="reference/parse_atomic.html">col_double</a></span>(),</a>
+<a class="sourceLine" id="cb4-11" data-line-number="11">    <span class="dt">am =</span> <span class="kw"><a href="reference/parse_atomic.html">col_integer</a></span>(),</a>
+<a class="sourceLine" id="cb4-12" data-line-number="12">    <span class="dt">gear =</span> <span class="kw"><a href="reference/parse_atomic.html">col_integer</a></span>(),</a>
+<a class="sourceLine" id="cb4-13" data-line-number="13">    <span class="dt">carb =</span> <span class="kw"><a href="reference/parse_atomic.html">col_integer</a></span>()</a>
+<a class="sourceLine" id="cb4-14" data-line-number="14">  )</a>
+<a class="sourceLine" id="cb4-15" data-line-number="15">)</a></code></pre></div>
 <p><code><a href="articles/readr.html">vignette("readr")</a></code> gives more detail on how readr guess the column types, how you can override the defaults, and provides some useful tools for debugging parsing problems.</p>
-</div>
-<div id="alternatives" class="section level2">
-<h2 class="hasAnchor">
-<a href="#alternatives" class="anchor"></a>Alternatives</h2>
+</section><section id="alternatives" class="level2"><h2>Alternatives</h2>
 <p>There are two main alternatives to readr: base R and data.table’s <code>fread()</code>. The most important differences are discussed below.</p>
-<div id="base-r" class="section level3">
-<h3 class="hasAnchor">
-<a href="#base-r" class="anchor"></a>Base R</h3>
+<section id="base-r" class="level3"><h3>Base R</h3>
 <p>Compared to the corresponding base functions, readr functions:</p>
 <ul>
 <li><p>Use a consistent naming scheme for the parameters (e.g. <code>col_names</code> and <code>col_types</code> not <code>header</code> and <code>colClasses</code>).</p></li>
@@ -189,11 +175,7 @@ devtools<span class="op">::</span><span class="kw"><a href="http://www.rdocument
 <li><p>Leave strings as is by default, and automatically parse common date/time formats.</p></li>
 <li><p>Have a helpful progress bar if loading is going to take a while.</p></li>
 <li><p>All functions work exactly the same way regardless of the current locale. To override the US-centric defaults, use <code><a href="reference/locale.html">locale()</a></code>.</p></li>
-</ul>
-</div>
-<div id="data-table-and-fread" class="section level3">
-<h3 class="hasAnchor">
-<a href="#data-table-and-fread" class="anchor"></a>data.table and <code>fread()</code>
+</ul></section><section id="data.table-and-fread" class="level3"><h3>data.table and <code>fread()</code>
 </h3>
 <p><a href="https://github.com/Rdatatable/data.table">data.table</a> has a function similar to <code><a href="reference/read_delim.html">read_csv()</a></code> called fread. Compared to fread, readr functions:</p>
 <ul>
@@ -201,20 +183,15 @@ devtools<span class="op">::</span><span class="kw"><a href="http://www.rdocument
 <li><p>Use a slightly more sophisticated parser, recognising both doubled (<code>""""</code>) and backslash escapes (<code>"\""</code>), and can produce factors and date/times directly.</p></li>
 <li><p>Forces you to supply all parameters, where <code>fread()</code> saves you work by automatically guessing the delimiter, whether or not the file has a header, and how many lines to skip.</p></li>
 <li><p>Are built on a different underlying infrastructure. Readr functions are designed to be quite general, which makes it easier to add support for new rectangular data formats. <code>fread()</code> is designed to be as fast as possible.</p></li>
-</ul>
-</div>
-</div>
-<div id="acknowledgements" class="section level2">
-<h2 class="hasAnchor">
-<a href="#acknowledgements" class="anchor"></a>Acknowledgements</h2>
+</ul></section></section><section id="acknowledgements" class="level2"><h2>Acknowledgements</h2>
 <p>Thanks to:</p>
 <ul>
 <li><p><a href="https://github.com/jcheng5">Joe Cheng</a> for showing me the beauty of deterministic finite automata for parsing, and for teaching me why I should write a tokenizer.</p></li>
 <li><p><a href="https://github.com/jjallaire">JJ Allaire</a> for helping me come up with a design that makes very few copies, and is easy to extend.</p></li>
 <li><p><a href="http://dirk.eddelbuettel.com">Dirk Eddelbuettel</a> for coming up with the name!</p></li>
 </ul>
-</div>
-</div>
+<p>Please note that this project is released with a <a href="CONDUCT.md">Contributor Code of Conduct</a>. By participating in this project you agree to abide by its terms.</p>
+</section></section>
 </div>
   </div>
 
