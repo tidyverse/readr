@@ -103,7 +103,7 @@ List whitespaceColumns(List sourceSpec, int n = 100, std::string comment = "") {
   return List::create(_["begin"] = begin, _["end"] = end, _["skip"] = s.lines);
 }
 
-// TokenizerFwf ---------------------------------------------------------------
+  // TokenizerFwf --------------------------------------------------------------
 
 #include "TokenizerFwf.h"
 #include <Rcpp.h>
