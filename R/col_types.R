@@ -16,7 +16,7 @@
 #' cols(a = "i", b = "d", c = "_")
 #'
 #' # You can also use multiple sets of column definitions by combining
-#' them like so:
+#' # them like so:
 #'
 #' t1 <- cols(
 #'   column_one = col_integer(),
