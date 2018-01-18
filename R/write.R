@@ -63,8 +63,8 @@ write_delim <- function(x, path, delim = " ", na = "NA", append = FALSE,
                         col_names = !append) {
   stopifnot(is.data.frame(x))
 
-  x_out <- lapply(x, output_column)
-  stream_delim(x_out, path, delim, col_names = col_names, append = append,
+  x[] <- lapply(x, output_column)
+  stream_delim(x, path, delim, col_names = col_names, append = append,
     na = na)
 
   invisible(x)
@@ -81,8 +81,11 @@ write_csv <- function(x, path, na = "NA", append = FALSE, col_names = !append) {
 write_excel_csv <- function(x, path, na = "NA", append = FALSE, col_names = !append, delim = ",") {
   stopifnot(is.data.frame(x))
 
-  x_out <- lapply(x, output_column)
-  stream_delim(x_out, path, delim, col_names = col_names, append = append,
+  datetime_cols <- vapply(x, inherits, logical(1), "POSIXt")
+  x[datetime_cols] <- lapply(x[datetime_cols], format, "%Y/%m/%d %H:%M:%S")
+
+  x[] <- lapply(x, output_column)
+  stream_delim(x, path, delim, col_names = col_names, append = append,
     na = na, bom = TRUE)
 
   invisible(x)
@@ -95,6 +98,11 @@ write_excel_csv2 <- function(x, path, na = "NA", append = FALSE, col_names = !ap
 
   numeric_cols <- vapply(x, is.numeric, logical(1))
   x[numeric_cols] <- lapply(x[numeric_cols], format, decimal.mark = ",")
+
+  datetime_cols <- vapply(x, inherits, logical(1), "POSIXt")
+  x[datetime_cols] <- lapply(x[datetime_cols], format, "%Y/%m/%d %H:%M:%S")
+
+  x[] <- lapply(x, output_column)
   write_excel_csv(x, path, na, append, col_names, delim)
 }
 
@@ -115,7 +123,7 @@ write_tsv <- function(x, path, na = "NA", append = FALSE, col_names = !append) {
 format_delim <- function(x, delim, na = "NA", append = FALSE, col_names = !append) {
   stopifnot(is.data.frame(x))
 
-  x <- lapply(x, output_column)
+  x[] <- lapply(x, output_column)
   res <- stream_delim(x, NULL, delim, col_names = col_names, append = append, na = na)
   Encoding(res) <- "UTF-8"
   res

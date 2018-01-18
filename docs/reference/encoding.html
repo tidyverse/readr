@@ -140,18 +140,18 @@ file will be read.</p></td>
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='fu'>guess_encoding</span>(<span class='fu'><a href='readr_example.html'>readr_example</a></span>(<span class='st'>"mtcars.csv"</span>))</div><div class='output co'>#&gt; # A tibble: 1 x 2
 #&gt;   encoding confidence
-#&gt;      &lt;chr&gt;      &lt;dbl&gt;
-#&gt; 1    ASCII          1</div><div class='input'><span class='fu'>guess_encoding</span>(<span class='fu'><a href='read_lines.html'>read_lines_raw</a></span>(<span class='fu'><a href='readr_example.html'>readr_example</a></span>(<span class='st'>"mtcars.csv"</span>)))</div><div class='output co'>#&gt; # A tibble: 1 x 2
+#&gt;   &lt;chr&gt;         &lt;dbl&gt;
+#&gt; 1 ASCII          1.00</div><div class='input'><span class='fu'>guess_encoding</span>(<span class='fu'><a href='read_lines.html'>read_lines_raw</a></span>(<span class='fu'><a href='readr_example.html'>readr_example</a></span>(<span class='st'>"mtcars.csv"</span>)))</div><div class='output co'>#&gt; # A tibble: 1 x 2
 #&gt;   encoding confidence
-#&gt;      &lt;chr&gt;      &lt;dbl&gt;
-#&gt; 1    ASCII          1</div><div class='input'><span class='fu'>guess_encoding</span>(<span class='fu'><a href='read_file.html'>read_file_raw</a></span>(<span class='fu'><a href='readr_example.html'>readr_example</a></span>(<span class='st'>"mtcars.csv"</span>)))</div><div class='output co'>#&gt; # A tibble: 1 x 2
+#&gt;   &lt;chr&gt;         &lt;dbl&gt;
+#&gt; 1 ASCII          1.00</div><div class='input'><span class='fu'>guess_encoding</span>(<span class='fu'><a href='read_file.html'>read_file_raw</a></span>(<span class='fu'><a href='readr_example.html'>readr_example</a></span>(<span class='st'>"mtcars.csv"</span>)))</div><div class='output co'>#&gt; # A tibble: 1 x 2
 #&gt;   encoding confidence
-#&gt;      &lt;chr&gt;      &lt;dbl&gt;
-#&gt; 1    ASCII          1</div><div class='input'>
+#&gt;   &lt;chr&gt;         &lt;dbl&gt;
+#&gt; 1 ASCII          1.00</div><div class='input'>
 <span class='fu'>guess_encoding</span>(<span class='st'>"a\n\u00b5\u00b5"</span>)</div><div class='output co'>#&gt; # A tibble: 1 x 2
 #&gt;   encoding confidence
-#&gt;      &lt;chr&gt;      &lt;dbl&gt;
-#&gt; 1    UTF-8        0.8</div></pre>
+#&gt;   &lt;chr&gt;         &lt;dbl&gt;
+#&gt; 1 UTF-8         0.800</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>

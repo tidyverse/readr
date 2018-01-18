@@ -33,10 +33,10 @@ readr is part of the core tidyverse, so load it with:
 ``` r
 library(tidyverse)
 #> ── Attaching packages ────────────────────────────────── tidyverse 1.2.1 ──
-#> ✔ ggplot2 2.2.1     ✔ purrr   0.2.4
-#> ✔ tibble  1.3.4     ✔ dplyr   0.7.4
-#> ✔ tidyr   0.7.2     ✔ stringr 1.2.0
-#> ✔ readr   1.1.1     ✔ forcats 0.2.0
+#> ✔ ggplot2 2.2.1          ✔ purrr   0.2.4     
+#> ✔ tibble  1.3.4          ✔ dplyr   0.7.4     
+#> ✔ tidyr   0.7.2          ✔ stringr 1.2.0     
+#> ✔ readr   1.1.1.9000     ✔ forcats 0.2.0
 #> ── Conflicts ───────────────────────────────────── tidyverse_conflicts() ──
 #> ✖ dplyr::filter() masks stats::filter()
 #> ✖ dplyr::lag()    masks stats::lag()
@@ -60,16 +60,16 @@ mtcars <- read_csv(readr_example("mtcars.csv"))
 #> Parsed with column specification:
 #> cols(
 #>   mpg = col_double(),
-#>   cyl = col_integer(),
+#>   cyl = col_double(),
 #>   disp = col_double(),
-#>   hp = col_integer(),
+#>   hp = col_double(),
 #>   drat = col_double(),
 #>   wt = col_double(),
 #>   qsec = col_double(),
-#>   vs = col_integer(),
-#>   am = col_integer(),
-#>   gear = col_integer(),
-#>   carb = col_integer()
+#>   vs = col_double(),
+#>   am = col_double(),
+#>   gear = col_double(),
+#>   carb = col_double()
 #> )
 ```
 
@@ -136,3 +136,5 @@ Thanks to:
 -   [JJ Allaire](https://github.com/jjallaire) for helping me come up with a design that makes very few copies, and is easy to extend.
 
 -   [Dirk Eddelbuettel](http://dirk.eddelbuettel.com) for coming up with the name!
+
+Please note that this project is released with a [Contributor Code of Conduct](CONDUCT.md). By participating in this project you agree to abide by its terms.

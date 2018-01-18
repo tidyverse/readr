@@ -112,7 +112,7 @@ warnings if elements of <code>x</code> are not found in <code>levels</code>.</p>
     
 
     <pre class="usage"><span class='fu'>parse_factor</span>(<span class='no'>x</span>, <span class='no'>levels</span>, <span class='kw'>ordered</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>na</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='st'>""</span>, <span class='st'>"NA"</span>),
-  <span class='kw'>locale</span> <span class='kw'>=</span> <span class='fu'><a href='locale.html'>default_locale</a></span>(), <span class='kw'>include_na</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)
+  <span class='kw'>locale</span> <span class='kw'>=</span> <span class='fu'><a href='locale.html'>default_locale</a></span>(), <span class='kw'>include_na</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>trim_ws</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)
 
 <span class='fu'>col_factor</span>(<span class='no'>levels</span>, <span class='kw'>ordered</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>include_na</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</pre>
     
@@ -149,6 +149,11 @@ names.</p></td>
     <tr>
       <th>include_na</th>
       <td><p>If <code>NA</code> are present, include as an explicit factor to level?</p></td>
+    </tr>
+    <tr>
+      <th>trim_ws</th>
+      <td><p>Should leading and trailing whitespace be trimmed from
+each field before parsing it?</p></td>
     </tr>
     </table>
     
