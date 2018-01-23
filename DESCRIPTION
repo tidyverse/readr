@@ -21,7 +21,7 @@ LinkingTo: Rcpp,
 Imports:
     Rcpp (>= 0.12.0.5),
     tibble,
-    hms,
+    hms (>= 0.4.1),
     R6,
     clipr
 Suggests:
@@ -37,3 +37,5 @@ URL: http://readr.tidyverse.org, https://github.com/tidyverse/readr
 VignetteBuilder: knitr
 RoxygenNote: 6.0.1
 Roxygen: list(markdown = TRUE)
+Remotes:
+    tidyverse/hms
