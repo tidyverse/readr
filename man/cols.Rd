@@ -19,7 +19,9 @@ must match the column names exactly.}
 will be read with this column type.}
 }
 \description{
-Create column specification
+\code{cols()} includes all columns in the input data, guessing the column types
+as the default. \code{cols_only()} includes only the columns you explicitly
+specify, skipping the rest.
 }
 \examples{
 cols(a = col_integer())

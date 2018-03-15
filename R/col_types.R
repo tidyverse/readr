@@ -1,5 +1,9 @@
 #' Create column specification
 #'
+#' `cols()` includes all columns in the input data, guessing the column types
+#' as the default. `cols_only()` includes only the columns you explicitly
+#' specify, skipping the rest.
+#'
 #' @param ... Either column objects created by `col_*()`, or their
 #'   abbreviated character names. If you're only overriding a few columns,
 #'   it's best to refer to columns by name. If not named, the column types
