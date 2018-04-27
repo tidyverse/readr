@@ -30,6 +30,7 @@ collector_find <- function(name) {
 #' parse_vector(x, col_integer())
 #' parse_vector(x, col_double())
 parse_vector <- function(x, collector, na = c("", "NA"), locale = default_locale(), trim_ws = TRUE) {
+  stopifnot(is.character(x))
   if (is.character(collector)) {
     collector <- collector_find(collector)
   }
