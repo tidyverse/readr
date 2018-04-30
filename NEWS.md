@@ -49,6 +49,8 @@ you would pass `skip = 3`, now you only need to pass `skip = 2`.
   integer values in the first 1000 (#645, #652).
 * `read_*()` now converts string `file`s to UTF-8 before parsing, which is convenient for non-UTF-8 platforms
   in most cases (#730, @yutannihilation).
+* `read_*()` no longer throws a "length of NULL cannot be changed" warning when
+  trying to resize a skipped column (#750, #833).
 
 # readr 1.1.1
 
