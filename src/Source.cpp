@@ -18,8 +18,8 @@ SourcePtr Source::create(List spec) {
     return SourcePtr(
         new SourceString(as<CharacterVector>(spec[0]), skip, comment));
   } else if (subclass == "source_file") {
-    std::string path(as<CharacterVector>(spec[0])[0]);
-    return SourcePtr(new SourceFile(path, skip, comment));
+    SEXP path(as<CharacterVector>(spec[0])[0]);
+    return SourcePtr(new SourceFile(Rf_translateChar(path), skip, comment));
   }
 
   Rcpp::stop("Unknown source type");
