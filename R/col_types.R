@@ -16,8 +16,9 @@
 #' cols_only(a = col_integer())
 #'
 #' # You can also use the standard abreviations
-#' cols(a = "i")
-#' cols(a = "i", b = "d", c = "_")
+#' cols(integers = "i", datetime = "D", boolean = "l")
+#' cols(integers = "i", doubles = "d", i_dunno = "_")
+#' cols(date = "D", time = "t", skip = "-", skippy = "-", too_lazy_to_check="_")
 #'
 #' # You can also use multiple sets of column definitions by combining
 #' # them like so:
