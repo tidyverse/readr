@@ -32,6 +32,7 @@ you would pass `skip = 3`, now you only need to pass `skip = 2`.
 * `read_*()` files now support reading from the clipboard by using `clipboard()` (#656).
 * `write_file()` gains a `sep` argument, to specify the line separator (#665).
 * Allow files to be read via FTP over SSH by recognising `sftp` as a URL protocol (#707, @jdeboer).
+* `parse_date*() accepts `%a` for local day of week (#763, @tigertoes).
 
 ## Bug Fixes
 
