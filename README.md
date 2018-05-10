@@ -25,8 +25,11 @@ install.packages("readr")
 devtools::install_github("tidyverse/readr")
 ```
 
-Usage
------
+## Cheatsheet
+
+<a href="https://github.com/rstudio/cheatsheets/blob/master/data-import.pdf"><img src="https://raw.githubusercontent.com/rstudio/cheatsheets/master/pngs/thumbnails/data-import-cheatsheet-thumbs.png" width="630" height="252"/></a>
+
+## Usage
 
 readr is part of the core tidyverse, so load it with:
 
