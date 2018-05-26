@@ -301,7 +301,7 @@ col_factor <- function(levels, ordered = FALSE, include_na = FALSE) {
 #' @inheritParams tokenizer_delim
 #' @return A [POSIXct()] vector with `tzone` attribute set to
 #'   `tz`. Elements that could not be parsed (or did not generate valid
-#'   dates) will bes set to `NA`, and a warning message will inform
+#'   dates) will be set to `NA`, and a warning message will inform
 #'   you of the total number of failures.
 #' @family parsers
 #' @export
