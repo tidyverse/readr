@@ -75,7 +75,8 @@ month and "\%d" matches a 2 digit day. Month and day default to \code{1},
 70-99 -> 1970-1999.
 \item Month: "\%m" (2 digits), "\%b" (abbreviated name in current
 locale), "\%B" (full name in current locale).
-\item Day: "\%d" (2 digits), "\%e" (optional leading space)
+\item Day: "\%d" (2 digits), "\%e" (optional leading space),
+"%a" (abbreviated name in current locale).
 \item Hour: "\%H" or "\%I", use I (and not H) with AM/PM.
 \item Minutes: "\%M"
 \item Seconds: "\%S" (integer seconds), "\%OS" (partial seconds)
