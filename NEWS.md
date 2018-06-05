@@ -52,6 +52,7 @@ you would pass `skip = 3`, now you only need to pass `skip = 2`.
   in most cases (#730, @yutannihilation).
 * `read_*()` no longer throws a "length of NULL cannot be changed" warning when
   trying to resize a skipped column (#750, #833).
+* `read_*()` now handles non-ASCII paths properly with R >=3.5.0 on Windows (#838, @yutannihilation).
 
 # readr 1.1.1
 
