@@ -147,6 +147,15 @@ format_csv <- function(x, na = "NA", append = FALSE, col_names = !append) {
 
 #' @export
 #' @rdname format_delim
+format_csv2 <- function(x, na = "NA", append = FALSE, col_names = !append) {
+  stopifnot(is.data.frame(x))
+  numeric_cols <- vapply(x, is.numeric, logical(1))
+  x[numeric_cols] <- lapply(x[numeric_cols], format, decimal.mark = ",")
+  format_delim(x, delim = ";", na = na, append = append, col_names = col_names)
+}
+
+#' @export
+#' @rdname format_delim
 format_tsv <- function(x, na = "NA", append = FALSE, col_names = !append) {
   format_delim(x, delim = "\t", na = na, append = append, col_names = col_names)
 }
