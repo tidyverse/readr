@@ -80,9 +80,7 @@ write_csv <- function(x, path, na = "NA", append = FALSE, col_names = !append) {
 #' @rdname write_delim
 #' @export
 write_csv2 <- function(x, path, na = "NA", append = FALSE, col_names = !append) {
-  stopifnot(is.data.frame(x))
-  numeric_cols <- vapply(x, is.numeric, logical(1))
-  x[numeric_cols] <- lapply(x[numeric_cols], format, decimal.mark = ",")
+  x <- change_decimal_separator(x, decimal_mark = ",")
   write_delim(x, path, delim = ";", na = na, append = append, col_names = col_names)
 }
 
@@ -104,10 +102,7 @@ write_excel_csv <- function(x, path, na = "NA", append = FALSE, col_names = !app
 #' @rdname write_delim
 #' @export
 write_excel_csv2 <- function(x, path, na = "NA", append = FALSE, col_names = !append, delim = ";") {
-  stopifnot(is.data.frame(x))
-
-  numeric_cols <- vapply(x, is.numeric, logical(1))
-  x[numeric_cols] <- lapply(x[numeric_cols], format, decimal.mark = ",")
+  x <- change_decimal_separator(x, decimal_mark = ",")
 
   datetime_cols <- vapply(x, inherits, logical(1), "POSIXt")
   x[datetime_cols] <- lapply(x[datetime_cols], format, "%Y/%m/%d %H:%M:%S")
@@ -148,9 +143,7 @@ format_csv <- function(x, na = "NA", append = FALSE, col_names = !append) {
 #' @export
 #' @rdname format_delim
 format_csv2 <- function(x, na = "NA", append = FALSE, col_names = !append) {
-  stopifnot(is.data.frame(x))
-  numeric_cols <- vapply(x, is.numeric, logical(1))
-  x[numeric_cols] <- lapply(x[numeric_cols], format, decimal.mark = ",")
+  x <- change_decimal_separator(x, decimal_mark = ",")
   format_delim(x, delim = ";", na = na, append = append, col_names = col_names)
 }
 
@@ -210,4 +203,11 @@ stream_delim <- function(df, path, append = FALSE, ...) {
     }
   }
   stream_delim_(df, path, ...)
+}
+
+change_decimal_separator <- function(x, decimal_mark = ",") {
+  stopifnot(is.data.frame(x))
+  numeric_cols <- vapply(x, is.numeric, logical(1))
+  x[numeric_cols] <- lapply(x[numeric_cols], format, decimal.mark = decimal_mark)
+  x
 }
