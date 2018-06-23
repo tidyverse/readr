@@ -110,3 +110,14 @@ test_that("write_csv can write to compressed files", {
   expect_true(is_bz2_file(filename))
   expect_equal(mt, read_csv(filename))
 })
+
+test_that("write_csv2 and format_csv2 writes ; sep and , decimal mark", {
+  df <- tibble::data_frame(x = c(0.5, 2, 1.2), y = c("a", "b", "c"))
+  expect_equal(format_csv2(df), "x;y\n0,5;a\n2,0;b\n1,2;c\n")
+
+  filename <- tempfile(pattern = "readr", fileext = ".csv")
+  on.exit(unlink(filename))
+  write_csv2(df, filename)
+
+  expect_equivalent(df, suppressMessages(read_csv2(filename)))
+})
