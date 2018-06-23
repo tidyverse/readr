@@ -14,8 +14,9 @@
 #' \href{https://en.wikipedia.org/wiki/Byte_order_mark}{UTF-8 Byte order mark}
 #' which indicates to Excel the csv is UTF-8 encoded.
 #'
-#' `write_excel_csv2()` was created to allow users with different locale settings save csv files with their default settings
-#' `;` as column separator and `,` as decimal separator.
+#' `write_excel_csv2()` and `write_csv2` were created to allow users with
+#' different locale settings save csv files with their default settings `;` as
+#' column separator and `,` as decimal separator. This is common in some European countries.
 #'
 #' Values are only quoted if needed: if they contain a comma, quote or newline.
 #'
@@ -73,7 +74,16 @@ write_delim <- function(x, path, delim = " ", na = "NA", append = FALSE,
 #' @rdname write_delim
 #' @export
 write_csv <- function(x, path, na = "NA", append = FALSE, col_names = !append) {
-  write_delim(x, path, delim = ",", na = na,append = append, col_names = col_names)
+  write_delim(x, path, delim = ",", na = na, append = append, col_names = col_names)
+}
+
+#' @rdname write_delim
+#' @export
+write_csv2 <- function(x, path, na = "NA", append = FALSE, col_names = !append) {
+  stopifnot(is.data.frame(x))
+  numeric_cols <- vapply(x, is.numeric, logical(1))
+  x[numeric_cols] <- lapply(x[numeric_cols], format, decimal.mark = ",")
+  write_delim(x, path, delim = ";", na = na, append = append, col_names = col_names)
 }
 
 #' @rdname write_delim
