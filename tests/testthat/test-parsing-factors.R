@@ -29,6 +29,11 @@ test_that("levels = NULL (497)", {
   expect_equal(x, factor(c("a", "b", "c", "b")))
 })
 
+test_that("levels = NULL default (#862)", {
+  x <- c("a", "b", "c", "b")
+  expect_equal(parse_factor(x), parse_factor(x, levels = NULL))
+})
+
 test_that("NAs included in levels if desired", {
   x <- parse_factor(c("NA", "b", "a"), levels = c("a", "b", NA))
   expect_equal(x, factor(c(NA, "b", "a"), levels = c("a", "b", NA), exclude = NULL))
