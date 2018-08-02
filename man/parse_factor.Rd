@@ -5,10 +5,10 @@
 \alias{col_factor}
 \title{Parse factors}
 \usage{
-parse_factor(x, levels, ordered = FALSE, na = c("", "NA"),
+parse_factor(x, levels = NULL, ordered = FALSE, na = c("", "NA"),
   locale = default_locale(), include_na = TRUE, trim_ws = TRUE)
 
-col_factor(levels, ordered = FALSE, include_na = FALSE)
+col_factor(levels = NULL, ordered = FALSE, include_na = FALSE)
 }
 \arguments{
 \item{x}{Character vector of values to parse.}
