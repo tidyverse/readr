@@ -67,7 +67,7 @@ The default locale is US-centric (like R), but you can use
 the default time zone, encoding, decimal mark, big mark, and day/month
 names.}
 
-\item{na}{Character vector of strings to use for missing values. Set this
+\item{na}{Character vector of strings to interpret as missing values. Set this
 option to \code{character()} to indicate no missing values.}
 
 \item{skip}{Number of lines to skip before reading data.}

@@ -19,7 +19,7 @@ of appearance in \code{x}.}
 
 \item{ordered}{Is it an ordered factor?}
 
-\item{na}{Character vector of strings to use for missing values. Set this
+\item{na}{Character vector of strings to interpret as missing values. Set this
 option to \code{character()} to indicate no missing values.}
 
 \item{locale}{The locale controls defaults that vary from place to place.

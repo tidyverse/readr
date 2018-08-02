@@ -34,7 +34,7 @@ tokenizer_ws(na = "NA", comment = "")
 
 \item{quote}{Single character used to quote strings.}
 
-\item{na}{Character vector of strings to use for missing values. Set this
+\item{na}{Character vector of strings to interpret as missing values. Set this
 option to \code{character()} to indicate no missing values.}
 
 \item{quoted_na}{Should missing values inside quotes be treated as missing

@@ -34,7 +34,7 @@ time formats specified in the \code{\link[=locale]{locale()}}.
 Unlike \code{\link[=strptime]{strptime()}}, the format specification must match
 the complete string.}
 
-\item{na}{Character vector of strings to use for missing values. Set this
+\item{na}{Character vector of strings to interpret as missing values. Set this
 option to \code{character()} to indicate no missing values.}
 
 \item{locale}{The locale controls defaults that vary from place to place.
@@ -49,7 +49,7 @@ each field before parsing it?}
 \value{
 A \code{\link[=POSIXct]{POSIXct()}} vector with \code{tzone} attribute set to
 \code{tz}. Elements that could not be parsed (or did not generate valid
-dates) will bes set to \code{NA}, and a warning message will inform
+dates) will be set to \code{NA}, and a warning message will inform
 you of the total number of failures.
 }
 \description{
