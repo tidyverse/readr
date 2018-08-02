@@ -29,6 +29,11 @@ test_that("levels = NULL (497)", {
   expect_equal(x, factor(c("a", "b", "c", "b")))
 })
 
+test_that("levels = NULL orders by data", {
+  x <- parse_factor(c("b", "a", "c", "b"), levels = NULL)
+  expect_equal(levels(x), c("b", "a", "c"))
+})
+
 test_that("levels = NULL default (#862)", {
   x <- c("a", "b", "c", "b")
   expect_equal(parse_factor(x), parse_factor(x, levels = NULL))
