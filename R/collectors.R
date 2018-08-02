@@ -230,7 +230,7 @@ parse_factor <- function(x, levels, ordered = FALSE, na = c("", "NA"),
 
 #' @rdname parse_factor
 #' @export
-col_factor <- function(levels, ordered = FALSE, include_na = FALSE) {
+col_factor <- function(levels = NULL, ordered = FALSE, include_na = FALSE) {
   collector("factor", levels = levels, ordered = ordered, include_na = include_na)
 }
 
