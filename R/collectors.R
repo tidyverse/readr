@@ -202,6 +202,7 @@ guess_parser <- function(x, locale = default_locale()) {
 #' @param levels Character vector providing set of allowed levels. if `NULL`,
 #'   will generate levels based on the unique values of `x`, ordered by order
 #'   of appearance in `x`.
+#' @param labels Character vector of labels for the levels.
 #' @param ordered Is it an ordered factor?
 #' @param include_na If `NA` are present, include as an explicit factor to level?
 #' @inheritParams parse_atomic
@@ -223,15 +224,15 @@ guess_parser <- function(x, locale = default_locale()) {
 #'
 #' # Using an argument of `NULL` will generate levels based on values of `x`
 #' x2 <- parse_factor(x, levels = NULL)
-parse_factor <- function(x, levels, ordered = FALSE, na = c("", "NA"),
+parse_factor <- function(x, levels, labels = levels, ordered = FALSE, na = c("", "NA"),
                          locale = default_locale(), include_na = TRUE, trim_ws = TRUE) {
-  parse_vector(x, col_factor(levels, ordered, include_na), na = na, locale = locale, trim_ws = trim_ws)
+  parse_vector(x, col_factor(levels, labels, ordered, include_na), na = na, locale = locale, trim_ws = trim_ws)
 }
 
 #' @rdname parse_factor
 #' @export
-col_factor <- function(levels, ordered = FALSE, include_na = FALSE) {
-  collector("factor", levels = levels, ordered = ordered, include_na = include_na)
+col_factor <- function(levels, labels = levels, ordered = FALSE, include_na = FALSE) {
+  collector("factor", levels = levels, labels = labels, ordered = ordered, include_na = include_na)
 }
 
 # More complex ------------------------------------------------------------

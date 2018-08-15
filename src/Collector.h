@@ -136,7 +136,7 @@ class CollectorFactor : public Collector {
   Iconv* pEncoder_;
   std::vector<Rcpp::String> levels_;
   std::map<Rcpp::String, int> levelset_;
-  bool ordered_, implicitLevels_, includeNa_;
+  bool ordered_, implicitLevels_, implicitLabels_, includeNa_;
   boost::container::string buffer_;
 
   void insert(int i, Rcpp::String str, const Token& t);
@@ -145,6 +145,7 @@ public:
   CollectorFactor(
       Iconv* pEncoder,
       Rcpp::Nullable<Rcpp::CharacterVector> levels,
+      Rcpp::Nullable<Rcpp::CharacterVector> labels,
       bool ordered,
       bool includeNa)
       : Collector(Rcpp::IntegerVector()),
@@ -152,7 +153,34 @@ public:
         ordered_(ordered),
         includeNa_(includeNa) {
     implicitLevels_ = levels.isNull();
-    if (!implicitLevels_) {
+    implicitLabels_ = labels.isNull();
+    if (!implicitLabels_) {
+      Rcpp::CharacterVector lvls = Rcpp::CharacterVector(levels);
+      Rcpp::CharacterVector labs = Rcpp::CharacterVector(labels);
+      int n = lvls.size();
+      int m = labs.size();
+
+      for (int i = 0; i < n; ++i) {
+        Rcpp::String std_level;
+        Rcpp::String std_label;
+        if (STRING_ELT(lvls, i) != NA_STRING) {
+          const char* level = Rf_translateCharUTF8(STRING_ELT(lvls, i));
+          std_level = level;
+          if (i < m) {
+            const char* label = Rf_translateCharUTF8(STRING_ELT(labs, i));
+            std_label = label;
+          } else {
+            std_label = NA_STRING;
+          }
+        } else {
+          std_level = NA_STRING;
+          std_label = NA_STRING;
+        }
+        levels_.push_back(std_label);
+        levelset_.insert(std::make_pair(std_level, i));
+      }
+    }
+    else if (!implicitLevels_) {
       Rcpp::CharacterVector lvls = Rcpp::CharacterVector(levels);
       int n = lvls.size();
 

@@ -39,10 +39,12 @@ CollectorPtr Collector::create(List spec, LocaleInfo* pLocale) {
   if (subclass == "collector_factor") {
     Nullable<CharacterVector> levels =
         as<Nullable<CharacterVector> >(spec["levels"]);
+    Nullable<CharacterVector> labels =
+        as<Nullable<CharacterVector> >(spec["labels"]);
     bool ordered = as<bool>(spec["ordered"]);
     bool includeNa = as<bool>(spec["include_na"]);
     return CollectorPtr(
-        new CollectorFactor(&pLocale->encoder_, levels, ordered, includeNa));
+        new CollectorFactor(&pLocale->encoder_, levels, labels, ordered, includeNa));
   }
 
   Rcpp::stop("Unsupported column type");

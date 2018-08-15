@@ -74,3 +74,14 @@ test_that("factors parse like factor if trim_ws = FALSE (735)", {
       as.integer(parse_factor(c("a", "a "), levels = c("a ", "a"), trim_ws = FALSE)),
       as.integer(factor(c("a", "a "), levels = c("a ", "a"))))
 })
+
+test_that("factors set labels if it is properly set (#880)", {
+  x <- parse_factor(c("a", "b"), levels = c("a", "b"), labels = c("x", "y"))
+  expect_equal(x, factor(c("a", "b"), levels = c("a", "b"), labels = c("x", "y")))
+
+  x <- parse_factor(c("a", "b"), levels = c("a", "b", "c"), labels = c("x", "y"))
+  expect_equal(x, factor(c("a", "b"), levels = c("a", "b", "c"), labels = c("x", "y", NA_character_)))
+
+  x <- parse_factor(c("a", "b"), levels = c("a", "b"), labels = c("x", "y", "z"))
+  expect_equal(x, factor(c("a", "b"), levels = c("a", "b"), labels = c("x", "y")))
+})
