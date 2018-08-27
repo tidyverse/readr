@@ -1,0 +1,18 @@
+PKG_CXXFLAGS = -I. -Iwritecon
+PKG_LIBS = -lwritecon -L../inst/writecon -Wl,-rpath,$(R_PACKAGE_DIR)/writecon
+
+all: $(SHLIB)
+
+$(SHLIB): ../inst/writecon/libwritecon.so
+
+UNAME := $(shell uname -s)
+ifeq ($(UNAME), Darwin)
+../inst/writecon/libwritecon.so: writecon/write_connection.o
+	$(CXX) -dynamiclib $(ALL_CPPFLAGS) $(ALL_CXXFLAGS) $(LIBR) -o $@ $^ -Wl,-install_name -Wl,@loader_path/../writecon/libwritecon.so
+else
+../inst/writecon/libwritecon.so: writecon/write_connection.o
+	$(SHLIB_LINK) -o $@ $^
+endif
+
+clean:
+	rm -f writecon/write_connection.o ../inst/writecon/libwritecon.so
