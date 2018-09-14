@@ -34,7 +34,7 @@ col_character()
 \arguments{
 \item{x}{Character vector of values to parse.}
 
-\item{na}{Character vector of strings to use for missing values. Set this
+\item{na}{Character vector of strings to interpret as missing values. Set this
 option to \code{character()} to indicate no missing values.}
 
 \item{locale}{The locale controls defaults that vary from place to place.
@@ -68,6 +68,9 @@ parse_double(x, na = "-")
 }
 \seealso{
 Other parsers: \code{\link{col_skip}},
+  \code{\link{cols_condense}}, \code{\link{cols}},
   \code{\link{parse_datetime}}, \code{\link{parse_factor}},
-  \code{\link{parse_guess}}, \code{\link{parse_number}}
+  \code{\link{parse_guess}}, \code{\link{parse_number}},
+  \code{\link{parse_vector}}
 }
+\concept{parsers}
