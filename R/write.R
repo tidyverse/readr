@@ -19,6 +19,10 @@
 #'
 #' Values are only quoted if needed: if they contain a comma, quote or newline.
 #'
+#' The `write_*()` functions will automatically compress outputs if an appropriate extension is given. At present, three
+#' extensions are supported, `.gz` for gzip compression, `.bz2` for bzip2 compression and `.xz` for lzma compression.  See
+#' the examples for more information.
+#'
 #' @param x A data frame to write to disk
 #' @param path Path or connection to write to.
 #' @param append If `FALSE`, will overwrite existing file. If `TRUE`,

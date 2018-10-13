@@ -13,11 +13,11 @@ write_delim(x, path, delim = " ", na = "NA", append = FALSE,
 
 write_csv(x, path, na = "NA", append = FALSE, col_names = !append)
 
-write_excel_csv(x, path, na = "NA", append = FALSE, col_names = !append,
-  delim = ",")
+write_excel_csv(x, path, na = "NA", append = FALSE,
+  col_names = !append, delim = ",")
 
-write_excel_csv2(x, path, na = "NA", append = FALSE, col_names = !append,
-  delim = ";")
+write_excel_csv2(x, path, na = "NA", append = FALSE,
+  col_names = !append, delim = ";")
 
 write_tsv(x, path, na = "NA", append = FALSE, col_names = !append)
 }
@@ -63,6 +63,10 @@ which indicates to Excel the csv is UTF-8 encoded.
 \code{;} as column separator and \code{,} as decimal separator.
 
 Values are only quoted if needed: if they contain a comma, quote or newline.
+
+The \code{write_*()} functions will automatically compress outputs if an appropriate extension is given. At present, three
+extensions are supported, \code{.gz} for gzip compression, \code{.bz2} for bzip2 compression and \code{.xz} for lzma compression.  See
+the examples for more information.
 }
 
 \examples{
