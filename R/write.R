@@ -14,8 +14,9 @@
 #' \href{https://en.wikipedia.org/wiki/Byte_order_mark}{UTF-8 Byte order mark}
 #' which indicates to Excel the csv is UTF-8 encoded.
 #'
-#' `write_excel_csv2()` was created to allow users with different locale settings save csv files with their default settings
-#' `;` as column separator and `,` as decimal separator.
+#' `write_excel_csv2()` and `write_csv2` were created to allow users with
+#' different locale settings save csv files with their default settings `;` as
+#' column separator and `,` as decimal separator. This is common in some European countries.
 #'
 #' Values are only quoted if needed: if they contain a comma, quote or newline.
 #'
@@ -77,7 +78,14 @@ write_delim <- function(x, path, delim = " ", na = "NA", append = FALSE,
 #' @rdname write_delim
 #' @export
 write_csv <- function(x, path, na = "NA", append = FALSE, col_names = !append) {
-  write_delim(x, path, delim = ",", na = na,append = append, col_names = col_names)
+  write_delim(x, path, delim = ",", na = na, append = append, col_names = col_names)
+}
+
+#' @rdname write_delim
+#' @export
+write_csv2 <- function(x, path, na = "NA", append = FALSE, col_names = !append) {
+  x <- change_decimal_separator(x, decimal_mark = ",")
+  write_delim(x, path, delim = ";", na = na, append = append, col_names = col_names)
 }
 
 #' @rdname write_delim
@@ -98,10 +106,7 @@ write_excel_csv <- function(x, path, na = "NA", append = FALSE, col_names = !app
 #' @rdname write_delim
 #' @export
 write_excel_csv2 <- function(x, path, na = "NA", append = FALSE, col_names = !append, delim = ";") {
-  stopifnot(is.data.frame(x))
-
-  numeric_cols <- vapply(x, is.numeric, logical(1))
-  x[numeric_cols] <- lapply(x[numeric_cols], format, decimal.mark = ",")
+  x <- change_decimal_separator(x, decimal_mark = ",")
 
   datetime_cols <- vapply(x, inherits, logical(1), "POSIXt")
   x[datetime_cols] <- lapply(x[datetime_cols], format, "%Y/%m/%d %H:%M:%S")
@@ -137,6 +142,13 @@ format_delim <- function(x, delim, na = "NA", append = FALSE, col_names = !appen
 #' @rdname format_delim
 format_csv <- function(x, na = "NA", append = FALSE, col_names = !append) {
   format_delim(x, delim = ",", na = na, append = append, col_names = col_names)
+}
+
+#' @export
+#' @rdname format_delim
+format_csv2 <- function(x, na = "NA", append = FALSE, col_names = !append) {
+  x <- change_decimal_separator(x, decimal_mark = ",")
+  format_delim(x, delim = ";", na = na, append = append, col_names = col_names)
 }
 
 #' @export
@@ -195,4 +207,11 @@ stream_delim <- function(df, path, append = FALSE, ...) {
     }
   }
   stream_delim_(df, path, ...)
+}
+
+change_decimal_separator <- function(x, decimal_mark = ",") {
+  stopifnot(is.data.frame(x))
+  numeric_cols <- vapply(x, is.numeric, logical(1))
+  x[numeric_cols] <- lapply(x[numeric_cols], format, decimal.mark = decimal_mark)
+  x
 }
