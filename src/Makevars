@@ -1,18 +1,18 @@
 PKG_CXXFLAGS = -I. -Iwritecon
-PKG_LIBS = -lcon -L../inst/writecon -Wl,-rpath,$(R_PACKAGE_DIR)/writecon
+PKG_LIBS = -L. -lcon2 -L../inst/writecon -Wl,-rpath,$(R_PACKAGE_DIR)/writecon
 
 all: $(SHLIB)
 
-$(SHLIB): ../inst/writecon/libcon.so
+$(SHLIB): ../inst/writecon/libcon2.so
 
 UNAME := $(shell uname -s)
 ifeq ($(UNAME), Darwin)
-../inst/writecon/libcon.so: writecon/connection.o
-	$(CXX) -dynamiclib $(ALL_CPPFLAGS) $(ALL_CXXFLAGS) $(LIBR) -o $@ $^ -Wl,-install_name -Wl,@loader_path/../writecon/libcon.so
+../inst/writecon/libcon2.so: writecon/connection.o
+	$(CXX) -dynamiclib $(ALL_CPPFLAGS) $(ALL_CXXFLAGS) $(LIBR) -o $@ $^ -Wl,-install_name -Wl,@loader_path/../writecon/libcon2.so
 else
-../inst/writecon/libcon.so: writecon/write_connection.o
+../inst/writecon/libcon2.so: writecon/connection.o
 	$(SHLIB_LINK) $(LIBR) -o $@ $^
 endif
 
 clean:
-	rm -f writecon/write_connection.o ../inst/writecon/libcon.so
+	rm -f writecon/write_connection.o ../inst/writecon/libcon2.so
