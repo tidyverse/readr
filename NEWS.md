@@ -34,6 +34,8 @@ you would pass `skip = 3`, now you only need to pass `skip = 2`.
 * Allow files to be read via FTP over SSH by recognising `sftp` as a URL protocol (#707, @jdeboer).
 * `parse_date*() accepts `%a` for local day of week (#763, @tigertoes).
 * Added function `read_lines_raw_chunked()` (#710, @gergness)
+* `write_csv2()` added to complement `write_excel_csv2()` and allow writing csv file readable by `read_csv2()`
+  (#870, @cderv).
 
 ## Bug Fixes
 
