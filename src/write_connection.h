@@ -5,8 +5,7 @@
 #include <boost/iostreams/categories.hpp> // sink_tag
 #include <ios>                            // streamsize
 
-typedef struct Rconn* Rconnection;
-Rconnection get_connection(SEXP con);
+#include "connection.h"
 
 // http://www.boost.org/doc/libs/1_63_0/libs/iostreams/doc/tutorial/container_sink.html
 namespace io = boost::iostreams;
