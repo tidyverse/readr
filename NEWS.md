@@ -50,6 +50,7 @@ you would pass `skip = 3`, now you only need to pass `skip = 2`.
   integer values in the first 1000 (#645, #652).
 * `read_*()` now converts string `file`s to UTF-8 before parsing, which is convenient for non-UTF-8 platforms
   in most cases (#730, @yutannihilation).
+* `write_csv()` writes integers up to 10^15 without scientific notation (#765, @zeehio)
 * `read_*()` no longer throws a "length of NULL cannot be changed" warning when
   trying to resize a skipped column (#750, #833).
 * `read_*()` now handles non-ASCII paths properly with R >=3.5.0 on Windows (#838, @yutannihilation).
