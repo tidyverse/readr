@@ -5,7 +5,7 @@ all: $(SHLIB)
 
 $(SHLIB): ../inst/writecon/libcon2.so
 
-UNAME=`shell uname -s`
+UNAME:=$(shell uname -s)
 ifeq ($(UNAME), Darwin)
 ../inst/writecon/libcon2.so: writecon/connection.o
 	$(SHLIB_LINK) -o $@ $^ -Wl,-install_name -Wl,@loader_path/../writecon/libcon2.so
