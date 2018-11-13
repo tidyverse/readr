@@ -112,13 +112,17 @@
 values as they're read in.</p>
     
 
-    <pre class="usage"><span class='fu'>parse_logical</span>(<span class='no'>x</span>, <span class='kw'>na</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='st'>""</span>, <span class='st'>"NA"</span>), <span class='kw'>locale</span> <span class='kw'>=</span> <span class='fu'><a href='locale.html'>default_locale</a></span>())
+    <pre class="usage"><span class='fu'>parse_logical</span>(<span class='no'>x</span>, <span class='kw'>na</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='st'>""</span>, <span class='st'>"NA"</span>), <span class='kw'>locale</span> <span class='kw'>=</span> <span class='fu'><a href='locale.html'>default_locale</a></span>(),
+  <span class='kw'>trim_ws</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)
 
-<span class='fu'>parse_integer</span>(<span class='no'>x</span>, <span class='kw'>na</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='st'>""</span>, <span class='st'>"NA"</span>), <span class='kw'>locale</span> <span class='kw'>=</span> <span class='fu'><a href='locale.html'>default_locale</a></span>())
+<span class='fu'>parse_integer</span>(<span class='no'>x</span>, <span class='kw'>na</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='st'>""</span>, <span class='st'>"NA"</span>), <span class='kw'>locale</span> <span class='kw'>=</span> <span class='fu'><a href='locale.html'>default_locale</a></span>(),
+  <span class='kw'>trim_ws</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)
 
-<span class='fu'>parse_double</span>(<span class='no'>x</span>, <span class='kw'>na</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='st'>""</span>, <span class='st'>"NA"</span>), <span class='kw'>locale</span> <span class='kw'>=</span> <span class='fu'><a href='locale.html'>default_locale</a></span>())
+<span class='fu'>parse_double</span>(<span class='no'>x</span>, <span class='kw'>na</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='st'>""</span>, <span class='st'>"NA"</span>), <span class='kw'>locale</span> <span class='kw'>=</span> <span class='fu'><a href='locale.html'>default_locale</a></span>(),
+  <span class='kw'>trim_ws</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)
 
-<span class='fu'>parse_character</span>(<span class='no'>x</span>, <span class='kw'>na</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='st'>""</span>, <span class='st'>"NA"</span>), <span class='kw'>locale</span> <span class='kw'>=</span> <span class='fu'><a href='locale.html'>default_locale</a></span>())
+<span class='fu'>parse_character</span>(<span class='no'>x</span>, <span class='kw'>na</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='st'>""</span>, <span class='st'>"NA"</span>), <span class='kw'>locale</span> <span class='kw'>=</span> <span class='fu'><a href='locale.html'>default_locale</a></span>(),
+  <span class='kw'>trim_ws</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)
 
 <span class='fu'>col_logical</span>()
 
@@ -148,6 +152,11 @@ The default locale is US-centric (like R), but you can use
 the default time zone, encoding, decimal mark, big mark, and day/month
 names.</p></td>
     </tr>
+    <tr>
+      <th>trim_ws</th>
+      <td><p>Should leading and trailing whitespace be trimmed from
+each field before parsing it?</p></td>
+    </tr>
     </table>
     
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
@@ -168,10 +177,10 @@ names.</p></td>
 #&gt; <span class='warning'>row col expected actual</span>
 #&gt; <span class='warning'>  4  -- a double      -</span></div><div class='output co'>#&gt; [1]  1  2  3 NA
 #&gt; attr(,"problems")
-#&gt; # A tibble: 1 × 4
+#&gt; # A tibble: 1 x 4
 #&gt;     row   col expected actual
-#&gt;   &lt;int&gt; &lt;int&gt;    &lt;chr&gt;  &lt;chr&gt;
-#&gt; 1     4    NA a double      -</div><div class='input'><span class='co'># Or flag values as missing</span>
+#&gt;   &lt;int&gt; &lt;int&gt; &lt;chr&gt;    &lt;chr&gt; 
+#&gt; 1     4    NA a double -     </div><div class='input'><span class='co'># Or flag values as missing</span>
 <span class='fu'>parse_double</span>(<span class='no'>x</span>, <span class='kw'>na</span> <span class='kw'>=</span> <span class='st'>"-"</span>)</div><div class='output co'>#&gt; [1]  1  2  3 NA</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">

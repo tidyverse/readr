@@ -126,8 +126,8 @@ of writing to disk, they return a string.</p>
     </tr>
     <tr>
       <th>delim</th>
-      <td><p>Delimiter used to separate values. Defaults to <code>" "</code>. Must be
-a single character.</p></td>
+      <td><p>Delimiter used to separate values. Defaults to <code>" "</code> for <code><a href='write_delim.html'>write_delim()</a></code>, <code>","</code> for <code><a href='write_delim.html'>write_excel_csv()</a></code> and
+<code>";"</code> for <code><a href='write_delim.html'>write_excel_csv2()</a></code>. Must be a single character.</p></td>
     </tr>
     <tr>
       <th>na</th>
@@ -143,7 +143,8 @@ file is created.</p></td>
     </tr>
     <tr>
       <th>col_names</th>
-      <td><p>Write columns names at the top of the file?</p></td>
+      <td><p>Write columns names at the top of the file? Must be either
+<code>TRUE</code> or <code>FALSE</code>.</p></td>
     </tr>
     </table>
     
@@ -155,17 +156,21 @@ file is created.</p></td>
 
     
     <p>Factors are coerced to character. Doubles are formatted using the grisu3
-algorithm. POSIXct's are formatted as ISO8601.</p>
-<p>All columns are encoded as UTF-8. <code>write_excel_csv()</code> also includes a
-<a href = 'https://en.wikipedia.org/wiki/Byte_order_mark'>UTF-8 Byte order mark</a>
-which indicates to Excel the csv is UTF-8 encoded.</p>
+algorithm. POSIXct's are formatted as ISO8601 with a UTC timezone <em>Note:
+<code>POSIXct</code>objects in local or non-UTC timezones will be converted to UTC time
+before writing.</em></p>
+<p>All columns are encoded as UTF-8. <code><a href='write_delim.html'>write_excel_csv()</a></code> and <code><a href='write_delim.html'>write_excel_csv2()</a></code> also include a
+<a href='https://en.wikipedia.org/wiki/Byte_order_mark'>UTF-8 Byte order mark</a>
+which indicates to Excel the csv is UTF-8 encoded.
+    <code><a href='write_delim.html'>write_excel_csv2()</a></code> was created to allow users with different locale settings save csv files with their default settings
+<code>;</code> as column separator and <code>,</code> as decimal separator.</p>
 <p>Values are only quoted if needed: if they contain a comma, quote or newline.</p>
     
     <h2 class="hasAnchor" id="references"><a class="anchor" href="#references"></a>References</h2>
 
     <p>Florian Loitsch, Printing Floating-Point Numbers Quickly and
 Accurately with Integers, PLDI '10,
-<a href = 'http://www.cs.tufts.edu/~nr/cs257/archive/florian-loitsch/printf.pdf'>http://www.cs.tufts.edu/~nr/cs257/archive/florian-loitsch/printf.pdf</a></p>
+<a href='http://www.cs.tufts.edu/~nr/cs257/archive/florian-loitsch/printf.pdf'>http://www.cs.tufts.edu/~nr/cs257/archive/florian-loitsch/printf.pdf</a></p>
     
 
   </div>

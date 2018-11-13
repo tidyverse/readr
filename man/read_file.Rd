@@ -23,7 +23,10 @@ downloaded. Remote gz files can also be automatically downloaded and
 decompressed.
 
 Literal data is most useful for examples and tests. It must contain at
-least one new line to be recognised as data (instead of a path).}
+least one new line to be recognised as data (instead of a path) or be a
+vector of greater than length 1.
+
+Using a value of \code{\link[=clipboard]{clipboard()}} will read from the system clipboard.}
 
 \item{locale}{The locale controls defaults that vary from place to place.
 The default locale is US-centric (like R), but you can use

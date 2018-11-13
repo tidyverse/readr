@@ -9,9 +9,7 @@
 #' @param col_types One of `NULL`, a [cols()] specification, or
 #'   a string. See `vignette("readr")` for more details.
 #'
-#'   If `NULL`, all column types will be imputed from the first 1000 rows
-#'   on the input. This is convenient (and fast), but not robust. If the
-#'   imputation fails, you'll need to supply the correct types yourself.
+#'   If `NULL`, column types will be imputed using all rows.
 #'
 #'   If a column specification created by [cols()], it must contain
 #'   one column specification for each column. If you only want to read a

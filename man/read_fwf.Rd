@@ -9,8 +9,8 @@
 \title{Read a fixed width file into a tibble}
 \usage{
 read_fwf(file, col_positions, col_types = NULL, locale = default_locale(),
-  na = c("", "NA"), comment = "", skip = 0, n_max = Inf,
-  guess_max = min(n_max, 1000), progress = show_progress())
+  na = c("", "NA"), comment = "", trim_ws = TRUE, skip = 0,
+  n_max = Inf, guess_max = min(n_max, 1000), progress = show_progress())
 
 fwf_empty(file, skip = 0, col_names = NULL, comment = "", n = 100L)
 
@@ -31,7 +31,10 @@ downloaded. Remote gz files can also be automatically downloaded and
 decompressed.
 
 Literal data is most useful for examples and tests. It must contain at
-least one new line to be recognised as data (instead of a path).}
+least one new line to be recognised as data (instead of a path) or be a
+vector of greater than length 1.
+
+Using a value of \code{\link[=clipboard]{clipboard()}} will read from the system clipboard.}
 
 \item{col_positions}{Column positions, as created by \code{\link[=fwf_empty]{fwf_empty()}},
 \code{\link[=fwf_widths]{fwf_widths()}} or \code{\link[=fwf_positions]{fwf_positions()}}. To read in only selected fields,
@@ -67,6 +70,9 @@ option to \code{character()} to indicate no missing values.}
 \item{comment}{A string used to identify comments. Any text after the
 comment characters will be silently ignored.}
 
+\item{trim_ws}{Should leading and trailing whitespace be trimmed from
+each field before parsing it?}
+
 \item{skip}{Number of lines to skip before reading data.}
 
 \item{n_max}{Maximum number of records to read.}
@@ -92,10 +98,9 @@ Use NA as last end field when reading a ragged fwf file.}
 
 \item{...}{If the first element is a data frame,
 then it must have all numeric columns and either one or two rows.
-The column names are the variable names, and the column values are the
-variable widths if a length one vector, and variable start and end
-positions.
-Otherwise, the elements of \code{...} are used to construct a data frame
+The column names are the variable names. The column values are the
+variable widths if a length one vector, and if length two, variable start and end
+positions. The elements of \code{...} are used to construct a data frame
 with or or two rows as above.}
 }
 \description{

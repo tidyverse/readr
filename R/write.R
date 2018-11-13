@@ -6,22 +6,32 @@
 #'
 #' @section Output:
 #' Factors are coerced to character. Doubles are formatted using the grisu3
-#' algorithm. POSIXct's are formatted as ISO8601.
+#' algorithm. POSIXct's are formatted as ISO8601 with a UTC timezone *Note:
+#' `POSIXct` objects in local or non-UTC timezones will be converted to UTC time
+#' before writing.*
 #'
-#' All columns are encoded as UTF-8. `write_excel_csv()` also includes a
+#' All columns are encoded as UTF-8. `write_excel_csv()` and `write_excel_csv2()` also include a
 #' \href{https://en.wikipedia.org/wiki/Byte_order_mark}{UTF-8 Byte order mark}
 #' which indicates to Excel the csv is UTF-8 encoded.
 #'
+#' `write_excel_csv2()` was created to allow users with different locale settings save csv files with their default settings
+#' `;` as column separator and `,` as decimal separator.
+#'
 #' Values are only quoted if needed: if they contain a comma, quote or newline.
+#'
+#' The `write_*()` functions will automatically compress outputs if an appropriate extension is given. At present, three
+#' extensions are supported, `.gz` for gzip compression, `.bz2` for bzip2 compression and `.xz` for lzma compression.  See
+#' the examples for more information.
 #'
 #' @param x A data frame to write to disk
 #' @param path Path or connection to write to.
 #' @param append If `FALSE`, will overwrite existing file. If `TRUE`,
 #'   will append to existing file. In both cases, if file does not exist a new
 #'   file is created.
-#' @param col_names Write columns names at the top of the file?
-#' @param delim Delimiter used to separate values. Defaults to `" "`. Must be
-#'   a single character.
+#' @param col_names Write columns names at the top of the file? Must be either
+#'   `TRUE` or `FALSE`.
+#' @param delim Delimiter used to separate values. Defaults to `" "` for `write_delim()`, `","` for `write_excel_csv()` and
+#' `";"` for `write_excel_csv2()`. Must be a single character.
 #' @param na String used for missing values. Defaults to NA. Missing values
 #'   will never be quoted; strings with the same value as `na` will
 #'   always be quoted.
@@ -57,8 +67,8 @@ write_delim <- function(x, path, delim = " ", na = "NA", append = FALSE,
                         col_names = !append) {
   stopifnot(is.data.frame(x))
 
-  x_out <- lapply(x, output_column)
-  stream_delim(x_out, path, delim, col_names = col_names, append = append,
+  x[] <- lapply(x, output_column)
+  stream_delim(x, path, delim, col_names = col_names, append = append,
     na = na)
 
   invisible(x)
@@ -72,14 +82,32 @@ write_csv <- function(x, path, na = "NA", append = FALSE, col_names = !append) {
 
 #' @rdname write_delim
 #' @export
-write_excel_csv <- function(x, path, na = "NA", append = FALSE, col_names = !append) {
+write_excel_csv <- function(x, path, na = "NA", append = FALSE, col_names = !append, delim = ",") {
   stopifnot(is.data.frame(x))
 
-  x_out <- lapply(x, output_column)
-  stream_delim(x_out, path, ",", col_names = col_names, append = append,
+  datetime_cols <- vapply(x, inherits, logical(1), "POSIXt")
+  x[datetime_cols] <- lapply(x[datetime_cols], format, "%Y/%m/%d %H:%M:%S")
+
+  x[] <- lapply(x, output_column)
+  stream_delim(x, path, delim, col_names = col_names, append = append,
     na = na, bom = TRUE)
 
   invisible(x)
+}
+
+#' @rdname write_delim
+#' @export
+write_excel_csv2 <- function(x, path, na = "NA", append = FALSE, col_names = !append, delim = ";") {
+  stopifnot(is.data.frame(x))
+
+  numeric_cols <- vapply(x, is.numeric, logical(1))
+  x[numeric_cols] <- lapply(x[numeric_cols], format, decimal.mark = ",")
+
+  datetime_cols <- vapply(x, inherits, logical(1), "POSIXt")
+  x[datetime_cols] <- lapply(x[datetime_cols], format, "%Y/%m/%d %H:%M:%S")
+
+  x[] <- lapply(x, output_column)
+  write_excel_csv(x, path, na, append, col_names, delim)
 }
 
 #' @rdname write_delim
@@ -99,8 +127,10 @@ write_tsv <- function(x, path, na = "NA", append = FALSE, col_names = !append) {
 format_delim <- function(x, delim, na = "NA", append = FALSE, col_names = !append) {
   stopifnot(is.data.frame(x))
 
-  x <- lapply(x, output_column)
-  stream_delim(x, NULL, delim, col_names = col_names, append = append, na = na)
+  x[] <- lapply(x, output_column)
+  res <- stream_delim(x, NULL, delim, col_names = col_names, append = append, na = na)
+  Encoding(res) <- "UTF-8"
+  res
 }
 
 #' @export
@@ -145,6 +175,11 @@ output_column.double <- function(x) {
 
 #' @export
 output_column.POSIXt <- function(x) {
+  format(x, "%Y-%m-%dT%H:%M:%OSZ", tz = "UTC")
+}
+
+#' @export
+output_column.hms <- function(x) {
   format(x, "%Y-%m-%dT%H:%M:%OSZ", tz = "UTC")
 }
 

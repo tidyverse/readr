@@ -98,8 +98,8 @@ BEGIN_RCPP
 END_RCPP
 }
 // parse_vector_
-SEXP parse_vector_(CharacterVector x, List collectorSpec, List locale_, const std::vector<std::string>& na);
-RcppExport SEXP _readr_parse_vector_(SEXP xSEXP, SEXP collectorSpecSEXP, SEXP locale_SEXP, SEXP naSEXP) {
+SEXP parse_vector_(CharacterVector x, List collectorSpec, List locale_, const std::vector<std::string>& na, const bool trim_ws);
+RcppExport SEXP _readr_parse_vector_(SEXP xSEXP, SEXP collectorSpecSEXP, SEXP locale_SEXP, SEXP naSEXP, SEXP trim_wsSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
@@ -107,7 +107,8 @@ BEGIN_RCPP
     Rcpp::traits::input_parameter< List >::type collectorSpec(collectorSpecSEXP);
     Rcpp::traits::input_parameter< List >::type locale_(locale_SEXP);
     Rcpp::traits::input_parameter< const std::vector<std::string>& >::type na(naSEXP);
-    rcpp_result_gen = Rcpp::wrap(parse_vector_(x, collectorSpec, locale_, na));
+    Rcpp::traits::input_parameter< const bool >::type trim_ws(trim_wsSEXP);
+    rcpp_result_gen = Rcpp::wrap(parse_vector_(x, collectorSpec, locale_, na, trim_ws));
     return rcpp_result_gen;
 END_RCPP
 }
@@ -267,26 +268,44 @@ BEGIN_RCPP
     return rcpp_result_gen;
 END_RCPP
 }
+// stream_delim_
+std::string stream_delim_(const List& df, RObject connection, char delim, const std::string& na, bool col_names, bool bom);
+RcppExport SEXP _readr_stream_delim_(SEXP dfSEXP, SEXP connectionSEXP, SEXP delimSEXP, SEXP naSEXP, SEXP col_namesSEXP, SEXP bomSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< const List& >::type df(dfSEXP);
+    Rcpp::traits::input_parameter< RObject >::type connection(connectionSEXP);
+    Rcpp::traits::input_parameter< char >::type delim(delimSEXP);
+    Rcpp::traits::input_parameter< const std::string& >::type na(naSEXP);
+    Rcpp::traits::input_parameter< bool >::type col_names(col_namesSEXP);
+    Rcpp::traits::input_parameter< bool >::type bom(bomSEXP);
+    rcpp_result_gen = Rcpp::wrap(stream_delim_(df, connection, delim, na, col_names, bom));
+    return rcpp_result_gen;
+END_RCPP
+}
 // write_lines_
-void write_lines_(const CharacterVector& lines, RObject connection, const std::string& na);
-RcppExport SEXP _readr_write_lines_(SEXP linesSEXP, SEXP connectionSEXP, SEXP naSEXP) {
+void write_lines_(const CharacterVector& lines, RObject connection, const std::string& na, const std::string& sep);
+RcppExport SEXP _readr_write_lines_(SEXP linesSEXP, SEXP connectionSEXP, SEXP naSEXP, SEXP sepSEXP) {
 BEGIN_RCPP
     Rcpp::RNGScope rcpp_rngScope_gen;
     Rcpp::traits::input_parameter< const CharacterVector& >::type lines(linesSEXP);
     Rcpp::traits::input_parameter< RObject >::type connection(connectionSEXP);
     Rcpp::traits::input_parameter< const std::string& >::type na(naSEXP);
-    write_lines_(lines, connection, na);
+    Rcpp::traits::input_parameter< const std::string& >::type sep(sepSEXP);
+    write_lines_(lines, connection, na, sep);
     return R_NilValue;
 END_RCPP
 }
 // write_lines_raw_
-void write_lines_raw_(List x, RObject connection);
-RcppExport SEXP _readr_write_lines_raw_(SEXP xSEXP, SEXP connectionSEXP) {
+void write_lines_raw_(List x, RObject connection, const std::string& sep);
+RcppExport SEXP _readr_write_lines_raw_(SEXP xSEXP, SEXP connectionSEXP, SEXP sepSEXP) {
 BEGIN_RCPP
     Rcpp::RNGScope rcpp_rngScope_gen;
     Rcpp::traits::input_parameter< List >::type x(xSEXP);
     Rcpp::traits::input_parameter< RObject >::type connection(connectionSEXP);
-    write_lines_raw_(x, connection);
+    Rcpp::traits::input_parameter< const std::string& >::type sep(sepSEXP);
+    write_lines_raw_(x, connection, sep);
     return R_NilValue;
 END_RCPP
 }
@@ -337,7 +356,7 @@ static const R_CallMethodDef CallEntries[] = {
     {"_readr_count_fields_", (DL_FUNC) &_readr_count_fields_, 3},
     {"_readr_guess_header_", (DL_FUNC) &_readr_guess_header_, 3},
     {"_readr_tokenize_", (DL_FUNC) &_readr_tokenize_, 3},
-    {"_readr_parse_vector_", (DL_FUNC) &_readr_parse_vector_, 4},
+    {"_readr_parse_vector_", (DL_FUNC) &_readr_parse_vector_, 5},
     {"_readr_read_file_", (DL_FUNC) &_readr_read_file_, 2},
     {"_readr_read_file_raw_", (DL_FUNC) &_readr_read_file_raw_, 1},
     {"_readr_read_lines_", (DL_FUNC) &_readr_read_lines_, 5},
@@ -349,11 +368,11 @@ static const R_CallMethodDef CallEntries[] = {
     {"_readr_guess_types_", (DL_FUNC) &_readr_guess_types_, 4},
     {"_readr_whitespaceColumns", (DL_FUNC) &_readr_whitespaceColumns, 3},
     {"_readr_type_convert_col", (DL_FUNC) &_readr_type_convert_col, 6},
-    {"_readr_write_lines_", (DL_FUNC) &_readr_write_lines_, 3},
-    {"_readr_write_lines_raw_", (DL_FUNC) &_readr_write_lines_raw_, 2},
+    {"_readr_stream_delim_", (DL_FUNC) &_readr_stream_delim_, 6},
+    {"_readr_write_lines_", (DL_FUNC) &_readr_write_lines_, 4},
+    {"_readr_write_lines_raw_", (DL_FUNC) &_readr_write_lines_raw_, 3},
     {"_readr_write_file_", (DL_FUNC) &_readr_write_file_, 2},
     {"_readr_write_file_raw_", (DL_FUNC) &_readr_write_file_raw_, 2},
-    {"_readr_stream_delim_", (DL_FUNC) &_readr_stream_delim_, 6},
     {NULL, NULL, 0}
 };
 

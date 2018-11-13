@@ -9,6 +9,29 @@ test_that("trailing spaces ommitted", {
   expect_equal(df$X1, df$X2)
 })
 
+test_that("respects the trim_ws argument", {
+  x <- "a11 b22 c33\nd   e   f  "
+  out1 <- read_fwf(x, fwf_empty(x), trim_ws = FALSE)
+  expect_equal(out1$X1, c("a11", "d  "))
+  expect_equal(out1$X2, c("b22", "e  "))
+  expect_equal(out1$X3, c("c33", "f  "))
+
+  out2 <- read_fwf(x, fwf_empty(x), trim_ws = TRUE)
+  expect_equal(out2$X1, c("a11", "d"))
+  expect_equal(out2$X2, c("b22", "e"))
+  expect_equal(out2$X3, c("c33", "f"))
+})
+
+test_that("respects the trim_ws argument with empty fields", {
+  x <- "a11 b22 c33\nd       f  "
+  out1 <- read_fwf(x, fwf_empty(x), trim_ws = FALSE)
+  expect_equal(out1$X1, c("a11", "d  "))
+  expect_equal(out1$X2, c("b22", "   "))
+  expect_equal(out1$X3, c("c33", "f  "))
+
+  out1 <- read_fwf(x, fwf_empty(x), trim_ws = TRUE, na = "NA")
+})
+
 test_that("skipping column doesn't pad col_names", {
   x <- "1 2 3\n4 5 6"
 
@@ -180,4 +203,10 @@ test_that("read_table skips all comment lines", {
 test_that("read_table can read from a pipe (552)", {
   x <- read_table(pipe("echo a b c && echo 1 2 3 && echo 4 5 6"), progress = FALSE)
   expect_equal(x$a, c(1, 4))
+})
+
+test_that("read_table does not duplicate header rows for leading whitespace (747)", {
+  x <- read_table("\nfoo bar\n1   2")
+  expect_equal(nrow(x), 1)
+  expect_equal(x$foo, 1)
 })

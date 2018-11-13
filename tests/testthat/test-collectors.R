@@ -1,11 +1,11 @@
 context("Collectors")
 
-test_that("guess for empty strings is character", {
-  expect_equal(guess_parser(c("", "")), "character")
+test_that("guess for empty strings is logical", {
+  expect_equal(guess_parser(c("", "")), "logical")
 })
 
-test_that("guess for missing vector is character", {
-  expect_equal(guess_parser(NA_character_), "character")
+test_that("guess for missing vector is logical", {
+  expect_equal(guess_parser(NA_character_), "logical")
 })
 
 test_that("empty + NA ignored when determining type", {

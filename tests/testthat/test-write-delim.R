@@ -61,19 +61,26 @@ test_that("fails to create file in non-existent directory", {
   expect_warning(expect_error(write_csv(mtcars, file.path(tempdir(), "/x/y")), "cannot open the connection"), "No such file or directory")
 })
 
-test_that("write_excel_csv includes a byte order mark", {
+test_that("write_excel_csv/csv2 includes a byte order mark", {
   tmp <- tempfile()
   on.exit(unlink(tmp))
 
+  tmp2 <- tempfile()
+  on.exit(unlink(tmp2))
+
   write_excel_csv(mtcars, tmp)
+  write_excel_csv2(mtcars, tmp2)
 
   output <- readBin(tmp, "raw", file.info(tmp)$size)
+  output2 <- readBin(tmp2, "raw", file.info(tmp2)$size)
 
   # BOM is there
   expect_equal(output[1:3], charToRaw("\xEF\xBB\xBF"))
+  expect_equal(output2[1:3], charToRaw("\xEF\xBB\xBF"))
 
   # Rest of file also there
   expect_equal(output[4:6], charToRaw("mpg"))
+  expect_equal(output2[4:6], charToRaw("mpg"))
 })
 
 
@@ -103,3 +110,25 @@ test_that("write_csv can write to compressed files", {
   expect_true(is_bz2_file(filename))
   expect_equal(mt, read_csv(filename))
 })
+
+
+test_that("write_csv writes large integers without scientific notation #671", {
+  x <- data.frame(a = c(60150001022000, 60150001022001))
+  filename <- file.path(tempdir(), "test_large_integers.csv")
+  on.exit(unlink(filename))
+  write_csv(x, filename)
+  content <- read_file(filename)
+  expect_equal(content, "a\n60150001022000\n60150001022001\n")
+})
+
+test_that("write_csv writes large integers without scientific notation up to 1E15 #671", {
+  x <- data.frame(a = c(1E13, 1E14, 1E15, 1E16))
+  filename <- file.path(tempdir(), "test_large_integers2.csv")
+  on.exit(unlink(filename))
+  write_csv(x, filename)
+  content <- read_file(filename)
+  expect_equal(content, "a\n10000000000000\n100000000000000\n1e15\n1e16\n")
+  x_exp <- read_csv(filename, col_types = "d")
+  expect_equal(x$a, x_exp$a)
+})
+

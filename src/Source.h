@@ -27,20 +27,21 @@ public:
     while (n > 0 && cur != end) {
       if (lineStart) {
         isComment = hasComment && inComment(cur, end, comment);
-        lineStart = false;
       }
 
       if (*cur == '\r') {
         if (cur + 1 != end && *(cur + 1) == '\n') {
           cur++;
         }
-        if (!isComment)
+        if (!(isComment || lineStart))
           n--;
         lineStart = true;
       } else if (*cur == '\n') {
-        if (!isComment)
+        if (!(isComment || lineStart))
           n--;
         lineStart = true;
+      } else if (lineStart) {
+        lineStart = false;
       }
 
       cur++;

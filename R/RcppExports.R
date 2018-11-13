@@ -29,8 +29,8 @@ tokenize_ <- function(sourceSpec, tokenizerSpec, n_max) {
     .Call(`_readr_tokenize_`, sourceSpec, tokenizerSpec, n_max)
 }
 
-parse_vector_ <- function(x, collectorSpec, locale_, na) {
-    .Call(`_readr_parse_vector_`, x, collectorSpec, locale_, na)
+parse_vector_ <- function(x, collectorSpec, locale_, na, trim_ws = TRUE) {
+    .Call(`_readr_parse_vector_`, x, collectorSpec, locale_, na, trim_ws)
 }
 
 read_file_ <- function(sourceSpec, locale_) {
@@ -77,12 +77,16 @@ type_convert_col <- function(x, spec, locale_, col, na, trim_ws) {
     .Call(`_readr_type_convert_col`, x, spec, locale_, col, na, trim_ws)
 }
 
-write_lines_ <- function(lines, connection, na) {
-    invisible(.Call(`_readr_write_lines_`, lines, connection, na))
+stream_delim_ <- function(df, connection, delim, na, col_names = TRUE, bom = FALSE) {
+    .Call(`_readr_stream_delim_`, df, connection, delim, na, col_names, bom)
 }
 
-write_lines_raw_ <- function(x, connection) {
-    invisible(.Call(`_readr_write_lines_raw_`, x, connection))
+write_lines_ <- function(lines, connection, na, sep = "\n") {
+    invisible(.Call(`_readr_write_lines_`, lines, connection, na, sep))
+}
+
+write_lines_raw_ <- function(x, connection, sep = "\n") {
+    invisible(.Call(`_readr_write_lines_raw_`, x, connection, sep))
 }
 
 write_file_ <- function(x, connection) {

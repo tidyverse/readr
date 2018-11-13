@@ -119,7 +119,7 @@ new line after each entry.</p>
 
 <span class='fu'>read_lines_raw</span>(<span class='no'>file</span>, <span class='kw'>skip</span> <span class='kw'>=</span> <span class='fl'>0</span>, <span class='kw'>n_max</span> <span class='kw'>=</span> -<span class='fl'>1L</span>, <span class='kw'>progress</span> <span class='kw'>=</span> <span class='fu'>show_progress</span>())
 
-<span class='fu'>write_lines</span>(<span class='no'>x</span>, <span class='no'>path</span>, <span class='kw'>na</span> <span class='kw'>=</span> <span class='st'>"NA"</span>, <span class='kw'>append</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</pre>
+<span class='fu'>write_lines</span>(<span class='no'>x</span>, <span class='no'>path</span>, <span class='kw'>sep</span> <span class='kw'>=</span> <span class='st'>"\n"</span>, <span class='kw'>na</span> <span class='kw'>=</span> <span class='st'>"NA"</span>, <span class='kw'>append</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a> Arguments</h2>
     <table class="ref-arguments">
@@ -134,7 +134,9 @@ be automatically uncompressed. Files starting with <code>http://</code>,
 downloaded. Remote gz files can also be automatically downloaded and
 decompressed.</p>
 <p>Literal data is most useful for examples and tests. It must contain at
-least one new line to be recognised as data (instead of a path).</p></td>
+least one new line to be recognised as data (instead of a path) or be a
+vector of greater than length 1.</p>
+<p>Using a value of <code><a href='clipboard.html'>clipboard()</a></code> will read from the system clipboard.</p></td>
     </tr>
     <tr>
       <th>skip</th>
@@ -173,6 +175,12 @@ setting option <code>readr.show_progress</code> to <code>FALSE</code>.</p></td>
     <tr>
       <th>path</th>
       <td><p>Path or connection to write to.</p></td>
+    </tr>
+    <tr>
+      <th>sep</th>
+      <td><p>The line separator. Defaults to <code>\n</code>, commonly used on POSIX
+systems like macOS and linux. For native windows (CRLF) separators use
+<code>\r\n</code>.</p></td>
     </tr>
     <tr>
       <th>append</th>

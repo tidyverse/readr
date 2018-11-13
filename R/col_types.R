@@ -1,9 +1,15 @@
 #' Create column specification
 #'
-#' @param ... Either column objects created by `col_*()`, or their
-#'   abbreviated character names. If you're only overriding a few columns,
-#'   it's best to refer to columns by name. If not named, the column types
-#'   must match the column names exactly.
+#' `cols()` includes all columns in the input data, guessing the column types
+#' as the default. `cols_only()` includes only the columns you explicitly
+#' specify, skipping the rest.
+#'
+#' @family parsers
+#' @param ... Either column objects created by `col_*()`, or their abbreviated
+#'   character names (as described in the \code{col_types} argument of
+#'   \code{\link{read_delim}}). If you're only overriding a few columns, it's
+#'   best to refer to columns by name. If not named, the column types must match
+#'   the column names exactly.
 #' @param .default Any named columns not explicitly overridden in `...`
 #'   will be read with this column type.
 #' @export
@@ -11,9 +17,24 @@
 #' cols(a = col_integer())
 #' cols_only(a = col_integer())
 #'
-#' # You can also use the standard abreviations
+#' # You can also use the standard abbreviations
 #' cols(a = "i")
 #' cols(a = "i", b = "d", c = "_")
+#'
+#' # You can also use multiple sets of column definitions by combining
+#' # them like so:
+#'
+#' t1 <- cols(
+#'   column_one = col_integer(),
+#'   column_two = col_number())
+#'
+#' t2 <- cols(
+#'  column_three = col_character())
+#'
+#' t3 <- t1
+#' t3$cols <- c(t1$cols, t2$cols)
+#' t3
+
 cols <- function(..., .default = col_guess()) {
   col_types <- list(...)
   is_character <- vapply(col_types, is.character, logical(1))
@@ -179,12 +200,28 @@ show_cols_spec <- function(spec, n = getOption("readr.num_columns", 20)) {
   }
 }
 
+# This allows str() on a tibble object to print a little nicer.
+#' @export
+str.col_spec <- function(object, ..., indent.str = "") {
+
+  # Split the formatted column spec into strings
+  specs <- strsplit(format(object), "\n")[[1]]
+  cat(sep = "",
+    "\n",
+
+    # Append the current indentation string to the specs
+    paste(indent.str, specs, collapse = "\n"),
+
+    "\n")
+}
+
 
 #' Examine the column specifications for a data frame
 #'
 #' `spec()` extracts the full column specification from a tibble
 #' created by readr.
 #'
+#' @family parsers
 #' @param x The data frame object to extract from
 #' @return A col_spec object.
 #' @export

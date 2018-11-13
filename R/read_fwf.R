@@ -28,21 +28,21 @@
 #' # 2. A vector of field widths
 #' read_fwf(fwf_sample, fwf_widths(c(20, 10, 12), c("name", "state", "ssn")))
 #' # 3. Paired vectors of start and end positions
-#' read_fwf(fwf_sample, fwf_positions(c(1, 30), c(10, 42), c("name", "ssn")))
+#' read_fwf(fwf_sample, fwf_positions(c(1, 30), c(20, 42), c("name", "ssn")))
 #' # 4. Named arguments with start and end positions
-#' read_fwf(fwf_sample, fwf_cols(name = c(1, 10), ssn = c(30, 42)))
+#' read_fwf(fwf_sample, fwf_cols(name = c(1, 20), ssn = c(30, 42)))
 #' # 5. Named arguments with column widths
 #' read_fwf(fwf_sample, fwf_cols(name = 20, state = 10, ssn = 12))
 read_fwf <- function(file, col_positions, col_types = NULL,
                      locale = default_locale(), na = c("", "NA"),
-                     comment = "", skip = 0, n_max = Inf,
+                     comment = "", trim_ws = TRUE, skip = 0, n_max = Inf,
                      guess_max = min(n_max, 1000), progress = show_progress()) {
   ds <- datasource(file, skip = skip)
   if (inherits(ds, "source_file") && empty_file(file)) {
     return(tibble::tibble())
   }
 
-  tokenizer <- tokenizer_fwf(col_positions$begin, col_positions$end, na = na, comment = comment)
+  tokenizer <- tokenizer_fwf(col_positions$begin, col_positions$end, na = na, comment = comment, trim_ws = trim_ws)
 
   spec <- col_spec_standardise(
     file,
@@ -114,10 +114,9 @@ fwf_positions <- function(start, end = NULL, col_names = NULL) {
 #' @export
 #' @param ... If the first element is a data frame,
 #'   then it must have all numeric columns and either one or two rows.
-#'   The column names are the variable names, and the column values are the
-#'   variable widths if a length one vector, and variable start and end
-#'   positions.
-#'   Otherwise, the elements of `...` are used to construct a data frame
+#'   The column names are the variable names. The column values are the
+#'   variable widths if a length one vector, and if length two, variable start and end
+#'   positions. The elements of `...` are used to construct a data frame
 #'   with or or two rows as above.
 fwf_cols <- function(...) {
   x <- lapply(list(...), as.integer)

@@ -115,8 +115,8 @@ by providing a number of different ways to describe the field structure.</p>
     
 
     <pre class="usage"><span class='fu'>read_fwf</span>(<span class='no'>file</span>, <span class='no'>col_positions</span>, <span class='kw'>col_types</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>locale</span> <span class='kw'>=</span> <span class='fu'><a href='locale.html'>default_locale</a></span>(),
-  <span class='kw'>na</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='st'>""</span>, <span class='st'>"NA"</span>), <span class='kw'>comment</span> <span class='kw'>=</span> <span class='st'>""</span>, <span class='kw'>skip</span> <span class='kw'>=</span> <span class='fl'>0</span>, <span class='kw'>n_max</span> <span class='kw'>=</span> <span class='fl'>Inf</span>,
-  <span class='kw'>guess_max</span> <span class='kw'>=</span> <span class='fu'>min</span>(<span class='no'>n_max</span>, <span class='fl'>1000</span>), <span class='kw'>progress</span> <span class='kw'>=</span> <span class='fu'>show_progress</span>())
+  <span class='kw'>na</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='st'>""</span>, <span class='st'>"NA"</span>), <span class='kw'>comment</span> <span class='kw'>=</span> <span class='st'>""</span>, <span class='kw'>trim_ws</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>skip</span> <span class='kw'>=</span> <span class='fl'>0</span>,
+  <span class='kw'>n_max</span> <span class='kw'>=</span> <span class='fl'>Inf</span>, <span class='kw'>guess_max</span> <span class='kw'>=</span> <span class='fu'>min</span>(<span class='no'>n_max</span>, <span class='fl'>1000</span>), <span class='kw'>progress</span> <span class='kw'>=</span> <span class='fu'>show_progress</span>())
 
 <span class='fu'>fwf_empty</span>(<span class='no'>file</span>, <span class='kw'>skip</span> <span class='kw'>=</span> <span class='fl'>0</span>, <span class='kw'>col_names</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>comment</span> <span class='kw'>=</span> <span class='st'>""</span>, <span class='kw'>n</span> <span class='kw'>=</span> <span class='fl'>100L</span>)
 
@@ -139,7 +139,9 @@ be automatically uncompressed. Files starting with <code>http://</code>,
 downloaded. Remote gz files can also be automatically downloaded and
 decompressed.</p>
 <p>Literal data is most useful for examples and tests. It must contain at
-least one new line to be recognised as data (instead of a path).</p></td>
+least one new line to be recognised as data (instead of a path) or be a
+vector of greater than length 1.</p>
+<p>Using a value of <code><a href='clipboard.html'>clipboard()</a></code> will read from the system clipboard.</p></td>
     </tr>
     <tr>
       <th>col_positions</th>
@@ -151,7 +153,7 @@ ragged fwf file), supply the last end position as NA.</p></td>
     <tr>
       <th>col_types</th>
       <td><p>One of <code>NULL</code>, a <code><a href='cols.html'>cols()</a></code> specification, or
-a string. See <code><a href='../articles/column-types.html'>vignette("column-types")</a></code> for more details.</p>
+a string. See <code><a href='../articles/readr.html'>vignette("readr")</a></code> for more details.</p>
 <p>If <code>NULL</code>, all column types will be imputed from the first 1000 rows
 on the input. This is convenient (and fast), but not robust. If the
 imputation fails, you'll need to supply the correct types yourself.</p>
@@ -181,6 +183,11 @@ option to <code>character()</code> to indicate no missing values.</p></td>
       <th>comment</th>
       <td><p>A string used to identify comments. Any text after the
 comment characters will be silently ignored.</p></td>
+    </tr>
+    <tr>
+      <th>trim_ws</th>
+      <td><p>Should leading and trailing whitespace be trimmed from
+each field before parsing it?</p></td>
     </tr>
     <tr>
       <th>skip</th>
@@ -225,10 +232,9 @@ Use NA as last end field when reading a ragged fwf file.</p></td>
       <th>...</th>
       <td><p>If the first element is a data frame,
 then it must have all numeric columns and either one or two rows.
-The column names are the variable names, and the column values are the
-variable widths if a length one vector, and variable start and end
-positions.
-Otherwise, the elements of <code>...</code> are used to construct a data frame
+The column names are the variable names. The column values are the
+variable widths if a length one vector, and if length two, variable start and end
+positions. The elements of <code>...</code> are used to construct a data frame
 with or or two rows as above.</p></td>
     </tr>
     </table>
@@ -250,30 +256,30 @@ column is separated by whitespace.</p>
 #&gt; <span class='message'>  last = col_character(),</span>
 #&gt; <span class='message'>  state = col_character(),</span>
 #&gt; <span class='message'>  ssn = col_character()</span>
-#&gt; <span class='message'>)</span></div><div class='output co'>#&gt; # A tibble: 3 × 4
-#&gt;   first     last state          ssn
-#&gt;   &lt;chr&gt;    &lt;chr&gt; &lt;chr&gt;        &lt;chr&gt;
-#&gt; 1  John    Smith    WA 418-Y11-4111
-#&gt; 2  Mary Hartford    CA 319-Z19-4341
-#&gt; 3  Evan    Nolan    IL 219-532-c301</div><div class='input'><span class='co'># 2. A vector of field widths</span>
+#&gt; <span class='message'>)</span></div><div class='output co'>#&gt; # A tibble: 3 x 4
+#&gt;   first last     state ssn         
+#&gt;   &lt;chr&gt; &lt;chr&gt;    &lt;chr&gt; &lt;chr&gt;       
+#&gt; 1 John  Smith    WA    418-Y11-4111
+#&gt; 2 Mary  Hartford CA    319-Z19-4341
+#&gt; 3 Evan  Nolan    IL    219-532-c301</div><div class='input'><span class='co'># 2. A vector of field widths</span>
 <span class='fu'>read_fwf</span>(<span class='no'>fwf_sample</span>, <span class='fu'>fwf_widths</span>(<span class='fu'>c</span>(<span class='fl'>20</span>, <span class='fl'>10</span>, <span class='fl'>12</span>), <span class='fu'>c</span>(<span class='st'>"name"</span>, <span class='st'>"state"</span>, <span class='st'>"ssn"</span>)))</div><div class='output co'>#&gt; <span class='message'>Parsed with column specification:</span>
 #&gt; <span class='message'>cols(</span>
 #&gt; <span class='message'>  name = col_character(),</span>
 #&gt; <span class='message'>  state = col_character(),</span>
 #&gt; <span class='message'>  ssn = col_character()</span>
-#&gt; <span class='message'>)</span></div><div class='output co'>#&gt; # A tibble: 3 × 3
-#&gt;            name state          ssn
-#&gt;           &lt;chr&gt; &lt;chr&gt;        &lt;chr&gt;
-#&gt; 1    John Smith    WA 418-Y11-4111
-#&gt; 2 Mary Hartford    CA 319-Z19-4341
-#&gt; 3    Evan Nolan    IL 219-532-c301</div><div class='input'><span class='co'># 3. Paired vectors of start and end positions</span>
+#&gt; <span class='message'>)</span></div><div class='output co'>#&gt; # A tibble: 3 x 3
+#&gt;   name          state ssn         
+#&gt;   &lt;chr&gt;         &lt;chr&gt; &lt;chr&gt;       
+#&gt; 1 John Smith    WA    418-Y11-4111
+#&gt; 2 Mary Hartford CA    319-Z19-4341
+#&gt; 3 Evan Nolan    IL    219-532-c301</div><div class='input'><span class='co'># 3. Paired vectors of start and end positions</span>
 <span class='fu'>read_fwf</span>(<span class='no'>fwf_sample</span>, <span class='fu'>fwf_positions</span>(<span class='fu'>c</span>(<span class='fl'>1</span>, <span class='fl'>30</span>), <span class='fu'>c</span>(<span class='fl'>10</span>, <span class='fl'>42</span>), <span class='fu'>c</span>(<span class='st'>"name"</span>, <span class='st'>"ssn"</span>)))</div><div class='output co'>#&gt; <span class='message'>Parsed with column specification:</span>
 #&gt; <span class='message'>cols(</span>
 #&gt; <span class='message'>  name = col_character(),</span>
 #&gt; <span class='message'>  ssn = col_character()</span>
-#&gt; <span class='message'>)</span></div><div class='output co'>#&gt; # A tibble: 3 × 2
-#&gt;         name          ssn
-#&gt;        &lt;chr&gt;        &lt;chr&gt;
+#&gt; <span class='message'>)</span></div><div class='output co'>#&gt; # A tibble: 3 x 2
+#&gt;   name       ssn         
+#&gt;   &lt;chr&gt;      &lt;chr&gt;       
 #&gt; 1 John Smith 418-Y11-4111
 #&gt; 2 Mary Hartf 319-Z19-4341
 #&gt; 3 Evan Nolan 219-532-c301</div><div class='input'><span class='co'># 4. Named arguments with start and end positions</span>
@@ -281,9 +287,9 @@ column is separated by whitespace.</p>
 #&gt; <span class='message'>cols(</span>
 #&gt; <span class='message'>  name = col_character(),</span>
 #&gt; <span class='message'>  ssn = col_character()</span>
-#&gt; <span class='message'>)</span></div><div class='output co'>#&gt; # A tibble: 3 × 2
-#&gt;         name          ssn
-#&gt;        &lt;chr&gt;        &lt;chr&gt;
+#&gt; <span class='message'>)</span></div><div class='output co'>#&gt; # A tibble: 3 x 2
+#&gt;   name       ssn         
+#&gt;   &lt;chr&gt;      &lt;chr&gt;       
 #&gt; 1 John Smith 418-Y11-4111
 #&gt; 2 Mary Hartf 319-Z19-4341
 #&gt; 3 Evan Nolan 219-532-c301</div><div class='input'><span class='co'># 5. Named arguments with column widths</span>
@@ -292,12 +298,12 @@ column is separated by whitespace.</p>
 #&gt; <span class='message'>  name = col_character(),</span>
 #&gt; <span class='message'>  state = col_character(),</span>
 #&gt; <span class='message'>  ssn = col_character()</span>
-#&gt; <span class='message'>)</span></div><div class='output co'>#&gt; # A tibble: 3 × 3
-#&gt;            name state          ssn
-#&gt;           &lt;chr&gt; &lt;chr&gt;        &lt;chr&gt;
-#&gt; 1    John Smith    WA 418-Y11-4111
-#&gt; 2 Mary Hartford    CA 319-Z19-4341
-#&gt; 3    Evan Nolan    IL 219-532-c301</div></pre>
+#&gt; <span class='message'>)</span></div><div class='output co'>#&gt; # A tibble: 3 x 3
+#&gt;   name          state ssn         
+#&gt;   &lt;chr&gt;         &lt;chr&gt; &lt;chr&gt;       
+#&gt; 1 John Smith    WA    418-Y11-4111
+#&gt; 2 Mary Hartford CA    319-Z19-4341
+#&gt; 3 Evan Nolan    IL    219-532-c301</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>

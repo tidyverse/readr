@@ -39,7 +39,10 @@ downloaded. Remote gz files can also be automatically downloaded and
 decompressed.
 
 Literal data is most useful for examples and tests. It must contain at
-least one new line to be recognised as data (instead of a path).}
+least one new line to be recognised as data (instead of a path) or be a
+vector of greater than length 1.
+
+Using a value of \code{\link[=clipboard]{clipboard()}} will read from the system clipboard.}
 
 \item{delim}{Single character used to separate fields within a record.}
 
@@ -117,16 +120,15 @@ time is 5 seconds or more. The automatic progress bar can be disabled by
 setting option \code{readr.show_progress} to \code{FALSE}.}
 }
 \value{
-A data frame. If there are parsing problems, a warning tells you
+A \code{\link[=tibble]{tibble()}}. If there are parsing problems, a warning tells you
 how many, and you can retrieve the details with \code{\link{problems}()}.
 }
 \description{
 \code{read_csv()} and \code{read_tsv()} are special cases of the general
 \code{read_delim()}. They're useful for reading the most common types of
 flat file data, comma separated values and tab separated values,
-respectively. \code{read_csv2()} uses \code{;} for separators, instead of
-\code{,}. This is common in European countries which use \code{,} as the
-decimal separator.
+respectively. \code{read_csv2()} uses \code{;} for the field separator and \code{,} for the
+decimal point. This is common in some European countries.
 }
 \examples{
 # Input sources -------------------------------------------------------------

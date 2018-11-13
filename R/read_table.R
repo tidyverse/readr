@@ -2,7 +2,7 @@
 #'
 #' @description
 #' `read_table()` and `read_table2()` are designed to read the type of textual
-#' data where each column is #' separate by one (or more) columns of space.
+#' data where each column is separated by one (or more) columns of space.
 #'
 #' `read_table2()` is like [read.table()], it allows any number of whitespace
 #' characters between columns, and the lines can be of different lengths.
