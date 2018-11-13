@@ -111,6 +111,26 @@ test_that("write_csv can write to compressed files", {
   expect_equal(mt, read_csv(filename))
 })
 
+test_that("write_csv writes large integers without scientific notation #671", {
+  x <- data.frame(a = c(60150001022000, 60150001022001))
+  filename <- file.path(tempdir(), "test_large_integers.csv")
+  on.exit(unlink(filename))
+  write_csv(x, filename)
+  content <- read_file(filename)
+  expect_equal(content, "a\n60150001022000\n60150001022001\n")
+})
+
+test_that("write_csv writes large integers without scientific notation up to 1E15 #671", {
+  x <- data.frame(a = c(1E13, 1E14, 1E15, 1E16))
+  filename <- file.path(tempdir(), "test_large_integers2.csv")
+  on.exit(unlink(filename))
+  write_csv(x, filename)
+  content <- read_file(filename)
+  expect_equal(content, "a\n10000000000000\n100000000000000\n1e15\n1e16\n")
+  x_exp <- read_csv(filename, col_types = "d")
+  expect_equal(x$a, x_exp$a)
+})
+
 test_that("write_csv2 and format_csv2 writes ; sep and , decimal mark", {
   df <- tibble::data_frame(x = c(0.5, 2, 1.2), y = c("a", "b", "c"))
   expect_equal(format_csv2(df), "x;y\n0,5;a\n2,0;b\n1,2;c\n")

@@ -178,6 +178,19 @@ BEGIN_RCPP
     return rcpp_result_gen;
 END_RCPP
 }
+// read_lines_raw_chunked_
+void read_lines_raw_chunked_(List sourceSpec, int chunkSize, Environment callback, bool progress);
+RcppExport SEXP _readr_read_lines_raw_chunked_(SEXP sourceSpecSEXP, SEXP chunkSizeSEXP, SEXP callbackSEXP, SEXP progressSEXP) {
+BEGIN_RCPP
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< List >::type sourceSpec(sourceSpecSEXP);
+    Rcpp::traits::input_parameter< int >::type chunkSize(chunkSizeSEXP);
+    Rcpp::traits::input_parameter< Environment >::type callback(callbackSEXP);
+    Rcpp::traits::input_parameter< bool >::type progress(progressSEXP);
+    read_lines_raw_chunked_(sourceSpec, chunkSize, callback, progress);
+    return R_NilValue;
+END_RCPP
+}
 // read_tokens_
 RObject read_tokens_(List sourceSpec, List tokenizerSpec, ListOf<List> colSpecs, CharacterVector colNames, List locale_, int n_max, bool progress);
 RcppExport SEXP _readr_read_tokens_(SEXP sourceSpecSEXP, SEXP tokenizerSpecSEXP, SEXP colSpecsSEXP, SEXP colNamesSEXP, SEXP locale_SEXP, SEXP n_maxSEXP, SEXP progressSEXP) {
@@ -318,6 +331,22 @@ BEGIN_RCPP
     return R_NilValue;
 END_RCPP
 }
+// stream_delim_
+std::string stream_delim_(const List& df, RObject connection, char delim, const std::string& na, bool col_names, bool bom);
+RcppExport SEXP _readr_stream_delim_(SEXP dfSEXP, SEXP connectionSEXP, SEXP delimSEXP, SEXP naSEXP, SEXP col_namesSEXP, SEXP bomSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< const List& >::type df(dfSEXP);
+    Rcpp::traits::input_parameter< RObject >::type connection(connectionSEXP);
+    Rcpp::traits::input_parameter< char >::type delim(delimSEXP);
+    Rcpp::traits::input_parameter< const std::string& >::type na(naSEXP);
+    Rcpp::traits::input_parameter< bool >::type col_names(col_namesSEXP);
+    Rcpp::traits::input_parameter< bool >::type bom(bomSEXP);
+    rcpp_result_gen = Rcpp::wrap(stream_delim_(df, connection, delim, na, col_names, bom));
+    return rcpp_result_gen;
+END_RCPP
+}
 
 static const R_CallMethodDef CallEntries[] = {
     {"_readr_collectorGuess", (DL_FUNC) &_readr_collectorGuess, 2},
@@ -333,6 +362,7 @@ static const R_CallMethodDef CallEntries[] = {
     {"_readr_read_lines_", (DL_FUNC) &_readr_read_lines_, 5},
     {"_readr_read_lines_chunked_", (DL_FUNC) &_readr_read_lines_chunked_, 6},
     {"_readr_read_lines_raw_", (DL_FUNC) &_readr_read_lines_raw_, 3},
+    {"_readr_read_lines_raw_chunked_", (DL_FUNC) &_readr_read_lines_raw_chunked_, 4},
     {"_readr_read_tokens_", (DL_FUNC) &_readr_read_tokens_, 7},
     {"_readr_read_tokens_chunked_", (DL_FUNC) &_readr_read_tokens_chunked_, 8},
     {"_readr_guess_types_", (DL_FUNC) &_readr_guess_types_, 4},

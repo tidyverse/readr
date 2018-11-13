@@ -53,6 +53,10 @@ read_lines_raw_ <- function(sourceSpec, n_max = -1L, progress = FALSE) {
     .Call(`_readr_read_lines_raw_`, sourceSpec, n_max, progress)
 }
 
+read_lines_raw_chunked_ <- function(sourceSpec, chunkSize, callback, progress = TRUE) {
+    invisible(.Call(`_readr_read_lines_raw_chunked_`, sourceSpec, chunkSize, callback, progress))
+}
+
 read_tokens_ <- function(sourceSpec, tokenizerSpec, colSpecs, colNames, locale_, n_max = -1L, progress = TRUE) {
     .Call(`_readr_read_tokens_`, sourceSpec, tokenizerSpec, colSpecs, colNames, locale_, n_max, progress)
 }
@@ -91,5 +95,9 @@ write_file_ <- function(x, connection) {
 
 write_file_raw_ <- function(x, connection) {
     invisible(.Call(`_readr_write_file_raw_`, x, connection))
+}
+
+stream_delim_ <- function(df, connection, delim, na, col_names = TRUE, bom = FALSE) {
+    .Call(`_readr_stream_delim_`, df, connection, delim, na, col_names, bom)
 }
 

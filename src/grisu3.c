@@ -360,8 +360,8 @@ int dtoa_grisu3(double v, char *dst)
 	// If grisu3 was not able to convert the number to a string, then use old sprintf (suboptimal).
 	if (!success) return sprintf(s2, "%.17g", v) + (int)(s2 - dst);
 
-	// handle whole numbers
-	if (d_exp >= 0 && d_exp <= 2) {
+	// handle whole numbers as integers if they are < 10^15
+	if (d_exp >= 0 && d_exp <= MAX(2, 15 - len)) {
 		while(d_exp-- > 0) s2[len++] = '0';
 		s2[len] = '\0';
 		return (int)(s2+len-dst);
