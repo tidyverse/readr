@@ -12,7 +12,7 @@ parse_vector(x, collector, na = c("", "NA"), locale = default_locale(),
 
 \item{collector}{Column specification.}
 
-\item{na}{Character vector of strings to use for missing values. Set this
+\item{na}{Character vector of strings to interpret as missing values. Set this
 option to \code{character()} to indicate no missing values.}
 
 \item{locale}{The locale controls defaults that vary from place to place.
@@ -32,4 +32,12 @@ x <- c("1", "2", "3", "NA")
 parse_vector(x, col_integer())
 parse_vector(x, col_double())
 }
+\seealso{
+Other parsers: \code{\link{col_skip}},
+  \code{\link{cols_condense}}, \code{\link{cols}},
+  \code{\link{parse_datetime}}, \code{\link{parse_factor}},
+  \code{\link{parse_guess}}, \code{\link{parse_logical}},
+  \code{\link{parse_number}}
+}
+\concept{parsers}
 \keyword{internal}

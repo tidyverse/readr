@@ -7,7 +7,7 @@
 #' @section Output:
 #' Factors are coerced to character. Doubles are formatted using the grisu3
 #' algorithm. POSIXct's are formatted as ISO8601 with a UTC timezone *Note:
-#' `POSIXct`objects in local or non-UTC timezones will be converted to UTC time
+#' `POSIXct` objects in local or non-UTC timezones will be converted to UTC time
 #' before writing.*
 #'
 #' All columns are encoded as UTF-8. `write_excel_csv()` and `write_excel_csv2()` also include a
@@ -18,6 +18,10 @@
 #' `;` as column separator and `,` as decimal separator.
 #'
 #' Values are only quoted if needed: if they contain a comma, quote or newline.
+#'
+#' The `write_*()` functions will automatically compress outputs if an appropriate extension is given. At present, three
+#' extensions are supported, `.gz` for gzip compression, `.bz2` for bzip2 compression and `.xz` for lzma compression.  See
+#' the examples for more information.
 #'
 #' @param x A data frame to write to disk
 #' @param path Path or connection to write to.

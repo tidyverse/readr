@@ -38,6 +38,9 @@ public:
     if (n == n_)
       return;
 
+    if (column_ == R_NilValue)
+      return;
+
     n_ = n;
     column_ = Rf_lengthgets(column_, n);
   }

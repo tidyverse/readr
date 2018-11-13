@@ -37,7 +37,7 @@ NULL
 #' @rdname Tokenizers
 #' @param comment A string used to identify comments. Any text after the
 #'   comment characters will be silently ignored.
-#' @param na Character vector of strings to use for missing values. Set this
+#' @param na Character vector of strings to interpret as missing values. Set this
 #'   option to `character()` to indicate no missing values.
 #' @param quoted_na Should missing values inside quotes be treated as missing
 #'   values (the default) or strings.

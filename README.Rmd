@@ -37,6 +37,10 @@ install.packages("readr")
 devtools::install_github("tidyverse/readr")
 ```
 
+## Cheatsheet
+
+<a href="https://rawgit.com/rstudio/cheatsheets/master/data-import.pdf"><img src="https://raw.githubusercontent.com/rstudio/cheatsheets/master/pngs/thumbnails/data-import-cheatsheet-thumbs.png" width="630" height="252"/></a>  
+
 ## Usage
 
 readr is part of the core tidyverse, so load it with:
@@ -82,7 +86,7 @@ mtcars <- read_csv(readr_example("mtcars.csv"), col_types =
 )
 ```
 
-`vignette("readr")` gives more detail on how readr guess the column types, how you can override the defaults, and provides some useful tools for debugging parsing problems.
+`vignette("readr")` gives more detail on how readr guesses the column types, how you can override the defaults, and provides some useful tools for debugging parsing problems.
 
 ## Alternatives
 

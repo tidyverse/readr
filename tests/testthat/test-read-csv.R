@@ -258,3 +258,7 @@ test_that("read_csv handles whitespace between delimiters and quoted fields (668
   x <- read_csv('x,y\n1, \"hi,there\"\n3,4')
   expect_equal(x$y, c("hi,there", "4"))
 })
+
+test_that("read_csv does not throw warnings for skipped columns (750, 833)", {
+  expect_warning(x <- read_csv("x,y\n1,2", col_types = "i_"), NA)
+})

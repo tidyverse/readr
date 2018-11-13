@@ -1,5 +1,5 @@
 Package: readr
-Version: 1.1.1.9000
+Version: 1.2.0
 Title: Read Rectangular Text Data
 Description: The goal of 'readr' is to provide a fast and friendly way to read
     rectangular data (like 'csv', 'tsv', and 'fwf'). It is designed to flexibly
@@ -7,7 +7,7 @@ Description: The goal of 'readr' is to provide a fast and friendly way to read
     data unexpectedly changes.
 Authors@R: c(
     person("Hadley", "Wickham", , "hadley@rstudio.com", "aut"),
-    person("Jim", "Hester", , "james.hester@rstudio.com", c("aut", "cre")),
+    person("Jim", "Hester", , "jim.hester@rstudio.com", c("aut", "cre")),
     person("Romain", "Francois", role = "aut"),
     person("R Core Team", role = "ctb", comment = "Date time code adapted from R"),
     person("RStudio", role = c("cph", "fnd")),
@@ -21,7 +21,7 @@ LinkingTo: Rcpp,
 Imports:
     Rcpp (>= 0.12.0.5),
     tibble,
-    hms,
+    hms (>= 0.4.1),
     R6,
     clipr
 Suggests:
@@ -35,5 +35,7 @@ License: GPL (>= 2) | file LICENSE
 BugReports: https://github.com/tidyverse/readr/issues
 URL: http://readr.tidyverse.org, https://github.com/tidyverse/readr
 VignetteBuilder: knitr
-RoxygenNote: 6.0.1
+RoxygenNote: 6.1.0
 Roxygen: list(markdown = TRUE)
+Remotes:
+    tidyverse/hms
