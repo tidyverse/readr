@@ -42,6 +42,7 @@ you would pass `skip = 3`, now you only need to pass `skip = 2`.
 
 ## Bug Fixes
 
+* `read_table2()` now skips comments anywhere in the file (#908).
 * `parse_factor()` now handles the case of empty strings separately, so you can
   have a factor level that is an empty string (#864).
 * `read_delim()` now correctly reads quoted headers with embeded newlines (#784).
