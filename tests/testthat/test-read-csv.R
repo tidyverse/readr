@@ -268,3 +268,10 @@ test_that("read_csv reads headers with embedded newlines (#784)", {
   expect_equal(names(x), "Header\nLine Two")
   expect_equal(x[[1]], "Value")
 })
+
+test_that("read_csv reads headers with embedded newlines 2 (#772)", {
+  x <- read_csv("\"Header\nLine Two\"\n\"Another line\nto\nskip\"\nValue,Value2\n", skip = 2, col_names = FALSE)
+  expect_equal(names(x), c("X1", "X2"))
+  expect_equal(x$X1, "Value")
+  expect_equal(x$X2, "Value2")
+})

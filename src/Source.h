@@ -28,23 +28,20 @@ public:
     while (n > 0 && cur != end) {
       if (lineStart) {
         isComment = hasComment && inComment(cur, end, comment);
-        isQuote = (*cur == '"');
-        if (isQuote) {
-          cur++;
-          lineStart = false;
-          continue;
-        }
       }
 
       // This doesn't handle escaped quotes or more sophisticated things, but
       // will work for simple cases.
+      if (*cur == '"') {
+        isQuote = !isQuote;
+        cur++;
+        lineStart = false;
+        continue;
+      }
+
       if (isQuote) {
-        if (*cur == '"') {
-          isQuote = false;
-        } else {
-          cur++;
-          continue;
-        }
+        cur++;
+        continue;
       }
 
       if (*cur == '\r') {
