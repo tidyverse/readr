@@ -40,6 +40,7 @@ you would pass `skip = 3`, now you only need to pass `skip = 2`.
 
 ## Bug Fixes
 
+* `fwf_positions()` now always returns `col_names` as a character (#797).
 * `format_*()` now explicitly marks it's output encoding as UTF-8 (#697).
 * `read_delim()` now ignores whitespace between the delimiter and quoted fields (#668).
 * `read_table2()` now properly ignores blank lines at the end of a file like
