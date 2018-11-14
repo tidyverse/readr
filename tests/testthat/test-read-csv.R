@@ -262,3 +262,9 @@ test_that("read_csv handles whitespace between delimiters and quoted fields (668
 test_that("read_csv does not throw warnings for skipped columns (750, 833)", {
   expect_warning(x <- read_csv("x,y\n1,2", col_types = "i_"), NA)
 })
+
+test_that("read_csv reads headers with embedded newlines (#784)", {
+  x <- read_csv("\"Header\nLine Two\"\nValue\n")
+  expect_equal(names(x), "Header\nLine Two")
+  expect_equal(x[[1]], "Value")
+})
