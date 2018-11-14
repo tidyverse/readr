@@ -22,9 +22,9 @@ test_that("read_delim/csv/tsv and write_delim round trip special chars", {
   x <- c("a", '"', ",", "\n","at\t")
 
   output <- data.frame(x)
-  input <- read_delim(format_delim(output, delim = " "), delim = " ", progress = FALSE)
-  input_csv <- read_csv(format_delim(output, delim = ","), progress = FALSE)
-  input_tsv <- read_tsv(format_delim(output, delim = "\t"), progress = FALSE)
+  input <- read_delim(format_delim(output, delim = " "), delim = " ", trim_ws = FALSE, progress = FALSE)
+  input_csv <- read_csv(format_delim(output, delim = ","), trim_ws = FALSE, progress = FALSE)
+  input_tsv <- read_tsv(format_delim(output, delim = "\t"), trim_ws = FALSE, progress = FALSE)
   expect_equal(input$x, input_csv$x, input_tsv$x,  x)
 })
 
