@@ -216,6 +216,7 @@ void CollectorFactor::insert(int i, Rcpp::String str, const Token& t) {
 void CollectorFactor::setValue(int i, const Token& t) {
 
   switch (t.type()) {
+  case TOKEN_EMPTY:
   case TOKEN_STRING: {
     boost::container::string buffer;
     SourceIterators string = t.getString(&buffer);
@@ -226,7 +227,6 @@ void CollectorFactor::setValue(int i, const Token& t) {
     return;
   };
   case TOKEN_MISSING:
-  case TOKEN_EMPTY:
     if (includeNa_) {
       insert(i, NA_STRING, t);
     } else {

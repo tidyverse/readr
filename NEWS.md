@@ -42,6 +42,8 @@ you would pass `skip = 3`, now you only need to pass `skip = 2`.
 
 ## Bug Fixes
 
+* `parse_factor()` now handles the case of empty strings separately, so you can
+  have a factor level that is an empty string (#864).
 * `read_delim()` now correctly reads quoted headers with embeded newlines (#784).
 * `fwf_positions()` now always returns `col_names` as a character (#797).
 * `format_*()` now explicitly marks it's output encoding as UTF-8 (#697).
