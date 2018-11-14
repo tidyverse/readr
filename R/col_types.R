@@ -1,9 +1,15 @@
 #' Create column specification
 #'
-#' @param ... Either column objects created by `col_*()`, or their
-#'   abbreviated character names. If you're only overriding a few columns,
-#'   it's best to refer to columns by name. If not named, the column types
-#'   must match the column names exactly.
+#' `cols()` includes all columns in the input data, guessing the column types
+#' as the default. `cols_only()` includes only the columns you explicitly
+#' specify, skipping the rest.
+#'
+#' @family parsers
+#' @param ... Either column objects created by `col_*()`, or their abbreviated
+#'   character names (as described in the \code{col_types} argument of
+#'   \code{\link{read_delim}}). If you're only overriding a few columns, it's
+#'   best to refer to columns by name. If not named, the column types must match
+#'   the column names exactly.
 #' @param .default Any named columns not explicitly overridden in `...`
 #'   will be read with this column type.
 #' @export
@@ -11,7 +17,7 @@
 #' cols(a = col_integer())
 #' cols_only(a = col_integer())
 #'
-#' # You can also use the standard abreviations
+#' # You can also use the standard abbreviations
 #' cols(a = "i")
 #' cols(a = "i", b = "d", c = "_")
 #'
@@ -71,8 +77,16 @@ col_spec <- function(col_types, default = col_guess()) {
 
 is.col_spec <- function(x) inherits(x, "col_spec")
 
-as.col_spec <- function(x) UseMethod("as.col_spec")
 
+#' Generate a column specification
+#'
+#' This is most useful for generating a specification using the short form
+#' @param x Input object
+#' @keywords internal
+#' @examples
+#' as.col_spec("cccnnn")
+#' @export
+as.col_spec <- function(x) UseMethod("as.col_spec")
 #' @export
 as.col_spec.character <- function(x) {
   letters <- strsplit(x, "")[[1]]
@@ -215,6 +229,7 @@ str.col_spec <- function(object, ..., indent.str = "") {
 #' `spec()` extracts the full column specification from a tibble
 #' created by readr.
 #'
+#' @family parsers
 #' @param x The data frame object to extract from
 #' @return A col_spec object.
 #' @export

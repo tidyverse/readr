@@ -32,10 +32,22 @@ you would pass `skip = 3`, now you only need to pass `skip = 2`.
 * `read_*()` files now support reading from the clipboard by using `clipboard()` (#656).
 * `write_file()` gains a `sep` argument, to specify the line separator (#665).
 * Allow files to be read via FTP over SSH by recognising `sftp` as a URL protocol (#707, @jdeboer).
+* `parse_date*() accepts `%a` for local day of week (#763, @tigertoes).
+* Added function `read_lines_raw_chunked()` (#710, @gergness)
+* `write_csv2()` added to complement `write_excel_csv2()` and allow writing csv file readable by `read_csv2()`
+  (#870, @cderv).
+* `as.col_spec()` is now exported (#517).
+* `write*()` functions gain a `quote_escape` argument to control how quotes are escaped in the output (#854).
+* `read*()` functions now have a more informative error when trying to read a remote bz2 file (#891).
 * `spec_table2()` function added to correspond to `read_table2()` (#778, @mawds).
 
 ## Bug Fixes
 
+* `read_table2()` now skips comments anywhere in the file (#908).
+* `parse_factor()` now handles the case of empty strings separately, so you can
+  have a factor level that is an empty string (#864).
+* `read_delim()` now correctly reads quoted headers with embeded newlines (#784).
+* `fwf_positions()` now always returns `col_names` as a character (#797).
 * `format_*()` now explicitly marks it's output encoding as UTF-8 (#697).
 * `read_delim()` now ignores whitespace between the delimiter and quoted fields (#668).
 * `read_table2()` now properly ignores blank lines at the end of a file like
@@ -50,6 +62,11 @@ you would pass `skip = 3`, now you only need to pass `skip = 2`.
   integer values in the first 1000 (#645, #652).
 * `read_*()` now converts string `file`s to UTF-8 before parsing, which is convenient for non-UTF-8 platforms
   in most cases (#730, @yutannihilation).
+* `write_csv()` writes integers up to 10^15 without scientific notation (#765, @zeehio)
+* `read_*()` no longer throws a "length of NULL cannot be changed" warning when
+  trying to resize a skipped column (#750, #833).
+* `read_*()` now handles non-ASCII paths properly with R >=3.5.0 on Windows (#838, @yutannihilation).
+* `read*()`'s `trim_ws` parameter now trims both spaces and tabs (#767)
 
 # readr 1.1.1
 

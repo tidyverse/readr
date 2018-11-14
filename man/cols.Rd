@@ -10,22 +10,25 @@ cols(..., .default = col_guess())
 cols_only(...)
 }
 \arguments{
-\item{...}{Either column objects created by \code{col_*()}, or their
-abbreviated character names. If you're only overriding a few columns,
-it's best to refer to columns by name. If not named, the column types
-must match the column names exactly.}
+\item{...}{Either column objects created by \code{col_*()}, or their abbreviated
+character names (as described in the \code{col_types} argument of
+\code{\link{read_delim}}). If you're only overriding a few columns, it's
+best to refer to columns by name. If not named, the column types must match
+the column names exactly.}
 
 \item{.default}{Any named columns not explicitly overridden in \code{...}
 will be read with this column type.}
 }
 \description{
-Create column specification
+\code{cols()} includes all columns in the input data, guessing the column types
+as the default. \code{cols_only()} includes only the columns you explicitly
+specify, skipping the rest.
 }
 \examples{
 cols(a = col_integer())
 cols_only(a = col_integer())
 
-# You can also use the standard abreviations
+# You can also use the standard abbreviations
 cols(a = "i")
 cols(a = "i", b = "d", c = "_")
 
@@ -43,3 +46,11 @@ t3 <- t1
 t3$cols <- c(t1$cols, t2$cols)
 t3
 }
+\seealso{
+Other parsers: \code{\link{col_skip}},
+  \code{\link{cols_condense}},
+  \code{\link{parse_datetime}}, \code{\link{parse_factor}},
+  \code{\link{parse_guess}}, \code{\link{parse_logical}},
+  \code{\link{parse_number}}, \code{\link{parse_vector}}
+}
+\concept{parsers}

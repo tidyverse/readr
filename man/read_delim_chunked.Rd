@@ -7,26 +7,30 @@
 \alias{read_tsv_chunked}
 \title{Read a delimited file by chunks}
 \usage{
-read_delim_chunked(file, callback, chunk_size = 10000, delim, quote = "\\"",
-  escape_backslash = FALSE, escape_double = TRUE, col_names = TRUE,
-  col_types = NULL, locale = default_locale(), na = c("", "NA"),
-  quoted_na = TRUE, comment = "", trim_ws = FALSE, skip = 0,
-  guess_max = min(1000, chunk_size), progress = show_progress())
+read_delim_chunked(file, callback, chunk_size = 10000, delim,
+  quote = "\\"", escape_backslash = FALSE, escape_double = TRUE,
+  col_names = TRUE, col_types = NULL, locale = default_locale(),
+  na = c("", "NA"), quoted_na = TRUE, comment = "",
+  trim_ws = FALSE, skip = 0, guess_max = min(1000, chunk_size),
+  progress = show_progress())
 
 read_csv_chunked(file, callback, chunk_size = 10000, col_names = TRUE,
   col_types = NULL, locale = default_locale(), na = c("", "NA"),
   quoted_na = TRUE, quote = "\\"", comment = "", trim_ws = TRUE,
-  skip = 0, guess_max = min(1000, chunk_size), progress = show_progress())
+  skip = 0, guess_max = min(1000, chunk_size),
+  progress = show_progress())
 
 read_csv2_chunked(file, callback, chunk_size = 10000, col_names = TRUE,
   col_types = NULL, locale = default_locale(), na = c("", "NA"),
   quoted_na = TRUE, quote = "\\"", comment = "", trim_ws = TRUE,
-  skip = 0, guess_max = min(1000, chunk_size), progress = show_progress())
+  skip = 0, guess_max = min(1000, chunk_size),
+  progress = show_progress())
 
 read_tsv_chunked(file, callback, chunk_size = 10000, col_names = TRUE,
   col_types = NULL, locale = default_locale(), na = c("", "NA"),
   quoted_na = TRUE, quote = "\\"", comment = "", trim_ws = TRUE,
-  skip = 0, guess_max = min(1000, chunk_size), progress = show_progress())
+  skip = 0, guess_max = min(1000, chunk_size),
+  progress = show_progress())
 }
 \arguments{
 \item{file}{Either a path to a file, a connection, or literal data
@@ -99,7 +103,7 @@ The default locale is US-centric (like R), but you can use
 the default time zone, encoding, decimal mark, big mark, and day/month
 names.}
 
-\item{na}{Character vector of strings to use for missing values. Set this
+\item{na}{Character vector of strings to interpret as missing values. Set this
 option to \code{character()} to indicate no missing values.}
 
 \item{quoted_na}{Should missing values inside quotes be treated as missing
@@ -133,4 +137,5 @@ read_csv_chunked(readr_example("mtcars.csv"), DataFrameCallback$new(f), chunk_si
 Other chunked: \code{\link{callback}},
   \code{\link{read_lines_chunked}}
 }
+\concept{chunked}
 \keyword{internal}

@@ -30,6 +30,7 @@ private:
 
   bool isComment(const char* cur) const;
   bool isEmpty() const;
+  void ignoreLine();
 };
 
 #endif

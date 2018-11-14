@@ -19,7 +19,7 @@ public:
       fm_ = boost::interprocess::file_mapping(
           path.c_str(), boost::interprocess::read_only);
       mr_ = boost::interprocess::mapped_region(
-          fm_, boost::interprocess::read_only);
+          fm_, boost::interprocess::read_private);
     } catch (boost::interprocess::interprocess_exception& e) {
       Rcpp::stop("Cannot read file %s: %s", path, e.what());
     }

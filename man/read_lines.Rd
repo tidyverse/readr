@@ -9,7 +9,8 @@
 read_lines(file, skip = 0, n_max = -1L, locale = default_locale(),
   na = character(), progress = show_progress())
 
-read_lines_raw(file, skip = 0, n_max = -1L, progress = show_progress())
+read_lines_raw(file, skip = 0, n_max = -1L,
+  progress = show_progress())
 
 write_lines(x, path, sep = "\\n", na = "NA", append = FALSE)
 }
@@ -40,7 +41,7 @@ The default locale is US-centric (like R), but you can use
 the default time zone, encoding, decimal mark, big mark, and day/month
 names.}
 
-\item{na}{Character vector of strings to use for missing values. Set this
+\item{na}{Character vector of strings to interpret as missing values. Set this
 option to \code{character()} to indicate no missing values.}
 
 \item{progress}{Display a progress bar? By default it will only display

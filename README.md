@@ -3,7 +3,7 @@
 readr <img src="tools/logo.png" align="right" />
 ================================================
 
-[![CRAN\_Status\_Badge](http://www.r-pkg.org/badges/version/readr)](http://cran.r-project.org/package=readr) [![Build Status](https://travis-ci.org/tidyverse/readr.svg?branch=master)](https://travis-ci.org/tidyverse/readr) [![AppVeyor Build Status](https://ci.appveyor.com/api/projects/status/github/tidyverse/readr?branch=master&svg=true)](https://ci.appveyor.com/project/tidyverse/readr) [![Coverage Status](http://codecov.io/github/tidyverse/readr/coverage.svg?branch=master)](http://codecov.io/tidyverse/readr?branch=master)
+[![CRAN\_Status\_Badge](https://www.r-pkg.org/badges/version/readr)](https://cran.r-project.org/package=readr) [![Build Status](https://travis-ci.org/tidyverse/readr.svg?branch=master)](https://travis-ci.org/tidyverse/readr) [![AppVeyor Build Status](https://ci.appveyor.com/api/projects/status/github/tidyverse/readr?branch=master&svg=true)](https://ci.appveyor.com/project/tidyverse/readr) [![Coverage Status](https://codecov.io/gh/tidyverse/readr/coverage.svg?branch=master)](https://codecov.io/gh/tidyverse/readr?branch=master)
 
 Overview
 --------
@@ -25,8 +25,11 @@ install.packages("readr")
 devtools::install_github("tidyverse/readr")
 ```
 
-Usage
------
+## Cheatsheet
+
+<a href="https://rawgit.com/rstudio/cheatsheets/master/data-import.pdf"><img src="https://raw.githubusercontent.com/rstudio/cheatsheets/master/pngs/thumbnails/data-import-cheatsheet-thumbs.png" width="630" height="252"/></a>
+
+## Usage
 
 readr is part of the core tidyverse, so load it with:
 

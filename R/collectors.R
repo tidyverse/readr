@@ -19,6 +19,7 @@ collector_find <- function(name) {
 
 #' Parse a character vector.
 #'
+#' @family parsers
 #' @param x Character vector of elements to parse.
 #' @param collector Column specification.
 #' @inheritParams read_delim
@@ -30,6 +31,7 @@ collector_find <- function(name) {
 #' parse_vector(x, col_integer())
 #' parse_vector(x, col_double())
 parse_vector <- function(x, collector, na = c("", "NA"), locale = default_locale(), trim_ws = TRUE) {
+  stopifnot(is.character(x))
   if (is.character(collector)) {
     collector <- collector_find(collector)
   }
@@ -256,7 +258,8 @@ col_factor <- function(levels, ordered = FALSE, include_na = FALSE) {
 #'     70-99 -> 1970-1999.
 #'   \item Month: "\%m" (2 digits), "\%b" (abbreviated name in current
 #'     locale), "\%B" (full name in current locale).
-#'   \item Day: "\%d" (2 digits), "\%e" (optional leading space)
+#'   \item Day: "\%d" (2 digits), "\%e" (optional leading space),
+#'     "%a" (abbreviated name in current locale).
 #'   \item Hour: "\%H" or "\%I", use I (and not H) with AM/PM.
 #'   \item Minutes: "\%M"
 #'   \item Seconds: "\%S" (integer seconds), "\%OS" (partial seconds)
@@ -300,7 +303,7 @@ col_factor <- function(levels, ordered = FALSE, include_na = FALSE) {
 #' @inheritParams tokenizer_delim
 #' @return A [POSIXct()] vector with `tzone` attribute set to
 #'   `tz`. Elements that could not be parsed (or did not generate valid
-#'   dates) will bes set to `NA`, and a warning message will inform
+#'   dates) will be set to `NA`, and a warning message will inform
 #'   you of the total number of failures.
 #' @family parsers
 #' @export

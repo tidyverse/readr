@@ -22,9 +22,9 @@ test_that("read_delim/csv/tsv and write_delim round trip special chars", {
   x <- c("a", '"', ",", "\n","at\t")
 
   output <- data.frame(x)
-  input <- read_delim(format_delim(output, delim = " "), delim = " ", progress = FALSE)
-  input_csv <- read_csv(format_delim(output, delim = ","), progress = FALSE)
-  input_tsv <- read_tsv(format_delim(output, delim = "\t"), progress = FALSE)
+  input <- read_delim(format_delim(output, delim = " "), delim = " ", trim_ws = FALSE, progress = FALSE)
+  input_csv <- read_csv(format_delim(output, delim = ","), trim_ws = FALSE, progress = FALSE)
+  input_tsv <- read_tsv(format_delim(output, delim = "\t"), trim_ws = FALSE, progress = FALSE)
   expect_equal(input$x, input_csv$x, input_tsv$x,  x)
 })
 
@@ -109,4 +109,47 @@ test_that("write_csv can write to compressed files", {
 
   expect_true(is_bz2_file(filename))
   expect_equal(mt, read_csv(filename))
+})
+
+test_that("write_csv writes large integers without scientific notation #671", {
+  x <- data.frame(a = c(60150001022000, 60150001022001))
+  filename <- file.path(tempdir(), "test_large_integers.csv")
+  on.exit(unlink(filename))
+  write_csv(x, filename)
+  content <- read_file(filename)
+  expect_equal(content, "a\n60150001022000\n60150001022001\n")
+})
+
+test_that("write_csv writes large integers without scientific notation up to 1E15 #671", {
+  x <- data.frame(a = c(1E13, 1E14, 1E15, 1E16))
+  filename <- file.path(tempdir(), "test_large_integers2.csv")
+  on.exit(unlink(filename))
+  write_csv(x, filename)
+  content <- read_file(filename)
+  expect_equal(content, "a\n10000000000000\n100000000000000\n1e15\n1e16\n")
+  x_exp <- read_csv(filename, col_types = "d")
+  expect_equal(x$a, x_exp$a)
+})
+
+test_that("write_csv2 and format_csv2 writes ; sep and , decimal mark", {
+  df <- tibble::data_frame(x = c(0.5, 2, 1.2), y = c("a", "b", "c"))
+  expect_equal(format_csv2(df), "x;y\n0,5;a\n2,0;b\n1,2;c\n")
+
+  filename <- tempfile(pattern = "readr", fileext = ".csv")
+  on.exit(unlink(filename))
+  write_csv2(df, filename)
+
+  expect_equivalent(df, suppressMessages(read_csv2(filename)))
+})
+
+test_that("Can change the escape behavior for quotes", {
+  df <- data.frame(x = c("a", '"', ",", "\n"))
+
+  expect_error(format_delim(df, "\t", quote_escape = "invalid"), "should be one of")
+
+  expect_equal(format_delim(df, "\t"), "x\na\n\"\"\"\"\n,\n\"\n\"\n")
+  expect_equal(format_delim(df, "\t", quote_escape = "double"), "x\na\n\"\"\"\"\n,\n\"\n\"\n")
+  expect_equal(format_delim(df, "\t", quote_escape = "backslash"), "x\na\n\"\\\"\"\n,\n\"\n\"\n")
+  expect_equal(format_delim(df, "\t", quote_escape = "none"), "x\na\n\"\"\"\n,\n\"\n\"\n")
+  expect_equal(format_delim(df, "\t", quote_escape = FALSE), "x\na\n\"\"\"\n,\n\"\n\"\n")
 })
