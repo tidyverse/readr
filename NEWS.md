@@ -32,6 +32,7 @@ you would pass `skip = 3`, now you only need to pass `skip = 2`.
 * `read_*()` files now support reading from the clipboard by using `clipboard()` (#656).
 * `write_file()` gains a `sep` argument, to specify the line separator (#665).
 * Allow files to be read via FTP over SSH by recognising `sftp` as a URL protocol (#707, @jdeboer).
+* `spec_table2()` function added to correspond to `read_table2()` (#778, @mawds).
 
 ## Bug Fixes
 
