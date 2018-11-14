@@ -3,6 +3,7 @@
 \name{write_delim}
 \alias{write_delim}
 \alias{write_csv}
+\alias{write_csv2}
 \alias{write_excel_csv}
 \alias{write_excel_csv2}
 \alias{write_tsv}
@@ -12,6 +13,8 @@ write_delim(x, path, delim = " ", na = "NA", append = FALSE,
   col_names = !append)
 
 write_csv(x, path, na = "NA", append = FALSE, col_names = !append)
+
+write_csv2(x, path, na = "NA", append = FALSE, col_names = !append)
 
 write_excel_csv(x, path, na = "NA", append = FALSE,
   col_names = !append, delim = ",")
@@ -52,15 +55,16 @@ columns to suitable output.
 
 Factors are coerced to character. Doubles are formatted using the grisu3
 algorithm. POSIXct's are formatted as ISO8601 with a UTC timezone \emph{Note:
-\code{POSIXct}objects in local or non-UTC timezones will be converted to UTC time
+\code{POSIXct} objects in local or non-UTC timezones will be converted to UTC time
 before writing.}
 
 All columns are encoded as UTF-8. \code{write_excel_csv()} and \code{write_excel_csv2()} also include a
 \href{https://en.wikipedia.org/wiki/Byte_order_mark}{UTF-8 Byte order mark}
 which indicates to Excel the csv is UTF-8 encoded.
 
-\code{write_excel_csv2()} was created to allow users with different locale settings save csv files with their default settings
-\code{;} as column separator and \code{,} as decimal separator.
+\code{write_excel_csv2()} and \code{write_csv2} were created to allow users with
+different locale settings save csv files with their default settings \code{;} as
+column separator and \code{,} as decimal separator. This is common in some European countries.
 
 Values are only quoted if needed: if they contain a comma, quote or newline.
 

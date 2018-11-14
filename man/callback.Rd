@@ -42,5 +42,6 @@ read_csv_chunked(readr_example("mtcars.csv"), ListCallback$new(f), chunk_size = 
 Other chunked: \code{\link{read_delim_chunked}},
   \code{\link{read_lines_chunked}}
 }
+\concept{chunked}
 \keyword{datasets}
 \keyword{internal}

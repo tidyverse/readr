@@ -7,9 +7,9 @@
 \title{readr: Read Rectangular Text Data}
 \description{
 The goal of 'readr' is to provide a fast and friendly way to read
-rectangular data (like 'csv', 'tsv', and 'fwf'). It is designed to flexibly
-parse many types of data found in the wild, while still cleanly failing when
-data unexpectedly changes.
+    rectangular data (like 'csv', 'tsv', and 'fwf'). It is designed to flexibly
+    parse many types of data found in the wild, while still cleanly failing when
+    data unexpectedly changes.
 }
 \seealso{
 Useful links:
@@ -21,7 +21,7 @@ Useful links:
 
 }
 \author{
-\strong{Maintainer}: Jim Hester \email{james.hester@rstudio.com}
+\strong{Maintainer}: Jim Hester \email{jim.hester@rstudio.com}
 
 Authors:
 \itemize{

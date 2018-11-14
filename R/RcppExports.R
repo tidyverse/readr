@@ -5,6 +5,10 @@ collectorGuess <- function(input, locale_) {
     .Call(`_readr_collectorGuess`, input, locale_)
 }
 
+whitespaceColumns <- function(sourceSpec, n = 100L, comment = "") {
+    .Call(`_readr_whitespaceColumns`, sourceSpec, n, comment)
+}
+
 read_connection_ <- function(con, chunk_size = 64 * 1024L) {
     .Call(`_readr_read_connection_`, con, chunk_size)
 }
@@ -69,16 +73,8 @@ guess_types_ <- function(sourceSpec, tokenizerSpec, locale_, n = 100L) {
     .Call(`_readr_guess_types_`, sourceSpec, tokenizerSpec, locale_, n)
 }
 
-whitespaceColumns <- function(sourceSpec, n = 100L, comment = "") {
-    .Call(`_readr_whitespaceColumns`, sourceSpec, n, comment)
-}
-
 type_convert_col <- function(x, spec, locale_, col, na, trim_ws) {
     .Call(`_readr_type_convert_col`, x, spec, locale_, col, na, trim_ws)
-}
-
-stream_delim_ <- function(df, connection, delim, na, col_names = TRUE, bom = FALSE) {
-    .Call(`_readr_stream_delim_`, df, connection, delim, na, col_names, bom)
 }
 
 write_lines_ <- function(lines, connection, na, sep = "\n") {
