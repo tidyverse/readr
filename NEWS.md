@@ -38,6 +38,7 @@ you would pass `skip = 3`, now you only need to pass `skip = 2`.
   (#870, @cderv).
 * `as.col_spec()` is now exported (#517).
 * `write*()` functions gain a `quote_escape` argument to control how quotes are escaped in the output (#854).
+* `read*()` functions now have a more informative error when trying to read a remote bz2 file (#891).
 
 ## Bug Fixes
 
