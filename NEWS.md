@@ -37,6 +37,7 @@ you would pass `skip = 3`, now you only need to pass `skip = 2`.
 * `write_csv2()` added to complement `write_excel_csv2()` and allow writing csv file readable by `read_csv2()`
   (#870, @cderv).
 * `as.col_spec()` is now exported (#517).
+* `write*()` functions gain a `quote_escape` argument to control how quotes are escaped in the output (#854).
 
 ## Bug Fixes
 

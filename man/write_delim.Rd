@@ -10,19 +10,22 @@
 \title{Write a data frame to a delimited file}
 \usage{
 write_delim(x, path, delim = " ", na = "NA", append = FALSE,
-  col_names = !append)
+  col_names = !append, quote_escape = "double")
 
-write_csv(x, path, na = "NA", append = FALSE, col_names = !append)
+write_csv(x, path, na = "NA", append = FALSE, col_names = !append,
+  quote_escape = "double")
 
-write_csv2(x, path, na = "NA", append = FALSE, col_names = !append)
+write_csv2(x, path, na = "NA", append = FALSE, col_names = !append,
+  quote_escape = "double")
 
 write_excel_csv(x, path, na = "NA", append = FALSE,
-  col_names = !append, delim = ",")
+  col_names = !append, delim = ",", quote_escape = "double")
 
 write_excel_csv2(x, path, na = "NA", append = FALSE,
-  col_names = !append, delim = ";")
+  col_names = !append, delim = ";", quote_escape = "double")
 
-write_tsv(x, path, na = "NA", append = FALSE, col_names = !append)
+write_tsv(x, path, na = "NA", append = FALSE, col_names = !append,
+  quote_escape = "double")
 }
 \arguments{
 \item{x}{A data frame to write to disk}
@@ -42,6 +45,11 @@ file is created.}
 
 \item{col_names}{Write columns names at the top of the file? Must be either
 \code{TRUE} or \code{FALSE}.}
+
+\item{quote_escape}{The type of escaping to use for quoted values, one of
+"double", "backslash" or "none". You can also use \code{FALSE}, which is
+equivalent to "none". The default is to double the quotes, which is the
+format excel expects.}
 }
 \value{
 \code{write_*()} returns the input \code{x} invisibly.

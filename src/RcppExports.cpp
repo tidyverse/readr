@@ -316,8 +316,8 @@ BEGIN_RCPP
 END_RCPP
 }
 // stream_delim_
-std::string stream_delim_(const List& df, RObject connection, char delim, const std::string& na, bool col_names, bool bom);
-RcppExport SEXP _readr_stream_delim_(SEXP dfSEXP, SEXP connectionSEXP, SEXP delimSEXP, SEXP naSEXP, SEXP col_namesSEXP, SEXP bomSEXP) {
+std::string stream_delim_(const List& df, RObject connection, char delim, const std::string& na, bool col_names, bool bom, int quote_escape);
+RcppExport SEXP _readr_stream_delim_(SEXP dfSEXP, SEXP connectionSEXP, SEXP delimSEXP, SEXP naSEXP, SEXP col_namesSEXP, SEXP bomSEXP, SEXP quote_escapeSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
@@ -327,7 +327,8 @@ BEGIN_RCPP
     Rcpp::traits::input_parameter< const std::string& >::type na(naSEXP);
     Rcpp::traits::input_parameter< bool >::type col_names(col_namesSEXP);
     Rcpp::traits::input_parameter< bool >::type bom(bomSEXP);
-    rcpp_result_gen = Rcpp::wrap(stream_delim_(df, connection, delim, na, col_names, bom));
+    Rcpp::traits::input_parameter< int >::type quote_escape(quote_escapeSEXP);
+    rcpp_result_gen = Rcpp::wrap(stream_delim_(df, connection, delim, na, col_names, bom, quote_escape));
     return rcpp_result_gen;
 END_RCPP
 }
@@ -356,7 +357,7 @@ static const R_CallMethodDef CallEntries[] = {
     {"_readr_write_lines_raw_", (DL_FUNC) &_readr_write_lines_raw_, 3},
     {"_readr_write_file_", (DL_FUNC) &_readr_write_file_, 2},
     {"_readr_write_file_raw_", (DL_FUNC) &_readr_write_file_raw_, 2},
-    {"_readr_stream_delim_", (DL_FUNC) &_readr_stream_delim_, 6},
+    {"_readr_stream_delim_", (DL_FUNC) &_readr_stream_delim_, 7},
     {NULL, NULL, 0}
 };
 

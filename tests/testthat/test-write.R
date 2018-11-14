@@ -141,3 +141,15 @@ test_that("write_csv2 and format_csv2 writes ; sep and , decimal mark", {
 
   expect_equivalent(df, suppressMessages(read_csv2(filename)))
 })
+
+test_that("Can change the escape behavior for quotes", {
+  df <- data.frame(x = c("a", '"', ",", "\n"))
+
+  expect_error(format_delim(df, "\t", quote_escape = "invalid"), "should be one of")
+
+  expect_equal(format_delim(df, "\t"), "x\na\n\"\"\"\"\n,\n\"\n\"\n")
+  expect_equal(format_delim(df, "\t", quote_escape = "double"), "x\na\n\"\"\"\"\n,\n\"\n\"\n")
+  expect_equal(format_delim(df, "\t", quote_escape = "backslash"), "x\na\n\"\\\"\"\n,\n\"\n\"\n")
+  expect_equal(format_delim(df, "\t", quote_escape = "none"), "x\na\n\"\"\"\n,\n\"\n\"\n")
+  expect_equal(format_delim(df, "\t", quote_escape = FALSE), "x\na\n\"\"\"\n,\n\"\n\"\n")
+})

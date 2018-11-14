@@ -8,13 +8,16 @@
 \title{Convert a data frame to a delimited string}
 \usage{
 format_delim(x, delim, na = "NA", append = FALSE,
-  col_names = !append)
+  col_names = !append, quote_escape = "double")
 
-format_csv(x, na = "NA", append = FALSE, col_names = !append)
+format_csv(x, na = "NA", append = FALSE, col_names = !append,
+  quote_escape = "double")
 
-format_csv2(x, na = "NA", append = FALSE, col_names = !append)
+format_csv2(x, na = "NA", append = FALSE, col_names = !append,
+  quote_escape = "double")
 
-format_tsv(x, na = "NA", append = FALSE, col_names = !append)
+format_tsv(x, na = "NA", append = FALSE, col_names = !append,
+  quote_escape = "double")
 }
 \arguments{
 \item{x}{A data frame to write to disk}
@@ -32,6 +35,11 @@ file is created.}
 
 \item{col_names}{Write columns names at the top of the file? Must be either
 \code{TRUE} or \code{FALSE}.}
+
+\item{quote_escape}{The type of escaping to use for quoted values, one of
+"double", "backslash" or "none". You can also use \code{FALSE}, which is
+equivalent to "none". The default is to double the quotes, which is the
+format excel expects.}
 }
 \value{
 A string.
