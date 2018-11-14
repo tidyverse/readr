@@ -36,6 +36,7 @@ you would pass `skip = 3`, now you only need to pass `skip = 2`.
 * Added function `read_lines_raw_chunked()` (#710, @gergness)
 * `write_csv2()` added to complement `write_excel_csv2()` and allow writing csv file readable by `read_csv2()`
   (#870, @cderv).
+* `as.col_spec()` is now exported (#517).
 
 ## Bug Fixes
 

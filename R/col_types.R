@@ -77,8 +77,16 @@ col_spec <- function(col_types, default = col_guess()) {
 
 is.col_spec <- function(x) inherits(x, "col_spec")
 
-as.col_spec <- function(x) UseMethod("as.col_spec")
 
+#' Generate a column specification
+#'
+#' This is most useful for generating a specification using the short form
+#' @param x Input object
+#' @keywords internal
+#' @examples
+#' as.col_spec("cccnnn")
+#' @export
+as.col_spec <- function(x) UseMethod("as.col_spec")
 #' @export
 as.col_spec.character <- function(x) {
   letters <- strsplit(x, "")[[1]]
