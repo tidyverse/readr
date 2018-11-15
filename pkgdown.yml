@@ -7,4 +7,7 @@ articles:
   readr-0.1.0: releases/readr-0.1.0.html
   readr-0.2.0: releases/readr-0.2.0.html
   readr-1.0.0: releases/readr-1.0.0.html
+urls:
+  reference: readr.tidyverse.org/reference
+  article: readr.tidyverse.org/articles
 
