@@ -41,8 +41,13 @@ public:
     if (column_ == R_NilValue)
       return;
 
+    if (n < n_) {
+      SETLENGTH(column_, n);
+      SET_TRUELENGTH(column_, n);
+    } else {
+      column_ = Rf_lengthgets(column_, n);
+    }
     n_ = n;
-    column_ = Rf_lengthgets(column_, n);
   }
 
   void clear() { resize(0); }
