@@ -1,7 +1,7 @@
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
 
-# readr <img src="man/figures/logo.svg" align="right" />
+# readr <img src="man/figures/logo.svg" align="right" height = 150 />
 
 [![CRAN\_Status\_Badge](https://www.r-pkg.org/badges/version/readr)](https://cran.r-project.org/package=readr)
 [![Build
@@ -10,8 +10,6 @@ Status](https://travis-ci.org/tidyverse/readr.svg?branch=master)](https://travis
 Status](https://ci.appveyor.com/api/projects/status/github/tidyverse/readr?branch=master&svg=true)](https://ci.appveyor.com/project/tidyverse/readr)
 [![Coverage
 Status](https://codecov.io/gh/tidyverse/readr/coverage.svg?branch=master)](https://codecov.io/gh/tidyverse/readr?branch=master)
-
-## Overview
 
 The goal of readr is to provide a fast and friendly way to read
 rectangular data (like csv, tsv, and fwf). It is designed to flexibly
@@ -51,7 +49,6 @@ library(tidyverse)
 #> ✔ readr   1.2.0     ✔ forcats 0.3.0
 #> ── Conflicts ───────────────────────────────────── tidyverse_conflicts() ──
 #> ✖ dplyr::filter() masks stats::filter()
-#> ✖ dplyr::id()     masks .env::id()
 #> ✖ dplyr::lag()    masks stats::lag()
 ```
 

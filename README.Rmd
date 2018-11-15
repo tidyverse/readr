@@ -12,7 +12,7 @@ knitr::opts_chunk$set(
 )
 ```
 
-# readr <img src="man/figures/logo.svg" align="right" />
+# readr <img src="man/figures/logo.svg" align="right" height = 150 />
 
 [![CRAN_Status_Badge](https://www.r-pkg.org/badges/version/readr)](https://cran.r-project.org/package=readr)
 [![Build Status](https://travis-ci.org/tidyverse/readr.svg?branch=master)](https://travis-ci.org/tidyverse/readr)
