@@ -11,6 +11,8 @@ Status](https://ci.appveyor.com/api/projects/status/github/tidyverse/readr?branc
 [![Coverage
 Status](https://codecov.io/gh/tidyverse/readr/coverage.svg?branch=master)](https://codecov.io/gh/tidyverse/readr?branch=master)
 
+## Overview
+
 The goal of readr is to provide a fast and friendly way to read
 rectangular data (like csv, tsv, and fwf). It is designed to flexibly
 parse many types of data found in the wild, while still cleanly failing
