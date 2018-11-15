@@ -3,6 +3,10 @@ url: https://readr.tidyverse.org
 template:
   package: tidytemplate
 
+authors:
+  "Jim Hester":
+    href: http://jimhester.com
+
 home:
   strip_header: true
   links:
