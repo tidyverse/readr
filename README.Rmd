@@ -8,11 +8,11 @@ output: github_document
 knitr::opts_chunk$set(
   collapse = TRUE,
   comment = "#>",
-  fig.path = "README-"
+  fig.path = "man/figures/README-"
 )
 ```
 
-# readr <img src="tools/logo.png" align="right" />
+# readr <img src="man/figure/logo.png" align="right" />
 
 [![CRAN_Status_Badge](https://www.r-pkg.org/badges/version/readr)](https://cran.r-project.org/package=readr)
 [![Build Status](https://travis-ci.org/tidyverse/readr.svg?branch=master)](https://travis-ci.org/tidyverse/readr)
