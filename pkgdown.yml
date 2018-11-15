@@ -1,0 +1,10 @@
+pandoc: 2.2.1
+pkgdown: 1.1.0.9000
+pkgdown_sha: 33c059119873eb94656ec119f5ba62e86b3e7977
+articles:
+  locales: locales.html
+  readr: readr.html
+  readr-0.1.0: releases/readr-0.1.0.html
+  readr-0.2.0: releases/readr-0.2.0.html
+  readr-1.0.0: releases/readr-1.0.0.html
+
