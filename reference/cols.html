@@ -34,6 +34,8 @@
 <meta property="og:description" content="cols() includes all columns in the input data, guessing the column types
 as the default. cols_only() includes only the columns you explicitly
 specify, skipping the rest." />
+
+<meta property="og:image" content="readr.tidyverse.org/logo.png" />
 <meta name="twitter:card" content="summary" />
 
 
@@ -202,7 +204,7 @@ will be read with this column type.</p></td>
  <span class='kw'>column_three</span> <span class='kw'>=</span> <span class='fu'><a href='parse_atomic.html'>col_character</a></span>())
 
 <span class='no'>t3</span> <span class='kw'>&lt;-</span> <span class='no'>t1</span>
-<span class='no'>t3</span>$<span class='no'>cols</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='no'>t1</span>$<span class='no'>cols</span>, <span class='no'>t2</span>$<span class='no'>cols</span>)
+<span class='no'>t3</span>$<span class='no'>cols</span> <span class='kw'>&lt;-</span> <span class='fu'>c</span>(<span class='no'>t1</span>$<span class='no'>cols</span>, <span class='no'>t2</span>$<span class='no'>cols</span>)
 <span class='no'>t3</span></div><div class='output co'>#&gt; cols(
 #&gt;   column_one = col_integer(),
 #&gt;   column_two = col_number(),
@@ -229,7 +231,7 @@ will be read with this column type.</p></td>
 
 <div class="author">
   <p>
-    Developed by <a href='http://hadley.nz'>Hadley Wickham</a>, Jim Hester, Romain Francois, <a href='https://www.rstudio.com'><img src='https://www.tidyverse.org/rstudio-logo.svg' alt='RStudio' height='24' /></a>.
+    Developed by <a href='http://hadley.nz'>Hadley Wickham</a>, Jim Hester, Romain Francois, <a href='https://www.rstudio.com'><img src='https://tidyverse.org/rstudio-logo.svg' alt='RStudio' height='24' /></a>.
     Site built by <a href="https://pkgdown.r-lib.org">pkgdown</a>.
   </p>
 </div>

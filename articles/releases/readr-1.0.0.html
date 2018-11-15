@@ -12,6 +12,7 @@
 <script src="../../pkgdown.js"></script><link href="../../tidyverse-2.css" rel="stylesheet">
 <meta property="og:title" content="readr 1.0.0">
 <meta property="og:description" content="">
+<meta property="og:image" content="readr.tidyverse.org/logo.png">
 <meta name="twitter:card" content="summary">
 <!-- mathjax --><script src="https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script><!--[if lt IE 9]>
 <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
@@ -109,8 +110,8 @@
 
     
     
-<p>readr 1.0.0 is now available on CRAN. readr makes it easy to read many types of rectangular data, including csv, tsv and fixed width files. Compared to base equivalents like <code><a href="https://www.rdocumentation.org/packages/utils/topics/read.table">read.csv()</a></code>, readr is much faster and gives more convenient output: it never converts strings to factors, can parse date/times, and it doesn’t munge the column names. Install the latest version with:</p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1-1" data-line-number="1"><span class="kw"><a href="https://www.rdocumentation.org/packages/utils/topics/install.packages">install.packages</a></span>(<span class="st">"readr"</span>)</a></code></pre></div>
+<p>readr 1.0.0 is now available on CRAN. readr makes it easy to read many types of rectangular data, including csv, tsv and fixed width files. Compared to base equivalents like <code>read.csv()</code>, readr is much faster and gives more convenient output: it never converts strings to factors, can parse date/times, and it doesn’t munge the column names. Install the latest version with:</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1-1" data-line-number="1"><span class="kw">install.packages</span>(<span class="st">"readr"</span>)</a></code></pre></div>
 <p>Releasing a version 1.0.0 was a deliberate choice to reflect the maturity and stability and readr, thanks largely to work by Jim Hester. readr is by no means perfect, but I don’t expect any major changes to the API in the future.</p>
 <p>In this version we:</p>
 <ul>
@@ -172,15 +173,15 @@
 <a class="sourceLine" id="cb4-19" data-line-number="19"><span class="co">#&gt;   x = col_double(),</span></a>
 <a class="sourceLine" id="cb4-20" data-line-number="20"><span class="co">#&gt;   y = col_date(format = "")</span></a>
 <a class="sourceLine" id="cb4-21" data-line-number="21"><span class="co">#&gt; )</span></a></code></pre></div>
-<p>(If you want to suppress the printed specification, just provide the dummy spec <code><a href="https://www.rdocumentation.org/packages/base/topics/assignOps">col_types = cols()</a></code>)</p>
+<p>(If you want to suppress the printed specification, just provide the dummy spec <code>col_types = cols()</code>)</p>
 <p>You can now access the guessing algorithm from R: <code><a href="../../reference/parse_guess.html">guess_parser()</a></code> will tell you which parser readr will select.</p>
 <div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb5-1" data-line-number="1"><span class="kw"><a href="../../reference/parse_guess.html">guess_parser</a></span>(<span class="st">"1,234"</span>)</a>
 <a class="sourceLine" id="cb5-2" data-line-number="2"><span class="co">#&gt; [1] "number"</span></a>
 <a class="sourceLine" id="cb5-3" data-line-number="3"></a>
 <a class="sourceLine" id="cb5-4" data-line-number="4"><span class="co"># Were previously guessed as numbers</span></a>
-<a class="sourceLine" id="cb5-5" data-line-number="5"><span class="kw"><a href="../../reference/parse_guess.html">guess_parser</a></span>(<span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/c">c</a></span>(<span class="st">"."</span>, <span class="st">"-"</span>))</a>
+<a class="sourceLine" id="cb5-5" data-line-number="5"><span class="kw"><a href="../../reference/parse_guess.html">guess_parser</a></span>(<span class="kw">c</span>(<span class="st">"."</span>, <span class="st">"-"</span>))</a>
 <a class="sourceLine" id="cb5-6" data-line-number="6"><span class="co">#&gt; [1] "character"</span></a>
-<a class="sourceLine" id="cb5-7" data-line-number="7"><span class="kw"><a href="../../reference/parse_guess.html">guess_parser</a></span>(<span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/c">c</a></span>(<span class="st">"10W"</span>, <span class="st">"20N"</span>))</a>
+<a class="sourceLine" id="cb5-7" data-line-number="7"><span class="kw"><a href="../../reference/parse_guess.html">guess_parser</a></span>(<span class="kw">c</span>(<span class="st">"10W"</span>, <span class="st">"20N"</span>))</a>
 <a class="sourceLine" id="cb5-8" data-line-number="8"><span class="co">#&gt; [1] "character"</span></a>
 <a class="sourceLine" id="cb5-9" data-line-number="9"></a>
 <a class="sourceLine" id="cb5-10" data-line-number="10"><span class="co"># Now uses the default time format</span></a>
@@ -194,7 +195,7 @@
 <ul>
 <li>
 <p><code>%I</code> for 12 hour time format:</p>
-<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb6-1" data-line-number="1"><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/library">library</a></span>(hms)</a>
+<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb6-1" data-line-number="1"><span class="kw">library</span>(hms)</a>
 <a class="sourceLine" id="cb6-2" data-line-number="2"><span class="kw"><a href="../../reference/parse_datetime.html">parse_time</a></span>(<span class="st">"1 pm"</span>, <span class="st">"%I %p"</span>)</a>
 <a class="sourceLine" id="cb6-3" data-line-number="3"><span class="co">#&gt; 13:00:00</span></a></code></pre></div>
 <p>Note that <code><a href="../../reference/parse_datetime.html">parse_time()</a></code> returns <code>hms</code> from the <a href="https://github.com/rstats-db/hms">hms</a> package, rather than a custom <code>time</code> class</p>
@@ -253,7 +254,7 @@
 
 <div class="author">
   <p>
-    Developed by <a href="http://hadley.nz">Hadley Wickham</a>, Jim Hester, Romain Francois, <a href="https://www.rstudio.com"><img src="https://www.tidyverse.org/rstudio-logo.svg" alt="RStudio" height="24"></a>.
+    Developed by <a href="http://hadley.nz">Hadley Wickham</a>, Jim Hester, Romain Francois, <a href="https://www.rstudio.com"><img src="https://tidyverse.org/rstudio-logo.svg" alt="RStudio" height="24"></a>.
     Site built by <a href="https://pkgdown.r-lib.org">pkgdown</a>.
   </p>
 </div>

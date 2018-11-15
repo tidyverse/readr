@@ -1,6 +1,6 @@
 pandoc: 2.2.1
 pkgdown: 1.1.0.9000
-pkgdown_sha: 33c059119873eb94656ec119f5ba62e86b3e7977
+pkgdown_sha: 9ed15def0ddeb7e261ba02d8e70abec7beee1f36
 articles:
   locales: locales.html
   readr: readr.html

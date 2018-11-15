@@ -12,6 +12,7 @@
 <script src="../../pkgdown.js"></script><link href="../../tidyverse-2.css" rel="stylesheet">
 <meta property="og:title" content="readr 0.1.0">
 <meta property="og:description" content="">
+<meta property="og:image" content="readr.tidyverse.org/logo.png">
 <meta name="twitter:card" content="summary">
 <!-- mathjax --><script src="https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script><!--[if lt IE 9]>
 <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
@@ -116,8 +117,8 @@
 <li><p>Web log files with <code><a href="../../reference/read_log.html">read_log()</a></code>.</p></li>
 </ul>
 <p>You can install it by running:</p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1-1" data-line-number="1"><span class="kw"><a href="https://www.rdocumentation.org/packages/utils/topics/install.packages">install.packages</a></span>(<span class="st">"readr"</span>)</a></code></pre></div>
-<p>Compared to the equivalent base functions, readr functions are around 10x faster. They’re also easier to use because they’re more consistent, they produce data frames that are easier to use (no more <code><a href="https://www.rdocumentation.org/packages/base/topics/assignOps">stringsAsFactors = FALSE</a></code>!), they have a more flexible column specification, and any parsing problems are recorded in a data frame. Each of these features is described in more detail below.</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1-1" data-line-number="1"><span class="kw">install.packages</span>(<span class="st">"readr"</span>)</a></code></pre></div>
+<p>Compared to the equivalent base functions, readr functions are around 10x faster. They’re also easier to use because they’re more consistent, they produce data frames that are easier to use (no more <code>stringsAsFactors = FALSE</code>!), they have a more flexible column specification, and any parsing problems are recorded in a data frame. Each of these features is described in more detail below.</p>
 <div id="input" class="section level2">
 <h2 class="hasAnchor">
 <a href="#input" class="anchor"></a>Input</h2>
@@ -126,7 +127,7 @@
 <li>
 <p><code>file</code> gives the file to read; a url or local path. A local path can point to a a zipped, bzipped, xzipped, or gzipped file - it’ll be automatically uncompressed in memory before reading. You can also pass in a connection or a raw vector.</p>
 <p>For small examples, you can also supply literal data: if <code>file</code> contains a new line, then the data will be read directly from the string. Thanks to <a href="https://github.com/Rdatatable/data.table">data.table</a> for this great idea!</p>
-<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb2-1" data-line-number="1"><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/library">library</a></span>(readr)</a>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb2-1" data-line-number="1"><span class="kw">library</span>(readr)</a>
 <a class="sourceLine" id="cb2-2" data-line-number="2"><span class="kw"><a href="../../reference/read_delim.html">read_csv</a></span>(<span class="st">"x,y</span><span class="ch">\n</span><span class="st">1,2</span><span class="ch">\n</span><span class="st">3,4"</span>)</a>
 <a class="sourceLine" id="cb2-3" data-line-number="3"><span class="co">#&gt; # A tibble: 2 x 2</span></a>
 <a class="sourceLine" id="cb2-4" data-line-number="4"><span class="co">#&gt;       x     y</span></a>
@@ -145,7 +146,7 @@
 </ul>
 </li>
 <li><p><code>col_types</code>: overrides the default column types (equivalent to <code>colClasses</code> in base R). More on that below.</p></li>
-<li><p><code>progress</code>: By default, readr will display a progress bar if the estimated loading time is greater than 5 seconds. Use <code><a href="https://www.rdocumentation.org/packages/base/topics/assignOps">progress = FALSE</a></code> to suppress the progress indicator.</p></li>
+<li><p><code>progress</code>: By default, readr will display a progress bar if the estimated loading time is greater than 5 seconds. Use <code>progress = FALSE</code> to suppress the progress indicator.</p></li>
 </ul>
 </div>
 <div id="output" class="section level2">
@@ -153,9 +154,9 @@
 <a href="#output" class="anchor"></a>Output</h2>
 <p>The output has been designed to make your life easier:</p>
 <ul>
-<li><p>Characters are never automatically converted to factors (i.e. no more <code><a href="https://www.rdocumentation.org/packages/base/topics/assignOps">stringsAsFactors = FALSE</a></code>!).</p></li>
-<li><p>Column names are left as is, not munged into valid R identifiers (i.e. there is no <code><a href="https://www.rdocumentation.org/packages/base/topics/assignOps">check.names = TRUE</a></code>). Use backticks to refer to variables with unusual names, e.g. <code><a href="https://www.rdocumentation.org/packages/base/topics/Extract">df$`Income ($000)`</a></code>.</p></li>
-<li><p>The output has class <code><a href="https://www.rdocumentation.org/packages/base/topics/c">c("tbl_df", "tbl", "data.frame")</a></code> so if you also use <a href="http://blog.rstudio.org/2015/01/09/dplyr-0-4-0/">dplyr</a> you’ll get an enhanced print method (i.e. you’ll see just the first ten rows, not the first 10,000!).</p></li>
+<li><p>Characters are never automatically converted to factors (i.e. no more <code>stringsAsFactors = FALSE</code>!).</p></li>
+<li><p>Column names are left as is, not munged into valid R identifiers (i.e. there is no <code>check.names = TRUE</code>). Use backticks to refer to variables with unusual names, e.g. <code>df$`Income ($000)`</code>.</p></li>
+<li><p>The output has class <code>c("tbl_df", "tbl", "data.frame")</code> so if you also use <a href="http://blog.rstudio.org/2015/01/09/dplyr-0-4-0/">dplyr</a> you’ll get an enhanced print method (i.e. you’ll see just the first ten rows, not the first 10,000!).</p></li>
 <li><p>Row names are never set.</p></li>
 </ul>
 </div>
@@ -191,16 +192,16 @@
 <li><p>Use a compact string: <code>"dc__d"</code>. Each letter corresponds to a column so this specification means: read first column as double, second as character, skip the next two and read the last column as a double. (There’s no way to use this form with column types that need parameters.)</p></li>
 <li>
 <p>With a (named) list of col objects:</p>
-<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb3-1" data-line-number="1"><span class="kw"><a href="../../reference/read_delim.html">read_csv</a></span>(<span class="st">"iris.csv"</span>, <span class="dt">col_types =</span> <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/list">list</a></span>(</a>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb3-1" data-line-number="1"><span class="kw"><a href="../../reference/read_delim.html">read_csv</a></span>(<span class="st">"iris.csv"</span>, <span class="dt">col_types =</span> <span class="kw">list</span>(</a>
 <a class="sourceLine" id="cb3-2" data-line-number="2">  <span class="dt">Sepal.Length =</span> <span class="kw"><a href="../../reference/parse_atomic.html">col_double</a></span>(),</a>
 <a class="sourceLine" id="cb3-3" data-line-number="3">  <span class="dt">Sepal.Width =</span> <span class="kw"><a href="../../reference/parse_atomic.html">col_double</a></span>(),</a>
 <a class="sourceLine" id="cb3-4" data-line-number="4">  <span class="dt">Petal.Length =</span> <span class="kw"><a href="../../reference/parse_atomic.html">col_double</a></span>(),</a>
 <a class="sourceLine" id="cb3-5" data-line-number="5">  <span class="dt">Petal.Width =</span> <span class="kw"><a href="../../reference/parse_atomic.html">col_double</a></span>(),</a>
-<a class="sourceLine" id="cb3-6" data-line-number="6">  <span class="dt">Species =</span> <span class="kw"><a href="../../reference/parse_factor.html">col_factor</a></span>(<span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/c">c</a></span>(<span class="st">"setosa"</span>, <span class="st">"versicolor"</span>, <span class="st">"virginica"</span>))</a>
+<a class="sourceLine" id="cb3-6" data-line-number="6">  <span class="dt">Species =</span> <span class="kw"><a href="../../reference/parse_factor.html">col_factor</a></span>(<span class="kw">c</span>(<span class="st">"setosa"</span>, <span class="st">"versicolor"</span>, <span class="st">"virginica"</span>))</a>
 <a class="sourceLine" id="cb3-7" data-line-number="7">))</a></code></pre></div>
 <p>Any omitted columns will be parsed automatically, so the previous call is equivalent to:</p>
-<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb4-1" data-line-number="1"><span class="kw"><a href="../../reference/read_delim.html">read_csv</a></span>(<span class="st">"iris.csv"</span>, <span class="dt">col_types =</span> <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/list">list</a></span>(</a>
-<a class="sourceLine" id="cb4-2" data-line-number="2">  <span class="dt">Species =</span> <span class="kw"><a href="../../reference/parse_factor.html">col_factor</a></span>(<span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/c">c</a></span>(<span class="st">"setosa"</span>, <span class="st">"versicolor"</span>, <span class="st">"virginica"</span>))</a>
+<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb4-1" data-line-number="1"><span class="kw"><a href="../../reference/read_delim.html">read_csv</a></span>(<span class="st">"iris.csv"</span>, <span class="dt">col_types =</span> <span class="kw">list</span>(</a>
+<a class="sourceLine" id="cb4-2" data-line-number="2">  <span class="dt">Species =</span> <span class="kw"><a href="../../reference/parse_factor.html">col_factor</a></span>(<span class="kw">c</span>(<span class="st">"setosa"</span>, <span class="st">"versicolor"</span>, <span class="st">"virginica"</span>))</a>
 <a class="sourceLine" id="cb4-3" data-line-number="3">)</a></code></pre></div>
 </li>
 </ul>
@@ -209,10 +210,10 @@
 <a href="#dates-and-times" class="anchor"></a>Dates and times</h3>
 <p>One of the most helpful features of readr is its ability to import dates and date times. It can automatically recognise the following formats:</p>
 <ul>
-<li><p>Dates in year-month-day form: <code><a href="https://www.rdocumentation.org/packages/base/topics/Arithmetic">2001-10-20</a></code> or <code><a href="https://www.rdocumentation.org/packages/base/topics/Arithmetic">2010/15/10</a></code> (or any non-numeric separator). It can’t automatically recongise dates in m/d/y or d/m/y format because they’re ambiguous: is <code><a href="https://www.rdocumentation.org/packages/base/topics/Arithmetic">02/01/2015</a></code> the 2nd of January or the 1st of February?</p></li>
+<li><p>Dates in year-month-day form: <code>2001-10-20</code> or <code>2010/15/10</code> (or any non-numeric separator). It can’t automatically recongise dates in m/d/y or d/m/y format because they’re ambiguous: is <code>02/01/2015</code> the 2nd of January or the 1st of February?</p></li>
 <li><p>Date times as <a href="http://en.wikipedia.org/wiki/ISO_8601">ISO8601</a> form: e.g. <code>2001-02-03 04:05:06.07 -0800</code>, <code>20010203 040506</code>, <code>20010203</code> etc. I don’t support every possible variant yet, so please let me know if it doesn’t work for your data (more details in <code><a href="../../reference/parse_datetime.html">?parse_datetime</a></code>).</p></li>
 </ul>
-<p>If your dates are in another format, don’t despair. You can use <code><a href="../../reference/parse_datetime.html">col_date()</a></code> and <code><a href="../../reference/parse_datetime.html">col_datetime()</a></code> to explicit specify a format string. Readr implements it’s own <code><a href="https://www.rdocumentation.org/packages/base/topics/strptime">strptime()</a></code> equivalent which supports the following format strings:</p>
+<p>If your dates are in another format, don’t despair. You can use <code><a href="../../reference/parse_datetime.html">col_date()</a></code> and <code><a href="../../reference/parse_datetime.html">col_datetime()</a></code> to explicit specify a format string. Readr implements it’s own <code>strptime()</code> equivalent which supports the following format strings:</p>
 <ul>
 <li><p>Year: <code>\%Y</code> (4 digits). <code>\%y</code> (2 digits); 00-69 -&gt; 2000-2069, 70-99 -&gt; 1970-1999.</p></li>
 <li><p>Month: <code>\%m</code> (2 digits), <code>\%b</code> (abbreviated name in current locale), <code>\%B</code> (full name in current locale).</p></li>
@@ -220,7 +221,7 @@
 <li><p>Hour: <code>\%H</code></p></li>
 <li><p>Minutes: <code>\%M</code></p></li>
 <li><p>Seconds: <code>\%S</code> (integer seconds), <code>\%OS</code> (partial seconds)</p></li>
-<li><p>Time zone: <code>\%Z</code> (as name, e.g. <code><a href="https://www.rdocumentation.org/packages/base/topics/Arithmetic">America/Chicago</a></code>), <code>\%z</code> (as offset from UTC, e.g. <code><a href="https://www.rdocumentation.org/packages/base/topics/Arithmetic">+0800</a></code>)</p></li>
+<li><p>Time zone: <code>\%Z</code> (as name, e.g. <code>America/Chicago</code>), <code>\%z</code> (as offset from UTC, e.g. <code>+0800</code>)</p></li>
 <li><p>Non-digits: <code>\%.</code> skips one non-digit charcater, <code>\%*</code> skips any number of non-digit characters.</p></li>
 <li><p>Shortcuts: <code>\%D</code> = <code>\%m/\%d/\%y</code>, <code>\%F</code> = <code>\%Y-\%m-\%d</code>, <code>\%R</code> = <code>\%H:\%M</code>, <code>\%T</code> = <code>\%H:\%M:\%S</code>, <code>\%x</code> = <code>\%y/\%m/\%d</code>.</p></li>
 </ul>
@@ -268,10 +269,10 @@
 <a href="#helper-functions" class="anchor"></a>Helper functions</h2>
 <p>Readr also provides a handful of other useful functions:</p>
 <ul>
-<li><p><code><a href="../../reference/read_lines.html">read_lines()</a></code> works the same way as <code><a href="https://www.rdocumentation.org/packages/base/topics/readLines">readLines()</a></code>, but is a lot faster.</p></li>
+<li><p><code><a href="../../reference/read_lines.html">read_lines()</a></code> works the same way as <code>readLines()</code>, but is a lot faster.</p></li>
 <li><p><code><a href="../../reference/read_file.html">read_file()</a></code> reads a complete file into a string.</p></li>
 <li><p><code><a href="../../reference/type_convert.html">type_convert()</a></code> attempts to coerce all character columns to their appropriate type. This is useful if you need to do some manual munging (e.g. with regular expressions) to turn strings into numbers. It uses the same rules as the <code>read_*</code> functions.</p></li>
-<li><p><code><a href="../../reference/write_delim.html">write_csv()</a></code> writes a data frame out to a csv file. It’s quite a bit faster than <code><a href="https://www.rdocumentation.org/packages/utils/topics/write.table">write.csv()</a></code> and it never writes row.names. It also escapes <code>"</code> embedded in strings in a way that <code><a href="../../reference/read_delim.html">read_csv()</a></code> can read.</p></li>
+<li><p><code><a href="../../reference/write_delim.html">write_csv()</a></code> writes a data frame out to a csv file. It’s quite a bit faster than <code>write.csv()</code> and it never writes row.names. It also escapes <code>"</code> embedded in strings in a way that <code><a href="../../reference/read_delim.html">read_csv()</a></code> can read.</p></li>
 </ul>
 </div>
 <div id="development" class="section level2">
@@ -305,7 +306,7 @@
 
 <div class="author">
   <p>
-    Developed by <a href="http://hadley.nz">Hadley Wickham</a>, Jim Hester, Romain Francois, <a href="https://www.rstudio.com"><img src="https://www.tidyverse.org/rstudio-logo.svg" alt="RStudio" height="24"></a>.
+    Developed by <a href="http://hadley.nz">Hadley Wickham</a>, Jim Hester, Romain Francois, <a href="https://www.rstudio.com"><img src="https://tidyverse.org/rstudio-logo.svg" alt="RStudio" height="24"></a>.
     Site built by <a href="https://pkgdown.r-lib.org">pkgdown</a>.
   </p>
 </div>

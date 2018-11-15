@@ -12,6 +12,7 @@
 <script src="../pkgdown.js"></script><link href="../tidyverse-2.css" rel="stylesheet">
 <meta property="og:title" content="Introduction to readr">
 <meta property="og:description" content="">
+<meta property="og:image" content="readr.tidyverse.org/logo.png">
 <meta name="twitter:card" content="summary">
 <!-- mathjax --><script src="https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script><!--[if lt IE 9]>
 <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
@@ -102,7 +103,7 @@
       <h1>Introduction to readr</h1>
             
       
-      <small class="dont-index">Source: <a href="https://github.com/tidyverse/readr/blob/master/vignettes/readr.Rmd"><code><a href="https://www.rdocumentation.org/packages/base/topics/Arithmetic">vignettes/readr.Rmd</a></code></a></small>
+      <small class="dont-index">Source: <a href="https://github.com/tidyverse/readr/blob/master/vignettes/readr.Rmd"><code>vignettes/readr.Rmd</code></a></small>
       <div class="hidden name"><code>readr.Rmd</code></div>
 
     </div>
@@ -130,11 +131,11 @@
 <h3 class="hasAnchor">
 <a href="#atomic-vectors" class="anchor"></a>Atomic vectors</h3>
 <p><code><a href="../reference/parse_atomic.html">parse_logical()</a></code>, <code><a href="../reference/parse_atomic.html">parse_integer()</a></code>, <code><a href="../reference/parse_atomic.html">parse_double()</a></code>, and <code><a href="../reference/parse_atomic.html">parse_character()</a></code> are straightforward parsers that produce the corresponding atomic vector.</p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1-1" data-line-number="1"><span class="kw"><a href="../reference/parse_atomic.html">parse_integer</a></span>(<span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/c">c</a></span>(<span class="st">"1"</span>, <span class="st">"2"</span>, <span class="st">"3"</span>))</a>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1-1" data-line-number="1"><span class="kw"><a href="../reference/parse_atomic.html">parse_integer</a></span>(<span class="kw">c</span>(<span class="st">"1"</span>, <span class="st">"2"</span>, <span class="st">"3"</span>))</a>
 <a class="sourceLine" id="cb1-2" data-line-number="2"><span class="co">#&gt; [1] 1 2 3</span></a>
-<a class="sourceLine" id="cb1-3" data-line-number="3"><span class="kw"><a href="../reference/parse_atomic.html">parse_double</a></span>(<span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/c">c</a></span>(<span class="st">"1.56"</span>, <span class="st">"2.34"</span>, <span class="st">"3.56"</span>))</a>
+<a class="sourceLine" id="cb1-3" data-line-number="3"><span class="kw"><a href="../reference/parse_atomic.html">parse_double</a></span>(<span class="kw">c</span>(<span class="st">"1.56"</span>, <span class="st">"2.34"</span>, <span class="st">"3.56"</span>))</a>
 <a class="sourceLine" id="cb1-4" data-line-number="4"><span class="co">#&gt; [1] 1.56 2.34 3.56</span></a>
-<a class="sourceLine" id="cb1-5" data-line-number="5"><span class="kw"><a href="../reference/parse_atomic.html">parse_logical</a></span>(<span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/c">c</a></span>(<span class="st">"true"</span>, <span class="st">"false"</span>))</a>
+<a class="sourceLine" id="cb1-5" data-line-number="5"><span class="kw"><a href="../reference/parse_atomic.html">parse_logical</a></span>(<span class="kw">c</span>(<span class="st">"true"</span>, <span class="st">"false"</span>))</a>
 <a class="sourceLine" id="cb1-6" data-line-number="6"><span class="co">#&gt; [1]  TRUE FALSE</span></a></code></pre></div>
 <p>By default, readr expects <code>.</code> as the decimal mark and <code>,</code> as the grouping mark. You can override this default using <code><a href="../reference/locale.html">locale()</a></code>, as described in <code><a href="../articles/locales.html">vignette("locales")</a></code>.</p>
 </div>
@@ -142,9 +143,9 @@
 <h3 class="hasAnchor">
 <a href="#flexible-numeric-parser" class="anchor"></a>Flexible numeric parser</h3>
 <p><code><a href="../reference/parse_atomic.html">parse_integer()</a></code> and <code><a href="../reference/parse_atomic.html">parse_double()</a></code> are strict: the input string must be a single number with no leading or trailing characters. <code><a href="../reference/parse_number.html">parse_number()</a></code> is more flexible: it ignores non-numeric prefixes and suffixes, and knows how to deal with grouping marks. This makes it suitable for reading currencies and percentages:</p>
-<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb2-1" data-line-number="1"><span class="kw"><a href="../reference/parse_number.html">parse_number</a></span>(<span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/c">c</a></span>(<span class="st">"0%"</span>, <span class="st">"10%"</span>, <span class="st">"150%"</span>))</a>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb2-1" data-line-number="1"><span class="kw"><a href="../reference/parse_number.html">parse_number</a></span>(<span class="kw">c</span>(<span class="st">"0%"</span>, <span class="st">"10%"</span>, <span class="st">"150%"</span>))</a>
 <a class="sourceLine" id="cb2-2" data-line-number="2"><span class="co">#&gt; [1]   0  10 150</span></a>
-<a class="sourceLine" id="cb2-3" data-line-number="3"><span class="kw"><a href="../reference/parse_number.html">parse_number</a></span>(<span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/c">c</a></span>(<span class="st">"$1,234.5"</span>, <span class="st">"$12.45"</span>))</a>
+<a class="sourceLine" id="cb2-3" data-line-number="3"><span class="kw"><a href="../reference/parse_number.html">parse_number</a></span>(<span class="kw">c</span>(<span class="st">"$1,234.5"</span>, <span class="st">"$12.45"</span>))</a>
 <a class="sourceLine" id="cb2-4" data-line-number="4"><span class="co">#&gt; [1] 1234.50   12.45</span></a></code></pre></div>
 </div>
 <div id="datetimes" class="section level3">
@@ -165,8 +166,8 @@
 <p>Each function takes a <code>format</code> argument which describes the format of the string. If not specified, it uses a default value:</p>
 <ul>
 <li><p><code><a href="../reference/parse_datetime.html">parse_datetime()</a></code> recognises <a href="https://en.wikipedia.org/wiki/ISO_8601">ISO8601</a> datetimes.</p></li>
-<li><p><code><a href="../reference/parse_datetime.html">parse_date()</a></code> uses the <code>date_format</code> specified by the <code><a href="../reference/locale.html">locale()</a></code>. The default value is <code>%AD</code> which uses an automatic date parser that recognises dates of the format <code><a href="https://www.rdocumentation.org/packages/base/topics/Arithmetic">Y-m-d</a></code> or <code><a href="https://www.rdocumentation.org/packages/base/topics/Arithmetic">Y/m/d</a></code>.</p></li>
-<li><p><code><a href="../reference/parse_datetime.html">parse_time()</a></code> uses the <code>time_format</code> specified by the <code><a href="../reference/locale.html">locale()</a></code>. The default value is <code>%At</code> which uses an automatic time parser that recognises times of the form <code><a href="https://www.rdocumentation.org/packages/base/topics/Colon">H:M</a></code> optionally followed by seconds and am/pm.</p></li>
+<li><p><code><a href="../reference/parse_datetime.html">parse_date()</a></code> uses the <code>date_format</code> specified by the <code><a href="../reference/locale.html">locale()</a></code>. The default value is <code>%AD</code> which uses an automatic date parser that recognises dates of the format <code>Y-m-d</code> or <code>Y/m/d</code>.</p></li>
+<li><p><code><a href="../reference/parse_datetime.html">parse_time()</a></code> uses the <code>time_format</code> specified by the <code><a href="../reference/locale.html">locale()</a></code>. The default value is <code>%At</code> which uses an automatic time parser that recognises times of the form <code>H:M</code> optionally followed by seconds and am/pm.</p></li>
 </ul>
 <p>In most cases, you will need to supply a <code>format</code>, as documented in <code><a href="../reference/parse_datetime.html">parse_datetime()</a></code>:</p>
 <div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb4-1" data-line-number="1"><span class="kw"><a href="../reference/parse_datetime.html">parse_datetime</a></span>(<span class="st">"1 January, 2010"</span>, <span class="st">"%d %B, %Y"</span>)</a>
@@ -178,10 +179,10 @@
 <h3 class="hasAnchor">
 <a href="#factors" class="anchor"></a>Factors</h3>
 <p>When reading a column that has a known set of values, you can read directly into a factor. <code><a href="../reference/parse_factor.html">parse_factor()</a></code> will generate generate a warning if a value is not in the supplied levels.</p>
-<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb5-1" data-line-number="1"><span class="kw"><a href="../reference/parse_factor.html">parse_factor</a></span>(<span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/c">c</a></span>(<span class="st">"a"</span>, <span class="st">"b"</span>, <span class="st">"a"</span>), <span class="dt">levels =</span> <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/c">c</a></span>(<span class="st">"a"</span>, <span class="st">"b"</span>, <span class="st">"c"</span>))</a>
+<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb5-1" data-line-number="1"><span class="kw"><a href="../reference/parse_factor.html">parse_factor</a></span>(<span class="kw">c</span>(<span class="st">"a"</span>, <span class="st">"b"</span>, <span class="st">"a"</span>), <span class="dt">levels =</span> <span class="kw">c</span>(<span class="st">"a"</span>, <span class="st">"b"</span>, <span class="st">"c"</span>))</a>
 <a class="sourceLine" id="cb5-2" data-line-number="2"><span class="co">#&gt; [1] a b a</span></a>
 <a class="sourceLine" id="cb5-3" data-line-number="3"><span class="co">#&gt; Levels: a b c</span></a>
-<a class="sourceLine" id="cb5-4" data-line-number="4"><span class="kw"><a href="../reference/parse_factor.html">parse_factor</a></span>(<span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/c">c</a></span>(<span class="st">"a"</span>, <span class="st">"b"</span>, <span class="st">"d"</span>), <span class="dt">levels =</span> <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/c">c</a></span>(<span class="st">"a"</span>, <span class="st">"b"</span>, <span class="st">"c"</span>))</a>
+<a class="sourceLine" id="cb5-4" data-line-number="4"><span class="kw"><a href="../reference/parse_factor.html">parse_factor</a></span>(<span class="kw">c</span>(<span class="st">"a"</span>, <span class="st">"b"</span>, <span class="st">"d"</span>), <span class="dt">levels =</span> <span class="kw">c</span>(<span class="st">"a"</span>, <span class="st">"b"</span>, <span class="st">"c"</span>))</a>
 <a class="sourceLine" id="cb5-5" data-line-number="5"><span class="co">#&gt; Warning: 1 parsing failure.</span></a>
 <a class="sourceLine" id="cb5-6" data-line-number="6"><span class="co">#&gt; row col           expected actual</span></a>
 <a class="sourceLine" id="cb5-7" data-line-number="7"><span class="co">#&gt;   3  -- value in level set      d</span></a>
@@ -198,13 +199,13 @@
 <h2 class="hasAnchor">
 <a href="#column-specification" class="anchor"></a>Column specification</h2>
 <p>It would be tedious if you had to specify the type of every column when reading a file. Instead readr, uses some heuristics to guess the type of each column. You can access these results yourself using <code><a href="../reference/parse_guess.html">guess_parser()</a></code>:</p>
-<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb6-1" data-line-number="1"><span class="kw"><a href="../reference/parse_guess.html">guess_parser</a></span>(<span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/c">c</a></span>(<span class="st">"a"</span>, <span class="st">"b"</span>, <span class="st">"c"</span>))</a>
+<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb6-1" data-line-number="1"><span class="kw"><a href="../reference/parse_guess.html">guess_parser</a></span>(<span class="kw">c</span>(<span class="st">"a"</span>, <span class="st">"b"</span>, <span class="st">"c"</span>))</a>
 <a class="sourceLine" id="cb6-2" data-line-number="2"><span class="co">#&gt; [1] "character"</span></a>
-<a class="sourceLine" id="cb6-3" data-line-number="3"><span class="kw"><a href="../reference/parse_guess.html">guess_parser</a></span>(<span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/c">c</a></span>(<span class="st">"1"</span>, <span class="st">"2"</span>, <span class="st">"3"</span>))</a>
+<a class="sourceLine" id="cb6-3" data-line-number="3"><span class="kw"><a href="../reference/parse_guess.html">guess_parser</a></span>(<span class="kw">c</span>(<span class="st">"1"</span>, <span class="st">"2"</span>, <span class="st">"3"</span>))</a>
 <a class="sourceLine" id="cb6-4" data-line-number="4"><span class="co">#&gt; [1] "double"</span></a>
-<a class="sourceLine" id="cb6-5" data-line-number="5"><span class="kw"><a href="../reference/parse_guess.html">guess_parser</a></span>(<span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/c">c</a></span>(<span class="st">"1,000"</span>, <span class="st">"2,000"</span>, <span class="st">"3,000"</span>))</a>
+<a class="sourceLine" id="cb6-5" data-line-number="5"><span class="kw"><a href="../reference/parse_guess.html">guess_parser</a></span>(<span class="kw">c</span>(<span class="st">"1,000"</span>, <span class="st">"2,000"</span>, <span class="st">"3,000"</span>))</a>
 <a class="sourceLine" id="cb6-6" data-line-number="6"><span class="co">#&gt; [1] "number"</span></a>
-<a class="sourceLine" id="cb6-7" data-line-number="7"><span class="kw"><a href="../reference/parse_guess.html">guess_parser</a></span>(<span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/c">c</a></span>(<span class="st">"2001/10/10"</span>))</a>
+<a class="sourceLine" id="cb6-7" data-line-number="7"><span class="kw"><a href="../reference/parse_guess.html">guess_parser</a></span>(<span class="kw">c</span>(<span class="st">"2001/10/10"</span>))</a>
 <a class="sourceLine" id="cb6-8" data-line-number="8"><span class="co">#&gt; [1] "date"</span></a></code></pre></div>
 <p>The guessing policies are described in the documentation for the individual functions. Guesses are fairly strict. For example, we don’t guess that currencies are numbers, even though we can parse them:</p>
 <div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb7-1" data-line-number="1"><span class="kw"><a href="../reference/parse_guess.html">guess_parser</a></span>(<span class="st">"$1,234"</span>)</a>
@@ -351,7 +352,7 @@
 <div id="output" class="section level3">
 <h3 class="hasAnchor">
 <a href="#output" class="anchor"></a>Output</h3>
-<p>The output of all these functions is a tibble. Note that characters are never automatically converted to factors (i.e. no more <code><a href="https://www.rdocumentation.org/packages/base/topics/assignOps">stringsAsFactors = FALSE</a></code>) and column names are left as is, not munged into valid R identifiers (i.e. there is no <code><a href="https://www.rdocumentation.org/packages/base/topics/assignOps">check.names = TRUE</a></code>). Row names are never set.</p>
+<p>The output of all these functions is a tibble. Note that characters are never automatically converted to factors (i.e. no more <code>stringsAsFactors = FALSE</code>) and column names are left as is, not munged into valid R identifiers (i.e. there is no <code>check.names = TRUE</code>). Row names are never set.</p>
 <p>Attributes store the column specification (<code><a href="../reference/spec.html">spec()</a></code>) and any parsing problems (<code><a href="../reference/problems.html">problems()</a></code>).</p>
 </div>
 </div>
@@ -378,7 +379,7 @@
 
 <div class="author">
   <p>
-    Developed by <a href="http://hadley.nz">Hadley Wickham</a>, Jim Hester, Romain Francois, <a href="https://www.rstudio.com"><img src="https://www.tidyverse.org/rstudio-logo.svg" alt="RStudio" height="24"></a>.
+    Developed by <a href="http://hadley.nz">Hadley Wickham</a>, Jim Hester, Romain Francois, <a href="https://www.rstudio.com"><img src="https://tidyverse.org/rstudio-logo.svg" alt="RStudio" height="24"></a>.
     Site built by <a href="https://pkgdown.r-lib.org">pkgdown</a>.
   </p>
 </div>

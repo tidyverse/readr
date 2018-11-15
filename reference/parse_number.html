@@ -33,6 +33,8 @@
 
 <meta property="og:description" content="This drops any non-numeric characters before or after the first number.
 The grouping mark specified by the locale is ignored inside the number." />
+
+<meta property="og:image" content="readr.tidyverse.org/logo.png" />
 <meta name="twitter:card" content="summary" />
 
 
@@ -144,7 +146,7 @@ The grouping mark specified by the locale is ignored inside the number.</p>
     
     </div>
 
-    <pre class="usage"><span class='fu'>parse_number</span>(<span class='no'>x</span>, <span class='kw'>na</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='st'>""</span>, <span class='st'>"NA"</span>), <span class='kw'>locale</span> <span class='kw'>=</span> <span class='fu'><a href='locale.html'>default_locale</a></span>(),
+    <pre class="usage"><span class='fu'>parse_number</span>(<span class='no'>x</span>, <span class='kw'>na</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='st'>""</span>, <span class='st'>"NA"</span>), <span class='kw'>locale</span> <span class='kw'>=</span> <span class='fu'><a href='locale.html'>default_locale</a></span>(),
   <span class='kw'>trim_ws</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)
 
 <span class='fu'>col_number</span>()</pre>
@@ -159,7 +161,7 @@ The grouping mark specified by the locale is ignored inside the number.</p>
     <tr>
       <th>na</th>
       <td><p>Character vector of strings to interpret as missing values. Set this
-option to <code><a href='https://www.rdocumentation.org/packages/base/topics/character'>character()</a></code> to indicate no missing values.</p></td>
+option to <code>character()</code> to indicate no missing values.</p></td>
     </tr>
     <tr>
       <th>locale</th>
@@ -208,7 +210,7 @@ each field before parsing it?</p></td>
 
 <div class="author">
   <p>
-    Developed by <a href='http://hadley.nz'>Hadley Wickham</a>, Jim Hester, Romain Francois, <a href='https://www.rstudio.com'><img src='https://www.tidyverse.org/rstudio-logo.svg' alt='RStudio' height='24' /></a>.
+    Developed by <a href='http://hadley.nz'>Hadley Wickham</a>, Jim Hester, Romain Francois, <a href='https://www.rstudio.com'><img src='https://tidyverse.org/rstudio-logo.svg' alt='RStudio' height='24' /></a>.
     Site built by <a href="https://pkgdown.r-lib.org">pkgdown</a>.
   </p>
 </div>

@@ -32,6 +32,8 @@
 <meta property="og:title" content="Callback classes — callback" />
 
 <meta property="og:description" content="These classes are used to define callback behaviors." />
+
+<meta property="og:image" content="readr.tidyverse.org/logo.png" />
 <meta name="twitter:card" content="summary" />
 
 
@@ -169,7 +171,7 @@
 #&gt;  chr [1:5] "19.2,8,400,175,3.08,3.845,17.05,0,0,3,2" ...
 #&gt;  chr [1:3] "19.7,6,145,175,3.62,2.77,15.5,0,1,5,6" ...</div><div class='output co'>#&gt; NULL</div><div class='input'>
 <span class='co'># Print starting line of each chunk</span>
-<span class='no'>f</span> <span class='kw'>&lt;-</span> <span class='kw'>function</span>(<span class='no'>x</span>, <span class='no'>pos</span>) <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/print'>print</a></span>(<span class='no'>pos</span>)
+<span class='no'>f</span> <span class='kw'>&lt;-</span> <span class='kw'>function</span>(<span class='no'>x</span>, <span class='no'>pos</span>) <span class='fu'>print</span>(<span class='no'>pos</span>)
 <span class='fu'><a href='read_lines_chunked.html'>read_lines_chunked</a></span>(<span class='fu'><a href='readr_example.html'>readr_example</a></span>(<span class='st'>"mtcars.csv"</span>), <span class='no'>SideEffectChunkCallback</span>$<span class='fu'>new</span>(<span class='no'>f</span>), <span class='kw'>chunk_size</span> <span class='kw'>=</span> <span class='fl'>5</span>)</div><div class='output co'>#&gt; [1] 1
 #&gt; [1] 6
 #&gt; [1] 11
@@ -180,7 +182,7 @@
 <span class='co'># If combined results are desired you can use the DataFrameCallback</span>
 
 <span class='co'># Cars with 3 gears</span>
-<span class='no'>f</span> <span class='kw'>&lt;-</span> <span class='kw'>function</span>(<span class='no'>x</span>, <span class='no'>pos</span>) <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/subset'>subset</a></span>(<span class='no'>x</span>, <span class='no'>gear</span> <span class='kw'>==</span> <span class='fl'>3</span>)
+<span class='no'>f</span> <span class='kw'>&lt;-</span> <span class='kw'>function</span>(<span class='no'>x</span>, <span class='no'>pos</span>) <span class='fu'>subset</span>(<span class='no'>x</span>, <span class='no'>gear</span> <span class='kw'>==</span> <span class='fl'>3</span>)
 <span class='fu'><a href='read_delim_chunked.html'>read_csv_chunked</a></span>(<span class='fu'><a href='readr_example.html'>readr_example</a></span>(<span class='st'>"mtcars.csv"</span>), <span class='no'>DataFrameCallback</span>$<span class='fu'>new</span>(<span class='no'>f</span>), <span class='kw'>chunk_size</span> <span class='kw'>=</span> <span class='fl'>5</span>)</div><div class='output co'>#&gt; <span class='message'>Parsed with column specification:</span>
 #&gt; <span class='message'>cols(</span>
 #&gt; <span class='message'>  mpg = col_double(),</span>
@@ -270,7 +272,7 @@
 
 <div class="author">
   <p>
-    Developed by <a href='http://hadley.nz'>Hadley Wickham</a>, Jim Hester, Romain Francois, <a href='https://www.rstudio.com'><img src='https://www.tidyverse.org/rstudio-logo.svg' alt='RStudio' height='24' /></a>.
+    Developed by <a href='http://hadley.nz'>Hadley Wickham</a>, Jim Hester, Romain Francois, <a href='https://www.rstudio.com'><img src='https://tidyverse.org/rstudio-logo.svg' alt='RStudio' height='24' /></a>.
     Site built by <a href="https://pkgdown.r-lib.org">pkgdown</a>.
   </p>
 </div>

@@ -33,6 +33,8 @@
 
 <meta property="og:description" content="This is a generic function that applied to each column before it is saved
 to disk. It provides a hook for S3 classes that need special handling." />
+
+<meta property="og:image" content="readr.tidyverse.org/logo.png" />
 <meta name="twitter:card" content="summary" />
 
 
@@ -160,7 +162,7 @@ to disk. It provides a hook for S3 classes that need special handling.</p>
     <pre class="examples"><div class='input'><span class='co'># Most columns are left as is, but POSIXct are</span>
 <span class='co'># converted to ISO8601.</span>
 <span class='no'>x</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='parse_datetime.html'>parse_datetime</a></span>(<span class='st'>"2016-01-01"</span>)
-<span class='fu'><a href='https://www.rdocumentation.org/packages/utils/topics/str'>str</a></span>(<span class='fu'>output_column</span>(<span class='no'>x</span>))</div><div class='output co'>#&gt;  chr "2016-01-01T00:00:00Z"</div></pre>
+<span class='fu'>str</span>(<span class='fu'>output_column</span>(<span class='no'>x</span>))</div><div class='output co'>#&gt;  chr "2016-01-01T00:00:00Z"</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
@@ -180,7 +182,7 @@ to disk. It provides a hook for S3 classes that need special handling.</p>
 
 <div class="author">
   <p>
-    Developed by <a href='http://hadley.nz'>Hadley Wickham</a>, Jim Hester, Romain Francois, <a href='https://www.rstudio.com'><img src='https://www.tidyverse.org/rstudio-logo.svg' alt='RStudio' height='24' /></a>.
+    Developed by <a href='http://hadley.nz'>Hadley Wickham</a>, Jim Hester, Romain Francois, <a href='https://www.rstudio.com'><img src='https://tidyverse.org/rstudio-logo.svg' alt='RStudio' height='24' /></a>.
     Site built by <a href="https://pkgdown.r-lib.org">pkgdown</a>.
   </p>
 </div>

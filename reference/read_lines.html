@@ -36,6 +36,8 @@ not included in the output. read_lines_raw() produces a list of raw
 vectors, and is useful for handling data with unknown encoding.
 write_lines() takes a character vector or list of raw vectors, appending a
 new line after each entry." />
+
+<meta property="og:image" content="readr.tidyverse.org/logo.png" />
 <meta name="twitter:card" content="summary" />
 
 
@@ -151,7 +153,7 @@ new line after each entry.</p>
     </div>
 
     <pre class="usage"><span class='fu'>read_lines</span>(<span class='no'>file</span>, <span class='kw'>skip</span> <span class='kw'>=</span> <span class='fl'>0</span>, <span class='kw'>n_max</span> <span class='kw'>=</span> -<span class='fl'>1L</span>, <span class='kw'>locale</span> <span class='kw'>=</span> <span class='fu'><a href='locale.html'>default_locale</a></span>(),
-  <span class='kw'>na</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/character'>character</a></span>(), <span class='kw'>progress</span> <span class='kw'>=</span> <span class='fu'>show_progress</span>())
+  <span class='kw'>na</span> <span class='kw'>=</span> <span class='fu'>character</span>(), <span class='kw'>progress</span> <span class='kw'>=</span> <span class='fu'>show_progress</span>())
 
 <span class='fu'>read_lines_raw</span>(<span class='no'>file</span>, <span class='kw'>skip</span> <span class='kw'>=</span> <span class='fl'>0</span>, <span class='kw'>n_max</span> <span class='kw'>=</span> -<span class='fl'>1L</span>,
   <span class='kw'>progress</span> <span class='kw'>=</span> <span class='fu'>show_progress</span>())
@@ -195,7 +197,7 @@ names.</p></td>
     <tr>
       <th>na</th>
       <td><p>Character vector of strings to interpret as missing values. Set this
-option to <code><a href='https://www.rdocumentation.org/packages/base/topics/character'>character()</a></code> to indicate no missing values.</p></td>
+option to <code>character()</code> to indicate no missing values.</p></td>
     </tr>
     <tr>
       <th>progress</th>
@@ -235,7 +237,7 @@ file is created.</p></td>
     
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='fu'>read_lines</span>(<span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/file.path'>file.path</a></span>(<span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/Rhome'>R.home</a></span>(<span class='st'>"doc"</span>), <span class='st'>"AUTHORS"</span>), <span class='kw'>n_max</span> <span class='kw'>=</span> <span class='fl'>10</span>)</div><div class='output co'>#&gt;  [1] "Authors of R."                                                                     
+    <pre class="examples"><div class='input'><span class='fu'>read_lines</span>(<span class='fu'>file.path</span>(<span class='fu'>R.home</span>(<span class='st'>"doc"</span>), <span class='st'>"AUTHORS"</span>), <span class='kw'>n_max</span> <span class='kw'>=</span> <span class='fl'>10</span>)</div><div class='output co'>#&gt;  [1] "Authors of R."                                                                     
 #&gt;  [2] ""                                                                                  
 #&gt;  [3] "R was initially written by Robert Gentleman and Ross Ihaka—also known as \"R &amp; R\""
 #&gt;  [4] "of the Statistics Department of the University of Auckland."                       
@@ -244,7 +246,7 @@ file is created.</p></td>
 #&gt;  [7] "source, currently consisting of"                                                   
 #&gt;  [8] ""                                                                                  
 #&gt;  [9] "Douglas Bates"                                                                     
-#&gt; [10] "John Chambers"                                                                     </div><div class='input'><span class='fu'>read_lines_raw</span>(<span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/file.path'>file.path</a></span>(<span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/Rhome'>R.home</a></span>(<span class='st'>"doc"</span>), <span class='st'>"AUTHORS"</span>), <span class='kw'>n_max</span> <span class='kw'>=</span> <span class='fl'>10</span>)</div><div class='output co'>#&gt; [[1]]
+#&gt; [10] "John Chambers"                                                                     </div><div class='input'><span class='fu'>read_lines_raw</span>(<span class='fu'>file.path</span>(<span class='fu'>R.home</span>(<span class='st'>"doc"</span>), <span class='st'>"AUTHORS"</span>), <span class='kw'>n_max</span> <span class='kw'>=</span> <span class='fl'>10</span>)</div><div class='output co'>#&gt; [[1]]
 #&gt;  [1] 41 75 74 68 6f 72 73 20 6f 66 20 52 2e
 #&gt; 
 #&gt; [[2]]
@@ -282,9 +284,9 @@ file is created.</p></td>
 #&gt; [[10]]
 #&gt;  [1] 4a 6f 68 6e 20 43 68 61 6d 62 65 72 73
 #&gt; </div><div class='input'>
-<span class='no'>tmp</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/tempfile'>tempfile</a></span>()
+<span class='no'>tmp</span> <span class='kw'>&lt;-</span> <span class='fu'>tempfile</span>()
 
-<span class='fu'>write_lines</span>(<span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/colnames'>rownames</a></span>(<span class='no'>mtcars</span>), <span class='no'>tmp</span>)
+<span class='fu'>write_lines</span>(<span class='fu'>rownames</span>(<span class='no'>mtcars</span>), <span class='no'>tmp</span>)
 <span class='fu'>read_lines</span>(<span class='no'>tmp</span>)</div><div class='output co'>#&gt;  [1] "Mazda RX4"           "Mazda RX4 Wag"       "Datsun 710"         
 #&gt;  [4] "Hornet 4 Drive"      "Hornet Sportabout"   "Valiant"            
 #&gt;  [7] "Duster 360"          "Merc 240D"           "Merc 230"           
@@ -331,7 +333,7 @@ file is created.</p></td>
 
 <div class="author">
   <p>
-    Developed by <a href='http://hadley.nz'>Hadley Wickham</a>, Jim Hester, Romain Francois, <a href='https://www.rstudio.com'><img src='https://www.tidyverse.org/rstudio-logo.svg' alt='RStudio' height='24' /></a>.
+    Developed by <a href='http://hadley.nz'>Hadley Wickham</a>, Jim Hester, Romain Francois, <a href='https://www.rstudio.com'><img src='https://tidyverse.org/rstudio-logo.svg' alt='RStudio' height='24' /></a>.
     Site built by <a href="https://pkgdown.r-lib.org">pkgdown</a>.
   </p>
 </div>
