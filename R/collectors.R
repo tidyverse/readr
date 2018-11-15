@@ -134,6 +134,7 @@ col_skip <- function() {
 #' @inheritParams parse_atomic
 #' @inheritParams tokenizer_delim
 #' @inheritParams read_delim
+#' @return A numeric vector (double) of parsed numbers.
 #' @family parsers
 #' @export
 #' @examples

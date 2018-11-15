@@ -25,6 +25,9 @@ names.}
 \item{trim_ws}{Should leading and trailing whitespace be trimmed from
 each field before parsing it?}
 }
+\value{
+A numeric vector (double) of parsed numbers.
+}
 \description{
 This drops any non-numeric characters before or after the first number.
 The grouping mark specified by the locale is ignored inside the number.
