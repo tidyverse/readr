@@ -75,6 +75,8 @@ RObject Reader::readToDataFrame(int lines) {
   collectorsClear();
   warnings_.clear();
 
+  // TODO: call tibble name repair function when tibble 1.5.0 is released.
+
   return out;
 }
 
