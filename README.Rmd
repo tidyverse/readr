@@ -12,14 +12,12 @@ knitr::opts_chunk$set(
 )
 ```
 
-# readr <img src="man/figure/logo.svg" align="right" />
+# readr <img src="man/figures/logo.svg" align="right" />
 
 [![CRAN_Status_Badge](https://www.r-pkg.org/badges/version/readr)](https://cran.r-project.org/package=readr)
 [![Build Status](https://travis-ci.org/tidyverse/readr.svg?branch=master)](https://travis-ci.org/tidyverse/readr)
 [![AppVeyor Build Status](https://ci.appveyor.com/api/projects/status/github/tidyverse/readr?branch=master&svg=true)](https://ci.appveyor.com/project/tidyverse/readr)
 [![Coverage Status](https://codecov.io/gh/tidyverse/readr/coverage.svg?branch=master)](https://codecov.io/gh/tidyverse/readr?branch=master)
-
-## Overview
 
 The goal of readr is to provide a fast and friendly way to read rectangular data (like csv, tsv, and fwf). It is designed to flexibly parse many types of data found in the wild, while still cleanly failing when data unexpectedly changes. If you are new to readr, the best place to start is the [data import chapter](http://r4ds.had.co.nz/data-import.html) in R for data science.
 
