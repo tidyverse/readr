@@ -110,7 +110,7 @@
 
     
     
-<p>readr 0.2.0 is now available on CRAN. readr makes it easy to read many types of tabular data, including csv, tsv and fixed width. Compared to base equivalents like <code>read.csv()</code>, readr is much faster and gives more convenient output: it never converts strings to factors, can parse date/times, and it doesn’t munge the column names.</p>
+<p>readr 0.2.0 is now available on CRAN. readr makes it easy to read many types of tabular data, including csv, tsv and fixed width. Compared to base equivalents like <code><a href="https://www.rdocumentation.org/packages/utils/topics/read.table">read.csv()</a></code>, readr is much faster and gives more convenient output: it never converts strings to factors, can parse date/times, and it doesn’t munge the column names.</p>
 <p>This is a big release, so below I describe the new features divided into four main categories:</p>
 <ul>
 <li>Improved support for international data.</li>
@@ -179,7 +179,7 @@
 <a class="sourceLine" id="cb3-6" data-line-number="6"><span class="kw"><a href="../../reference/parse_datetime.html">parse_datetime</a></span>(<span class="st">"2001-10-10 20:10"</span>, </a>
 <a class="sourceLine" id="cb3-7" data-line-number="7">  <span class="dt">locale =</span> <span class="kw"><a href="../../reference/locale.html">locale</a></span>(<span class="dt">tz =</span> <span class="st">"Europe/Dublin"</span>))</a>
 <a class="sourceLine" id="cb3-8" data-line-number="8"><span class="co">#&gt; [1] "2001-10-10 20:10:00 IST"</span></a></code></pre></div>
-<p>List all available times zones with <code>OlsonNames()</code>. If you’re American, note that “EST” is not Eastern Standard Time – it’s a Canadian time zone that doesn’t have DST! Instead of relying on ambiguous abbreivations, use:</p>
+<p>List all available times zones with <code><a href="https://www.rdocumentation.org/packages/base/topics/timezones">OlsonNames()</a></code>. If you’re American, note that “EST” is not Eastern Standard Time – it’s a Canadian time zone that doesn’t have DST! Instead of relying on ambiguous abbreivations, use:</p>
 <ul>
 <li>PST/PDT = “US/Pacific”</li>
 <li>CST/CDT = “US/Central”</li>
@@ -191,12 +191,12 @@
 <h3 class="hasAnchor">
 <a href="#default-formats" class="anchor"></a>Default formats</h3>
 <p>Locales also provide default date and time formats. The time format isn’t currently used for anything, but the date format is used when guessing column types. The default date format is <code>%Y-%m-%d</code> because that’s unambiguous:</p>
-<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb4-1" data-line-number="1"><span class="kw">str</span>(<span class="kw"><a href="../../reference/parse_guess.html">parse_guess</a></span>(<span class="st">"2010-10-10"</span>))</a>
+<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb4-1" data-line-number="1"><span class="kw"><a href="https://www.rdocumentation.org/packages/utils/topics/str">str</a></span>(<span class="kw"><a href="../../reference/parse_guess.html">parse_guess</a></span>(<span class="st">"2010-10-10"</span>))</a>
 <a class="sourceLine" id="cb4-2" data-line-number="2"><span class="co">#&gt;  Date[1:1], format: "2010-10-10"</span></a></code></pre></div>
 <p>If you’re an American, you might want you use your illogical date sytem::</p>
-<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb5-1" data-line-number="1"><span class="kw">str</span>(<span class="kw"><a href="../../reference/parse_guess.html">parse_guess</a></span>(<span class="st">"01/02/2013"</span>))</a>
+<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb5-1" data-line-number="1"><span class="kw"><a href="https://www.rdocumentation.org/packages/utils/topics/str">str</a></span>(<span class="kw"><a href="../../reference/parse_guess.html">parse_guess</a></span>(<span class="st">"01/02/2013"</span>))</a>
 <a class="sourceLine" id="cb5-2" data-line-number="2"><span class="co">#&gt;  chr "01/02/2013"</span></a>
-<a class="sourceLine" id="cb5-3" data-line-number="3"><span class="kw">str</span>(<span class="kw"><a href="../../reference/parse_guess.html">parse_guess</a></span>(<span class="st">"01/02/2013"</span>, </a>
+<a class="sourceLine" id="cb5-3" data-line-number="3"><span class="kw"><a href="https://www.rdocumentation.org/packages/utils/topics/str">str</a></span>(<span class="kw"><a href="../../reference/parse_guess.html">parse_guess</a></span>(<span class="st">"01/02/2013"</span>, </a>
 <a class="sourceLine" id="cb5-4" data-line-number="4">  <span class="dt">locale =</span> <span class="kw"><a href="../../reference/locale.html">locale</a></span>(<span class="dt">date_format =</span> <span class="st">"%d/%m/%Y"</span>)))</a>
 <a class="sourceLine" id="cb5-5" data-line-number="5"><span class="co">#&gt;  Date[1:1], format: "2013-02-01"</span></a></code></pre></div>
 </div>
@@ -206,28 +206,28 @@
 <p>All readr functions yield strings encoded in UTF-8. This encoding is the most likely to give good results in the widest variety of settings. By default, readr assumes that your input is also in UTF-8, which is less likely to be the case, especially when you’re working with older datasets. To parse a dataset that’s not in UTF-8, you need to a supply an <code>encoding</code>.</p>
 <p>The following code creates a string encoded with latin1 (aka ISO-8859-1), and shows how it’s different from the string encoded as UTF-8, and how to parse it with readr:</p>
 <div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb6-1" data-line-number="1">x &lt;-<span class="st"> "Émigré cause célèbre déjà vu.</span><span class="ch">\n</span><span class="st">"</span></a>
-<a class="sourceLine" id="cb6-2" data-line-number="2">y &lt;-<span class="st"> </span>stringi<span class="op">::</span><span class="kw"><a href="http://www.rdocumentation.org/packages/stringi/topics/stri_encode">stri_conv</a></span>(x, <span class="st">"UTF-8"</span>, <span class="st">"Latin1"</span>)</a>
+<a class="sourceLine" id="cb6-2" data-line-number="2">y &lt;-<span class="st"> </span>stringi<span class="op">::</span><span class="kw"><a href="https://www.rdocumentation.org/packages/stringi/topics/stri_encode">stri_conv</a></span>(x, <span class="st">"UTF-8"</span>, <span class="st">"Latin1"</span>)</a>
 <a class="sourceLine" id="cb6-3" data-line-number="3"></a>
 <a class="sourceLine" id="cb6-4" data-line-number="4"><span class="co"># These strings look like they're identical:</span></a>
 <a class="sourceLine" id="cb6-5" data-line-number="5">x</a>
 <a class="sourceLine" id="cb6-6" data-line-number="6"><span class="co">#&gt; [1] "Émigré cause célèbre déjà vu.\n"</span></a>
 <a class="sourceLine" id="cb6-7" data-line-number="7">y</a>
 <a class="sourceLine" id="cb6-8" data-line-number="8"><span class="co">#&gt; [1] "Émigré cause célèbre déjà vu.\n"</span></a>
-<a class="sourceLine" id="cb6-9" data-line-number="9"><span class="kw">identical</span>(x, y)</a>
+<a class="sourceLine" id="cb6-9" data-line-number="9"><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/identical">identical</a></span>(x, y)</a>
 <a class="sourceLine" id="cb6-10" data-line-number="10"><span class="co">#&gt; [1] TRUE</span></a>
 <a class="sourceLine" id="cb6-11" data-line-number="11"></a>
 <a class="sourceLine" id="cb6-12" data-line-number="12"><span class="co"># But they have different encodings:</span></a>
-<a class="sourceLine" id="cb6-13" data-line-number="13"><span class="kw">Encoding</span>(x)</a>
+<a class="sourceLine" id="cb6-13" data-line-number="13"><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/Encoding">Encoding</a></span>(x)</a>
 <a class="sourceLine" id="cb6-14" data-line-number="14"><span class="co">#&gt; [1] "unknown"</span></a>
-<a class="sourceLine" id="cb6-15" data-line-number="15"><span class="kw">Encoding</span>(y)</a>
+<a class="sourceLine" id="cb6-15" data-line-number="15"><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/Encoding">Encoding</a></span>(y)</a>
 <a class="sourceLine" id="cb6-16" data-line-number="16"><span class="co">#&gt; [1] "latin1"</span></a>
 <a class="sourceLine" id="cb6-17" data-line-number="17"></a>
 <a class="sourceLine" id="cb6-18" data-line-number="18"><span class="co"># That means while they print the same, their raw (binary)</span></a>
 <a class="sourceLine" id="cb6-19" data-line-number="19"><span class="co"># representation is actually rather different:</span></a>
-<a class="sourceLine" id="cb6-20" data-line-number="20"><span class="kw">charToRaw</span>(x)</a>
+<a class="sourceLine" id="cb6-20" data-line-number="20"><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/rawConversion">charToRaw</a></span>(x)</a>
 <a class="sourceLine" id="cb6-21" data-line-number="21"><span class="co">#&gt;  [1] c3 89 6d 69 67 72 c3 a9 20 63 61 75 73 65 20 63 c3 a9 6c c3 a8 62 72</span></a>
 <a class="sourceLine" id="cb6-22" data-line-number="22"><span class="co">#&gt; [24] 65 20 64 c3 a9 6a c3 a0 20 76 75 2e 0a</span></a>
-<a class="sourceLine" id="cb6-23" data-line-number="23"><span class="kw">charToRaw</span>(y)</a>
+<a class="sourceLine" id="cb6-23" data-line-number="23"><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/rawConversion">charToRaw</a></span>(y)</a>
 <a class="sourceLine" id="cb6-24" data-line-number="24"><span class="co">#&gt;  [1] c9 6d 69 67 72 e9 20 63 61 75 73 65 20 63 e9 6c e8 62 72 65 20 64 e9</span></a>
 <a class="sourceLine" id="cb6-25" data-line-number="25"><span class="co">#&gt; [24] 6a e0 20 76 75 2e 0a</span></a>
 <a class="sourceLine" id="cb6-26" data-line-number="26"></a>
@@ -318,7 +318,7 @@
 </li>
 <li>
 <p>New <code><a href="../../reference/parse_datetime.html">parse_time()</a></code> and <code><a href="../../reference/parse_datetime.html">col_time()</a></code> allow you to parse times. They have an optional <code>format</code> argument, that uses the same components as <code><a href="../../reference/parse_datetime.html">parse_datetime()</a></code>. If <code>format</code> is omitted, they use a flexible parser that looks for hours, then an optional colon, then minutes, then an optional colon, then optional seconds, then optional am/pm.</p>
-<div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb13-1" data-line-number="1"><span class="kw"><a href="../../reference/parse_datetime.html">parse_time</a></span>(<span class="kw">c</span>(<span class="st">"1:45 PM"</span>, <span class="st">"1345"</span>, <span class="st">"13:45:00"</span>))</a>
+<div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb13-1" data-line-number="1"><span class="kw"><a href="../../reference/parse_datetime.html">parse_time</a></span>(<span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/c">c</a></span>(<span class="st">"1:45 PM"</span>, <span class="st">"1345"</span>, <span class="st">"13:45:00"</span>))</a>
 <a class="sourceLine" id="cb13-2" data-line-number="2"><span class="co">#&gt; Warning: 1 parsing failure.</span></a>
 <a class="sourceLine" id="cb13-3" data-line-number="3"><span class="co">#&gt; row col   expected actual</span></a>
 <a class="sourceLine" id="cb13-4" data-line-number="4"><span class="co">#&gt;   2  -- time like    1345</span></a>
@@ -336,8 +336,8 @@
 <p><code><a href="../../reference/read_delim.html">read_csv()</a></code>, <code><a href="../../reference/read_delim.html">read_tsv()</a></code>, and <code><a href="../../reference/read_delim.html">read_delim()</a></code> gain extra arguments that allow you to parse more files:</p>
 <ul>
 <li>
-<p>Multiple NA values can be specified by passing a character vector to <code>na</code>. The default has been changed to <code>na = c("", "NA")</code>.</p>
-<div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb14-1" data-line-number="1"><span class="kw"><a href="../../reference/read_delim.html">read_csv</a></span>(<span class="st">"a,b</span><span class="ch">\n</span><span class="st">.,NA</span><span class="ch">\n</span><span class="st">1,3"</span>, <span class="dt">na =</span> <span class="kw">c</span>(<span class="st">"."</span>, <span class="st">"NA"</span>))</a>
+<p>Multiple NA values can be specified by passing a character vector to <code>na</code>. The default has been changed to <code><a href="https://www.rdocumentation.org/packages/base/topics/assignOps">na = c("", "NA")</a></code>.</p>
+<div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb14-1" data-line-number="1"><span class="kw"><a href="../../reference/read_delim.html">read_csv</a></span>(<span class="st">"a,b</span><span class="ch">\n</span><span class="st">.,NA</span><span class="ch">\n</span><span class="st">1,3"</span>, <span class="dt">na =</span> <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/c">c</a></span>(<span class="st">"."</span>, <span class="st">"NA"</span>))</a>
 <a class="sourceLine" id="cb14-2" data-line-number="2"><span class="co">#&gt; # A tibble: 2 x 2</span></a>
 <a class="sourceLine" id="cb14-3" data-line-number="3"><span class="co">#&gt;       a     b</span></a>
 <a class="sourceLine" id="cb14-4" data-line-number="4"><span class="co">#&gt;   &lt;dbl&gt; &lt;dbl&gt;</span></a>
@@ -391,7 +391,7 @@
 <p>Despite the name, readr also provides some tools for writing data frames to disk. In this version there are three output functions:</p>
 <ul>
 <li><p><code><a href="../../reference/write_delim.html">write_csv()</a></code> and <code><a href="../../reference/write_delim.html">write_tsv()</a></code> write tab and comma delimted files, and <code><a href="../../reference/write_delim.html">write_delim()</a></code> writes with user specified delimiter.</p></li>
-<li><p><code><a href="../../reference/read_rds.html">write_rds()</a></code> and <code><a href="../../reference/read_rds.html">read_rds()</a></code> wrap around <code>readRDS()</code> and <code>saveRDS()</code>, defaulting to no compression, because you’re usually more interested in saving time (expensive) than disk space (cheap).</p></li>
+<li><p><code><a href="../../reference/read_rds.html">write_rds()</a></code> and <code><a href="../../reference/read_rds.html">read_rds()</a></code> wrap around <code><a href="https://www.rdocumentation.org/packages/base/topics/readRDS">readRDS()</a></code> and <code><a href="https://www.rdocumentation.org/packages/base/topics/readRDS">saveRDS()</a></code>, defaulting to no compression, because you’re usually more interested in saving time (expensive) than disk space (cheap).</p></li>
 </ul>
 <p>All these functions invisibly return their output so you can use them as part of a pipeline:</p>
 <div class="sourceCode" id="cb18"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb18-1" data-line-number="1">my_df <span class="op">%&gt;%</span></a>
@@ -405,9 +405,9 @@
 <p>Output for doubles now uses the same precision as R, and POSIXt vectors are saved in a ISO8601 compatible format.</p>
 <p>For testing, you can use <code><a href="../../reference/format_delim.html">format_csv()</a></code>, <code><a href="../../reference/format_delim.html">format_tsv()</a></code>, and <code><a href="../../reference/format_delim.html">format_delim()</a></code> to write csv to a string:</p>
 <div class="sourceCode" id="cb19"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb19-1" data-line-number="1">mtcars <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb19-2" data-line-number="2"><span class="st">  </span><span class="kw">head</span>(<span class="dv">4</span>) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb19-2" data-line-number="2"><span class="st">  </span><span class="kw"><a href="https://www.rdocumentation.org/packages/utils/topics/head">head</a></span>(<span class="dv">4</span>) <span class="op">%&gt;%</span></a>
 <a class="sourceLine" id="cb19-3" data-line-number="3"><span class="st">  </span><span class="kw"><a href="../../reference/format_delim.html">format_csv</a></span>() <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb19-4" data-line-number="4"><span class="st">  </span><span class="kw">cat</span>()</a>
+<a class="sourceLine" id="cb19-4" data-line-number="4"><span class="st">  </span><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/cat">cat</a></span>()</a>
 <a class="sourceLine" id="cb19-5" data-line-number="5"><span class="co">#&gt; mpg,cyl,disp,hp,drat,wt,qsec,vs,am,gear,carb</span></a>
 <a class="sourceLine" id="cb19-6" data-line-number="6"><span class="co">#&gt; 21,6,160,110,3.9,2.62,16.46,0,1,4,4</span></a>
 <a class="sourceLine" id="cb19-7" data-line-number="7"><span class="co">#&gt; 21,6,160,110,3.9,2.875,17.02,0,1,4,4</span></a>
@@ -439,7 +439,7 @@
 
 <div class="author">
   <p>
-    Developed by <a href="http://hadley.nz">Hadley Wickham</a>, Jim Hester, Romain Francois, <a href="https://www.rstudio.com"><img src="https://tidyverse.org/rstudio-logo.svg" alt="RStudio" height="24"></a>.
+    Developed by <a href="http://hadley.nz">Hadley Wickham</a>, Jim Hester, Romain Francois, <a href="https://www.rstudio.com"><img src="https://www.tidyverse.org/rstudio-logo.svg" alt="RStudio" height="24"></a>.
     Site built by <a href="https://pkgdown.r-lib.org">pkgdown</a>.
   </p>
 </div>

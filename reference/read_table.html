@@ -150,7 +150,7 @@ the column specifications rather than a data frame." />
     
     <p><code>read_table()</code> and <code>read_table2()</code> are designed to read the type of textual
 data where each column is separated by one (or more) columns of space.</p>
-<p><code>read_table2()</code> is like <code>read.table()</code>, it allows any number of whitespace
+<p><code>read_table2()</code> is like <code><a href='https://www.rdocumentation.org/packages/utils/topics/read.table'>read.table()</a></code>, it allows any number of whitespace
 characters between columns, and the lines can be of different lengths.</p>
 <p><code>read_table()</code> is more strict, each line must be the same length,
 and each field is in the same position in every line. It first finds empty columns and then
@@ -162,12 +162,12 @@ the column specifications rather than a data frame.</p>
 
     <pre class="usage"><span class='fu'>read_table</span>(<span class='no'>file</span>, <span class='kw'>col_names</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>col_types</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
   <span class='kw'>locale</span> <span class='kw'>=</span> <span class='fu'><a href='locale.html'>default_locale</a></span>(), <span class='kw'>na</span> <span class='kw'>=</span> <span class='st'>"NA"</span>, <span class='kw'>skip</span> <span class='kw'>=</span> <span class='fl'>0</span>, <span class='kw'>n_max</span> <span class='kw'>=</span> <span class='fl'>Inf</span>,
-  <span class='kw'>guess_max</span> <span class='kw'>=</span> <span class='fu'>min</span>(<span class='no'>n_max</span>, <span class='fl'>1000</span>), <span class='kw'>progress</span> <span class='kw'>=</span> <span class='fu'>show_progress</span>(),
+  <span class='kw'>guess_max</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/Extremes'>min</a></span>(<span class='no'>n_max</span>, <span class='fl'>1000</span>), <span class='kw'>progress</span> <span class='kw'>=</span> <span class='fu'>show_progress</span>(),
   <span class='kw'>comment</span> <span class='kw'>=</span> <span class='st'>""</span>)
 
 <span class='fu'>read_table2</span>(<span class='no'>file</span>, <span class='kw'>col_names</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>col_types</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
   <span class='kw'>locale</span> <span class='kw'>=</span> <span class='fu'><a href='locale.html'>default_locale</a></span>(), <span class='kw'>na</span> <span class='kw'>=</span> <span class='st'>"NA"</span>, <span class='kw'>skip</span> <span class='kw'>=</span> <span class='fl'>0</span>, <span class='kw'>n_max</span> <span class='kw'>=</span> <span class='fl'>Inf</span>,
-  <span class='kw'>guess_max</span> <span class='kw'>=</span> <span class='fu'>min</span>(<span class='no'>n_max</span>, <span class='fl'>1000</span>), <span class='kw'>progress</span> <span class='kw'>=</span> <span class='fu'>show_progress</span>(),
+  <span class='kw'>guess_max</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/Extremes'>min</a></span>(<span class='no'>n_max</span>, <span class='fl'>1000</span>), <span class='kw'>progress</span> <span class='kw'>=</span> <span class='fu'>show_progress</span>(),
   <span class='kw'>comment</span> <span class='kw'>=</span> <span class='st'>""</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
@@ -228,7 +228,7 @@ names.</p></td>
     <tr>
       <th>na</th>
       <td><p>Character vector of strings to interpret as missing values. Set this
-option to <code>character()</code> to indicate no missing values.</p></td>
+option to <code><a href='https://www.rdocumentation.org/packages/base/topics/character'>character()</a></code> to indicate no missing values.</p></td>
     </tr>
     <tr>
       <th>skip</th>
@@ -267,7 +267,7 @@ tabular data with non-standard formatting.</p></div>
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='co'># One corner from http://www.masseyratings.com/cf/compare.htm</span>
 <span class='no'>massey</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='readr_example.html'>readr_example</a></span>(<span class='st'>"massey-rating.txt"</span>)
-<span class='fu'>cat</span>(<span class='fu'><a href='read_file.html'>read_file</a></span>(<span class='no'>massey</span>))</div><div class='output co'>#&gt; UCC PAY LAZ KPK  RT   COF BIH DII ENG ACU Rank Team            Conf
+<span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/cat'>cat</a></span>(<span class='fu'><a href='read_file.html'>read_file</a></span>(<span class='no'>massey</span>))</div><div class='output co'>#&gt; UCC PAY LAZ KPK  RT   COF BIH DII ENG ACU Rank Team            Conf
 #&gt;   1   1   1   1   1     1   1   1   1   1    1 Ohio St          B10 
 #&gt;   2   2   2   2   2     2   2   2   4   2    2 Oregon           P12 
 #&gt;   3   4   3   4   3     4   3   4   2   3    3 Alabama          SEC 
@@ -308,7 +308,7 @@ tabular data with non-standard formatting.</p></div>
 <span class='co'># Sample of 1978 fuel economy data from</span>
 <span class='co'># http://www.fueleconomy.gov/feg/epadata/78data.zip</span>
 <span class='no'>epa</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='readr_example.html'>readr_example</a></span>(<span class='st'>"epa78.txt"</span>)
-<span class='fu'>cat</span>(<span class='fu'><a href='read_file.html'>read_file</a></span>(<span class='no'>epa</span>))</div><div class='output co'>#&gt; ALFA ROMEO                                                                     ALFA ROMEO           78010003
+<span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/cat'>cat</a></span>(<span class='fu'><a href='read_file.html'>read_file</a></span>(<span class='no'>epa</span>))</div><div class='output co'>#&gt; ALFA ROMEO                                                                     ALFA ROMEO           78010003
 #&gt; ALFETTA                              03  81  8    74  7   89  9                ALFETTA              78010053
 #&gt; SPIDER 2000                          01                                        SPIDER 2000          78010103
 #&gt; AMC                                                                            AMC                  78020002
@@ -385,7 +385,7 @@ tabular data with non-standard formatting.</p></div>
 
 <div class="author">
   <p>
-    Developed by <a href='http://hadley.nz'>Hadley Wickham</a>, Jim Hester, Romain Francois, <a href='https://www.rstudio.com'><img src='https://tidyverse.org/rstudio-logo.svg' alt='RStudio' height='24' /></a>.
+    Developed by <a href='http://hadley.nz'>Hadley Wickham</a>, Jim Hester, Romain Francois, <a href='https://www.rstudio.com'><img src='https://www.tidyverse.org/rstudio-logo.svg' alt='RStudio' height='24' /></a>.
     Site built by <a href="https://pkgdown.r-lib.org">pkgdown</a>.
   </p>
 </div>

@@ -147,26 +147,26 @@
     <pre class="usage"><span class='fu'>read_delim_chunked</span>(<span class='no'>file</span>, <span class='no'>callback</span>, <span class='kw'>chunk_size</span> <span class='kw'>=</span> <span class='fl'>10000</span>, <span class='no'>delim</span>,
   <span class='kw'>quote</span> <span class='kw'>=</span> <span class='st'>"\""</span>, <span class='kw'>escape_backslash</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>escape_double</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
   <span class='kw'>col_names</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>col_types</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>locale</span> <span class='kw'>=</span> <span class='fu'><a href='locale.html'>default_locale</a></span>(),
-  <span class='kw'>na</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='st'>""</span>, <span class='st'>"NA"</span>), <span class='kw'>quoted_na</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>comment</span> <span class='kw'>=</span> <span class='st'>""</span>,
-  <span class='kw'>trim_ws</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>skip</span> <span class='kw'>=</span> <span class='fl'>0</span>, <span class='kw'>guess_max</span> <span class='kw'>=</span> <span class='fu'>min</span>(<span class='fl'>1000</span>, <span class='no'>chunk_size</span>),
+  <span class='kw'>na</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='st'>""</span>, <span class='st'>"NA"</span>), <span class='kw'>quoted_na</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>comment</span> <span class='kw'>=</span> <span class='st'>""</span>,
+  <span class='kw'>trim_ws</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>skip</span> <span class='kw'>=</span> <span class='fl'>0</span>, <span class='kw'>guess_max</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/Extremes'>min</a></span>(<span class='fl'>1000</span>, <span class='no'>chunk_size</span>),
   <span class='kw'>progress</span> <span class='kw'>=</span> <span class='fu'>show_progress</span>())
 
 <span class='fu'>read_csv_chunked</span>(<span class='no'>file</span>, <span class='no'>callback</span>, <span class='kw'>chunk_size</span> <span class='kw'>=</span> <span class='fl'>10000</span>, <span class='kw'>col_names</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
-  <span class='kw'>col_types</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>locale</span> <span class='kw'>=</span> <span class='fu'><a href='locale.html'>default_locale</a></span>(), <span class='kw'>na</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='st'>""</span>, <span class='st'>"NA"</span>),
+  <span class='kw'>col_types</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>locale</span> <span class='kw'>=</span> <span class='fu'><a href='locale.html'>default_locale</a></span>(), <span class='kw'>na</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='st'>""</span>, <span class='st'>"NA"</span>),
   <span class='kw'>quoted_na</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>quote</span> <span class='kw'>=</span> <span class='st'>"\""</span>, <span class='kw'>comment</span> <span class='kw'>=</span> <span class='st'>""</span>, <span class='kw'>trim_ws</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
-  <span class='kw'>skip</span> <span class='kw'>=</span> <span class='fl'>0</span>, <span class='kw'>guess_max</span> <span class='kw'>=</span> <span class='fu'>min</span>(<span class='fl'>1000</span>, <span class='no'>chunk_size</span>),
+  <span class='kw'>skip</span> <span class='kw'>=</span> <span class='fl'>0</span>, <span class='kw'>guess_max</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/Extremes'>min</a></span>(<span class='fl'>1000</span>, <span class='no'>chunk_size</span>),
   <span class='kw'>progress</span> <span class='kw'>=</span> <span class='fu'>show_progress</span>())
 
 <span class='fu'>read_csv2_chunked</span>(<span class='no'>file</span>, <span class='no'>callback</span>, <span class='kw'>chunk_size</span> <span class='kw'>=</span> <span class='fl'>10000</span>, <span class='kw'>col_names</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
-  <span class='kw'>col_types</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>locale</span> <span class='kw'>=</span> <span class='fu'><a href='locale.html'>default_locale</a></span>(), <span class='kw'>na</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='st'>""</span>, <span class='st'>"NA"</span>),
+  <span class='kw'>col_types</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>locale</span> <span class='kw'>=</span> <span class='fu'><a href='locale.html'>default_locale</a></span>(), <span class='kw'>na</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='st'>""</span>, <span class='st'>"NA"</span>),
   <span class='kw'>quoted_na</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>quote</span> <span class='kw'>=</span> <span class='st'>"\""</span>, <span class='kw'>comment</span> <span class='kw'>=</span> <span class='st'>""</span>, <span class='kw'>trim_ws</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
-  <span class='kw'>skip</span> <span class='kw'>=</span> <span class='fl'>0</span>, <span class='kw'>guess_max</span> <span class='kw'>=</span> <span class='fu'>min</span>(<span class='fl'>1000</span>, <span class='no'>chunk_size</span>),
+  <span class='kw'>skip</span> <span class='kw'>=</span> <span class='fl'>0</span>, <span class='kw'>guess_max</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/Extremes'>min</a></span>(<span class='fl'>1000</span>, <span class='no'>chunk_size</span>),
   <span class='kw'>progress</span> <span class='kw'>=</span> <span class='fu'>show_progress</span>())
 
 <span class='fu'>read_tsv_chunked</span>(<span class='no'>file</span>, <span class='no'>callback</span>, <span class='kw'>chunk_size</span> <span class='kw'>=</span> <span class='fl'>10000</span>, <span class='kw'>col_names</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
-  <span class='kw'>col_types</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>locale</span> <span class='kw'>=</span> <span class='fu'><a href='locale.html'>default_locale</a></span>(), <span class='kw'>na</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='st'>""</span>, <span class='st'>"NA"</span>),
+  <span class='kw'>col_types</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>locale</span> <span class='kw'>=</span> <span class='fu'><a href='locale.html'>default_locale</a></span>(), <span class='kw'>na</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='st'>""</span>, <span class='st'>"NA"</span>),
   <span class='kw'>quoted_na</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>quote</span> <span class='kw'>=</span> <span class='st'>"\""</span>, <span class='kw'>comment</span> <span class='kw'>=</span> <span class='st'>""</span>, <span class='kw'>trim_ws</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
-  <span class='kw'>skip</span> <span class='kw'>=</span> <span class='fl'>0</span>, <span class='kw'>guess_max</span> <span class='kw'>=</span> <span class='fu'>min</span>(<span class='fl'>1000</span>, <span class='no'>chunk_size</span>),
+  <span class='kw'>skip</span> <span class='kw'>=</span> <span class='fl'>0</span>, <span class='kw'>guess_max</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/Extremes'>min</a></span>(<span class='fl'>1000</span>, <span class='no'>chunk_size</span>),
   <span class='kw'>progress</span> <span class='kw'>=</span> <span class='fu'>show_progress</span>())</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
@@ -256,7 +256,7 @@ names.</p></td>
     <tr>
       <th>na</th>
       <td><p>Character vector of strings to interpret as missing values. Set this
-option to <code>character()</code> to indicate no missing values.</p></td>
+option to <code><a href='https://www.rdocumentation.org/packages/base/topics/character'>character()</a></code> to indicate no missing values.</p></td>
     </tr>
     <tr>
       <th>quoted_na</th>
@@ -299,7 +299,7 @@ setting option <code>readr.show_progress</code> to <code>FALSE</code>.</p></td>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='co'># Cars with 3 gears</span>
-<span class='no'>f</span> <span class='kw'>&lt;-</span> <span class='kw'>function</span>(<span class='no'>x</span>, <span class='no'>pos</span>) <span class='fu'>subset</span>(<span class='no'>x</span>, <span class='no'>gear</span> <span class='kw'>==</span> <span class='fl'>3</span>)
+<span class='no'>f</span> <span class='kw'>&lt;-</span> <span class='kw'>function</span>(<span class='no'>x</span>, <span class='no'>pos</span>) <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/subset'>subset</a></span>(<span class='no'>x</span>, <span class='no'>gear</span> <span class='kw'>==</span> <span class='fl'>3</span>)
 <span class='fu'>read_csv_chunked</span>(<span class='fu'><a href='readr_example.html'>readr_example</a></span>(<span class='st'>"mtcars.csv"</span>), <span class='no'>DataFrameCallback</span>$<span class='fu'>new</span>(<span class='no'>f</span>), <span class='kw'>chunk_size</span> <span class='kw'>=</span> <span class='fl'>5</span>)</div><div class='output co'>#&gt; <span class='message'>Parsed with column specification:</span>
 #&gt; <span class='message'>cols(</span>
 #&gt; <span class='message'>  mpg = col_double(),</span>
@@ -352,7 +352,7 @@ setting option <code>readr.show_progress</code> to <code>FALSE</code>.</p></td>
 
 <div class="author">
   <p>
-    Developed by <a href='http://hadley.nz'>Hadley Wickham</a>, Jim Hester, Romain Francois, <a href='https://www.rstudio.com'><img src='https://tidyverse.org/rstudio-logo.svg' alt='RStudio' height='24' /></a>.
+    Developed by <a href='http://hadley.nz'>Hadley Wickham</a>, Jim Hester, Romain Francois, <a href='https://www.rstudio.com'><img src='https://www.tidyverse.org/rstudio-logo.svg' alt='RStudio' height='24' /></a>.
     Site built by <a href="https://pkgdown.r-lib.org">pkgdown</a>.
   </p>
 </div>

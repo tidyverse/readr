@@ -151,7 +151,7 @@
 <div id="blank-line-skipping" class="section level3">
 <h3 class="hasAnchor">
 <a href="#blank-line-skipping" class="anchor"></a>Blank line skipping</h3>
-<p>readr now always skips blank lines automatically when parsing, which may change the number of lines you need to pass to the <code>skip</code> parameter. For instance if your file had a one blank line then two more lines you want to skip previously you would pass <code>skip = 3</code>, now you only need to pass <code>skip = 2</code>.</p>
+<p>readr now always skips blank lines automatically when parsing, which may change the number of lines you need to pass to the <code>skip</code> parameter. For instance if your file had a one blank line then two more lines you want to skip previously you would pass <code><a href="https://www.rdocumentation.org/packages/base/topics/assignOps">skip = 3</a></code>, now you only need to pass <code><a href="https://www.rdocumentation.org/packages/base/topics/assignOps">skip = 2</a></code>.</p>
 </div>
 </div>
 <div id="new-features" class="section level2">
@@ -160,18 +160,18 @@
 <ul>
 <li>The <code>parse_*()</code> functions and <code><a href="../reference/read_fwf.html">read_fwf()</a></code> gain a <code>trim_ws</code> argument to control whether the fields should be trimmed before parsing (<a href='https://github.com/tidyverse/readr/issues/636'>#636</a>, <a href='https://github.com/tidyverse/readr/issues/735'>#735</a>).</li>
 <li>
-<code><a href="../reference/parse_number.html">parse_number()</a></code> now parses numbers in scientific notation using <code>e</code> and <code>E</code> (<a href='https://github.com/tidyverse/readr/issues/684'>#684</a>, <a href='http://github.com/sambrady3'>@sambrady3</a>).</li>
-<li>Add <code><a href="../reference/write_delim.html">write_excel_csv2()</a></code> function to allow writing csv files with comma as a decimal separator and semicolon as a column separator (<a href='https://github.com/tidyverse/readr/issues/753'>#753</a>, <a href='http://github.com/olgamie'>@olgamie</a>).</li>
+<code><a href="../reference/parse_number.html">parse_number()</a></code> now parses numbers in scientific notation using <code>e</code> and <code>E</code> (<a href='https://github.com/tidyverse/readr/issues/684'>#684</a>, <a href='https://github.com/sambrady3'>@sambrady3</a>).</li>
+<li>Add <code><a href="../reference/write_delim.html">write_excel_csv2()</a></code> function to allow writing csv files with comma as a decimal separator and semicolon as a column separator (<a href='https://github.com/tidyverse/readr/issues/753'>#753</a>, <a href='https://github.com/olgamie'>@olgamie</a>).</li>
 <li>
 <code>read_*()</code> files now support reading from the clipboard by using <code><a href="../reference/clipboard.html">clipboard()</a></code> (<a href='https://github.com/tidyverse/readr/issues/656'>#656</a>).</li>
 <li>
 <code><a href="../reference/read_file.html">write_file()</a></code> gains a <code>sep</code> argument, to specify the line separator (<a href='https://github.com/tidyverse/readr/issues/665'>#665</a>).</li>
-<li>Allow files to be read via FTP over SSH by recognising <code>sftp</code> as a URL protocol (<a href='https://github.com/tidyverse/readr/issues/707'>#707</a>, <a href='http://github.com/jdeboer'>@jdeboer</a>).</li>
+<li>Allow files to be read via FTP over SSH by recognising <code>sftp</code> as a URL protocol (<a href='https://github.com/tidyverse/readr/issues/707'>#707</a>, <a href='https://github.com/jdeboer'>@jdeboer</a>).</li>
 <li>
-<code>parse_date*() accepts</code>%a` for local day of week (<a href='https://github.com/tidyverse/readr/issues/763'>#763</a>, <a href='http://github.com/tigertoes'>@tigertoes</a>).</li>
-<li>Added function <code><a href="../reference/read_lines_chunked.html">read_lines_raw_chunked()</a></code> (<a href='https://github.com/tidyverse/readr/issues/710'>#710</a>, <a href='http://github.com/gergness'>@gergness</a>)</li>
+<code>parse_date*() accepts</code>%a` for local day of week (<a href='https://github.com/tidyverse/readr/issues/763'>#763</a>, <a href='https://github.com/tigertoes'>@tigertoes</a>).</li>
+<li>Added function <code><a href="../reference/read_lines_chunked.html">read_lines_raw_chunked()</a></code> (<a href='https://github.com/tidyverse/readr/issues/710'>#710</a>, <a href='https://github.com/gergness'>@gergness</a>)</li>
 <li>
-<code><a href="../reference/write_delim.html">write_csv2()</a></code> added to complement <code><a href="../reference/write_delim.html">write_excel_csv2()</a></code> and allow writing csv file readable by <code><a href="../reference/read_delim.html">read_csv2()</a></code> (<a href='https://github.com/tidyverse/readr/issues/870'>#870</a>, <a href='http://github.com/cderv'>@cderv</a>).</li>
+<code><a href="../reference/write_delim.html">write_csv2()</a></code> added to complement <code><a href="../reference/write_delim.html">write_excel_csv2()</a></code> and allow writing csv file readable by <code><a href="../reference/read_delim.html">read_csv2()</a></code> (<a href='https://github.com/tidyverse/readr/issues/870'>#870</a>, <a href='https://github.com/cderv'>@cderv</a>).</li>
 <li>
 <code><a href="../reference/as.col_spec.html">as.col_spec()</a></code> is now exported (<a href='https://github.com/tidyverse/readr/issues/517'>#517</a>).</li>
 <li>
@@ -179,7 +179,7 @@
 <li>
 <code>read*()</code> functions now have a more informative error when trying to read a remote bz2 file (<a href='https://github.com/tidyverse/readr/issues/891'>#891</a>).</li>
 <li>
-<code><a href="../reference/spec_delim.html">spec_table2()</a></code> function added to correspond to <code><a href="../reference/read_table.html">read_table2()</a></code> (<a href='https://github.com/tidyverse/readr/issues/778'>#778</a>, <a href='http://github.com/mawds'>@mawds</a>).</li>
+<code><a href="../reference/spec_delim.html">spec_table2()</a></code> function added to correspond to <code><a href="../reference/read_table.html">read_table2()</a></code> (<a href='https://github.com/tidyverse/readr/issues/778'>#778</a>, <a href='https://github.com/mawds'>@mawds</a>).</li>
 </ul>
 </div>
 <div id="bug-fixes" class="section level2">
@@ -206,13 +206,13 @@
 <code><a href="../reference/parse_guess.html">guess_parser()</a></code> now guesses a logical type for columns which are all missing. This is useful when binding multiple files together where some files have missing columns. (<a href='https://github.com/tidyverse/readr/issues/662'>#662</a>).</li>
 <li>Column guessing will now never guess an integer type. This avoids issues where double columns are incorrectly guessed as integers if they have only integer values in the first 1000 (<a href='https://github.com/tidyverse/readr/issues/645'>#645</a>, <a href='https://github.com/tidyverse/readr/issues/652'>#652</a>).</li>
 <li>
-<code>read_*()</code> now converts string <code>file</code>s to UTF-8 before parsing, which is convenient for non-UTF-8 platforms in most cases (<a href='https://github.com/tidyverse/readr/issues/730'>#730</a>, <a href='http://github.com/yutannihilation'>@yutannihilation</a>).</li>
+<code>read_*()</code> now converts string <code>file</code>s to UTF-8 before parsing, which is convenient for non-UTF-8 platforms in most cases (<a href='https://github.com/tidyverse/readr/issues/730'>#730</a>, <a href='https://github.com/yutannihilation'>@yutannihilation</a>).</li>
 <li>
-<code><a href="../reference/write_delim.html">write_csv()</a></code> writes integers up to 10^15 without scientific notation (<a href='https://github.com/tidyverse/readr/issues/765'>#765</a>, <a href='http://github.com/zeehio'>@zeehio</a>)</li>
+<code><a href="../reference/write_delim.html">write_csv()</a></code> writes integers up to 10^15 without scientific notation (<a href='https://github.com/tidyverse/readr/issues/765'>#765</a>, <a href='https://github.com/zeehio'>@zeehio</a>)</li>
 <li>
 <code>read_*()</code> no longer throws a “length of NULL cannot be changed” warning when trying to resize a skipped column (<a href='https://github.com/tidyverse/readr/issues/750'>#750</a>, <a href='https://github.com/tidyverse/readr/issues/833'>#833</a>).</li>
 <li>
-<code>read_*()</code> now handles non-ASCII paths properly with R &gt;=3.5.0 on Windows (<a href='https://github.com/tidyverse/readr/issues/838'>#838</a>, <a href='http://github.com/yutannihilation'>@yutannihilation</a>).</li>
+<code>read_*()</code> now handles non-ASCII paths properly with R &gt;=3.5.0 on Windows (<a href='https://github.com/tidyverse/readr/issues/838'>#838</a>, <a href='https://github.com/yutannihilation'>@yutannihilation</a>).</li>
 <li>
 <code>read*()</code>’s <code>trim_ws</code> parameter now trims both spaces and tabs (<a href='https://github.com/tidyverse/readr/issues/767'>#767</a>)</li>
 </ul>
@@ -241,7 +241,7 @@
 <li>
 <code><a href="../reference/parse_factor.html">parse_factor()</a></code> gains a <code>include_na</code> argument, to include <code>NA</code> in the factor levels (<a href='https://github.com/tidyverse/readr/issues/541'>#541</a>).</li>
 <li>
-<code><a href="../reference/parse_factor.html">parse_factor()</a></code> will now can accept <code>levels = NULL</code>, which allows one to generate factor levels based on the data (like stringsAsFactors = TRUE) (<a href='https://github.com/tidyverse/readr/issues/497'>#497</a>).</li>
+<code><a href="../reference/parse_factor.html">parse_factor()</a></code> will now can accept <code><a href="https://www.rdocumentation.org/packages/base/topics/assignOps">levels = NULL</a></code>, which allows one to generate factor levels based on the data (like stringsAsFactors = TRUE) (<a href='https://github.com/tidyverse/readr/issues/497'>#497</a>).</li>
 <li>
 <code>parse_numeric()</code> now returns the full string if it contains no numbers (<a href='https://github.com/tidyverse/readr/issues/548'>#548</a>).</li>
 <li>
@@ -249,7 +249,7 @@
 <li>
 <code><a href="../reference/problems.html">problems()</a></code> now returns the file path in additional to the location of the error in the file (<a href='https://github.com/tidyverse/readr/issues/581'>#581</a>).</li>
 <li>
-<code><a href="../reference/read_delim.html">read_csv2()</a></code> gives a message if it updates the default locale (<a href='https://github.com/tidyverse/readr/issues/443'>#443</a>, <a href='http://github.com/krlmlr'>@krlmlr</a>).</li>
+<code><a href="../reference/read_delim.html">read_csv2()</a></code> gives a message if it updates the default locale (<a href='https://github.com/tidyverse/readr/issues/443'>#443</a>, <a href='https://github.com/krlmlr'>@krlmlr</a>).</li>
 <li>
 <code><a href="../reference/read_delim.html">read_delim()</a></code> now signals an error if given an empty delimiter (<a href='https://github.com/tidyverse/readr/issues/557'>#557</a>).</li>
 <li>
@@ -261,17 +261,17 @@
 <a href="#whitespace-fixed-width-improvements" class="anchor"></a>Whitespace / fixed width improvements</h3>
 <ul>
 <li>
-<code><a href="../reference/read_fwf.html">fwf_cols()</a></code> allows for specifying the <code>col_positions</code> argument of <code><a href="../reference/read_fwf.html">read_fwf()</a></code> with named arguments of either column positions or widths (<a href='https://github.com/tidyverse/readr/issues/616'>#616</a>, <a href='http://github.com/jrnold'>@jrnold</a>).</li>
+<code><a href="../reference/read_fwf.html">fwf_cols()</a></code> allows for specifying the <code>col_positions</code> argument of <code><a href="../reference/read_fwf.html">read_fwf()</a></code> with named arguments of either column positions or widths (<a href='https://github.com/tidyverse/readr/issues/616'>#616</a>, <a href='https://github.com/jrnold'>@jrnold</a>).</li>
 <li>
-<code><a href="../reference/read_fwf.html">fwf_empty()</a></code> gains an <code>n</code> argument to control how many lines are read for whitespace to determine column structure (<a href='https://github.com/tidyverse/readr/issues/518'>#518</a>, <a href='http://github.com/Yeedle'>@Yeedle</a>).</li>
+<code><a href="../reference/read_fwf.html">fwf_empty()</a></code> gains an <code>n</code> argument to control how many lines are read for whitespace to determine column structure (<a href='https://github.com/tidyverse/readr/issues/518'>#518</a>, <a href='https://github.com/Yeedle'>@Yeedle</a>).</li>
 <li>
-<code><a href="../reference/read_fwf.html">read_fwf()</a></code> gives error message if specifications have overlapping columns (<a href='https://github.com/tidyverse/readr/issues/534'>#534</a>, <a href='http://github.com/gergness'>@gergness</a>)</li>
+<code><a href="../reference/read_fwf.html">read_fwf()</a></code> gives error message if specifications have overlapping columns (<a href='https://github.com/tidyverse/readr/issues/534'>#534</a>, <a href='https://github.com/gergness'>@gergness</a>)</li>
 <li>
-<code><a href="../reference/read_table.html">read_table()</a></code> can now handle <code>pipe()</code> connections (<a href='https://github.com/tidyverse/readr/issues/552'>#552</a>).</li>
+<code><a href="../reference/read_table.html">read_table()</a></code> can now handle <code><a href="https://www.rdocumentation.org/packages/base/topics/connections">pipe()</a></code> connections (<a href='https://github.com/tidyverse/readr/issues/552'>#552</a>).</li>
 <li>
 <code><a href="../reference/read_table.html">read_table()</a></code> can now handle files with many lines of leading comments (<a href='https://github.com/tidyverse/readr/issues/563'>#563</a>).</li>
 <li>
-<code><a href="../reference/read_table.html">read_table2()</a></code> which allows any number of whitespace characters as delimiters, a more exact replacement for <code><a href="http://www.rdocumentation.org/packages/utils/topics/read.table">utils::read.table()</a></code> (<a href='https://github.com/tidyverse/readr/issues/608'>#608</a>).</li>
+<code><a href="../reference/read_table.html">read_table2()</a></code> which allows any number of whitespace characters as delimiters, a more exact replacement for <code><a href="https://www.rdocumentation.org/packages/utils/topics/read.table">utils::read.table()</a></code> (<a href='https://github.com/tidyverse/readr/issues/608'>#608</a>).</li>
 </ul>
 </div>
 </div>
@@ -294,11 +294,11 @@
 <li>
 <code><a href="../reference/encoding.html">guess_encoding()</a></code> returns a tibble, and works better with lists of raw vectors (as returned by <code><a href="../reference/read_lines.html">read_lines_raw()</a></code>).</li>
 <li>
-<code>ListCallback</code> R6 Class to provide a more flexible return type for callback functions (<a href='https://github.com/tidyverse/readr/issues/568'>#568</a>, <a href='http://github.com/mmuurr'>@mmuurr</a>)</li>
+<code>ListCallback</code> R6 Class to provide a more flexible return type for callback functions (<a href='https://github.com/tidyverse/readr/issues/568'>#568</a>, <a href='https://github.com/mmuurr'>@mmuurr</a>)</li>
 <li>
-<code><a href="http://www.rdocumentation.org/packages/tibble/topics/as_tibble">tibble::as.tibble()</a></code> now used to construct tibbles (<a href='https://github.com/tidyverse/readr/issues/538'>#538</a>).</li>
+<code><a href="https://www.rdocumentation.org/packages/tibble/topics/as_tibble">tibble::as.tibble()</a></code> now used to construct tibbles (<a href='https://github.com/tidyverse/readr/issues/538'>#538</a>).</li>
 <li>
-<code>read_csv</code>, <code>read_csv2</code>, and <code>read_tsv</code> gain a <code>quote</code> argument, (<a href='https://github.com/tidyverse/readr/issues/631'>#631</a>, <a href='http://github.com/noamross'>@noamross</a>)</li>
+<code>read_csv</code>, <code>read_csv2</code>, and <code>read_tsv</code> gain a <code>quote</code> argument, (<a href='https://github.com/tidyverse/readr/issues/631'>#631</a>, <a href='https://github.com/noamross'>@noamross</a>)</li>
 </ul>
 </div>
 <div id="bugfixes" class="section level2">
@@ -312,11 +312,11 @@
 <li>
 <code>read_*_chunked()</code> functions now properly end the stream if <code>FALSE</code> is returned from the callback.</li>
 <li>
-<code><a href="../reference/read_delim.html">read_delim()</a></code> and <code><a href="../reference/read_fwf.html">read_fwf()</a></code> when columns are skipped using <code>col_types</code> now report the correct column name (<a href='https://github.com/tidyverse/readr/issues/573'>#573</a>, <a href='http://github.com/cb4ds'>@cb4ds</a>).</li>
+<code><a href="../reference/read_delim.html">read_delim()</a></code> and <code><a href="../reference/read_fwf.html">read_fwf()</a></code> when columns are skipped using <code>col_types</code> now report the correct column name (<a href='https://github.com/tidyverse/readr/issues/573'>#573</a>, <a href='https://github.com/cb4ds'>@cb4ds</a>).</li>
 <li>
 <code><a href="../reference/spec.html">spec()</a></code> declarations that are long now print properly (<a href='https://github.com/tidyverse/readr/issues/597'>#597</a>).</li>
 <li>
-<code><a href="../reference/read_table.html">read_table()</a></code> does not print <code>spec</code> when <code>col_types</code> is not <code>NULL</code> (<a href='https://github.com/tidyverse/readr/issues/630'>#630</a>, <a href='http://github.com/jrnold'>@jrnold</a>).</li>
+<code><a href="../reference/read_table.html">read_table()</a></code> does not print <code>spec</code> when <code>col_types</code> is not <code>NULL</code> (<a href='https://github.com/tidyverse/readr/issues/630'>#630</a>, <a href='https://github.com/jrnold'>@jrnold</a>).</li>
 <li>
 <code><a href="../reference/encoding.html">guess_encoding()</a></code> now returns a tibble for all ASCII input as well (<a href='https://github.com/tidyverse/readr/issues/641'>#641</a>).</li>
 </ul>
@@ -354,7 +354,7 @@
 <a class="sourceLine" id="cb3-6" data-line-number="6"><span class="co">#&gt; )</span></a></code></pre></div>
 <p>You can now access the guessing algorithm from R. <code><a href="../reference/parse_guess.html">guess_parser()</a></code> will tell you which parser readr will select for a character vector (<a href='https://github.com/tidyverse/readr/issues/377'>#377</a>). We’ve made a number of fixes to the guessing algorithm:</p>
 <ul>
-<li><p>New example <code>extdata/challenge.csv</code> which is carefully created to cause problems with the default column type guessing heuristics.</p></li>
+<li><p>New example <code><a href="https://www.rdocumentation.org/packages/base/topics/Arithmetic">extdata/challenge.csv</a></code> which is carefully created to cause problems with the default column type guessing heuristics.</p></li>
 <li><p>Blank lines and lines with only comments are now skipped automatically without warning (<a href='https://github.com/tidyverse/readr/issues/381'>#381</a>, <a href='https://github.com/tidyverse/readr/issues/321'>#321</a>).</p></li>
 <li><p>Single ‘-’ or ‘.’ are now parsed as characters, not numbers (<a href='https://github.com/tidyverse/readr/issues/297'>#297</a>).</p></li>
 <li><p>Numbers followed by a single trailing character are parsed as character, not numbers (<a href='https://github.com/tidyverse/readr/issues/316'>#316</a>).</p></li>
@@ -362,9 +362,9 @@
 </ul>
 <p>We have made a number of improvements to the reification of the <code>col_types</code>, <code>col_names</code> and the actual data:</p>
 <ul>
-<li><p>If <code>col_types</code> is too long, it is subsetted correctly (<a href='https://github.com/tidyverse/readr/issues/372'>#372</a>, <a href='http://github.com/jennybc'>@jennybc</a>).</p></li>
-<li><p>If <code>col_names</code> is too short, the added names are numbered correctly (<a href='https://github.com/tidyverse/readr/issues/374'>#374</a>, <a href='http://github.com/jennybc'>@jennybc</a>).</p></li>
-<li><p>Missing colum name names are now given a default name (<code>X2</code>, <code>X7</code> etc) (<a href='https://github.com/tidyverse/readr/issues/318'>#318</a>). Duplicated column names are now deduplicated. Both changes generate a warning; to suppress it supply an explicit <code>col_names</code> (setting <code>skip = 1</code> if there’s an existing ill-formed header).</p></li>
+<li><p>If <code>col_types</code> is too long, it is subsetted correctly (<a href='https://github.com/tidyverse/readr/issues/372'>#372</a>, <a href='https://github.com/jennybc'>@jennybc</a>).</p></li>
+<li><p>If <code>col_names</code> is too short, the added names are numbered correctly (<a href='https://github.com/tidyverse/readr/issues/374'>#374</a>, <a href='https://github.com/jennybc'>@jennybc</a>).</p></li>
+<li><p>Missing colum name names are now given a default name (<code>X2</code>, <code>X7</code> etc) (<a href='https://github.com/tidyverse/readr/issues/318'>#318</a>). Duplicated column names are now deduplicated. Both changes generate a warning; to suppress it supply an explicit <code>col_names</code> (setting <code><a href="https://www.rdocumentation.org/packages/base/topics/assignOps">skip = 1</a></code> if there’s an existing ill-formed header).</p></li>
 <li><p><code>col_types()</code> accepts a named list as input (<a href='https://github.com/tidyverse/readr/issues/401'>#401</a>).</p></li>
 </ul>
 </div>
@@ -383,7 +383,7 @@
 <li><p><code><a href="../reference/parse_datetime.html">parse_date()</a></code> returns a numeric vector (instead of an integer vector) (<a href='https://github.com/tidyverse/readr/issues/357'>#357</a>).</p></li>
 <li><p><code><a href="../reference/parse_datetime.html">parse_date()</a></code>, <code><a href="../reference/parse_datetime.html">parse_time()</a></code> and <code><a href="../reference/parse_datetime.html">parse_datetime()</a></code> gain an <code>na</code> argument to match all other parsers (<a href='https://github.com/tidyverse/readr/issues/413'>#413</a>).</p></li>
 <li><p>If the format argument is omitted <code><a href="../reference/parse_datetime.html">parse_date()</a></code> or <code><a href="../reference/parse_datetime.html">parse_time()</a></code>, date and time formats specified in the locale will be used. These now default to <code>%AD</code> and <code>%AT</code> respectively.</p></li>
-<li><p>You can now parse partial dates with <code><a href="../reference/parse_datetime.html">parse_date()</a></code> and <code><a href="../reference/parse_datetime.html">parse_datetime()</a></code>, e.g. <code><a href="../reference/parse_datetime.html">parse_date("2001", "%Y")</a></code> returns <code>2001-01-01</code>.</p></li>
+<li><p>You can now parse partial dates with <code><a href="../reference/parse_datetime.html">parse_date()</a></code> and <code><a href="../reference/parse_datetime.html">parse_datetime()</a></code>, e.g. <code><a href="../reference/parse_datetime.html">parse_date("2001", "%Y")</a></code> returns <code><a href="https://www.rdocumentation.org/packages/base/topics/Arithmetic">2001-01-01</a></code>.</p></li>
 </ul>
 <p><code><a href="../reference/parse_number.html">parse_number()</a></code> is slightly more flexible - it now parses numbers up to the first ill-formed character. For example <code><a href="../reference/parse_number.html">parse_number("-3-")</a></code> and <code><a href="../reference/parse_number.html">parse_number("...3...")</a></code> now return -3 and 3 respectively. We also fixed a major bug where parsing negative numbers yielded positive values (<a href='https://github.com/tidyverse/readr/issues/308'>#308</a>).</p>
 <p><code><a href="../reference/parse_atomic.html">parse_logical()</a></code> now accepts <code>0</code>, <code>1</code> as well as lowercase <code>t</code>, <code>f</code>, <code>true</code>, <code>false</code>.</p>
@@ -406,7 +406,7 @@
 <ul>
 <li><p>Printing double values now uses an <a href="https://github.com/juj/MathGeoLib/blob/master/src/Math/grisu3.c">implementation</a> of the <a href="http://www.cs.tufts.edu/~nr/cs257/archive/florian-loitsch/printf.pdf">grisu3 algorithm</a> which speeds up writing of large numeric data frames by ~10X. (<a href='https://github.com/tidyverse/readr/issues/432'>#432</a>) ‘.0’ is appended to whole number doubles, to ensure they will be read as doubles as well. (<a href='https://github.com/tidyverse/readr/issues/483'>#483</a>)</p></li>
 <li><p>readr imports tibble so that you get consistent <code>tbl_df</code> behaviour (<a href='https://github.com/tidyverse/readr/issues/317'>#317</a>, <a href='https://github.com/tidyverse/readr/issues/385'>#385</a>).</p></li>
-<li><p>New example <code>extdata/challenge.csv</code> which is carefully created to cause problems with the default column type guessing heuristics.</p></li>
+<li><p>New example <code><a href="https://www.rdocumentation.org/packages/base/topics/Arithmetic">extdata/challenge.csv</a></code> which is carefully created to cause problems with the default column type guessing heuristics.</p></li>
 <li><p><code><a href="../reference/locale.html">default_locale()</a></code> now sets the default locale in <code>readr.default_locale</code> rather than regenerating it for each call. (<a href='https://github.com/tidyverse/readr/issues/416'>#416</a>).</p></li>
 <li><p><code><a href="../reference/locale.html">locale()</a></code> now automatically sets decimal mark if you set the grouping mark. It throws an error if you accidentally set decimal and grouping marks to the same character (<a href='https://github.com/tidyverse/readr/issues/450'>#450</a>).</p></li>
 <li><p>All <code>read_*()</code> can read into long vectors, substantially increasing the number of rows you can read (<a href='https://github.com/tidyverse/readr/issues/309'>#309</a>).</p></li>
@@ -416,8 +416,8 @@
 <p><code><a href="../reference/read_fwf.html">read_fwf()</a></code> received a number of improvements:</p>
 <ul>
 <li><p><code><a href="../reference/read_fwf.html">read_fwf()</a></code> now can now reliably read only a partial set of columns (<a href='https://github.com/tidyverse/readr/issues/322'>#322</a>, <a href='https://github.com/tidyverse/readr/issues/353'>#353</a>, <a href='https://github.com/tidyverse/readr/issues/469'>#469</a>)</p></li>
-<li><p><code><a href="../reference/read_fwf.html">fwf_widths()</a></code> accepts negative column widths for compatibility with the <code>widths</code> argument in <code>read.fwf()</code> (<a href='https://github.com/tidyverse/readr/issues/380'>#380</a>, <a href='http://github.com/leeper'>@leeper</a>).</p></li>
-<li><p>You can now read fixed width files with ragged final columns, by setting the final end position in <code><a href="../reference/read_fwf.html">fwf_positions()</a></code> or final width in <code><a href="../reference/read_fwf.html">fwf_widths()</a></code> to <code>NA</code> (<a href='https://github.com/tidyverse/readr/issues/353'>#353</a>, <a href='http://github.com/ghaarsma'>@ghaarsma</a>). <code><a href="../reference/read_fwf.html">fwf_empty()</a></code> does this automatically.</p></li>
+<li><p><code><a href="../reference/read_fwf.html">fwf_widths()</a></code> accepts negative column widths for compatibility with the <code>widths</code> argument in <code><a href="https://www.rdocumentation.org/packages/utils/topics/read.fwf">read.fwf()</a></code> (<a href='https://github.com/tidyverse/readr/issues/380'>#380</a>, <a href='https://github.com/leeper'>@leeper</a>).</p></li>
+<li><p>You can now read fixed width files with ragged final columns, by setting the final end position in <code><a href="../reference/read_fwf.html">fwf_positions()</a></code> or final width in <code><a href="../reference/read_fwf.html">fwf_widths()</a></code> to <code>NA</code> (<a href='https://github.com/tidyverse/readr/issues/353'>#353</a>, <a href='https://github.com/ghaarsma'>@ghaarsma</a>). <code><a href="../reference/read_fwf.html">fwf_empty()</a></code> does this automatically.</p></li>
 <li><p><code><a href="../reference/read_fwf.html">read_fwf()</a></code> and <code><a href="../reference/read_fwf.html">fwf_empty()</a></code> can now skip commented lines by setting a <code>comment</code> argument (<a href='https://github.com/tidyverse/readr/issues/334'>#334</a>).</p></li>
 </ul>
 </li>
@@ -476,7 +476,7 @@
 <li><p><code>comment</code> argument allows you to ignore comments (<a href='https://github.com/tidyverse/readr/issues/68'>#68</a>).</p></li>
 <li><p><code>trim_ws</code> argument controls whether leading and trailing whitespace is removed. It defaults to <code>TRUE</code> (<a href='https://github.com/tidyverse/readr/issues/137'>#137</a>).</p></li>
 <li><p>Specifying the wrong number of column names, or having rows with an unexpected number of columns, generates a warning, rather than an error (<a href='https://github.com/tidyverse/readr/issues/189'>#189</a>).</p></li>
-<li><p>Multiple NA values can be specified by passing a character vector to <code>na</code> (<a href='https://github.com/tidyverse/readr/issues/125'>#125</a>). The default has been changed to <code>na = c("", "NA")</code>. Specifying <code>na = ""</code> now works as expected with character columns (<a href='https://github.com/tidyverse/readr/issues/114'>#114</a>).</p></li>
+<li><p>Multiple NA values can be specified by passing a character vector to <code>na</code> (<a href='https://github.com/tidyverse/readr/issues/125'>#125</a>). The default has been changed to <code><a href="https://www.rdocumentation.org/packages/base/topics/assignOps">na = c("", "NA")</a></code>. Specifying <code><a href="https://www.rdocumentation.org/packages/base/topics/assignOps">na = ""</a></code> now works as expected with character columns (<a href='https://github.com/tidyverse/readr/issues/114'>#114</a>).</p></li>
 </ul>
 </li>
 </ul>
@@ -493,11 +493,11 @@
 <p><code><a href="../reference/parse_datetime.html">parse_date()</a></code> and <code><a href="../reference/parse_datetime.html">parse_datetime()</a></code>:</p>
 <ul>
 <li><p><code><a href="../reference/parse_datetime.html">parse_datetime()</a></code> no longer incorrectly reads partial dates (e.g. 19, 1900, 1900-01) (<a href='https://github.com/tidyverse/readr/issues/136'>#136</a>). These triggered common false positives and after re-reading the ISO8601 spec, I believe they actually refer to periods of time, and should not be translated in to a specific instant (<a href='https://github.com/tidyverse/readr/issues/228'>#228</a>).</p></li>
-<li><p>Compound formats “%D”, “%F”, “%R”, “%X”, “%T”, “%x” are now parsed correctly, instead of using the ISO8601 parser (<a href='https://github.com/tidyverse/readr/issues/178'>#178</a>, <a href='http://github.com/kmillar'>@kmillar</a>).</p></li>
+<li><p>Compound formats “%D”, “%F”, “%R”, “%X”, “%T”, “%x” are now parsed correctly, instead of using the ISO8601 parser (<a href='https://github.com/tidyverse/readr/issues/178'>#178</a>, <a href='https://github.com/kmillar'>@kmillar</a>).</p></li>
 <li><p>“%.” now requires a non-digit. New “%+” skips one or more non-digits.</p></li>
 <li><p>You can now use <code>%p</code> to refer to AM/PM (and am/pm) (<a href='https://github.com/tidyverse/readr/issues/126'>#126</a>).</p></li>
 <li><p><code>%b</code> and <code>%B</code> formats (month and abbreviated month name) ignore case when matching (<a href='https://github.com/tidyverse/readr/issues/219'>#219</a>).</p></li>
-<li><p>Local (non-UTC) times with and without daylight savings are now parsed correctly (<a href='https://github.com/tidyverse/readr/issues/120'>#120</a>, <a href='http://github.com/andres-s'>@andres-s</a>).</p></li>
+<li><p>Local (non-UTC) times with and without daylight savings are now parsed correctly (<a href='https://github.com/tidyverse/readr/issues/120'>#120</a>, <a href='https://github.com/andres-s'>@andres-s</a>).</p></li>
 </ul>
 </li>
 <li><p><code><a href="../reference/parse_number.html">parse_number()</a></code> is a somewhat flexible numeric parser designed to read currencies and percentages. It only reads the first number from a string (using the grouping mark defined by the locale).</p></li>
@@ -524,9 +524,9 @@
 <li><p><code><a href="../reference/read_fwf.html">fwf_empty()</a></code> now works correctly when <code>col_names</code> supplied (<a href='https://github.com/tidyverse/readr/issues/186'>#186</a>, <a href='https://github.com/tidyverse/readr/issues/222'>#222</a>).</p></li>
 <li><p><code>parse_*()</code> gains a <code>na</code> argument that allows you to specify which values should be converted to missing.</p></li>
 <li><p><code><a href="../reference/problems.html">problems()</a></code> now reports column names rather than column numbers (<a href='https://github.com/tidyverse/readr/issues/143'>#143</a>). Whenever there is a problem, the first five problems are printing out in a warning message, so you can more easily see what’s wrong.</p></li>
-<li><p><code>read_*()</code> throws a warning instead of an error is <code>col_types</code> specifies a non-existent column (<a href='https://github.com/tidyverse/readr/issues/145'>#145</a>, <a href='http://github.com/alyst'>@alyst</a>).</p></li>
+<li><p><code>read_*()</code> throws a warning instead of an error is <code>col_types</code> specifies a non-existent column (<a href='https://github.com/tidyverse/readr/issues/145'>#145</a>, <a href='https://github.com/alyst'>@alyst</a>).</p></li>
 <li><p><code>read_*()</code> can read from a remote gz compressed file (<a href='https://github.com/tidyverse/readr/issues/163'>#163</a>).</p></li>
-<li><p><code><a href="../reference/read_delim.html">read_delim()</a></code> defaults to <code>escape_backslash = FALSE</code> and <code>escape_double = TRUE</code> for consistency. <code>n_max</code> also affects the number of rows read to guess the column types (<a href='https://github.com/tidyverse/readr/issues/224'>#224</a>).</p></li>
+<li><p><code><a href="../reference/read_delim.html">read_delim()</a></code> defaults to <code><a href="https://www.rdocumentation.org/packages/base/topics/assignOps">escape_backslash = FALSE</a></code> and <code><a href="https://www.rdocumentation.org/packages/base/topics/assignOps">escape_double = TRUE</a></code> for consistency. <code>n_max</code> also affects the number of rows read to guess the column types (<a href='https://github.com/tidyverse/readr/issues/224'>#224</a>).</p></li>
 <li><p><code><a href="../reference/read_lines.html">read_lines()</a></code> gains a progress bar. It now also correctly checks for interrupts every 500,000 lines so you can interrupt long running jobs. It also correctly estimates the number of lines in the file, considerably speeding up the reading of large files (60s -&gt; 15s for a 1.5 Gb file).</p></li>
 <li><p><code><a href="../reference/read_lines.html">read_lines_raw()</a></code> allows you to read a file into a list of raw vectors, one element for each line.</p></li>
 <li><p><code><a href="../reference/type_convert.html">type_convert()</a></code> gains <code>NA</code> and <code>trim_ws</code> arguments, and removes missing values before determining column types.</p></li>
@@ -535,13 +535,13 @@
 <p><code><a href="../reference/write_delim.html">write_delim()</a></code> generalises <code><a href="../reference/write_delim.html">write_csv()</a></code> to write any delimited format (<a href='https://github.com/tidyverse/readr/issues/135'>#135</a>). <code><a href="../reference/write_delim.html">write_tsv()</a></code> is a helpful wrapper for tab separated files.</p>
 <ul>
 <li><p>Quotes are only used when they’re needed (<a href='https://github.com/tidyverse/readr/issues/116'>#116</a>): when the string contains a quote, the delimiter, a new line or NA.</p></li>
-<li><p>Double vectors are saved using same amount of precision as <code>as.character()</code> (<a href='https://github.com/tidyverse/readr/issues/117'>#117</a>).</p></li>
+<li><p>Double vectors are saved using same amount of precision as <code><a href="https://www.rdocumentation.org/packages/base/topics/character">as.character()</a></code> (<a href='https://github.com/tidyverse/readr/issues/117'>#117</a>).</p></li>
 <li><p>New <code>na</code> argument that specifies how missing values should be written (<a href='https://github.com/tidyverse/readr/issues/187'>#187</a>)</p></li>
 <li><p>POSIXt vectors are saved in a ISO8601 compatible format (<a href='https://github.com/tidyverse/readr/issues/134'>#134</a>).</p></li>
 <li><p>No longer fails silently if it can’t open the target for writing (<a href='https://github.com/tidyverse/readr/issues/193'>#193</a>, <a href='https://github.com/tidyverse/readr/issues/172'>#172</a>).</p></li>
 </ul>
 </li>
-<li><p><code><a href="../reference/read_rds.html">write_rds()</a></code> and <code><a href="../reference/read_rds.html">read_rds()</a></code> wrap around <code>readRDS()</code> and <code>saveRDS()</code>, defaulting to no compression (<a href='https://github.com/tidyverse/readr/issues/140'>#140</a>, <a href='http://github.com/nicolasCoutin'>@nicolasCoutin</a>).</p></li>
+<li><p><code><a href="../reference/read_rds.html">write_rds()</a></code> and <code><a href="../reference/read_rds.html">read_rds()</a></code> wrap around <code><a href="https://www.rdocumentation.org/packages/base/topics/readRDS">readRDS()</a></code> and <code><a href="https://www.rdocumentation.org/packages/base/topics/readRDS">saveRDS()</a></code>, defaulting to no compression (<a href='https://github.com/tidyverse/readr/issues/140'>#140</a>, <a href='https://github.com/nicolasCoutin'>@nicolasCoutin</a>).</p></li>
 </ul>
 </div>
 </div>
@@ -571,7 +571,7 @@
 
 <div class="author">
   <p>
-    Developed by <a href='http://hadley.nz'>Hadley Wickham</a>, Jim Hester, Romain Francois, <a href='https://www.rstudio.com'><img src='https://tidyverse.org/rstudio-logo.svg' alt='RStudio' height='24' /></a>.
+    Developed by <a href='http://hadley.nz'>Hadley Wickham</a>, Jim Hester, Romain Francois, <a href='https://www.rstudio.com'><img src='https://www.tidyverse.org/rstudio-logo.svg' alt='RStudio' height='24' /></a>.
     Site built by <a href="https://pkgdown.r-lib.org">pkgdown</a>.
   </p>
 </div>

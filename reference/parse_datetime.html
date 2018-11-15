@@ -144,13 +144,13 @@
     
     </div>
 
-    <pre class="usage"><span class='fu'>parse_datetime</span>(<span class='no'>x</span>, <span class='kw'>format</span> <span class='kw'>=</span> <span class='st'>""</span>, <span class='kw'>na</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='st'>""</span>, <span class='st'>"NA"</span>),
+    <pre class="usage"><span class='fu'>parse_datetime</span>(<span class='no'>x</span>, <span class='kw'>format</span> <span class='kw'>=</span> <span class='st'>""</span>, <span class='kw'>na</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='st'>""</span>, <span class='st'>"NA"</span>),
   <span class='kw'>locale</span> <span class='kw'>=</span> <span class='fu'><a href='locale.html'>default_locale</a></span>(), <span class='kw'>trim_ws</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)
 
-<span class='fu'>parse_date</span>(<span class='no'>x</span>, <span class='kw'>format</span> <span class='kw'>=</span> <span class='st'>""</span>, <span class='kw'>na</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='st'>""</span>, <span class='st'>"NA"</span>),
+<span class='fu'>parse_date</span>(<span class='no'>x</span>, <span class='kw'>format</span> <span class='kw'>=</span> <span class='st'>""</span>, <span class='kw'>na</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='st'>""</span>, <span class='st'>"NA"</span>),
   <span class='kw'>locale</span> <span class='kw'>=</span> <span class='fu'><a href='locale.html'>default_locale</a></span>(), <span class='kw'>trim_ws</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)
 
-<span class='fu'>parse_time</span>(<span class='no'>x</span>, <span class='kw'>format</span> <span class='kw'>=</span> <span class='st'>""</span>, <span class='kw'>na</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='st'>""</span>, <span class='st'>"NA"</span>),
+<span class='fu'>parse_time</span>(<span class='no'>x</span>, <span class='kw'>format</span> <span class='kw'>=</span> <span class='st'>""</span>, <span class='kw'>na</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='st'>""</span>, <span class='st'>"NA"</span>),
   <span class='kw'>locale</span> <span class='kw'>=</span> <span class='fu'><a href='locale.html'>default_locale</a></span>(), <span class='kw'>trim_ws</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)
 
 <span class='fu'>col_datetime</span>(<span class='kw'>format</span> <span class='kw'>=</span> <span class='st'>""</span>)
@@ -171,13 +171,13 @@
       <td><p>A format specification, as described below. If set to "",
 date times are parsed as ISO8601, dates and times used the date and
 time formats specified in the <code><a href='locale.html'>locale()</a></code>.</p>
-<p>Unlike <code>strptime()</code>, the format specification must match
+<p>Unlike <code><a href='https://www.rdocumentation.org/packages/base/topics/strptime'>strptime()</a></code>, the format specification must match
 the complete string.</p></td>
     </tr>
     <tr>
       <th>na</th>
       <td><p>Character vector of strings to interpret as missing values. Set this
-option to <code>character()</code> to indicate no missing values.</p></td>
+option to <code><a href='https://www.rdocumentation.org/packages/base/topics/character'>character()</a></code> to indicate no missing values.</p></td>
     </tr>
     <tr>
       <th>locale</th>
@@ -196,7 +196,7 @@ each field before parsing it?</p></td>
     
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>A <code>POSIXct()</code> vector with <code>tzone</code> attribute set to
+    <p>A <code><a href='https://www.rdocumentation.org/packages/base/topics/DateTimeClasses'>POSIXct()</a></code> vector with <code>tzone</code> attribute set to
 <code>tz</code>. Elements that could not be parsed (or did not generate valid
 dates) will be set to <code>NA</code>, and a warning message will inform
 you of the total number of failures.</p>
@@ -204,7 +204,7 @@ you of the total number of failures.</p>
     <h2 class="hasAnchor" id="format-specification"><a class="anchor" href="#format-specification"></a>Format specification</h2>
 
     
-    <p><code>readr</code> uses a format specification similar to <code>strptime()</code>.
+    <p><code>readr</code> uses a format specification similar to <code><a href='https://www.rdocumentation.org/packages/base/topics/strptime'>strptime()</a></code>.
 There are three types of element:</p>
 <ol>
 <li><p>Date components are specified with "%" followed by a letter.
@@ -279,11 +279,11 @@ offset from UTC, e.g. "+0800")</p></li>
 <span class='co'># Unlike strptime, the format specification must match the complete</span>
 <span class='co'># string (ignoring leading and trailing whitespace). This avoids common</span>
 <span class='co'># errors:</span>
-<span class='fu'>strptime</span>(<span class='st'>"01/02/2010"</span>, <span class='st'>"%d/%m/%y"</span>)</div><div class='output co'>#&gt; [1] "2020-02-01 EST"</div><div class='input'><span class='fu'>parse_datetime</span>(<span class='st'>"01/02/2010"</span>, <span class='st'>"%d/%m/%y"</span>)</div><div class='output co'>#&gt; <span class='warning'>Warning: 1 parsing failure.</span>
+<span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/strptime'>strptime</a></span>(<span class='st'>"01/02/2010"</span>, <span class='st'>"%d/%m/%y"</span>)</div><div class='output co'>#&gt; [1] "2020-02-01 EST"</div><div class='input'><span class='fu'>parse_datetime</span>(<span class='st'>"01/02/2010"</span>, <span class='st'>"%d/%m/%y"</span>)</div><div class='output co'>#&gt; <span class='warning'>Warning: 1 parsing failure.</span>
 #&gt; <span class='warning'>row col           expected     actual</span>
 #&gt; <span class='warning'>  1  -- date like %d/%m/%y 01/02/2010</span></div><div class='output co'>#&gt; [1] NA</div><div class='input'>
 <span class='co'># Failures -------------------------------------------------------------</span>
-<span class='fu'>parse_datetime</span>(<span class='st'>"01/01/2010"</span>, <span class='st'>"%d/%m/%Y"</span>)</div><div class='output co'>#&gt; [1] "2010-01-01 UTC"</div><div class='input'><span class='fu'>parse_datetime</span>(<span class='fu'>c</span>(<span class='st'>"01/ab/2010"</span>, <span class='st'>"32/01/2010"</span>), <span class='st'>"%d/%m/%Y"</span>)</div><div class='output co'>#&gt; <span class='warning'>Warning: 2 parsing failures.</span>
+<span class='fu'>parse_datetime</span>(<span class='st'>"01/01/2010"</span>, <span class='st'>"%d/%m/%Y"</span>)</div><div class='output co'>#&gt; [1] "2010-01-01 UTC"</div><div class='input'><span class='fu'>parse_datetime</span>(<span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='st'>"01/ab/2010"</span>, <span class='st'>"32/01/2010"</span>), <span class='st'>"%d/%m/%Y"</span>)</div><div class='output co'>#&gt; <span class='warning'>Warning: 2 parsing failures.</span>
 #&gt; <span class='warning'>row col           expected     actual</span>
 #&gt; <span class='warning'>  1  -- date like %d/%m/%Y 01/ab/2010</span>
 #&gt; <span class='warning'>  2  -- valid date         32/01/2010</span></div><div class='output co'>#&gt; [1] NA NA</div><div class='input'>
@@ -326,7 +326,7 @@ offset from UTC, e.g. "+0800")</p></li>
 
 <div class="author">
   <p>
-    Developed by <a href='http://hadley.nz'>Hadley Wickham</a>, Jim Hester, Romain Francois, <a href='https://www.rstudio.com'><img src='https://tidyverse.org/rstudio-logo.svg' alt='RStudio' height='24' /></a>.
+    Developed by <a href='http://hadley.nz'>Hadley Wickham</a>, Jim Hester, Romain Francois, <a href='https://www.rstudio.com'><img src='https://www.tidyverse.org/rstudio-logo.svg' alt='RStudio' height='24' /></a>.
     Site built by <a href="https://pkgdown.r-lib.org">pkgdown</a>.
   </p>
 </div>

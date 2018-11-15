@@ -142,7 +142,7 @@ than time." />
 
     <div class="ref-description">
     
-    <p>Consistent wrapper around <code>saveRDS()</code> and <code>readRDS()</code>.
+    <p>Consistent wrapper around <code><a href='https://www.rdocumentation.org/packages/base/topics/readRDS'>saveRDS()</a></code> and <code><a href='https://www.rdocumentation.org/packages/base/topics/readRDS'>readRDS()</a></code>.
 <code>write_rds()</code> does not compress by default as space is generally cheaper
 than time.</p>
     
@@ -150,7 +150,7 @@ than time.</p>
 
     <pre class="usage"><span class='fu'>read_rds</span>(<span class='no'>path</span>)
 
-<span class='fu'>write_rds</span>(<span class='no'>x</span>, <span class='no'>path</span>, <span class='kw'>compress</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='st'>"none"</span>, <span class='st'>"gz"</span>, <span class='st'>"bz2"</span>, <span class='st'>"xz"</span>), <span class='no'>...</span>)</pre>
+<span class='fu'>write_rds</span>(<span class='no'>x</span>, <span class='no'>path</span>, <span class='kw'>compress</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='st'>"none"</span>, <span class='st'>"gz"</span>, <span class='st'>"bz2"</span>, <span class='st'>"xz"</span>), <span class='no'>...</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -171,7 +171,7 @@ than time.</p>
       <th>...</th>
       <td><p>Additional arguments to connection function. For example, control
 the space-time trade-off of different compression methods with
-<code>compression</code>. See <code>connections()</code> for more details.</p></td>
+<code>compression</code>. See <code><a href='https://www.rdocumentation.org/packages/base/topics/connections'>connections()</a></code> for more details.</p></td>
     </tr>
     </table>
     
@@ -181,7 +181,7 @@ the space-time trade-off of different compression methods with
     
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='no'>temp</span> <span class='kw'>&lt;-</span> <span class='fu'>tempfile</span>()
+    <pre class="examples"><div class='input'><span class='no'>temp</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/tempfile'>tempfile</a></span>()
 <span class='fu'>write_rds</span>(<span class='no'>mtcars</span>, <span class='no'>temp</span>)
 <span class='fu'>read_rds</span>(<span class='no'>temp</span>)</div><div class='output co'>#&gt;                      mpg cyl  disp  hp drat    wt  qsec vs am gear carb
 #&gt; Mazda RX4           21.0   6 160.0 110 3.90 2.620 16.46  0  1    4    4
@@ -240,7 +240,7 @@ the space-time trade-off of different compression methods with
 
 <div class="author">
   <p>
-    Developed by <a href='http://hadley.nz'>Hadley Wickham</a>, Jim Hester, Romain Francois, <a href='https://www.rstudio.com'><img src='https://tidyverse.org/rstudio-logo.svg' alt='RStudio' height='24' /></a>.
+    Developed by <a href='http://hadley.nz'>Hadley Wickham</a>, Jim Hester, Romain Francois, <a href='https://www.rstudio.com'><img src='https://www.tidyverse.org/rstudio-logo.svg' alt='RStudio' height='24' /></a>.
     Site built by <a href="https://pkgdown.r-lib.org">pkgdown</a>.
   </p>
 </div>

@@ -29,7 +29,7 @@
 </script>
 </head>
 <body>
-    <div class="container template-article">
+    <div class="container template-home">
       <header><div class="navbar navbar-default navbar-fixed-top" role="navigation">
   <div class="container">
     <div class="navbar-header">
@@ -102,28 +102,28 @@
 
       
       </header><div class="row">
-  <div class="col-md-9 contents">
-    
-
-    
-    
+  <div class="contents col-md-9">
 <!-- README.md is generated from README.Rmd. Please edit that file -->
 <div id="readr" class="section level1">
 
 
+<div id="overview" class="section level2">
+<h2 class="hasAnchor">
+<a href="#overview" class="anchor"></a>Overview</h2>
 <p>The goal of readr is to provide a fast and friendly way to read rectangular data (like csv, tsv, and fwf). It is designed to flexibly parse many types of data found in the wild, while still cleanly failing when data unexpectedly changes. If you are new to readr, the best place to start is the <a href="http://r4ds.had.co.nz/data-import.html">data import chapter</a> in R for data science.</p>
+</div>
 <div id="installation" class="section level2">
 <h2 class="hasAnchor">
 <a href="#installation" class="anchor"></a>Installation</h2>
 <div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1-1" data-line-number="1"><span class="co"># The easiest way to get readr is to install the whole tidyverse:</span></a>
-<a class="sourceLine" id="cb1-2" data-line-number="2"><span class="kw">install.packages</span>(<span class="st">"tidyverse"</span>)</a>
+<a class="sourceLine" id="cb1-2" data-line-number="2"><span class="kw"><a href="https://www.rdocumentation.org/packages/utils/topics/install.packages">install.packages</a></span>(<span class="st">"tidyverse"</span>)</a>
 <a class="sourceLine" id="cb1-3" data-line-number="3"></a>
 <a class="sourceLine" id="cb1-4" data-line-number="4"><span class="co"># Alternatively, install just readr:</span></a>
-<a class="sourceLine" id="cb1-5" data-line-number="5"><span class="kw">install.packages</span>(<span class="st">"readr"</span>)</a>
+<a class="sourceLine" id="cb1-5" data-line-number="5"><span class="kw"><a href="https://www.rdocumentation.org/packages/utils/topics/install.packages">install.packages</a></span>(<span class="st">"readr"</span>)</a>
 <a class="sourceLine" id="cb1-6" data-line-number="6"></a>
 <a class="sourceLine" id="cb1-7" data-line-number="7"><span class="co"># Or the the development version from GitHub:</span></a>
 <a class="sourceLine" id="cb1-8" data-line-number="8"><span class="co"># install.packages("devtools")</span></a>
-<a class="sourceLine" id="cb1-9" data-line-number="9">devtools<span class="op">::</span><span class="kw"><a href="http://www.rdocumentation.org/packages/devtools/topics/reexports">install_github</a></span>(<span class="st">"tidyverse/readr"</span>)</a></code></pre></div>
+<a class="sourceLine" id="cb1-9" data-line-number="9">devtools<span class="op">::</span><span class="kw"><a href="https://www.rdocumentation.org/packages/devtools/topics/reexports">install_github</a></span>(<span class="st">"tidyverse/readr"</span>)</a></code></pre></div>
 </div>
 <div id="cheatsheet" class="section level2">
 <h2 class="hasAnchor">
@@ -134,7 +134,7 @@
 <h2 class="hasAnchor">
 <a href="#usage" class="anchor"></a>Usage</h2>
 <p>readr is part of the core tidyverse, so load it with:</p>
-<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb2-1" data-line-number="1"><span class="kw">library</span>(tidyverse)</a>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb2-1" data-line-number="1"><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/library">library</a></span>(tidyverse)</a>
 <a class="sourceLine" id="cb2-2" data-line-number="2"><span class="co">#&gt; ── Attaching packages ────────────────────────────────── tidyverse 1.2.1 ──</span></a>
 <a class="sourceLine" id="cb2-3" data-line-number="3"><span class="co">#&gt; ✔ ggplot2 3.1.0     ✔ purrr   0.2.5</span></a>
 <a class="sourceLine" id="cb2-4" data-line-number="4"><span class="co">#&gt; ✔ tibble  1.4.2     ✔ dplyr   0.7.7</span></a>
@@ -215,7 +215,7 @@
 </h3>
 <p><a href="https://github.com/Rdatatable/data.table">data.table</a> has a function similar to <code><a href="reference/read_delim.html">read_csv()</a></code> called fread. Compared to fread, readr functions:</p>
 <ul>
-<li><p>Are slower (currently ~1.2-2x slower. If you want absolutely the best performance, use <code><a href="http://www.rdocumentation.org/packages/data.table/topics/fread">data.table::fread()</a></code>.</p></li>
+<li><p>Are slower (currently ~1.2-2x slower. If you want absolutely the best performance, use <code><a href="https://www.rdocumentation.org/packages/data.table/topics/fread">data.table::fread()</a></code>.</p></li>
 <li><p>Use a slightly more sophisticated parser, recognising both doubled (<code>""""</code>) and backslash escapes (<code>"\""</code>), and can produce factors and date/times directly.</p></li>
 <li><p>Forces you to supply all parameters, where <code>fread()</code> saves you work by automatically guessing the delimiter, whether or not the file has a header, and how many lines to skip.</p></li>
 <li><p>Are built on a different underlying infrastructure. Readr functions are designed to be quite general, which makes it easier to add support for new rectangular data formats. <code>fread()</code> is designed to be as fast as possible.</p></li>
@@ -236,7 +236,7 @@
 </div>
   </div>
 
-  <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
+  <div class="col-md-3" id="sidebar">
     <div class="links">
 <h2>Links</h2>
 <ul class="list-unstyled">
@@ -265,12 +265,12 @@
 <li>Jim Hester <br><small class="roles"> Author, maintainer </small>  </li>
 <li>Romain Francois <br><small class="roles"> Author </small>  </li>
 <li>
-<a href="https://www.rstudio.com"><img src="https://tidyverse.org/rstudio-logo.svg" alt="RStudio" height="24"></a> <br><small class="roles"> Copyright holder, funder </small>  </li>
+<a href="https://www.rstudio.com"><img src="https://www.tidyverse.org/rstudio-logo.svg" alt="RStudio" height="24"></a> <br><small class="roles"> Copyright holder, funder </small>  </li>
 <li><a href="authors.html">All authors...</a></li>
 </ul>
 </div>
 
-      <div class="dev-status">
+  <div class="dev-status">
 <h2>Dev status</h2>
 <ul class="list-unstyled">
 <li><a href="https://cran.r-project.org/package=readr"><img src="https://www.r-pkg.org/badges/version/readr" alt="CRAN_Status_Badge"></a></li>
@@ -280,7 +280,6 @@
 </ul>
 </div>
 </div>
-
 </div>
 
 
@@ -290,7 +289,7 @@
 
 <div class="author">
   <p>
-    Developed by <a href="http://hadley.nz">Hadley Wickham</a>, Jim Hester, Romain Francois, <a href="https://www.rstudio.com"><img src="https://tidyverse.org/rstudio-logo.svg" alt="RStudio" height="24"></a>.
+    Developed by <a href="http://hadley.nz">Hadley Wickham</a>, Jim Hester, Romain Francois, <a href="https://www.rstudio.com"><img src="https://www.tidyverse.org/rstudio-logo.svg" alt="RStudio" height="24"></a>.
     Site built by <a href="https://pkgdown.r-lib.org">pkgdown</a>.
   </p>
 </div>

@@ -153,8 +153,8 @@ by providing a number of different ways to describe the field structure.</p>
     </div>
 
     <pre class="usage"><span class='fu'>read_fwf</span>(<span class='no'>file</span>, <span class='no'>col_positions</span>, <span class='kw'>col_types</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>locale</span> <span class='kw'>=</span> <span class='fu'><a href='locale.html'>default_locale</a></span>(), <span class='kw'>na</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='st'>""</span>, <span class='st'>"NA"</span>), <span class='kw'>comment</span> <span class='kw'>=</span> <span class='st'>""</span>,
-  <span class='kw'>trim_ws</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>skip</span> <span class='kw'>=</span> <span class='fl'>0</span>, <span class='kw'>n_max</span> <span class='kw'>=</span> <span class='fl'>Inf</span>, <span class='kw'>guess_max</span> <span class='kw'>=</span> <span class='fu'>min</span>(<span class='no'>n_max</span>,
+  <span class='kw'>locale</span> <span class='kw'>=</span> <span class='fu'><a href='locale.html'>default_locale</a></span>(), <span class='kw'>na</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='st'>""</span>, <span class='st'>"NA"</span>), <span class='kw'>comment</span> <span class='kw'>=</span> <span class='st'>""</span>,
+  <span class='kw'>trim_ws</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>skip</span> <span class='kw'>=</span> <span class='fl'>0</span>, <span class='kw'>n_max</span> <span class='kw'>=</span> <span class='fl'>Inf</span>, <span class='kw'>guess_max</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/Extremes'>min</a></span>(<span class='no'>n_max</span>,
   <span class='fl'>1000</span>), <span class='kw'>progress</span> <span class='kw'>=</span> <span class='fu'>show_progress</span>())
 
 <span class='fu'>fwf_empty</span>(<span class='no'>file</span>, <span class='kw'>skip</span> <span class='kw'>=</span> <span class='fl'>0</span>, <span class='kw'>col_names</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>comment</span> <span class='kw'>=</span> <span class='st'>""</span>, <span class='kw'>n</span> <span class='kw'>=</span> <span class='fl'>100L</span>)
@@ -216,7 +216,7 @@ names.</p></td>
     <tr>
       <th>na</th>
       <td><p>Character vector of strings to interpret as missing values. Set this
-option to <code>character()</code> to indicate no missing values.</p></td>
+option to <code><a href='https://www.rdocumentation.org/packages/base/topics/character'>character()</a></code> to indicate no missing values.</p></td>
     </tr>
     <tr>
       <th>comment</th>
@@ -286,10 +286,10 @@ column is separated by whitespace.</p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='no'>fwf_sample</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='readr_example.html'>readr_example</a></span>(<span class='st'>"fwf-sample.txt"</span>)
-<span class='fu'>cat</span>(<span class='fu'><a href='read_lines.html'>read_lines</a></span>(<span class='no'>fwf_sample</span>))</div><div class='output co'>#&gt; John Smith          WA        418-Y11-4111 Mary Hartford       CA        319-Z19-4341 Evan Nolan          IL        219-532-c301</div><div class='input'>
+<span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/cat'>cat</a></span>(<span class='fu'><a href='read_lines.html'>read_lines</a></span>(<span class='no'>fwf_sample</span>))</div><div class='output co'>#&gt; John Smith          WA        418-Y11-4111 Mary Hartford       CA        319-Z19-4341 Evan Nolan          IL        219-532-c301</div><div class='input'>
 <span class='co'># You can specify column positions in several ways:</span>
 <span class='co'># 1. Guess based on position of empty columns</span>
-<span class='fu'>read_fwf</span>(<span class='no'>fwf_sample</span>, <span class='fu'>fwf_empty</span>(<span class='no'>fwf_sample</span>, <span class='kw'>col_names</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='st'>"first"</span>, <span class='st'>"last"</span>, <span class='st'>"state"</span>, <span class='st'>"ssn"</span>)))</div><div class='output co'>#&gt; <span class='message'>Parsed with column specification:</span>
+<span class='fu'>read_fwf</span>(<span class='no'>fwf_sample</span>, <span class='fu'>fwf_empty</span>(<span class='no'>fwf_sample</span>, <span class='kw'>col_names</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='st'>"first"</span>, <span class='st'>"last"</span>, <span class='st'>"state"</span>, <span class='st'>"ssn"</span>)))</div><div class='output co'>#&gt; <span class='message'>Parsed with column specification:</span>
 #&gt; <span class='message'>cols(</span>
 #&gt; <span class='message'>  first = col_character(),</span>
 #&gt; <span class='message'>  last = col_character(),</span>
@@ -301,7 +301,7 @@ column is separated by whitespace.</p></div>
 #&gt; [38;5;250m1[39m John  Smith    WA    418-Y11-4111
 #&gt; [38;5;250m2[39m Mary  Hartford CA    319-Z19-4341
 #&gt; [38;5;250m3[39m Evan  Nolan    IL    219-532-c301</div><div class='input'><span class='co'># 2. A vector of field widths</span>
-<span class='fu'>read_fwf</span>(<span class='no'>fwf_sample</span>, <span class='fu'>fwf_widths</span>(<span class='fu'>c</span>(<span class='fl'>20</span>, <span class='fl'>10</span>, <span class='fl'>12</span>), <span class='fu'>c</span>(<span class='st'>"name"</span>, <span class='st'>"state"</span>, <span class='st'>"ssn"</span>)))</div><div class='output co'>#&gt; <span class='message'>Parsed with column specification:</span>
+<span class='fu'>read_fwf</span>(<span class='no'>fwf_sample</span>, <span class='fu'>fwf_widths</span>(<span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='fl'>20</span>, <span class='fl'>10</span>, <span class='fl'>12</span>), <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='st'>"name"</span>, <span class='st'>"state"</span>, <span class='st'>"ssn"</span>)))</div><div class='output co'>#&gt; <span class='message'>Parsed with column specification:</span>
 #&gt; <span class='message'>cols(</span>
 #&gt; <span class='message'>  name = col_character(),</span>
 #&gt; <span class='message'>  state = col_character(),</span>
@@ -312,7 +312,7 @@ column is separated by whitespace.</p></div>
 #&gt; [38;5;250m1[39m John Smith    WA    418-Y11-4111
 #&gt; [38;5;250m2[39m Mary Hartford CA    319-Z19-4341
 #&gt; [38;5;250m3[39m Evan Nolan    IL    219-532-c301</div><div class='input'><span class='co'># 3. Paired vectors of start and end positions</span>
-<span class='fu'>read_fwf</span>(<span class='no'>fwf_sample</span>, <span class='fu'>fwf_positions</span>(<span class='fu'>c</span>(<span class='fl'>1</span>, <span class='fl'>30</span>), <span class='fu'>c</span>(<span class='fl'>20</span>, <span class='fl'>42</span>), <span class='fu'>c</span>(<span class='st'>"name"</span>, <span class='st'>"ssn"</span>)))</div><div class='output co'>#&gt; <span class='message'>Parsed with column specification:</span>
+<span class='fu'>read_fwf</span>(<span class='no'>fwf_sample</span>, <span class='fu'>fwf_positions</span>(<span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='fl'>1</span>, <span class='fl'>30</span>), <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='fl'>20</span>, <span class='fl'>42</span>), <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='st'>"name"</span>, <span class='st'>"ssn"</span>)))</div><div class='output co'>#&gt; <span class='message'>Parsed with column specification:</span>
 #&gt; <span class='message'>cols(</span>
 #&gt; <span class='message'>  name = col_character(),</span>
 #&gt; <span class='message'>  ssn = col_character()</span>
@@ -322,7 +322,7 @@ column is separated by whitespace.</p></div>
 #&gt; [38;5;250m1[39m John Smith    418-Y11-4111
 #&gt; [38;5;250m2[39m Mary Hartford 319-Z19-4341
 #&gt; [38;5;250m3[39m Evan Nolan    219-532-c301</div><div class='input'><span class='co'># 4. Named arguments with start and end positions</span>
-<span class='fu'>read_fwf</span>(<span class='no'>fwf_sample</span>, <span class='fu'>fwf_cols</span>(<span class='kw'>name</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='fl'>1</span>, <span class='fl'>20</span>), <span class='kw'>ssn</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='fl'>30</span>, <span class='fl'>42</span>)))</div><div class='output co'>#&gt; <span class='message'>Parsed with column specification:</span>
+<span class='fu'>read_fwf</span>(<span class='no'>fwf_sample</span>, <span class='fu'>fwf_cols</span>(<span class='kw'>name</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='fl'>1</span>, <span class='fl'>20</span>), <span class='kw'>ssn</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='fl'>30</span>, <span class='fl'>42</span>)))</div><div class='output co'>#&gt; <span class='message'>Parsed with column specification:</span>
 #&gt; <span class='message'>cols(</span>
 #&gt; <span class='message'>  name = col_character(),</span>
 #&gt; <span class='message'>  ssn = col_character()</span>
@@ -364,7 +364,7 @@ column is separated by whitespace.</p></div>
 
 <div class="author">
   <p>
-    Developed by <a href='http://hadley.nz'>Hadley Wickham</a>, Jim Hester, Romain Francois, <a href='https://www.rstudio.com'><img src='https://tidyverse.org/rstudio-logo.svg' alt='RStudio' height='24' /></a>.
+    Developed by <a href='http://hadley.nz'>Hadley Wickham</a>, Jim Hester, Romain Francois, <a href='https://www.rstudio.com'><img src='https://www.tidyverse.org/rstudio-logo.svg' alt='RStudio' height='24' /></a>.
     Site built by <a href="https://pkgdown.r-lib.org">pkgdown</a>.
   </p>
 </div>

@@ -148,16 +148,16 @@ values as they're read in.</p>
     
     </div>
 
-    <pre class="usage"><span class='fu'>parse_logical</span>(<span class='no'>x</span>, <span class='kw'>na</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='st'>""</span>, <span class='st'>"NA"</span>), <span class='kw'>locale</span> <span class='kw'>=</span> <span class='fu'><a href='locale.html'>default_locale</a></span>(),
+    <pre class="usage"><span class='fu'>parse_logical</span>(<span class='no'>x</span>, <span class='kw'>na</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='st'>""</span>, <span class='st'>"NA"</span>), <span class='kw'>locale</span> <span class='kw'>=</span> <span class='fu'><a href='locale.html'>default_locale</a></span>(),
   <span class='kw'>trim_ws</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)
 
-<span class='fu'>parse_integer</span>(<span class='no'>x</span>, <span class='kw'>na</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='st'>""</span>, <span class='st'>"NA"</span>), <span class='kw'>locale</span> <span class='kw'>=</span> <span class='fu'><a href='locale.html'>default_locale</a></span>(),
+<span class='fu'>parse_integer</span>(<span class='no'>x</span>, <span class='kw'>na</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='st'>""</span>, <span class='st'>"NA"</span>), <span class='kw'>locale</span> <span class='kw'>=</span> <span class='fu'><a href='locale.html'>default_locale</a></span>(),
   <span class='kw'>trim_ws</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)
 
-<span class='fu'>parse_double</span>(<span class='no'>x</span>, <span class='kw'>na</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='st'>""</span>, <span class='st'>"NA"</span>), <span class='kw'>locale</span> <span class='kw'>=</span> <span class='fu'><a href='locale.html'>default_locale</a></span>(),
+<span class='fu'>parse_double</span>(<span class='no'>x</span>, <span class='kw'>na</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='st'>""</span>, <span class='st'>"NA"</span>), <span class='kw'>locale</span> <span class='kw'>=</span> <span class='fu'><a href='locale.html'>default_locale</a></span>(),
   <span class='kw'>trim_ws</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)
 
-<span class='fu'>parse_character</span>(<span class='no'>x</span>, <span class='kw'>na</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='st'>""</span>, <span class='st'>"NA"</span>), <span class='kw'>locale</span> <span class='kw'>=</span> <span class='fu'><a href='locale.html'>default_locale</a></span>(),
+<span class='fu'>parse_character</span>(<span class='no'>x</span>, <span class='kw'>na</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='st'>""</span>, <span class='st'>"NA"</span>), <span class='kw'>locale</span> <span class='kw'>=</span> <span class='fu'><a href='locale.html'>default_locale</a></span>(),
   <span class='kw'>trim_ws</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)
 
 <span class='fu'>col_logical</span>()
@@ -178,7 +178,7 @@ values as they're read in.</p>
     <tr>
       <th>na</th>
       <td><p>Character vector of strings to interpret as missing values. Set this
-option to <code>character()</code> to indicate no missing values.</p></td>
+option to <code><a href='https://www.rdocumentation.org/packages/base/topics/character'>character()</a></code> to indicate no missing values.</p></td>
     </tr>
     <tr>
       <th>locale</th>
@@ -205,12 +205,12 @@ each field before parsing it?</p></td>
     
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='fu'>parse_integer</span>(<span class='fu'>c</span>(<span class='st'>"1"</span>, <span class='st'>"2"</span>, <span class='st'>"3"</span>))</div><div class='output co'>#&gt; [1] 1 2 3</div><div class='input'><span class='fu'>parse_double</span>(<span class='fu'>c</span>(<span class='st'>"1"</span>, <span class='st'>"2"</span>, <span class='st'>"3.123"</span>))</div><div class='output co'>#&gt; [1] 1.000 2.000 3.123</div><div class='input'><span class='fu'><a href='parse_number.html'>parse_number</a></span>(<span class='st'>"$1,123,456.00"</span>)</div><div class='output co'>#&gt; [1] 1123456</div><div class='input'>
+    <pre class="examples"><div class='input'><span class='fu'>parse_integer</span>(<span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='st'>"1"</span>, <span class='st'>"2"</span>, <span class='st'>"3"</span>))</div><div class='output co'>#&gt; [1] 1 2 3</div><div class='input'><span class='fu'>parse_double</span>(<span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='st'>"1"</span>, <span class='st'>"2"</span>, <span class='st'>"3.123"</span>))</div><div class='output co'>#&gt; [1] 1.000 2.000 3.123</div><div class='input'><span class='fu'><a href='parse_number.html'>parse_number</a></span>(<span class='st'>"$1,123,456.00"</span>)</div><div class='output co'>#&gt; [1] 1123456</div><div class='input'>
 <span class='co'># Use locale to override default decimal and grouping marks</span>
 <span class='no'>es_MX</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='locale.html'>locale</a></span>(<span class='st'>"es"</span>, <span class='kw'>decimal_mark</span> <span class='kw'>=</span> <span class='st'>","</span>)
 <span class='fu'><a href='parse_number.html'>parse_number</a></span>(<span class='st'>"$1.123.456,00"</span>, <span class='kw'>locale</span> <span class='kw'>=</span> <span class='no'>es_MX</span>)</div><div class='output co'>#&gt; [1] 1123456</div><div class='input'>
 <span class='co'># Invalid values are replaced with missing values with a warning.</span>
-<span class='no'>x</span> <span class='kw'>&lt;-</span> <span class='fu'>c</span>(<span class='st'>"1"</span>, <span class='st'>"2"</span>, <span class='st'>"3"</span>, <span class='st'>"-"</span>)
+<span class='no'>x</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='st'>"1"</span>, <span class='st'>"2"</span>, <span class='st'>"3"</span>, <span class='st'>"-"</span>)
 <span class='fu'>parse_double</span>(<span class='no'>x</span>)</div><div class='output co'>#&gt; <span class='warning'>Warning: 1 parsing failure.</span>
 #&gt; <span class='warning'>row col expected actual</span>
 #&gt; <span class='warning'>  4  -- a double      -</span></div><div class='output co'>#&gt; [1]  1  2  3 NA
@@ -241,7 +241,7 @@ each field before parsing it?</p></td>
 
 <div class="author">
   <p>
-    Developed by <a href='http://hadley.nz'>Hadley Wickham</a>, Jim Hester, Romain Francois, <a href='https://www.rstudio.com'><img src='https://tidyverse.org/rstudio-logo.svg' alt='RStudio' height='24' /></a>.
+    Developed by <a href='http://hadley.nz'>Hadley Wickham</a>, Jim Hester, Romain Francois, <a href='https://www.rstudio.com'><img src='https://www.tidyverse.org/rstudio-logo.svg' alt='RStudio' height='24' /></a>.
     Site built by <a href="https://pkgdown.r-lib.org">pkgdown</a>.
   </p>
 </div>
