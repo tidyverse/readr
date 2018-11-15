@@ -37,18 +37,11 @@ std::pair<double, size_t> TokenizerWs::progress() {
 }
 
 Token TokenizerWs::nextToken() {
-  // Check for comments and empty lines only at start of line
+  // Check for comments and empty lines at the start of a line
   while (cur_ != end_ && col_ == 0 && (isComment(cur_) || isEmpty())) {
-    // Skip rest of line
-    while (cur_ != end_ && *cur_ != '\n' && *cur_ != '\r') {
-      ++cur_;
-    }
-    advanceForLF(&cur_, end_);
-    if (cur_ != end_) {
-      ++cur_;
-    }
-    curLine_ = cur_;
+    ignoreLine();
   }
+
   if (cur_ == end_)
     return Token(TOKEN_EOF, 0, 0);
 
@@ -57,6 +50,15 @@ Token TokenizerWs::nextToken() {
   while (fieldBegin != end_ && isblank(*fieldBegin)) {
     ++fieldBegin;
   }
+
+  // Make sure we are not at the start of a comment
+  if (isComment(fieldBegin)) {
+    ignoreLine();
+    row_++;
+    col_ = 0;
+    return nextToken();
+  }
+
   SourceIterator fieldEnd = fieldBegin;
   while (fieldEnd != end_ && !isspace(*fieldEnd)) {
     ++fieldEnd;
@@ -95,4 +97,16 @@ bool TokenizerWs::isComment(const char* cur) const {
 
 bool TokenizerWs::isEmpty() const {
   return cur_ == end_ || *cur_ == '\r' || *cur_ == '\n';
+}
+
+void TokenizerWs::ignoreLine() {
+  // Skip rest of line
+  while (cur_ != end_ && *cur_ != '\n' && *cur_ != '\r') {
+    ++cur_;
+  }
+  advanceForLF(&cur_, end_);
+  if (cur_ != end_) {
+    ++cur_;
+  }
+  curLine_ = cur_;
 }

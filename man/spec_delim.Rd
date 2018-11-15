@@ -6,6 +6,7 @@
 \alias{spec_csv2}
 \alias{spec_tsv}
 \alias{spec_table}
+\alias{spec_table2}
 \title{Generate a column specification}
 \usage{
 spec_delim(file, delim, quote = "\\"", escape_backslash = FALSE,
@@ -16,20 +17,24 @@ spec_delim(file, delim, quote = "\\"", escape_backslash = FALSE,
 
 spec_csv(file, col_names = TRUE, col_types = NULL,
   locale = default_locale(), na = c("", "NA"), quoted_na = TRUE,
-  quote = "\\"", comment = "", trim_ws = TRUE, skip = 0, n_max = 0,
-  guess_max = 1000, progress = show_progress())
+  quote = "\\"", comment = "", trim_ws = TRUE, skip = 0,
+  n_max = 0, guess_max = 1000, progress = show_progress())
 
 spec_csv2(file, col_names = TRUE, col_types = NULL,
   locale = default_locale(), na = c("", "NA"), quoted_na = TRUE,
-  quote = "\\"", comment = "", trim_ws = TRUE, skip = 0, n_max = 0,
-  guess_max = 1000, progress = show_progress())
+  quote = "\\"", comment = "", trim_ws = TRUE, skip = 0,
+  n_max = 0, guess_max = 1000, progress = show_progress())
 
 spec_tsv(file, col_names = TRUE, col_types = NULL,
   locale = default_locale(), na = c("", "NA"), quoted_na = TRUE,
-  quote = "\\"", comment = "", trim_ws = TRUE, skip = 0, n_max = 0,
-  guess_max = 1000, progress = show_progress())
+  quote = "\\"", comment = "", trim_ws = TRUE, skip = 0,
+  n_max = 0, guess_max = 1000, progress = show_progress())
 
 spec_table(file, col_names = TRUE, col_types = NULL,
+  locale = default_locale(), na = "NA", skip = 0, n_max = 0,
+  guess_max = 1000, progress = show_progress(), comment = "")
+
+spec_table2(file, col_names = TRUE, col_types = NULL,
   locale = default_locale(), na = "NA", skip = 0, n_max = 0,
   guess_max = 1000, progress = show_progress(), comment = "")
 }

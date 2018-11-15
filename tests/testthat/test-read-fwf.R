@@ -210,3 +210,19 @@ test_that("read_table does not duplicate header rows for leading whitespace (747
   expect_equal(nrow(x), 1)
   expect_equal(x$foo, 1)
 })
+
+# fwf_positions ---------------------------------------------------------------
+
+test_that("fwf_positions always returns col_names as character (#797)", {
+  begin <- c(1, 2, 4, 8)
+  end <- c(1, 3, 7, 15)
+
+  # Input a factor, should return a character
+  nms <- factor(letters[1:4])
+
+  info <- fwf_positions(begin, end, nms)
+
+  expect_type(info$begin, "double")
+  expect_type(info$end, "double")
+  expect_type(info$col_names, "character")
+})

@@ -105,7 +105,7 @@ fwf_positions <- function(start, end = NULL, col_names = NULL) {
   tibble(
     begin = start - 1L,
     end = end, # -1 to change to 0 offset, +1 to be exclusive,
-    col_names = col_names
+    col_names = as.character(col_names)
   )
 }
 

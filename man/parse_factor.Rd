@@ -54,6 +54,9 @@ x2 <- parse_factor(x, levels = NULL)
 }
 \seealso{
 Other parsers: \code{\link{col_skip}},
+  \code{\link{cols_condense}}, \code{\link{cols}},
   \code{\link{parse_datetime}}, \code{\link{parse_guess}},
-  \code{\link{parse_logical}}, \code{\link{parse_number}}
+  \code{\link{parse_logical}}, \code{\link{parse_number}},
+  \code{\link{parse_vector}}
 }
+\concept{parsers}

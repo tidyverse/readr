@@ -15,18 +15,21 @@ read_delim(file, delim, quote = "\\"", escape_backslash = FALSE,
 
 read_csv(file, col_names = TRUE, col_types = NULL,
   locale = default_locale(), na = c("", "NA"), quoted_na = TRUE,
-  quote = "\\"", comment = "", trim_ws = TRUE, skip = 0, n_max = Inf,
-  guess_max = min(1000, n_max), progress = show_progress())
+  quote = "\\"", comment = "", trim_ws = TRUE, skip = 0,
+  n_max = Inf, guess_max = min(1000, n_max),
+  progress = show_progress())
 
 read_csv2(file, col_names = TRUE, col_types = NULL,
   locale = default_locale(), na = c("", "NA"), quoted_na = TRUE,
-  quote = "\\"", comment = "", trim_ws = TRUE, skip = 0, n_max = Inf,
-  guess_max = min(1000, n_max), progress = show_progress())
+  quote = "\\"", comment = "", trim_ws = TRUE, skip = 0,
+  n_max = Inf, guess_max = min(1000, n_max),
+  progress = show_progress())
 
 read_tsv(file, col_names = TRUE, col_types = NULL,
   locale = default_locale(), na = c("", "NA"), quoted_na = TRUE,
-  quote = "\\"", comment = "", trim_ws = TRUE, skip = 0, n_max = Inf,
-  guess_max = min(1000, n_max), progress = show_progress())
+  quote = "\\"", comment = "", trim_ws = TRUE, skip = 0,
+  n_max = Inf, guess_max = min(1000, n_max),
+  progress = show_progress())
 }
 \arguments{
 \item{file}{Either a path to a file, a connection, or literal data

@@ -32,4 +32,12 @@ x <- c("1", "2", "3", "NA")
 parse_vector(x, col_integer())
 parse_vector(x, col_double())
 }
+\seealso{
+Other parsers: \code{\link{col_skip}},
+  \code{\link{cols_condense}}, \code{\link{cols}},
+  \code{\link{parse_datetime}}, \code{\link{parse_factor}},
+  \code{\link{parse_guess}}, \code{\link{parse_logical}},
+  \code{\link{parse_number}}
+}
+\concept{parsers}
 \keyword{internal}

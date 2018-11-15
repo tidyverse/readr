@@ -5,6 +5,10 @@ collectorGuess <- function(input, locale_) {
     .Call(`_readr_collectorGuess`, input, locale_)
 }
 
+whitespaceColumns <- function(sourceSpec, n = 100L, comment = "") {
+    .Call(`_readr_whitespaceColumns`, sourceSpec, n, comment)
+}
+
 read_connection_ <- function(con, chunk_size = 64 * 1024L) {
     .Call(`_readr_read_connection_`, con, chunk_size)
 }
@@ -53,6 +57,10 @@ read_lines_raw_ <- function(sourceSpec, n_max = -1L, progress = FALSE) {
     .Call(`_readr_read_lines_raw_`, sourceSpec, n_max, progress)
 }
 
+read_lines_raw_chunked_ <- function(sourceSpec, chunkSize, callback, progress = TRUE) {
+    invisible(.Call(`_readr_read_lines_raw_chunked_`, sourceSpec, chunkSize, callback, progress))
+}
+
 read_tokens_ <- function(sourceSpec, tokenizerSpec, colSpecs, colNames, locale_, n_max = -1L, progress = TRUE) {
     .Call(`_readr_read_tokens_`, sourceSpec, tokenizerSpec, colSpecs, colNames, locale_, n_max, progress)
 }
@@ -65,16 +73,8 @@ guess_types_ <- function(sourceSpec, tokenizerSpec, locale_, n = 100L) {
     .Call(`_readr_guess_types_`, sourceSpec, tokenizerSpec, locale_, n)
 }
 
-whitespaceColumns <- function(sourceSpec, n = 100L, comment = "") {
-    .Call(`_readr_whitespaceColumns`, sourceSpec, n, comment)
-}
-
 type_convert_col <- function(x, spec, locale_, col, na, trim_ws) {
     .Call(`_readr_type_convert_col`, x, spec, locale_, col, na, trim_ws)
-}
-
-stream_delim_ <- function(df, connection, delim, na, col_names = TRUE, bom = FALSE) {
-    .Call(`_readr_stream_delim_`, df, connection, delim, na, col_names, bom)
 }
 
 write_lines_ <- function(lines, connection, na, sep = "\n") {
@@ -91,5 +91,9 @@ write_file_ <- function(x, connection) {
 
 write_file_raw_ <- function(x, connection) {
     invisible(.Call(`_readr_write_file_raw_`, x, connection))
+}
+
+stream_delim_ <- function(df, connection, delim, na, col_names, bom, quote_escape) {
+    .Call(`_readr_stream_delim_`, df, connection, delim, na, col_names, bom, quote_escape)
 }
 

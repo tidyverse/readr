@@ -8,9 +8,10 @@
 \alias{fwf_cols}
 \title{Read a fixed width file into a tibble}
 \usage{
-read_fwf(file, col_positions, col_types = NULL, locale = default_locale(),
-  na = c("", "NA"), comment = "", trim_ws = TRUE, skip = 0,
-  n_max = Inf, guess_max = min(n_max, 1000), progress = show_progress())
+read_fwf(file, col_positions, col_types = NULL,
+  locale = default_locale(), na = c("", "NA"), comment = "",
+  trim_ws = TRUE, skip = 0, n_max = Inf, guess_max = min(n_max,
+  1000), progress = show_progress())
 
 fwf_empty(file, skip = 0, col_names = NULL, comment = "", n = 100L)
 

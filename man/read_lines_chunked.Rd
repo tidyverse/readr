@@ -2,10 +2,15 @@
 % Please edit documentation in R/read_lines_chunked.R
 \name{read_lines_chunked}
 \alias{read_lines_chunked}
+\alias{read_lines_raw_chunked}
 \title{Read lines from a file or string by chunk.}
 \usage{
 read_lines_chunked(file, callback, chunk_size = 10000, skip = 0,
-  locale = default_locale(), na = character(), progress = show_progress())
+  locale = default_locale(), na = character(),
+  progress = show_progress())
+
+read_lines_raw_chunked(file, callback, chunk_size = 10000, skip = 0,
+  progress = show_progress())
 }
 \arguments{
 \item{file}{Either a path to a file, a connection, or literal data
@@ -51,4 +56,5 @@ Read lines from a file or string by chunk.
 Other chunked: \code{\link{callback}},
   \code{\link{read_delim_chunked}}
 }
+\concept{chunked}
 \keyword{internal}

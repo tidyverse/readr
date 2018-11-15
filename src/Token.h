@@ -101,9 +101,9 @@ public:
   bool hasNull() const { return hasNull_; }
 
   Token& trim() {
-    while (begin_ != end_ && *begin_ == ' ')
+    while (begin_ != end_ && (*begin_ == ' ' || *begin_ == '\t'))
       begin_++;
-    while (end_ != begin_ && *(end_ - 1) == ' ')
+    while (end_ != begin_ && (*(end_ - 1) == ' ' || *(end_ - 1) == '\t'))
       end_--;
 
     if (begin_ == end_)

@@ -10,6 +10,12 @@ test_that("trim_ws = FALSE keeps ws", {
   expect_equal(df$x, c(" a", "b "))
 })
 
+test_that("trim_ws = TRUE trims spaces and tabs", {
+  df <- read_csv("x\n a\n\tb \t\n", trim_ws = TRUE, progress = FALSE)
+  expect_equal(df$x, c("a", "b"))
+})
+
+
 
 # Encoding ----------------------------------------------------------------
 

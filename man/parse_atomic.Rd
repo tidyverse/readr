@@ -68,6 +68,9 @@ parse_double(x, na = "-")
 }
 \seealso{
 Other parsers: \code{\link{col_skip}},
+  \code{\link{cols_condense}}, \code{\link{cols}},
   \code{\link{parse_datetime}}, \code{\link{parse_factor}},
-  \code{\link{parse_guess}}, \code{\link{parse_number}}
+  \code{\link{parse_guess}}, \code{\link{parse_number}},
+  \code{\link{parse_vector}}
 }
+\concept{parsers}

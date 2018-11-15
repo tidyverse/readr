@@ -19,6 +19,7 @@ collector_find <- function(name) {
 
 #' Parse a character vector.
 #'
+#' @family parsers
 #' @param x Character vector of elements to parse.
 #' @param collector Column specification.
 #' @inheritParams read_delim

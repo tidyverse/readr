@@ -35,7 +35,7 @@ License: GPL (>= 2) | file LICENSE
 BugReports: https://github.com/tidyverse/readr/issues
 URL: http://readr.tidyverse.org, https://github.com/tidyverse/readr
 VignetteBuilder: knitr
-RoxygenNote: 6.0.1
+RoxygenNote: 6.1.0
 Roxygen: list(markdown = TRUE)
 Remotes:
     tidyverse/hms

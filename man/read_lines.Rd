@@ -9,7 +9,8 @@
 read_lines(file, skip = 0, n_max = -1L, locale = default_locale(),
   na = character(), progress = show_progress())
 
-read_lines_raw(file, skip = 0, n_max = -1L, progress = show_progress())
+read_lines_raw(file, skip = 0, n_max = -1L,
+  progress = show_progress())
 
 write_lines(x, path, sep = "\\n", na = "NA", append = FALSE)
 }

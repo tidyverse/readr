@@ -35,14 +35,20 @@ public:
   int size() { return n_; }
 
   void resize(int n) {
+    // Rcpp::Rcerr << "Resizing to: " << n << std::endl;
     if (n == n_)
       return;
 
     if (column_ == R_NilValue)
       return;
 
+    if (n > 0 && n < n_) {
+      SETLENGTH(column_, n);
+      SET_TRUELENGTH(column_, n);
+    } else {
+      column_ = Rf_lengthgets(column_, n);
+    }
     n_ = n;
-    column_ = Rf_lengthgets(column_, n);
   }
 
   void clear() { resize(0); }

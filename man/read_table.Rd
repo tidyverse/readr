@@ -7,11 +7,13 @@
 \usage{
 read_table(file, col_names = TRUE, col_types = NULL,
   locale = default_locale(), na = "NA", skip = 0, n_max = Inf,
-  guess_max = min(n_max, 1000), progress = show_progress(), comment = "")
+  guess_max = min(n_max, 1000), progress = show_progress(),
+  comment = "")
 
 read_table2(file, col_names = TRUE, col_types = NULL,
   locale = default_locale(), na = "NA", skip = 0, n_max = Inf,
-  guess_max = min(n_max, 1000), progress = show_progress(), comment = "")
+  guess_max = min(n_max, 1000), progress = show_progress(),
+  comment = "")
 }
 \arguments{
 \item{file}{Either a path to a file, a connection, or literal data

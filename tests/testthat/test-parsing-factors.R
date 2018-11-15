@@ -84,3 +84,13 @@ test_that("factors parse like factor if trim_ws = FALSE (735)", {
       as.integer(parse_factor(c("a", "a "), levels = c("a ", "a"), trim_ws = FALSE)),
       as.integer(factor(c("a", "a "), levels = c("a ", "a"))))
 })
+
+test_that("Can parse a factor with levels of NA and empty string", {
+  x <- c("", "NC", "NC", "NC", "", "", "NB", "NA", "", "", "NB", "NA",
+    "NA", "NC", "NB", "NB", "NC", "NB", "NA", "NA")
+
+  expect_equal(
+    as.integer(parse_factor(x, levels = c("NA", "NB", "NC", ""), na = character())),
+    as.integer(factor(x, levels = c("NA", "NB", "NC", "")))
+  )
+})

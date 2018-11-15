@@ -11,7 +11,10 @@ Use this function to ignore a column when reading in a file.
 To skip all columns not otherwise specified, use \code{\link{cols_only}()}.
 }
 \seealso{
-Other parsers: \code{\link{parse_datetime}},
+Other parsers: \code{\link{cols_condense}},
+  \code{\link{cols}}, \code{\link{parse_datetime}},
   \code{\link{parse_factor}}, \code{\link{parse_guess}},
-  \code{\link{parse_logical}}, \code{\link{parse_number}}
+  \code{\link{parse_logical}}, \code{\link{parse_number}},
+  \code{\link{parse_vector}}
 }
+\concept{parsers}
