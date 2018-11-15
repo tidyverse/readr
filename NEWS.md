@@ -33,6 +33,9 @@ you would pass `skip = 3`, now you only need to pass `skip = 2`.
 * `write_file()` gains a `sep` argument, to specify the line separator (#665).
 * Allow files to be read via FTP over SSH by recognising `sftp` as a URL protocol (#707, @jdeboer).
 * `parse_date*() accepts `%a` for local day of week (#763, @tigertoes).
+* `parse_factor()` now has `levels = NULL` by default (#862, @mikmart).
+* `"f"` can now be used as a shortcode for `col_factor()` in `cols()` and the
+  `col_types` argument to `read_delim()` and friends (#810, @mikmart).
 
 ## Bug Fixes
 
