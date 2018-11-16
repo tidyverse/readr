@@ -9,9 +9,10 @@
 read_lines(file, skip = 0, n_max = -1L, locale = default_locale(),
   na = character(), progress = show_progress())
 
-read_lines_raw(file, skip = 0, n_max = -1L, progress = show_progress())
+read_lines_raw(file, skip = 0, n_max = -1L,
+  progress = show_progress())
 
-write_lines(x, path, na = "NA", append = FALSE)
+write_lines(x, path, sep = "\\n", na = "NA", append = FALSE)
 }
 \arguments{
 \item{file}{Either a path to a file, a connection, or literal data
@@ -24,7 +25,10 @@ downloaded. Remote gz files can also be automatically downloaded and
 decompressed.
 
 Literal data is most useful for examples and tests. It must contain at
-least one new line to be recognised as data (instead of a path).}
+least one new line to be recognised as data (instead of a path) or be a
+vector of greater than length 1.
+
+Using a value of \code{\link[=clipboard]{clipboard()}} will read from the system clipboard.}
 
 \item{skip}{Number of lines to skip before reading data.}
 
@@ -37,7 +41,7 @@ The default locale is US-centric (like R), but you can use
 the default time zone, encoding, decimal mark, big mark, and day/month
 names.}
 
-\item{na}{Character vector of strings to use for missing values. Set this
+\item{na}{Character vector of strings to interpret as missing values. Set this
 option to \code{character()} to indicate no missing values.}
 
 \item{progress}{Display a progress bar? By default it will only display
@@ -49,6 +53,10 @@ setting option \code{readr.show_progress} to \code{FALSE}.}
 \item{x}{A data frame to write to disk}
 
 \item{path}{Path or connection to write to.}
+
+\item{sep}{The line separator. Defaults to \code{\\n}, commonly used on POSIX
+systems like macOS and linux. For native windows (CRLF) separators use
+\code{\\r\\n}.}
 
 \item{append}{If \code{FALSE}, will overwrite existing file. If \code{TRUE},
 will append to existing file. In both cases, if file does not exist a new

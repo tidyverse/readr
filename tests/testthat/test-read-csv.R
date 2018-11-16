@@ -12,7 +12,7 @@ test_that("read_csv col imputation, col_name detection and NA detection works", 
 })
 
 test_that("read_csv's 'NA' option genuinely changes the NA values", {
-  expect_equal(read_csv("a\nz", na = "z", progress = FALSE)$a, NA_character_)
+  expect_equal(read_csv("a\nz", na = "z", progress = FALSE)$a, NA)
 })
 
 test_that("read_csv's 'NA' option works with multiple NA values", {
@@ -76,6 +76,16 @@ test_that("nuls are dropped with a warning", {
   expect_warning(x <- read_csv("raw.csv", progress = FALSE))
   expect_equal(n_problems(x), 1)
   expect_equal(x$abc, "ab")
+})
+
+test_that("can read from the clipboard", {
+  skip_if_no_clipboard()
+  clipr::write_clip("a,b,c\n1,2,3")
+  expect_identical(read_csv(clipboard()), read_csv("a,b,c\n1,2,3"))
+})
+
+test_that("can read from a multi-line character vector", {
+  expect_identical(nrow(read_csv(c("a,b,c", "1,2,3"))), 1L)
 })
 
 # Column warnings ---------------------------------------------------------
@@ -236,4 +246,32 @@ test_that("read_csv returns an empty data.frame on an empty file", {
 test_that("read_delim errors on length 0 delimiter (557)", {
   expect_error(read_delim("a b\n1 2\n", delim = ""),
     "`delim` must be at least one character, use `read_table\\(\\)` for whitespace delimited input\\.")
+})
+
+test_that("read_csv does not duplicate header rows for leading whitespace (747)", {
+  x <- read_csv("\nfoo,bar\n1,2")
+  expect_equal(nrow(x), 1)
+  expect_equal(x$foo, 1)
+})
+
+test_that("read_csv handles whitespace between delimiters and quoted fields (668)", {
+  x <- read_csv('x,y\n1, \"hi,there\"\n3,4')
+  expect_equal(x$y, c("hi,there", "4"))
+})
+
+test_that("read_csv does not throw warnings for skipped columns (750, 833)", {
+  expect_warning(x <- read_csv("x,y\n1,2", col_types = "i_"), NA)
+})
+
+test_that("read_csv reads headers with embedded newlines (#784)", {
+  x <- read_csv("\"Header\nLine Two\"\nValue\n")
+  expect_equal(names(x), "Header\nLine Two")
+  expect_equal(x[[1]], "Value")
+})
+
+test_that("read_csv reads headers with embedded newlines 2 (#772)", {
+  x <- read_csv("\"Header\nLine Two\"\n\"Another line\nto\nskip\"\nValue,Value2\n", skip = 2, col_names = FALSE)
+  expect_equal(names(x), c("X1", "X2"))
+  expect_equal(x$X1, "Value")
+  expect_equal(x$X2, "Value2")
 })

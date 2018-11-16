@@ -5,10 +5,10 @@
 \alias{col_factor}
 \title{Parse factors}
 \usage{
-parse_factor(x, levels, ordered = FALSE, na = c("", "NA"),
-  locale = default_locale(), include_na = TRUE)
+parse_factor(x, levels = NULL, ordered = FALSE, na = c("", "NA"),
+  locale = default_locale(), include_na = TRUE, trim_ws = TRUE)
 
-col_factor(levels, ordered = FALSE, include_na = FALSE)
+col_factor(levels = NULL, ordered = FALSE, include_na = FALSE)
 }
 \arguments{
 \item{x}{Character vector of values to parse.}
@@ -19,7 +19,7 @@ of appearance in \code{x}.}
 
 \item{ordered}{Is it an ordered factor?}
 
-\item{na}{Character vector of strings to use for missing values. Set this
+\item{na}{Character vector of strings to interpret as missing values. Set this
 option to \code{character()} to indicate no missing values.}
 
 \item{locale}{The locale controls defaults that vary from place to place.
@@ -29,6 +29,9 @@ the default time zone, encoding, decimal mark, big mark, and day/month
 names.}
 
 \item{include_na}{If \code{NA} are present, include as an explicit factor to level?}
+
+\item{trim_ws}{Should leading and trailing whitespace be trimmed from
+each field before parsing it?}
 }
 \description{
 \code{parse_factor} is similar to \code{\link[=factor]{factor()}}, but will generate
@@ -51,6 +54,9 @@ x2 <- parse_factor(x, levels = NULL)
 }
 \seealso{
 Other parsers: \code{\link{col_skip}},
+  \code{\link{cols_condense}}, \code{\link{cols}},
   \code{\link{parse_datetime}}, \code{\link{parse_guess}},
-  \code{\link{parse_logical}}, \code{\link{parse_number}}
+  \code{\link{parse_logical}}, \code{\link{parse_number}},
+  \code{\link{parse_vector}}
 }
+\concept{parsers}

@@ -106,6 +106,13 @@ test_that("write_lines can write to compressed files", {
   expect_equal(mt, read_lines(filename))
 })
 
+test_that("write_lines can write CRLF files", {
+  filename <- tempfile()
+  on.exit(unlink(filename))
+  write_lines(c("a", "b", "c"), filename, sep = "\r\n")
+  expect_identical(charToRaw("a\r\nb\r\nc\r\n"), readBin(filename, n = 9, what = "raw"))
+})
+
 test_that("write_file can write to compressed files", {
 
   mt <- read_file(readr_example("mtcars.csv.bz2"))

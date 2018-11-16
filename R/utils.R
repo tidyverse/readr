@@ -13,7 +13,8 @@ is_syntactic <- function(x) make.names(x) == x
 show_progress <- function() {
   isTRUE(getOption("readr.show_progress")) && # user disables progress bar
   interactive() && # an interactive session
-  is.null(getOption("knitr.in.progress")) # Not actively knitting a document
+  !isTRUE(getOption("rstudio.notebook.executing")) && # Not running in an RStudio notebook chunk
+  !isTRUE(getOption("knitr.in.progress")) # Not actively knitting a document
 }
 
 deparse2 <- function(expr, ..., sep = "\n") {

@@ -7,15 +7,18 @@ using namespace Rcpp;
 
 // [[Rcpp::export]]
 void write_lines_(
-    const CharacterVector& lines, RObject connection, const std::string& na) {
+    const CharacterVector& lines,
+    RObject connection,
+    const std::string& na,
+    const std::string& sep = "\n") {
   boost::iostreams::stream<connection_sink> output(connection);
   for (CharacterVector::const_iterator i = lines.begin(); i != lines.end();
        ++i) {
 
     if (CharacterVector::is_na(*i)) {
-      output << na << '\n';
+      output << na << sep;
     } else {
-      output << Rf_translateCharUTF8(*i) << '\n';
+      output << Rf_translateCharUTF8(*i) << sep;
     }
   }
 
@@ -23,14 +26,15 @@ void write_lines_(
 }
 
 // [[Rcpp::export]]
-void write_lines_raw_(List x, RObject connection) {
+void write_lines_raw_(
+    List x, RObject connection, const std::string& sep = "\n") {
 
   boost::iostreams::stream<connection_sink> output(connection);
 
   for (int i = 0; i < x.length(); ++i) {
     RawVector y = x.at(i);
     output.write(reinterpret_cast<const char*>(&y[0]), y.size() * sizeof(y[0]));
-    output << '\n';
+    output << sep;
   }
 
   return;

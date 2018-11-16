@@ -5,14 +5,15 @@
 \alias{col_number}
 \title{Parse numbers, flexibly}
 \usage{
-parse_number(x, na = c("", "NA"), locale = default_locale())
+parse_number(x, na = c("", "NA"), locale = default_locale(),
+  trim_ws = TRUE)
 
 col_number()
 }
 \arguments{
 \item{x}{Character vector of values to parse.}
 
-\item{na}{Character vector of strings to use for missing values. Set this
+\item{na}{Character vector of strings to interpret as missing values. Set this
 option to \code{character()} to indicate no missing values.}
 
 \item{locale}{The locale controls defaults that vary from place to place.
@@ -20,6 +21,12 @@ The default locale is US-centric (like R), but you can use
 \code{\link[=locale]{locale()}} to create your own locale that controls things like
 the default time zone, encoding, decimal mark, big mark, and day/month
 names.}
+
+\item{trim_ws}{Should leading and trailing whitespace be trimmed from
+each field before parsing it?}
+}
+\value{
+A numeric vector (double) of parsed numbers.
 }
 \description{
 This drops any non-numeric characters before or after the first number.
@@ -31,6 +38,9 @@ parse_number("1,234,567.78")
 }
 \seealso{
 Other parsers: \code{\link{col_skip}},
+  \code{\link{cols_condense}}, \code{\link{cols}},
   \code{\link{parse_datetime}}, \code{\link{parse_factor}},
-  \code{\link{parse_guess}}, \code{\link{parse_logical}}
+  \code{\link{parse_guess}}, \code{\link{parse_logical}},
+  \code{\link{parse_vector}}
 }
+\concept{parsers}

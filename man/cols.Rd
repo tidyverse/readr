@@ -10,22 +10,63 @@ cols(..., .default = col_guess())
 cols_only(...)
 }
 \arguments{
-\item{...}{Either column objects created by \code{col_*()}, or their
-abbreviated character names. If you're only overriding a few columns,
-it's best to refer to columns by name. If not named, the column types
-must match the column names exactly.}
+\item{...}{Either column objects created by \code{col_*()}, or their abbreviated
+character names (as described in the \code{col_types} argument of
+\code{\link{read_delim}}). If you're only overriding a few columns, it's
+best to refer to columns by name. If not named, the column types must match
+the column names exactly.}
 
 \item{.default}{Any named columns not explicitly overridden in \code{...}
 will be read with this column type.}
 }
 \description{
-Create column specification
+\code{cols()} includes all columns in the input data, guessing the column types
+as the default. \code{cols_only()} includes only the columns you explicitly
+specify, skipping the rest.
+}
+\details{
+The available specifications are: (with string abbreviations in brackets)
+\itemize{
+\item \code{col_logical()} \link{l}, containing only \code{T}, \code{F}, \code{TRUE} or \code{FALSE}.
+\item \code{col_integer()} \link{i}, integers.
+\item \code{col_double()} \link{d}, doubles.
+\item \code{col_character()} \link{c}, everything else.
+\item \code{col_factor(levels, ordered)} \link{f}, a fixed set of values.
+\item \code{col_date(format = "")} \link[=d]{D}: with the locale's \code{date_format}.
+\item \code{col_time(format = "")} \link{t}: with the locale's \code{time_format}.
+\item \code{col_datetime(format = "")} \link[=t]{T}: ISO8601 date times
+\item \code{col_number()} \link{n}, numbers containing the \code{grouping_mark}
+\item \code{col_skip()} \link{_, -}, don't import this column.
+\item \code{col_guess()} \link{?}, parse using the "best" type based on the input.
+}
 }
 \examples{
 cols(a = col_integer())
 cols_only(a = col_integer())
 
-# You can also use the standard abreviations
+# You can also use the standard abbreviations
 cols(a = "i")
 cols(a = "i", b = "d", c = "_")
+
+# You can also use multiple sets of column definitions by combining
+# them like so:
+
+t1 <- cols(
+  column_one = col_integer(),
+  column_two = col_number())
+
+t2 <- cols(
+ column_three = col_character())
+
+t3 <- t1
+t3$cols <- c(t1$cols, t2$cols)
+t3
 }
+\seealso{
+Other parsers: \code{\link{col_skip}},
+  \code{\link{cols_condense}},
+  \code{\link{parse_datetime}}, \code{\link{parse_factor}},
+  \code{\link{parse_guess}}, \code{\link{parse_logical}},
+  \code{\link{parse_number}}, \code{\link{parse_vector}}
+}
+\concept{parsers}

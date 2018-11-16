@@ -21,26 +21,42 @@ public:
       const std::string& comment = "") {
     bool hasComment = comment != "";
     bool isComment = false, lineStart = true;
+    bool isQuote = false;
 
     const char* cur = begin;
 
     while (n > 0 && cur != end) {
       if (lineStart) {
         isComment = hasComment && inComment(cur, end, comment);
+      }
+
+      // This doesn't handle escaped quotes or more sophisticated things, but
+      // will work for simple cases.
+      if (*cur == '"') {
+        isQuote = !isQuote;
+        cur++;
         lineStart = false;
+        continue;
+      }
+
+      if (isQuote) {
+        cur++;
+        continue;
       }
 
       if (*cur == '\r') {
         if (cur + 1 != end && *(cur + 1) == '\n') {
           cur++;
         }
-        if (!isComment)
+        if (!(isComment || lineStart))
           n--;
         lineStart = true;
       } else if (*cur == '\n') {
-        if (!isComment)
+        if (!(isComment || lineStart))
           n--;
         lineStart = true;
+      } else if (lineStart) {
+        lineStart = false;
       }
 
       cur++;

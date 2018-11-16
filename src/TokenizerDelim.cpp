@@ -69,7 +69,10 @@ Token TokenizerDelim::nextToken() {
       Rcpp::checkUserInterrupt();
 
     switch (state_) {
-    case STATE_DELIM:
+    case STATE_DELIM: {
+      while (cur_ != end_ && *cur_ == ' ') {
+        ++cur_;
+      }
       if (*cur_ == '\r' || *cur_ == '\n') {
         if (col_ == 0) {
           advanceForLF(&cur_, end_);
@@ -84,6 +87,7 @@ Token TokenizerDelim::nextToken() {
         newField();
         return emptyToken(row, col);
       } else if (*cur_ == quote_) {
+        token_begin = cur_;
         state_ = STATE_STRING;
       } else if (escapeBackslash_ && *cur_ == '\\') {
         state_ = STATE_ESCAPE_F;
@@ -91,6 +95,7 @@ Token TokenizerDelim::nextToken() {
         state_ = STATE_FIELD;
       }
       break;
+    }
 
     case STATE_FIELD:
       if (*cur_ == '\r' || *cur_ == '\n') {

@@ -9,16 +9,7 @@
 #' @param col_types One of `NULL`, a [cols()] specification, or
 #'   a string. See `vignette("readr")` for more details.
 #'
-#'   If `NULL`, all column types will be imputed from the first 1000 rows
-#'   on the input. This is convenient (and fast), but not robust. If the
-#'   imputation fails, you'll need to supply the correct types yourself.
-#'
-#'   If a column specification created by [cols()], it must contain
-#'   one column specification for each column. If you only want to read a
-#'   subset of the columns, use [cols_only()].
-#'
-#'   Unlike other functions `type_convert()` does not allow character
-#'   specifications of `col_types`.
+#'   If `NULL`, column types will be imputed using all rows.
 #' @inheritParams tokenizer_delim
 #' @inheritParams read_delim
 #' @export
@@ -35,24 +26,26 @@
 #' str(type_convert(df))
 #'
 #' # Type convert can be used to infer types from an entire dataset
-#' type_convert(
-#'   read_csv(readr_example("mtcars.csv"),
-#'            col_types = cols(.default = col_character())))
+#'
+#' # first read the data as character
+#' data <- read_csv(readr_example("mtcars.csv"),
+#'                  col_types = cols(.default = col_character()))
+#' str(data)
+#' # Then convert it with type_convert
+#' type_convert(data)
 type_convert <- function(df, col_types = NULL, na = c("", "NA"), trim_ws = TRUE,
                          locale = default_locale()) {
   stopifnot(is.data.frame(df))
   is_character <- vapply(df, is.character, logical(1))
 
   char_cols <- df[is_character]
+
+  col_types <- keep_character_col_types(df, col_types)
+
   guesses <- lapply(char_cols, function(x) {
     x[x %in% na] <- NA
     guess_parser(x, locale)
   })
-
-  if (is.character(col_types)) {
-    stop("`col_types` must be `NULL` or a `cols` specification for `type_convert()`.",
-      call. = FALSE)
-  }
 
   specs <- col_spec_standardise(
     col_types = col_types,
@@ -70,4 +63,33 @@ type_convert <- function(df, col_types = NULL, na = c("", "NA"), trim_ws = TRUE,
   })
 
   df
+}
+
+keep_character_col_types <- function(df, col_types) {
+  if (is.null(col_types)) {
+    return(col_types)
+  }
+
+  is_character <- vapply(df, is.character, logical(1))
+  if (is.character(col_types)) {
+    if (length(col_types) != 1) {
+      stop("`col_types` must be a single string.", call. = FALSE)
+    }
+    if (nchar(col_types) != length(df)) {
+      stop(
+        "`df` and `col_types` must have consistent lengths:\n",
+        "  * `df` has length ", length(df), "\n",
+        "  * `col_types` has length ", nchar(col_types),
+        call. = FALSE)
+    }
+
+    idx <- which(is_character)
+    col_types <- paste(substring(col_types, idx, idx), collapse = "")
+    return(col_types)
+  }
+
+  char_cols <- names(df)[is_character]
+  col_types$cols <- col_types$cols[names(col_types$cols) %in% char_cols]
+
+  col_types
 }

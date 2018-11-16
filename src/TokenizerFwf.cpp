@@ -103,7 +103,7 @@ List whitespaceColumns(List sourceSpec, int n = 100, std::string comment = "") {
   return List::create(_["begin"] = begin, _["end"] = end, _["skip"] = s.lines);
 }
 
-// TokenizerFwf ---------------------------------------------------------------
+  // TokenizerFwf --------------------------------------------------------------
 
 #include "TokenizerFwf.h"
 #include <Rcpp.h>
@@ -112,14 +112,16 @@ TokenizerFwf::TokenizerFwf(
     const std::vector<int>& beginOffset,
     const std::vector<int>& endOffset,
     std::vector<std::string> NA,
-    std::string comment)
+    std::string comment,
+    bool trimWS)
     : beginOffset_(beginOffset),
       endOffset_(endOffset),
       NA_(NA),
       cols_(beginOffset.size()),
       comment_(comment),
       moreTokens_(false),
-      hasComment_(comment.size() > 0) {
+      hasComment_(comment.size() > 0),
+      trimWS_(trimWS) {
   if (beginOffset_.size() != endOffset_.size())
     Rcpp::stop(
         "Begin (%i) and end (%i) specifications must have equal length",
@@ -175,7 +177,7 @@ Token TokenizerFwf::nextToken() {
     return Token(TOKEN_EOF, 0, 0);
 
   // Check for comments only at start of line
-  while (cur_ != end_ && col_ == 0 && isComment(cur_)) {
+  while (cur_ != end_ && col_ == 0 && (isComment(cur_) || isEmpty())) {
     // Skip rest of line
     while (cur_ != end_ && *cur_ != '\n' && *cur_ != '\r') {
       ++cur_;
@@ -287,7 +289,9 @@ Token TokenizerFwf::fieldToken(
     return Token(TOKEN_MISSING, row_, col_);
 
   Token t = Token(begin, end, row_, col_, hasNull);
-  t.trim();
+  if (trimWS_) {
+    t.trim();
+  }
   t.flagNA(NA_);
 
   return t;
@@ -299,4 +303,8 @@ bool TokenizerFwf::isComment(const char* cur) const {
 
   boost::iterator_range<const char*> haystack(cur, end_);
   return boost::starts_with(haystack, comment_);
+}
+
+bool TokenizerFwf::isEmpty() const {
+  return cur_ == end_ || *cur_ == '\r' || *cur_ == '\n';
 }

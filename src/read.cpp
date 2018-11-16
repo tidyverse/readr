@@ -99,6 +99,34 @@ List read_lines_raw_(List sourceSpec, int n_max = -1, bool progress = false) {
   return r.readToVector<List>(n_max);
 }
 
+// [[Rcpp::export]]
+void read_lines_raw_chunked_(
+    List sourceSpec,
+    int chunkSize,
+    Environment callback,
+    bool progress = true) {
+
+  Reader r(
+      Source::create(sourceSpec),
+      TokenizerPtr(new TokenizerLine()),
+      CollectorPtr(new CollectorRaw()),
+      progress);
+
+  List out;
+
+  int pos = 1;
+  while (isTrue(R6method(callback, "continue")())) {
+    List out = r.readToVector<List>(chunkSize);
+    if (out.size() == 0) {
+      return;
+    }
+    R6method(callback, "receive")(out, pos);
+    pos += out.size();
+  }
+
+  return;
+}
+
 typedef std::vector<CollectorPtr>::iterator CollectorItr;
 
 // [[Rcpp::export]]
