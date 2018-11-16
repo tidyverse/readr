@@ -4,6 +4,7 @@ using namespace Rcpp;
 #include "Collector.h"
 #include "LocaleInfo.h"
 #include "QiParsers.h"
+#include "utils.h"
 
 CollectorPtr Collector::create(List spec, LocaleInfo* pLocale) {
   std::string subclass(as<CharacterVector>(spec.attr("class"))[0]);
@@ -218,6 +219,7 @@ void CollectorFactor::insert(int i, Rcpp::String str, const Token& t) {
 void CollectorFactor::setValue(int i, const Token& t) {
 
   switch (t.type()) {
+  case TOKEN_EMPTY:
   case TOKEN_STRING: {
     boost::container::string buffer;
     SourceIterators string = t.getString(&buffer);
@@ -228,7 +230,6 @@ void CollectorFactor::setValue(int i, const Token& t) {
     return;
   };
   case TOKEN_MISSING:
-  case TOKEN_EMPTY:
     if (includeNa_) {
       insert(i, NA_STRING, t);
     } else {
@@ -277,35 +278,18 @@ void CollectorLogical::setValue(int i, const Token& t) {
   case TOKEN_STRING: {
     boost::container::string buffer;
     SourceIterators string = t.getString(&buffer);
-    int size = string.second - string.first;
+    std::string str(string.first, string.second);
+    size_t len = string.second - string.first;
 
-    switch (size) {
-    case 1:
-      if (*string.first == 'T' || *string.first == 't' ||
-          *string.first == '1') {
-        LOGICAL(column_)[i] = 1;
-        return;
-      }
-      if (*string.first == 'F' || *string.first == 'f' ||
-          *string.first == '0') {
-        LOGICAL(column_)[i] = 0;
-        return;
-      }
-      break;
-    case 4:
-      if (strncasecmp(string.first, "true", 4) == 0) {
-        LOGICAL(column_)[i] = 1;
-        return;
-      }
-      break;
-    case 5:
-      if (strncasecmp(string.first, "false", 5) == 0) {
-        LOGICAL(column_)[i] = 0;
-        return;
-      }
-      break;
-    default:
-      break;
+    if (isTrue(string.first, string.second) ||
+        (len == 1 && *string.first == '1')) {
+      LOGICAL(column_)[i] = 1;
+      return;
+    }
+    if (isFalse(string.first, string.second) ||
+        (len == 1 && *string.first == '0')) {
+      LOGICAL(column_)[i] = 0;
+      return;
     }
 
     warn(t.row(), t.col(), "1/0/T/F/TRUE/FALSE", string);

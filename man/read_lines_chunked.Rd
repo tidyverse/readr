@@ -2,10 +2,15 @@
 % Please edit documentation in R/read_lines_chunked.R
 \name{read_lines_chunked}
 \alias{read_lines_chunked}
+\alias{read_lines_raw_chunked}
 \title{Read lines from a file or string by chunk.}
 \usage{
 read_lines_chunked(file, callback, chunk_size = 10000, skip = 0,
-  locale = default_locale(), na = character(), progress = show_progress())
+  locale = default_locale(), na = character(),
+  progress = show_progress())
+
+read_lines_raw_chunked(file, callback, chunk_size = 10000, skip = 0,
+  progress = show_progress())
 }
 \arguments{
 \item{file}{Either a path to a file, a connection, or literal data
@@ -35,7 +40,7 @@ The default locale is US-centric (like R), but you can use
 the default time zone, encoding, decimal mark, big mark, and day/month
 names.}
 
-\item{na}{Character vector of strings to use for missing values. Set this
+\item{na}{Character vector of strings to interpret as missing values. Set this
 option to \code{character()} to indicate no missing values.}
 
 \item{progress}{Display a progress bar? By default it will only display
@@ -52,4 +57,5 @@ Other chunked: \code{\link{callback}},
   \code{\link{melt_delim_chunked}},
   \code{\link{read_delim_chunked}}
 }
+\concept{chunked}
 \keyword{internal}

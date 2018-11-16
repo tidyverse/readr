@@ -81,3 +81,7 @@ read_table2 <- function(file, col_names = TRUE, col_types = NULL,
 #' @rdname spec_delim
 #' @export
 spec_table <- generate_spec_fun(read_table)
+
+#' @rdname spec_delim
+#' @export
+spec_table2 <- generate_spec_fun(read_table2)

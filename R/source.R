@@ -126,11 +126,19 @@ standardise_path <- function(path, input = TRUE) {
       message("`curl` package not installed, falling back to using `url()`")
       con <- url(path)
     }
-    if (identical(tools::file_ext(path), "gz")) {
-      return(gzcon(con))
-    } else {
-      return(con)
-    }
+    ext <- tools::file_ext(path)
+    return(
+      switch(ext,
+        bz2 = ,
+        xz = {
+          close(con)
+          stop("Reading from remote `", ext, "` compressed files is not supported,\n",
+            "  download the files locally first.", call. = FALSE)
+        },
+        gz = gzcon(con),
+        con
+      )
+    )
   }
 
   if (isTRUE(input)) {

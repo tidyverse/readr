@@ -13,16 +13,9 @@ type_convert(df, col_types = NULL, na = c("", "NA"), trim_ws = TRUE,
 \item{col_types}{One of \code{NULL}, a \code{\link[=cols]{cols()}} specification, or
 a string. See \code{vignette("readr")} for more details.
 
-If \code{NULL}, column types will be imputed using all rows.
+If \code{NULL}, column types will be imputed using all rows.}
 
-If a column specification created by \code{\link[=cols]{cols()}}, it must contain
-one column specification for each column. If you only want to read a
-subset of the columns, use \code{\link[=cols_only]{cols_only()}}.
-
-Unlike other functions \code{type_convert()} does not allow character
-specifications of \code{col_types}.}
-
-\item{na}{Character vector of strings to use for missing values. Set this
+\item{na}{Character vector of strings to interpret as missing values. Set this
 option to \code{character()} to indicate no missing values.}
 
 \item{trim_ws}{Should leading and trailing whitespace be trimmed from
@@ -53,7 +46,11 @@ df <- data.frame(x = c("NA", "10"), stringsAsFactors = FALSE)
 str(type_convert(df))
 
 # Type convert can be used to infer types from an entire dataset
-type_convert(
-  read_csv(readr_example("mtcars.csv"),
-           col_types = cols(.default = col_character())))
+
+# first read the data as character
+data <- read_csv(readr_example("mtcars.csv"),
+                 col_types = cols(.default = col_character()))
+str(data)
+# Then convert it with type_convert
+type_convert(data)
 }

@@ -39,3 +39,8 @@ test_that("? guesses column type", {
   out1 <- read_csv("x,y\n1,2\n3,4", col_types = "?i", progress = FALSE)
   expect_equal(out1$x, c(1L, 3L))
 })
+
+test_that("f parses factor (#810)", {
+  out <- read_csv("x,y\na,2\nb,4", col_types = "fi", progress = FALSE)
+  expect_s3_class(out$x, "factor")
+})

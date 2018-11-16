@@ -5,6 +5,7 @@ using namespace Rcpp;
 #include "DateTimeParser.h"
 #include "LocaleInfo.h"
 #include "QiParsers.h"
+#include "utils.h"
 
 typedef bool (*canParseFun)(const std::string&, LocaleInfo* pLocale);
 
@@ -32,7 +33,9 @@ bool allMissing(CharacterVector x) {
 }
 
 bool isLogical(const std::string& x, LocaleInfo* pLocale) {
-  return x == "T" || x == "F" || x == "TRUE" || x == "FALSE";
+  const char* const str = x.data();
+  bool res = isLogical(str, str + x.size());
+  return res;
 }
 
 bool isNumber(const std::string& x, LocaleInfo* pLocale) {

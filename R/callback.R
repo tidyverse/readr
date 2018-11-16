@@ -17,6 +17,10 @@ as_chunk_callback.ChunkCallback <- function(x) {
 #'  \item{ChunkCallback}{Callback interface definition, all callback functions should inherit from this class.}
 #'  \item{SideEffectChunkCallback}{Callback function that is used only for side effects, no results are returned.}
 #'  \item{DataFrameCallback}{Callback function that combines each result together at the end.}
+#'  \item{AccumulateCallBack}{
+#'    Callback function that accumulates a single result. Requires the parameter \code{acc} to specify
+#'    the initial value of the accumulator.  The parameter \code{acc} is \code{NULL} by default.
+#'  }
 #' }
 #' @usage NULL
 #' @format NULL
@@ -42,6 +46,10 @@ as_chunk_callback.ChunkCallback <- function(x) {
 #' # The ListCallback can be used for more flexible output
 #' f <- function(x, pos) x$mpg[x$hp > 100]
 #' read_csv_chunked(readr_example("mtcars.csv"), ListCallback$new(f), chunk_size = 5)
+#'
+#' # The AccumulateCallback accumulates results from each chunk
+#' f <- function(x, pos, acc) sum(x$mpg) + acc
+#' read_csv_chunked(readr_example("mtcars.csv"), AccumulateCallback$new(f, acc = 0), chunk_size = 5)
 #' @export
 ChunkCallback <- R6::R6Class("ChunkCallback",
   private = list(
@@ -129,9 +137,36 @@ ListCallback <- R6::R6Class("ListCallback", inherit = ChunkCallback,
   )
 )
 
-check_callback_fun <- function(callback) {
+#' @usage NULL
+#' @format NULL
+#' @rdname callback
+#' @export
+AccumulateCallback <- R6::R6Class("AccumulateCallback", inherit = ChunkCallback,
+  private = list(
+    acc = NULL
+  ),
+  public = list(
+    initialize = function(callback, acc = NULL) {
+      check_callback_fun(callback, req_args = 3,
+                         message = "`callback` must have three or more arguments")
+      private$acc <- acc
+      private$callback <- callback
+    },
+    receive = function(data, index) {
+      private$acc <- private$callback(data, index, private$acc)
+    },
+    result = function() {
+      private$acc
+    }
+  )
+)
+
+check_callback_fun <- function(callback, req_args = 2, message = NULL) {
+  if(is.null(message)){
+    message <- "`callback` must have two or more arguments"
+  }
   n_args <- length(formals(callback))
-  if (n_args < 2) {
-    stop("`callback` must have two or more arguments", call. = FALSE)
+  if (n_args < req_args) {
+    stop(message, call. = FALSE)
   }
 }

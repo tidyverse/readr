@@ -36,6 +36,42 @@ test_that("read_lines_chunked", {
   expect_true(all(sizes[1:2] == 5))
 })
 
+test_that("read_lines_raw_chunked", {
+  file <- readr_example("mtcars.csv")
+  num_rows <- length(readLines(file))
+
+  get_sizes <- function(data, pos) sizes[[length(sizes) + 1]] <<- length(data)
+
+  # Full file in one chunk
+  sizes <- list()
+  read_lines_raw_chunked(file, get_sizes)
+  expect_equal(num_rows, sizes[[1]])
+
+  # Each line separately
+  sizes <- list()
+  read_lines_raw_chunked(file, get_sizes, chunk_size = 1)
+  expect_true(all(sizes == 1))
+  expect_equal(num_rows, length(sizes))
+
+  # In chunks of 5
+  sizes <- list()
+  read_lines_raw_chunked(file, get_sizes, chunk_size = 5)
+  expect_true(all(sizes[1:6] == 5))
+  expect_true(all(sizes[[7]] == 3))
+
+  # Halting early
+  get_sizes_stop <- function(data, pos) {
+    sizes[[length(sizes) + 1]] <<- length(data)
+    if (pos >= 5) {
+      return(FALSE)
+    }
+  }
+  sizes <- list()
+  read_lines_raw_chunked(file, get_sizes_stop, chunk_size = 5)
+  expect_true(length(sizes) == 2)
+  expect_true(all(sizes[1:2] == 5))
+})
+
 test_that("read_delim_chunked", {
   file <- readr_example("mtcars.csv")
   unchunked <- read_csv(file)
@@ -114,4 +150,38 @@ test_that("ListCallback works as intended", {
   out1 <- read_csv_chunked(f, fun, chunk_size = 10)
 
   expect_equal(out0[["mpg"]], unlist(out1))
+})
+
+
+test_that("AccumulateCallback works as intended", {
+  f <- readr_example("mtcars.csv")
+  out0 <- read_csv(f)
+
+  min_chunks <- function(x, pos, acc){
+    f <- function(x){
+      x[order(x$wt), ][1, ]
+    }
+    if(is.null(acc)){
+      acc <- data.frame()
+    }
+    f(rbind(x, acc))
+  }
+
+  fun1 <- AccumulateCallback$new(min_chunks)
+  out1 <- read_csv_chunked(f, fun1, chunk_size = 10)
+  expect_equal(min_chunks(out0, acc = NULL), out1)
+
+  sum_chunks <- function(x, pos, acc){
+    sum(x$wt) + acc
+  }
+
+  fun2 <- AccumulateCallback$new(sum_chunks, acc = 0)
+  out2 <- read_csv_chunked(f, fun2, chunk_size = 10)
+  expect_equal(sum_chunks(out0, acc = 0), out2)
+
+  expect_error(
+    AccumulateCallback$new(function(x, i) x),
+    "`callback` must have three or more arguments"
+  )
+
 })

@@ -8,10 +8,10 @@
 \alias{fwf_cols}
 \title{Read a fixed width file into a tibble}
 \usage{
-read_fwf(file, col_positions, col_types = NULL, locale = default_locale(),
-  na = c("", "NA"), comment = "", trim_ws = TRUE, skip = 0,
-  n_max = Inf, guess_max = min(n_max, 1000), progress = show_progress(),
-  skip_empty_rows = TRUE)
+read_fwf(file, col_positions, col_types = NULL,
+  locale = default_locale(), na = c("", "NA"), comment = "",
+  trim_ws = TRUE, skip = 0, n_max = Inf, guess_max = min(n_max,
+  1000), progress = show_progress(), skip_empty_rows = TRUE)
 
 fwf_empty(file, skip = 0, col_names = NULL, comment = "", n = 100L)
 
@@ -65,7 +65,7 @@ The default locale is US-centric (like R), but you can use
 the default time zone, encoding, decimal mark, big mark, and day/month
 names.}
 
-\item{na}{Character vector of strings to use for missing values. Set this
+\item{na}{Character vector of strings to interpret as missing values. Set this
 option to \code{character()} to indicate no missing values.}
 
 \item{comment}{A string used to identify comments. Any text after the
@@ -125,9 +125,9 @@ read_fwf(fwf_sample, fwf_empty(fwf_sample, col_names = c("first", "last", "state
 # 2. A vector of field widths
 read_fwf(fwf_sample, fwf_widths(c(20, 10, 12), c("name", "state", "ssn")))
 # 3. Paired vectors of start and end positions
-read_fwf(fwf_sample, fwf_positions(c(1, 30), c(10, 42), c("name", "ssn")))
+read_fwf(fwf_sample, fwf_positions(c(1, 30), c(20, 42), c("name", "ssn")))
 # 4. Named arguments with start and end positions
-read_fwf(fwf_sample, fwf_cols(name = c(1, 10), ssn = c(30, 42)))
+read_fwf(fwf_sample, fwf_cols(name = c(1, 20), ssn = c(30, 42)))
 # 5. Named arguments with column widths
 read_fwf(fwf_sample, fwf_cols(name = 20, state = 10, ssn = 12))
 }

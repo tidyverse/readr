@@ -215,6 +215,68 @@ df3 <- read_csv(
 
 In general, it's good practice to supply an explicit column specification. It is more work, but it ensures that you get warnings if the data changes in unexpected ways. To be really strict, you can use `stop_for_problems(df3)`. This will throw an error if there are any parsing problems, forcing you to fix those problems before proceeding with the analysis.
 
+### Available column specifications
+
+#' The available specifications are: (with string abbreviations in brackets)
+
+* `col_logical()` [l], containing only `T`, `F`, `TRUE` or `FALSE`.
+* `col_integer()` [i], integers.
+* `col_double()` [d], doubles.
+* `col_character()` [c], everything else.
+* `col_factor(levels, ordered)` [f], a fixed set of values.
+* `col_date(format = "")` [D]: with the locale's `date_format`.
+* `col_time(format = "")` [t]: with the locale's `time_format`.
+* `col_datetime(format = "")` [T]: ISO8601 date times
+* `col_number()` [n], numbers containing the `grouping_mark`
+* `col_skip()` [_, -], don't import this column.
+* `col_guess()` [?], parse using the "best" type based on the input.
+
+Use the `col_types` argument to override the default choices. There are two ways to use it:
+* With a string: `"dc__d"`: read first column as double, second as character,
+  skip the next two and read the last column as a double. (There's no way to
+  use this form with types that take additional parameters.)
+* With a (named) list of col objects:
+    ```R
+    read_csv("iris.csv", col_types = cols(
+      Sepal.Length = col_double(),
+      Sepal.Width = col_double(),
+      Petal.Length = col_double(),
+      Petal.Width = col_double(),
+      Species = col_factor(c("setosa", "versicolor", "virginica"))
+    ))
+    ```
+    Or, with their abbreviations:
+    ```R
+      read_csv("iris.csv", col_types = cols(
+      Sepal.Length = "d",
+      Sepal.Width = "d",
+      Petal.Length = "d",
+      Petal.Width = "d",
+      Species = col_factor(c("setosa", "versicolor", "virginica"))
+    ))
+    ```
+    Any omitted columns will be parsed automatically, so the previous call
+    will lead to the same result as:
+    ```R
+    read_csv("iris.csv", col_types = cols(
+      Species = col_factor(c("setosa", "versicolor", "virginica")))
+    )
+    ```
+    You can also set a default type that will be used instead of
+    relying on the automatic detection for columns you don't specify:
+    ```R
+    read_csv("iris.csv", col_types = cols(
+      Species = col_factor(c("setosa", "versicolor", "virginica")),
+      .default = col_double())
+    )
+    ```
+    If you only want to read specified columns, use `cols_only()`:
+    ```R
+    read_csv("iris.csv", col_types = cols_only(
+      Species = col_factor(c("setosa", "versicolor", "virginica")))
+    )
+    ```
+
 ### Output
 
 The output of all these functions is a tibble. Note that characters are never automatically converted to factors (i.e. no more `stringsAsFactors = FALSE`) and column names are left as is, not munged into valid R identifiers (i.e. there is no `check.names = TRUE`). Row names are never set.

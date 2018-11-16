@@ -6,30 +6,40 @@
 \alias{spec_csv2}
 \alias{spec_tsv}
 \alias{spec_table}
+\alias{spec_table2}
 \title{Generate a column specification}
 \usage{
 spec_delim(file, delim, quote = "\\"", escape_backslash = FALSE,
   escape_double = TRUE, col_names = TRUE, col_types = NULL,
   locale = default_locale(), na = c("", "NA"), quoted_na = TRUE,
   comment = "", trim_ws = FALSE, skip = 0, n_max = 0,
-  guess_max = 1000, progress = show_progress(), skip_empty_rows = TRUE)
+  guess_max = 1000, progress = show_progress(),
+  skip_empty_rows = TRUE)
 
 spec_csv(file, col_names = TRUE, col_types = NULL,
   locale = default_locale(), na = c("", "NA"), quoted_na = TRUE,
-  quote = "\\"", comment = "", trim_ws = TRUE, skip = 0, n_max = 0,
-  guess_max = 1000, progress = show_progress(), skip_empty_rows = TRUE)
+  quote = "\\"", comment = "", trim_ws = TRUE, skip = 0,
+  n_max = 0, guess_max = 1000, progress = show_progress(),
+  skip_empty_rows = TRUE)
 
 spec_csv2(file, col_names = TRUE, col_types = NULL,
   locale = default_locale(), na = c("", "NA"), quoted_na = TRUE,
-  quote = "\\"", comment = "", trim_ws = TRUE, skip = 0, n_max = 0,
-  guess_max = 1000, progress = show_progress(), skip_empty_rows = TRUE)
+  quote = "\\"", comment = "", trim_ws = TRUE, skip = 0,
+  n_max = 0, guess_max = 1000, progress = show_progress(),
+  skip_empty_rows = TRUE)
 
 spec_tsv(file, col_names = TRUE, col_types = NULL,
   locale = default_locale(), na = c("", "NA"), quoted_na = TRUE,
-  quote = "\\"", comment = "", trim_ws = TRUE, skip = 0, n_max = 0,
-  guess_max = 1000, progress = show_progress(), skip_empty_rows = TRUE)
+  quote = "\\"", comment = "", trim_ws = TRUE, skip = 0,
+  n_max = 0, guess_max = 1000, progress = show_progress(),
+  skip_empty_rows = TRUE)
 
 spec_table(file, col_names = TRUE, col_types = NULL,
+  locale = default_locale(), na = "NA", skip = 0, n_max = 0,
+  guess_max = 1000, progress = show_progress(), comment = "",
+  skip_empty_rows = TRUE)
+
+spec_table2(file, col_names = TRUE, col_types = NULL,
   locale = default_locale(), na = "NA", skip = 0, n_max = 0,
   guess_max = 1000, progress = show_progress(), comment = "",
   skip_empty_rows = TRUE)
@@ -101,7 +111,7 @@ The default locale is US-centric (like R), but you can use
 the default time zone, encoding, decimal mark, big mark, and day/month
 names.}
 
-\item{na}{Character vector of strings to use for missing values. Set this
+\item{na}{Character vector of strings to interpret as missing values. Set this
 option to \code{character()} to indicate no missing values.}
 
 \item{quoted_na}{Should missing values inside quotes be treated as missing

@@ -28,9 +28,9 @@
 #' # 2. A vector of field widths
 #' read_fwf(fwf_sample, fwf_widths(c(20, 10, 12), c("name", "state", "ssn")))
 #' # 3. Paired vectors of start and end positions
-#' read_fwf(fwf_sample, fwf_positions(c(1, 30), c(10, 42), c("name", "ssn")))
+#' read_fwf(fwf_sample, fwf_positions(c(1, 30), c(20, 42), c("name", "ssn")))
 #' # 4. Named arguments with start and end positions
-#' read_fwf(fwf_sample, fwf_cols(name = c(1, 10), ssn = c(30, 42)))
+#' read_fwf(fwf_sample, fwf_cols(name = c(1, 20), ssn = c(30, 42)))
 #' # 5. Named arguments with column widths
 #' read_fwf(fwf_sample, fwf_cols(name = 20, state = 10, ssn = 12))
 read_fwf <- function(file, col_positions, col_types = NULL,
@@ -106,7 +106,7 @@ fwf_positions <- function(start, end = NULL, col_names = NULL) {
   tibble(
     begin = start - 1L,
     end = end, # -1 to change to 0 offset, +1 to be exclusive,
-    col_names = col_names
+    col_names = as.character(col_names)
   )
 }
 
