@@ -1,6 +1,11 @@
+url: https://readr.tidyverse.org
+
 template:
   package: tidytemplate
-  default_assets: false
+
+authors:
+  "Jim Hester":
+    href: http://jimhester.com
 
 home:
   strip_header: true
@@ -99,6 +104,8 @@ reference:
   - count_fields
   - guess_encoding
   - type_convert
+  - readr_example
+  - clipboard
 
 - title: Chunked API
   desc: >

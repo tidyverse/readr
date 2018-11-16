@@ -6,7 +6,8 @@
 \alias{date_names_langs}
 \title{Create or retrieve date names}
 \usage{
-date_names(mon, mon_ab = mon, day, day_ab = day, am_pm = c("AM", "PM"))
+date_names(mon, mon_ab = mon, day, day_ab = day, am_pm = c("AM",
+  "PM"))
 
 date_names_lang(language)
 
@@ -20,7 +21,7 @@ date_names_langs()
 \item{am_pm}{Names used for AM and PM.}
 
 \item{language}{A BCP 47 locale, made up of a languge and a region,
-e.g. \code{"en_US"} for American English. See \code{date_names_locales()}
+e.g. \code{"en_US"} for American English. See \code{date_names_langs()}
 for a complete list of available locales.}
 }
 \description{

@@ -6,6 +6,7 @@
 \alias{spec_csv2}
 \alias{spec_tsv}
 \alias{spec_table}
+\alias{spec_table2}
 \title{Generate a column specification}
 \usage{
 spec_delim(file, delim, quote = "\\"", escape_backslash = FALSE,
@@ -16,20 +17,24 @@ spec_delim(file, delim, quote = "\\"", escape_backslash = FALSE,
 
 spec_csv(file, col_names = TRUE, col_types = NULL,
   locale = default_locale(), na = c("", "NA"), quoted_na = TRUE,
-  quote = "\\"", comment = "", trim_ws = TRUE, skip = 0, n_max = 0,
-  guess_max = 1000, progress = show_progress())
+  quote = "\\"", comment = "", trim_ws = TRUE, skip = 0,
+  n_max = 0, guess_max = 1000, progress = show_progress())
 
 spec_csv2(file, col_names = TRUE, col_types = NULL,
   locale = default_locale(), na = c("", "NA"), quoted_na = TRUE,
-  quote = "\\"", comment = "", trim_ws = TRUE, skip = 0, n_max = 0,
-  guess_max = 1000, progress = show_progress())
+  quote = "\\"", comment = "", trim_ws = TRUE, skip = 0,
+  n_max = 0, guess_max = 1000, progress = show_progress())
 
 spec_tsv(file, col_names = TRUE, col_types = NULL,
   locale = default_locale(), na = c("", "NA"), quoted_na = TRUE,
-  quote = "\\"", comment = "", trim_ws = TRUE, skip = 0, n_max = 0,
-  guess_max = 1000, progress = show_progress())
+  quote = "\\"", comment = "", trim_ws = TRUE, skip = 0,
+  n_max = 0, guess_max = 1000, progress = show_progress())
 
 spec_table(file, col_names = TRUE, col_types = NULL,
+  locale = default_locale(), na = "NA", skip = 0, n_max = 0,
+  guess_max = 1000, progress = show_progress(), comment = "")
+
+spec_table2(file, col_names = TRUE, col_types = NULL,
   locale = default_locale(), na = "NA", skip = 0, n_max = 0,
   guess_max = 1000, progress = show_progress(), comment = "")
 }
@@ -44,7 +49,10 @@ downloaded. Remote gz files can also be automatically downloaded and
 decompressed.
 
 Literal data is most useful for examples and tests. It must contain at
-least one new line to be recognised as data (instead of a path).}
+least one new line to be recognised as data (instead of a path) or be a
+vector of greater than length 1.
+
+Using a value of \code{\link[=clipboard]{clipboard()}} will read from the system clipboard.}
 
 \item{delim}{Single character used to separate fields within a record.}
 
@@ -97,7 +105,7 @@ The default locale is US-centric (like R), but you can use
 the default time zone, encoding, decimal mark, big mark, and day/month
 names.}
 
-\item{na}{Character vector of strings to use for missing values. Set this
+\item{na}{Character vector of strings to interpret as missing values. Set this
 option to \code{character()} to indicate no missing values.}
 
 \item{quoted_na}{Should missing values inside quotes be treated as missing

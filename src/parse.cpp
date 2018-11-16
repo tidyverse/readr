@@ -115,7 +115,8 @@ SEXP parse_vector_(
     CharacterVector x,
     List collectorSpec,
     List locale_,
-    const std::vector<std::string>& na) {
+    const std::vector<std::string>& na,
+    const bool trim_ws = true) {
   Warnings warnings;
   int n = x.size();
 
@@ -132,7 +133,9 @@ SEXP parse_vector_(
     } else {
       SEXP string = x[i];
       t = Token(CHAR(string), CHAR(string) + Rf_length(string), i, -1, false);
-      t.trim();
+      if (trim_ws) {
+        t.trim();
+      }
       t.flagNA(na);
     }
     col->setValue(i, t);

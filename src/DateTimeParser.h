@@ -173,6 +173,10 @@ public:
         if (!consumeInteger1(2, &day_, false))
           return false;
         break;
+      case 'a': // abbreviated day of week
+        if (!consumeString(pLocale_->dayAb_, &day_))
+          return false;
+        break;
       case 'e': // day with optional leading space
         if (!consumeInteger1WithSpace(2, &day_))
           return false;

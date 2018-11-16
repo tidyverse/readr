@@ -37,7 +37,7 @@ NULL
 #' @rdname Tokenizers
 #' @param comment A string used to identify comments. Any text after the
 #'   comment characters will be silently ignored.
-#' @param na Character vector of strings to use for missing values. Set this
+#' @param na Character vector of strings to interpret as missing values. Set this
 #'   option to `character()` to indicate no missing values.
 #' @param quoted_na Should missing values inside quotes be treated as missing
 #'   values (the default) or strings.
@@ -121,8 +121,8 @@ tokenizer_log <- function() {
 #' @param begin,end Begin and end offsets for each file. These are C++
 #'   offsets so the first column is column zero, and the ranges are
 #'   [begin, end) (i.e inclusive-exclusive).
-tokenizer_fwf <- function(begin, end, na = "NA", comment = "") {
-  structure(list(begin = begin, end = end, na = na, comment = comment), class = "tokenizer_fwf")
+tokenizer_fwf <- function(begin, end, na = "NA", comment = "", trim_ws = TRUE) {
+  structure(list(begin = begin, end = end, na = na, comment = comment, trim_ws = trim_ws), class = "tokenizer_fwf")
 }
 
 #' @export

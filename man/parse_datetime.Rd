@@ -10,11 +10,13 @@
 \title{Parse date/times}
 \usage{
 parse_datetime(x, format = "", na = c("", "NA"),
-  locale = default_locale())
+  locale = default_locale(), trim_ws = TRUE)
 
-parse_date(x, format = "", na = c("", "NA"), locale = default_locale())
+parse_date(x, format = "", na = c("", "NA"),
+  locale = default_locale(), trim_ws = TRUE)
 
-parse_time(x, format = "", na = c("", "NA"), locale = default_locale())
+parse_time(x, format = "", na = c("", "NA"),
+  locale = default_locale(), trim_ws = TRUE)
 
 col_datetime(format = "")
 
@@ -32,7 +34,7 @@ time formats specified in the \code{\link[=locale]{locale()}}.
 Unlike \code{\link[=strptime]{strptime()}}, the format specification must match
 the complete string.}
 
-\item{na}{Character vector of strings to use for missing values. Set this
+\item{na}{Character vector of strings to interpret as missing values. Set this
 option to \code{character()} to indicate no missing values.}
 
 \item{locale}{The locale controls defaults that vary from place to place.
@@ -40,11 +42,14 @@ The default locale is US-centric (like R), but you can use
 \code{\link[=locale]{locale()}} to create your own locale that controls things like
 the default time zone, encoding, decimal mark, big mark, and day/month
 names.}
+
+\item{trim_ws}{Should leading and trailing whitespace be trimmed from
+each field before parsing it?}
 }
 \value{
 A \code{\link[=POSIXct]{POSIXct()}} vector with \code{tzone} attribute set to
 \code{tz}. Elements that could not be parsed (or did not generate valid
-dates) will bes set to \code{NA}, and a warning message will inform
+dates) will be set to \code{NA}, and a warning message will inform
 you of the total number of failures.
 }
 \description{
@@ -70,7 +75,8 @@ month and "\%d" matches a 2 digit day. Month and day default to \code{1},
 70-99 -> 1970-1999.
 \item Month: "\%m" (2 digits), "\%b" (abbreviated name in current
 locale), "\%B" (full name in current locale).
-\item Day: "\%d" (2 digits), "\%e" (optional leading space)
+\item Day: "\%d" (2 digits), "\%e" (optional leading space),
+"%a" (abbreviated name in current locale).
 \item Hour: "\%H" or "\%I", use I (and not H) with AM/PM.
 \item Minutes: "\%M"
 \item Seconds: "\%S" (integer seconds), "\%OS" (partial seconds)
@@ -168,6 +174,9 @@ parse_datetime("1979-10-14T1010", locale = locale(tz = ""))
 }
 \seealso{
 Other parsers: \code{\link{col_skip}},
+  \code{\link{cols_condense}}, \code{\link{cols}},
   \code{\link{parse_factor}}, \code{\link{parse_guess}},
-  \code{\link{parse_logical}}, \code{\link{parse_number}}
+  \code{\link{parse_logical}}, \code{\link{parse_number}},
+  \code{\link{parse_vector}}
 }
+\concept{parsers}

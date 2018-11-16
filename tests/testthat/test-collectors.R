@@ -1,11 +1,11 @@
 context("Collectors")
 
-test_that("guess for empty strings is character", {
-  expect_equal(guess_parser(c("", "")), "character")
+test_that("guess for empty strings is logical", {
+  expect_equal(guess_parser(c("", "")), "logical")
 })
 
-test_that("guess for missing vector is character", {
-  expect_equal(guess_parser(NA_character_), "character")
+test_that("guess for missing vector is logical", {
+  expect_equal(guess_parser(NA_character_), "logical")
 })
 
 test_that("empty + NA ignored when determining type", {
@@ -38,4 +38,9 @@ test_that("_ or - skips column", {
 test_that("? guesses column type", {
   out1 <- read_csv("x,y\n1,2\n3,4", col_types = "?i", progress = FALSE)
   expect_equal(out1$x, c(1L, 3L))
+})
+
+test_that("f parses factor (#810)", {
+  out <- read_csv("x,y\na,2\nb,4", col_types = "fi", progress = FALSE)
+  expect_s3_class(out$x, "factor")
 })

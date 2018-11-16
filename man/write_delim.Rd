@@ -3,26 +3,37 @@
 \name{write_delim}
 \alias{write_delim}
 \alias{write_csv}
+\alias{write_csv2}
 \alias{write_excel_csv}
+\alias{write_excel_csv2}
 \alias{write_tsv}
 \title{Write a data frame to a delimited file}
 \usage{
 write_delim(x, path, delim = " ", na = "NA", append = FALSE,
-  col_names = !append)
+  col_names = !append, quote_escape = "double")
 
-write_csv(x, path, na = "NA", append = FALSE, col_names = !append)
+write_csv(x, path, na = "NA", append = FALSE, col_names = !append,
+  quote_escape = "double")
 
-write_excel_csv(x, path, na = "NA", append = FALSE, col_names = !append)
+write_csv2(x, path, na = "NA", append = FALSE, col_names = !append,
+  quote_escape = "double")
 
-write_tsv(x, path, na = "NA", append = FALSE, col_names = !append)
+write_excel_csv(x, path, na = "NA", append = FALSE,
+  col_names = !append, delim = ",", quote_escape = "double")
+
+write_excel_csv2(x, path, na = "NA", append = FALSE,
+  col_names = !append, delim = ";", quote_escape = "double")
+
+write_tsv(x, path, na = "NA", append = FALSE, col_names = !append,
+  quote_escape = "double")
 }
 \arguments{
 \item{x}{A data frame to write to disk}
 
 \item{path}{Path or connection to write to.}
 
-\item{delim}{Delimiter used to separate values. Defaults to \code{" "}. Must be
-a single character.}
+\item{delim}{Delimiter used to separate values. Defaults to \code{" "} for \code{write_delim()}, \code{","} for \code{write_excel_csv()} and
+\code{";"} for \code{write_excel_csv2()}. Must be a single character.}
 
 \item{na}{String used for missing values. Defaults to NA. Missing values
 will never be quoted; strings with the same value as \code{na} will
@@ -32,7 +43,13 @@ always be quoted.}
 will append to existing file. In both cases, if file does not exist a new
 file is created.}
 
-\item{col_names}{Write columns names at the top of the file?}
+\item{col_names}{Write columns names at the top of the file? Must be either
+\code{TRUE} or \code{FALSE}.}
+
+\item{quote_escape}{The type of escaping to use for quoted values, one of
+"double", "backslash" or "none". You can also use \code{FALSE}, which is
+equivalent to "none". The default is to double the quotes, which is the
+format excel expects.}
 }
 \value{
 \code{write_*()} returns the input \code{x} invisibly.
@@ -45,13 +62,23 @@ columns to suitable output.
 \section{Output}{
 
 Factors are coerced to character. Doubles are formatted using the grisu3
-algorithm. POSIXct's are formatted as ISO8601.
+algorithm. POSIXct's are formatted as ISO8601 with a UTC timezone \emph{Note:
+\code{POSIXct} objects in local or non-UTC timezones will be converted to UTC time
+before writing.}
 
-All columns are encoded as UTF-8. \code{write_excel_csv()} also includes a
+All columns are encoded as UTF-8. \code{write_excel_csv()} and \code{write_excel_csv2()} also include a
 \href{https://en.wikipedia.org/wiki/Byte_order_mark}{UTF-8 Byte order mark}
 which indicates to Excel the csv is UTF-8 encoded.
 
+\code{write_excel_csv2()} and \code{write_csv2} were created to allow users with
+different locale settings save csv files with their default settings \code{;} as
+column separator and \code{,} as decimal separator. This is common in some European countries.
+
 Values are only quoted if needed: if they contain a comma, quote or newline.
+
+The \code{write_*()} functions will automatically compress outputs if an appropriate extension is given. At present, three
+extensions are supported, \code{.gz} for gzip compression, \code{.bz2} for bzip2 compression and \code{.xz} for lzma compression.  See
+the examples for more information.
 }
 
 \examples{

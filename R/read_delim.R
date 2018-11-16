@@ -1,4 +1,4 @@
-#' @useDynLib readr
+#' @useDynLib readr, .registration = TRUE
 #' @importClassesFrom Rcpp "C++Object"
 NULL
 
@@ -7,9 +7,8 @@ NULL
 #' `read_csv()` and `read_tsv()` are special cases of the general
 #' `read_delim()`. They're useful for reading the most common types of
 #' flat file data, comma separated values and tab separated values,
-#' respectively. `read_csv2()` uses `;` for separators, instead of
-#' `,`. This is common in European countries which use `,` as the
-#' decimal separator.
+#' respectively. `read_csv2()` uses `;` for the field separator and `,` for the
+#' decimal point. This is common in some European countries.
 #' @inheritParams datasource
 #' @inheritParams tokenizer_delim
 #' @param col_names Either `TRUE`, `FALSE` or a character vector
@@ -54,7 +53,7 @@ NULL
 #'   is updated every 50,000 values and will only display if estimated reading
 #'   time is 5 seconds or more. The automatic progress bar can be disabled by
 #'   setting option \code{readr.show_progress} to \code{FALSE}.
-#' @return A data frame. If there are parsing problems, a warning tells you
+#' @return A [tibble()]. If there are parsing problems, a warning tells you
 #'   how many, and you can retrieve the details with \code{\link{problems}()}.
 #' @export
 #' @examples
@@ -69,7 +68,7 @@ NULL
 #' read_csv("x,y\n1,2\n3,4")
 #'
 #' # Column types --------------------------------------------------------------
-#' # By default, readr guesses the columns types, looking at the first 100 rows.
+#' # By default, readr guesses the columns types, looking at the first 1000 rows.
 #' # You can override with a compact specification:
 #' read_csv("x,y\n1,2\n3,4", col_types = "dc")
 #'
@@ -115,7 +114,7 @@ read_csv <- function(file, col_names = TRUE, col_types = NULL,
                      quoted_na = TRUE, quote = "\"", comment = "", trim_ws = TRUE,
                      skip = 0, n_max = Inf, guess_max = min(1000, n_max),
                      progress = show_progress()) {
-  tokenizer <- tokenizer_csv(na = na, quoted_na = TRUE, quote = quote,
+  tokenizer <- tokenizer_csv(na = na, quoted_na = quoted_na, quote = quote,
     comment = comment, trim_ws = trim_ws)
   read_delimited(file, tokenizer, col_names = col_names, col_types = col_types,
     locale = locale, skip = skip, comment = comment, n_max = n_max, guess_max =
@@ -177,7 +176,13 @@ read_delimited <- function(file, tokenizer, col_names = TRUE, col_types = NULL,
     if (empty_file(file)) {
        return(tibble::data_frame())
     }
-    data <- file
+    if (is.character(file) && identical(locale$encoding, "UTF-8")) {
+      # When locale is not set, file is probablly marked as its correct encoding.
+      # As default_locale() assumes file is UTF-8, file should be encoded as UTF-8 for non-UTF-8 MBCS locales.
+      data <- enc2utf8(file)
+    } else {
+      data <- file
+    }
   }
 
   spec <- col_spec_standardise(

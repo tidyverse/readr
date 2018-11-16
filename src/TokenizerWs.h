@@ -29,6 +29,8 @@ private:
   Token fieldToken(SourceIterator begin, SourceIterator end, bool hasNull);
 
   bool isComment(const char* cur) const;
+  bool isEmpty() const;
+  void ignoreLine();
 };
 
 #endif

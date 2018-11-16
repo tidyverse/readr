@@ -109,3 +109,22 @@ test_that("large numbers are parsed properly", {
 
   expect_equal(parse_double("1267650600228229401496703205376", locale = es_MX), 1.267650600228229401496703205376e+30)
 })
+
+# Scientific Notation -------------------------------------------------------
+
+test_that("scientific notation is parsed properly", {
+  expect_equal(parse_number("1e20"), 1e20)
+  expect_equal(parse_number("3e2"), 300)
+  expect_equal(parse_number("1e+20"), 1e20)
+  expect_equal(parse_number("3e+2"), 300)
+  expect_equal(parse_number("3e0"), 3)
+  expect_equal(parse_number("ignore17e4ignore"), 170000)
+  expect_equal(parse_number("1.2345e4"), 12345)
+  expect_equal(parse_number("-5.4e3"), -5400)
+  expect_equal(parse_number("0E12"), 0)
+  expect_equal(parse_number("17E-5"), 0.00017)
+  expect_equal(parse_number("-17E-5"), -0.00017)
+  expect_equal(parse_number("-17E-5-5"), -0.00017)
+  expect_equal(parse_number("1.2E-3"), 0.0012)
+})
+

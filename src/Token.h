@@ -63,7 +63,7 @@ public:
   }
 
   SEXP asRaw() const {
-    int n = (type_ == TOKEN_STRING) ? end_ - begin_ : 0;
+    size_t n = (type_ == TOKEN_STRING) ? end_ - begin_ : 0;
     Rcpp::RawVector out(n);
 
     if (n > 0)
@@ -101,9 +101,9 @@ public:
   bool hasNull() const { return hasNull_; }
 
   Token& trim() {
-    while (begin_ != end_ && *begin_ == ' ')
+    while (begin_ != end_ && (*begin_ == ' ' || *begin_ == '\t'))
       begin_++;
-    while (end_ != begin_ && *(end_ - 1) == ' ')
+    while (end_ != begin_ && (*(end_ - 1) == ' ' || *(end_ - 1) == '\t'))
       end_--;
 
     if (begin_ == end_)

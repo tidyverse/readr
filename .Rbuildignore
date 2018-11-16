@@ -23,3 +23,5 @@
 ^travis/check_format\.sh$
 ^src/\.clang-format$
 ^.vimrc$
+^CONDUCT\.md$
+^\.github$

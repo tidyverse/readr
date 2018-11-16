@@ -7,11 +7,13 @@
 \usage{
 read_table(file, col_names = TRUE, col_types = NULL,
   locale = default_locale(), na = "NA", skip = 0, n_max = Inf,
-  guess_max = min(n_max, 1000), progress = show_progress(), comment = "")
+  guess_max = min(n_max, 1000), progress = show_progress(),
+  comment = "")
 
 read_table2(file, col_names = TRUE, col_types = NULL,
   locale = default_locale(), na = "NA", skip = 0, n_max = Inf,
-  guess_max = min(n_max, 1000), progress = show_progress(), comment = "")
+  guess_max = min(n_max, 1000), progress = show_progress(),
+  comment = "")
 }
 \arguments{
 \item{file}{Either a path to a file, a connection, or literal data
@@ -24,7 +26,10 @@ downloaded. Remote gz files can also be automatically downloaded and
 decompressed.
 
 Literal data is most useful for examples and tests. It must contain at
-least one new line to be recognised as data (instead of a path).}
+least one new line to be recognised as data (instead of a path) or be a
+vector of greater than length 1.
+
+Using a value of \code{\link[=clipboard]{clipboard()}} will read from the system clipboard.}
 
 \item{col_names}{Either \code{TRUE}, \code{FALSE} or a character vector
 of column names.
@@ -64,7 +69,7 @@ The default locale is US-centric (like R), but you can use
 the default time zone, encoding, decimal mark, big mark, and day/month
 names.}
 
-\item{na}{Character vector of strings to use for missing values. Set this
+\item{na}{Character vector of strings to interpret as missing values. Set this
 option to \code{character()} to indicate no missing values.}
 
 \item{skip}{Number of lines to skip before reading data.}
@@ -84,7 +89,7 @@ comment characters will be silently ignored.}
 }
 \description{
 \code{read_table()} and \code{read_table2()} are designed to read the type of textual
-data where each column is #' separate by one (or more) columns of space.
+data where each column is separated by one (or more) columns of space.
 
 \code{read_table2()} is like \code{\link[=read.table]{read.table()}}, it allows any number of whitespace
 characters between columns, and the lines can be of different lengths.
