@@ -21,8 +21,39 @@ the number of lines you need to pass to the `skip` parameter. For instance if
 your file had a one blank line then two more lines you want to skip previously
 you would pass `skip = 3`, now you only need to pass `skip = 2`.
 
+### Melt functions
+
+There is now a family of `melt_*()` functions in readr. These functions store
+data in 'long' or 'melted' form, where each row corresponds to a single
+value in the dataset. This form is useful when your data is ragged and not
+rectangular.
+
+``` r
+data <-"a,b,c
+1,2
+w,x,y,z"
+
+readr::melt_csv(data)
+#> # A tibble: 9 x 4
+#>     row   col data_type value
+#>   <dbl> <dbl> <chr>     <chr>
+#> 1     1     1 character a    
+#> 2     1     2 character b    
+#> 3     1     3 character c    
+#> 4     2     1 integer   1    
+#> 5     2     2 integer   2    
+#> 6     3     1 character w    
+#> 7     3     2 character x    
+#> 8     3     3 character y    
+#> 9     3     4 character z
+```
+
+Thanks to Duncan Garmonsway (@nacnudus) for great work on the idea an
+implementation of the `melt_*()` functions!
+
 ## New features
 
+* `melt_*()` functions added for reading ragged data (#760, @nacnudus).
 * `AccumulateCallback` R6 class added to provide an example of accumulating values in a single result (#689, @blakeboswell).
 * `read_fwf()` can now accept overlapping field specifications (#692, @gergness)
 * `type_convert()` now allows character column specifications and also silently
