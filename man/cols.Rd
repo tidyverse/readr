@@ -31,7 +31,7 @@ The available specifications are: (with string abbreviations in brackets)
 \item \code{col_integer()} \link{i}, integers.
 \item \code{col_double()} \link{d}, doubles.
 \item \code{col_character()} \link{c}, everything else.
-\item \code{col_factor(levels, ordered)}, a fixed set of values.
+\item \code{col_factor(levels, ordered)} \link{f}, a fixed set of values.
 \item \code{col_date(format = "")} \link[=d]{D}: with the locale's \code{date_format}.
 \item \code{col_time(format = "")} \link{t}: with the locale's \code{time_format}.
 \item \code{col_datetime(format = "")} \link[=t]{T}: ISO8601 date times
