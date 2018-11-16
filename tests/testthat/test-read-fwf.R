@@ -150,11 +150,17 @@ test_that("error on empty spec (#511, #519)", {
   expect_error(read_fwf(txt, pos), "Zero-length.*specifications not supported")
 })
 
-test_that("error on overlapping spec (#534)", {
-  expect_error(
-    read_fwf("2015a\n2016b", fwf_positions(c(1, 3, 5), c(4, 4, 5))),
-    "Overlap.*"
-    )
+test_that("error on negatives in fwf spec", {
+  txt = "foo\n"
+  pos = fwf_positions(start = c(1, -1), end = c(2, 3))
+  expect_error(read_fwf(txt, pos), ".*offset.*greater than 0")
+})
+
+test_that("fwf spec can overlap", {
+    x <- read_fwf("2015a\n2016b", fwf_positions(c(1, 3, 5), c(4, 4, 5)))
+    expect_equal(x$X1, c(2015, 2016))
+    expect_equal(x$X2, c(15, 16))
+    expect_equal(x$X3, c("a", "b"))
 })
 
 # fwf_cols
