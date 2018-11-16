@@ -151,3 +151,37 @@ test_that("ListCallback works as intended", {
 
   expect_equal(out0[["mpg"]], unlist(out1))
 })
+
+
+test_that("AccumulateCallback works as intended", {
+  f <- readr_example("mtcars.csv")
+  out0 <- read_csv(f)
+
+  min_chunks <- function(x, pos, acc){
+    f <- function(x){
+      x[order(x$wt), ][1, ]
+    }
+    if(is.null(acc)){
+      acc <- data.frame()
+    }
+    f(rbind(x, acc))
+  }
+
+  fun1 <- AccumulateCallback$new(min_chunks)
+  out1 <- read_csv_chunked(f, fun1, chunk_size = 10)
+  expect_equal(min_chunks(out0, acc = NULL), out1)
+
+  sum_chunks <- function(x, pos, acc){
+    sum(x$wt) + acc
+  }
+
+  fun2 <- AccumulateCallback$new(sum_chunks, acc = 0)
+  out2 <- read_csv_chunked(f, fun2, chunk_size = 10)
+  expect_equal(sum_chunks(out0, acc = 0), out2)
+
+  expect_error(
+    AccumulateCallback$new(function(x, i) x),
+    "`callback` must have three or more arguments"
+  )
+
+})

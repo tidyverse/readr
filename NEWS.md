@@ -23,6 +23,7 @@ you would pass `skip = 3`, now you only need to pass `skip = 2`.
 
 ## New features
 
+* `AccumulateCallback` R6 class added to provide an example of accumulating values in a single result (#689, @blakeboswell).
 * `read_fwf()` can now accept overlapping field specifications (#692, @gergness)
 * `type_convert()` now allows character column specifications and also silently
   skips non-character columns (#369, #699)
