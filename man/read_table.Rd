@@ -8,12 +8,12 @@
 read_table(file, col_names = TRUE, col_types = NULL,
   locale = default_locale(), na = "NA", skip = 0, n_max = Inf,
   guess_max = min(n_max, 1000), progress = show_progress(),
-  comment = "")
+  comment = "", skip_empty_rows = TRUE)
 
 read_table2(file, col_names = TRUE, col_types = NULL,
   locale = default_locale(), na = "NA", skip = 0, n_max = Inf,
   guess_max = min(n_max, 1000), progress = show_progress(),
-  comment = "")
+  comment = "", skip_empty_rows = TRUE)
 }
 \arguments{
 \item{file}{Either a path to a file, a connection, or literal data
@@ -86,6 +86,10 @@ setting option \code{readr.show_progress} to \code{FALSE}.}
 
 \item{comment}{A string used to identify comments. Any text after the
 comment characters will be silently ignored.}
+
+\item{skip_empty_rows}{Should blank rows be ignored altogether? i.e. If this
+option is \code{TRUE} then blank rows will not be represented at all.  If it is
+\code{FALSE} then they will be represented by \code{NA} values in all the columns.}
 }
 \description{
 \code{read_table()} and \code{read_table2()} are designed to read the type of textual

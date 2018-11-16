@@ -35,12 +35,15 @@
 read_table <- function(file, col_names = TRUE, col_types = NULL,
                        locale = default_locale(), na = "NA", skip = 0,
                        n_max = Inf, guess_max = min(n_max, 1000),
-                       progress = show_progress(), comment = "") {
+                       progress = show_progress(), comment = "",
+                       skip_empty_rows = TRUE) {
   ds <- datasource(file, skip = skip)
   columns <- fwf_empty(ds, skip = skip, n = guess_max, comment = comment)
   skip <- skip + columns$skip
 
-  tokenizer <- tokenizer_fwf(columns$begin, columns$end, na = na, comment = comment)
+  tokenizer <- tokenizer_fwf(columns$begin, columns$end, na = na,
+                             comment = comment,
+                             skip_empty_rows = skip_empty_rows)
 
   spec <- col_spec_standardise(
     file = ds, skip = skip, guess_max = guess_max,
@@ -65,9 +68,11 @@ read_table <- function(file, col_names = TRUE, col_types = NULL,
 read_table2 <- function(file, col_names = TRUE, col_types = NULL,
                        locale = default_locale(), na = "NA", skip = 0,
                        n_max = Inf, guess_max = min(n_max, 1000),
-                       progress = show_progress(), comment = "") {
+                       progress = show_progress(), comment = "",
+                       skip_empty_rows = TRUE) {
 
-  tokenizer <- tokenizer_ws(na = na, comment = comment)
+  tokenizer <- tokenizer_ws(na = na, comment = comment,
+                            skip_empty_rows = skip_empty_rows)
   read_delimited(file, tokenizer, col_names = col_names, col_types = col_types,
     locale = locale, skip = skip, comment = comment, n_max = n_max, guess_max =
       guess_max, progress = progress)

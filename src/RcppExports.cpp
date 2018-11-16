@@ -6,14 +6,15 @@
 using namespace Rcpp;
 
 // collectorGuess
-std::string collectorGuess(CharacterVector input, List locale_);
-RcppExport SEXP _readr_collectorGuess(SEXP inputSEXP, SEXP locale_SEXP) {
+std::string collectorGuess(CharacterVector input, List locale_, bool guessInteger);
+RcppExport SEXP _readr_collectorGuess(SEXP inputSEXP, SEXP locale_SEXP, SEXP guessIntegerSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
     Rcpp::traits::input_parameter< CharacterVector >::type input(inputSEXP);
     Rcpp::traits::input_parameter< List >::type locale_(locale_SEXP);
-    rcpp_result_gen = Rcpp::wrap(collectorGuess(input, locale_));
+    Rcpp::traits::input_parameter< bool >::type guessInteger(guessIntegerSEXP);
+    rcpp_result_gen = Rcpp::wrap(collectorGuess(input, locale_, guessInteger));
     return rcpp_result_gen;
 END_RCPP
 }
@@ -238,6 +239,38 @@ BEGIN_RCPP
     return R_NilValue;
 END_RCPP
 }
+// melt_tokens_
+RObject melt_tokens_(List sourceSpec, List tokenizerSpec, ListOf<List> colSpecs, List locale_, int n_max, bool progress);
+RcppExport SEXP _readr_melt_tokens_(SEXP sourceSpecSEXP, SEXP tokenizerSpecSEXP, SEXP colSpecsSEXP, SEXP locale_SEXP, SEXP n_maxSEXP, SEXP progressSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< List >::type sourceSpec(sourceSpecSEXP);
+    Rcpp::traits::input_parameter< List >::type tokenizerSpec(tokenizerSpecSEXP);
+    Rcpp::traits::input_parameter< ListOf<List> >::type colSpecs(colSpecsSEXP);
+    Rcpp::traits::input_parameter< List >::type locale_(locale_SEXP);
+    Rcpp::traits::input_parameter< int >::type n_max(n_maxSEXP);
+    Rcpp::traits::input_parameter< bool >::type progress(progressSEXP);
+    rcpp_result_gen = Rcpp::wrap(melt_tokens_(sourceSpec, tokenizerSpec, colSpecs, locale_, n_max, progress));
+    return rcpp_result_gen;
+END_RCPP
+}
+// melt_tokens_chunked_
+void melt_tokens_chunked_(List sourceSpec, Environment callback, int chunkSize, List tokenizerSpec, ListOf<List> colSpecs, List locale_, bool progress);
+RcppExport SEXP _readr_melt_tokens_chunked_(SEXP sourceSpecSEXP, SEXP callbackSEXP, SEXP chunkSizeSEXP, SEXP tokenizerSpecSEXP, SEXP colSpecsSEXP, SEXP locale_SEXP, SEXP progressSEXP) {
+BEGIN_RCPP
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< List >::type sourceSpec(sourceSpecSEXP);
+    Rcpp::traits::input_parameter< Environment >::type callback(callbackSEXP);
+    Rcpp::traits::input_parameter< int >::type chunkSize(chunkSizeSEXP);
+    Rcpp::traits::input_parameter< List >::type tokenizerSpec(tokenizerSpecSEXP);
+    Rcpp::traits::input_parameter< ListOf<List> >::type colSpecs(colSpecsSEXP);
+    Rcpp::traits::input_parameter< List >::type locale_(locale_SEXP);
+    Rcpp::traits::input_parameter< bool >::type progress(progressSEXP);
+    melt_tokens_chunked_(sourceSpec, callback, chunkSize, tokenizerSpec, colSpecs, locale_, progress);
+    return R_NilValue;
+END_RCPP
+}
 // guess_types_
 std::vector<std::string> guess_types_(List sourceSpec, List tokenizerSpec, Rcpp::List locale_, int n);
 RcppExport SEXP _readr_guess_types_(SEXP sourceSpecSEXP, SEXP tokenizerSpecSEXP, SEXP locale_SEXP, SEXP nSEXP) {
@@ -334,7 +367,7 @@ END_RCPP
 }
 
 static const R_CallMethodDef CallEntries[] = {
-    {"_readr_collectorGuess", (DL_FUNC) &_readr_collectorGuess, 2},
+    {"_readr_collectorGuess", (DL_FUNC) &_readr_collectorGuess, 3},
     {"_readr_whitespaceColumns", (DL_FUNC) &_readr_whitespaceColumns, 3},
     {"_readr_read_connection_", (DL_FUNC) &_readr_read_connection_, 2},
     {"_readr_utctime", (DL_FUNC) &_readr_utctime, 7},
@@ -351,6 +384,8 @@ static const R_CallMethodDef CallEntries[] = {
     {"_readr_read_lines_raw_chunked_", (DL_FUNC) &_readr_read_lines_raw_chunked_, 4},
     {"_readr_read_tokens_", (DL_FUNC) &_readr_read_tokens_, 7},
     {"_readr_read_tokens_chunked_", (DL_FUNC) &_readr_read_tokens_chunked_, 8},
+    {"_readr_melt_tokens_", (DL_FUNC) &_readr_melt_tokens_, 6},
+    {"_readr_melt_tokens_chunked_", (DL_FUNC) &_readr_melt_tokens_chunked_, 7},
     {"_readr_guess_types_", (DL_FUNC) &_readr_guess_types_, 4},
     {"_readr_type_convert_col", (DL_FUNC) &_readr_type_convert_col, 6},
     {"_readr_write_lines_", (DL_FUNC) &_readr_write_lines_, 4},

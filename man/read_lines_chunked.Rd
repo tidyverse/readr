@@ -54,6 +54,7 @@ Read lines from a file or string by chunk.
 }
 \seealso{
 Other chunked: \code{\link{callback}},
+  \code{\link{melt_delim_chunked}},
   \code{\link{read_delim_chunked}}
 }
 \concept{chunked}

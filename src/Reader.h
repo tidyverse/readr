@@ -23,6 +23,7 @@ public:
       CharacterVector colNames = CharacterVector());
 
   RObject readToDataFrame(int lines = -1);
+  RObject meltToDataFrame(List locale_, int lines = -1);
 
   template <typename T> T readToVector(int lines) {
     read(lines);
@@ -54,6 +55,7 @@ private:
 
   void init(CharacterVector colNames);
   int read(int lines = -1);
+  int melt(List locale_, int lines = -1);
   void checkColumns(int i, int j, int n);
 
   void collectorsResize(int n);

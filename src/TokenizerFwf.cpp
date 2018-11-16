@@ -113,7 +113,8 @@ TokenizerFwf::TokenizerFwf(
     const std::vector<int>& endOffset,
     std::vector<std::string> NA,
     std::string comment,
-    bool trimWS)
+    bool trimWS,
+    bool skipEmptyRows)
     : beginOffset_(beginOffset),
       endOffset_(endOffset),
       NA_(NA),
@@ -121,7 +122,8 @@ TokenizerFwf::TokenizerFwf(
       comment_(comment),
       moreTokens_(false),
       hasComment_(comment.size() > 0),
-      trimWS_(trimWS) {
+      trimWS_(trimWS),
+      skipEmptyRows_(skipEmptyRows) {
   if (beginOffset_.size() != endOffset_.size())
     Rcpp::stop(
         "Begin (%i) and end (%i) specifications must have equal length",
@@ -177,7 +179,8 @@ Token TokenizerFwf::nextToken() {
     return Token(TOKEN_EOF, 0, 0);
 
   // Check for comments only at start of line
-  while (cur_ != end_ && col_ == 0 && (isComment(cur_) || isEmpty())) {
+  while (cur_ != end_ && col_ == 0 &&
+         (isComment(cur_) || (isEmpty() && skipEmptyRows_))) {
     // Skip rest of line
     while (cur_ != end_ && *cur_ != '\n' && *cur_ != '\r') {
       ++cur_;
@@ -242,7 +245,9 @@ findBeginning:
     // Find the end of the field, stopping for newlines
     for (int i = 0; i < width; ++i) {
       if (fieldEnd == end_ || *fieldEnd == '\n' || *fieldEnd == '\r') {
-        warn(row_, col_, tfm::format("%i chars", width), tfm::format("%i", i));
+        if (!(col_ == 0 && !skipEmptyRows_))
+          warn(
+              row_, col_, tfm::format("%i chars", width), tfm::format("%i", i));
 
         tooShort = true;
         break;

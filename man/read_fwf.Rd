@@ -11,7 +11,7 @@
 read_fwf(file, col_positions, col_types = NULL,
   locale = default_locale(), na = c("", "NA"), comment = "",
   trim_ws = TRUE, skip = 0, n_max = Inf, guess_max = min(n_max,
-  1000), progress = show_progress())
+  1000), progress = show_progress(), skip_empty_rows = TRUE)
 
 fwf_empty(file, skip = 0, col_names = NULL, comment = "", n = 100L)
 
@@ -85,6 +85,10 @@ in an interactive session and not while knitting a document. The display
 is updated every 50,000 values and will only display if estimated reading
 time is 5 seconds or more. The automatic progress bar can be disabled by
 setting option \code{readr.show_progress} to \code{FALSE}.}
+
+\item{skip_empty_rows}{Should blank rows be ignored altogether? i.e. If this
+option is \code{TRUE} then blank rows will not be represented at all.  If it is
+\code{FALSE} then they will be represented by \code{NA} values in all the columns.}
 
 \item{col_names}{Either NULL, or a character vector column names.}
 

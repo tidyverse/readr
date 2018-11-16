@@ -197,6 +197,8 @@ void CollectorDouble::setValue(int i, const Token& t) {
   }
 }
 
+void CollectorDouble::setValue(int i, size_t st) { REAL(column_)[i] = st; }
+
 void CollectorFactor::insert(int i, Rcpp::String str, const Token& t) {
   std::map<Rcpp::String, int>::iterator it = levelset_.find(str);
   if (it == levelset_.end()) {
