@@ -23,6 +23,8 @@ you would pass `skip = 3`, now you only need to pass `skip = 2`.
 
 ## New features
 
+* `type_convert()` now allows character column specifications and also silently
+  skips non-character columns (#369, #699)
 * The `parse_*()` functions and `read_fwf()` gain a `trim_ws` argument to
   control whether the fields should be trimmed before parsing (#636, #735).
 * `parse_number()` now parses numbers in scientific notation using `e` and `E`
