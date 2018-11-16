@@ -4,6 +4,20 @@
 #' as the default. `cols_only()` includes only the columns you explicitly
 #' specify, skipping the rest.
 #'
+#' The available specifications are: (with string abbreviations in brackets)
+#'
+#' * `col_logical()` [l], containing only `T`, `F`, `TRUE` or `FALSE`.
+#' * `col_integer()` [i], integers.
+#' * `col_double()` [d], doubles.
+#' * `col_character()` [c], everything else.
+#' * `col_factor(levels, ordered)`, a fixed set of values.
+#' * `col_date(format = "")` [D]: with the locale's `date_format`.
+#' * `col_time(format = "")` [t]: with the locale's `time_format`.
+#' * `col_datetime(format = "")` [T]: ISO8601 date times
+#' * `col_number()` [n], numbers containing the `grouping_mark`
+#' * `col_skip()` [_, -], don't import this column.
+#' * `col_guess()` [?], parse using the "best" type based on the input.
+#'
 #' @family parsers
 #' @param ... Either column objects created by `col_*()`, or their abbreviated
 #'   character names (as described in the \code{col_types} argument of
