@@ -151,10 +151,3 @@ test_that("error on empty spec", {
   pos = fwf_positions(start = numeric(0), end = numeric(0))
   expect_error(melt_fwf(txt, pos), "Zero-length.*specifications not supported")
 })
-
-test_that("error on overlapping spec (#534)", {
-  expect_error(
-    melt_fwf("2015a\n2016b", fwf_positions(c(1, 3, 5), c(4, 4, 5))),
-    "Overlap.*"
-    )
-})
