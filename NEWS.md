@@ -50,6 +50,7 @@ you would pass `skip = 3`, now you only need to pass `skip = 2`.
 
 ## Bug Fixes
 
+* `parse_guess()` now guesses logical types when given (lowercase) 'true' and 'false' inputs (#818).
 * `read_*()` now do not print a progress bar when running inside a RStudio notebook chunk (#793)
 * `read_table2()` now skips comments anywhere in the file (#908).
 * `parse_factor()` now handles the case of empty strings separately, so you can

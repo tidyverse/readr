@@ -32,7 +32,7 @@ bool allMissing(CharacterVector x) {
 }
 
 bool isLogical(const std::string& x, LocaleInfo* pLocale) {
-  return x == "T" || x == "F" || x == "TRUE" || x == "FALSE";
+  return Rf_StringTrue(x.c_str()) || Rf_StringFalse(x.c_str());
 }
 
 bool isNumber(const std::string& x, LocaleInfo* pLocale) {

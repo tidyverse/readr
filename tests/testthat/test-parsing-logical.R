@@ -24,6 +24,14 @@ test_that("1 and 0 parsed", {
   expect_equal(parse_logical(c("1", "0")), c(TRUE, FALSE))
 })
 
+test_that("true and false guessed", {
+  expect_equal(guess_parser(c("true", "false")), "logical")
+  expect_equal(guess_parser(c("TRUE", "FALSE")), "logical")
+  expect_equal(guess_parser(c("T", "F")), "logical")
+
+  expect_equal(guess_parser(c("t", "f")), "character")
+})
+
 test_that("other values generate warnings", {
   expect_warning(out <- parse_logical(c("A", "AB", "ABCD", "ABCDE", "NA")))
   expect_equivalent(out, rep(NA, 5))

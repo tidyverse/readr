@@ -277,33 +277,15 @@ void CollectorLogical::setValue(int i, const Token& t) {
     SourceIterators string = t.getString(&buffer);
     int size = string.second - string.first;
 
-    switch (size) {
-    case 1:
-      if (*string.first == 'T' || *string.first == 't' ||
-          *string.first == '1') {
-        LOGICAL(column_)[i] = 1;
-        return;
-      }
-      if (*string.first == 'F' || *string.first == 'f' ||
-          *string.first == '0') {
-        LOGICAL(column_)[i] = 0;
-        return;
-      }
-      break;
-    case 4:
-      if (strncasecmp(string.first, "true", 4) == 0) {
-        LOGICAL(column_)[i] = 1;
-        return;
-      }
-      break;
-    case 5:
-      if (strncasecmp(string.first, "false", 5) == 0) {
-        LOGICAL(column_)[i] = 0;
-        return;
-      }
-      break;
-    default:
-      break;
+    if (Rf_StringTrue(string.first) ||
+        (size == 1 && (*string.first == '1') || *string.first == 't')) {
+      LOGICAL(column_)[i] = 1;
+      return;
+    }
+    if (Rf_StringFalse(string.first) ||
+        (size == 1 && (*string.first == '0') || *string.first == 'f')) {
+      LOGICAL(column_)[i] = 0;
+      return;
     }
 
     warn(t.row(), t.col(), "1/0/T/F/TRUE/FALSE", string);
