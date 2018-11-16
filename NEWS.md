@@ -42,6 +42,9 @@ you would pass `skip = 3`, now you only need to pass `skip = 2`.
 * `write*()` functions gain a `quote_escape` argument to control how quotes are escaped in the output (#854).
 * `read*()` functions now have a more informative error when trying to read a remote bz2 file (#891).
 * `spec_table2()` function added to correspond to `read_table2()` (#778, @mawds).
+* `parse_factor()` now has `levels = NULL` by default (#862, @mikmart).
+* `"f"` can now be used as a shortcode for `col_factor()` in `cols()` and the
+  `col_types` argument to `read_delim()` and friends (#810, @mikmart).
 
 ## Bug Fixes
 

@@ -225,14 +225,14 @@ guess_parser <- function(x, locale = default_locale()) {
 #'
 #' # Using an argument of `NULL` will generate levels based on values of `x`
 #' x2 <- parse_factor(x, levels = NULL)
-parse_factor <- function(x, levels, ordered = FALSE, na = c("", "NA"),
+parse_factor <- function(x, levels = NULL, ordered = FALSE, na = c("", "NA"),
                          locale = default_locale(), include_na = TRUE, trim_ws = TRUE) {
   parse_vector(x, col_factor(levels, ordered, include_na), na = na, locale = locale, trim_ws = trim_ws)
 }
 
 #' @rdname parse_factor
 #' @export
-col_factor <- function(levels, ordered = FALSE, include_na = FALSE) {
+col_factor <- function(levels = NULL, ordered = FALSE, include_na = FALSE) {
   collector("factor", levels = levels, ordered = ordered, include_na = include_na)
 }
 
