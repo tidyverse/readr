@@ -28,8 +28,9 @@ test_that("true and false guessed", {
   expect_equal(guess_parser(c("true", "false")), "logical")
   expect_equal(guess_parser(c("TRUE", "FALSE")), "logical")
   expect_equal(guess_parser(c("T", "F")), "logical")
+  expect_equal(guess_parser(c("t", "f")), "logical")
 
-  expect_equal(guess_parser(c("t", "f")), "character")
+  expect_equal(guess_parser(c("t", "f", "z")), "character")
 })
 
 test_that("other values generate warnings", {

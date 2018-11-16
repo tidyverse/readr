@@ -4,6 +4,7 @@ using namespace Rcpp;
 #include "Collector.h"
 #include "LocaleInfo.h"
 #include "QiParsers.h"
+#include "utils.h"
 
 CollectorPtr Collector::create(List spec, LocaleInfo* pLocale) {
   std::string subclass(as<CharacterVector>(spec.attr("class"))[0]);
@@ -275,15 +276,16 @@ void CollectorLogical::setValue(int i, const Token& t) {
   case TOKEN_STRING: {
     boost::container::string buffer;
     SourceIterators string = t.getString(&buffer);
-    int size = string.second - string.first;
+    std::string str(string.first, string.second);
+    size_t len = string.second - string.first;
 
-    if (Rf_StringTrue(string.first) ||
-        (size == 1 && (*string.first == '1') || *string.first == 't')) {
+    if (isTrue(string.first, string.second) ||
+        (len == 1 && *string.first == '1')) {
       LOGICAL(column_)[i] = 1;
       return;
     }
-    if (Rf_StringFalse(string.first) ||
-        (size == 1 && (*string.first == '0') || *string.first == 'f')) {
+    if (isFalse(string.first, string.second) ||
+        (len == 1 && *string.first == '0')) {
       LOGICAL(column_)[i] = 0;
       return;
     }
