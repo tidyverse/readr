@@ -81,6 +81,7 @@ implementation of the `melt_*()` functions!
 
 ## Bug Fixes
 
+* `standardise_path()` now uses a case-insentitive comparison for the file extensions (#794).
 * `parse_guess()` now guesses logical types when given (lowercase) 'true' and 'false' inputs (#818).
 * `read_*()` now do not print a progress bar when running inside a RStudio notebook chunk (#793)
 * `read_table2()` now skips comments anywhere in the file (#908).

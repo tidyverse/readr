@@ -126,7 +126,7 @@ standardise_path <- function(path, input = TRUE) {
       message("`curl` package not installed, falling back to using `url()`")
       con <- url(path)
     }
-    ext <- tools::file_ext(path)
+    ext <- tolower(tools::file_ext(path))
     return(
       switch(ext,
         bz2 = ,
@@ -144,7 +144,7 @@ standardise_path <- function(path, input = TRUE) {
   if (isTRUE(input)) {
     path <- check_path(path)
   }
-  switch(tools::file_ext(path),
+  switch(tolower(tools::file_ext(path)),
     gz = gzfile(path, ""),
     bz2 = bzfile(path, ""),
     xz = xzfile(path, ""),
