@@ -7,11 +7,11 @@
 \alias{melt_tsv_chunked}
 \title{Melt a delimited file by chunks}
 \usage{
-melt_delim_chunked(file, callback, chunk_size = 10000, delim, quote = "\\"",
-  escape_backslash = FALSE, escape_double = TRUE,
+melt_delim_chunked(file, callback, chunk_size = 10000, delim,
+  quote = "\\"", escape_backslash = FALSE, escape_double = TRUE,
   locale = default_locale(), na = c("", "NA"), quoted_na = TRUE,
-  comment = "", trim_ws = FALSE, skip = 0, progress = show_progress(),
-  skip_empty_rows = FALSE)
+  comment = "", trim_ws = FALSE, skip = 0,
+  progress = show_progress(), skip_empty_rows = FALSE)
 
 melt_csv_chunked(file, callback, chunk_size = 10000,
   locale = default_locale(), na = c("", "NA"), quoted_na = TRUE,
@@ -67,7 +67,7 @@ The default locale is US-centric (like R), but you can use
 the default time zone, encoding, decimal mark, big mark, and day/month
 names.}
 
-\item{na}{Character vector of strings to use for missing values. Set this
+\item{na}{Character vector of strings to interpret as missing values. Set this
 option to \code{character()} to indicate no missing values.}
 
 \item{quoted_na}{Should missing values inside quotes be treated as missing
@@ -110,4 +110,5 @@ Other chunked: \code{\link{callback}},
   \code{\link{read_delim_chunked}},
   \code{\link{read_lines_chunked}}
 }
+\concept{chunked}
 \keyword{internal}

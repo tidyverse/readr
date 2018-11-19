@@ -4,8 +4,8 @@
 \alias{melt_fwf}
 \title{Return melted data for each token in a fixed width file}
 \usage{
-melt_fwf(file, col_positions, locale = default_locale(), na = c("", "NA"),
-  comment = "", trim_ws = TRUE, skip = 0, n_max = Inf,
+melt_fwf(file, col_positions, locale = default_locale(), na = c("",
+  "NA"), comment = "", trim_ws = TRUE, skip = 0, n_max = Inf,
   progress = show_progress(), skip_empty_rows = FALSE)
 }
 \arguments{
@@ -35,7 +35,7 @@ The default locale is US-centric (like R), but you can use
 the default time zone, encoding, decimal mark, big mark, and day/month
 names.}
 
-\item{na}{Character vector of strings to use for missing values. Set this
+\item{na}{Character vector of strings to interpret as missing values. Set this
 option to \code{character()} to indicate no missing values.}
 
 \item{comment}{A string used to identify comments. Any text after the

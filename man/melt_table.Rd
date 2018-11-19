@@ -6,8 +6,8 @@
 \title{Return melted data for each token in a whitespace-separated file}
 \usage{
 melt_table(file, locale = default_locale(), na = "NA", skip = 0,
-  n_max = Inf, guess_max = min(n_max, 1000), progress = show_progress(),
-  comment = "", skip_empty_rows = FALSE)
+  n_max = Inf, guess_max = min(n_max, 1000),
+  progress = show_progress(), comment = "", skip_empty_rows = FALSE)
 
 melt_table2(file, locale = default_locale(), na = "NA", skip = 0,
   n_max = Inf, progress = show_progress(), comment = "",
@@ -35,7 +35,7 @@ The default locale is US-centric (like R), but you can use
 the default time zone, encoding, decimal mark, big mark, and day/month
 names.}
 
-\item{na}{Character vector of strings to use for missing values. Set this
+\item{na}{Character vector of strings to interpret as missing values. Set this
 option to \code{character()} to indicate no missing values.}
 
 \item{skip}{Number of lines to skip before reading data.}
