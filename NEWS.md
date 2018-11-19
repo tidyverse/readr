@@ -53,6 +53,7 @@ implementation of the `melt_*()` functions!
 
 ## New features
 
+* Functions now read connections to a temporary file rather than to an in-memory object (#610, #76).
 * `melt_*()` functions added for reading ragged data (#760, @nacnudus).
 * `AccumulateCallback` R6 class added to provide an example of accumulating values in a single result (#689, @blakeboswell).
 * `read_fwf()` can now accept overlapping field specifications (#692, @gergness)

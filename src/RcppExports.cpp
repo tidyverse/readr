@@ -32,14 +32,15 @@ BEGIN_RCPP
 END_RCPP
 }
 // read_connection_
-RawVector read_connection_(RObject con, int chunk_size);
-RcppExport SEXP _readr_read_connection_(SEXP conSEXP, SEXP chunk_sizeSEXP) {
+CharacterVector read_connection_(RObject con, std::string filename, int chunk_size);
+RcppExport SEXP _readr_read_connection_(SEXP conSEXP, SEXP filenameSEXP, SEXP chunk_sizeSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
     Rcpp::traits::input_parameter< RObject >::type con(conSEXP);
+    Rcpp::traits::input_parameter< std::string >::type filename(filenameSEXP);
     Rcpp::traits::input_parameter< int >::type chunk_size(chunk_sizeSEXP);
-    rcpp_result_gen = Rcpp::wrap(read_connection_(con, chunk_size));
+    rcpp_result_gen = Rcpp::wrap(read_connection_(con, filename, chunk_size));
     return rcpp_result_gen;
 END_RCPP
 }
@@ -369,7 +370,7 @@ END_RCPP
 static const R_CallMethodDef CallEntries[] = {
     {"_readr_collectorGuess", (DL_FUNC) &_readr_collectorGuess, 3},
     {"_readr_whitespaceColumns", (DL_FUNC) &_readr_whitespaceColumns, 3},
-    {"_readr_read_connection_", (DL_FUNC) &_readr_read_connection_, 2},
+    {"_readr_read_connection_", (DL_FUNC) &_readr_read_connection_, 3},
     {"_readr_utctime", (DL_FUNC) &_readr_utctime, 7},
     {"_readr_dim_tokens_", (DL_FUNC) &_readr_dim_tokens_, 2},
     {"_readr_count_fields_", (DL_FUNC) &_readr_count_fields_, 3},

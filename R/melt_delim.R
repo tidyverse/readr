@@ -139,7 +139,7 @@ melt_delimited <- function(file, tokenizer, locale = default_locale(),
   # If connection needed, read once.
   file <- standardise_path(file)
   if (is.connection(file)) {
-    data <- read_connection(file)
+    data <- datasource_connection(file, skip, comment)
   } else {
     if (empty_file(file)) {
        return(tibble::data_frame(row = double(), col = double(),
