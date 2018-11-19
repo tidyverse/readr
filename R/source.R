@@ -82,13 +82,19 @@ datasource_string <- function(text, skip, comment = "") {
   new_datasource("string", text, skip = skip, comment = comment)
 }
 
-datasource_file <- function(path, skip, comment = "") {
+datasource_file <- function(path, skip, comment = "", ...) {
   path <- check_path(path)
-  new_datasource("file", path, skip = skip, comment = comment)
+  new_datasource("file", path, skip = skip, comment = comment, ...)
 }
 
 datasource_connection <- function(path, skip, comment = "") {
-  datasource_raw(read_connection(path), skip, comment = comment)
+  # We read the connection to a temporary file, then register a finalizer to
+  # cleanup the temp file after the datasource object is removed.
+
+  file <- read_connection(path)
+  env <- new.env(parent = emptyenv())
+  reg.finalizer(env, function(env) unlink(file))
+  datasource_file(file, skip, comment = comment, env = env)
 }
 
 datasource_raw <- function(text, skip, comment) {
@@ -105,7 +111,7 @@ read_connection <- function(con) {
     on.exit(close(con), add = TRUE)
   }
 
-  read_connection_(con)
+  read_connection_(con, tempfile())
 }
 
 standardise_path <- function(path, input = TRUE) {

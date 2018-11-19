@@ -9,8 +9,8 @@ whitespaceColumns <- function(sourceSpec, n = 100L, comment = "") {
     .Call(`_readr_whitespaceColumns`, sourceSpec, n, comment)
 }
 
-read_connection_ <- function(con, chunk_size = 64 * 1024L) {
-    .Call(`_readr_read_connection_`, con, chunk_size)
+read_connection_ <- function(con, filename, chunk_size = 64 * 1024L) {
+    .Call(`_readr_read_connection_`, con, filename, chunk_size)
 }
 
 utctime <- function(year, month, day, hour, min, sec, psec) {

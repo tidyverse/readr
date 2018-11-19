@@ -1,4 +1,6 @@
 #include <Rcpp.h>
+#include <fstream>
+
 using namespace Rcpp;
 
 // Wrapper around R's read_bin function
@@ -14,23 +16,15 @@ RawVector read_bin(RObject con, int bytes = 64 * 1024) {
 // raw vector.
 //
 // [[Rcpp::export]]
-RawVector read_connection_(RObject con, int chunk_size = 64 * 1024) {
-  std::vector<RawVector> chunks;
+CharacterVector read_connection_(
+    RObject con, std::string filename, int chunk_size = 64 * 1024) {
+
+  std::ofstream out(filename.c_str(), std::fstream::out | std::fstream::binary);
 
   RawVector chunk;
-  while ((chunk = read_bin(con, chunk_size)).size() > 0)
-    chunks.push_back(chunk);
-
-  size_t size = 0;
-  for (size_t i = 0; i < chunks.size(); ++i)
-    size += chunks[i].size();
-
-  RawVector out(size);
-  size_t pos = 0;
-  for (size_t i = 0; i < chunks.size(); ++i) {
-    memcpy(RAW(out) + pos, RAW(chunks[i]), chunks[i].size());
-    pos += chunks[i].size();
+  while ((chunk = read_bin(con, chunk_size)).size() > 0) {
+    std::copy(chunk.begin(), chunk.end(), std::ostream_iterator<char>(out));
   }
 
-  return out;
+  return filename;
 }
