@@ -27,17 +27,17 @@ specify, skipping the rest.
 \details{
 The available specifications are: (with string abbreviations in brackets)
 \itemize{
-\item \code{col_logical()} \link{l}, containing only \code{T}, \code{F}, \code{TRUE} or \code{FALSE}.
-\item \code{col_integer()} \link{i}, integers.
-\item \code{col_double()} \link{d}, doubles.
-\item \code{col_character()} \link{c}, everything else.
-\item \code{col_factor(levels, ordered)} \link{f}, a fixed set of values.
-\item \code{col_date(format = "")} \link[=d]{D}: with the locale's \code{date_format}.
-\item \code{col_time(format = "")} \link{t}: with the locale's \code{time_format}.
-\item \code{col_datetime(format = "")} \link[=t]{T}: ISO8601 date times
-\item \code{col_number()} \link{n}, numbers containing the \code{grouping_mark}
-\item \code{col_skip()} \link{_, -}, don't import this column.
-\item \code{col_guess()} \link{?}, parse using the "best" type based on the input.
+\item \code{col_logical()} [l], containing only \code{T}, \code{F}, \code{TRUE} or \code{FALSE}.
+\item \code{col_integer()} [i], integers.
+\item \code{col_double()} [d], doubles.
+\item \code{col_character()} [c], everything else.
+\item \code{col_factor(levels, ordered)} [f], a fixed set of values.
+\item \code{col_date(format = "")} [D]: with the locale's \code{date_format}.
+\item \code{col_time(format = "")} [t]: with the locale's \code{time_format}.
+\item \code{col_datetime(format = "")} [T]: ISO8601 date times
+\item \code{col_number()} [n], numbers containing the \code{grouping_mark}
+\item \code{col_skip()} [_, -], don't import this column.
+\item \code{col_guess()} [?], parse using the "best" type based on the input.
 }
 }
 \examples{
