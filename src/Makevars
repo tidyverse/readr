@@ -1,8 +1,7 @@
 PKG_CXXFLAGS = -I. -Ircon
-PKG_LIBS = -L. -lrcon -L../inst/rcon -Wl,-rpath,$(R_PACKAGE_DIR)/rcon
+PKG_LIBS = -L. -lrcon -L../inst/rcon -Wl,-rpath,$(R_PACKAGE_DIR)/rcon -s
 
 all: $(SHLIB)
-	if [[ -e "/usr/bin/strip" && -e "/bin/uname" && `uname` == "Linux" ]] ; then /usr/bin/strip --strip-unneeded -K R_registerRoutines -K R_useDynamicSymbols $(SHLIB); fi
 
 $(SHLIB): ../inst/rcon/librcon.so
 
