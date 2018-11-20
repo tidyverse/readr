@@ -25,3 +25,4 @@
 ^.vimrc$
 ^CONDUCT\.md$
 ^\.github$
+^pkgdown$
