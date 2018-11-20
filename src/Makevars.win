@@ -1,11 +1,11 @@
-PKG_CXXFLAGS = -I. -Iwritecon
-PKG_LIBS =  -L. -llibcon2 -lRiconv
+PKG_CXXFLAGS = -I. -Ircon
+PKG_LIBS =  -L. -llibrcon -lRiconv
 all: $(SHLIB)
 
-$(SHLIB): libcon2.lib
+$(SHLIB): librcon.lib
 
-libcon2.lib: writecon/connection.o
+librcon.lib: rcon/connection.o
 	$(CXX) -shared -static-libgcc -Wl,--export-all-symbols -s $(ALL_CPPFLAGS) $(ALL_CXXFLAGS) $(LIBR) -o $@ $^
 
 clean:
-	rm writecon/write_connection.o libcon2.lib
+	rm rcon/connection.o librcon.lib
