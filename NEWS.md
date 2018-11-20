@@ -21,6 +21,8 @@ the number of lines you need to pass to the `skip` parameter. For instance if
 your file had a one blank line then two more lines you want to skip previously
 you would pass `skip = 3`, now you only need to pass `skip = 2`.
 
+## New features
+
 ### Melt functions
 
 There is now a family of `melt_*()` functions in readr. These functions store
@@ -51,9 +53,21 @@ readr::melt_csv(data)
 Thanks to Duncan Garmonsway (@nacnudus) for great work on the idea an
 implementation of the `melt_*()` functions!
 
+### Connection improvements
+
+readr 1.2.0 changes how R connections are parsed by readr.
+In previous versions of readr the connections were read into an in-memory raw vector, then passed to the readr functions.
+This made reading connections from small to medium datasets fast, but also meant that the dataset had to fit into memory at least twice (once for the raw data, once for the parsed data).
+It also meant that reading could not begin until the full vector was read through the connection.
+
+Now we instead write the connection to a temporary file (in the R temporary directory), than parse that temporary file.
+This means connections may take a little longer to be read, but also means they will no longer need to fit into memory.
+It also allows the use of the chunked readers to process the data in parts.
+
+Future improvements to readr would allow it to parse data from connections in a streaming fashion, which would avoid many of the drawbacks of either method.
+
 ## New features
 
-* Functions now read connections to a temporary file rather than to an in-memory object (#610, #76).
 * `melt_*()` functions added for reading ragged data (#760, @nacnudus).
 * `AccumulateCallback` R6 class added to provide an example of accumulating values in a single result (#689, @blakeboswell).
 * `read_fwf()` can now accept overlapping field specifications (#692, @gergness)
@@ -79,6 +93,7 @@ implementation of the `melt_*()` functions!
 * `parse_factor()` now has `levels = NULL` by default (#862, @mikmart).
 * `"f"` can now be used as a shortcode for `col_factor()` in `cols()` and the
   `col_types` argument to `read_delim()` and friends (#810, @mikmart).
+* Functions now read connections to a temporary file rather than to an in-memory object (#610, #76).
 
 ## Bug Fixes
 
