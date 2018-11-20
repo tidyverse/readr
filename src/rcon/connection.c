@@ -1,11 +1,5 @@
 #include "connection.h"
 
-#define class class_name
-#define private private_ptr
-#include <R_ext/Connections.h>
-#undef class
-#undef private
-
 #if R_CONNECTIONS_VERSION != 1
 #error "Missing or unsupported connection API in R"
 #endif

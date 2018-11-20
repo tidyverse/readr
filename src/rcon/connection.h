@@ -8,7 +8,12 @@
 extern "C" {
 #endif
 
-typedef struct Rconn* Rconnection;
+#define class class_name
+#define private private_ptr
+#include <R_ext/Connections.h>
+#undef class
+#undef private
+
 Rconnection get_connection(SEXP con);
 size_t write_connection(Rconnection con, void* data, size_t n);
 
