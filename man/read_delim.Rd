@@ -144,7 +144,11 @@ decimal point. This is common in some European countries.
 read_csv(readr_example("mtcars.csv"))
 read_csv(readr_example("mtcars.csv.zip"))
 read_csv(readr_example("mtcars.csv.bz2"))
+
+\dontrun{
+# Including remote paths
 read_csv("https://github.com/tidyverse/readr/raw/master/inst/extdata/mtcars.csv")
+}
 
 # Or directly from a string (must contain a newline)
 read_csv("x,y\\n1,2\\n3,4")

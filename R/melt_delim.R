@@ -28,7 +28,9 @@
 #' melt_csv(readr_example("mtcars.csv"))
 #' melt_csv(readr_example("mtcars.csv.zip"))
 #' melt_csv(readr_example("mtcars.csv.bz2"))
+#' \dontrun{
 #' melt_csv("https://github.com/tidyverse/readr/raw/master/inst/extdata/mtcars.csv")
+#' }
 #'
 #' # Or directly from a string (must contain a newline)
 #' melt_csv("x,y\n1,2\n3,4")
