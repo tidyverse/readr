@@ -204,7 +204,7 @@ int Reader::melt(List locale_, int lines) {
 
   collectorsResize(n);
 
-  int last_row = -1, last_col = -1, cells = 0;
+  int last_row = -1, cells = 0;
   int first_row;
   if (!begun_) {
     t_ = tokenizer_->nextToken();
@@ -253,7 +253,6 @@ int Reader::melt(List locale_, int lines) {
     }
 
     last_row = t_.row();
-    last_col = t_.col();
     t_ = tokenizer_->nextToken();
   }
 
