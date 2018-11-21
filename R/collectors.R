@@ -179,8 +179,8 @@ col_number <- function() {
 #' # ISO 8601 date times
 #' guess_parser(c("2010-10-10"))
 #' parse_guess(c("2010-10-10"))
-parse_guess <- function(x, na = c("", "NA"), locale = default_locale(), trim_ws = TRUE) {
-  parse_vector(x, guess_parser(x, locale), na = na, locale = locale, trim_ws = trim_ws)
+parse_guess <- function(x, na = c("", "NA"), locale = default_locale(), trim_ws = TRUE, guess_integer = FALSE) {
+  parse_vector(x, guess_parser(x, locale, guess_integer = guess_integer), na = na, locale = locale, trim_ws = trim_ws)
 }
 
 #' @rdname parse_guess
@@ -190,10 +190,12 @@ col_guess <- function() {
 }
 
 #' @rdname parse_guess
+#' @param guess_integer If `TRUE`, guess integer types for whole numbers, if
+#'   `FALSE` guess numeric type for all numbers.
 #' @export
-guess_parser <- function(x, locale = default_locale()) {
+guess_parser <- function(x, locale = default_locale(), guess_integer = FALSE) {
   stopifnot(is.locale(locale))
-  collectorGuess(x, locale)
+  collectorGuess(x, locale, guessInteger = guess_integer)
 }
 
 #' Parse factors

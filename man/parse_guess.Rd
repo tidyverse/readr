@@ -7,11 +7,11 @@
 \title{Parse using the "best" type}
 \usage{
 parse_guess(x, na = c("", "NA"), locale = default_locale(),
-  trim_ws = TRUE)
+  trim_ws = TRUE, guess_integer = FALSE)
 
 col_guess()
 
-guess_parser(x, locale = default_locale())
+guess_parser(x, locale = default_locale(), guess_integer = FALSE)
 }
 \arguments{
 \item{x}{Character vector of values to parse.}
@@ -27,6 +27,9 @@ names.}
 
 \item{trim_ws}{Should leading and trailing whitespace be trimmed from
 each field before parsing it?}
+
+\item{guess_integer}{If \code{TRUE}, guess integer types for whole numbers, if
+\code{FALSE} guess numeric type for all numbers.}
 }
 \description{
 \code{parse_guess()} returns the parser vector; \code{guess_parser()}
