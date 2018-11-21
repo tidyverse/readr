@@ -1,5 +1,5 @@
 PKG_CXXFLAGS = -I. -Ircon
-PKG_LIBS =  -L. -llibrcon -lRiconv -s
+PKG_LIBS =  -L. -llibrcon -lRiconv
 all: $(SHLIB)
 
 $(SHLIB): librcon.lib
