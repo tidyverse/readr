@@ -7,7 +7,7 @@ Description: The goal of 'readr' is to provide a fast and friendly way to read
     data unexpectedly changes.
 Authors@R: c(
     person("Hadley", "Wickham", , "hadley@rstudio.com", "aut"),
-    person("Jim", "Hester", , "jim.hester@rstudio.com", c("aut", "cre")),
+    person("Jim", "Hester", , "james.hester@rstudio.com", c("aut", "cre")),
     person("Romain", "Francois", role = "aut"),
     person("R Core Team", role = "ctb", comment = "Date time code adapted from R"),
     person("RStudio", role = c("cph", "fnd")),
