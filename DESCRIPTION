@@ -30,7 +30,8 @@ Suggests:
     knitr,
     rmarkdown,
     stringi,
-    covr
+    covr,
+    spelling
 License: GPL (>= 2) | file LICENSE
 BugReports: https://github.com/tidyverse/readr/issues
 URL: http://readr.tidyverse.org, https://github.com/tidyverse/readr
@@ -38,3 +39,4 @@ VignetteBuilder: knitr
 RoxygenNote: 6.1.1
 Roxygen: list(markdown = TRUE)
 SystemRequirements: GNU make
+Language: en-US

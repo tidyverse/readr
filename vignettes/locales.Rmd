@@ -20,7 +20,7 @@ The goal of readr's locales is to encapsulate common options that vary between l
 * Default date format, used when guessing column types.
 * The decimal and grouping marks, used when reading numbers.
 
-(Stricly speaking these are not locales in the usual technical sense of the word because they also contain information about time zones and encoding.)
+(Strictly speaking these are not locales in the usual technical sense of the word because they also contain information about time zones and encoding.)
 
 To create a new locale, you use the `locale()` function:
 
@@ -113,7 +113,7 @@ Locales also provide default date and time formats. The time format isn't curren
 str(parse_guess("2010-10-10"))
 ```
 
-If you're an American, you might want you use your illogical date sytem::
+If you're an American, you might want you use your illogical date system::
 
 ```{r}
 str(parse_guess("01/02/2013"))
