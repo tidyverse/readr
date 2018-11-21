@@ -20,7 +20,7 @@ version 1.1.0, released on March 22nd, 2017.
 
 ## Downstream dependencies
 I ran `R CMD check` on 189 reverse dependencies
-(https://github.com/tidyverse/readr/tree/master/revdep#readme). There were 3 errors
+(https://github.com/tidyverse/readr/tree/master/revdep#readme). There were 8 errors
 related to changes in readr.
 
 I have submitted fixes to the three packages which allow them to pass checks
@@ -32,5 +32,20 @@ with readr 1.2.0
 * fastqcr
   https://github.com/kassambara/fastqcr/pull/7
 
+* jstor
+  https://github.com/ropensci/jstor/pull/75
+
+* mudata2
+  https://github.com/paleolimbot/mudata/pull/31
+
+* photobiologyInOut
+  https://bitbucket.org/aphalo/photobiologyinout/pull-requests/2/
+
 * readODS
   https://github.com/chainsawriot/readODS/pull/44
+
+* rdflib
+  https://github.com/ropensci/rdflib/pull/30
+
+* visdat
+  https://github.com/ropensci/visdat/pull/103
