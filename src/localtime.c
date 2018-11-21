@@ -1814,7 +1814,7 @@ int is_dir (const char* path) {
 static int tzdir(char* buf) {
   const char* p = getenv("TZDIR");
   if (p != NULL && is_dir(p) != 0) {
-    strncpy(buf, p, 1000);
+    strncpy(buf, p, 999);
     return 0;
   }
 
