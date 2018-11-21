@@ -1,7 +1,5 @@
 # readr 1.2.0
 
-This release was focused on bug fixes rather than new features.
-
 ## Breaking Changes
 
 ### Integer column guessing
@@ -66,7 +64,7 @@ It also allows the use of the chunked readers to process the data in parts.
 
 Future improvements to readr would allow it to parse data from connections in a streaming fashion, which would avoid many of the drawbacks of either method.
 
-## New features
+### Additional new features
 
 * `melt_*()` functions added for reading ragged data (#760, @nacnudus).
 * `AccumulateCallback` R6 class added to provide an example of accumulating values in a single result (#689, @blakeboswell).
