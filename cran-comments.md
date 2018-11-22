@@ -1,3 +1,6 @@
+This turns off the clipboard tests on CRAN's servers, apologies for the
+oversight.
+
 ## Test environments
 * local OS X install, R 3.5.1.
 * Ubuntu 12.04 (on travis-ci), R-oldrel, R-release, R-devel
@@ -17,7 +20,7 @@ I ran `R CMD check` on 296 reverse dependencies on CRAN and Bioconductor
 (https://github.com/tidyverse/readr/tree/master/revdep#readme). There were 8 errors
 related to changes in readr.
 
-I have submitted fixes to the three packages which allow them to pass checks
+I have submitted fixes to the 8 packages which allow them to pass checks
 with readr 1.2.0
 
 * ddpcr

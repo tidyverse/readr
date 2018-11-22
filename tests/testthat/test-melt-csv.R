@@ -65,6 +65,7 @@ test_that("nuls are dropped with a warning", {
 })
 
 test_that("can read from the clipboard", {
+  skip_on_cran()
   skip_if_no_clipboard()
   clipr::write_clip("a,b,c\n1,2,3")
   expect_identical(melt_csv(clipboard()), melt_csv("a,b,c\n1,2,3"))

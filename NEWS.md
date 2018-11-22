@@ -1,3 +1,7 @@
+# readr 1.2.1
+
+This release skips the clipboard tests on CRAN servers
+
 # readr 1.2.0
 
 ## Breaking Changes

@@ -1,3 +1,4 @@
+^CRAN-RELEASE$
 ^\.travis\.yml$
 ^.*\.Rproj$
 ^\.Rproj\.user$
