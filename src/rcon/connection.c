@@ -6,9 +6,6 @@
 
 #if defined(R_VERSION) && R_VERSION >= R_Version(3, 3, 0)
 Rconnection get_connection(SEXP con) { return R_GetConnection(con); }
-size_t write_connection(Rconnection con, void* data, size_t n) {
-  return R_WriteConnection(con, data, n);
-}
 #else
 extern Rconnection getConnection(int);
 Rconnection get_connection(SEXP con) {
@@ -17,3 +14,7 @@ Rconnection get_connection(SEXP con) {
   return getConnection(Rf_asInteger(con));
 }
 #endif
+
+size_t write_connection(Rconnection con, void* data, size_t n) {
+  return R_WriteConnection(con, data, n);
+}
