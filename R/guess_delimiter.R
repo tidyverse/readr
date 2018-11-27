@@ -1,7 +1,9 @@
 # Ideally we'd like to eliminate this function altogether and port
 # it into a package that can be called once this function
 # is cleaned and refactored
-guess_delim <- function(file, n_max = 1000, threshold_rows = 0.9,
+guess_delim <- function(file,
+                        n_max = 10000,
+                        threshold_rows = 0.9,
                         delim = c(',', '\t', ';', ' ', ':')) {
 
   # This should also consider passing the locale
@@ -20,13 +22,32 @@ guess_delim <- function(file, n_max = 1000, threshold_rows = 0.9,
   # Split each letter of the row and THEN turn into factor so that the results to table counts all
   # non appearing delimiters as zero.
   delimiter_counts <- lapply(filtered_data, function(row) table(factor(strsplit(row, "")[[1]], levels = delim)))
+  merged_counts <- as.data.frame(do.call(rbind, delimiter_counts))
 
   # First check: is there one and only delimiter repeated the same number
   # of times in all rows? If so, exit and return that delimiter
-  perfect_match <- detect_one_match(delimiter_counts)
-
+  perfect_match <- detect_one_match(merged_counts)
   # If perfect match is not TRUE it returns NA
   if (!is.na(perfect_match)) return(perfect_match)
+
+  columns_only_zeros <- vapply(merged_counts, function(x) all(x == 0), logical(1))
+  columns_mostly_zeros <- vapply(merged_counts, function(x) mean(x == 0) , numeric(1)) > threshold_rows
+  merged_counts <- merged_counts[!(columns_only_zeros | columns_mostly_zeros)]
+
+  # No delimiter was found
+  if (nrow(merged_counts) == 0 | ncol(merged_counts) == 0) return(NA_character_)
+
+  # Second check: Is there only one column left? If there is no perfect match but most other
+  # delimiters are full of zeros, then the last column standing is the most probable
+  if (ncol(merged_counts) == 1) return(names(merged_counts))
+
+  # Third check: is there a delimiter that is free of mostly zeroes in all rows that has the
+  # fewer number of unique repetitions across all rows? detect_one_fuzzy_match returns
+  # that delimiter. If there is at least two delimiter which have, for example, two values
+  # repeated the same number of times, it returns NA
+  fuzzy_match <- detect_one_fuzzy_match(merged_counts)
+  # If perfect match is not TRUE it returns NA
+  if (!is.na(fuzzy_match)) return(fuzzy_match)
 
   # Get the number of rows read after deleting the empty rows
   # in filtered_data because otherwise the threshold is calculated
@@ -101,13 +122,11 @@ guess_delim <- function(file, n_max = 1000, threshold_rows = 0.9,
 }
 
 detect_one_match <- function(x) {
-  # x here is a list where each slot is a count of the occurrences of each of the delimiters
-  merged_counts <- as.data.frame(do.call(rbind, x))
-
-  columns_only_zeros <- vapply(merged_counts, function(x) all(x == 0), logical(1))
+  # x here is a dataframe where each row is a count of the occurrences of each of the delimiters
+  columns_only_zeros <- vapply(x, function(x) all(x == 0), logical(1))
 
   # Exclude all columns that only contain zero and check for columns with only one number
-  repeated_columns <- vapply(merged_counts[!columns_only_zeros], function(x) all(x[1] == x), logical(1))
+  repeated_columns <- vapply(x[!columns_only_zeros], function(x) all(x[1] == x), logical(1))
 
   index_delim <- which(repeated_columns)
 
@@ -116,6 +135,20 @@ detect_one_match <- function(x) {
   if (length(index_delim) == 1) return(names(repeated_columns)[index_delim])
 
   NA_character_
+}
+
+detect_one_fuzzy_match <- function(x) {
+  fuzzy_delimiter_counts <- lapply(x, table)
+  delim_counts <- vapply(fuzzy_delimiter_counts, length, numeric(1))
+
+  # If there are more than two it means that there are
+  # two delimiters or more which have the same number of
+  # repetitions. That's two ambiguous
+  if (any((table(delim_counts) > 1))) return(NA_character_)
+
+  possible_delim <- names(which.min(delim_counts))
+
+  possible_delim
 }
 
 one_true <- function(x) {
