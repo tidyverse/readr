@@ -52,7 +52,7 @@ subset of the columns, use \code{\link[=cols_only]{cols_only()}}.
 Alternatively, you can use a compact string representation where each
 character represents one column:
 c = character, i = integer, n = number, d = double,
-l = logical, D = date, T = date time, t = time, ? = guess, or
+l = logical, f = factor, D = date, T = date time, t = time, ? = guess, or
 \code{_}/\code{-} to skip the column.}
 
 \item{skip}{Number of lines to skip before reading data.}
