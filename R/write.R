@@ -226,7 +226,16 @@ stream_delim <- function(df, path, append = FALSE, bom = FALSE, ..., quote_escap
 change_decimal_separator <- function(x, decimal_mark = ",") {
   stopifnot(is.data.frame(x))
   numeric_cols <- vapply(x, is.numeric, logical(1))
-  x[numeric_cols] <- lapply(x[numeric_cols], format, decimal.mark = decimal_mark)
+
+  format_seps <- function(x, decimal_mark) {
+    nas <- is.na(x)
+    x <- format(x, decimal.mark = decimal_mark)
+    x[nas] <- NA_character_
+    x
+  }
+
+  x[numeric_cols] <- lapply(x[numeric_cols], format_seps, decimal_mark)
+
   x
 }
 

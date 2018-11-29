@@ -14,8 +14,8 @@ test_that("a literal NA is quoted", {
 })
 
 test_that("na argument modifies how missing values are written", {
-  df <- data.frame(x = c(NA, "x", "."))
-  expect_equal(format_csv(df, na = "."), "x\n.\nx\n\".\"\n")
+  df <- data.frame(x = c(NA, "x", "."), y = c(1, 2, NA))
+  expect_equal(format_csv(df, na = "."), "x,y\n.,1\nx,2\n\".\",.\n")
 })
 
 test_that("read_delim/csv/tsv and write_delim round trip special chars", {
@@ -140,6 +140,11 @@ test_that("write_csv2 and format_csv2 writes ; sep and , decimal mark", {
   write_csv2(df, filename)
 
   expect_equivalent(df, suppressMessages(read_csv2(filename)))
+})
+
+test_that("write_csv2 and format_csv2 writes NA appropriately", {
+  df <- tibble::data_frame(x = c(0.5, NA, 1.2), y = c("a", "b", NA))
+  expect_equal(format_csv2(df), "x;y\n0,5;a\nNA;b\n1,2;NA\n")
 })
 
 test_that("Can change the escape behavior for quotes", {

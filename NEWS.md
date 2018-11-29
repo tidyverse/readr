@@ -1,5 +1,7 @@
 # readr 1.2.1.9000
 
+* `write_csv2()` now properly respects the `na` argument (#928)
+
 * Fixes compilation with multiple architectures on linux (#922).
 
 * Fixes compilation with R < 3.3.0
