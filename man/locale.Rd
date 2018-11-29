@@ -32,7 +32,7 @@ UTC times than any other time zone.
 Use \code{""} to use the system default time zone, but beware that this
 will not be reproducible across systems.
 
-For a complete list of possible time zones, see \code{\link{OlsonNames}()}.
+For a complete list of possible time zones, see \code{\link[=OlsonNames]{OlsonNames()}}.
 Americans, note that "EST" is a Canadian time zone that does not have
 DST. It is \emph{not} Eastern Standard Time. It's better to use
 "US/Eastern", "US/Central" etc.}

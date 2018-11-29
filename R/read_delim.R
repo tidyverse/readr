@@ -52,9 +52,9 @@ NULL
 #'   in an interactive session and not while knitting a document. The display
 #'   is updated every 50,000 values and will only display if estimated reading
 #'   time is 5 seconds or more. The automatic progress bar can be disabled by
-#'   setting option \code{readr.show_progress} to \code{FALSE}.
+#'   setting option `readr.show_progress` to `FALSE`.
 #' @return A [tibble()]. If there are parsing problems, a warning tells you
-#'   how many, and you can retrieve the details with \code{\link{problems}()}.
+#'   how many, and you can retrieve the details with [problems()].
 #' @export
 #' @examples
 #' # Input sources -------------------------------------------------------------

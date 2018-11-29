@@ -100,7 +100,7 @@ representation in the original file.
 }
 
 If there are parsing problems, a warning tells you
-how many, and you can retrieve the details with \code{\link{problems}()}.
+how many, and you can retrieve the details with \code{\link[=problems]{problems()}}.
 }
 \description{
 For certain non-rectangular data formats, it can be useful to parse the data

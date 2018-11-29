@@ -31,7 +31,7 @@ names.}
 This is useful if you need to do some manual munging - you can read the
 columns in as character, clean it up with (e.g.) regular expressions and
 then let readr take another stab at parsing it. The name is a homage to
-the base \code{\link[utils]{type.convert}()}.
+the base \code{\link[utils:type.convert]{utils::type.convert()}}.
 }
 \examples{
 df <- data.frame(

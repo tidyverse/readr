@@ -129,7 +129,7 @@ option is \code{TRUE} then blank rows will not be represented at all.  If it is
 }
 \value{
 A \code{\link[=tibble]{tibble()}}. If there are parsing problems, a warning tells you
-how many, and you can retrieve the details with \code{\link{problems}()}.
+how many, and you can retrieve the details with \code{\link[=problems]{problems()}}.
 }
 \description{
 \code{read_csv()} and \code{read_tsv()} are special cases of the general

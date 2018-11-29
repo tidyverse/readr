@@ -20,8 +20,8 @@
 #'
 #' @family parsers
 #' @param ... Either column objects created by `col_*()`, or their abbreviated
-#'   character names (as described in the \code{col_types} argument of
-#'   \code{\link{read_delim}}). If you're only overriding a few columns, it's
+#'   character names (as described in the `col_types` argument of
+#'   [read_delim()]). If you're only overriding a few columns, it's
 #'   best to refer to columns by name. If not named, the column types must match
 #'   the column names exactly.
 #' @param .default Any named columns not explicitly overridden in `...`

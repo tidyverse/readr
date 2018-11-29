@@ -3,7 +3,7 @@
 #' When parsing dates, you often need to know how weekdays of the week and
 #' months are represented as text. This pair of functions allows you to either
 #' create your own, or retrieve from a standard list. The standard list is
-#' derived from ICU (\url{http://site.icu-project.org}) via the stringi package.
+#' derived from ICU (<http://site.icu-project.org>) via the stringi package.
 #'
 #' @param mon,mon_ab Full and abbreviated month names.
 #' @param day,day_ab Full and abbreviated week day names. Starts with Sunday.

@@ -43,7 +43,7 @@
 #' @return `write_*()` returns the input `x` invisibly.
 #' @references Florian Loitsch, Printing Floating-Point Numbers Quickly and
 #' Accurately with Integers, PLDI '10,
-#' \url{http://www.cs.tufts.edu/~nr/cs257/archive/florian-loitsch/printf.pdf}
+#' <http://www.cs.tufts.edu/~nr/cs257/archive/florian-loitsch/printf.pdf>
 #' @export
 #' @examples
 #' tmp <- tempfile()
