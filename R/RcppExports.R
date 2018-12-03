@@ -45,12 +45,12 @@ read_file_raw_ <- function(sourceSpec) {
     .Call(`_readr_read_file_raw_`, sourceSpec)
 }
 
-read_lines_ <- function(sourceSpec, locale_, na, n_max = -1L, progress = TRUE) {
-    .Call(`_readr_read_lines_`, sourceSpec, locale_, na, n_max, progress)
+read_lines_ <- function(sourceSpec, locale_, na, n_max = -1L, skip_empty_rows = FALSE, progress = TRUE) {
+    .Call(`_readr_read_lines_`, sourceSpec, locale_, na, n_max, skip_empty_rows, progress)
 }
 
-read_lines_chunked_ <- function(sourceSpec, locale_, na, chunkSize, callback, progress = TRUE) {
-    invisible(.Call(`_readr_read_lines_chunked_`, sourceSpec, locale_, na, chunkSize, callback, progress))
+read_lines_chunked_ <- function(sourceSpec, locale_, na, chunkSize, callback, skip_empty_rows = FALSE, progress = TRUE) {
+    invisible(.Call(`_readr_read_lines_chunked_`, sourceSpec, locale_, na, chunkSize, callback, skip_empty_rows, progress))
 }
 
 read_lines_raw_ <- function(sourceSpec, n_max = -1L, progress = FALSE) {

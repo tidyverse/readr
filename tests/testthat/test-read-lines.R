@@ -29,6 +29,27 @@ test_that("blank lines are passed unchanged", {
   expect_equal(read_lines(tmp, na = ""), c("abc", NA_character_, "123"))
 })
 
+test_that("read_lines can skip blank lines (#923)", {
+  x <-
+"1
+2
+3
+
+foo
+bar
+baz
+"
+  expect_equal(read_lines(x), c("1", "2", "3", "", "foo", "bar", "baz"))
+  expect_equal(read_lines(x, skip_empty_rows = TRUE), c("1", "2", "3", "foo", "bar", "baz"))
+  expect_equal(read_lines(x, skip = 1), c("2", "3", "", "foo", "bar", "baz"))
+  expect_equal(read_lines(x, skip = 2), c("3", "", "foo", "bar", "baz"))
+  expect_equal(read_lines(x, skip = 3), c("", "foo", "bar", "baz"))
+  expect_equal(read_lines(x, skip = 4), c("foo", "bar", "baz"))
+  expect_equal(read_lines(x, skip = 5), c("bar", "baz"))
+  expect_equal(read_lines(x, skip = 6), c("baz"))
+  expect_equal(read_lines(x, skip = 7), character())
+})
+
 test_that("allocation works as expected", {
   tmp <- tempfile(fileext = ".gz")
   on.exit(unlink(tmp))

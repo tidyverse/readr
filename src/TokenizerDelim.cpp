@@ -35,8 +35,9 @@ TokenizerDelim::TokenizerDelim(
 
 void TokenizerDelim::tokenize(SourceIterator begin, SourceIterator end) {
   cur_ = begin;
-  begin_ = begin;
+
   end_ = end;
+  begin_ = begin;
 
   row_ = 0;
   col_ = 0;

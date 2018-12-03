@@ -24,3 +24,19 @@ deparse2 <- function(expr, ..., sep = "\n") {
 is_integerish <- function(x) {
   floor(x) == x
 }
+
+# @export
+compare.tbl_df <- function(x, y, ...) {
+  attr(x, "spec") <- NULL
+  attr(y, "spec") <- NULL
+
+  NextMethod("compare")
+}
+
+# @export
+compare.col_spec <- function(x, y, ...) {
+  x[["skip"]] <- NULL
+  y[["skip"]] <- NULL
+
+  NextMethod("compare")
+}

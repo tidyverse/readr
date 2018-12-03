@@ -237,7 +237,24 @@ test_that("skip respects comments", {
   expect_equal(read_x(), c("#a", "b", "c"))
   expect_equal(read_x(skip = 1), c("b", "c"))
   expect_equal(read_x(comment = "#"), c("b", "c"))
-  expect_equal(read_x(comment = "#", skip = 1), c("c"))
+  expect_equal(read_x(comment = "#", skip = 2), c("c"))
+})
+
+test_that("skip respects newlines", {
+  read_x <- function(...) {
+    read_csv("1\n2\n3\n\na\nb\nc", col_names = FALSE, ..., progress = FALSE)[[1]]
+  }
+
+  expect_equal(read_x(), c("1", "2", "3", "a", "b", "c"))
+  expect_equal(read_x(skip = 3), c("a", "b", "c"))
+  expect_equal(read_x(skip = 4), c("a", "b", "c"))
+  expect_equal(read_x(skip = 5), c("b", "c"))
+
+  expect_equal(read_x(skip_empty_rows = FALSE), c("1", "2", "3", NA, "a", "b", "c"))
+
+  expect_equal(read_x(skip_empty_rows = TRUE, skip = 3), c("a", "b", "c"))
+  expect_equal(read_x(skip_empty_rows = FALSE, skip = 3), c(NA, "a", "b", "c"))
+  expect_equal(read_x(skip_empty_rows = FALSE, skip = 4), c("a", "b", "c"))
 })
 
 test_that("read_csv returns an empty data.frame on an empty file", {
@@ -250,7 +267,7 @@ test_that("read_delim errors on length 0 delimiter (557)", {
 })
 
 test_that("read_csv does not duplicate header rows for leading whitespace (747)", {
-  x <- read_csv("\nfoo,bar\n1,2")
+  x <- read_csv("\nfoo,bar\n1,2", skip = 1)
   expect_equal(nrow(x), 1)
   expect_equal(x$foo, 1)
 })

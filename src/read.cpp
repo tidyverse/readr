@@ -34,12 +34,13 @@ CharacterVector read_lines_(
     List locale_,
     std::vector<std::string> na,
     int n_max = -1,
+    bool skip_empty_rows = false,
     bool progress = true) {
 
   LocaleInfo locale(locale_);
   Reader r(
       Source::create(sourceSpec),
-      TokenizerPtr(new TokenizerLine(na)),
+      TokenizerPtr(new TokenizerLine(na, skip_empty_rows)),
       CollectorPtr(new CollectorCharacter(&locale.encoder_)),
       progress);
 
@@ -63,12 +64,13 @@ void read_lines_chunked_(
     std::vector<std::string> na,
     int chunkSize,
     Environment callback,
+    bool skip_empty_rows = false,
     bool progress = true) {
 
   LocaleInfo locale(locale_);
   Reader r(
       Source::create(sourceSpec),
-      TokenizerPtr(new TokenizerLine(na)),
+      TokenizerPtr(new TokenizerLine(na, skip_empty_rows)),
       CollectorPtr(new CollectorCharacter(&locale.encoder_)),
       progress);
 

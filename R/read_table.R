@@ -37,7 +37,7 @@ read_table <- function(file, col_names = TRUE, col_types = NULL,
                        n_max = Inf, guess_max = min(n_max, 1000),
                        progress = show_progress(), comment = "",
                        skip_empty_rows = TRUE) {
-  ds <- datasource(file, skip = skip)
+  ds <- datasource(file, skip = skip, skip_empty_rows = skip_empty_rows)
   columns <- fwf_empty(ds, skip = skip, n = guess_max, comment = comment)
   skip <- skip + columns$skip
 
@@ -46,12 +46,12 @@ read_table <- function(file, col_names = TRUE, col_types = NULL,
                              skip_empty_rows = skip_empty_rows)
 
   spec <- col_spec_standardise(
-    file = ds, skip = skip, guess_max = guess_max,
-    col_names = col_names, col_types = col_types,
+    file = ds, skip = skip, skip_empty_rows = skip_empty_rows,
+    guess_max = guess_max, col_names = col_names, col_types = col_types,
     locale = locale, tokenizer = tokenizer
   )
 
-  ds <- datasource(file = ds, skip = skip + isTRUE(col_names))
+  ds <- datasource(file = ds, skip = spec$skip, skip_empty_rows = skip_empty_rows)
   if (is.null(col_types) && !inherits(ds, "source_string")) {
     show_cols_spec(spec)
   }
@@ -74,8 +74,8 @@ read_table2 <- function(file, col_names = TRUE, col_types = NULL,
   tokenizer <- tokenizer_ws(na = na, comment = comment,
                             skip_empty_rows = skip_empty_rows)
   read_delimited(file, tokenizer, col_names = col_names, col_types = col_types,
-    locale = locale, skip = skip, comment = comment, n_max = n_max, guess_max =
-      guess_max, progress = progress)
+    locale = locale, skip = skip, skip_empty_rows = skip_empty_rows,
+    comment = comment, n_max = n_max, guess_max = guess_max, progress = progress)
 }
 
 #' @rdname spec_delim

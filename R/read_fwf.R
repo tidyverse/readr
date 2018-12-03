@@ -60,7 +60,7 @@ read_fwf <- function(file, col_positions, col_types = NULL,
     show_cols_spec(spec)
   }
 
-  out <- read_tokens(ds, tokenizer, spec$cols, names(spec$cols),
+  out <- read_tokens(datasource(file, skip = spec$skip), tokenizer, spec$cols, names(spec$cols),
     locale_ = locale, n_max = if (n_max == Inf) -1 else n_max,
     progress = progress)
 

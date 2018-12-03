@@ -109,8 +109,8 @@ read_delim <- function(file, delim, quote = '"',
     na = na, quoted_na = quoted_na, comment = comment, trim_ws = trim_ws,
     skip_empty_rows = skip_empty_rows)
   read_delimited(file, tokenizer, col_names = col_names, col_types = col_types,
-    locale = locale, skip = skip, comment = comment, n_max = n_max, guess_max =
-      guess_max, progress = progress)
+    locale = locale, skip = skip, skip_empty_rows = skip_empty_rows,
+    comment = comment, n_max = n_max, guess_max = guess_max, progress = progress)
 }
 
 #' @rdname read_delim
@@ -123,8 +123,8 @@ read_csv <- function(file, col_names = TRUE, col_types = NULL,
   tokenizer <- tokenizer_csv(na = na, quoted_na = quoted_na, quote = quote,
     comment = comment, trim_ws = trim_ws, skip_empty_rows = skip_empty_rows)
   read_delimited(file, tokenizer, col_names = col_names, col_types = col_types,
-    locale = locale, skip = skip, comment = comment, n_max = n_max, guess_max =
-      guess_max, progress = progress)
+    locale = locale, skip = skip, skip_empty_rows = skip_empty_rows,
+    comment = comment, n_max = n_max, guess_max = guess_max, progress = progress)
 }
 
 #' @rdname read_delim
@@ -145,8 +145,8 @@ read_csv2 <- function(file, col_names = TRUE, col_types = NULL,
     quote = quote, comment = comment, trim_ws = trim_ws,
     skip_empty_rows = skip_empty_rows)
   read_delimited(file, tokenizer, col_names = col_names, col_types = col_types,
-    locale = locale, skip = skip, comment = comment, n_max = n_max,
-    guess_max = guess_max, progress = progress)
+    locale = locale, skip = skip, skip_empty_rows = skip_empty_rows,
+    comment = comment, n_max = n_max, guess_max = guess_max, progress = progress)
 }
 
 
@@ -161,8 +161,8 @@ read_tsv <- function(file, col_names = TRUE, col_types = NULL,
   tokenizer <- tokenizer_tsv(na = na, quoted_na = quoted_na, quote = quote,
     comment = comment, trim_ws = trim_ws, skip_empty_rows = skip_empty_rows)
   read_delimited(file, tokenizer, col_names = col_names, col_types = col_types,
-    locale = locale, skip = skip, comment = comment, n_max = n_max,
-    guess_max = guess_max, progress = progress)
+    locale = locale, skip = skip, skip_empty_rows = skip_empty_rows,
+    comment = comment, n_max = n_max, guess_max = guess_max, progress = progress)
 }
 
 # Helper functions for reading from delimited files ----------------------------
@@ -174,13 +174,13 @@ read_tokens <- function(data, tokenizer, col_specs, col_names, locale_, n_max, p
 }
 
 read_delimited <- function(file, tokenizer, col_names = TRUE, col_types = NULL,
-                           locale = default_locale(), skip = 0, comment = "",
+                           locale = default_locale(), skip = 0, skip_empty_rows = TRUE, comment = "",
                            n_max = Inf, guess_max = min(1000, n_max), progress = show_progress()) {
   name <- source_name(file)
   # If connection needed, read once.
   file <- standardise_path(file)
   if (is.connection(file)) {
-    data <- datasource_connection(file, skip, comment)
+    data <- datasource_connection(file, skip, skip_empty_rows, comment)
   } else {
     if (empty_file(file)) {
        return(tibble::data_frame())
@@ -195,11 +195,11 @@ read_delimited <- function(file, tokenizer, col_names = TRUE, col_types = NULL,
   }
 
   spec <- col_spec_standardise(
-    data, skip = skip, comment = comment, guess_max = guess_max,
-    col_names = col_names, col_types = col_types, tokenizer = tokenizer,
-    locale = locale)
+    data, skip = skip, skip_empty_rows = skip_empty_rows,
+    comment = comment, guess_max = guess_max, col_names = col_names,
+    col_types = col_types, tokenizer = tokenizer, locale = locale)
 
-  ds <- datasource(data, skip = skip + isTRUE(col_names), comment = comment)
+  ds <- datasource(data, skip = spec$skip, skip_empty_rows = skip_empty_rows, comment = comment)
 
   if (is.null(col_types) && !inherits(ds, "source_string")) {
     show_cols_spec(spec)

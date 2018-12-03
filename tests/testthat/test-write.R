@@ -161,5 +161,5 @@ test_that("Can change the escape behavior for quotes", {
 
 test_that("hms NAs are written without padding (#930)", {
   df <- data.frame(x = hms::as.hms(c(NA, 34.234)))
-  expect_equal(format_tsv(df), "x\nNA\n00:00:34.234")
+  expect_equal(format_tsv(df), "x\nNA\n00:00:34.234\n")
 })
