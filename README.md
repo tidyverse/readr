@@ -147,7 +147,7 @@ Compared to the corresponding base functions, readr functions:
 similar to `read_csv()` called fread. Compared to fread, readr
 functions:
 
-  - Are slower (currently ~1.2-2x slower. If you want absolutely the
+  - Are slower. If you want absolutely the
     best performance, use `data.table::fread()`.
 
   - Use a slightly more sophisticated parser, recognising both doubled
