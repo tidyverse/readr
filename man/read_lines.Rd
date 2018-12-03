@@ -6,8 +6,9 @@
 \alias{write_lines}
 \title{Read/write lines to/from a file}
 \usage{
-read_lines(file, skip = 0, n_max = -1L, locale = default_locale(),
-  na = character(), progress = show_progress())
+read_lines(file, skip = 0, skip_empty_rows = FALSE, n_max = -1L,
+  locale = default_locale(), na = character(),
+  progress = show_progress())
 
 read_lines_raw(file, skip = 0, n_max = -1L,
   progress = show_progress())
@@ -31,6 +32,10 @@ vector of greater than length 1.
 Using a value of \code{\link[=clipboard]{clipboard()}} will read from the system clipboard.}
 
 \item{skip}{Number of lines to skip before reading data.}
+
+\item{skip_empty_rows}{Should blank rows be ignored altogether? i.e. If this
+option is \code{TRUE} then blank rows will not be represented at all.  If it is
+\code{FALSE} then they will be represented by \code{NA} values in all the columns.}
 
 \item{n_max}{Number of lines to read. If \code{n_max} is -1, all lines in
 file will be read.}

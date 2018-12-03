@@ -10,12 +10,14 @@ class TokenizerLine : public Tokenizer {
   SourceIterator begin_, cur_, end_;
   std::vector<std::string> NA_;
   bool moreTokens_;
+  bool skipEmptyRows_;
   int line_;
 
 public:
-  TokenizerLine(std::vector<std::string> NA) : NA_(NA), moreTokens_(false) {}
+  TokenizerLine(std::vector<std::string> NA, bool skipEmptyRows)
+      : NA_(NA), moreTokens_(false), skipEmptyRows_(skipEmptyRows) {}
 
-  TokenizerLine() : moreTokens_(false) {}
+  TokenizerLine() : moreTokens_(false), skipEmptyRows_(false) {}
 
   void tokenize(SourceIterator begin, SourceIterator end) {
     begin_ = begin;
@@ -44,12 +46,18 @@ public:
       if (*cur_ == '\0')
         hasNull = true;
 
-      if ((line_ + 1) % 500000 == 0)
+      if ((end_ - cur_) % 131072 == 0)
         Rcpp::checkUserInterrupt();
 
       switch (*cur_) {
       case '\r':
       case '\n': {
+        if (skipEmptyRows_ && token_begin == cur_) {
+          ++cur_;
+          advanceForLF(&cur_, end_);
+          token_begin = cur_;
+          continue;
+        }
         Token t =
             Token(token_begin, advanceForLF(&cur_, end_), line_++, 0, hasNull);
         t.flagNA(NA_);

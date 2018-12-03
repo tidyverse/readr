@@ -61,7 +61,8 @@ melt_delim <- function(file, delim, quote = '"',
     na = na, quoted_na = quoted_na, comment = comment, trim_ws = trim_ws,
     skip_empty_rows = skip_empty_rows)
   melt_delimited(file, tokenizer, locale = locale, skip = skip,
-                 comment = comment, n_max = n_max, progress = progress)
+    skip_empty_rows = skip_empty_rows, comment = comment,
+    n_max = n_max, progress = progress)
 }
 
 #' @rdname melt_delim
@@ -74,7 +75,8 @@ melt_csv <- function(file, locale = default_locale(), na = c("", "NA"),
   tokenizer <- tokenizer_csv(na = na, quoted_na = quoted_na, quote = quote,
     comment = comment, trim_ws = trim_ws, skip_empty_rows = skip_empty_rows)
   melt_delimited(file, tokenizer, locale = locale, skip = skip,
-                 comment = comment, n_max = n_max, progress = progress)
+    skip_empty_rows = skip_empty_rows, comment = comment, n_max = n_max,
+    progress = progress)
 }
 
 #' @rdname melt_delim
@@ -94,7 +96,8 @@ melt_csv2 <- function(file, locale = default_locale(), na = c("", "NA"),
     quote = quote, comment = comment, trim_ws = trim_ws,
     skip_empty_rows = skip_empty_rows)
   melt_delimited(file, tokenizer, locale = locale, skip = skip,
-                 comment = comment, n_max = n_max, progress = progress)
+    skip_empty_rows = skip_empty_rows, comment = comment, n_max = n_max,
+    progress = progress)
 }
 
 
@@ -108,7 +111,8 @@ melt_tsv <- function(file, locale = default_locale(), na = c("", "NA"),
   tokenizer <- tokenizer_tsv(na = na, quoted_na = quoted_na, quote = quote,
     comment = comment, trim_ws = trim_ws, skip_empty_rows = skip_empty_rows)
   melt_delimited(file, tokenizer, locale = locale, skip = skip,
-                 comment = comment, n_max = n_max, progress = progress)
+    skip_empty_rows = skip_empty_rows, comment = comment, n_max = n_max,
+    progress = progress)
 }
 
 # Helper functions for reading from delimited files ----------------------------
@@ -135,13 +139,13 @@ melt_tokens <- function(data, tokenizer, locale_, n_max, progress) {
 }
 
 melt_delimited <- function(file, tokenizer, locale = default_locale(),
-                           skip = 0, comment = "", n_max = Inf,
+                           skip = 0, skip_empty_rows = FALSE, comment = "", n_max = Inf,
                            progress = show_progress()) {
   name <- source_name(file)
   # If connection needed, read once.
   file <- standardise_path(file)
   if (is.connection(file)) {
-    data <- datasource_connection(file, skip, comment)
+    data <- datasource_connection(file, skip, skip_empty_rows = skip_empty_rows, comment)
   } else {
     if (empty_file(file)) {
        return(tibble::data_frame(row = double(), col = double(),
@@ -155,7 +159,7 @@ melt_delimited <- function(file, tokenizer, locale = default_locale(),
       data <- file
     }
   }
-  ds <- datasource(data, skip = skip, comment = comment)
+  ds <- datasource(data, skip = skip, skip_empty_rows = skip_empty_rows, comment = comment)
   out <- melt_tokens(ds, tokenizer, locale_ = locale, n_max = n_max,
               progress = progress)
   warn_problems(out)

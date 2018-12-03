@@ -44,7 +44,8 @@ TokenizerPtr Tokenizer::create(List spec) {
         new TokenizerFwf(begin, end, na, comment, trimWs, skipEmptyRows));
   } else if (subclass == "tokenizer_line") {
     std::vector<std::string> na = as<std::vector<std::string> >(spec["na"]);
-    return TokenizerPtr(new TokenizerLine(na));
+    bool skipEmptyRows = as<bool>(spec["skip_empty_rows"]);
+    return TokenizerPtr(new TokenizerLine(na, skipEmptyRows));
   } else if (subclass == "tokenizer_log") {
     return TokenizerPtr(new TokenizerLog());
   } else if (subclass == "tokenizer_ws") {

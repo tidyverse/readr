@@ -1,12 +1,26 @@
 # readr 1.2.1.9000
 
-* `hms` objects with NA values are now written without whitespace padding (#930).
+## Breaking Changes
 
-* `write_csv2()` now properly respects the `na` argument (#928).
+### Blank line skipping
+
+readr's blank line skipping has been modified to be more consistent and to
+avoid edge cases that affected the behavior in 1.2.0. The skip parameter now
+behaves more similar to how it worked previous to readr 1.2.0, but in addition
+the parameter `skip_blank_rows` can be used to control if fully blank lines are
+skipped in the output. (#923)
+
+## Bugfixes
+
+* `write_csv2()` now properly respects the `na` argument (#928)
 
 * Fixes compilation with multiple architectures on linux (#922).
 
 * Fixes compilation with R < 3.3.0
+
+* `hms` objects with NA values are now written without whitespace padding (#930).
+
+* `write_csv2()` now properly respects the `na` argument (#928).
 
 # readr 1.2.1
 
