@@ -1,6 +1,8 @@
 # readr 1.2.1.9000
 
-* `write_csv2()` now properly respects the `na` argument (#928)
+* `hms` objects with NA values are now written without whitespace padding (#930).
+
+* `write_csv2()` now properly respects the `na` argument (#928).
 
 * Fixes compilation with multiple architectures on linux (#922).
 

@@ -158,3 +158,8 @@ test_that("Can change the escape behavior for quotes", {
   expect_equal(format_delim(df, "\t", quote_escape = "none"), "x\na\n\"\"\"\n,\n\"\n\"\n")
   expect_equal(format_delim(df, "\t", quote_escape = FALSE), "x\na\n\"\"\"\n,\n\"\n\"\n")
 })
+
+test_that("hms NAs are written without padding (#930)", {
+  df <- data.frame(x = hms::as.hms(c(NA, 34.234)))
+  expect_equal(format_tsv(df), "x\nNA\n00:00:34.234")
+})

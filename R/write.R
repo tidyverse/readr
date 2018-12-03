@@ -199,12 +199,7 @@ output_column.double <- function(x) {
 
 #' @export
 output_column.POSIXt <- function(x) {
-  format(x, "%Y-%m-%dT%H:%M:%OSZ", tz = "UTC")
-}
-
-#' @export
-output_column.hms <- function(x) {
-  format(x, "%Y-%m-%dT%H:%M:%OSZ", tz = "UTC")
+  format(x, "%Y-%m-%dT%H:%M:%OSZ", tz = "UTC", justify = "none")
 }
 
 stream_delim <- function(df, path, append = FALSE, bom = FALSE, ..., quote_escape) {
