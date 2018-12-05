@@ -22,6 +22,11 @@ skipped in the output. (#923)
 
 * `write_csv2()` now properly respects the `na` argument (#928).
 
+* `read_*()` functions now return `spec_tbl_df` objects, which differ from
+  regular `tbl_df` objects only in that the `spec` attribute is removed (and
+  they are demoted to regular `tbl_df` objects) as soon as they are subset
+  (#934).
+
 # readr 1.2.1
 
 This release skips the clipboard tests on CRAN servers

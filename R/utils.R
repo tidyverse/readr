@@ -25,6 +25,13 @@ is_integerish <- function(x) {
   floor(x) == x
 }
 
+#' @export
+`[.spec_tbl_df` <- function(x, ...) {
+  attr(x, "spec") <- NULL
+  class(x) <- setdiff(class(x), "spec_tbl_df")
+  NextMethod(`[`)
+}
+
 # @export
 compare.tbl_df <- function(x, y, ...) {
   attr(x, "spec") <- NULL

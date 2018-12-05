@@ -293,3 +293,16 @@ test_that("read_csv reads headers with embedded newlines 2 (#772)", {
   expect_equal(x$X1, "Value")
   expect_equal(x$X2, "Value2")
 })
+
+test_that("read_csv returns a spec_tbl_df and the spec attribute is removed once it is subset (#934)", {
+  x <- read_csv("foo\n1\n2\n")
+
+  has_spec <- function(x) !is.null(attr(x, "spec"))
+
+  expect_true(inherits(x, "spec_tbl_df"))
+  expect_true(has_spec(x))
+
+  y <- x[]
+  expect_false(inherits(y, "spec_tbl_df"))
+  expect_false(has_spec(y))
+})
