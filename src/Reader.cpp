@@ -67,7 +67,8 @@ RObject Reader::readToDataFrame(int lines) {
   }
 
   out.attr("names") = outNames_;
-  out.attr("class") = CharacterVector::create("tbl_df", "tbl", "data.frame");
+  out.attr("class") =
+      CharacterVector::create("spec_tbl_df", "tbl_df", "tbl", "data.frame");
   out.attr("row.names") = IntegerVector::create(NA_INTEGER, -(rows + 1));
 
   out = warnings_.addAsAttribute(out);
