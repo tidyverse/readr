@@ -7,6 +7,9 @@ authors:
   "Jim Hester":
     href: http://jimhester.com
 
+development:
+  mode: auto
+
 home:
   strip_header: true
   links:
