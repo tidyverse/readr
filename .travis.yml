@@ -32,6 +32,3 @@ matrix:
   - r: 3.3
   - r: 3.2
   - r: 3.1
-
-after_success:
-  - test $TRAVIS_R_VERSION_STRING = "release" && Rscript -e 'covr::codecov()'
