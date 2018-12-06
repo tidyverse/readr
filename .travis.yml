@@ -16,8 +16,6 @@ addons:
     packages:
       - clang-format-3.9
 
-before_install: travis/check_format.sh
-
 matrix:
   include:
   - r: devel
