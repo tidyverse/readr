@@ -23,7 +23,7 @@ matrix:
   - r: devel
   - r: release
     after_success: Rscript -e 'covr::codecov()'
-    before_deploy: Rscript -e 'remotes::install_cran("pkgdown")'
+    before_cache: Rscript -e 'remotes::install_cran("pkgdown")'
     deploy:
       provider: script
       script: Rscript -e 'pkgdown::deploy_site_github()'
@@ -32,3 +32,4 @@ matrix:
   - r: 3.3
   - r: 3.2
   - r: 3.1
+    warnings_are_errors: false # There is a spurious warning during installation on R 3.1
