@@ -35,7 +35,7 @@
 #' con <- rawConnection(charToRaw("abc\n123"))
 #' datasource(con)
 #' close(con)
-datasource <- function(file, skip = 0, skip_empty_rows = TRUE, comment = "") {
+datasource <- function(file, skip = 0, skip_empty_rows = FALSE, comment = "") {
   if (inherits(file, "source")) {
 
     # If `skip` and `comment` arguments are expliictly passed, we want to use
@@ -55,7 +55,7 @@ datasource <- function(file, skip = 0, skip_empty_rows = TRUE, comment = "") {
     datasource_raw(file, skip, skip_empty_rows, comment)
   } else if (is.character(file)) {
     if (length(file) > 1) {
-      datasource_string(paste(file, collapse = "\n"), skip, comment)
+      datasource_string(paste(file, collapse = "\n"), skip, skip_empty_rows, comment)
     } else if (grepl("\n", file)) {
       datasource_string(file, skip, skip_empty_rows, comment)
     } else {

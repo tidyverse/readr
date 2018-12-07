@@ -46,7 +46,7 @@ read_lines_raw <- function(file, skip = 0,
   if (empty_file(file)) {
     return(list())
   }
-  ds <- datasource(file, skip = skip)
+  ds <- datasource(file, skip = skip, skip_empty_rows = FALSE)
   read_lines_raw_(ds, n_max = n_max, progress = progress)
 }
 

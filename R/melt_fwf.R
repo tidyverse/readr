@@ -38,7 +38,7 @@ melt_fwf <- function(file, col_positions,
                      comment = "", trim_ws = TRUE, skip = 0, n_max = Inf,
                      progress = show_progress(),
                      skip_empty_rows = FALSE) {
-  ds <- datasource(file, skip = skip)
+  ds <- datasource(file, skip = skip, skip_empty_rows = skip_empty_rows)
   if (inherits(ds, "source_file") && empty_file(file)) {
        return(tibble::data_frame(row = double(), col = double(),
                                  data_type = character(), value = character()))

@@ -38,7 +38,7 @@ read_fwf <- function(file, col_positions, col_types = NULL,
                      comment = "", trim_ws = TRUE, skip = 0, n_max = Inf,
                      guess_max = min(n_max, 1000), progress = show_progress(),
                      skip_empty_rows = TRUE) {
-  ds <- datasource(file, skip = skip)
+  ds <- datasource(file, skip = skip, skip_empty_rows = skip_empty_rows)
   if (inherits(ds, "source_file") && empty_file(file)) {
     return(tibble::tibble())
   }
@@ -60,7 +60,7 @@ read_fwf <- function(file, col_positions, col_types = NULL,
     show_cols_spec(spec)
   }
 
-  out <- read_tokens(datasource(file, skip = spec$skip), tokenizer, spec$cols, names(spec$cols),
+  out <- read_tokens(datasource(file, skip = spec$skip, skip_empty_rows = skip_empty_rows), tokenizer, spec$cols, names(spec$cols),
     locale_ = locale, n_max = if (n_max == Inf) -1 else n_max,
     progress = progress)
 
@@ -73,8 +73,8 @@ read_fwf <- function(file, col_positions, col_types = NULL,
 #' @export
 #' @param n Number of lines the tokenizer will read to determine file structure. By default
 #'      it is set to 100.
-fwf_empty <- function(file, skip = 0, col_names = NULL, comment = "", n = 100L) {
-  ds <- datasource(file, skip = skip)
+fwf_empty <- function(file, skip = 0, skip_empty_rows = FALSE, col_names = NULL, comment = "", n = 100L) {
+  ds <- datasource(file, skip = skip, skip_empty_rows = skip_empty_rows)
 
   out <- whitespaceColumns(ds, comment = comment, n = n)
   out$end[length(out$end)] <- NA
