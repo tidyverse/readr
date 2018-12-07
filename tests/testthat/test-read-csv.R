@@ -306,3 +306,10 @@ test_that("read_csv returns a spec_tbl_df and the spec attribute is removed once
   expect_false(inherits(y, "spec_tbl_df"))
   expect_false(has_spec(y))
 })
+
+test_that("read_csv returns an empty tbl if all lines are comments", {
+  x <- read_csv("#foo\n#bar", comment = "#", col_names = c("X"))
+
+  expect_equal(nrow(x), 0)
+  expect_equal(ncol(x), 1)
+})

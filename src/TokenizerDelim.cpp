@@ -60,7 +60,7 @@ Token TokenizerDelim::nextToken() {
   SourceIterator token_begin = cur_;
   bool hasEscapeD = false, hasEscapeB = false, hasNull = false;
 
-  while (cur_ != end_) {
+  while (cur_ < end_) {
     // Increments cur on destruct, ensuring that we always move on to the
     // next character
     Advance advance(&cur_);
