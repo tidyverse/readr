@@ -10,27 +10,27 @@
 |collate  |en_US.UTF-8                  |
 |ctype    |en_US.UTF-8                  |
 |tz       |America/New_York             |
-|date     |2018-12-06                   |
+|date     |2018-12-07                   |
 
 # Dependencies
 
-|package    |old      |new        |Δ  |
-|:----------|:--------|:----------|:--|
-|readr      |1.2.1    |1.2.1.9000 |*  |
-|assertthat |0.2.0    |0.2.0      |   |
-|BH         |1.66.0-1 |1.66.0-1   |   |
-|cli        |1.0.1    |1.0.1      |   |
-|clipr      |0.4.1    |0.4.1      |   |
-|crayon     |1.3.4    |1.3.4      |   |
-|fansi      |0.4.0    |0.4.0      |   |
-|hms        |0.4.2    |0.4.2      |   |
-|pillar     |1.3.0    |1.3.0      |   |
-|pkgconfig  |2.0.2    |2.0.2      |   |
-|R6         |2.3.0    |2.3.0      |   |
-|Rcpp       |1.0.0    |1.0.0      |   |
-|rlang      |0.3.0.1  |0.3.0.1    |   |
-|tibble     |1.4.2    |1.4.2      |   |
-|utf8       |1.1.4    |1.1.4      |   |
+|package    |old      |new      |Δ  |
+|:----------|:--------|:--------|:--|
+|readr      |1.2.1    |1.3.0    |*  |
+|assertthat |0.2.0    |0.2.0    |   |
+|BH         |1.66.0-1 |1.66.0-1 |   |
+|cli        |1.0.1    |1.0.1    |   |
+|clipr      |0.4.1    |0.4.1    |   |
+|crayon     |1.3.4    |1.3.4    |   |
+|fansi      |0.4.0    |0.4.0    |   |
+|hms        |0.4.2    |0.4.2    |   |
+|pillar     |1.3.0    |1.3.0    |   |
+|pkgconfig  |2.0.2    |2.0.2    |   |
+|R6         |2.3.0    |2.3.0    |   |
+|Rcpp       |1.0.0    |1.0.0    |   |
+|rlang      |0.3.0.1  |0.3.0.1  |   |
+|tibble     |1.4.2    |1.4.2    |   |
+|utf8       |1.1.4    |1.1.4    |   |
 
 # Revdeps
 
@@ -53,16 +53,13 @@
 |[variancePartition](problems.md#variancepartition) |1.12.0  |1     |        |     |
 |[xpose](problems.md#xpose)                         |0.4.3   |1     |        |     |
 
-## Broken (6)
+## Broken (3)
 
 |package                                            |version |error  |warning |note |
 |:--------------------------------------------------|:-------|:------|:-------|:----|
 |[fastqcr](problems.md#fastqcr)                     |0.1.1   |__+1__ |        |     |
-|[getCRUCLdata](problems.md#getcrucldata)           |0.2.5   |__+1__ |        |     |
 |[jstor](problems.md#jstor)                         |0.3.5   |__+1__ |        |     |
 |[photobiologyInOut](problems.md#photobiologyinout) |0.4.18  |__+1__ |        |     |
-|[rhmmer](problems.md#rhmmer)                       |0.1.0   |__+1__ |        |1    |
-|[sasMap](problems.md#sasmap)                       |1.0.0   |__+1__ |        |1    |
 
 ## All (297)
 
@@ -176,7 +173,7 @@
 |[geojsonio](problems.md#geojsonio)                           |0.6.0   |1      |        |     |
 |geomnet                                                      |0.2.0   |       |        |     |
 |[GEOquery](problems.md#geoquery)                             |2.50.0  |1 -1   |        |4    |
-|[getCRUCLdata](problems.md#getcrucldata)                     |0.2.5   |__+1__ |        |     |
+|[getCRUCLdata](problems.md#getcrucldata)                     |0.2.5   |1      |        |     |
 |GetDFPData                                                   |1.2     |       |        |     |
 |GetHFData                                                    |1.6     |       |        |     |
 |GetITRData                                                   |0.7     |       |        |     |
@@ -280,7 +277,7 @@
 |rfm                                                          |0.1.0   |       |        |     |
 |[rgeopat2](problems.md#rgeopat2)                             |0.2.6   |1      |        |     |
 |rgho                                                         |1.0.1   |       |        |     |
-|[rhmmer](problems.md#rhmmer)                                 |0.1.0   |__+1__ |        |1    |
+|[rhmmer](problems.md#rhmmer)                                 |0.1.0   |       |        |1    |
 |[Ricetl](problems.md#ricetl)                                 |0.2.5   |1      |        |     |
 |[Rilostat](problems.md#rilostat)                             |0.2.1   |       |        |1    |
 |rio                                                          |0.5.16  |       |        |     |
@@ -305,7 +302,7 @@
 |salesforcer                                                  |0.1.2   |       |        |     |
 |[SanFranBeachWater](problems.md#sanfranbeachwater)           |0.1.0   |       |        |1    |
 |[SanzCircos](problems.md#sanzcircos)                         |0.1.0   |       |        |1    |
-|[sasMap](problems.md#sasmap)                                 |1.0.0   |__+1__ |        |1    |
+|[sasMap](problems.md#sasmap)                                 |1.0.0   |       |        |1    |
 |Sconify                                                      |1.2.0   |       |        |     |
 |scopr                                                        |0.3.2   |       |        |     |
 |sergeant                                                     |0.5.2   |       |        |     |

@@ -1402,25 +1402,25 @@ Version: 2.50.0
 
 Version: 0.2.5
 
-## Newly broken
+## In both
 
 *   checking tests ...
     ```
      ERROR
     Running the tests in ‘tests/testthat.R’ failed.
     Last 13 lines of output:
-      > library(testthat)
-      > library(getCRUCLdata)
-      > 
-      > test_check("getCRUCLdata")
-      ── 1. Failure: Test that create_stack creates tmn if requested (@test-create_CRU
+      1/1 mismatches
+      [1] 12.9 - 12.9 == 5.72e-07
+      
+      ── 2. Failure: Test that create_stack creates tmn if requested (@test-create_CRU
       raster::maxValue(CRU_stack_list[[1]][[1]]) not equal to 4.3.
       1/1 mismatches
-      [1] 4.3 - 4.3 == 3.81e-07
+      [1] 4.3 - 4.3 == 1.91e-07
       
       ══ testthat results  ═══════════════════════════════════════════════════════════
-      OK: 254 SKIPPED: 23 FAILED: 1
-      1. Failure: Test that create_stack creates tmn if requested (@test-create_CRU_stack.R#1233) 
+      OK: 613 SKIPPED: 23 FAILED: 2
+      1. Failure: Test that create_stack creates tmx if requested (@test-create_CRU_stack.R#868) 
+      2. Failure: Test that create_stack creates tmn if requested (@test-create_CRU_stack.R#1233) 
       
       Error: testthat unit tests failed
       Execution halted
@@ -2543,30 +2543,6 @@ ERROR: lazy loading failed for package ‘rgeopat2’
 
 Version: 0.1.0
 
-## Newly broken
-
-*   checking tests ...
-    ```
-     ERROR
-    Running the tests in ‘tests/testthat.R’ failed.
-    Last 13 lines of output:
-      17: function_list[[i]](value)
-      18: readr::read_tsv(., col_names = c("X", "description"), comment = "#", na = "-")
-      19: read_delimited(file, tokenizer, col_names = col_names, col_types = col_types, locale = locale, 
-             skip = skip, skip_empty_rows = skip_empty_rows, comment = comment, n_max = n_max, 
-             guess_max = guess_max, progress = progress) at /private/var/folders/dt/r5s12t392tb5sk181j3gs4zw0000gn/T/Rtmp0Jfdaq/R.INSTALLc8405492b434/readr/R/read_delim.R:163
-      20: read_tokens(ds, tokenizer, spec$cols, names(spec$cols), locale_ = locale, n_max = n_max, 
-             progress = progress) at /private/var/folders/dt/r5s12t392tb5sk181j3gs4zw0000gn/T/Rtmp0Jfdaq/R.INSTALLc8405492b434/readr/R/read_delim.R:208
-      21: read_tokens_(data, tokenizer, col_specs, col_names, locale_, n_max, progress) at /private/var/folders/dt/r5s12t392tb5sk181j3gs4zw0000gn/T/Rtmp0Jfdaq/R.INSTALLc8405492b434/readr/R/read_delim.R:173
-      
-      ══ testthat results  ═══════════════════════════════════════════════════════════
-      OK: 6 SKIPPED: 0 FAILED: 1
-      1. Error: files with no data do not fail (@test-parse.R#27) 
-      
-      Error: testthat unit tests failed
-      Execution halted
-    ```
-
 ## In both
 
 *   checking dependencies in R code ... NOTE
@@ -2800,30 +2776,6 @@ Version: 0.1.0
 # sasMap
 
 Version: 1.0.0
-
-## Newly broken
-
-*   checking tests ...
-    ```
-     ERROR
-    Running the tests in ‘tests/testthat.R’ failed.
-    Last 13 lines of output:
-      countLines(sasCode2) not equal to 20.
-      1/1 mismatches
-      [1] 19 - 20 == -1
-      
-      ── 2. Failure: Summarise SAS script (@test-summarise.R#28)  ────────────────────
-      summariseSASScript(script) not equal to `expectedSummary`.
-      Component "lines": Mean relative difference: 0.09090909
-      
-      ══ testthat results  ═══════════════════════════════════════════════════════════
-      OK: 17 SKIPPED: 0 FAILED: 2
-      1. Failure: Counts lines (@test-count.R#26) 
-      2. Failure: Summarise SAS script (@test-summarise.R#28) 
-      
-      Error: testthat unit tests failed
-      Execution halted
-    ```
 
 ## In both
 
