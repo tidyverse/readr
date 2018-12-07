@@ -10,6 +10,7 @@ typedef boost::shared_ptr<Source> SourcePtr;
 
 class Source {
 public:
+  Source() : skippedRows_(0) {}
   virtual ~Source() {}
 
   virtual const char* begin() = 0;
@@ -133,7 +134,7 @@ private:
     return boost::starts_with(haystack, comment);
   }
 
-  size_t skippedRows_ = 0;
+  size_t skippedRows_;
 };
 
 #endif
