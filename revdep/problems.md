@@ -233,6 +233,30 @@ Version: 0.8.0
 
 ## In both
 
+*   checking examples ... ERROR
+    ```
+    Running examples in ‘biomartr-Ex.R’ failed
+    The error most likely occurred in:
+    
+    > ### Name: getFilters
+    > ### Title: Retrieve All Available Filters for a Specific Dataset
+    > ### Aliases: getFilters
+    > 
+    > ### ** Examples
+    > 
+    > # search for available datasets
+    > # getMarts()
+    > # choose database (mart): "ENSEMBL_MART_ENSEMBL"
+    > # head(getDatasets(mart = "ENSEMBL_MART_ENSEMBL"), 10)
+    > # choose dataset: "hsapiens_gene_ensembl"
+    > head(getFilters(mart = "ENSEMBL_MART_ENSEMBL", 
+    +                 dataset = "hsapiens_gene_ensembl") , 5)
+    Error in getFilters(mart = "ENSEMBL_MART_ENSEMBL", dataset = "hsapiens_gene_ensembl") : 
+      Service Unavailable (HTTP 503).
+    Calls: head -> getFilters -> <Anonymous>
+    Execution halted
+    ```
+
 *   checking package dependencies ... NOTE
     ```
     Package suggested but not available for checking: ‘devtools’
@@ -248,6 +272,23 @@ Version: 0.1.0
     ```
     Namespace in Imports field not imported from: ‘descriptr’
       All declared Imports should be used.
+    ```
+
+# bomrang
+
+Version: 0.4.0
+
+## In both
+
+*   checking re-building of vignette outputs ... WARNING
+    ```
+    Error in re-building vignettes:
+      ...
+    trying URL 'ftp://ftp.bom.gov.au/anon/gen/radar/IDR032.gif'
+    Quitting from lines 547-562 (bomrang.Rmd) 
+    Error: processing vignette 'bomrang.Rmd' failed with diagnostics:
+    cannot open URL 'ftp://ftp.bom.gov.au/anon/gen/radar/IDR032.gif'
+    Execution halted
     ```
 
 # breathtestcore
@@ -267,10 +308,12 @@ Version: 0.7.0
 
 ## In both
 
-*   checking dependencies in R code ... NOTE
+*   checking package dependencies ... ERROR
     ```
-    Namespace in Imports field not imported from: ‘units’
-      All declared Imports should be used.
+    Package required but not available: ‘units’
+    
+    See section ‘The DESCRIPTION file’ in the ‘Writing R Extensions’
+    manual.
     ```
 
 # CDECRetrieve
@@ -296,8 +339,8 @@ Version: 1.0.0
     ```
     ...
     Calculating likelihood ratio tests
-    Refitting on reduced model...
     Calculating likelihood ratio tests
+    Refitting on reduced model...
     Refitting on reduced model...
     
     Done!
@@ -350,9 +393,9 @@ Version: 2.6.0
 
 *   checking installed package size ... NOTE
     ```
-      installed size is 162.0Mb
+      installed size is 162.1Mb
       sub-directories of 1Mb or more:
-        data  160.7Mb
+        data  160.8Mb
     ```
 
 # chromVAR
@@ -487,7 +530,7 @@ Version: 0.2.0
 
 # crosswalkr
 
-Version: 0.1.1
+Version: 0.2.2
 
 ## In both
 
@@ -603,7 +646,7 @@ Version: 0.4.1
 
 Version: 1.9
 
-## Newly broken
+## In both
 
 *   checking tests ...
     ```
@@ -626,8 +669,6 @@ Version: 1.9
       Error: testthat unit tests failed
       Execution halted
     ```
-
-## In both
 
 *   checking installed package size ... NOTE
     ```
@@ -697,7 +738,7 @@ Version: 1.0.0
     ```
       installed size is  6.9Mb
       sub-directories of 1Mb or more:
-        R             3.0Mb
+        R             3.1Mb
         htmlwidgets   3.0Mb
     ```
 
@@ -761,7 +802,7 @@ Version: 1.0.0
 
 # edgeR
 
-Version: 3.24.0
+Version: 3.24.1
 
 ## In both
 
@@ -823,7 +864,7 @@ Version: 1.1
 
 # ELMER
 
-Version: 2.6.0
+Version: 2.6.1
 
 ## In both
 
@@ -856,7 +897,7 @@ Version: 2.6.0
 
 *   checking installed package size ... NOTE
     ```
-      installed size is 44.7Mb
+      installed size is 44.8Mb
       sub-directories of 1Mb or more:
         doc  43.6Mb
     ```
@@ -897,7 +938,7 @@ Version: 1.1.1
     ```
       installed size is  7.1Mb
       sub-directories of 1Mb or more:
-        R         3.1Mb
+        R         3.0Mb
         doc       1.2Mb
         extdata   1.5Mb
     ```
@@ -927,6 +968,20 @@ Version: 0.1.2
       All declared Imports should be used.
     ```
 
+# eplusr
+
+Version: 0.9.4
+
+## In both
+
+*   checking package dependencies ... ERROR
+    ```
+    Package required but not available: ‘units’
+    
+    See section ‘The DESCRIPTION file’ in the ‘Writing R Extensions’
+    manual.
+    ```
+
 # esc
 
 Version: 0.4.1
@@ -951,41 +1006,50 @@ Version: 0.3.7
 
 # eurostat
 
-Version: 3.2.9
+Version: 3.3.1
 
 ## In both
 
-*   checking re-building of vignette outputs ... WARNING
+*   checking whether package ‘eurostat’ can be installed ... ERROR
     ```
-    ...
-        filter, lag
-    
-    The following objects are masked from 'package:base':
-    
-        intersect, setdiff, setequal, union
-    
-    trying URL 'https://ec.europa.eu/eurostat/estat-navtree-portlet-prod/BulkDownloadListing?sort=1&file=data%2Ften00081.tsv.gz'
-    Content type 'application/octet-stream;charset=UTF-8' length 13630 bytes (13 KB)
-    ==================================================
-    downloaded 13 KB
-    
-    Table ten00081 cached at /var/folders/dt/r5s12t392tb5sk181j3gs4zw0000gn/T//RtmpWqdzl5/eurostat/ten00081_date_code_TF.rds
-    trying URL 'https://ec.europa.eu/eurostat/estat-navtree-portlet-prod/BulkDownloadListing?sort=1&file=data%2Ftgs00026.tsv.gz'
-    Content type 'application/octet-stream;charset=UTF-8' length 5998 bytes
-    ==================================================
-    downloaded 5998 bytes
-    
-    Quitting from lines 291-308 (eurostat_tutorial.Rmd) 
-    Error: processing vignette 'eurostat_tutorial.Rmd' failed with diagnostics:
-    Open failed.
-    Execution halted
+    Installation failed.
+    See ‘.../revdep/checks.noindex/eurostat/new/eurostat.Rcheck/00install.out’ for details.
     ```
 
-*   checking data for non-ASCII characters ... NOTE
-    ```
-      Note: found 596 marked UTF-8 strings
-    ```
+## Installation
 
+### Devel
+
+```
+* installing *source* package ‘eurostat’ ...
+** package ‘eurostat’ successfully unpacked and MD5 sums checked
+** R
+** data
+*** moving datasets to lazyload DB
+** inst
+** byte-compile and prepare package for lazy loading
+Error in loadNamespace(j <- i[[1L]], c(lib.loc, .libPaths()), versionCheck = vI[[j]]) : 
+  there is no package called ‘units’
+ERROR: lazy loading failed for package ‘eurostat’
+* removing ‘.../revdep/checks.noindex/eurostat/new/eurostat.Rcheck/eurostat’
+
+```
+### CRAN
+
+```
+* installing *source* package ‘eurostat’ ...
+** package ‘eurostat’ successfully unpacked and MD5 sums checked
+** R
+** data
+*** moving datasets to lazyload DB
+** inst
+** byte-compile and prepare package for lazy loading
+Error in loadNamespace(j <- i[[1L]], c(lib.loc, .libPaths()), versionCheck = vI[[j]]) : 
+  there is no package called ‘units’
+ERROR: lazy loading failed for package ‘eurostat’
+* removing ‘.../revdep/checks.noindex/eurostat/old/eurostat.Rcheck/eurostat’
+
+```
 # EventStudy
 
 Version: 0.34
@@ -1008,33 +1072,33 @@ Version: 0.34
 
 # fastqcr
 
-Version: 0.1.0
+Version: 0.1.1
 
 ## Newly broken
 
 *   checking examples ... ERROR
     ```
     ...
-    > 
-    > ### ** Examples
-    > 
-    > # Demo QC dir
-    > qc.dir <- system.file("fastqc_results", package = "fastqcr")
-    > qc.dir
-    [1] ".../revdep/checks.noindex/fastqcr/new/fastqcr.Rcheck/fastqcr/fastqc_results"
-    > 
-    > # List of files in the directory
-    > list.files(qc.dir)
-    [1] "S1_fastqc.zip" "S2_fastqc.zip" "S3_fastqc.zip" "S4_fastqc.zip"
-    [5] "S5_fastqc.zip"
-    > 
-    > # Aggregate the report
-    > qc <- qc_aggregate(qc.dir, progressbar = FALSE)
+      2  -- 1 columns 3 columns literal data
+      3  -- 1 columns 3 columns literal data
+      4  -- 1 columns 3 columns literal data
+      5  -- 1 columns 3 columns literal data
+    ... ... ......... ......... ............
+    See problems(...) for more details.
+    
+    Warning: 17 parsing failures.
+    row col  expected    actual         file
+      1  -- 2 columns 3 columns literal data
+      2  -- 2 columns 3 columns literal data
+      3  -- 2 columns 3 columns literal data
+      4  -- 2 columns 3 columns literal data
+      5  -- 2 columns 3 columns literal data
+    ... ... ......... ......... ............
+    See problems(...) for more details.
+    
     Warning in function_list[[i]](value) : NAs introduced by coercion
-    Warning in function_list[[i]](value) : NAs introduced by coercion
-    Error in match.names(clabs, names(xi)) : 
-      names do not match previous names
-    Calls: qc_aggregate -> rbind -> rbind -> match.names
+    Error in .f(.x[[i]], ...) : object 'module' not found
+    Calls: qc_aggregate ... <Anonymous> -> vars_select_eval -> map_if -> map -> .f
     Execution halted
     ```
 
@@ -1071,7 +1135,7 @@ Version: 2.5.5
 
 *   checking package dependencies ... ERROR
     ```
-    Packages required but not available: ‘devtools’ ‘soilDB’
+    Package required but not available: ‘devtools’
     
     See section ‘The DESCRIPTION file’ in the ‘Writing R Extensions’
     manual.
@@ -1099,7 +1163,7 @@ Version: 1.14.0
     ```
       installed size is  7.4Mb
       sub-directories of 1Mb or more:
-        R         2.0Mb
+        R         2.1Mb
         doc       3.5Mb
         extdata   1.2Mb
     ```
@@ -1185,46 +1249,51 @@ Version: 0.6.0
 
 ## In both
 
-*   checking installed package size ... NOTE
+*   checking whether package ‘geojsonio’ can be installed ... ERROR
     ```
-      installed size is  5.4Mb
-      sub-directories of 1Mb or more:
-        doc        1.4Mb
-        examples   1.6Mb
-        vign       1.0Mb
+    Installation failed.
+    See ‘.../revdep/checks.noindex/geojsonio/new/geojsonio.Rcheck/00install.out’ for details.
     ```
 
+## Installation
+
+### Devel
+
+```
+* installing *source* package ‘geojsonio’ ...
+** package ‘geojsonio’ successfully unpacked and MD5 sums checked
+** R
+** data
+*** moving datasets to lazyload DB
+** inst
+** byte-compile and prepare package for lazy loading
+Error in loadNamespace(j <- i[[1L]], c(lib.loc, .libPaths()), versionCheck = vI[[j]]) : 
+  there is no package called ‘units’
+ERROR: lazy loading failed for package ‘geojsonio’
+* removing ‘.../revdep/checks.noindex/geojsonio/new/geojsonio.Rcheck/geojsonio’
+
+```
+### CRAN
+
+```
+* installing *source* package ‘geojsonio’ ...
+** package ‘geojsonio’ successfully unpacked and MD5 sums checked
+** R
+** data
+*** moving datasets to lazyload DB
+** inst
+** byte-compile and prepare package for lazy loading
+Error in loadNamespace(j <- i[[1L]], c(lib.loc, .libPaths()), versionCheck = vI[[j]]) : 
+  there is no package called ‘units’
+ERROR: lazy loading failed for package ‘geojsonio’
+* removing ‘.../revdep/checks.noindex/geojsonio/old/geojsonio.Rcheck/geojsonio’
+
+```
 # GEOquery
 
 Version: 2.50.0
 
-## Newly broken
-
-*   checking examples ... ERROR
-    ```
-    ...
-    
-    > ### Name: getGSEDataTables
-    > ### Title: Get GSE data tables from GEO into R data structures.
-    > ### Aliases: getGSEDataTables
-    > ### Keywords: IO
-    > 
-    > ### ** Examples
-    > 
-    > 
-    > dfl = getGSEDataTables("GSE3494")
-    Called from: FUN(X[[i]], ...)
-    Browse[1]> lapply(dfl,head)
-    Error in lapply(dfl, head) : object 'dfl' not found
-    Calls: getGSEDataTables -> sapply -> lapply -> FUN -> lapply
-    Browse[1]> 
-    debug at .../revdep/checks.noindex/GEOquery/new/GEOquery.Rcheck/00_pkg_src/GEOquery/R/getGSEDataTables.R#37: dTable = suppressWarnings(read_tsv(dTableText, col_names = FALSE))
-    Browse[2]> 
-    Error in read_tokens_(data, tokenizer, col_specs, col_names, locale_,  : 
-      attempt to set index 1000/7 in SET_STRING_ELT
-    Calls: getGSEDataTables -> sapply -> lapply -> FUN
-    Execution halted
-    ```
+## Newly fixed
 
 *   checking tests ...
     ```
@@ -1249,6 +1318,32 @@ Version: 2.50.0
     ```
 
 ## In both
+
+*   checking examples ... ERROR
+    ```
+    ...
+    
+    > ### Name: getGSEDataTables
+    > ### Title: Get GSE data tables from GEO into R data structures.
+    > ### Aliases: getGSEDataTables
+    > ### Keywords: IO
+    > 
+    > ### ** Examples
+    > 
+    > 
+    > dfl = getGSEDataTables("GSE3494")
+    Called from: FUN(X[[i]], ...)
+    Browse[1]> lapply(dfl,head)
+    Error in lapply(dfl, head) : object 'dfl' not found
+    Calls: getGSEDataTables -> sapply -> lapply -> FUN -> lapply
+    Browse[1]> 
+    debug at .../revdep/checks.noindex/GEOquery/new/GEOquery.Rcheck/00_pkg_src/GEOquery/R/getGSEDataTables.R#37: dTable = suppressWarnings(read_tsv(dTableText, col_names = FALSE))
+    Browse[2]> 
+    Error in guess_types_(datasource, tokenizer, locale, n = guess_max) : 
+      embedded nul in string: '\0p53-'
+    Calls: getGSEDataTables -> sapply -> lapply -> FUN
+    Execution halted
+    ```
 
 *   checking installed package size ... NOTE
     ```
@@ -1303,14 +1398,33 @@ Version: 2.50.0
     contains 'methods').
     ```
 
-# GetITRData
+# getCRUCLdata
 
-Version: 0.7
+Version: 0.2.5
 
 ## Newly broken
 
-*   R CMD check timed out
-    
+*   checking tests ...
+    ```
+     ERROR
+    Running the tests in ‘tests/testthat.R’ failed.
+    Last 13 lines of output:
+      > library(testthat)
+      > library(getCRUCLdata)
+      > 
+      > test_check("getCRUCLdata")
+      ── 1. Failure: Test that create_stack creates tmn if requested (@test-create_CRU
+      raster::maxValue(CRU_stack_list[[1]][[1]]) not equal to 4.3.
+      1/1 mismatches
+      [1] 4.3 - 4.3 == 3.81e-07
+      
+      ══ testthat results  ═══════════════════════════════════════════════════════════
+      OK: 254 SKIPPED: 23 FAILED: 1
+      1. Failure: Test that create_stack creates tmn if requested (@test-create_CRU_stack.R#1233) 
+      
+      Error: testthat unit tests failed
+      Execution halted
+    ```
 
 # ggCompNet
 
@@ -1383,7 +1497,7 @@ Version: 0.0.6
 
 *   checking installed package size ... NOTE
     ```
-      installed size is  5.5Mb
+      installed size is  5.4Mb
       sub-directories of 1Mb or more:
         doc    2.6Mb
         help   2.3Mb
@@ -1453,7 +1567,7 @@ Version: 0.1.4
 
 # haven
 
-Version: 1.1.2
+Version: 2.0.0
 
 ## In both
 
@@ -1478,7 +1592,7 @@ Version: 1.2.0
         cutree
     
     ========================================
-    circlize version 0.4.4
+    circlize version 0.4.5
     CRAN page: https://cran.r-project.org/package=circlize
     Github page: https://github.com/jokergoo/circlize
     Documentation: http://jokergoo.github.io/circlize_book/book/
@@ -1588,6 +1702,19 @@ Version: 0.3.0
     ```
     Namespace in Imports field not imported from: ‘R6’
       All declared Imports should be used.
+    ```
+
+# IsoCorrectoR
+
+Version: 1.0.4
+
+## In both
+
+*   checking installed package size ... NOTE
+    ```
+      installed size is  7.1Mb
+      sub-directories of 1Mb or more:
+        testdata   5.2Mb
     ```
 
 # IsoformSwitchAnalyzeR
@@ -1753,7 +1880,7 @@ Version: 1.10.0
 
 # jstor
 
-Version: 0.3.4
+Version: 0.3.5
 
 ## Newly broken
 
@@ -1762,17 +1889,18 @@ Version: 0.3.4
      ERROR
     Running the tests in ‘tests/testthat.R’ failed.
     Last 13 lines of output:
-      > library(testthat)
-      > library(jstor)
-      > 
-      > test_check("jstor")
-      ── 1. Failure: writing error messages to file works (@test-writing-to-file.R#77)
+      purrr::pluck(combined, 2) not identical to `combined_chapter`.
+      Objects equal but not identical
+      
+      ── 3. Failure: writing error messages to file works (@test-writing-to-file.R#77)
       `res` not identical to `correct_res`.
-      Incompatible type for column `id`: x numeric, y integer
+      Objects equal but not identical
       
       ══ testthat results  ═══════════════════════════════════════════════════════════
-      OK: 249 SKIPPED: 4 FAILED: 1
-      1. Failure: writing error messages to file works (@test-writing-to-file.R#77) 
+      OK: 247 SKIPPED: 4 FAILED: 3
+      1. Failure: files with column names can be combined (@test-re-import.R#294) 
+      2. Failure: files with column names can be combined (@test-re-import.R#295) 
+      3. Failure: writing error messages to file works (@test-writing-to-file.R#77) 
       
       Error: testthat unit tests failed
       Execution halted
@@ -1840,7 +1968,7 @@ Version: 1.4.0
     ```
       installed size is  6.6Mb
       sub-directories of 1Mb or more:
-        R     4.3Mb
+        R     4.2Mb
         doc   1.9Mb
     ```
 
@@ -1853,7 +1981,7 @@ Version: 1.4.0
 
 Version: 1.0.3
 
-## Newly broken
+## In both
 
 *   checking tests ...
     ```
@@ -1937,18 +2065,18 @@ Version: 0.5.0
      ERROR
     Running the tests in ‘tests/testthat.R’ failed.
     Last 13 lines of output:
-             test_error <<- e
          }, "object 'boxes' not found", quote(eval(code, test_env))) at testthat/test_phenomena.R:30
       2: eval(code, test_env)
       
       ══ testthat results  ═══════════════════════════════════════════════════════════
-      OK: 10 SKIPPED: 35 FAILED: 6
+      OK: 9 SKIPPED: 35 FAILED: 7
       1. Error: osem_box_to_archive_name works for one box (@test_archive.R#23) 
       2. Error: osem_box_to_archive_name works for multiple boxes (@test_archive.R#29) 
       3. Error: osem_measurements_archive works for one box (@test_archive.R#41) 
       4. Error: osem_measurements_archive fails for multiple boxes (@test_archive.R#47) 
       5. Error: summary.sensebox outputs all metrics for a single box (@test_box.R#42) 
-      6. Error: phenomena from a not sensebox data.frame returns error (@test_phenomena.R#30) 
+      6. Failure: data.frame can be converted to measurements data.frame (@test_measurements.R#128) 
+      7. Error: phenomena from a not sensebox data.frame returns error (@test_phenomena.R#30) 
       
       Error: testthat unit tests failed
       Execution halted
@@ -1978,6 +2106,11 @@ Version: 0.5.0
     Error: processing vignette 'osem-history.Rmd' failed with diagnostics:
     $ operator is invalid for atomic vectors
     Execution halted
+    ```
+
+*   checking package dependencies ... NOTE
+    ```
+    Package suggested but not available for checking: ‘units’
     ```
 
 # openwindfarm
@@ -2072,7 +2205,7 @@ Version: 1.1.2
 
 # photobiologyInOut
 
-Version: 0.4.17-1
+Version: 0.4.18
 
 ## Newly broken
 
@@ -2081,6 +2214,7 @@ Version: 0.4.17-1
      ERROR
     Running the tests in ‘tests/testthat.R’ failed.
     Last 13 lines of output:
+      [1] NA - 420 == NA
       
       Read 5 items
       Read 8 items
@@ -2089,10 +2223,9 @@ Version: 0.4.17-1
       Read 8 items
       Read 8 items
       ══ testthat results  ═══════════════════════════════════════════════════════════
-      OK: 433 SKIPPED: 4 FAILED: 3
+      OK: 450 SKIPPED: 4 FAILED: 2
       1. Failure: read Quick TUV (@test-tuv.R#18) 
-      2. Failure: read Quick TUV (@test-tuv.R#20) 
-      3. Failure: read Quick TUV (@test-tuv.R#21) 
+      2. Failure: read Quick TUV (@test-tuv.R#21) 
       
       Error: testthat unit tests failed
       Execution halted
@@ -2163,32 +2296,6 @@ Version: 1.0.0
       max_error max_value
     ```
 
-# postal
-
-Version: 0.1.0
-
-## In both
-
-*   checking tests ...
-    ```
-     ERROR
-    Running the tests in ‘tests/testthat.R’ failed.
-    Complete output:
-      > library(testthat)
-      > library(postal)
-      > 
-      > test_check("postal")
-      ── 1. Failure: Extract date works (@test_utils.R#244)  ─────────────────────────
-      extract_dates(future_date) %>% as.numeric() is not strictly more than lubridate::today() %>% as.numeric(). Difference: 0
-      
-      ══ testthat results  ═══════════════════════════════════════════════════════════
-      OK: 109 SKIPPED: 0 FAILED: 1
-      1. Failure: Extract date works (@test_utils.R#244) 
-      
-      Error: testthat unit tests failed
-      Execution halted
-    ```
-
 # prozor
 
 Version: 0.2.11
@@ -2244,10 +2351,10 @@ Version: 1.1
 ** libs
 clang++ -std=gnu++11 -I"/Library/Frameworks/R.framework/Resources/include" -DNDEBUG  -I".../revdep/library.noindex/readr/new/Rcpp/include" -I".../revdep/library.noindex/ratematrix/RcppArmadillo/include" -I/usr/local/include  -fopenmp  -fPIC  -Wall -g -O2 -c MultRegimeMCMC.cpp -o MultRegimeMCMC.o
 clang++ -std=gnu++11 -I"/Library/Frameworks/R.framework/Resources/include" -DNDEBUG  -I".../revdep/library.noindex/readr/new/Rcpp/include" -I".../revdep/library.noindex/ratematrix/RcppArmadillo/include" -I/usr/local/include  -fopenmp  -fPIC  -Wall -g -O2 -c RcppExports.cpp -o RcppExports.o
-clang: error: unsupported option '-fopenmp'
+clangclang: : error: errorunsupported option '-fopenmp': unsupported option '-fopenmp'
+
 make: *** [RcppExports.o] Error 1
 make: *** Waiting for unfinished jobs....
-clang: error: unsupported option '-fopenmp'
 make: *** [MultRegimeMCMC.o] Error 1
 ERROR: compilation failed for package ‘ratematrix’
 * removing ‘.../revdep/checks.noindex/ratematrix/new/ratematrix.Rcheck/ratematrix’
@@ -2263,9 +2370,9 @@ clang++ -std=gnu++11 -I"/Library/Frameworks/R.framework/Resources/include" -DNDE
 clang++ -std=gnu++11 -I"/Library/Frameworks/R.framework/Resources/include" -DNDEBUG  -I".../revdep/library.noindex/readr/old/Rcpp/include" -I".../revdep/library.noindex/ratematrix/RcppArmadillo/include" -I/usr/local/include  -fopenmp  -fPIC  -Wall -g -O2 -c RcppExports.cpp -o RcppExports.o
 clang: error: unsupported option '-fopenmp'
 clang: error: unsupported option '-fopenmp'
-make: *** [MultRegimeMCMC.o] Error 1
-make: *** Waiting for unfinished jobs....
 make: *** [RcppExports.o] Error 1
+make: *** Waiting for unfinished jobs....
+make: *** [MultRegimeMCMC.o] Error 1
 ERROR: compilation failed for package ‘ratematrix’
 * removing ‘.../revdep/checks.noindex/ratematrix/old/ratematrix.Rcheck/ratematrix’
 
@@ -2311,34 +2418,6 @@ Version: 0.2.1
       Note: found 6543 marked UTF-8 strings
     ```
 
-# rdflib
-
-Version: 0.2.0
-
-## Newly broken
-
-*   checking tests ...
-    ```
-     ERROR
-    Running the tests in ‘tests/testthat.R’ failed.
-    Last 13 lines of output:
-      > 
-      > test_check("rdflib")
-      ── 1. Failure: SPARQL handles data types (@test-rdf_query.R#74)  ───────────────
-      match$o[[1]] inherits from `numeric` not `integer`.
-      
-      ── 2. Failure: SPARQL handles data types (@test-rdf_query.R#75)  ───────────────
-      match$o[[1]] has type `double`, not `integer`.
-      
-      ══ testthat results  ═══════════════════════════════════════════════════════════
-      OK: 53 SKIPPED: 6 FAILED: 2
-      1. Failure: SPARQL handles data types (@test-rdf_query.R#74) 
-      2. Failure: SPARQL handles data types (@test-rdf_query.R#75) 
-      
-      Error: testthat unit tests failed
-      Execution halted
-    ```
-
 # readabs
 
 Version: 0.2.1
@@ -2361,34 +2440,6 @@ Version: 1.0.0
 *   checking package dependencies ... NOTE
     ```
     Package suggested but not available for checking: ‘devtools’
-    ```
-
-# readODS
-
-Version: 1.6.4
-
-## Newly broken
-
-*   checking tests ...
-    ```
-     ERROR
-    Running the tests in ‘tests/testthat.R’ failed.
-    Last 13 lines of output:
-      x[1]: "numeric"
-      y[1]: "integer"
-      
-        adding: META-INF/ (stored 0%)
-        adding: META-INF/manifest.xml (deflated 61%)
-        adding: content.xml (deflated 96%)
-        adding: meta.xml (deflated 51%)
-        adding: mimetype (deflated 4%)
-        adding: styles.xml (deflated 70%)
-      ══ testthat results  ═══════════════════════════════════════════════════════════
-      OK: 20 SKIPPED: 0 FAILED: 1
-      1. Failure: col_types ODS (@test_col_types.R#5) 
-      
-      Error: testthat unit tests failed
-      Execution halted
     ```
 
 # redcapAPI
@@ -2442,9 +2493,79 @@ Version: 3.0.0
       Note: found 44 marked UTF-8 strings
     ```
 
+# rgeopat2
+
+Version: 0.2.6
+
+## In both
+
+*   checking whether package ‘rgeopat2’ can be installed ... ERROR
+    ```
+    Installation failed.
+    See ‘.../revdep/checks.noindex/rgeopat2/new/rgeopat2.Rcheck/00install.out’ for details.
+    ```
+
+## Installation
+
+### Devel
+
+```
+* installing *source* package ‘rgeopat2’ ...
+** package ‘rgeopat2’ successfully unpacked and MD5 sums checked
+** R
+** data
+*** moving datasets to lazyload DB
+** inst
+** byte-compile and prepare package for lazy loading
+Error in loadNamespace(j <- i[[1L]], c(lib.loc, .libPaths()), versionCheck = vI[[j]]) : 
+  there is no package called ‘units’
+ERROR: lazy loading failed for package ‘rgeopat2’
+* removing ‘.../revdep/checks.noindex/rgeopat2/new/rgeopat2.Rcheck/rgeopat2’
+
+```
+### CRAN
+
+```
+* installing *source* package ‘rgeopat2’ ...
+** package ‘rgeopat2’ successfully unpacked and MD5 sums checked
+** R
+** data
+*** moving datasets to lazyload DB
+** inst
+** byte-compile and prepare package for lazy loading
+Error in loadNamespace(j <- i[[1L]], c(lib.loc, .libPaths()), versionCheck = vI[[j]]) : 
+  there is no package called ‘units’
+ERROR: lazy loading failed for package ‘rgeopat2’
+* removing ‘.../revdep/checks.noindex/rgeopat2/old/rgeopat2.Rcheck/rgeopat2’
+
+```
 # rhmmer
 
 Version: 0.1.0
+
+## Newly broken
+
+*   checking tests ...
+    ```
+     ERROR
+    Running the tests in ‘tests/testthat.R’ failed.
+    Last 13 lines of output:
+      17: function_list[[i]](value)
+      18: readr::read_tsv(., col_names = c("X", "description"), comment = "#", na = "-")
+      19: read_delimited(file, tokenizer, col_names = col_names, col_types = col_types, locale = locale, 
+             skip = skip, skip_empty_rows = skip_empty_rows, comment = comment, n_max = n_max, 
+             guess_max = guess_max, progress = progress) at /private/var/folders/dt/r5s12t392tb5sk181j3gs4zw0000gn/T/Rtmp0Jfdaq/R.INSTALLc8405492b434/readr/R/read_delim.R:163
+      20: read_tokens(ds, tokenizer, spec$cols, names(spec$cols), locale_ = locale, n_max = n_max, 
+             progress = progress) at /private/var/folders/dt/r5s12t392tb5sk181j3gs4zw0000gn/T/Rtmp0Jfdaq/R.INSTALLc8405492b434/readr/R/read_delim.R:208
+      21: read_tokens_(data, tokenizer, col_specs, col_names, locale_, n_max, progress) at /private/var/folders/dt/r5s12t392tb5sk181j3gs4zw0000gn/T/Rtmp0Jfdaq/R.INSTALLc8405492b434/readr/R/read_delim.R:173
+      
+      ══ testthat results  ═══════════════════════════════════════════════════════════
+      OK: 6 SKIPPED: 0 FAILED: 1
+      1. Error: files with no data do not fail (@test-parse.R#27) 
+      
+      Error: testthat unit tests failed
+      Execution halted
+    ```
 
 ## In both
 
@@ -2490,6 +2611,72 @@ Version: 0.0.0.2
     Missing or unexported object: ‘base::shell.exec’
     ```
 
+# rppo
+
+Version: 1.0
+
+## In both
+
+*   checking re-building of vignette outputs ... WARNING
+    ```
+    Error in re-building vignettes:
+      ...
+    sending request for terms ...
+    No encoding supplied: defaulting to UTF-8.
+    sending request for data ...
+    https://www.plantphenology.org/api/v2/download/?q=%2Bgenus:Quercus+AND+%2BtermID:"obo:PPO_0002313"+AND+%2Byear:>=2013+AND+%2Byear:<=2013+AND+%2BdayOfYear:>=100+AND+%2BdayOfYear:<=110+AND+source:USA-NPN,NEON&source=latitude,longitude,year,dayOfYear,termID&limit=10
+    Quitting from lines 59-109 (rppo-vignette.Rmd) 
+    Error: processing vignette 'rppo-vignette.Rmd' failed with diagnostics:
+    argument is of length zero
+    Execution halted
+    ```
+
+# RQGIS
+
+Version: 1.0.4
+
+## In both
+
+*   checking whether package ‘RQGIS’ can be installed ... ERROR
+    ```
+    Installation failed.
+    See ‘.../revdep/checks.noindex/RQGIS/new/RQGIS.Rcheck/00install.out’ for details.
+    ```
+
+## Installation
+
+### Devel
+
+```
+* installing *source* package ‘RQGIS’ ...
+** package ‘RQGIS’ successfully unpacked and MD5 sums checked
+** R
+** data
+*** moving datasets to lazyload DB
+** inst
+** byte-compile and prepare package for lazy loading
+Error in loadNamespace(j <- i[[1L]], c(lib.loc, .libPaths()), versionCheck = vI[[j]]) : 
+  there is no package called ‘units’
+ERROR: lazy loading failed for package ‘RQGIS’
+* removing ‘.../revdep/checks.noindex/RQGIS/new/RQGIS.Rcheck/RQGIS’
+
+```
+### CRAN
+
+```
+* installing *source* package ‘RQGIS’ ...
+** package ‘RQGIS’ successfully unpacked and MD5 sums checked
+** R
+** data
+*** moving datasets to lazyload DB
+** inst
+** byte-compile and prepare package for lazy loading
+Error in loadNamespace(j <- i[[1L]], c(lib.loc, .libPaths()), versionCheck = vI[[j]]) : 
+  there is no package called ‘units’
+ERROR: lazy loading failed for package ‘RQGIS’
+* removing ‘.../revdep/checks.noindex/RQGIS/old/RQGIS.Rcheck/RQGIS’
+
+```
 # rrr
 
 Version: 1.0.0
@@ -2499,23 +2686,6 @@ Version: 1.0.0
 *   checking dependencies in R code ... NOTE
     ```
     Namespace in Imports field not imported from: ‘Rcpp’
-      All declared Imports should be used.
-    ```
-
-# rsoi
-
-Version: 0.3.0
-
-## In both
-
-*   checking package dependencies ... NOTE
-    ```
-    Package suggested but not available for checking: ‘devtools’
-    ```
-
-*   checking dependencies in R code ... NOTE
-    ```
-    Namespace in Imports field not imported from: ‘utils’
       All declared Imports should be used.
     ```
 
@@ -2631,6 +2801,30 @@ Version: 0.1.0
 
 Version: 1.0.0
 
+## Newly broken
+
+*   checking tests ...
+    ```
+     ERROR
+    Running the tests in ‘tests/testthat.R’ failed.
+    Last 13 lines of output:
+      countLines(sasCode2) not equal to 20.
+      1/1 mismatches
+      [1] 19 - 20 == -1
+      
+      ── 2. Failure: Summarise SAS script (@test-summarise.R#28)  ────────────────────
+      summariseSASScript(script) not equal to `expectedSummary`.
+      Component "lines": Mean relative difference: 0.09090909
+      
+      ══ testthat results  ═══════════════════════════════════════════════════════════
+      OK: 17 SKIPPED: 0 FAILED: 2
+      1. Failure: Counts lines (@test-count.R#26) 
+      2. Failure: Summarise SAS script (@test-summarise.R#28) 
+      
+      Error: testthat unit tests failed
+      Execution halted
+    ```
+
 ## In both
 
 *   checking dependencies in R code ... NOTE
@@ -2678,17 +2872,58 @@ Version: 0.12.0
     See ‘.../revdep/checks.noindex/spant/new/spant.Rcheck/00install.out’ for details.
     ```
 
-*   checking package dependencies ... NOTE
-    ```
-    Package suggested but not available for checking: ‘neurobase’
-    ```
-
 *   checking dependencies in R code ... NOTE
     ```
     Namespace in Imports field not imported from: ‘foreach’
       All declared Imports should be used.
     ```
 
+# spatialEco
+
+Version: 1.1-0
+
+## In both
+
+*   checking whether package ‘spatialEco’ can be installed ... ERROR
+    ```
+    Installation failed.
+    See ‘.../revdep/checks.noindex/spatialEco/new/spatialEco.Rcheck/00install.out’ for details.
+    ```
+
+## Installation
+
+### Devel
+
+```
+* installing *source* package ‘spatialEco’ ...
+** package ‘spatialEco’ successfully unpacked and MD5 sums checked
+** R
+** data
+*** moving datasets to lazyload DB
+** inst
+** byte-compile and prepare package for lazy loading
+Error in loadNamespace(j <- i[[1L]], c(lib.loc, .libPaths()), versionCheck = vI[[j]]) : 
+  there is no package called ‘units’
+ERROR: lazy loading failed for package ‘spatialEco’
+* removing ‘.../revdep/checks.noindex/spatialEco/new/spatialEco.Rcheck/spatialEco’
+
+```
+### CRAN
+
+```
+* installing *source* package ‘spatialEco’ ...
+** package ‘spatialEco’ successfully unpacked and MD5 sums checked
+** R
+** data
+*** moving datasets to lazyload DB
+** inst
+** byte-compile and prepare package for lazy loading
+Error in loadNamespace(j <- i[[1L]], c(lib.loc, .libPaths()), versionCheck = vI[[j]]) : 
+  there is no package called ‘units’
+ERROR: lazy loading failed for package ‘spatialEco’
+* removing ‘.../revdep/checks.noindex/spatialEco/old/spatialEco.Rcheck/spatialEco’
+
+```
 # staRdom
 
 Version: 1.0.8
@@ -2748,20 +2983,107 @@ Version: 0.1.1
 
 # stminsights
 
-Version: 0.2.2
+Version: 0.3.0
 
 ## In both
 
-*   checking dependencies in R code ... NOTE
+*   checking whether package ‘stminsights’ can be installed ... ERROR
     ```
-    Namespaces in Imports field not imported from:
-      ‘huge’ ‘readr’ ‘scales’ ‘shinyjs’
-      All declared Imports should be used.
+    Installation failed.
+    See ‘.../revdep/checks.noindex/stminsights/new/stminsights.Rcheck/00install.out’ for details.
     ```
 
+## Installation
+
+### Devel
+
+```
+* installing *source* package ‘stminsights’ ...
+** package ‘stminsights’ successfully unpacked and MD5 sums checked
+** R
+** inst
+** byte-compile and prepare package for lazy loading
+Error in loadNamespace(j <- i[[1L]], c(lib.loc, .libPaths()), versionCheck = vI[[j]]) : 
+  there is no package called ‘units’
+ERROR: lazy loading failed for package ‘stminsights’
+* removing ‘.../revdep/checks.noindex/stminsights/new/stminsights.Rcheck/stminsights’
+
+```
+### CRAN
+
+```
+* installing *source* package ‘stminsights’ ...
+** package ‘stminsights’ successfully unpacked and MD5 sums checked
+** R
+** inst
+** byte-compile and prepare package for lazy loading
+Error in loadNamespace(j <- i[[1L]], c(lib.loc, .libPaths()), versionCheck = vI[[j]]) : 
+  there is no package called ‘units’
+ERROR: lazy loading failed for package ‘stminsights’
+* removing ‘.../revdep/checks.noindex/stminsights/old/stminsights.Rcheck/stminsights’
+
+```
+# stplanr
+
+Version: 0.2.6
+
+## In both
+
+*   checking whether package ‘stplanr’ can be installed ... ERROR
+    ```
+    Installation failed.
+    See ‘.../revdep/checks.noindex/stplanr/new/stplanr.Rcheck/00install.out’ for details.
+    ```
+
+## Installation
+
+### Devel
+
+```
+* installing *source* package ‘stplanr’ ...
+** package ‘stplanr’ successfully unpacked and MD5 sums checked
+** libs
+clang++ -std=gnu++11 -I"/Library/Frameworks/R.framework/Resources/include" -DNDEBUG  -I".../revdep/library.noindex/stplanr/RcppArmadillo/include" -I".../revdep/library.noindex/readr/new/Rcpp/include" -I/usr/local/include  -DARMA_DONT_PRINT_OPENMP_WARNING -fPIC  -Wall -g -O2 -c RcppExports.cpp -o RcppExports.o
+clang++ -std=gnu++11 -I"/Library/Frameworks/R.framework/Resources/include" -DNDEBUG  -I".../revdep/library.noindex/stplanr/RcppArmadillo/include" -I".../revdep/library.noindex/readr/new/Rcpp/include" -I/usr/local/include  -DARMA_DONT_PRINT_OPENMP_WARNING -fPIC  -Wall -g -O2 -c spatialnetworks.cpp -o spatialnetworks.o
+clang++ -std=gnu++11 -dynamiclib -Wl,-headerpad_max_install_names -undefined dynamic_lookup -single_module -multiply_defined suppress -L/Library/Frameworks/R.framework/Resources/lib -L/usr/local/lib -o stplanr.so RcppExports.o spatialnetworks.o -F/Library/Frameworks/R.framework/.. -framework R -Wl,-framework -Wl,CoreFoundation
+installing to .../revdep/checks.noindex/stplanr/new/stplanr.Rcheck/stplanr/libs
+** R
+** data
+*** moving datasets to lazyload DB
+** demo
+** inst
+** byte-compile and prepare package for lazy loading
+Error in loadNamespace(j <- i[[1L]], c(lib.loc, .libPaths()), versionCheck = vI[[j]]) : 
+  there is no package called ‘units’
+ERROR: lazy loading failed for package ‘stplanr’
+* removing ‘.../revdep/checks.noindex/stplanr/new/stplanr.Rcheck/stplanr’
+
+```
+### CRAN
+
+```
+* installing *source* package ‘stplanr’ ...
+** package ‘stplanr’ successfully unpacked and MD5 sums checked
+** libs
+clang++ -std=gnu++11 -I"/Library/Frameworks/R.framework/Resources/include" -DNDEBUG  -I".../revdep/library.noindex/stplanr/RcppArmadillo/include" -I".../revdep/library.noindex/readr/old/Rcpp/include" -I/usr/local/include  -DARMA_DONT_PRINT_OPENMP_WARNING -fPIC  -Wall -g -O2 -c RcppExports.cpp -o RcppExports.o
+clang++ -std=gnu++11 -I"/Library/Frameworks/R.framework/Resources/include" -DNDEBUG  -I".../revdep/library.noindex/stplanr/RcppArmadillo/include" -I".../revdep/library.noindex/readr/old/Rcpp/include" -I/usr/local/include  -DARMA_DONT_PRINT_OPENMP_WARNING -fPIC  -Wall -g -O2 -c spatialnetworks.cpp -o spatialnetworks.o
+clang++ -std=gnu++11 -dynamiclib -Wl,-headerpad_max_install_names -undefined dynamic_lookup -single_module -multiply_defined suppress -L/Library/Frameworks/R.framework/Resources/lib -L/usr/local/lib -o stplanr.so RcppExports.o spatialnetworks.o -F/Library/Frameworks/R.framework/.. -framework R -Wl,-framework -Wl,CoreFoundation
+installing to .../revdep/checks.noindex/stplanr/old/stplanr.Rcheck/stplanr/libs
+** R
+** data
+*** moving datasets to lazyload DB
+** demo
+** inst
+** byte-compile and prepare package for lazy loading
+Error in loadNamespace(j <- i[[1L]], c(lib.loc, .libPaths()), versionCheck = vI[[j]]) : 
+  there is no package called ‘units’
+ERROR: lazy loading failed for package ‘stplanr’
+* removing ‘.../revdep/checks.noindex/stplanr/old/stplanr.Rcheck/stplanr’
+
+```
 # sugrrants
 
-Version: 0.2.0
+Version: 0.2.1
 
 ## In both
 
@@ -3065,6 +3387,20 @@ Version: 0.6.0
     Package suggested but not available for checking: ‘devtools’
     ```
 
+# tidycensus
+
+Version: 0.8.1
+
+## In both
+
+*   checking package dependencies ... ERROR
+    ```
+    Package required but not available: ‘units’
+    
+    See section ‘The DESCRIPTION file’ in the ‘Writing R Extensions’
+    manual.
+    ```
+
 # tidyLPA
 
 Version: 0.2.3
@@ -3203,7 +3539,7 @@ Version: 1.12.0
 
 Version: 0.5.1
 
-## Newly broken
+## In both
 
 *   checking tests ...
     ```
@@ -3227,8 +3563,6 @@ Version: 0.5.1
       Execution halted
     ```
 
-## In both
-
 *   checking dependencies in R code ... NOTE
     ```
     Namespaces in Imports field not imported from:
@@ -3247,6 +3581,52 @@ Version: 0.1.1
     Package suggested but not available for checking: ‘devtools’
     ```
 
+# xpose
+
+Version: 0.4.3
+
+## In both
+
+*   checking whether package ‘xpose’ can be installed ... ERROR
+    ```
+    Installation failed.
+    See ‘.../revdep/checks.noindex/xpose/new/xpose.Rcheck/00install.out’ for details.
+    ```
+
+## Installation
+
+### Devel
+
+```
+* installing *source* package ‘xpose’ ...
+** package ‘xpose’ successfully unpacked and MD5 sums checked
+** R
+** data
+*** moving datasets to lazyload DB
+** inst
+** byte-compile and prepare package for lazy loading
+Error in loadNamespace(j <- i[[1L]], c(lib.loc, .libPaths()), versionCheck = vI[[j]]) : 
+  there is no package called ‘units’
+ERROR: lazy loading failed for package ‘xpose’
+* removing ‘.../revdep/checks.noindex/xpose/new/xpose.Rcheck/xpose’
+
+```
+### CRAN
+
+```
+* installing *source* package ‘xpose’ ...
+** package ‘xpose’ successfully unpacked and MD5 sums checked
+** R
+** data
+*** moving datasets to lazyload DB
+** inst
+** byte-compile and prepare package for lazy loading
+Error in loadNamespace(j <- i[[1L]], c(lib.loc, .libPaths()), versionCheck = vI[[j]]) : 
+  there is no package called ‘units’
+ERROR: lazy loading failed for package ‘xpose’
+* removing ‘.../revdep/checks.noindex/xpose/old/xpose.Rcheck/xpose’
+
+```
 # xpose4
 
 Version: 4.6.1
@@ -3255,9 +3635,9 @@ Version: 4.6.1
 
 *   checking installed package size ... NOTE
     ```
-      installed size is  5.1Mb
+      installed size is  5.2Mb
       sub-directories of 1Mb or more:
-        R   4.0Mb
+        R   4.1Mb
     ```
 
 # xtractomatic
