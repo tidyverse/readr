@@ -62,7 +62,7 @@ RObject guess_header_(List sourceSpec, List tokenizerSpec, List locale_) {
   CollectorCharacter out(&locale.encoder_);
   out.setWarnings(&warnings);
   Token t = tokenizer->nextToken();
-  int row_num = t.row();
+  size_t row_num = t.row();
 
   for (; t.type() != TOKEN_EOF && t.row() == row_num;
        t = tokenizer->nextToken()) {
