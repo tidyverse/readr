@@ -74,7 +74,7 @@
         <a class="navbar-brand" href="../index.html">readr</a>
         <div class="info">
           <span class="partof">part of the <a href="https://tidyverse.org">tidyverse</a></span>
-          <span class="version version-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">1.2.1.9000</span>
+          <span class="version version-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">1.3.0.9000</span>
         </div>
       </div>
     </div>
@@ -144,7 +144,7 @@
     
     </div>
 
-    <pre class="usage"><span class='fu'>datasource</span>(<span class='no'>file</span>, <span class='kw'>skip</span> <span class='kw'>=</span> <span class='fl'>0</span>, <span class='kw'>skip_empty_rows</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>comment</span> <span class='kw'>=</span> <span class='st'>""</span>)</pre>
+    <pre class="usage"><span class='fu'>datasource</span>(<span class='no'>file</span>, <span class='kw'>skip</span> <span class='kw'>=</span> <span class='fl'>0</span>, <span class='kw'>skip_empty_rows</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>comment</span> <span class='kw'>=</span> <span class='st'>""</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -179,7 +179,7 @@ vector of greater than length 1.</p>
 #&gt; [1] 0
 #&gt; 
 #&gt; $skip_empty_rows
-#&gt; [1] TRUE
+#&gt; [1] FALSE
 #&gt; 
 #&gt; $comment
 #&gt; [1] ""
@@ -192,7 +192,7 @@ vector of greater than length 1.</p>
 #&gt; [1] 0
 #&gt; 
 #&gt; $skip_empty_rows
-#&gt; [1] TRUE
+#&gt; [1] FALSE
 #&gt; 
 #&gt; $comment
 #&gt; [1] ""
@@ -207,42 +207,42 @@ vector of greater than length 1.</p>
 #&gt; [1] 0
 #&gt; 
 #&gt; $skip_empty_rows
-#&gt; [1] TRUE
+#&gt; [1] FALSE
 #&gt; 
 #&gt; $comment
 #&gt; [1] ""
 #&gt; 
 #&gt; attr(,"class")
 #&gt; [1] "source_file" "source"     </div><div class='input'><span class='fu'>datasource</span>(<span class='fu'><a href='readr_example.html'>readr_example</a></span>(<span class='st'>"mtcars.csv.bz2"</span>))</div><div class='output co'>#&gt; [[1]]
-#&gt; [1] "/tmp/RtmpLzaTvd/file409428b62a5f"
+#&gt; [1] "/tmp/Rtmp2QlGOM/file41ed4e8dba63"
 #&gt; 
 #&gt; $skip
 #&gt; [1] 0
 #&gt; 
 #&gt; $skip_empty_rows
-#&gt; [1] TRUE
+#&gt; [1] FALSE
 #&gt; 
 #&gt; $comment
 #&gt; [1] ""
 #&gt; 
 #&gt; $env
-#&gt; &lt;environment: 0x8922558&gt;
+#&gt; &lt;environment: 0x8348e70&gt;
 #&gt; 
 #&gt; attr(,"class")
 #&gt; [1] "source_file" "source"     </div><div class='input'><span class='fu'>datasource</span>(<span class='fu'><a href='readr_example.html'>readr_example</a></span>(<span class='st'>"mtcars.csv.zip"</span>))</div><div class='output co'>#&gt; [[1]]
-#&gt; [1] "/tmp/RtmpLzaTvd/file4094670b407e"
+#&gt; [1] "/tmp/Rtmp2QlGOM/file41ed757485b6"
 #&gt; 
 #&gt; $skip
 #&gt; [1] 0
 #&gt; 
 #&gt; $skip_empty_rows
-#&gt; [1] TRUE
+#&gt; [1] FALSE
 #&gt; 
 #&gt; $comment
 #&gt; [1] ""
 #&gt; 
 #&gt; $env
-#&gt; &lt;environment: 0x89f22e8&gt;
+#&gt; &lt;environment: 0x8409d70&gt;
 #&gt; 
 #&gt; attr(,"class")
 #&gt; [1] "source_file" "source"     </div><span class='co'># NOT RUN {</span>
@@ -251,19 +251,19 @@ vector of greater than length 1.</p>
 <span class='co'># Connection</span>
 <span class='no'>con</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/rawConnection'>rawConnection</a></span>(<span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/rawConversion'>charToRaw</a></span>(<span class='st'>"abc\n123"</span>))
 <span class='fu'>datasource</span>(<span class='no'>con</span>)</div><div class='output co'>#&gt; [[1]]
-#&gt; [1] "/tmp/RtmpLzaTvd/file409433a600d0"
+#&gt; [1] "/tmp/Rtmp2QlGOM/file41ed67c8a901"
 #&gt; 
 #&gt; $skip
 #&gt; [1] 0
 #&gt; 
 #&gt; $skip_empty_rows
-#&gt; [1] TRUE
+#&gt; [1] FALSE
 #&gt; 
 #&gt; $comment
 #&gt; [1] ""
 #&gt; 
 #&gt; $env
-#&gt; &lt;environment: 0x673d740&gt;
+#&gt; &lt;environment: 0x91adde0&gt;
 #&gt; 
 #&gt; attr(,"class")
 #&gt; [1] "source_file" "source"     </div><div class='input'><span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/connections'>close</a></span>(<span class='no'>con</span>)</div></pre>

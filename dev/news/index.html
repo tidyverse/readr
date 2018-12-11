@@ -72,7 +72,7 @@
         <a class="navbar-brand" href="../index.html">readr</a>
         <div class="info">
           <span class="partof">part of the <a href="https://tidyverse.org">tidyverse</a></span>
-          <span class="version version-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">1.2.1.9000</span>
+          <span class="version version-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">1.3.0.9000</span>
         </div>
       </div>
     </div>
@@ -135,9 +135,9 @@
       <small>Source: <a href='https://github.com/tidyverse/readr/blob/master/NEWS.md'><code>NEWS.md</code></a></small>
     </div>
 
-    <div id="readr-1-2-1-9000" class="section level1">
+    <div id="readr-1-3-0" class="section level1">
 <h1 class="page-header">
-<a href="#readr-1-2-1-9000" class="anchor"></a>readr 1.2.1.9000<small> Unreleased </small>
+<a href="#readr-1-3-0" class="anchor"></a>readr 1.3.0<small> 2018-12-11 </small>
 </h1>
 <div id="breaking-changes" class="section level2">
 <h2 class="hasAnchor">
@@ -145,19 +145,28 @@
 <div id="blank-line-skipping" class="section level3">
 <h3 class="hasAnchor">
 <a href="#blank-line-skipping" class="anchor"></a>Blank line skipping</h3>
-<p>readr’s blank line skipping has been modified to be more consistent and to avoid edge cases that affected the behavior in 1.2.0. The skip parameter now behaves more similar to how it worked previous to readr 1.2.0, but in addition the parameter <code>skip_blank_rows</code> can be used to control if fully blank lines are skipped in the output. (<a href='https://github.com/tidyverse/readr/issues/923'>#923</a>)</p>
+<p>readr’s blank line skipping has been modified to be more consistent and to avoid edge cases that affected the behavior in 1.2.0. The skip parameter now behaves more similar to how it worked previous to readr 1.2.0, but in addition the parameter <code>skip_blank_rows</code> can be used to control if fully blank lines are skipped. (<a href='https://github.com/tidyverse/readr/issues/923'>#923</a>)</p>
+</div>
+<div id="tibble-data-frame-subclass" class="section level3">
+<h3 class="hasAnchor">
+<a href="#tibble-data-frame-subclass" class="anchor"></a>tibble data frame subclass</h3>
+<p>readr 1.3.0 returns results with a <code>spec_tbl_df</code> subclass. This differs from a regular tibble only that the <code>spec</code> attribute (which holds the column specification) is lost as soon as the object is subset (and a normal <code>tbl_df</code> object is returned).</p>
+<p>Historically <code>tbl_df</code>’s lost their attributes once they were subset. However recent versions of tibble retain the attributes when subetting, so the <code>spec_tbl_df</code> subclass is needed to ensure the previous behavior.</p>
+<p>This should only break compatibility if you are explicitly checking the class of the returned object. A way to get backwards compatible behavior is to call subset with no arguments on your object, e.g. <code>x[]</code>.</p>
 </div>
 </div>
 <div id="bugfixes" class="section level2">
 <h2 class="hasAnchor">
 <a href="#bugfixes" class="anchor"></a>Bugfixes</h2>
 <ul>
-<li><p><code><a href="../reference/write_delim.html">write_csv2()</a></code> now properly respects the <code>na</code> argument (<a href='https://github.com/tidyverse/readr/issues/928'>#928</a>)</p></li>
-<li><p>Fixes compilation with multiple architectures on linux (<a href='https://github.com/tidyverse/readr/issues/922'>#922</a>).</p></li>
-<li><p>Fixes compilation with R &lt; 3.3.0</p></li>
-<li><p><code>hms</code> objects with NA values are now written without whitespace padding (<a href='https://github.com/tidyverse/readr/issues/930'>#930</a>).</p></li>
-<li><p><code><a href="../reference/write_delim.html">write_csv2()</a></code> now properly respects the <code>na</code> argument (<a href='https://github.com/tidyverse/readr/issues/928'>#928</a>).</p></li>
-<li><p><code>read_*()</code> functions now return <code>spec_tbl_df</code> objects, which differ from regular <code>tbl_df</code> objects only in that the <code>spec</code> attribute is removed (and they are demoted to regular <code>tbl_df</code> objects) as soon as they are subset (<a href='https://github.com/tidyverse/readr/issues/934'>#934</a>).</p></li>
+<li>
+<code>hms</code> objects with NA values are now written without whitespace padding (<a href='https://github.com/tidyverse/readr/issues/930'>#930</a>).</li>
+<li>
+<code>read_*()</code> functions now return <code>spec_tbl_df</code> objects, which differ from regular <code>tbl_df</code> objects only in that the <code>spec</code> attribute is removed (and they are demoted to regular <code>tbl_df</code> objects) as soon as they are subset (<a href='https://github.com/tidyverse/readr/issues/934'>#934</a>).</li>
+<li>
+<code><a href="../reference/write_delim.html">write_csv2()</a></code> now properly respects the <code>na</code> argument (<a href='https://github.com/tidyverse/readr/issues/928'>#928</a>)</li>
+<li>Fixes compilation with multiple architectures on linux (<a href='https://github.com/tidyverse/readr/issues/922'>#922</a>).</li>
+<li>Fixes compilation with R &lt; 3.3.0</li>
 </ul>
 </div>
 </div>
@@ -635,7 +644,7 @@
     <div id="tocnav">
       <h2>Contents</h2>
       <ul class="nav nav-pills nav-stacked">
-        <li><a href="#readr-1-2-1-9000">1.2.1.9000</a></li>
+        <li><a href="#readr-1-3-0">1.3.0</a></li>
         <li><a href="#readr-1-2-1">1.2.1</a></li>
         <li><a href="#readr-1-2-0">1.2.0</a></li>
         <li><a href="#readr-1-1-1">1.1.1</a></li>
