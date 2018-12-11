@@ -1,12 +1,8 @@
 # R for travis: see documentation at https://docs.travis-ci.com/user/languages/r
 
-language: r
+language: R
 sudo: false
 cache: packages
-r:
-  - oldrel
-  - release
-  - devel
 
 env:
   global:
@@ -22,5 +18,18 @@ addons:
 
 before_install: travis/check_format.sh
 
-after_success:
-  - test $TRAVIS_R_VERSION_STRING = "release" && Rscript -e 'covr::codecov()'
+matrix:
+  include:
+  - r: devel
+  - r: release
+    after_success: Rscript -e 'covr::codecov()'
+    before_cache: Rscript -e 'remotes::install_cran("pkgdown")' -e 'remotes::install_github("tidyverse/tidytemplate")' -e 'remotes::install_cran("tidyverse")'
+    deploy:
+      provider: script
+      script: Rscript -e 'pkgdown::deploy_site_github()'
+      skip_cleanup: true
+  - r: oldrel
+  - r: 3.3
+  - r: 3.2
+  - r: 3.1
+    warnings_are_errors: false # There is a spurious warning during installation on R 3.1

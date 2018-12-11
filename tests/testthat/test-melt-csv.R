@@ -12,7 +12,7 @@ test_that("read_tsv works on a simple file", {
 })
 
 test_that("melt_csv's 'NA' option genuinely changes the NA values", {
-  expect_equal(melt_csv("\nz", na = "z")$data_type[2], "missing")
+  expect_equal(melt_csv("z\n", na = "z")$data_type, "missing")
 })
 
 test_that("melt_csv's 'NA' option works with multiple NA values", {
@@ -21,7 +21,7 @@ test_that("melt_csv's 'NA' option works with multiple NA values", {
 })
 
 test_that('passing character() to melt_csv\'s "NA" option reads "" correctly', {
-  expect_equal(melt_csv("\nfoo", na = character())$value[2], "foo")
+  expect_equal(melt_csv("foo\n", na = character())$value, "foo")
 })
 
 test_that("passing \"\" to melt_csv's 'NA' option reads \"\" correctly", {
@@ -160,7 +160,7 @@ test_that("skip respects comments", {
   expect_equal(melt_x(), c("#a", "b", "c"))
   expect_equal(melt_x(skip = 1), c("b", "c"))
   expect_equal(melt_x(comment = "#"), c("b", "c"))
-  expect_equal(melt_x(comment = "#", skip = 1), c("c"))
+  expect_equal(melt_x(comment = "#", skip = 2), c("c"))
 })
 
 test_that("melt_csv returns a four-col zero-row data.frame on an empty file", {

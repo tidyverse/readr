@@ -1,6 +1,3 @@
-This turns off the clipboard tests on CRAN's servers, apologies for the
-oversight.
-
 ## Test environments
 * local OS X install, R 3.5.1.
 * Ubuntu 12.04 (on travis-ci), R-oldrel, R-release, R-devel
@@ -16,33 +13,18 @@ There was 1 NOTEs:
 * GNU make is a SystemRequirements.
 
 ## Downstream dependencies
-I ran `R CMD check` on 296 reverse dependencies on CRAN and Bioconductor
-(https://github.com/tidyverse/readr/tree/master/revdep#readme). There were 8 errors
+I ran `R CMD check` on 297 reverse dependencies on CRAN and Bioconductor
+(https://github.com/tidyverse/readr/tree/master/revdep#readme). There were 6 errors
 related to changes in readr.
 
-I have submitted fixes to the 8 packages which allow them to pass checks
-with readr 1.2.0
-
-* ddpcr
-  https://github.com/daattali/ddpcr/pull/21
+I have submitted fixes to the 6 packages which allow them to pass checks
+with readr 1.3.0
 
 * fastqcr
-  https://github.com/kassambara/fastqcr/pull/7
+  https://github.com/kassambara/fastqcr/pull/11
 
 * jstor
-  https://github.com/ropensci/jstor/pull/75
-
-* mudata2
-  https://github.com/paleolimbot/mudata/pull/31
+  https://github.com/ropensci/jstor/pull/76
 
 * photobiologyInOut
-  https://bitbucket.org/aphalo/photobiologyinout/pull-requests/2/
-
-* readODS
-  https://github.com/chainsawriot/readODS/pull/44
-
-* rdflib
-  https://github.com/ropensci/rdflib/pull/30
-
-* visdat
-  https://github.com/ropensci/visdat/pull/103
+  https://bitbucket.org/aphalo/photobiologyinout/pull-requests/3

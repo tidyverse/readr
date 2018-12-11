@@ -1,5 +1,5 @@
 Package: readr
-Version: 1.2.1.9000
+Version: 1.3.0.9000
 Title: Read Rectangular Text Data
 Description: The goal of 'readr' is to provide a fast and friendly way to read
     rectangular data (like 'csv', 'tsv', and 'fwf'). It is designed to flexibly
@@ -15,7 +15,7 @@ Authors@R: c(
     person("Mikkel", "Jørgensen", role = c("ctb", "cph"), comment = "grisu3 implementation"))
 Encoding: UTF-8
 Depends:
-    R (>= 3.0.2)
+    R (>= 3.1)
 LinkingTo: Rcpp,
     BH
 Imports:
@@ -23,7 +23,8 @@ Imports:
     tibble,
     hms (>= 0.4.1),
     R6,
-    clipr
+    clipr,
+    methods
 Suggests:
     curl,
     testthat,

@@ -28,24 +28,25 @@
 #'
 #' write_lines(airquality$Ozone, tmp, na = "-1")
 #' read_lines(tmp)
-read_lines <- function(file, skip = 0, n_max = -1L,
+read_lines <- function(file, skip = 0, skip_empty_rows = FALSE, n_max = -1L,
                        locale = default_locale(),
                        na = character(),
                        progress = show_progress()) {
   if (empty_file(file)) {
     return(character())
   }
-  ds <- datasource(file, skip = skip)
-  read_lines_(ds, locale_ = locale, na = na, n_max = n_max, progress = progress)
+  ds <- datasource(file, skip = skip, skip_empty_rows = skip_empty_rows)
+  read_lines_(ds, skip_empty_rows = skip_empty_rows, locale_ = locale, na = na, n_max = n_max, progress = progress)
 }
 
 #' @export
 #' @rdname read_lines
-read_lines_raw <- function(file, skip = 0, n_max = -1L, progress = show_progress()) {
+read_lines_raw <- function(file, skip = 0,
+                           n_max = -1L, progress = show_progress()) {
   if (empty_file(file)) {
     return(list())
   }
-  ds <- datasource(file, skip = skip)
+  ds <- datasource(file, skip = skip, skip_empty_rows = FALSE)
   read_lines_raw_(ds, n_max = n_max, progress = progress)
 }
 

@@ -28,7 +28,7 @@ read_file <- function(file, locale = default_locale()) {
     return("")
   }
 
-  ds <- datasource(file)
+  ds <- datasource(file, skip_empty_rows = FALSE)
   read_file_(ds, locale)
 }
 
@@ -39,7 +39,7 @@ read_file_raw <- function(file) {
     return(raw())
   }
 
-  ds <- datasource(file)
+  ds <- datasource(file, skip_empty_rows = FALSE)
   read_file_raw_(ds)
 }
 

@@ -1,8 +1,8 @@
 .Rproj.user
 .Rhistory
 .RData
-src/*.o
-src/*.so
+*.o
+*.so
 bench/*.csv
 inst/doc
 .DS_Store

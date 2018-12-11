@@ -2,6 +2,7 @@
 #define FASTREAD_SOURCE_H_
 
 #include "boost.h"
+#include "utils.h"
 #include <Rcpp.h>
 
 class Source;
@@ -9,15 +10,17 @@ typedef boost::shared_ptr<Source> SourcePtr;
 
 class Source {
 public:
+  Source() : skippedRows_(0) {}
   virtual ~Source() {}
 
   virtual const char* begin() = 0;
   virtual const char* end() = 0;
 
-  static const char* skipLines(
+  const char* skipLines(
       const char* begin,
       const char* end,
       int n,
+      bool skipEmptyRows = true,
       const std::string& comment = "") {
     bool hasComment = comment != "";
     bool isComment = false, lineStart = true;
@@ -25,45 +28,51 @@ public:
 
     const char* cur = begin;
 
-    while (n > 0 && cur != end) {
+    for (; n > 0 && cur != end; ++cur) {
       if (lineStart) {
         isComment = hasComment && inComment(cur, end, comment);
       }
 
       // This doesn't handle escaped quotes or more sophisticated things, but
       // will work for simple cases.
-      if (*cur == '"') {
+      if (*cur == '"' || *cur == '\'') {
         isQuote = !isQuote;
-        cur++;
         lineStart = false;
         continue;
       }
 
-      if (isQuote) {
-        cur++;
+      if (isComment || isQuote) {
         continue;
       }
 
-      if (*cur == '\r') {
-        if (cur + 1 != end && *(cur + 1) == '\n') {
-          cur++;
-        }
-        if (!(isComment || lineStart))
-          n--;
-        lineStart = true;
-      } else if (*cur == '\n') {
-        if (!(isComment || lineStart))
-          n--;
+      if (*cur == '\n' || *cur == '\r') {
+        --n;
+        advanceForLF(&cur, end);
+        ++skippedRows_;
         lineStart = true;
       } else if (lineStart) {
         lineStart = false;
       }
+    }
 
-      cur++;
+    // Skip any more trailing empty rows or comments
+    while ((skipEmptyRows && (*cur == '\n' || *cur == '\r')) ||
+           (isComment = hasComment && inComment(cur, end, comment))) {
+      if (isComment) {
+        // skip the rest of the line until the newline
+        while (cur <= end && !(*cur == '\n' || *cur == '\r')) {
+          ++cur;
+        }
+      }
+      advanceForLF(&cur, end);
+      ++cur;
+      ++skippedRows_;
     }
 
     return cur;
   }
+
+  size_t skippedRows() { return skippedRows_; }
 
   static const char* skipBom(const char* begin, const char* end) {
 
@@ -124,6 +133,8 @@ private:
     boost::iterator_range<const char*> haystack(cur, end);
     return boost::starts_with(haystack, comment);
   }
+
+  size_t skippedRows_;
 };
 
 #endif

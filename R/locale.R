@@ -23,9 +23,9 @@
 #'   Use `""` to use the system default time zone, but beware that this
 #'   will not be reproducible across systems.
 #'
-#'   For a complete list of possible time zones, see \code{\link{OlsonNames}()}.
+#'   For a complete list of possible time zones, see [OlsonNames()].
 #'   Americans, note that "EST" is a Canadian time zone that does not have
-#'   DST. It is \emph{not} Eastern Standard Time. It's better to use
+#'   DST. It is *not* Eastern Standard Time. It's better to use
 #'   "US/Eastern", "US/Central" etc.
 #' @param encoding Default encoding. This only affects how the file is
 #'   read - readr always converts the output to UTF-8.

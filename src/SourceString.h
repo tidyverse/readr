@@ -12,7 +12,10 @@ class SourceString : public Source {
 
 public:
   SourceString(
-      Rcpp::CharacterVector x, int skip = 0, const std::string& comment = "") {
+      Rcpp::CharacterVector x,
+      int skip = 0,
+      bool skipEmptyRows = true,
+      const std::string& comment = "") {
     string_ = x[0];
 
     begin_ = CHAR(string_);
@@ -22,7 +25,7 @@ public:
     begin_ = skipBom(begin_, end_);
 
     // Skip lines, if needed
-    begin_ = skipLines(begin_, end_, skip, comment);
+    begin_ = skipLines(begin_, end_, skip, skipEmptyRows, comment);
   }
 
   const char* begin() { return begin_; }

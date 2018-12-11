@@ -8,7 +8,7 @@ col_skip()
 }
 \description{
 Use this function to ignore a column when reading in a file.
-To skip all columns not otherwise specified, use \code{\link{cols_only}()}.
+To skip all columns not otherwise specified, use \code{\link[=cols_only]{cols_only()}}.
 }
 \seealso{
 Other parsers: \code{\link{cols_condense}},

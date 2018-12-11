@@ -61,12 +61,11 @@ RObject guess_header_(List sourceSpec, List tokenizerSpec, List locale_) {
 
   CollectorCharacter out(&locale.encoder_);
   out.setWarnings(&warnings);
+  Token t = tokenizer->nextToken();
+  size_t row_num = t.row();
 
-  for (Token t = tokenizer->nextToken(); t.type() != TOKEN_EOF;
+  for (; t.type() != TOKEN_EOF && t.row() == row_num;
        t = tokenizer->nextToken()) {
-    if (t.row() > (size_t)0) // only read one row
-      break;
-
     if (t.col() >= (size_t)out.size()) {
       out.resize(t.col() + 1);
     }
@@ -76,7 +75,8 @@ RObject guess_header_(List sourceSpec, List tokenizerSpec, List locale_) {
     }
   }
 
-  return out.vector();
+  return List::create(
+      _["header"] = out.vector(), _["skip"] = source->skippedRows() + 1);
 }
 
 // [[Rcpp::export]]

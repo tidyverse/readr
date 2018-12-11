@@ -35,7 +35,7 @@
 #' con <- rawConnection(charToRaw("abc\n123"))
 #' datasource(con)
 #' close(con)
-datasource <- function(file, skip = 0, comment = "") {
+datasource <- function(file, skip = 0, skip_empty_rows = FALSE, comment = "") {
   if (inherits(file, "source")) {
 
     # If `skip` and `comment` arguments are expliictly passed, we want to use
@@ -50,20 +50,20 @@ datasource <- function(file, skip = 0, comment = "") {
 
     file
   } else if (is.connection(file)) {
-    datasource_connection(file, skip, comment)
+    datasource_connection(file, skip, skip_empty_rows, comment)
   } else if (is.raw(file)) {
-    datasource_raw(file, skip, comment)
+    datasource_raw(file, skip, skip_empty_rows, comment)
   } else if (is.character(file)) {
     if (length(file) > 1) {
-      datasource_string(paste(file, collapse = "\n"), skip, comment)
+      datasource_string(paste(file, collapse = "\n"), skip, skip_empty_rows, comment)
     } else if (grepl("\n", file)) {
-      datasource_string(file, skip, comment)
+      datasource_string(file, skip, skip_empty_rows, comment)
     } else {
       file <- standardise_path(file)
       if (is.connection(file)) {
-        datasource_connection(file, skip, comment)
+        datasource_connection(file, skip, skip_empty_rows, comment)
       } else {
-        datasource_file(file, skip, comment)
+        datasource_file(file, skip, skip_empty_rows, comment)
       }
     }
   } else {
@@ -73,32 +73,32 @@ datasource <- function(file, skip = 0, comment = "") {
 
 # Constructors -----------------------------------------------------------------
 
-new_datasource <- function(type, x, skip, comment = "", ...) {
-  structure(list(x, skip = skip, comment = comment, ...),
+new_datasource <- function(type, x, skip, skip_empty_rows = TRUE, comment = "", ...) {
+  structure(list(x, skip = skip, skip_empty_rows = skip_empty_rows, comment = comment, ...),
     class = c(paste0("source_", type), "source"))
 }
 
-datasource_string <- function(text, skip, comment = "") {
-  new_datasource("string", text, skip = skip, comment = comment)
+datasource_string <- function(text, skip, skip_empty_rows = TRUE, comment = "") {
+  new_datasource("string", text, skip = skip, skip_empty_rows = skip_empty_rows, comment = comment)
 }
 
-datasource_file <- function(path, skip, comment = "", ...) {
+datasource_file <- function(path, skip, skip_empty_rows = TRUE, comment = "", ...) {
   path <- check_path(path)
-  new_datasource("file", path, skip = skip, comment = comment, ...)
+  new_datasource("file", path, skip = skip, skip_empty_rows = skip_empty_rows, comment = comment, ...)
 }
 
-datasource_connection <- function(path, skip, comment = "") {
+datasource_connection <- function(path, skip, skip_empty_rows = TRUE, comment = "") {
   # We read the connection to a temporary file, then register a finalizer to
   # cleanup the temp file after the datasource object is removed.
 
   file <- read_connection(path)
   env <- new.env(parent = emptyenv())
   reg.finalizer(env, function(env) unlink(file))
-  datasource_file(file, skip, comment = comment, env = env)
+  datasource_file(file, skip, skip_empty_rows = skip_empty_rows, comment = comment, env = env)
 }
 
-datasource_raw <- function(text, skip, comment) {
-  new_datasource("raw", text, skip = skip, comment = comment)
+datasource_raw <- function(text, skip, skip_empty_rows, comment) {
+  new_datasource("raw", text, skip = skip, skip_empty_rows = skip_empty_rows, comment = comment)
 }
 
 # Helpers ----------------------------------------------------------------------

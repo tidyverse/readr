@@ -1,5 +1,41 @@
-# readr 1.2.1.9000
+# readr (development version)
 
+# readr 1.3.0
+
+## Breaking Changes
+
+### Blank line skipping
+
+readr's blank line skipping has been modified to be more consistent and to
+avoid edge cases that affected the behavior in 1.2.0. The skip parameter now
+behaves more similar to how it worked previous to readr 1.2.0, but in addition
+the parameter `skip_blank_rows` can be used to control if fully blank lines are
+skipped. (#923)
+
+### tibble data frame subclass
+
+readr 1.3.0 returns results with a `spec_tbl_df` subclass. This differs from a
+regular tibble only that the `spec` attribute (which holds the column
+specification) is lost as soon as the object is subset (and a normal `tbl_df`
+object is returned).
+
+Historically `tbl_df`'s lost their attributes once they were subset. However
+recent versions of tibble retain the attributes when subetting, so the
+`spec_tbl_df` subclass is needed to ensure the previous behavior.
+
+This should only break compatibility if you are explicitly checking the class
+of the returned object. A way to get backwards compatible behavior is to
+call subset with no arguments on your object, e.g. `x[]`.
+
+## Bugfixes
+
+* `hms` objects with NA values are now written without whitespace padding (#930).
+* `read_*()` functions now return `spec_tbl_df` objects, which differ from
+  regular `tbl_df` objects only in that the `spec` attribute is removed (and
+  they are demoted to regular `tbl_df` objects) as soon as they are subset
+  (#934).
+* `write_csv2()` now properly respects the `na` argument (#928)
+* Fixes compilation with multiple architectures on linux (#922).
 * Fixes compilation with R < 3.3.0
 
 # readr 1.2.1

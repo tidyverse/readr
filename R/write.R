@@ -43,7 +43,7 @@
 #' @return `write_*()` returns the input `x` invisibly.
 #' @references Florian Loitsch, Printing Floating-Point Numbers Quickly and
 #' Accurately with Integers, PLDI '10,
-#' \url{http://www.cs.tufts.edu/~nr/cs257/archive/florian-loitsch/printf.pdf}
+#' <http://www.cs.tufts.edu/~nr/cs257/archive/florian-loitsch/printf.pdf>
 #' @export
 #' @examples
 #' tmp <- tempfile()
@@ -199,12 +199,7 @@ output_column.double <- function(x) {
 
 #' @export
 output_column.POSIXt <- function(x) {
-  format(x, "%Y-%m-%dT%H:%M:%OSZ", tz = "UTC")
-}
-
-#' @export
-output_column.hms <- function(x) {
-  format(x, "%Y-%m-%dT%H:%M:%OSZ", tz = "UTC")
+  format(x, "%Y-%m-%dT%H:%M:%OSZ", tz = "UTC", justify = "none")
 }
 
 stream_delim <- function(df, path, append = FALSE, bom = FALSE, ..., quote_escape) {
@@ -226,7 +221,16 @@ stream_delim <- function(df, path, append = FALSE, bom = FALSE, ..., quote_escap
 change_decimal_separator <- function(x, decimal_mark = ",") {
   stopifnot(is.data.frame(x))
   numeric_cols <- vapply(x, is.numeric, logical(1))
-  x[numeric_cols] <- lapply(x[numeric_cols], format, decimal.mark = decimal_mark)
+
+  format_seps <- function(x, decimal_mark) {
+    nas <- is.na(x)
+    x <- format(x, decimal.mark = decimal_mark)
+    x[nas] <- NA_character_
+    x
+  }
+
+  x[numeric_cols] <- lapply(x[numeric_cols], format_seps, decimal_mark)
+
   x
 }
 

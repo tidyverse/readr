@@ -18,8 +18,8 @@ as_chunk_callback.ChunkCallback <- function(x) {
 #'  \item{SideEffectChunkCallback}{Callback function that is used only for side effects, no results are returned.}
 #'  \item{DataFrameCallback}{Callback function that combines each result together at the end.}
 #'  \item{AccumulateCallBack}{
-#'    Callback function that accumulates a single result. Requires the parameter \code{acc} to specify
-#'    the initial value of the accumulator.  The parameter \code{acc} is \code{NULL} by default.
+#'    Callback function that accumulates a single result. Requires the parameter `acc` to specify
+#'    the initial value of the accumulator.  The parameter `acc` is `NULL` by default.
 #'  }
 #' }
 #' @usage NULL

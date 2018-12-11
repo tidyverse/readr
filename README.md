@@ -1,7 +1,7 @@
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
 
-# readr <img src="man/figures/logo.svg" align="right" height = 150 />
+# readr <a href="https://readr.tidyverse.org"><img src="man/figures/logo.png" align="right" height = 150 /></a>
 
 [![CRAN\_Status\_Badge](https://www.r-pkg.org/badges/version/readr)](https://cran.r-project.org/package=readr)
 [![Build
@@ -147,7 +147,7 @@ Compared to the corresponding base functions, readr functions:
 similar to `read_csv()` called fread. Compared to fread, readr
 functions:
 
-  - Are slower (currently ~1.2-2x slower. If you want absolutely the
+  - Are slower. If you want absolutely the
     best performance, use `data.table::fread()`.
 
   - Use a slightly more sophisticated parser, recognising both doubled

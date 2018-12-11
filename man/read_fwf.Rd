@@ -13,7 +13,8 @@ read_fwf(file, col_positions, col_types = NULL,
   trim_ws = TRUE, skip = 0, n_max = Inf, guess_max = min(n_max,
   1000), progress = show_progress(), skip_empty_rows = TRUE)
 
-fwf_empty(file, skip = 0, col_names = NULL, comment = "", n = 100L)
+fwf_empty(file, skip = 0, skip_empty_rows = FALSE, col_names = NULL,
+  comment = "", n = 100L)
 
 fwf_widths(widths, col_names = NULL)
 
@@ -56,7 +57,7 @@ subset of the columns, use \code{\link[=cols_only]{cols_only()}}.
 Alternatively, you can use a compact string representation where each
 character represents one column:
 c = character, i = integer, n = number, d = double,
-l = logical, D = date, T = date time, t = time, ? = guess, or
+l = logical, f = factor, D = date, T = date time, t = time, ? = guess, or
 \code{_}/\code{-} to skip the column.}
 
 \item{locale}{The locale controls defaults that vary from place to place.

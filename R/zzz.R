@@ -1,4 +1,8 @@
+# nocov start
 .onLoad <- function(libname, pkgname) {
+  register_s3_method("testthat", "compare", "col_spec")
+  register_s3_method("testthat", "compare", "tbl_df")
+
   opt <- options()
   opt_readr <- list(
     readr.show_progress = TRUE
@@ -13,3 +17,28 @@ release_questions <- function() {
     "Have checked with the IDE team?"
   )
 }
+
+register_s3_method <- function(pkg, generic, class, fun = NULL) {
+  stopifnot(is.character(pkg), length(pkg) == 1)
+  stopifnot(is.character(generic), length(generic) == 1)
+  stopifnot(is.character(class), length(class) == 1)
+
+  if (is.null(fun)) {
+    fun <- get(paste0(generic, ".", class), envir = parent.frame())
+  } else {
+    stopifnot(is.function(fun))
+  }
+
+  if (pkg %in% loadedNamespaces()) {
+    registerS3method(generic, class, fun, envir = asNamespace(pkg))
+  }
+
+  # Always register hook in case package is later unloaded & reloaded
+  setHook(
+    packageEvent(pkg, "onLoad"),
+    function(...) {
+      registerS3method(generic, class, fun, envir = asNamespace(pkg))
+    }
+  )
+}
+# nocov end

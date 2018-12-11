@@ -36,18 +36,18 @@ melt_table <- function(file, locale = default_locale(), na = "NA", skip = 0,
                        n_max = Inf, guess_max = min(n_max, 1000),
                        progress = show_progress(), comment = "",
                        skip_empty_rows = FALSE) {
-  ds <- datasource(file, skip = skip)
+  ds <- datasource(file, skip = skip, skip_empty_rows = skip_empty_rows)
   if (inherits(ds, "source_file") && empty_file(file)) {
        return(tibble::data_frame(row = double(), col = double(),
                                  data_type = character(), value = character()))
   }
 
-  columns <- fwf_empty(ds, skip = skip, n = guess_max, comment = comment)
+  columns <- fwf_empty(ds, skip = skip, skip_empty_rows = skip_empty_rows, n = guess_max, comment = comment)
   tokenizer <- tokenizer_fwf(columns$begin, columns$end, na = na,
                              comment = comment,
                              skip_empty_rows = skip_empty_rows)
 
-  ds <- datasource(file = ds, skip = skip)
+  ds <- datasource(file = ds, skip = skip, skip_empty_rows = skip_empty_rows)
   out <- melt_tokens(ds, tokenizer, locale_ = locale, n_max = n_max,
                      progress = progress)
   warn_problems(out)
@@ -58,7 +58,7 @@ melt_table <- function(file, locale = default_locale(), na = "NA", skip = 0,
 melt_table2 <- function(file, locale = default_locale(), na = "NA", skip = 0,
                        n_max = Inf, progress = show_progress(), comment = "",
                        skip_empty_rows = FALSE) {
-  ds <- datasource(file, skip = skip)
+  ds <- datasource(file, skip = skip, skip_empty_rows = skip_empty_rows)
   if (inherits(ds, "source_file") && empty_file(file)) {
        return(tibble::data_frame(row = double(), col = double(),
                                  data_type = character(), value = character()))
@@ -66,7 +66,7 @@ melt_table2 <- function(file, locale = default_locale(), na = "NA", skip = 0,
   tokenizer <- tokenizer_ws(na = na, comment = comment,
                             skip_empty_rows = skip_empty_rows)
 
-  ds <- datasource(file = ds, skip = skip)
+  ds <- datasource(file = ds, skip = skip, skip_empty_rows = skip_empty_rows)
   melt_delimited(ds, tokenizer, locale = locale, skip = skip,
                  comment = comment, n_max = n_max, progress = progress)
 }

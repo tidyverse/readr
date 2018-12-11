@@ -24,3 +24,28 @@ deparse2 <- function(expr, ..., sep = "\n") {
 is_integerish <- function(x) {
   floor(x) == x
 }
+
+#' @export
+`[.spec_tbl_df` <- function(x, ...) {
+  attr(x, "spec") <- NULL
+  class(x) <- setdiff(class(x), "spec_tbl_df")
+  NextMethod(`[`)
+}
+
+methods::setOldClass(c("spec_tbl_df", "tbl_df", "tbl", "data.frame"))
+
+# @export
+compare.tbl_df <- function(x, y, ...) {
+  attr(x, "spec") <- NULL
+  attr(y, "spec") <- NULL
+
+  NextMethod("compare")
+}
+
+# @export
+compare.col_spec <- function(x, y, ...) {
+  x[["skip"]] <- NULL
+  y[["skip"]] <- NULL
+
+  NextMethod("compare")
+}

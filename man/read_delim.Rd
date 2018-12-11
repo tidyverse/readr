@@ -90,7 +90,7 @@ subset of the columns, use \code{\link[=cols_only]{cols_only()}}.
 Alternatively, you can use a compact string representation where each
 character represents one column:
 c = character, i = integer, n = number, d = double,
-l = logical, D = date, T = date time, t = time, ? = guess, or
+l = logical, f = factor, D = date, T = date time, t = time, ? = guess, or
 \code{_}/\code{-} to skip the column.}
 
 \item{locale}{The locale controls defaults that vary from place to place.
@@ -129,7 +129,7 @@ option is \code{TRUE} then blank rows will not be represented at all.  If it is
 }
 \value{
 A \code{\link[=tibble]{tibble()}}. If there are parsing problems, a warning tells you
-how many, and you can retrieve the details with \code{\link{problems}()}.
+how many, and you can retrieve the details with \code{\link[=problems]{problems()}}.
 }
 \description{
 \code{read_csv()} and \code{read_tsv()} are special cases of the general

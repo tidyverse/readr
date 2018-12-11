@@ -20,8 +20,8 @@
 #'
 #' @family parsers
 #' @param ... Either column objects created by `col_*()`, or their abbreviated
-#'   character names (as described in the \code{col_types} argument of
-#'   \code{\link{read_delim}}). If you're only overriding a few columns, it's
+#'   character names (as described in the `col_types` argument of
+#'   [read_delim()]). If you're only overriding a few columns, it's
 #'   best to refer to columns by name. If not named, the column types must match
 #'   the column names exactly.
 #' @param .default Any named columns not explicitly overridden in `...`
@@ -278,19 +278,22 @@ col_concise <- function(x) {
 
 col_spec_standardise <- function(file, col_names = TRUE, col_types = NULL,
                                  guessed_types = NULL,
-                                 comment = "", skip = 0, guess_max = 1000,
+                                 comment = "",
+                                 skip = 0, skip_empty_rows = TRUE,
+                                 guess_max = 1000,
                                  tokenizer = tokenizer_csv(),
                                  locale = default_locale(),
                                  drop_skipped_names = FALSE) {
 
   # Figure out the column names -----------------------------------------------
   if (is.logical(col_names) && length(col_names) == 1) {
-    ds_header <- datasource(file, skip = skip, comment = comment)
+    ds_header <- datasource(file, skip = skip, skip_empty_rows = skip_empty_rows, comment = comment)
     if (col_names) {
-      col_names <- guess_header(ds_header, tokenizer, locale)
-      skip <- skip + 1
+      res <- guess_header(ds_header, tokenizer, locale)
+      col_names <- res$header
+      skip <- res$skip
     } else {
-      n <- length(guess_header(ds_header, tokenizer, locale))
+      n <- length(guess_header(ds_header, tokenizer, locale)$header)
       col_names <- paste0("X", seq_len(n))
     }
     guessed_names <- TRUE
@@ -336,6 +339,8 @@ col_spec_standardise <- function(file, col_names = TRUE, col_types = NULL,
 
   spec <- as.col_spec(col_types)
   type_names <- names(spec$cols)
+
+  spec$skip <- skip
 
   if (length(spec$cols) == 0) {
     # no types specified so use defaults
@@ -412,7 +417,7 @@ col_spec_standardise <- function(file, col_names = TRUE, col_types = NULL,
   is_guess <- vapply(spec$cols, function(x) inherits(x, "collector_guess"), logical(1))
   if (any(is_guess)) {
     if (is.null(guessed_types)) {
-      ds <- datasource(file, skip = skip, comment = comment)
+      ds <- datasource(file, skip = spec$skip, skip_empty_rows = skip_empty_rows, comment = comment)
       guessed_types <- guess_types(ds, tokenizer, locale, guess_max = guess_max)
     }
 
