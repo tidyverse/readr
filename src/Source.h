@@ -56,11 +56,12 @@ public:
     }
 
     // Skip any more trailing empty rows or comments
-    while ((skipEmptyRows && (*cur == '\n' || *cur == '\r')) ||
-           (isComment = hasComment && inComment(cur, end, comment))) {
+    while (cur < end &&
+           ((skipEmptyRows && (*cur == '\n' || *cur == '\r')) ||
+            (isComment = hasComment && inComment(cur, end, comment)))) {
       if (isComment) {
         // skip the rest of the line until the newline
-        while (cur <= end && !(*cur == '\n' || *cur == '\r')) {
+        while (cur < end && !(*cur == '\n' || *cur == '\r')) {
           ++cur;
         }
       }
