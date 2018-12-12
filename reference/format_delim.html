@@ -75,7 +75,7 @@ of writing to disk, they return a string." />
         <a class="navbar-brand" href="../index.html">readr</a>
         <div class="info">
           <span class="partof">part of the <a href="https://tidyverse.org">tidyverse</a></span>
-          <span class="version version-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.2.0</span>
+          <span class="version version-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.3.0</span>
         </div>
       </div>
     </div>
@@ -241,15 +241,15 @@ Accurately with Integers, PLDI '10,
 #&gt; <span class='message'>  am = col_double(),</span>
 #&gt; <span class='message'>  gear = col_double(),</span>
 #&gt; <span class='message'>  carb = col_double()</span>
-#&gt; <span class='message'>)</span></div><div class='output co'>#&gt; [38;5;246m# A tibble: 6 x 11[39m
+#&gt; <span class='message'>)</span></div><div class='output co'>#&gt; <span style='color: #949494;'># A tibble: 6 x 11</span><span>
 #&gt;     mpg   cyl  disp    hp  drat    wt  qsec    vs    am  gear  carb
-#&gt;   [3m[38;5;246m&lt;dbl&gt;[39m[23m [3m[38;5;246m&lt;dbl&gt;[39m[23m [3m[38;5;246m&lt;dbl&gt;[39m[23m [3m[38;5;246m&lt;dbl&gt;[39m[23m [3m[38;5;246m&lt;dbl&gt;[39m[23m [3m[38;5;246m&lt;dbl&gt;[39m[23m [3m[38;5;246m&lt;dbl&gt;[39m[23m [3m[38;5;246m&lt;dbl&gt;[39m[23m [3m[38;5;246m&lt;dbl&gt;[39m[23m [3m[38;5;246m&lt;dbl&gt;[39m[23m [3m[38;5;246m&lt;dbl&gt;[39m[23m
-#&gt; [38;5;250m1[39m  21       6   160   110  3.9   2.62  16.5     0     1     4     4
-#&gt; [38;5;250m2[39m  21       6   160   110  3.9   2.88  17.0     0     1     4     4
-#&gt; [38;5;250m3[39m  22.8     4   108    93  3.85  2.32  18.6     1     1     4     1
-#&gt; [38;5;250m4[39m  21.4     6   258   110  3.08  3.22  19.4     1     0     3     1
-#&gt; [38;5;250m5[39m  18.7     8   360   175  3.15  3.44  17.0     0     0     3     2
-#&gt; [38;5;250m6[39m  18.1     6   225   105  2.76  3.46  20.2     1     0     3     1</div><div class='input'>
+#&gt;   </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span> </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span> </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span> </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span> </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span> </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span> </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span> </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span> </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span> </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span> </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span>
+#&gt; </span><span style='color: #BCBCBC;'>1</span><span>  21       6   160   110  3.9   2.62  16.5     0     1     4     4
+#&gt; </span><span style='color: #BCBCBC;'>2</span><span>  21       6   160   110  3.9   2.88  17.0     0     1     4     4
+#&gt; </span><span style='color: #BCBCBC;'>3</span><span>  22.8     4   108    93  3.85  2.32  18.6     1     1     4     1
+#&gt; </span><span style='color: #BCBCBC;'>4</span><span>  21.4     6   258   110  3.08  3.22  19.4     1     0     3     1
+#&gt; </span><span style='color: #BCBCBC;'>5</span><span>  18.7     8   360   175  3.15  3.44  17.0     0     0     3     2
+#&gt; </span><span style='color: #BCBCBC;'>6</span><span>  18.1     6   225   105  2.76  3.46  20.2     1     0     3     1</div><div class='input'>
 <span class='co'># format_* is useful for testing and reprexes</span>
 <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/cat'>cat</a></span>(<span class='fu'>format_csv</span>(<span class='fu'><a href='https://www.rdocumentation.org/packages/utils/topics/head'>head</a></span>(<span class='no'>mtcars</span>)))</div><div class='output co'>#&gt; mpg,cyl,disp,hp,drat,wt,qsec,vs,am,gear,carb
 #&gt; 21,6,160,110,3.9,2.62,16.46,0,1,4,4
@@ -285,7 +285,7 @@ Accurately with Integers, PLDI '10,
 <span class='no'>dir</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/tempfile'>tempdir</a></span>()
 <span class='fu'><a href='write_delim.html'>write_tsv</a></span>(<span class='no'>mtcars</span>, <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/file.path'>file.path</a></span>(<span class='no'>dir</span>, <span class='st'>"mtcars.tsv.gz"</span>))
 <span class='fu'><a href='write_delim.html'>write_tsv</a></span>(<span class='no'>mtcars</span>, <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/file.path'>file.path</a></span>(<span class='no'>dir</span>, <span class='st'>"mtcars.tsv.bz2"</span>))
-<span class='fu'><a href='write_delim.html'>write_tsv</a></span>(<span class='no'>mtcars</span>, <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/file.path'>file.path</a></span>(<span class='no'>dir</span>, <span class='st'>"mtcars.tsv.xz"</span>))</div></pre>
+<span class='fu'><a href='write_delim.html'>write_tsv</a></span>(<span class='no'>mtcars</span>, <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/file.path'>file.path</a></span>(<span class='no'>dir</span>, <span class='st'>"mtcars.tsv.xz"</span>))</div></span></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
@@ -311,7 +311,7 @@ Accurately with Integers, PLDI '10,
 
 <div class="author">
   <p>
-    Developed by <a href='http://hadley.nz'>Hadley Wickham</a>, Jim Hester, Romain Francois, <a href='https://www.rstudio.com'><img src='https://www.tidyverse.org/rstudio-logo.svg' alt='RStudio' height='24' /></a>.
+    Developed by <a href='http://hadley.nz'>Hadley Wickham</a>, <a href='http://jimhester.com'>Jim Hester</a>, Romain Francois, <a href='https://www.rstudio.com'><img src='https://www.tidyverse.org/rstudio-logo.svg' alt='RStudio' height='24' /></a>.
     Site built by <a href="https://pkgdown.r-lib.org">pkgdown</a>.
   </p>
 </div>

@@ -74,7 +74,7 @@
         <a class="navbar-brand" href="../index.html">readr</a>
         <div class="info">
           <span class="partof">part of the <a href="https://tidyverse.org">tidyverse</a></span>
-          <span class="version version-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.2.0</span>
+          <span class="version version-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.3.0</span>
         </div>
       </div>
     </div>
@@ -151,11 +151,14 @@
 <dt>ChunkCallback</dt><dd><p>Callback interface definition, all callback functions should inherit from this class.</p></dd>
 <dt>SideEffectChunkCallback</dt><dd><p>Callback function that is used only for side effects, no results are returned.</p></dd>
 <dt>DataFrameCallback</dt><dd><p>Callback function that combines each result together at the end.</p></dd>
+<dt>AccumulateCallBack</dt><dd><p>Callback function that accumulates a single result. Requires the parameter <code>acc</code> to specify
+the initial value of the accumulator.  The parameter <code>acc</code> is <code>NULL</code> by default.</p></dd>
 </dl>
     
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
-    <div class='dont-index'><p>Other chunked: <code><a href='read_delim_chunked.html'>read_delim_chunked</a></code>,
+    <div class='dont-index'><p>Other chunked: <code><a href='melt_delim_chunked.html'>melt_delim_chunked</a></code>,
+  <code><a href='read_delim_chunked.html'>read_delim_chunked</a></code>,
   <code><a href='read_lines_chunked.html'>read_lines_chunked</a></code></p></div>
     
 
@@ -196,24 +199,24 @@
 #&gt; <span class='message'>  am = col_double(),</span>
 #&gt; <span class='message'>  gear = col_double(),</span>
 #&gt; <span class='message'>  carb = col_double()</span>
-#&gt; <span class='message'>)</span></div><div class='output co'>#&gt; [38;5;246m# A tibble: 15 x 11[39m
+#&gt; <span class='message'>)</span></div><div class='output co'>#&gt; <span style='color: #949494;'># A tibble: 15 x 11</span><span>
 #&gt;      mpg   cyl  disp    hp  drat    wt  qsec    vs    am  gear  carb
-#&gt;    [3m[38;5;246m&lt;dbl&gt;[39m[23m [3m[38;5;246m&lt;dbl&gt;[39m[23m [3m[38;5;246m&lt;dbl&gt;[39m[23m [3m[38;5;246m&lt;dbl&gt;[39m[23m [3m[38;5;246m&lt;dbl&gt;[39m[23m [3m[38;5;246m&lt;dbl&gt;[39m[23m [3m[38;5;246m&lt;dbl&gt;[39m[23m [3m[38;5;246m&lt;dbl&gt;[39m[23m [3m[38;5;246m&lt;dbl&gt;[39m[23m [3m[38;5;246m&lt;dbl&gt;[39m[23m [3m[38;5;246m&lt;dbl&gt;[39m[23m
-#&gt; [38;5;250m 1[39m  21.4     6  258    110  3.08  3.22  19.4     1     0     3     1
-#&gt; [38;5;250m 2[39m  18.7     8  360    175  3.15  3.44  17.0     0     0     3     2
-#&gt; [38;5;250m 3[39m  18.1     6  225    105  2.76  3.46  20.2     1     0     3     1
-#&gt; [38;5;250m 4[39m  14.3     8  360    245  3.21  3.57  15.8     0     0     3     4
-#&gt; [38;5;250m 5[39m  16.4     8  276.   180  3.07  4.07  17.4     0     0     3     3
-#&gt; [38;5;250m 6[39m  17.3     8  276.   180  3.07  3.73  17.6     0     0     3     3
-#&gt; [38;5;250m 7[39m  15.2     8  276.   180  3.07  3.78  18       0     0     3     3
-#&gt; [38;5;250m 8[39m  10.4     8  472    205  2.93  5.25  18.0     0     0     3     4
-#&gt; [38;5;250m 9[39m  10.4     8  460    215  3     5.42  17.8     0     0     3     4
-#&gt; [38;5;250m10[39m  14.7     8  440    230  3.23  5.34  17.4     0     0     3     4
-#&gt; [38;5;250m11[39m  21.5     4  120.    97  3.7   2.46  20.0     1     0     3     1
-#&gt; [38;5;250m12[39m  15.5     8  318    150  2.76  3.52  16.9     0     0     3     2
-#&gt; [38;5;250m13[39m  15.2     8  304    150  3.15  3.44  17.3     0     0     3     2
-#&gt; [38;5;250m14[39m  13.3     8  350    245  3.73  3.84  15.4     0     0     3     4
-#&gt; [38;5;250m15[39m  19.2     8  400    175  3.08  3.84  17.0     0     0     3     2</div><div class='input'>
+#&gt;    </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span> </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span> </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span> </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span> </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span> </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span> </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span> </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span> </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span> </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span> </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span>
+#&gt; </span><span style='color: #BCBCBC;'> 1</span><span>  21.4     6  258    110  3.08  3.22  19.4     1     0     3     1
+#&gt; </span><span style='color: #BCBCBC;'> 2</span><span>  18.7     8  360    175  3.15  3.44  17.0     0     0     3     2
+#&gt; </span><span style='color: #BCBCBC;'> 3</span><span>  18.1     6  225    105  2.76  3.46  20.2     1     0     3     1
+#&gt; </span><span style='color: #BCBCBC;'> 4</span><span>  14.3     8  360    245  3.21  3.57  15.8     0     0     3     4
+#&gt; </span><span style='color: #BCBCBC;'> 5</span><span>  16.4     8  276.   180  3.07  4.07  17.4     0     0     3     3
+#&gt; </span><span style='color: #BCBCBC;'> 6</span><span>  17.3     8  276.   180  3.07  3.73  17.6     0     0     3     3
+#&gt; </span><span style='color: #BCBCBC;'> 7</span><span>  15.2     8  276.   180  3.07  3.78  18       0     0     3     3
+#&gt; </span><span style='color: #BCBCBC;'> 8</span><span>  10.4     8  472    205  2.93  5.25  18.0     0     0     3     4
+#&gt; </span><span style='color: #BCBCBC;'> 9</span><span>  10.4     8  460    215  3     5.42  17.8     0     0     3     4
+#&gt; </span><span style='color: #BCBCBC;'>10</span><span>  14.7     8  440    230  3.23  5.34  17.4     0     0     3     4
+#&gt; </span><span style='color: #BCBCBC;'>11</span><span>  21.5     4  120.    97  3.7   2.46  20.0     1     0     3     1
+#&gt; </span><span style='color: #BCBCBC;'>12</span><span>  15.5     8  318    150  2.76  3.52  16.9     0     0     3     2
+#&gt; </span><span style='color: #BCBCBC;'>13</span><span>  15.2     8  304    150  3.15  3.44  17.3     0     0     3     2
+#&gt; </span><span style='color: #BCBCBC;'>14</span><span>  13.3     8  350    245  3.73  3.84  15.4     0     0     3     4
+#&gt; </span><span style='color: #BCBCBC;'>15</span><span>  19.2     8  400    175  3.08  3.84  17.0     0     0     3     2</div><div class='input'>
 <span class='co'># The ListCallback can be used for more flexible output</span>
 <span class='no'>f</span> <span class='kw'>&lt;-</span> <span class='kw'>function</span>(<span class='no'>x</span>, <span class='no'>pos</span>) <span class='no'>x</span>$<span class='no'>mpg</span>[<span class='no'>x</span>$<span class='no'>hp</span> <span class='kw'>&gt;</span> <span class='fl'>100</span>]
 <span class='fu'><a href='read_delim_chunked.html'>read_csv_chunked</a></span>(<span class='fu'><a href='readr_example.html'>readr_example</a></span>(<span class='st'>"mtcars.csv"</span>), <span class='no'>ListCallback</span>$<span class='fu'>new</span>(<span class='no'>f</span>), <span class='kw'>chunk_size</span> <span class='kw'>=</span> <span class='fl'>5</span>)</div><div class='output co'>#&gt; <span class='message'>Parsed with column specification:</span>
@@ -249,7 +252,23 @@
 #&gt; 
 #&gt; [[7]]
 #&gt; [1] 15.0 21.4
-#&gt; </div></pre>
+#&gt; </div><div class='input'>
+<span class='co'># The AccumulateCallback accumulates results from each chunk</span>
+<span class='no'>f</span> <span class='kw'>&lt;-</span> <span class='kw'>function</span>(<span class='no'>x</span>, <span class='no'>pos</span>, <span class='no'>acc</span>) <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/sum'>sum</a></span>(<span class='no'>x</span>$<span class='no'>mpg</span>) + <span class='no'>acc</span>
+<span class='fu'><a href='read_delim_chunked.html'>read_csv_chunked</a></span>(<span class='fu'><a href='readr_example.html'>readr_example</a></span>(<span class='st'>"mtcars.csv"</span>), <span class='no'>AccumulateCallback</span>$<span class='fu'>new</span>(<span class='no'>f</span>, <span class='kw'>acc</span> <span class='kw'>=</span> <span class='fl'>0</span>), <span class='kw'>chunk_size</span> <span class='kw'>=</span> <span class='fl'>5</span>)</div><div class='output co'>#&gt; <span class='message'>Parsed with column specification:</span>
+#&gt; <span class='message'>cols(</span>
+#&gt; <span class='message'>  mpg = col_double(),</span>
+#&gt; <span class='message'>  cyl = col_double(),</span>
+#&gt; <span class='message'>  disp = col_double(),</span>
+#&gt; <span class='message'>  hp = col_double(),</span>
+#&gt; <span class='message'>  drat = col_double(),</span>
+#&gt; <span class='message'>  wt = col_double(),</span>
+#&gt; <span class='message'>  qsec = col_double(),</span>
+#&gt; <span class='message'>  vs = col_double(),</span>
+#&gt; <span class='message'>  am = col_double(),</span>
+#&gt; <span class='message'>  gear = col_double(),</span>
+#&gt; <span class='message'>  carb = col_double()</span>
+#&gt; <span class='message'>)</span></div><div class='output co'>#&gt; [1] 642.9</div></span></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
@@ -272,7 +291,7 @@
 
 <div class="author">
   <p>
-    Developed by <a href='http://hadley.nz'>Hadley Wickham</a>, Jim Hester, Romain Francois, <a href='https://www.rstudio.com'><img src='https://www.tidyverse.org/rstudio-logo.svg' alt='RStudio' height='24' /></a>.
+    Developed by <a href='http://hadley.nz'>Hadley Wickham</a>, <a href='http://jimhester.com'>Jim Hester</a>, Romain Francois, <a href='https://www.rstudio.com'><img src='https://www.tidyverse.org/rstudio-logo.svg' alt='RStudio' height='24' /></a>.
     Site built by <a href="https://pkgdown.r-lib.org">pkgdown</a>.
   </p>
 </div>

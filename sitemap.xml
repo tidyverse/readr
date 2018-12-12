@@ -40,6 +40,18 @@
     <loc>https://readr.tidyverse.org/reference/locale.html</loc>
   </url>
   <url>
+    <loc>https://readr.tidyverse.org/reference/melt_delim.html</loc>
+  </url>
+  <url>
+    <loc>https://readr.tidyverse.org/reference/melt_delim_chunked.html</loc>
+  </url>
+  <url>
+    <loc>https://readr.tidyverse.org/reference/melt_fwf.html</loc>
+  </url>
+  <url>
+    <loc>https://readr.tidyverse.org/reference/melt_table.html</loc>
+  </url>
+  <url>
     <loc>https://readr.tidyverse.org/reference/output_column.html</loc>
   </url>
   <url>

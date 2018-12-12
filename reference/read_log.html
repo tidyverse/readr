@@ -76,7 +76,7 @@ in a quoted string. The dash, &quot;-&quot;, is used for missing values." />
         <a class="navbar-brand" href="../index.html">readr</a>
         <div class="info">
           <span class="partof">part of the <a href="https://tidyverse.org">tidyverse</a></span>
-          <span class="version version-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.2.0</span>
+          <span class="version version-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.3.0</span>
         </div>
       </div>
     </div>
@@ -195,7 +195,7 @@ subset of the columns, use <code><a href='cols.html'>cols_only()</a></code>.</p>
 <p>Alternatively, you can use a compact string representation where each
 character represents one column:
 c = character, i = integer, n = number, d = double,
-l = logical, D = date, T = date time, t = time, ? = guess, or
+l = logical, f = factor, D = date, T = date time, t = time, ? = guess, or
 <code>_</code>/<code>-</code> to skip the column.</p></td>
     </tr>
     <tr>
@@ -227,11 +227,11 @@ setting option <code>readr.show_progress</code> to <code>FALSE</code>.</p></td>
 #&gt; <span class='message'>  X5 = col_character(),</span>
 #&gt; <span class='message'>  X6 = col_double(),</span>
 #&gt; <span class='message'>  X7 = col_double()</span>
-#&gt; <span class='message'>)</span></div><div class='output co'>#&gt; [38;5;246m# A tibble: 2 x 7[39m
+#&gt; <span class='message'>)</span></div><div class='output co'>#&gt; <span style='color: #949494;'># A tibble: 2 x 7</span><span>
 #&gt;   X1        X2    X3          X4             X5                         X6    X7
-#&gt;   [3m[38;5;246m&lt;chr&gt;[39m[23m     [3m[38;5;246m&lt;lgl&gt;[39m[23m [3m[38;5;246m&lt;chr&gt;[39m[23m       [3m[38;5;246m&lt;chr&gt;[39m[23m          [3m[38;5;246m&lt;chr&gt;[39m[23m                   [3m[38;5;246m&lt;dbl&gt;[39m[23m [3m[38;5;246m&lt;dbl&gt;[39m[23m
-#&gt; [38;5;250m1[39m 172.21.1… [31mNA[39m    [38;5;246m"[39mMicrosoft… 08/Apr/2001:1… GET /scripts/iisadmin/…   200  [4m3[24m401
-#&gt; [38;5;250m2[39m 127.0.0.1 [31mNA[39m    frank       10/Oct/2000:1… GET /apache_pb.gif HTT…   200  [4m2[24m326</div></pre>
+#&gt;   </span><span style='color: #949494;font-style: italic;'>&lt;chr&gt;</span><span>     </span><span style='color: #949494;font-style: italic;'>&lt;lgl&gt;</span><span> </span><span style='color: #949494;font-style: italic;'>&lt;chr&gt;</span><span>       </span><span style='color: #949494;font-style: italic;'>&lt;chr&gt;</span><span>          </span><span style='color: #949494;font-style: italic;'>&lt;chr&gt;</span><span>                   </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span> </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span>
+#&gt; </span><span style='color: #BCBCBC;'>1</span><span> 172.21.1… </span><span style='color: #BB0000;'>NA</span><span>    </span><span style='color: #949494;'>"</span><span>Microsoft… 08/Apr/2001:1… GET /scripts/iisadmin/…   200  </span><span style='text-decoration: underline;'>3</span><span>401
+#&gt; </span><span style='color: #BCBCBC;'>2</span><span> 127.0.0.1 </span><span style='color: #BB0000;'>NA</span><span>    frank       10/Oct/2000:1… GET /apache_pb.gif HTT…   200  </span><span style='text-decoration: underline;'>2</span><span>326</div></span></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
@@ -251,7 +251,7 @@ setting option <code>readr.show_progress</code> to <code>FALSE</code>.</p></td>
 
 <div class="author">
   <p>
-    Developed by <a href='http://hadley.nz'>Hadley Wickham</a>, Jim Hester, Romain Francois, <a href='https://www.rstudio.com'><img src='https://www.tidyverse.org/rstudio-logo.svg' alt='RStudio' height='24' /></a>.
+    Developed by <a href='http://hadley.nz'>Hadley Wickham</a>, <a href='http://jimhester.com'>Jim Hester</a>, Romain Francois, <a href='https://www.rstudio.com'><img src='https://www.tidyverse.org/rstudio-logo.svg' alt='RStudio' height='24' /></a>.
     Site built by <a href="https://pkgdown.r-lib.org">pkgdown</a>.
   </p>
 </div>

@@ -75,7 +75,7 @@ for caveats." />
         <a class="navbar-brand" href="../index.html">readr</a>
         <div class="info">
           <span class="partof">part of the <a href="https://tidyverse.org">tidyverse</a></span>
-          <span class="version version-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.2.0</span>
+          <span class="version version-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.3.0</span>
         </div>
       </div>
     </div>
@@ -173,20 +173,20 @@ file will be read.</p></td>
     
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='fu'>guess_encoding</span>(<span class='fu'><a href='readr_example.html'>readr_example</a></span>(<span class='st'>"mtcars.csv"</span>))</div><div class='output co'>#&gt; [38;5;246m# A tibble: 1 x 2[39m
+    <pre class="examples"><div class='input'><span class='fu'>guess_encoding</span>(<span class='fu'><a href='readr_example.html'>readr_example</a></span>(<span class='st'>"mtcars.csv"</span>))</div><div class='output co'>#&gt; <span style='color: #949494;'># A tibble: 1 x 2</span><span>
 #&gt;   encoding confidence
-#&gt;   [3m[38;5;246m&lt;chr&gt;[39m[23m         [3m[38;5;246m&lt;dbl&gt;[39m[23m
-#&gt; [38;5;250m1[39m ASCII             1</div><div class='input'><span class='fu'>guess_encoding</span>(<span class='fu'><a href='read_lines.html'>read_lines_raw</a></span>(<span class='fu'><a href='readr_example.html'>readr_example</a></span>(<span class='st'>"mtcars.csv"</span>)))</div><div class='output co'>#&gt; [38;5;246m# A tibble: 1 x 2[39m
+#&gt;   </span><span style='color: #949494;font-style: italic;'>&lt;chr&gt;</span><span>         </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span>
+#&gt; </span><span style='color: #BCBCBC;'>1</span><span> ASCII             1</div><div class='input'><span class='fu'>guess_encoding</span>(<span class='fu'><a href='read_lines.html'>read_lines_raw</a></span>(<span class='fu'><a href='readr_example.html'>readr_example</a></span>(<span class='st'>"mtcars.csv"</span>)))</div><div class='output co'>#&gt; </span><span style='color: #949494;'># A tibble: 1 x 2</span><span>
 #&gt;   encoding confidence
-#&gt;   [3m[38;5;246m&lt;chr&gt;[39m[23m         [3m[38;5;246m&lt;dbl&gt;[39m[23m
-#&gt; [38;5;250m1[39m ASCII             1</div><div class='input'><span class='fu'>guess_encoding</span>(<span class='fu'><a href='read_file.html'>read_file_raw</a></span>(<span class='fu'><a href='readr_example.html'>readr_example</a></span>(<span class='st'>"mtcars.csv"</span>)))</div><div class='output co'>#&gt; [38;5;246m# A tibble: 1 x 2[39m
+#&gt;   </span><span style='color: #949494;font-style: italic;'>&lt;chr&gt;</span><span>         </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span>
+#&gt; </span><span style='color: #BCBCBC;'>1</span><span> ASCII             1</div><div class='input'><span class='fu'>guess_encoding</span>(<span class='fu'><a href='read_file.html'>read_file_raw</a></span>(<span class='fu'><a href='readr_example.html'>readr_example</a></span>(<span class='st'>"mtcars.csv"</span>)))</div><div class='output co'>#&gt; </span><span style='color: #949494;'># A tibble: 1 x 2</span><span>
 #&gt;   encoding confidence
-#&gt;   [3m[38;5;246m&lt;chr&gt;[39m[23m         [3m[38;5;246m&lt;dbl&gt;[39m[23m
-#&gt; [38;5;250m1[39m ASCII             1</div><div class='input'>
-<span class='fu'>guess_encoding</span>(<span class='st'>"a\n\u00b5\u00b5"</span>)</div><div class='output co'>#&gt; [38;5;246m# A tibble: 1 x 2[39m
+#&gt;   </span><span style='color: #949494;font-style: italic;'>&lt;chr&gt;</span><span>         </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span>
+#&gt; </span><span style='color: #BCBCBC;'>1</span><span> ASCII             1</div><div class='input'>
+<span class='fu'>guess_encoding</span>(<span class='st'>"a\n\u00b5\u00b5"</span>)</div><div class='output co'>#&gt; </span><span style='color: #949494;'># A tibble: 1 x 2</span><span>
 #&gt;   encoding confidence
-#&gt;   [3m[38;5;246m&lt;chr&gt;[39m[23m         [3m[38;5;246m&lt;dbl&gt;[39m[23m
-#&gt; [38;5;250m1[39m UTF-8           0.8</div></pre>
+#&gt;   </span><span style='color: #949494;font-style: italic;'>&lt;chr&gt;</span><span>         </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span>
+#&gt; </span><span style='color: #BCBCBC;'>1</span><span> UTF-8           0.8</div></span></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
@@ -208,7 +208,7 @@ file will be read.</p></td>
 
 <div class="author">
   <p>
-    Developed by <a href='http://hadley.nz'>Hadley Wickham</a>, Jim Hester, Romain Francois, <a href='https://www.rstudio.com'><img src='https://www.tidyverse.org/rstudio-logo.svg' alt='RStudio' height='24' /></a>.
+    Developed by <a href='http://hadley.nz'>Hadley Wickham</a>, <a href='http://jimhester.com'>Jim Hester</a>, Romain Francois, <a href='https://www.rstudio.com'><img src='https://www.tidyverse.org/rstudio-logo.svg' alt='RStudio' height='24' /></a>.
     Site built by <a href="https://pkgdown.r-lib.org">pkgdown</a>.
   </p>
 </div>

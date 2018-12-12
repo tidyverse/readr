@@ -72,7 +72,7 @@
         <a class="navbar-brand" href="../index.html">readr</a>
         <div class="info">
           <span class="partof">part of the <a href="https://tidyverse.org">tidyverse</a></span>
-          <span class="version version-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.2.0</span>
+          <span class="version version-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.3.0</span>
         </div>
       </div>
     </div>
@@ -135,29 +135,110 @@
       <small>Source: <a href='https://github.com/tidyverse/readr/blob/master/NEWS.md'><code>NEWS.md</code></a></small>
     </div>
 
-    <div id="readr-1-2-0" class="section level1">
+    <div id="readr-1-3-0" class="section level1">
 <h1 class="page-header">
-<a href="#readr-1-2-0" class="anchor"></a>readr 1.2.0<small> Unreleased </small>
+<a href="#readr-1-3-0" class="anchor"></a>readr 1.3.0<small> 2018-12-11 </small>
 </h1>
-<p>This release was focused on bug fixes rather than new features.</p>
 <div id="breaking-changes" class="section level2">
 <h2 class="hasAnchor">
 <a href="#breaking-changes" class="anchor"></a>Breaking Changes</h2>
+<div id="blank-line-skipping" class="section level3">
+<h3 class="hasAnchor">
+<a href="#blank-line-skipping" class="anchor"></a>Blank line skipping</h3>
+<p>readr’s blank line skipping has been modified to be more consistent and to avoid edge cases that affected the behavior in 1.2.0. The skip parameter now behaves more similar to how it worked previous to readr 1.2.0, but in addition the parameter <code>skip_blank_rows</code> can be used to control if fully blank lines are skipped. (<a href='https://github.com/tidyverse/readr/issues/923'>#923</a>)</p>
+</div>
+<div id="tibble-data-frame-subclass" class="section level3">
+<h3 class="hasAnchor">
+<a href="#tibble-data-frame-subclass" class="anchor"></a>tibble data frame subclass</h3>
+<p>readr 1.3.0 returns results with a <code>spec_tbl_df</code> subclass. This differs from a regular tibble only that the <code>spec</code> attribute (which holds the column specification) is lost as soon as the object is subset (and a normal <code>tbl_df</code> object is returned).</p>
+<p>Historically <code>tbl_df</code>’s lost their attributes once they were subset. However recent versions of tibble retain the attributes when subetting, so the <code>spec_tbl_df</code> subclass is needed to ensure the previous behavior.</p>
+<p>This should only break compatibility if you are explicitly checking the class of the returned object. A way to get backwards compatible behavior is to call subset with no arguments on your object, e.g. <code>x[]</code>.</p>
+</div>
+</div>
+<div id="bugfixes" class="section level2">
+<h2 class="hasAnchor">
+<a href="#bugfixes" class="anchor"></a>Bugfixes</h2>
+<ul>
+<li>
+<code>hms</code> objects with NA values are now written without whitespace padding (<a href='https://github.com/tidyverse/readr/issues/930'>#930</a>).</li>
+<li>
+<code>read_*()</code> functions now return <code>spec_tbl_df</code> objects, which differ from regular <code>tbl_df</code> objects only in that the <code>spec</code> attribute is removed (and they are demoted to regular <code>tbl_df</code> objects) as soon as they are subset (<a href='https://github.com/tidyverse/readr/issues/934'>#934</a>).</li>
+<li>
+<code><a href="../reference/write_delim.html">write_csv2()</a></code> now properly respects the <code>na</code> argument (<a href='https://github.com/tidyverse/readr/issues/928'>#928</a>)</li>
+<li>Fixes compilation with multiple architectures on linux (<a href='https://github.com/tidyverse/readr/issues/922'>#922</a>).</li>
+<li>Fixes compilation with R &lt; 3.3.0</li>
+</ul>
+</div>
+</div>
+    <div id="readr-1-2-1" class="section level1">
+<h1 class="page-header">
+<a href="#readr-1-2-1" class="anchor"></a>readr 1.2.1<small> 2018-11-22 </small>
+</h1>
+<p>This release skips the clipboard tests on CRAN servers</p>
+</div>
+    <div id="readr-1-2-0" class="section level1">
+<h1 class="page-header">
+<a href="#readr-1-2-0" class="anchor"></a>readr 1.2.0<small> 2018-11-22 </small>
+</h1>
+<div id="breaking-changes-1" class="section level2">
+<h2 class="hasAnchor">
+<a href="#breaking-changes-1" class="anchor"></a>Breaking Changes</h2>
 <div id="integer-column-guessing" class="section level3">
 <h3 class="hasAnchor">
 <a href="#integer-column-guessing" class="anchor"></a>Integer column guessing</h3>
 <p>readr functions no longer guess columns are of type integer, instead these columns are guessed as numeric. Because R uses 32 bit integers and 64 bit doubles all integers can be stored in doubles, guaranteeing no loss of information. This change was made to remove errors when numeric columns were incorrectly guessed as integers. If you know a certain column is an integer and would like to read them as such you can do so by specifying the column type explicitly with the <code>col_types</code> argument.</p>
 </div>
-<div id="blank-line-skipping" class="section level3">
+<div id="blank-line-skipping-1" class="section level3">
 <h3 class="hasAnchor">
-<a href="#blank-line-skipping" class="anchor"></a>Blank line skipping</h3>
-<p>readr now always skips blank lines automatically when parsing, which may change the number of lines you need to pass to the <code>skip</code> parameter. For instance if your file had a one blank line then two more lines you want to skip previously you would pass <code><a href="https://www.rdocumentation.org/packages/base/topics/assignOps">skip = 3</a></code>, now you only need to pass <code><a href="https://www.rdocumentation.org/packages/base/topics/assignOps">skip = 2</a></code>.</p>
+<a href="#blank-line-skipping-1" class="anchor"></a>Blank line skipping</h3>
+<p>readr now always skips blank lines automatically when parsing, which may change the number of lines you need to pass to the <code>skip</code> parameter. For instance if your file had a one blank line then two more lines you want to skip previously you would pass <code>skip = 3</code>, now you only need to pass <code>skip = 2</code>.</p>
 </div>
 </div>
 <div id="new-features" class="section level2">
 <h2 class="hasAnchor">
 <a href="#new-features" class="anchor"></a>New features</h2>
+<div id="melt-functions" class="section level3">
+<h3 class="hasAnchor">
+<a href="#melt-functions" class="anchor"></a>Melt functions</h3>
+<p>There is now a family of <code>melt_*()</code> functions in readr. These functions store data in ‘long’ or ‘melted’ form, where each row corresponds to a single value in the dataset. This form is useful when your data is ragged and not rectangular.</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1-1" data-line-number="1">data &lt;-<span class="st">"a,b,c</span></a>
+<a class="sourceLine" id="cb1-2" data-line-number="2"><span class="st">1,2</span></a>
+<a class="sourceLine" id="cb1-3" data-line-number="3"><span class="st">w,x,y,z"</span></a>
+<a class="sourceLine" id="cb1-4" data-line-number="4"></a>
+<a class="sourceLine" id="cb1-5" data-line-number="5">readr<span class="op">::</span><span class="kw"><a href="https://readr.tidyverse.org/reference/melt_delim.html">melt_csv</a></span>(data)</a>
+<a class="sourceLine" id="cb1-6" data-line-number="6"><span class="co">#&gt; # A tibble: 9 x 4</span></a>
+<a class="sourceLine" id="cb1-7" data-line-number="7"><span class="co">#&gt;     row   col data_type value</span></a>
+<a class="sourceLine" id="cb1-8" data-line-number="8"><span class="co">#&gt;   &lt;dbl&gt; &lt;dbl&gt; &lt;chr&gt;     &lt;chr&gt;</span></a>
+<a class="sourceLine" id="cb1-9" data-line-number="9"><span class="co">#&gt; 1     1     1 character a    </span></a>
+<a class="sourceLine" id="cb1-10" data-line-number="10"><span class="co">#&gt; 2     1     2 character b    </span></a>
+<a class="sourceLine" id="cb1-11" data-line-number="11"><span class="co">#&gt; 3     1     3 character c    </span></a>
+<a class="sourceLine" id="cb1-12" data-line-number="12"><span class="co">#&gt; 4     2     1 integer   1    </span></a>
+<a class="sourceLine" id="cb1-13" data-line-number="13"><span class="co">#&gt; 5     2     2 integer   2    </span></a>
+<a class="sourceLine" id="cb1-14" data-line-number="14"><span class="co">#&gt; 6     3     1 character w    </span></a>
+<a class="sourceLine" id="cb1-15" data-line-number="15"><span class="co">#&gt; 7     3     2 character x    </span></a>
+<a class="sourceLine" id="cb1-16" data-line-number="16"><span class="co">#&gt; 8     3     3 character y    </span></a>
+<a class="sourceLine" id="cb1-17" data-line-number="17"><span class="co">#&gt; 9     3     4 character z</span></a></code></pre></div>
+<p>Thanks to Duncan Garmonsway (<a href='https://github.com/nacnudus'>@nacnudus</a>) for great work on the idea an implementation of the <code>melt_*()</code> functions!</p>
+</div>
+<div id="connection-improvements" class="section level3">
+<h3 class="hasAnchor">
+<a href="#connection-improvements" class="anchor"></a>Connection improvements</h3>
+<p>readr 1.2.0 changes how R connections are parsed by readr. In previous versions of readr the connections were read into an in-memory raw vector, then passed to the readr functions. This made reading connections from small to medium datasets fast, but also meant that the dataset had to fit into memory at least twice (once for the raw data, once for the parsed data). It also meant that reading could not begin until the full vector was read through the connection.</p>
+<p>Now we instead write the connection to a temporary file (in the R temporary directory), than parse that temporary file. This means connections may take a little longer to be read, but also means they will no longer need to fit into memory. It also allows the use of the chunked readers to process the data in parts.</p>
+<p>Future improvements to readr would allow it to parse data from connections in a streaming fashion, which would avoid many of the drawbacks of either method.</p>
+</div>
+<div id="additional-new-features" class="section level3">
+<h3 class="hasAnchor">
+<a href="#additional-new-features" class="anchor"></a>Additional new features</h3>
 <ul>
+<li>
+<code>melt_*()</code> functions added for reading ragged data (<a href='https://github.com/tidyverse/readr/issues/760'>#760</a>, <a href='https://github.com/nacnudus'>@nacnudus</a>).</li>
+<li>
+<code>AccumulateCallback</code> R6 class added to provide an example of accumulating values in a single result (<a href='https://github.com/tidyverse/readr/issues/689'>#689</a>, <a href='https://github.com/blakeboswell'>@blakeboswell</a>).</li>
+<li>
+<code><a href="../reference/read_fwf.html">read_fwf()</a></code> can now accept overlapping field specifications (<a href='https://github.com/tidyverse/readr/issues/692'>#692</a>, <a href='https://github.com/gergness'>@gergness</a>)</li>
+<li>
+<code><a href="../reference/type_convert.html">type_convert()</a></code> now allows character column specifications and also silently skips non-character columns (<a href='https://github.com/tidyverse/readr/issues/369'>#369</a>, <a href='https://github.com/tidyverse/readr/issues/699'>#699</a>)</li>
 <li>The <code>parse_*()</code> functions and <code><a href="../reference/read_fwf.html">read_fwf()</a></code> gain a <code>trim_ws</code> argument to control whether the fields should be trimmed before parsing (<a href='https://github.com/tidyverse/readr/issues/636'>#636</a>, <a href='https://github.com/tidyverse/readr/issues/735'>#735</a>).</li>
 <li>
 <code><a href="../reference/parse_number.html">parse_number()</a></code> now parses numbers in scientific notation using <code>e</code> and <code>E</code> (<a href='https://github.com/tidyverse/readr/issues/684'>#684</a>, <a href='https://github.com/sambrady3'>@sambrady3</a>).</li>
@@ -180,12 +261,24 @@
 <code>read*()</code> functions now have a more informative error when trying to read a remote bz2 file (<a href='https://github.com/tidyverse/readr/issues/891'>#891</a>).</li>
 <li>
 <code><a href="../reference/spec_delim.html">spec_table2()</a></code> function added to correspond to <code><a href="../reference/read_table.html">read_table2()</a></code> (<a href='https://github.com/tidyverse/readr/issues/778'>#778</a>, <a href='https://github.com/mawds'>@mawds</a>).</li>
+<li>
+<code><a href="../reference/parse_factor.html">parse_factor()</a></code> now has <code>levels = NULL</code> by default (<a href='https://github.com/tidyverse/readr/issues/862'>#862</a>, <a href='https://github.com/mikmart'>@mikmart</a>).</li>
+<li>
+<code>"f"</code> can now be used as a shortcode for <code><a href="../reference/parse_factor.html">col_factor()</a></code> in <code><a href="../reference/cols.html">cols()</a></code> and the <code>col_types</code> argument to <code><a href="../reference/read_delim.html">read_delim()</a></code> and friends (<a href='https://github.com/tidyverse/readr/issues/810'>#810</a>, <a href='https://github.com/mikmart'>@mikmart</a>).</li>
+<li>Functions now read connections to a temporary file rather than to an in-memory object (<a href='https://github.com/tidyverse/readr/issues/610'>#610</a>, <a href='https://github.com/tidyverse/readr/issues/76'>#76</a>).</li>
 </ul>
+</div>
 </div>
 <div id="bug-fixes" class="section level2">
 <h2 class="hasAnchor">
 <a href="#bug-fixes" class="anchor"></a>Bug Fixes</h2>
 <ul>
+<li>
+<code>standardise_path()</code> now uses a case-insentitive comparison for the file extensions (<a href='https://github.com/tidyverse/readr/issues/794'>#794</a>).</li>
+<li>
+<code><a href="../reference/parse_guess.html">parse_guess()</a></code> now guesses logical types when given (lowercase) ‘true’ and ‘false’ inputs (<a href='https://github.com/tidyverse/readr/issues/818'>#818</a>).</li>
+<li>
+<code>read_*()</code> now do not print a progress bar when running inside a RStudio notebook chunk (<a href='https://github.com/tidyverse/readr/issues/793'>#793</a>)</li>
 <li>
 <code><a href="../reference/read_table.html">read_table2()</a></code> now skips comments anywhere in the file (<a href='https://github.com/tidyverse/readr/issues/908'>#908</a>).</li>
 <li>
@@ -241,7 +334,7 @@
 <li>
 <code><a href="../reference/parse_factor.html">parse_factor()</a></code> gains a <code>include_na</code> argument, to include <code>NA</code> in the factor levels (<a href='https://github.com/tidyverse/readr/issues/541'>#541</a>).</li>
 <li>
-<code><a href="../reference/parse_factor.html">parse_factor()</a></code> will now can accept <code><a href="https://www.rdocumentation.org/packages/base/topics/assignOps">levels = NULL</a></code>, which allows one to generate factor levels based on the data (like stringsAsFactors = TRUE) (<a href='https://github.com/tidyverse/readr/issues/497'>#497</a>).</li>
+<code><a href="../reference/parse_factor.html">parse_factor()</a></code> will now can accept <code>levels = NULL</code>, which allows one to generate factor levels based on the data (like stringsAsFactors = TRUE) (<a href='https://github.com/tidyverse/readr/issues/497'>#497</a>).</li>
 <li>
 <code>parse_numeric()</code> now returns the full string if it contains no numbers (<a href='https://github.com/tidyverse/readr/issues/548'>#548</a>).</li>
 <li>
@@ -301,9 +394,9 @@
 <code>read_csv</code>, <code>read_csv2</code>, and <code>read_tsv</code> gain a <code>quote</code> argument, (<a href='https://github.com/tidyverse/readr/issues/631'>#631</a>, <a href='https://github.com/noamross'>@noamross</a>)</li>
 </ul>
 </div>
-<div id="bugfixes" class="section level2">
+<div id="bugfixes-1" class="section level2">
 <h2 class="hasAnchor">
-<a href="#bugfixes" class="anchor"></a>Bugfixes</h2>
+<a href="#bugfixes-1" class="anchor"></a>Bugfixes</h2>
 <ul>
 <li>
 <code><a href="../reference/parse_factor.html">parse_factor()</a></code> now converts data to UTF-8 based on the supplied locale (<a href='https://github.com/tidyverse/readr/issues/615'>#615</a>).</li>
@@ -330,31 +423,31 @@
 <h2 class="hasAnchor">
 <a href="#column-guessing" class="anchor"></a>Column guessing</h2>
 <p>The process by which readr guesses the types of columns has received a substantial overhaul to make it easier to fix problems when the initial guesses aren’t correct, and to make it easier to generate reproducible code. Now column specifications are printing by default when you read from a file:</p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1-1" data-line-number="1">challenge &lt;-<span class="st"> </span><span class="kw"><a href="../reference/read_delim.html">read_csv</a></span>(<span class="kw"><a href="../reference/readr_example.html">readr_example</a></span>(<span class="st">"challenge.csv"</span>))</a>
-<a class="sourceLine" id="cb1-2" data-line-number="2"><span class="co">#&gt; Parsed with column specification:</span></a>
-<a class="sourceLine" id="cb1-3" data-line-number="3"><span class="co">#&gt; cols(</span></a>
-<a class="sourceLine" id="cb1-4" data-line-number="4"><span class="co">#&gt;   x = col_integer(),</span></a>
-<a class="sourceLine" id="cb1-5" data-line-number="5"><span class="co">#&gt;   y = col_character()</span></a>
-<a class="sourceLine" id="cb1-6" data-line-number="6"><span class="co">#&gt; )</span></a></code></pre></div>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb2-1" data-line-number="1">challenge &lt;-<span class="st"> </span><span class="kw"><a href="../reference/read_delim.html">read_csv</a></span>(<span class="kw"><a href="../reference/readr_example.html">readr_example</a></span>(<span class="st">"challenge.csv"</span>))</a>
+<a class="sourceLine" id="cb2-2" data-line-number="2"><span class="co">#&gt; Parsed with column specification:</span></a>
+<a class="sourceLine" id="cb2-3" data-line-number="3"><span class="co">#&gt; cols(</span></a>
+<a class="sourceLine" id="cb2-4" data-line-number="4"><span class="co">#&gt;   x = col_integer(),</span></a>
+<a class="sourceLine" id="cb2-5" data-line-number="5"><span class="co">#&gt;   y = col_character()</span></a>
+<a class="sourceLine" id="cb2-6" data-line-number="6"><span class="co">#&gt; )</span></a></code></pre></div>
 <p>And you can extract those values after the fact with <code><a href="../reference/spec.html">spec()</a></code>:</p>
-<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb2-1" data-line-number="1"><span class="kw"><a href="../reference/spec.html">spec</a></span>(challenge)</a>
-<a class="sourceLine" id="cb2-2" data-line-number="2"><span class="co">#&gt; cols(</span></a>
-<a class="sourceLine" id="cb2-3" data-line-number="3"><span class="co">#&gt;   x = col_integer(),</span></a>
-<a class="sourceLine" id="cb2-4" data-line-number="4"><span class="co">#&gt;   y = col_character()</span></a>
-<a class="sourceLine" id="cb2-5" data-line-number="5"><span class="co">#&gt; )</span></a></code></pre></div>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb3-1" data-line-number="1"><span class="kw"><a href="../reference/spec.html">spec</a></span>(challenge)</a>
+<a class="sourceLine" id="cb3-2" data-line-number="2"><span class="co">#&gt; cols(</span></a>
+<a class="sourceLine" id="cb3-3" data-line-number="3"><span class="co">#&gt;   x = col_integer(),</span></a>
+<a class="sourceLine" id="cb3-4" data-line-number="4"><span class="co">#&gt;   y = col_character()</span></a>
+<a class="sourceLine" id="cb3-5" data-line-number="5"><span class="co">#&gt; )</span></a></code></pre></div>
 <p>This makes it easier to quickly identify parsing problems and fix them (<a href='https://github.com/tidyverse/readr/issues/314'>#314</a>). If the column specification is long, the new <code><a href="../reference/spec.html">cols_condense()</a></code> is used to condense the spec by identifying the most common type and setting it as the default. This is particularly useful when only a handful of columns have a different type (<a href='https://github.com/tidyverse/readr/issues/466'>#466</a>).</p>
 <p>You can also generating an initial specification without parsing the file using <code><a href="../reference/spec_delim.html">spec_csv()</a></code>, <code><a href="../reference/spec_delim.html">spec_tsv()</a></code>, etc.</p>
 <p>Once you have figured out the correct column types for a file, it’s often useful to make the parsing strict. You can do this either by copying and pasting the printed output, or for very long specs, saving the spec to disk with <code><a href="../reference/read_rds.html">write_rds()</a></code>. In production scripts, combine this with <code><a href="../reference/problems.html">stop_for_problems()</a></code> (<a href='https://github.com/tidyverse/readr/issues/465'>#465</a>): if the input data changes form, you’ll fail fast with an error.</p>
 <p>You can now also adjust the number of rows that readr uses to guess the column types with <code>guess_max</code>:</p>
-<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb3-1" data-line-number="1">challenge &lt;-<span class="st"> </span><span class="kw"><a href="../reference/read_delim.html">read_csv</a></span>(<span class="kw"><a href="../reference/readr_example.html">readr_example</a></span>(<span class="st">"challenge.csv"</span>), <span class="dt">guess_max =</span> <span class="dv">1500</span>)</a>
-<a class="sourceLine" id="cb3-2" data-line-number="2"><span class="co">#&gt; Parsed with column specification:</span></a>
-<a class="sourceLine" id="cb3-3" data-line-number="3"><span class="co">#&gt; cols(</span></a>
-<a class="sourceLine" id="cb3-4" data-line-number="4"><span class="co">#&gt;   x = col_double(),</span></a>
-<a class="sourceLine" id="cb3-5" data-line-number="5"><span class="co">#&gt;   y = col_date(format = "")</span></a>
-<a class="sourceLine" id="cb3-6" data-line-number="6"><span class="co">#&gt; )</span></a></code></pre></div>
+<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb4-1" data-line-number="1">challenge &lt;-<span class="st"> </span><span class="kw"><a href="../reference/read_delim.html">read_csv</a></span>(<span class="kw"><a href="../reference/readr_example.html">readr_example</a></span>(<span class="st">"challenge.csv"</span>), <span class="dt">guess_max =</span> <span class="dv">1500</span>)</a>
+<a class="sourceLine" id="cb4-2" data-line-number="2"><span class="co">#&gt; Parsed with column specification:</span></a>
+<a class="sourceLine" id="cb4-3" data-line-number="3"><span class="co">#&gt; cols(</span></a>
+<a class="sourceLine" id="cb4-4" data-line-number="4"><span class="co">#&gt;   x = col_double(),</span></a>
+<a class="sourceLine" id="cb4-5" data-line-number="5"><span class="co">#&gt;   y = col_date(format = "")</span></a>
+<a class="sourceLine" id="cb4-6" data-line-number="6"><span class="co">#&gt; )</span></a></code></pre></div>
 <p>You can now access the guessing algorithm from R. <code><a href="../reference/parse_guess.html">guess_parser()</a></code> will tell you which parser readr will select for a character vector (<a href='https://github.com/tidyverse/readr/issues/377'>#377</a>). We’ve made a number of fixes to the guessing algorithm:</p>
 <ul>
-<li><p>New example <code><a href="https://www.rdocumentation.org/packages/base/topics/Arithmetic">extdata/challenge.csv</a></code> which is carefully created to cause problems with the default column type guessing heuristics.</p></li>
+<li><p>New example <code>extdata/challenge.csv</code> which is carefully created to cause problems with the default column type guessing heuristics.</p></li>
 <li><p>Blank lines and lines with only comments are now skipped automatically without warning (<a href='https://github.com/tidyverse/readr/issues/381'>#381</a>, <a href='https://github.com/tidyverse/readr/issues/321'>#321</a>).</p></li>
 <li><p>Single ‘-’ or ‘.’ are now parsed as characters, not numbers (<a href='https://github.com/tidyverse/readr/issues/297'>#297</a>).</p></li>
 <li><p>Numbers followed by a single trailing character are parsed as character, not numbers (<a href='https://github.com/tidyverse/readr/issues/316'>#316</a>).</p></li>
@@ -364,7 +457,7 @@
 <ul>
 <li><p>If <code>col_types</code> is too long, it is subsetted correctly (<a href='https://github.com/tidyverse/readr/issues/372'>#372</a>, <a href='https://github.com/jennybc'>@jennybc</a>).</p></li>
 <li><p>If <code>col_names</code> is too short, the added names are numbered correctly (<a href='https://github.com/tidyverse/readr/issues/374'>#374</a>, <a href='https://github.com/jennybc'>@jennybc</a>).</p></li>
-<li><p>Missing colum name names are now given a default name (<code>X2</code>, <code>X7</code> etc) (<a href='https://github.com/tidyverse/readr/issues/318'>#318</a>). Duplicated column names are now deduplicated. Both changes generate a warning; to suppress it supply an explicit <code>col_names</code> (setting <code><a href="https://www.rdocumentation.org/packages/base/topics/assignOps">skip = 1</a></code> if there’s an existing ill-formed header).</p></li>
+<li><p>Missing colum name names are now given a default name (<code>X2</code>, <code>X7</code> etc) (<a href='https://github.com/tidyverse/readr/issues/318'>#318</a>). Duplicated column names are now deduplicated. Both changes generate a warning; to suppress it supply an explicit <code>col_names</code> (setting <code>skip = 1</code> if there’s an existing ill-formed header).</p></li>
 <li><p><code>col_types()</code> accepts a named list as input (<a href='https://github.com/tidyverse/readr/issues/401'>#401</a>).</p></li>
 </ul>
 </div>
@@ -383,7 +476,7 @@
 <li><p><code><a href="../reference/parse_datetime.html">parse_date()</a></code> returns a numeric vector (instead of an integer vector) (<a href='https://github.com/tidyverse/readr/issues/357'>#357</a>).</p></li>
 <li><p><code><a href="../reference/parse_datetime.html">parse_date()</a></code>, <code><a href="../reference/parse_datetime.html">parse_time()</a></code> and <code><a href="../reference/parse_datetime.html">parse_datetime()</a></code> gain an <code>na</code> argument to match all other parsers (<a href='https://github.com/tidyverse/readr/issues/413'>#413</a>).</p></li>
 <li><p>If the format argument is omitted <code><a href="../reference/parse_datetime.html">parse_date()</a></code> or <code><a href="../reference/parse_datetime.html">parse_time()</a></code>, date and time formats specified in the locale will be used. These now default to <code>%AD</code> and <code>%AT</code> respectively.</p></li>
-<li><p>You can now parse partial dates with <code><a href="../reference/parse_datetime.html">parse_date()</a></code> and <code><a href="../reference/parse_datetime.html">parse_datetime()</a></code>, e.g. <code><a href="../reference/parse_datetime.html">parse_date("2001", "%Y")</a></code> returns <code><a href="https://www.rdocumentation.org/packages/base/topics/Arithmetic">2001-01-01</a></code>.</p></li>
+<li><p>You can now parse partial dates with <code><a href="../reference/parse_datetime.html">parse_date()</a></code> and <code><a href="../reference/parse_datetime.html">parse_datetime()</a></code>, e.g. <code><a href="../reference/parse_datetime.html">parse_date("2001", "%Y")</a></code> returns <code>2001-01-01</code>.</p></li>
 </ul>
 <p><code><a href="../reference/parse_number.html">parse_number()</a></code> is slightly more flexible - it now parses numbers up to the first ill-formed character. For example <code><a href="../reference/parse_number.html">parse_number("-3-")</a></code> and <code><a href="../reference/parse_number.html">parse_number("...3...")</a></code> now return -3 and 3 respectively. We also fixed a major bug where parsing negative numbers yielded positive values (<a href='https://github.com/tidyverse/readr/issues/308'>#308</a>).</p>
 <p><code><a href="../reference/parse_atomic.html">parse_logical()</a></code> now accepts <code>0</code>, <code>1</code> as well as lowercase <code>t</code>, <code>f</code>, <code>true</code>, <code>false</code>.</p>
@@ -406,7 +499,7 @@
 <ul>
 <li><p>Printing double values now uses an <a href="https://github.com/juj/MathGeoLib/blob/master/src/Math/grisu3.c">implementation</a> of the <a href="http://www.cs.tufts.edu/~nr/cs257/archive/florian-loitsch/printf.pdf">grisu3 algorithm</a> which speeds up writing of large numeric data frames by ~10X. (<a href='https://github.com/tidyverse/readr/issues/432'>#432</a>) ‘.0’ is appended to whole number doubles, to ensure they will be read as doubles as well. (<a href='https://github.com/tidyverse/readr/issues/483'>#483</a>)</p></li>
 <li><p>readr imports tibble so that you get consistent <code>tbl_df</code> behaviour (<a href='https://github.com/tidyverse/readr/issues/317'>#317</a>, <a href='https://github.com/tidyverse/readr/issues/385'>#385</a>).</p></li>
-<li><p>New example <code><a href="https://www.rdocumentation.org/packages/base/topics/Arithmetic">extdata/challenge.csv</a></code> which is carefully created to cause problems with the default column type guessing heuristics.</p></li>
+<li><p>New example <code>extdata/challenge.csv</code> which is carefully created to cause problems with the default column type guessing heuristics.</p></li>
 <li><p><code><a href="../reference/locale.html">default_locale()</a></code> now sets the default locale in <code>readr.default_locale</code> rather than regenerating it for each call. (<a href='https://github.com/tidyverse/readr/issues/416'>#416</a>).</p></li>
 <li><p><code><a href="../reference/locale.html">locale()</a></code> now automatically sets decimal mark if you set the grouping mark. It throws an error if you accidentally set decimal and grouping marks to the same character (<a href='https://github.com/tidyverse/readr/issues/450'>#450</a>).</p></li>
 <li><p>All <code>read_*()</code> can read into long vectors, substantially increasing the number of rows you can read (<a href='https://github.com/tidyverse/readr/issues/309'>#309</a>).</p></li>
@@ -476,7 +569,7 @@
 <li><p><code>comment</code> argument allows you to ignore comments (<a href='https://github.com/tidyverse/readr/issues/68'>#68</a>).</p></li>
 <li><p><code>trim_ws</code> argument controls whether leading and trailing whitespace is removed. It defaults to <code>TRUE</code> (<a href='https://github.com/tidyverse/readr/issues/137'>#137</a>).</p></li>
 <li><p>Specifying the wrong number of column names, or having rows with an unexpected number of columns, generates a warning, rather than an error (<a href='https://github.com/tidyverse/readr/issues/189'>#189</a>).</p></li>
-<li><p>Multiple NA values can be specified by passing a character vector to <code>na</code> (<a href='https://github.com/tidyverse/readr/issues/125'>#125</a>). The default has been changed to <code><a href="https://www.rdocumentation.org/packages/base/topics/assignOps">na = c("", "NA")</a></code>. Specifying <code><a href="https://www.rdocumentation.org/packages/base/topics/assignOps">na = ""</a></code> now works as expected with character columns (<a href='https://github.com/tidyverse/readr/issues/114'>#114</a>).</p></li>
+<li><p>Multiple NA values can be specified by passing a character vector to <code>na</code> (<a href='https://github.com/tidyverse/readr/issues/125'>#125</a>). The default has been changed to <code>na = c("", "NA")</code>. Specifying <code>na = ""</code> now works as expected with character columns (<a href='https://github.com/tidyverse/readr/issues/114'>#114</a>).</p></li>
 </ul>
 </li>
 </ul>
@@ -526,7 +619,7 @@
 <li><p><code><a href="../reference/problems.html">problems()</a></code> now reports column names rather than column numbers (<a href='https://github.com/tidyverse/readr/issues/143'>#143</a>). Whenever there is a problem, the first five problems are printing out in a warning message, so you can more easily see what’s wrong.</p></li>
 <li><p><code>read_*()</code> throws a warning instead of an error is <code>col_types</code> specifies a non-existent column (<a href='https://github.com/tidyverse/readr/issues/145'>#145</a>, <a href='https://github.com/alyst'>@alyst</a>).</p></li>
 <li><p><code>read_*()</code> can read from a remote gz compressed file (<a href='https://github.com/tidyverse/readr/issues/163'>#163</a>).</p></li>
-<li><p><code><a href="../reference/read_delim.html">read_delim()</a></code> defaults to <code><a href="https://www.rdocumentation.org/packages/base/topics/assignOps">escape_backslash = FALSE</a></code> and <code><a href="https://www.rdocumentation.org/packages/base/topics/assignOps">escape_double = TRUE</a></code> for consistency. <code>n_max</code> also affects the number of rows read to guess the column types (<a href='https://github.com/tidyverse/readr/issues/224'>#224</a>).</p></li>
+<li><p><code><a href="../reference/read_delim.html">read_delim()</a></code> defaults to <code>escape_backslash = FALSE</code> and <code>escape_double = TRUE</code> for consistency. <code>n_max</code> also affects the number of rows read to guess the column types (<a href='https://github.com/tidyverse/readr/issues/224'>#224</a>).</p></li>
 <li><p><code><a href="../reference/read_lines.html">read_lines()</a></code> gains a progress bar. It now also correctly checks for interrupts every 500,000 lines so you can interrupt long running jobs. It also correctly estimates the number of lines in the file, considerably speeding up the reading of large files (60s -&gt; 15s for a 1.5 Gb file).</p></li>
 <li><p><code><a href="../reference/read_lines.html">read_lines_raw()</a></code> allows you to read a file into a list of raw vectors, one element for each line.</p></li>
 <li><p><code><a href="../reference/type_convert.html">type_convert()</a></code> gains <code>NA</code> and <code>trim_ws</code> arguments, and removes missing values before determining column types.</p></li>
@@ -551,6 +644,8 @@
     <div id="tocnav">
       <h2>Contents</h2>
       <ul class="nav nav-pills nav-stacked">
+        <li><a href="#readr-1-3-0">1.3.0</a></li>
+        <li><a href="#readr-1-2-1">1.2.1</a></li>
         <li><a href="#readr-1-2-0">1.2.0</a></li>
         <li><a href="#readr-1-1-1">1.1.1</a></li>
         <li><a href="#readr-1-1-0">1.1.0</a></li>
@@ -571,7 +666,7 @@
 
 <div class="author">
   <p>
-    Developed by <a href='http://hadley.nz'>Hadley Wickham</a>, Jim Hester, Romain Francois, <a href='https://www.rstudio.com'><img src='https://www.tidyverse.org/rstudio-logo.svg' alt='RStudio' height='24' /></a>.
+    Developed by <a href='http://hadley.nz'>Hadley Wickham</a>, <a href='http://jimhester.com'>Jim Hester</a>, Romain Francois, <a href='https://www.rstudio.com'><img src='https://www.tidyverse.org/rstudio-logo.svg' alt='RStudio' height='24' /></a>.
     Site built by <a href="https://pkgdown.r-lib.org">pkgdown</a>.
   </p>
 </div>

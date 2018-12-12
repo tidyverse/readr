@@ -41,7 +41,7 @@
         <a class="navbar-brand" href="../index.html">readr</a>
         <div class="info">
           <span class="partof">part of the <a href="https://tidyverse.org">tidyverse</a></span>
-          <span class="version version-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.2.0</span>
+          <span class="version version-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.3.0</span>
         </div>
       </div>
     </div>
@@ -103,7 +103,7 @@
       <h1>Locales</h1>
             
       
-      <small class="dont-index">Source: <a href="https://github.com/tidyverse/readr/blob/master/vignettes/locales.Rmd"><code><a href="https://www.rdocumentation.org/packages/base/topics/Arithmetic">vignettes/locales.Rmd</a></code></a></small>
+      <small class="dont-index">Source: <a href="https://github.com/tidyverse/readr/blob/master/vignettes/locales.Rmd"><code>vignettes/locales.Rmd</code></a></small>
       <div class="hidden name"><code>locales.Rmd</code></div>
 
     </div>
@@ -118,7 +118,7 @@
 <li>Default date format, used when guessing column types.</li>
 <li>The decimal and grouping marks, used when reading numbers.</li>
 </ul>
-<p>(Stricly speaking these are not locales in the usual technical sense of the word because they also contain information about time zones and encoding.)</p>
+<p>(Strictly speaking these are not locales in the usual technical sense of the word because they also contain information about time zones and encoding.)</p>
 <p>To create a new locale, you use the <code><a href="../reference/locale.html">locale()</a></code> function:</p>
 <div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1-1" data-line-number="1"><span class="kw"><a href="../reference/locale.html">locale</a></span>()</a>
 <a class="sourceLine" id="cb1-2" data-line-number="2"><span class="co">#&gt; &lt;locale&gt;</span></a>
@@ -220,7 +220,7 @@
 <p>Locales also provide default date and time formats. The time format isn’t currently used for anything, but the date format is used when guessing column types. The default date format is <code>%Y-%m-%d</code> because that’s unambiguous:</p>
 <div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb8-1" data-line-number="1"><span class="kw"><a href="https://www.rdocumentation.org/packages/utils/topics/str">str</a></span>(<span class="kw"><a href="../reference/parse_guess.html">parse_guess</a></span>(<span class="st">"2010-10-10"</span>))</a>
 <a class="sourceLine" id="cb8-2" data-line-number="2"><span class="co">#&gt;  Date[1:1], format: "2010-10-10"</span></a></code></pre></div>
-<p>If you’re an American, you might want you use your illogical date sytem::</p>
+<p>If you’re an American, you might want you use your illogical date system::</p>
 <div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb9-1" data-line-number="1"><span class="kw"><a href="https://www.rdocumentation.org/packages/utils/topics/str">str</a></span>(<span class="kw"><a href="../reference/parse_guess.html">parse_guess</a></span>(<span class="st">"01/02/2013"</span>))</a>
 <a class="sourceLine" id="cb9-2" data-line-number="2"><span class="co">#&gt;  chr "01/02/2013"</span></a>
 <a class="sourceLine" id="cb9-3" data-line-number="3"><span class="kw"><a href="https://www.rdocumentation.org/packages/utils/topics/str">str</a></span>(<span class="kw"><a href="../reference/parse_guess.html">parse_guess</a></span>(<span class="st">"01/02/2013"</span>, <span class="dt">locale =</span> <span class="kw"><a href="../reference/locale.html">locale</a></span>(<span class="dt">date_format =</span> <span class="st">"%d/%m/%Y"</span>)))</a>
@@ -333,7 +333,7 @@
 
 <div class="author">
   <p>
-    Developed by <a href="http://hadley.nz">Hadley Wickham</a>, Jim Hester, Romain Francois, <a href="https://www.rstudio.com"><img src="https://www.tidyverse.org/rstudio-logo.svg" alt="RStudio" height="24"></a>.
+    Developed by <a href="http://hadley.nz">Hadley Wickham</a>, <a href="http://jimhester.com">Jim Hester</a>, Romain Francois, <a href="https://www.rstudio.com"><img src="https://www.tidyverse.org/rstudio-logo.svg" alt="RStudio" height="24"></a>.
     Site built by <a href="https://pkgdown.r-lib.org">pkgdown</a>.
   </p>
 </div>

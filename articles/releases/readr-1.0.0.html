@@ -41,7 +41,7 @@
         <a class="navbar-brand" href="../../index.html">readr</a>
         <div class="info">
           <span class="partof">part of the <a href="https://tidyverse.org">tidyverse</a></span>
-          <span class="version version-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.2.0</span>
+          <span class="version version-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.3.0</span>
         </div>
       </div>
     </div>
@@ -173,7 +173,7 @@
 <a class="sourceLine" id="cb4-19" data-line-number="19"><span class="co">#&gt;   x = col_double(),</span></a>
 <a class="sourceLine" id="cb4-20" data-line-number="20"><span class="co">#&gt;   y = col_date(format = "")</span></a>
 <a class="sourceLine" id="cb4-21" data-line-number="21"><span class="co">#&gt; )</span></a></code></pre></div>
-<p>(If you want to suppress the printed specification, just provide the dummy spec <code><a href="https://www.rdocumentation.org/packages/base/topics/assignOps">col_types = cols()</a></code>)</p>
+<p>(If you want to suppress the printed specification, just provide the dummy spec <code>col_types = cols()</code>)</p>
 <p>You can now access the guessing algorithm from R: <code><a href="../../reference/parse_guess.html">guess_parser()</a></code> will tell you which parser readr will select.</p>
 <div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb5-1" data-line-number="1"><span class="kw"><a href="../../reference/parse_guess.html">guess_parser</a></span>(<span class="st">"1,234"</span>)</a>
 <a class="sourceLine" id="cb5-2" data-line-number="2"><span class="co">#&gt; [1] "number"</span></a>
@@ -254,7 +254,7 @@
 
 <div class="author">
   <p>
-    Developed by <a href="http://hadley.nz">Hadley Wickham</a>, Jim Hester, Romain Francois, <a href="https://www.rstudio.com"><img src="https://www.tidyverse.org/rstudio-logo.svg" alt="RStudio" height="24"></a>.
+    Developed by <a href="http://hadley.nz">Hadley Wickham</a>, <a href="http://jimhester.com">Jim Hester</a>, Romain Francois, <a href="https://www.rstudio.com"><img src="https://www.tidyverse.org/rstudio-logo.svg" alt="RStudio" height="24"></a>.
     Site built by <a href="https://pkgdown.r-lib.org">pkgdown</a>.
   </p>
 </div>

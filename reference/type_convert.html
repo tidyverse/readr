@@ -34,7 +34,7 @@
 <meta property="og:description" content="This is useful if you need to do some manual munging - you can read the
 columns in as character, clean it up with (e.g.) regular expressions and
 then let readr take another stab at parsing it. The name is a homage to
-the base type.convert()." />
+the base utils::type.convert()." />
 
 <meta property="og:image" content="https://readr.tidyverse.org/logo.png" />
 <meta name="twitter:card" content="summary" />
@@ -77,7 +77,7 @@ the base type.convert()." />
         <a class="navbar-brand" href="../index.html">readr</a>
         <div class="info">
           <span class="partof">part of the <a href="https://tidyverse.org">tidyverse</a></span>
-          <span class="version version-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.2.0</span>
+          <span class="version version-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.3.0</span>
         </div>
       </div>
     </div>
@@ -146,7 +146,7 @@ the base type.convert()." />
     <p>This is useful if you need to do some manual munging - you can read the
 columns in as character, clean it up with (e.g.) regular expressions and
 then let readr take another stab at parsing it. The name is a homage to
-the base <code><a href='https://www.rdocumentation.org/packages/utils/topics/type.convert'>type.convert</a>()</code>.</p>
+the base <code><a href='https://www.rdocumentation.org/packages/utils/topics/type.convert'>utils::type.convert()</a></code>.</p>
     
     </div>
 
@@ -164,12 +164,7 @@ the base <code><a href='https://www.rdocumentation.org/packages/utils/topics/typ
       <th>col_types</th>
       <td><p>One of <code>NULL</code>, a <code><a href='cols.html'>cols()</a></code> specification, or
 a string. See <code><a href='../articles/readr.html'>vignette("readr")</a></code> for more details.</p>
-<p>If <code>NULL</code>, column types will be imputed using all rows.</p>
-<p>If a column specification created by <code><a href='cols.html'>cols()</a></code>, it must contain
-one column specification for each column. If you only want to read a
-subset of the columns, use <code><a href='cols.html'>cols_only()</a></code>.</p>
-<p>Unlike other functions <code>type_convert()</code> does not allow character
-specifications of <code>col_types</code>.</p></td>
+<p>If <code>NULL</code>, column types will be imputed using all rows.</p></td>
     </tr>
     <tr>
       <th>na</th>
@@ -214,9 +209,38 @@ names.</p></td>
 #&gt; <span class='message'>)</span></div><div class='output co'>#&gt; 'data.frame':	2 obs. of  1 variable:
 #&gt;  $ x: num  NA 10</div><div class='input'>
 <span class='co'># Type convert can be used to infer types from an entire dataset</span>
-<span class='fu'>type_convert</span>(
-  <span class='fu'><a href='read_delim.html'>read_csv</a></span>(<span class='fu'><a href='readr_example.html'>readr_example</a></span>(<span class='st'>"mtcars.csv"</span>),
-           <span class='kw'>col_types</span> <span class='kw'>=</span> <span class='fu'><a href='cols.html'>cols</a></span>(<span class='kw'>.default</span> <span class='kw'>=</span> <span class='fu'><a href='parse_atomic.html'>col_character</a></span>())))</div><div class='output co'>#&gt; <span class='message'>Parsed with column specification:</span>
+
+<span class='co'># first read the data as character</span>
+<span class='no'>data</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='read_delim.html'>read_csv</a></span>(<span class='fu'><a href='readr_example.html'>readr_example</a></span>(<span class='st'>"mtcars.csv"</span>),
+                 <span class='kw'>col_types</span> <span class='kw'>=</span> <span class='fu'><a href='cols.html'>cols</a></span>(<span class='kw'>.default</span> <span class='kw'>=</span> <span class='fu'><a href='parse_atomic.html'>col_character</a></span>()))
+<span class='fu'><a href='https://www.rdocumentation.org/packages/utils/topics/str'>str</a></span>(<span class='no'>data</span>)</div><div class='output co'>#&gt; Classes ‘spec_tbl_df’, ‘tbl_df’, ‘tbl’ and 'data.frame':	32 obs. of  11 variables:
+#&gt;  $ mpg : chr  "21" "21" "22.8" "21.4" ...
+#&gt;  $ cyl : chr  "6" "6" "4" "6" ...
+#&gt;  $ disp: chr  "160" "160" "108" "258" ...
+#&gt;  $ hp  : chr  "110" "110" "93" "110" ...
+#&gt;  $ drat: chr  "3.9" "3.9" "3.85" "3.08" ...
+#&gt;  $ wt  : chr  "2.62" "2.875" "2.32" "3.215" ...
+#&gt;  $ qsec: chr  "16.46" "17.02" "18.61" "19.44" ...
+#&gt;  $ vs  : chr  "0" "0" "1" "1" ...
+#&gt;  $ am  : chr  "1" "1" "1" "0" ...
+#&gt;  $ gear: chr  "4" "4" "4" "3" ...
+#&gt;  $ carb: chr  "4" "4" "1" "1" ...
+#&gt;  - attr(*, "spec")=
+#&gt;   .. cols(
+#&gt;   ..   .default = col_character(),
+#&gt;   ..   mpg = col_character(),
+#&gt;   ..   cyl = col_character(),
+#&gt;   ..   disp = col_character(),
+#&gt;   ..   hp = col_character(),
+#&gt;   ..   drat = col_character(),
+#&gt;   ..   wt = col_character(),
+#&gt;   ..   qsec = col_character(),
+#&gt;   ..   vs = col_character(),
+#&gt;   ..   am = col_character(),
+#&gt;   ..   gear = col_character(),
+#&gt;   ..   carb = col_character()
+#&gt;   .. )</div><div class='input'><span class='co'># Then convert it with type_convert</span>
+<span class='fu'>type_convert</span>(<span class='no'>data</span>)</div><div class='output co'>#&gt; <span class='message'>Parsed with column specification:</span>
 #&gt; <span class='message'>cols(</span>
 #&gt; <span class='message'>  mpg = col_double(),</span>
 #&gt; <span class='message'>  cyl = col_double(),</span>
@@ -229,20 +253,20 @@ names.</p></td>
 #&gt; <span class='message'>  am = col_double(),</span>
 #&gt; <span class='message'>  gear = col_double(),</span>
 #&gt; <span class='message'>  carb = col_double()</span>
-#&gt; <span class='message'>)</span></div><div class='output co'>#&gt; [38;5;246m# A tibble: 32 x 11[39m
+#&gt; <span class='message'>)</span></div><div class='output co'>#&gt; <span style='color: #949494;'># A tibble: 32 x 11</span><span>
 #&gt;      mpg   cyl  disp    hp  drat    wt  qsec    vs    am  gear  carb
-#&gt;    [3m[38;5;246m&lt;dbl&gt;[39m[23m [3m[38;5;246m&lt;dbl&gt;[39m[23m [3m[38;5;246m&lt;dbl&gt;[39m[23m [3m[38;5;246m&lt;dbl&gt;[39m[23m [3m[38;5;246m&lt;dbl&gt;[39m[23m [3m[38;5;246m&lt;dbl&gt;[39m[23m [3m[38;5;246m&lt;dbl&gt;[39m[23m [3m[38;5;246m&lt;dbl&gt;[39m[23m [3m[38;5;246m&lt;dbl&gt;[39m[23m [3m[38;5;246m&lt;dbl&gt;[39m[23m [3m[38;5;246m&lt;dbl&gt;[39m[23m
-#&gt; [38;5;250m 1[39m  21       6  160    110  3.9   2.62  16.5     0     1     4     4
-#&gt; [38;5;250m 2[39m  21       6  160    110  3.9   2.88  17.0     0     1     4     4
-#&gt; [38;5;250m 3[39m  22.8     4  108     93  3.85  2.32  18.6     1     1     4     1
-#&gt; [38;5;250m 4[39m  21.4     6  258    110  3.08  3.22  19.4     1     0     3     1
-#&gt; [38;5;250m 5[39m  18.7     8  360    175  3.15  3.44  17.0     0     0     3     2
-#&gt; [38;5;250m 6[39m  18.1     6  225    105  2.76  3.46  20.2     1     0     3     1
-#&gt; [38;5;250m 7[39m  14.3     8  360    245  3.21  3.57  15.8     0     0     3     4
-#&gt; [38;5;250m 8[39m  24.4     4  147.    62  3.69  3.19  20       1     0     4     2
-#&gt; [38;5;250m 9[39m  22.8     4  141.    95  3.92  3.15  22.9     1     0     4     2
-#&gt; [38;5;250m10[39m  19.2     6  168.   123  3.92  3.44  18.3     1     0     4     4
-#&gt; [38;5;246m# ... with 22 more rows[39m</div></pre>
+#&gt;    </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span> </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span> </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span> </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span> </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span> </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span> </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span> </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span> </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span> </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span> </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span>
+#&gt; </span><span style='color: #BCBCBC;'> 1</span><span>  21       6  160    110  3.9   2.62  16.5     0     1     4     4
+#&gt; </span><span style='color: #BCBCBC;'> 2</span><span>  21       6  160    110  3.9   2.88  17.0     0     1     4     4
+#&gt; </span><span style='color: #BCBCBC;'> 3</span><span>  22.8     4  108     93  3.85  2.32  18.6     1     1     4     1
+#&gt; </span><span style='color: #BCBCBC;'> 4</span><span>  21.4     6  258    110  3.08  3.22  19.4     1     0     3     1
+#&gt; </span><span style='color: #BCBCBC;'> 5</span><span>  18.7     8  360    175  3.15  3.44  17.0     0     0     3     2
+#&gt; </span><span style='color: #BCBCBC;'> 6</span><span>  18.1     6  225    105  2.76  3.46  20.2     1     0     3     1
+#&gt; </span><span style='color: #BCBCBC;'> 7</span><span>  14.3     8  360    245  3.21  3.57  15.8     0     0     3     4
+#&gt; </span><span style='color: #BCBCBC;'> 8</span><span>  24.4     4  147.    62  3.69  3.19  20       1     0     4     2
+#&gt; </span><span style='color: #BCBCBC;'> 9</span><span>  22.8     4  141.    95  3.92  3.15  22.9     1     0     4     2
+#&gt; </span><span style='color: #BCBCBC;'>10</span><span>  19.2     6  168.   123  3.92  3.44  18.3     1     0     4     4
+#&gt; </span><span style='color: #949494;'># ... with 22 more rows</span><span></div></span></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
@@ -262,7 +286,7 @@ names.</p></td>
 
 <div class="author">
   <p>
-    Developed by <a href='http://hadley.nz'>Hadley Wickham</a>, Jim Hester, Romain Francois, <a href='https://www.rstudio.com'><img src='https://www.tidyverse.org/rstudio-logo.svg' alt='RStudio' height='24' /></a>.
+    Developed by <a href='http://hadley.nz'>Hadley Wickham</a>, <a href='http://jimhester.com'>Jim Hester</a>, Romain Francois, <a href='https://www.rstudio.com'><img src='https://www.tidyverse.org/rstudio-logo.svg' alt='RStudio' height='24' /></a>.
     Site built by <a href="https://pkgdown.r-lib.org">pkgdown</a>.
   </p>
 </div>

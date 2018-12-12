@@ -76,7 +76,7 @@ values as they're read in." />
         <a class="navbar-brand" href="../index.html">readr</a>
         <div class="info">
           <span class="partof">part of the <a href="https://tidyverse.org">tidyverse</a></span>
-          <span class="version version-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.2.0</span>
+          <span class="version version-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.3.0</span>
         </div>
       </div>
     </div>
@@ -215,11 +215,11 @@ each field before parsing it?</p></td>
 #&gt; <span class='warning'>row col expected actual</span>
 #&gt; <span class='warning'>  4  -- a double      -</span></div><div class='output co'>#&gt; [1]  1  2  3 NA
 #&gt; attr(,"problems")
-#&gt; [38;5;246m# A tibble: 1 x 4[39m
+#&gt; <span style='color: #949494;'># A tibble: 1 x 4</span><span>
 #&gt;     row   col expected actual
-#&gt;   [3m[38;5;246m&lt;int&gt;[39m[23m [3m[38;5;246m&lt;int&gt;[39m[23m [3m[38;5;246m&lt;chr&gt;[39m[23m    [3m[38;5;246m&lt;chr&gt;[39m[23m 
-#&gt; [38;5;250m1[39m     4    [31mNA[39m a double -     </div><div class='input'><span class='co'># Or flag values as missing</span>
-<span class='fu'>parse_double</span>(<span class='no'>x</span>, <span class='kw'>na</span> <span class='kw'>=</span> <span class='st'>"-"</span>)</div><div class='output co'>#&gt; [1]  1  2  3 NA</div></pre>
+#&gt;   </span><span style='color: #949494;font-style: italic;'>&lt;int&gt;</span><span> </span><span style='color: #949494;font-style: italic;'>&lt;int&gt;</span><span> </span><span style='color: #949494;font-style: italic;'>&lt;chr&gt;</span><span>    </span><span style='color: #949494;font-style: italic;'>&lt;chr&gt;</span><span> 
+#&gt; </span><span style='color: #BCBCBC;'>1</span><span>     4    </span><span style='color: #BB0000;'>NA</span><span> a double -     </div><div class='input'><span class='co'># Or flag values as missing</span>
+<span class='fu'>parse_double</span>(<span class='no'>x</span>, <span class='kw'>na</span> <span class='kw'>=</span> <span class='st'>"-"</span>)</div><div class='output co'>#&gt; [1]  1  2  3 NA</div></span></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
@@ -241,7 +241,7 @@ each field before parsing it?</p></td>
 
 <div class="author">
   <p>
-    Developed by <a href='http://hadley.nz'>Hadley Wickham</a>, Jim Hester, Romain Francois, <a href='https://www.rstudio.com'><img src='https://www.tidyverse.org/rstudio-logo.svg' alt='RStudio' height='24' /></a>.
+    Developed by <a href='http://hadley.nz'>Hadley Wickham</a>, <a href='http://jimhester.com'>Jim Hester</a>, Romain Francois, <a href='https://www.rstudio.com'><img src='https://www.tidyverse.org/rstudio-logo.svg' alt='RStudio' height='24' /></a>.
     Site built by <a href="https://pkgdown.r-lib.org">pkgdown</a>.
   </p>
 </div>

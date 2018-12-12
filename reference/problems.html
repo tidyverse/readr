@@ -80,7 +80,7 @@ an error as soon as you encounter a problem." />
         <a class="navbar-brand" href="../index.html">readr</a>
         <div class="info">
           <span class="partof">part of the <a href="https://tidyverse.org">tidyverse</a></span>
-          <span class="version version-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.2.0</span>
+          <span class="version version-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.3.0</span>
         </div>
       </div>
     </div>
@@ -183,14 +183,14 @@ an error as soon as you encounter a problem.</p>
     <pre class="examples"><div class='input'><span class='no'>x</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='parse_atomic.html'>parse_integer</a></span>(<span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='st'>"1X"</span>, <span class='st'>"blah"</span>, <span class='st'>"3"</span>))</div><div class='output co'>#&gt; <span class='warning'>Warning: 2 parsing failures.</span>
 #&gt; <span class='warning'>row col               expected actual</span>
 #&gt; <span class='warning'>  1  -- no trailing characters   X   </span>
-#&gt; <span class='warning'>  2  -- an integer               blah</span></div><div class='input'><span class='fu'>problems</span>(<span class='no'>x</span>)</div><div class='output co'>#&gt; [38;5;246m# A tibble: 2 x 4[39m
+#&gt; <span class='warning'>  2  -- an integer               blah</span></div><div class='input'><span class='fu'>problems</span>(<span class='no'>x</span>)</div><div class='output co'>#&gt; <span style='color: #949494;'># A tibble: 2 x 4</span><span>
 #&gt;     row   col expected               actual
-#&gt;   [3m[38;5;246m&lt;int&gt;[39m[23m [3m[38;5;246m&lt;int&gt;[39m[23m [3m[38;5;246m&lt;chr&gt;[39m[23m                  [3m[38;5;246m&lt;chr&gt;[39m[23m 
-#&gt; [38;5;250m1[39m     1    [31mNA[39m no trailing characters X     
-#&gt; [38;5;250m2[39m     2    [31mNA[39m an integer             blah  </div><div class='input'>
+#&gt;   </span><span style='color: #949494;font-style: italic;'>&lt;int&gt;</span><span> </span><span style='color: #949494;font-style: italic;'>&lt;int&gt;</span><span> </span><span style='color: #949494;font-style: italic;'>&lt;chr&gt;</span><span>                  </span><span style='color: #949494;font-style: italic;'>&lt;chr&gt;</span><span> 
+#&gt; </span><span style='color: #BCBCBC;'>1</span><span>     1    </span><span style='color: #BB0000;'>NA</span><span> no trailing characters X     
+#&gt; </span><span style='color: #BCBCBC;'>2</span><span>     2    </span><span style='color: #BB0000;'>NA</span><span> an integer             blah  </div><div class='input'>
 <span class='no'>y</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='parse_atomic.html'>parse_integer</a></span>(<span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='st'>"1"</span>, <span class='st'>"2"</span>, <span class='st'>"3"</span>))
-<span class='fu'>problems</span>(<span class='no'>y</span>)</div><div class='output co'>#&gt; [38;5;246m# tibble [0 × 4][39m
-#&gt; [38;5;246m# ... with 4 variables: row [3m[38;5;246m&lt;int&gt;[38;5;246m[23m, col [3m[38;5;246m&lt;int&gt;[38;5;246m[23m, expected [3m[38;5;246m&lt;chr&gt;[38;5;246m[23m, actual [3m[38;5;246m&lt;chr&gt;[38;5;246m[23m[39m</div></pre>
+<span class='fu'>problems</span>(<span class='no'>y</span>)</div><div class='output co'>#&gt; </span><span style='color: #949494;'># tibble [0 × 4]</span><span>
+#&gt; </span><span style='color: #949494;'># ... with 4 variables: row </span><span style='color: #949494;font-style: italic;'>&lt;int&gt;</span><span style='color: #949494;'>, col </span><span style='color: #949494;font-style: italic;'>&lt;int&gt;</span><span style='color: #949494;'>, expected </span><span style='color: #949494;font-style: italic;'>&lt;chr&gt;</span><span style='color: #949494;'>, actual </span><span style='color: #949494;font-style: italic;'>&lt;chr&gt;</span><span></div></span></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
@@ -212,7 +212,7 @@ an error as soon as you encounter a problem.</p>
 
 <div class="author">
   <p>
-    Developed by <a href='http://hadley.nz'>Hadley Wickham</a>, Jim Hester, Romain Francois, <a href='https://www.rstudio.com'><img src='https://www.tidyverse.org/rstudio-logo.svg' alt='RStudio' height='24' /></a>.
+    Developed by <a href='http://hadley.nz'>Hadley Wickham</a>, <a href='http://jimhester.com'>Jim Hester</a>, Romain Francois, <a href='https://www.rstudio.com'><img src='https://www.tidyverse.org/rstudio-logo.svg' alt='RStudio' height='24' /></a>.
     Site built by <a href="https://pkgdown.r-lib.org">pkgdown</a>.
   </p>
 </div>

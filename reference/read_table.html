@@ -82,7 +82,7 @@ the column specifications rather than a data frame." />
         <a class="navbar-brand" href="../index.html">readr</a>
         <div class="info">
           <span class="partof">part of the <a href="https://tidyverse.org">tidyverse</a></span>
-          <span class="version version-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.2.0</span>
+          <span class="version version-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.3.0</span>
         </div>
       </div>
     </div>
@@ -163,12 +163,12 @@ the column specifications rather than a data frame.</p>
     <pre class="usage"><span class='fu'>read_table</span>(<span class='no'>file</span>, <span class='kw'>col_names</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>col_types</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
   <span class='kw'>locale</span> <span class='kw'>=</span> <span class='fu'><a href='locale.html'>default_locale</a></span>(), <span class='kw'>na</span> <span class='kw'>=</span> <span class='st'>"NA"</span>, <span class='kw'>skip</span> <span class='kw'>=</span> <span class='fl'>0</span>, <span class='kw'>n_max</span> <span class='kw'>=</span> <span class='fl'>Inf</span>,
   <span class='kw'>guess_max</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/Extremes'>min</a></span>(<span class='no'>n_max</span>, <span class='fl'>1000</span>), <span class='kw'>progress</span> <span class='kw'>=</span> <span class='fu'>show_progress</span>(),
-  <span class='kw'>comment</span> <span class='kw'>=</span> <span class='st'>""</span>)
+  <span class='kw'>comment</span> <span class='kw'>=</span> <span class='st'>""</span>, <span class='kw'>skip_empty_rows</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)
 
 <span class='fu'>read_table2</span>(<span class='no'>file</span>, <span class='kw'>col_names</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>col_types</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
   <span class='kw'>locale</span> <span class='kw'>=</span> <span class='fu'><a href='locale.html'>default_locale</a></span>(), <span class='kw'>na</span> <span class='kw'>=</span> <span class='st'>"NA"</span>, <span class='kw'>skip</span> <span class='kw'>=</span> <span class='fl'>0</span>, <span class='kw'>n_max</span> <span class='kw'>=</span> <span class='fl'>Inf</span>,
   <span class='kw'>guess_max</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/Extremes'>min</a></span>(<span class='no'>n_max</span>, <span class='fl'>1000</span>), <span class='kw'>progress</span> <span class='kw'>=</span> <span class='fu'>show_progress</span>(),
-  <span class='kw'>comment</span> <span class='kw'>=</span> <span class='st'>""</span>)</pre>
+  <span class='kw'>comment</span> <span class='kw'>=</span> <span class='st'>""</span>, <span class='kw'>skip_empty_rows</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -214,7 +214,7 @@ subset of the columns, use <code><a href='cols.html'>cols_only()</a></code>.</p>
 <p>Alternatively, you can use a compact string representation where each
 character represents one column:
 c = character, i = integer, n = number, d = double,
-l = logical, D = date, T = date time, t = time, ? = guess, or
+l = logical, f = factor, D = date, T = date time, t = time, ? = guess, or
 <code>_</code>/<code>-</code> to skip the column.</p></td>
     </tr>
     <tr>
@@ -255,6 +255,12 @@ setting option <code>readr.show_progress</code> to <code>FALSE</code>.</p></td>
       <td><p>A string used to identify comments. Any text after the
 comment characters will be silently ignored.</p></td>
     </tr>
+    <tr>
+      <th>skip_empty_rows</th>
+      <td><p>Should blank rows be ignored altogether? i.e. If this
+option is <code>TRUE</code> then blank rows will not be represented at all.  If it is
+<code>FALSE</code> then they will be represented by <code>NA</code> values in all the columns.</p></td>
+    </tr>
     </table>
     
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
@@ -292,19 +298,19 @@ tabular data with non-standard formatting.</p></div>
 #&gt; <span class='message'>  Rank = col_double(),</span>
 #&gt; <span class='message'>  Team = col_character(),</span>
 #&gt; <span class='message'>  Conf = col_character()</span>
-#&gt; <span class='message'>)</span></div><div class='output co'>#&gt; [38;5;246m# A tibble: 10 x 13[39m
+#&gt; <span class='message'>)</span></div><div class='output co'>#&gt; <span style='color: #949494;'># A tibble: 10 x 13</span><span>
 #&gt;      UCC   PAY   LAZ   KPK    RT   COF   BIH   DII   ENG   ACU  Rank Team  Conf 
-#&gt;    [3m[38;5;246m&lt;dbl&gt;[39m[23m [3m[38;5;246m&lt;dbl&gt;[39m[23m [3m[38;5;246m&lt;dbl&gt;[39m[23m [3m[38;5;246m&lt;dbl&gt;[39m[23m [3m[38;5;246m&lt;dbl&gt;[39m[23m [3m[38;5;246m&lt;dbl&gt;[39m[23m [3m[38;5;246m&lt;dbl&gt;[39m[23m [3m[38;5;246m&lt;dbl&gt;[39m[23m [3m[38;5;246m&lt;dbl&gt;[39m[23m [3m[38;5;246m&lt;dbl&gt;[39m[23m [3m[38;5;246m&lt;dbl&gt;[39m[23m [3m[38;5;246m&lt;chr&gt;[39m[23m [3m[38;5;246m&lt;chr&gt;[39m[23m
-#&gt; [38;5;250m 1[39m     1     1     1     1     1     1     1     1     1     1     1 Ohio… B10  
-#&gt; [38;5;250m 2[39m     2     2     2     2     2     2     2     2     4     2     2 Oreg… P12  
-#&gt; [38;5;250m 3[39m     3     4     3     4     3     4     3     4     2     3     3 Alab… SEC  
-#&gt; [38;5;250m 4[39m     4     3     4     3     4     3     5     3     3     4     4 TCU   B12  
-#&gt; [38;5;250m 5[39m     6     6     6     5     5     7     6     5     6    11     5 Mich… B10  
-#&gt; [38;5;250m 6[39m     7     7     7     6     7     6    11     8     7     8     6 Geor… SEC  
-#&gt; [38;5;250m 7[39m     5     5     5     7     6     8     4     6     5     5     7 Flor… ACC  
-#&gt; [38;5;250m 8[39m     8     8     9     9    10     5     7     7    10     7     8 Bayl… B12  
-#&gt; [38;5;250m 9[39m     9    11     8    13    11    11    12     9    14     9     9 Geor… ACC  
-#&gt; [38;5;250m10[39m    13    10    13    11     8     9    10    11     9    10    10 Miss… SEC  </div><div class='input'>
+#&gt;    </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span> </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span> </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span> </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span> </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span> </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span> </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span> </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span> </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span> </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span> </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span> </span><span style='color: #949494;font-style: italic;'>&lt;chr&gt;</span><span> </span><span style='color: #949494;font-style: italic;'>&lt;chr&gt;</span><span>
+#&gt; </span><span style='color: #BCBCBC;'> 1</span><span>     1     1     1     1     1     1     1     1     1     1     1 Ohio… B10  
+#&gt; </span><span style='color: #BCBCBC;'> 2</span><span>     2     2     2     2     2     2     2     2     4     2     2 Oreg… P12  
+#&gt; </span><span style='color: #BCBCBC;'> 3</span><span>     3     4     3     4     3     4     3     4     2     3     3 Alab… SEC  
+#&gt; </span><span style='color: #BCBCBC;'> 4</span><span>     4     3     4     3     4     3     5     3     3     4     4 TCU   B12  
+#&gt; </span><span style='color: #BCBCBC;'> 5</span><span>     6     6     6     5     5     7     6     5     6    11     5 Mich… B10  
+#&gt; </span><span style='color: #BCBCBC;'> 6</span><span>     7     7     7     6     7     6    11     8     7     8     6 Geor… SEC  
+#&gt; </span><span style='color: #BCBCBC;'> 7</span><span>     5     5     5     7     6     8     4     6     5     5     7 Flor… ACC  
+#&gt; </span><span style='color: #BCBCBC;'> 8</span><span>     8     8     9     9    10     5     7     7    10     7     8 Bayl… B12  
+#&gt; </span><span style='color: #BCBCBC;'> 9</span><span>     9    11     8    13    11    11    12     9    14     9     9 Geor… ACC  
+#&gt; </span><span style='color: #BCBCBC;'>10</span><span>    13    10    13    11     8     9    10    11     9    10    10 Miss… SEC  </div><div class='input'>
 <span class='co'># Sample of 1978 fuel economy data from</span>
 <span class='co'># http://www.fueleconomy.gov/feg/epadata/78data.zip</span>
 <span class='no'>epa</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='readr_example.html'>readr_example</a></span>(<span class='st'>"epa78.txt"</span>)
@@ -341,29 +347,29 @@ tabular data with non-standard formatting.</p></div>
 #&gt; <span class='message'>  X10 = col_double(),</span>
 #&gt; <span class='message'>  X11 = col_character(),</span>
 #&gt; <span class='message'>  X12 = col_double()</span>
-#&gt; <span class='message'>)</span></div><div class='output co'>#&gt; [38;5;246m# A tibble: 20 x 12[39m
+#&gt; <span class='message'>)</span></div><div class='output co'>#&gt; </span><span style='color: #949494;'># A tibble: 20 x 12</span><span>
 #&gt;    X1       X2       X3    X4    X5    X6    X7    X8    X9   X10 X11        X12
-#&gt;    [3m[38;5;246m&lt;chr&gt;[39m[23m    [3m[38;5;246m&lt;chr&gt;[39m[23m [3m[38;5;246m&lt;dbl&gt;[39m[23m [3m[38;5;246m&lt;dbl&gt;[39m[23m [3m[38;5;246m&lt;dbl&gt;[39m[23m [3m[38;5;246m&lt;dbl&gt;[39m[23m [3m[38;5;246m&lt;dbl&gt;[39m[23m [3m[38;5;246m&lt;dbl&gt;[39m[23m [3m[38;5;246m&lt;dbl&gt;[39m[23m [3m[38;5;246m&lt;dbl&gt;[39m[23m [3m[38;5;246m&lt;chr&gt;[39m[23m    [3m[38;5;246m&lt;dbl&gt;[39m[23m
-#&gt; [38;5;250m 1[39m ALFA RO… [38;5;246m"[39m[38;5;246m"[39m       [31mNA[39m    [31mNA[39m    [31mNA[39m    [31mNA[39m    [31mNA[39m    [31mNA[39m    [31mNA[39m    [31mNA[39m ALFA R… 7.80[38;5;246me[39m7
-#&gt; [38;5;250m 2[39m ALFETTA  03       81     8    74     7    89     9    [31mNA[39m    [31mNA[39m ALFETTA 7.80[38;5;246me[39m7
-#&gt; [38;5;250m 3[39m SPIDER … 01       [31mNA[39m    [31mNA[39m    [31mNA[39m    [31mNA[39m    [31mNA[39m    [31mNA[39m    [31mNA[39m    [31mNA[39m SPIDER… 7.80[38;5;246me[39m7
-#&gt; [38;5;250m 4[39m AMC      [38;5;246m"[39m[38;5;246m"[39m       [31mNA[39m    [31mNA[39m    [31mNA[39m    [31mNA[39m    [31mNA[39m    [31mNA[39m    [31mNA[39m    [31mNA[39m AMC     7.80[38;5;246me[39m7
-#&gt; [38;5;250m 5[39m GREMLIN  03       79     9    [31mNA[39m    [31mNA[39m    [31mNA[39m    [31mNA[39m    79     9 GREMLIN 7.80[38;5;246me[39m7
-#&gt; [38;5;250m 6[39m PACER    04       89    11    [31mNA[39m    [31mNA[39m    [31mNA[39m    [31mNA[39m    89    11 PACER   7.80[38;5;246me[39m7
-#&gt; [38;5;250m 7[39m PACER W… 07       90    26    91    26    [31mNA[39m    [31mNA[39m    [31mNA[39m    [31mNA[39m PACER … 7.80[38;5;246me[39m7
-#&gt; [38;5;250m 8[39m CONCORD  04       88    12    90    11    90    11    83    16 CONCORD 7.80[38;5;246me[39m7
-#&gt; [38;5;250m 9[39m CONCORD… 07       91    30    [31mNA[39m    [31mNA[39m    91    30    [31mNA[39m    [31mNA[39m CONCOR… 7.80[38;5;246me[39m7
-#&gt; [38;5;250m10[39m MATADOR… 05       97    14    97    14    [31mNA[39m    [31mNA[39m    [31mNA[39m    [31mNA[39m MATADO… 7.80[38;5;246me[39m7
-#&gt; [38;5;250m11[39m MATADOR… 06      110    20    [31mNA[39m    [31mNA[39m   110    20    [31mNA[39m    [31mNA[39m MATADO… 7.80[38;5;246me[39m7
-#&gt; [38;5;250m12[39m MATADOR… 09      112    50    [31mNA[39m    [31mNA[39m   112    50    [31mNA[39m    [31mNA[39m MATADO… 7.80[38;5;246me[39m7
-#&gt; [38;5;250m13[39m ASTON M… [38;5;246m"[39m[38;5;246m"[39m       [31mNA[39m    [31mNA[39m    [31mNA[39m    [31mNA[39m    [31mNA[39m    [31mNA[39m    [31mNA[39m    [31mNA[39m ASTON … 7.80[38;5;246me[39m7
-#&gt; [38;5;250m14[39m ASTON M… [38;5;246m"[39m[38;5;246m"[39m       [31mNA[39m    [31mNA[39m    [31mNA[39m    [31mNA[39m    [31mNA[39m    [31mNA[39m    [31mNA[39m    [31mNA[39m ASTON … 7.80[38;5;246me[39m7
-#&gt; [38;5;250m15[39m AUDI     [38;5;246m"[39m[38;5;246m"[39m       [31mNA[39m    [31mNA[39m    [31mNA[39m    [31mNA[39m    [31mNA[39m    [31mNA[39m    [31mNA[39m    [31mNA[39m AUDI    7.81[38;5;246me[39m7
-#&gt; [38;5;250m16[39m FOX      03       84    11    84    11    84    11    [31mNA[39m    [31mNA[39m FOX     7.81[38;5;246me[39m7
-#&gt; [38;5;250m17[39m FOX WAG… 07       83    40    [31mNA[39m    [31mNA[39m    83    40    [31mNA[39m    [31mNA[39m FOX WA… 7.81[38;5;246me[39m7
-#&gt; [38;5;250m18[39m 5000     04       90    15    [31mNA[39m    [31mNA[39m    90    15    [31mNA[39m    [31mNA[39m 5000    7.81[38;5;246me[39m7
-#&gt; [38;5;250m19[39m AVANTI   [38;5;246m"[39m[38;5;246m"[39m       [31mNA[39m    [31mNA[39m    [31mNA[39m    [31mNA[39m    [31mNA[39m    [31mNA[39m    [31mNA[39m    [31mNA[39m AVANTI  7.81[38;5;246me[39m7
-#&gt; [38;5;250m20[39m AVANTI … 02       75     8    75     8    [31mNA[39m    [31mNA[39m    [31mNA[39m    [31mNA[39m AVANTI… 7.81[38;5;246me[39m7</div></pre>
+#&gt;    </span><span style='color: #949494;font-style: italic;'>&lt;chr&gt;</span><span>    </span><span style='color: #949494;font-style: italic;'>&lt;chr&gt;</span><span> </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span> </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span> </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span> </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span> </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span> </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span> </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span> </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span> </span><span style='color: #949494;font-style: italic;'>&lt;chr&gt;</span><span>    </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span>
+#&gt; </span><span style='color: #BCBCBC;'> 1</span><span> ALFA RO… </span><span style='color: #949494;'>""</span><span>       </span><span style='color: #BB0000;'>NA</span><span>    </span><span style='color: #BB0000;'>NA</span><span>    </span><span style='color: #BB0000;'>NA</span><span>    </span><span style='color: #BB0000;'>NA</span><span>    </span><span style='color: #BB0000;'>NA</span><span>    </span><span style='color: #BB0000;'>NA</span><span>    </span><span style='color: #BB0000;'>NA</span><span>    </span><span style='color: #BB0000;'>NA</span><span> ALFA R… 7.80</span><span style='color: #949494;'>e</span><span>7
+#&gt; </span><span style='color: #BCBCBC;'> 2</span><span> ALFETTA  03       81     8    74     7    89     9    </span><span style='color: #BB0000;'>NA</span><span>    </span><span style='color: #BB0000;'>NA</span><span> ALFETTA 7.80</span><span style='color: #949494;'>e</span><span>7
+#&gt; </span><span style='color: #BCBCBC;'> 3</span><span> SPIDER … 01       </span><span style='color: #BB0000;'>NA</span><span>    </span><span style='color: #BB0000;'>NA</span><span>    </span><span style='color: #BB0000;'>NA</span><span>    </span><span style='color: #BB0000;'>NA</span><span>    </span><span style='color: #BB0000;'>NA</span><span>    </span><span style='color: #BB0000;'>NA</span><span>    </span><span style='color: #BB0000;'>NA</span><span>    </span><span style='color: #BB0000;'>NA</span><span> SPIDER… 7.80</span><span style='color: #949494;'>e</span><span>7
+#&gt; </span><span style='color: #BCBCBC;'> 4</span><span> AMC      </span><span style='color: #949494;'>""</span><span>       </span><span style='color: #BB0000;'>NA</span><span>    </span><span style='color: #BB0000;'>NA</span><span>    </span><span style='color: #BB0000;'>NA</span><span>    </span><span style='color: #BB0000;'>NA</span><span>    </span><span style='color: #BB0000;'>NA</span><span>    </span><span style='color: #BB0000;'>NA</span><span>    </span><span style='color: #BB0000;'>NA</span><span>    </span><span style='color: #BB0000;'>NA</span><span> AMC     7.80</span><span style='color: #949494;'>e</span><span>7
+#&gt; </span><span style='color: #BCBCBC;'> 5</span><span> GREMLIN  03       79     9    </span><span style='color: #BB0000;'>NA</span><span>    </span><span style='color: #BB0000;'>NA</span><span>    </span><span style='color: #BB0000;'>NA</span><span>    </span><span style='color: #BB0000;'>NA</span><span>    79     9 GREMLIN 7.80</span><span style='color: #949494;'>e</span><span>7
+#&gt; </span><span style='color: #BCBCBC;'> 6</span><span> PACER    04       89    11    </span><span style='color: #BB0000;'>NA</span><span>    </span><span style='color: #BB0000;'>NA</span><span>    </span><span style='color: #BB0000;'>NA</span><span>    </span><span style='color: #BB0000;'>NA</span><span>    89    11 PACER   7.80</span><span style='color: #949494;'>e</span><span>7
+#&gt; </span><span style='color: #BCBCBC;'> 7</span><span> PACER W… 07       90    26    91    26    </span><span style='color: #BB0000;'>NA</span><span>    </span><span style='color: #BB0000;'>NA</span><span>    </span><span style='color: #BB0000;'>NA</span><span>    </span><span style='color: #BB0000;'>NA</span><span> PACER … 7.80</span><span style='color: #949494;'>e</span><span>7
+#&gt; </span><span style='color: #BCBCBC;'> 8</span><span> CONCORD  04       88    12    90    11    90    11    83    16 CONCORD 7.80</span><span style='color: #949494;'>e</span><span>7
+#&gt; </span><span style='color: #BCBCBC;'> 9</span><span> CONCORD… 07       91    30    </span><span style='color: #BB0000;'>NA</span><span>    </span><span style='color: #BB0000;'>NA</span><span>    91    30    </span><span style='color: #BB0000;'>NA</span><span>    </span><span style='color: #BB0000;'>NA</span><span> CONCOR… 7.80</span><span style='color: #949494;'>e</span><span>7
+#&gt; </span><span style='color: #BCBCBC;'>10</span><span> MATADOR… 05       97    14    97    14    </span><span style='color: #BB0000;'>NA</span><span>    </span><span style='color: #BB0000;'>NA</span><span>    </span><span style='color: #BB0000;'>NA</span><span>    </span><span style='color: #BB0000;'>NA</span><span> MATADO… 7.80</span><span style='color: #949494;'>e</span><span>7
+#&gt; </span><span style='color: #BCBCBC;'>11</span><span> MATADOR… 06      110    20    </span><span style='color: #BB0000;'>NA</span><span>    </span><span style='color: #BB0000;'>NA</span><span>   110    20    </span><span style='color: #BB0000;'>NA</span><span>    </span><span style='color: #BB0000;'>NA</span><span> MATADO… 7.80</span><span style='color: #949494;'>e</span><span>7
+#&gt; </span><span style='color: #BCBCBC;'>12</span><span> MATADOR… 09      112    50    </span><span style='color: #BB0000;'>NA</span><span>    </span><span style='color: #BB0000;'>NA</span><span>   112    50    </span><span style='color: #BB0000;'>NA</span><span>    </span><span style='color: #BB0000;'>NA</span><span> MATADO… 7.80</span><span style='color: #949494;'>e</span><span>7
+#&gt; </span><span style='color: #BCBCBC;'>13</span><span> ASTON M… </span><span style='color: #949494;'>""</span><span>       </span><span style='color: #BB0000;'>NA</span><span>    </span><span style='color: #BB0000;'>NA</span><span>    </span><span style='color: #BB0000;'>NA</span><span>    </span><span style='color: #BB0000;'>NA</span><span>    </span><span style='color: #BB0000;'>NA</span><span>    </span><span style='color: #BB0000;'>NA</span><span>    </span><span style='color: #BB0000;'>NA</span><span>    </span><span style='color: #BB0000;'>NA</span><span> ASTON … 7.80</span><span style='color: #949494;'>e</span><span>7
+#&gt; </span><span style='color: #BCBCBC;'>14</span><span> ASTON M… </span><span style='color: #949494;'>""</span><span>       </span><span style='color: #BB0000;'>NA</span><span>    </span><span style='color: #BB0000;'>NA</span><span>    </span><span style='color: #BB0000;'>NA</span><span>    </span><span style='color: #BB0000;'>NA</span><span>    </span><span style='color: #BB0000;'>NA</span><span>    </span><span style='color: #BB0000;'>NA</span><span>    </span><span style='color: #BB0000;'>NA</span><span>    </span><span style='color: #BB0000;'>NA</span><span> ASTON … 7.80</span><span style='color: #949494;'>e</span><span>7
+#&gt; </span><span style='color: #BCBCBC;'>15</span><span> AUDI     </span><span style='color: #949494;'>""</span><span>       </span><span style='color: #BB0000;'>NA</span><span>    </span><span style='color: #BB0000;'>NA</span><span>    </span><span style='color: #BB0000;'>NA</span><span>    </span><span style='color: #BB0000;'>NA</span><span>    </span><span style='color: #BB0000;'>NA</span><span>    </span><span style='color: #BB0000;'>NA</span><span>    </span><span style='color: #BB0000;'>NA</span><span>    </span><span style='color: #BB0000;'>NA</span><span> AUDI    7.81</span><span style='color: #949494;'>e</span><span>7
+#&gt; </span><span style='color: #BCBCBC;'>16</span><span> FOX      03       84    11    84    11    84    11    </span><span style='color: #BB0000;'>NA</span><span>    </span><span style='color: #BB0000;'>NA</span><span> FOX     7.81</span><span style='color: #949494;'>e</span><span>7
+#&gt; </span><span style='color: #BCBCBC;'>17</span><span> FOX WAG… 07       83    40    </span><span style='color: #BB0000;'>NA</span><span>    </span><span style='color: #BB0000;'>NA</span><span>    83    40    </span><span style='color: #BB0000;'>NA</span><span>    </span><span style='color: #BB0000;'>NA</span><span> FOX WA… 7.81</span><span style='color: #949494;'>e</span><span>7
+#&gt; </span><span style='color: #BCBCBC;'>18</span><span> 5000     04       90    15    </span><span style='color: #BB0000;'>NA</span><span>    </span><span style='color: #BB0000;'>NA</span><span>    90    15    </span><span style='color: #BB0000;'>NA</span><span>    </span><span style='color: #BB0000;'>NA</span><span> 5000    7.81</span><span style='color: #949494;'>e</span><span>7
+#&gt; </span><span style='color: #BCBCBC;'>19</span><span> AVANTI   </span><span style='color: #949494;'>""</span><span>       </span><span style='color: #BB0000;'>NA</span><span>    </span><span style='color: #BB0000;'>NA</span><span>    </span><span style='color: #BB0000;'>NA</span><span>    </span><span style='color: #BB0000;'>NA</span><span>    </span><span style='color: #BB0000;'>NA</span><span>    </span><span style='color: #BB0000;'>NA</span><span>    </span><span style='color: #BB0000;'>NA</span><span>    </span><span style='color: #BB0000;'>NA</span><span> AVANTI  7.81</span><span style='color: #949494;'>e</span><span>7
+#&gt; </span><span style='color: #BCBCBC;'>20</span><span> AVANTI … 02       75     8    75     8    </span><span style='color: #BB0000;'>NA</span><span>    </span><span style='color: #BB0000;'>NA</span><span>    </span><span style='color: #BB0000;'>NA</span><span>    </span><span style='color: #BB0000;'>NA</span><span> AVANTI… 7.81</span><span style='color: #949494;'>e</span><span>7</div></span></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
@@ -385,7 +391,7 @@ tabular data with non-standard formatting.</p></div>
 
 <div class="author">
   <p>
-    Developed by <a href='http://hadley.nz'>Hadley Wickham</a>, Jim Hester, Romain Francois, <a href='https://www.rstudio.com'><img src='https://www.tidyverse.org/rstudio-logo.svg' alt='RStudio' height='24' /></a>.
+    Developed by <a href='http://hadley.nz'>Hadley Wickham</a>, <a href='http://jimhester.com'>Jim Hester</a>, Romain Francois, <a href='https://www.rstudio.com'><img src='https://www.tidyverse.org/rstudio-logo.svg' alt='RStudio' height='24' /></a>.
     Site built by <a href="https://pkgdown.r-lib.org">pkgdown</a>.
   </p>
 </div>

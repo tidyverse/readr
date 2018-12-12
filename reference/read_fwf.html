@@ -78,7 +78,7 @@ by providing a number of different ways to describe the field structure." />
         <a class="navbar-brand" href="../index.html">readr</a>
         <div class="info">
           <span class="partof">part of the <a href="https://tidyverse.org">tidyverse</a></span>
-          <span class="version version-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.2.0</span>
+          <span class="version version-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.3.0</span>
         </div>
       </div>
     </div>
@@ -155,9 +155,10 @@ by providing a number of different ways to describe the field structure.</p>
     <pre class="usage"><span class='fu'>read_fwf</span>(<span class='no'>file</span>, <span class='no'>col_positions</span>, <span class='kw'>col_types</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
   <span class='kw'>locale</span> <span class='kw'>=</span> <span class='fu'><a href='locale.html'>default_locale</a></span>(), <span class='kw'>na</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='st'>""</span>, <span class='st'>"NA"</span>), <span class='kw'>comment</span> <span class='kw'>=</span> <span class='st'>""</span>,
   <span class='kw'>trim_ws</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>skip</span> <span class='kw'>=</span> <span class='fl'>0</span>, <span class='kw'>n_max</span> <span class='kw'>=</span> <span class='fl'>Inf</span>, <span class='kw'>guess_max</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/Extremes'>min</a></span>(<span class='no'>n_max</span>,
-  <span class='fl'>1000</span>), <span class='kw'>progress</span> <span class='kw'>=</span> <span class='fu'>show_progress</span>())
+  <span class='fl'>1000</span>), <span class='kw'>progress</span> <span class='kw'>=</span> <span class='fu'>show_progress</span>(), <span class='kw'>skip_empty_rows</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)
 
-<span class='fu'>fwf_empty</span>(<span class='no'>file</span>, <span class='kw'>skip</span> <span class='kw'>=</span> <span class='fl'>0</span>, <span class='kw'>col_names</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>comment</span> <span class='kw'>=</span> <span class='st'>""</span>, <span class='kw'>n</span> <span class='kw'>=</span> <span class='fl'>100L</span>)
+<span class='fu'>fwf_empty</span>(<span class='no'>file</span>, <span class='kw'>skip</span> <span class='kw'>=</span> <span class='fl'>0</span>, <span class='kw'>skip_empty_rows</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>col_names</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>comment</span> <span class='kw'>=</span> <span class='st'>""</span>, <span class='kw'>n</span> <span class='kw'>=</span> <span class='fl'>100L</span>)
 
 <span class='fu'>fwf_widths</span>(<span class='no'>widths</span>, <span class='kw'>col_names</span> <span class='kw'>=</span> <span class='kw'>NULL</span>)
 
@@ -202,7 +203,7 @@ subset of the columns, use <code><a href='cols.html'>cols_only()</a></code>.</p>
 <p>Alternatively, you can use a compact string representation where each
 character represents one column:
 c = character, i = integer, n = number, d = double,
-l = logical, D = date, T = date time, t = time, ? = guess, or
+l = logical, f = factor, D = date, T = date time, t = time, ? = guess, or
 <code>_</code>/<code>-</code> to skip the column.</p></td>
     </tr>
     <tr>
@@ -247,6 +248,12 @@ in an interactive session and not while knitting a document. The display
 is updated every 50,000 values and will only display if estimated reading
 time is 5 seconds or more. The automatic progress bar can be disabled by
 setting option <code>readr.show_progress</code> to <code>FALSE</code>.</p></td>
+    </tr>
+    <tr>
+      <th>skip_empty_rows</th>
+      <td><p>Should blank rows be ignored altogether? i.e. If this
+option is <code>TRUE</code> then blank rows will not be represented at all.  If it is
+<code>FALSE</code> then they will be represented by <code>NA</code> values in all the columns.</p></td>
     </tr>
     <tr>
       <th>col_names</th>
@@ -295,54 +302,54 @@ column is separated by whitespace.</p></div>
 #&gt; <span class='message'>  last = col_character(),</span>
 #&gt; <span class='message'>  state = col_character(),</span>
 #&gt; <span class='message'>  ssn = col_character()</span>
-#&gt; <span class='message'>)</span></div><div class='output co'>#&gt; [38;5;246m# A tibble: 3 x 4[39m
+#&gt; <span class='message'>)</span></div><div class='output co'>#&gt; <span style='color: #949494;'># A tibble: 3 x 4</span><span>
 #&gt;   first last     state ssn         
-#&gt;   [3m[38;5;246m&lt;chr&gt;[39m[23m [3m[38;5;246m&lt;chr&gt;[39m[23m    [3m[38;5;246m&lt;chr&gt;[39m[23m [3m[38;5;246m&lt;chr&gt;[39m[23m       
-#&gt; [38;5;250m1[39m John  Smith    WA    418-Y11-4111
-#&gt; [38;5;250m2[39m Mary  Hartford CA    319-Z19-4341
-#&gt; [38;5;250m3[39m Evan  Nolan    IL    219-532-c301</div><div class='input'><span class='co'># 2. A vector of field widths</span>
+#&gt;   </span><span style='color: #949494;font-style: italic;'>&lt;chr&gt;</span><span> </span><span style='color: #949494;font-style: italic;'>&lt;chr&gt;</span><span>    </span><span style='color: #949494;font-style: italic;'>&lt;chr&gt;</span><span> </span><span style='color: #949494;font-style: italic;'>&lt;chr&gt;</span><span>       
+#&gt; </span><span style='color: #BCBCBC;'>1</span><span> John  Smith    WA    418-Y11-4111
+#&gt; </span><span style='color: #BCBCBC;'>2</span><span> Mary  Hartford CA    319-Z19-4341
+#&gt; </span><span style='color: #BCBCBC;'>3</span><span> Evan  Nolan    IL    219-532-c301</div><div class='input'><span class='co'># 2. A vector of field widths</span>
 <span class='fu'>read_fwf</span>(<span class='no'>fwf_sample</span>, <span class='fu'>fwf_widths</span>(<span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='fl'>20</span>, <span class='fl'>10</span>, <span class='fl'>12</span>), <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='st'>"name"</span>, <span class='st'>"state"</span>, <span class='st'>"ssn"</span>)))</div><div class='output co'>#&gt; <span class='message'>Parsed with column specification:</span>
 #&gt; <span class='message'>cols(</span>
 #&gt; <span class='message'>  name = col_character(),</span>
 #&gt; <span class='message'>  state = col_character(),</span>
 #&gt; <span class='message'>  ssn = col_character()</span>
-#&gt; <span class='message'>)</span></div><div class='output co'>#&gt; [38;5;246m# A tibble: 3 x 3[39m
+#&gt; <span class='message'>)</span></div><div class='output co'>#&gt; </span><span style='color: #949494;'># A tibble: 3 x 3</span><span>
 #&gt;   name          state ssn         
-#&gt;   [3m[38;5;246m&lt;chr&gt;[39m[23m         [3m[38;5;246m&lt;chr&gt;[39m[23m [3m[38;5;246m&lt;chr&gt;[39m[23m       
-#&gt; [38;5;250m1[39m John Smith    WA    418-Y11-4111
-#&gt; [38;5;250m2[39m Mary Hartford CA    319-Z19-4341
-#&gt; [38;5;250m3[39m Evan Nolan    IL    219-532-c301</div><div class='input'><span class='co'># 3. Paired vectors of start and end positions</span>
+#&gt;   </span><span style='color: #949494;font-style: italic;'>&lt;chr&gt;</span><span>         </span><span style='color: #949494;font-style: italic;'>&lt;chr&gt;</span><span> </span><span style='color: #949494;font-style: italic;'>&lt;chr&gt;</span><span>       
+#&gt; </span><span style='color: #BCBCBC;'>1</span><span> John Smith    WA    418-Y11-4111
+#&gt; </span><span style='color: #BCBCBC;'>2</span><span> Mary Hartford CA    319-Z19-4341
+#&gt; </span><span style='color: #BCBCBC;'>3</span><span> Evan Nolan    IL    219-532-c301</div><div class='input'><span class='co'># 3. Paired vectors of start and end positions</span>
 <span class='fu'>read_fwf</span>(<span class='no'>fwf_sample</span>, <span class='fu'>fwf_positions</span>(<span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='fl'>1</span>, <span class='fl'>30</span>), <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='fl'>20</span>, <span class='fl'>42</span>), <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='st'>"name"</span>, <span class='st'>"ssn"</span>)))</div><div class='output co'>#&gt; <span class='message'>Parsed with column specification:</span>
 #&gt; <span class='message'>cols(</span>
 #&gt; <span class='message'>  name = col_character(),</span>
 #&gt; <span class='message'>  ssn = col_character()</span>
-#&gt; <span class='message'>)</span></div><div class='output co'>#&gt; [38;5;246m# A tibble: 3 x 2[39m
+#&gt; <span class='message'>)</span></div><div class='output co'>#&gt; </span><span style='color: #949494;'># A tibble: 3 x 2</span><span>
 #&gt;   name          ssn         
-#&gt;   [3m[38;5;246m&lt;chr&gt;[39m[23m         [3m[38;5;246m&lt;chr&gt;[39m[23m       
-#&gt; [38;5;250m1[39m John Smith    418-Y11-4111
-#&gt; [38;5;250m2[39m Mary Hartford 319-Z19-4341
-#&gt; [38;5;250m3[39m Evan Nolan    219-532-c301</div><div class='input'><span class='co'># 4. Named arguments with start and end positions</span>
+#&gt;   </span><span style='color: #949494;font-style: italic;'>&lt;chr&gt;</span><span>         </span><span style='color: #949494;font-style: italic;'>&lt;chr&gt;</span><span>       
+#&gt; </span><span style='color: #BCBCBC;'>1</span><span> John Smith    418-Y11-4111
+#&gt; </span><span style='color: #BCBCBC;'>2</span><span> Mary Hartford 319-Z19-4341
+#&gt; </span><span style='color: #BCBCBC;'>3</span><span> Evan Nolan    219-532-c301</div><div class='input'><span class='co'># 4. Named arguments with start and end positions</span>
 <span class='fu'>read_fwf</span>(<span class='no'>fwf_sample</span>, <span class='fu'>fwf_cols</span>(<span class='kw'>name</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='fl'>1</span>, <span class='fl'>20</span>), <span class='kw'>ssn</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='fl'>30</span>, <span class='fl'>42</span>)))</div><div class='output co'>#&gt; <span class='message'>Parsed with column specification:</span>
 #&gt; <span class='message'>cols(</span>
 #&gt; <span class='message'>  name = col_character(),</span>
 #&gt; <span class='message'>  ssn = col_character()</span>
-#&gt; <span class='message'>)</span></div><div class='output co'>#&gt; [38;5;246m# A tibble: 3 x 2[39m
+#&gt; <span class='message'>)</span></div><div class='output co'>#&gt; </span><span style='color: #949494;'># A tibble: 3 x 2</span><span>
 #&gt;   name          ssn         
-#&gt;   [3m[38;5;246m&lt;chr&gt;[39m[23m         [3m[38;5;246m&lt;chr&gt;[39m[23m       
-#&gt; [38;5;250m1[39m John Smith    418-Y11-4111
-#&gt; [38;5;250m2[39m Mary Hartford 319-Z19-4341
-#&gt; [38;5;250m3[39m Evan Nolan    219-532-c301</div><div class='input'><span class='co'># 5. Named arguments with column widths</span>
+#&gt;   </span><span style='color: #949494;font-style: italic;'>&lt;chr&gt;</span><span>         </span><span style='color: #949494;font-style: italic;'>&lt;chr&gt;</span><span>       
+#&gt; </span><span style='color: #BCBCBC;'>1</span><span> John Smith    418-Y11-4111
+#&gt; </span><span style='color: #BCBCBC;'>2</span><span> Mary Hartford 319-Z19-4341
+#&gt; </span><span style='color: #BCBCBC;'>3</span><span> Evan Nolan    219-532-c301</div><div class='input'><span class='co'># 5. Named arguments with column widths</span>
 <span class='fu'>read_fwf</span>(<span class='no'>fwf_sample</span>, <span class='fu'>fwf_cols</span>(<span class='kw'>name</span> <span class='kw'>=</span> <span class='fl'>20</span>, <span class='kw'>state</span> <span class='kw'>=</span> <span class='fl'>10</span>, <span class='kw'>ssn</span> <span class='kw'>=</span> <span class='fl'>12</span>))</div><div class='output co'>#&gt; <span class='message'>Parsed with column specification:</span>
 #&gt; <span class='message'>cols(</span>
 #&gt; <span class='message'>  name = col_character(),</span>
 #&gt; <span class='message'>  state = col_character(),</span>
 #&gt; <span class='message'>  ssn = col_character()</span>
-#&gt; <span class='message'>)</span></div><div class='output co'>#&gt; [38;5;246m# A tibble: 3 x 3[39m
+#&gt; <span class='message'>)</span></div><div class='output co'>#&gt; </span><span style='color: #949494;'># A tibble: 3 x 3</span><span>
 #&gt;   name          state ssn         
-#&gt;   [3m[38;5;246m&lt;chr&gt;[39m[23m         [3m[38;5;246m&lt;chr&gt;[39m[23m [3m[38;5;246m&lt;chr&gt;[39m[23m       
-#&gt; [38;5;250m1[39m John Smith    WA    418-Y11-4111
-#&gt; [38;5;250m2[39m Mary Hartford CA    319-Z19-4341
-#&gt; [38;5;250m3[39m Evan Nolan    IL    219-532-c301</div></pre>
+#&gt;   </span><span style='color: #949494;font-style: italic;'>&lt;chr&gt;</span><span>         </span><span style='color: #949494;font-style: italic;'>&lt;chr&gt;</span><span> </span><span style='color: #949494;font-style: italic;'>&lt;chr&gt;</span><span>       
+#&gt; </span><span style='color: #BCBCBC;'>1</span><span> John Smith    WA    418-Y11-4111
+#&gt; </span><span style='color: #BCBCBC;'>2</span><span> Mary Hartford CA    319-Z19-4341
+#&gt; </span><span style='color: #BCBCBC;'>3</span><span> Evan Nolan    IL    219-532-c301</div></span></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
@@ -364,7 +371,7 @@ column is separated by whitespace.</p></div>
 
 <div class="author">
   <p>
-    Developed by <a href='http://hadley.nz'>Hadley Wickham</a>, Jim Hester, Romain Francois, <a href='https://www.rstudio.com'><img src='https://www.tidyverse.org/rstudio-logo.svg' alt='RStudio' height='24' /></a>.
+    Developed by <a href='http://hadley.nz'>Hadley Wickham</a>, <a href='http://jimhester.com'>Jim Hester</a>, Romain Francois, <a href='https://www.rstudio.com'><img src='https://www.tidyverse.org/rstudio-logo.svg' alt='RStudio' height='24' /></a>.
     Site built by <a href="https://pkgdown.r-lib.org">pkgdown</a>.
   </p>
 </div>
