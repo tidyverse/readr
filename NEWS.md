@@ -1,5 +1,7 @@
 # readr (development version)
 
+* Fix for valgrind errors (#941)
+
 # readr 1.3.0
 
 ## Breaking Changes
