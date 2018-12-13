@@ -1,12 +1,12 @@
 # If R_ARCH exists the shared library will be in e.g. pkgdir/libs/32/readr.so,
 # so we need to go up 2 levels. Otherwise only 1
 ifeq "$(R_ARCH)" ""
-RPATH = '$$ORIGIN/../rcon$(R_ARCH)'
+RPATH = '../rcon$(R_ARCH)'
 else
-RPATH = '$$ORIGIN/../../rcon$(R_ARCH)'
+RPATH = '../../rcon$(R_ARCH)'
 endif
 
-PKG_LIBS = -L. -lrcon -L$(RCON_DIR) -Wl,-rpath,$(RPATH)
+PKG_LIBS = -L. -lrcon -L$(RCON_DIR) -Wl,-rpath,'$$ORIGIN/$(RPATH)'
 PKG_CXXFLAGS = -I. -Ircon
 
 LIBRCON = ../inst/rcon$(R_ARCH)/librcon.so
@@ -20,7 +20,7 @@ UNAME:=$(shell uname -s)
 ifeq ($(UNAME), Darwin)
 $(LIBRCON): rcon/connection.o
 	mkdir -p $(RCON_DIR)
-	$(SHLIB_LINK) -o $(LIBRCON) $^ -Wl,-install_name,@loader_path/../rcon/librcon.so
+	$(SHLIB_LINK) -o $(LIBRCON) $^ -Wl,-install_name,@loader_path/$(RPATH)/librcon.so
 else
 $(LIBRCON): rcon/connection.o
 	mkdir -p $(RCON_DIR)

@@ -1,5 +1,7 @@
 # readr (development version)
 
+* Fix for compilation using custom architectures on macOS (#919)
+
 * Fix for valgrind errors (#941)
 
 # readr 1.3.0
