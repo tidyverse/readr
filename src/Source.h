@@ -25,6 +25,7 @@ public:
     bool hasComment = comment != "";
     bool isComment = false, lineStart = true;
     bool isQuote = false;
+    char openQuote = '\0';
 
     const char* cur = begin;
 
@@ -35,8 +36,16 @@ public:
 
       // This doesn't handle escaped quotes or more sophisticated things, but
       // will work for simple cases.
-      if (*cur == '"' || *cur == '\'') {
+      if (!isComment &&
+          (*cur == openQuote ||
+           (openQuote == '\0' && (*cur == '"' || *cur == '\'')))) {
         isQuote = !isQuote;
+        if (openQuote == '\0') {
+          openQuote = *cur;
+        } else {
+          openQuote = '\0';
+        }
+
         lineStart = false;
         continue;
       }

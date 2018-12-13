@@ -1,5 +1,8 @@
 # readr (development version)
 
+* Fix skipping when single quotes are embedded in double quoted strings (or
+  vise-versa) (#944)
+
 * Fix for compilation using custom architectures on macOS (#919)
 
 * Fix for valgrind errors (#941)

@@ -313,3 +313,11 @@ test_that("read_csv returns an empty tbl if all lines are comments", {
   expect_equal(nrow(x), 0)
   expect_equal(ncol(x), 1)
 })
+
+test_that("read_csv works w ith single quotes inside of double quotes (#944)", {
+  x <- read_csv("\"O'Henry\"\nfoo\n", skip = 1, col_names = "x")
+  expect_equal(x$x, "foo")
+
+  x <- read_csv("# \"O'Henry\"\n\"foo\"\n\"bar\"\n", comment = "#", col_names = TRUE)
+  expect_equal(x$foo, "bar")
+})
