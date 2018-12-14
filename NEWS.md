@@ -1,5 +1,9 @@
 # readr (development version)
 
+* `as.col_spec()` can now use named character vectors, which makes
+  `read_csv("file.csv", col_types = c(xyz = "c"))` equivalent to
+  `read_csv("file.csv", col_types = cols(xyz = col_character())`
+
 * Fix skipping when single quotes are embedded in double quoted strings (or
   vise-versa) (#944)
 

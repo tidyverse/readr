@@ -244,3 +244,7 @@ test_that("check_guess_max errors on invalid inputs", {
 
   expect_warning(check_guess_max(Inf), "`guess_max` is a very large value")
 })
+
+test_that("as.col_types can handle named character input", {
+  expect_equal(as.col_spec(c(a = "c")), cols(a = col_character()))
+})

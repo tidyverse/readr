@@ -49,3 +49,13 @@ compare.col_spec <- function(x, y, ...) {
 
   NextMethod("compare")
 }
+
+is_named <- function(x) {
+  nms <- names(x)
+
+  if (is.null(nms)) {
+    return(FALSE)
+  }
+
+  all(nms != "" & !is.na(nms))
+}

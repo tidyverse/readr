@@ -103,6 +103,9 @@ is.col_spec <- function(x) inherits(x, "col_spec")
 as.col_spec <- function(x) UseMethod("as.col_spec")
 #' @export
 as.col_spec.character <- function(x) {
+  if (is_named(x)) {
+    return(as.col_spec(as.list(x)))
+  }
   letters <- strsplit(x, "")[[1]]
   col_spec(lapply(letters, col_concise), col_guess())
 }
