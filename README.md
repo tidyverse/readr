@@ -67,7 +67,7 @@ readr supports seven file formats with seven `read_` functions:
   - `read_tsv()`: tab separated files
   - `read_delim()`: general delimited files
   - `read_fwf()`: fixed width files
-  - `read_table()`: tabular files where colums are separated by
+  - `read_table()`: tabular files where columns are separated by
     white-space.
   - `read_log()`: web log files
 
