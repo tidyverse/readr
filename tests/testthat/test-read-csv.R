@@ -285,6 +285,10 @@ test_that("read_csv reads headers with embedded newlines (#784)", {
   x <- read_csv("\"Header\nLine Two\"\nValue\n")
   expect_equal(names(x), "Header\nLine Two")
   expect_equal(x[[1]], "Value")
+
+  x <- read_csv("\"Header\",\"Second header\nLine Two\"\nValue,Value2\n")
+  expect_equal(names(x), c("Header", "Second header\nLine Two"))
+  expect_equal(x[[2]], "Value2")
 })
 
 test_that("read_csv reads headers with embedded newlines 2 (#772)", {
@@ -314,10 +318,17 @@ test_that("read_csv returns an empty tbl if all lines are comments", {
   expect_equal(ncol(x), 1)
 })
 
-test_that("read_csv works w ith single quotes inside of double quotes (#944)", {
+test_that("read_csv works with single quotes inside of double quotes (#944)", {
   x <- read_csv("\"O'Henry\"\nfoo\n", skip = 1, col_names = "x")
   expect_equal(x$x, "foo")
 
   x <- read_csv("# \"O'Henry\"\n\"foo\"\n\"bar\"\n", comment = "#", col_names = TRUE)
   expect_equal(x$foo, "bar")
+})
+
+test_that("read_csv works with single quotes in skipped lines (#945)", {
+  x <- read_tsv("# Director's\nUSGS\t02177000\t2012-09-01\t191\tA\n", skip = 1, col_names = FALSE)
+
+  expect_equal(nrow(x), 1)
+  expect_equal(ncol(x), 5)
 })

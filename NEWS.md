@@ -4,8 +4,8 @@
   `read_csv("file.csv", col_types = c(xyz = "c"))` equivalent to
   `read_csv("file.csv", col_types = cols(xyz = col_character())`
 
-* Fix skipping when single quotes are embedded in double quoted strings (or
-  vise-versa) (#944)
+* Fix skipping when single quotes are embedded in double quoted strings, and
+  single quotes in skipped or commented lines (#944, #945).
 
 * Fix for compilation using custom architectures on macOS (#919)
 
