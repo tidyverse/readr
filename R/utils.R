@@ -10,6 +10,14 @@ is.connection <- function(x) inherits(x, "connection")
 
 is_syntactic <- function(x) make.names(x) == x
 
+#' Determine progress bars should be shown
+#'
+#' Progress bars are shown _unless_ one of the following is `TRUE`
+#' - The bar is explicitly disabled by setting `options(readr.show_progress = FALSE)`
+#' - The code is run in a non-interactive session (`interactive()` is `FALSE`).
+#' - The code is run in an RStudio notebook chunk.
+#' - The code is run by knitr / rmarkdown.
+#' @export
 show_progress <- function() {
   isTRUE(getOption("readr.show_progress")) && # user disables progress bar
   interactive() && # an interactive session
