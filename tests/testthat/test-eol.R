@@ -2,22 +2,28 @@ context("EOL")
 
 if (FALSE) {
   df <- data.frame(x = 1:3, y = letters[1:3], stringsAsFactors = FALSE)
-  write.csv(df, "tests/testthat/eol-lf.csv", row.names = FALSE, eol = "\n")
-  write.csv(df, "tests/testthat/eol-cr.csv", row.names = FALSE, eol = "\r")
-  write.csv(df, "tests/testthat/eol-crlf.csv", row.names = FALSE, eol = "\r\n")
+  write.csv(df, test_path("eol-lf.csv"), row.names = FALSE, eol = "\n")
+  write.csv(df, test_path("eol-cr.csv"), row.names = FALSE, eol = "\r")
+  write.csv(df, test_path("eol-crlf.csv"), row.names = FALSE, eol = "\r\n")
 
   write.fwf <- function(x, path, ...) {
     write.table(x, path, row.names = FALSE, quote = FALSE)
   }
-  write.fwf(df, "tests/testthat/eol-lf.txt", row.names = FALSE, eol = "\n")
-  write.fwf(df, "tests/testthat/eol-cr.txt", row.names = FALSE, eol = "\r")
-  write.fwf(df, "tests/testthat/eol-crlf.txt", row.names = FALSE, eol = "\r\n")
+  write.fwf(df, test_path("eol-lf.txt"), row.names = FALSE, eol = "\n")
+  write.fwf(df, test_path("eol-cr.txt"), row.names = FALSE, eol = "\r")
+  write.fwf(df, test_path("eol-crlf.txt"), row.names = FALSE, eol = "\r\n")
 }
 
 test_that("read_csv standardises line breaks", {
   expect_equal(read_csv("eol-lf.csv", progress = FALSE)$y, letters[1:3])
   expect_equal(read_csv("eol-cr.csv", progress = FALSE)$y, letters[1:3])
   expect_equal(read_csv("eol-crlf.csv", progress = FALSE)$y, letters[1:3])
+})
+
+test_that("read_csv skipping works with windows newlines", {
+  expect_equal(read_csv("eol-lf.csv", progress = FALSE, skip = 2, col_names = FALSE)[[2]], letters[2:3])
+  expect_equal(read_csv("eol-cr.csv", progress = FALSE, skip = 2, col_names = FALSE)[[2]], letters[2:3])
+  expect_equal(read_csv("eol-crlf.csv", progress = FALSE, skip = 2, col_names = FALSE)[[2]], letters[2:3])
 })
 
 test_that("read_lines standardises line breaks", {

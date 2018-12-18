@@ -65,15 +65,18 @@ Source::skipLine(const char* begin, const char* end, bool isComment) {
     if (!isComment && *cur == '"') {
       cur = skipDoubleQuoted(cur, end);
     } else {
+      advanceForLF(&cur, end);
       ++cur;
     }
   }
+
+  advanceForLF(&cur, end);
 
   // skip the actual newline char
   if (cur < end) {
     ++cur;
   }
-  advanceForLF(&cur, end);
+
   return cur;
 }
 
