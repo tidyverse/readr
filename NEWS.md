@@ -1,5 +1,9 @@
 # readr (development version)
 
+* Column specifications are now coloured when printed. This makes it easy to
+  see at a glance when a column is input as a different type then the rest.
+  Colouring can be disabled by setting `options(crayon.enabled = FALSE)`.
+
 * `as.col_spec()` can now use named character vectors, which makes
   `read_csv("file.csv", col_types = c(xyz = "c"))` equivalent to
   `read_csv("file.csv", col_types = cols(xyz = col_character())`
