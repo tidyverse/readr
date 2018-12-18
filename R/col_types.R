@@ -128,8 +128,8 @@ as.col_spec.default <- function(x) {
 }
 
 #' @export
-print.col_spec <- function(x, n = Inf, condense = NULL, ...) {
-  cat(format.col_spec(x, n = n, condense = condense, ...))
+print.col_spec <- function(x, n = Inf, condense = NULL, colour = crayon::has_color(), ...) {
+  cat(format.col_spec(x, n = n, condense = condense, colour = colour, ...))
 
   invisible(x)
 }
@@ -151,7 +151,7 @@ cols_condense <- function(x) {
 }
 
 #' @export
-format.col_spec <- function(x, n = Inf, condense = NULL, ...) {
+format.col_spec <- function(x, n = Inf, condense = NULL, colour = crayon::has_color(), ...) {
 
   if (n == 0) {
     return("")
@@ -184,7 +184,10 @@ format.col_spec <- function(x, n = Inf, condense = NULL, ...) {
         args <- vapply(cols[[i]], deparse2, character(1), sep = "\n    ")
         args <- paste(names(args), args, sep = " = ", collapse = ", ")
 
-        col_names <- names(cols)[[i]]
+        col_funs <- paste0(col_funs, "(", args, ")")
+        col_funs <- colourise_cols(col_funs, colour)
+
+        col_names <- names(cols)[[i]] %||% ""
 
         # Need to handle unnamed columns and columns with non-syntactic names
         named <- col_names != ""
@@ -192,8 +195,8 @@ format.col_spec <- function(x, n = Inf, condense = NULL, ...) {
         non_syntactic <- !is_syntactic(col_names) & named
         col_names[non_syntactic] <- paste0("`", gsub("`", "\\\\`", col_names[non_syntactic]), "`")
 
-        out <- paste0(col_names, " = ", col_funs, "(", args, ")")
-        out[!named] <- paste0(col_funs, "(", args, ")")
+        out <- paste0(col_names, " = ", col_funs)
+        out[!named] <- col_funs[!named]
         out
       },
       character(1)
@@ -212,6 +215,35 @@ format.col_spec <- function(x, n = Inf, condense = NULL, ...) {
   out <- paste0(out, "\n)\n")
 
   out
+}
+
+colourise_cols <- function(cols, colourise = crayon::has_color()) {
+
+  if (!isTRUE(colourise)) {
+    return(cols)
+  }
+
+  fname <- sub("[(].*", "", cols)
+  for (i in seq_along(cols)) {
+    cols[[i]] <- switch(fname,
+      col_skip = ,
+      col_guess = cols[[i]],
+
+      col_character = ,
+      col_factor = crayon::red(cols[[i]]),
+
+      col_logical = crayon::yellow(cols[[i]]),
+
+      col_double = ,
+      col_integer = ,
+      col_number = crayon::green(cols[[i]]),
+
+      col_date = ,
+      col_datetime = ,
+      col_time = crayon::blue(cols[[i]])
+      )
+  }
+  cols
 }
 
 # Used in read_delim(), read_fwf() and type_convert()
@@ -267,12 +299,12 @@ col_concise <- function(x) {
     "-" = col_skip(),
     "?" = col_guess(),
     c = col_character(),
-    D = col_date(),
-    d = col_double(),
     f = col_factor(),
+    d = col_double(),
     i = col_integer(),
     l = col_logical(),
     n = col_number(),
+    D = col_date(),
     T = col_datetime(),
     t = col_time(),
     stop("Unknown shortcut: ", x, call. = FALSE)
