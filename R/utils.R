@@ -40,7 +40,8 @@ is_integerish <- function(x) {
   NextMethod(`[`)
 }
 
-methods::setOldClass(c("spec_tbl_df", "tbl_df", "tbl", "data.frame"))
+#' @importFrom methods setOldClass
+setOldClass(c("spec_tbl_df", "tbl_df", "tbl", "data.frame"))
 
 # @export
 compare.tbl_df <- function(x, y, ...) {
