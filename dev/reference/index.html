@@ -177,6 +177,32 @@
     </tbody><tbody>
       <tr>
         <th colspan="2">
+          <h2 id="section-read-non-rectangular-files" class="hasAnchor"><a href="#section-read-non-rectangular-files" class="anchor"></a>Read non-rectangular files</h2>
+          <p class="section-desc"><p>These functions parse non-rectangular files (like csv or fixed-width format) into long (so-called melted) format. They specify the overall structure of the file, and how each line is divided up into fields.</p></p>
+        </th>
+      </tr>
+      <tr>
+        
+        <td>
+          <p><code><a href="melt_delim.html">melt_delim()</a></code> <code><a href="melt_delim.html">melt_csv()</a></code> <code><a href="melt_delim.html">melt_csv2()</a></code> <code><a href="melt_delim.html">melt_tsv()</a></code> </p>
+        </td>
+        <td><p>Return melted data for each token in a delimited file (including csv &amp; tsv)</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="melt_fwf.html">melt_fwf()</a></code> </p>
+        </td>
+        <td><p>Return melted data for each token in a fixed width file</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="melt_table.html">melt_table()</a></code> <code><a href="melt_table.html">melt_table2()</a></code> </p>
+        </td>
+        <td><p>Return melted data for each token in a whitespace-separated file</p></td>
+      </tr>
+    </tbody><tbody>
+      <tr>
+        <th colspan="2">
           <h2 id="section-column-specification" class="hasAnchor"><a href="#section-column-specification" class="anchor"></a>Column specification</h2>
           <p class="section-desc"><p>The column specification describes how each column is parsed from a character vector in to a more specific data type. readr does make an educated guess about the type of each column, but you’ll need override those guesses when it gets them wrong.</p></p>
         </th>
@@ -339,6 +365,12 @@
           <p><code><a href="clipboard.html">clipboard()</a></code> </p>
         </td>
         <td><p>Returns values from the clipboard</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="show_progress.html">show_progress()</a></code> </p>
+        </td>
+        <td><p>Determine progress bars should be shown</p></td>
       </tr>
     </tbody><tbody>
       <tr>
@@ -362,6 +394,12 @@
       </tr><tr>
         
         <td>
+          <p><code><a href="melt_delim_chunked.html">melt_delim_chunked()</a></code> <code><a href="melt_delim_chunked.html">melt_csv_chunked()</a></code> <code><a href="melt_delim_chunked.html">melt_csv2_chunked()</a></code> <code><a href="melt_delim_chunked.html">melt_tsv_chunked()</a></code> </p>
+        </td>
+        <td><p>Melt a delimited file by chunks</p></td>
+      </tr><tr>
+        
+        <td>
           <p><code><a href="read_lines_chunked.html">read_lines_chunked()</a></code> <code><a href="read_lines_chunked.html">read_lines_raw_chunked()</a></code> </p>
         </td>
         <td><p>Read lines from a file or string by chunk.</p></td>
@@ -374,6 +412,7 @@
     <h2>Contents</h2>
     <ul class="nav nav-pills nav-stacked">
       <li><a href="#section-read-rectangular-files">Read rectangular files</a></li>
+      <li><a href="#section-read-non-rectangular-files">Read non-rectangular files</a></li>
       <li><a href="#section-column-specification">Column specification</a></li>
       <li><a href="#section-column-parsers">Column parsers</a></li>
       <li><a href="#section-locale-controls">Locale controls</a></li>
