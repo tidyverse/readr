@@ -42,7 +42,7 @@
         <a class="navbar-brand" href="../index.html">readr</a>
         <div class="info">
           <span class="partof">part of the <a href="https://tidyverse.org">tidyverse</a></span>
-          <span class="version version-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">1.3.0.9000</span>
+          <span class="version version-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">1.3.1.9000</span>
         </div>
       </div>
     </div>
@@ -298,18 +298,18 @@
 <p>The rectangular parsing functions almost always succeed; they’ll only fail if the format is severely messed up. Instead, readr will generate a data frame of problems. The first few will be printed out, and you can access them all with <code><a href="../reference/problems.html">problems()</a></code>:</p>
 <div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb12-1" data-line-number="1"><span class="kw"><a href="../reference/problems.html">problems</a></span>(df1)</a>
 <a class="sourceLine" id="cb12-2" data-line-number="2"><span class="co">#&gt; # A tibble: 1,000 x 5</span></a>
-<a class="sourceLine" id="cb12-3" data-line-number="3"><span class="co">#&gt;      row col   expected        actual   file                              </span></a>
-<a class="sourceLine" id="cb12-4" data-line-number="4"><span class="co">#&gt;    &lt;int&gt; &lt;chr&gt; &lt;chr&gt;           &lt;chr&gt;    &lt;chr&gt;                             </span></a>
-<a class="sourceLine" id="cb12-5" data-line-number="5"><span class="co">#&gt;  1  1001 y     1/0/T/F/TRUE/F… 2015-01… '/home/travis/R/Library/readr/ext…</span></a>
-<a class="sourceLine" id="cb12-6" data-line-number="6"><span class="co">#&gt;  2  1002 y     1/0/T/F/TRUE/F… 2018-05… '/home/travis/R/Library/readr/ext…</span></a>
-<a class="sourceLine" id="cb12-7" data-line-number="7"><span class="co">#&gt;  3  1003 y     1/0/T/F/TRUE/F… 2015-09… '/home/travis/R/Library/readr/ext…</span></a>
-<a class="sourceLine" id="cb12-8" data-line-number="8"><span class="co">#&gt;  4  1004 y     1/0/T/F/TRUE/F… 2012-11… '/home/travis/R/Library/readr/ext…</span></a>
-<a class="sourceLine" id="cb12-9" data-line-number="9"><span class="co">#&gt;  5  1005 y     1/0/T/F/TRUE/F… 2020-01… '/home/travis/R/Library/readr/ext…</span></a>
-<a class="sourceLine" id="cb12-10" data-line-number="10"><span class="co">#&gt;  6  1006 y     1/0/T/F/TRUE/F… 2016-04… '/home/travis/R/Library/readr/ext…</span></a>
-<a class="sourceLine" id="cb12-11" data-line-number="11"><span class="co">#&gt;  7  1007 y     1/0/T/F/TRUE/F… 2011-05… '/home/travis/R/Library/readr/ext…</span></a>
-<a class="sourceLine" id="cb12-12" data-line-number="12"><span class="co">#&gt;  8  1008 y     1/0/T/F/TRUE/F… 2020-07… '/home/travis/R/Library/readr/ext…</span></a>
-<a class="sourceLine" id="cb12-13" data-line-number="13"><span class="co">#&gt;  9  1009 y     1/0/T/F/TRUE/F… 2011-04… '/home/travis/R/Library/readr/ext…</span></a>
-<a class="sourceLine" id="cb12-14" data-line-number="14"><span class="co">#&gt; 10  1010 y     1/0/T/F/TRUE/F… 2010-05… '/home/travis/R/Library/readr/ext…</span></a>
+<a class="sourceLine" id="cb12-3" data-line-number="3"><span class="co">#&gt;      row col   expected        actual   file                               </span></a>
+<a class="sourceLine" id="cb12-4" data-line-number="4"><span class="co">#&gt;    &lt;int&gt; &lt;chr&gt; &lt;chr&gt;           &lt;chr&gt;    &lt;chr&gt;                              </span></a>
+<a class="sourceLine" id="cb12-5" data-line-number="5"><span class="co">#&gt;  1  1001 y     1/0/T/F/TRUE/F… 2015-01… '/home/travis/R/Library/readr/extd…</span></a>
+<a class="sourceLine" id="cb12-6" data-line-number="6"><span class="co">#&gt;  2  1002 y     1/0/T/F/TRUE/F… 2018-05… '/home/travis/R/Library/readr/extd…</span></a>
+<a class="sourceLine" id="cb12-7" data-line-number="7"><span class="co">#&gt;  3  1003 y     1/0/T/F/TRUE/F… 2015-09… '/home/travis/R/Library/readr/extd…</span></a>
+<a class="sourceLine" id="cb12-8" data-line-number="8"><span class="co">#&gt;  4  1004 y     1/0/T/F/TRUE/F… 2012-11… '/home/travis/R/Library/readr/extd…</span></a>
+<a class="sourceLine" id="cb12-9" data-line-number="9"><span class="co">#&gt;  5  1005 y     1/0/T/F/TRUE/F… 2020-01… '/home/travis/R/Library/readr/extd…</span></a>
+<a class="sourceLine" id="cb12-10" data-line-number="10"><span class="co">#&gt;  6  1006 y     1/0/T/F/TRUE/F… 2016-04… '/home/travis/R/Library/readr/extd…</span></a>
+<a class="sourceLine" id="cb12-11" data-line-number="11"><span class="co">#&gt;  7  1007 y     1/0/T/F/TRUE/F… 2011-05… '/home/travis/R/Library/readr/extd…</span></a>
+<a class="sourceLine" id="cb12-12" data-line-number="12"><span class="co">#&gt;  8  1008 y     1/0/T/F/TRUE/F… 2020-07… '/home/travis/R/Library/readr/extd…</span></a>
+<a class="sourceLine" id="cb12-13" data-line-number="13"><span class="co">#&gt;  9  1009 y     1/0/T/F/TRUE/F… 2011-04… '/home/travis/R/Library/readr/extd…</span></a>
+<a class="sourceLine" id="cb12-14" data-line-number="14"><span class="co">#&gt; 10  1010 y     1/0/T/F/TRUE/F… 2010-05… '/home/travis/R/Library/readr/extd…</span></a>
 <a class="sourceLine" id="cb12-15" data-line-number="15"><span class="co">#&gt; # ... with 990 more rows</span></a></code></pre></div>
 <p>You’ve already seen one way of handling bad guesses: increasing the number of rows used to guess the type of each column.</p>
 <div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb13-1" data-line-number="1">df2 &lt;-<span class="st"> </span><span class="kw"><a href="../reference/read_delim.html">read_csv</a></span>(<span class="kw"><a href="../reference/readr_example.html">readr_example</a></span>(<span class="st">"challenge.csv"</span>), <span class="dt">guess_max =</span> <span class="dv">1001</span>)</a>

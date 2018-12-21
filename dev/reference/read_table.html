@@ -82,7 +82,7 @@ the column specifications rather than a data frame." />
         <a class="navbar-brand" href="../index.html">readr</a>
         <div class="info">
           <span class="partof">part of the <a href="https://tidyverse.org">tidyverse</a></span>
-          <span class="version version-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">1.3.0.9000</span>
+          <span class="version version-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">1.3.1.9000</span>
         </div>
       </div>
     </div>
@@ -162,12 +162,12 @@ the column specifications rather than a data frame.</p>
 
     <pre class="usage"><span class='fu'>read_table</span>(<span class='no'>file</span>, <span class='kw'>col_names</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>col_types</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
   <span class='kw'>locale</span> <span class='kw'>=</span> <span class='fu'><a href='locale.html'>default_locale</a></span>(), <span class='kw'>na</span> <span class='kw'>=</span> <span class='st'>"NA"</span>, <span class='kw'>skip</span> <span class='kw'>=</span> <span class='fl'>0</span>, <span class='kw'>n_max</span> <span class='kw'>=</span> <span class='fl'>Inf</span>,
-  <span class='kw'>guess_max</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/Extremes'>min</a></span>(<span class='no'>n_max</span>, <span class='fl'>1000</span>), <span class='kw'>progress</span> <span class='kw'>=</span> <span class='fu'>show_progress</span>(),
+  <span class='kw'>guess_max</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/Extremes'>min</a></span>(<span class='no'>n_max</span>, <span class='fl'>1000</span>), <span class='kw'>progress</span> <span class='kw'>=</span> <span class='fu'><a href='show_progress.html'>show_progress</a></span>(),
   <span class='kw'>comment</span> <span class='kw'>=</span> <span class='st'>""</span>, <span class='kw'>skip_empty_rows</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)
 
 <span class='fu'>read_table2</span>(<span class='no'>file</span>, <span class='kw'>col_names</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>col_types</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
   <span class='kw'>locale</span> <span class='kw'>=</span> <span class='fu'><a href='locale.html'>default_locale</a></span>(), <span class='kw'>na</span> <span class='kw'>=</span> <span class='st'>"NA"</span>, <span class='kw'>skip</span> <span class='kw'>=</span> <span class='fl'>0</span>, <span class='kw'>n_max</span> <span class='kw'>=</span> <span class='fl'>Inf</span>,
-  <span class='kw'>guess_max</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/Extremes'>min</a></span>(<span class='no'>n_max</span>, <span class='fl'>1000</span>), <span class='kw'>progress</span> <span class='kw'>=</span> <span class='fu'>show_progress</span>(),
+  <span class='kw'>guess_max</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/Extremes'>min</a></span>(<span class='no'>n_max</span>, <span class='fl'>1000</span>), <span class='kw'>progress</span> <span class='kw'>=</span> <span class='fu'><a href='show_progress.html'>show_progress</a></span>(),
   <span class='kw'>comment</span> <span class='kw'>=</span> <span class='st'>""</span>, <span class='kw'>skip_empty_rows</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
@@ -299,18 +299,18 @@ tabular data with non-standard formatting.</p></div>
 #&gt; <span class='message'>  Team = col_character(),</span>
 #&gt; <span class='message'>  Conf = col_character()</span>
 #&gt; <span class='message'>)</span></div><div class='output co'>#&gt; # A tibble: 10 x 13
-#&gt;      UCC   PAY   LAZ   KPK    RT   COF   BIH   DII   ENG   ACU  Rank Team Conf 
-#&gt;    &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;ch&gt; &lt;chr&gt;
-#&gt;  1     1     1     1     1     1     1     1     1     1     1     1 Ohi… B10  
-#&gt;  2     2     2     2     2     2     2     2     2     4     2     2 Ore… P12  
-#&gt;  3     3     4     3     4     3     4     3     4     2     3     3 Ala… SEC  
-#&gt;  4     4     3     4     3     4     3     5     3     3     4     4 TCU  B12  
-#&gt;  5     6     6     6     5     5     7     6     5     6    11     5 Mic… B10  
-#&gt;  6     7     7     7     6     7     6    11     8     7     8     6 Geo… SEC  
-#&gt;  7     5     5     5     7     6     8     4     6     5     5     7 Flo… ACC  
-#&gt;  8     8     8     9     9    10     5     7     7    10     7     8 Bay… B12  
-#&gt;  9     9    11     8    13    11    11    12     9    14     9     9 Geo… ACC  
-#&gt; 10    13    10    13    11     8     9    10    11     9    10    10 Mis… SEC  </div><div class='input'>
+#&gt;      UCC   PAY   LAZ   KPK    RT   COF   BIH   DII   ENG   ACU  Rank Team  Conf 
+#&gt;    &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;chr&gt; &lt;chr&gt;
+#&gt;  1     1     1     1     1     1     1     1     1     1     1     1 Ohio… B10  
+#&gt;  2     2     2     2     2     2     2     2     2     4     2     2 Oreg… P12  
+#&gt;  3     3     4     3     4     3     4     3     4     2     3     3 Alab… SEC  
+#&gt;  4     4     3     4     3     4     3     5     3     3     4     4 TCU   B12  
+#&gt;  5     6     6     6     5     5     7     6     5     6    11     5 Mich… B10  
+#&gt;  6     7     7     7     6     7     6    11     8     7     8     6 Geor… SEC  
+#&gt;  7     5     5     5     7     6     8     4     6     5     5     7 Flor… ACC  
+#&gt;  8     8     8     9     9    10     5     7     7    10     7     8 Bayl… B12  
+#&gt;  9     9    11     8    13    11    11    12     9    14     9     9 Geor… ACC  
+#&gt; 10    13    10    13    11     8     9    10    11     9    10    10 Miss… SEC  </div><div class='input'>
 <span class='co'># Sample of 1978 fuel economy data from</span>
 <span class='co'># http://www.fueleconomy.gov/feg/epadata/78data.zip</span>
 <span class='no'>epa</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='readr_example.html'>readr_example</a></span>(<span class='st'>"epa78.txt"</span>)
@@ -348,28 +348,28 @@ tabular data with non-standard formatting.</p></div>
 #&gt; <span class='message'>  X11 = col_character(),</span>
 #&gt; <span class='message'>  X12 = col_double()</span>
 #&gt; <span class='message'>)</span></div><div class='output co'>#&gt; # A tibble: 20 x 12
-#&gt;    X1      X2       X3    X4    X5    X6    X7    X8    X9   X10 X11        X12
-#&gt;    &lt;chr&gt;   &lt;chr&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;chr&gt;    &lt;dbl&gt;
-#&gt;  1 ALFA R… ""       NA    NA    NA    NA    NA    NA    NA    NA ALFA R… 7.80e7
-#&gt;  2 ALFETTA 03       81     8    74     7    89     9    NA    NA ALFETTA 7.80e7
-#&gt;  3 SPIDER… 01       NA    NA    NA    NA    NA    NA    NA    NA SPIDER… 7.80e7
-#&gt;  4 AMC     ""       NA    NA    NA    NA    NA    NA    NA    NA AMC     7.80e7
-#&gt;  5 GREMLIN 03       79     9    NA    NA    NA    NA    79     9 GREMLIN 7.80e7
-#&gt;  6 PACER   04       89    11    NA    NA    NA    NA    89    11 PACER   7.80e7
-#&gt;  7 PACER … 07       90    26    91    26    NA    NA    NA    NA PACER … 7.80e7
-#&gt;  8 CONCORD 04       88    12    90    11    90    11    83    16 CONCORD 7.80e7
-#&gt;  9 CONCOR… 07       91    30    NA    NA    91    30    NA    NA CONCOR… 7.80e7
-#&gt; 10 MATADO… 05       97    14    97    14    NA    NA    NA    NA MATADO… 7.80e7
-#&gt; 11 MATADO… 06      110    20    NA    NA   110    20    NA    NA MATADO… 7.80e7
-#&gt; 12 MATADO… 09      112    50    NA    NA   112    50    NA    NA MATADO… 7.80e7
-#&gt; 13 ASTON … ""       NA    NA    NA    NA    NA    NA    NA    NA ASTON … 7.80e7
-#&gt; 14 ASTON … ""       NA    NA    NA    NA    NA    NA    NA    NA ASTON … 7.80e7
-#&gt; 15 AUDI    ""       NA    NA    NA    NA    NA    NA    NA    NA AUDI    7.81e7
-#&gt; 16 FOX     03       84    11    84    11    84    11    NA    NA FOX     7.81e7
-#&gt; 17 FOX WA… 07       83    40    NA    NA    83    40    NA    NA FOX WA… 7.81e7
-#&gt; 18 5000    04       90    15    NA    NA    90    15    NA    NA 5000    7.81e7
-#&gt; 19 AVANTI  ""       NA    NA    NA    NA    NA    NA    NA    NA AVANTI  7.81e7
-#&gt; 20 AVANTI… 02       75     8    75     8    NA    NA    NA    NA AVANTI… 7.81e7</div></pre>
+#&gt;    X1       X2       X3    X4    X5    X6    X7    X8    X9   X10 X11        X12
+#&gt;    &lt;chr&gt;    &lt;chr&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;chr&gt;    &lt;dbl&gt;
+#&gt;  1 ALFA RO… ""       NA    NA    NA    NA    NA    NA    NA    NA ALFA R… 7.80e7
+#&gt;  2 ALFETTA  03       81     8    74     7    89     9    NA    NA ALFETTA 7.80e7
+#&gt;  3 SPIDER … 01       NA    NA    NA    NA    NA    NA    NA    NA SPIDER… 7.80e7
+#&gt;  4 AMC      ""       NA    NA    NA    NA    NA    NA    NA    NA AMC     7.80e7
+#&gt;  5 GREMLIN  03       79     9    NA    NA    NA    NA    79     9 GREMLIN 7.80e7
+#&gt;  6 PACER    04       89    11    NA    NA    NA    NA    89    11 PACER   7.80e7
+#&gt;  7 PACER W… 07       90    26    91    26    NA    NA    NA    NA PACER … 7.80e7
+#&gt;  8 CONCORD  04       88    12    90    11    90    11    83    16 CONCORD 7.80e7
+#&gt;  9 CONCORD… 07       91    30    NA    NA    91    30    NA    NA CONCOR… 7.80e7
+#&gt; 10 MATADOR… 05       97    14    97    14    NA    NA    NA    NA MATADO… 7.80e7
+#&gt; 11 MATADOR… 06      110    20    NA    NA   110    20    NA    NA MATADO… 7.80e7
+#&gt; 12 MATADOR… 09      112    50    NA    NA   112    50    NA    NA MATADO… 7.80e7
+#&gt; 13 ASTON M… ""       NA    NA    NA    NA    NA    NA    NA    NA ASTON … 7.80e7
+#&gt; 14 ASTON M… ""       NA    NA    NA    NA    NA    NA    NA    NA ASTON … 7.80e7
+#&gt; 15 AUDI     ""       NA    NA    NA    NA    NA    NA    NA    NA AUDI    7.81e7
+#&gt; 16 FOX      03       84    11    84    11    84    11    NA    NA FOX     7.81e7
+#&gt; 17 FOX WAG… 07       83    40    NA    NA    83    40    NA    NA FOX WA… 7.81e7
+#&gt; 18 5000     04       90    15    NA    NA    90    15    NA    NA 5000    7.81e7
+#&gt; 19 AVANTI   ""       NA    NA    NA    NA    NA    NA    NA    NA AVANTI  7.81e7
+#&gt; 20 AVANTI … 02       75     8    75     8    NA    NA    NA    NA AVANTI… 7.81e7</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>

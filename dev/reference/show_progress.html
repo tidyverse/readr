@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Retrieve parsing problems — problems • readr</title>
+<title>Determine progress bars should be shown — show_progress • readr</title>
 
 <!-- jquery -->
 <script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha384-nrOSfDHtoPMzJHjVTdCopGqIqeYETSXhZDFyniQ8ZHcVy08QesyHcnOUpMpqnmWq" crossorigin="anonymous"></script>
@@ -29,15 +29,14 @@
 <script src="../pkgdown.js"></script>
 <link href="../tidyverse-2.css" rel="stylesheet">
 
-<meta property="og:title" content="Retrieve parsing problems — problems" />
+<meta property="og:title" content="Determine progress bars should be shown — show_progress" />
 
-<meta property="og:description" content="Readr functions will only throw an error if parsing fails in an unrecoverable
-way. However, there are lots of potential problems that you might want to
-know about - these are stored in the problems attribute of the
-output, which you can easily access with this function.
-stop_for_problems() will throw an error if there are any parsing
-problems: this is useful for automated scripts where you want to throw
-an error as soon as you encounter a problem." />
+<meta property="og:description" content="Progress bars are shown unless one of the following is TRUE
+The bar is explicitly disabled by setting options(readr.show_progress = FALSE)
+The code is run in a non-interactive session (interactive() is FALSE).
+The code is run in an RStudio notebook chunk.
+The code is run by knitr / rmarkdown.
+" />
 
 <meta property="og:image" content="https://readr.tidyverse.org/logo.png" />
 <meta name="twitter:card" content="summary" />
@@ -139,68 +138,30 @@ an error as soon as you encounter a problem." />
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Retrieve parsing problems</h1>
-    <small class="dont-index">Source: <a href='https://github.com/tidyverse/readr/blob/master/R/problems.R'><code>R/problems.R</code></a></small>
-    <div class="hidden name"><code>problems.Rd</code></div>
+    <h1>Determine progress bars should be shown</h1>
+    <small class="dont-index">Source: <a href='https://github.com/tidyverse/readr/blob/master/R/utils.R'><code>R/utils.R</code></a></small>
+    <div class="hidden name"><code>show_progress.Rd</code></div>
     </div>
 
     <div class="ref-description">
     
-    <p>Readr functions will only throw an error if parsing fails in an unrecoverable
-way. However, there are lots of potential problems that you might want to
-know about - these are stored in the <code>problems</code> attribute of the
-output, which you can easily access with this function.
-<code>stop_for_problems()</code> will throw an error if there are any parsing
-problems: this is useful for automated scripts where you want to throw
-an error as soon as you encounter a problem.</p>
+    <p>Progress bars are shown <em>unless</em> one of the following is <code>TRUE</code></p><ul>
+<li><p>The bar is explicitly disabled by setting <code><a href='https://www.rdocumentation.org/packages/base/topics/options'>options(readr.show_progress = FALSE)</a></code></p></li>
+<li><p>The code is run in a non-interactive session (<code><a href='https://www.rdocumentation.org/packages/base/topics/interactive'>interactive()</a></code> is <code>FALSE</code>).</p></li>
+<li><p>The code is run in an RStudio notebook chunk.</p></li>
+<li><p>The code is run by knitr / rmarkdown.</p></li>
+</ul>
     
     </div>
 
-    <pre class="usage"><span class='fu'>problems</span>(<span class='no'>x</span>)
+    <pre class="usage"><span class='fu'>show_progress</span>()</pre>
+        
 
-<span class='fu'>stop_for_problems</span>(<span class='no'>x</span>)</pre>
-    
-    <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
-    <table class="ref-arguments">
-    <colgroup><col class="name" /><col class="desc" /></colgroup>
-    <tr>
-      <th>x</th>
-      <td><p>An data frame (from <code>read_*()</code>) or a vector
-(from <code>parse_*()</code>).</p></td>
-    </tr>
-    </table>
-    
-    <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
-
-    <p>A data frame with one row for each problem and four columns:</p>
-<dt>row,col</dt><dd><p>Row and column of problem</p></dd>
-<dt>expected</dt><dd><p>What readr expected to find</p></dd>
-<dt>actual</dt><dd><p>What it actually got</p></dd>
-
-    
-
-    <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='no'>x</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='parse_atomic.html'>parse_integer</a></span>(<span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='st'>"1X"</span>, <span class='st'>"blah"</span>, <span class='st'>"3"</span>))</div><div class='output co'>#&gt; <span class='warning'>Warning: 2 parsing failures.</span>
-#&gt; <span class='warning'>row col               expected actual</span>
-#&gt; <span class='warning'>  1  -- no trailing characters   X   </span>
-#&gt; <span class='warning'>  2  -- an integer               blah</span></div><div class='input'><span class='fu'>problems</span>(<span class='no'>x</span>)</div><div class='output co'>#&gt; # A tibble: 2 x 4
-#&gt;     row   col expected               actual
-#&gt;   &lt;int&gt; &lt;int&gt; &lt;chr&gt;                  &lt;chr&gt; 
-#&gt; 1     1    NA no trailing characters X     
-#&gt; 2     2    NA an integer             blah  </div><div class='input'>
-<span class='no'>y</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='parse_atomic.html'>parse_integer</a></span>(<span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='st'>"1"</span>, <span class='st'>"2"</span>, <span class='st'>"3"</span>))
-<span class='fu'>problems</span>(<span class='no'>y</span>)</div><div class='output co'>#&gt; # tibble [0 × 4]
-#&gt; # ... with 4 variables: row &lt;int&gt;, col &lt;int&gt;, expected &lt;chr&gt;, actual &lt;chr&gt;</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
     <ul class="nav nav-pills nav-stacked">
-      <li><a href="#arguments">Arguments</a></li>
-      
-      <li><a href="#value">Value</a></li>
-      
-      <li><a href="#examples">Examples</a></li>
-    </ul>
+                </ul>
 
   </div>
 </div>
