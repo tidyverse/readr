@@ -1,3 +1,5 @@
+# readr 1.3.1
+
 # readr (development version)
 
 * Column specifications are now coloured when printed. This makes it easy to
