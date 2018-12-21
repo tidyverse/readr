@@ -76,7 +76,7 @@ in a quoted string. The dash, &quot;-&quot;, is used for missing values." />
         <a class="navbar-brand" href="../index.html">readr</a>
         <div class="info">
           <span class="partof">part of the <a href="https://tidyverse.org">tidyverse</a></span>
-          <span class="version version-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.3.0</span>
+          <span class="version version-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.3.1</span>
         </div>
       </div>
     </div>
@@ -149,7 +149,7 @@ in a quoted string. The dash, "-", is used for missing values.</p>
     </div>
 
     <pre class="usage"><span class='fu'>read_log</span>(<span class='no'>file</span>, <span class='kw'>col_names</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>col_types</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>skip</span> <span class='kw'>=</span> <span class='fl'>0</span>,
-  <span class='kw'>n_max</span> <span class='kw'>=</span> <span class='fl'>Inf</span>, <span class='kw'>progress</span> <span class='kw'>=</span> <span class='fu'>show_progress</span>())</pre>
+  <span class='kw'>n_max</span> <span class='kw'>=</span> <span class='fl'>Inf</span>, <span class='kw'>progress</span> <span class='kw'>=</span> <span class='fu'><a href='show_progress.html'>show_progress</a></span>())</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -220,14 +220,14 @@ setting option <code>readr.show_progress</code> to <code>FALSE</code>.</p></td>
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='fu'>read_log</span>(<span class='fu'><a href='readr_example.html'>readr_example</a></span>(<span class='st'>"example.log"</span>))</div><div class='output co'>#&gt; <span class='message'>Parsed with column specification:</span>
 #&gt; <span class='message'>cols(</span>
-#&gt; <span class='message'>  X1 = col_character(),</span>
-#&gt; <span class='message'>  X2 = col_logical(),</span>
-#&gt; <span class='message'>  X3 = col_character(),</span>
-#&gt; <span class='message'>  X4 = col_character(),</span>
-#&gt; <span class='message'>  X5 = col_character(),</span>
-#&gt; <span class='message'>  X6 = col_double(),</span>
-#&gt; <span class='message'>  X7 = col_double()</span>
-#&gt; <span class='message'>)</span></div><div class='output co'>#&gt; <span style='color: #949494;'># A tibble: 2 x 7</span><span>
+#&gt; <span class='message'>  X1 = <span style='color: #BB0000;'>col_character()</span><span>,</span>
+#&gt; <span class='message'>  X2 = </span><span style='color: #BBBB00;'>col_logical()</span><span>,</span>
+#&gt; <span class='message'>  X3 = </span><span style='color: #BB0000;'>col_character()</span><span>,</span>
+#&gt; <span class='message'>  X4 = </span><span style='color: #BB0000;'>col_character()</span><span>,</span>
+#&gt; <span class='message'>  X5 = </span><span style='color: #BB0000;'>col_character()</span><span>,</span>
+#&gt; <span class='message'>  X6 = </span><span style='color: #00BB00;'>col_double()</span><span>,</span>
+#&gt; <span class='message'>  X7 = </span><span style='color: #00BB00;'>col_double()</span><span></span>
+#&gt; <span class='message'>)</span></div><div class='output co'>#&gt; </span><span style='color: #949494;'># A tibble: 2 x 7</span><span>
 #&gt;   X1        X2    X3          X4             X5                         X6    X7
 #&gt;   </span><span style='color: #949494;font-style: italic;'>&lt;chr&gt;</span><span>     </span><span style='color: #949494;font-style: italic;'>&lt;lgl&gt;</span><span> </span><span style='color: #949494;font-style: italic;'>&lt;chr&gt;</span><span>       </span><span style='color: #949494;font-style: italic;'>&lt;chr&gt;</span><span>          </span><span style='color: #949494;font-style: italic;'>&lt;chr&gt;</span><span>                   </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span> </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span>
 #&gt; </span><span style='color: #BCBCBC;'>1</span><span> 172.21.1… </span><span style='color: #BB0000;'>NA</span><span>    </span><span style='color: #949494;'>"</span><span>Microsoft… 08/Apr/2001:1… GET /scripts/iisadmin/…   200  </span><span style='text-decoration: underline;'>3</span><span>401

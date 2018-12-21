@@ -77,7 +77,7 @@ the base utils::type.convert()." />
         <a class="navbar-brand" href="../index.html">readr</a>
         <div class="info">
           <span class="partof">part of the <a href="https://tidyverse.org">tidyverse</a></span>
-          <span class="version version-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.3.0</span>
+          <span class="version version-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.3.1</span>
         </div>
       </div>
     </div>
@@ -197,15 +197,15 @@ names.</p></td>
 #&gt;  $ x: chr  "0.0807501375675201" "0.834333037259057" "0.600760886212811" "0.157208441523835" ...
 #&gt;  $ y: chr  "9" "2" "1" "3" ...</div><div class='input'><span class='fu'><a href='https://www.rdocumentation.org/packages/utils/topics/str'>str</a></span>(<span class='fu'>type_convert</span>(<span class='no'>df</span>))</div><div class='output co'>#&gt; <span class='message'>Parsed with column specification:</span>
 #&gt; <span class='message'>cols(</span>
-#&gt; <span class='message'>  x = col_double(),</span>
-#&gt; <span class='message'>  y = col_double()</span>
+#&gt; <span class='message'>  x = <span style='color: #00BB00;'>col_double()</span><span>,</span>
+#&gt; <span class='message'>  y = </span><span style='color: #00BB00;'>col_double()</span><span></span>
 #&gt; <span class='message'>)</span></div><div class='output co'>#&gt; 'data.frame':	10 obs. of  2 variables:
 #&gt;  $ x: num  0.0808 0.8343 0.6008 0.1572 0.0074 ...
 #&gt;  $ y: num  9 2 1 3 7 8 10 5 6 4</div><div class='input'>
 <span class='no'>df</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/data.frame'>data.frame</a></span>(<span class='kw'>x</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='st'>"NA"</span>, <span class='st'>"10"</span>), <span class='kw'>stringsAsFactors</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)
 <span class='fu'><a href='https://www.rdocumentation.org/packages/utils/topics/str'>str</a></span>(<span class='fu'>type_convert</span>(<span class='no'>df</span>))</div><div class='output co'>#&gt; <span class='message'>Parsed with column specification:</span>
 #&gt; <span class='message'>cols(</span>
-#&gt; <span class='message'>  x = col_double()</span>
+#&gt; <span class='message'>  x = </span><span style='color: #00BB00;'>col_double()</span><span></span>
 #&gt; <span class='message'>)</span></div><div class='output co'>#&gt; 'data.frame':	2 obs. of  1 variable:
 #&gt;  $ x: num  NA 10</div><div class='input'>
 <span class='co'># Type convert can be used to infer types from an entire dataset</span>
@@ -228,32 +228,32 @@ names.</p></td>
 #&gt;  - attr(*, "spec")=
 #&gt;   .. cols(
 #&gt;   ..   .default = col_character(),
-#&gt;   ..   mpg = col_character(),
-#&gt;   ..   cyl = col_character(),
-#&gt;   ..   disp = col_character(),
-#&gt;   ..   hp = col_character(),
-#&gt;   ..   drat = col_character(),
-#&gt;   ..   wt = col_character(),
-#&gt;   ..   qsec = col_character(),
-#&gt;   ..   vs = col_character(),
-#&gt;   ..   am = col_character(),
-#&gt;   ..   gear = col_character(),
-#&gt;   ..   carb = col_character()
+#&gt;   ..   mpg = </span><span style='color: #BB0000;'>col_character()</span><span>,
+#&gt;   ..   cyl = </span><span style='color: #BB0000;'>col_character()</span><span>,
+#&gt;   ..   disp = </span><span style='color: #BB0000;'>col_character()</span><span>,
+#&gt;   ..   hp = </span><span style='color: #BB0000;'>col_character()</span><span>,
+#&gt;   ..   drat = </span><span style='color: #BB0000;'>col_character()</span><span>,
+#&gt;   ..   wt = </span><span style='color: #BB0000;'>col_character()</span><span>,
+#&gt;   ..   qsec = </span><span style='color: #BB0000;'>col_character()</span><span>,
+#&gt;   ..   vs = </span><span style='color: #BB0000;'>col_character()</span><span>,
+#&gt;   ..   am = </span><span style='color: #BB0000;'>col_character()</span><span>,
+#&gt;   ..   gear = </span><span style='color: #BB0000;'>col_character()</span><span>,
+#&gt;   ..   carb = </span><span style='color: #BB0000;'>col_character()</span><span>
 #&gt;   .. )</div><div class='input'><span class='co'># Then convert it with type_convert</span>
 <span class='fu'>type_convert</span>(<span class='no'>data</span>)</div><div class='output co'>#&gt; <span class='message'>Parsed with column specification:</span>
 #&gt; <span class='message'>cols(</span>
-#&gt; <span class='message'>  mpg = col_double(),</span>
-#&gt; <span class='message'>  cyl = col_double(),</span>
-#&gt; <span class='message'>  disp = col_double(),</span>
-#&gt; <span class='message'>  hp = col_double(),</span>
-#&gt; <span class='message'>  drat = col_double(),</span>
-#&gt; <span class='message'>  wt = col_double(),</span>
-#&gt; <span class='message'>  qsec = col_double(),</span>
-#&gt; <span class='message'>  vs = col_double(),</span>
-#&gt; <span class='message'>  am = col_double(),</span>
-#&gt; <span class='message'>  gear = col_double(),</span>
-#&gt; <span class='message'>  carb = col_double()</span>
-#&gt; <span class='message'>)</span></div><div class='output co'>#&gt; <span style='color: #949494;'># A tibble: 32 x 11</span><span>
+#&gt; <span class='message'>  mpg = </span><span style='color: #00BB00;'>col_double()</span><span>,</span>
+#&gt; <span class='message'>  cyl = </span><span style='color: #00BB00;'>col_double()</span><span>,</span>
+#&gt; <span class='message'>  disp = </span><span style='color: #00BB00;'>col_double()</span><span>,</span>
+#&gt; <span class='message'>  hp = </span><span style='color: #00BB00;'>col_double()</span><span>,</span>
+#&gt; <span class='message'>  drat = </span><span style='color: #00BB00;'>col_double()</span><span>,</span>
+#&gt; <span class='message'>  wt = </span><span style='color: #00BB00;'>col_double()</span><span>,</span>
+#&gt; <span class='message'>  qsec = </span><span style='color: #00BB00;'>col_double()</span><span>,</span>
+#&gt; <span class='message'>  vs = </span><span style='color: #00BB00;'>col_double()</span><span>,</span>
+#&gt; <span class='message'>  am = </span><span style='color: #00BB00;'>col_double()</span><span>,</span>
+#&gt; <span class='message'>  gear = </span><span style='color: #00BB00;'>col_double()</span><span>,</span>
+#&gt; <span class='message'>  carb = </span><span style='color: #00BB00;'>col_double()</span><span></span>
+#&gt; <span class='message'>)</span></div><div class='output co'>#&gt; </span><span style='color: #949494;'># A tibble: 32 x 11</span><span>
 #&gt;      mpg   cyl  disp    hp  drat    wt  qsec    vs    am  gear  carb
 #&gt;    </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span> </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span> </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span> </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span> </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span> </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span> </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span> </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span> </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span> </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span> </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span>
 #&gt; </span><span style='color: #BCBCBC;'> 1</span><span>  21       6  160    110  3.9   2.62  16.5     0     1     4     4

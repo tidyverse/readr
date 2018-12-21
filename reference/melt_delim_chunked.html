@@ -75,7 +75,7 @@ into a melted format where each row represents a single token." />
         <a class="navbar-brand" href="../index.html">readr</a>
         <div class="info">
           <span class="partof">part of the <a href="https://tidyverse.org">tidyverse</a></span>
-          <span class="version version-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.3.0</span>
+          <span class="version version-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.3.1</span>
         </div>
       </div>
     </div>
@@ -150,22 +150,22 @@ into a melted format where each row represents a single token.</p>
   <span class='kw'>quote</span> <span class='kw'>=</span> <span class='st'>"\""</span>, <span class='kw'>escape_backslash</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>escape_double</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
   <span class='kw'>locale</span> <span class='kw'>=</span> <span class='fu'><a href='locale.html'>default_locale</a></span>(), <span class='kw'>na</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='st'>""</span>, <span class='st'>"NA"</span>), <span class='kw'>quoted_na</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
   <span class='kw'>comment</span> <span class='kw'>=</span> <span class='st'>""</span>, <span class='kw'>trim_ws</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>skip</span> <span class='kw'>=</span> <span class='fl'>0</span>,
-  <span class='kw'>progress</span> <span class='kw'>=</span> <span class='fu'>show_progress</span>(), <span class='kw'>skip_empty_rows</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)
+  <span class='kw'>progress</span> <span class='kw'>=</span> <span class='fu'><a href='show_progress.html'>show_progress</a></span>(), <span class='kw'>skip_empty_rows</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)
 
 <span class='fu'>melt_csv_chunked</span>(<span class='no'>file</span>, <span class='no'>callback</span>, <span class='kw'>chunk_size</span> <span class='kw'>=</span> <span class='fl'>10000</span>,
   <span class='kw'>locale</span> <span class='kw'>=</span> <span class='fu'><a href='locale.html'>default_locale</a></span>(), <span class='kw'>na</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='st'>""</span>, <span class='st'>"NA"</span>), <span class='kw'>quoted_na</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
   <span class='kw'>quote</span> <span class='kw'>=</span> <span class='st'>"\""</span>, <span class='kw'>comment</span> <span class='kw'>=</span> <span class='st'>""</span>, <span class='kw'>trim_ws</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>skip</span> <span class='kw'>=</span> <span class='fl'>0</span>,
-  <span class='kw'>progress</span> <span class='kw'>=</span> <span class='fu'>show_progress</span>(), <span class='kw'>skip_empty_rows</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)
+  <span class='kw'>progress</span> <span class='kw'>=</span> <span class='fu'><a href='show_progress.html'>show_progress</a></span>(), <span class='kw'>skip_empty_rows</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)
 
 <span class='fu'>melt_csv2_chunked</span>(<span class='no'>file</span>, <span class='no'>callback</span>, <span class='kw'>chunk_size</span> <span class='kw'>=</span> <span class='fl'>10000</span>,
   <span class='kw'>locale</span> <span class='kw'>=</span> <span class='fu'><a href='locale.html'>default_locale</a></span>(), <span class='kw'>na</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='st'>""</span>, <span class='st'>"NA"</span>), <span class='kw'>quoted_na</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
   <span class='kw'>quote</span> <span class='kw'>=</span> <span class='st'>"\""</span>, <span class='kw'>comment</span> <span class='kw'>=</span> <span class='st'>""</span>, <span class='kw'>trim_ws</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>skip</span> <span class='kw'>=</span> <span class='fl'>0</span>,
-  <span class='kw'>progress</span> <span class='kw'>=</span> <span class='fu'>show_progress</span>(), <span class='kw'>skip_empty_rows</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)
+  <span class='kw'>progress</span> <span class='kw'>=</span> <span class='fu'><a href='show_progress.html'>show_progress</a></span>(), <span class='kw'>skip_empty_rows</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)
 
 <span class='fu'>melt_tsv_chunked</span>(<span class='no'>file</span>, <span class='no'>callback</span>, <span class='kw'>chunk_size</span> <span class='kw'>=</span> <span class='fl'>10000</span>,
   <span class='kw'>locale</span> <span class='kw'>=</span> <span class='fu'><a href='locale.html'>default_locale</a></span>(), <span class='kw'>na</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='st'>""</span>, <span class='st'>"NA"</span>), <span class='kw'>quoted_na</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
   <span class='kw'>quote</span> <span class='kw'>=</span> <span class='st'>"\""</span>, <span class='kw'>comment</span> <span class='kw'>=</span> <span class='st'>""</span>, <span class='kw'>trim_ws</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>skip</span> <span class='kw'>=</span> <span class='fl'>0</span>,
-  <span class='kw'>progress</span> <span class='kw'>=</span> <span class='fu'>show_progress</span>(), <span class='kw'>skip_empty_rows</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</pre>
+  <span class='kw'>progress</span> <span class='kw'>=</span> <span class='fu'><a href='show_progress.html'>show_progress</a></span>(), <span class='kw'>skip_empty_rows</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
