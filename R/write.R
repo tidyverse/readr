@@ -46,9 +46,17 @@
 #' <http://www.cs.tufts.edu/~nr/cs257/archive/florian-loitsch/printf.pdf>
 #' @export
 #' @examples
-#' tmp <- tempfile()
-#' write_csv(mtcars, tmp)
-#' head(read_csv(tmp))
+#' \dontshow{.old_wd <- setwd(tempdir())}
+#' # If you only specify a file name, write_()* will write
+#' # the file to your current working directory.
+#' write_csv(mtcars, "mtcars.csv")
+#' write_tsv(mtcars, "mtcars.tsv")
+#'
+#' # If you add an extension to the file name, write_()* will
+#' # automatically compress the output.
+#' write_tsv(mtcars, "mtcars.tsv.gz")
+#' write_tsv(mtcars, "mtcars.tsv.bz2")
+#' write_tsv(mtcars, "mtcars.tsv.xz")
 #'
 #' # format_* is useful for testing and reprexes
 #' cat(format_csv(head(mtcars)))
@@ -59,15 +67,9 @@
 #' format_csv(df, na = ".")
 #'
 #' # Quotes are automatically as needed
-#' df <- data.frame(x = c("a", '"', ",", "\n"))
+#' df <- data.frame(x = c("a ", '"', ",", "\n"))
 #' cat(format_csv(df))
-#'
-#' # A output connection will be automatically created for output filenames
-#' # with appropriate extensions.
-#' dir <- tempdir()
-#' write_tsv(mtcars, file.path(dir, "mtcars.tsv.gz"))
-#' write_tsv(mtcars, file.path(dir, "mtcars.tsv.bz2"))
-#' write_tsv(mtcars, file.path(dir, "mtcars.tsv.xz"))
+#' \dontshow{setwd(.old_wd)}
 write_delim <- function(x, path, delim = " ", na = "NA", append = FALSE,
                         col_names = !append, quote_escape = "double") {
   stopifnot(is.data.frame(x))
