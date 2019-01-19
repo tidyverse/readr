@@ -192,7 +192,7 @@ void stream_delim(
     int i,
     char delim,
     const std::string& na,
-    quote_escape_t escape) { // Argument name for error message with colum names
+    quote_escape_t escape) {
   switch (TYPEOF(x)) {
   case LGLSXP: {
     int value = LOGICAL(x)[i];
