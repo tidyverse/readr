@@ -58,17 +58,6 @@
 #' write_tsv(mtcars, "mtcars.tsv.bz2")
 #' write_tsv(mtcars, "mtcars.tsv.xz")
 #'
-#' # format_* is useful for testing and reprexes
-#' cat(format_csv(head(mtcars)))
-#' cat(format_tsv(head(mtcars)))
-#' cat(format_delim(head(mtcars), ";"))
-#'
-#' df <- data.frame(x = c(1, 2, NA))
-#' format_csv(df, na = ".")
-#'
-#' # Quotes are automatically as needed
-#' df <- data.frame(x = c("a ", '"', ",", "\n"))
-#' cat(format_csv(df))
 #' \dontshow{setwd(.old_wd)}
 write_delim <- function(x, path, delim = " ", na = "NA", append = FALSE,
                         col_names = !append, quote_escape = "double") {
@@ -140,7 +129,21 @@ write_tsv <- function(x, path, na = "NA", append = FALSE, col_names = !append, q
 #' of writing to disk, they return a string.
 #'
 #' @return A string.
-#' @inherit write_delim
+#' @inheritSection write_delim Output
+#' @inheritParams write_delim
+#' @inherit write_delim references
+#' @examples
+#' # format_()* functions are useful for testing and reprexes
+#' cat(format_csv(head(mtcars)))
+#' cat(format_tsv(head(mtcars)))
+#' cat(format_delim(head(mtcars), ";"))
+#'
+#' df <- data.frame(x = c(1, 2, NA))
+#' format_csv(df, na = ".")
+#'
+#' # Quotes are automatically added as needed
+#' df <- data.frame(x = c("a ", '"', ",", "\n"))
+#' cat(format_csv(df))
 #' @export
 format_delim <- function(x, delim, na = "NA", append = FALSE,
                          col_names = !append, quote_escape = "double") {

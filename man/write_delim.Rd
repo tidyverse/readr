@@ -94,17 +94,6 @@ write_tsv(mtcars, "mtcars.tsv.gz")
 write_tsv(mtcars, "mtcars.tsv.bz2")
 write_tsv(mtcars, "mtcars.tsv.xz")
 
-# format_* is useful for testing and reprexes
-cat(format_csv(head(mtcars)))
-cat(format_tsv(head(mtcars)))
-cat(format_delim(head(mtcars), ";"))
-
-df <- data.frame(x = c(1, 2, NA))
-format_csv(df, na = ".")
-
-# Quotes are automatically as needed
-df <- data.frame(x = c("a ", '"', ",", "\\n"))
-cat(format_csv(df))
 \dontshow{setwd(.old_wd)}
 }
 \references{
