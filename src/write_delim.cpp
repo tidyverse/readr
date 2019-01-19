@@ -15,8 +15,7 @@ void stream_delim(
     int i,
     char delim,
     const std::string& na,
-    quote_escape_t escape,
-    std::string name); // Argument name for error message with colum names
+    quote_escape_t escape);
 
 template <class Stream>
 void stream_delim_row(
@@ -25,16 +24,14 @@ void stream_delim_row(
     int i,
     char delim,
     const std::string& na,
-    quote_escape_t escape,
-    const CharacterVector& names) {
+    quote_escape_t escape) {
   int p = Rf_length(x);
 
   for (int j = 0; j < p - 1; ++j) {
-    stream_delim(output, x.at(j), i, delim, na, escape, std::string(names[j]));
+    stream_delim(output, x.at(j), i, delim, na, escape);
     output << delim;
   }
-  stream_delim(output, x.at(p - 1), i, delim, na, escape,
-               std::string(names[p - 1]));
+  stream_delim(output, x.at(p - 1), i, delim, na, escape);
 
   output << '\n';
 }
@@ -87,6 +84,27 @@ void stream_delim(
     output << '"';
 }
 
+void validate_col_type(const RObject& x, std::string name) {
+  switch (TYPEOF(x)) {
+  case LGLSXP: {
+    break;
+  }
+  case INTSXP: {
+    break;
+  }
+  case REALSXP: {
+    break;
+  }
+  case STRSXP: {
+    break;
+  }
+  default:
+    Rcpp::stop(
+      "Don't know how to handle vector of type %s in column '%s'.",
+      Rf_type2char(TYPEOF(x)), name);
+  }
+}
+
 template <class Stream>
 void stream_delim(
     Stream& output,
@@ -105,9 +123,14 @@ void stream_delim(
   }
 
   CharacterVector names = as<CharacterVector>(df.attr("names"));
+  // Validate column types
+  for (int j = 0; j < p; ++j) {
+    validate_col_type(df.at(j), std::string(names[j]));
+  }
+
   if (col_names) {
     for (int j = 0; j < p; ++j) {
-      stream_delim(output, names, j, delim, na, escape, std::string(names[j]));
+      stream_delim(output, names, j, delim, na, escape);
       if (j != p - 1)
         output << delim;
     }
@@ -118,7 +141,7 @@ void stream_delim(
   int n = Rf_length(first_col);
 
   for (int i = 0; i < n; ++i) {
-    stream_delim_row(output, df, i, delim, na, escape, names);
+    stream_delim_row(output, df, i, delim, na, escape);
   }
 }
 
@@ -169,8 +192,7 @@ void stream_delim(
     int i,
     char delim,
     const std::string& na,
-    quote_escape_t escape,
-    std::string name) { // Argument name for error message with colum names
+    quote_escape_t escape) { // Argument name for error message with colum names
   switch (TYPEOF(x)) {
   case LGLSXP: {
     int value = LOGICAL(x)[i];
@@ -222,7 +244,7 @@ void stream_delim(
   }
   default:
     Rcpp::stop(
-        "Don't know how to handle vector of type %s in column '%s'.",
-        Rf_type2char(TYPEOF(x)), name);
+        "Don't know how to handle vector of type %s.",
+        Rf_type2char(TYPEOF(x)));
   }
 }
