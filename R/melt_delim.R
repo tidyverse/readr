@@ -148,8 +148,8 @@ melt_delimited <- function(file, tokenizer, locale = default_locale(),
     data <- datasource_connection(file, skip, skip_empty_rows = skip_empty_rows, comment)
   } else {
     if (empty_file(file)) {
-       return(tibble::data_frame(row = double(), col = double(),
-                                 data_type = character(), value = character()))
+       return(tibble::tibble(row = double(), col = double(),
+                             data_type = character(), value = character()))
     }
     if (is.character(file) && identical(locale$encoding, "UTF-8")) {
       # When locale is not set, file is probablly marked as its correct encoding.

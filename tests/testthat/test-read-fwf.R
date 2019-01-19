@@ -101,7 +101,7 @@ test_that("read columns with width, ragged", {
 })
 
 test_that("read_fwf returns an empty data.frame on an empty file", {
-   expect_true(all.equal(read_fwf("empty-file", progress = FALSE), tibble::data_frame()))
+   expect_true(all.equal(read_fwf("empty-file", progress = FALSE), tibble::tibble()))
 })
 
 test_that("check for line breaks in between widths", {

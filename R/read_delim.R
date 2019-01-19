@@ -183,7 +183,7 @@ read_delimited <- function(file, tokenizer, col_names = TRUE, col_types = NULL,
     data <- datasource_connection(file, skip, skip_empty_rows, comment)
   } else {
     if (empty_file(file)) {
-       return(tibble::data_frame())
+       return(tibble::tibble())
     }
     if (is.character(file) && identical(locale$encoding, "UTF-8")) {
       # When locale is not set, file is probablly marked as its correct encoding.

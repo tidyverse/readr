@@ -36,8 +36,8 @@ test_that("melt_table can read a truncated file without crashing", {
 })
 
 test_that("melt_table returns an empty data.frame on an empty file", {
-   empty_df <- tibble::data_frame(row = double(), col = double(),
-                                  data_type = character(), value = character())
+   empty_df <- tibble::tibble(row = double(), col = double(),
+                              data_type = character(), value = character())
    expect_true(all.equal(melt_table("empty-file", progress = FALSE), empty_df))
 })
 
@@ -74,7 +74,7 @@ test_that("melt_table2 ignores blank lines at the end of a file", {
 })
 
 test_that("melt_table2 returns an empty data.frame on an empty file", {
-   empty_df <- tibble::data_frame(row = double(), col = double(),
-                                  data_type = character(), value = character())
+   empty_df <- tibble::tibble(row = double(), col = double(),
+                              data_type = character(), value = character())
    expect_true(all.equal(melt_table2("empty-file", progress = FALSE), empty_df))
 })
