@@ -163,3 +163,10 @@ test_that("hms NAs are written without padding (#930)", {
   df <- data.frame(x = hms::as.hms(c(NA, 34.234)))
   expect_equal(format_tsv(df), "x\nNA\n00:00:34.234\n")
 })
+
+test_that("Show column name in error message when writing list column (#938)", {
+  df <- data.frame(x = LETTERS[1:4],
+                   y = I(list(1, "foo", 2:9, iris)))
+  expect_error(write_csv(df, "test_list_col_name.csv"),
+               "Don't know how to handle vector of type list in column 'y'.")
+})

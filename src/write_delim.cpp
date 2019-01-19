@@ -15,7 +15,8 @@ void stream_delim(
     int i,
     char delim,
     const std::string& na,
-    quote_escape_t escape);
+    quote_escape_t escape,
+    std::string name); // Argument name for error message with colum names
 
 template <class Stream>
 void stream_delim_row(
@@ -24,14 +25,16 @@ void stream_delim_row(
     int i,
     char delim,
     const std::string& na,
-    quote_escape_t escape) {
+    quote_escape_t escape,
+    const CharacterVector& names) {
   int p = Rf_length(x);
 
   for (int j = 0; j < p - 1; ++j) {
-    stream_delim(output, x.at(j), i, delim, na, escape);
+    stream_delim(output, x.at(j), i, delim, na, escape, std::string(names[j]));
     output << delim;
   }
-  stream_delim(output, x.at(p - 1), i, delim, na, escape);
+  stream_delim(output, x.at(p - 1), i, delim, na, escape,
+               std::string(names[p - 1]));
 
   output << '\n';
 }
@@ -101,10 +104,10 @@ void stream_delim(
     output << "\xEF\xBB\xBF";
   }
 
+  CharacterVector names = as<CharacterVector>(df.attr("names"));
   if (col_names) {
-    CharacterVector names = as<CharacterVector>(df.attr("names"));
     for (int j = 0; j < p; ++j) {
-      stream_delim(output, names, j, delim, na, escape);
+      stream_delim(output, names, j, delim, na, escape, std::string(names[j]));
       if (j != p - 1)
         output << delim;
     }
@@ -115,7 +118,7 @@ void stream_delim(
   int n = Rf_length(first_col);
 
   for (int i = 0; i < n; ++i) {
-    stream_delim_row(output, df, i, delim, na, escape);
+    stream_delim_row(output, df, i, delim, na, escape, names);
   }
 }
 
@@ -166,7 +169,8 @@ void stream_delim(
     int i,
     char delim,
     const std::string& na,
-    quote_escape_t escape) {
+    quote_escape_t escape,
+    std::string name) { // Argument name for error message with colum names
   switch (TYPEOF(x)) {
   case LGLSXP: {
     int value = LOGICAL(x)[i];
@@ -218,6 +222,7 @@ void stream_delim(
   }
   default:
     Rcpp::stop(
-        "Don't know how to handle vector of type %s.", Rf_type2char(TYPEOF(x)));
+        "Don't know how to handle vector of type %s in column '%s'.",
+        Rf_type2char(TYPEOF(x)), name);
   }
 }
