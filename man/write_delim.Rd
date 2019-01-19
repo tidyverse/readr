@@ -82,28 +82,19 @@ the examples for more information.
 }
 
 \examples{
-tmp <- tempfile()
-write_csv(mtcars, tmp)
-head(read_csv(tmp))
+\dontshow{.old_wd <- setwd(tempdir())}
+# If you only specify a file name, write_()* will write
+# the file to your current working directory.
+write_csv(mtcars, "mtcars.csv")
+write_tsv(mtcars, "mtcars.tsv")
 
-# format_* is useful for testing and reprexes
-cat(format_csv(head(mtcars)))
-cat(format_tsv(head(mtcars)))
-cat(format_delim(head(mtcars), ";"))
+# If you add an extension to the file name, write_()* will
+# automatically compress the output.
+write_tsv(mtcars, "mtcars.tsv.gz")
+write_tsv(mtcars, "mtcars.tsv.bz2")
+write_tsv(mtcars, "mtcars.tsv.xz")
 
-df <- data.frame(x = c(1, 2, NA))
-format_csv(df, na = ".")
-
-# Quotes are automatically as needed
-df <- data.frame(x = c("a", '"', ",", "\\n"))
-cat(format_csv(df))
-
-# A output connection will be automatically created for output filenames
-# with appropriate extensions.
-dir <- tempdir()
-write_tsv(mtcars, file.path(dir, "mtcars.tsv.gz"))
-write_tsv(mtcars, file.path(dir, "mtcars.tsv.bz2"))
-write_tsv(mtcars, file.path(dir, "mtcars.tsv.xz"))
+\dontshow{setwd(.old_wd)}
 }
 \references{
 Florian Loitsch, Printing Floating-Point Numbers Quickly and
