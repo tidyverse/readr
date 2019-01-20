@@ -1,5 +1,9 @@
 # readr (development version)
 
+* Uses of `tibble::data_frame` updated to `tibble::tibble`
+([tidyverse/dplyr#4069](https://github.com/tidyverse/dplyr/issues/4069),
+@thays42)
+
 # readr 1.3.1
 
 * Column specifications are now coloured when printed. This makes it easy to
