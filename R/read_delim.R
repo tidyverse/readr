@@ -181,6 +181,9 @@ read_delimited <- function(file, tokenizer, col_names = TRUE, col_types = NULL,
   file <- standardise_path(file)
   if (is.connection(file)) {
     data <- datasource_connection(file, skip, skip_empty_rows, comment)
+    if (empty_file(data[[1]])) {
+       return(tibble::data_frame())
+    }
   } else {
     if (empty_file(file)) {
        return(tibble::data_frame())
