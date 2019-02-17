@@ -4,6 +4,11 @@
 ([tidyverse/dplyr#4069](https://github.com/tidyverse/dplyr/issues/4069),
 @thays42)
 
+* `read_delimited()` function return an empty `tibble::data_frame()` rather
+  than signaling an error when given a connection for the `file` argument that
+  contains no data. This makes the behavior consistent as when called with an
+  empty file (@pralitp, #963).
+
 # readr 1.3.1
 
 * Column specifications are now coloured when printed. This makes it easy to
