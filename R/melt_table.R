@@ -38,8 +38,8 @@ melt_table <- function(file, locale = default_locale(), na = "NA", skip = 0,
                        skip_empty_rows = FALSE) {
   ds <- datasource(file, skip = skip, skip_empty_rows = skip_empty_rows)
   if (inherits(ds, "source_file") && empty_file(file)) {
-       return(tibble::data_frame(row = double(), col = double(),
-                                 data_type = character(), value = character()))
+       return(tibble::tibble(row = double(), col = double(),
+                             data_type = character(), value = character()))
   }
 
   columns <- fwf_empty(ds, skip = skip, skip_empty_rows = skip_empty_rows, n = guess_max, comment = comment)
@@ -60,8 +60,8 @@ melt_table2 <- function(file, locale = default_locale(), na = "NA", skip = 0,
                        skip_empty_rows = FALSE) {
   ds <- datasource(file, skip = skip, skip_empty_rows = skip_empty_rows)
   if (inherits(ds, "source_file") && empty_file(file)) {
-       return(tibble::data_frame(row = double(), col = double(),
-                                 data_type = character(), value = character()))
+       return(tibble::tibble(row = double(), col = double(),
+                             data_type = character(), value = character()))
   }
   tokenizer <- tokenizer_ws(na = na, comment = comment,
                             skip_empty_rows = skip_empty_rows)

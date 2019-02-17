@@ -1,5 +1,9 @@
 # readr (development version)
 
+* Uses of `tibble::data_frame` updated to `tibble::tibble`
+([tidyverse/dplyr#4069](https://github.com/tidyverse/dplyr/issues/4069),
+@thays42)
+
 * `read_delimited()` function return an empty `tibble::data_frame()` rather
   than signaling an error when given a connection for the `file` argument that
   contains no data. This makes the behavior consistent as when called with an

@@ -85,19 +85,19 @@ test_that("write_excel_csv/csv2 includes a byte order mark", {
 
 
 test_that("does not writes a tailing .0 for whole number doubles", {
-  expect_equal(format_tsv(tibble::data_frame(x = 1)), "x\n1\n")
+  expect_equal(format_tsv(tibble::tibble(x = 1)), "x\n1\n")
 
-  expect_equal(format_tsv(tibble::data_frame(x = 0)), "x\n0\n")
+  expect_equal(format_tsv(tibble::tibble(x = 0)), "x\n0\n")
 
-  expect_equal(format_tsv(tibble::data_frame(x = -1)), "x\n-1\n")
+  expect_equal(format_tsv(tibble::tibble(x = -1)), "x\n-1\n")
 
-  expect_equal(format_tsv(tibble::data_frame(x = 999)), "x\n999\n")
+  expect_equal(format_tsv(tibble::tibble(x = 999)), "x\n999\n")
 
-  expect_equal(format_tsv(tibble::data_frame(x = -999)), "x\n-999\n")
+  expect_equal(format_tsv(tibble::tibble(x = -999)), "x\n-999\n")
 
-  expect_equal(format_tsv(tibble::data_frame(x = 123456789)), "x\n123456789\n")
+  expect_equal(format_tsv(tibble::tibble(x = 123456789)), "x\n123456789\n")
 
-  expect_equal(format_tsv(tibble::data_frame(x = -123456789)), "x\n-123456789\n")
+  expect_equal(format_tsv(tibble::tibble(x = -123456789)), "x\n-123456789\n")
 })
 
 test_that("write_csv can write to compressed files", {
@@ -132,7 +132,7 @@ test_that("write_csv writes large integers without scientific notation up to 1E1
 })
 
 test_that("write_csv2 and format_csv2 writes ; sep and , decimal mark", {
-  df <- tibble::data_frame(x = c(0.5, 2, 1.2), y = c("a", "b", "c"))
+  df <- tibble::tibble(x = c(0.5, 2, 1.2), y = c("a", "b", "c"))
   expect_equal(format_csv2(df), "x;y\n0,5;a\n2,0;b\n1,2;c\n")
 
   filename <- tempfile(pattern = "readr", fileext = ".csv")
@@ -143,7 +143,7 @@ test_that("write_csv2 and format_csv2 writes ; sep and , decimal mark", {
 })
 
 test_that("write_csv2 and format_csv2 writes NA appropriately", {
-  df <- tibble::data_frame(x = c(0.5, NA, 1.2), y = c("a", "b", NA))
+  df <- tibble::tibble(x = c(0.5, NA, 1.2), y = c("a", "b", NA))
   expect_equal(format_csv2(df), "x;y\n0,5;a\nNA;b\n1,2;NA\n")
 })
 

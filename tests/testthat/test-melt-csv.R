@@ -111,7 +111,7 @@ test_that("comments are ignored regardless of where they appear", {
   out2 <- melt_csv('x\n1#comment\n#comment', comment = "#")
   out3 <- melt_csv('x\n"1"#comment', comment = "#")
 
-  chk1 <- tibble::data_frame(
+  chk1 <- tibble::tibble(
     row = c(1, 2),
     col = c(1, 1),
     data_type = c("character", "integer"),
@@ -125,7 +125,7 @@ test_that("comments are ignored regardless of where they appear", {
   out6 <- melt_csv("x1,x2,x3\nA2,B2,C2\nA3,#B2,C2\nA4,A5,A6", comment = "#", progress = FALSE)
   out7 <- melt_csv("x1,x2,x3\nA2,B2,C2\nA3,#B2,C2\n#comment\nA4,A5,A6", comment = "#", progress = FALSE)
 
-  chk2 <- tibble::data_frame(
+  chk2 <- tibble::tibble(
     row = c(1, 1, 1, 2, 2, 2, 3, 4, 4, 4),
     col = c(1, 2, 3, 1, 2, 3, 1, 1, 2, 3),
     data_type = "character",
