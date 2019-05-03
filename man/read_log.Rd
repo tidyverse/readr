@@ -51,9 +51,19 @@ subset of the columns, use \code{\link[=cols_only]{cols_only()}}.
 
 Alternatively, you can use a compact string representation where each
 character represents one column:
-c = character, i = integer, n = number, d = double,
-l = logical, f = factor, D = date, T = date time, t = time, ? = guess, or
-\code{_}/\code{-} to skip the column.}
+\itemize{
+\item c = character
+\item i = integer
+\item n = number
+\item d = double
+\item l = logical
+\item f = factor
+\item D = date
+\item T = date time
+\item t = time
+\item ? = guess
+\item _ or - = skip
+}}
 
 \item{skip}{Number of lines to skip before reading data.}
 

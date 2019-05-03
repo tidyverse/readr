@@ -38,9 +38,17 @@ NULL
 #'
 #'   Alternatively, you can use a compact string representation where each
 #'   character represents one column:
-#'   c = character, i = integer, n = number, d = double,
-#'   l = logical, f = factor, D = date, T = date time, t = time, ? = guess, or
-#'   `_`/`-` to skip the column.
+#' - c = character
+#' - i = integer
+#' - n = number
+#' - d = double
+#' - l = logical
+#' - f = factor
+#' - D = date
+#' - T = date time
+#' - t = time
+#' - ? = guess
+#' - _ or - = skip
 #' @param locale The locale controls defaults that vary from place to place.
 #'   The default locale is US-centric (like R), but you can use
 #'   [locale()] to create your own locale that controls things like
