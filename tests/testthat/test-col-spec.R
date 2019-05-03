@@ -259,3 +259,20 @@ test_that("check_guess_max errors on invalid inputs", {
 test_that("as.col_types can handle named character input", {
   expect_equal(as.col_spec(c(a = "c")), cols(a = col_character()))
 })
+
+test_that("as.col_types can convert data.frame", {
+  spec <- as.col_spec(iris)
+  exp <- cols(
+    Sepal.Length = col_double(),
+    Sepal.Width = col_double(),
+    Petal.Length = col_double(),
+    Petal.Width = col_double(),
+    Species = col_factor(levels = c("setosa", "versicolor", "virginica"), ordered = FALSE, include_na = FALSE)
+  )
+  expect_equal(spec, exp)
+})
+
+test_that("as.character() works on col_spec objects", {
+  spec <- as.col_spec(iris)
+  expect_equal(as.character(spec), "ddddf")
+})

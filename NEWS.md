@@ -8,6 +8,21 @@
   than signaling an error when given a connection for the `file` argument that
   contains no data. This makes the behavior consistent as when called with an
   empty file (@pralitp, #963).
+* It is now possible to generate a column specification from any tibble (or
+  data.frame) with `as.col_spec()` and convert any column specification to a
+  short representation with `as.character()`
+
+    s <- as.col_spec(iris)
+    s
+    #> cols(
+    #>   Sepal.Length = col_double(),
+    #>   Sepal.Width = col_double(),
+    #>   Petal.Length = col_double(),
+    #>   Petal.Width = col_double(),
+    #>   Species = col_factor(levels = c("setosa", "versicolor", "virginica"), ordered = FALSE, include_na = FALSE)
+    #> )
+    as.character(s)
+    #> [1] "ddddf"
 
 # readr 1.3.1
 
