@@ -16,6 +16,14 @@
 #' read_builtin("storms", "dplyr")
 #'
 read_builtin <- function(x, package = NULL) {
-  x <- data(list = list(x), package = package, envir = environment())
-  get(x[[1]], envir = environment())
+  warn_to_error <- function(e) {
+    stop(conditionMessage(e), call. = FALSE)
+  }
+  tryCatch(
+    warning = function(e) warn_to_error(e),
+    expr = {
+      res <- data(list = list(x), package = package, envir = environment(), verbose = FALSE)
+      get(res[[1]], envir = environment())
+    }
+  )
 }

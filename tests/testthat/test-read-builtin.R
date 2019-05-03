@@ -4,17 +4,14 @@ test_that("read_builtin works", {
   # fails with unquoted symbol (like data(storms, package = "dplyr"))
   expect_error(read_builtin(storms, "dplyr"))
 
-  # fails with warning if namespace is not attached
+  # fails with error if the dataset namespace is not attached
+  unloadNamespace("dplyr")
   expect_error(
-    expect_warning(
-      read_builtin("storms")
-    )
+    read_builtin("storms")
   )
-  # fails with warning if data set doesn't exist in package
+  # fails with an error if data set doesn't exist in package
   expect_error(
-    expect_warning(
-      read_builtin("nasa", "readr")
-    )
+    read_builtin("nasa", "readr")
   )
   # works if data set exists in package
   expect_true(is.data.frame(read_builtin("storms", "dplyr")))
