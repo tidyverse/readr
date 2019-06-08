@@ -49,6 +49,10 @@ NULL
 #' - t = time
 #' - ? = guess
 #' - _ or - = skip
+#'
+#'    By default, reading a file without a column specification will print a
+#'    message showing what `readr` guessed they were. To remove this message,
+#'    use `col_types = cols()`.
 #' @param locale The locale controls defaults that vary from place to place.
 #'   The default locale is US-centric (like R), but you can use
 #'   [locale()] to create your own locale that controls things like
