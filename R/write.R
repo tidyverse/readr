@@ -209,7 +209,7 @@ output_column.POSIXt <- function(x, name) {
 
 #' @export
 output_column.list <- function(x, name) {
-  stop(paste0("Flat files can't store the list column '", name, "'"))
+  stop("Flat files can't store the list column `", name, "`", call. = FALSE)
 }
 
 stream_delim <- function(df, path, append = FALSE, bom = FALSE, ..., quote_escape) {
