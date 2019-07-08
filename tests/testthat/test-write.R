@@ -169,5 +169,5 @@ test_that("More helpful error when trying to write out data frames with list col
   df$list <- lapply(X = seq_along(df$id), FUN = rnorm, n = 3)
   filename <- file.path(tempdir(), "test_list.csv")
   on.exit(unlink(filename))
-  expect_error(write_csv(x = df, path = filename), "Flat files can't store list columns.")
+  expect_error(write_csv(x = df, path = filename), "Flat files can't store the list column '")
 })
