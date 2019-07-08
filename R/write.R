@@ -63,7 +63,7 @@ write_delim <- function(x, path, delim = " ", na = "NA", append = FALSE,
                         col_names = !append, quote_escape = "double") {
   stopifnot(is.data.frame(x))
 
-  x[] <- lapply(x, output_column)
+  x[] <- lapply(names(x), function(i) output_column(x[[i]], i))
   stream_delim(x, path, delim = delim, col_names = col_names, append = append,
     na = na, quote_escape = quote_escape)
 
@@ -187,24 +187,29 @@ format_tsv <- function(x, na = "NA", append = FALSE, col_names = !append, quote_
 #' # converted to ISO8601.
 #' x <- parse_datetime("2016-01-01")
 #' str(output_column(x))
-output_column <- function(x) {
+output_column <- function(x, name) {
   UseMethod("output_column")
 }
 
 #' @export
-output_column.default <- function(x) {
+output_column.default <- function(x, name) {
   if (!is.object(x)) return(x)
   as.character(x)
 }
 
 #' @export
-output_column.double <- function(x) {
+output_column.double <- function(x, name) {
   x
 }
 
 #' @export
-output_column.POSIXt <- function(x) {
+output_column.POSIXt <- function(x, name) {
   format(x, "%Y-%m-%dT%H:%M:%OSZ", tz = "UTC", justify = "none")
+}
+
+#' @export
+output_column.list <- function(x, name) {
+  stop("Flat files can't store the list column `", name, "`", call. = FALSE)
 }
 
 stream_delim <- function(df, path, append = FALSE, bom = FALSE, ..., quote_escape) {

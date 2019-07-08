@@ -163,3 +163,8 @@ test_that("hms NAs are written without padding (#930)", {
   df <- data.frame(x = hms::as.hms(c(NA, 34.234)))
   expect_equal(format_tsv(df), "x\nNA\n00:00:34.234\n")
 })
+
+test_that("More helpful error when trying to write out data frames with list columns (#938)", {
+  df <- tibble::tibble(id = seq(1), list = list(1))
+  expect_error(write_csv(x = df, path = tempfile()), "Flat files can't store the list column")
+})
