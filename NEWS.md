@@ -8,6 +8,7 @@
   than signaling an error when given a connection for the `file` argument that
   contains no data. This makes the behavior consistent as when called with an
   empty file (@pralitp, #963).
+
 * It is now possible to generate a column specification from any tibble (or
   data.frame) with `as.col_spec()` and convert any column specification to a
   short representation with `as.character()`
@@ -23,6 +24,8 @@
     #> )
     as.character(s)
     #> [1] "ddddf"
+
+* More helpful error when trying to write out data frames with list columns (@ellessenne, #938)
 
 # readr 1.3.1
 
