@@ -207,6 +207,11 @@ output_column.POSIXt <- function(x) {
   format(x, "%Y-%m-%dT%H:%M:%OSZ", tz = "UTC", justify = "none")
 }
 
+#' @export
+output_column.list <- function(x) {
+  stop("Flat files can't store list columns.")
+}
+
 stream_delim <- function(df, path, append = FALSE, bom = FALSE, ..., quote_escape) {
   quote_escape <- standardise_escape(quote_escape)
 
