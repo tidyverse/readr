@@ -28,11 +28,11 @@ Useful links:
 Authors:
 \itemize{
   \item Hadley Wickham \email{hadley@rstudio.com}
-  \item Romain Francois
 }
 
 Other contributors:
 \itemize{
+  \item Romain Francois [contributor]
   \item R Core Team (Date time code adapted from R) [contributor]
   \item RStudio [copyright holder, funder]
   \item Jukka Jylänki (grisu3 implementation) [contributor, copyright holder]
