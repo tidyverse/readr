@@ -126,6 +126,10 @@ standardise_path <- function(path, input = TRUE) {
     return(path)
 
   if (is_url(path)) {
+    if (is_github_url(path)) {
+      path <- convert_github_url(path)
+    }
+
     if (requireNamespace("curl", quietly = TRUE)) {
       con <- curl::curl(path)
     } else {
@@ -182,6 +186,14 @@ source_name <- function(x) {
 
 is_url <- function(path) {
   grepl("^((http|ftp)s?|sftp)://", path)
+}
+
+is_github_url <- function(path) {
+  grepl("^https?://(?:www[.])?github[.]com", path)
+}
+
+convert_github_url <- function(path) {
+  sub("https://(?:www[.])?github.com/([^/]+)/([^/]+)/blob/([^/]+)/([^/]+)", "https://raw.githubusercontent.com/\\1/\\2/\\3/\\4", path)
 }
 
 check_path <- function(path) {
