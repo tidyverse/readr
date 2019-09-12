@@ -33,7 +33,8 @@ Suggests:
     rmarkdown,
     stringi,
     covr,
-    spelling
+    spelling,
+    xml2
 License: GPL (>= 2) | file LICENSE
 BugReports: https://github.com/tidyverse/readr/issues
 URL: http://readr.tidyverse.org, https://github.com/tidyverse/readr

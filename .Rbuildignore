@@ -29,3 +29,4 @@
 ^pkgdown$
 ^rcon$
 ^inst/rcon$
+^azure-pipelines\.yml$
