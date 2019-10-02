@@ -113,11 +113,11 @@ Locales also provide default date and time formats. The time format isn't curren
 str(parse_guess("2010-10-10"))
 ```
 
-If you're an American, you might want you use your illogical date system::
+If you're an American, you might want to use your illogical date system::
 
 ```{r}
 str(parse_guess("01/02/2013"))
-str(parse_guess("01/02/2013", locale = locale(date_format = "%d/%m/%Y")))
+str(parse_guess("01/02/2013", locale = locale(date_format = "%m/%d/%Y")))
 ```
 
 ## Character
