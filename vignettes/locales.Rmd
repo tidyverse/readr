@@ -117,8 +117,8 @@ str(parse_guess("2010/10/10"))
 If you're an American, you might want to use your illogical date system::
 
 ```{r}
-str(parse_guess("01/02/2013"))
-str(parse_guess("01/02/2013", locale = locale(date_format = "%m/%d/%Y")))
+str(parse_guess("01/31/2013"))
+str(parse_guess("01/31/2013", locale = locale(date_format = "%m/%d/%Y")))
 ```
 
 The time format is also used when guessing column types. The default time format is `%AT`, a flexible HMS parser (see `?parse_time`):
