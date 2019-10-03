@@ -95,16 +95,20 @@ public:
   }
 
   bool validTime() const {
-    if (hour_ < 0 || hour_ > 23)
-      return false;
-
-    return validDuration();
-  }
-
-  bool validDuration() const {
     if (sec_ < 0 || sec_ > 60)
       return false;
     if (min_ < 0 || min_ > 59)
+      return false;
+    if (hour_ < 0 || hour_ > 23)
+      return false;
+
+    return true;
+  }
+
+  bool validDuration() const {
+    if (sec_ < -59 || sec_ > 59)
+      return false;
+    if (min_ < -59 || min_ > 59)
       return false;
 
     return true;

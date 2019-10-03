@@ -49,4 +49,6 @@ test_that("durations", {
   expect_warning(parse_time("25:00:00", format = "%H:%M:%S"))
   expect_equal(parse_time("25:00:00", format = "%h:%M:%S"), hms::hms(hours = 25))
   expect_equal(parse_time("1000000000:00:00", format = "%h:%M:%S"), hms::hms(hours = 1e9))
+  expect_equal(parse_time("-1:23:45", format = "%h:%M:%S"), hms::as_hms(-hms::hms(45, 23, 1)))
+  expect_equal(parse_time("-1:23:45.67", format = "%h:%M:%OS"), hms::as_hms(-hms::hms(45.67, 23, 1)))
 })
