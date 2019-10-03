@@ -115,7 +115,9 @@ public:
 
   int date() const { return utcdate(); }
 
-  double time() const { return psec_ + sec_ + (min_ * 60.0) + (hour_ * 3600.0); }
+  double time() const {
+    return psec_ + sec_ + (min_ * 60.0) + (hour_ * 3600.0);
+  }
 
 private:
   // Number of number of seconds since 1970-01-01T00:00:00Z.

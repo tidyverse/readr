@@ -304,7 +304,15 @@ public:
     return dt;
   }
   DateTime makeTime() {
-    DateTime dt(0, 0, 0, sign_ * hour(), sign_ * min_, sign_ * sec_, sign_ * psec_, "UTC");
+    DateTime dt(
+        0,
+        0,
+        0,
+        sign_ * hour(),
+        sign_ * min_,
+        sign_ * sec_,
+        sign_ * psec_,
+        "UTC");
     return dt;
   }
 
@@ -343,8 +351,7 @@ private:
     if (*dateItr_ == '-') {
       sign = -1;
       ++dateItr_;
-    }
-    else if (*dateItr_ == '+') {
+    } else if (*dateItr_ == '+') {
       ++dateItr_;
     }
 
