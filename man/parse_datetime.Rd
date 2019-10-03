@@ -92,7 +92,8 @@ month and "\\%d" matches a 2 digit day. Month and day default to \code{1},
 locale), "\\%B" (full name in current locale).
 \item Day: "\\%d" (2 digits), "\\%e" (optional leading space),
 "\%a" (abbreviated name in current locale).
-\item Hour: "\\%H" or "\\%I", use I (and not H) with AM/PM.
+\item Hour: "\\%H" or "\\%I" or "\\%h", use I (and not H) with AM/PM,
+use h (and not H) if your times represent durations longer than one day.
 \item Minutes: "\\%M"
 \item Seconds: "\\%S" (integer seconds), "\\%OS" (partial seconds)
 \item Time zone: "\\%Z" (as name, e.g. "America/Chicago"), "\\%z" (as
