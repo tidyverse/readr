@@ -181,9 +181,16 @@ public:
         if (!consumeInteger1WithSpace(2, &day_))
           return false;
         break;
+      case 'h': // hour
+        if (!consumeInteger(10, &hour_, false))
+          return false;
+        break;
       case 'H': // hour
         if (!consumeInteger(2, &hour_, false))
           return false;
+        if (hour_ < 0 || hour_ > 23) {
+          return false;
+        }
         break;
       case 'I': // hour
         if (!consumeInteger(2, &hour_, false))

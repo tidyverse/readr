@@ -92,11 +92,16 @@ public:
   }
 
   bool validTime() const {
+    if (hour_ < 0 || hour_ > 23)
+      return false;
+
+    return validDuration();
+  }
+
+  bool validDuration() const {
     if (sec_ < 0 || sec_ > 60)
       return false;
     if (min_ < 0 || min_ > 59)
-      return false;
-    if (hour_ < 0 || hour_ > 23)
       return false;
 
     return true;
@@ -106,7 +111,7 @@ public:
 
   int date() const { return utcdate(); }
 
-  double time() const { return psec_ + sec_ + (min_ * 60) + (hour_ * 3600); }
+  double time() const { return psec_ + sec_ + (min_ * 60.0) + (hour_ * 3600.0); }
 
 private:
   // Number of number of seconds since 1970-01-01T00:00:00Z.
