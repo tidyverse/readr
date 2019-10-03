@@ -354,8 +354,8 @@ void CollectorTime::setValue(int i, const Token& t) {
     }
 
     DateTime dt = parser_.makeTime();
-    if (!dt.validTime()) {
-      warn(t.row(), t.col(), "valid date", std_string);
+    if (!dt.validDuration()) {
+      warn(t.row(), t.col(), "valid duration", std_string);
       REAL(column_)[i] = NA_REAL;
       return;
     }
