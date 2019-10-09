@@ -12,6 +12,9 @@
 #'   If `NULL`, column types will be imputed using all rows.
 #' @inheritParams tokenizer_delim
 #' @inheritParams read_delim
+#' @note `type_convert()` removes a 'spec' attribute,
+#' because it likely modifies the column data types.
+#' (see [spec()] for more information about column specifications).
 #' @export
 #' @examples
 #' df <- data.frame(
@@ -61,6 +64,8 @@ type_convert <- function(df, col_types = NULL, na = c("", "NA"), trim_ws = TRUE,
     type_convert_col(char_cols[[i]], specs$cols[[i]], which(is_character)[i],
       locale_ = locale, na = na, trim_ws = trim_ws)
   })
+
+  attr(df, "spec") <- NULL
 
   df
 }

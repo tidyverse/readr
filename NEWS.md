@@ -27,6 +27,8 @@
 
 * More helpful error when trying to write out data frames with list columns (@ellessenne, #938)
 
+* `type_convert()` removes a 'spec' attribute, because the current columns likely have modified data types.  The 'spec' attribute is set by functions like `read_delim()` (@jimhester, @wibeasley, #1032).
+
 # readr 1.3.1
 
 * Column specifications are now coloured when printed. This makes it easy to
