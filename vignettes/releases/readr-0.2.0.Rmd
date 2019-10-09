@@ -31,7 +31,7 @@ readr now has a strategy for dealing with settings that vary across languages an
 
 I'll cover the most important of these parameters below. For more details, see `vignette("locales")`.
 
-To override the default US-centric locale, you pass a custom locale to `read_csv()`, `read_tsv()`, or `read_fwf()`. Rather than showing those funtions here, I'll use the `parse_*()` functions because they work with character vectors instead of a files, but are otherwise identical. 
+To override the default US-centric locale, you pass a custom locale to `read_csv()`, `read_tsv()`, or `read_fwf()`. Rather than showing those functions here, I'll use the `parse_*()` functions because they work with character vectors instead of a files, but are otherwise identical. 
 
 ### Names of months and days
 
@@ -61,7 +61,7 @@ parse_datetime("2001-10-10 20:10",
   locale = locale(tz = "Europe/Dublin"))
 ```
 
-List all available times zones with `OlsonNames()`. If you're American, note that "EST" is not Eastern Standard Time -- it's a Canadian time zone that doesn't have DST! Instead of relying on ambiguous abbreivations, use:
+List all available times zones with `OlsonNames()`. If you're American, note that "EST" is not Eastern Standard Time -- it's a Canadian time zone that doesn't have DST! Instead of relying on ambiguous abbreviations, use:
 
 * PST/PDT = "US/Pacific"
 * CST/CDT = "US/Central"
@@ -76,7 +76,7 @@ Locales also provide default date and time formats. The time format isn't curren
 str(parse_guess("2010-10-10"))
 ```
 
-If you're an American, you might want you use your illogical date sytem::
+If you're an American, you might want you use your illogical date system::
 
 ```{r}
 str(parse_guess("01/02/2013"))
@@ -264,7 +264,7 @@ Note that the warning message now also shows you the first five problems. I hope
 
 Despite the name, readr also provides some tools for writing data frames to disk. In this version there are three output functions: 
 
-* `write_csv()` and `write_tsv()` write tab and comma delimted files, and 
+* `write_csv()` and `write_tsv()` write tab and comma delimited files, and 
   `write_delim()` writes with user specified delimiter.
 
 * `write_rds()` and `read_rds()` wrap around `readRDS()` and `saveRDS()`,
