@@ -35,3 +35,18 @@ test_that("col_types accepts cols specifications", {
   # non-character cols silently ignored
   expect_equal(type_convert(df, col_types = cols(x = "c", y = "i")), df_conv)
 })
+test_that("spec attribute is removed", {
+  df1 <-
+    read_csv(
+      readr_example("mtcars.csv"),
+      col_types = cols(.default = col_character())
+    )
+
+  df2 <- type_convert(df1)
+
+  # The spec attribute should exist initially (b/c it's set by `read_csv()`).
+  expect_false(is.null(attr(df1, "spec")))
+
+  # The spec attribute should be cleared by `type_convert()`.
+  expect_null(attr(df2, "spec"))
+})
