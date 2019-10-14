@@ -47,6 +47,7 @@ Imports:
 Suggests:
     covr,
     curl,
+    dplyr,
     knitr,
     rmarkdown,
     spelling,
