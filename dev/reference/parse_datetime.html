@@ -8,53 +8,58 @@
 
 <title>Parse date/times — parse_datetime • readr</title>
 
+<!-- favicons -->
+<link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
+<link rel="icon" type="image/png" sizes="32x32" href="../favicon-32x32.png">
+<link rel="apple-touch-icon" type="image/png" sizes="180x180" href="../apple-touch-icon.png" />
+<link rel="apple-touch-icon" type="image/png" sizes="120x120" href="../apple-touch-icon-120x120.png" />
+<link rel="apple-touch-icon" type="image/png" sizes="76x76" href="../apple-touch-icon-76x76.png" />
+<link rel="apple-touch-icon" type="image/png" sizes="60x60" href="../apple-touch-icon-60x60.png" />
+
 <!-- jquery -->
-<script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha384-nrOSfDHtoPMzJHjVTdCopGqIqeYETSXhZDFyniQ8ZHcVy08QesyHcnOUpMpqnmWq" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
 
 <!-- Bootstrap -->
 <link href="../tidyverse.css" rel="stylesheet">
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
 
 <!-- Font Awesome icons -->
-<link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-T8Gy5hrqNKT+hzMclPo118YTQO6cYprQmhrYwIiQ/3axmI1hQomh7Ud2hPOy8SP1" crossorigin="anonymous">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.7.1/css/all.min.css" integrity="sha256-nAmazAk6vS34Xqo0BSrTb+abbtFlgsFK7NKSi6o7Y78=" crossorigin="anonymous" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.7.1/css/v4-shims.min.css" integrity="sha256-6qHlizsOWFskGlwVOKuns+D1nB6ssZrHQrNj1wGplHc=" crossorigin="anonymous" />
 
 <!-- clipboard.js -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/1.7.1/clipboard.min.js" integrity="sha384-cV+rhyOuRHc9Ub/91rihWcGmMmCXDeksTtCihMupQHSsi8GIIRDG0ThDc3HGQFJ3" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.4/clipboard.min.js" integrity="sha256-FiZwavyI2V6+EXO1U+xzLG3IKldpiTFf3153ea9zikQ=" crossorigin="anonymous"></script>
 
-<!-- sticky kit -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/sticky-kit/1.1.3/sticky-kit.min.js" integrity="sha256-c4Rlo1ZozqTPE2RLuvbusY3+SU1pQaJC0TjuhygMipw=" crossorigin="anonymous"></script>
+<!-- headroom.js -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.9.4/headroom.min.js" integrity="sha256-DJFC1kqIhelURkuza0AvYal5RxMtpzLjFhsnVIeuk+U=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.9.4/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script>
 
 <!-- pkgdown -->
 <link href="../pkgdown.css" rel="stylesheet">
 <script src="../pkgdown.js"></script>
 <link href="../tidyverse-2.css" rel="stylesheet">
 
+
+
 <meta property="og:title" content="Parse date/times — parse_datetime" />
-
 <meta property="og:description" content="Parse date/times" />
-
 <meta property="og:image" content="https://readr.tidyverse.org/logo.png" />
 <meta name="twitter:card" content="summary" />
+
 
 <meta name="robots" content="noindex">
 
 <!-- mathjax -->
-<script src='https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML'></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js" integrity="sha256-nvJJv9wWKEm88qvoQl9ekL2J+k/RWIsaSScxxlsrv8k=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/config/TeX-AMS-MML_HTMLorMML.js" integrity="sha256-84DKXVJXs0/F8OTMzX4UR909+jtl4G7SPypPavF+GfA=" crossorigin="anonymous"></script>
 
 <!--[if lt IE 9]>
 <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
 <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
 <![endif]-->
 
-<!-- google analytics -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=UA-115082821-1"></script>
-<script>
- window.dataLayer = window.dataLayer || [];
- function gtag(){dataLayer.push(arguments);}
- gtag('js', new Date());
 
- gtag('config', 'UA-115082821-1');
-</script>
+
   </head>
 
   <body>
@@ -101,6 +106,9 @@
   <ul class="dropdown-menu" role="menu">
     <li class="dropdown-header">Release notes</li>
     <li>
+      <a href="../articles/2018/12/readr-1-3-1/">Version 1.3.1</a>
+    </li>
+    <li>
       <a href="../articles/releases/readr-1.0.0.html">Version 1.0.0</a>
     </li>
     <li>
@@ -117,7 +125,7 @@
 </li>
         <li>
   <a href="https://github.com/tidyverse/readr">
-    <span class="fa fa-github fa-lg"></span>
+    <span class="fab fa fab fa-github fa-lg"></span>
      
   </a>
 </li>
@@ -128,6 +136,7 @@
 </div><!--/.navbar -->
 
       
+
       </header>
 
 <div class="row">
@@ -139,18 +148,16 @@
     </div>
 
     <div class="ref-description">
-    
     <p>Parse date/times</p>
-    
     </div>
 
-    <pre class="usage"><span class='fu'>parse_datetime</span>(<span class='no'>x</span>, <span class='kw'>format</span> <span class='kw'>=</span> <span class='st'>""</span>, <span class='kw'>na</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='st'>""</span>, <span class='st'>"NA"</span>),
+    <pre class="usage"><span class='fu'>parse_datetime</span>(<span class='no'>x</span>, <span class='kw'>format</span> <span class='kw'>=</span> <span class='st'>""</span>, <span class='kw'>na</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>""</span>, <span class='st'>"NA"</span>),
   <span class='kw'>locale</span> <span class='kw'>=</span> <span class='fu'><a href='locale.html'>default_locale</a></span>(), <span class='kw'>trim_ws</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)
 
-<span class='fu'>parse_date</span>(<span class='no'>x</span>, <span class='kw'>format</span> <span class='kw'>=</span> <span class='st'>""</span>, <span class='kw'>na</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='st'>""</span>, <span class='st'>"NA"</span>),
+<span class='fu'>parse_date</span>(<span class='no'>x</span>, <span class='kw'>format</span> <span class='kw'>=</span> <span class='st'>""</span>, <span class='kw'>na</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>""</span>, <span class='st'>"NA"</span>),
   <span class='kw'>locale</span> <span class='kw'>=</span> <span class='fu'><a href='locale.html'>default_locale</a></span>(), <span class='kw'>trim_ws</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)
 
-<span class='fu'>parse_time</span>(<span class='no'>x</span>, <span class='kw'>format</span> <span class='kw'>=</span> <span class='st'>""</span>, <span class='kw'>na</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='st'>""</span>, <span class='st'>"NA"</span>),
+<span class='fu'>parse_time</span>(<span class='no'>x</span>, <span class='kw'>format</span> <span class='kw'>=</span> <span class='st'>""</span>, <span class='kw'>na</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>""</span>, <span class='st'>"NA"</span>),
   <span class='kw'>locale</span> <span class='kw'>=</span> <span class='fu'><a href='locale.html'>default_locale</a></span>(), <span class='kw'>trim_ws</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)
 
 <span class='fu'>col_datetime</span>(<span class='kw'>format</span> <span class='kw'>=</span> <span class='st'>""</span>)
@@ -158,7 +165,7 @@
 <span class='fu'>col_date</span>(<span class='kw'>format</span> <span class='kw'>=</span> <span class='st'>""</span>)
 
 <span class='fu'>col_time</span>(<span class='kw'>format</span> <span class='kw'>=</span> <span class='st'>""</span>)</pre>
-    
+
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
@@ -171,13 +178,13 @@
       <td><p>A format specification, as described below. If set to "",
 date times are parsed as ISO8601, dates and times used the date and
 time formats specified in the <code><a href='locale.html'>locale()</a></code>.</p>
-<p>Unlike <code><a href='https://www.rdocumentation.org/packages/base/topics/strptime'>strptime()</a></code>, the format specification must match
+<p>Unlike <code><a href='https://rdrr.io/r/base/strptime.html'>strptime()</a></code>, the format specification must match
 the complete string.</p></td>
     </tr>
     <tr>
       <th>na</th>
       <td><p>Character vector of strings to interpret as missing values. Set this
-option to <code><a href='https://www.rdocumentation.org/packages/base/topics/character'>character()</a></code> to indicate no missing values.</p></td>
+option to <code><a href='https://rdrr.io/r/base/character.html'>character()</a></code> to indicate no missing values.</p></td>
     </tr>
     <tr>
       <th>locale</th>
@@ -193,18 +200,18 @@ names.</p></td>
 each field before parsing it?</p></td>
     </tr>
     </table>
-    
+
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>A <code><a href='https://www.rdocumentation.org/packages/base/topics/DateTimeClasses'>POSIXct()</a></code> vector with <code>tzone</code> attribute set to
+    <p>A <code><a href='https://rdrr.io/r/base/DateTimeClasses.html'>POSIXct()</a></code> vector with <code>tzone</code> attribute set to
 <code>tz</code>. Elements that could not be parsed (or did not generate valid
 dates) will be set to <code>NA</code>, and a warning message will inform
 you of the total number of failures.</p>
-    
     <h2 class="hasAnchor" id="format-specification"><a class="anchor" href="#format-specification"></a>Format specification</h2>
 
     
-    <p><code>readr</code> uses a format specification similar to <code><a href='https://www.rdocumentation.org/packages/base/topics/strptime'>strptime()</a></code>.
+
+<p><code>readr</code> uses a format specification similar to <code><a href='https://rdrr.io/r/base/strptime.html'>strptime()</a></code>.
 There are three types of element:</p>
 <ol>
 <li><p>Date components are specified with "%" followed by a letter.
@@ -214,7 +221,8 @@ month and "%d" matches a 2 digit day. Month and day default to <code>1</code>,
 <li><p>Whitespace is any sequence of zero or more whitespace characters.</p></li>
 <li><p>Any other character is matched exactly.</p></li>
 </ol>
-    <p><code>parse_datetime()</code> recognises the following format specifications:</p><ul>
+
+<p><code>parse_datetime()</code> recognises the following format specifications:</p><ul>
 <li><p>Year: "%Y" (4 digits). "%y" (2 digits); 00-69 -&gt; 2000-2069,
 70-99 -&gt; 1970-1999.</p></li>
 <li><p>Month: "%m" (2 digits), "%b" (abbreviated name in current
@@ -235,22 +243,25 @@ offset from UTC, e.g. "+0800")</p></li>
 <li><p>Shortcuts: "%D" = "%m/%d/%y",  "%F" = "%Y-%m-%d",
 "%R" = "%H:%M", "%T" = "%H:%M:%S",  "%x" = "%y/%m/%d".</p></li>
 </ul>
-    
+
     <h2 class="hasAnchor" id="iso-support"><a class="anchor" href="#iso-support"></a>ISO8601 support</h2>
 
     
-    <p>Currently, readr does not support all of ISO8601. Missing features:</p>
+
+
+<p>Currently, readr does not support all of ISO8601. Missing features:</p>
 <ul>
 <li><p>Week &amp; weekday specifications, e.g. "2013-W05", "2013-W05-10"</p></li>
 <li><p>Ordinal dates, e.g. "2013-095".</p></li>
 <li><p>Using commas instead of a period for decimal separator</p></li>
 </ul>
-    <p>The parser is also a little laxer than ISO8601:</p>
+
+<p>The parser is also a little laxer than ISO8601:</p>
 <ul>
 <li><p>Dates and times can be separated with a space, not just T.</p></li>
 <li><p>Mostly correct specifications like "2009-05-19 14:" and  "200912-01" work.</p></li>
 </ul>
-    
+
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
     <div class='dont-index'><p>Other parsers: <code><a href='col_skip.html'>col_skip</a></code>,
@@ -258,7 +269,6 @@ offset from UTC, e.g. "+0800")</p></li>
   <code><a href='parse_factor.html'>parse_factor</a></code>, <code><a href='parse_guess.html'>parse_guess</a></code>,
   <code><a href='parse_atomic.html'>parse_logical</a></code>, <code><a href='parse_number.html'>parse_number</a></code>,
   <code><a href='parse_vector.html'>parse_vector</a></code></p></div>
-    
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='co'># Format strings --------------------------------------------------------</span>
@@ -279,11 +289,11 @@ offset from UTC, e.g. "+0800")</p></li>
 <span class='co'># Unlike strptime, the format specification must match the complete</span>
 <span class='co'># string (ignoring leading and trailing whitespace). This avoids common</span>
 <span class='co'># errors:</span>
-<span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/strptime'>strptime</a></span>(<span class='st'>"01/02/2010"</span>, <span class='st'>"%d/%m/%y"</span>)</div><div class='output co'>#&gt; [1] "2020-02-01 UTC"</div><div class='input'><span class='fu'>parse_datetime</span>(<span class='st'>"01/02/2010"</span>, <span class='st'>"%d/%m/%y"</span>)</div><div class='output co'>#&gt; <span class='warning'>Warning: 1 parsing failure.</span>
+<span class='fu'><a href='https://rdrr.io/r/base/strptime.html'>strptime</a></span>(<span class='st'>"01/02/2010"</span>, <span class='st'>"%d/%m/%y"</span>)</div><div class='output co'>#&gt; [1] "2020-02-01 UTC"</div><div class='input'><span class='fu'>parse_datetime</span>(<span class='st'>"01/02/2010"</span>, <span class='st'>"%d/%m/%y"</span>)</div><div class='output co'>#&gt; <span class='warning'>Warning: 1 parsing failure.</span>
 #&gt; <span class='warning'>row col           expected     actual</span>
 #&gt; <span class='warning'>  1  -- date like %d/%m/%y 01/02/2010</span></div><div class='output co'>#&gt; [1] NA</div><div class='input'>
 <span class='co'># Failures -------------------------------------------------------------</span>
-<span class='fu'>parse_datetime</span>(<span class='st'>"01/01/2010"</span>, <span class='st'>"%d/%m/%Y"</span>)</div><div class='output co'>#&gt; [1] "2010-01-01 UTC"</div><div class='input'><span class='fu'>parse_datetime</span>(<span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='st'>"01/ab/2010"</span>, <span class='st'>"32/01/2010"</span>), <span class='st'>"%d/%m/%Y"</span>)</div><div class='output co'>#&gt; <span class='warning'>Warning: 2 parsing failures.</span>
+<span class='fu'>parse_datetime</span>(<span class='st'>"01/01/2010"</span>, <span class='st'>"%d/%m/%Y"</span>)</div><div class='output co'>#&gt; [1] "2010-01-01 UTC"</div><div class='input'><span class='fu'>parse_datetime</span>(<span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"01/ab/2010"</span>, <span class='st'>"32/01/2010"</span>), <span class='st'>"%d/%m/%Y"</span>)</div><div class='output co'>#&gt; <span class='warning'>Warning: 2 parsing failures.</span>
 #&gt; <span class='warning'>row col           expected     actual</span>
 #&gt; <span class='warning'>  1  -- date like %d/%m/%Y 01/ab/2010</span>
 #&gt; <span class='warning'>  2  -- valid date         32/01/2010</span></div><div class='output co'>#&gt; [1] NA NA</div><div class='input'>
@@ -304,20 +314,16 @@ offset from UTC, e.g. "+0800")</p></li>
     <h2>Contents</h2>
     <ul class="nav nav-pills nav-stacked">
       <li><a href="#arguments">Arguments</a></li>
-      
       <li><a href="#value">Value</a></li>
-
       <li><a href="#format-specification">Format specification</a></li>
-
       <li><a href="#iso-support">ISO8601 support</a></li>
-
       <li><a href="#see-also">See also</a></li>
-      
       <li><a href="#examples">Examples</a></li>
     </ul>
 
   </div>
 </div>
+
 
       <footer>
       <div class="tidyverse">
@@ -326,15 +332,18 @@ offset from UTC, e.g. "+0800")</p></li>
 
 <div class="author">
   <p>
-    Developed by <a href='http://hadley.nz'>Hadley Wickham</a>, <a href='http://jimhester.com'>Jim Hester</a>, Romain Francois, <a href='https://www.rstudio.com'><img src='https://www.tidyverse.org/rstudio-logo.svg' alt='RStudio' height='24' /></a>.
+    Developed by <a href='http://hadley.nz'>Hadley Wickham</a>, <a href='http://jimhester.com'>Jim Hester</a>, <a href='https://www.rstudio.com'><img src='https://www.tidyverse.org/rstudio-logo.svg' alt='RStudio' height='24' /></a>.
     Site built by <a href="https://pkgdown.r-lib.org">pkgdown</a>.
   </p>
 </div>
+
       </footer>
    </div>
 
   
 
+
   </body>
 </html>
+
 

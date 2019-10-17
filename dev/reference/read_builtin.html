@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Parse a character vector. — parse_vector • readr</title>
+<title>Read built-in object from package — read_builtin • readr</title>
 
 <!-- favicons -->
 <link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
@@ -41,8 +41,9 @@
 
 
 
-<meta property="og:title" content="Parse a character vector. — parse_vector" />
-<meta property="og:description" content="Parse a character vector." />
+<meta property="og:title" content="Read built-in object from package — read_builtin" />
+<meta property="og:description" content="Consistent wrapper around data() that forces the promise. This is also a
+stronger parallel to loading data from a file." />
 <meta property="og:image" content="https://readr.tidyverse.org/logo.png" />
 <meta name="twitter:card" content="summary" />
 
@@ -142,66 +143,63 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Parse a character vector.</h1>
-    <small class="dont-index">Source: <a href='https://github.com/tidyverse/readr/blob/master/R/collectors.R'><code>R/collectors.R</code></a></small>
-    <div class="hidden name"><code>parse_vector.Rd</code></div>
+    <h1>Read built-in object from package</h1>
+    <small class="dont-index">Source: <a href='https://github.com/tidyverse/readr/blob/master/R/read_builtin.R'><code>R/read_builtin.R</code></a></small>
+    <div class="hidden name"><code>read_builtin.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>Parse a character vector.</p>
+    <p>Consistent wrapper around <code><a href='https://rdrr.io/r/utils/data.html'>data()</a></code> that forces the promise. This is also a
+stronger parallel to loading data from a file.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>parse_vector</span>(<span class='no'>x</span>, <span class='no'>collector</span>, <span class='kw'>na</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>""</span>, <span class='st'>"NA"</span>), <span class='kw'>locale</span> <span class='kw'>=</span> <span class='fu'><a href='locale.html'>default_locale</a></span>(),
-  <span class='kw'>trim_ws</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</pre>
+    <pre class="usage"><span class='fu'>read_builtin</span>(<span class='no'>x</span>, <span class='kw'>package</span> <span class='kw'>=</span> <span class='kw'>NULL</span>)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>x</th>
-      <td><p>Character vector of elements to parse.</p></td>
+      <td><p>Name (character string) of data set to read.</p></td>
     </tr>
     <tr>
-      <th>collector</th>
-      <td><p>Column specification.</p></td>
-    </tr>
-    <tr>
-      <th>na</th>
-      <td><p>Character vector of strings to interpret as missing values. Set this
-option to <code><a href='https://rdrr.io/r/base/character.html'>character()</a></code> to indicate no missing values.</p></td>
-    </tr>
-    <tr>
-      <th>locale</th>
-      <td><p>The locale controls defaults that vary from place to place.
-The default locale is US-centric (like R), but you can use
-<code><a href='locale.html'>locale()</a></code> to create your own locale that controls things like
-the default time zone, encoding, decimal mark, big mark, and day/month
-names.</p></td>
-    </tr>
-    <tr>
-      <th>trim_ws</th>
-      <td><p>Should leading and trailing whitespace be trimmed from
-each field before parsing it?</p></td>
+      <th>package</th>
+      <td><p>Name of package from which to find data set. By default, all
+attached packages are searched and then the 'data' subdirectory (if present)
+of the current working directory.</p></td>
     </tr>
     </table>
 
-    <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
+    <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <div class='dont-index'><p>Other parsers: <code><a href='col_skip.html'>col_skip</a></code>,
-  <code><a href='spec.html'>cols_condense</a></code>, <code><a href='cols.html'>cols</a></code>,
-  <code><a href='parse_datetime.html'>parse_datetime</a></code>, <code><a href='parse_factor.html'>parse_factor</a></code>,
-  <code><a href='parse_guess.html'>parse_guess</a></code>, <code><a href='parse_atomic.html'>parse_logical</a></code>,
-  <code><a href='parse_number.html'>parse_number</a></code></p></div>
+    <p>An object of the built-in class of <code>x</code>.</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='no'>x</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"1"</span>, <span class='st'>"2"</span>, <span class='st'>"3"</span>, <span class='st'>"NA"</span>)
-<span class='fu'>parse_vector</span>(<span class='no'>x</span>, <span class='fu'><a href='parse_atomic.html'>col_integer</a></span>())</div><div class='output co'>#&gt; [1]  1  2  3 NA</div><div class='input'><span class='fu'>parse_vector</span>(<span class='no'>x</span>, <span class='fu'><a href='parse_atomic.html'>col_double</a></span>())</div><div class='output co'>#&gt; [1]  1  2  3 NA</div></pre>
+    <pre class="examples"><div class='input'><span class='kw'>if</span> (<span class='fu'><a href='https://rdrr.io/r/base/ns-load.html'>requireNamespace</a></span>(<span class='st'>"dplyr"</span>)) {
+  <span class='fu'>read_builtin</span>(<span class='st'>"starwars"</span>, <span class='st'>"dplyr"</span>)
+
+  <span class='fu'>read_builtin</span>(<span class='st'>"storms"</span>, <span class='st'>"dplyr"</span>)
+}</div><div class='output co'>#&gt; <span class='message'>Loading required namespace: dplyr</span></div><div class='output co'>#&gt; # A tibble: 10,010 x 13
+#&gt;    name   year month   day  hour   lat  long status category  wind pressure
+#&gt;    &lt;chr&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;int&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;chr&gt;  &lt;ord&gt;    &lt;int&gt;    &lt;int&gt;
+#&gt;  1 Amy    1975     6    27     0  27.5 -79   tropi… -1          25     1013
+#&gt;  2 Amy    1975     6    27     6  28.5 -79   tropi… -1          25     1013
+#&gt;  3 Amy    1975     6    27    12  29.5 -79   tropi… -1          25     1013
+#&gt;  4 Amy    1975     6    27    18  30.5 -79   tropi… -1          25     1013
+#&gt;  5 Amy    1975     6    28     0  31.5 -78.8 tropi… -1          25     1012
+#&gt;  6 Amy    1975     6    28     6  32.4 -78.7 tropi… -1          25     1012
+#&gt;  7 Amy    1975     6    28    12  33.3 -78   tropi… -1          25     1011
+#&gt;  8 Amy    1975     6    28    18  34   -77   tropi… -1          30     1006
+#&gt;  9 Amy    1975     6    29     0  34.4 -75.8 tropi… 0           35     1004
+#&gt; 10 Amy    1975     6    29     6  34   -74.8 tropi… 0           40     1002
+#&gt; # … with 10,000 more rows, and 2 more variables: ts_diameter &lt;dbl&gt;,
+#&gt; #   hu_diameter &lt;dbl&gt;</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
     <ul class="nav nav-pills nav-stacked">
       <li><a href="#arguments">Arguments</a></li>
-      <li><a href="#see-also">See also</a></li>
+      <li><a href="#value">Value</a></li>
       <li><a href="#examples">Examples</a></li>
     </ul>
 

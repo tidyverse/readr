@@ -6,25 +6,26 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Introduction to readr • readr</title>
-<!-- jquery --><script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha384-nrOSfDHtoPMzJHjVTdCopGqIqeYETSXhZDFyniQ8ZHcVy08QesyHcnOUpMpqnmWq" crossorigin="anonymous"></script><!-- Bootstrap --><link href="../tidyverse.css" rel="stylesheet">
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script><!-- Font Awesome icons --><link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-T8Gy5hrqNKT+hzMclPo118YTQO6cYprQmhrYwIiQ/3axmI1hQomh7Ud2hPOy8SP1" crossorigin="anonymous">
-<!-- clipboard.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/1.7.1/clipboard.min.js" integrity="sha384-cV+rhyOuRHc9Ub/91rihWcGmMmCXDeksTtCihMupQHSsi8GIIRDG0ThDc3HGQFJ3" crossorigin="anonymous"></script><!-- sticky kit --><script src="https://cdnjs.cloudflare.com/ajax/libs/sticky-kit/1.1.3/sticky-kit.min.js" integrity="sha256-c4Rlo1ZozqTPE2RLuvbusY3+SU1pQaJC0TjuhygMipw=" crossorigin="anonymous"></script><!-- pkgdown --><link href="../pkgdown.css" rel="stylesheet">
+<!-- favicons --><link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
+<link rel="icon" type="image/png" sizes="32x32" href="../favicon-32x32.png">
+<link rel="apple-touch-icon" type="image/png" sizes="180x180" href="../apple-touch-icon.png">
+<link rel="apple-touch-icon" type="image/png" sizes="120x120" href="../apple-touch-icon-120x120.png">
+<link rel="apple-touch-icon" type="image/png" sizes="76x76" href="../apple-touch-icon-76x76.png">
+<link rel="apple-touch-icon" type="image/png" sizes="60x60" href="../apple-touch-icon-60x60.png">
+<!-- jquery --><script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script><!-- Bootstrap --><link href="../tidyverse.css" rel="stylesheet">
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script><!-- Font Awesome icons --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.7.1/css/all.min.css" integrity="sha256-nAmazAk6vS34Xqo0BSrTb+abbtFlgsFK7NKSi6o7Y78=" crossorigin="anonymous">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.7.1/css/v4-shims.min.css" integrity="sha256-6qHlizsOWFskGlwVOKuns+D1nB6ssZrHQrNj1wGplHc=" crossorigin="anonymous">
+<!-- clipboard.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.4/clipboard.min.js" integrity="sha256-FiZwavyI2V6+EXO1U+xzLG3IKldpiTFf3153ea9zikQ=" crossorigin="anonymous"></script><!-- headroom.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.9.4/headroom.min.js" integrity="sha256-DJFC1kqIhelURkuza0AvYal5RxMtpzLjFhsnVIeuk+U=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.9.4/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script><!-- pkgdown --><link href="../pkgdown.css" rel="stylesheet">
 <script src="../pkgdown.js"></script><link href="../tidyverse-2.css" rel="stylesheet">
 <meta property="og:title" content="Introduction to readr">
 <meta property="og:description" content="">
 <meta property="og:image" content="https://readr.tidyverse.org/logo.png">
 <meta name="twitter:card" content="summary">
 <meta name="robots" content="noindex">
-<!-- mathjax --><script src="https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script><!--[if lt IE 9]>
+<!-- mathjax --><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js" integrity="sha256-nvJJv9wWKEm88qvoQl9ekL2J+k/RWIsaSScxxlsrv8k=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/config/TeX-AMS-MML_HTMLorMML.js" integrity="sha256-84DKXVJXs0/F8OTMzX4UR909+jtl4G7SPypPavF+GfA=" crossorigin="anonymous"></script><!--[if lt IE 9]>
 <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
 <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
-<![endif]--><!-- google analytics --><script async src="https://www.googletagmanager.com/gtag/js?id=UA-115082821-1"></script><script>
- window.dataLayer = window.dataLayer || [];
- function gtag(){dataLayer.push(arguments);}
- gtag('js', new Date());
-
- gtag('config', 'UA-115082821-1');
-</script>
+<![endif]-->
 </head>
 <body>
     <div class="container template-article">
@@ -69,6 +70,9 @@
   <ul class="dropdown-menu" role="menu">
 <li class="dropdown-header">Release notes</li>
     <li>
+      <a href="../articles/2018/12/readr-1-3-1/">Version 1.3.1</a>
+    </li>
+    <li>
       <a href="../articles/releases/readr-1.0.0.html">Version 1.0.0</a>
     </li>
     <li>
@@ -85,7 +89,7 @@
 </li>
         <li>
   <a href="https://github.com/tidyverse/readr">
-    <span class="fa fa-github fa-lg"></span>
+    <span class="fab fa fab fa-github fa-lg"></span>
      
   </a>
 </li>
@@ -98,6 +102,7 @@
 <!--/.navbar -->
 
       
+
       </header><div class="row">
   <div class="col-md-9 contents">
     <div class="page-header toc-ignore">
@@ -132,11 +137,11 @@
 <h3 class="hasAnchor">
 <a href="#atomic-vectors" class="anchor"></a>Atomic vectors</h3>
 <p><code><a href="../reference/parse_atomic.html">parse_logical()</a></code>, <code><a href="../reference/parse_atomic.html">parse_integer()</a></code>, <code><a href="../reference/parse_atomic.html">parse_double()</a></code>, and <code><a href="../reference/parse_atomic.html">parse_character()</a></code> are straightforward parsers that produce the corresponding atomic vector.</p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1-1" data-line-number="1"><span class="kw"><a href="../reference/parse_atomic.html">parse_integer</a></span>(<span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/c">c</a></span>(<span class="st">"1"</span>, <span class="st">"2"</span>, <span class="st">"3"</span>))</a>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1-1" data-line-number="1"><span class="kw"><a href="../reference/parse_atomic.html">parse_integer</a></span>(<span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">"1"</span>, <span class="st">"2"</span>, <span class="st">"3"</span>))</a>
 <a class="sourceLine" id="cb1-2" data-line-number="2"><span class="co">#&gt; [1] 1 2 3</span></a>
-<a class="sourceLine" id="cb1-3" data-line-number="3"><span class="kw"><a href="../reference/parse_atomic.html">parse_double</a></span>(<span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/c">c</a></span>(<span class="st">"1.56"</span>, <span class="st">"2.34"</span>, <span class="st">"3.56"</span>))</a>
+<a class="sourceLine" id="cb1-3" data-line-number="3"><span class="kw"><a href="../reference/parse_atomic.html">parse_double</a></span>(<span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">"1.56"</span>, <span class="st">"2.34"</span>, <span class="st">"3.56"</span>))</a>
 <a class="sourceLine" id="cb1-4" data-line-number="4"><span class="co">#&gt; [1] 1.56 2.34 3.56</span></a>
-<a class="sourceLine" id="cb1-5" data-line-number="5"><span class="kw"><a href="../reference/parse_atomic.html">parse_logical</a></span>(<span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/c">c</a></span>(<span class="st">"true"</span>, <span class="st">"false"</span>))</a>
+<a class="sourceLine" id="cb1-5" data-line-number="5"><span class="kw"><a href="../reference/parse_atomic.html">parse_logical</a></span>(<span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">"true"</span>, <span class="st">"false"</span>))</a>
 <a class="sourceLine" id="cb1-6" data-line-number="6"><span class="co">#&gt; [1]  TRUE FALSE</span></a></code></pre></div>
 <p>By default, readr expects <code>.</code> as the decimal mark and <code>,</code> as the grouping mark. You can override this default using <code><a href="../reference/locale.html">locale()</a></code>, as described in <code><a href="../articles/locales.html">vignette("locales")</a></code>.</p>
 </div>
@@ -144,9 +149,9 @@
 <h3 class="hasAnchor">
 <a href="#flexible-numeric-parser" class="anchor"></a>Flexible numeric parser</h3>
 <p><code><a href="../reference/parse_atomic.html">parse_integer()</a></code> and <code><a href="../reference/parse_atomic.html">parse_double()</a></code> are strict: the input string must be a single number with no leading or trailing characters. <code><a href="../reference/parse_number.html">parse_number()</a></code> is more flexible: it ignores non-numeric prefixes and suffixes, and knows how to deal with grouping marks. This makes it suitable for reading currencies and percentages:</p>
-<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb2-1" data-line-number="1"><span class="kw"><a href="../reference/parse_number.html">parse_number</a></span>(<span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/c">c</a></span>(<span class="st">"0%"</span>, <span class="st">"10%"</span>, <span class="st">"150%"</span>))</a>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb2-1" data-line-number="1"><span class="kw"><a href="../reference/parse_number.html">parse_number</a></span>(<span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">"0%"</span>, <span class="st">"10%"</span>, <span class="st">"150%"</span>))</a>
 <a class="sourceLine" id="cb2-2" data-line-number="2"><span class="co">#&gt; [1]   0  10 150</span></a>
-<a class="sourceLine" id="cb2-3" data-line-number="3"><span class="kw"><a href="../reference/parse_number.html">parse_number</a></span>(<span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/c">c</a></span>(<span class="st">"$1,234.5"</span>, <span class="st">"$12.45"</span>))</a>
+<a class="sourceLine" id="cb2-3" data-line-number="3"><span class="kw"><a href="../reference/parse_number.html">parse_number</a></span>(<span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">"$1,234.5"</span>, <span class="st">"$12.45"</span>))</a>
 <a class="sourceLine" id="cb2-4" data-line-number="4"><span class="co">#&gt; [1] 1234.50   12.45</span></a></code></pre></div>
 </div>
 <div id="datetimes" class="section level3">
@@ -180,10 +185,10 @@
 <h3 class="hasAnchor">
 <a href="#factors" class="anchor"></a>Factors</h3>
 <p>When reading a column that has a known set of values, you can read directly into a factor. <code><a href="../reference/parse_factor.html">parse_factor()</a></code> will generate generate a warning if a value is not in the supplied levels.</p>
-<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb5-1" data-line-number="1"><span class="kw"><a href="../reference/parse_factor.html">parse_factor</a></span>(<span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/c">c</a></span>(<span class="st">"a"</span>, <span class="st">"b"</span>, <span class="st">"a"</span>), <span class="dt">levels =</span> <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/c">c</a></span>(<span class="st">"a"</span>, <span class="st">"b"</span>, <span class="st">"c"</span>))</a>
+<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb5-1" data-line-number="1"><span class="kw"><a href="../reference/parse_factor.html">parse_factor</a></span>(<span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">"a"</span>, <span class="st">"b"</span>, <span class="st">"a"</span>), <span class="dt">levels =</span> <span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">"a"</span>, <span class="st">"b"</span>, <span class="st">"c"</span>))</a>
 <a class="sourceLine" id="cb5-2" data-line-number="2"><span class="co">#&gt; [1] a b a</span></a>
 <a class="sourceLine" id="cb5-3" data-line-number="3"><span class="co">#&gt; Levels: a b c</span></a>
-<a class="sourceLine" id="cb5-4" data-line-number="4"><span class="kw"><a href="../reference/parse_factor.html">parse_factor</a></span>(<span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/c">c</a></span>(<span class="st">"a"</span>, <span class="st">"b"</span>, <span class="st">"d"</span>), <span class="dt">levels =</span> <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/c">c</a></span>(<span class="st">"a"</span>, <span class="st">"b"</span>, <span class="st">"c"</span>))</a>
+<a class="sourceLine" id="cb5-4" data-line-number="4"><span class="kw"><a href="../reference/parse_factor.html">parse_factor</a></span>(<span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">"a"</span>, <span class="st">"b"</span>, <span class="st">"d"</span>), <span class="dt">levels =</span> <span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">"a"</span>, <span class="st">"b"</span>, <span class="st">"c"</span>))</a>
 <a class="sourceLine" id="cb5-5" data-line-number="5"><span class="co">#&gt; Warning: 1 parsing failure.</span></a>
 <a class="sourceLine" id="cb5-6" data-line-number="6"><span class="co">#&gt; row col           expected actual</span></a>
 <a class="sourceLine" id="cb5-7" data-line-number="7"><span class="co">#&gt;   3  -- value in level set      d</span></a>
@@ -200,13 +205,13 @@
 <h2 class="hasAnchor">
 <a href="#column-specification" class="anchor"></a>Column specification</h2>
 <p>It would be tedious if you had to specify the type of every column when reading a file. Instead readr, uses some heuristics to guess the type of each column. You can access these results yourself using <code><a href="../reference/parse_guess.html">guess_parser()</a></code>:</p>
-<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb6-1" data-line-number="1"><span class="kw"><a href="../reference/parse_guess.html">guess_parser</a></span>(<span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/c">c</a></span>(<span class="st">"a"</span>, <span class="st">"b"</span>, <span class="st">"c"</span>))</a>
+<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb6-1" data-line-number="1"><span class="kw"><a href="../reference/parse_guess.html">guess_parser</a></span>(<span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">"a"</span>, <span class="st">"b"</span>, <span class="st">"c"</span>))</a>
 <a class="sourceLine" id="cb6-2" data-line-number="2"><span class="co">#&gt; [1] "character"</span></a>
-<a class="sourceLine" id="cb6-3" data-line-number="3"><span class="kw"><a href="../reference/parse_guess.html">guess_parser</a></span>(<span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/c">c</a></span>(<span class="st">"1"</span>, <span class="st">"2"</span>, <span class="st">"3"</span>))</a>
+<a class="sourceLine" id="cb6-3" data-line-number="3"><span class="kw"><a href="../reference/parse_guess.html">guess_parser</a></span>(<span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">"1"</span>, <span class="st">"2"</span>, <span class="st">"3"</span>))</a>
 <a class="sourceLine" id="cb6-4" data-line-number="4"><span class="co">#&gt; [1] "double"</span></a>
-<a class="sourceLine" id="cb6-5" data-line-number="5"><span class="kw"><a href="../reference/parse_guess.html">guess_parser</a></span>(<span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/c">c</a></span>(<span class="st">"1,000"</span>, <span class="st">"2,000"</span>, <span class="st">"3,000"</span>))</a>
+<a class="sourceLine" id="cb6-5" data-line-number="5"><span class="kw"><a href="../reference/parse_guess.html">guess_parser</a></span>(<span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">"1,000"</span>, <span class="st">"2,000"</span>, <span class="st">"3,000"</span>))</a>
 <a class="sourceLine" id="cb6-6" data-line-number="6"><span class="co">#&gt; [1] "number"</span></a>
-<a class="sourceLine" id="cb6-7" data-line-number="7"><span class="kw"><a href="../reference/parse_guess.html">guess_parser</a></span>(<span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/c">c</a></span>(<span class="st">"2001/10/10"</span>))</a>
+<a class="sourceLine" id="cb6-7" data-line-number="7"><span class="kw"><a href="../reference/parse_guess.html">guess_parser</a></span>(<span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">"2001/10/10"</span>))</a>
 <a class="sourceLine" id="cb6-8" data-line-number="8"><span class="co">#&gt; [1] "date"</span></a></code></pre></div>
 <p>The guessing policies are described in the documentation for the individual functions. Guesses are fairly strict. For example, we don’t guess that currencies are numbers, even though we can parse them:</p>
 <div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb7-1" data-line-number="1"><span class="kw"><a href="../reference/parse_guess.html">guess_parser</a></span>(<span class="st">"$1,234"</span>)</a>
@@ -310,7 +315,7 @@
 <a class="sourceLine" id="cb12-12" data-line-number="12"><span class="co">#&gt;  8  1008 y     1/0/T/F/TRUE/F… 2020-07… '/home/travis/R/Library/readr/extd…</span></a>
 <a class="sourceLine" id="cb12-13" data-line-number="13"><span class="co">#&gt;  9  1009 y     1/0/T/F/TRUE/F… 2011-04… '/home/travis/R/Library/readr/extd…</span></a>
 <a class="sourceLine" id="cb12-14" data-line-number="14"><span class="co">#&gt; 10  1010 y     1/0/T/F/TRUE/F… 2010-05… '/home/travis/R/Library/readr/extd…</span></a>
-<a class="sourceLine" id="cb12-15" data-line-number="15"><span class="co">#&gt; # ... with 990 more rows</span></a></code></pre></div>
+<a class="sourceLine" id="cb12-15" data-line-number="15"><span class="co">#&gt; # … with 990 more rows</span></a></code></pre></div>
 <p>You’ve already seen one way of handling bad guesses: increasing the number of rows used to guess the type of each column.</p>
 <div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb13-1" data-line-number="1">df2 &lt;-<span class="st"> </span><span class="kw"><a href="../reference/read_delim.html">read_csv</a></span>(<span class="kw"><a href="../reference/readr_example.html">readr_example</a></span>(<span class="st">"challenge.csv"</span>), <span class="dt">guess_max =</span> <span class="dv">1001</span>)</a>
 <a class="sourceLine" id="cb13-2" data-line-number="2"><span class="co">#&gt; Parsed with column specification:</span></a>
@@ -353,7 +358,7 @@
 <div id="available-column-specifications" class="section level3">
 <h3 class="hasAnchor">
 <a href="#available-column-specifications" class="anchor"></a>Available column specifications</h3>
-<p>#’ The available specifications are: (with string abbreviations in brackets)</p>
+<p>The available specifications are: (with string abbreviations in brackets)</p>
 <ul>
 <li>
 <code><a href="../reference/parse_atomic.html">col_logical()</a></code> [l], containing only <code>T</code>, <code>F</code>, <code>TRUE</code> or <code>FALSE</code>.</li>
@@ -379,7 +384,41 @@
 <li>
 <code><a href="../reference/parse_guess.html">col_guess()</a></code> [?], parse using the “best” type based on the input.</li>
 </ul>
-<p>Use the <code>col_types</code> argument to override the default choices. There are two ways to use it: * With a string: <code>"dc__d"</code>: read first column as double, second as character, skip the next two and read the last column as a double. (There’s no way to use this form with types that take additional parameters.) * With a (named) list of col objects: <code>R     read_csv("iris.csv", col_types = cols(       Sepal.Length = col_double(),       Sepal.Width = col_double(),       Petal.Length = col_double(),       Petal.Width = col_double(),       Species = col_factor(c("setosa", "versicolor", "virginica"))     ))</code> Or, with their abbreviations: <code>R       read_csv("iris.csv", col_types = cols(       Sepal.Length = "d",       Sepal.Width = "d",       Petal.Length = "d",       Petal.Width = "d",       Species = col_factor(c("setosa", "versicolor", "virginica"))     ))</code> Any omitted columns will be parsed automatically, so the previous call will lead to the same result as: <code>R     read_csv("iris.csv", col_types = cols(       Species = col_factor(c("setosa", "versicolor", "virginica")))     )</code> You can also set a default type that will be used instead of relying on the automatic detection for columns you don’t specify: <code>R     read_csv("iris.csv", col_types = cols(       Species = col_factor(c("setosa", "versicolor", "virginica")),       .default = col_double())     )</code> If you only want to read specified columns, use <code><a href="../reference/cols.html">cols_only()</a></code>: <code>R     read_csv("iris.csv", col_types = cols_only(       Species = col_factor(c("setosa", "versicolor", "virginica")))     )</code></p>
+<p>Use the <code>col_types</code> argument to override the default choices. There are two ways to use it:</p>
+<ul>
+<li><p>With a string: <code>"dc__d"</code>: read first column as double, second as character, skip the next two and read the last column as a double. (There’s no way to use this form with types that take additional parameters.)</p></li>
+<li>
+<p>With a (named) list of col objects:</p>
+<div class="sourceCode" id="cb17"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb17-1" data-line-number="1"><span class="kw"><a href="../reference/read_delim.html">read_csv</a></span>(<span class="st">"iris.csv"</span>, <span class="dt">col_types =</span> <span class="kw"><a href="../reference/cols.html">cols</a></span>(</a>
+<a class="sourceLine" id="cb17-2" data-line-number="2">  <span class="dt">Sepal.Length =</span> <span class="kw"><a href="../reference/parse_atomic.html">col_double</a></span>(),</a>
+<a class="sourceLine" id="cb17-3" data-line-number="3">  <span class="dt">Sepal.Width =</span> <span class="kw"><a href="../reference/parse_atomic.html">col_double</a></span>(),</a>
+<a class="sourceLine" id="cb17-4" data-line-number="4">  <span class="dt">Petal.Length =</span> <span class="kw"><a href="../reference/parse_atomic.html">col_double</a></span>(),</a>
+<a class="sourceLine" id="cb17-5" data-line-number="5">  <span class="dt">Petal.Width =</span> <span class="kw"><a href="../reference/parse_atomic.html">col_double</a></span>(),</a>
+<a class="sourceLine" id="cb17-6" data-line-number="6">  <span class="dt">Species =</span> <span class="kw"><a href="../reference/parse_factor.html">col_factor</a></span>(<span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">"setosa"</span>, <span class="st">"versicolor"</span>, <span class="st">"virginica"</span>))</a>
+<a class="sourceLine" id="cb17-7" data-line-number="7">))</a></code></pre></div>
+<p>Or, with their abbreviations:</p>
+<div class="sourceCode" id="cb18"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb18-1" data-line-number="1">  <span class="kw"><a href="../reference/read_delim.html">read_csv</a></span>(<span class="st">"iris.csv"</span>, <span class="dt">col_types =</span> <span class="kw"><a href="../reference/cols.html">cols</a></span>(</a>
+<a class="sourceLine" id="cb18-2" data-line-number="2">  <span class="dt">Sepal.Length =</span> <span class="st">"d"</span>,</a>
+<a class="sourceLine" id="cb18-3" data-line-number="3">  <span class="dt">Sepal.Width =</span> <span class="st">"d"</span>,</a>
+<a class="sourceLine" id="cb18-4" data-line-number="4">  <span class="dt">Petal.Length =</span> <span class="st">"d"</span>,</a>
+<a class="sourceLine" id="cb18-5" data-line-number="5">  <span class="dt">Petal.Width =</span> <span class="st">"d"</span>,</a>
+<a class="sourceLine" id="cb18-6" data-line-number="6">  <span class="dt">Species =</span> <span class="kw"><a href="../reference/parse_factor.html">col_factor</a></span>(<span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">"setosa"</span>, <span class="st">"versicolor"</span>, <span class="st">"virginica"</span>))</a>
+<a class="sourceLine" id="cb18-7" data-line-number="7">))</a></code></pre></div>
+</li>
+</ul>
+<p>Any omitted columns will be parsed automatically, so the previous call will lead to the same result as:</p>
+<div class="sourceCode" id="cb19"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb19-1" data-line-number="1"><span class="kw"><a href="../reference/read_delim.html">read_csv</a></span>(<span class="st">"iris.csv"</span>, <span class="dt">col_types =</span> <span class="kw"><a href="../reference/cols.html">cols</a></span>(</a>
+<a class="sourceLine" id="cb19-2" data-line-number="2">  <span class="dt">Species =</span> <span class="kw"><a href="../reference/parse_factor.html">col_factor</a></span>(<span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">"setosa"</span>, <span class="st">"versicolor"</span>, <span class="st">"virginica"</span>)))</a>
+<a class="sourceLine" id="cb19-3" data-line-number="3">)</a></code></pre></div>
+<p>You can also set a default type that will be used instead of relying on the automatic detection for columns you don’t specify:</p>
+<div class="sourceCode" id="cb20"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb20-1" data-line-number="1"><span class="kw"><a href="../reference/read_delim.html">read_csv</a></span>(<span class="st">"iris.csv"</span>, <span class="dt">col_types =</span> <span class="kw"><a href="../reference/cols.html">cols</a></span>(</a>
+<a class="sourceLine" id="cb20-2" data-line-number="2">  <span class="dt">Species =</span> <span class="kw"><a href="../reference/parse_factor.html">col_factor</a></span>(<span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">"setosa"</span>, <span class="st">"versicolor"</span>, <span class="st">"virginica"</span>)),</a>
+<a class="sourceLine" id="cb20-3" data-line-number="3">  <span class="dt">.default =</span> <span class="kw"><a href="../reference/parse_atomic.html">col_double</a></span>())</a>
+<a class="sourceLine" id="cb20-4" data-line-number="4">)</a></code></pre></div>
+<p>If you only want to read specified columns, use <code><a href="../reference/cols.html">cols_only()</a></code>:</p>
+<div class="sourceCode" id="cb21"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb21-1" data-line-number="1"><span class="kw"><a href="../reference/read_delim.html">read_csv</a></span>(<span class="st">"iris.csv"</span>, <span class="dt">col_types =</span> <span class="kw"><a href="../reference/cols.html">cols_only</a></span>(</a>
+<a class="sourceLine" id="cb21-2" data-line-number="2">  <span class="dt">Species =</span> <span class="kw"><a href="../reference/parse_factor.html">col_factor</a></span>(<span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">"setosa"</span>, <span class="st">"versicolor"</span>, <span class="st">"virginica"</span>)))</a>
+<a class="sourceLine" id="cb21-3" data-line-number="3">)</a></code></pre></div>
 </div>
 <div id="output" class="section level3">
 <h3 class="hasAnchor">
@@ -391,6 +430,7 @@
   </div>
 
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
+
         <div id="tocnav">
       <h2 class="hasAnchor">
 <a href="#tocnav" class="anchor"></a>Contents</h2>
@@ -405,20 +445,23 @@
 </div>
 
 
+
       <footer><div class="tidyverse">
   <p>readr is a part of the <strong>tidyverse</strong>, an ecosystem of packages designed with common APIs and a shared philosophy. Learn more at <a href="https://tidyverse.org">tidyverse.org</a>.</p>
 </div>
 
 <div class="author">
   <p>
-    Developed by <a href="http://hadley.nz">Hadley Wickham</a>, <a href="http://jimhester.com">Jim Hester</a>, Romain Francois, <a href="https://www.rstudio.com"><img src="https://www.tidyverse.org/rstudio-logo.svg" alt="RStudio" height="24"></a>.
+    Developed by <a href="http://hadley.nz">Hadley Wickham</a>, <a href="http://jimhester.com">Jim Hester</a>, <a href="https://www.rstudio.com"><img src="https://www.tidyverse.org/rstudio-logo.svg" alt="RStudio" height="24"></a>.
     Site built by <a href="https://pkgdown.r-lib.org">pkgdown</a>.
   </p>
 </div>
+
       </footer>
 </div>
 
   
+
 
   </body>
 </html>
