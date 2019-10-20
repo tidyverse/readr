@@ -107,17 +107,28 @@ df[is_datetime] <- lapply(df[is_datetime], function(x) {
 
 ### Default formats
 
-Locales also provide default date and time formats. The time format isn't currently used for anything, but the date format is used when guessing column types. The default date format is `%Y-%m-%d` because that's unambiguous:
+Locales also provide default date and time formats. The date format is used when guessing column types. The default date format is `%AD`, a flexible YMD parser (see `?parse_date`):
 
 ```{r}
 str(parse_guess("2010-10-10"))
+str(parse_guess("2010/10/10"))
 ```
 
-If you're an American, you might want you use your illogical date system::
+If you're an American, you might want to use your illogical date system::
 
 ```{r}
-str(parse_guess("01/02/2013"))
-str(parse_guess("01/02/2013", locale = locale(date_format = "%d/%m/%Y")))
+str(parse_guess("01/31/2013"))
+str(parse_guess("01/31/2013", locale = locale(date_format = "%m/%d/%Y")))
+```
+
+The time format is also used when guessing column types. The default time format is `%AT`, a flexible HMS parser (see `?parse_time`):
+
+```{r}
+str(parse_guess("17:55:14"))
+str(parse_guess("5:55:14 PM"))
+# Example of a non-standard time
+str(parse_guess("h5m55s14 PM"))
+str(parse_guess("h5m55s14 PM", locale = locale(time_format = "h%Hm%Ms%S %p")))
 ```
 
 ## Character

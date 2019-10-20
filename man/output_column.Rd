@@ -4,7 +4,7 @@
 \alias{output_column}
 \title{Preprocess column for output}
 \usage{
-output_column(x)
+output_column(x, name)
 }
 \arguments{
 \item{x}{A vector}

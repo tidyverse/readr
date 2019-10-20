@@ -33,6 +33,11 @@ columns in as character, clean it up with (e.g.) regular expressions and
 then let readr take another stab at parsing it. The name is a homage to
 the base \code{\link[utils:type.convert]{utils::type.convert()}}.
 }
+\note{
+\code{type_convert()} removes a 'spec' attribute,
+because it likely modifies the column data types.
+(see \code{\link[=spec]{spec()}} for more information about column specifications).
+}
 \examples{
 df <- data.frame(
   x = as.character(runif(10)),

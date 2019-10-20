@@ -1,44 +1,66 @@
 Package: readr
-Version: 1.3.1.9000
 Title: Read Rectangular Text Data
-Description: The goal of 'readr' is to provide a fast and friendly way to read
-    rectangular data (like 'csv', 'tsv', and 'fwf'). It is designed to flexibly
-    parse many types of data found in the wild, while still cleanly failing when
-    data unexpectedly changes.
-Authors@R: c(
-    person("Hadley", "Wickham", , "hadley@rstudio.com", "aut"),
-    person("Jim", "Hester", , "james.hester@rstudio.com", c("aut", "cre")),
-    person("Romain", "Francois", role = "aut"),
-    person("R Core Team", role = "ctb", comment = "Date time code adapted from R"),
-    person("RStudio", role = c("cph", "fnd")),
-    person("Jukka", "Jylänki", role = c("ctb", "cph"), comment = "grisu3 implementation"),
-    person("Mikkel", "Jørgensen", role = c("ctb", "cph"), comment = "grisu3 implementation"))
-Encoding: UTF-8
+Version: 1.3.1.9000
+Authors@R: 
+    c(person(given = "Hadley",
+             family = "Wickham",
+             role = "aut",
+             email = "hadley@rstudio.com"),
+      person(given = "Jim",
+             family = "Hester",
+             role = c("aut", "cre"),
+             email = "james.hester@rstudio.com"),
+      person(given = "Romain",
+             family = "Francois",
+             role = "ctb"),
+      person(given = "R Core Team",
+             role = "ctb",
+             comment = "Date time code adapted from R"),
+      person(given = "RStudio",
+             role = c("cph", "fnd")),
+      person(given = "Jukka",
+             family = "Jylänki",
+             role = c("ctb", "cph"),
+             comment = "grisu3 implementation"),
+      person(given = "Mikkel",
+             family = "Jørgensen",
+             role = c("ctb", "cph"),
+             comment = "grisu3 implementation"))
+Description: The goal of 'readr' is to provide a fast and
+    friendly way to read rectangular data (like 'csv', 'tsv', and 'fwf').
+    It is designed to flexibly parse many types of data found in the wild,
+    while still cleanly failing when data unexpectedly changes.
+License: GPL (>= 2) | file LICENSE
+URL: http://readr.tidyverse.org,
+    https://github.com/tidyverse/readr
+BugReports: https://github.com/tidyverse/readr/issues
 Depends:
     R (>= 3.1)
-LinkingTo: Rcpp,
-    BH
 Imports:
-    Rcpp (>= 0.12.0.5),
-    tibble,
-    hms (>= 0.4.1),
-    R6,
     clipr,
     crayon,
-    methods
+    hms (>= 0.4.1),
+    methods,
+    R6,
+    Rcpp (>= 0.12.0.5),
+    tibble
 Suggests:
+    covr,
     curl,
-    testthat,
+    dplyr,
     knitr,
     rmarkdown,
+    spelling,
     stringi,
-    covr,
-    spelling
-License: GPL (>= 2) | file LICENSE
-BugReports: https://github.com/tidyverse/readr/issues
-URL: http://readr.tidyverse.org, https://github.com/tidyverse/readr
-VignetteBuilder: knitr
-RoxygenNote: 6.1.1
-Roxygen: list(markdown = TRUE)
-SystemRequirements: GNU make
+    testthat,
+    xml2
+LinkingTo: 
+    BH,
+    Rcpp
+VignetteBuilder: 
+    knitr
+Encoding: UTF-8
 Language: en-US
+Roxygen: list(markdown = TRUE)
+RoxygenNote: 6.1.1
+SystemRequirements: GNU make

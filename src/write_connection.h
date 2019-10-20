@@ -12,7 +12,7 @@ namespace io = boost::iostreams;
 
 class connection_sink {
 private:
-  Rconnection con_;
+  SEXP con_;
 
 public:
   typedef char char_type;
