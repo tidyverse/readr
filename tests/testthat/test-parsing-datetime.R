@@ -188,6 +188,11 @@ test_that("locale affects both guessing and parsing", {
   expect_equal(out, as.Date("2013-01-02"))
 })
 
+test_that("na affects both guessing and parsing (#1041)", {
+  out <- parse_guess(c("123", "NA"), na = "NA")
+  expect_equal(out, c(123, NA_real_))
+})
+
 test_that("text re-encoded before strings are parsed", {
   skip_on_cran() # need to figure out why this fails
 

@@ -45,10 +45,7 @@ type_convert <- function(df, col_types = NULL, na = c("", "NA"), trim_ws = TRUE,
 
   col_types <- keep_character_col_types(df, col_types)
 
-  guesses <- lapply(char_cols, function(x) {
-    x[x %in% na] <- NA
-    guess_parser(x, locale)
-  })
+  guesses <- lapply(char_cols, guess_parser, locale = locale, na = na)
 
   specs <- col_spec_standardise(
     col_types = col_types,

@@ -1,5 +1,8 @@
 # readr (development version)
 
+* `guess_parser()` gains a `na` argument and removes NA values before guessing.
+  `parse_guess()` now passes the `na` argument to `guess_parser()` (#1041).
+
 * Uses of `tibble::data_frame` updated to `tibble::tibble`
 ([tidyverse/dplyr#4069](https://github.com/tidyverse/dplyr/issues/4069),
 @thays42)
