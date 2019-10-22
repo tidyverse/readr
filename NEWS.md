@@ -32,6 +32,9 @@
 
 * `type_convert()` removes a 'spec' attribute, because the current columns likely have modified data types.  The 'spec' attribute is set by functions like `read_delim()` (@jimhester, @wibeasley, #1032).
 
+* `write_rds()` now can specify the rds version to use. The default value is
+  2 as it's compatible to R versions prior to 3.5.0 (@shrektan, #1001).
+
 # readr 1.3.1
 
 * Column specifications are now coloured when printed. This makes it easy to

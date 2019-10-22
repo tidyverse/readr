@@ -7,7 +7,8 @@
 \usage{
 read_rds(path)
 
-write_rds(x, path, compress = c("none", "gz", "bz2", "xz"), ...)
+write_rds(x, path, compress = c("none", "gz", "bz2", "xz"),
+  version = 2, ...)
 }
 \arguments{
 \item{path}{Path to read from/write to.}
@@ -15,6 +16,10 @@ write_rds(x, path, compress = c("none", "gz", "bz2", "xz"), ...)
 \item{x}{R object to write to serialise.}
 
 \item{compress}{Compression method to use: "none", "gz" ,"bz", or "xz".}
+
+\item{version}{Serialization format version to be used. The default value is 2
+as it's compatible for R versions prior to 3.5.0. See \code{\link[base:saveRDS]{base::saveRDS()}}
+for more details.}
 
 \item{...}{Additional arguments to connection function. For example, control
 the space-time trade-off of different compression methods with

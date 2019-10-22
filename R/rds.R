@@ -22,13 +22,16 @@ read_rds <- function(path) {
 
 #' @param x R object to write to serialise.
 #' @param compress Compression method to use: "none", "gz" ,"bz", or "xz".
+#' @param version Serialization format version to be used. The default value is 2
+#'    as it's compatible for R versions prior to 3.5.0. See [base::saveRDS()]
+#'    for more details.
 #' @param ... Additional arguments to connection function. For example, control
 #'   the space-time trade-off of different compression methods with
 #'   `compression`. See [connections()] for more details.
 #' @return `write_rds()` returns `x`, invisibly.
 #' @rdname read_rds
 #' @export
-write_rds <- function(x, path, compress = c("none", "gz", "bz2", "xz"), ...) {
+write_rds <- function(x, path, compress = c("none", "gz", "bz2", "xz"), version = 2, ...) {
 
   compress <- match.arg(compress)
   con <- switch(compress,
@@ -37,7 +40,7 @@ write_rds <- function(x, path, compress = c("none", "gz", "bz2", "xz"), ...) {
          bz2  = bzfile(path, ...),
          xz   = xzfile(path, ...))
   on.exit(close(con), add = TRUE)
-  saveRDS(x, con)
+  saveRDS(x, con, version = version)
 
   invisible(x)
 }
