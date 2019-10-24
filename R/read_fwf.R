@@ -20,7 +20,7 @@
 #' @export
 #' @examples
 #' fwf_sample <- readr_example("fwf-sample.txt")
-#' cat(read_lines(fwf_sample))
+#' writeLines(read_lines(fwf_sample))
 #'
 #' # You can specify column positions in several ways:
 #' # 1. Guess based on position of empty columns
