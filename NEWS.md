@@ -1,5 +1,8 @@
 # readr (development version)
 
+* The full problem field is now displayed in the problems tibble, as intended
+  (#444).
+
 * `guess_parser()` gains a `na` argument and removes NA values before guessing.
   `parse_guess()` now passes the `na` argument to `guess_parser()` (#1041).
 

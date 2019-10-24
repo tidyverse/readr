@@ -176,13 +176,15 @@ void CollectorDouble::setValue(int i, const Token& t) {
         parseDouble(decimalMark_, str.first, str.second, REAL(column_)[i]);
     if (!ok) {
       REAL(column_)[i] = NA_REAL;
-      warn(t.row(), t.col(), "a double", str);
+      SourceIterators org_str = t.getString(&buffer);
+      warn(t.row(), t.col(), "a double", org_str);
       return;
     }
 
     if (str.first != str.second) {
       REAL(column_)[i] = NA_REAL;
-      warn(t.row(), t.col(), "no trailing characters", str);
+      SourceIterators org_str = t.getString(&buffer);
+      warn(t.row(), t.col(), "no trailing characters", org_str);
       return;
     }
 
@@ -251,12 +253,14 @@ void CollectorInteger::setValue(int i, const Token& t) {
     bool ok = parseInt(str.first, str.second, INTEGER(column_)[i]);
     if (!ok) {
       INTEGER(column_)[i] = NA_INTEGER;
-      warn(t.row(), t.col(), "an integer", str);
+      SourceIterators org_str = t.getString(&buffer);
+      warn(t.row(), t.col(), "an integer", org_str);
       return;
     }
 
     if (str.first != str.second) {
-      warn(t.row(), t.col(), "no trailing characters", str);
+      SourceIterators org_str = t.getString(&buffer);
+      warn(t.row(), t.col(), "no trailing characters", org_str);
       INTEGER(column_)[i] = NA_INTEGER;
       return;
     }
@@ -316,8 +320,9 @@ void CollectorNumeric::setValue(int i, const Token& t) {
         decimalMark_, groupingMark_, str.first, str.second, REAL(column_)[i]);
 
     if (!ok) {
+      SourceIterators org_str = t.getString(&buffer);
       REAL(column_)[i] = NA_REAL;
-      warn(t.row(), t.col(), "a number", str);
+      warn(t.row(), t.col(), "a number", org_str);
       return;
     }
 
