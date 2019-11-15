@@ -63,11 +63,12 @@ write_delim <- function(x, path, delim = " ", na = "NA", append = FALSE,
                         col_names = !append, quote_escape = "double") {
   stopifnot(is.data.frame(x))
 
+  x_out <- x
   x[] <- lapply(names(x), function(i) output_column(x[[i]], i))
   stream_delim(x, path, delim = delim, col_names = col_names, append = append,
     na = na, quote_escape = quote_escape)
 
-  invisible(x)
+  invisible(x_out)
 }
 
 #' @rdname write_delim
@@ -82,9 +83,12 @@ write_csv <- function(x, path, na = "NA", append = FALSE, col_names = !append,
 #' @export
 write_csv2 <- function(x, path, na = "NA", append = FALSE, col_names = !append,
                        quote_escape = "double") {
+  x_out <- x
   x <- change_decimal_separator(x, decimal_mark = ",")
   write_delim(x, path, delim = ";", na = na, append = append,
     col_names = col_names, quote_escape = quote_escape)
+  
+  invisible(x_out)
 }
 
 #' @rdname write_delim
@@ -94,6 +98,7 @@ write_excel_csv <- function(x, path, na = "NA", append = FALSE,
 
   stopifnot(is.data.frame(x))
 
+  x_out <- x
   datetime_cols <- vapply(x, inherits, logical(1), "POSIXt")
   x[datetime_cols] <- lapply(x[datetime_cols], format, "%Y/%m/%d %H:%M:%S")
 
@@ -101,13 +106,14 @@ write_excel_csv <- function(x, path, na = "NA", append = FALSE,
   stream_delim(x, path, delim, col_names = col_names, append = append,
     na = na, bom = TRUE, quote_escape = quote_escape)
 
-  invisible(x)
+  invisible(x_out)
 }
 
 #' @rdname write_delim
 #' @export
 write_excel_csv2 <- function(x, path, na = "NA", append = FALSE,
                              col_names = !append, delim = ";", quote_escape = "double") {
+  x_out <- x
   x <- change_decimal_separator(x, decimal_mark = ",")
 
   datetime_cols <- vapply(x, inherits, logical(1), "POSIXt")
@@ -115,6 +121,8 @@ write_excel_csv2 <- function(x, path, na = "NA", append = FALSE,
 
   x[] <- lapply(x, output_column)
   write_excel_csv(x, path, na, append, col_names, delim, quote_escape = quote_escape)
+
+  invisible(x_out)
 }
 
 #' @rdname write_delim
