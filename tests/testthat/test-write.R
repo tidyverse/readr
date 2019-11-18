@@ -173,3 +173,31 @@ test_that("More helpful error when trying to write out data frames with list col
   df <- tibble::tibble(id = seq(1), list = list(1))
   expect_error(write_csv(x = df, path = tempfile()), "Flat files can't store the list column")
 })
+
+
+test_that("write_ family of functions return input data frame without changes", {
+  tmp <- tempfile()
+  on.exit(unlink(tmp))
+
+  time_strings <- c("2019-11-14 15:44:00", "2019-11-14 15:47:00")
+  times <- as.POSIXlt(time_strings, tz = "America/Los_Angeles")
+  df <- data.frame(time = times, class = factor(c("a", "b")))
+
+  df_delim <- write_delim(df, tmp)
+  expect_identical(df, df_delim)
+
+  df_csv <- write_csv(df, tmp)
+  expect_identical(df, df_csv)
+
+  df_csv2 <- write_csv2(df, tmp)
+  expect_identical(df, df_csv2)
+
+  df_excel_csv <- write_excel_csv(df, tmp)
+  expect_identical(df, df_excel_csv)
+
+  df_excel_csv2 <- write_excel_csv2(df, tmp)
+  expect_identical(df, df_excel_csv2)
+
+  df_tsv <- write_tsv(df, tmp)
+  expect_identical(df, df_tsv)
+})

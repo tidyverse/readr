@@ -30,3 +30,4 @@
 ^rcon$
 ^inst/rcon$
 ^azure-pipelines\.yml$
+^LICENSE\.md$
