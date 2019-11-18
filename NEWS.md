@@ -1,5 +1,8 @@
 # readr (development version)
 
+* `write_csv2` and `format_csv2` no longer pad number columns with whitespaces
+  (@keesdeschepper, #1046).
+
 * The full problem field is now displayed in the problems tibble, as intended
   (#444).
 
