@@ -147,6 +147,11 @@ test_that("write_csv2 and format_csv2 writes NA appropriately", {
   expect_equal(format_csv2(df), "x;y\n0,5;a\nNA;b\n1,2;NA\n")
 })
 
+test_that("write_csv2 and format_csv2 produce no leading whitespace for numbers", {
+  df <- tibble::tibble(x = c(6, 66))
+  expect_equal(format_csv2(df), "x\n6\n66\n")
+})
+
 test_that("Can change the escape behavior for quotes", {
   df <- data.frame(x = c("a", '"', ",", "\n"))
 

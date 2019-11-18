@@ -242,7 +242,7 @@ change_decimal_separator <- function(x, decimal_mark = ",") {
 
   format_seps <- function(x, decimal_mark) {
     nas <- is.na(x)
-    x <- format(x, decimal.mark = decimal_mark)
+    x <- format(x, decimal.mark = decimal_mark, trim = TRUE)
     x[nas] <- NA_character_
     x
   }

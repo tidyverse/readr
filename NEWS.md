@@ -1,5 +1,8 @@
 # readr (development version)
 
+* `write_csv2` and `format_csv2` no longer pad number columns with whitespaces
+  (@keesdeschepper, #1046).
+
 * The `write_*()` functions now invisibly return the input data frame unchanged,
   rather than a version with factors and dates converted to strings. This is the
   documented behavior (@jesse-ross, #975).
