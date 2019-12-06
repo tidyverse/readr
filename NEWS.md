@@ -1,5 +1,8 @@
 # readr (development version)
 
+* The `read_*` functions now close properly all connections, including on 
+  errors like HTTP errors when reading from a url (@cderv, #1050).
+
 * `write_csv2` and `format_csv2` no longer pad number columns with whitespaces
   (@keesdeschepper, #1046).
 

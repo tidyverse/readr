@@ -107,8 +107,8 @@ read_connection <- function(con) {
   stopifnot(is.connection(con))
 
   if (!isOpen(con)) {
-    open(con, "rb")
     on.exit(close(con), add = TRUE)
+    open(con, "rb")
   }
 
   read_connection_(con, tempfile())
