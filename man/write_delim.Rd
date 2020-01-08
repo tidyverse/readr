@@ -28,7 +28,7 @@ write_tsv(x, path, na = "NA", append = FALSE, col_names = !append,
   quote_escape = "double")
 }
 \arguments{
-\item{x}{A data frame to write to disk}
+\item{x}{A data frame to write to disk.}
 
 \item{path}{Path or connection to write to.}
 

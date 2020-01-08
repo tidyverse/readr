@@ -20,7 +20,7 @@ format_tsv(x, na = "NA", append = FALSE, col_names = !append,
   quote_escape = "double")
 }
 \arguments{
-\item{x}{A data frame to write to disk}
+\item{x}{A data frame.}
 
 \item{delim}{Delimiter used to separate values. Defaults to \code{" "} for \code{write_delim()}, \code{","} for \code{write_excel_csv()} and
 \code{";"} for \code{write_excel_csv2()}. Must be a single character.}
