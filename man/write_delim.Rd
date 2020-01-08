@@ -73,7 +73,7 @@ write_tsv(
 )
 }
 \arguments{
-\item{x}{A data frame to write to disk}
+\item{x}{A data frame to write to disk.}
 
 \item{path}{Path or connection to write to.}
 

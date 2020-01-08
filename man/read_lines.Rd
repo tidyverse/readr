@@ -60,7 +60,7 @@ is updated every 50,000 values and will only display if estimated reading
 time is 5 seconds or more. The automatic progress bar can be disabled by
 setting option \code{readr.show_progress} to \code{FALSE}.}
 
-\item{x}{A data frame to write to disk}
+\item{x}{A character vector or list of raw vectors to write to disk.}
 
 \item{path}{Path or connection to write to.}
 

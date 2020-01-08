@@ -24,7 +24,7 @@
 #' extensions are supported, `.gz` for gzip compression, `.bz2` for bzip2 compression and `.xz` for lzma compression.  See
 #' the examples for more information.
 #'
-#' @param x A data frame to write to disk
+#' @param x A data frame to write to disk.
 #' @param path Path or connection to write to.
 #' @param append If `FALSE`, will overwrite existing file. If `TRUE`,
 #'   will append to existing file. In both cases, if file does not exist a new
@@ -141,6 +141,7 @@ write_tsv <- function(x, path, na = "NA", append = FALSE, col_names = !append, q
 #' @return A string.
 #' @inheritSection write_delim Output
 #' @inheritParams write_delim
+#' @param x A data frame.
 #' @inherit write_delim references
 #' @examples
 #' # format_()* functions are useful for testing and reprexes
