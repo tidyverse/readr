@@ -9,6 +9,7 @@
 * The `write_*()` functions now invisibly return the input data frame unchanged,
   rather than a version with factors and dates converted to strings. This is the
   documented behavior (@jesse-ross, #975).
+* `read_delimited()` no longer mistakenly stats literal filenames (#1063)
 
 * The full problem field is now displayed in the problems tibble, as intended
   (#444).

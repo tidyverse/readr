@@ -193,7 +193,7 @@ read_delimited <- function(file, tokenizer, col_names = TRUE, col_types = NULL,
        return(tibble::data_frame())
     }
   } else {
-    if (empty_file(file)) {
+    if (!isTRUE(grepl("\n", file)[[1]]) && empty_file(file)) {
        return(tibble::tibble())
     }
     if (is.character(file) && identical(locale$encoding, "UTF-8")) {
