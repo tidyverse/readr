@@ -32,8 +32,23 @@ This drops any non-numeric characters before or after the first number.
 The grouping mark specified by the locale is ignored inside the number.
 }
 \examples{
-parse_number("$1000")
+## These all return 1000
+parse_number("$1,000") ## leading $ and grouping character , ignored
+parse_number("£1000")  ## leading non-numeric £ ignored (locale doesn't matter)
+parse_number("AA1000") ## all leading non-numeric characters ignored
+
+
+## These all return 1234567.78
+## If you don't see the decimal digits, try options(digits=10)
 parse_number("1,234,567.78")
+## explicit locale specifying European grouping and decimal marks
+parse_number("1.234.567,78", locale = locale(decimal_mark = ",", grouping_mark = "."))
+## SI/ISO 31-0 standard spaces for number grouping
+parse_number("1 234 567.78", locale = locale(decimal_mark = ".", grouping_mark = " "))
+
+## Specifying strings for NAs
+parse_number(c("1", "2", "3", "NA"))
+parse_number(c("1", "2", "3", "NA", "Nothing"), na = c("NA", "Nothing"))
 }
 \seealso{
 Other parsers: 
