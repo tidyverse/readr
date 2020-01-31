@@ -15,8 +15,7 @@ knitr::opts_chunk$set(
 # readr <a href="https://readr.tidyverse.org"><img src="man/figures/logo.png" align="right" height="139" /></a>
 
 [![CRAN_Status_Badge](https://www.r-pkg.org/badges/version/readr)](https://cran.r-project.org/package=readr)
-[![Build Status](https://travis-ci.org/tidyverse/readr.svg?branch=master)](https://travis-ci.org/tidyverse/readr)
-[![AppVeyor Build Status](https://ci.appveyor.com/api/projects/status/github/tidyverse/readr?branch=master&svg=true)](https://ci.appveyor.com/project/tidyverse/readr)
+[![R build status](https://github.com/tidyverse/readr/workflows/R-CMD-check/badge.svg)](https://github.com/tidyverse/readr)
 [![Coverage Status](https://codecov.io/gh/tidyverse/readr/coverage.svg?branch=master)](https://codecov.io/gh/tidyverse/readr?branch=master)
 
 ## Overview
