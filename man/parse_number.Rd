@@ -31,10 +31,6 @@ A numeric vector (double) of parsed numbers.
 This drops any non-numeric characters before or after the first number.
 The grouping mark specified by the locale is ignored inside the number.
 }
-\examples{
-parse_number("$1000")
-parse_number("1,234,567.78")
-}
 \seealso{
 Other parsers: 
 \code{\link{col_skip}()},
