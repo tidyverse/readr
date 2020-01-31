@@ -145,14 +145,14 @@
 <a href="#usage" class="anchor"></a>Usage</h2>
 <p>readr is part of the core tidyverse, so load it with:</p>
 <div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb2-1" data-line-number="1"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span>(tidyverse)</a>
-<a class="sourceLine" id="cb2-2" data-line-number="2"><span class="co">#&gt; ── Attaching packages ────────────────────────────────── tidyverse 1.2.1 ──</span></a>
-<a class="sourceLine" id="cb2-3" data-line-number="3"><span class="co">#&gt; ✔ ggplot2 3.1.0     ✔ purrr   0.2.5</span></a>
-<a class="sourceLine" id="cb2-4" data-line-number="4"><span class="co">#&gt; ✔ tibble  1.4.2     ✔ dplyr   0.7.7</span></a>
-<a class="sourceLine" id="cb2-5" data-line-number="5"><span class="co">#&gt; ✔ tidyr   0.8.2     ✔ stringr 1.3.1</span></a>
-<a class="sourceLine" id="cb2-6" data-line-number="6"><span class="co">#&gt; ✔ readr   1.2.0     ✔ forcats 0.3.0</span></a>
-<a class="sourceLine" id="cb2-7" data-line-number="7"><span class="co">#&gt; ── Conflicts ───────────────────────────────────── tidyverse_conflicts() ──</span></a>
-<a class="sourceLine" id="cb2-8" data-line-number="8"><span class="co">#&gt; ✖ dplyr::filter() masks stats::filter()</span></a>
-<a class="sourceLine" id="cb2-9" data-line-number="9"><span class="co">#&gt; ✖ dplyr::lag()    masks stats::lag()</span></a></code></pre></div>
+<a class="sourceLine" id="cb2-2" data-line-number="2"><span class="co">#&gt; -- Attaching packages ----------------------------------------------------------------------------------------- tidyverse 1.3.0 --</span></a>
+<a class="sourceLine" id="cb2-3" data-line-number="3"><span class="co">#&gt; v ggplot2 3.2.1     v purrr   0.3.3</span></a>
+<a class="sourceLine" id="cb2-4" data-line-number="4"><span class="co">#&gt; v tibble  2.1.3     v dplyr   0.8.3</span></a>
+<a class="sourceLine" id="cb2-5" data-line-number="5"><span class="co">#&gt; v tidyr   1.0.2     v stringr 1.4.0</span></a>
+<a class="sourceLine" id="cb2-6" data-line-number="6"><span class="co">#&gt; v readr   1.3.1     v forcats 0.4.0</span></a>
+<a class="sourceLine" id="cb2-7" data-line-number="7"><span class="co">#&gt; -- Conflicts -------------------------------------------------------------------------------------------- tidyverse_conflicts() --</span></a>
+<a class="sourceLine" id="cb2-8" data-line-number="8"><span class="co">#&gt; x dplyr::filter() masks stats::filter()</span></a>
+<a class="sourceLine" id="cb2-9" data-line-number="9"><span class="co">#&gt; x dplyr::lag()    masks stats::lag()</span></a></code></pre></div>
 <p>To accurately read a rectangular dataset with readr you combine two pieces: a function that parses the overall file, and a column specification. The column specification describes how each column should be converted from a character vector to the most appropriate data type, and in most cases it’s not necessary because readr will guess it for you automatically.</p>
 <p>readr supports seven file formats with seven <code>read_</code> functions:</p>
 <ul>
@@ -212,7 +212,7 @@
 <a href="#base-r" class="anchor"></a>Base R</h3>
 <p>Compared to the corresponding base functions, readr functions:</p>
 <ul>
-<li><p>Use a consistent naming scheme for the parameters (e.g. <code>col_names</code> and <code>col_types</code> not <code>header</code> and <code>colClasses</code>).</p></li>
+<li><p>Use a consistent naming scheme for the parameters (e.g. <code>col_names</code> and <code>col_types</code> not <code>header</code> and <code>colClasses</code>).</p></li>
 <li><p>Are much faster (up to 10x).</p></li>
 <li><p>Leave strings as is by default, and automatically parse common date/time formats.</p></li>
 <li><p>Have a helpful progress bar if loading is going to take a while.</p></li>
@@ -225,7 +225,7 @@
 </h3>
 <p><a href="https://github.com/Rdatatable/data.table">data.table</a> has a function similar to <code><a href="reference/read_delim.html">read_csv()</a></code> called fread. Compared to fread, readr functions:</p>
 <ul>
-<li><p>Are slower. If you want absolutely the best performance, use <code>data.table::fread()</code>.</p></li>
+<li><p>Are slower (currently ~1.2-2x slower. If you want absolutely the best performance, use <code>data.table::fread()</code>.</p></li>
 <li><p>Use a slightly more sophisticated parser, recognising both doubled (<code>""""</code>) and backslash escapes (<code>"\""</code>), and can produce factors and date/times directly.</p></li>
 <li><p>Forces you to supply all parameters, where <code>fread()</code> saves you work by automatically guessing the delimiter, whether or not the file has a header, and how many lines to skip.</p></li>
 <li><p>Are built on a different underlying infrastructure. Readr functions are designed to be quite general, which makes it easier to add support for new rectangular data formats. <code>fread()</code> is designed to be as fast as possible.</p></li>
@@ -241,7 +241,6 @@
 <li><p><a href="https://github.com/jjallaire">JJ Allaire</a> for helping me come up with a design that makes very few copies, and is easy to extend.</p></li>
 <li><p><a href="http://dirk.eddelbuettel.com">Dirk Eddelbuettel</a> for coming up with the name!</p></li>
 </ul>
-<p>Please note that this project is released with a <a href="CONDUCT.html">Contributor Code of Conduct</a>. By participating in this project you agree to abide by its terms.</p>
 </div>
 <div id="code-of-conduct" class="section level2">
 <h2 class="hasAnchor">
@@ -296,8 +295,7 @@
 <h2>Dev status</h2>
 <ul class="list-unstyled">
 <li><a href="https://cran.r-project.org/package=readr"><img src="https://www.r-pkg.org/badges/version/readr" alt="CRAN_Status_Badge"></a></li>
-<li><a href="https://travis-ci.org/tidyverse/readr"><img src="https://travis-ci.org/tidyverse/readr.svg?branch=master" alt="Build Status"></a></li>
-<li><a href="https://ci.appveyor.com/project/tidyverse/readr"><img src="https://ci.appveyor.com/api/projects/status/github/tidyverse/readr?branch=master&amp;svg=true" alt="AppVeyor Build Status"></a></li>
+<li><a href="https://github.com/tidyverse/readr"><img src="https://github.com/tidyverse/readr/workflows/R-CMD-check/badge.svg" alt="R build status"></a></li>
 <li><a href="https://codecov.io/gh/tidyverse/readr?branch=master"><img src="https://codecov.io/gh/tidyverse/readr/coverage.svg?branch=master" alt="Coverage Status"></a></li>
 </ul>
 </div>
