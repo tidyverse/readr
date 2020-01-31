@@ -60,16 +60,16 @@ is updated every 50,000 values and will only display if estimated reading
 time is 5 seconds or more. The automatic progress bar can be disabled by
 setting option \code{readr.show_progress} to \code{FALSE}.}
 
-\item{x}{A data frame to write to disk}
+\item{x}{A data frame or tibble to write to disk}
 
-\item{path}{Path or connection to write to.}
+\item{path}{The path or connection to write to.}
 
 \item{sep}{The line separator. Defaults to \verb{\\\\n}, commonly used on POSIX
 systems like macOS and linux. For native windows (CRLF) separators use
 \verb{\\\\r\\\\n}.}
 
 \item{append}{If \code{FALSE}, will overwrite existing file. If \code{TRUE},
-will append to existing file. In both cases, if file does not exist a new
+will append to existing file. In both cases, if the file does not exist a new
 file is created.}
 }
 \value{

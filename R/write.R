@@ -1,45 +1,47 @@
 #' Write a data frame to a delimited file
 #'
-#' This is about twice as fast as [write.csv()], and never
-#' writes row names. `output_column()` is a generic method used to coerce
-#' columns to suitable output.
+#' The `write_*()` family of functions are an improvement to analogous function such
+#' as [write.csv()] because they are approximately twice as fast. Unlike [write.csv()],
+#' these functions do not include row names as a column in the written file.
+#' A generic function, `output_column()`, is applied to each variable
+#' to coerce columns to suitable output.
 #'
 #' @section Output:
-#' Factors are coerced to character. Doubles are formatted using the grisu3
-#' algorithm. POSIXct's are formatted as ISO8601 with a UTC timezone *Note:
-#' `POSIXct` objects in local or non-UTC timezones will be converted to UTC time
-#' before writing.*
+#' Factors are coerced to character. Doubles are formatted to a decimal string
+#' using the grisu3 algorithm. `POSIXct` values are formatted as ISO8601 with a
+#' UTC timezone *Note: `POSIXct` objects in local or non-UTC timezones will be
+#' converted to UTC time before writing.*
 #'
 #' All columns are encoded as UTF-8. `write_excel_csv()` and `write_excel_csv2()` also include a
 #' \href{https://en.wikipedia.org/wiki/Byte_order_mark}{UTF-8 Byte order mark}
 #' which indicates to Excel the csv is UTF-8 encoded.
 #'
 #' `write_excel_csv2()` and `write_csv2` were created to allow users with
-#' different locale settings save csv files with their default settings `;` as
-#' column separator and `,` as decimal separator. This is common in some European countries.
+#' different locale settings to save .csv files using their default settings
+#' (e.g. `;` as the column separator and `,` as the decimal separator).
+#' This is common in some European countries.
 #'
-#' Values are only quoted if needed: if they contain a comma, quote or newline.
+#' Values are only quoted if they contain a comma, quote or newline.
 #'
-#' The `write_*()` functions will automatically compress outputs if an appropriate extension is given. At present, three
-#' extensions are supported, `.gz` for gzip compression, `.bz2` for bzip2 compression and `.xz` for lzma compression.  See
-#' the examples for more information.
+#' The `write_*()` functions will automatically compress outputs if an appropriate extension is given.
+#' Three extensions are currently supported: `.gz` for gzip compression, `.bz2` for bzip2 compression and
+#' `.xz` for lzma compression.  See the examples for more information.
 #'
-#' @param x A data frame to write to disk
-#' @param path Path or connection to write to.
+#' @param x A data frame or tibble to write to disk
+#' @param path The path or connection to write to.
 #' @param append If `FALSE`, will overwrite existing file. If `TRUE`,
-#'   will append to existing file. In both cases, if file does not exist a new
+#'   will append to existing file. In both cases, if the file does not exist a new
 #'   file is created.
-#' @param col_names Write columns names at the top of the file? Must be either
-#'   `TRUE` or `FALSE`.
+#' @param col_names If `FALSE`, column names will not be included at the top of the file. If `TRUE`,
+#' column names will be included. If not specified, `col_names` will take the opposite value given to `append`.
 #' @param delim Delimiter used to separate values. Defaults to `" "` for `write_delim()`, `","` for `write_excel_csv()` and
 #' `";"` for `write_excel_csv2()`. Must be a single character.
 #' @param na String used for missing values. Defaults to NA. Missing values
 #'   will never be quoted; strings with the same value as `na` will
 #'   always be quoted.
 #' @param quote_escape The type of escaping to use for quoted values, one of
-#'   "double", "backslash" or "none". You can also use `FALSE`, which is
-#'   equivalent to "none". The default is to double the quotes, which is the
-#'   format excel expects.
+#'   `"double"`, `"backslash"` or `"none"`. You can also use `FALSE`, which is
+#'   equivalent to "none". The default is `"double"`, which is expected format for Excel.
 #' @return `write_*()` returns the input `x` invisibly.
 #' @references Florian Loitsch, Printing Floating-Point Numbers Quickly and
 #' Accurately with Integers, PLDI '10,
@@ -47,8 +49,8 @@
 #' @export
 #' @examples
 #' \dontshow{.old_wd <- setwd(tempdir())}
-#' # If you only specify a file name, write_()* will write
-#' # the file to your current working directory.
+#' # If only a file name is specified, write_()* will write
+#' # the file to the current working directory.
 #' write_csv(mtcars, "mtcars.csv")
 #' write_tsv(mtcars, "mtcars.tsv")
 #'
@@ -87,7 +89,7 @@ write_csv2 <- function(x, path, na = "NA", append = FALSE, col_names = !append,
   x <- change_decimal_separator(x, decimal_mark = ",")
   write_delim(x, path, delim = ";", na = na, append = append,
     col_names = col_names, quote_escape = quote_escape)
-  
+
   invisible(x_out)
 }
 

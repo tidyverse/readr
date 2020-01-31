@@ -34,12 +34,12 @@ The default locale is US-centric (like R), but you can use
 the default time zone, encoding, decimal mark, big mark, and day/month
 names.}
 
-\item{x}{A data frame to write to disk}
+\item{x}{A data frame or tibble to write to disk}
 
-\item{path}{Path or connection to write to.}
+\item{path}{The path or connection to write to.}
 
 \item{append}{If \code{FALSE}, will overwrite existing file. If \code{TRUE},
-will append to existing file. In both cases, if file does not exist a new
+will append to existing file. In both cases, if the file does not exist a new
 file is created.}
 }
 \value{
