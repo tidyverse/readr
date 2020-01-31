@@ -6,8 +6,7 @@
 \alias{date_names_langs}
 \title{Create or retrieve date names}
 \usage{
-date_names(mon, mon_ab = mon, day, day_ab = day, am_pm = c("AM",
-  "PM"))
+date_names(mon, mon_ab = mon, day, day_ab = day, am_pm = c("AM", "PM"))
 
 date_names_lang(language)
 

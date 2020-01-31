@@ -7,33 +7,72 @@
 \alias{melt_tsv}
 \title{Return melted data for each token in a delimited file (including csv & tsv)}
 \usage{
-melt_delim(file, delim, quote = "\\"", escape_backslash = FALSE,
-  escape_double = TRUE, locale = default_locale(), na = c("", "NA"),
-  quoted_na = TRUE, comment = "", trim_ws = FALSE, skip = 0,
-  n_max = Inf, progress = show_progress(), skip_empty_rows = FALSE)
+melt_delim(
+  file,
+  delim,
+  quote = "\\"",
+  escape_backslash = FALSE,
+  escape_double = TRUE,
+  locale = default_locale(),
+  na = c("", "NA"),
+  quoted_na = TRUE,
+  comment = "",
+  trim_ws = FALSE,
+  skip = 0,
+  n_max = Inf,
+  progress = show_progress(),
+  skip_empty_rows = FALSE
+)
 
-melt_csv(file, locale = default_locale(), na = c("", "NA"),
-  quoted_na = TRUE, quote = "\\"", comment = "", trim_ws = TRUE,
-  skip = 0, n_max = Inf, progress = show_progress(),
-  skip_empty_rows = FALSE)
+melt_csv(
+  file,
+  locale = default_locale(),
+  na = c("", "NA"),
+  quoted_na = TRUE,
+  quote = "\\"",
+  comment = "",
+  trim_ws = TRUE,
+  skip = 0,
+  n_max = Inf,
+  progress = show_progress(),
+  skip_empty_rows = FALSE
+)
 
-melt_csv2(file, locale = default_locale(), na = c("", "NA"),
-  quoted_na = TRUE, quote = "\\"", comment = "", trim_ws = TRUE,
-  skip = 0, n_max = Inf, progress = show_progress(),
-  skip_empty_rows = FALSE)
+melt_csv2(
+  file,
+  locale = default_locale(),
+  na = c("", "NA"),
+  quoted_na = TRUE,
+  quote = "\\"",
+  comment = "",
+  trim_ws = TRUE,
+  skip = 0,
+  n_max = Inf,
+  progress = show_progress(),
+  skip_empty_rows = FALSE
+)
 
-melt_tsv(file, locale = default_locale(), na = c("", "NA"),
-  quoted_na = TRUE, quote = "\\"", comment = "", trim_ws = TRUE,
-  skip = 0, n_max = Inf, progress = show_progress(),
-  skip_empty_rows = FALSE)
+melt_tsv(
+  file,
+  locale = default_locale(),
+  na = c("", "NA"),
+  quoted_na = TRUE,
+  quote = "\\"",
+  comment = "",
+  trim_ws = TRUE,
+  skip = 0,
+  n_max = Inf,
+  progress = show_progress(),
+  skip_empty_rows = FALSE
+)
 }
 \arguments{
 \item{file}{Either a path to a file, a connection, or literal data
 (either a single string or a raw vector).
 
 Files ending in \code{.gz}, \code{.bz2}, \code{.xz}, or \code{.zip} will
-be automatically uncompressed. Files starting with \code{http://},
-\code{https://}, \code{ftp://}, or \code{ftps://} will be automatically
+be automatically uncompressed. Files starting with \verb{http://},
+\verb{https://}, \verb{ftp://}, or \verb{ftps://} will be automatically
 downloaded. Remote gz files can also be automatically downloaded and
 decompressed.
 
@@ -50,11 +89,11 @@ Using a value of \code{\link[=clipboard]{clipboard()}} will read from the system
 \item{escape_backslash}{Does the file use backslashes to escape special
 characters? This is more general than \code{escape_double} as backslashes
 can be used to escape the delimiter character, the quote character, or
-to add special characters like \code{\\n}.}
+to add special characters like \verb{\\\\n}.}
 
 \item{escape_double}{Does the file escape quotes by doubling them?
-i.e. If this option is \code{TRUE}, the value \code{""""} represents
-a single quote, \code{\"}.}
+i.e. If this option is \code{TRUE}, the value \verb{""""} represents
+a single quote, \verb{\\"}.}
 
 \item{locale}{The locale controls defaults that vary from place to place.
 The default locale is US-centric (like R), but you can use
@@ -110,7 +149,7 @@ into a melted format where each row represents a single token.
 \code{melt_csv()} and \code{melt_tsv()} are special cases of the general
 \code{melt_delim()}. They're useful for reading the most common types of
 flat file data, comma separated values and tab separated values,
-respectively. \code{melt_csv2()} uses \code{;} for the field separator and \code{,} for the
+respectively. \code{melt_csv2()} uses \verb{;} for the field separator and \verb{,} for the
 decimal point. This is common in some European countries.
 }
 \examples{
@@ -124,16 +163,16 @@ melt_csv("https://github.com/tidyverse/readr/raw/master/inst/extdata/mtcars.csv"
 }
 
 # Or directly from a string (must contain a newline)
-melt_csv("x,y\\n1,2\\n3,4")
+melt_csv("x,y\n1,2\n3,4")
 
 # To import empty cells as 'empty' rather than `NA`
-melt_csv("x,y\\n,NA,\\"\\",''", na = "NA")
+melt_csv("x,y\n,NA,\"\",''", na = "NA")
 
 # File types ----------------------------------------------------------------
-melt_csv("a,b\\n1.0,2.0")
-melt_csv2("a;b\\n1,0;2,0")
-melt_tsv("a\\tb\\n1.0\\t2.0")
-melt_delim("a|b\\n1.0|2.0", delim = "|")
+melt_csv("a,b\n1.0,2.0")
+melt_csv2("a;b\n1,0;2,0")
+melt_tsv("a\tb\n1.0\t2.0")
+melt_delim("a|b\n1.0|2.0", delim = "|")
 }
 \seealso{
 \code{\link[=read_delim]{read_delim()}} for the conventional way to read rectangular data

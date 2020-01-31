@@ -5,8 +5,7 @@
 \alias{col_number}
 \title{Parse numbers, flexibly}
 \usage{
-parse_number(x, na = c("", "NA"), locale = default_locale(),
-  trim_ws = TRUE)
+parse_number(x, na = c("", "NA"), locale = default_locale(), trim_ws = TRUE)
 
 col_number()
 }
@@ -37,10 +36,14 @@ parse_number("$1000")
 parse_number("1,234,567.78")
 }
 \seealso{
-Other parsers: \code{\link{col_skip}},
-  \code{\link{cols_condense}}, \code{\link{cols}},
-  \code{\link{parse_datetime}}, \code{\link{parse_factor}},
-  \code{\link{parse_guess}}, \code{\link{parse_logical}},
-  \code{\link{parse_vector}}
+Other parsers: 
+\code{\link{col_skip}()},
+\code{\link{cols_condense}()},
+\code{\link{cols}()},
+\code{\link{parse_datetime}()},
+\code{\link{parse_factor}()},
+\code{\link{parse_guess}()},
+\code{\link{parse_logical}()},
+\code{\link{parse_vector}()}
 }
 \concept{parsers}

@@ -31,9 +31,14 @@ s
 cols_condense(s)
 }
 \seealso{
-Other parsers: \code{\link{col_skip}}, \code{\link{cols}},
-  \code{\link{parse_datetime}}, \code{\link{parse_factor}},
-  \code{\link{parse_guess}}, \code{\link{parse_logical}},
-  \code{\link{parse_number}}, \code{\link{parse_vector}}
+Other parsers: 
+\code{\link{col_skip}()},
+\code{\link{cols}()},
+\code{\link{parse_datetime}()},
+\code{\link{parse_factor}()},
+\code{\link{parse_guess}()},
+\code{\link{parse_logical}()},
+\code{\link{parse_number}()},
+\code{\link{parse_vector}()}
 }
 \concept{parsers}

@@ -4,8 +4,13 @@
 \alias{type_convert}
 \title{Re-convert character columns in existing data frame}
 \usage{
-type_convert(df, col_types = NULL, na = c("", "NA"), trim_ws = TRUE,
-  locale = default_locale())
+type_convert(
+  df,
+  col_types = NULL,
+  na = c("", "NA"),
+  trim_ws = TRUE,
+  locale = default_locale()
+)
 }
 \arguments{
 \item{df}{A data frame.}

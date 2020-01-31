@@ -6,12 +6,22 @@
 \alias{guess_parser}
 \title{Parse using the "best" type}
 \usage{
-parse_guess(x, na = c("", "NA"), locale = default_locale(),
-  trim_ws = TRUE, guess_integer = FALSE)
+parse_guess(
+  x,
+  na = c("", "NA"),
+  locale = default_locale(),
+  trim_ws = TRUE,
+  guess_integer = FALSE
+)
 
 col_guess()
 
-guess_parser(x, locale = default_locale(), guess_integer = FALSE)
+guess_parser(
+  x,
+  locale = default_locale(),
+  guess_integer = FALSE,
+  na = c("", "NA")
+)
 }
 \arguments{
 \item{x}{Character vector of values to parse.}
@@ -55,10 +65,14 @@ guess_parser(c("2010-10-10"))
 parse_guess(c("2010-10-10"))
 }
 \seealso{
-Other parsers: \code{\link{col_skip}},
-  \code{\link{cols_condense}}, \code{\link{cols}},
-  \code{\link{parse_datetime}}, \code{\link{parse_factor}},
-  \code{\link{parse_logical}}, \code{\link{parse_number}},
-  \code{\link{parse_vector}}
+Other parsers: 
+\code{\link{col_skip}()},
+\code{\link{cols_condense}()},
+\code{\link{cols}()},
+\code{\link{parse_datetime}()},
+\code{\link{parse_factor}()},
+\code{\link{parse_logical}()},
+\code{\link{parse_number}()},
+\code{\link{parse_vector}()}
 }
 \concept{parsers}

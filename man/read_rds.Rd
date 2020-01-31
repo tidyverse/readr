@@ -7,8 +7,7 @@
 \usage{
 read_rds(path)
 
-write_rds(x, path, compress = c("none", "gz", "bz2", "xz"),
-  version = 2, ...)
+write_rds(x, path, compress = c("none", "gz", "bz2", "xz"), version = 2, ...)
 }
 \arguments{
 \item{path}{Path to read from/write to.}

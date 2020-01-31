@@ -9,23 +9,62 @@
 \alias{write_tsv}
 \title{Write a data frame to a delimited file}
 \usage{
-write_delim(x, path, delim = " ", na = "NA", append = FALSE,
-  col_names = !append, quote_escape = "double")
+write_delim(
+  x,
+  path,
+  delim = " ",
+  na = "NA",
+  append = FALSE,
+  col_names = !append,
+  quote_escape = "double"
+)
 
-write_csv(x, path, na = "NA", append = FALSE, col_names = !append,
-  quote_escape = "double")
+write_csv(
+  x,
+  path,
+  na = "NA",
+  append = FALSE,
+  col_names = !append,
+  quote_escape = "double"
+)
 
-write_csv2(x, path, na = "NA", append = FALSE, col_names = !append,
-  quote_escape = "double")
+write_csv2(
+  x,
+  path,
+  na = "NA",
+  append = FALSE,
+  col_names = !append,
+  quote_escape = "double"
+)
 
-write_excel_csv(x, path, na = "NA", append = FALSE,
-  col_names = !append, delim = ",", quote_escape = "double")
+write_excel_csv(
+  x,
+  path,
+  na = "NA",
+  append = FALSE,
+  col_names = !append,
+  delim = ",",
+  quote_escape = "double"
+)
 
-write_excel_csv2(x, path, na = "NA", append = FALSE,
-  col_names = !append, delim = ";", quote_escape = "double")
+write_excel_csv2(
+  x,
+  path,
+  na = "NA",
+  append = FALSE,
+  col_names = !append,
+  delim = ";",
+  quote_escape = "double"
+)
 
-write_tsv(x, path, na = "NA", append = FALSE, col_names = !append,
-  quote_escape = "double")
+write_tsv(
+  x,
+  path,
+  na = "NA",
+  append = FALSE,
+  col_names = !append,
+  quote_escape = "double"
+)
 }
 \arguments{
 \item{x}{A data frame to write to disk}
@@ -52,7 +91,7 @@ equivalent to "none". The default is to double the quotes, which is the
 format excel expects.}
 }
 \value{
-\code{write_*()} returns the input \code{x} invisibly.
+\verb{write_*()} returns the input \code{x} invisibly.
 }
 \description{
 This is about twice as fast as \code{\link[=write.csv]{write.csv()}}, and never
@@ -71,12 +110,12 @@ All columns are encoded as UTF-8. \code{write_excel_csv()} and \code{write_excel
 which indicates to Excel the csv is UTF-8 encoded.
 
 \code{write_excel_csv2()} and \code{write_csv2} were created to allow users with
-different locale settings save csv files with their default settings \code{;} as
-column separator and \code{,} as decimal separator. This is common in some European countries.
+different locale settings save csv files with their default settings \verb{;} as
+column separator and \verb{,} as decimal separator. This is common in some European countries.
 
 Values are only quoted if needed: if they contain a comma, quote or newline.
 
-The \code{write_*()} functions will automatically compress outputs if an appropriate extension is given. At present, three
+The \verb{write_*()} functions will automatically compress outputs if an appropriate extension is given. At present, three
 extensions are supported, \code{.gz} for gzip compression, \code{.bz2} for bzip2 compression and \code{.xz} for lzma compression.  See
 the examples for more information.
 }

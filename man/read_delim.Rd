@@ -7,38 +7,84 @@
 \alias{read_tsv}
 \title{Read a delimited file (including csv & tsv) into a tibble}
 \usage{
-read_delim(file, delim, quote = "\\"", escape_backslash = FALSE,
-  escape_double = TRUE, col_names = TRUE, col_types = NULL,
-  locale = default_locale(), na = c("", "NA"), quoted_na = TRUE,
-  comment = "", trim_ws = FALSE, skip = 0, n_max = Inf,
-  guess_max = min(1000, n_max), progress = show_progress(),
-  skip_empty_rows = TRUE)
+read_delim(
+  file,
+  delim,
+  quote = "\\"",
+  escape_backslash = FALSE,
+  escape_double = TRUE,
+  col_names = TRUE,
+  col_types = NULL,
+  locale = default_locale(),
+  na = c("", "NA"),
+  quoted_na = TRUE,
+  comment = "",
+  trim_ws = FALSE,
+  skip = 0,
+  n_max = Inf,
+  guess_max = min(1000, n_max),
+  progress = show_progress(),
+  skip_empty_rows = TRUE
+)
 
-read_csv(file, col_names = TRUE, col_types = NULL,
-  locale = default_locale(), na = c("", "NA"), quoted_na = TRUE,
-  quote = "\\"", comment = "", trim_ws = TRUE, skip = 0,
-  n_max = Inf, guess_max = min(1000, n_max),
-  progress = show_progress(), skip_empty_rows = TRUE)
+read_csv(
+  file,
+  col_names = TRUE,
+  col_types = NULL,
+  locale = default_locale(),
+  na = c("", "NA"),
+  quoted_na = TRUE,
+  quote = "\\"",
+  comment = "",
+  trim_ws = TRUE,
+  skip = 0,
+  n_max = Inf,
+  guess_max = min(1000, n_max),
+  progress = show_progress(),
+  skip_empty_rows = TRUE
+)
 
-read_csv2(file, col_names = TRUE, col_types = NULL,
-  locale = default_locale(), na = c("", "NA"), quoted_na = TRUE,
-  quote = "\\"", comment = "", trim_ws = TRUE, skip = 0,
-  n_max = Inf, guess_max = min(1000, n_max),
-  progress = show_progress(), skip_empty_rows = TRUE)
+read_csv2(
+  file,
+  col_names = TRUE,
+  col_types = NULL,
+  locale = default_locale(),
+  na = c("", "NA"),
+  quoted_na = TRUE,
+  quote = "\\"",
+  comment = "",
+  trim_ws = TRUE,
+  skip = 0,
+  n_max = Inf,
+  guess_max = min(1000, n_max),
+  progress = show_progress(),
+  skip_empty_rows = TRUE
+)
 
-read_tsv(file, col_names = TRUE, col_types = NULL,
-  locale = default_locale(), na = c("", "NA"), quoted_na = TRUE,
-  quote = "\\"", comment = "", trim_ws = TRUE, skip = 0,
-  n_max = Inf, guess_max = min(1000, n_max),
-  progress = show_progress(), skip_empty_rows = TRUE)
+read_tsv(
+  file,
+  col_names = TRUE,
+  col_types = NULL,
+  locale = default_locale(),
+  na = c("", "NA"),
+  quoted_na = TRUE,
+  quote = "\\"",
+  comment = "",
+  trim_ws = TRUE,
+  skip = 0,
+  n_max = Inf,
+  guess_max = min(1000, n_max),
+  progress = show_progress(),
+  skip_empty_rows = TRUE
+)
 }
 \arguments{
 \item{file}{Either a path to a file, a connection, or literal data
 (either a single string or a raw vector).
 
 Files ending in \code{.gz}, \code{.bz2}, \code{.xz}, or \code{.zip} will
-be automatically uncompressed. Files starting with \code{http://},
-\code{https://}, \code{ftp://}, or \code{ftps://} will be automatically
+be automatically uncompressed. Files starting with \verb{http://},
+\verb{https://}, \verb{ftp://}, or \verb{ftps://} will be automatically
 downloaded. Remote gz files can also be automatically downloaded and
 decompressed.
 
@@ -55,11 +101,11 @@ Using a value of \code{\link[=clipboard]{clipboard()}} will read from the system
 \item{escape_backslash}{Does the file use backslashes to escape special
 characters? This is more general than \code{escape_double} as backslashes
 can be used to escape the delimiter character, the quote character, or
-to add special characters like \code{\\n}.}
+to add special characters like \verb{\\\\n}.}
 
 \item{escape_double}{Does the file escape quotes by doubling them?
-i.e. If this option is \code{TRUE}, the value \code{""""} represents
-a single quote, \code{\"}.}
+i.e. If this option is \code{TRUE}, the value \verb{""""} represents
+a single quote, \verb{\\"}.}
 
 \item{col_names}{Either \code{TRUE}, \code{FALSE} or a character vector
 of column names.
@@ -145,7 +191,7 @@ how many, and you can retrieve the details with \code{\link[=problems]{problems(
 \code{read_csv()} and \code{read_tsv()} are special cases of the general
 \code{read_delim()}. They're useful for reading the most common types of
 flat file data, comma separated values and tab separated values,
-respectively. \code{read_csv2()} uses \code{;} for the field separator and \code{,} for the
+respectively. \code{read_csv2()} uses \verb{;} for the field separator and \verb{,} for the
 decimal point. This is common in some European countries.
 }
 \examples{
@@ -161,25 +207,25 @@ read_csv("https://github.com/tidyverse/readr/raw/master/inst/extdata/mtcars.csv"
 }
 
 # Or directly from a string (must contain a newline)
-read_csv("x,y\\n1,2\\n3,4")
+read_csv("x,y\n1,2\n3,4")
 
 # Column types --------------------------------------------------------------
 # By default, readr guesses the columns types, looking at the first 1000 rows.
 # You can override with a compact specification:
-read_csv("x,y\\n1,2\\n3,4", col_types = "dc")
+read_csv("x,y\n1,2\n3,4", col_types = "dc")
 
 # Or with a list of column types:
-read_csv("x,y\\n1,2\\n3,4", col_types = list(col_double(), col_character()))
+read_csv("x,y\n1,2\n3,4", col_types = list(col_double(), col_character()))
 
 # If there are parsing problems, you get a warning, and can extract
 # more details with problems()
-y <- read_csv("x\\n1\\n2\\nb", col_types = list(col_double()))
+y <- read_csv("x\n1\n2\nb", col_types = list(col_double()))
 y
 problems(y)
 
 # File types ----------------------------------------------------------------
-read_csv("a,b\\n1.0,2.0")
-read_csv2("a;b\\n1,0;2,0")
-read_tsv("a\\tb\\n1.0\\t2.0")
-read_delim("a|b\\n1.0|2.0", delim = "|")
+read_csv("a,b\n1.0,2.0")
+read_csv2("a;b\n1,0;2,0")
+read_tsv("a\tb\n1.0\t2.0")
+read_delim("a|b\n1.0|2.0", delim = "|")
 }
