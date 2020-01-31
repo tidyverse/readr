@@ -215,16 +215,16 @@ will be read with this column type.</p></td>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='fu'>cols</span>(<span class='kw'>a</span> <span class='kw'>=</span> <span class='fu'><a href='parse_atomic.html'>col_integer</a></span>())</div><div class='output co'>#&gt; cols(
-#&gt;   a = col_integer()
+#&gt;   a = <span style='color: #00BB00;'>col_integer()</span><span>
 #&gt; )</div><div class='input'><span class='fu'>cols_only</span>(<span class='kw'>a</span> <span class='kw'>=</span> <span class='fu'><a href='parse_atomic.html'>col_integer</a></span>())</div><div class='output co'>#&gt; cols_only(
-#&gt;   a = col_integer()
+#&gt;   a = </span><span style='color: #00BB00;'>col_integer()</span><span>
 #&gt; )</div><div class='input'>
 <span class='co'># You can also use the standard abbreviations</span>
 <span class='fu'>cols</span>(<span class='kw'>a</span> <span class='kw'>=</span> <span class='st'>"i"</span>)</div><div class='output co'>#&gt; cols(
-#&gt;   a = col_integer()
+#&gt;   a = </span><span style='color: #00BB00;'>col_integer()</span><span>
 #&gt; )</div><div class='input'><span class='fu'>cols</span>(<span class='kw'>a</span> <span class='kw'>=</span> <span class='st'>"i"</span>, <span class='kw'>b</span> <span class='kw'>=</span> <span class='st'>"d"</span>, <span class='kw'>c</span> <span class='kw'>=</span> <span class='st'>"_"</span>)</div><div class='output co'>#&gt; cols(
-#&gt;   a = col_integer(),
-#&gt;   b = col_double(),
+#&gt;   a = </span><span style='color: #00BB00;'>col_integer()</span><span>,
+#&gt;   b = </span><span style='color: #00BB00;'>col_double()</span><span>,
 #&gt;   c = col_skip()
 #&gt; )</div><div class='input'>
 <span class='co'># You can also use multiple sets of column definitions by combining</span>
@@ -240,10 +240,10 @@ will be read with this column type.</p></td>
 <span class='no'>t3</span> <span class='kw'>&lt;-</span> <span class='no'>t1</span>
 <span class='no'>t3</span>$<span class='no'>cols</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='no'>t1</span>$<span class='no'>cols</span>, <span class='no'>t2</span>$<span class='no'>cols</span>)
 <span class='no'>t3</span></div><div class='output co'>#&gt; cols(
-#&gt;   column_one = col_integer(),
-#&gt;   column_two = col_number(),
-#&gt;   column_three = col_character()
-#&gt; )</div></pre>
+#&gt;   column_one = </span><span style='color: #00BB00;'>col_integer()</span><span>,
+#&gt;   column_two = </span><span style='color: #00BB00;'>col_number()</span><span>,
+#&gt;   column_three = </span><span style='color: #BB0000;'>col_character()</span><span>
+#&gt; )</div></span></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
