@@ -43,7 +43,8 @@ Imports:
     methods,
     R6,
     Rcpp (>= 0.12.0.5),
-    tibble
+    tibble,
+    utils
 Suggests:
     covr,
     curl,
@@ -62,5 +63,5 @@ VignetteBuilder:
 Encoding: UTF-8
 Language: en-US
 Roxygen: list(markdown = TRUE)
-RoxygenNote: 6.1.1
+RoxygenNote: 7.0.2
 SystemRequirements: GNU make
