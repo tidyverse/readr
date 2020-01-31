@@ -59,7 +59,15 @@ into a melted format where each row represents a single token." />
 <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
 <![endif]-->
 
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-115082821-1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
 
+  gtag('config', 'UA-115082821-1');
+</script>
 
   </head>
 
@@ -153,26 +161,68 @@ into a melted format where each row represents a single token." />
 into a melted format where each row represents a single token.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>melt_delim_chunked</span>(<span class='no'>file</span>, <span class='no'>callback</span>, <span class='kw'>chunk_size</span> <span class='kw'>=</span> <span class='fl'>10000</span>, <span class='no'>delim</span>,
-  <span class='kw'>quote</span> <span class='kw'>=</span> <span class='st'>"\""</span>, <span class='kw'>escape_backslash</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>escape_double</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
-  <span class='kw'>locale</span> <span class='kw'>=</span> <span class='fu'><a href='locale.html'>default_locale</a></span>(), <span class='kw'>na</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>""</span>, <span class='st'>"NA"</span>), <span class='kw'>quoted_na</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
-  <span class='kw'>comment</span> <span class='kw'>=</span> <span class='st'>""</span>, <span class='kw'>trim_ws</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>skip</span> <span class='kw'>=</span> <span class='fl'>0</span>,
-  <span class='kw'>progress</span> <span class='kw'>=</span> <span class='fu'><a href='show_progress.html'>show_progress</a></span>(), <span class='kw'>skip_empty_rows</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)
+    <pre class="usage"><span class='fu'>melt_delim_chunked</span>(
+  <span class='no'>file</span>,
+  <span class='no'>callback</span>,
+  <span class='kw'>chunk_size</span> <span class='kw'>=</span> <span class='fl'>10000</span>,
+  <span class='no'>delim</span>,
+  <span class='kw'>quote</span> <span class='kw'>=</span> <span class='st'>"\""</span>,
+  <span class='kw'>escape_backslash</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
+  <span class='kw'>escape_double</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
+  <span class='kw'>locale</span> <span class='kw'>=</span> <span class='fu'><a href='locale.html'>default_locale</a></span>(),
+  <span class='kw'>na</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>""</span>, <span class='st'>"NA"</span>),
+  <span class='kw'>quoted_na</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
+  <span class='kw'>comment</span> <span class='kw'>=</span> <span class='st'>""</span>,
+  <span class='kw'>trim_ws</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
+  <span class='kw'>skip</span> <span class='kw'>=</span> <span class='fl'>0</span>,
+  <span class='kw'>progress</span> <span class='kw'>=</span> <span class='fu'><a href='show_progress.html'>show_progress</a></span>(),
+  <span class='kw'>skip_empty_rows</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>
+)
 
-<span class='fu'>melt_csv_chunked</span>(<span class='no'>file</span>, <span class='no'>callback</span>, <span class='kw'>chunk_size</span> <span class='kw'>=</span> <span class='fl'>10000</span>,
-  <span class='kw'>locale</span> <span class='kw'>=</span> <span class='fu'><a href='locale.html'>default_locale</a></span>(), <span class='kw'>na</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>""</span>, <span class='st'>"NA"</span>), <span class='kw'>quoted_na</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
-  <span class='kw'>quote</span> <span class='kw'>=</span> <span class='st'>"\""</span>, <span class='kw'>comment</span> <span class='kw'>=</span> <span class='st'>""</span>, <span class='kw'>trim_ws</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>skip</span> <span class='kw'>=</span> <span class='fl'>0</span>,
-  <span class='kw'>progress</span> <span class='kw'>=</span> <span class='fu'><a href='show_progress.html'>show_progress</a></span>(), <span class='kw'>skip_empty_rows</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)
+<span class='fu'>melt_csv_chunked</span>(
+  <span class='no'>file</span>,
+  <span class='no'>callback</span>,
+  <span class='kw'>chunk_size</span> <span class='kw'>=</span> <span class='fl'>10000</span>,
+  <span class='kw'>locale</span> <span class='kw'>=</span> <span class='fu'><a href='locale.html'>default_locale</a></span>(),
+  <span class='kw'>na</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>""</span>, <span class='st'>"NA"</span>),
+  <span class='kw'>quoted_na</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
+  <span class='kw'>quote</span> <span class='kw'>=</span> <span class='st'>"\""</span>,
+  <span class='kw'>comment</span> <span class='kw'>=</span> <span class='st'>""</span>,
+  <span class='kw'>trim_ws</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
+  <span class='kw'>skip</span> <span class='kw'>=</span> <span class='fl'>0</span>,
+  <span class='kw'>progress</span> <span class='kw'>=</span> <span class='fu'><a href='show_progress.html'>show_progress</a></span>(),
+  <span class='kw'>skip_empty_rows</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>
+)
 
-<span class='fu'>melt_csv2_chunked</span>(<span class='no'>file</span>, <span class='no'>callback</span>, <span class='kw'>chunk_size</span> <span class='kw'>=</span> <span class='fl'>10000</span>,
-  <span class='kw'>locale</span> <span class='kw'>=</span> <span class='fu'><a href='locale.html'>default_locale</a></span>(), <span class='kw'>na</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>""</span>, <span class='st'>"NA"</span>), <span class='kw'>quoted_na</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
-  <span class='kw'>quote</span> <span class='kw'>=</span> <span class='st'>"\""</span>, <span class='kw'>comment</span> <span class='kw'>=</span> <span class='st'>""</span>, <span class='kw'>trim_ws</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>skip</span> <span class='kw'>=</span> <span class='fl'>0</span>,
-  <span class='kw'>progress</span> <span class='kw'>=</span> <span class='fu'><a href='show_progress.html'>show_progress</a></span>(), <span class='kw'>skip_empty_rows</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)
+<span class='fu'>melt_csv2_chunked</span>(
+  <span class='no'>file</span>,
+  <span class='no'>callback</span>,
+  <span class='kw'>chunk_size</span> <span class='kw'>=</span> <span class='fl'>10000</span>,
+  <span class='kw'>locale</span> <span class='kw'>=</span> <span class='fu'><a href='locale.html'>default_locale</a></span>(),
+  <span class='kw'>na</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>""</span>, <span class='st'>"NA"</span>),
+  <span class='kw'>quoted_na</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
+  <span class='kw'>quote</span> <span class='kw'>=</span> <span class='st'>"\""</span>,
+  <span class='kw'>comment</span> <span class='kw'>=</span> <span class='st'>""</span>,
+  <span class='kw'>trim_ws</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
+  <span class='kw'>skip</span> <span class='kw'>=</span> <span class='fl'>0</span>,
+  <span class='kw'>progress</span> <span class='kw'>=</span> <span class='fu'><a href='show_progress.html'>show_progress</a></span>(),
+  <span class='kw'>skip_empty_rows</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>
+)
 
-<span class='fu'>melt_tsv_chunked</span>(<span class='no'>file</span>, <span class='no'>callback</span>, <span class='kw'>chunk_size</span> <span class='kw'>=</span> <span class='fl'>10000</span>,
-  <span class='kw'>locale</span> <span class='kw'>=</span> <span class='fu'><a href='locale.html'>default_locale</a></span>(), <span class='kw'>na</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>""</span>, <span class='st'>"NA"</span>), <span class='kw'>quoted_na</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
-  <span class='kw'>quote</span> <span class='kw'>=</span> <span class='st'>"\""</span>, <span class='kw'>comment</span> <span class='kw'>=</span> <span class='st'>""</span>, <span class='kw'>trim_ws</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>skip</span> <span class='kw'>=</span> <span class='fl'>0</span>,
-  <span class='kw'>progress</span> <span class='kw'>=</span> <span class='fu'><a href='show_progress.html'>show_progress</a></span>(), <span class='kw'>skip_empty_rows</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</pre>
+<span class='fu'>melt_tsv_chunked</span>(
+  <span class='no'>file</span>,
+  <span class='no'>callback</span>,
+  <span class='kw'>chunk_size</span> <span class='kw'>=</span> <span class='fl'>10000</span>,
+  <span class='kw'>locale</span> <span class='kw'>=</span> <span class='fu'><a href='locale.html'>default_locale</a></span>(),
+  <span class='kw'>na</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>""</span>, <span class='st'>"NA"</span>),
+  <span class='kw'>quoted_na</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
+  <span class='kw'>quote</span> <span class='kw'>=</span> <span class='st'>"\""</span>,
+  <span class='kw'>comment</span> <span class='kw'>=</span> <span class='st'>""</span>,
+  <span class='kw'>trim_ws</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
+  <span class='kw'>skip</span> <span class='kw'>=</span> <span class='fl'>0</span>,
+  <span class='kw'>progress</span> <span class='kw'>=</span> <span class='fu'><a href='show_progress.html'>show_progress</a></span>(),
+  <span class='kw'>skip_empty_rows</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>
+)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -212,7 +262,7 @@ vector of greater than length 1.</p>
       <td><p>Does the file use backslashes to escape special
 characters? This is more general than <code>escape_double</code> as backslashes
 can be used to escape the delimiter character, the quote character, or
-to add special characters like <code>\n</code>.</p></td>
+to add special characters like <code>\\n</code>.</p></td>
     </tr>
     <tr>
       <th>escape_double</th>
@@ -275,9 +325,10 @@ option is <code>TRUE</code> then blank rows will not be represented at all.  If 
 at a time, executing a given function on one chunk before reading the next.</p>
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
-    <div class='dont-index'><p>Other chunked: <code><a href='callback.html'>callback</a></code>,
-  <code><a href='read_delim_chunked.html'>read_delim_chunked</a></code>,
-  <code><a href='read_lines_chunked.html'>read_lines_chunked</a></code></p></div>
+    <div class='dont-index'><p>Other chunked: 
+<code><a href='callback.html'>callback</a></code>,
+<code><a href='read_delim_chunked.html'>read_delim_chunked</a>()</code>,
+<code><a href='read_lines_chunked.html'>read_lines_chunked</a>()</code></p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='co'># Cars with 3 gears</span>

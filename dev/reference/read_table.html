@@ -66,7 +66,15 @@ the column specifications rather than a data frame." />
 <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
 <![endif]-->
 
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-115082821-1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
 
+  gtag('config', 'UA-115082821-1');
+</script>
 
   </head>
 
@@ -167,15 +175,33 @@ parses like a fixed width file.</p>
 the column specifications rather than a data frame.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>read_table</span>(<span class='no'>file</span>, <span class='kw'>col_names</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>col_types</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>locale</span> <span class='kw'>=</span> <span class='fu'><a href='locale.html'>default_locale</a></span>(), <span class='kw'>na</span> <span class='kw'>=</span> <span class='st'>"NA"</span>, <span class='kw'>skip</span> <span class='kw'>=</span> <span class='fl'>0</span>, <span class='kw'>n_max</span> <span class='kw'>=</span> <span class='fl'>Inf</span>,
-  <span class='kw'>guess_max</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/Extremes.html'>min</a></span>(<span class='no'>n_max</span>, <span class='fl'>1000</span>), <span class='kw'>progress</span> <span class='kw'>=</span> <span class='fu'><a href='show_progress.html'>show_progress</a></span>(),
-  <span class='kw'>comment</span> <span class='kw'>=</span> <span class='st'>""</span>, <span class='kw'>skip_empty_rows</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)
+    <pre class="usage"><span class='fu'>read_table</span>(
+  <span class='no'>file</span>,
+  <span class='kw'>col_names</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
+  <span class='kw'>col_types</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>locale</span> <span class='kw'>=</span> <span class='fu'><a href='locale.html'>default_locale</a></span>(),
+  <span class='kw'>na</span> <span class='kw'>=</span> <span class='st'>"NA"</span>,
+  <span class='kw'>skip</span> <span class='kw'>=</span> <span class='fl'>0</span>,
+  <span class='kw'>n_max</span> <span class='kw'>=</span> <span class='fl'>Inf</span>,
+  <span class='kw'>guess_max</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/Extremes.html'>min</a></span>(<span class='no'>n_max</span>, <span class='fl'>1000</span>),
+  <span class='kw'>progress</span> <span class='kw'>=</span> <span class='fu'><a href='show_progress.html'>show_progress</a></span>(),
+  <span class='kw'>comment</span> <span class='kw'>=</span> <span class='st'>""</span>,
+  <span class='kw'>skip_empty_rows</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>
+)
 
-<span class='fu'>read_table2</span>(<span class='no'>file</span>, <span class='kw'>col_names</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>col_types</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>locale</span> <span class='kw'>=</span> <span class='fu'><a href='locale.html'>default_locale</a></span>(), <span class='kw'>na</span> <span class='kw'>=</span> <span class='st'>"NA"</span>, <span class='kw'>skip</span> <span class='kw'>=</span> <span class='fl'>0</span>, <span class='kw'>n_max</span> <span class='kw'>=</span> <span class='fl'>Inf</span>,
-  <span class='kw'>guess_max</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/Extremes.html'>min</a></span>(<span class='no'>n_max</span>, <span class='fl'>1000</span>), <span class='kw'>progress</span> <span class='kw'>=</span> <span class='fu'><a href='show_progress.html'>show_progress</a></span>(),
-  <span class='kw'>comment</span> <span class='kw'>=</span> <span class='st'>""</span>, <span class='kw'>skip_empty_rows</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</pre>
+<span class='fu'>read_table2</span>(
+  <span class='no'>file</span>,
+  <span class='kw'>col_names</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
+  <span class='kw'>col_types</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>locale</span> <span class='kw'>=</span> <span class='fu'><a href='locale.html'>default_locale</a></span>(),
+  <span class='kw'>na</span> <span class='kw'>=</span> <span class='st'>"NA"</span>,
+  <span class='kw'>skip</span> <span class='kw'>=</span> <span class='fl'>0</span>,
+  <span class='kw'>n_max</span> <span class='kw'>=</span> <span class='fl'>Inf</span>,
+  <span class='kw'>guess_max</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/Extremes.html'>min</a></span>(<span class='no'>n_max</span>, <span class='fl'>1000</span>),
+  <span class='kw'>progress</span> <span class='kw'>=</span> <span class='fu'><a href='show_progress.html'>show_progress</a></span>(),
+  <span class='kw'>comment</span> <span class='kw'>=</span> <span class='st'>""</span>,
+  <span class='kw'>skip_empty_rows</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>
+)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -366,25 +392,25 @@ tabular data with non-standard formatting.</p></div>
 #&gt;    X1       X2       X3    X4    X5    X6    X7    X8    X9   X10 X11        X12
 #&gt;    &lt;chr&gt;    &lt;chr&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;chr&gt;    &lt;dbl&gt;
 #&gt;  1 ALFA RO… ""       NA    NA    NA    NA    NA    NA    NA    NA ALFA R… 7.80e7
-#&gt;  2 ALFETTA  03       81     8    74     7    89     9    NA    NA ALFETTA 7.80e7
-#&gt;  3 SPIDER … 01       NA    NA    NA    NA    NA    NA    NA    NA SPIDER… 7.80e7
+#&gt;  2 ALFETTA  "03"     81     8    74     7    89     9    NA    NA ALFETTA 7.80e7
+#&gt;  3 SPIDER … "01"     NA    NA    NA    NA    NA    NA    NA    NA SPIDER… 7.80e7
 #&gt;  4 AMC      ""       NA    NA    NA    NA    NA    NA    NA    NA AMC     7.80e7
-#&gt;  5 GREMLIN  03       79     9    NA    NA    NA    NA    79     9 GREMLIN 7.80e7
-#&gt;  6 PACER    04       89    11    NA    NA    NA    NA    89    11 PACER   7.80e7
-#&gt;  7 PACER W… 07       90    26    91    26    NA    NA    NA    NA PACER … 7.80e7
-#&gt;  8 CONCORD  04       88    12    90    11    90    11    83    16 CONCORD 7.80e7
-#&gt;  9 CONCORD… 07       91    30    NA    NA    91    30    NA    NA CONCOR… 7.80e7
-#&gt; 10 MATADOR… 05       97    14    97    14    NA    NA    NA    NA MATADO… 7.80e7
-#&gt; 11 MATADOR… 06      110    20    NA    NA   110    20    NA    NA MATADO… 7.80e7
-#&gt; 12 MATADOR… 09      112    50    NA    NA   112    50    NA    NA MATADO… 7.80e7
+#&gt;  5 GREMLIN  "03"     79     9    NA    NA    NA    NA    79     9 GREMLIN 7.80e7
+#&gt;  6 PACER    "04"     89    11    NA    NA    NA    NA    89    11 PACER   7.80e7
+#&gt;  7 PACER W… "07"     90    26    91    26    NA    NA    NA    NA PACER … 7.80e7
+#&gt;  8 CONCORD  "04"     88    12    90    11    90    11    83    16 CONCORD 7.80e7
+#&gt;  9 CONCORD… "07"     91    30    NA    NA    91    30    NA    NA CONCOR… 7.80e7
+#&gt; 10 MATADOR… "05"     97    14    97    14    NA    NA    NA    NA MATADO… 7.80e7
+#&gt; 11 MATADOR… "06"    110    20    NA    NA   110    20    NA    NA MATADO… 7.80e7
+#&gt; 12 MATADOR… "09"    112    50    NA    NA   112    50    NA    NA MATADO… 7.80e7
 #&gt; 13 ASTON M… ""       NA    NA    NA    NA    NA    NA    NA    NA ASTON … 7.80e7
 #&gt; 14 ASTON M… ""       NA    NA    NA    NA    NA    NA    NA    NA ASTON … 7.80e7
 #&gt; 15 AUDI     ""       NA    NA    NA    NA    NA    NA    NA    NA AUDI    7.81e7
-#&gt; 16 FOX      03       84    11    84    11    84    11    NA    NA FOX     7.81e7
-#&gt; 17 FOX WAG… 07       83    40    NA    NA    83    40    NA    NA FOX WA… 7.81e7
-#&gt; 18 5000     04       90    15    NA    NA    90    15    NA    NA 5000    7.81e7
+#&gt; 16 FOX      "03"     84    11    84    11    84    11    NA    NA FOX     7.81e7
+#&gt; 17 FOX WAG… "07"     83    40    NA    NA    83    40    NA    NA FOX WA… 7.81e7
+#&gt; 18 5000     "04"     90    15    NA    NA    90    15    NA    NA 5000    7.81e7
 #&gt; 19 AVANTI   ""       NA    NA    NA    NA    NA    NA    NA    NA AVANTI  7.81e7
-#&gt; 20 AVANTI … 02       75     8    75     8    NA    NA    NA    NA AVANTI… 7.81e7</div></pre>
+#&gt; 20 AVANTI … "02"     75     8    75     8    NA    NA    NA    NA AVANTI… 7.81e7</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>

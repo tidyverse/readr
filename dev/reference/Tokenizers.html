@@ -60,7 +60,15 @@ read_csv()." />
 <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
 <![endif]-->
 
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-115082821-1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
 
+  gtag('config', 'UA-115082821-1');
+</script>
 
   </head>
 
@@ -155,22 +163,48 @@ function, but will instead use one of the use friendly wrappers like
 <code><a href='read_delim.html'>read_csv()</a></code>.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>tokenizer_delim</span>(<span class='no'>delim</span>, <span class='kw'>quote</span> <span class='kw'>=</span> <span class='st'>"\""</span>, <span class='kw'>na</span> <span class='kw'>=</span> <span class='st'>"NA"</span>, <span class='kw'>quoted_na</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
-  <span class='kw'>comment</span> <span class='kw'>=</span> <span class='st'>""</span>, <span class='kw'>trim_ws</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>escape_double</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
-  <span class='kw'>escape_backslash</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>skip_empty_rows</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)
+    <pre class="usage"><span class='fu'>tokenizer_delim</span>(
+  <span class='no'>delim</span>,
+  <span class='kw'>quote</span> <span class='kw'>=</span> <span class='st'>"\""</span>,
+  <span class='kw'>na</span> <span class='kw'>=</span> <span class='st'>"NA"</span>,
+  <span class='kw'>quoted_na</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
+  <span class='kw'>comment</span> <span class='kw'>=</span> <span class='st'>""</span>,
+  <span class='kw'>trim_ws</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
+  <span class='kw'>escape_double</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
+  <span class='kw'>escape_backslash</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
+  <span class='kw'>skip_empty_rows</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>
+)
 
-<span class='fu'>tokenizer_csv</span>(<span class='kw'>na</span> <span class='kw'>=</span> <span class='st'>"NA"</span>, <span class='kw'>quoted_na</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>quote</span> <span class='kw'>=</span> <span class='st'>"\""</span>,
-  <span class='kw'>comment</span> <span class='kw'>=</span> <span class='st'>""</span>, <span class='kw'>trim_ws</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>skip_empty_rows</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)
+<span class='fu'>tokenizer_csv</span>(
+  <span class='kw'>na</span> <span class='kw'>=</span> <span class='st'>"NA"</span>,
+  <span class='kw'>quoted_na</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
+  <span class='kw'>quote</span> <span class='kw'>=</span> <span class='st'>"\""</span>,
+  <span class='kw'>comment</span> <span class='kw'>=</span> <span class='st'>""</span>,
+  <span class='kw'>trim_ws</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
+  <span class='kw'>skip_empty_rows</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>
+)
 
-<span class='fu'>tokenizer_tsv</span>(<span class='kw'>na</span> <span class='kw'>=</span> <span class='st'>"NA"</span>, <span class='kw'>quoted_na</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>quote</span> <span class='kw'>=</span> <span class='st'>"\""</span>,
-  <span class='kw'>comment</span> <span class='kw'>=</span> <span class='st'>""</span>, <span class='kw'>trim_ws</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>skip_empty_rows</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)
+<span class='fu'>tokenizer_tsv</span>(
+  <span class='kw'>na</span> <span class='kw'>=</span> <span class='st'>"NA"</span>,
+  <span class='kw'>quoted_na</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
+  <span class='kw'>quote</span> <span class='kw'>=</span> <span class='st'>"\""</span>,
+  <span class='kw'>comment</span> <span class='kw'>=</span> <span class='st'>""</span>,
+  <span class='kw'>trim_ws</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
+  <span class='kw'>skip_empty_rows</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>
+)
 
 <span class='fu'>tokenizer_line</span>(<span class='kw'>na</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/character.html'>character</a></span>(), <span class='kw'>skip_empty_rows</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)
 
 <span class='fu'>tokenizer_log</span>()
 
-<span class='fu'>tokenizer_fwf</span>(<span class='no'>begin</span>, <span class='no'>end</span>, <span class='kw'>na</span> <span class='kw'>=</span> <span class='st'>"NA"</span>, <span class='kw'>comment</span> <span class='kw'>=</span> <span class='st'>""</span>, <span class='kw'>trim_ws</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
-  <span class='kw'>skip_empty_rows</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)
+<span class='fu'>tokenizer_fwf</span>(
+  <span class='no'>begin</span>,
+  <span class='no'>end</span>,
+  <span class='kw'>na</span> <span class='kw'>=</span> <span class='st'>"NA"</span>,
+  <span class='kw'>comment</span> <span class='kw'>=</span> <span class='st'>""</span>,
+  <span class='kw'>trim_ws</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
+  <span class='kw'>skip_empty_rows</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>
+)
 
 <span class='fu'>tokenizer_ws</span>(<span class='kw'>na</span> <span class='kw'>=</span> <span class='st'>"NA"</span>, <span class='kw'>comment</span> <span class='kw'>=</span> <span class='st'>""</span>, <span class='kw'>skip_empty_rows</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</pre>
 
@@ -216,7 +250,7 @@ a single quote, <code>\"</code>.</p></td>
       <td><p>Does the file use backslashes to escape special
 characters? This is more general than <code>escape_double</code> as backslashes
 can be used to escape the delimiter character, the quote character, or
-to add special characters like <code>\n</code>.</p></td>
+to add special characters like <code>\\n</code>.</p></td>
     </tr>
     <tr>
       <th>skip_empty_rows</th>

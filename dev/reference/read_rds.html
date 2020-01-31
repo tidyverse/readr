@@ -60,7 +60,15 @@ than time." />
 <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
 <![endif]-->
 
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-115082821-1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
 
+  gtag('config', 'UA-115082821-1');
+</script>
 
   </head>
 
@@ -157,7 +165,7 @@ than time.</p>
 
     <pre class="usage"><span class='fu'>read_rds</span>(<span class='no'>path</span>)
 
-<span class='fu'>write_rds</span>(<span class='no'>x</span>, <span class='no'>path</span>, <span class='kw'>compress</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"none"</span>, <span class='st'>"gz"</span>, <span class='st'>"bz2"</span>, <span class='st'>"xz"</span>), <span class='no'>...</span>)</pre>
+<span class='fu'>write_rds</span>(<span class='no'>x</span>, <span class='no'>path</span>, <span class='kw'>compress</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"none"</span>, <span class='st'>"gz"</span>, <span class='st'>"bz2"</span>, <span class='st'>"xz"</span>), <span class='kw'>version</span> <span class='kw'>=</span> <span class='fl'>2</span>, <span class='no'>...</span>)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -173,6 +181,12 @@ than time.</p>
     <tr>
       <th>compress</th>
       <td><p>Compression method to use: "none", "gz" ,"bz", or "xz".</p></td>
+    </tr>
+    <tr>
+      <th>version</th>
+      <td><p>Serialization format version to be used. The default value is 2
+as it's compatible for R versions prior to 3.5.0. See <code><a href='https://rdrr.io/r/base/readRDS.html'>base::saveRDS()</a></code>
+for more details.</p></td>
     </tr>
     <tr>
       <th>...</th>

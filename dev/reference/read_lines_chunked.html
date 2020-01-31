@@ -58,7 +58,15 @@
 <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
 <![endif]-->
 
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-115082821-1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
 
+  gtag('config', 'UA-115082821-1');
+</script>
 
   </head>
 
@@ -151,12 +159,23 @@
     <p>Read lines from a file or string by chunk.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>read_lines_chunked</span>(<span class='no'>file</span>, <span class='no'>callback</span>, <span class='kw'>chunk_size</span> <span class='kw'>=</span> <span class='fl'>10000</span>, <span class='kw'>skip</span> <span class='kw'>=</span> <span class='fl'>0</span>,
-  <span class='kw'>locale</span> <span class='kw'>=</span> <span class='fu'><a href='locale.html'>default_locale</a></span>(), <span class='kw'>na</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/character.html'>character</a></span>(),
-  <span class='kw'>progress</span> <span class='kw'>=</span> <span class='fu'><a href='show_progress.html'>show_progress</a></span>())
+    <pre class="usage"><span class='fu'>read_lines_chunked</span>(
+  <span class='no'>file</span>,
+  <span class='no'>callback</span>,
+  <span class='kw'>chunk_size</span> <span class='kw'>=</span> <span class='fl'>10000</span>,
+  <span class='kw'>skip</span> <span class='kw'>=</span> <span class='fl'>0</span>,
+  <span class='kw'>locale</span> <span class='kw'>=</span> <span class='fu'><a href='locale.html'>default_locale</a></span>(),
+  <span class='kw'>na</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/character.html'>character</a></span>(),
+  <span class='kw'>progress</span> <span class='kw'>=</span> <span class='fu'><a href='show_progress.html'>show_progress</a></span>()
+)
 
-<span class='fu'>read_lines_raw_chunked</span>(<span class='no'>file</span>, <span class='no'>callback</span>, <span class='kw'>chunk_size</span> <span class='kw'>=</span> <span class='fl'>10000</span>, <span class='kw'>skip</span> <span class='kw'>=</span> <span class='fl'>0</span>,
-  <span class='kw'>progress</span> <span class='kw'>=</span> <span class='fu'><a href='show_progress.html'>show_progress</a></span>())</pre>
+<span class='fu'>read_lines_raw_chunked</span>(
+  <span class='no'>file</span>,
+  <span class='no'>callback</span>,
+  <span class='kw'>chunk_size</span> <span class='kw'>=</span> <span class='fl'>10000</span>,
+  <span class='kw'>skip</span> <span class='kw'>=</span> <span class='fl'>0</span>,
+  <span class='kw'>progress</span> <span class='kw'>=</span> <span class='fu'><a href='show_progress.html'>show_progress</a></span>()
+)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -212,9 +231,10 @@ setting option <code>readr.show_progress</code> to <code>FALSE</code>.</p></td>
 
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
-    <div class='dont-index'><p>Other chunked: <code><a href='callback.html'>callback</a></code>,
-  <code><a href='melt_delim_chunked.html'>melt_delim_chunked</a></code>,
-  <code><a href='read_delim_chunked.html'>read_delim_chunked</a></code></p></div>
+    <div class='dont-index'><p>Other chunked: 
+<code><a href='callback.html'>callback</a></code>,
+<code><a href='melt_delim_chunked.html'>melt_delim_chunked</a>()</code>,
+<code><a href='read_delim_chunked.html'>read_delim_chunked</a>()</code></p></div>
 
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">

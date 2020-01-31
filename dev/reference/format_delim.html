@@ -59,7 +59,15 @@ of writing to disk, they return a string." />
 <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
 <![endif]-->
 
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-115082821-1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
 
+  gtag('config', 'UA-115082821-1');
+</script>
 
   </head>
 
@@ -153,17 +161,38 @@ of writing to disk, they return a string." />
 of writing to disk, they return a string.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>format_delim</span>(<span class='no'>x</span>, <span class='no'>delim</span>, <span class='kw'>na</span> <span class='kw'>=</span> <span class='st'>"NA"</span>, <span class='kw'>append</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
-  <span class='kw'>col_names</span> <span class='kw'>=</span> !<span class='no'>append</span>, <span class='kw'>quote_escape</span> <span class='kw'>=</span> <span class='st'>"double"</span>)
+    <pre class="usage"><span class='fu'>format_delim</span>(
+  <span class='no'>x</span>,
+  <span class='no'>delim</span>,
+  <span class='kw'>na</span> <span class='kw'>=</span> <span class='st'>"NA"</span>,
+  <span class='kw'>append</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
+  <span class='kw'>col_names</span> <span class='kw'>=</span> !<span class='no'>append</span>,
+  <span class='kw'>quote_escape</span> <span class='kw'>=</span> <span class='st'>"double"</span>
+)
 
-<span class='fu'>format_csv</span>(<span class='no'>x</span>, <span class='kw'>na</span> <span class='kw'>=</span> <span class='st'>"NA"</span>, <span class='kw'>append</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>col_names</span> <span class='kw'>=</span> !<span class='no'>append</span>,
-  <span class='kw'>quote_escape</span> <span class='kw'>=</span> <span class='st'>"double"</span>)
+<span class='fu'>format_csv</span>(
+  <span class='no'>x</span>,
+  <span class='kw'>na</span> <span class='kw'>=</span> <span class='st'>"NA"</span>,
+  <span class='kw'>append</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
+  <span class='kw'>col_names</span> <span class='kw'>=</span> !<span class='no'>append</span>,
+  <span class='kw'>quote_escape</span> <span class='kw'>=</span> <span class='st'>"double"</span>
+)
 
-<span class='fu'>format_csv2</span>(<span class='no'>x</span>, <span class='kw'>na</span> <span class='kw'>=</span> <span class='st'>"NA"</span>, <span class='kw'>append</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>col_names</span> <span class='kw'>=</span> !<span class='no'>append</span>,
-  <span class='kw'>quote_escape</span> <span class='kw'>=</span> <span class='st'>"double"</span>)
+<span class='fu'>format_csv2</span>(
+  <span class='no'>x</span>,
+  <span class='kw'>na</span> <span class='kw'>=</span> <span class='st'>"NA"</span>,
+  <span class='kw'>append</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
+  <span class='kw'>col_names</span> <span class='kw'>=</span> !<span class='no'>append</span>,
+  <span class='kw'>quote_escape</span> <span class='kw'>=</span> <span class='st'>"double"</span>
+)
 
-<span class='fu'>format_tsv</span>(<span class='no'>x</span>, <span class='kw'>na</span> <span class='kw'>=</span> <span class='st'>"NA"</span>, <span class='kw'>append</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>col_names</span> <span class='kw'>=</span> !<span class='no'>append</span>,
-  <span class='kw'>quote_escape</span> <span class='kw'>=</span> <span class='st'>"double"</span>)</pre>
+<span class='fu'>format_tsv</span>(
+  <span class='no'>x</span>,
+  <span class='kw'>na</span> <span class='kw'>=</span> <span class='st'>"NA"</span>,
+  <span class='kw'>append</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
+  <span class='kw'>col_names</span> <span class='kw'>=</span> !<span class='no'>append</span>,
+  <span class='kw'>quote_escape</span> <span class='kw'>=</span> <span class='st'>"double"</span>
+)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">

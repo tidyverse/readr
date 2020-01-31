@@ -60,7 +60,15 @@ in a quoted string. The dash, &quot;-&quot;, is used for missing values." />
 <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
 <![endif]-->
 
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-115082821-1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
 
+  gtag('config', 'UA-115082821-1');
+</script>
 
   </head>
 
@@ -155,8 +163,14 @@ and square brackets for quoting, and there may be literal quotes embedded
 in a quoted string. The dash, "-", is used for missing values.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>read_log</span>(<span class='no'>file</span>, <span class='kw'>col_names</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>col_types</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>skip</span> <span class='kw'>=</span> <span class='fl'>0</span>,
-  <span class='kw'>n_max</span> <span class='kw'>=</span> <span class='fl'>Inf</span>, <span class='kw'>progress</span> <span class='kw'>=</span> <span class='fu'><a href='show_progress.html'>show_progress</a></span>())</pre>
+    <pre class="usage"><span class='fu'>read_log</span>(
+  <span class='no'>file</span>,
+  <span class='kw'>col_names</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
+  <span class='kw'>col_types</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>skip</span> <span class='kw'>=</span> <span class='fl'>0</span>,
+  <span class='kw'>n_max</span> <span class='kw'>=</span> <span class='fl'>Inf</span>,
+  <span class='kw'>progress</span> <span class='kw'>=</span> <span class='fu'><a href='show_progress.html'>show_progress</a></span>()
+)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -247,7 +261,7 @@ setting option <code>readr.show_progress</code> to <code>FALSE</code>.</p></td>
 #&gt;   X1        X2    X3          X4             X5                         X6    X7
 #&gt;   &lt;chr&gt;     &lt;lgl&gt; &lt;chr&gt;       &lt;chr&gt;          &lt;chr&gt;                   &lt;dbl&gt; &lt;dbl&gt;
 #&gt; 1 172.21.1… NA    "Microsoft… 08/Apr/2001:1… GET /scripts/iisadmin/…   200  3401
-#&gt; 2 127.0.0.1 NA    frank       10/Oct/2000:1… GET /apache_pb.gif HTT…   200  2326</div></pre>
+#&gt; 2 127.0.0.1 NA    "frank"     10/Oct/2000:1… GET /apache_pb.gif HTT…   200  2326</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>

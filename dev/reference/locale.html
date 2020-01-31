@@ -62,7 +62,15 @@ vignette(&quot;locales&quot;) for more details." />
 <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
 <![endif]-->
 
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-115082821-1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
 
+  gtag('config', 'UA-115082821-1');
+</script>
 
   </head>
 
@@ -159,9 +167,16 @@ match R (i.e. US English) as closely as possible. See
 <code><a href='../articles/locales.html'>vignette("locales")</a></code> for more details.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>locale</span>(<span class='kw'>date_names</span> <span class='kw'>=</span> <span class='st'>"en"</span>, <span class='kw'>date_format</span> <span class='kw'>=</span> <span class='st'>"%AD"</span>, <span class='kw'>time_format</span> <span class='kw'>=</span> <span class='st'>"%AT"</span>,
-  <span class='kw'>decimal_mark</span> <span class='kw'>=</span> <span class='st'>"."</span>, <span class='kw'>grouping_mark</span> <span class='kw'>=</span> <span class='st'>","</span>, <span class='kw'>tz</span> <span class='kw'>=</span> <span class='st'>"UTC"</span>,
-  <span class='kw'>encoding</span> <span class='kw'>=</span> <span class='st'>"UTF-8"</span>, <span class='kw'>asciify</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)
+    <pre class="usage"><span class='fu'>locale</span>(
+  <span class='kw'>date_names</span> <span class='kw'>=</span> <span class='st'>"en"</span>,
+  <span class='kw'>date_format</span> <span class='kw'>=</span> <span class='st'>"%AD"</span>,
+  <span class='kw'>time_format</span> <span class='kw'>=</span> <span class='st'>"%AT"</span>,
+  <span class='kw'>decimal_mark</span> <span class='kw'>=</span> <span class='st'>"."</span>,
+  <span class='kw'>grouping_mark</span> <span class='kw'>=</span> <span class='st'>","</span>,
+  <span class='kw'>tz</span> <span class='kw'>=</span> <span class='st'>"UTC"</span>,
+  <span class='kw'>encoding</span> <span class='kw'>=</span> <span class='st'>"UTF-8"</span>,
+  <span class='kw'>asciify</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>
+)
 
 <span class='fu'>default_locale</span>()</pre>
 

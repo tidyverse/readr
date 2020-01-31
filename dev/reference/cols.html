@@ -60,7 +60,15 @@ specify, skipping the rest." />
 <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
 <![endif]-->
 
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-115082821-1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
 
+  gtag('config', 'UA-115082821-1');
+</script>
 
   </head>
 
@@ -195,11 +203,15 @@ will be read with this column type.</p></td>
 
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
-    <div class='dont-index'><p>Other parsers: <code><a href='col_skip.html'>col_skip</a></code>,
-  <code><a href='spec.html'>cols_condense</a></code>,
-  <code><a href='parse_datetime.html'>parse_datetime</a></code>, <code><a href='parse_factor.html'>parse_factor</a></code>,
-  <code><a href='parse_guess.html'>parse_guess</a></code>, <code><a href='parse_atomic.html'>parse_logical</a></code>,
-  <code><a href='parse_number.html'>parse_number</a></code>, <code><a href='parse_vector.html'>parse_vector</a></code></p></div>
+    <div class='dont-index'><p>Other parsers: 
+<code><a href='col_skip.html'>col_skip</a>()</code>,
+<code><a href='spec.html'>cols_condense</a>()</code>,
+<code><a href='parse_datetime.html'>parse_datetime</a>()</code>,
+<code><a href='parse_factor.html'>parse_factor</a>()</code>,
+<code><a href='parse_guess.html'>parse_guess</a>()</code>,
+<code><a href='parse_atomic.html'>parse_logical</a>()</code>,
+<code><a href='parse_number.html'>parse_number</a>()</code>,
+<code><a href='parse_vector.html'>parse_vector</a>()</code></p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='fu'>cols</span>(<span class='kw'>a</span> <span class='kw'>=</span> <span class='fu'><a href='parse_atomic.html'>col_integer</a></span>())</div><div class='output co'>#&gt; cols(

@@ -58,7 +58,15 @@
 <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
 <![endif]-->
 
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-115082821-1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
 
+  gtag('config', 'UA-115082821-1');
+</script>
 
   </head>
 
@@ -167,9 +175,281 @@ the initial value of the accumulator.  The parameter <code>acc</code> is <code>N
 
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
-    <div class='dont-index'><p>Other chunked: <code><a href='melt_delim_chunked.html'>melt_delim_chunked</a></code>,
-  <code><a href='read_delim_chunked.html'>read_delim_chunked</a></code>,
-  <code><a href='read_lines_chunked.html'>read_lines_chunked</a></code></p></div>
+    <div class='dont-index'><p>Other chunked: 
+<code><a href='melt_delim_chunked.html'>melt_delim_chunked</a>()</code>,
+<code><a href='read_delim_chunked.html'>read_delim_chunked</a>()</code>,
+<code><a href='read_lines_chunked.html'>read_lines_chunked</a>()</code></p></div>
+    <h2 class="hasAnchor" id="methods"><a class="anchor" href="#methods"></a>Methods</h2>
+
+    
+<h3>Public methods</h3>
+
+<ul>
+<li><p><a href='#method-new'><code>ChunkCallback$new()</code></a></p></li>
+<li><p><a href='#method-receive'><code>ChunkCallback$receive()</code></a></p></li>
+<li><p><a href='#method-continue'><code>ChunkCallback$continue()</code></a></p></li>
+<li><p><a href='#method-result'><code>ChunkCallback$result()</code></a></p></li>
+<li><p><a href='#method-finally'><code>ChunkCallback$finally()</code></a></p></li>
+<li><p><a href='#method-clone'><code>ChunkCallback$clone()</code></a></p></li>
+</ul>
+<p><hr>
+<a id="method-new"></a></p><h3>Method <code>new()</code></h3>
+
+<h3>Usage</h3>
+<p><div class="r"></p><pre>ChunkCallback$new(callback)</pre><p></div></p>
+
+<p><hr>
+<a id="method-receive"></a></p><h3>Method <code>receive()</code></h3>
+
+<h3>Usage</h3>
+<p><div class="r"></p><pre>ChunkCallback$receive(data, index)</pre><p></div></p>
+
+<p><hr>
+<a id="method-continue"></a></p><h3>Method <code>continue()</code></h3>
+
+<h3>Usage</h3>
+<p><div class="r"></p><pre>ChunkCallback$continue()</pre><p></div></p>
+
+<p><hr>
+<a id="method-result"></a></p><h3>Method <code>result()</code></h3>
+
+<h3>Usage</h3>
+<p><div class="r"></p><pre>ChunkCallback$result()</pre><p></div></p>
+
+<p><hr>
+<a id="method-finally"></a></p><h3>Method <code>finally()</code></h3>
+
+<h3>Usage</h3>
+<p><div class="r"></p><pre>ChunkCallback$finally()</pre><p></div></p>
+
+<p><hr>
+<a id="method-clone"></a></p><h3>Method <code>clone()</code></h3>
+<p>The objects of this class are cloneable with this method.</p><h3>Usage</h3>
+<p><div class="r"></p><pre>ChunkCallback$clone(deep = FALSE)</pre><p></div></p>
+
+<h3>Arguments</h3>
+<p><div class="arguments"></p><dl class='dl-horizontal'>
+<dt><code>deep</code></dt><dd><p>Whether to make a deep clone.</p></dd>
+
+</dl><p></div></p>
+
+
+    <h2 class="hasAnchor" id="super-class"><a class="anchor" href="#super-class"></a>Super class</h2>
+
+    <p><code>readr::ChunkCallback</code> -&gt; <code>SideEffectChunkCallback</code></p>
+    <h2 class="hasAnchor" id="methods"><a class="anchor" href="#methods"></a>Methods</h2>
+
+    
+<h3>Public methods</h3>
+
+<ul>
+<li><p><a href='#method-new'><code>SideEffectChunkCallback$new()</code></a></p></li>
+<li><p><a href='#method-receive'><code>SideEffectChunkCallback$receive()</code></a></p></li>
+<li><p><a href='#method-continue'><code>SideEffectChunkCallback$continue()</code></a></p></li>
+<li><p><a href='#method-clone'><code>SideEffectChunkCallback$clone()</code></a></p></li>
+</ul>
+<p><details open ><summary>Inherited methods</summary>
+<ul>
+<li><p><span class="pkg-link" data-pkg="readr" data-topic="ChunkCallback" data-id="finally"><a href='../../readr/html/ChunkCallback.html#method-finally'><code>readr::ChunkCallback$finally()</code></a></span></p></li>
+<li><p><span class="pkg-link" data-pkg="readr" data-topic="ChunkCallback" data-id="result"><a href='../../readr/html/ChunkCallback.html#method-result'><code>readr::ChunkCallback$result()</code></a></span></p></li>
+</ul>
+</details>
+
+<hr>
+<a id="method-new"></a></p><h3>Method <code>new()</code></h3>
+
+<h3>Usage</h3>
+<p><div class="r"></p><pre>SideEffectChunkCallback$new(callback)</pre><p></div></p>
+
+<p><hr>
+<a id="method-receive"></a></p><h3>Method <code>receive()</code></h3>
+
+<h3>Usage</h3>
+<p><div class="r"></p><pre>SideEffectChunkCallback$receive(data, index)</pre><p></div></p>
+
+<p><hr>
+<a id="method-continue"></a></p><h3>Method <code>continue()</code></h3>
+
+<h3>Usage</h3>
+<p><div class="r"></p><pre>SideEffectChunkCallback$continue()</pre><p></div></p>
+
+<p><hr>
+<a id="method-clone"></a></p><h3>Method <code>clone()</code></h3>
+<p>The objects of this class are cloneable with this method.</p><h3>Usage</h3>
+<p><div class="r"></p><pre>SideEffectChunkCallback$clone(deep = FALSE)</pre><p></div></p>
+
+<h3>Arguments</h3>
+<p><div class="arguments"></p><dl class='dl-horizontal'>
+<dt><code>deep</code></dt><dd><p>Whether to make a deep clone.</p></dd>
+
+</dl><p></div></p>
+
+
+    <h2 class="hasAnchor" id="super-class"><a class="anchor" href="#super-class"></a>Super class</h2>
+
+    <p><code>readr::ChunkCallback</code> -&gt; <code>DataFrameCallback</code></p>
+    <h2 class="hasAnchor" id="methods"><a class="anchor" href="#methods"></a>Methods</h2>
+
+    
+<h3>Public methods</h3>
+
+<ul>
+<li><p><a href='#method-new'><code>DataFrameCallback$new()</code></a></p></li>
+<li><p><a href='#method-receive'><code>DataFrameCallback$receive()</code></a></p></li>
+<li><p><a href='#method-result'><code>DataFrameCallback$result()</code></a></p></li>
+<li><p><a href='#method-finally'><code>DataFrameCallback$finally()</code></a></p></li>
+<li><p><a href='#method-clone'><code>DataFrameCallback$clone()</code></a></p></li>
+</ul>
+<p><details open ><summary>Inherited methods</summary>
+<ul>
+<li><p><span class="pkg-link" data-pkg="readr" data-topic="ChunkCallback" data-id="continue"><a href='../../readr/html/ChunkCallback.html#method-continue'><code>readr::ChunkCallback$continue()</code></a></span></p></li>
+</ul>
+</details>
+
+<hr>
+<a id="method-new"></a></p><h3>Method <code>new()</code></h3>
+
+<h3>Usage</h3>
+<p><div class="r"></p><pre>DataFrameCallback$new(callback)</pre><p></div></p>
+
+<p><hr>
+<a id="method-receive"></a></p><h3>Method <code>receive()</code></h3>
+
+<h3>Usage</h3>
+<p><div class="r"></p><pre>DataFrameCallback$receive(data, index)</pre><p></div></p>
+
+<p><hr>
+<a id="method-result"></a></p><h3>Method <code>result()</code></h3>
+
+<h3>Usage</h3>
+<p><div class="r"></p><pre>DataFrameCallback$result()</pre><p></div></p>
+
+<p><hr>
+<a id="method-finally"></a></p><h3>Method <code>finally()</code></h3>
+
+<h3>Usage</h3>
+<p><div class="r"></p><pre>DataFrameCallback$finally()</pre><p></div></p>
+
+<p><hr>
+<a id="method-clone"></a></p><h3>Method <code>clone()</code></h3>
+<p>The objects of this class are cloneable with this method.</p><h3>Usage</h3>
+<p><div class="r"></p><pre>DataFrameCallback$clone(deep = FALSE)</pre><p></div></p>
+
+<h3>Arguments</h3>
+<p><div class="arguments"></p><dl class='dl-horizontal'>
+<dt><code>deep</code></dt><dd><p>Whether to make a deep clone.</p></dd>
+
+</dl><p></div></p>
+
+
+    <h2 class="hasAnchor" id="super-class"><a class="anchor" href="#super-class"></a>Super class</h2>
+
+    <p><code>readr::ChunkCallback</code> -&gt; <code>ListCallback</code></p>
+    <h2 class="hasAnchor" id="methods"><a class="anchor" href="#methods"></a>Methods</h2>
+
+    
+<h3>Public methods</h3>
+
+<ul>
+<li><p><a href='#method-new'><code>ListCallback$new()</code></a></p></li>
+<li><p><a href='#method-receive'><code>ListCallback$receive()</code></a></p></li>
+<li><p><a href='#method-result'><code>ListCallback$result()</code></a></p></li>
+<li><p><a href='#method-finally'><code>ListCallback$finally()</code></a></p></li>
+<li><p><a href='#method-clone'><code>ListCallback$clone()</code></a></p></li>
+</ul>
+<p><details open ><summary>Inherited methods</summary>
+<ul>
+<li><p><span class="pkg-link" data-pkg="readr" data-topic="ChunkCallback" data-id="continue"><a href='../../readr/html/ChunkCallback.html#method-continue'><code>readr::ChunkCallback$continue()</code></a></span></p></li>
+</ul>
+</details>
+
+<hr>
+<a id="method-new"></a></p><h3>Method <code>new()</code></h3>
+
+<h3>Usage</h3>
+<p><div class="r"></p><pre>ListCallback$new(callback)</pre><p></div></p>
+
+<p><hr>
+<a id="method-receive"></a></p><h3>Method <code>receive()</code></h3>
+
+<h3>Usage</h3>
+<p><div class="r"></p><pre>ListCallback$receive(data, index)</pre><p></div></p>
+
+<p><hr>
+<a id="method-result"></a></p><h3>Method <code>result()</code></h3>
+
+<h3>Usage</h3>
+<p><div class="r"></p><pre>ListCallback$result()</pre><p></div></p>
+
+<p><hr>
+<a id="method-finally"></a></p><h3>Method <code>finally()</code></h3>
+
+<h3>Usage</h3>
+<p><div class="r"></p><pre>ListCallback$finally()</pre><p></div></p>
+
+<p><hr>
+<a id="method-clone"></a></p><h3>Method <code>clone()</code></h3>
+<p>The objects of this class are cloneable with this method.</p><h3>Usage</h3>
+<p><div class="r"></p><pre>ListCallback$clone(deep = FALSE)</pre><p></div></p>
+
+<h3>Arguments</h3>
+<p><div class="arguments"></p><dl class='dl-horizontal'>
+<dt><code>deep</code></dt><dd><p>Whether to make a deep clone.</p></dd>
+
+</dl><p></div></p>
+
+
+    <h2 class="hasAnchor" id="super-class"><a class="anchor" href="#super-class"></a>Super class</h2>
+
+    <p><code>readr::ChunkCallback</code> -&gt; <code>AccumulateCallback</code></p>
+    <h2 class="hasAnchor" id="methods"><a class="anchor" href="#methods"></a>Methods</h2>
+
+    
+<h3>Public methods</h3>
+
+<ul>
+<li><p><a href='#method-new'><code>AccumulateCallback$new()</code></a></p></li>
+<li><p><a href='#method-receive'><code>AccumulateCallback$receive()</code></a></p></li>
+<li><p><a href='#method-result'><code>AccumulateCallback$result()</code></a></p></li>
+<li><p><a href='#method-clone'><code>AccumulateCallback$clone()</code></a></p></li>
+</ul>
+<p><details open ><summary>Inherited methods</summary>
+<ul>
+<li><p><span class="pkg-link" data-pkg="readr" data-topic="ChunkCallback" data-id="continue"><a href='../../readr/html/ChunkCallback.html#method-continue'><code>readr::ChunkCallback$continue()</code></a></span></p></li>
+<li><p><span class="pkg-link" data-pkg="readr" data-topic="ChunkCallback" data-id="finally"><a href='../../readr/html/ChunkCallback.html#method-finally'><code>readr::ChunkCallback$finally()</code></a></span></p></li>
+</ul>
+</details>
+
+<hr>
+<a id="method-new"></a></p><h3>Method <code>new()</code></h3>
+
+<h3>Usage</h3>
+<p><div class="r"></p><pre>AccumulateCallback$new(callback, acc = NULL)</pre><p></div></p>
+
+<p><hr>
+<a id="method-receive"></a></p><h3>Method <code>receive()</code></h3>
+
+<h3>Usage</h3>
+<p><div class="r"></p><pre>AccumulateCallback$receive(data, index)</pre><p></div></p>
+
+<p><hr>
+<a id="method-result"></a></p><h3>Method <code>result()</code></h3>
+
+<h3>Usage</h3>
+<p><div class="r"></p><pre>AccumulateCallback$result()</pre><p></div></p>
+
+<p><hr>
+<a id="method-clone"></a></p><h3>Method <code>clone()</code></h3>
+<p>The objects of this class are cloneable with this method.</p><h3>Usage</h3>
+<p><div class="r"></p><pre>AccumulateCallback$clone(deep = FALSE)</pre><p></div></p>
+
+<h3>Arguments</h3>
+<p><div class="arguments"></p><dl class='dl-horizontal'>
+<dt><code>deep</code></dt><dd><p>Whether to make a deep clone.</p></dd>
+
+</dl><p></div></p>
+
+
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='co'>## If given a regular function it is converted to a SideEffectChunkCallback</span>
@@ -284,6 +564,15 @@ the initial value of the accumulator.  The parameter <code>acc</code> is <code>N
     <ul class="nav nav-pills nav-stacked">
       <li><a href="#details">Details</a></li>
       <li><a href="#see-also">See also</a></li>
+      <li><a href="#methods">Methods</a></li>
+      <li><a href="#super-class">Super class</a></li>
+      <li><a href="#methods">Methods</a></li>
+      <li><a href="#super-class">Super class</a></li>
+      <li><a href="#methods">Methods</a></li>
+      <li><a href="#super-class">Super class</a></li>
+      <li><a href="#methods">Methods</a></li>
+      <li><a href="#super-class">Super class</a></li>
+      <li><a href="#methods">Methods</a></li>
       <li><a href="#examples">Examples</a></li>
     </ul>
 

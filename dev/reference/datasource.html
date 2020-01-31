@@ -58,7 +58,15 @@
 <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
 <![endif]-->
 
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-115082821-1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
 
+  gtag('config', 'UA-115082821-1');
+</script>
 
   </head>
 
@@ -221,7 +229,7 @@ vector of greater than length 1.</p>
 #&gt; 
 #&gt; attr(,"class")
 #&gt; [1] "source_file" "source"     </div><div class='input'><span class='fu'>datasource</span>(<span class='fu'><a href='readr_example.html'>readr_example</a></span>(<span class='st'>"mtcars.csv.bz2"</span>))</div><div class='output co'>#&gt; [[1]]
-#&gt; [1] "/tmp/RtmpjWMsvY/file69588a4bcdf"
+#&gt; [1] "/tmp/RtmpBZIQuR/file7130408520e6"
 #&gt; 
 #&gt; $skip
 #&gt; [1] 0
@@ -233,11 +241,11 @@ vector of greater than length 1.</p>
 #&gt; [1] ""
 #&gt; 
 #&gt; $env
-#&gt; &lt;environment: 0x5d16510&gt;
+#&gt; &lt;environment: 0x70f0750&gt;
 #&gt; 
 #&gt; attr(,"class")
 #&gt; [1] "source_file" "source"     </div><div class='input'><span class='fu'>datasource</span>(<span class='fu'><a href='readr_example.html'>readr_example</a></span>(<span class='st'>"mtcars.csv.zip"</span>))</div><div class='output co'>#&gt; [[1]]
-#&gt; [1] "/tmp/RtmpjWMsvY/file69586822fcba"
+#&gt; [1] "/tmp/RtmpBZIQuR/file713079260458"
 #&gt; 
 #&gt; $skip
 #&gt; [1] 0
@@ -249,7 +257,7 @@ vector of greater than length 1.</p>
 #&gt; [1] ""
 #&gt; 
 #&gt; $env
-#&gt; &lt;environment: 0x5f2b790&gt;
+#&gt; &lt;environment: 0x5aad2c0&gt;
 #&gt; 
 #&gt; attr(,"class")
 #&gt; [1] "source_file" "source"     </div><div class='input'><span class='kw'>if</span> (<span class='fl'>FALSE</span>) {
@@ -259,7 +267,7 @@ vector of greater than length 1.</p>
 <span class='co'># Connection</span>
 <span class='no'>con</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/rawConnection.html'>rawConnection</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/rawConversion.html'>charToRaw</a></span>(<span class='st'>"abc\n123"</span>))
 <span class='fu'>datasource</span>(<span class='no'>con</span>)</div><div class='output co'>#&gt; [[1]]
-#&gt; [1] "/tmp/RtmpjWMsvY/file695825637cd"
+#&gt; [1] "/tmp/RtmpBZIQuR/file71304a05c1a7"
 #&gt; 
 #&gt; $skip
 #&gt; [1] 0
@@ -271,7 +279,7 @@ vector of greater than length 1.</p>
 #&gt; [1] ""
 #&gt; 
 #&gt; $env
-#&gt; &lt;environment: 0x5f0eca8&gt;
+#&gt; &lt;environment: 0x7007260&gt;
 #&gt; 
 #&gt; attr(,"class")
 #&gt; [1] "source_file" "source"     </div><div class='input'><span class='fu'><a href='https://rdrr.io/r/base/connections.html'>close</a></span>(<span class='no'>con</span>)</div></pre>
