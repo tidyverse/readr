@@ -51,14 +51,14 @@
 #' \dontshow{.old_wd <- setwd(tempdir())}
 #' # If only a file name is specified, write_()* will write
 #' # the file to the current working directory.
-#' write_csv(mtcars, "mtcars.csv")
-#' write_tsv(mtcars, "mtcars.tsv")
+#' write_csv(storms, "storms.csv")
+#' write_tsv(storms, "storms.tsv")
 #'
 #' # If you add an extension to the file name, write_()* will
 #' # automatically compress the output.
-#' write_tsv(mtcars, "mtcars.tsv.gz")
-#' write_tsv(mtcars, "mtcars.tsv.bz2")
-#' write_tsv(mtcars, "mtcars.tsv.xz")
+#' write_tsv(storms "storms.tsv.gz")
+#' write_tsv(storms, "storms.tsv.bz2")
+#' write_tsv(storms, "storms.tsv.xz")
 #'
 #' \dontshow{setwd(.old_wd)}
 write_delim <- function(x, path, delim = " ", na = "NA", append = FALSE,
@@ -144,12 +144,13 @@ write_tsv <- function(x, path, na = "NA", append = FALSE, col_names = !append, q
 #' @inherit write_delim references
 #' @examples
 #' # format_()* functions are useful for testing and reprexes
-#' cat(format_csv(head(mtcars)))
-#' cat(format_tsv(head(mtcars)))
-#' cat(format_delim(head(mtcars), ";"))
+#' cat(format_csv(band_members))
+#' cat(format_tsv(band_members))
+#' cat(format_delim(band_members, ";"))
 #'
-#' df <- data.frame(x = c(1, 2, NA))
-#' format_csv(df, na = ".")
+#' # Specifying missing values
+#' df <- data.frame(x = c(1, NA, 3))
+#' format_csv(df, na = "missing")
 #'
 #' # Quotes are automatically added as needed
 #' df <- data.frame(x = c("a ", '"', ",", "\n"))
@@ -193,8 +194,7 @@ format_tsv <- function(x, na = "NA", append = FALSE, col_names = !append, quote_
 #' @param x A vector
 #' @export
 #' @examples
-#' # Most columns are left as is, but POSIXct are
-#' # converted to ISO8601.
+#' # Most columns are not altered, but POSIXct are converted to ISO8601.
 #' x <- parse_datetime("2016-01-01")
 #' str(output_column(x))
 output_column <- function(x, name) {

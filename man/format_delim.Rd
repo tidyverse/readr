@@ -93,12 +93,13 @@ Three extensions are currently supported: \code{.gz} for gzip compression, \code
 
 \examples{
 # format_()* functions are useful for testing and reprexes
-cat(format_csv(head(mtcars)))
-cat(format_tsv(head(mtcars)))
-cat(format_delim(head(mtcars), ";"))
+cat(format_csv(band_members))
+cat(format_tsv(band_members))
+cat(format_delim(band_members, ";"))
 
-df <- data.frame(x = c(1, 2, NA))
-format_csv(df, na = ".")
+# Specifying missing values
+df <- data.frame(x = c(1, NA, 3))
+format_csv(df, na = "missing")
 
 # Quotes are automatically added as needed
 df <- data.frame(x = c("a ", '"', ",", "\n"))
