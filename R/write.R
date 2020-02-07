@@ -104,7 +104,7 @@ write_excel_csv <- function(x, path, na = "NA", append = FALSE,
 
   x[] <- lapply(x, output_column)
   stream_delim(x, path, delim, col_names = col_names, append = append,
-    na = na, bom = TRUE, quote_escape = quote_escape)
+    na = na, bom = !append, quote_escape = quote_escape)
 
   invisible(x_out)
 }

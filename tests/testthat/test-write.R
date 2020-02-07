@@ -83,6 +83,19 @@ test_that("write_excel_csv/csv2 includes a byte order mark", {
   expect_equal(output2[4:6], charToRaw("mpg"))
 })
 
+test_that("write_excel_csv/csv2 includes a byte order mark, but not when appending", {
+  tmp <- tempfile()
+  on.exit(unlink(tmp))
+
+  write_excel_csv(data.frame(a = 1), tmp)
+  write_excel_csv(data.frame(a = 2), tmp, append = TRUE)
+  output <- readBin(tmp, "raw", file.info(tmp)$size)
+
+  expect_equal(output[1:3], charToRaw("\xEF\xBB\xBF"))
+
+  # But not in the rest of the file
+  expect_equal(output[-1:-3], charToRaw("a\n1\n2\n"))
+})
 
 test_that("does not writes a tailing .0 for whole number doubles", {
   expect_equal(format_tsv(tibble::tibble(x = 1)), "x\n1\n")

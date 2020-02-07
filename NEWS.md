@@ -1,5 +1,7 @@
 # readr (development version)
 
+* `write_excel_csv()` no longer outputs a byte order mark when appending to a file (#1075).
+
 * The `read_*` functions now close properly all connections, including on 
   errors like HTTP errors when reading from a url (@cderv, #1050).
 
