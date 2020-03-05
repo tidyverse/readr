@@ -100,7 +100,7 @@ parse_datetime("02/02/15", "%m/%d/%y")
 
 ### Factors
 
-When reading a column that has a known set of values, you can read directly into a factor. `parse_factor()` will generate generate a warning if a value is not in the supplied levels.
+When reading a column that has a known set of values, you can read directly into a factor. `parse_factor()` will generate a warning if a value is not in the supplied levels.
  
 ```{r}
 parse_factor(c("a", "b", "a"), levels = c("a", "b", "c"))
