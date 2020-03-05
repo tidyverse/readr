@@ -158,6 +158,7 @@
 <a href="#readr-development-version" class="anchor"></a>readr (development version)<small> Unreleased </small>
 </h1>
 <ul>
+<li><p><code><a href="../reference/write_delim.html">write_excel_csv()</a></code> no longer outputs a byte order mark when appending to a file (<a href='https://github.com/tidyverse/readr/issues/1075'>#1075</a>).</p></li>
 <li><p>The <code>read_*</code> functions now close properly all connections, including on errors like HTTP errors when reading from a url (<a href='https://github.com/cderv'>@cderv</a>, <a href='https://github.com/tidyverse/readr/issues/1050'>#1050</a>).</p></li>
 <li><p><code>write_csv2</code> and <code>format_csv2</code> no longer pad number columns with whitespaces (<a href='https://github.com/keesdeschepper'>@keesdeschepper</a>, <a href='https://github.com/tidyverse/readr/issues/1046'>#1046</a>).</p></li>
 <li><p>The <code>write_*()</code> functions now invisibly return the input data frame unchanged, rather than a version with factors and dates converted to strings. This is the documented behavior (<a href='https://github.com/jesse-ross'>@jesse-ross</a>, <a href='https://github.com/tidyverse/readr/issues/975'>#975</a>).</p></li>
