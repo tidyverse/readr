@@ -30,7 +30,7 @@ test_that("read_delim/csv/tsv and write_delim round trip special chars", {
 
 test_that("special floating point values translated to text", {
   df <- data.frame(x = c(NaN, NA, Inf, -Inf))
-  expect_equal(format_csv(df), "x\nNaN\nNA\nInf\n-Inf\n")
+  expect_equal(format_csv(df), "x\nNA\nNA\nInf\n-Inf\n")
 })
 
 test_that("logical values give long names", {

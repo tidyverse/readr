@@ -1,5 +1,12 @@
 # readr (development version)
 
+## Breaking changes
+
+* `write_*()` functions now output any NaN values in the same way as NA values,
+  controlled by the `na=` argument. (#1082).
+
+## Additional features and fixes
+
 * `write_excel_csv()` no longer outputs a byte order mark when appending to a file (#1075).
 
 * The `read_*` functions now close properly all connections, including on 

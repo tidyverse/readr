@@ -191,10 +191,8 @@ void stream_delim(
   case REALSXP: {
     double value = REAL(x)[i];
     if (!R_FINITE(value)) {
-      if (ISNA(value)) {
+      if (ISNA(value) || ISNAN(value)) {
         output << na;
-      } else if (ISNAN(value)) {
-        output << "NaN";
       } else if (value > 0) {
         output << "Inf";
       } else {
