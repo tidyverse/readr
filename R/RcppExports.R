@@ -101,7 +101,7 @@ write_file_raw_ <- function(x, connection) {
     invisible(.Call(`_readr_write_file_raw_`, x, connection))
 }
 
-stream_delim_ <- function(df, connection, delim, na, col_names, bom, quote_escape) {
-    .Call(`_readr_stream_delim_`, df, connection, delim, na, col_names, bom, quote_escape)
+stream_delim_ <- function(df, connection, delim, na, col_names, bom, quote_escape, eol) {
+    .Call(`_readr_stream_delim_`, df, connection, delim, na, col_names, bom, quote_escape, eol)
 }
 

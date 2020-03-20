@@ -214,3 +214,15 @@ test_that("write_ family of functions return input data frame without changes", 
   df_tsv <- write_tsv(df, tmp)
   expect_identical(df, df_tsv)
 })
+
+test_that("write_*() supports writing with windows newlines", {
+  tmp <- tempfile()
+  on.exit(unlink(tmp))
+
+  write_delim(data.frame(x = 1:3), tmp, eol = "\r\n")
+
+  expect_identical(
+    readBin(tmp, file.info(tmp)$size, what = "raw"),
+    charToRaw("x\r\n1\r\n2\r\n3\r\n")
+  )
+})

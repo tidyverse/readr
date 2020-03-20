@@ -16,7 +16,8 @@ write_delim(
   na = "NA",
   append = FALSE,
   col_names = !append,
-  quote_escape = "double"
+  quote_escape = "double",
+  eol = "\\n"
 )
 
 write_csv(
@@ -25,7 +26,8 @@ write_csv(
   na = "NA",
   append = FALSE,
   col_names = !append,
-  quote_escape = "double"
+  quote_escape = "double",
+  eol = "\\n"
 )
 
 write_csv2(
@@ -34,7 +36,8 @@ write_csv2(
   na = "NA",
   append = FALSE,
   col_names = !append,
-  quote_escape = "double"
+  quote_escape = "double",
+  eol = "\\n"
 )
 
 write_excel_csv(
@@ -44,7 +47,8 @@ write_excel_csv(
   append = FALSE,
   col_names = !append,
   delim = ",",
-  quote_escape = "double"
+  quote_escape = "double",
+  eol = "\\n"
 )
 
 write_excel_csv2(
@@ -54,7 +58,8 @@ write_excel_csv2(
   append = FALSE,
   col_names = !append,
   delim = ";",
-  quote_escape = "double"
+  quote_escape = "double",
+  eol = "\\n"
 )
 
 write_tsv(
@@ -63,7 +68,8 @@ write_tsv(
   na = "NA",
   append = FALSE,
   col_names = !append,
-  quote_escape = "double"
+  quote_escape = "double",
+  eol = "\\n"
 )
 }
 \arguments{
@@ -89,6 +95,9 @@ file is created.}
 "double", "backslash" or "none". You can also use \code{FALSE}, which is
 equivalent to "none". The default is to double the quotes, which is the
 format excel expects.}
+
+\item{eol}{The end of line character to use. Most commonly either "\n" for
+Unix style newlines, or "\r\n" for Windows style newlines.}
 }
 \value{
 \verb{write_*()} returns the input \code{x} invisibly.

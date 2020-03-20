@@ -7,6 +7,8 @@
 
 ## Additional features and fixes
 
+* `write_*()` functions gain a `eol =` argument to control the end of line character used (#857). This allows writing of CSV files with Windows newlines (CRLF) if desired.
+
 * `write_excel_csv()` no longer outputs a byte order mark when appending to a file (#1075).
 
 * The `read_*` functions now close properly all connections, including on 

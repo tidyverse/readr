@@ -24,7 +24,8 @@ void stream_delim_row(
     int i,
     char delim,
     const std::string& na,
-    quote_escape_t escape) {
+    quote_escape_t escape,
+    const char* eol) {
   int p = Rf_length(x);
 
   for (int j = 0; j < p - 1; ++j) {
@@ -33,7 +34,7 @@ void stream_delim_row(
   }
   stream_delim(output, x.at(p - 1), i, delim, na, escape);
 
-  output << '\n';
+  output << eol;
 }
 
 bool needs_quote(const char* string, char delim, const std::string& na) {
@@ -92,7 +93,8 @@ void stream_delim(
     const std::string& na,
     bool col_names,
     bool bom,
-    quote_escape_t escape) {
+    quote_escape_t escape,
+    const char* eol) {
   int p = Rf_length(df);
   if (p == 0)
     return;
@@ -108,14 +110,14 @@ void stream_delim(
       if (j != p - 1)
         output << delim;
     }
-    output << '\n';
+    output << eol;
   }
 
   RObject first_col = df[0];
   int n = Rf_length(first_col);
 
   for (int i = 0; i < n; ++i) {
-    stream_delim_row(output, df, i, delim, na, escape);
+    stream_delim_row(output, df, i, delim, na, escape, eol);
   }
 }
 
@@ -127,7 +129,8 @@ std::string stream_delim_(
     const std::string& na,
     bool col_names,
     bool bom,
-    int quote_escape) {
+    int quote_escape,
+    const char* eol) {
   if (connection == R_NilValue) {
     std::ostringstream output;
     stream_delim(
@@ -137,7 +140,8 @@ std::string stream_delim_(
         na,
         col_names,
         bom,
-        static_cast<quote_escape_t>(quote_escape));
+        static_cast<quote_escape_t>(quote_escape),
+        eol);
     return output.str();
   } else {
     boost::iostreams::stream<connection_sink> output(connection);
@@ -148,7 +152,8 @@ std::string stream_delim_(
         na,
         col_names,
         bom,
-        static_cast<quote_escape_t>(quote_escape));
+        static_cast<quote_escape_t>(quote_escape),
+        eol);
   }
 
   return "";
