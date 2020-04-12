@@ -40,8 +40,8 @@
 #'   "double", "backslash" or "none". You can also use `FALSE`, which is
 #'   equivalent to "none". The default is to double the quotes, which is the
 #'   format excel expects.
-#' @param eol The end of line character to use. Most commonly either "\n" for
-#'   Unix style newlines, or "\r\n" for Windows style newlines.
+#' @param eol The end of line character to use. Most commonly either `"\n"` for
+#'   Unix style newlines, or `"\r\n"` for Windows style newlines.
 #' @return `write_*()` returns the input `x` invisibly.
 #' @references Florian Loitsch, Printing Floating-Point Numbers Quickly and
 #' Accurately with Integers, PLDI '10,
