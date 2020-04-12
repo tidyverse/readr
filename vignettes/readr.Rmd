@@ -122,10 +122,10 @@ The guessing policies are described in the documentation for the individual func
 
 ```{r}
 guess_parser("$1,234")
-parse_number("1,234")
+parse_number("$1,234")
 ``` 
 
-The are two parsers that will never be guessed: `col_skip()` and `col_factor()`. You will always need to supply these explicitly.
+There are two parsers that will never be guessed: `col_skip()` and `col_factor()`. You will always need to supply these explicitly.
 
 You can see the specification that readr would generate for a column file by using `spec_csv()`, `spec_tsv()` and so on:
 
