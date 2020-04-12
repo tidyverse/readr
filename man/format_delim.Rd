@@ -66,8 +66,8 @@ file is created.}
 equivalent to "none". The default is to double the quotes, which is the
 format excel expects.}
 
-\item{eol}{The end of line character to use. Most commonly either "\n" for
-Unix style newlines, or "\r\n" for Windows style newlines.}
+\item{eol}{The end of line character to use. Most commonly either \code{"\\n"} for
+Unix style newlines, or \code{"\\r\\n"} for Windows style newlines.}
 }
 \value{
 A string.
