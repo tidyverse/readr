@@ -24,7 +24,7 @@ NULL
 #'
 #'   Missing (`NA`) column names will generate a warning, and be filled
 #'   in with dummy names `X1`, `X2` etc. Duplicate column names
-#'   will generate a warning and be made unique with a numeric prefix.
+#'   will generate a warning and be made unique with a numeric suffix.
 #' @param col_types One of `NULL`, a [cols()] specification, or
 #'   a string. See `vignette("readr")` for more details.
 #'
