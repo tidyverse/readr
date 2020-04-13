@@ -223,9 +223,9 @@
 <p>The guessing policies are described in the documentation for the individual functions. Guesses are fairly strict. For example, we don’t guess that currencies are numbers, even though we can parse them:</p>
 <div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1"></a><span class="kw"><a href="../reference/parse_guess.html">guess_parser</a></span>(<span class="st">"$1,234"</span>)</span>
 <span id="cb7-2"><a href="#cb7-2"></a><span class="co">#&gt; [1] "character"</span></span>
-<span id="cb7-3"><a href="#cb7-3"></a><span class="kw"><a href="../reference/parse_number.html">parse_number</a></span>(<span class="st">"1,234"</span>)</span>
+<span id="cb7-3"><a href="#cb7-3"></a><span class="kw"><a href="../reference/parse_number.html">parse_number</a></span>(<span class="st">"$1,234"</span>)</span>
 <span id="cb7-4"><a href="#cb7-4"></a><span class="co">#&gt; [1] 1234</span></span></code></pre></div>
-<p>The are two parsers that will never be guessed: <code><a href="../reference/col_skip.html">col_skip()</a></code> and <code><a href="../reference/parse_factor.html">col_factor()</a></code>. You will always need to supply these explicitly.</p>
+<p>There are two parsers that will never be guessed: <code><a href="../reference/col_skip.html">col_skip()</a></code> and <code><a href="../reference/parse_factor.html">col_factor()</a></code>. You will always need to supply these explicitly.</p>
 <p>You can see the specification that readr would generate for a column file by using <code><a href="../reference/spec_delim.html">spec_csv()</a></code>, <code><a href="../reference/spec_delim.html">spec_tsv()</a></code> and so on:</p>
 <div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1"></a>x &lt;-<span class="st"> </span><span class="kw"><a href="../reference/spec_delim.html">spec_csv</a></span>(<span class="kw"><a href="../reference/readr_example.html">readr_example</a></span>(<span class="st">"challenge.csv"</span>))</span>
 <span id="cb8-2"><a href="#cb8-2"></a><span class="co">#&gt; Parsed with column specification:</span></span>
