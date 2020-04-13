@@ -12,10 +12,11 @@
 <link rel="apple-touch-icon" type="image/png" sizes="120x120" href="../apple-touch-icon-120x120.png">
 <link rel="apple-touch-icon" type="image/png" sizes="76x76" href="../apple-touch-icon-76x76.png">
 <link rel="apple-touch-icon" type="image/png" sizes="60x60" href="../apple-touch-icon-60x60.png">
-<!-- jquery --><script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script><!-- Bootstrap --><link href="../tidyverse.css" rel="stylesheet">
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script><!-- Font Awesome icons --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.7.1/css/all.min.css" integrity="sha256-nAmazAk6vS34Xqo0BSrTb+abbtFlgsFK7NKSi6o7Y78=" crossorigin="anonymous">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.7.1/css/v4-shims.min.css" integrity="sha256-6qHlizsOWFskGlwVOKuns+D1nB6ssZrHQrNj1wGplHc=" crossorigin="anonymous">
-<!-- clipboard.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.4/clipboard.min.js" integrity="sha256-FiZwavyI2V6+EXO1U+xzLG3IKldpiTFf3153ea9zikQ=" crossorigin="anonymous"></script><!-- headroom.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.9.4/headroom.min.js" integrity="sha256-DJFC1kqIhelURkuza0AvYal5RxMtpzLjFhsnVIeuk+U=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.9.4/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script><!-- pkgdown --><link href="../pkgdown.css" rel="stylesheet">
+<!-- jquery --><script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script><!-- Bootstrap --><link href="../tidyverse.css" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/js/bootstrap.min.js" integrity="sha256-nuL8/2cJ5NDSSwnKD8VqreErSWHtnEP9E7AySL+1ev4=" crossorigin="anonymous"></script><!-- bootstrap-toc --><link rel="stylesheet" href="../bootstrap-toc.css">
+<script src="../bootstrap-toc.js"></script><!-- Font Awesome icons --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/v4-shims.min.css" integrity="sha256-wZjR52fzng1pJHwx4aV2AO3yyTOXrcDW7jBpJtTwVxw=" crossorigin="anonymous">
+<!-- clipboard.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.4/clipboard.min.js" integrity="sha256-FiZwavyI2V6+EXO1U+xzLG3IKldpiTFf3153ea9zikQ=" crossorigin="anonymous"></script><!-- headroom.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/headroom.min.js" integrity="sha256-AsUX4SJE1+yuDu5+mAVzJbuYNPHj/WroHuZ8Ir/CkE0=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script><!-- pkgdown --><link href="../pkgdown.css" rel="stylesheet">
 <script src="../pkgdown.js"></script><link href="../tidyverse-2.css" rel="stylesheet">
 <meta property="og:title" content="Introduction to readr">
 <meta property="og:description" content="">
@@ -47,7 +48,7 @@
 
       <div class="navbar-brand-container">
         <a class="navbar-brand" href="../index.html">readr</a>
-        <div class="info">
+        <div class="info hidden-xs hidden-sm">
           <span class="partof">part of the <a href="https://tidyverse.org">tidyverse</a></span>
           <span class="version version-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">1.3.1.9000</span>
         </div>
@@ -299,11 +300,11 @@
 <span id="cb11-6"><a href="#cb11-6"></a><span class="co">#&gt; )</span></span>
 <span id="cb11-7"><a href="#cb11-7"></a><span class="co">#&gt; Warning: 1000 parsing failures.</span></span>
 <span id="cb11-8"><a href="#cb11-8"></a><span class="co">#&gt;  row col           expected     actual                                                                           file</span></span>
-<span id="cb11-9"><a href="#cb11-9"></a><span class="co">#&gt; 1001   y 1/0/T/F/TRUE/FALSE 2015-01-16 '/Users/runner/runners/2.165.2/work/_temp/Library/readr/extdata/challenge.csv'</span></span>
-<span id="cb11-10"><a href="#cb11-10"></a><span class="co">#&gt; 1002   y 1/0/T/F/TRUE/FALSE 2018-05-18 '/Users/runner/runners/2.165.2/work/_temp/Library/readr/extdata/challenge.csv'</span></span>
-<span id="cb11-11"><a href="#cb11-11"></a><span class="co">#&gt; 1003   y 1/0/T/F/TRUE/FALSE 2015-09-05 '/Users/runner/runners/2.165.2/work/_temp/Library/readr/extdata/challenge.csv'</span></span>
-<span id="cb11-12"><a href="#cb11-12"></a><span class="co">#&gt; 1004   y 1/0/T/F/TRUE/FALSE 2012-11-28 '/Users/runner/runners/2.165.2/work/_temp/Library/readr/extdata/challenge.csv'</span></span>
-<span id="cb11-13"><a href="#cb11-13"></a><span class="co">#&gt; 1005   y 1/0/T/F/TRUE/FALSE 2020-01-13 '/Users/runner/runners/2.165.2/work/_temp/Library/readr/extdata/challenge.csv'</span></span>
+<span id="cb11-9"><a href="#cb11-9"></a><span class="co">#&gt; 1001   y 1/0/T/F/TRUE/FALSE 2015-01-16 '/Users/runner/runners/2.168.0/work/_temp/Library/readr/extdata/challenge.csv'</span></span>
+<span id="cb11-10"><a href="#cb11-10"></a><span class="co">#&gt; 1002   y 1/0/T/F/TRUE/FALSE 2018-05-18 '/Users/runner/runners/2.168.0/work/_temp/Library/readr/extdata/challenge.csv'</span></span>
+<span id="cb11-11"><a href="#cb11-11"></a><span class="co">#&gt; 1003   y 1/0/T/F/TRUE/FALSE 2015-09-05 '/Users/runner/runners/2.168.0/work/_temp/Library/readr/extdata/challenge.csv'</span></span>
+<span id="cb11-12"><a href="#cb11-12"></a><span class="co">#&gt; 1004   y 1/0/T/F/TRUE/FALSE 2012-11-28 '/Users/runner/runners/2.168.0/work/_temp/Library/readr/extdata/challenge.csv'</span></span>
+<span id="cb11-13"><a href="#cb11-13"></a><span class="co">#&gt; 1005   y 1/0/T/F/TRUE/FALSE 2020-01-13 '/Users/runner/runners/2.168.0/work/_temp/Library/readr/extdata/challenge.csv'</span></span>
 <span id="cb11-14"><a href="#cb11-14"></a><span class="co">#&gt; .... ... .................. .......... ..............................................................................</span></span>
 <span id="cb11-15"><a href="#cb11-15"></a><span class="co">#&gt; See problems(...) for more details.</span></span></code></pre></div>
 <p>The rectangular parsing functions almost always succeed; they’ll only fail if the format is severely messed up. Instead, readr will generate a data frame of problems. The first few will be printed out, and you can access them all with <code><a href="../reference/problems.html">problems()</a></code>:</p>
@@ -311,16 +312,16 @@
 <span id="cb12-2"><a href="#cb12-2"></a><span class="co">#&gt; # A tibble: 1,000 x 5</span></span>
 <span id="cb12-3"><a href="#cb12-3"></a><span class="co">#&gt;      row col   expected       actual   file                                     </span></span>
 <span id="cb12-4"><a href="#cb12-4"></a><span class="co">#&gt;    &lt;int&gt; &lt;chr&gt; &lt;chr&gt;          &lt;chr&gt;    &lt;chr&gt;                                    </span></span>
-<span id="cb12-5"><a href="#cb12-5"></a><span class="co">#&gt;  1  1001 y     1/0/T/F/TRUE/… 2015-01… '/Users/runner/runners/2.165.2/work/_tem…</span></span>
-<span id="cb12-6"><a href="#cb12-6"></a><span class="co">#&gt;  2  1002 y     1/0/T/F/TRUE/… 2018-05… '/Users/runner/runners/2.165.2/work/_tem…</span></span>
-<span id="cb12-7"><a href="#cb12-7"></a><span class="co">#&gt;  3  1003 y     1/0/T/F/TRUE/… 2015-09… '/Users/runner/runners/2.165.2/work/_tem…</span></span>
-<span id="cb12-8"><a href="#cb12-8"></a><span class="co">#&gt;  4  1004 y     1/0/T/F/TRUE/… 2012-11… '/Users/runner/runners/2.165.2/work/_tem…</span></span>
-<span id="cb12-9"><a href="#cb12-9"></a><span class="co">#&gt;  5  1005 y     1/0/T/F/TRUE/… 2020-01… '/Users/runner/runners/2.165.2/work/_tem…</span></span>
-<span id="cb12-10"><a href="#cb12-10"></a><span class="co">#&gt;  6  1006 y     1/0/T/F/TRUE/… 2016-04… '/Users/runner/runners/2.165.2/work/_tem…</span></span>
-<span id="cb12-11"><a href="#cb12-11"></a><span class="co">#&gt;  7  1007 y     1/0/T/F/TRUE/… 2011-05… '/Users/runner/runners/2.165.2/work/_tem…</span></span>
-<span id="cb12-12"><a href="#cb12-12"></a><span class="co">#&gt;  8  1008 y     1/0/T/F/TRUE/… 2020-07… '/Users/runner/runners/2.165.2/work/_tem…</span></span>
-<span id="cb12-13"><a href="#cb12-13"></a><span class="co">#&gt;  9  1009 y     1/0/T/F/TRUE/… 2011-04… '/Users/runner/runners/2.165.2/work/_tem…</span></span>
-<span id="cb12-14"><a href="#cb12-14"></a><span class="co">#&gt; 10  1010 y     1/0/T/F/TRUE/… 2010-05… '/Users/runner/runners/2.165.2/work/_tem…</span></span>
+<span id="cb12-5"><a href="#cb12-5"></a><span class="co">#&gt;  1  1001 y     1/0/T/F/TRUE/… 2015-01… '/Users/runner/runners/2.168.0/work/_tem…</span></span>
+<span id="cb12-6"><a href="#cb12-6"></a><span class="co">#&gt;  2  1002 y     1/0/T/F/TRUE/… 2018-05… '/Users/runner/runners/2.168.0/work/_tem…</span></span>
+<span id="cb12-7"><a href="#cb12-7"></a><span class="co">#&gt;  3  1003 y     1/0/T/F/TRUE/… 2015-09… '/Users/runner/runners/2.168.0/work/_tem…</span></span>
+<span id="cb12-8"><a href="#cb12-8"></a><span class="co">#&gt;  4  1004 y     1/0/T/F/TRUE/… 2012-11… '/Users/runner/runners/2.168.0/work/_tem…</span></span>
+<span id="cb12-9"><a href="#cb12-9"></a><span class="co">#&gt;  5  1005 y     1/0/T/F/TRUE/… 2020-01… '/Users/runner/runners/2.168.0/work/_tem…</span></span>
+<span id="cb12-10"><a href="#cb12-10"></a><span class="co">#&gt;  6  1006 y     1/0/T/F/TRUE/… 2016-04… '/Users/runner/runners/2.168.0/work/_tem…</span></span>
+<span id="cb12-11"><a href="#cb12-11"></a><span class="co">#&gt;  7  1007 y     1/0/T/F/TRUE/… 2011-05… '/Users/runner/runners/2.168.0/work/_tem…</span></span>
+<span id="cb12-12"><a href="#cb12-12"></a><span class="co">#&gt;  8  1008 y     1/0/T/F/TRUE/… 2020-07… '/Users/runner/runners/2.168.0/work/_tem…</span></span>
+<span id="cb12-13"><a href="#cb12-13"></a><span class="co">#&gt;  9  1009 y     1/0/T/F/TRUE/… 2011-04… '/Users/runner/runners/2.168.0/work/_tem…</span></span>
+<span id="cb12-14"><a href="#cb12-14"></a><span class="co">#&gt; 10  1010 y     1/0/T/F/TRUE/… 2010-05… '/Users/runner/runners/2.168.0/work/_tem…</span></span>
 <span id="cb12-15"><a href="#cb12-15"></a><span class="co">#&gt; # … with 990 more rows</span></span></code></pre></div>
 <p>You’ve already seen one way of handling bad guesses: increasing the number of rows used to guess the type of each column.</p>
 <div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1"></a>df2 &lt;-<span class="st"> </span><span class="kw"><a href="../reference/read_delim.html">read_csv</a></span>(<span class="kw"><a href="../reference/readr_example.html">readr_example</a></span>(<span class="st">"challenge.csv"</span>), <span class="dt">guess_max =</span> <span class="dv">1001</span>)</span>
