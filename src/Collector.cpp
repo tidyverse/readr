@@ -1,12 +1,14 @@
-#include <Rcpp.h>
-using namespace Rcpp;
+#include "cpp11/list.hpp"
 
 #include "Collector.h"
 #include "LocaleInfo.h"
 #include "QiParsers.h"
 #include "utils.h"
 
-CollectorPtr Collector::create(List spec, LocaleInfo* pLocale) {
+#include <Rcpp.h>
+using namespace Rcpp;
+
+CollectorPtr Collector::create(cpp11::list spec, LocaleInfo* pLocale) {
   std::string subclass(as<CharacterVector>(spec.attr("class"))[0]);
 
   if (subclass == "collector_skip")
@@ -39,7 +41,7 @@ CollectorPtr Collector::create(List spec, LocaleInfo* pLocale) {
   }
   if (subclass == "collector_factor") {
     Nullable<CharacterVector> levels =
-        as<Nullable<CharacterVector> >(spec["levels"]);
+        as<Nullable<CharacterVector>>(spec["levels"]);
     bool ordered = as<bool>(spec["ordered"]);
     bool includeNa = as<bool>(spec["include_na"]);
     return CollectorPtr(
@@ -51,10 +53,10 @@ CollectorPtr Collector::create(List spec, LocaleInfo* pLocale) {
 }
 
 std::vector<CollectorPtr>
-collectorsCreate(ListOf<List> specs, LocaleInfo* pLocale) {
+collectorsCreate(Rcpp::ListOf<Rcpp::List> specs, LocaleInfo* pLocale) {
   std::vector<CollectorPtr> collectors;
   for (int j = 0; j < specs.size(); ++j) {
-    CollectorPtr col = Collector::create(specs[j], pLocale);
+    CollectorPtr col(Collector::create(SEXP(specs[j]), pLocale));
     collectors.push_back(col);
   }
 

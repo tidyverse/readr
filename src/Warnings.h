@@ -1,6 +1,12 @@
 #ifndef READ_WARNINGS_H_
 #define READ_WARNINGS_H_
 
+#include "cpp11/data_frame.hpp"
+#include "cpp11/sexp.hpp"
+#include "cpp11/strings.hpp"
+#include <string>
+#include <vector>
+
 class Warnings {
   std::vector<int> row_, col_;
   std::vector<std::string> expected_, actual_;
@@ -20,7 +26,7 @@ public:
     actual_.push_back(actual);
   }
 
-  Rcpp::RObject addAsAttribute(Rcpp::RObject x) {
+  cpp11::sexp addAsAttribute(cpp11::sexp x) {
     if (size() == 0)
       return x;
 
@@ -37,17 +43,16 @@ public:
     actual_.clear();
   }
 
-  Rcpp::List asDataFrame() {
-    Rcpp::List out = Rcpp::List::create(
-        Rcpp::_["row"] = Rcpp::wrap(row_),
-        Rcpp::_["col"] = Rcpp::wrap(col_),
-        Rcpp::_["expected"] = Rcpp::wrap(expected_),
-        Rcpp::_["actual"] = Rcpp::wrap(actual_));
-    out.attr("class") =
-        Rcpp::CharacterVector::create("tbl_df", "tbl", "data.frame");
-    out.attr("row.names") = Rcpp::IntegerVector::create(NA_INTEGER, -size());
+  cpp11::data_frame asDataFrame() {
+    using namespace cpp11::literals;
 
-    return out;
+    cpp11::writable::data_frame out({"row"_nm = row_,
+                                     "col"_nm = col_,
+                                     "expected"_nm = expected_,
+                                     "actual"_nm = actual_});
+    out.attr("class") = {"tbl_df", "tbl", "data.frame"};
+
+    return static_cast<SEXP>(out);
   }
 };
 

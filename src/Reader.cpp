@@ -1,5 +1,7 @@
 #include "Reader.h"
 
+#include "cpp11/list.hpp"
+
 Reader::Reader(
     SourcePtr source,
     TokenizerPtr tokenizer,
@@ -58,7 +60,7 @@ RObject Reader::readToDataFrame(int lines) {
   int rows = read(lines);
 
   // Save individual columns into a data frame
-  List out(outNames_.size());
+  cpp11::writable::list out(outNames_.size());
   int j = 0;
   for (std::vector<int>::const_iterator it = keptColumns_.begin();
        it != keptColumns_.end();
@@ -71,14 +73,14 @@ RObject Reader::readToDataFrame(int lines) {
       CharacterVector::create("spec_tbl_df", "tbl_df", "tbl", "data.frame");
   out.attr("row.names") = IntegerVector::create(NA_INTEGER, -(rows + 1));
 
-  out = warnings_.addAsAttribute(out);
+  RObject out2(warnings_.addAsAttribute(static_cast<SEXP>(out)));
 
   collectorsClear();
   warnings_.clear();
 
   // TODO: call tibble name repair function when tibble 1.5.0 is released.
 
-  return out;
+  return out2;
 }
 
 int Reader::read(int lines) {
@@ -172,19 +174,18 @@ void Reader::collectorsClear() {
   }
 }
 
-RObject Reader::meltToDataFrame(List locale_, int lines) {
+RObject Reader::meltToDataFrame(cpp11::list locale_, int lines) {
   melt(locale_, lines);
 
   // Save individual columns into a data frame
-  List out(4);
+  cpp11::writable::list out(4);
   out[0] = collectors_[0]->vector();
   out[1] = collectors_[1]->vector();
   out[2] = collectors_[2]->vector();
   out[3] = collectors_[3]->vector();
 
-  out.attr("names") =
-      CharacterVector::create("row", "col", "data_type", "value");
-  out = warnings_.addAsAttribute(out);
+  out.attr("names") = {"row", "col", "data_type", "value"};
+  RObject out2(warnings_.addAsAttribute(static_cast<SEXP>(out)));
 
   collectorsClear();
   warnings_.clear();
@@ -195,7 +196,7 @@ RObject Reader::meltToDataFrame(List locale_, int lines) {
   return as_tibble(out);
 }
 
-int Reader::melt(List locale_, int lines) {
+int Reader::melt(cpp11::list locale_, int lines) {
 
   if (t_.type() == TOKEN_EOF) {
     return (-1);

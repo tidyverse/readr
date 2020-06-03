@@ -1,3 +1,6 @@
+#include "cpp11/R.hpp"
+#include "cpp11/list.hpp"
+
 #include <Rcpp.h>
 using namespace Rcpp;
 
@@ -103,10 +106,9 @@ static bool isDateTime(const std::string& x, LocaleInfo* pLocale) {
   return parser.year() > 999;
 }
 
-// [[Rcpp::export]]
-std::string
-collectorGuess(CharacterVector input, List locale_, bool guessInteger = false) {
-  LocaleInfo locale(locale_);
+[[cpp11::export]] std::string collectorGuess(
+    CharacterVector input, cpp11::list locale_, bool guessInteger = false) {
+  LocaleInfo locale(static_cast<SEXP>(locale_));
 
   if (input.size() == 0) {
     return "character";

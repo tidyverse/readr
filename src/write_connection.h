@@ -1,11 +1,12 @@
 #ifndef READR_WRITE_CONNECTION_H_
 #define READR_WRITE_CONNECTION_H_
 
-#include <Rcpp.h>
 #include <boost/iostreams/categories.hpp> // sink_tag
 #include <ios>                            // streamsize
 
 #include "connection.h"
+
+#include <Rcpp.h>
 
 // http://www.boost.org/doc/libs/1_63_0/libs/iostreams/doc/tutorial/container_sink.html
 namespace io = boost::iostreams;

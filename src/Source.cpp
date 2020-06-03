@@ -1,3 +1,5 @@
+#include "cpp11/list.hpp"
+
 #include <Rcpp.h>
 using namespace Rcpp;
 
@@ -6,7 +8,7 @@ using namespace Rcpp;
 #include "SourceRaw.h"
 #include "SourceString.h"
 
-SourcePtr Source::create(List spec) {
+SourcePtr Source::create(cpp11::list spec) {
   std::string subclass(as<CharacterVector>(spec.attr("class"))[0]);
 
   int skip = as<int>(spec["skip"]);

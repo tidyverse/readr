@@ -1,3 +1,4 @@
+#include "cpp11/list.hpp"
 #include <Rcpp.h>
 using namespace Rcpp;
 
@@ -10,8 +11,8 @@ using namespace Rcpp;
 #include "TokenizerLine.h"
 #include "Warnings.h"
 
-// [[Rcpp::export]]
-CharacterVector read_file_(List sourceSpec, List locale_) {
+[[cpp11::export]] CharacterVector
+read_file_(cpp11::list sourceSpec, cpp11::list locale_) {
   SourcePtr source = Source::create(sourceSpec);
   LocaleInfo locale(locale_);
 
@@ -19,8 +20,7 @@ CharacterVector read_file_(List sourceSpec, List locale_) {
       locale.encoder_.makeSEXP(source->begin(), source->end()));
 }
 
-// [[Rcpp::export]]
-RawVector read_file_raw_(List sourceSpec) {
+[[cpp11::export]] RawVector read_file_raw_(cpp11::list sourceSpec) {
   SourcePtr source = Source::create(sourceSpec);
 
   RawVector res(source->end() - source->begin());
@@ -28,14 +28,13 @@ RawVector read_file_raw_(List sourceSpec) {
   return res;
 }
 
-// [[Rcpp::export]]
-CharacterVector read_lines_(
-    List sourceSpec,
-    List locale_,
+[[cpp11::export]] CharacterVector read_lines_(
+    cpp11::list sourceSpec,
+    cpp11::list locale_,
     std::vector<std::string> na,
-    int n_max = -1,
-    bool skip_empty_rows = false,
-    bool progress = true) {
+    int n_max,
+    bool skip_empty_rows,
+    bool progress) {
 
   LocaleInfo locale(locale_);
   Reader r(
@@ -57,15 +56,14 @@ bool isTrue(SEXP x) {
   return LOGICAL(x)[0] == TRUE;
 }
 
-// [[Rcpp::export]]
-void read_lines_chunked_(
-    List sourceSpec,
-    List locale_,
+[[cpp11::export]] void read_lines_chunked_(
+    cpp11::list sourceSpec,
+    cpp11::list locale_,
     std::vector<std::string> na,
     int chunkSize,
     Environment callback,
-    bool skip_empty_rows = false,
-    bool progress = true) {
+    bool skip_empty_rows,
+    bool progress) {
 
   LocaleInfo locale(locale_);
   Reader r(
@@ -89,8 +87,8 @@ void read_lines_chunked_(
   return;
 }
 
-// [[Rcpp::export]]
-List read_lines_raw_(List sourceSpec, int n_max = -1, bool progress = false) {
+[[cpp11::export]] cpp11::list
+read_lines_raw_(cpp11::list sourceSpec, int n_max = -1, bool progress = false) {
 
   Reader r(
       Source::create(sourceSpec),
@@ -98,15 +96,14 @@ List read_lines_raw_(List sourceSpec, int n_max = -1, bool progress = false) {
       CollectorPtr(new CollectorRaw()),
       progress);
 
-  return r.readToVector<List>(n_max);
+  return r.readToVector<cpp11::list>(n_max);
 }
 
-// [[Rcpp::export]]
-void read_lines_raw_chunked_(
-    List sourceSpec,
+[[cpp11::export]] void read_lines_raw_chunked_(
+    cpp11::list sourceSpec,
     int chunkSize,
     Environment callback,
-    bool progress = true) {
+    bool progress) {
 
   Reader r(
       Source::create(sourceSpec),
@@ -114,11 +111,11 @@ void read_lines_raw_chunked_(
       CollectorPtr(new CollectorRaw()),
       progress);
 
-  List out;
+  cpp11::list out;
 
   int pos = 1;
   while (isTrue(R6method(callback, "continue")())) {
-    List out = r.readToVector<List>(chunkSize);
+    cpp11::list out = r.readToVector<cpp11::list>(chunkSize);
     if (out.size() == 0) {
       return;
     }
@@ -131,15 +128,14 @@ void read_lines_raw_chunked_(
 
 typedef std::vector<CollectorPtr>::iterator CollectorItr;
 
-// [[Rcpp::export]]
-RObject read_tokens_(
-    List sourceSpec,
-    List tokenizerSpec,
-    ListOf<List> colSpecs,
+[[cpp11::export]] RObject read_tokens_(
+    cpp11::list sourceSpec,
+    cpp11::list tokenizerSpec,
+    Rcpp::ListOf<Rcpp::List> colSpecs,
     CharacterVector colNames,
-    List locale_,
-    int n_max = -1,
-    bool progress = true) {
+    cpp11::list locale_,
+    int n_max,
+    bool progress) {
 
   LocaleInfo l(locale_);
   Reader r(
@@ -152,16 +148,15 @@ RObject read_tokens_(
   return r.readToDataFrame(n_max);
 }
 
-// [[Rcpp::export]]
-void read_tokens_chunked_(
-    List sourceSpec,
+[[cpp11::export]] void read_tokens_chunked_(
+    cpp11::list sourceSpec,
     Environment callback,
     int chunkSize,
-    List tokenizerSpec,
-    ListOf<List> colSpecs,
+    cpp11::list tokenizerSpec,
+    Rcpp::ListOf<Rcpp::List> colSpecs,
     CharacterVector colNames,
-    List locale_,
-    bool progress = true) {
+    cpp11::list locale_,
+    bool progress) {
 
   LocaleInfo l(locale_);
   Reader r(
@@ -184,14 +179,13 @@ void read_tokens_chunked_(
   return;
 }
 
-// [[Rcpp::export]]
-RObject melt_tokens_(
-    List sourceSpec,
-    List tokenizerSpec,
-    ListOf<List> colSpecs,
-    List locale_,
-    int n_max = -1,
-    bool progress = true) {
+[[cpp11::export]] RObject melt_tokens_(
+    cpp11::list sourceSpec,
+    cpp11::list tokenizerSpec,
+    Rcpp::ListOf<cpp11::list> colSpecs,
+    cpp11::list locale_,
+    int n_max,
+    bool progress) {
 
   LocaleInfo l(locale_);
   Reader r(
@@ -200,18 +194,17 @@ RObject melt_tokens_(
       collectorsCreate(colSpecs, &l),
       progress);
 
-  return r.meltToDataFrame(locale_, n_max);
+  return r.meltToDataFrame(cpp11::list(locale_), n_max);
 }
 
-// [[Rcpp::export]]
-void melt_tokens_chunked_(
-    List sourceSpec,
+[[cpp11::export]] void melt_tokens_chunked_(
+    cpp11::list sourceSpec,
     Environment callback,
     int chunkSize,
-    List tokenizerSpec,
-    ListOf<List> colSpecs,
-    List locale_,
-    bool progress = true) {
+    cpp11::list tokenizerSpec,
+    Rcpp::ListOf<Rcpp::List> colSpecs,
+    cpp11::list locale_,
+    bool progress) {
 
   LocaleInfo l(locale_);
   Reader r(
@@ -222,7 +215,7 @@ void melt_tokens_chunked_(
 
   int pos = 1;
   while (isTrue(R6method(callback, "continue")())) {
-    DataFrame out = r.meltToDataFrame(locale_, chunkSize);
+    DataFrame out = r.meltToDataFrame(static_cast<SEXP>(locale_), chunkSize);
     if (out.nrows() == 0) {
       return;
     }
@@ -233,9 +226,11 @@ void melt_tokens_chunked_(
   return;
 }
 
-// [[Rcpp::export]]
-std::vector<std::string> guess_types_(
-    List sourceSpec, List tokenizerSpec, Rcpp::List locale_, int n = 100) {
+[[cpp11::export]] std::vector<std::string> guess_types_(
+    cpp11::list sourceSpec,
+    cpp11::list tokenizerSpec,
+    cpp11::list locale_,
+    int n) {
   Warnings warnings;
   SourcePtr source = Source::create(sourceSpec);
   TokenizerPtr tokenizer = Tokenizer::create(tokenizerSpec);
@@ -268,7 +263,7 @@ std::vector<std::string> guess_types_(
   std::vector<std::string> out;
   for (size_t j = 0; j < collectors.size(); ++j) {
     CharacterVector col = as<CharacterVector>(collectors[j]->vector());
-    out.push_back(collectorGuess(col, locale_));
+    out.push_back(collectorGuess(col, cpp11::list(locale_)));
   }
 
   return out;

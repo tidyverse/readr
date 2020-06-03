@@ -1,6 +1,9 @@
 #ifndef READ_ICONV_H_
 #define READ_ICONV_H_
 
+#include "cpp11/R.hpp"
+#include <string>
+
 #include "R_ext/Riconv.h"
 #include <errno.h>
 

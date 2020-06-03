@@ -53,7 +53,7 @@ test_that("%OS captures partial seconds", {
   expect_equal(as.POSIXlt(x)$sec, 1.125)
 
   x <- parse_datetime("2001-01-01 00:00:01.333", "%Y-%m-%d %H:%M:%OS")
-  expect_equal(as.POSIXlt(x)$sec, 1.333, tol = 1e-6)
+  expect_equal(as.POSIXlt(x)$sec, 1.333, tolerance = 1e-6)
 })
 
 test_that("%y requries 4 digits", {

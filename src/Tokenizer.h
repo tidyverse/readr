@@ -2,8 +2,13 @@
 #define FASTREAD_TOKENIZER_H_
 
 #include "Warnings.h"
-#include "boost.h"
+#include "cpp11/R.hpp"
+#include "cpp11/list.hpp"
+
 #include <Rcpp.h>
+
+#include "boost.h"
+
 class Token;
 
 typedef const char* SourceIterator;
@@ -49,7 +54,7 @@ public:
     pWarnings_->addWarning(row, col, expected, actual);
   }
 
-  static TokenizerPtr create(Rcpp::List spec);
+  static TokenizerPtr create(cpp11::list spec);
 };
 
 // -----------------------------------------------------------------------------

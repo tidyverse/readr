@@ -1,10 +1,9 @@
+#include "DateTime.h"
+
 #include <Rcpp.h>
 using namespace Rcpp;
 
-#include "DateTime.h"
-
-// [[Rcpp::export]]
-NumericVector utctime(
+[[cpp11::export]] NumericVector utctime(
     IntegerVector year,
     IntegerVector month,
     IntegerVector day,

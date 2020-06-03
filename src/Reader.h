@@ -1,8 +1,10 @@
-#include <Rcpp.h>
-
 #include "Collector.h"
 #include "Progress.h"
 #include "Source.h"
+
+#include "cpp11/list.hpp"
+
+#include <Rcpp.h>
 
 using namespace Rcpp;
 
@@ -23,7 +25,7 @@ public:
       CharacterVector colNames = CharacterVector());
 
   RObject readToDataFrame(int lines = -1);
-  RObject meltToDataFrame(List locale_, int lines = -1);
+  RObject meltToDataFrame(cpp11::list locale_, int lines = -1);
 
   template <typename T> T readToVector(int lines) {
     read(lines);
@@ -36,7 +38,8 @@ public:
   template <typename T> RObject readToVectorWithWarnings(int lines) {
     read(lines);
 
-    return warnings_.addAsAttribute(as<T>(collectors_[0]->vector()));
+    return static_cast<SEXP>(warnings_.addAsAttribute(
+        static_cast<SEXP>(as<T>(collectors_[0]->vector()))));
   }
 
 private:
@@ -55,7 +58,7 @@ private:
 
   void init(CharacterVector colNames);
   int read(int lines = -1);
-  int melt(List locale_, int lines = -1);
+  int melt(cpp11::list locale_, int lines = -1);
   void checkColumns(int i, int j, int n);
 
   void collectorsResize(int n);

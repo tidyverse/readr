@@ -1,7 +1,7 @@
 ---
 Language:        Cpp
 BasedOnStyle:  LLVM
-Standard: Cpp03
+Standard: Cpp11
 AlignAfterOpenBracket: AlwaysBreak
 AllowShortBlocksOnASingleLine: false
 BinPackArguments: false

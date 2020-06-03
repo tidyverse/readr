@@ -1,7 +1,7 @@
+#include "TokenizerDelim.h"
+
 #include <Rcpp.h>
 using namespace Rcpp;
-
-#include "TokenizerDelim.h"
 
 TokenizerDelim::TokenizerDelim(
     char delim,
