@@ -2,8 +2,9 @@
 #define FASTREAD_SOURCEFILE_H_
 
 #include "Source.h"
-#include "boost.h"
 #include <Rcpp.h>
+
+#include "boost.h"
 
 class SourceFile : public Source {
   boost::interprocess::file_mapping fm_;

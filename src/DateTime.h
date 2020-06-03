@@ -1,9 +1,12 @@
 #ifndef READR_DATE_TIME_H_
 #define READR_DATE_TIME_H_
 
+#include "cpp11/R.hpp"
+
 #include "localtime.h"
 #include <ctime>
 #include <stdlib.h>
+#include <string>
 
 // Much of this code is adapted from R's src/main/datetime.c.
 // Author: The R Core Team.

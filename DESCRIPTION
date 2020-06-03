@@ -57,11 +57,14 @@ Suggests:
     xml2
 LinkingTo: 
     BH,
-    Rcpp
+    Rcpp,
+    cpp11
 VignetteBuilder: 
     knitr
 Encoding: UTF-8
 Language: en-US
 Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.0.2
-SystemRequirements: GNU make
+SystemRequirements: GNU make, C++11
+Remotes:
+  r-lib/cpp11

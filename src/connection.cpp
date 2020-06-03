@@ -1,10 +1,12 @@
+#include "cpp11/R.hpp"
+
 #include <Rcpp.h>
 #include <fstream>
 
 using namespace Rcpp;
 
 // Wrapper around R's read_bin function
-RawVector read_bin(RObject con, int bytes = 64 * 1024) {
+RawVector read_bin(RObject con, int bytes) {
   Rcpp::Environment baseEnv = Rcpp::Environment::base_env();
   Rcpp::Function readBin = baseEnv["readBin"];
 
@@ -15,9 +17,8 @@ RawVector read_bin(RObject con, int bytes = 64 * 1024) {
 // Read data from a connection in chunks and then combine into a single
 // raw vector.
 //
-// [[Rcpp::export]]
-CharacterVector read_connection_(
-    RObject con, std::string filename, int chunk_size = 64 * 1024) {
+[[cpp11::export]] CharacterVector
+read_connection_(RObject con, std::string filename, int chunk_size) {
 
   std::ofstream out(filename.c_str(), std::fstream::out | std::fstream::binary);
 

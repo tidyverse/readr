@@ -1,5 +1,6 @@
-#include <Rcpp.h>
-using namespace Rcpp;
+#include "cpp11/R.hpp"
+#include "cpp11/list.hpp"
+#include "cpp11/sexp.hpp"
 
 #include "Collector.h"
 #include "LocaleInfo.h"
@@ -8,8 +9,11 @@ using namespace Rcpp;
 #include "TokenizerLine.h"
 #include "Warnings.h"
 
-// [[Rcpp::export]]
-IntegerVector dim_tokens_(List sourceSpec, List tokenizerSpec) {
+#include <Rcpp.h>
+using namespace Rcpp;
+
+[[cpp11::export]] IntegerVector
+dim_tokens_(cpp11::list sourceSpec, cpp11::list tokenizerSpec) {
   SourcePtr source = Source::create(sourceSpec);
   TokenizerPtr tokenizer = Tokenizer::create(tokenizerSpec);
   tokenizer->tokenize(source->begin(), source->end());
@@ -27,8 +31,8 @@ IntegerVector dim_tokens_(List sourceSpec, List tokenizerSpec) {
   return IntegerVector::create(rows + 1, cols + 1);
 }
 
-// [[Rcpp::export]]
-std::vector<int> count_fields_(List sourceSpec, List tokenizerSpec, int n_max) {
+[[cpp11::export]] std::vector<int>
+count_fields_(cpp11::list sourceSpec, cpp11::list tokenizerSpec, int n_max) {
   SourcePtr source = Source::create(sourceSpec);
   TokenizerPtr tokenizer = Tokenizer::create(tokenizerSpec);
   tokenizer->tokenize(source->begin(), source->end());
@@ -50,8 +54,8 @@ std::vector<int> count_fields_(List sourceSpec, List tokenizerSpec, int n_max) {
   return fields;
 }
 
-// [[Rcpp::export]]
-RObject guess_header_(List sourceSpec, List tokenizerSpec, List locale_) {
+[[cpp11::export]] cpp11::list guess_header_(
+    cpp11::list sourceSpec, cpp11::list tokenizerSpec, cpp11::list locale_) {
   Warnings warnings;
   LocaleInfo locale(locale_);
   SourcePtr source = Source::create(sourceSpec);
@@ -75,12 +79,13 @@ RObject guess_header_(List sourceSpec, List tokenizerSpec, List locale_) {
     }
   }
 
-  return List::create(
-      _["header"] = out.vector(), _["skip"] = source->skippedRows() + 1);
+  using namespace cpp11::literals;
+  return cpp11::writable::list(
+      {"header"_nm = out.vector(), "skip"_nm = source->skippedRows() + 1});
 }
 
-// [[Rcpp::export]]
-RObject tokenize_(List sourceSpec, List tokenizerSpec, int n_max) {
+[[cpp11::export]] SEXP
+tokenize_(cpp11::list sourceSpec, cpp11::list tokenizerSpec, int n_max) {
   Warnings warnings;
 
   SourcePtr source = Source::create(sourceSpec);
@@ -88,7 +93,7 @@ RObject tokenize_(List sourceSpec, List tokenizerSpec, int n_max) {
   tokenizer->tokenize(source->begin(), source->end());
   tokenizer->setWarnings(&warnings);
 
-  std::vector<std::vector<std::string> > rows;
+  std::vector<std::vector<std::string>> rows;
 
   for (Token t = tokenizer->nextToken(); t.type() != TOKEN_EOF;
        t = tokenizer->nextToken()) {
@@ -106,17 +111,16 @@ RObject tokenize_(List sourceSpec, List tokenizerSpec, int n_max) {
     row[t.col()] = t.asString();
   }
 
-  RObject out = wrap(rows);
+  cpp11::sexp out = wrap(rows);
   return warnings.addAsAttribute(out);
 }
 
-// [[Rcpp::export]]
-SEXP parse_vector_(
+[[cpp11::export]] SEXP parse_vector_(
     CharacterVector x,
-    List collectorSpec,
-    List locale_,
+    cpp11::list collectorSpec,
+    cpp11::list locale_,
     const std::vector<std::string>& na,
-    const bool trim_ws = true) {
+    const bool trim_ws) {
   Warnings warnings;
   int n = x.size();
 
@@ -141,5 +145,5 @@ SEXP parse_vector_(
     col->setValue(i, t);
   }
 
-  return warnings.addAsAttribute(col->vector());
+  return warnings.addAsAttribute(static_cast<SEXP>(col->vector()));
 }

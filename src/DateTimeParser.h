@@ -4,6 +4,8 @@
 #include "DateTime.h"
 #include "LocaleInfo.h"
 #include "QiParsers.h"
+#include "cpp11/protect.hpp"
+
 #include "boost.h"
 #include <ctime>
 
@@ -144,7 +146,7 @@ public:
       }
 
       if (formatItr + 1 == formatEnd)
-        Rcpp::stop("Invalid format: trailing %");
+        cpp11::stop("Invalid format: trailing %%");
       formatItr++;
 
       switch (*formatItr) {
@@ -203,7 +205,7 @@ public:
         break;
       case 'O': // seconds (double)
         if (formatItr + 1 == formatEnd || *(formatItr + 1) != 'S')
-          Rcpp::stop("Invalid format: %%O must be followed by %%S");
+          cpp11::stop("Invalid format: %%O must be followed by %%S");
         formatItr++;
         if (!consumeSeconds(&sec_, &psec_))
           return false;
@@ -241,7 +243,7 @@ public:
 
       case 'A': // auto date / time
         if (formatItr + 1 == formatEnd)
-          Rcpp::stop("Invalid format: %%A must be followed by another letter");
+          cpp11::stop("Invalid format: %%A must be followed by another letter");
         formatItr++;
         switch (*formatItr) {
         case 'D':
@@ -253,7 +255,7 @@ public:
             return false;
           break;
         default:
-          Rcpp::stop("Invalid %%A auto parser");
+          cpp11::stop("Invalid %%A auto parser");
         }
         break;
 
@@ -276,7 +278,7 @@ public:
         break;
 
       default:
-        Rcpp::stop("Unsupported format %%%s", *formatItr);
+        cpp11::stop("Unsupported format %%%s", *formatItr);
       }
     }
 

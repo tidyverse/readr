@@ -103,7 +103,7 @@ datasource_raw <- function(text, skip, skip_empty_rows, comment) {
 
 # Helpers ----------------------------------------------------------------------
 
-read_connection <- function(con) {
+read_connection <- function(con, chunk_size = 64L * 1024L) {
   stopifnot(is.connection(con))
 
   if (!isOpen(con)) {
@@ -111,7 +111,7 @@ read_connection <- function(con) {
     open(con, "rb")
   }
 
-  read_connection_(con, tempfile())
+  read_connection_(con, tempfile(), chunk_size)
 }
 
 standardise_path <- function(path, input = TRUE) {

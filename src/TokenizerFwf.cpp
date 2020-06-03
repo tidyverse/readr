@@ -1,3 +1,5 @@
+#include "cpp11/list.hpp"
+
 #include <Rcpp.h>
 using namespace Rcpp;
 
@@ -76,8 +78,8 @@ std::vector<bool> emptyCols_(
   return is_white;
 }
 
-// [[Rcpp::export]]
-List whitespaceColumns(List sourceSpec, int n = 100, std::string comment = "") {
+[[cpp11::export]] cpp11::list
+whitespaceColumns(cpp11::list sourceSpec, int n, std::string comment) {
   SourcePtr source = Source::create(sourceSpec);
 
   skip_t s = skip_comments(source->begin(), source->end(), comment);
@@ -100,7 +102,9 @@ List whitespaceColumns(List sourceSpec, int n = 100, std::string comment = "") {
   if (in_col)
     end.push_back(empty.size());
 
-  return List::create(_["begin"] = begin, _["end"] = end, _["skip"] = s.lines);
+  using namespace cpp11::literals;
+  return cpp11::writable::list(
+      {"begin"_nm = begin, "end"_nm = end, "skip"_nm = s.lines});
 }
 
 // TokenizerFwf --------------------------------------------------------------

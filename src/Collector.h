@@ -1,5 +1,7 @@
 #ifndef FASTREAD_COLLECTOR_H_
 #define FASTREAD_COLLECTOR_H_
+#include "cpp11/list.hpp"
+#include <Rcpp.h>
 
 #include "DateTime.h"
 #include "DateTimeParser.h"
@@ -7,7 +9,6 @@
 #include "LocaleInfo.h"
 #include "Token.h"
 #include "Warnings.h"
-#include <Rcpp.h>
 #include <boost/shared_ptr.hpp>
 
 class Collector;
@@ -75,7 +76,7 @@ public:
     warn(row, col, expected, std::string(actual.first, actual.second));
   }
 
-  static CollectorPtr create(Rcpp::List spec, LocaleInfo* pLocale);
+  static CollectorPtr create(cpp11::list spec, LocaleInfo* pLocale);
 };
 
 // Character -------------------------------------------------------------------
@@ -254,7 +255,7 @@ public:
 // Raw -------------------------------------------------------------------------
 class CollectorRaw : public Collector {
 public:
-  CollectorRaw() : Collector(Rcpp::List()) {}
+  CollectorRaw() : Collector(cpp11::writable::list(static_cast<R_xlen_t>(0))) {}
   void setValue(int i, const Token& t);
 };
 
@@ -265,6 +266,8 @@ collectorsCreate(Rcpp::ListOf<Rcpp::List> specs, LocaleInfo* pLocale);
 void collectorsResize(std::vector<CollectorPtr>& collectors, int n);
 void collectorsClear(std::vector<CollectorPtr>& collectors);
 std::string collectorGuess(
-    Rcpp::CharacterVector input, Rcpp::List locale_, bool guessInteger = false);
+    Rcpp::CharacterVector input,
+    cpp11::list locale_,
+    bool guessInteger = false);
 
 #endif

@@ -1,3 +1,4 @@
+#include "cpp11/R.hpp"
 #include <Rcpp.h>
 using namespace Rcpp;
 
@@ -10,7 +11,6 @@ using namespace Rcpp;
 // --------------------------------------------------------------------
 
 #include "TokenizerWs.h"
-#include <Rcpp.h>
 #include <cctype>
 
 TokenizerWs::TokenizerWs(
