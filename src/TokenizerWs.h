@@ -4,7 +4,6 @@
 #include "Token.h"
 #include "Tokenizer.h"
 #include "utils.h"
-#include <Rcpp.h>
 
 class TokenizerWs : public Tokenizer {
   std::vector<std::string> NA_;
