@@ -67,7 +67,7 @@ Token TokenizerDelim::nextToken() {
       hasNull = true;
 
     if ((end_ - cur_) % 131072 == 0)
-      Rcpp::checkUserInterrupt();
+      cpp11::check_user_interrupt();
 
     switch (state_) {
     case STATE_DELIM: {

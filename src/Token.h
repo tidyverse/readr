@@ -1,6 +1,7 @@
 #ifndef FASTREAD_TOKEN_H_
 #define FASTREAD_TOKEN_H_
-#include <Rcpp.h>
+
+#include "cpp11/raws.hpp"
 
 #include "Iconv.h"
 #include "Source.h"
@@ -64,7 +65,7 @@ public:
 
   SEXP asRaw() const {
     size_t n = (type_ == TOKEN_STRING) ? end_ - begin_ : 0;
-    Rcpp::RawVector out(n);
+    cpp11::writable::raws out(n);
 
     if (n > 0)
       memcpy(RAW(out), begin_, n);

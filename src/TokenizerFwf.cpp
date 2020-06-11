@@ -7,6 +7,8 @@
 
 #include "Source.h"
 
+#include <sstream>
+
 struct skip_t {
   SourceIterator begin;
   int lines;
@@ -206,11 +208,11 @@ findBeginning:
         break;
 
       if (*fieldBegin == '\n' || *fieldBegin == '\r') {
-        warn(
-            row_,
-            col_,
-            tfm::format("%i chars between fields", skip),
-            tfm::format("%i chars until end of line", i));
+        std::stringstream ss1;
+        ss1 << skip << " chars betwen fields";
+        std::stringstream ss2;
+        ss2 << skip << " chars until end of line";
+        warn(row_, col_, ss1.str(), ss2.str());
 
         row_++;
         col_ = 0;
@@ -247,9 +249,13 @@ findBeginning:
     // Find the end of the field, stopping for newlines
     for (int i = 0; i < width; ++i) {
       if (fieldEnd == end_ || *fieldEnd == '\n' || *fieldEnd == '\r') {
-        if (!(col_ == 0 && !skipEmptyRows_))
-          warn(
-              row_, col_, tfm::format("%i chars", width), tfm::format("%i", i));
+        if (!(col_ == 0 && !skipEmptyRows_)) {
+          std::stringstream ss1;
+          ss1 << i << " chars";
+          std::stringstream ss2;
+          ss2 << i;
+          warn(row_, col_, ss1.str(), ss2.str());
+        }
 
         tooShort = true;
         break;
