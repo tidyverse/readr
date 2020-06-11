@@ -241,7 +241,8 @@ int Reader::melt(cpp11::list locale_, int lines) {
     switch (t_.type()) {
     case TOKEN_STRING: {
       collectors_[2]->setValue(
-          cells - 1, collectorGuess(t_.asString(), locale_, true));
+          cells - 1,
+          collectorGuess(cpp11::as_sexp(t_.asString()), locale_, true));
       break;
     };
     case TOKEN_MISSING:

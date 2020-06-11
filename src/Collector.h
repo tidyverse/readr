@@ -266,8 +266,6 @@ collectorsCreate(Rcpp::ListOf<Rcpp::List> specs, LocaleInfo* pLocale);
 void collectorsResize(std::vector<CollectorPtr>& collectors, int n);
 void collectorsClear(std::vector<CollectorPtr>& collectors);
 std::string collectorGuess(
-    Rcpp::CharacterVector input,
-    cpp11::list locale_,
-    bool guessInteger = false);
+    cpp11::strings input, cpp11::list locale_, bool guessInteger = false);
 
 #endif

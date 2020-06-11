@@ -1,8 +1,6 @@
 #include "cpp11/R.hpp"
 #include "cpp11/list.hpp"
-
-#include <Rcpp.h>
-using namespace Rcpp;
+#include "cpp11/strings.hpp"
 
 #include "DateTime.h"
 #include "DateTimeParser.h"
@@ -13,7 +11,7 @@ using namespace Rcpp;
 typedef bool (*canParseFun)(const std::string&, LocaleInfo* pLocale);
 
 bool canParse(
-    CharacterVector x, const canParseFun& canParse, LocaleInfo* pLocale) {
+    cpp11::strings x, const canParseFun& canParse, LocaleInfo* pLocale) {
   for (int i = 0; i < x.size(); ++i) {
     if (x[i] == NA_STRING)
       continue;
@@ -27,7 +25,7 @@ bool canParse(
   return true;
 }
 
-bool allMissing(CharacterVector x) {
+bool allMissing(cpp11::strings x) {
   for (int i = 0; i < x.size(); ++i) {
     if (x[i] != NA_STRING && x[i].size() > 0)
       return false;
@@ -107,7 +105,7 @@ static bool isDateTime(const std::string& x, LocaleInfo* pLocale) {
 }
 
 [[cpp11::export]] std::string collectorGuess(
-    CharacterVector input, cpp11::list locale_, bool guessInteger = false) {
+    cpp11::strings input, cpp11::list locale_, bool guessInteger = false) {
   LocaleInfo locale(static_cast<SEXP>(locale_));
 
   if (input.size() == 0) {
