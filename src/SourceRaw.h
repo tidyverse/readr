@@ -2,16 +2,16 @@
 #define FASTREAD_SOURCERAW_H_
 
 #include "Source.h"
-#include <Rcpp.h>
+#include "cpp11/raws.hpp"
 
 class SourceRaw : public Source {
-  Rcpp::RawVector x_; // Make sure it doesn't get GC'd
+  cpp11::raws x_;
   const char* begin_;
   const char* end_;
 
 public:
   SourceRaw(
-      Rcpp::RawVector x,
+      cpp11::raws x,
       int skip = 0,
       bool skipEmptyRows = true,
       const std::string& comment = "")

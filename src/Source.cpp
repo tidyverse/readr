@@ -16,8 +16,7 @@ SourcePtr Source::create(cpp11::list spec) {
   std::string comment = as<std::string>(spec["comment"]);
 
   if (subclass == "source_raw") {
-    return SourcePtr(
-        new SourceRaw(as<RawVector>(spec[0]), skip, skipEmptyRows, comment));
+    return SourcePtr(new SourceRaw(spec[0], skip, skipEmptyRows, comment));
   } else if (subclass == "source_string") {
     return SourcePtr(new SourceString(spec[0], skip, skipEmptyRows, comment));
   } else if (subclass == "source_file") {
