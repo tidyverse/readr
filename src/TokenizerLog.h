@@ -1,10 +1,11 @@
 #ifndef FASTREAD_TOKENIZER_LOG_H_
 #define FASTREAD_TOKENIZER_LOG_H_
 
+#include "cpp11/protect.hpp"
+
 #include "Token.h"
 #include "Tokenizer.h"
 #include "utils.h"
-#include <Rcpp.h>
 
 enum LogState {
   LOG_DELIM,
@@ -53,7 +54,7 @@ public:
       Advance advance(&cur_);
 
       if ((row_ + 1) % 100000 == 0 || (col_ + 1) % 100000 == 0)
-        Rcpp::checkUserInterrupt();
+        cpp11::check_user_interrupt();
 
       switch (state_) {
       case LOG_DELIM:
