@@ -1,13 +1,11 @@
 #include "cpp11/list.hpp"
 #include "cpp11/protect.hpp"
 
-#include <Rcpp.h>
-using namespace Rcpp;
-
-#include "Source.h"
 #include "Tokenizer.h"
 #include "TokenizerFwf.h"
 #include "utils.h"
+
+#include "Source.h"
 
 struct skip_t {
   SourceIterator begin;
@@ -111,7 +109,6 @@ whitespaceColumns(cpp11::list sourceSpec, int n, std::string comment) {
 // TokenizerFwf --------------------------------------------------------------
 
 #include "TokenizerFwf.h"
-#include <Rcpp.h>
 
 TokenizerFwf::TokenizerFwf(
     const std::vector<int>& beginOffset,

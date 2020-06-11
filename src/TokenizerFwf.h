@@ -4,7 +4,6 @@
 #include "Token.h"
 #include "Tokenizer.h"
 #include "utils.h"
-#include <Rcpp.h>
 
 class TokenizerFwf : public Tokenizer {
   std::vector<int> beginOffset_, endOffset_;
