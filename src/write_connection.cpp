@@ -1,4 +1,5 @@
 #include "write_connection.h"
+#include "cpp11/protect.hpp"
 
 // http://www.boost.org/doc/libs/1_63_0/libs/iostreams/doc/tutorial/container_sink.html
 //
@@ -10,7 +11,7 @@ std::streamsize connection_sink::write(const char* s, std::streamsize n) {
 
   if ((write_size = R_WriteConnection(con_, (void*)s, n)) !=
       static_cast<size_t>(n)) {
-    Rcpp::stop("write failed, expected %l, got %l", n, write_size);
+    cpp11::stop("write failed, expected %l, got %l", n, write_size);
   }
   return write_size;
 }

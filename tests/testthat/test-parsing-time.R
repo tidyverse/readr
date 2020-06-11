@@ -5,8 +5,8 @@ test_that("default format captures cases", {
   expect_equal(parse_time("22:20"), late_night)
   expect_equal(parse_time("10:20 pm"), late_night)
 
-  expect_equal(parse_time("22:20:05"), hms::as.hms(late_night + 5))
-  expect_equal(parse_time("10:20:05 pm"), hms::as.hms(late_night + 5))
+  expect_equal(parse_time("22:20:05"), hms::as_hms(late_night + 5))
+  expect_equal(parse_time("10:20:05 pm"), hms::as_hms(late_night + 5))
 })
 
 test_that("twelve o'clock is parsed properly", {
