@@ -3,8 +3,7 @@
 
 #include "cpp11/R.hpp"
 #include "cpp11/list.hpp"
-
-#include <Rcpp.h>
+#include "cpp11/protect.hpp"
 
 #include "Warnings.h"
 #include "boost.h"
@@ -48,7 +47,8 @@ public:
       const std::string& expected,
       const std::string& actual = "") {
     if (pWarnings_ == NULL) {
-      Rcpp::warning("[%i, %i]: expected %s", row + 1, col + 1, expected);
+      cpp11::warning(
+          "[%i, %i]: expected %s", row + 1, col + 1, expected.c_str());
       return;
     }
     pWarnings_->addWarning(row, col, expected, actual);

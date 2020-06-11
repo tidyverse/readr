@@ -1,4 +1,6 @@
 #include "cpp11/list.hpp"
+#include <Rcpp.h>
+using namespace Rcpp;
 
 #include "Tokenizer.h"
 #include "TokenizerDelim.h"
@@ -6,9 +8,6 @@
 #include "TokenizerLine.h"
 #include "TokenizerLog.h"
 #include "TokenizerWs.h"
-
-#include <Rcpp.h>
-using namespace Rcpp;
 
 TokenizerPtr Tokenizer::create(cpp11::list spec) {
   std::string subclass(as<CharacterVector>(spec.attr("class"))[0]);
