@@ -12,10 +12,10 @@ extern "C" SEXP _readr_collectorGuess(SEXP input, SEXP locale_, SEXP guessIntege
   END_CPP11
 }
 // connection.cpp
-CharacterVector read_connection_(RObject con, std::string filename, int chunk_size);
+std::string read_connection_(cpp11::sexp con, std::string filename, int chunk_size);
 extern "C" SEXP _readr_read_connection_(SEXP con, SEXP filename, SEXP chunk_size) {
   BEGIN_CPP11
-    return cpp11::as_sexp(read_connection_(cpp11::unmove(cpp11::as_cpp<RObject>(con)), cpp11::unmove(cpp11::as_cpp<std::string>(filename)), cpp11::unmove(cpp11::as_cpp<int>(chunk_size))));
+    return cpp11::as_sexp(read_connection_(cpp11::unmove(cpp11::as_cpp<cpp11::sexp>(con)), cpp11::unmove(cpp11::as_cpp<std::string>(filename)), cpp11::unmove(cpp11::as_cpp<int>(chunk_size))));
   END_CPP11
 }
 // datetime.cpp
