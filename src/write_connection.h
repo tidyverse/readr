@@ -6,8 +6,6 @@
 
 #include "connection.h"
 
-#include <Rcpp.h>
-
 // http://www.boost.org/doc/libs/1_63_0/libs/iostreams/doc/tutorial/container_sink.html
 namespace io = boost::iostreams;
 

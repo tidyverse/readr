@@ -1,4 +1,5 @@
 #include "cpp11/list.hpp"
+#include "cpp11/protect.hpp"
 
 #include <Rcpp.h>
 using namespace Rcpp;
@@ -129,13 +130,13 @@ TokenizerFwf::TokenizerFwf(
       trimWS_(trimWS),
       skipEmptyRows_(skipEmptyRows) {
   if (beginOffset_.size() != endOffset_.size())
-    Rcpp::stop(
+    cpp11::stop(
         "Begin (%i) and end (%i) specifications must have equal length",
         beginOffset_.size(),
         endOffset_.size());
 
   if (beginOffset_.size() == 0)
-    Rcpp::stop("Zero-length begin and end specifications not supported");
+    cpp11::stop("Zero-length begin and end specifications not supported");
 
   // File is assumed to be ragged (last column can have variable width)
   // when the last element of endOffset_ is NA
@@ -144,16 +145,16 @@ TokenizerFwf::TokenizerFwf(
   max_ = 0;
   for (int j = 0; j < (cols_ - isRagged_); ++j) {
     if (endOffset_[j] <= beginOffset_[j])
-      Rcpp::stop(
+      cpp11::stop(
           "Begin offset (%i) must be smaller than end offset (%i)",
           beginOffset_[j],
           endOffset_[j]);
 
     if (beginOffset_[j] < 0)
-      Rcpp::stop("Begin offset (%i) must be greater than 0", beginOffset_[j]);
+      cpp11::stop("Begin offset (%i) must be greater than 0", beginOffset_[j]);
 
     if (endOffset_[j] < 0)
-      Rcpp::stop("End offset (%i) must be greater than 0", endOffset_[j]);
+      cpp11::stop("End offset (%i) must be greater than 0", endOffset_[j]);
 
     if (endOffset_[j] > max_) {
       max_ = endOffset_[j];

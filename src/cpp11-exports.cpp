@@ -163,34 +163,34 @@ extern "C" SEXP _readr_stream_delim_(SEXP df, SEXP connection, SEXP delim, SEXP 
   END_CPP11
 }
 // write.cpp
-void write_lines_(const CharacterVector& lines, RObject connection, const std::string& na, const std::string& sep);
+void write_lines_(cpp11::strings lines, cpp11::sexp connection, const std::string& na, const std::string& sep);
 extern "C" SEXP _readr_write_lines_(SEXP lines, SEXP connection, SEXP na, SEXP sep) {
   BEGIN_CPP11
-    write_lines_(cpp11::unmove(cpp11::as_cpp<const CharacterVector&>(lines)), cpp11::unmove(cpp11::as_cpp<RObject>(connection)), cpp11::unmove(cpp11::as_cpp<const std::string&>(na)), cpp11::unmove(cpp11::as_cpp<const std::string&>(sep)));
+    write_lines_(cpp11::unmove(cpp11::as_cpp<cpp11::strings>(lines)), cpp11::unmove(cpp11::as_cpp<cpp11::sexp>(connection)), cpp11::unmove(cpp11::as_cpp<const std::string&>(na)), cpp11::unmove(cpp11::as_cpp<const std::string&>(sep)));
   return R_NilValue;
   END_CPP11
 }
 // write.cpp
-void write_lines_raw_(cpp11::list x, RObject connection, const std::string& sep);
+void write_lines_raw_(cpp11::list x, cpp11::sexp connection, const std::string& sep);
 extern "C" SEXP _readr_write_lines_raw_(SEXP x, SEXP connection, SEXP sep) {
   BEGIN_CPP11
-    write_lines_raw_(cpp11::unmove(cpp11::as_cpp<cpp11::list>(x)), cpp11::unmove(cpp11::as_cpp<RObject>(connection)), cpp11::unmove(cpp11::as_cpp<const std::string&>(sep)));
+    write_lines_raw_(cpp11::unmove(cpp11::as_cpp<cpp11::list>(x)), cpp11::unmove(cpp11::as_cpp<cpp11::sexp>(connection)), cpp11::unmove(cpp11::as_cpp<const std::string&>(sep)));
   return R_NilValue;
   END_CPP11
 }
 // write.cpp
-void write_file_(std::string x, RObject connection);
+void write_file_(std::string x, cpp11::sexp connection);
 extern "C" SEXP _readr_write_file_(SEXP x, SEXP connection) {
   BEGIN_CPP11
-    write_file_(cpp11::unmove(cpp11::as_cpp<std::string>(x)), cpp11::unmove(cpp11::as_cpp<RObject>(connection)));
+    write_file_(cpp11::unmove(cpp11::as_cpp<std::string>(x)), cpp11::unmove(cpp11::as_cpp<cpp11::sexp>(connection)));
   return R_NilValue;
   END_CPP11
 }
 // write.cpp
-void write_file_raw_(RawVector x, RObject connection);
+void write_file_raw_(cpp11::raws x, cpp11::sexp connection);
 extern "C" SEXP _readr_write_file_raw_(SEXP x, SEXP connection) {
   BEGIN_CPP11
-    write_file_raw_(cpp11::unmove(cpp11::as_cpp<RawVector>(x)), cpp11::unmove(cpp11::as_cpp<RObject>(connection)));
+    write_file_raw_(cpp11::unmove(cpp11::as_cpp<cpp11::raws>(x)), cpp11::unmove(cpp11::as_cpp<cpp11::sexp>(connection)));
   return R_NilValue;
   END_CPP11
 }
