@@ -5,10 +5,10 @@
 using namespace Rcpp;
 
 // CollectorGuess.cpp
-std::string collectorGuess(CharacterVector input, cpp11::list locale_, bool guessInteger);
+std::string collectorGuess(cpp11::strings input, cpp11::list locale_, bool guessInteger);
 extern "C" SEXP _readr_collectorGuess(SEXP input, SEXP locale_, SEXP guessInteger) {
   BEGIN_CPP11
-    return cpp11::as_sexp(collectorGuess(cpp11::unmove(cpp11::as_cpp<CharacterVector>(input)), cpp11::unmove(cpp11::as_cpp<cpp11::list>(locale_)), cpp11::unmove(cpp11::as_cpp<bool>(guessInteger))));
+    return cpp11::as_sexp(collectorGuess(cpp11::unmove(cpp11::as_cpp<cpp11::strings>(input)), cpp11::unmove(cpp11::as_cpp<cpp11::list>(locale_)), cpp11::unmove(cpp11::as_cpp<bool>(guessInteger))));
   END_CPP11
 }
 // connection.cpp

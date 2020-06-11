@@ -263,7 +263,7 @@ typedef std::vector<CollectorPtr>::iterator CollectorItr;
   std::vector<std::string> out;
   for (size_t j = 0; j < collectors.size(); ++j) {
     CharacterVector col = as<CharacterVector>(collectors[j]->vector());
-    out.push_back(collectorGuess(col, cpp11::list(locale_)));
+    out.push_back(collectorGuess(SEXP(col), cpp11::list(locale_)));
   }
 
   return out;
