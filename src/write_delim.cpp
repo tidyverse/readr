@@ -1,12 +1,12 @@
 #include "cpp11/list.hpp"
+#include "cpp11/sexp.hpp"
+#include "cpp11/strings.hpp"
 
 #include "grisu3.h"
 #include "write_connection.h"
 #include <boost/iostreams/stream.hpp> // stream
 #include <fstream>
-
-#include <Rcpp.h>
-using namespace Rcpp;
+#include <sstream>
 
 enum quote_escape_t { DOUBLE = 1, BACKSLASH = 2, NONE = 3 };
 
@@ -14,7 +14,7 @@ enum quote_escape_t { DOUBLE = 1, BACKSLASH = 2, NONE = 3 };
 template <class Stream>
 void stream_delim(
     Stream& output,
-    const RObject& x,
+    const cpp11::sexp& x,
     int i,
     char delim,
     const std::string& na,
@@ -107,7 +107,7 @@ void stream_delim(
   }
 
   if (col_names) {
-    CharacterVector names = as<CharacterVector>(df.attr("names"));
+    cpp11::strings names(df.attr("names"));
     for (int j = 0; j < p; ++j) {
       stream_delim(output, names, j, delim, na, escape);
       if (j != p - 1)
@@ -116,7 +116,7 @@ void stream_delim(
     output << eol;
   }
 
-  RObject first_col = df[0];
+  cpp11::sexp first_col = df[0];
   int n = Rf_length(first_col);
 
   for (int i = 0; i < n; ++i) {
@@ -126,7 +126,7 @@ void stream_delim(
 
 [[cpp11::export]] std::string stream_delim_(
     const cpp11::list& df,
-    RObject connection,
+    cpp11::sexp connection,
     char delim,
     const std::string& na,
     bool col_names,
@@ -169,7 +169,7 @@ void stream_delim(
 template <class Stream>
 void stream_delim(
     Stream& output,
-    const RObject& x,
+    const cpp11::sexp& x,
     int i,
     char delim,
     const std::string& na,
@@ -222,7 +222,7 @@ void stream_delim(
     break;
   }
   default:
-    Rcpp::stop(
+    cpp11::stop(
         "Don't know how to handle vector of type %s.", Rf_type2char(TYPEOF(x)));
   }
 }
