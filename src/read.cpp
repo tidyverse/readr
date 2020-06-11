@@ -1,4 +1,6 @@
 #include "cpp11/list.hpp"
+#include "cpp11/strings.hpp"
+
 #include <Rcpp.h>
 using namespace Rcpp;
 
@@ -11,12 +13,12 @@ using namespace Rcpp;
 #include "TokenizerLine.h"
 #include "Warnings.h"
 
-[[cpp11::export]] CharacterVector
+[[cpp11::export]] cpp11::strings
 read_file_(cpp11::list sourceSpec, cpp11::list locale_) {
   SourcePtr source = Source::create(sourceSpec);
   LocaleInfo locale(locale_);
 
-  return CharacterVector::create(
+  return cpp11::writable::strings(
       locale.encoder_.makeSEXP(source->begin(), source->end()));
 }
 
@@ -28,7 +30,7 @@ read_file_(cpp11::list sourceSpec, cpp11::list locale_) {
   return res;
 }
 
-[[cpp11::export]] CharacterVector read_lines_(
+[[cpp11::export]] cpp11::writable::strings read_lines_(
     cpp11::list sourceSpec,
     cpp11::list locale_,
     std::vector<std::string> na,
@@ -43,7 +45,7 @@ read_file_(cpp11::list sourceSpec, cpp11::list locale_) {
       CollectorPtr(new CollectorCharacter(&locale.encoder_)),
       progress);
 
-  return r.readToVector<CharacterVector>(n_max);
+  return SEXP(r.readToVector<cpp11::writable::strings>(n_max));
 }
 
 Function R6method(Environment env, const std::string& method) {
@@ -72,11 +74,11 @@ bool isTrue(SEXP x) {
       CollectorPtr(new CollectorCharacter(&locale.encoder_)),
       progress);
 
-  CharacterVector out;
+  cpp11::strings out;
 
   int pos = 1;
   while (isTrue(R6method(callback, "continue")())) {
-    CharacterVector out = r.readToVector<CharacterVector>(chunkSize);
+    cpp11::strings out = r.readToVector<cpp11::strings>(chunkSize);
     if (out.size() == 0) {
       return;
     }
@@ -128,11 +130,11 @@ read_lines_raw_(cpp11::list sourceSpec, int n_max = -1, bool progress = false) {
 
 typedef std::vector<CollectorPtr>::iterator CollectorItr;
 
-[[cpp11::export]] RObject read_tokens_(
+[[cpp11::export]] cpp11::sexp read_tokens_(
     cpp11::list sourceSpec,
     cpp11::list tokenizerSpec,
     Rcpp::ListOf<Rcpp::List> colSpecs,
-    CharacterVector colNames,
+    cpp11::strings colNames,
     cpp11::list locale_,
     int n_max,
     bool progress) {
@@ -154,7 +156,7 @@ typedef std::vector<CollectorPtr>::iterator CollectorItr;
     int chunkSize,
     cpp11::list tokenizerSpec,
     Rcpp::ListOf<Rcpp::List> colSpecs,
-    CharacterVector colNames,
+    cpp11::strings colNames,
     cpp11::list locale_,
     bool progress) {
 
@@ -179,7 +181,7 @@ typedef std::vector<CollectorPtr>::iterator CollectorItr;
   return;
 }
 
-[[cpp11::export]] RObject melt_tokens_(
+[[cpp11::export]] cpp11::sexp melt_tokens_(
     cpp11::list sourceSpec,
     cpp11::list tokenizerSpec,
     Rcpp::ListOf<cpp11::list> colSpecs,
@@ -262,7 +264,7 @@ typedef std::vector<CollectorPtr>::iterator CollectorItr;
 
   std::vector<std::string> out;
   for (size_t j = 0; j < collectors.size(); ++j) {
-    CharacterVector col = as<CharacterVector>(collectors[j]->vector());
+    cpp11::strings col = as<cpp11::strings>(collectors[j]->vector());
     out.push_back(collectorGuess(SEXP(col), cpp11::list(locale_)));
   }
 
