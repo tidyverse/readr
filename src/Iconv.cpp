@@ -1,7 +1,5 @@
 #include "Iconv.h"
-
-#include <Rcpp.h>
-using namespace Rcpp;
+#include "cpp11/protect.hpp"
 
 Iconv::Iconv(const std::string& from, const std::string& to) {
   if (from == "UTF-8") {
@@ -10,9 +8,9 @@ Iconv::Iconv(const std::string& from, const std::string& to) {
     cd_ = Riconv_open(to.c_str(), from.c_str());
     if (cd_ == (void*)-1) {
       if (errno == EINVAL) {
-        stop("Can't convert from %s to %s", from, to);
+        cpp11::stop("Can't convert from %s to %s", from.c_str(), to.c_str());
       } else {
-        stop("Iconv initialisation failed");
+        cpp11::stop("Iconv initialisation failed");
       }
     }
 
@@ -44,13 +42,13 @@ size_t Iconv::convert(const char* start, const char* end) {
   if (res == (size_t)-1) {
     switch (errno) {
     case EILSEQ:
-      stop("Invalid multibyte sequence");
+      cpp11::stop("Invalid multibyte sequence");
     case EINVAL:
-      stop("Incomplete multibyte sequence");
+      cpp11::stop("Incomplete multibyte sequence");
     case E2BIG:
-      stop("Iconv buffer too small");
+      cpp11::stop("Iconv buffer too small");
     default:
-      stop("Iconv failed to convert for unknown reason");
+      cpp11::stop("Iconv failed to convert for unknown reason");
     }
   }
 
@@ -76,7 +74,7 @@ int my_strnlen(const char* s, int maxlen) {
 SEXP safeMakeChar(const char* start, size_t n, bool hasNull) {
   size_t m = hasNull ? readr_strnlen(start, n) : n;
   if (m > INT_MAX) {
-    Rf_error("R character strings are limited to 2^31-1 bytes");
+    cpp11::stop("R character strings are limited to 2^31-1 bytes");
   }
   return Rf_mkCharLenCE(start, m, CE_UTF8);
 }
