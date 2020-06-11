@@ -19,10 +19,10 @@ extern "C" SEXP _readr_read_connection_(SEXP con, SEXP filename, SEXP chunk_size
   END_CPP11
 }
 // datetime.cpp
-NumericVector utctime(IntegerVector year, IntegerVector month, IntegerVector day, IntegerVector hour, IntegerVector min, IntegerVector sec, NumericVector psec);
+cpp11::writable::doubles utctime(cpp11::integers year, cpp11::integers month, cpp11::integers day, cpp11::integers hour, cpp11::integers min, cpp11::integers sec, cpp11::doubles psec);
 extern "C" SEXP _readr_utctime(SEXP year, SEXP month, SEXP day, SEXP hour, SEXP min, SEXP sec, SEXP psec) {
   BEGIN_CPP11
-    return cpp11::as_sexp(utctime(cpp11::unmove(cpp11::as_cpp<IntegerVector>(year)), cpp11::unmove(cpp11::as_cpp<IntegerVector>(month)), cpp11::unmove(cpp11::as_cpp<IntegerVector>(day)), cpp11::unmove(cpp11::as_cpp<IntegerVector>(hour)), cpp11::unmove(cpp11::as_cpp<IntegerVector>(min)), cpp11::unmove(cpp11::as_cpp<IntegerVector>(sec)), cpp11::unmove(cpp11::as_cpp<NumericVector>(psec))));
+    return cpp11::as_sexp(utctime(cpp11::unmove(cpp11::as_cpp<cpp11::integers>(year)), cpp11::unmove(cpp11::as_cpp<cpp11::integers>(month)), cpp11::unmove(cpp11::as_cpp<cpp11::integers>(day)), cpp11::unmove(cpp11::as_cpp<cpp11::integers>(hour)), cpp11::unmove(cpp11::as_cpp<cpp11::integers>(min)), cpp11::unmove(cpp11::as_cpp<cpp11::integers>(sec)), cpp11::unmove(cpp11::as_cpp<cpp11::doubles>(psec))));
   END_CPP11
 }
 // parse.cpp

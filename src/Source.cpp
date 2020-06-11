@@ -19,8 +19,7 @@ SourcePtr Source::create(cpp11::list spec) {
     return SourcePtr(
         new SourceRaw(as<RawVector>(spec[0]), skip, skipEmptyRows, comment));
   } else if (subclass == "source_string") {
-    return SourcePtr(new SourceString(
-        as<CharacterVector>(spec[0]), skip, skipEmptyRows, comment));
+    return SourcePtr(new SourceString(spec[0], skip, skipEmptyRows, comment));
   } else if (subclass == "source_file") {
     CharacterVector path(spec[0]);
     return SourcePtr(new SourceFile(
