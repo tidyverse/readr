@@ -1,10 +1,10 @@
 #ifndef FASTREAD_TOKEN_H_
 #define FASTREAD_TOKEN_H_
+#include <Rcpp.h>
 
 #include "Iconv.h"
 #include "Source.h"
 #include "Tokenizer.h"
-#include <Rcpp.h>
 #include <string>
 
 enum TokenType {
