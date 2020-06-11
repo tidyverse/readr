@@ -27,7 +27,6 @@ skip_t skip_comments(
   int skip = 0;
   boost::iterator_range<const char*> haystack(cur, end);
   while (boost::starts_with(haystack, comment)) {
-    // Rcpp::Rcout << boost::starts_with(haystack, comment);
     // Skip rest of line
     while (cur != end && *cur != '\n' && *cur != '\r') {
       ++cur;
