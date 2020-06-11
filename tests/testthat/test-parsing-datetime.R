@@ -2,13 +2,14 @@ context("Parsing, datetime")
 
 test_that("utctime is equivalent to R conversion", {
   year <- seq(0, 4000)
-  mon <- rep(3, length(year))
-  day <- rep(1, length(year))
-  zero <- rep(0, length(year))
+  mon <- rep(3L, length(year))
+  day <- rep(1L, length(year))
+  zero_i <- rep(0L, length(year))
+  zero_d <- rep(0, length(year))
 
   expect_equal(
-    ISOdatetime(year, mon, day, zero, zero, zero, tz = "UTC"),
-    utctime(year, mon, day, zero, zero, zero, zero)
+    utctime(year, mon, day, zero_i, zero_i, zero_i, zero_d),
+    ISOdatetime(year, mon, day, zero_i, zero_i, zero_i, tz = "UTC")
   )
 })
 
@@ -17,7 +18,7 @@ test_that("utctime is equivalent to R conversion", {
 r_parse <- function(x, fmt) as.POSIXct(strptime(x, fmt, tz = "UTC"))
 
 test_that("%d, %m and %y", {
-  target <- utctime(2010, 2, 3, 0, 0, 0, 0)
+  target <- utctime(2010L, 2L, 3L, 0L, 0L, 0L, 0)
 
   expect_equal(parse_datetime("10-02-03", "%y-%m-%d"), target)
   expect_equal(parse_datetime("10-03-02", "%y-%d-%m"), target)
@@ -26,7 +27,7 @@ test_that("%d, %m and %y", {
 })
 
 test_that("Compound formats work", {
-  target <- utctime(2010, 2, 3, 0, 0, 0, 0)
+  target <- utctime(2010L, 2L, 3L, 0L, 0L, 0L, 0)
 
   expect_equal(parse_datetime("02/03/10", "%D"), target)
   expect_equal(parse_datetime("2010-02-03", "%F"), target)
@@ -45,7 +46,7 @@ test_that("%y matches R behaviour", {
 })
 
 test_that("%e allows leading space", {
-  expect_equal(parse_datetime("201010 1", "%Y%m%e"), utctime(2010, 10, 1, 0, 0, 0, 0))
+  expect_equal(parse_datetime("201010 1", "%Y%m%e"), utctime(2010L, 10L, 1L, 0L, 0L, 0L, 0))
 })
 
 test_that("%OS captures partial seconds", {
@@ -218,7 +219,7 @@ test_that("same times with different offsets parsed as same time", {
   same_time <- paste("2010-02-03", c("18:30Z", "22:30+04", "1130-0700", "15:00-03:30"))
   parsed <- parse_datetime(same_time)
 
-  expect_equal(parsed, rep(utctime(2010, 2, 3, 18, 30, 0, 0), 4))
+  expect_equal(parsed, rep(utctime(2010L, 2L, 3L, 18L, 30L, 0L, 0), 4))
 })
 
 test_that("offsets can cross date boundaries", {

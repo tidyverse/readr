@@ -1,22 +1,23 @@
 #ifndef FASTREAD_SOURCESTRING_H_
 #define FASTREAD_SOURCESTRING_H_
 
+#include "cpp11/strings.hpp"
+
 #include "Source.h"
-#include <Rcpp.h>
 
 class SourceString : public Source {
-  Rcpp::RObject string_;
+  cpp11::sexp string_;
 
   const char* begin_;
   const char* end_;
 
 public:
   SourceString(
-      Rcpp::CharacterVector x,
+      cpp11::strings x,
       int skip = 0,
       bool skipEmptyRows = true,
-      const std::string& comment = "") {
-    string_ = x[0];
+      const std::string& comment = "")
+      : string_(x[0]) {
 
     begin_ = CHAR(string_);
     end_ = begin_ + Rf_xlength(string_);
