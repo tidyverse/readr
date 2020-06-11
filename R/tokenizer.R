@@ -133,7 +133,7 @@ tokenizer_log <- function() {
 #'   [begin, end) (i.e inclusive-exclusive).
 tokenizer_fwf <- function(begin, end, na = "NA", comment = "", trim_ws = TRUE,
                           skip_empty_rows = TRUE) {
-  structure(list(begin = begin, end = end, na = na, comment = comment,
+  structure(list(begin = as.integer(begin), end = as.integer(end), na = na, comment = comment,
                  trim_ws = trim_ws, skip_empty_rows = skip_empty_rows),
             class = "tokenizer_fwf")
 }
