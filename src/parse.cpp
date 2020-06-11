@@ -1,4 +1,5 @@
 #include "cpp11/R.hpp"
+#include "cpp11/integers.hpp"
 #include "cpp11/list.hpp"
 #include "cpp11/sexp.hpp"
 
@@ -10,9 +11,8 @@
 #include "Warnings.h"
 
 #include <Rcpp.h>
-using namespace Rcpp;
 
-[[cpp11::export]] IntegerVector
+[[cpp11::export]] cpp11::integers
 dim_tokens_(cpp11::list sourceSpec, cpp11::list tokenizerSpec) {
   SourcePtr source = Source::create(sourceSpec);
   TokenizerPtr tokenizer = Tokenizer::create(tokenizerSpec);
@@ -28,7 +28,11 @@ dim_tokens_(cpp11::list sourceSpec, cpp11::list tokenizerSpec) {
       cols = t.col();
   }
 
-  return IntegerVector::create(rows + 1, cols + 1);
+  cpp11::writable::integers out(rows + 1);
+  for (auto&& x : out) {
+    x = cols + 1;
+  }
+  return out;
 }
 
 [[cpp11::export]] std::vector<int>
@@ -111,12 +115,12 @@ tokenize_(cpp11::list sourceSpec, cpp11::list tokenizerSpec, int n_max) {
     row[t.col()] = t.asString();
   }
 
-  cpp11::sexp out = wrap(rows);
+  cpp11::sexp out = Rcpp::wrap(rows);
   return warnings.addAsAttribute(out);
 }
 
 [[cpp11::export]] SEXP parse_vector_(
-    CharacterVector x,
+    cpp11::strings x,
     cpp11::list collectorSpec,
     cpp11::list locale_,
     const std::vector<std::string>& na,

@@ -26,7 +26,7 @@ extern "C" SEXP _readr_utctime(SEXP year, SEXP month, SEXP day, SEXP hour, SEXP 
   END_CPP11
 }
 // parse.cpp
-IntegerVector dim_tokens_(cpp11::list sourceSpec, cpp11::list tokenizerSpec);
+cpp11::integers dim_tokens_(cpp11::list sourceSpec, cpp11::list tokenizerSpec);
 extern "C" SEXP _readr_dim_tokens_(SEXP sourceSpec, SEXP tokenizerSpec) {
   BEGIN_CPP11
     return cpp11::as_sexp(dim_tokens_(cpp11::unmove(cpp11::as_cpp<cpp11::list>(sourceSpec)), cpp11::unmove(cpp11::as_cpp<cpp11::list>(tokenizerSpec))));
@@ -54,10 +54,10 @@ extern "C" SEXP _readr_tokenize_(SEXP sourceSpec, SEXP tokenizerSpec, SEXP n_max
   END_CPP11
 }
 // parse.cpp
-SEXP parse_vector_(CharacterVector x, cpp11::list collectorSpec, cpp11::list locale_, const std::vector<std::string>& na, const bool trim_ws);
+SEXP parse_vector_(cpp11::strings x, cpp11::list collectorSpec, cpp11::list locale_, const std::vector<std::string>& na, const bool trim_ws);
 extern "C" SEXP _readr_parse_vector_(SEXP x, SEXP collectorSpec, SEXP locale_, SEXP na, SEXP trim_ws) {
   BEGIN_CPP11
-    return cpp11::as_sexp(parse_vector_(cpp11::unmove(cpp11::as_cpp<CharacterVector>(x)), cpp11::unmove(cpp11::as_cpp<cpp11::list>(collectorSpec)), cpp11::unmove(cpp11::as_cpp<cpp11::list>(locale_)), cpp11::unmove(cpp11::as_cpp<const std::vector<std::string>&>(na)), cpp11::unmove(cpp11::as_cpp<const bool>(trim_ws))));
+    return cpp11::as_sexp(parse_vector_(cpp11::unmove(cpp11::as_cpp<cpp11::strings>(x)), cpp11::unmove(cpp11::as_cpp<cpp11::list>(collectorSpec)), cpp11::unmove(cpp11::as_cpp<cpp11::list>(locale_)), cpp11::unmove(cpp11::as_cpp<const std::vector<std::string>&>(na)), cpp11::unmove(cpp11::as_cpp<const bool>(trim_ws))));
   END_CPP11
 }
 // read.cpp
