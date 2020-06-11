@@ -1,7 +1,6 @@
 #ifndef FASTREAD_TOKENIZEDELIM_H_
 #define FASTREAD_TOKENIZEDELIM_H_
 #include "cpp11/R.hpp"
-#include <Rcpp.h>
 
 #include "Token.h"
 #include "Tokenizer.h"
