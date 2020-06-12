@@ -31,6 +31,21 @@ A numeric vector (double) of parsed numbers.
 This drops any non-numeric characters before or after the first number.
 The grouping mark specified by the locale is ignored inside the number.
 }
+\examples{
+## These all return 1000
+parse_number("$1,000")     ## leading $ and grouping character , ignored
+parse_number("euro1,000")  ## leading non-numeric euro ignored
+
+parse_number("1,234.56")
+## explicit locale specifying European grouping and decimal marks
+parse_number("1.234,56", locale = locale(decimal_mark = ",", grouping_mark = "."))
+## SI/ISO 31-0 standard spaces for number grouping
+parse_number("1 234.56", locale = locale(decimal_mark = ".", grouping_mark = " "))
+
+## Specifying strings for NAs
+parse_number(c("1", "2", "3", "NA"))
+parse_number(c("1", "2", "3", "NA", "Nothing"), na = c("NA", "Nothing"))
+}
 \seealso{
 Other parsers: 
 \code{\link{col_skip}()},

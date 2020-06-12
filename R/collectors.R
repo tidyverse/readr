@@ -142,7 +142,7 @@ col_skip <- function() {
 #' parse_number("$1,000")     ## leading $ and grouping character , ignored
 #' parse_number("euro1,000")  ## leading non-numeric euro ignored
 #'
-#' parse_number("1,234.56)
+#' parse_number("1,234.56")
 #' ## explicit locale specifying European grouping and decimal marks
 #' parse_number("1.234,56", locale = locale(decimal_mark = ",", grouping_mark = "."))
 #' ## SI/ISO 31-0 standard spaces for number grouping
