@@ -82,10 +82,10 @@ extern "C" SEXP _readr_read_lines_(SEXP sourceSpec, SEXP locale_, SEXP na, SEXP 
   END_CPP11
 }
 // read.cpp
-void read_lines_chunked_(cpp11::list sourceSpec, cpp11::list locale_, std::vector<std::string> na, int chunkSize, Environment callback, bool skip_empty_rows, bool progress);
+void read_lines_chunked_(cpp11::list sourceSpec, cpp11::list locale_, std::vector<std::string> na, int chunkSize, cpp11::environment callback, bool skip_empty_rows, bool progress);
 extern "C" SEXP _readr_read_lines_chunked_(SEXP sourceSpec, SEXP locale_, SEXP na, SEXP chunkSize, SEXP callback, SEXP skip_empty_rows, SEXP progress) {
   BEGIN_CPP11
-    read_lines_chunked_(cpp11::unmove(cpp11::as_cpp<cpp11::list>(sourceSpec)), cpp11::unmove(cpp11::as_cpp<cpp11::list>(locale_)), cpp11::unmove(cpp11::as_cpp<std::vector<std::string>>(na)), cpp11::unmove(cpp11::as_cpp<int>(chunkSize)), cpp11::unmove(cpp11::as_cpp<Environment>(callback)), cpp11::unmove(cpp11::as_cpp<bool>(skip_empty_rows)), cpp11::unmove(cpp11::as_cpp<bool>(progress)));
+    read_lines_chunked_(cpp11::unmove(cpp11::as_cpp<cpp11::list>(sourceSpec)), cpp11::unmove(cpp11::as_cpp<cpp11::list>(locale_)), cpp11::unmove(cpp11::as_cpp<std::vector<std::string>>(na)), cpp11::unmove(cpp11::as_cpp<int>(chunkSize)), cpp11::unmove(cpp11::as_cpp<cpp11::environment>(callback)), cpp11::unmove(cpp11::as_cpp<bool>(skip_empty_rows)), cpp11::unmove(cpp11::as_cpp<bool>(progress)));
   return R_NilValue;
   END_CPP11
 }
@@ -97,25 +97,25 @@ extern "C" SEXP _readr_read_lines_raw_(SEXP sourceSpec, SEXP n_max, SEXP progres
   END_CPP11
 }
 // read.cpp
-void read_lines_raw_chunked_(cpp11::list sourceSpec, int chunkSize, Environment callback, bool progress);
+void read_lines_raw_chunked_(cpp11::list sourceSpec, int chunkSize, cpp11::environment callback, bool progress);
 extern "C" SEXP _readr_read_lines_raw_chunked_(SEXP sourceSpec, SEXP chunkSize, SEXP callback, SEXP progress) {
   BEGIN_CPP11
-    read_lines_raw_chunked_(cpp11::unmove(cpp11::as_cpp<cpp11::list>(sourceSpec)), cpp11::unmove(cpp11::as_cpp<int>(chunkSize)), cpp11::unmove(cpp11::as_cpp<Environment>(callback)), cpp11::unmove(cpp11::as_cpp<bool>(progress)));
+    read_lines_raw_chunked_(cpp11::unmove(cpp11::as_cpp<cpp11::list>(sourceSpec)), cpp11::unmove(cpp11::as_cpp<int>(chunkSize)), cpp11::unmove(cpp11::as_cpp<cpp11::environment>(callback)), cpp11::unmove(cpp11::as_cpp<bool>(progress)));
   return R_NilValue;
   END_CPP11
 }
 // read.cpp
-cpp11::sexp read_tokens_(cpp11::list sourceSpec, cpp11::list tokenizerSpec, Rcpp::ListOf<Rcpp::List> colSpecs, cpp11::strings colNames, cpp11::list locale_, int n_max, bool progress);
+cpp11::sexp read_tokens_(cpp11::list sourceSpec, cpp11::list tokenizerSpec, cpp11::list colSpecs, cpp11::strings colNames, cpp11::list locale_, int n_max, bool progress);
 extern "C" SEXP _readr_read_tokens_(SEXP sourceSpec, SEXP tokenizerSpec, SEXP colSpecs, SEXP colNames, SEXP locale_, SEXP n_max, SEXP progress) {
   BEGIN_CPP11
-    return cpp11::as_sexp(read_tokens_(cpp11::unmove(cpp11::as_cpp<cpp11::list>(sourceSpec)), cpp11::unmove(cpp11::as_cpp<cpp11::list>(tokenizerSpec)), cpp11::unmove(cpp11::as_cpp<Rcpp::ListOf<Rcpp::List>>(colSpecs)), cpp11::unmove(cpp11::as_cpp<cpp11::strings>(colNames)), cpp11::unmove(cpp11::as_cpp<cpp11::list>(locale_)), cpp11::unmove(cpp11::as_cpp<int>(n_max)), cpp11::unmove(cpp11::as_cpp<bool>(progress))));
+    return cpp11::as_sexp(read_tokens_(cpp11::unmove(cpp11::as_cpp<cpp11::list>(sourceSpec)), cpp11::unmove(cpp11::as_cpp<cpp11::list>(tokenizerSpec)), cpp11::unmove(cpp11::as_cpp<cpp11::list>(colSpecs)), cpp11::unmove(cpp11::as_cpp<cpp11::strings>(colNames)), cpp11::unmove(cpp11::as_cpp<cpp11::list>(locale_)), cpp11::unmove(cpp11::as_cpp<int>(n_max)), cpp11::unmove(cpp11::as_cpp<bool>(progress))));
   END_CPP11
 }
 // read.cpp
-void read_tokens_chunked_(cpp11::list sourceSpec, Environment callback, int chunkSize, cpp11::list tokenizerSpec, Rcpp::ListOf<Rcpp::List> colSpecs, cpp11::strings colNames, cpp11::list locale_, bool progress);
+void read_tokens_chunked_(cpp11::list sourceSpec, cpp11::environment callback, int chunkSize, cpp11::list tokenizerSpec, cpp11::list colSpecs, cpp11::strings colNames, cpp11::list locale_, bool progress);
 extern "C" SEXP _readr_read_tokens_chunked_(SEXP sourceSpec, SEXP callback, SEXP chunkSize, SEXP tokenizerSpec, SEXP colSpecs, SEXP colNames, SEXP locale_, SEXP progress) {
   BEGIN_CPP11
-    read_tokens_chunked_(cpp11::unmove(cpp11::as_cpp<cpp11::list>(sourceSpec)), cpp11::unmove(cpp11::as_cpp<Environment>(callback)), cpp11::unmove(cpp11::as_cpp<int>(chunkSize)), cpp11::unmove(cpp11::as_cpp<cpp11::list>(tokenizerSpec)), cpp11::unmove(cpp11::as_cpp<Rcpp::ListOf<Rcpp::List>>(colSpecs)), cpp11::unmove(cpp11::as_cpp<cpp11::strings>(colNames)), cpp11::unmove(cpp11::as_cpp<cpp11::list>(locale_)), cpp11::unmove(cpp11::as_cpp<bool>(progress)));
+    read_tokens_chunked_(cpp11::unmove(cpp11::as_cpp<cpp11::list>(sourceSpec)), cpp11::unmove(cpp11::as_cpp<cpp11::environment>(callback)), cpp11::unmove(cpp11::as_cpp<int>(chunkSize)), cpp11::unmove(cpp11::as_cpp<cpp11::list>(tokenizerSpec)), cpp11::unmove(cpp11::as_cpp<cpp11::list>(colSpecs)), cpp11::unmove(cpp11::as_cpp<cpp11::strings>(colNames)), cpp11::unmove(cpp11::as_cpp<cpp11::list>(locale_)), cpp11::unmove(cpp11::as_cpp<bool>(progress)));
   return R_NilValue;
   END_CPP11
 }
@@ -127,10 +127,10 @@ extern "C" SEXP _readr_melt_tokens_(SEXP sourceSpec, SEXP tokenizerSpec, SEXP co
   END_CPP11
 }
 // read.cpp
-void melt_tokens_chunked_(cpp11::list sourceSpec, Environment callback, int chunkSize, cpp11::list tokenizerSpec, Rcpp::ListOf<Rcpp::List> colSpecs, cpp11::list locale_, bool progress);
+void melt_tokens_chunked_(cpp11::list sourceSpec, cpp11::environment callback, int chunkSize, cpp11::list tokenizerSpec, cpp11::list colSpecs, cpp11::list locale_, bool progress);
 extern "C" SEXP _readr_melt_tokens_chunked_(SEXP sourceSpec, SEXP callback, SEXP chunkSize, SEXP tokenizerSpec, SEXP colSpecs, SEXP locale_, SEXP progress) {
   BEGIN_CPP11
-    melt_tokens_chunked_(cpp11::unmove(cpp11::as_cpp<cpp11::list>(sourceSpec)), cpp11::unmove(cpp11::as_cpp<Environment>(callback)), cpp11::unmove(cpp11::as_cpp<int>(chunkSize)), cpp11::unmove(cpp11::as_cpp<cpp11::list>(tokenizerSpec)), cpp11::unmove(cpp11::as_cpp<Rcpp::ListOf<Rcpp::List>>(colSpecs)), cpp11::unmove(cpp11::as_cpp<cpp11::list>(locale_)), cpp11::unmove(cpp11::as_cpp<bool>(progress)));
+    melt_tokens_chunked_(cpp11::unmove(cpp11::as_cpp<cpp11::list>(sourceSpec)), cpp11::unmove(cpp11::as_cpp<cpp11::environment>(callback)), cpp11::unmove(cpp11::as_cpp<int>(chunkSize)), cpp11::unmove(cpp11::as_cpp<cpp11::list>(tokenizerSpec)), cpp11::unmove(cpp11::as_cpp<cpp11::list>(colSpecs)), cpp11::unmove(cpp11::as_cpp<cpp11::list>(locale_)), cpp11::unmove(cpp11::as_cpp<bool>(progress)));
   return R_NilValue;
   END_CPP11
 }

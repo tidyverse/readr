@@ -1,3 +1,5 @@
+#include "cpp11/environment.hpp"
+#include "cpp11/function.hpp"
 #include "cpp11/list.hpp"
 #include "cpp11/strings.hpp"
 
@@ -48,8 +50,9 @@ read_file_(cpp11::list sourceSpec, cpp11::list locale_) {
   return SEXP(r.readToVector<cpp11::writable::strings>(n_max));
 }
 
-Function R6method(Environment env, const std::string& method) {
-  return as<Function>(env[method]);
+cpp11::function
+R6method(const cpp11::environment& env, const std::string& method) {
+  return static_cast<SEXP>(env[method.c_str()]);
 }
 bool isTrue(SEXP x) {
   if (!(TYPEOF(x) == LGLSXP && Rf_length(x) == 1)) {
@@ -63,7 +66,7 @@ bool isTrue(SEXP x) {
     cpp11::list locale_,
     std::vector<std::string> na,
     int chunkSize,
-    Environment callback,
+    cpp11::environment callback,
     bool skip_empty_rows,
     bool progress) {
 
@@ -104,7 +107,7 @@ read_lines_raw_(cpp11::list sourceSpec, int n_max = -1, bool progress = false) {
 [[cpp11::export]] void read_lines_raw_chunked_(
     cpp11::list sourceSpec,
     int chunkSize,
-    Environment callback,
+    cpp11::environment callback,
     bool progress) {
 
   Reader r(
@@ -133,7 +136,7 @@ typedef std::vector<CollectorPtr>::iterator CollectorItr;
 [[cpp11::export]] cpp11::sexp read_tokens_(
     cpp11::list sourceSpec,
     cpp11::list tokenizerSpec,
-    Rcpp::ListOf<Rcpp::List> colSpecs,
+    cpp11::list colSpecs,
     cpp11::strings colNames,
     cpp11::list locale_,
     int n_max,
@@ -152,10 +155,10 @@ typedef std::vector<CollectorPtr>::iterator CollectorItr;
 
 [[cpp11::export]] void read_tokens_chunked_(
     cpp11::list sourceSpec,
-    Environment callback,
+    cpp11::environment callback,
     int chunkSize,
     cpp11::list tokenizerSpec,
-    Rcpp::ListOf<Rcpp::List> colSpecs,
+    cpp11::list colSpecs,
     cpp11::strings colNames,
     cpp11::list locale_,
     bool progress) {
@@ -201,10 +204,10 @@ typedef std::vector<CollectorPtr>::iterator CollectorItr;
 
 [[cpp11::export]] void melt_tokens_chunked_(
     cpp11::list sourceSpec,
-    Environment callback,
+    cpp11::environment callback,
     int chunkSize,
     cpp11::list tokenizerSpec,
-    Rcpp::ListOf<Rcpp::List> colSpecs,
+    cpp11::list colSpecs,
     cpp11::list locale_,
     bool progress) {
 
