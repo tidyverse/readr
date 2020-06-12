@@ -3,9 +3,6 @@
 #include "cpp11/list.hpp"
 #include "cpp11/strings.hpp"
 
-#include <Rcpp.h>
-using namespace Rcpp;
-
 #include "Collector.h"
 #include "LocaleInfo.h"
 #include "Progress.h"
@@ -24,12 +21,13 @@ read_file_(cpp11::list sourceSpec, cpp11::list locale_) {
       locale.encoder_.makeSEXP(source->begin(), source->end()));
 }
 
-[[cpp11::export]] RawVector read_file_raw_(cpp11::list sourceSpec) {
+[[cpp11::export]] cpp11::raws read_file_raw_(cpp11::list sourceSpec) {
   SourcePtr source = Source::create(sourceSpec);
 
-  RawVector res(source->end() - source->begin());
-  std::copy(source->begin(), source->end(), res.begin());
-  return res;
+  cpp11::writable::raws res(
+      static_cast<R_xlen_t>(source->end() - source->begin()));
+  std::copy(source->begin(), source->end(), RAW(res));
+  return SEXP(res);
 }
 
 [[cpp11::export]] cpp11::writable::strings read_lines_(
@@ -56,7 +54,7 @@ R6method(const cpp11::environment& env, const std::string& method) {
 }
 bool isTrue(SEXP x) {
   if (!(TYPEOF(x) == LGLSXP && Rf_length(x) == 1)) {
-    stop("`continue()` must return a length 1 logical vector");
+    cpp11::stop("`continue()` must return a length 1 logical vector");
   }
   return LOGICAL(x)[0] == TRUE;
 }
@@ -173,12 +171,12 @@ typedef std::vector<CollectorPtr>::iterator CollectorItr;
 
   int pos = 1;
   while (isTrue(R6method(callback, "continue")())) {
-    DataFrame out = r.readToDataFrame(chunkSize);
-    if (out.nrows() == 0) {
+    cpp11::data_frame out(r.readToDataFrame(chunkSize));
+    if (out.nrow() == 0) {
       return;
     }
     R6method(callback, "receive")(out, pos);
-    pos += out.nrows();
+    pos += out.nrow();
   }
 
   return;
@@ -187,7 +185,7 @@ typedef std::vector<CollectorPtr>::iterator CollectorItr;
 [[cpp11::export]] cpp11::sexp melt_tokens_(
     cpp11::list sourceSpec,
     cpp11::list tokenizerSpec,
-    Rcpp::ListOf<cpp11::list> colSpecs,
+    cpp11::list colSpecs,
     cpp11::list locale_,
     int n_max,
     bool progress) {
@@ -220,12 +218,13 @@ typedef std::vector<CollectorPtr>::iterator CollectorItr;
 
   int pos = 1;
   while (isTrue(R6method(callback, "continue")())) {
-    DataFrame out = r.meltToDataFrame(static_cast<SEXP>(locale_), chunkSize);
-    if (out.nrows() == 0) {
+    cpp11::data_frame out(
+        r.meltToDataFrame(static_cast<SEXP>(locale_), chunkSize));
+    if (out.nrow() == 0) {
       return;
     }
     R6method(callback, "receive")(out, pos);
-    pos += out.nrows();
+    pos += out.nrow();
   }
 
   return;
@@ -267,7 +266,7 @@ typedef std::vector<CollectorPtr>::iterator CollectorItr;
 
   std::vector<std::string> out;
   for (size_t j = 0; j < collectors.size(); ++j) {
-    cpp11::strings col = as<cpp11::strings>(collectors[j]->vector());
+    cpp11::strings col(collectors[j]->vector());
     out.push_back(collectorGuess(SEXP(col), cpp11::list(locale_)));
   }
 
