@@ -3,6 +3,8 @@
 #include "cpp11/function.hpp"
 #include "cpp11/list.hpp"
 
+#include <sstream>
+
 Reader::Reader(
     SourcePtr source,
     TokenizerPtr tokenizer,
@@ -158,8 +160,12 @@ void Reader::checkColumns(int i, int j, int n) {
   if (j + 1 == n)
     return;
 
-  warnings_.addWarning(
-      i, -1, tfm::format("%i columns", n), tfm::format("%i columns", j + 1));
+  std::stringstream ss1;
+  ss1 << n << " columns";
+
+  std::stringstream ss2;
+  ss2 << j + 1 << " columns";
+  warnings_.addWarning(i, -1, ss1.str(), ss2.str());
 }
 
 void Reader::collectorsResize(int n) {

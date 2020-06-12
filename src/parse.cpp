@@ -3,14 +3,14 @@
 #include "cpp11/list.hpp"
 #include "cpp11/sexp.hpp"
 
+#include <Rcpp.h>
+
 #include "Collector.h"
 #include "LocaleInfo.h"
 #include "Source.h"
 #include "Tokenizer.h"
 #include "TokenizerLine.h"
 #include "Warnings.h"
-
-#include <Rcpp.h>
 
 [[cpp11::export]] cpp11::integers
 dim_tokens_(cpp11::list sourceSpec, cpp11::list tokenizerSpec) {

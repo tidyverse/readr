@@ -2,6 +2,7 @@
 #define FASTREAD_PROGRESS_H_
 
 #include "cpp11/R.hpp"
+#include <iomanip>
 #include <sstream>
 #include <time.h>
 
@@ -12,12 +13,16 @@ inline std::string clearLine(int width = 50) {
 }
 
 inline std::string showTime(int x) {
+  std::stringstream ss;
   if (x < 60) {
-    return tfm::format("%i s", x);
+    ss << x << " s";
+    return ss.str();
   } else if (x < 60 * 60) {
-    return tfm::format("%i m", x / 60);
+    ss << x / 60 << " m";
+    return ss.str();
   } else {
-    return tfm::format("%i h", x / (60 * 60));
+    ss << x / (60 * 60) << " h";
+    return ss.str();
   }
 }
 
@@ -52,9 +57,10 @@ public:
     }
 
     std::stringstream labelStream;
-    tfm::format(labelStream, " %3d%%", (int)(prop * 100));
+    labelStream << std::setprecision(2) << std::fixed << " "
+                << (int)(prop * 100) << "%";
     if (size > 0) {
-      tfm::format(labelStream, " %4.0f MB", size);
+      labelStream << " " << std::setprecision(0) << size << " MB";
     }
 
     std::string label = labelStream.str();
