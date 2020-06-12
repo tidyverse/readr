@@ -1,5 +1,6 @@
 #include "Iconv.h"
 #include "cpp11/protect.hpp"
+#include <string.h>
 
 Iconv::Iconv(const std::string& from, const std::string& to) {
   if (from == "UTF-8") {
