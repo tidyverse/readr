@@ -3,8 +3,6 @@
 #include "cpp11/list.hpp"
 #include "cpp11/sexp.hpp"
 
-#include <Rcpp.h>
-
 #include "Collector.h"
 #include "LocaleInfo.h"
 #include "Source.h"
@@ -115,7 +113,13 @@ tokenize_(cpp11::list sourceSpec, cpp11::list tokenizerSpec, int n_max) {
     row[t.col()] = t.asString();
   }
 
-  cpp11::sexp out = Rcpp::wrap(rows);
+  cpp11::writable::list out;
+  out.reserve(rows.size());
+
+  for (auto&& row : rows) {
+    out.push_back(cpp11::as_sexp(row));
+  }
+
   return warnings.addAsAttribute(out);
 }
 

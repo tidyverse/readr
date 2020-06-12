@@ -42,7 +42,6 @@ Imports:
     hms (>= 0.4.1),
     methods,
     R6,
-    Rcpp (>= 0.12.0.5),
     tibble,
     utils
 Suggests:
@@ -57,14 +56,13 @@ Suggests:
     xml2
 LinkingTo: 
     BH,
-    Rcpp,
     cpp11
 VignetteBuilder: 
     knitr
 Encoding: UTF-8
 Language: en-US
 Roxygen: list(markdown = TRUE)
-RoxygenNote: 7.0.2
+RoxygenNote: 7.1.0
 SystemRequirements: GNU make, C++11
 Remotes:
   r-lib/cpp11
