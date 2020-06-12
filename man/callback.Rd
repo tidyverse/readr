@@ -67,6 +67,7 @@ Other chunked:
 }
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-new"></a>}}
+\if{latex}{\out{\hypertarget{method-new}{}}}
 \subsection{Method \code{new()}}{
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{ChunkCallback$new(callback)}\if{html}{\out{</div>}}
@@ -75,6 +76,7 @@ Other chunked:
 }
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-receive"></a>}}
+\if{latex}{\out{\hypertarget{method-receive}{}}}
 \subsection{Method \code{receive()}}{
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{ChunkCallback$receive(data, index)}\if{html}{\out{</div>}}
@@ -83,6 +85,7 @@ Other chunked:
 }
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-continue"></a>}}
+\if{latex}{\out{\hypertarget{method-continue}{}}}
 \subsection{Method \code{continue()}}{
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{ChunkCallback$continue()}\if{html}{\out{</div>}}
@@ -91,6 +94,7 @@ Other chunked:
 }
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-result"></a>}}
+\if{latex}{\out{\hypertarget{method-result}{}}}
 \subsection{Method \code{result()}}{
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{ChunkCallback$result()}\if{html}{\out{</div>}}
@@ -99,6 +103,7 @@ Other chunked:
 }
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-finally"></a>}}
+\if{latex}{\out{\hypertarget{method-finally}{}}}
 \subsection{Method \code{finally()}}{
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{ChunkCallback$finally()}\if{html}{\out{</div>}}
@@ -107,6 +112,7 @@ Other chunked:
 }
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-clone"></a>}}
+\if{latex}{\out{\hypertarget{method-clone}{}}}
 \subsection{Method \code{clone()}}{
 The objects of this class are cloneable with this method.
 \subsection{Usage}{
@@ -144,6 +150,7 @@ The objects of this class are cloneable with this method.
 }
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-new"></a>}}
+\if{latex}{\out{\hypertarget{method-new}{}}}
 \subsection{Method \code{new()}}{
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{SideEffectChunkCallback$new(callback)}\if{html}{\out{</div>}}
@@ -152,6 +159,7 @@ The objects of this class are cloneable with this method.
 }
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-receive"></a>}}
+\if{latex}{\out{\hypertarget{method-receive}{}}}
 \subsection{Method \code{receive()}}{
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{SideEffectChunkCallback$receive(data, index)}\if{html}{\out{</div>}}
@@ -160,6 +168,7 @@ The objects of this class are cloneable with this method.
 }
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-continue"></a>}}
+\if{latex}{\out{\hypertarget{method-continue}{}}}
 \subsection{Method \code{continue()}}{
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{SideEffectChunkCallback$continue()}\if{html}{\out{</div>}}
@@ -168,6 +177,7 @@ The objects of this class are cloneable with this method.
 }
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-clone"></a>}}
+\if{latex}{\out{\hypertarget{method-clone}{}}}
 \subsection{Method \code{clone()}}{
 The objects of this class are cloneable with this method.
 \subsection{Usage}{
@@ -205,6 +215,7 @@ The objects of this class are cloneable with this method.
 }
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-new"></a>}}
+\if{latex}{\out{\hypertarget{method-new}{}}}
 \subsection{Method \code{new()}}{
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{DataFrameCallback$new(callback)}\if{html}{\out{</div>}}
@@ -213,6 +224,7 @@ The objects of this class are cloneable with this method.
 }
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-receive"></a>}}
+\if{latex}{\out{\hypertarget{method-receive}{}}}
 \subsection{Method \code{receive()}}{
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{DataFrameCallback$receive(data, index)}\if{html}{\out{</div>}}
@@ -221,6 +233,7 @@ The objects of this class are cloneable with this method.
 }
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-result"></a>}}
+\if{latex}{\out{\hypertarget{method-result}{}}}
 \subsection{Method \code{result()}}{
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{DataFrameCallback$result()}\if{html}{\out{</div>}}
@@ -229,6 +242,7 @@ The objects of this class are cloneable with this method.
 }
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-finally"></a>}}
+\if{latex}{\out{\hypertarget{method-finally}{}}}
 \subsection{Method \code{finally()}}{
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{DataFrameCallback$finally()}\if{html}{\out{</div>}}
@@ -237,6 +251,7 @@ The objects of this class are cloneable with this method.
 }
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-clone"></a>}}
+\if{latex}{\out{\hypertarget{method-clone}{}}}
 \subsection{Method \code{clone()}}{
 The objects of this class are cloneable with this method.
 \subsection{Usage}{
@@ -274,6 +289,7 @@ The objects of this class are cloneable with this method.
 }
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-new"></a>}}
+\if{latex}{\out{\hypertarget{method-new}{}}}
 \subsection{Method \code{new()}}{
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{ListCallback$new(callback)}\if{html}{\out{</div>}}
@@ -282,6 +298,7 @@ The objects of this class are cloneable with this method.
 }
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-receive"></a>}}
+\if{latex}{\out{\hypertarget{method-receive}{}}}
 \subsection{Method \code{receive()}}{
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{ListCallback$receive(data, index)}\if{html}{\out{</div>}}
@@ -290,6 +307,7 @@ The objects of this class are cloneable with this method.
 }
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-result"></a>}}
+\if{latex}{\out{\hypertarget{method-result}{}}}
 \subsection{Method \code{result()}}{
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{ListCallback$result()}\if{html}{\out{</div>}}
@@ -298,6 +316,7 @@ The objects of this class are cloneable with this method.
 }
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-finally"></a>}}
+\if{latex}{\out{\hypertarget{method-finally}{}}}
 \subsection{Method \code{finally()}}{
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{ListCallback$finally()}\if{html}{\out{</div>}}
@@ -306,6 +325,7 @@ The objects of this class are cloneable with this method.
 }
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-clone"></a>}}
+\if{latex}{\out{\hypertarget{method-clone}{}}}
 \subsection{Method \code{clone()}}{
 The objects of this class are cloneable with this method.
 \subsection{Usage}{
@@ -343,6 +363,7 @@ The objects of this class are cloneable with this method.
 }
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-new"></a>}}
+\if{latex}{\out{\hypertarget{method-new}{}}}
 \subsection{Method \code{new()}}{
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{AccumulateCallback$new(callback, acc = NULL)}\if{html}{\out{</div>}}
@@ -351,6 +372,7 @@ The objects of this class are cloneable with this method.
 }
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-receive"></a>}}
+\if{latex}{\out{\hypertarget{method-receive}{}}}
 \subsection{Method \code{receive()}}{
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{AccumulateCallback$receive(data, index)}\if{html}{\out{</div>}}
@@ -359,6 +381,7 @@ The objects of this class are cloneable with this method.
 }
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-result"></a>}}
+\if{latex}{\out{\hypertarget{method-result}{}}}
 \subsection{Method \code{result()}}{
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{AccumulateCallback$result()}\if{html}{\out{</div>}}
@@ -367,6 +390,7 @@ The objects of this class are cloneable with this method.
 }
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-clone"></a>}}
+\if{latex}{\out{\hypertarget{method-clone}{}}}
 \subsection{Method \code{clone()}}{
 The objects of this class are cloneable with this method.
 \subsection{Usage}{

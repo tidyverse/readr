@@ -1,5 +1,4 @@
 #' @useDynLib readr, .registration = TRUE
-#' @importClassesFrom Rcpp "C++Object"
 NULL
 
 #' Read a delimited file (including csv & tsv) into a tibble
