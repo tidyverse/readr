@@ -1,7 +1,10 @@
 #ifndef FASTREAD_COLLECTOR_H_
 #define FASTREAD_COLLECTOR_H_
+#include "cpp11/doubles.hpp"
+#include "cpp11/integers.hpp"
 #include "cpp11/list.hpp"
-#include <Rcpp.h>
+#include "cpp11/logicals.hpp"
+#include "cpp11/strings.hpp"
 
 #include "DateTime.h"
 #include "DateTimeParser.h"
@@ -16,7 +19,7 @@ typedef boost::shared_ptr<Collector> CollectorPtr;
 
 class Collector {
 protected:
-  Rcpp::RObject column_;
+  cpp11::sexp column_;
   Warnings* pWarnings_;
 
   int n_;
@@ -31,14 +34,13 @@ public:
   virtual void setValue(int i, const std::string& s){}; // nocov
   virtual void setValue(int i, size_t st){};            // nocov
 
-  virtual Rcpp::RObject vector() { return column_; };
+  virtual cpp11::sexp vector() { return column_; };
 
   virtual bool skip() { return false; }
 
   int size() { return n_; }
 
   void resize(int n) {
-    // Rcpp::Rcerr << "Resizing to: " << n << std::endl;
     if (n == n_)
       return;
 
@@ -60,12 +62,12 @@ public:
 
   inline void warn(int row, int col, std::string expected, std::string actual) {
     if (pWarnings_ == NULL) {
-      Rcpp::warning(
+      cpp11::warning(
           "[%i, %i]: expected %s, but got '%s'",
           row + 1,
           col + 1,
-          expected,
-          actual);
+          expected.c_str(),
+          actual.c_str());
       return;
     }
 
@@ -86,7 +88,7 @@ class CollectorCharacter : public Collector {
 
 public:
   CollectorCharacter(Iconv* pEncoder)
-      : Collector(Rcpp::CharacterVector()), pEncoder_(pEncoder) {}
+      : Collector(cpp11::writable::strings(R_xlen_t(0))), pEncoder_(pEncoder) {}
   void setValue(int i, const Token& t);
   void setValue(int i, const std::string& s);
 };
@@ -99,11 +101,13 @@ class CollectorDate : public Collector {
 
 public:
   CollectorDate(LocaleInfo* pLocale, const std::string& format)
-      : Collector(Rcpp::NumericVector()), format_(format), parser_(pLocale) {}
+      : Collector(cpp11::writable::doubles(R_xlen_t(0))),
+        format_(format),
+        parser_(pLocale) {}
 
   void setValue(int i, const Token& t);
 
-  Rcpp::RObject vector() {
+  cpp11::sexp vector() {
     column_.attr("class") = "Date";
     return column_;
   };
@@ -118,15 +122,15 @@ class CollectorDateTime : public Collector {
 
 public:
   CollectorDateTime(LocaleInfo* pLocale, const std::string& format)
-      : Collector(Rcpp::NumericVector()),
+      : Collector(cpp11::writable::doubles(R_xlen_t(0))),
         format_(format),
         parser_(pLocale),
         tz_(pLocale->tz_) {}
 
   void setValue(int i, const Token& t);
 
-  Rcpp::RObject vector() {
-    column_.attr("class") = Rcpp::CharacterVector::create("POSIXct", "POSIXt");
+  cpp11::sexp vector() {
+    column_.attr("class") = {"POSIXct", "POSIXt"};
     column_.attr("tzone") = tz_;
     return column_;
   };
@@ -137,37 +141,35 @@ class CollectorDouble : public Collector {
 
 public:
   CollectorDouble(char decimalMark)
-      : Collector(Rcpp::NumericVector()), decimalMark_(decimalMark) {}
+      : Collector(cpp11::writable::doubles(R_xlen_t(0))),
+        decimalMark_(decimalMark) {}
   void setValue(int i, const Token& t);
   void setValue(int i, size_t st);
 };
 
 class CollectorFactor : public Collector {
   Iconv* pEncoder_;
-  std::vector<Rcpp::String> levels_;
-  std::map<Rcpp::String, int> levelset_;
+  std::vector<cpp11::string> levels_;
+  std::map<cpp11::string, int> levelset_;
   bool ordered_, implicitLevels_, includeNa_;
   boost::container::string buffer_;
 
-  void insert(int i, Rcpp::String str, const Token& t);
+  void insert(int i, cpp11::string str, const Token& t);
 
 public:
   CollectorFactor(
-      Iconv* pEncoder,
-      Rcpp::Nullable<Rcpp::CharacterVector> levels,
-      bool ordered,
-      bool includeNa)
-      : Collector(Rcpp::IntegerVector()),
+      Iconv* pEncoder, cpp11::sexp levels, bool ordered, bool includeNa)
+      : Collector(cpp11::writable::integers(R_xlen_t(0))),
         pEncoder_(pEncoder),
         ordered_(ordered),
         includeNa_(includeNa) {
-    implicitLevels_ = levels.isNull();
+    implicitLevels_ = levels == R_NilValue;
     if (!implicitLevels_) {
-      Rcpp::CharacterVector lvls = Rcpp::CharacterVector(levels);
+      cpp11::strings lvls(levels);
       int n = lvls.size();
 
       for (int i = 0; i < n; ++i) {
-        Rcpp::String std_level;
+        cpp11::string std_level;
         if (STRING_ELT(lvls, i) != NA_STRING) {
           const char* level = Rf_translateCharUTF8(STRING_ELT(lvls, i));
           std_level = level;
@@ -181,16 +183,15 @@ public:
   }
   void setValue(int i, const Token& t);
 
-  Rcpp::RObject vector() {
+  cpp11::sexp vector() {
     if (ordered_) {
-      column_.attr("class") =
-          Rcpp::CharacterVector::create("ordered", "factor");
+      column_.attr("class") = {"ordered", "factor"};
     } else {
       column_.attr("class") = "factor";
     }
 
     int n = levels_.size();
-    Rcpp::CharacterVector levels = Rcpp::CharacterVector(n);
+    cpp11::writable::strings levels(n);
     for (int i = 0; i < n; ++i) {
       levels[i] = levels_[i];
     }
@@ -202,13 +203,13 @@ public:
 
 class CollectorInteger : public Collector {
 public:
-  CollectorInteger() : Collector(Rcpp::IntegerVector()) {}
+  CollectorInteger() : Collector(cpp11::writable::integers(R_xlen_t(0))) {}
   void setValue(int i, const Token& t);
 };
 
 class CollectorLogical : public Collector {
 public:
-  CollectorLogical() : Collector(Rcpp::LogicalVector()) {}
+  CollectorLogical() : Collector(cpp11::writable::logicals(R_xlen_t(0))) {}
   void setValue(int i, const Token& t);
 };
 
@@ -217,7 +218,7 @@ class CollectorNumeric : public Collector {
 
 public:
   CollectorNumeric(char decimalMark, char groupingMark)
-      : Collector(Rcpp::NumericVector()),
+      : Collector(cpp11::writable::doubles(R_xlen_t(0))),
         decimalMark_(decimalMark),
         groupingMark_(groupingMark) {}
   void setValue(int i, const Token& t);
@@ -232,12 +233,14 @@ class CollectorTime : public Collector {
 
 public:
   CollectorTime(LocaleInfo* pLocale, const std::string& format)
-      : Collector(Rcpp::NumericVector()), format_(format), parser_(pLocale) {}
+      : Collector(cpp11::writable::doubles(R_xlen_t(0))),
+        format_(format),
+        parser_(pLocale) {}
 
   void setValue(int i, const Token& t);
 
-  Rcpp::RObject vector() {
-    column_.attr("class") = Rcpp::CharacterVector::create("hms", "difftime");
+  cpp11::sexp vector() {
+    column_.attr("class") = {"hms", "difftime"};
     column_.attr("units") = "secs";
     return column_;
   };
@@ -262,7 +265,7 @@ public:
 // Helpers ---------------------------------------------------------------------
 
 std::vector<CollectorPtr>
-collectorsCreate(Rcpp::ListOf<Rcpp::List> specs, LocaleInfo* pLocale);
+collectorsCreate(cpp11::list specs, LocaleInfo* pLocale);
 void collectorsResize(std::vector<CollectorPtr>& collectors, int n);
 void collectorsClear(std::vector<CollectorPtr>& collectors);
 std::string collectorGuess(
