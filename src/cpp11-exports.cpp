@@ -68,7 +68,7 @@ extern "C" SEXP _readr_read_file_(SEXP sourceSpec, SEXP locale_) {
   END_CPP11
 }
 // read.cpp
-RawVector read_file_raw_(cpp11::list sourceSpec);
+cpp11::raws read_file_raw_(cpp11::list sourceSpec);
 extern "C" SEXP _readr_read_file_raw_(SEXP sourceSpec) {
   BEGIN_CPP11
     return cpp11::as_sexp(read_file_raw_(cpp11::unmove(cpp11::as_cpp<cpp11::list>(sourceSpec))));
@@ -120,10 +120,10 @@ extern "C" SEXP _readr_read_tokens_chunked_(SEXP sourceSpec, SEXP callback, SEXP
   END_CPP11
 }
 // read.cpp
-cpp11::sexp melt_tokens_(cpp11::list sourceSpec, cpp11::list tokenizerSpec, Rcpp::ListOf<cpp11::list> colSpecs, cpp11::list locale_, int n_max, bool progress);
+cpp11::sexp melt_tokens_(cpp11::list sourceSpec, cpp11::list tokenizerSpec, cpp11::list colSpecs, cpp11::list locale_, int n_max, bool progress);
 extern "C" SEXP _readr_melt_tokens_(SEXP sourceSpec, SEXP tokenizerSpec, SEXP colSpecs, SEXP locale_, SEXP n_max, SEXP progress) {
   BEGIN_CPP11
-    return cpp11::as_sexp(melt_tokens_(cpp11::unmove(cpp11::as_cpp<cpp11::list>(sourceSpec)), cpp11::unmove(cpp11::as_cpp<cpp11::list>(tokenizerSpec)), cpp11::unmove(cpp11::as_cpp<Rcpp::ListOf<cpp11::list>>(colSpecs)), cpp11::unmove(cpp11::as_cpp<cpp11::list>(locale_)), cpp11::unmove(cpp11::as_cpp<int>(n_max)), cpp11::unmove(cpp11::as_cpp<bool>(progress))));
+    return cpp11::as_sexp(melt_tokens_(cpp11::unmove(cpp11::as_cpp<cpp11::list>(sourceSpec)), cpp11::unmove(cpp11::as_cpp<cpp11::list>(tokenizerSpec)), cpp11::unmove(cpp11::as_cpp<cpp11::list>(colSpecs)), cpp11::unmove(cpp11::as_cpp<cpp11::list>(locale_)), cpp11::unmove(cpp11::as_cpp<int>(n_max)), cpp11::unmove(cpp11::as_cpp<bool>(progress))));
   END_CPP11
 }
 // read.cpp
