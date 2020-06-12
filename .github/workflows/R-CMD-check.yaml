@@ -59,6 +59,9 @@ jobs:
           Rscript -e "remotes::install_github('r-hub/sysreqs')"
           sysreqs=$(Rscript -e "cat(sysreqs::sysreq_commands('DESCRIPTION'))")
           sudo -s eval "$sysreqs"
+          mkdir -p ~/.R/
+          sudo apt install g++-6 -y
+          echo $'CXX1X=g++-6\nCXX11=g++-6' >> ~/.R/Makevars
 
       - name: Install dependencies
         run: Rscript -e "library(remotes)" -e "update(readRDS('depends.Rds'))" -e "remotes::install_cran('rcmdcheck')"
