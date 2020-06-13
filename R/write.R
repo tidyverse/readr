@@ -25,7 +25,7 @@
 #' the examples for more information.
 #'
 #' @param x A data frame to write to disk
-#' @param path Path or connection to write to.
+#' @param file File or connection to write to.
 #' @param append If `FALSE`, will overwrite existing file. If `TRUE`,
 #'   will append to existing file. In both cases, if file does not exist a new
 #'   file is created.
@@ -61,13 +61,13 @@
 #' write_tsv(mtcars, "mtcars.tsv.xz")
 #'
 #' \dontshow{setwd(.old_wd)}
-write_delim <- function(x, path, delim = " ", na = "NA", append = FALSE,
+write_delim <- function(x, file, delim = " ", na = "NA", append = FALSE,
                         col_names = !append, quote_escape = "double", eol = "\n") {
   stopifnot(is.data.frame(x))
 
   x_out <- x
   x[] <- lapply(names(x), function(i) output_column(x[[i]], i))
-  stream_delim(x, path, delim = delim, col_names = col_names, append = append,
+  stream_delim(x, file, delim = delim, col_names = col_names, append = append,
     na = na, quote_escape = quote_escape, eol = eol)
 
   invisible(x_out)
@@ -75,19 +75,19 @@ write_delim <- function(x, path, delim = " ", na = "NA", append = FALSE,
 
 #' @rdname write_delim
 #' @export
-write_csv <- function(x, path, na = "NA", append = FALSE, col_names = !append,
+write_csv <- function(x, file, na = "NA", append = FALSE, col_names = !append,
                       quote_escape = "double", eol = "\n") {
-  write_delim(x, path, delim = ",", na = na, append = append,
+  write_delim(x, file, delim = ",", na = na, append = append,
     col_names = col_names, quote_escape = quote_escape, eol = eol)
 }
 
 #' @rdname write_delim
 #' @export
-write_csv2 <- function(x, path, na = "NA", append = FALSE, col_names = !append,
+write_csv2 <- function(x, file, na = "NA", append = FALSE, col_names = !append,
                        quote_escape = "double", eol = "\n") {
   x_out <- x
   x <- change_decimal_separator(x, decimal_mark = ",")
-  write_delim(x, path, delim = ";", na = na, append = append,
+  write_delim(x, file, delim = ";", na = na, append = append,
     col_names = col_names, quote_escape = quote_escape, eol = eol)
   
   invisible(x_out)
@@ -95,7 +95,7 @@ write_csv2 <- function(x, path, na = "NA", append = FALSE, col_names = !append,
 
 #' @rdname write_delim
 #' @export
-write_excel_csv <- function(x, path, na = "NA", append = FALSE,
+write_excel_csv <- function(x, file, na = "NA", append = FALSE,
                             col_names = !append, delim = ",", quote_escape = "double", eol = "\n") {
 
   stopifnot(is.data.frame(x))
@@ -105,7 +105,7 @@ write_excel_csv <- function(x, path, na = "NA", append = FALSE,
   x[datetime_cols] <- lapply(x[datetime_cols], format, "%Y/%m/%d %H:%M:%S")
 
   x[] <- lapply(x, output_column)
-  stream_delim(x, path, delim, col_names = col_names, append = append,
+  stream_delim(x, file, delim, col_names = col_names, append = append,
     na = na, bom = !append, quote_escape = quote_escape, eol = eol)
 
   invisible(x_out)
@@ -113,7 +113,7 @@ write_excel_csv <- function(x, path, na = "NA", append = FALSE,
 
 #' @rdname write_delim
 #' @export
-write_excel_csv2 <- function(x, path, na = "NA", append = FALSE,
+write_excel_csv2 <- function(x, file, na = "NA", append = FALSE,
                              col_names = !append, delim = ";", quote_escape = "double", eol = "\n") {
   x_out <- x
   x <- change_decimal_separator(x, decimal_mark = ",")
@@ -122,15 +122,15 @@ write_excel_csv2 <- function(x, path, na = "NA", append = FALSE,
   x[datetime_cols] <- lapply(x[datetime_cols], format, "%Y/%m/%d %H:%M:%S")
 
   x[] <- lapply(x, output_column)
-  write_excel_csv(x, path, na, append, col_names, delim, quote_escape = quote_escape, eol = eol)
+  write_excel_csv(x, file, na, append, col_names, delim, quote_escape = quote_escape, eol = eol)
 
   invisible(x_out)
 }
 
 #' @rdname write_delim
 #' @export
-write_tsv <- function(x, path, na = "NA", append = FALSE, col_names = !append, quote_escape = "double", eol = "\n") {
-  write_delim(x, path, delim = '\t', na = na, append = append, col_names = col_names, quote_escape = quote_escape, eol = eol)
+write_tsv <- function(x, file, na = "NA", append = FALSE, col_names = !append, quote_escape = "double", eol = "\n") {
+  write_delim(x, file, delim = '\t', na = na, append = append, col_names = col_names, quote_escape = quote_escape, eol = eol)
 }
 
 #' Convert a data frame to a delimited string
@@ -160,7 +160,7 @@ format_delim <- function(x, delim, na = "NA", append = FALSE,
   stopifnot(is.data.frame(x))
 
   x[] <- lapply(x, output_column)
-  res <- stream_delim(df = x, path = NULL, delim = delim, col_names = col_names, append = append, na = na, quote_escape = quote_escape, eol = eol)
+  res <- stream_delim(df = x, file = NULL, delim = delim, col_names = col_names, append = append, na = na, quote_escape = quote_escape, eol = eol)
   Encoding(res) <- "UTF-8"
   res
 }
@@ -222,20 +222,20 @@ output_column.list <- function(x, name) {
   stop("Flat files can't store the list column `", name, "`", call. = FALSE)
 }
 
-stream_delim <- function(df, path, append = FALSE, bom = FALSE, ..., quote_escape, eol) {
+stream_delim <- function(df, file, append = FALSE, bom = FALSE, ..., quote_escape, eol) {
   quote_escape <- standardise_escape(quote_escape)
 
-  path <- standardise_path(path, input = FALSE)
+  file <- standardise_path(file, input = FALSE)
 
-  if (inherits(path, "connection") && !isOpen(path)) {
-    on.exit(close(path), add = TRUE)
+  if (inherits(file, "connection") && !isOpen(file)) {
+    on.exit(close(file), add = TRUE)
     if (isTRUE(append)) {
-      open(path, "ab")
+      open(file, "ab")
     } else {
-      open(path, "wb")
+      open(file, "wb")
     }
   }
-  stream_delim_(df, path, ..., bom = bom, quote_escape = quote_escape, eol = eol)
+  stream_delim_(df, file, ..., bom = bom, quote_escape = quote_escape, eol = eol)
 }
 
 change_decimal_separator <- function(x, decimal_mark = ",") {
