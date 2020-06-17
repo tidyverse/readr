@@ -67,6 +67,64 @@ cols_only <- function(...) {
   cols(..., .default = col_skip())
 }
 
+#' Create column specification using regular expression matching
+#'
+#' This function allows to define a regular expression per desired
+#' [column specification object][readr::cols] matching the respective column
+#' names.
+#'
+#' @param ... Named arguments where the names are (Perl-compatible) regular
+#'   expressions and the values are column objects created by col_*(), or
+#'   their abbreviated character names (as described in the col_types argument
+#'   of [readr::read_delim()]).
+#' @param .default Any named columns not matched by any of the regular
+#'   expressions in `...` will be read with this column type.
+#' @param .col_names The column names which should be matched by `...`.
+#'
+#' @return A [column specification][readr::cols].
+#' @export
+#'
+#' @examples
+#' \dontrun{
+#' # parse example data
+#' raw_data <- datasource(file = system.file("extdata/ch_communes_snapshot.csv",
+#'                                           package = "readr"))
+#'
+#' col_names <- readr:::guess_header(file = raw_data,
+#'                                   tokenizer = tokenizer_csv())$header
+#'
+#' read_csv(
+#'   file = raw_data,
+#'   col_types = cols_regex("(Name|_Title|_Text|^ABBREV)" = "c",
+#'                          "^(MutationDate|ValidFrom|ValidTo)$" = col_date(format = "%d.%m.%Y"),
+#'                          .default = "i",
+#'                          .col_names = col_names)
+#' )}
+cols_regex <- function(...,
+                       .default = readr::col_character(),
+                       .col_names) {
+
+  if (length(names(list(...))) < ...length()) {
+    stop("All column specifications in `...` must be named by a regular ",
+         "expression.", call. = FALSE)
+  }
+
+  patterns <- list(...)
+  spec <- list()
+
+  for (i in seq_along(patterns)) {
+    matched_vars <- grep(x = .col_names,
+                         pattern = names(patterns[i]),
+                         value = TRUE)
+
+    spec <- c(spec, structure(rep(list(patterns[[i]]), length(matched_vars)),
+                              names = matched_vars))
+  }
+
+  spec <- c(spec, alist(.default = .default))
+  do.call(cols, spec)
+}
+
 
 # col_spec ----------------------------------------------------------------
 
