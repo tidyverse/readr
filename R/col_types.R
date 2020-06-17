@@ -90,7 +90,7 @@ cols_only <- function(...) {
 #' raw_data <- datasource(file = system.file("extdata/ch_communes_snapshot.csv",
 #'                                           package = "readr"))
 #'
-#' col_names <- readr:::guess_header(file = raw_data,
+#' col_names <- readr:::guess_header(datasource = raw_data,
 #'                                   tokenizer = tokenizer_csv())$header
 #'
 #' read_csv(
