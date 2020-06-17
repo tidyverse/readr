@@ -115,7 +115,8 @@ cols_regex <- function(...,
   for (i in seq_along(patterns)) {
     matched_vars <- grep(x = .col_names,
                          pattern = names(patterns[i]),
-                         value = TRUE)
+                         value = TRUE,
+                         perl = TRUE)
 
     spec <- c(spec, structure(rep(list(patterns[[i]]), length(matched_vars)),
                               names = matched_vars))
