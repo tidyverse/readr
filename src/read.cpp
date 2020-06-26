@@ -12,7 +12,7 @@
 #include "TokenizerLine.h"
 #include "Warnings.h"
 
-[[cpp11::export]] cpp11::strings
+[[cpp11::register]] cpp11::strings
 read_file_(cpp11::list sourceSpec, cpp11::list locale_) {
   SourcePtr source = Source::create(sourceSpec);
   LocaleInfo locale(locale_);
@@ -21,7 +21,7 @@ read_file_(cpp11::list sourceSpec, cpp11::list locale_) {
       locale.encoder_.makeSEXP(source->begin(), source->end()));
 }
 
-[[cpp11::export]] cpp11::raws read_file_raw_(cpp11::list sourceSpec) {
+[[cpp11::register]] cpp11::raws read_file_raw_(cpp11::list sourceSpec) {
   SourcePtr source = Source::create(sourceSpec);
 
   cpp11::writable::raws res(
@@ -30,7 +30,7 @@ read_file_(cpp11::list sourceSpec, cpp11::list locale_) {
   return SEXP(res);
 }
 
-[[cpp11::export]] cpp11::writable::strings read_lines_(
+[[cpp11::register]] cpp11::writable::strings read_lines_(
     cpp11::list sourceSpec,
     cpp11::list locale_,
     std::vector<std::string> na,
@@ -59,7 +59,7 @@ bool isTrue(SEXP x) {
   return LOGICAL(x)[0] == TRUE;
 }
 
-[[cpp11::export]] void read_lines_chunked_(
+[[cpp11::register]] void read_lines_chunked_(
     cpp11::list sourceSpec,
     cpp11::list locale_,
     std::vector<std::string> na,
@@ -90,7 +90,7 @@ bool isTrue(SEXP x) {
   return;
 }
 
-[[cpp11::export]] cpp11::list
+[[cpp11::register]] cpp11::list
 read_lines_raw_(cpp11::list sourceSpec, int n_max = -1, bool progress = false) {
 
   Reader r(
@@ -102,7 +102,7 @@ read_lines_raw_(cpp11::list sourceSpec, int n_max = -1, bool progress = false) {
   return r.readToVector<cpp11::list>(n_max);
 }
 
-[[cpp11::export]] void read_lines_raw_chunked_(
+[[cpp11::register]] void read_lines_raw_chunked_(
     cpp11::list sourceSpec,
     int chunkSize,
     cpp11::environment callback,
@@ -131,7 +131,7 @@ read_lines_raw_(cpp11::list sourceSpec, int n_max = -1, bool progress = false) {
 
 typedef std::vector<CollectorPtr>::iterator CollectorItr;
 
-[[cpp11::export]] cpp11::sexp read_tokens_(
+[[cpp11::register]] cpp11::sexp read_tokens_(
     cpp11::list sourceSpec,
     cpp11::list tokenizerSpec,
     cpp11::list colSpecs,
@@ -151,7 +151,7 @@ typedef std::vector<CollectorPtr>::iterator CollectorItr;
   return r.readToDataFrame(n_max);
 }
 
-[[cpp11::export]] void read_tokens_chunked_(
+[[cpp11::register]] void read_tokens_chunked_(
     cpp11::list sourceSpec,
     cpp11::environment callback,
     int chunkSize,
@@ -182,7 +182,7 @@ typedef std::vector<CollectorPtr>::iterator CollectorItr;
   return;
 }
 
-[[cpp11::export]] cpp11::sexp melt_tokens_(
+[[cpp11::register]] cpp11::sexp melt_tokens_(
     cpp11::list sourceSpec,
     cpp11::list tokenizerSpec,
     cpp11::list colSpecs,
@@ -200,7 +200,7 @@ typedef std::vector<CollectorPtr>::iterator CollectorItr;
   return r.meltToDataFrame(cpp11::list(locale_), n_max);
 }
 
-[[cpp11::export]] void melt_tokens_chunked_(
+[[cpp11::register]] void melt_tokens_chunked_(
     cpp11::list sourceSpec,
     cpp11::environment callback,
     int chunkSize,
@@ -230,7 +230,7 @@ typedef std::vector<CollectorPtr>::iterator CollectorItr;
   return;
 }
 
-[[cpp11::export]] std::vector<std::string> guess_types_(
+[[cpp11::register]] std::vector<std::string> guess_types_(
     cpp11::list sourceSpec,
     cpp11::list tokenizerSpec,
     cpp11::list locale_,

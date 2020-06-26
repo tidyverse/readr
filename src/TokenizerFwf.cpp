@@ -78,7 +78,7 @@ std::vector<bool> emptyCols_(
   return is_white;
 }
 
-[[cpp11::export]] cpp11::list
+[[cpp11::register]] cpp11::list
 whitespaceColumns(cpp11::list sourceSpec, int n, std::string comment) {
   SourcePtr source = Source::create(sourceSpec);
 

@@ -104,7 +104,7 @@ static bool isDateTime(const std::string& x, LocaleInfo* pLocale) {
   return parser.year() > 999;
 }
 
-[[cpp11::export]] std::string collectorGuess(
+[[cpp11::register]] std::string collectorGuess(
     cpp11::strings input, cpp11::list locale_, bool guessInteger = false) {
   LocaleInfo locale(static_cast<SEXP>(locale_));
 
