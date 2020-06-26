@@ -43,6 +43,10 @@
 <script src="../pkgdown.js"></script>
 <link href="../tidyverse-2.css" rel="stylesheet">
 
+<!--optional theme-->
+<link href="../.css" rel="stylesheet">
+
+
 
 
 <meta property="og:title" content="Create a source object. — datasource" />
@@ -220,7 +224,7 @@ vector of greater than length 1.</p>
 #&gt; [1] "source_raw" "source"    </div><div class='input'>
 <span class='co'># Strings</span>
 <span class='fu'>datasource</span>(<span class='fu'><a href='readr_example.html'>readr_example</a></span>(<span class='st'>"mtcars.csv"</span>))</div><div class='output co'>#&gt; [[1]]
-#&gt; [1] "/Users/runner/runners/2.262.1/work/_temp/Library/readr/extdata/mtcars.csv"
+#&gt; [1] "/Users/runner/work/_temp/Library/readr/extdata/mtcars.csv"
 #&gt; 
 #&gt; $skip
 #&gt; [1] 0
@@ -233,7 +237,7 @@ vector of greater than length 1.</p>
 #&gt; 
 #&gt; attr(,"class")
 #&gt; [1] "source_file" "source"     </div><div class='input'><span class='fu'>datasource</span>(<span class='fu'><a href='readr_example.html'>readr_example</a></span>(<span class='st'>"mtcars.csv.bz2"</span>))</div><div class='output co'>#&gt; [[1]]
-#&gt; [1] "/private/var/folders/24/8k48jl6d249_n_qfxwsl6xvm0000gn/T/RtmpWmyVUS/filede3534be834"
+#&gt; [1] "/private/var/folders/24/8k48jl6d249_n_qfxwsl6xvm0000gn/T/RtmpHGl4R1/fileb306733ff7b"
 #&gt; 
 #&gt; $skip
 #&gt; [1] 0
@@ -245,11 +249,11 @@ vector of greater than length 1.</p>
 #&gt; [1] ""
 #&gt; 
 #&gt; $env
-#&gt; &lt;environment: 0x7f9175f38540&gt;
+#&gt; &lt;environment: 0x7ffeb6e45890&gt;
 #&gt; 
 #&gt; attr(,"class")
 #&gt; [1] "source_file" "source"     </div><div class='input'><span class='fu'>datasource</span>(<span class='fu'><a href='readr_example.html'>readr_example</a></span>(<span class='st'>"mtcars.csv.zip"</span>))</div><div class='output co'>#&gt; [[1]]
-#&gt; [1] "/private/var/folders/24/8k48jl6d249_n_qfxwsl6xvm0000gn/T/RtmpWmyVUS/filede31c79d8a5"
+#&gt; [1] "/private/var/folders/24/8k48jl6d249_n_qfxwsl6xvm0000gn/T/RtmpHGl4R1/fileb306ca192c"
 #&gt; 
 #&gt; $skip
 #&gt; [1] 0
@@ -261,7 +265,7 @@ vector of greater than length 1.</p>
 #&gt; [1] ""
 #&gt; 
 #&gt; $env
-#&gt; &lt;environment: 0x7f9175dffc98&gt;
+#&gt; &lt;environment: 0x7ffeb701bc80&gt;
 #&gt; 
 #&gt; attr(,"class")
 #&gt; [1] "source_file" "source"     </div><div class='input'><span class='kw'>if</span> (<span class='fl'>FALSE</span>) {
@@ -271,7 +275,7 @@ vector of greater than length 1.</p>
 <span class='co'># Connection</span>
 <span class='no'>con</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/rawConnection.html'>rawConnection</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/rawConversion.html'>charToRaw</a></span>(<span class='st'>"abc\n123"</span>))
 <span class='fu'>datasource</span>(<span class='no'>con</span>)</div><div class='output co'>#&gt; [[1]]
-#&gt; [1] "/private/var/folders/24/8k48jl6d249_n_qfxwsl6xvm0000gn/T/RtmpWmyVUS/filede337e473e"
+#&gt; [1] "/private/var/folders/24/8k48jl6d249_n_qfxwsl6xvm0000gn/T/RtmpHGl4R1/fileb303e3a9b2f"
 #&gt; 
 #&gt; $skip
 #&gt; [1] 0
@@ -283,7 +287,7 @@ vector of greater than length 1.</p>
 #&gt; [1] ""
 #&gt; 
 #&gt; $env
-#&gt; &lt;environment: 0x7f9174a9d2d8&gt;
+#&gt; &lt;environment: 0x7ffeb71de418&gt;
 #&gt; 
 #&gt; attr(,"class")
 #&gt; [1] "source_file" "source"     </div><div class='input'><span class='fu'><a href='https://rdrr.io/r/base/connections.html'>close</a></span>(<span class='no'>con</span>)</div></pre>

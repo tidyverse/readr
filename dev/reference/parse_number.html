@@ -43,6 +43,10 @@
 <script src="../pkgdown.js"></script>
 <link href="../tidyverse-2.css" rel="stylesheet">
 
+<!--optional theme-->
+<link href="../.css" rel="stylesheet">
+
+
 
 
 <meta property="og:title" content="Parse numbers, flexibly — parse_number" />
@@ -211,6 +215,14 @@ each field before parsing it?</p></td>
 <code><a href='parse_atomic.html'>parse_logical</a>()</code>,
 <code><a href='parse_vector.html'>parse_vector</a>()</code></p></div>
 
+    <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
+    <pre class="examples"><div class='input'><span class='co'>## These all return 1000</span>
+<span class='fu'>parse_number</span>(<span class='st'>"$1,000"</span>)     <span class='co'>## leading $ and grouping character , ignored</span></div><div class='output co'>#&gt; [1] 1000</div><div class='input'><span class='fu'>parse_number</span>(<span class='st'>"euro1,000"</span>)  <span class='co'>## leading non-numeric euro ignored</span></div><div class='output co'>#&gt; [1] 1000</div><div class='input'>
+<span class='fu'>parse_number</span>(<span class='st'>"1,234.56"</span>)</div><div class='output co'>#&gt; [1] 1234.56</div><div class='input'><span class='co'>## explicit locale specifying European grouping and decimal marks</span>
+<span class='fu'>parse_number</span>(<span class='st'>"1.234,56"</span>, <span class='kw'>locale</span> <span class='kw'>=</span> <span class='fu'><a href='locale.html'>locale</a></span>(<span class='kw'>decimal_mark</span> <span class='kw'>=</span> <span class='st'>","</span>, <span class='kw'>grouping_mark</span> <span class='kw'>=</span> <span class='st'>"."</span>))</div><div class='output co'>#&gt; [1] 1234.56</div><div class='input'><span class='co'>## SI/ISO 31-0 standard spaces for number grouping</span>
+<span class='fu'>parse_number</span>(<span class='st'>"1 234.56"</span>, <span class='kw'>locale</span> <span class='kw'>=</span> <span class='fu'><a href='locale.html'>locale</a></span>(<span class='kw'>decimal_mark</span> <span class='kw'>=</span> <span class='st'>"."</span>, <span class='kw'>grouping_mark</span> <span class='kw'>=</span> <span class='st'>" "</span>))</div><div class='output co'>#&gt; [1] 1234.56</div><div class='input'>
+<span class='co'>## Specifying strings for NAs</span>
+<span class='fu'>parse_number</span>(<span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"1"</span>, <span class='st'>"2"</span>, <span class='st'>"3"</span>, <span class='st'>"NA"</span>))</div><div class='output co'>#&gt; [1]  1  2  3 NA</div><div class='input'><span class='fu'>parse_number</span>(<span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"1"</span>, <span class='st'>"2"</span>, <span class='st'>"3"</span>, <span class='st'>"NA"</span>, <span class='st'>"Nothing"</span>), <span class='kw'>na</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"NA"</span>, <span class='st'>"Nothing"</span>))</div><div class='output co'>#&gt; [1]  1  2  3 NA NA</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
@@ -218,6 +230,7 @@ each field before parsing it?</p></td>
       <li><a href="#arguments">Arguments</a></li>
       <li><a href="#value">Value</a></li>
       <li><a href="#see-also">See also</a></li>
+      <li><a href="#examples">Examples</a></li>
     </ul>
 
   </div>
