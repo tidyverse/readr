@@ -124,7 +124,7 @@ void stream_delim(
   }
 }
 
-[[cpp11::export]] std::string stream_delim_(
+[[cpp11::register]] std::string stream_delim_(
     const cpp11::list& df,
     cpp11::sexp connection,
     char delim,

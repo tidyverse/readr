@@ -15,7 +15,7 @@ cpp11::raws read_bin(cpp11::sexp con, int bytes) {
 // Read data from a connection in chunks and then combine into a single
 // raw vector.
 //
-[[cpp11::export]] std::string
+[[cpp11::register]] std::string
 read_connection_(cpp11::sexp con, std::string filename, int chunk_size) {
 
   std::ofstream out(filename.c_str(), std::fstream::out | std::fstream::binary);

@@ -6,7 +6,7 @@
 #include "LocaleInfo.h"
 #include "Token.h"
 
-[[cpp11::export]] cpp11::sexp type_convert_col(
+[[cpp11::register]] cpp11::sexp type_convert_col(
     cpp11::strings x,
     cpp11::list spec,
     cpp11::list locale_,

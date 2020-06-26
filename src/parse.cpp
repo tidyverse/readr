@@ -10,7 +10,7 @@
 #include "TokenizerLine.h"
 #include "Warnings.h"
 
-[[cpp11::export]] cpp11::integers
+[[cpp11::register]] cpp11::integers
 dim_tokens_(cpp11::list sourceSpec, cpp11::list tokenizerSpec) {
   SourcePtr source = Source::create(sourceSpec);
   TokenizerPtr tokenizer = Tokenizer::create(tokenizerSpec);
@@ -33,7 +33,7 @@ dim_tokens_(cpp11::list sourceSpec, cpp11::list tokenizerSpec) {
   return out;
 }
 
-[[cpp11::export]] std::vector<int>
+[[cpp11::register]] std::vector<int>
 count_fields_(cpp11::list sourceSpec, cpp11::list tokenizerSpec, int n_max) {
   SourcePtr source = Source::create(sourceSpec);
   TokenizerPtr tokenizer = Tokenizer::create(tokenizerSpec);
@@ -56,7 +56,7 @@ count_fields_(cpp11::list sourceSpec, cpp11::list tokenizerSpec, int n_max) {
   return fields;
 }
 
-[[cpp11::export]] cpp11::list guess_header_(
+[[cpp11::register]] cpp11::list guess_header_(
     cpp11::list sourceSpec, cpp11::list tokenizerSpec, cpp11::list locale_) {
   Warnings warnings;
   LocaleInfo locale(locale_);
@@ -86,7 +86,7 @@ count_fields_(cpp11::list sourceSpec, cpp11::list tokenizerSpec, int n_max) {
       {"header"_nm = out.vector(), "skip"_nm = source->skippedRows() + 1});
 }
 
-[[cpp11::export]] SEXP
+[[cpp11::register]] SEXP
 tokenize_(cpp11::list sourceSpec, cpp11::list tokenizerSpec, int n_max) {
   Warnings warnings;
 
@@ -123,7 +123,7 @@ tokenize_(cpp11::list sourceSpec, cpp11::list tokenizerSpec, int n_max) {
   return warnings.addAsAttribute(out);
 }
 
-[[cpp11::export]] SEXP parse_vector_(
+[[cpp11::register]] SEXP parse_vector_(
     cpp11::strings x,
     cpp11::list collectorSpec,
     cpp11::list locale_,
