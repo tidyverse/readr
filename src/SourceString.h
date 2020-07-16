@@ -17,7 +17,7 @@ public:
       int skip = 0,
       bool skipEmptyRows = true,
       const std::string& comment = "")
-      : string_(x[0]) {
+      : string_(static_cast<SEXP>(x[0])) {
 
     begin_ = CHAR(string_);
     end_ = begin_ + Rf_xlength(string_);

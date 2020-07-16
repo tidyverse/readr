@@ -149,12 +149,12 @@ public:
 
 class CollectorFactor : public Collector {
   Iconv* pEncoder_;
-  std::vector<cpp11::string> levels_;
-  std::map<cpp11::string, int> levelset_;
+  std::vector<cpp11::r_string> levels_;
+  std::map<cpp11::r_string, int> levelset_;
   bool ordered_, implicitLevels_, includeNa_;
   boost::container::string buffer_;
 
-  void insert(int i, cpp11::string str, const Token& t);
+  void insert(int i, cpp11::r_string str, const Token& t);
 
 public:
   CollectorFactor(
@@ -169,7 +169,7 @@ public:
       int n = lvls.size();
 
       for (int i = 0; i < n; ++i) {
-        cpp11::string std_level;
+        cpp11::r_string std_level;
         if (STRING_ELT(lvls, i) != NA_STRING) {
           const char* level = Rf_translateCharUTF8(STRING_ELT(lvls, i));
           std_level = level;

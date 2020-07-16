@@ -200,8 +200,8 @@ void CollectorDouble::setValue(int i, const Token& t) {
 
 void CollectorDouble::setValue(int i, size_t st) { REAL(column_)[i] = st; }
 
-void CollectorFactor::insert(int i, cpp11::string str, const Token& t) {
-  std::map<cpp11::string, int>::iterator it = levelset_.find(str);
+void CollectorFactor::insert(int i, cpp11::r_string str, const Token& t) {
+  std::map<cpp11::r_string, int>::iterator it = levelset_.find(str);
   if (it == levelset_.end()) {
     if (implicitLevels_ || (includeNa_ && str == NA_STRING)) {
       int n = levelset_.size();
@@ -225,7 +225,7 @@ void CollectorFactor::setValue(int i, const Token& t) {
     boost::container::string buffer;
     SourceIterators string = t.getString(&buffer);
 
-    cpp11::string std_string(
+    cpp11::r_string std_string(
         pEncoder_->makeSEXP(string.first, string.second, t.hasNull()));
     insert(i, std_string, t);
     return;
