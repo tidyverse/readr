@@ -103,4 +103,3 @@ write_file_ <- function(x, connection) {
 write_file_raw_ <- function(x, connection) {
   invisible(.Call("_readr_write_file_raw_", x, connection))
 }
-
