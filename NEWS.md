@@ -1,5 +1,16 @@
 # readr (development version)
 
+## Breaking changes
+
+* `write_*()` functions now output any NaN values in the same way as NA values,
+  controlled by the `na=` argument. (#1082).
+
+## Additional features and fixes
+
+* `write_*()` functions gain a `eol =` argument to control the end of line character used (#857). This allows writing of CSV files with Windows newlines (CRLF) if desired.
+
+* `write_excel_csv()` no longer outputs a byte order mark when appending to a file (#1075).
+
 * The `read_*` functions now close properly all connections, including on 
   errors like HTTP errors when reading from a url (@cderv, #1050).
 
@@ -16,6 +27,8 @@
 
 * `guess_parser()` gains a `na` argument and removes NA values before guessing.
   `parse_guess()` now passes the `na` argument to `guess_parser()` (#1041).
+
+* New `%h` placeholder for parsing unrestricted hours (<0 and >23) to support parsing durations (#549, @krlmlr).
 
 * Uses of `tibble::data_frame` updated to `tibble::tibble`
 ([tidyverse/dplyr#4069](https://github.com/tidyverse/dplyr/issues/4069),
@@ -46,7 +59,7 @@
 
 * `type_convert()` removes a 'spec' attribute, because the current columns likely have modified data types.  The 'spec' attribute is set by functions like `read_delim()` (@jimhester, @wibeasley, #1032).
 
-* `write_rds()` now can specify the rds version to use. The default value is
+* `write_rds()` now can specify the Rds version to use. The default value is
   2 as it's compatible to R versions prior to 3.5.0 (@shrektan, #1001).
 
 # readr 1.3.1

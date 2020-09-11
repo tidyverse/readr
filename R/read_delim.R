@@ -1,5 +1,4 @@
 #' @useDynLib readr, .registration = TRUE
-#' @importClassesFrom Rcpp "C++Object"
 NULL
 
 #' Read a delimited file (including csv & tsv) into a tibble
@@ -24,7 +23,7 @@ NULL
 #'
 #'   Missing (`NA`) column names will generate a warning, and be filled
 #'   in with dummy names `X1`, `X2` etc. Duplicate column names
-#'   will generate a warning and be made unique with a numeric prefix.
+#'   will generate a warning and be made unique with a numeric suffix.
 #' @param col_types One of `NULL`, a [cols()] specification, or
 #'   a string. See `vignette("readr")` for more details.
 #'
@@ -49,6 +48,10 @@ NULL
 #' - t = time
 #' - ? = guess
 #' - _ or - = skip
+#'
+#'    By default, reading a file without a column specification will print a
+#'    message showing what `readr` guessed they were. To remove this message,
+#'    use `col_types = cols()`.
 #' @param locale The locale controls defaults that vary from place to place.
 #'   The default locale is US-centric (like R), but you can use
 #'   [locale()] to create your own locale that controls things like

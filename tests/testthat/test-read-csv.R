@@ -208,9 +208,9 @@ test_that("comments are ignored regardless of where they appear", {
     x2 = c("B2", NA_character_, "A5"),
     x3 = c("C2", NA_character_, "A6"))
 
-  expect_true(all.equal(chk, out5))
-  expect_true(all.equal(chk, out6))
-  expect_true(all.equal(chk, out7))
+  expect_true(all.equal(chk, out5, check.attributes = FALSE))
+  expect_true(all.equal(chk, out6, check.attributes = FALSE))
+  expect_true(all.equal(chk, out7, check.attributes = FALSE))
 })
 
 test_that("escaped/quoted comments are ignored", {

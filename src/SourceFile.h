@@ -2,8 +2,9 @@
 #define FASTREAD_SOURCEFILE_H_
 
 #include "Source.h"
+#include "cpp11/protect.hpp"
+
 #include "boost.h"
-#include <Rcpp.h>
 
 class SourceFile : public Source {
   boost::interprocess::file_mapping fm_;
@@ -24,7 +25,7 @@ public:
       mr_ = boost::interprocess::mapped_region(
           fm_, boost::interprocess::read_private);
     } catch (boost::interprocess::interprocess_exception& e) {
-      Rcpp::stop("Cannot read file %s: %s", path, e.what());
+      cpp11::stop("Cannot read file %s: %s", path.c_str(), e.what());
     }
 
     begin_ = static_cast<char*>(mr_.get_address());

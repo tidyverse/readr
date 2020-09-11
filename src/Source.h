@@ -1,9 +1,10 @@
 #ifndef FASTREAD_SOURCE_H_
 #define FASTREAD_SOURCE_H_
 
-#include "boost.h"
+#include "cpp11/list.hpp"
 #include "utils.h"
-#include <Rcpp.h>
+
+#include "boost.h"
 
 class Source;
 typedef boost::shared_ptr<Source> SourcePtr;
@@ -31,7 +32,7 @@ public:
 
   static const char* skipBom(const char* begin, const char* end);
 
-  static SourcePtr create(Rcpp::List spec);
+  static SourcePtr create(cpp11::list spec);
 
 private:
   static bool

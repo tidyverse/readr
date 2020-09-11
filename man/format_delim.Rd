@@ -13,7 +13,8 @@ format_delim(
   na = "NA",
   append = FALSE,
   col_names = !append,
-  quote_escape = "double"
+  quote_escape = "double",
+  eol = "\\n"
 )
 
 format_csv(
@@ -21,7 +22,8 @@ format_csv(
   na = "NA",
   append = FALSE,
   col_names = !append,
-  quote_escape = "double"
+  quote_escape = "double",
+  eol = "\\n"
 )
 
 format_csv2(
@@ -29,7 +31,8 @@ format_csv2(
   na = "NA",
   append = FALSE,
   col_names = !append,
-  quote_escape = "double"
+  quote_escape = "double",
+  eol = "\\n"
 )
 
 format_tsv(
@@ -37,11 +40,12 @@ format_tsv(
   na = "NA",
   append = FALSE,
   col_names = !append,
-  quote_escape = "double"
+  quote_escape = "double",
+  eol = "\\n"
 )
 }
 \arguments{
-\item{x}{A data frame or tibble to write to disk}
+\item{x}{A data frame.}
 
 \item{delim}{Delimiter used to separate values. Defaults to \code{" "} for \code{write_delim()}, \code{","} for \code{write_excel_csv()} and
 \code{";"} for \code{write_excel_csv2()}. Must be a single character.}
@@ -60,6 +64,9 @@ column names will be included. If not specified, \code{col_names} will take the 
 \item{quote_escape}{The type of escaping to use for quoted values, one of
 \code{"double"}, \code{"backslash"} or \code{"none"}. You can also use \code{FALSE}, which is
 equivalent to "none". The default is \code{"double"}, which is expected format for Excel.}
+
+\item{eol}{The end of line character to use. Most commonly either \code{"\\n"} for
+Unix style newlines, or \code{"\\r\\n"} for Windows style newlines.}
 }
 \value{
 A string.

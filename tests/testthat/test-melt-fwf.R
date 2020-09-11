@@ -127,8 +127,8 @@ test_that("check for line breaks in between widths", {
                         col = c(1, 2, 1, 1, 2),
                         data_type = "integer",
                         value = as.character(c(1, 1, 2, 1, 1)))
-  expect_true(all.equal(out1, exp))
-  expect_true(all.equal(out2, exp))
+  expect_true(all.equal(out1, exp, check.attributes = FALSE))
+  expect_true(all.equal(out2, exp, check.attributes = FALSE))
 })
 
 test_that("ignore commented lines anywhere in file", {

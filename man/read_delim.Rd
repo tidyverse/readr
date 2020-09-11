@@ -120,7 +120,7 @@ the first row of the output data frame.
 
 Missing (\code{NA}) column names will generate a warning, and be filled
 in with dummy names \code{X1}, \code{X2} etc. Duplicate column names
-will generate a warning and be made unique with a numeric prefix.}
+will generate a warning and be made unique with a numeric suffix.}
 
 \item{col_types}{One of \code{NULL}, a \code{\link[=cols]{cols()}} specification, or
 a string. See \code{vignette("readr")} for more details.
@@ -147,6 +147,10 @@ character represents one column:
 \item t = time
 \item ? = guess
 \item _ or - = skip
+
+By default, reading a file without a column specification will print a
+message showing what \code{readr} guessed they were. To remove this message,
+use \code{col_types = cols()}.
 }}
 
 \item{locale}{The locale controls defaults that vary from place to place.

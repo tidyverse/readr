@@ -1,7 +1,5 @@
-#include <Rcpp.h>
-using namespace Rcpp;
-
 #include "TokenizerDelim.h"
+#include "cpp11/protect.hpp"
 
 TokenizerDelim::TokenizerDelim(
     char delim,
@@ -69,7 +67,7 @@ Token TokenizerDelim::nextToken() {
       hasNull = true;
 
     if ((end_ - cur_) % 131072 == 0)
-      Rcpp::checkUserInterrupt();
+      cpp11::check_user_interrupt();
 
     switch (state_) {
     case STATE_DELIM: {
@@ -338,7 +336,7 @@ void TokenizerDelim::unescape(
   } else if (escapeBackslash_ && !escapeDouble_) {
     unescapeBackslash(begin, end, pOut);
   } else if (escapeBackslash_ && escapeDouble_) {
-    Rcpp::stop("Backslash & double escapes not supported at this time");
+    cpp11::stop("Backslash & double escapes not supported at this time");
   }
 }
 

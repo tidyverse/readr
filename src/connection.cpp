@@ -1,27 +1,26 @@
-#include <Rcpp.h>
+#include "cpp11/R.hpp"
+#include "cpp11/function.hpp"
+#include "cpp11/raws.hpp"
+#include "cpp11/strings.hpp"
+
 #include <fstream>
 
-using namespace Rcpp;
-
 // Wrapper around R's read_bin function
-RawVector read_bin(RObject con, int bytes = 64 * 1024) {
-  Rcpp::Environment baseEnv = Rcpp::Environment::base_env();
-  Rcpp::Function readBin = baseEnv["readBin"];
+cpp11::raws read_bin(cpp11::sexp con, int bytes) {
+  auto readBin = cpp11::package("base")["readBin"];
 
-  RawVector out = Rcpp::as<RawVector>(readBin(con, "raw", bytes));
-  return out;
+  return cpp11::raws(readBin(con, "raw", bytes));
 }
 
 // Read data from a connection in chunks and then combine into a single
 // raw vector.
 //
-// [[Rcpp::export]]
-CharacterVector read_connection_(
-    RObject con, std::string filename, int chunk_size = 64 * 1024) {
+[[cpp11::register]] std::string
+read_connection_(cpp11::sexp con, std::string filename, int chunk_size) {
 
   std::ofstream out(filename.c_str(), std::fstream::out | std::fstream::binary);
 
-  RawVector chunk;
+  cpp11::writable::raws chunk;
   while ((chunk = read_bin(con, chunk_size)).size() > 0) {
     std::copy(chunk.begin(), chunk.end(), std::ostream_iterator<char>(out));
   }

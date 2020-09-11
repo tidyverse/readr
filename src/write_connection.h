@@ -1,7 +1,6 @@
 #ifndef READR_WRITE_CONNECTION_H_
 #define READR_WRITE_CONNECTION_H_
 
-#include <Rcpp.h>
 #include <boost/iostreams/categories.hpp> // sink_tag
 #include <ios>                            // streamsize
 

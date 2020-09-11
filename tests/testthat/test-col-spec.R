@@ -114,8 +114,10 @@ test_that("print(col_spec) with truncated output", {
 test_that("spec object attached to read data", {
 
   test_data <- read_csv("basic-df.csv", col_types = NULL, col_names = TRUE, progress = FALSE)
+  sp <- spec(test_data)
+  sp$skip <- NULL
 
-  expect_equal(spec(test_data),
+  expect_equal(sp,
     cols(
        a = col_logical(),
        b = col_double(),

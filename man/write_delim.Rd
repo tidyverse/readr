@@ -16,7 +16,8 @@ write_delim(
   na = "NA",
   append = FALSE,
   col_names = !append,
-  quote_escape = "double"
+  quote_escape = "double",
+  eol = "\\n"
 )
 
 write_csv(
@@ -25,7 +26,8 @@ write_csv(
   na = "NA",
   append = FALSE,
   col_names = !append,
-  quote_escape = "double"
+  quote_escape = "double",
+  eol = "\\n"
 )
 
 write_csv2(
@@ -34,7 +36,8 @@ write_csv2(
   na = "NA",
   append = FALSE,
   col_names = !append,
-  quote_escape = "double"
+  quote_escape = "double",
+  eol = "\\n"
 )
 
 write_excel_csv(
@@ -44,7 +47,8 @@ write_excel_csv(
   append = FALSE,
   col_names = !append,
   delim = ",",
-  quote_escape = "double"
+  quote_escape = "double",
+  eol = "\\n"
 )
 
 write_excel_csv2(
@@ -54,7 +58,8 @@ write_excel_csv2(
   append = FALSE,
   col_names = !append,
   delim = ";",
-  quote_escape = "double"
+  quote_escape = "double",
+  eol = "\\n"
 )
 
 write_tsv(
@@ -63,11 +68,12 @@ write_tsv(
   na = "NA",
   append = FALSE,
   col_names = !append,
-  quote_escape = "double"
+  quote_escape = "double",
+  eol = "\\n"
 )
 }
 \arguments{
-\item{x}{A data frame or tibble to write to disk}
+\item{x}{A data frame or tibble to write to disk.}
 
 \item{path}{The path or connection to write to.}
 
@@ -88,6 +94,9 @@ column names will be included. If not specified, \code{col_names} will take the 
 \item{quote_escape}{The type of escaping to use for quoted values, one of
 \code{"double"}, \code{"backslash"} or \code{"none"}. You can also use \code{FALSE}, which is
 equivalent to "none". The default is \code{"double"}, which is expected format for Excel.}
+
+\item{eol}{The end of line character to use. Most commonly either \code{"\\n"} for
+Unix style newlines, or \code{"\\r\\n"} for Windows style newlines.}
 }
 \value{
 \verb{write_*()} returns the input \code{x} invisibly.

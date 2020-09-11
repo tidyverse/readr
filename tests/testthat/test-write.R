@@ -25,12 +25,13 @@ test_that("read_delim/csv/tsv and write_delim round trip special chars", {
   input <- read_delim(format_delim(output, delim = " "), delim = " ", trim_ws = FALSE, progress = FALSE)
   input_csv <- read_csv(format_delim(output, delim = ","), trim_ws = FALSE, progress = FALSE)
   input_tsv <- read_tsv(format_delim(output, delim = "\t"), trim_ws = FALSE, progress = FALSE)
-  expect_equal(input$x, input_csv$x, input_tsv$x,  x)
+  expect_equal(input$x, input_csv$x)
+  expect_equal(input_tsv$x,  x)
 })
 
 test_that("special floating point values translated to text", {
   df <- data.frame(x = c(NaN, NA, Inf, -Inf))
-  expect_equal(format_csv(df), "x\nNaN\nNA\nInf\n-Inf\n")
+  expect_equal(format_csv(df), "x\nNA\nNA\nInf\n-Inf\n")
 })
 
 test_that("logical values give long names", {
@@ -83,6 +84,19 @@ test_that("write_excel_csv/csv2 includes a byte order mark", {
   expect_equal(output2[4:6], charToRaw("mpg"))
 })
 
+test_that("write_excel_csv/csv2 includes a byte order mark, but not when appending", {
+  tmp <- tempfile()
+  on.exit(unlink(tmp))
+
+  write_excel_csv(data.frame(a = 1), tmp)
+  write_excel_csv(data.frame(a = 2), tmp, append = TRUE)
+  output <- readBin(tmp, "raw", file.info(tmp)$size)
+
+  expect_equal(output[1:3], charToRaw("\xEF\xBB\xBF"))
+
+  # But not in the rest of the file
+  expect_equal(output[-1:-3], charToRaw("a\n1\n2\n"))
+})
 
 test_that("does not writes a tailing .0 for whole number doubles", {
   expect_equal(format_tsv(tibble::tibble(x = 1)), "x\n1\n")
@@ -165,7 +179,7 @@ test_that("Can change the escape behavior for quotes", {
 })
 
 test_that("hms NAs are written without padding (#930)", {
-  df <- data.frame(x = hms::as.hms(c(NA, 34.234)))
+  df <- data.frame(x = hms::as_hms(c(NA, 34.234)))
   expect_equal(format_tsv(df), "x\nNA\n00:00:34.234\n")
 })
 
@@ -200,4 +214,16 @@ test_that("write_ family of functions return input data frame without changes", 
 
   df_tsv <- write_tsv(df, tmp)
   expect_identical(df, df_tsv)
+})
+
+test_that("write_*() supports writing with windows newlines", {
+  tmp <- tempfile()
+  on.exit(unlink(tmp))
+
+  write_delim(data.frame(x = 1:3), tmp, eol = "\r\n")
+
+  expect_identical(
+    readBin(tmp, file.info(tmp)$size, what = "raw"),
+    charToRaw("x\r\n1\r\n2\r\n3\r\n")
+  )
 })

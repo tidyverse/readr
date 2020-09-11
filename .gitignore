@@ -12,3 +12,5 @@ script.R
 sanitize.sh
 .vimrc
 docs
+.clangd
+compile_commands.json

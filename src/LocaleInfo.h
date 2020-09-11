@@ -3,6 +3,10 @@
 
 #include "Iconv.h"
 
+#include "cpp11/list.hpp"
+#include <string>
+#include <vector>
+
 class LocaleInfo {
 
 public:
@@ -18,7 +22,7 @@ public:
   std::string encoding_;
   Iconv encoder_;
 
-  LocaleInfo(Rcpp::List);
+  LocaleInfo(cpp11::list x);
 };
 
 #endif

@@ -1,24 +1,24 @@
-#include <Rcpp.h>
-using namespace Rcpp;
+#include "cpp11/doubles.hpp"
+#include "cpp11/integers.hpp"
+#include "cpp11/protect.hpp"
 
 #include "DateTime.h"
 
-// [[Rcpp::export]]
-NumericVector utctime(
-    IntegerVector year,
-    IntegerVector month,
-    IntegerVector day,
-    IntegerVector hour,
-    IntegerVector min,
-    IntegerVector sec,
-    NumericVector psec) {
+[[cpp11::register]] cpp11::writable::doubles utctime(
+    cpp11::integers year,
+    cpp11::integers month,
+    cpp11::integers day,
+    cpp11::integers hour,
+    cpp11::integers min,
+    cpp11::integers sec,
+    cpp11::doubles psec) {
   int n = year.size();
   if (month.size() != n || day.size() != n || hour.size() != n ||
       min.size() != n || sec.size() != n || psec.size() != n) {
-    Rcpp::stop("All inputs must be same length");
+    cpp11::stop("All inputs must be same length");
   }
 
-  NumericVector out = NumericVector(n);
+  cpp11::writable::doubles out(n);
 
   for (int i = 0; i < n; ++i) {
     DateTime dt(
@@ -33,7 +33,7 @@ NumericVector utctime(
     out[i] = dt.datetime();
   }
 
-  out.attr("class") = CharacterVector::create("POSIXct", "POSIXt");
+  out.attr("class") = {"POSIXct", "POSIXt"};
   out.attr("tzone") = "UTC";
 
   return out;

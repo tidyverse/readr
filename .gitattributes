@@ -1,1 +1,2 @@
 /NEWS.md merge=union
+tests/testthat/sample_text.txt eol=lf
