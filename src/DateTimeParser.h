@@ -12,7 +12,7 @@
 // Parsing ---------------------------------------------------------------------
 
 class DateTimeParser {
-  int year_, mon_, day_, hour_, min_, sec_;
+  int sign_, year_, mon_, day_, hour_, min_, sec_;
   double psec_;
   int amPm_;
   bool compactDate_; // used for guessing
@@ -183,9 +183,16 @@ public:
         if (!consumeInteger1WithSpace(2, &day_))
           return false;
         break;
-      case 'H': // hour
+      case 'h': // hour, unrestricted
+        if (!consumeHours(&hour_, &sign_))
+          return false;
+        break;
+      case 'H': // hour, 0-23
         if (!consumeInteger(2, &hour_, false))
           return false;
+        if (hour_ < 0 || hour_ > 23) {
+          return false;
+        }
         break;
       case 'I': // hour
         if (!consumeInteger(2, &hour_, false))
@@ -299,7 +306,15 @@ public:
     return dt;
   }
   DateTime makeTime() {
-    DateTime dt(0, 0, 0, hour(), min_, sec_, psec_, "UTC");
+    DateTime dt(
+        0,
+        0,
+        0,
+        sign_ * hour(),
+        sign_ * min_,
+        sign_ * sec_,
+        sign_ * psec_,
+        "UTC");
     return dt;
   }
 
@@ -327,6 +342,26 @@ private:
 
     // 24 hour time
     return hour_;
+  }
+
+  inline bool consumeHours(int* pHour, int* pSign) {
+    if (dateItr_ == dateEnd_)
+      return false;
+
+    int sign = 1;
+
+    if (*dateItr_ == '-') {
+      sign = -1;
+      ++dateItr_;
+    } else if (*dateItr_ == '+') {
+      ++dateItr_;
+    }
+
+    if (!consumeInteger(10, pHour, false))
+      return false;
+
+    *pSign = sign;
+    return true;
   }
 
   inline bool consumeSeconds(int* pSec, double* pPartialSec) {
@@ -489,6 +524,7 @@ private:
   }
 
   void reset() {
+    sign_ = 1;
     year_ = -1;
     mon_ = 0;
     day_ = 0;

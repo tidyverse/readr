@@ -28,6 +28,8 @@
 * `guess_parser()` gains a `na` argument and removes NA values before guessing.
   `parse_guess()` now passes the `na` argument to `guess_parser()` (#1041).
 
+* New `%h` placeholder for parsing unrestricted hours (<0 and >23) to support parsing durations (#549, @krlmlr).
+
 * Uses of `tibble::data_frame` updated to `tibble::tibble`
 ([tidyverse/dplyr#4069](https://github.com/tidyverse/dplyr/issues/4069),
 @thays42)
