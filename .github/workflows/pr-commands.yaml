@@ -7,8 +7,10 @@ jobs:
     if: startsWith(github.event.comment.body, '/document')
     name: document
     runs-on: macOS-latest
+    env:
+      GITHUB_PAT: ${{ secrets.GITHUB_TOKEN }}
     steps:
-      - uses: actions/checkout@v1
+      - uses: actions/checkout@v2
       - uses: r-lib/actions/pr-fetch@master
         with:
           repo-token: ${{ secrets.GITHUB_TOKEN }}
@@ -19,6 +21,8 @@ jobs:
         run: Rscript -e 'roxygen2::roxygenise()'
       - name: commit
         run: |
+          git config --local user.email "actions@github.com"
+          git config --local user.name "GitHub Actions"
           git add man/\* NAMESPACE
           git commit -m 'Document'
       - uses: r-lib/actions/pr-push@master
@@ -26,27 +30,26 @@ jobs:
           repo-token: ${{ secrets.GITHUB_TOKEN }}
   style:
     if: startsWith(github.event.comment.body, '/style')
-    name: document
+    name: style
     runs-on: macOS-latest
+    env:
+      GITHUB_PAT: ${{ secrets.GITHUB_TOKEN }}
     steps:
-      - uses: actions/checkout@master
+      - uses: actions/checkout@v2
       - uses: r-lib/actions/pr-fetch@master
         with:
           repo-token: ${{ secrets.GITHUB_TOKEN }}
       - uses: r-lib/actions/setup-r@master
       - name: Install dependencies
         run: Rscript -e 'install.packages("styler")'
-      - name: style
+      - name: Style
         run: Rscript -e 'styler::style_pkg()'
       - name: commit
         run: |
+          git config --local user.email "actions@github.com"
+          git config --local user.name "GitHub Actions"
           git add \*.R
-          git commit -m 'style'
+          git commit -m 'Style'
       - uses: r-lib/actions/pr-push@master
         with:
           repo-token: ${{ secrets.GITHUB_TOKEN }}
-  # A mock job just to ensure we have a successful build status
-  finish:
-    runs-on: ubuntu-latest
-    steps:
-      - run: true
