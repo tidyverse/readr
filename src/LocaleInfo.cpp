@@ -1,27 +1,30 @@
-#include <Rcpp.h>
+#include "cpp11/as.hpp"
+#include "cpp11/list.hpp"
+#include "cpp11/strings.hpp"
+#include <string>
+#include <vector>
 
 #include "LocaleInfo.h"
 
-using namespace Rcpp;
-
-LocaleInfo::LocaleInfo(List x)
-    : encoding_(as<std::string>(x["encoding"])), encoder_(Iconv(encoding_)) {
-  std::string klass = x.attr("class");
+LocaleInfo::LocaleInfo(cpp11::list x)
+    : encoding_(cpp11::as_cpp<std::string>(x["encoding"])),
+      encoder_(Iconv(encoding_)) {
+  std::string klass = cpp11::as_cpp<std::string>(x.attr("class"));
   if (klass != "locale")
-    stop("Invalid input: must be of class locale");
+    cpp11::stop("Invalid input: must be of class locale");
 
-  List date_names = as<List>(x["date_names"]);
-  mon_ = as<std::vector<std::string> >(date_names["mon"]);
-  monAb_ = as<std::vector<std::string> >(date_names["mon_ab"]);
-  day_ = as<std::vector<std::string> >(date_names["day"]);
-  dayAb_ = as<std::vector<std::string> >(date_names["day_ab"]);
-  amPm_ = as<std::vector<std::string> >(date_names["am_pm"]);
+  cpp11::list date_names(x["date_names"]);
+  mon_ = cpp11::as_cpp<std::vector<std::string>>(date_names["mon"]);
+  monAb_ = cpp11::as_cpp<std::vector<std::string>>(date_names["mon_ab"]);
+  day_ = cpp11::as_cpp<std::vector<std::string>>(date_names["day"]);
+  dayAb_ = cpp11::as_cpp<std::vector<std::string>>(date_names["day_ab"]);
+  amPm_ = cpp11::as_cpp<std::vector<std::string>>(date_names["am_pm"]);
 
-  decimalMark_ = as<char>(x["decimal_mark"]);
-  groupingMark_ = as<char>(x["grouping_mark"]);
+  decimalMark_ = cpp11::as_cpp<char>(x["decimal_mark"]);
+  groupingMark_ = cpp11::as_cpp<char>(x["grouping_mark"]);
 
-  dateFormat_ = as<std::string>(x["date_format"]);
-  timeFormat_ = as<std::string>(x["time_format"]);
+  dateFormat_ = cpp11::as_cpp<std::string>(x["date_format"]);
+  timeFormat_ = cpp11::as_cpp<std::string>(x["time_format"]);
 
-  tz_ = as<std::string>(x["tz"]);
+  tz_ = cpp11::as_cpp<std::string>(x["tz"]);
 }

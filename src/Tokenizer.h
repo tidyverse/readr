@@ -1,9 +1,13 @@
 #ifndef FASTREAD_TOKENIZER_H_
 #define FASTREAD_TOKENIZER_H_
 
+#include "cpp11/R.hpp"
+#include "cpp11/list.hpp"
+#include "cpp11/protect.hpp"
+
 #include "Warnings.h"
 #include "boost.h"
-#include <Rcpp.h>
+
 class Token;
 
 typedef const char* SourceIterator;
@@ -43,13 +47,14 @@ public:
       const std::string& expected,
       const std::string& actual = "") {
     if (pWarnings_ == NULL) {
-      Rcpp::warning("[%i, %i]: expected %s", row + 1, col + 1, expected);
+      cpp11::warning(
+          "[%i, %i]: expected %s", row + 1, col + 1, expected.c_str());
       return;
     }
     pWarnings_->addWarning(row, col, expected, actual);
   }
 
-  static TokenizerPtr create(Rcpp::List spec);
+  static TokenizerPtr create(cpp11::list spec);
 };
 
 // -----------------------------------------------------------------------------

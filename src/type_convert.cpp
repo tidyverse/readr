@@ -1,15 +1,15 @@
-#include <Rcpp.h>
-using namespace Rcpp;
+#include "cpp11/strings.hpp"
+#include "cpp11/list.hpp"
+#include "cpp11/sexp.hpp"
 
 #include "Collector.h"
 #include "LocaleInfo.h"
 #include "Token.h"
 
-// [[Rcpp::export]]
-RObject type_convert_col(
-    CharacterVector x,
-    List spec,
-    List locale_,
+[[cpp11::register]] cpp11::sexp type_convert_col(
+    cpp11::strings x,
+    cpp11::list spec,
+    cpp11::list locale_,
     int col,
     const std::vector<std::string>& na,
     bool trim_ws) {
@@ -35,5 +35,5 @@ RObject type_convert_col(
     collector->setValue(i, t);
   }
 
-  return collector->vector();
+  return static_cast<SEXP>(collector->vector());
 }

@@ -1,9 +1,12 @@
 #ifndef READR_DATE_TIME_H_
 #define READR_DATE_TIME_H_
 
+#include "cpp11/R.hpp"
+
 #include "localtime.h"
 #include <ctime>
 #include <stdlib.h>
+#include <string>
 
 // Much of this code is adapted from R's src/main/datetime.c.
 // Author: The R Core Team.
@@ -102,11 +105,22 @@ public:
     return true;
   }
 
+  bool validDuration() const {
+    if (sec_ < -59 || sec_ > 59)
+      return false;
+    if (min_ < -59 || min_ > 59)
+      return false;
+
+    return true;
+  }
+
   double datetime() const { return (tz_ == "UTC") ? utctime() : localtime(); }
 
   int date() const { return utcdate(); }
 
-  double time() const { return psec_ + sec_ + (min_ * 60) + (hour_ * 3600); }
+  double time() const {
+    return psec_ + sec_ + (min_ * 60.0) + (hour_ * 3600.0);
+  }
 
 private:
   // Number of number of seconds since 1970-01-01T00:00:00Z.

@@ -12,7 +12,7 @@ test_that("read_table skips all comment lines", {
 
   y <- read_table("#comment1\n#comment2\nfoo bar\n1   2\n3   4\n5   6\n", progress = FALSE, comment = "#")
 
-  expect_equal(x, y)
+  expect_equal(x[], y[], ignore_attr = FALSE)
 })
 
 test_that("read_table can read from a pipe (552)", {
@@ -36,7 +36,7 @@ test_that("read_table2 skips all comment lines", {
 
   y <- read_table2("#comment1\n#comment2\nfoo bar\n1   2\n3   4\n5   6\n", progress = FALSE, comment = "#")
 
-  expect_equal(x, y)
+  expect_equal(x[], y[])
 })
 
 test_that("read_table2 skips even more comment lines", {
@@ -44,7 +44,7 @@ test_that("read_table2 skips even more comment lines", {
 
   y <- read_table2("#comment1\n#comment2\nfoo bar # comment\n1   2 # comment\n3   4\n5   6\n #comment \n", progress = FALSE, comment = "#")
 
-  expect_equal(x, y)
+  expect_equal(x[], y[])
 })
 
 test_that("read_table2 can read from a pipe (552)", {

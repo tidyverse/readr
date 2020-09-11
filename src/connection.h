@@ -1,23 +1,25 @@
 #pragma once
 
-#include "Rcpp.h"
+#include "cpp11/function.hpp"
+#include "cpp11/raws.hpp"
 
 inline SEXP R_GetConnection(SEXP con) { return con; }
 
 inline size_t R_ReadConnection(SEXP con, void* buf, size_t n) {
-  static Rcpp::Function readBin = Rcpp::Environment::base_env()["readBin"];
+  static auto readBin = cpp11::package("base")["readBin"];
 
-  Rcpp::RawVector res = readBin(con, Rcpp::RawVector(0), n);
-  memcpy(buf, res.begin(), res.size());
+  cpp11::raws res(
+      readBin(con, cpp11::writable::raws(static_cast<R_xlen_t>(0)), n));
+  memcpy(buf, RAW(res), res.size());
 
-  return res.length();
+  return res.size();
 }
 
 inline size_t R_WriteConnection(SEXP con, void* buf, size_t n) {
-  static Rcpp::Function writeBin = Rcpp::Environment::base_env()["writeBin"];
+  static auto writeBin = cpp11::package("base")["writeBin"];
 
-  Rcpp::RawVector payload(n);
-  memcpy(payload.begin(), buf, n);
+  cpp11::writable::raws payload(n);
+  memcpy(RAW(payload), buf, n);
 
   writeBin(payload, con);
 

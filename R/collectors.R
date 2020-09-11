@@ -142,7 +142,7 @@ col_skip <- function() {
 #' parse_number("$1,000")     ## leading $ and grouping character , ignored
 #' parse_number("euro1,000")  ## leading non-numeric euro ignored
 #'
-#' parse_number("1,234.56)
+#' parse_number("1,234.56")
 #' ## explicit locale specifying European grouping and decimal marks
 #' parse_number("1.234,56", locale = locale(decimal_mark = ",", grouping_mark = "."))
 #' ## SI/ISO 31-0 standard spaces for number grouping
@@ -277,7 +277,8 @@ col_factor <- function(levels = NULL, ordered = FALSE, include_na = FALSE) {
 #'     locale), "\%B" (full name in current locale).
 #'   \item Day: "\%d" (2 digits), "\%e" (optional leading space),
 #'     "%a" (abbreviated name in current locale).
-#'   \item Hour: "\%H" or "\%I", use I (and not H) with AM/PM.
+#'   \item Hour: "\%H" or "\%I" or "\%h", use I (and not H) with AM/PM,
+#'     use h (and not H) if your times represent durations longer than one day.
 #'   \item Minutes: "\%M"
 #'   \item Seconds: "\%S" (integer seconds), "\%OS" (partial seconds)
 #'   \item Time zone: "\%Z" (as name, e.g. "America/Chicago"), "\%z" (as

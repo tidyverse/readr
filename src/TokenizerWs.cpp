@@ -1,16 +1,15 @@
-#include <Rcpp.h>
-using namespace Rcpp;
+#include "cpp11/R.hpp"
 
-#include "Source.h"
 #include "Tokenizer.h"
 #include "TokenizerFwf.h"
+#include "TokenizerWs.h"
 #include "utils.h"
+
+#include "Source.h"
 
 // TokenizerWs
 // --------------------------------------------------------------------
 
-#include "TokenizerWs.h"
-#include <Rcpp.h>
 #include <cctype>
 
 TokenizerWs::TokenizerWs(

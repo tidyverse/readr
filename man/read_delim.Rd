@@ -147,6 +147,10 @@ character represents one column:
 \item t = time
 \item ? = guess
 \item _ or - = skip
+
+By default, reading a file without a column specification will print a
+message showing what \code{readr} guessed they were. To remove this message,
+use \code{col_types = cols()}.
 }}
 
 \item{locale}{The locale controls defaults that vary from place to place.
