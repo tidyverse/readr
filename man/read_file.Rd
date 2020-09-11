@@ -36,10 +36,10 @@ names.}
 
 \item{x}{A single string, or a raw vector to write to disk.}
 
-\item{path}{Path or connection to write to.}
+\item{path}{The path or connection to write to.}
 
 \item{append}{If \code{FALSE}, will overwrite existing file. If \code{TRUE},
-will append to existing file. In both cases, if file does not exist a new
+will append to existing file. In both cases, if the file does not exist a new
 file is created.}
 }
 \value{

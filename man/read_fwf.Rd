@@ -84,6 +84,10 @@ character represents one column:
 \item t = time
 \item ? = guess
 \item _ or - = skip
+
+By default, reading a file without a column specification will print a
+message showing what \code{readr} guessed they were. To remove this message,
+use \code{col_types = cols()}.
 }}
 
 \item{locale}{The locale controls defaults that vary from place to place.
@@ -144,7 +148,7 @@ by providing a number of different ways to describe the field structure.
 }
 \examples{
 fwf_sample <- readr_example("fwf-sample.txt")
-cat(read_lines(fwf_sample))
+writeLines(read_lines(fwf_sample))
 
 # You can specify column positions in several ways:
 # 1. Guess based on position of empty columns
