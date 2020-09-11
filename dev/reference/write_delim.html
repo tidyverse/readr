@@ -177,7 +177,7 @@ to coerce columns to suitable output.</p>
 
     <pre class="usage"><span class='fu'>write_delim</span>(
   <span class='no'>x</span>,
-  <span class='no'>path</span>,
+  <span class='no'>file</span>,
   <span class='kw'>delim</span> <span class='kw'>=</span> <span class='st'>" "</span>,
   <span class='kw'>na</span> <span class='kw'>=</span> <span class='st'>"NA"</span>,
   <span class='kw'>append</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
@@ -188,7 +188,7 @@ to coerce columns to suitable output.</p>
 
 <span class='fu'>write_csv</span>(
   <span class='no'>x</span>,
-  <span class='no'>path</span>,
+  <span class='no'>file</span>,
   <span class='kw'>na</span> <span class='kw'>=</span> <span class='st'>"NA"</span>,
   <span class='kw'>append</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
   <span class='kw'>col_names</span> <span class='kw'>=</span> !<span class='no'>append</span>,
@@ -198,7 +198,7 @@ to coerce columns to suitable output.</p>
 
 <span class='fu'>write_csv2</span>(
   <span class='no'>x</span>,
-  <span class='no'>path</span>,
+  <span class='no'>file</span>,
   <span class='kw'>na</span> <span class='kw'>=</span> <span class='st'>"NA"</span>,
   <span class='kw'>append</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
   <span class='kw'>col_names</span> <span class='kw'>=</span> !<span class='no'>append</span>,
@@ -208,7 +208,7 @@ to coerce columns to suitable output.</p>
 
 <span class='fu'>write_excel_csv</span>(
   <span class='no'>x</span>,
-  <span class='no'>path</span>,
+  <span class='no'>file</span>,
   <span class='kw'>na</span> <span class='kw'>=</span> <span class='st'>"NA"</span>,
   <span class='kw'>append</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
   <span class='kw'>col_names</span> <span class='kw'>=</span> !<span class='no'>append</span>,
@@ -219,7 +219,7 @@ to coerce columns to suitable output.</p>
 
 <span class='fu'>write_excel_csv2</span>(
   <span class='no'>x</span>,
-  <span class='no'>path</span>,
+  <span class='no'>file</span>,
   <span class='kw'>na</span> <span class='kw'>=</span> <span class='st'>"NA"</span>,
   <span class='kw'>append</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
   <span class='kw'>col_names</span> <span class='kw'>=</span> !<span class='no'>append</span>,
@@ -230,7 +230,7 @@ to coerce columns to suitable output.</p>
 
 <span class='fu'>write_tsv</span>(
   <span class='no'>x</span>,
-  <span class='no'>path</span>,
+  <span class='no'>file</span>,
   <span class='kw'>na</span> <span class='kw'>=</span> <span class='st'>"NA"</span>,
   <span class='kw'>append</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
   <span class='kw'>col_names</span> <span class='kw'>=</span> !<span class='no'>append</span>,
@@ -246,8 +246,8 @@ to coerce columns to suitable output.</p>
       <td><p>A data frame or tibble to write to disk.</p></td>
     </tr>
     <tr>
-      <th>path</th>
-      <td><p>The path or connection to write to.</p></td>
+      <th>file</th>
+      <td><p>File or connection to write to.</p></td>
     </tr>
     <tr>
       <th>delim</th>
