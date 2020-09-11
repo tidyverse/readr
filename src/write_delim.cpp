@@ -88,6 +88,21 @@ void stream_delim(
     output << '"';
 }
 
+void validate_col_type(SEXP x, std::string name) {
+  switch (TYPEOF(x)) {
+  case LGLSXP:
+  case INTSXP:
+  case REALSXP:
+  case STRSXP:
+    break;
+  default:
+    cpp11::stop(
+        "Don't know how to handle vector of type %s in column '%s'.",
+        Rf_type2char(TYPEOF(x)),
+        name.c_str());
+  }
+}
+
 template <class Stream>
 void stream_delim(
     Stream& output,
@@ -104,6 +119,12 @@ void stream_delim(
 
   if (bom) {
     output << "\xEF\xBB\xBF";
+  }
+
+  cpp11::strings names(df.attr("names"));
+  // Validate column types
+  for (int j = 0; j < p; ++j) {
+    validate_col_type(df.at(j), names[j]);
   }
 
   if (col_names) {

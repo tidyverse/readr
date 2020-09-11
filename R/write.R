@@ -210,7 +210,10 @@ output_column <- function(x, name) {
 
 #' @export
 output_column.default <- function(x, name) {
-  if (!is.object(x)) return(x)
+  if (!is.object(x) || "AsIs" %in% class(x)) {
+    return(x)
+  }
+
   as.character(x)
 }
 
