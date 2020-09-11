@@ -10,8 +10,8 @@ problems(x)
 stop_for_problems(x)
 }
 \arguments{
-\item{x}{An data frame (from \code{read_*()}) or a vector
-(from \code{parse_*()}).}
+\item{x}{An data frame (from \verb{read_*()}) or a vector
+(from \verb{parse_*()}).}
 }
 \value{
 A data frame with one row for each problem and four columns:

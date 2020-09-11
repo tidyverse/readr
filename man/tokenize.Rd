@@ -11,8 +11,8 @@ tokenize(file, tokenizer = tokenizer_csv(), skip = 0, n_max = -1L)
 (either a single string or a raw vector).
 
 Files ending in \code{.gz}, \code{.bz2}, \code{.xz}, or \code{.zip} will
-be automatically uncompressed. Files starting with \code{http://},
-\code{https://}, \code{ftp://}, or \code{ftps://} will be automatically
+be automatically uncompressed. Files starting with \verb{http://},
+\verb{https://}, \verb{ftp://}, or \verb{ftps://} will be automatically
 downloaded. Remote gz files can also be automatically downloaded and
 decompressed.
 
@@ -35,9 +35,9 @@ is useful for testing, or when a file doesn't parse correctly and you want
 to see the underlying tokens.
 }
 \examples{
-tokenize("1,2\\n3,4,5\\n\\n6")
+tokenize("1,2\n3,4,5\n\n6")
 
 # Only tokenize first two lines
-tokenize("1,2\\n3,4,5\\n\\n6", n = 2)
+tokenize("1,2\n3,4,5\n\n6", n = 2)
 }
 \keyword{internal}

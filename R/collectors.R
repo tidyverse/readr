@@ -138,8 +138,19 @@ col_skip <- function() {
 #' @family parsers
 #' @export
 #' @examples
-#' parse_number("$1000")
-#' parse_number("1,234,567.78")
+#' ## These all return 1000
+#' parse_number("$1,000")     ## leading $ and grouping character , ignored
+#' parse_number("euro1,000")  ## leading non-numeric euro ignored
+#'
+#' parse_number("1,234.56")
+#' ## explicit locale specifying European grouping and decimal marks
+#' parse_number("1.234,56", locale = locale(decimal_mark = ",", grouping_mark = "."))
+#' ## SI/ISO 31-0 standard spaces for number grouping
+#' parse_number("1 234.56", locale = locale(decimal_mark = ".", grouping_mark = " "))
+#'
+#' ## Specifying strings for NAs
+#' parse_number(c("1", "2", "3", "NA"))
+#' parse_number(c("1", "2", "3", "NA", "Nothing"), na = c("NA", "Nothing"))
 parse_number <- function(x, na = c("", "NA"), locale = default_locale(), trim_ws = TRUE) {
   parse_vector(x, col_number(), na = na, locale = locale, trim_ws = trim_ws)
 }
@@ -180,7 +191,7 @@ col_number <- function() {
 #' guess_parser(c("2010-10-10"))
 #' parse_guess(c("2010-10-10"))
 parse_guess <- function(x, na = c("", "NA"), locale = default_locale(), trim_ws = TRUE, guess_integer = FALSE) {
-  parse_vector(x, guess_parser(x, locale, guess_integer = guess_integer), na = na, locale = locale, trim_ws = trim_ws)
+  parse_vector(x, guess_parser(x, locale, guess_integer = guess_integer, na = na), na = na, locale = locale, trim_ws = trim_ws)
 }
 
 #' @rdname parse_guess
@@ -193,8 +204,11 @@ col_guess <- function() {
 #' @param guess_integer If `TRUE`, guess integer types for whole numbers, if
 #'   `FALSE` guess numeric type for all numbers.
 #' @export
-guess_parser <- function(x, locale = default_locale(), guess_integer = FALSE) {
+guess_parser <- function(x, locale = default_locale(), guess_integer = FALSE, na = c("", "NA")) {
+  x[x %in% na] <- NA_character_
+
   stopifnot(is.locale(locale))
+
   collectorGuess(x, locale, guessInteger = guess_integer)
 }
 
@@ -263,7 +277,8 @@ col_factor <- function(levels = NULL, ordered = FALSE, include_na = FALSE) {
 #'     locale), "\%B" (full name in current locale).
 #'   \item Day: "\%d" (2 digits), "\%e" (optional leading space),
 #'     "%a" (abbreviated name in current locale).
-#'   \item Hour: "\%H" or "\%I", use I (and not H) with AM/PM.
+#'   \item Hour: "\%H" or "\%I" or "\%h", use I (and not H) with AM/PM,
+#'     use h (and not H) if your times represent durations longer than one day.
 #'   \item Minutes: "\%M"
 #'   \item Seconds: "\%S" (integer seconds), "\%OS" (partial seconds)
 #'   \item Time zone: "\%Z" (as name, e.g. "America/Chicago"), "\%z" (as

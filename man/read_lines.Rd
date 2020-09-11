@@ -6,12 +6,17 @@
 \alias{write_lines}
 \title{Read/write lines to/from a file}
 \usage{
-read_lines(file, skip = 0, skip_empty_rows = FALSE, n_max = -1L,
-  locale = default_locale(), na = character(),
-  progress = show_progress())
+read_lines(
+  file,
+  skip = 0,
+  skip_empty_rows = FALSE,
+  n_max = -1L,
+  locale = default_locale(),
+  na = character(),
+  progress = show_progress()
+)
 
-read_lines_raw(file, skip = 0, n_max = -1L,
-  progress = show_progress())
+read_lines_raw(file, skip = 0, n_max = -1L, progress = show_progress())
 
 write_lines(x, path, sep = "\\n", na = "NA", append = FALSE)
 }
@@ -20,8 +25,8 @@ write_lines(x, path, sep = "\\n", na = "NA", append = FALSE)
 (either a single string or a raw vector).
 
 Files ending in \code{.gz}, \code{.bz2}, \code{.xz}, or \code{.zip} will
-be automatically uncompressed. Files starting with \code{http://},
-\code{https://}, \code{ftp://}, or \code{ftps://} will be automatically
+be automatically uncompressed. Files starting with \verb{http://},
+\verb{https://}, \verb{ftp://}, or \verb{ftps://} will be automatically
 downloaded. Remote gz files can also be automatically downloaded and
 decompressed.
 
@@ -55,16 +60,14 @@ is updated every 50,000 values and will only display if estimated reading
 time is 5 seconds or more. The automatic progress bar can be disabled by
 setting option \code{readr.show_progress} to \code{FALSE}.}
 
-\item{x}{A data frame to write to disk}
+\item{x}{A character vector or list of raw vectors to write to disk.}
 
-\item{path}{Path or connection to write to.}
-
-\item{sep}{The line separator. Defaults to \code{\\n}, commonly used on POSIX
+\item{sep}{The line separator. Defaults to \verb{\\\\n}, commonly used on POSIX
 systems like macOS and linux. For native windows (CRLF) separators use
-\code{\\r\\n}.}
+\verb{\\\\r\\\\n}.}
 
 \item{append}{If \code{FALSE}, will overwrite existing file. If \code{TRUE},
-will append to existing file. In both cases, if file does not exist a new
+will append to existing file. In both cases, if the file does not exist a new
 file is created.}
 }
 \value{
@@ -88,7 +91,7 @@ tmp <- tempfile()
 
 write_lines(rownames(mtcars), tmp)
 read_lines(tmp)
-read_file(tmp) # note trailing \\n
+read_file(tmp) # note trailing \n
 
 write_lines(airquality$Ozone, tmp, na = "-1")
 read_lines(tmp)

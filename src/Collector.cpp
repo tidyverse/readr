@@ -1,13 +1,12 @@
-#include <Rcpp.h>
-using namespace Rcpp;
+#include "cpp11/list.hpp"
 
 #include "Collector.h"
 #include "LocaleInfo.h"
 #include "QiParsers.h"
 #include "utils.h"
 
-CollectorPtr Collector::create(List spec, LocaleInfo* pLocale) {
-  std::string subclass(as<CharacterVector>(spec.attr("class"))[0]);
+CollectorPtr Collector::create(cpp11::list spec, LocaleInfo* pLocale) {
+  std::string subclass(cpp11::as_cpp<cpp11::strings>(spec.attr("class"))[0]);
 
   if (subclass == "collector_skip")
     return CollectorPtr(new CollectorSkip());
@@ -25,36 +24,36 @@ CollectorPtr Collector::create(List spec, LocaleInfo* pLocale) {
     return CollectorPtr(new CollectorCharacter(&pLocale->encoder_));
   if (subclass == "collector_date") {
     SEXP format_ = spec["format"];
-    std::string format =
-        (Rf_isNull(format_)) ? pLocale->dateFormat_ : as<std::string>(format_);
+    std::string format = (Rf_isNull(format_))
+                             ? pLocale->dateFormat_
+                             : cpp11::as_cpp<std::string>(format_);
     return CollectorPtr(new CollectorDate(pLocale, format));
   }
   if (subclass == "collector_datetime") {
-    std::string format = as<std::string>(spec["format"]);
+    std::string format = cpp11::as_cpp<std::string>(spec["format"]);
     return CollectorPtr(new CollectorDateTime(pLocale, format));
   }
   if (subclass == "collector_time") {
-    std::string format = as<std::string>(spec["format"]);
+    std::string format = cpp11::as_cpp<std::string>(spec["format"]);
     return CollectorPtr(new CollectorTime(pLocale, format));
   }
   if (subclass == "collector_factor") {
-    Nullable<CharacterVector> levels =
-        as<Nullable<CharacterVector> >(spec["levels"]);
-    bool ordered = as<bool>(spec["ordered"]);
-    bool includeNa = as<bool>(spec["include_na"]);
+    cpp11::sexp levels(spec["levels"]);
+    bool ordered = cpp11::as_cpp<bool>(spec["ordered"]);
+    bool includeNa = cpp11::as_cpp<bool>(spec["include_na"]);
     return CollectorPtr(
         new CollectorFactor(&pLocale->encoder_, levels, ordered, includeNa));
   }
 
-  Rcpp::stop("Unsupported column type");
+  cpp11::stop("Unsupported column type");
   return CollectorPtr(new CollectorSkip());
 }
 
 std::vector<CollectorPtr>
-collectorsCreate(ListOf<List> specs, LocaleInfo* pLocale) {
+collectorsCreate(cpp11::list specs, LocaleInfo* pLocale) {
   std::vector<CollectorPtr> collectors;
   for (int j = 0; j < specs.size(); ++j) {
-    CollectorPtr col = Collector::create(specs[j], pLocale);
+    CollectorPtr col(Collector::create(SEXP(specs[j]), pLocale));
     collectors.push_back(col);
   }
 
@@ -85,7 +84,7 @@ void CollectorCharacter::setValue(int i, const Token& t) {
     SET_STRING_ELT(column_, i, Rf_mkCharCE("", CE_UTF8));
     break;
   case TOKEN_EOF:
-    Rcpp::stop("Invalid token");
+    cpp11::stop("Invalid token");
   }
 }
 
@@ -124,7 +123,7 @@ void CollectorDate::setValue(int i, const Token& t) {
     REAL(column_)[i] = NA_REAL;
     return;
   case TOKEN_EOF:
-    Rcpp::stop("Invalid token");
+    cpp11::stop("Invalid token");
   }
 }
 
@@ -160,7 +159,7 @@ void CollectorDateTime::setValue(int i, const Token& t) {
     REAL(column_)[i] = NA_REAL;
     return;
   case TOKEN_EOF:
-    Rcpp::stop("Invalid token");
+    cpp11::stop("Invalid token");
   }
 
   return;
@@ -176,13 +175,15 @@ void CollectorDouble::setValue(int i, const Token& t) {
         parseDouble(decimalMark_, str.first, str.second, REAL(column_)[i]);
     if (!ok) {
       REAL(column_)[i] = NA_REAL;
-      warn(t.row(), t.col(), "a double", str);
+      SourceIterators org_str = t.getString(&buffer);
+      warn(t.row(), t.col(), "a double", org_str);
       return;
     }
 
     if (str.first != str.second) {
       REAL(column_)[i] = NA_REAL;
-      warn(t.row(), t.col(), "no trailing characters", str);
+      SourceIterators org_str = t.getString(&buffer);
+      warn(t.row(), t.col(), "no trailing characters", org_str);
       return;
     }
 
@@ -193,14 +194,14 @@ void CollectorDouble::setValue(int i, const Token& t) {
     REAL(column_)[i] = NA_REAL;
     break;
   case TOKEN_EOF:
-    Rcpp::stop("Invalid token");
+    cpp11::stop("Invalid token");
   }
 }
 
 void CollectorDouble::setValue(int i, size_t st) { REAL(column_)[i] = st; }
 
-void CollectorFactor::insert(int i, Rcpp::String str, const Token& t) {
-  std::map<Rcpp::String, int>::iterator it = levelset_.find(str);
+void CollectorFactor::insert(int i, cpp11::r_string str, const Token& t) {
+  std::map<cpp11::r_string, int>::iterator it = levelset_.find(str);
   if (it == levelset_.end()) {
     if (implicitLevels_ || (includeNa_ && str == NA_STRING)) {
       int n = levelset_.size();
@@ -224,8 +225,8 @@ void CollectorFactor::setValue(int i, const Token& t) {
     boost::container::string buffer;
     SourceIterators string = t.getString(&buffer);
 
-    Rcpp::String std_string =
-        pEncoder_->makeSEXP(string.first, string.second, t.hasNull());
+    cpp11::r_string std_string(
+        pEncoder_->makeSEXP(string.first, string.second, t.hasNull()));
     insert(i, std_string, t);
     return;
   };
@@ -237,7 +238,7 @@ void CollectorFactor::setValue(int i, const Token& t) {
     }
     return;
   case TOKEN_EOF:
-    Rcpp::stop("Invalid token");
+    cpp11::stop("Invalid token");
   }
 }
 
@@ -251,12 +252,14 @@ void CollectorInteger::setValue(int i, const Token& t) {
     bool ok = parseInt(str.first, str.second, INTEGER(column_)[i]);
     if (!ok) {
       INTEGER(column_)[i] = NA_INTEGER;
-      warn(t.row(), t.col(), "an integer", str);
+      SourceIterators org_str = t.getString(&buffer);
+      warn(t.row(), t.col(), "an integer", org_str);
       return;
     }
 
     if (str.first != str.second) {
-      warn(t.row(), t.col(), "no trailing characters", str);
+      SourceIterators org_str = t.getString(&buffer);
+      warn(t.row(), t.col(), "no trailing characters", org_str);
       INTEGER(column_)[i] = NA_INTEGER;
       return;
     }
@@ -268,7 +271,7 @@ void CollectorInteger::setValue(int i, const Token& t) {
     INTEGER(column_)[i] = NA_INTEGER;
     break;
   case TOKEN_EOF:
-    Rcpp::stop("Invalid token");
+    cpp11::stop("Invalid token");
   }
 }
 
@@ -302,7 +305,7 @@ void CollectorLogical::setValue(int i, const Token& t) {
     return;
     break;
   case TOKEN_EOF:
-    Rcpp::stop("Invalid token");
+    cpp11::stop("Invalid token");
   }
 }
 
@@ -316,8 +319,9 @@ void CollectorNumeric::setValue(int i, const Token& t) {
         decimalMark_, groupingMark_, str.first, str.second, REAL(column_)[i]);
 
     if (!ok) {
+      SourceIterators org_str = t.getString(&buffer);
       REAL(column_)[i] = NA_REAL;
-      warn(t.row(), t.col(), "a number", str);
+      warn(t.row(), t.col(), "a number", org_str);
       return;
     }
 
@@ -328,7 +332,7 @@ void CollectorNumeric::setValue(int i, const Token& t) {
     REAL(column_)[i] = NA_REAL;
     break;
   case TOKEN_EOF:
-    Rcpp::stop("Invalid token");
+    cpp11::stop("Invalid token");
   }
 }
 
@@ -350,8 +354,8 @@ void CollectorTime::setValue(int i, const Token& t) {
     }
 
     DateTime dt = parser_.makeTime();
-    if (!dt.validTime()) {
-      warn(t.row(), t.col(), "valid date", std_string);
+    if (!dt.validDuration()) {
+      warn(t.row(), t.col(), "valid duration", std_string);
       REAL(column_)[i] = NA_REAL;
       return;
     }
@@ -363,13 +367,13 @@ void CollectorTime::setValue(int i, const Token& t) {
     REAL(column_)[i] = NA_REAL;
     return;
   case TOKEN_EOF:
-    Rcpp::stop("Invalid token");
+    cpp11::stop("Invalid token");
   }
 }
 
 void CollectorRaw::setValue(int i, const Token& t) {
   if (t.type() == TOKEN_EOF) {
-    Rcpp::stop("Invalid token");
+    cpp11::stop("Invalid token");
   }
   SET_VECTOR_ELT(column_, i, t.asRaw());
   return;

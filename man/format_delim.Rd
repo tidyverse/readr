@@ -7,20 +7,45 @@
 \alias{format_tsv}
 \title{Convert a data frame to a delimited string}
 \usage{
-format_delim(x, delim, na = "NA", append = FALSE,
-  col_names = !append, quote_escape = "double")
+format_delim(
+  x,
+  delim,
+  na = "NA",
+  append = FALSE,
+  col_names = !append,
+  quote_escape = "double",
+  eol = "\\n"
+)
 
-format_csv(x, na = "NA", append = FALSE, col_names = !append,
-  quote_escape = "double")
+format_csv(
+  x,
+  na = "NA",
+  append = FALSE,
+  col_names = !append,
+  quote_escape = "double",
+  eol = "\\n"
+)
 
-format_csv2(x, na = "NA", append = FALSE, col_names = !append,
-  quote_escape = "double")
+format_csv2(
+  x,
+  na = "NA",
+  append = FALSE,
+  col_names = !append,
+  quote_escape = "double",
+  eol = "\\n"
+)
 
-format_tsv(x, na = "NA", append = FALSE, col_names = !append,
-  quote_escape = "double")
+format_tsv(
+  x,
+  na = "NA",
+  append = FALSE,
+  col_names = !append,
+  quote_escape = "double",
+  eol = "\\n"
+)
 }
 \arguments{
-\item{x}{A data frame to write to disk}
+\item{x}{A data frame.}
 
 \item{delim}{Delimiter used to separate values. Defaults to \code{" "} for \code{write_delim()}, \code{","} for \code{write_excel_csv()} and
 \code{";"} for \code{write_excel_csv2()}. Must be a single character.}
@@ -30,16 +55,18 @@ will never be quoted; strings with the same value as \code{na} will
 always be quoted.}
 
 \item{append}{If \code{FALSE}, will overwrite existing file. If \code{TRUE},
-will append to existing file. In both cases, if file does not exist a new
+will append to existing file. In both cases, if the file does not exist a new
 file is created.}
 
-\item{col_names}{Write columns names at the top of the file? Must be either
-\code{TRUE} or \code{FALSE}.}
+\item{col_names}{If \code{FALSE}, column names will not be included at the top of the file. If \code{TRUE},
+column names will be included. If not specified, \code{col_names} will take the opposite value given to \code{append}.}
 
 \item{quote_escape}{The type of escaping to use for quoted values, one of
-"double", "backslash" or "none". You can also use \code{FALSE}, which is
-equivalent to "none". The default is to double the quotes, which is the
-format excel expects.}
+\code{"double"}, \code{"backslash"} or \code{"none"}. You can also use \code{FALSE}, which is
+equivalent to "none". The default is \code{"double"}, which is expected format for Excel.}
+
+\item{eol}{The end of line character to use. Most commonly either \code{"\\n"} for
+Unix style newlines, or \code{"\\r\\n"} for Windows style newlines.}
 }
 \value{
 A string.
@@ -50,49 +77,40 @@ of writing to disk, they return a string.
 }
 \section{Output}{
 
-Factors are coerced to character. Doubles are formatted using the grisu3
-algorithm. POSIXct's are formatted as ISO8601 with a UTC timezone \emph{Note:
-\code{POSIXct} objects in local or non-UTC timezones will be converted to UTC time
-before writing.}
+Factors are coerced to character. Doubles are formatted to a decimal string
+using the grisu3 algorithm. \code{POSIXct} values are formatted as ISO8601 with a
+UTC timezone \emph{Note: \code{POSIXct} objects in local or non-UTC timezones will be
+converted to UTC time before writing.}
 
 All columns are encoded as UTF-8. \code{write_excel_csv()} and \code{write_excel_csv2()} also include a
 \href{https://en.wikipedia.org/wiki/Byte_order_mark}{UTF-8 Byte order mark}
 which indicates to Excel the csv is UTF-8 encoded.
 
 \code{write_excel_csv2()} and \code{write_csv2} were created to allow users with
-different locale settings save csv files with their default settings \code{;} as
-column separator and \code{,} as decimal separator. This is common in some European countries.
+different locale settings to save .csv files using their default settings
+(e.g. \verb{;} as the column separator and \verb{,} as the decimal separator).
+This is common in some European countries.
 
-Values are only quoted if needed: if they contain a comma, quote or newline.
+Values are only quoted if they contain a comma, quote or newline.
 
-The \code{write_*()} functions will automatically compress outputs if an appropriate extension is given. At present, three
-extensions are supported, \code{.gz} for gzip compression, \code{.bz2} for bzip2 compression and \code{.xz} for lzma compression.  See
-the examples for more information.
+The \verb{write_*()} functions will automatically compress outputs if an appropriate extension is given.
+Three extensions are currently supported: \code{.gz} for gzip compression, \code{.bz2} for bzip2 compression and
+\code{.xz} for lzma compression.  See the examples for more information.
 }
 
 \examples{
-tmp <- tempfile()
-write_csv(mtcars, tmp)
-head(read_csv(tmp))
+# format_()* functions are useful for testing and reprexes
+cat(format_csv(band_members))
+cat(format_tsv(band_members))
+cat(format_delim(band_members, ";"))
 
-# format_* is useful for testing and reprexes
-cat(format_csv(head(mtcars)))
-cat(format_tsv(head(mtcars)))
-cat(format_delim(head(mtcars), ";"))
+# Specifying missing values
+df <- data.frame(x = c(1, NA, 3))
+format_csv(df, na = "missing")
 
-df <- data.frame(x = c(1, 2, NA))
-format_csv(df, na = ".")
-
-# Quotes are automatically as needed
-df <- data.frame(x = c("a", '"', ",", "\\n"))
+# Quotes are automatically added as needed
+df <- data.frame(x = c("a ", '"', ",", "\n"))
 cat(format_csv(df))
-
-# A output connection will be automatically created for output filenames
-# with appropriate extensions.
-dir <- tempdir()
-write_tsv(mtcars, file.path(dir, "mtcars.tsv.gz"))
-write_tsv(mtcars, file.path(dir, "mtcars.tsv.bz2"))
-write_tsv(mtcars, file.path(dir, "mtcars.tsv.xz"))
 }
 \references{
 Florian Loitsch, Printing Floating-Point Numbers Quickly and

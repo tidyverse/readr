@@ -1,13 +1,11 @@
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
 
-# readr <a href="https://readr.tidyverse.org"><img src="man/figures/logo.png" align="right" height = 150 /></a>
+# readr <a href="https://readr.tidyverse.org"><img src="man/figures/logo.png" align="right" height="139" /></a>
 
 [![CRAN\_Status\_Badge](https://www.r-pkg.org/badges/version/readr)](https://cran.r-project.org/package=readr)
-[![Build
-Status](https://travis-ci.org/tidyverse/readr.svg?branch=master)](https://travis-ci.org/tidyverse/readr)
-[![AppVeyor Build
-Status](https://ci.appveyor.com/api/projects/status/github/tidyverse/readr?branch=master&svg=true)](https://ci.appveyor.com/project/tidyverse/readr)
+[![R build
+status](https://github.com/tidyverse/readr/workflows/R-CMD-check/badge.svg)](https://github.com/tidyverse/readr)
 [![Coverage
 Status](https://codecov.io/gh/tidyverse/readr/coverage.svg?branch=master)](https://codecov.io/gh/tidyverse/readr?branch=master)
 
@@ -36,7 +34,7 @@ devtools::install_github("tidyverse/readr")
 
 ## Cheatsheet
 
-<a href="https://rawgit.com/rstudio/cheatsheets/master/data-import.pdf"><img src="https://raw.githubusercontent.com/rstudio/cheatsheets/master/pngs/thumbnails/data-import-cheatsheet-thumbs.png" width="630" height="252"/></a>
+<a href="https://github.com/rstudio/cheatsheets/blob/master/data-import.pdf"><img src="https://raw.githubusercontent.com/rstudio/cheatsheets/master/pngs/thumbnails/data-import-cheatsheet-thumbs.png" width="630" height="252"/></a>
 
 ## Usage
 
@@ -44,14 +42,14 @@ readr is part of the core tidyverse, so load it with:
 
 ``` r
 library(tidyverse)
-#> ── Attaching packages ────────────────────────────────── tidyverse 1.2.1 ──
-#> ✔ ggplot2 3.1.0     ✔ purrr   0.2.5
-#> ✔ tibble  1.4.2     ✔ dplyr   0.7.7
-#> ✔ tidyr   0.8.2     ✔ stringr 1.3.1
-#> ✔ readr   1.2.0     ✔ forcats 0.3.0
-#> ── Conflicts ───────────────────────────────────── tidyverse_conflicts() ──
-#> ✖ dplyr::filter() masks stats::filter()
-#> ✖ dplyr::lag()    masks stats::lag()
+#> -- Attaching packages ----------------------------------------------------------------------------------------- tidyverse 1.3.0 --
+#> v ggplot2 3.2.1     v purrr   0.3.3
+#> v tibble  2.1.3     v dplyr   0.8.3
+#> v tidyr   1.0.2     v stringr 1.4.0
+#> v readr   1.3.1     v forcats 0.4.0
+#> -- Conflicts -------------------------------------------------------------------------------------------- tidyverse_conflicts() --
+#> x dplyr::filter() masks stats::filter()
+#> x dplyr::lag()    masks stats::lag()
 ```
 
 To accurately read a rectangular dataset with readr you combine two
@@ -128,7 +126,7 @@ There are two main alternatives to readr: base R and data.table’s
 
 Compared to the corresponding base functions, readr functions:
 
-  - Use a consistent naming scheme for the parameters (e.g. `col_names`
+  - Use a consistent naming scheme for the parameters (e.g. `col_names`
     and `col_types` not `header` and `colClasses`).
 
   - Are much faster (up to 10x).
@@ -147,7 +145,7 @@ Compared to the corresponding base functions, readr functions:
 similar to `read_csv()` called fread. Compared to fread, readr
 functions:
 
-  - Are slower. If you want absolutely the
+  - Are slower (currently \~1.2-2x slower. If you want absolutely the
     best performance, use `data.table::fread()`.
 
   - Use a slightly more sophisticated parser, recognising both doubled
@@ -177,6 +175,8 @@ Thanks to:
   - [Dirk Eddelbuettel](http://dirk.eddelbuettel.com) for coming up with
     the name\!
 
-Please note that this project is released with a [Contributor Code of
-Conduct](CONDUCT.md). By participating in this project you agree to
-abide by its terms.
+## Code of Conduct
+
+Please note that the readr project is released with a [Contributor Code
+of Conduct](https://readr.tidyverse.org/CODE_OF_CONDUCT.html). By
+contributing to this project, you agree to abide by its terms.

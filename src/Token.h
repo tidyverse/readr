@@ -1,10 +1,11 @@
 #ifndef FASTREAD_TOKEN_H_
 #define FASTREAD_TOKEN_H_
 
+#include "cpp11/raws.hpp"
+
 #include "Iconv.h"
 #include "Source.h"
 #include "Tokenizer.h"
-#include <Rcpp.h>
 #include <string>
 
 enum TokenType {
@@ -64,7 +65,7 @@ public:
 
   SEXP asRaw() const {
     size_t n = (type_ == TOKEN_STRING) ? end_ - begin_ : 0;
-    Rcpp::RawVector out(n);
+    cpp11::writable::raws out(n);
 
     if (n > 0)
       memcpy(RAW(out), begin_, n);

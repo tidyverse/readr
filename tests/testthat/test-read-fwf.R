@@ -101,7 +101,7 @@ test_that("read columns with width, ragged", {
 })
 
 test_that("read_fwf returns an empty data.frame on an empty file", {
-   expect_true(all.equal(read_fwf("empty-file", progress = FALSE), tibble::data_frame()))
+   expect_true(all.equal(read_fwf("empty-file", progress = FALSE), tibble::tibble()))
 })
 
 test_that("check for line breaks in between widths", {
@@ -123,9 +123,9 @@ test_that("check for line breaks in between widths", {
   expect_warning(out2 <- read_fwf(txt2, fwf_empty(txt2)))
   expect_equal(n_problems(out2), 2)
 
-  exp <- tibble::tibble(X1 = c(1L, 2L, 1L), X2 = c(1L, NA, 1L))
-  expect_true(all.equal(out1, exp))
-  expect_true(all.equal(out2, exp))
+  exp <- tibble::tibble(X1 = c(1, 2, 1), X2 = c(1, NA, 1))
+  expect_true(all.equal(out1, exp, check.attributes = FALSE))
+  expect_true(all.equal(out2, exp, check.attributes = FALSE))
 
 })
 
@@ -203,7 +203,7 @@ test_that("read_table skips all comment lines", {
 
   y <- read_table("#comment1\n#comment2\nfoo bar\n1   2\n3   4\n5   6\n", progress = FALSE, comment = "#")
 
-  expect_equal(x, y)
+  expect_equal(x[], y[])
 })
 
 test_that("read_table can read from a pipe (552)", {

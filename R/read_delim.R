@@ -1,5 +1,4 @@
 #' @useDynLib readr, .registration = TRUE
-#' @importClassesFrom Rcpp "C++Object"
 NULL
 
 #' Read a delimited file (including csv & tsv) into a tibble
@@ -24,7 +23,7 @@ NULL
 #'
 #'   Missing (`NA`) column names will generate a warning, and be filled
 #'   in with dummy names `X1`, `X2` etc. Duplicate column names
-#'   will generate a warning and be made unique with a numeric prefix.
+#'   will generate a warning and be made unique with a numeric suffix.
 #' @param col_types One of `NULL`, a [cols()] specification, or
 #'   a string. See `vignette("readr")` for more details.
 #'
@@ -38,9 +37,21 @@ NULL
 #'
 #'   Alternatively, you can use a compact string representation where each
 #'   character represents one column:
-#'   c = character, i = integer, n = number, d = double,
-#'   l = logical, f = factor, D = date, T = date time, t = time, ? = guess, or
-#'   `_`/`-` to skip the column.
+#' - c = character
+#' - i = integer
+#' - n = number
+#' - d = double
+#' - l = logical
+#' - f = factor
+#' - D = date
+#' - T = date time
+#' - t = time
+#' - ? = guess
+#' - _ or - = skip
+#'
+#'    By default, reading a file without a column specification will print a
+#'    message showing what `readr` guessed they were. To remove this message,
+#'    use `col_types = cols()`.
 #' @param locale The locale controls defaults that vary from place to place.
 #'   The default locale is US-centric (like R), but you can use
 #'   [locale()] to create your own locale that controls things like
@@ -181,9 +192,12 @@ read_delimited <- function(file, tokenizer, col_names = TRUE, col_types = NULL,
   file <- standardise_path(file)
   if (is.connection(file)) {
     data <- datasource_connection(file, skip, skip_empty_rows, comment)
-  } else {
-    if (empty_file(file)) {
+    if (empty_file(data[[1]])) {
        return(tibble::data_frame())
+    }
+  } else {
+    if (!isTRUE(grepl("\n", file)[[1]]) && empty_file(file)) {
+       return(tibble::tibble())
     }
     if (is.character(file) && identical(locale$encoding, "UTF-8")) {
       # When locale is not set, file is probablly marked as its correct encoding.

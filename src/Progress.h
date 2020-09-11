@@ -1,7 +1,8 @@
 #ifndef FASTREAD_PROGRESS_H_
 #define FASTREAD_PROGRESS_H_
 
-#include <Rcpp.h>
+#include "cpp11/R.hpp"
+#include <iomanip>
 #include <sstream>
 #include <time.h>
 
@@ -12,12 +13,16 @@ inline std::string clearLine(int width = 50) {
 }
 
 inline std::string showTime(int x) {
+  std::stringstream ss;
   if (x < 60) {
-    return tfm::format("%i s", x);
+    ss << x << " s";
+    return ss.str();
   } else if (x < 60 * 60) {
-    return tfm::format("%i m", x / 60);
+    ss << x / 60 << " m";
+    return ss.str();
   } else {
-    return tfm::format("%i h", x / (60 * 60));
+    ss << x / (60 * 60) << " h";
+    return ss.str();
   }
 }
 
@@ -52,9 +57,10 @@ public:
     }
 
     std::stringstream labelStream;
-    tfm::format(labelStream, " %3d%%", (int)(prop * 100));
+    labelStream << std::setprecision(2) << std::fixed << " "
+                << (int)(prop * 100) << "%";
     if (size > 0) {
-      tfm::format(labelStream, " %4.0f MB", size);
+      labelStream << " " << std::setprecision(0) << size << " MB";
     }
 
     std::string label = labelStream.str();
@@ -66,7 +72,7 @@ public:
     int nbars = prop * barSize;
     int nspaces = (1 - prop) * barSize;
     std::string bars(nbars, '='), spaces(nspaces, ' ');
-    Rcpp::Rcout << '\r' << '|' << bars << spaces << '|' << label;
+    Rprintf("\r|%s%s|%s", bars.c_str(), spaces.c_str(), label.c_str());
   }
 
   ~Progress() {
@@ -76,7 +82,7 @@ public:
 
       if (!stopped_)
         timeStop_ = now();
-      Rcpp::Rcout << "\n";
+      Rprintf("\n");
 
     } catch (...) {
     }

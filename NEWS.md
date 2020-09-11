@@ -1,5 +1,69 @@
 # readr (development version)
 
+## Breaking changes
+
+* `write_*()` functions now output any NaN values in the same way as NA values,
+  controlled by the `na=` argument. (#1082).
+
+* `write_*()` functions first argument is now `file` instead of `path`, for consistency with the `read_*()` functions. (#1110, @brianrice2)
+
+## Additional features and fixes
+
+* `write_*()` functions gain a `eol =` argument to control the end of line character used (#857). This allows writing of CSV files with Windows newlines (CRLF) if desired.
+
+* `write_excel_csv()` no longer outputs a byte order mark when appending to a file (#1075).
+
+* The `read_*` functions now close properly all connections, including on 
+  errors like HTTP errors when reading from a url (@cderv, #1050).
+
+* `write_csv2` and `format_csv2` no longer pad number columns with whitespaces
+  (@keesdeschepper, #1046).
+
+* The `write_*()` functions now invisibly return the input data frame unchanged,
+  rather than a version with factors and dates converted to strings. This is the
+  documented behavior (@jesse-ross, #975).
+* `read_delimited()` no longer mistakenly stats literal filenames (#1063)
+
+* The full problem field is now displayed in the problems tibble, as intended
+  (#444).
+
+* `guess_parser()` gains a `na` argument and removes NA values before guessing.
+  `parse_guess()` now passes the `na` argument to `guess_parser()` (#1041).
+
+* New `%h` placeholder for parsing unrestricted hours (<0 and >23) to support parsing durations (#549, @krlmlr).
+
+* Uses of `tibble::data_frame` updated to `tibble::tibble`
+([tidyverse/dplyr#4069](https://github.com/tidyverse/dplyr/issues/4069),
+@thays42)
+
+* `read_delimited()` function return an empty `tibble::data_frame()` rather
+  than signaling an error when given a connection for the `file` argument that
+  contains no data. This makes the behavior consistent as when called with an
+  empty file (@pralitp, #963).
+
+* It is now possible to generate a column specification from any tibble (or
+  data.frame) with `as.col_spec()` and convert any column specification to a
+  short representation with `as.character()`
+
+    s <- as.col_spec(iris)
+    s
+    #> cols(
+    #>   Sepal.Length = col_double(),
+    #>   Sepal.Width = col_double(),
+    #>   Petal.Length = col_double(),
+    #>   Petal.Width = col_double(),
+    #>   Species = col_factor(levels = c("setosa", "versicolor", "virginica"), ordered = FALSE, include_na = FALSE)
+    #> )
+    as.character(s)
+    #> [1] "ddddf"
+
+* More helpful error when trying to write out data frames with list columns (@ellessenne, #938)
+
+* `type_convert()` removes a 'spec' attribute, because the current columns likely have modified data types.  The 'spec' attribute is set by functions like `read_delim()` (@jimhester, @wibeasley, #1032).
+
+* `write_rds()` now can specify the Rds version to use. The default value is
+  2 as it's compatible to R versions prior to 3.5.0 (@shrektan, #1001).
+
 # readr 1.3.1
 
 * Column specifications are now coloured when printed. This makes it easy to
@@ -156,13 +220,13 @@ Future improvements to readr would allow it to parse data from connections in a 
 
 ## Bug Fixes
 
-* `standardise_path()` now uses a case-insentitive comparison for the file extensions (#794).
+* `standardise_path()` now uses a case-insensitive comparison for the file extensions (#794).
 * `parse_guess()` now guesses logical types when given (lowercase) 'true' and 'false' inputs (#818).
 * `read_*()` now do not print a progress bar when running inside a RStudio notebook chunk (#793)
 * `read_table2()` now skips comments anywhere in the file (#908).
 * `parse_factor()` now handles the case of empty strings separately, so you can
   have a factor level that is an empty string (#864).
-* `read_delim()` now correctly reads quoted headers with embeded newlines (#784).
+* `read_delim()` now correctly reads quoted headers with embedded newlines (#784).
 * `fwf_positions()` now always returns `col_names` as a character (#797).
 * `format_*()` now explicitly marks it's output encoding as UTF-8 (#697).
 * `read_delim()` now ignores whitespace between the delimiter and quoted fields (#668).
@@ -299,7 +363,7 @@ We have made a number of improvements to the reification of the `col_types`, `co
 * If `col_names` is too short, the added names are numbered correctly 
   (#374, @jennybc).
   
-* Missing colum name names are now given a default name (`X2`, `X7` etc) (#318).
+* Missing column name names are now given a default name (`X2`, `X7` etc) (#318).
   Duplicated column names are now deduplicated. Both changes generate a warning;
   to suppress it supply an explicit `col_names` (setting `skip = 1` if there's
   an existing ill-formed header).
@@ -591,7 +655,7 @@ As well as improvements to the parser, I've also made a number of tweaks to the 
 * `type_convert()` gains `NA` and `trim_ws` arguments, and removes missing
   values before determining column types.
 
-* `write_csv()`, `write_delim()`, and `write_rds()` all invisably return their
+* `write_csv()`, `write_delim()`, and `write_rds()` all invisibly return their
   input so you can use them in a pipe (#290).
 
 * `write_delim()` generalises `write_csv()` to write any delimited format (#135).

@@ -4,8 +4,13 @@
 \alias{type_convert}
 \title{Re-convert character columns in existing data frame}
 \usage{
-type_convert(df, col_types = NULL, na = c("", "NA"), trim_ws = TRUE,
-  locale = default_locale())
+type_convert(
+  df,
+  col_types = NULL,
+  na = c("", "NA"),
+  trim_ws = TRUE,
+  locale = default_locale()
+)
 }
 \arguments{
 \item{df}{A data frame.}
@@ -32,6 +37,11 @@ This is useful if you need to do some manual munging - you can read the
 columns in as character, clean it up with (e.g.) regular expressions and
 then let readr take another stab at parsing it. The name is a homage to
 the base \code{\link[utils:type.convert]{utils::type.convert()}}.
+}
+\note{
+\code{type_convert()} removes a 'spec' attribute,
+because it likely modifies the column data types.
+(see \code{\link[=spec]{spec()}} for more information about column specifications).
 }
 \examples{
 df <- data.frame(

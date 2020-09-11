@@ -1,11 +1,16 @@
 #include "Reader.h"
 
+#include "cpp11/function.hpp"
+#include "cpp11/list.hpp"
+
+#include <sstream>
+
 Reader::Reader(
     SourcePtr source,
     TokenizerPtr tokenizer,
     std::vector<CollectorPtr> collectors,
     bool progress,
-    CharacterVector colNames)
+    cpp11::strings colNames)
     : source_(source),
       tokenizer_(tokenizer),
       collectors_(collectors),
@@ -19,7 +24,7 @@ Reader::Reader(
     TokenizerPtr tokenizer,
     CollectorPtr collector,
     bool progress,
-    CharacterVector colNames)
+    cpp11::strings colNames)
     : source_(source),
       tokenizer_(tokenizer),
       progress_(progress),
@@ -29,7 +34,7 @@ Reader::Reader(
   init(colNames);
 }
 
-void Reader::init(CharacterVector colNames) {
+void Reader::init(cpp11::strings colNames) {
   tokenizer_->tokenize(source_->begin(), source_->end());
   tokenizer_->setWarnings(&warnings_);
 
@@ -44,7 +49,7 @@ void Reader::init(CharacterVector colNames) {
   }
 
   if (colNames.size() > 0) {
-    outNames_ = CharacterVector(keptColumns_.size());
+    outNames_ = cpp11::writable::strings(keptColumns_.size());
     int i = 0;
     for (std::vector<int>::const_iterator it = keptColumns_.begin();
          it != keptColumns_.end();
@@ -54,11 +59,11 @@ void Reader::init(CharacterVector colNames) {
   }
 }
 
-RObject Reader::readToDataFrame(int lines) {
+cpp11::sexp Reader::readToDataFrame(int lines) {
   int rows = read(lines);
 
   // Save individual columns into a data frame
-  List out(outNames_.size());
+  cpp11::writable::list out(outNames_.size());
   int j = 0;
   for (std::vector<int>::const_iterator it = keptColumns_.begin();
        it != keptColumns_.end();
@@ -66,19 +71,18 @@ RObject Reader::readToDataFrame(int lines) {
     out[j++] = collectors_[*it]->vector();
   }
 
-  out.attr("names") = outNames_;
-  out.attr("class") =
-      CharacterVector::create("spec_tbl_df", "tbl_df", "tbl", "data.frame");
-  out.attr("row.names") = IntegerVector::create(NA_INTEGER, -(rows + 1));
+  cpp11::sexp out2(warnings_.addAsAttribute(static_cast<SEXP>(out)));
 
-  out = warnings_.addAsAttribute(out);
+  out2.attr("names") = outNames_;
+  out2.attr("class") = {"spec_tbl_df", "tbl_df", "tbl", "data.frame"};
+  out2.attr("row.names") = {NA_INTEGER, -(rows + 1)};
 
   collectorsClear();
   warnings_.clear();
 
   // TODO: call tibble name repair function when tibble 1.5.0 is released.
 
-  return out;
+  return out2;
 }
 
 int Reader::read(int lines) {
@@ -156,8 +160,12 @@ void Reader::checkColumns(int i, int j, int n) {
   if (j + 1 == n)
     return;
 
-  warnings_.addWarning(
-      i, -1, tfm::format("%i columns", n), tfm::format("%i columns", j + 1));
+  std::stringstream ss1;
+  ss1 << n << " columns";
+
+  std::stringstream ss2;
+  ss2 << j + 1 << " columns";
+  warnings_.addWarning(i, -1, ss1.str(), ss2.str());
 }
 
 void Reader::collectorsResize(int n) {
@@ -172,30 +180,29 @@ void Reader::collectorsClear() {
   }
 }
 
-RObject Reader::meltToDataFrame(List locale_, int lines) {
+cpp11::sexp Reader::meltToDataFrame(cpp11::list locale_, int lines) {
   melt(locale_, lines);
 
   // Save individual columns into a data frame
-  List out(4);
+  cpp11::writable::list out(4);
   out[0] = collectors_[0]->vector();
   out[1] = collectors_[1]->vector();
   out[2] = collectors_[2]->vector();
   out[3] = collectors_[3]->vector();
 
-  out.attr("names") =
-      CharacterVector::create("row", "col", "data_type", "value");
-  out = warnings_.addAsAttribute(out);
+  out.attr("names") = {"row", "col", "data_type", "value"};
+  cpp11::sexp out2(warnings_.addAsAttribute(static_cast<SEXP>(out)));
 
   collectorsClear();
   warnings_.clear();
 
-  out.attr("names") =
-      CharacterVector::create("row", "col", "data_type", "value");
-  static Function as_tibble("as_tibble", Environment::namespace_env("tibble"));
+  out.attr("names") = {"row", "col", "data_type", "value"};
+
+  static cpp11::function as_tibble = cpp11::package("tibble")["as_tibble"];
   return as_tibble(out);
 }
 
-int Reader::melt(List locale_, int lines) {
+int Reader::melt(cpp11::list locale_, int lines) {
 
   if (t_.type() == TOKEN_EOF) {
     return (-1);
@@ -239,8 +246,9 @@ int Reader::melt(List locale_, int lines) {
 
     switch (t_.type()) {
     case TOKEN_STRING: {
+      cpp11::sexp str(cpp11::as_sexp(t_.asString()));
       collectors_[2]->setValue(
-          cells - 1, collectorGuess(t_.asString(), locale_, true));
+          cells - 1, collectorGuess(SEXP(str), locale_, true));
       break;
     };
     case TOKEN_MISSING:
@@ -250,7 +258,7 @@ int Reader::melt(List locale_, int lines) {
       collectors_[2]->setValue(cells - 1, "empty");
       break;
     case TOKEN_EOF:
-      Rcpp::stop("Invalid token");
+      cpp11::stop("Invalid token");
     }
 
     last_row = t_.row();

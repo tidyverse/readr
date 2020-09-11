@@ -4,7 +4,7 @@
 \alias{output_column}
 \title{Preprocess column for output}
 \usage{
-output_column(x)
+output_column(x, name)
 }
 \arguments{
 \item{x}{A vector}
@@ -14,8 +14,7 @@ This is a generic function that applied to each column before it is saved
 to disk. It provides a hook for S3 classes that need special handling.
 }
 \examples{
-# Most columns are left as is, but POSIXct are
-# converted to ISO8601.
+# Most columns are not altered, but POSIXct are converted to ISO8601.
 x <- parse_datetime("2016-01-01")
 str(output_column(x))
 }

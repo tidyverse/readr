@@ -40,10 +40,10 @@ melt_fwf <- function(file, col_positions,
                      skip_empty_rows = FALSE) {
   ds <- datasource(file, skip = skip, skip_empty_rows = skip_empty_rows)
   if (inherits(ds, "source_file") && empty_file(file)) {
-       return(tibble::data_frame(row = double(), col = double(),
-                                 data_type = character(), value = character()))
+       return(tibble::tibble(row = double(), col = double(),
+                             data_type = character(), value = character()))
   }
-  tokenizer <- tokenizer_fwf(col_positions$begin, col_positions$end, na = na,
+  tokenizer <- tokenizer_fwf(as.integer(col_positions$begin), as.integer(col_positions$end), na = na,
                              comment = comment, trim_ws = trim_ws,
                              skip_empty_rows = skip_empty_rows)
   out <- melt_tokens(ds, tokenizer, locale_ = locale,

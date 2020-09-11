@@ -10,7 +10,7 @@ cols(..., .default = col_guess())
 cols_only(...)
 }
 \arguments{
-\item{...}{Either column objects created by \code{col_*()}, or their abbreviated
+\item{...}{Either column objects created by \verb{col_*()}, or their abbreviated
 character names (as described in the \code{col_types} argument of
 \code{\link[=read_delim]{read_delim()}}). If you're only overriding a few columns, it's
 best to refer to columns by name. If not named, the column types must match
@@ -63,10 +63,14 @@ t3$cols <- c(t1$cols, t2$cols)
 t3
 }
 \seealso{
-Other parsers: \code{\link{col_skip}},
-  \code{\link{cols_condense}},
-  \code{\link{parse_datetime}}, \code{\link{parse_factor}},
-  \code{\link{parse_guess}}, \code{\link{parse_logical}},
-  \code{\link{parse_number}}, \code{\link{parse_vector}}
+Other parsers: 
+\code{\link{col_skip}()},
+\code{\link{cols_condense}()},
+\code{\link{parse_datetime}()},
+\code{\link{parse_factor}()},
+\code{\link{parse_guess}()},
+\code{\link{parse_logical}()},
+\code{\link{parse_number}()},
+\code{\link{parse_vector}()}
 }
 \concept{parsers}

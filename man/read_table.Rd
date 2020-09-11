@@ -5,23 +5,41 @@
 \alias{read_table2}
 \title{Read whitespace-separated columns into a tibble}
 \usage{
-read_table(file, col_names = TRUE, col_types = NULL,
-  locale = default_locale(), na = "NA", skip = 0, n_max = Inf,
-  guess_max = min(n_max, 1000), progress = show_progress(),
-  comment = "", skip_empty_rows = TRUE)
+read_table(
+  file,
+  col_names = TRUE,
+  col_types = NULL,
+  locale = default_locale(),
+  na = "NA",
+  skip = 0,
+  n_max = Inf,
+  guess_max = min(n_max, 1000),
+  progress = show_progress(),
+  comment = "",
+  skip_empty_rows = TRUE
+)
 
-read_table2(file, col_names = TRUE, col_types = NULL,
-  locale = default_locale(), na = "NA", skip = 0, n_max = Inf,
-  guess_max = min(n_max, 1000), progress = show_progress(),
-  comment = "", skip_empty_rows = TRUE)
+read_table2(
+  file,
+  col_names = TRUE,
+  col_types = NULL,
+  locale = default_locale(),
+  na = "NA",
+  skip = 0,
+  n_max = Inf,
+  guess_max = min(n_max, 1000),
+  progress = show_progress(),
+  comment = "",
+  skip_empty_rows = TRUE
+)
 }
 \arguments{
 \item{file}{Either a path to a file, a connection, or literal data
 (either a single string or a raw vector).
 
 Files ending in \code{.gz}, \code{.bz2}, \code{.xz}, or \code{.zip} will
-be automatically uncompressed. Files starting with \code{http://},
-\code{https://}, \code{ftp://}, or \code{ftps://} will be automatically
+be automatically uncompressed. Files starting with \verb{http://},
+\verb{https://}, \verb{ftp://}, or \verb{ftps://} will be automatically
 downloaded. Remote gz files can also be automatically downloaded and
 decompressed.
 
@@ -44,7 +62,7 @@ the first row of the output data frame.
 
 Missing (\code{NA}) column names will generate a warning, and be filled
 in with dummy names \code{X1}, \code{X2} etc. Duplicate column names
-will generate a warning and be made unique with a numeric prefix.}
+will generate a warning and be made unique with a numeric suffix.}
 
 \item{col_types}{One of \code{NULL}, a \code{\link[=cols]{cols()}} specification, or
 a string. See \code{vignette("readr")} for more details.
@@ -59,9 +77,23 @@ subset of the columns, use \code{\link[=cols_only]{cols_only()}}.
 
 Alternatively, you can use a compact string representation where each
 character represents one column:
-c = character, i = integer, n = number, d = double,
-l = logical, f = factor, D = date, T = date time, t = time, ? = guess, or
-\code{_}/\code{-} to skip the column.}
+\itemize{
+\item c = character
+\item i = integer
+\item n = number
+\item d = double
+\item l = logical
+\item f = factor
+\item D = date
+\item T = date time
+\item t = time
+\item ? = guess
+\item _ or - = skip
+
+By default, reading a file without a column specification will print a
+message showing what \code{readr} guessed they were. To remove this message,
+use \code{col_types = cols()}.
+}}
 
 \item{locale}{The locale controls defaults that vary from place to place.
 The default locale is US-centric (like R), but you can use

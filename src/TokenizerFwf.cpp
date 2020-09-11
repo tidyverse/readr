@@ -1,10 +1,13 @@
-#include <Rcpp.h>
-using namespace Rcpp;
+#include "cpp11/list.hpp"
+#include "cpp11/protect.hpp"
 
-#include "Source.h"
 #include "Tokenizer.h"
 #include "TokenizerFwf.h"
 #include "utils.h"
+
+#include "Source.h"
+
+#include <sstream>
 
 struct skip_t {
   SourceIterator begin;
@@ -24,7 +27,6 @@ skip_t skip_comments(
   int skip = 0;
   boost::iterator_range<const char*> haystack(cur, end);
   while (boost::starts_with(haystack, comment)) {
-    // Rcpp::Rcout << boost::starts_with(haystack, comment);
     // Skip rest of line
     while (cur != end && *cur != '\n' && *cur != '\r') {
       ++cur;
@@ -76,8 +78,8 @@ std::vector<bool> emptyCols_(
   return is_white;
 }
 
-// [[Rcpp::export]]
-List whitespaceColumns(List sourceSpec, int n = 100, std::string comment = "") {
+[[cpp11::register]] cpp11::list
+whitespaceColumns(cpp11::list sourceSpec, int n, std::string comment) {
   SourcePtr source = Source::create(sourceSpec);
 
   skip_t s = skip_comments(source->begin(), source->end(), comment);
@@ -100,13 +102,14 @@ List whitespaceColumns(List sourceSpec, int n = 100, std::string comment = "") {
   if (in_col)
     end.push_back(empty.size());
 
-  return List::create(_["begin"] = begin, _["end"] = end, _["skip"] = s.lines);
+  using namespace cpp11::literals;
+  return cpp11::writable::list(
+      {"begin"_nm = begin, "end"_nm = end, "skip"_nm = s.lines});
 }
 
-  // TokenizerFwf --------------------------------------------------------------
+// TokenizerFwf --------------------------------------------------------------
 
 #include "TokenizerFwf.h"
-#include <Rcpp.h>
 
 TokenizerFwf::TokenizerFwf(
     const std::vector<int>& beginOffset,
@@ -125,13 +128,13 @@ TokenizerFwf::TokenizerFwf(
       trimWS_(trimWS),
       skipEmptyRows_(skipEmptyRows) {
   if (beginOffset_.size() != endOffset_.size())
-    Rcpp::stop(
+    cpp11::stop(
         "Begin (%i) and end (%i) specifications must have equal length",
         beginOffset_.size(),
         endOffset_.size());
 
   if (beginOffset_.size() == 0)
-    Rcpp::stop("Zero-length begin and end specifications not supported");
+    cpp11::stop("Zero-length begin and end specifications not supported");
 
   // File is assumed to be ragged (last column can have variable width)
   // when the last element of endOffset_ is NA
@@ -140,16 +143,16 @@ TokenizerFwf::TokenizerFwf(
   max_ = 0;
   for (int j = 0; j < (cols_ - isRagged_); ++j) {
     if (endOffset_[j] <= beginOffset_[j])
-      Rcpp::stop(
+      cpp11::stop(
           "Begin offset (%i) must be smaller than end offset (%i)",
           beginOffset_[j],
           endOffset_[j]);
 
     if (beginOffset_[j] < 0)
-      Rcpp::stop("Begin offset (%i) must be greater than 0", beginOffset_[j]);
+      cpp11::stop("Begin offset (%i) must be greater than 0", beginOffset_[j]);
 
     if (endOffset_[j] < 0)
-      Rcpp::stop("End offset (%i) must be greater than 0", endOffset_[j]);
+      cpp11::stop("End offset (%i) must be greater than 0", endOffset_[j]);
 
     if (endOffset_[j] > max_) {
       max_ = endOffset_[j];
@@ -204,11 +207,11 @@ findBeginning:
         break;
 
       if (*fieldBegin == '\n' || *fieldBegin == '\r') {
-        warn(
-            row_,
-            col_,
-            tfm::format("%i chars between fields", skip),
-            tfm::format("%i chars until end of line", i));
+        std::stringstream ss1;
+        ss1 << skip << " chars betwen fields";
+        std::stringstream ss2;
+        ss2 << skip << " chars until end of line";
+        warn(row_, col_, ss1.str(), ss2.str());
 
         row_++;
         col_ = 0;
@@ -245,9 +248,13 @@ findBeginning:
     // Find the end of the field, stopping for newlines
     for (int i = 0; i < width; ++i) {
       if (fieldEnd == end_ || *fieldEnd == '\n' || *fieldEnd == '\r') {
-        if (!(col_ == 0 && !skipEmptyRows_))
-          warn(
-              row_, col_, tfm::format("%i chars", width), tfm::format("%i", i));
+        if (!(col_ == 0 && !skipEmptyRows_)) {
+          std::stringstream ss1;
+          ss1 << i << " chars";
+          std::stringstream ss2;
+          ss2 << i;
+          warn(row_, col_, ss1.str(), ss2.str());
+        }
 
         tooShort = true;
         break;

@@ -5,8 +5,7 @@
 \alias{col_number}
 \title{Parse numbers, flexibly}
 \usage{
-parse_number(x, na = c("", "NA"), locale = default_locale(),
-  trim_ws = TRUE)
+parse_number(x, na = c("", "NA"), locale = default_locale(), trim_ws = TRUE)
 
 col_number()
 }
@@ -33,14 +32,29 @@ This drops any non-numeric characters before or after the first number.
 The grouping mark specified by the locale is ignored inside the number.
 }
 \examples{
-parse_number("$1000")
-parse_number("1,234,567.78")
+## These all return 1000
+parse_number("$1,000")     ## leading $ and grouping character , ignored
+parse_number("euro1,000")  ## leading non-numeric euro ignored
+
+parse_number("1,234.56")
+## explicit locale specifying European grouping and decimal marks
+parse_number("1.234,56", locale = locale(decimal_mark = ",", grouping_mark = "."))
+## SI/ISO 31-0 standard spaces for number grouping
+parse_number("1 234.56", locale = locale(decimal_mark = ".", grouping_mark = " "))
+
+## Specifying strings for NAs
+parse_number(c("1", "2", "3", "NA"))
+parse_number(c("1", "2", "3", "NA", "Nothing"), na = c("NA", "Nothing"))
 }
 \seealso{
-Other parsers: \code{\link{col_skip}},
-  \code{\link{cols_condense}}, \code{\link{cols}},
-  \code{\link{parse_datetime}}, \code{\link{parse_factor}},
-  \code{\link{parse_guess}}, \code{\link{parse_logical}},
-  \code{\link{parse_vector}}
+Other parsers: 
+\code{\link{col_skip}()},
+\code{\link{cols_condense}()},
+\code{\link{cols}()},
+\code{\link{parse_datetime}()},
+\code{\link{parse_factor}()},
+\code{\link{parse_guess}()},
+\code{\link{parse_logical}()},
+\code{\link{parse_vector}()}
 }
 \concept{parsers}

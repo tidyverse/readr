@@ -100,7 +100,7 @@ parse_datetime("02/02/15", "%m/%d/%y")
 
 ### Factors
 
-When reading a column that has a known set of values, you can read directly into a factor. `parse_factor()` will generate generate a warning if a value is not in the supplied levels.
+When reading a column that has a known set of values, you can read directly into a factor. `parse_factor()` will generate a warning if a value is not in the supplied levels.
  
 ```{r}
 parse_factor(c("a", "b", "a"), levels = c("a", "b", "c"))
@@ -122,10 +122,10 @@ The guessing policies are described in the documentation for the individual func
 
 ```{r}
 guess_parser("$1,234")
-parse_number("1,234")
+parse_number("$1,234")
 ``` 
 
-The are two parsers that will never be guessed: `col_skip()` and `col_factor()`. You will always need to supply these explicitly.
+There are two parsers that will never be guessed: `col_skip()` and `col_factor()`. You will always need to supply these explicitly.
 
 You can see the specification that readr would generate for a column file by using `spec_csv()`, `spec_tsv()` and so on:
 
@@ -217,7 +217,7 @@ In general, it's good practice to supply an explicit column specification. It is
 
 ### Available column specifications
 
-#' The available specifications are: (with string abbreviations in brackets)
+The available specifications are: (with string abbreviations in brackets)
 
 * `col_logical()` [l], containing only `T`, `F`, `TRUE` or `FALSE`.
 * `col_integer()` [i], integers.
@@ -232,11 +232,14 @@ In general, it's good practice to supply an explicit column specification. It is
 * `col_guess()` [?], parse using the "best" type based on the input.
 
 Use the `col_types` argument to override the default choices. There are two ways to use it:
+
 * With a string: `"dc__d"`: read first column as double, second as character,
   skip the next two and read the last column as a double. (There's no way to
   use this form with types that take additional parameters.)
+  
 * With a (named) list of col objects:
-    ```R
+
+    ```r
     read_csv("iris.csv", col_types = cols(
       Sepal.Length = col_double(),
       Sepal.Width = col_double(),
@@ -245,8 +248,10 @@ Use the `col_types` argument to override the default choices. There are two ways
       Species = col_factor(c("setosa", "versicolor", "virginica"))
     ))
     ```
-    Or, with their abbreviations:
-    ```R
+    
+  Or, with their abbreviations:
+    
+    ```r
       read_csv("iris.csv", col_types = cols(
       Sepal.Length = "d",
       Sepal.Width = "d",
@@ -255,27 +260,33 @@ Use the `col_types` argument to override the default choices. There are two ways
       Species = col_factor(c("setosa", "versicolor", "virginica"))
     ))
     ```
-    Any omitted columns will be parsed automatically, so the previous call
-    will lead to the same result as:
-    ```R
-    read_csv("iris.csv", col_types = cols(
-      Species = col_factor(c("setosa", "versicolor", "virginica")))
-    )
-    ```
-    You can also set a default type that will be used instead of
-    relying on the automatic detection for columns you don't specify:
-    ```R
-    read_csv("iris.csv", col_types = cols(
-      Species = col_factor(c("setosa", "versicolor", "virginica")),
-      .default = col_double())
-    )
-    ```
-    If you only want to read specified columns, use `cols_only()`:
-    ```R
-    read_csv("iris.csv", col_types = cols_only(
-      Species = col_factor(c("setosa", "versicolor", "virginica")))
-    )
-    ```
+    
+Any omitted columns will be parsed automatically, so the previous call
+will lead to the same result as:
+
+```r
+read_csv("iris.csv", col_types = cols(
+  Species = col_factor(c("setosa", "versicolor", "virginica")))
+)
+```
+
+You can also set a default type that will be used instead of
+relying on the automatic detection for columns you don't specify:
+
+```r
+read_csv("iris.csv", col_types = cols(
+  Species = col_factor(c("setosa", "versicolor", "virginica")),
+  .default = col_double())
+)
+```
+
+If you only want to read specified columns, use `cols_only()`:
+
+```r
+read_csv("iris.csv", col_types = cols_only(
+  Species = col_factor(c("setosa", "versicolor", "virginica")))
+)
+```
 
 ### Output
 

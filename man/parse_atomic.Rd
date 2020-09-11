@@ -11,17 +11,13 @@
 \alias{col_character}
 \title{Parse logicals, integers, and reals}
 \usage{
-parse_logical(x, na = c("", "NA"), locale = default_locale(),
-  trim_ws = TRUE)
+parse_logical(x, na = c("", "NA"), locale = default_locale(), trim_ws = TRUE)
 
-parse_integer(x, na = c("", "NA"), locale = default_locale(),
-  trim_ws = TRUE)
+parse_integer(x, na = c("", "NA"), locale = default_locale(), trim_ws = TRUE)
 
-parse_double(x, na = c("", "NA"), locale = default_locale(),
-  trim_ws = TRUE)
+parse_double(x, na = c("", "NA"), locale = default_locale(), trim_ws = TRUE)
 
-parse_character(x, na = c("", "NA"), locale = default_locale(),
-  trim_ws = TRUE)
+parse_character(x, na = c("", "NA"), locale = default_locale(), trim_ws = TRUE)
 
 col_logical()
 
@@ -47,8 +43,8 @@ names.}
 each field before parsing it?}
 }
 \description{
-Use \code{parse_*()} if you have a character vector you want to parse. Use
-\code{col_*()} in conjunction with a \code{read_*()} function to parse the
+Use \verb{parse_*()} if you have a character vector you want to parse. Use
+\verb{col_*()} in conjunction with a \verb{read_*()} function to parse the
 values as they're read in.
 }
 \examples{
@@ -67,10 +63,14 @@ parse_double(x)
 parse_double(x, na = "-")
 }
 \seealso{
-Other parsers: \code{\link{col_skip}},
-  \code{\link{cols_condense}}, \code{\link{cols}},
-  \code{\link{parse_datetime}}, \code{\link{parse_factor}},
-  \code{\link{parse_guess}}, \code{\link{parse_number}},
-  \code{\link{parse_vector}}
+Other parsers: 
+\code{\link{col_skip}()},
+\code{\link{cols_condense}()},
+\code{\link{cols}()},
+\code{\link{parse_datetime}()},
+\code{\link{parse_factor}()},
+\code{\link{parse_guess}()},
+\code{\link{parse_number}()},
+\code{\link{parse_vector}()}
 }
 \concept{parsers}

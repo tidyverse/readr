@@ -38,3 +38,10 @@ test_that("problems returns the filename (#581)", {
   expect_equal(length(files), 28L)
   expect_equal("mtcars.csv'", basename(files)[[1L]])
 })
+
+test_that("problems returns full original field (#444)", {
+  probs <- problems(read_tsv("X\n-$12,500\n$2,000\n-$5,000\n$1,000\n-$3,000\n", col_types = list(.default = col_number())))
+
+  expect_equal(NROW(probs), 3)
+  expect_equal(probs$actual, c("-$12,500", "-$5,000", "-$3,000"))
+})

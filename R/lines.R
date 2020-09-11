@@ -12,6 +12,7 @@
 #'   file will be read.
 #' @return `read_lines()`: A character vector with one element for each line.
 #'   `read_lines_raw()`: A list containing a raw vector for each line.
+#' @param x A character vector or list of raw vectors to write to disk.
 #' @param sep The line separator. Defaults to `\\n`, commonly used on POSIX
 #' systems like macOS and linux. For native windows (CRLF) separators use
 #' `\\r\\n`.

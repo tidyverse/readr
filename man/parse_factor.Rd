@@ -5,8 +5,15 @@
 \alias{col_factor}
 \title{Parse factors}
 \usage{
-parse_factor(x, levels = NULL, ordered = FALSE, na = c("", "NA"),
-  locale = default_locale(), include_na = TRUE, trim_ws = TRUE)
+parse_factor(
+  x,
+  levels = NULL,
+  ordered = FALSE,
+  na = c("", "NA"),
+  locale = default_locale(),
+  include_na = TRUE,
+  trim_ws = TRUE
+)
 
 col_factor(levels = NULL, ordered = FALSE, include_na = FALSE)
 }
@@ -53,10 +60,14 @@ x2 <- parse_factor(x, levels)
 x2 <- parse_factor(x, levels = NULL)
 }
 \seealso{
-Other parsers: \code{\link{col_skip}},
-  \code{\link{cols_condense}}, \code{\link{cols}},
-  \code{\link{parse_datetime}}, \code{\link{parse_guess}},
-  \code{\link{parse_logical}}, \code{\link{parse_number}},
-  \code{\link{parse_vector}}
+Other parsers: 
+\code{\link{col_skip}()},
+\code{\link{cols_condense}()},
+\code{\link{cols}()},
+\code{\link{parse_datetime}()},
+\code{\link{parse_guess}()},
+\code{\link{parse_logical}()},
+\code{\link{parse_number}()},
+\code{\link{parse_vector}()}
 }
 \concept{parsers}

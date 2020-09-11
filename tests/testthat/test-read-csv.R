@@ -203,14 +203,14 @@ test_that("comments are ignored regardless of where they appear", {
   expect_warning(out6 <- read_csv("x1,x2,x3\nA2,B2,C2\nA3,#B2,C2\nA4,A5,A6", comment = "#", progress = FALSE))
   expect_warning(out7 <- read_csv("x1,x2,x3\nA2,B2,C2\nA3,#B2,C2\n#comment\nA4,A5,A6", comment = "#", progress = FALSE))
 
-  chk <- tibble::data_frame(
+  chk <- tibble::tibble(
     x1 = c("A2", "A3", "A4"),
     x2 = c("B2", NA_character_, "A5"),
     x3 = c("C2", NA_character_, "A6"))
 
-  expect_true(all.equal(chk, out5))
-  expect_true(all.equal(chk, out6))
-  expect_true(all.equal(chk, out7))
+  expect_true(all.equal(chk, out5, check.attributes = FALSE))
+  expect_true(all.equal(chk, out6, check.attributes = FALSE))
+  expect_true(all.equal(chk, out7, check.attributes = FALSE))
 })
 
 test_that("escaped/quoted comments are ignored", {
@@ -258,7 +258,7 @@ test_that("skip respects newlines", {
 })
 
 test_that("read_csv returns an empty data.frame on an empty file", {
-   expect_true(all.equal(read_csv("empty-file", progress = FALSE), tibble::data_frame()))
+   expect_true(all.equal(read_csv("empty-file", progress = FALSE), tibble::tibble()))
 })
 
 test_that("read_delim errors on length 0 delimiter (557)", {

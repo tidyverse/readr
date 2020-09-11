@@ -5,9 +5,16 @@
 \alias{default_locale}
 \title{Create locales}
 \usage{
-locale(date_names = "en", date_format = "\%AD", time_format = "\%AT",
-  decimal_mark = ".", grouping_mark = ",", tz = "UTC",
-  encoding = "UTF-8", asciify = FALSE)
+locale(
+  date_names = "en",
+  date_format = "\%AD",
+  time_format = "\%AT",
+  decimal_mark = ".",
+  grouping_mark = ",",
+  tz = "UTC",
+  encoding = "UTF-8",
+  asciify = FALSE
+)
 
 default_locale()
 }
@@ -19,7 +26,7 @@ or an object created by \code{\link[=date_names]{date_names()}}.}
 \item{date_format, time_format}{Default date and time formats.}
 
 \item{decimal_mark, grouping_mark}{Symbols used to indicate the decimal
-place, and to chunk larger numbers. Decimal mark can only be \code{,} or
+place, and to chunk larger numbers. Decimal mark can only be \verb{,} or
 \code{.}.}
 
 \item{tz}{Default tz. This is used both for input (if the time zone isn't

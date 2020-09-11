@@ -158,7 +158,7 @@ If your dates are in another format, don't despair. You can use `col_date()` and
 
 * Time zone: `\%Z` (as name, e.g. `America/Chicago`), `\%z` (as offset from UTC, e.g. `+0800`)
 
-* Non-digits: `\%.` skips one non-digit charcater, `\%*` skips any number of non-digit characters.
+* Non-digits: `\%.` skips one non-digit character, `\%*` skips any number of non-digit characters.
 
 * Shortcuts: `\%D` = `\%m/\%d/\%y`,  `\%F` = `\%Y-\%m-\%d`, `\%R` = `\%H:\%M`, `\%T` = `\%H:\%M:\%S`, `\%x` = `\%y/\%m/\%d`.
 

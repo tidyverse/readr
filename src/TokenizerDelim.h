@@ -1,10 +1,10 @@
 #ifndef FASTREAD_TOKENIZEDELIM_H_
 #define FASTREAD_TOKENIZEDELIM_H_
+#include "cpp11/R.hpp"
 
 #include "Token.h"
 #include "Tokenizer.h"
 #include "utils.h"
-#include <Rcpp.h>
 
 enum DelimState {
   STATE_DELIM,

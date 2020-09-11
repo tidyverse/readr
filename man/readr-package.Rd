@@ -6,12 +6,12 @@
 \alias{readr-package}
 \title{readr: Read Rectangular Text Data}
 \description{
-\if{html}{\figure{logo.png}{options: align='right'}}
+\if{html}{\figure{logo.png}{options: align='right' alt='logo' width='120'}}
 
-The goal of 'readr' is to provide a fast and friendly way to read
-    rectangular data (like 'csv', 'tsv', and 'fwf'). It is designed to flexibly
-    parse many types of data found in the wild, while still cleanly failing when
-    data unexpectedly changes.
+The goal of 'readr' is to provide a fast and
+    friendly way to read rectangular data (like 'csv', 'tsv', and 'fwf').
+    It is designed to flexibly parse many types of data found in the wild,
+    while still cleanly failing when data unexpectedly changes.
 }
 \seealso{
 Useful links:
@@ -28,11 +28,11 @@ Useful links:
 Authors:
 \itemize{
   \item Hadley Wickham \email{hadley@rstudio.com}
-  \item Romain Francois
 }
 
 Other contributors:
 \itemize{
+  \item Romain Francois [contributor]
   \item R Core Team (Date time code adapted from R) [contributor]
   \item RStudio [copyright holder, funder]
   \item Jukka Jylänki (grisu3 implementation) [contributor, copyright holder]

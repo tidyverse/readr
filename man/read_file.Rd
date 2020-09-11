@@ -17,8 +17,8 @@ write_file(x, path, append = FALSE)
 (either a single string or a raw vector).
 
 Files ending in \code{.gz}, \code{.bz2}, \code{.xz}, or \code{.zip} will
-be automatically uncompressed. Files starting with \code{http://},
-\code{https://}, \code{ftp://}, or \code{ftps://} will be automatically
+be automatically uncompressed. Files starting with \verb{http://},
+\verb{https://}, \verb{ftp://}, or \verb{ftps://} will be automatically
 downloaded. Remote gz files can also be automatically downloaded and
 decompressed.
 
@@ -34,12 +34,10 @@ The default locale is US-centric (like R), but you can use
 the default time zone, encoding, decimal mark, big mark, and day/month
 names.}
 
-\item{x}{A data frame to write to disk}
-
-\item{path}{Path or connection to write to.}
+\item{x}{A single string, or a raw vector to write to disk.}
 
 \item{append}{If \code{FALSE}, will overwrite existing file. If \code{TRUE},
-will append to existing file. In both cases, if file does not exist a new
+will append to existing file. In both cases, if the file does not exist a new
 file is created.}
 }
 \value{
