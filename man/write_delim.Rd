@@ -11,7 +11,7 @@
 \usage{
 write_delim(
   x,
-  path,
+  file,
   delim = " ",
   na = "NA",
   append = FALSE,
@@ -22,7 +22,7 @@ write_delim(
 
 write_csv(
   x,
-  path,
+  file,
   na = "NA",
   append = FALSE,
   col_names = !append,
@@ -32,7 +32,7 @@ write_csv(
 
 write_csv2(
   x,
-  path,
+  file,
   na = "NA",
   append = FALSE,
   col_names = !append,
@@ -42,7 +42,7 @@ write_csv2(
 
 write_excel_csv(
   x,
-  path,
+  file,
   na = "NA",
   append = FALSE,
   col_names = !append,
@@ -53,7 +53,7 @@ write_excel_csv(
 
 write_excel_csv2(
   x,
-  path,
+  file,
   na = "NA",
   append = FALSE,
   col_names = !append,
@@ -64,7 +64,7 @@ write_excel_csv2(
 
 write_tsv(
   x,
-  path,
+  file,
   na = "NA",
   append = FALSE,
   col_names = !append,
@@ -75,7 +75,7 @@ write_tsv(
 \arguments{
 \item{x}{A data frame or tibble to write to disk.}
 
-\item{path}{The path or connection to write to.}
+\item{file}{File or connection to write to.}
 
 \item{delim}{Delimiter used to separate values. Defaults to \code{" "} for \code{write_delim()}, \code{","} for \code{write_excel_csv()} and
 \code{";"} for \code{write_excel_csv2()}. Must be a single character.}

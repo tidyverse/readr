@@ -62,8 +62,6 @@ setting option \code{readr.show_progress} to \code{FALSE}.}
 
 \item{x}{A character vector or list of raw vectors to write to disk.}
 
-\item{path}{The path or connection to write to.}
-
 \item{sep}{The line separator. Defaults to \verb{\\\\n}, commonly used on POSIX
 systems like macOS and linux. For native windows (CRLF) separators use
 \verb{\\\\r\\\\n}.}
