@@ -260,7 +260,8 @@ month and "\<!-- %d" matches a 2 digit day. Month and day default to \code{1}, -
 locale), "\<!-- %B" (full name in current locale). --></p></li>
 <li><p>Day: "\<!-- %d" (2 digits), "\\%e" (optional leading space), -->
 "%a" (abbreviated name in current locale).</p></li>
-<li><p>Hour: "\<!-- %H" or "\\%I", use I (and not H) with AM/PM. --></p></li>
+<li><p>Hour: "\<!-- %H" or "\\%I" or "\\%h", use I (and not H) with AM/PM, -->
+use h (and not H) if your times represent durations longer than one day.</p></li>
 <li><p>Minutes: "\<!-- %M" --></p></li>
 <li><p>Seconds: "\<!-- %S" (integer seconds), "\\%OS" (partial seconds) --></p></li>
 <li><p>Time zone: "\<!-- %Z" (as name, e.g. "America/Chicago"), "\\%z" (as -->

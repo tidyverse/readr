@@ -185,6 +185,7 @@
 <li><p><code>read_delimited()</code> no longer mistakenly stats literal filenames (<a href='https://github.com/tidyverse/readr/issues/1063'>#1063</a>)</p></li>
 <li><p>The full problem field is now displayed in the problems tibble, as intended (<a href='https://github.com/tidyverse/readr/issues/444'>#444</a>).</p></li>
 <li><p><code><a href="../reference/parse_guess.html">guess_parser()</a></code> gains a <code>na</code> argument and removes NA values before guessing. <code><a href="../reference/parse_guess.html">parse_guess()</a></code> now passes the <code>na</code> argument to <code><a href="../reference/parse_guess.html">guess_parser()</a></code> (<a href='https://github.com/tidyverse/readr/issues/1041'>#1041</a>).</p></li>
+<li><p>New <code>%h</code> placeholder for parsing unrestricted hours (&lt;0 and &gt;23) to support parsing durations (<a href='https://github.com/tidyverse/readr/issues/549'>#549</a>, <a href='https://github.com/krlmlr'>@krlmlr</a>).</p></li>
 <li><p>Uses of <code><a href="https://tibble.tidyverse.org/reference/deprecated.html">tibble::data_frame</a></code> updated to <code><a href="https://tibble.tidyverse.org/reference/tibble.html">tibble::tibble</a></code> (<a href="https://github.com/tidyverse/dplyr/issues/4069">tidyverse/dplyr<a href='https://github.com/tidyverse/readr/issues/4069'>#4069</a></a>,</p></li>
 </ul>
 <p>@thays42)</p>
