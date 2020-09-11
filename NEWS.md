@@ -5,6 +5,8 @@
 * `write_*()` functions now output any NaN values in the same way as NA values,
   controlled by the `na=` argument. (#1082).
 
+* `write_*()` functions first argument is now `file` instead of `path`, for consistency with the `read_*()` functions. (#1110, @brianrice2)
+
 ## Additional features and fixes
 
 * `write_*()` functions gain a `eol =` argument to control the end of line character used (#857). This allows writing of CSV files with Windows newlines (CRLF) if desired.
