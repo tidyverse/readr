@@ -50,7 +50,10 @@
 #' <http://www.cs.tufts.edu/~nr/cs257/archive/florian-loitsch/printf.pdf>
 #' @export
 #' @examples
-#' \dontshow{.old_wd <- setwd(tempdir())}
+#' \dontshow{
+#' .old_wd <- setwd(tempdir())
+#' }
+#' data(storms, package = "dplyr")
 #' # If only a file name is specified, write_()* will write
 #' # the file to the current working directory.
 #' write_csv(storms, "storms.csv")
@@ -58,7 +61,7 @@
 #'
 #' # If you add an extension to the file name, write_()* will
 #' # automatically compress the output.
-#' write_tsv(storms "storms.tsv.gz")
+#' write_tsv(storms, "storms.tsv.gz")
 #' write_tsv(storms, "storms.tsv.bz2")
 #' write_tsv(storms, "storms.tsv.xz")
 #'
@@ -146,6 +149,7 @@ write_tsv <- function(x, file, na = "NA", append = FALSE, col_names = !append, q
 #' @param x A data frame.
 #' @inherit write_delim references
 #' @examples
+#' data(band_members, package = "dplyr")
 #' # format_()* functions are useful for testing and reprexes
 #' cat(format_csv(band_members))
 #' cat(format_tsv(band_members))

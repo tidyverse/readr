@@ -10,7 +10,7 @@ read_file(file, locale = default_locale())
 
 read_file_raw(file)
 
-write_file(x, path, append = FALSE)
+write_file(x, file, append = FALSE)
 }
 \arguments{
 \item{file}{Either a path to a file, a connection, or literal data

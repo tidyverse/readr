@@ -47,20 +47,20 @@ read_file_raw <- function(file) {
 #' @inherit write_lines
 #' @rdname read_file
 #' @export
-write_file <- function(x, path, append = FALSE) {
-  path <- standardise_path(path, input = FALSE)
-  if (!isOpen(path)) {
-    on.exit(close(path), add = TRUE)
+write_file <- function(x, file, append = FALSE) {
+  file <- standardise_path(file, input = FALSE)
+  if (!isOpen(file)) {
+    on.exit(close(file), add = TRUE)
     if (isTRUE(append)) {
-      open(path, "ab")
+      open(file, "ab")
     } else {
-      open(path, "wb")
+      open(file, "wb")
     }
   }
   if (is.raw(x)) {
-    write_file_raw_(x, path)
+    write_file_raw_(x, file)
   } else {
-    write_file_(x, path)
+    write_file_(x, file)
   }
 
   invisible(x)

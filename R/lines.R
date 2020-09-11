@@ -55,21 +55,21 @@ read_lines_raw <- function(file, skip = 0,
 #' @return `write_lines()` returns `x`, invisibly.
 #' @export
 #' @rdname read_lines
-write_lines <- function(x, path, sep = "\n", na = "NA", append = FALSE) {
+write_lines <- function(x, file, sep = "\n", na = "NA", append = FALSE) {
   is_raw <- is.list(x) && inherits(x[[1]], "raw")
   if (!is_raw) {
     x <- as.character(x)
   }
 
-  path <- standardise_path(path, input = FALSE)
-  if (!isOpen(path)) {
-    on.exit(close(path), add = TRUE)
-    open(path, if (isTRUE(append)) "ab" else "wb")
+  file <- standardise_path(file, input = FALSE)
+  if (!isOpen(file)) {
+    on.exit(close(file), add = TRUE)
+    open(file, if (isTRUE(append)) "ab" else "wb")
   }
   if (is_raw) {
-    write_lines_raw_(x, path, sep)
+    write_lines_raw_(x, file, sep)
   } else {
-    write_lines_(x, path, na, sep)
+    write_lines_(x, file, na, sep)
   }
 
   invisible(x)

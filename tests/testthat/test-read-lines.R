@@ -24,7 +24,7 @@ test_that("blank lines are passed unchanged", {
   on.exit(unlink(tmp))
 
   x <- c("abc", "", "123")
-  write_lines(path = tmp, x)
+  write_lines(file = tmp, x)
   expect_equal(read_lines(tmp), x)
   expect_equal(read_lines(tmp, na = ""), c("abc", NA_character_, "123"))
 })
