@@ -227,20 +227,19 @@ always be quoted.</p></td>
     <tr>
       <th>append</th>
       <td><p>If <code>FALSE</code>, will overwrite existing file. If <code>TRUE</code>,
-will append to existing file. In both cases, if file does not exist a new
+will append to existing file. In both cases, if the file does not exist a new
 file is created.</p></td>
     </tr>
     <tr>
       <th>col_names</th>
-      <td><p>Write columns names at the top of the file? Must be either
-<code>TRUE</code> or <code>FALSE</code>.</p></td>
+      <td><p>If <code>FALSE</code>, column names will not be included at the top of the file. If <code>TRUE</code>,
+column names will be included. If not specified, <code>col_names</code> will take the opposite value given to <code>append</code>.</p></td>
     </tr>
     <tr>
       <th>quote_escape</th>
       <td><p>The type of escaping to use for quoted values, one of
-"double", "backslash" or "none". You can also use <code>FALSE</code>, which is
-equivalent to "none". The default is to double the quotes, which is the
-format excel expects.</p></td>
+<code>"double"</code>, <code>"backslash"</code> or <code>"none"</code>. You can also use <code>FALSE</code>, which is
+equivalent to "none". The default is <code>"double"</code>, which is expected format for Excel.</p></td>
     </tr>
     <tr>
       <th>eol</th>
@@ -256,20 +255,21 @@ Unix style newlines, or <code>"\r\n"</code> for Windows style newlines.</p></td>
 
     
 
-<p>Factors are coerced to character. Doubles are formatted using the grisu3
-algorithm. POSIXct's are formatted as ISO8601 with a UTC timezone <em>Note:
-<code>POSIXct</code> objects in local or non-UTC timezones will be converted to UTC time
-before writing.</em></p>
+<p>Factors are coerced to character. Doubles are formatted to a decimal string
+using the grisu3 algorithm. <code>POSIXct</code> values are formatted as ISO8601 with a
+UTC timezone <em>Note: <code>POSIXct</code> objects in local or non-UTC timezones will be
+converted to UTC time before writing.</em></p>
 <p>All columns are encoded as UTF-8. <code><a href='write_delim.html'>write_excel_csv()</a></code> and <code><a href='write_delim.html'>write_excel_csv2()</a></code> also include a
 <a href='https://en.wikipedia.org/wiki/Byte_order_mark'>UTF-8 Byte order mark</a>
 which indicates to Excel the csv is UTF-8 encoded.</p>
 <p><code><a href='write_delim.html'>write_excel_csv2()</a></code> and <code>write_csv2</code> were created to allow users with
-different locale settings save csv files with their default settings <code>;</code> as
-column separator and <code>,</code> as decimal separator. This is common in some European countries.</p>
-<p>Values are only quoted if needed: if they contain a comma, quote or newline.</p>
-<p>The <code>write_*()</code> functions will automatically compress outputs if an appropriate extension is given. At present, three
-extensions are supported, <code>.gz</code> for gzip compression, <code>.bz2</code> for bzip2 compression and <code>.xz</code> for lzma compression.  See
-the examples for more information.</p>
+different locale settings to save .csv files using their default settings
+(e.g. <code>;</code> as the column separator and <code>,</code> as the decimal separator).
+This is common in some European countries.</p>
+<p>Values are only quoted if they contain a comma, quote or newline.</p>
+<p>The <code>write_*()</code> functions will automatically compress outputs if an appropriate extension is given.
+Three extensions are currently supported: <code>.gz</code> for gzip compression, <code>.bz2</code> for bzip2 compression and
+<code>.xz</code> for lzma compression.  See the examples for more information.</p>
     <h2 class="hasAnchor" id="references"><a class="anchor" href="#references"></a>References</h2>
 
     <p>Florian Loitsch, Printing Floating-Point Numbers Quickly and
@@ -278,27 +278,10 @@ Accurately with Integers, PLDI '10,
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='co'># format_()* functions are useful for testing and reprexes</span>
-<span class='fu'><a href='https://rdrr.io/r/base/cat.html'>cat</a></span>(<span class='fu'>format_csv</span>(<span class='fu'><a href='https://rdrr.io/r/utils/head.html'>head</a></span>(<span class='no'>mtcars</span>)))</div><div class='output co'>#&gt; mpg,cyl,disp,hp,drat,wt,qsec,vs,am,gear,carb
-#&gt; 21,6,160,110,3.9,2.62,16.46,0,1,4,4
-#&gt; 21,6,160,110,3.9,2.875,17.02,0,1,4,4
-#&gt; 22.8,4,108,93,3.85,2.32,18.61,1,1,4,1
-#&gt; 21.4,6,258,110,3.08,3.215,19.44,1,0,3,1
-#&gt; 18.7,8,360,175,3.15,3.44,17.02,0,0,3,2
-#&gt; 18.1,6,225,105,2.76,3.46,20.22,1,0,3,1</div><div class='input'><span class='fu'><a href='https://rdrr.io/r/base/cat.html'>cat</a></span>(<span class='fu'>format_tsv</span>(<span class='fu'><a href='https://rdrr.io/r/utils/head.html'>head</a></span>(<span class='no'>mtcars</span>)))</div><div class='output co'>#&gt; mpg	cyl	disp	hp	drat	wt	qsec	vs	am	gear	carb
-#&gt; 21	6	160	110	3.9	2.62	16.46	0	1	4	4
-#&gt; 21	6	160	110	3.9	2.875	17.02	0	1	4	4
-#&gt; 22.8	4	108	93	3.85	2.32	18.61	1	1	4	1
-#&gt; 21.4	6	258	110	3.08	3.215	19.44	1	0	3	1
-#&gt; 18.7	8	360	175	3.15	3.44	17.02	0	0	3	2
-#&gt; 18.1	6	225	105	2.76	3.46	20.22	1	0	3	1</div><div class='input'><span class='fu'><a href='https://rdrr.io/r/base/cat.html'>cat</a></span>(<span class='fu'>format_delim</span>(<span class='fu'><a href='https://rdrr.io/r/utils/head.html'>head</a></span>(<span class='no'>mtcars</span>), <span class='st'>";"</span>))</div><div class='output co'>#&gt; mpg;cyl;disp;hp;drat;wt;qsec;vs;am;gear;carb
-#&gt; 21;6;160;110;3.9;2.62;16.46;0;1;4;4
-#&gt; 21;6;160;110;3.9;2.875;17.02;0;1;4;4
-#&gt; 22.8;4;108;93;3.85;2.32;18.61;1;1;4;1
-#&gt; 21.4;6;258;110;3.08;3.215;19.44;1;0;3;1
-#&gt; 18.7;8;360;175;3.15;3.44;17.02;0;0;3;2
-#&gt; 18.1;6;225;105;2.76;3.46;20.22;1;0;3;1</div><div class='input'>
-<span class='no'>df</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/data.frame.html'>data.frame</a></span>(<span class='kw'>x</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>1</span>, <span class='fl'>2</span>, <span class='fl'>NA</span>))
-<span class='fu'>format_csv</span>(<span class='no'>df</span>, <span class='kw'>na</span> <span class='kw'>=</span> <span class='st'>"."</span>)</div><div class='output co'>#&gt; [1] "x\n1\n2\n.\n"</div><div class='input'>
+<span class='fu'><a href='https://rdrr.io/r/base/cat.html'>cat</a></span>(<span class='fu'>format_csv</span>(<span class='no'>band_members</span>))</div><div class='output co'>#&gt; <span class='error'>Error in is.data.frame(x): object 'band_members' not found</span></div><div class='input'><span class='fu'><a href='https://rdrr.io/r/base/cat.html'>cat</a></span>(<span class='fu'>format_tsv</span>(<span class='no'>band_members</span>))</div><div class='output co'>#&gt; <span class='error'>Error in is.data.frame(x): object 'band_members' not found</span></div><div class='input'><span class='fu'><a href='https://rdrr.io/r/base/cat.html'>cat</a></span>(<span class='fu'>format_delim</span>(<span class='no'>band_members</span>, <span class='st'>";"</span>))</div><div class='output co'>#&gt; <span class='error'>Error in is.data.frame(x): object 'band_members' not found</span></div><div class='input'>
+<span class='co'># Specifying missing values</span>
+<span class='no'>df</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/data.frame.html'>data.frame</a></span>(<span class='kw'>x</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>1</span>, <span class='fl'>NA</span>, <span class='fl'>3</span>))
+<span class='fu'>format_csv</span>(<span class='no'>df</span>, <span class='kw'>na</span> <span class='kw'>=</span> <span class='st'>"missing"</span>)</div><div class='output co'>#&gt; [1] "x\n1\nmissing\n3\n"</div><div class='input'>
 <span class='co'># Quotes are automatically added as needed</span>
 <span class='no'>df</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/data.frame.html'>data.frame</a></span>(<span class='kw'>x</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"a "</span>, <span class='st'>'"'</span>, <span class='st'>","</span>, <span class='st'>"\n"</span>))
 <span class='fu'><a href='https://rdrr.io/r/base/cat.html'>cat</a></span>(<span class='fu'>format_csv</span>(<span class='no'>df</span>))</div><div class='output co'>#&gt; x

@@ -182,8 +182,7 @@ to disk. It provides a hook for S3 classes that need special handling.</p>
 
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='co'># Most columns are left as is, but POSIXct are</span>
-<span class='co'># converted to ISO8601.</span>
+    <pre class="examples"><div class='input'><span class='co'># Most columns are not altered, but POSIXct are converted to ISO8601.</span>
 <span class='no'>x</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='parse_datetime.html'>parse_datetime</a></span>(<span class='st'>"2016-01-01"</span>)
 <span class='fu'><a href='https://rdrr.io/r/utils/str.html'>str</a></span>(<span class='fu'>output_column</span>(<span class='no'>x</span>))</div><div class='output co'>#&gt;  chr "2016-01-01T00:00:00Z"</div></pre>
   </div>

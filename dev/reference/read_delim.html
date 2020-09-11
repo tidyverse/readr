@@ -320,7 +320,10 @@ character represents one column:</p><ul>
 <li><p>T = date time</p></li>
 <li><p>t = time</p></li>
 <li><p>? = guess</p></li>
-<li><p>_ or - = skip</p></li>
+<li><p>_ or - = skip</p>
+<p>By default, reading a file without a column specification will print a
+message showing what <code>readr</code> guessed they were. To remove this message,
+use <code>col_types = cols()</code>.</p></li>
 </ul></td>
     </tr>
     <tr>

@@ -320,7 +320,7 @@ names of the columns, and the first row of the input will be read into
 the first row of the output data frame.</p>
 <p>Missing (<code>NA</code>) column names will generate a warning, and be filled
 in with dummy names <code>X1</code>, <code>X2</code> etc. Duplicate column names
-will generate a warning and be made unique with a numeric prefix.</p></td>
+will generate a warning and be made unique with a numeric suffix.</p></td>
     </tr>
     <tr>
       <th>col_types</th>
@@ -344,7 +344,10 @@ character represents one column:</p><ul>
 <li><p>T = date time</p></li>
 <li><p>t = time</p></li>
 <li><p>? = guess</p></li>
-<li><p>_ or - = skip</p></li>
+<li><p>_ or - = skip</p>
+<p>By default, reading a file without a column specification will print a
+message showing what <code>readr</code> guessed they were. To remove this message,
+use <code>col_types = cols()</code>.</p></li>
 </ul></td>
     </tr>
     <tr>

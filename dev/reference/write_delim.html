@@ -50,9 +50,11 @@
 
 
 <meta property="og:title" content="Write a data frame to a delimited file — write_delim" />
-<meta property="og:description" content="This is about twice as fast as write.csv(), and never
-writes row names. output_column() is a generic method used to coerce
-columns to suitable output." />
+<meta property="og:description" content="The write_*() family of functions are an improvement to analogous function such
+as write.csv() because they are approximately twice as fast. Unlike write.csv(),
+these functions do not include row names as a column in the written file.
+A generic function, output_column(), is applied to each variable
+to coerce columns to suitable output." />
 <meta property="og:image" content="https://readr.tidyverse.org/logo.png" />
 <meta name="twitter:card" content="summary" />
 
@@ -166,9 +168,11 @@ columns to suitable output." />
     </div>
 
     <div class="ref-description">
-    <p>This is about twice as fast as <code><a href='https://rdrr.io/r/utils/write.table.html'>write.csv()</a></code>, and never
-writes row names. <code><a href='output_column.html'>output_column()</a></code> is a generic method used to coerce
-columns to suitable output.</p>
+    <p>The <code>write_*()</code> family of functions are an improvement to analogous function such
+as <code><a href='https://rdrr.io/r/utils/write.table.html'>write.csv()</a></code> because they are approximately twice as fast. Unlike <code><a href='https://rdrr.io/r/utils/write.table.html'>write.csv()</a></code>,
+these functions do not include row names as a column in the written file.
+A generic function, <code><a href='output_column.html'>output_column()</a></code>, is applied to each variable
+to coerce columns to suitable output.</p>
     </div>
 
     <pre class="usage"><span class='fu'>write_delim</span>(
@@ -239,11 +243,11 @@ columns to suitable output.</p>
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>x</th>
-      <td><p>A data frame to write to disk.</p></td>
+      <td><p>A data frame or tibble to write to disk.</p></td>
     </tr>
     <tr>
       <th>path</th>
-      <td><p>Path or connection to write to.</p></td>
+      <td><p>The path or connection to write to.</p></td>
     </tr>
     <tr>
       <th>delim</th>
@@ -259,20 +263,19 @@ always be quoted.</p></td>
     <tr>
       <th>append</th>
       <td><p>If <code>FALSE</code>, will overwrite existing file. If <code>TRUE</code>,
-will append to existing file. In both cases, if file does not exist a new
+will append to existing file. In both cases, if the file does not exist a new
 file is created.</p></td>
     </tr>
     <tr>
       <th>col_names</th>
-      <td><p>Write columns names at the top of the file? Must be either
-<code>TRUE</code> or <code>FALSE</code>.</p></td>
+      <td><p>If <code>FALSE</code>, column names will not be included at the top of the file. If <code>TRUE</code>,
+column names will be included. If not specified, <code>col_names</code> will take the opposite value given to <code>append</code>.</p></td>
     </tr>
     <tr>
       <th>quote_escape</th>
       <td><p>The type of escaping to use for quoted values, one of
-"double", "backslash" or "none". You can also use <code>FALSE</code>, which is
-equivalent to "none". The default is to double the quotes, which is the
-format excel expects.</p></td>
+<code>"double"</code>, <code>"backslash"</code> or <code>"none"</code>. You can also use <code>FALSE</code>, which is
+equivalent to "none". The default is <code>"double"</code>, which is expected format for Excel.</p></td>
     </tr>
     <tr>
       <th>eol</th>
@@ -288,20 +291,21 @@ Unix style newlines, or <code>"\r\n"</code> for Windows style newlines.</p></td>
 
     
 
-<p>Factors are coerced to character. Doubles are formatted using the grisu3
-algorithm. POSIXct's are formatted as ISO8601 with a UTC timezone <em>Note:
-<code>POSIXct</code> objects in local or non-UTC timezones will be converted to UTC time
-before writing.</em></p>
+<p>Factors are coerced to character. Doubles are formatted to a decimal string
+using the grisu3 algorithm. <code>POSIXct</code> values are formatted as ISO8601 with a
+UTC timezone <em>Note: <code>POSIXct</code> objects in local or non-UTC timezones will be
+converted to UTC time before writing.</em></p>
 <p>All columns are encoded as UTF-8. <code>write_excel_csv()</code> and <code>write_excel_csv2()</code> also include a
 <a href='https://en.wikipedia.org/wiki/Byte_order_mark'>UTF-8 Byte order mark</a>
 which indicates to Excel the csv is UTF-8 encoded.</p>
 <p><code>write_excel_csv2()</code> and <code>write_csv2</code> were created to allow users with
-different locale settings save csv files with their default settings <code>;</code> as
-column separator and <code>,</code> as decimal separator. This is common in some European countries.</p>
-<p>Values are only quoted if needed: if they contain a comma, quote or newline.</p>
-<p>The <code>write_*()</code> functions will automatically compress outputs if an appropriate extension is given. At present, three
-extensions are supported, <code>.gz</code> for gzip compression, <code>.bz2</code> for bzip2 compression and <code>.xz</code> for lzma compression.  See
-the examples for more information.</p>
+different locale settings to save .csv files using their default settings
+(e.g. <code>;</code> as the column separator and <code>,</code> as the decimal separator).
+This is common in some European countries.</p>
+<p>Values are only quoted if they contain a comma, quote or newline.</p>
+<p>The <code>write_*()</code> functions will automatically compress outputs if an appropriate extension is given.
+Three extensions are currently supported: <code>.gz</code> for gzip compression, <code>.bz2</code> for bzip2 compression and
+<code>.xz</code> for lzma compression.  See the examples for more information.</p>
     <h2 class="hasAnchor" id="references"><a class="anchor" href="#references"></a>References</h2>
 
     <p>Florian Loitsch, Printing Floating-Point Numbers Quickly and
@@ -309,19 +313,7 @@ Accurately with Integers, PLDI '10,
 <a href='http://www.cs.tufts.edu/~nr/cs257/archive/florian-loitsch/printf.pdf'>http://www.cs.tufts.edu/~nr/cs257/archive/florian-loitsch/printf.pdf</a></p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='no'>.old_wd</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/getwd.html'>setwd</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/tempfile.html'>tempdir</a></span>())
-<span class='co'># If you only specify a file name, write_()* will write</span>
-<span class='co'># the file to your current working directory.</span>
-<span class='fu'>write_csv</span>(<span class='no'>mtcars</span>, <span class='st'>"mtcars.csv"</span>)
-<span class='fu'>write_tsv</span>(<span class='no'>mtcars</span>, <span class='st'>"mtcars.tsv"</span>)
-
-<span class='co'># If you add an extension to the file name, write_()* will</span>
-<span class='co'># automatically compress the output.</span>
-<span class='fu'>write_tsv</span>(<span class='no'>mtcars</span>, <span class='st'>"mtcars.tsv.gz"</span>)
-<span class='fu'>write_tsv</span>(<span class='no'>mtcars</span>, <span class='st'>"mtcars.tsv.bz2"</span>)
-<span class='fu'>write_tsv</span>(<span class='no'>mtcars</span>, <span class='st'>"mtcars.tsv.xz"</span>)
-
-<span class='fu'><a href='https://rdrr.io/r/base/getwd.html'>setwd</a></span>(<span class='no'>.old_wd</span>)</div></pre>
+    <pre class="examples"></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>

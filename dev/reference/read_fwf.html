@@ -251,7 +251,10 @@ character represents one column:</p><ul>
 <li><p>T = date time</p></li>
 <li><p>t = time</p></li>
 <li><p>? = guess</p></li>
-<li><p>_ or - = skip</p></li>
+<li><p>_ or - = skip</p>
+<p>By default, reading a file without a column specification will print a
+message showing what <code>readr</code> guessed they were. To remove this message,
+use <code>col_types = cols()</code>.</p></li>
 </ul></td>
     </tr>
     <tr>
@@ -340,7 +343,9 @@ column is separated by whitespace.</p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='no'>fwf_sample</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='readr_example.html'>readr_example</a></span>(<span class='st'>"fwf-sample.txt"</span>)
-<span class='fu'><a href='https://rdrr.io/r/base/cat.html'>cat</a></span>(<span class='fu'><a href='read_lines.html'>read_lines</a></span>(<span class='no'>fwf_sample</span>))</div><div class='output co'>#&gt; John Smith          WA        418-Y11-4111 Mary Hartford       CA        319-Z19-4341 Evan Nolan          IL        219-532-c301</div><div class='input'>
+<span class='fu'><a href='https://rdrr.io/r/base/writeLines.html'>writeLines</a></span>(<span class='fu'><a href='read_lines.html'>read_lines</a></span>(<span class='no'>fwf_sample</span>))</div><div class='output co'>#&gt; John Smith          WA        418-Y11-4111
+#&gt; Mary Hartford       CA        319-Z19-4341
+#&gt; Evan Nolan          IL        219-532-c301</div><div class='input'>
 <span class='co'># You can specify column positions in several ways:</span>
 <span class='co'># 1. Guess based on position of empty columns</span>
 <span class='fu'>read_fwf</span>(<span class='no'>fwf_sample</span>, <span class='fu'>fwf_empty</span>(<span class='no'>fwf_sample</span>, <span class='kw'>col_names</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"first"</span>, <span class='st'>"last"</span>, <span class='st'>"state"</span>, <span class='st'>"ssn"</span>)))</div><div class='output co'>#&gt; <span class='message'>Parsed with column specification:</span>
