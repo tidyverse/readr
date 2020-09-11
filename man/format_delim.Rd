@@ -99,6 +99,7 @@ Three extensions are currently supported: \code{.gz} for gzip compression, \code
 }
 
 \examples{
+data(band_members, package = "dplyr")
 # format_()* functions are useful for testing and reprexes
 cat(format_csv(band_members))
 cat(format_tsv(band_members))

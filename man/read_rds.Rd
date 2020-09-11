@@ -5,12 +5,12 @@
 \alias{write_rds}
 \title{Read/write RDS files.}
 \usage{
-read_rds(path)
+read_rds(file)
 
-write_rds(x, path, compress = c("none", "gz", "bz2", "xz"), version = 2, ...)
+write_rds(x, file, compress = c("none", "gz", "bz2", "xz"), version = 2, ...)
 }
 \arguments{
-\item{path}{Path to read from/write to.}
+\item{file}{The file path to read from/write to.}
 
 \item{x}{R object to write to serialise.}
 

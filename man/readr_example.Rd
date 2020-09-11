@@ -4,10 +4,10 @@
 \alias{readr_example}
 \title{Get path to readr example}
 \usage{
-readr_example(path = NULL)
+readr_example(file = NULL)
 }
 \arguments{
-\item{path}{Name of file. If \code{NULL}, the example files will be listed.}
+\item{file}{Name of file. If \code{NULL}, the example files will be listed.}
 }
 \description{
 readr comes bundled with a number of sample files in its \code{inst/extdata}

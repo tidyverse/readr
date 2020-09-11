@@ -4,7 +4,7 @@
 #' `write_rds()` does not compress by default as space is generally cheaper
 #' than time.
 #'
-#' @param path Path to read from/write to.
+#' @param file The file path to read from/write to.
 #' @keywords internal
 #' @export
 #' @examples
@@ -15,8 +15,8 @@
 #' \dontrun{
 #' write_rds(mtcars, "compressed_mtc.rds", "xz", compression = 9L)
 #' }
-read_rds <- function(path) {
-  readRDS(path)
+read_rds <- function(file) {
+  readRDS(file)
 }
 
 
@@ -31,14 +31,14 @@ read_rds <- function(path) {
 #' @return `write_rds()` returns `x`, invisibly.
 #' @rdname read_rds
 #' @export
-write_rds <- function(x, path, compress = c("none", "gz", "bz2", "xz"), version = 2, ...) {
+write_rds <- function(x, file, compress = c("none", "gz", "bz2", "xz"), version = 2, ...) {
 
   compress <- match.arg(compress)
   con <- switch(compress,
-         none = file(path, ...),
-         gz   = gzfile(path, ...),
-         bz2  = bzfile(path, ...),
-         xz   = xzfile(path, ...))
+         none = file(file, ...),
+         gz   = gzfile(file, ...),
+         bz2  = bzfile(file, ...),
+         xz   = xzfile(file, ...))
   on.exit(close(con), add = TRUE)
   saveRDS(x, con, version = version)
 

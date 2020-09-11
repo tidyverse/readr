@@ -18,7 +18,7 @@ read_lines(
 
 read_lines_raw(file, skip = 0, n_max = -1L, progress = show_progress())
 
-write_lines(x, path, sep = "\\n", na = "NA", append = FALSE)
+write_lines(x, file, sep = "\\n", na = "NA", append = FALSE)
 }
 \arguments{
 \item{file}{Either a path to a file, a connection, or literal data
