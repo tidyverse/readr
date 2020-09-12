@@ -193,14 +193,14 @@ read_delimited <- function(file, tokenizer, col_names = TRUE, col_types = NULL,
   if (is.connection(file)) {
     data <- datasource_connection(file, skip, skip_empty_rows, comment)
     if (empty_file(data[[1]])) {
-       return(tibble::data_frame())
+       return(tibble::tibble())
     }
   } else {
     if (!isTRUE(grepl("\n", file)[[1]]) && empty_file(file)) {
        return(tibble::tibble())
     }
     if (is.character(file) && identical(locale$encoding, "UTF-8")) {
-      # When locale is not set, file is probablly marked as its correct encoding.
+      # When locale is not set, file is probably marked as its correct encoding.
       # As default_locale() assumes file is UTF-8, file should be encoded as UTF-8 for non-UTF-8 MBCS locales.
       data <- enc2utf8(file)
     } else {
