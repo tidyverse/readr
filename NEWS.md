@@ -32,9 +32,7 @@
 
 * New `%h` placeholder for parsing unrestricted hours (<0 and >23) to support parsing durations (#549, @krlmlr).
 
-* Uses of `tibble::data_frame` updated to `tibble::tibble`
-([tidyverse/dplyr#4069](https://github.com/tidyverse/dplyr/issues/4069),
-@thays42)
+* Uses of `tibble::data_frame` updated to `tibble::tibble` ([tidyverse/dplyr#4069](https://github.com/tidyverse/dplyr/issues/4069), @thays42, #1124, @brianrice2)
 
 * `read_delimited()` function return an empty `tibble::data_frame()` rather
   than signaling an error when given a connection for the `file` argument that
