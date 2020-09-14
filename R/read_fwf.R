@@ -98,7 +98,7 @@ fwf_widths <- function(widths, col_names = NULL) {
 #' @export
 #' @param start,end Starting and ending (inclusive) positions of each field.
 #'    Use NA as last end field when reading a ragged fwf file.
-fwf_positions <- function(start, end = NULL, col_names = NULL) {
+fwf_positions <- function(start, end, col_names = NULL) {
 
   stopifnot(length(start) == length(end))
   col_names <- fwf_col_names(col_names, length(start))

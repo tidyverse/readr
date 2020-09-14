@@ -9,6 +9,8 @@
 
 ## Additional features and fixes
 
+* `fwf_positions(end)` no longer has a default argument and must be specified (#996)
+
 * `read_lines(skip_empty_rows = TRUE)` no longer crashes if a file ends with an empty line (#968)
 
 * `write_*()` functions gain a `eol =` argument to control the end of line character used (#857). This allows writing of CSV files with Windows newlines (CRLF) if desired.

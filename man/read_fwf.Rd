@@ -34,7 +34,7 @@ fwf_empty(
 
 fwf_widths(widths, col_names = NULL)
 
-fwf_positions(start, end = NULL, col_names = NULL)
+fwf_positions(start, end, col_names = NULL)
 
 fwf_cols(...)
 }
