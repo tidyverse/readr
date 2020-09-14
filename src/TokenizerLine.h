@@ -39,7 +39,7 @@ public:
     if (!moreTokens_)
       return Token(TOKEN_EOF, line_, 0);
 
-    while (cur_ != end_) {
+    while (cur_ < end_) {
       Advance advance(&cur_);
 
       if (*cur_ == '\0')
