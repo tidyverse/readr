@@ -8,6 +8,8 @@ context("read_file")
 #   quote = FALSE)
 
 test_that("read_file respects encoding", {
+  skip_on_os("solaris")
+
   x <- read_file("enc-iso-8859-1.txt", locale(encoding = "ISO-8859-1"))
   expect_equal(substr(x, 5, 5), "\u00e7")
 })

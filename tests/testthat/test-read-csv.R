@@ -67,6 +67,8 @@ test_that("can read more than 100 columns", {
 })
 
 test_that("encoding affects text and headers", {
+  skip_on_os("solaris")
+
   x <- read_csv("enc-iso-8859-1.txt", locale = locale(encoding = "ISO-8859-1"), progress = FALSE)
   expect_identical(names(x), "fran\u00e7ais")
   expect_identical(x[[1]], "\u00e9l\u00e8ve")

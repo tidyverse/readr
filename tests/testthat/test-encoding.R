@@ -1,5 +1,7 @@
 context("Encoding")
 test_that("guess_encoding() works", {
+  skip_on_os("solaris")
+
   x <- guess_encoding(readr_example("mtcars.csv"))
   expect_is(x, "tbl_df")
   expect_equal(as.character(x$encoding), "ASCII")

@@ -1,5 +1,7 @@
 context("write_lines")
 test_that("write_lines uses UTF-8 encoding", {
+  skip_on_os("solaris")
+
   tmp <- tempfile()
   on.exit(unlink(tmp))
   write_lines(c("fran\u00e7ais", "\u00e9l\u00e8ve"), tmp)
