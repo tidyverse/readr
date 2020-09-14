@@ -184,6 +184,12 @@ test_that("empty file with col_names and col_types creates correct columns", {
   expect_equal(class(x$b), "integer")
 })
 
+test_that("empty file returns an empty tibble", {
+  file.create("foo.csv")
+  expect_equal(read_csv("foo.csv"), tibble::tibble())
+  file.remove("foo.csv")
+})
+
 
 # Comments ----------------------------------------------------------------
 
