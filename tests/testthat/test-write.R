@@ -166,6 +166,18 @@ test_that("write_csv2 and format_csv2 produce no leading whitespace for numbers"
   expect_equal(format_csv2(df), "x\n6\n66\n")
 })
 
+test_that("write_csv2 and format_csv2 use same precision as write.csv2 (#1087)", {
+  tmp <- tempfile()
+  on.exit(unlink(tmp))
+
+  df <- tibble::tibble(x = c(1234567.1), y = 5)
+
+  write.csv2(df, tmp, row.names = FALSE, quote = FALSE, eol = "\n")
+
+  expect_equal(format_csv2(df), "x;y\n1234567,1;5\n")
+  expect_equal(format_csv2(df), read_file(tmp))
+})
+
 test_that("Can change the escape behavior for quotes", {
   df <- data.frame(x = c("a", '"', ",", "\n"))
 

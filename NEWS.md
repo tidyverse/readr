@@ -9,6 +9,8 @@
 
 ## Additional features and fixes
 
+* `write_csv2()` now formats decimal numbers more consistently with `utils::write.csv2()` (#1087)
+
 * `fwf_positions(end)` no longer has a default argument and must be specified (#996)
 
 * `read_lines(skip_empty_rows = TRUE)` no longer crashes if a file ends with an empty line (#968)

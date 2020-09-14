@@ -254,7 +254,7 @@ change_decimal_separator <- function(x, decimal_mark = ",") {
 
   format_seps <- function(x, decimal_mark) {
     nas <- is.na(x)
-    x <- format(x, decimal.mark = decimal_mark, trim = TRUE)
+    x <- format(x, decimal.mark = decimal_mark, trim = TRUE, digits = 15)
     x[nas] <- NA_character_
     x
   }
