@@ -9,6 +9,8 @@
 
 ## Additional features and fixes
 
+* `read_lines()` now ignores quotations when skipping lines (#991).
+
 * `write_csv2()` now formats decimal numbers more consistently with `utils::write.csv2()` (#1087)
 
 * `fwf_positions(end)` no longer has a default argument and must be specified (#996)

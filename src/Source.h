@@ -22,9 +22,11 @@ public:
       const char* end,
       int n,
       bool skipEmptyRows = true,
-      const std::string& comment = "");
+      const std::string& comment = "",
+      bool skipQuote = true);
 
-  const char* skipLine(const char* begin, const char* end, bool isComment);
+  const char*
+  skipLine(const char* begin, const char* end, bool isComment, bool skipQuote);
 
   const char* skipDoubleQuoted(const char* begin, const char* end);
 

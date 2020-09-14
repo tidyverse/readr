@@ -18,7 +18,8 @@ public:
       const std::string& path,
       int skip = 0,
       bool skipEmptyRows = true,
-      const std::string& comment = "") {
+      const std::string& comment = "",
+      bool skipQuotes = true) {
     try {
       fm_ = boost::interprocess::file_mapping(
           path.c_str(), boost::interprocess::read_only);
@@ -35,7 +36,7 @@ public:
     begin_ = skipBom(begin_, end_);
 
     // Skip lines, if needed
-    begin_ = skipLines(begin_, end_, skip, skipEmptyRows, comment);
+    begin_ = skipLines(begin_, end_, skip, skipEmptyRows, comment, skipQuotes);
   }
 
   const char* begin() { return begin_; }

@@ -70,6 +70,21 @@ test_that("read_lines(skip_empty_rows) works when blank lines are at the end of 
   expect_equal(read_lines(tmp, skip_empty_rows = TRUE), "test")
 })
 
+test_that("read_lines(skip_empty_rows) works if there are double quotes in the lines (#991)", {
+  data <-
+"a\"b
+cde
+f\"g
+hij"
+
+  expect_equal(
+    read_lines(data, skip = 1),
+    c("cde",
+      "f\"g",
+      "hij")
+  )
+})
+
 # These tests are slow so are commented out
 #test_that("long vectors are supported", {
   #tmp <- tempfile(fileext = ".gz")

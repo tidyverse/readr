@@ -14,7 +14,8 @@ public:
       cpp11::raws x,
       int skip = 0,
       bool skipEmptyRows = true,
-      const std::string& comment = "")
+      const std::string& comment = "",
+      bool skipQuotes = true)
       : x_(x) {
     begin_ = (const char*)RAW(x);
     end_ = (const char*)RAW(x) + Rf_xlength(x);
@@ -23,7 +24,7 @@ public:
     begin_ = skipBom(begin_, end_);
 
     // Skip lines, if needed
-    begin_ = skipLines(begin_, end_, skip, skipEmptyRows, comment);
+    begin_ = skipLines(begin_, end_, skip, skipEmptyRows, comment, skipQuotes);
   }
 
   const char* begin() { return begin_; }

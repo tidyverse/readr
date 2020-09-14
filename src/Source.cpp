@@ -12,15 +12,18 @@ SourcePtr Source::create(cpp11::list spec) {
   int skip = cpp11::as_cpp<int>(spec["skip"]);
   bool skipEmptyRows = cpp11::as_cpp<bool>(spec["skip_empty_rows"]);
   std::string comment = cpp11::as_cpp<std::string>(spec["comment"]);
+  bool skipQuote = cpp11::as_cpp<bool>(spec["skip_quote"]);
 
   if (subclass == "source_raw") {
-    return SourcePtr(new SourceRaw(spec[0], skip, skipEmptyRows, comment));
+    return SourcePtr(
+        new SourceRaw(spec[0], skip, skipEmptyRows, comment, skipQuote));
   } else if (subclass == "source_string") {
-    return SourcePtr(new SourceString(spec[0], skip, skipEmptyRows, comment));
+    return SourcePtr(
+        new SourceString(spec[0], skip, skipEmptyRows, comment, skipQuote));
   } else if (subclass == "source_file") {
     cpp11::strings path(spec[0]);
     return SourcePtr(new SourceFile(
-        Rf_translateChar(path[0]), skip, skipEmptyRows, comment));
+        Rf_translateChar(path[0]), skip, skipEmptyRows, comment, skipQuote));
   }
 
   cpp11::stop("Unknown source type");
@@ -32,14 +35,16 @@ const char* Source::skipLines(
     const char* end,
     int n,
     bool skipEmptyRows,
-    const std::string& comment) {
+    const std::string& comment,
+    bool skipQuote) {
   bool hasComment = comment != "";
   bool isComment;
 
   const char* cur = begin;
 
   while (cur < end && n > 0) {
-    cur = skipLine(cur, end, hasComment && inComment(cur, end, comment));
+    cur = skipLine(
+        cur, end, hasComment && inComment(cur, end, comment), skipQuote);
     --n;
     ++skippedRows_;
   }
@@ -48,19 +53,19 @@ const char* Source::skipLines(
   while (cur < end &&
          ((skipEmptyRows && (*cur == '\n' || *cur == '\r')) ||
           (isComment = hasComment && inComment(cur, end, comment)))) {
-    cur = skipLine(cur, end, isComment);
+    cur = skipLine(cur, end, isComment, skipQuote);
     ++skippedRows_;
   }
 
   return cur;
 }
 
-const char*
-Source::skipLine(const char* begin, const char* end, bool isComment) {
+const char* Source::skipLine(
+    const char* begin, const char* end, bool isComment, bool skipQuote) {
   const char* cur = begin;
   // skip the rest of the line until the newline
   while (cur < end && !(*cur == '\n' || *cur == '\r')) {
-    if (!isComment && *cur == '"') {
+    if (!isComment && skipQuote && *cur == '"') {
       cur = skipDoubleQuoted(cur, end);
     } else {
       advanceForLF(&cur, end);

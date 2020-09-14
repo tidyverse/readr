@@ -36,7 +36,7 @@ read_lines <- function(file, skip = 0, skip_empty_rows = FALSE, n_max = -1L,
   if (empty_file(file)) {
     return(character())
   }
-  ds <- datasource(file, skip = skip, skip_empty_rows = skip_empty_rows)
+  ds <- datasource(file, skip = skip, skip_empty_rows = skip_empty_rows, skip_quote = FALSE)
   read_lines_(ds, skip_empty_rows = skip_empty_rows, locale_ = locale, na = na, n_max = n_max, progress = progress)
 }
 
@@ -47,7 +47,7 @@ read_lines_raw <- function(file, skip = 0,
   if (empty_file(file)) {
     return(list())
   }
-  ds <- datasource(file, skip = skip, skip_empty_rows = FALSE)
+  ds <- datasource(file, skip = skip, skip_empty_rows = FALSE, skip_quote = FALSE)
   read_lines_raw_(ds, n_max = n_max, progress = progress)
 }
 
