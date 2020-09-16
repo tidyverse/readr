@@ -115,9 +115,7 @@ Compared to the corresponding base functions, readr functions:
 * Are slower (currently ~1.2-2x slower. If you want absolutely the best 
   performance, use `data.table::fread()`.
   
-* Use a slightly more sophisticated parser, recognising both 
-  doubled (`""""`) and backslash escapes (`"\""`), and can produce
-  factors and date/times directly.
+* Use a slightly more sophisticated parser.
   
 * Forces you to supply all parameters, where `fread()` saves you work by
   automatically guessing the delimiter, whether or not the file has a
