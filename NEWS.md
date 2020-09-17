@@ -9,6 +9,8 @@
 
 ## Additional features and fixes
 
+* A memory leak when reading files is now fixed (#1092)
+
 * `read_lines()` now ignores quotations when skipping lines (#991).
 
 * `write_csv2()` now formats decimal numbers more consistently with `utils::write.csv2()` (#1087)
