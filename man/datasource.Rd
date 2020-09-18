@@ -4,7 +4,13 @@
 \alias{datasource}
 \title{Create a source object.}
 \usage{
-datasource(file, skip = 0, skip_empty_rows = FALSE, comment = "")
+datasource(
+  file,
+  skip = 0,
+  skip_empty_rows = FALSE,
+  comment = "",
+  skip_quote = TRUE
+)
 }
 \arguments{
 \item{file}{Either a path to a file, a connection, or literal data
