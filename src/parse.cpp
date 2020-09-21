@@ -70,16 +70,26 @@ count_fields_(cpp11::list sourceSpec, cpp11::list tokenizerSpec, int n_max) {
   Token t = tokenizer->nextToken();
   size_t row_num = t.row();
 
+  size_t max_size = 0;
+  size_t capacity = 0;
+
   for (; t.type() != TOKEN_EOF && t.row() == row_num;
        t = tokenizer->nextToken()) {
-    if (t.col() >= (size_t)out.size()) {
-      out.resize(t.col() + 1);
+    if (t.col() >= max_size) {
+      max_size = t.col();
+    }
+
+    if (max_size >= capacity) {
+      capacity = (max_size + 1) * 2;
+      out.resize(capacity);
     }
 
     if (t.type() == TOKEN_STRING) {
       out.setValue(t.col(), t);
     }
   }
+
+  out.resize(max_size + 1);
 
   using namespace cpp11::literals;
   return cpp11::writable::list(

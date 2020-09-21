@@ -9,6 +9,8 @@
 
 ## Additional features and fixes
 
+* The runtime performance for tables with an extreme number of columns is greatly improved (#825)
+
 * A memory leak when reading files is now fixed (#1092)
 
 * `read_lines()` now ignores quotations when skipping lines (#991).
