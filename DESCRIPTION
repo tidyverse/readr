@@ -59,6 +59,9 @@ LinkingTo:
     cpp11
 VignetteBuilder: 
     knitr
+Config/Needs/website: 
+  pkgdown,
+  tidytemplate
 Encoding: UTF-8
 Language: en-US
 Roxygen: list(markdown = TRUE)
