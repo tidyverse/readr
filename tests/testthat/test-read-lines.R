@@ -62,6 +62,8 @@ test_that("allocation works as expected", {
 })
 
 test_that("read_lines(skip_empty_rows) works when blank lines are at the end of the file (#968)", {
+  skip_on_os("windows")
+
   tmp <- tempfile()
   on.exit(unlink(tmp))
 

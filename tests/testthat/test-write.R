@@ -168,10 +168,12 @@ test_that("write_csv2 and format_csv2 produce no leading whitespace for numbers"
 
 test_that("write_csv2 and format_csv2 use same precision as write.csv2 (#1087)", {
   tmp <- tempfile()
-  on.exit(unlink(tmp))
+  on.exit(unlink(tmp), add = TRUE)
 
   df <- tibble::tibble(x = c(1234567.1), y = 5)
 
+  con <- file(tmp, "wb")
+  on.exit(close(con), add = TRUE)
   write.csv2(df, tmp, row.names = FALSE, quote = FALSE, eol = "\n")
 
   expect_equal(format_csv2(df), "x;y\n1234567,1;5\n")
