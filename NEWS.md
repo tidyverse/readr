@@ -9,6 +9,8 @@
 
 ## Additional features and fixes
 
+* Compressed files are now detected by magic numbers rather than by the file extension (#1125)
+
 * The runtime performance for tables with an extreme number of columns is greatly improved (#825)
 
 * A memory leak when reading files is now fixed (#1092)
