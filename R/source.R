@@ -149,8 +149,11 @@ standardise_path <- function(path, input = TRUE) {
 
   if (isTRUE(input)) {
     path <- check_path(path)
+    compression <- detect_compression(path)
+  } else {
+    compression <- tools::file_ext(path)
   }
-  switch(detect_compression(path),
+  switch(compression,
     gz = gzfile(path, ""),
     bz2 = bzfile(path, ""),
     xz = xzfile(path, ""),
