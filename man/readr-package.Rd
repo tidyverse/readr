@@ -16,7 +16,7 @@ The goal of 'readr' is to provide a fast and
 \seealso{
 Useful links:
 \itemize{
-  \item \url{http://readr.tidyverse.org}
+  \item \url{https://readr.tidyverse.org}
   \item \url{https://github.com/tidyverse/readr}
   \item Report bugs at \url{https://github.com/tidyverse/readr/issues}
 }

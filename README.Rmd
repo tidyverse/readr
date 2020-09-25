@@ -20,7 +20,7 @@ knitr::opts_chunk$set(
 
 ## Overview
 
-The goal of readr is to provide a fast and friendly way to read rectangular data (like csv, tsv, and fwf). It is designed to flexibly parse many types of data found in the wild, while still cleanly failing when data unexpectedly changes. If you are new to readr, the best place to start is the [data import chapter](http://r4ds.had.co.nz/data-import.html) in R for data science.
+The goal of readr is to provide a fast and friendly way to read rectangular data (like csv, tsv, and fwf). It is designed to flexibly parse many types of data found in the wild, while still cleanly failing when data unexpectedly changes. If you are new to readr, the best place to start is the [data import chapter](https://r4ds.had.co.nz/data-import.html) in R for data science.
 
 ## Installation
 
@@ -142,4 +142,4 @@ Thanks to:
 
 ## Code of Conduct
 
-Please note that the readr project is released with a [Contributor Code of Conduct](https://readr.tidyverse.org/CODE_OF_CONDUCT.html). By contributing to this project, you agree to abide by its terms.
+Please note that the readr project is released with a [Contributor Code of Conduct](https://readr.tidyverse.org/CONDUCT.html). By contributing to this project, you agree to abide by its terms.

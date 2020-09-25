@@ -31,7 +31,7 @@ Description: The goal of 'readr' is to provide a fast and
     It is designed to flexibly parse many types of data found in the wild,
     while still cleanly failing when data unexpectedly changes.
 License: GPL (>= 2) | file LICENSE
-URL: http://readr.tidyverse.org,
+URL: https://readr.tidyverse.org,
     https://github.com/tidyverse/readr
 BugReports: https://github.com/tidyverse/readr/issues
 Depends:
