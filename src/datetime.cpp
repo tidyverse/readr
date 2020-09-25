@@ -4,7 +4,7 @@
 
 #include "DateTime.h"
 
-[[cpp11::register]] cpp11::writable::doubles utctime(
+[[cpp11::register]] cpp11::writable::doubles utctime_(
     cpp11::integers year,
     cpp11::integers month,
     cpp11::integers day,

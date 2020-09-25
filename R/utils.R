@@ -68,3 +68,9 @@ is_named <- function(x) {
 
   all(nms != "" & !is.na(nms))
 }
+
+utctime <- function(year, month, day, hour, min, sec, psec) {
+  utctime_(as.integer(year), as.integer(month), as.integer(day),
+    as.integer(hour), as.integer(min), as.integer(sec), as.numeric(psec)
+  )
+}
