@@ -17,7 +17,8 @@ write_delim(
   append = FALSE,
   col_names = !append,
   quote_escape = "double",
-  eol = "\\n"
+  eol = "\\n",
+  path = deprecated()
 )
 
 write_csv(
@@ -97,6 +98,8 @@ equivalent to "none". The default is \code{"double"}, which is expected format f
 
 \item{eol}{The end of line character to use. Most commonly either \code{"\\n"} for
 Unix style newlines, or \code{"\\r\\n"} for Windows style newlines.}
+
+\item{path}{\Sexpr[results=rd, stage=render]{lifecycle::badge("deprecated")}}
 }
 \value{
 \verb{write_*()} returns the input \code{x} invisibly.

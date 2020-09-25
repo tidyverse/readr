@@ -44,6 +44,7 @@
 #'   equivalent to "none". The default is `"double"`, which is expected format for Excel.
 #' @param eol The end of line character to use. Most commonly either `"\n"` for
 #'   Unix style newlines, or `"\r\n"` for Windows style newlines.
+#' @param path \Sexpr[results=rd, stage=render]{lifecycle::badge("deprecated")}
 #' @return `write_*()` returns the input `x` invisibly.
 #' @references Florian Loitsch, Printing Floating-Point Numbers Quickly and
 #' Accurately with Integers, PLDI '10,
@@ -67,7 +68,12 @@
 #'
 #' \dontshow{setwd(.old_wd)}
 write_delim <- function(x, file, delim = " ", na = "NA", append = FALSE,
-                        col_names = !append, quote_escape = "double", eol = "\n") {
+                        col_names = !append, quote_escape = "double", eol = "\n", path = deprecated()) {
+  if (is_present(path)) {
+    deprecate_warn("1.4.0", "write_(path = )", "write_(file = )")
+    file <- path
+  }
+
   stopifnot(is.data.frame(x))
 
   x_out <- x
