@@ -19,10 +19,10 @@ extern "C" SEXP _readr_read_connection_(SEXP con, SEXP filename, SEXP chunk_size
   END_CPP11
 }
 // datetime.cpp
-cpp11::writable::doubles utctime(cpp11::integers year, cpp11::integers month, cpp11::integers day, cpp11::integers hour, cpp11::integers min, cpp11::integers sec, cpp11::doubles psec);
-extern "C" SEXP _readr_utctime(SEXP year, SEXP month, SEXP day, SEXP hour, SEXP min, SEXP sec, SEXP psec) {
+cpp11::writable::doubles utctime_(cpp11::integers year, cpp11::integers month, cpp11::integers day, cpp11::integers hour, cpp11::integers min, cpp11::integers sec, cpp11::doubles psec);
+extern "C" SEXP _readr_utctime_(SEXP year, SEXP month, SEXP day, SEXP hour, SEXP min, SEXP sec, SEXP psec) {
   BEGIN_CPP11
-    return cpp11::as_sexp(utctime(cpp11::as_cpp<cpp11::decay_t<cpp11::integers>>(year), cpp11::as_cpp<cpp11::decay_t<cpp11::integers>>(month), cpp11::as_cpp<cpp11::decay_t<cpp11::integers>>(day), cpp11::as_cpp<cpp11::decay_t<cpp11::integers>>(hour), cpp11::as_cpp<cpp11::decay_t<cpp11::integers>>(min), cpp11::as_cpp<cpp11::decay_t<cpp11::integers>>(sec), cpp11::as_cpp<cpp11::decay_t<cpp11::doubles>>(psec)));
+    return cpp11::as_sexp(utctime_(cpp11::as_cpp<cpp11::decay_t<cpp11::integers>>(year), cpp11::as_cpp<cpp11::decay_t<cpp11::integers>>(month), cpp11::as_cpp<cpp11::decay_t<cpp11::integers>>(day), cpp11::as_cpp<cpp11::decay_t<cpp11::integers>>(hour), cpp11::as_cpp<cpp11::decay_t<cpp11::integers>>(min), cpp11::as_cpp<cpp11::decay_t<cpp11::integers>>(sec), cpp11::as_cpp<cpp11::decay_t<cpp11::doubles>>(psec)));
   END_CPP11
 }
 // parse.cpp
@@ -217,7 +217,7 @@ extern SEXP _readr_read_tokens_chunked_(SEXP, SEXP, SEXP, SEXP, SEXP, SEXP, SEXP
 extern SEXP _readr_stream_delim_(SEXP, SEXP, SEXP, SEXP, SEXP, SEXP, SEXP, SEXP);
 extern SEXP _readr_tokenize_(SEXP, SEXP, SEXP);
 extern SEXP _readr_type_convert_col(SEXP, SEXP, SEXP, SEXP, SEXP, SEXP);
-extern SEXP _readr_utctime(SEXP, SEXP, SEXP, SEXP, SEXP, SEXP, SEXP);
+extern SEXP _readr_utctime_(SEXP, SEXP, SEXP, SEXP, SEXP, SEXP, SEXP);
 extern SEXP _readr_whitespaceColumns(SEXP, SEXP, SEXP);
 extern SEXP _readr_write_file_(SEXP, SEXP);
 extern SEXP _readr_write_file_raw_(SEXP, SEXP);
@@ -245,7 +245,7 @@ static const R_CallMethodDef CallEntries[] = {
     {"_readr_stream_delim_",           (DL_FUNC) &_readr_stream_delim_,           8},
     {"_readr_tokenize_",               (DL_FUNC) &_readr_tokenize_,               3},
     {"_readr_type_convert_col",        (DL_FUNC) &_readr_type_convert_col,        6},
-    {"_readr_utctime",                 (DL_FUNC) &_readr_utctime,                 7},
+    {"_readr_utctime_",                (DL_FUNC) &_readr_utctime_,                7},
     {"_readr_whitespaceColumns",       (DL_FUNC) &_readr_whitespaceColumns,       3},
     {"_readr_write_file_",             (DL_FUNC) &_readr_write_file_,             2},
     {"_readr_write_file_raw_",         (DL_FUNC) &_readr_write_file_raw_,         2},

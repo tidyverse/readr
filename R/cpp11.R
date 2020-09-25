@@ -8,8 +8,8 @@ read_connection_ <- function(con, filename, chunk_size) {
   .Call("_readr_read_connection_", con, filename, chunk_size)
 }
 
-utctime <- function(year, month, day, hour, min, sec, psec) {
-  .Call("_readr_utctime", year, month, day, hour, min, sec, psec)
+utctime_ <- function(year, month, day, hour, min, sec, psec) {
+  .Call("_readr_utctime_", year, month, day, hour, min, sec, psec)
 }
 
 dim_tokens_ <- function(sourceSpec, tokenizerSpec) {

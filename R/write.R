@@ -70,7 +70,7 @@
 write_delim <- function(x, file, delim = " ", na = "NA", append = FALSE,
                         col_names = !append, quote_escape = "double", eol = "\n", path = deprecated()) {
   if (is_present(path)) {
-    deprecate_warn("1.4.0", "write_(path = )", "write_(file = )")
+    deprecate_warn("1.4.0", "write_delim(path = )", "write_delim(file = )")
     file <- path
   }
 
@@ -87,7 +87,11 @@ write_delim <- function(x, file, delim = " ", na = "NA", append = FALSE,
 #' @rdname write_delim
 #' @export
 write_csv <- function(x, file, na = "NA", append = FALSE, col_names = !append,
-                      quote_escape = "double", eol = "\n") {
+                      quote_escape = "double", eol = "\n", path = deprecated()) {
+  if (is_present(path)) {
+    deprecate_warn("1.4.0", "write_csv(path = )", "write_csv(file = )")
+    file <- path
+  }
   write_delim(x, file, delim = ",", na = na, append = append,
     col_names = col_names, quote_escape = quote_escape, eol = eol)
 }
@@ -95,7 +99,12 @@ write_csv <- function(x, file, na = "NA", append = FALSE, col_names = !append,
 #' @rdname write_delim
 #' @export
 write_csv2 <- function(x, file, na = "NA", append = FALSE, col_names = !append,
-                       quote_escape = "double", eol = "\n") {
+                       quote_escape = "double", eol = "\n", path = deprecated()) {
+  if (is_present(path)) {
+    deprecate_warn("1.4.0", "write_csv2(path = )", "write_csv2(file = )")
+    file <- path
+  }
+
   x_out <- x
   x <- change_decimal_separator(x, decimal_mark = ",")
   write_delim(x, file, delim = ";", na = na, append = append,
@@ -107,7 +116,12 @@ write_csv2 <- function(x, file, na = "NA", append = FALSE, col_names = !append,
 #' @rdname write_delim
 #' @export
 write_excel_csv <- function(x, file, na = "NA", append = FALSE,
-                            col_names = !append, delim = ",", quote_escape = "double", eol = "\n") {
+                            col_names = !append, delim = ",", quote_escape = "double",
+                            eol = "\n", path = deprecated()) {
+  if (is_present(path)) {
+    deprecate_warn("1.4.0", "write_excel_csv(path = )", "write_excel_csv(file = )")
+    file <- path
+  }
 
   stopifnot(is.data.frame(x))
 
@@ -117,7 +131,8 @@ write_excel_csv <- function(x, file, na = "NA", append = FALSE,
 
   x[] <- lapply(x, output_column)
   stream_delim(x, file, delim, col_names = col_names, append = append,
-    na = na, bom = !append, quote_escape = quote_escape, eol = eol)
+    na = na, bom = !append, quote_escape = quote_escape, eol = eol
+  )
 
   invisible(x_out)
 }
@@ -125,7 +140,13 @@ write_excel_csv <- function(x, file, na = "NA", append = FALSE,
 #' @rdname write_delim
 #' @export
 write_excel_csv2 <- function(x, file, na = "NA", append = FALSE,
-                             col_names = !append, delim = ";", quote_escape = "double", eol = "\n") {
+                             col_names = !append, delim = ";", quote_escape = "double",
+                             eol = "\n", path = deprecated()) {
+  if (is_present(path)) {
+    deprecate_warn("1.4.0", "write_excel_csv2(path = )", "write_excel_csv2(file = )")
+    file <- path
+  }
+
   x_out <- x
   x <- change_decimal_separator(x, decimal_mark = ",")
 
@@ -133,15 +154,25 @@ write_excel_csv2 <- function(x, file, na = "NA", append = FALSE,
   x[datetime_cols] <- lapply(x[datetime_cols], format, "%Y/%m/%d %H:%M:%S")
 
   x[] <- lapply(x, output_column)
-  write_excel_csv(x, file, na, append, col_names, delim, quote_escape = quote_escape, eol = eol)
+  write_excel_csv(x, file, na, append, col_names, delim, quote_escape = quote_escape,
+    eol = eol
+  )
 
   invisible(x_out)
 }
 
 #' @rdname write_delim
 #' @export
-write_tsv <- function(x, file, na = "NA", append = FALSE, col_names = !append, quote_escape = "double", eol = "\n") {
-  write_delim(x, file, delim = '\t', na = na, append = append, col_names = col_names, quote_escape = quote_escape, eol = eol)
+write_tsv <- function(x, file, na = "NA", append = FALSE, col_names = !append,
+                      quote_escape = "double", eol = "\n", path = deprecated()) {
+  if (is_present(path)) {
+    deprecate_warn("1.4.0", "write_tsv(path = )", "write_tsv(file = )")
+    file <- path
+  }
+
+  write_delim(x, file, delim = '\t', na = na, append = append, col_names =
+              col_names, quote_escape = quote_escape, eol = eol
+  )
 }
 
 #' Convert a data frame to a delimited string
