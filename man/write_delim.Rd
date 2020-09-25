@@ -28,7 +28,8 @@ write_csv(
   append = FALSE,
   col_names = !append,
   quote_escape = "double",
-  eol = "\\n"
+  eol = "\\n",
+  path = deprecated()
 )
 
 write_csv2(
@@ -38,7 +39,8 @@ write_csv2(
   append = FALSE,
   col_names = !append,
   quote_escape = "double",
-  eol = "\\n"
+  eol = "\\n",
+  path = deprecated()
 )
 
 write_excel_csv(
@@ -49,7 +51,8 @@ write_excel_csv(
   col_names = !append,
   delim = ",",
   quote_escape = "double",
-  eol = "\\n"
+  eol = "\\n",
+  path = deprecated()
 )
 
 write_excel_csv2(
@@ -60,7 +63,8 @@ write_excel_csv2(
   col_names = !append,
   delim = ";",
   quote_escape = "double",
-  eol = "\\n"
+  eol = "\\n",
+  path = deprecated()
 )
 
 write_tsv(
@@ -70,7 +74,8 @@ write_tsv(
   append = FALSE,
   col_names = !append,
   quote_escape = "double",
-  eol = "\\n"
+  eol = "\\n",
+  path = deprecated()
 )
 }
 \arguments{

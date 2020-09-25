@@ -28,10 +28,16 @@ read_rds <- function(file) {
 #' @param ... Additional arguments to connection function. For example, control
 #'   the space-time trade-off of different compression methods with
 #'   `compression`. See [connections()] for more details.
+#' @param path \Sexpr[results=rd, stage=render]{lifecycle::badge("deprecated")}
 #' @return `write_rds()` returns `x`, invisibly.
 #' @rdname read_rds
 #' @export
-write_rds <- function(x, file, compress = c("none", "gz", "bz2", "xz"), version = 2, ...) {
+write_rds <- function(x, file, compress = c("none", "gz", "bz2", "xz"),
+                      version = 2, path = deprecated(), ...) {
+  if (is_present(path)) {
+    deprecate_warn("1.4.0", "write_rds(path = )", "write_rds(file = )")
+    file <- path
+  }
 
   compress <- match.arg(compress)
   con <- switch(compress,
