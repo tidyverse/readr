@@ -52,10 +52,16 @@ read_lines_raw <- function(file, skip = 0,
 }
 
 #' @inheritParams write_delim
+#' @param path \Sexpr[results=rd, stage=render]{lifecycle::badge("deprecated")}
 #' @return `write_lines()` returns `x`, invisibly.
 #' @export
 #' @rdname read_lines
-write_lines <- function(x, file, sep = "\n", na = "NA", append = FALSE) {
+write_lines <- function(x, file, sep = "\n", na = "NA", append = FALSE, path = deprecated()) {
+  if (is_present(path)) {
+    deprecate_warn("1.4.0", "write_lines(path = )", "write_lines(file = )")
+    file <- path
+  }
+
   is_raw <- is.list(x) && inherits(x[[1]], "raw")
   if (!is_raw) {
     x <- as.character(x)

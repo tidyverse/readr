@@ -10,7 +10,7 @@ read_file(file, locale = default_locale())
 
 read_file_raw(file)
 
-write_file(x, file, append = FALSE)
+write_file(x, file, append = FALSE, path = deprecated())
 }
 \arguments{
 \item{file}{Either a path to a file, a connection, or literal data
@@ -39,6 +39,8 @@ names.}
 \item{append}{If \code{FALSE}, will overwrite existing file. If \code{TRUE},
 will append to existing file. In both cases, if the file does not exist a new
 file is created.}
+
+\item{path}{\Sexpr[results=rd, stage=render]{lifecycle::badge("deprecated")}}
 }
 \value{
 \code{read_file}: A length 1 character vector.

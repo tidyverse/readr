@@ -18,7 +18,14 @@ read_lines(
 
 read_lines_raw(file, skip = 0, n_max = -1L, progress = show_progress())
 
-write_lines(x, file, sep = "\\n", na = "NA", append = FALSE)
+write_lines(
+  x,
+  file,
+  sep = "\\n",
+  na = "NA",
+  append = FALSE,
+  path = deprecated()
+)
 }
 \arguments{
 \item{file}{Either a path to a file, a connection, or literal data
@@ -69,6 +76,8 @@ systems like macOS and linux. For native windows (CRLF) separators use
 \item{append}{If \code{FALSE}, will overwrite existing file. If \code{TRUE},
 will append to existing file. In both cases, if the file does not exist a new
 file is created.}
+
+\item{path}{\Sexpr[results=rd, stage=render]{lifecycle::badge("deprecated")}}
 }
 \value{
 \code{read_lines()}: A character vector with one element for each line.
