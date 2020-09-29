@@ -157,7 +157,7 @@ test_that("too few or extra col_types generates warnings", {
 test_that("decimal mark automatically set to ,", {
   expect_message(
     x <- read_csv2("x\n1,23", progress = FALSE),
-    if (default_locale()$decimal_mark == ".") "decimal .*grouping .*mark" else NA)
+    if (default_locale()$decimal_mark == ".") "decimal .*grouping mark" else NA)
   expect_equal(x[[1]], 1.23)
 })
 

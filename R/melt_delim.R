@@ -88,7 +88,7 @@ melt_csv2 <- function(file, locale = default_locale(), na = c("", "NA"),
                       skip_empty_rows = FALSE) {
 
   if (locale$decimal_mark == ".") {
-    message("Using ',' as decimal and '.' as grouping mark. Use melt_delim() for more control.")
+    cli::cli_alert_info("Using {.val ','} as decimal and {.val '.'} as grouping mark. Use {.fn read_delim} for more control.")
     locale$decimal_mark <- ","
     locale$grouping_mark <- "."
   }

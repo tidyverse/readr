@@ -129,7 +129,7 @@ standardise_path <- function(path, input = TRUE) {
     if (requireNamespace("curl", quietly = TRUE)) {
       con <- curl::curl(path)
     } else {
-      message("`curl` package not installed, falling back to using `url()`")
+      cli::cli_alert_warning("{.pkg curl} package not installed, falling back to using {.fn url}")
       con <- url(path)
     }
     ext <- tolower(tools::file_ext(path))
@@ -208,7 +208,7 @@ zipfile <- function(path, open = "r") {
   file <- files$Name[[1]]
 
   if (nrow(files) > 1) {
-    message("Multiple files in zip: reading '", file, "'")
+    suppressWarnings(cli::cli_alert_warning("Multiple files in zip: reading {.file '{file}'}"))
   }
 
   unz(path, file, open = open)

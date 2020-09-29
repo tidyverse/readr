@@ -37,10 +37,12 @@ BugReports: https://github.com/tidyverse/readr/issues
 Depends:
     R (>= 3.1)
 Imports:
+    cli,
     clipr,
     crayon,
     hms (>= 0.4.1),
     methods,
+    rlang,
     R6,
     tibble,
     utils,
@@ -64,7 +66,7 @@ Config/Needs/website:
   pkgdown,
   tidytemplate
 Config/testthat/edition: 3
-Config/testthat/parallel: true
+Config/testthat/parallel: false
 Encoding: UTF-8
 Language: en-US
 Roxygen: list(markdown = TRUE)

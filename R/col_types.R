@@ -320,11 +320,14 @@ colourise_cols <- function(cols, colourise = crayon::has_color()) {
 # Used in read_delim(), read_fwf() and type_convert()
 show_cols_spec <- function(spec, n = getOption("readr.num_columns", 20)) {
   if (n > 0) {
-    message("Parsed with column specification:\n",
-      format(spec, n = n, condense = NULL), appendLF = FALSE)
+    cli_block(class = "readr_spec_message", {
+    cli::cli_h1("Column specification")
+    txt <- strsplit(format(spec, n = n, condense = NULL), "\n")[[1]]
+    cli::cli_verbatim(txt)
     if (length(spec$cols) >= n) {
-      message("See spec(...) for full column specifications.")
+      cli::cli_alert_info("Use {.fn spec} for the full column specifications.")
     }
+  })
   }
 }
 

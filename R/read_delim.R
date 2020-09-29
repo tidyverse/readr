@@ -148,7 +148,7 @@ read_csv2 <- function(file, col_names = TRUE, col_types = NULL,
                       skip_empty_rows = TRUE) {
 
   if (locale$decimal_mark == ".") {
-    message("Using ',' as decimal and '.' as grouping mark. Use read_delim() for more control.")
+    cli::cli_alert_info("Using {.val ','} as decimal and {.val '.'} as grouping mark. Use {.fn read_delim} for more control.")
     locale$decimal_mark <- ","
     locale$grouping_mark <- "."
   }
