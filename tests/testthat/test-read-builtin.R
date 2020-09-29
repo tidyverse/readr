@@ -1,5 +1,3 @@
-context("test-read-builtin")
-
 test_that("read_builtin works", {
   skip_if(interactive())
   # fails with unquoted symbol (like data(storms, package = "dplyr"))

@@ -63,6 +63,8 @@ VignetteBuilder:
 Config/Needs/website: 
   pkgdown,
   tidytemplate
+Config/testthat/edition: 3
+Config/testthat/parallel: true
 Encoding: UTF-8
 Language: en-US
 Roxygen: list(markdown = TRUE)

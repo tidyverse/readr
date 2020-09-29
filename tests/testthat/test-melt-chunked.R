@@ -1,5 +1,3 @@
-context("melt-chunked")
-
 test_that("melt_delim_chunked", {
   file <- readr_example("mtcars.csv")
   unchunked <- melt_csv(file, progress = FALSE)

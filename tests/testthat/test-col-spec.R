@@ -1,5 +1,3 @@
-context("col_spec")
-
 test_that("supplied col names must match non-skipped col types", {
   out <- col_spec_standardise(col_types = "c_c", col_names = c("a", "c"))
   expect_equal(names(out[[1]]), c("a", "", "c"))
@@ -51,7 +49,7 @@ test_that("defaults expanded to match names", {
 })
 
 test_that("col_spec_standardise works properly with 1 row inputs and no header columns (#333)", {
-  expect_is(col_spec_standardise("1\n", col_names = FALSE)[[1]]$X1, "collector_double")
+  expect_s3_class(col_spec_standardise("1\n", col_names = FALSE)[[1]]$X1, "collector_double")
 })
 
 test_that("warns about duplicated names", {

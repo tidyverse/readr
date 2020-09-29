@@ -1,5 +1,3 @@
-context("Parsing, character")
-
 test_that("ws dropped by default", {
   df <- read_csv("x\n a \n    b\n", progress = FALSE)
   expect_equal(df$x, c("a", "b"))

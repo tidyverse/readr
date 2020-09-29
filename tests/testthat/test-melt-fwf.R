@@ -1,5 +1,3 @@
-context("melt_fwf")
-
 test_that("trailing spaces ommitted", {
   spec <- fwf_empty("fwf-trailing.txt")
   expect_equal(spec$begin, c(0, 4))

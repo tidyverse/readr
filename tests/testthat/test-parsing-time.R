@@ -1,5 +1,3 @@
-context("Parsing, time")
-
 test_that("default format captures cases", {
   late_night <- hms::hms(seconds = 22 * 3600 + 20 * 60)
   expect_equal(parse_time("22:20"), late_night)

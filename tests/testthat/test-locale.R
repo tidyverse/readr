@@ -1,5 +1,3 @@
-context("locale")
-
 test_that("setting decimal mark overrides grouping mark", {
   expect_equal(locale(decimal_mark = ".")$grouping_mark, ",")
   expect_equal(locale(decimal_mark = ",")$grouping_mark, ".")

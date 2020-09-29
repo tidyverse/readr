@@ -1,5 +1,3 @@
-context("Parsing, count_fields")
-
 test_that("counts correct number of fields based on supplied tokenizer", {
   string <- "1,a,NA\n2,b,NA\n"
   res_csv <- count_fields(string, tokenizer_csv())

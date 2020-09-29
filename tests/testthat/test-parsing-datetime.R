@@ -1,5 +1,3 @@
-context("Parsing, datetime")
-
 test_that("utctime is equivalent to R conversion", {
   year <- seq(0, 4000)
   mon <- rep(3L, length(year))

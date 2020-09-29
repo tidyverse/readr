@@ -1,5 +1,3 @@
-context("read_file")
-
 # df <- dplyr::tibble(français = "élève")
 # write.csv(df,
 #   "tests/testthat/enc-iso-8859-1.txt",

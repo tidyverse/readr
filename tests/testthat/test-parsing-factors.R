@@ -1,5 +1,3 @@
-context("Parsing, factors")
-
 test_that("strings mapped to levels", {
   x <- parse_factor(c("a", "b"), levels = c("a", "b"))
   expect_equal(x, factor(c("a", "b")))
@@ -61,7 +59,7 @@ test_that("Factors handle encodings properly (#615)", {
     col_types = cols(col_factor(c("A", "\uC4"))),
     locale = locale(encoding = "latin1"), progress = FALSE)
 
-  expect_is(x$test, "factor")
+  expect_s3_class(x$test, "factor")
   expect_equal(x$test, factor(c("A", "\uC4")))
 })
 

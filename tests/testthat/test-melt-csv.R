@@ -1,5 +1,3 @@
-context("melt_csv")
-
 #test_that("read_csv type imputation and NA detection works", {
   #melt_data <- melt_csv("non-tabular.csv", na = "NA")
   #expect_equal(melt_data$data_type[7:11],

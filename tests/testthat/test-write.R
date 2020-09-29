@@ -1,5 +1,3 @@
-context("write_delim")
-
 test_that("strings are only quoted if needed", {
   x <- c("a", ',')
 
@@ -153,7 +151,7 @@ test_that("write_csv2 and format_csv2 writes ; sep and , decimal mark", {
   on.exit(unlink(filename))
   write_csv2(df, filename)
 
-  expect_equivalent(df, suppressMessages(read_csv2(filename)))
+  expect_equal(c(df), suppressMessages(c(read_csv2(filename))))
 })
 
 test_that("write_csv2 and format_csv2 writes NA appropriately", {

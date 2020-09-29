@@ -1,4 +1,3 @@
-context("write_lines")
 test_that("write_lines uses UTF-8 encoding", {
   skip_on_os("solaris")
 

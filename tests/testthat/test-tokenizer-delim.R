@@ -1,6 +1,3 @@
-context("TokenizerDelim")
-# Tests tokenizing and unescaping
-
 parse_b <- function(x, ...) {
   tok <- tokenizer_delim(",", escape_double = FALSE, escape_backslash = TRUE, ...)
   tokenize(datasource_string(x, 0), tok)

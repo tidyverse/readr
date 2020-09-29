@@ -1,5 +1,3 @@
-context("read_lines")
-
 test_that("read_lines respects encoding", {
   skip_on_os("solaris")
 

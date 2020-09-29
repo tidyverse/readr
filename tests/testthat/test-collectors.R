@@ -1,5 +1,3 @@
-context("Collectors")
-
 test_that("guess for empty strings is logical", {
   expect_equal(guess_parser(c("", "")), "logical")
 })

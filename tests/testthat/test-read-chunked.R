@@ -1,5 +1,3 @@
-context("read-chunked")
-
 test_that("read_lines_chunked", {
   file <- readr_example("mtcars.csv")
   num_rows <- length(readLines(file))

@@ -1,4 +1,3 @@
-context("Parsing, numeric")
 es_MX <- locale("es", decimal_mark = ",")
 
 test_that("non-numeric integer/double matches fail", {

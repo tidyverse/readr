@@ -215,7 +215,7 @@ read_delimited <- function(file, tokenizer, col_names = TRUE, col_types = NULL,
 
   ds <- datasource(data, skip = spec$skip, skip_empty_rows = skip_empty_rows, comment = comment)
 
-  if (is.null(col_types) && !inherits(ds, "source_string")) {
+  if (is.null(col_types) && !inherits(ds, "source_string") && !is_testing()) {
     show_cols_spec(spec)
   }
 

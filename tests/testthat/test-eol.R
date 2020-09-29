@@ -1,5 +1,3 @@
-context("EOL")
-
 if (FALSE) {
   df <- data.frame(x = 1:3, y = letters[1:3], stringsAsFactors = FALSE)
   write.csv(df, test_path("eol-lf.csv"), row.names = FALSE, eol = "\n")

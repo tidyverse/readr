@@ -1,5 +1,3 @@
-context("read_table")
-
 # read_table -------------------------------------------------------------------
 
 test_that("read_table silently reads ragged last column", {

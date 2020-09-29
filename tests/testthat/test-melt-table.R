@@ -1,5 +1,3 @@
-context("melt_table")
-
 # melt_table -------------------------------------------------------------------
 
 test_that("melt_table silently reads ragged last column", {
