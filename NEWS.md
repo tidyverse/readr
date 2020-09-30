@@ -34,7 +34,7 @@
 * `write_*()` functions gain a `eol =` argument to control the end of line character used (#857).
   This allows writing of CSV files with Windows newlines (CRLF) if desired.
 
-* The Rcpp dependency has been removed in favor of cppp11.
+* The Rcpp dependency has been removed in favor of cpp11.
 
 ## Additional features and fixes
 

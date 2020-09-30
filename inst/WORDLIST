@@ -17,6 +17,8 @@ Cheng
 cloneable
 coloured
 Colouring
+cli
+cpp
 csv
 datetimes
 ddddf
@@ -74,6 +76,7 @@ recognising
 recongise
 reinitialization
 reprexes
+Rcpp
 Rds
 rmarkdown
 serialise
