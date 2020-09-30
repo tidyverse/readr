@@ -1,4 +1,4 @@
-This release should fix the reported valgrind issues.
+This release should fix the test errors on R-devel
 
 ## Test environments
 * local OS X install, R 3.5.1.
