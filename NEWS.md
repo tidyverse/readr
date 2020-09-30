@@ -36,6 +36,8 @@
 
 * The Rcpp dependency has been removed in favor of cpp11.
 
+* The build system has been greatly simplified so should work on more systems.
+
 ## Additional features and fixes
 
 * The full problem field is now displayed in the problems tibble, as intended (#444).
