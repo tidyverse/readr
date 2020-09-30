@@ -43,6 +43,7 @@ register_s3_method <- function(pkg, generic, class, fun = NULL) {
 }
 
 is_testing <- function() {
-  identical(Sys.getenv("TESTTHAT"), "true")
+  identical(Sys.getenv("TESTTHAT"), "true") &&
+    identical(Sys.getenv("TESTTHAT_PKG"), "readr")
 }
 # nocov end
