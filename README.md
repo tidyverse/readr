@@ -16,7 +16,7 @@ rectangular data (like csv, tsv, and fwf). It is designed to flexibly
 parse many types of data found in the wild, while still cleanly failing
 when data unexpectedly changes. If you are new to readr, the best place
 to start is the [data import
-chapter](http://r4ds.had.co.nz/data-import.html) in R for data science.
+chapter](https://r4ds.had.co.nz/data-import.html) in R for data science.
 
 ## Installation
 
@@ -42,14 +42,14 @@ readr is part of the core tidyverse, so load it with:
 
 ``` r
 library(tidyverse)
-#> -- Attaching packages ----------------------------------------------------------------------------------------- tidyverse 1.3.0 --
-#> v ggplot2 3.2.1     v purrr   0.3.3
-#> v tibble  2.1.3     v dplyr   0.8.3
-#> v tidyr   1.0.2     v stringr 1.4.0
-#> v readr   1.3.1     v forcats 0.4.0
-#> -- Conflicts -------------------------------------------------------------------------------------------- tidyverse_conflicts() --
-#> x dplyr::filter() masks stats::filter()
-#> x dplyr::lag()    masks stats::lag()
+#> ── Attaching packages ─────────────────────────────────────── tidyverse 1.3.0 ──
+#> ✔ ggplot2 3.3.2          ✔ purrr   0.3.4     
+#> ✔ tibble  3.0.3          ✔ dplyr   1.0.2.9000
+#> ✔ tidyr   1.1.2          ✔ stringr 1.4.0     
+#> ✔ readr   1.3.1.9000     ✔ forcats 0.5.0
+#> ── Conflicts ────────────────────────────────────────── tidyverse_conflicts() ──
+#> ✖ dplyr::filter() masks stats::filter()
+#> ✖ dplyr::lag()    masks stats::lag()
 ```
 
 To accurately read a rectangular dataset with readr you combine two
@@ -75,7 +75,8 @@ file bundled with readr:
 
 ``` r
 mtcars <- read_csv(readr_example("mtcars.csv"))
-#> Parsed with column specification:
+#> 
+#> ── Column specification ────────────────────────────────────────────────────────
 #> cols(
 #>   mpg = col_double(),
 #>   cyl = col_double(),
@@ -148,9 +149,7 @@ functions:
   - Are slower (currently \~1.2-2x slower. If you want absolutely the
     best performance, use `data.table::fread()`.
 
-  - Use a slightly more sophisticated parser, recognising both doubled
-    (`""""`) and backslash escapes (`"\""`), and can produce factors and
-    date/times directly.
+  - Use a slightly more sophisticated parser.
 
   - Forces you to supply all parameters, where `fread()` saves you work
     by automatically guessing the delimiter, whether or not the file has
@@ -178,5 +177,5 @@ Thanks to:
 ## Code of Conduct
 
 Please note that the readr project is released with a [Contributor Code
-of Conduct](https://readr.tidyverse.org/CODE_OF_CONDUCT.html). By
-contributing to this project, you agree to abide by its terms.
+of Conduct](https://readr.tidyverse.org/CONDUCT.html). By contributing
+to this project, you agree to abide by its terms.
