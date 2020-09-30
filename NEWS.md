@@ -2,64 +2,14 @@
 
 ## Breaking changes
 
-* `write_*()` functions now output any NaN values in the same way as NA values,
-  controlled by the `na=` argument. (#1082).
+* `write_*()` functions first argument is now `file` instead of `path`, for consistency with the `read_*()` functions.
+  `path` has been deprecated and will be removed in a future version of readr (#1110, @brianrice2)
 
-* `write_*()` functions first argument is now `file` instead of `path`, for consistency with the `read_*()` functions. (#1110, @brianrice2)
+* `write_*()` functions now output any NaN values in the same way as NA values, controlled by the `na=` argument. (#1082).
 
-## Additional features and fixes
+## New features
 
-* `as.character.col_spec()` now handles logical columns as well (#1127)
-
-* The cli package is now used for all messages.
-
-* Compressed files are now detected by magic numbers rather than by the file extension (#1125)
-
-* The runtime performance for tables with an extreme number of columns is greatly improved (#825)
-
-* A memory leak when reading files is now fixed (#1092)
-
-* `read_lines()` now ignores quotations when skipping lines (#991).
-
-* `write_csv2()` now formats decimal numbers more consistently with `utils::write.csv2()` (#1087)
-
-* `fwf_positions(end)` no longer has a default argument and must be specified (#996)
-
-* `read_lines(skip_empty_rows = TRUE)` no longer crashes if a file ends with an empty line (#968)
-
-* `write_*()` functions gain a `eol =` argument to control the end of line character used (#857). This allows writing of CSV files with Windows newlines (CRLF) if desired.
-
-* `write_excel_csv()` no longer outputs a byte order mark when appending to a file (#1075).
-
-* The `read_*` functions now close properly all connections, including on 
-  errors like HTTP errors when reading from a url (@cderv, #1050).
-
-* `write_csv2` and `format_csv2` no longer pad number columns with whitespaces
-  (@keesdeschepper, #1046).
-
-* The `write_*()` functions now invisibly return the input data frame unchanged,
-  rather than a version with factors and dates converted to strings. This is the
-  documented behavior (@jesse-ross, #975).
-* `read_delimited()` no longer mistakenly stats literal filenames (#1063)
-
-* The full problem field is now displayed in the problems tibble, as intended
-  (#444).
-
-* `guess_parser()` gains a `na` argument and removes NA values before guessing.
-  `parse_guess()` now passes the `na` argument to `guess_parser()` (#1041).
-
-* New `%h` placeholder for parsing unrestricted hours (<0 and >23) to support parsing durations (#549, @krlmlr).
-
-* Uses of `tibble::data_frame` updated to `tibble::tibble` ([tidyverse/dplyr#4069](https://github.com/tidyverse/dplyr/issues/4069), @thays42, #1124, @brianrice2)
-
-* `read_delimited()` function return an empty `tibble::data_frame()` rather
-  than signaling an error when given a connection for the `file` argument that
-  contains no data. This makes the behavior consistent as when called with an
-  empty file (@pralitp, #963).
-
-* It is now possible to generate a column specification from any tibble (or
-  data.frame) with `as.col_spec()` and convert any column specification to a
-  short representation with `as.character()`
+* It is now possible to generate a column specification from any tibble (or data.frame) with `as.col_spec()` and convert any column specification to a short representation with `as.character()`
 
     s <- as.col_spec(iris)
     s
@@ -73,12 +23,58 @@
     as.character(s)
     #> [1] "ddddf"
 
+* The cli package is now used for all messages.
+
+* The runtime performance for tables with an extreme number of columns is greatly improved (#825)
+
+* Compressed files are now detected by magic numbers rather than by the file extension (#1125)
+
+* A memory leak when reading files is now fixed (#1092)
+
+* `write_*()` functions gain a `eol =` argument to control the end of line character used (#857).
+  This allows writing of CSV files with Windows newlines (CRLF) if desired.
+
+* The Rcpp dependency has been removed in favor of cppp11.
+
+## Additional features and fixes
+
+* The full problem field is now displayed in the problems tibble, as intended (#444).
+
+* New `%h` placeholder for parsing unrestricted hours (<0 and >23) to support parsing durations (#549, @krlmlr).
+
+* `as.character.col_spec()` now handles logical columns as well (#1127)
+
+* `fwf_positions(end)` no longer has a default argument and must be specified (#996)
+
+* `guess_parser()` gains a `na` argument and removes NA values before guessing (#1041).
+
+* `parse_guess()` now passes the `na` argument to `guess_parser()` 
+
+* `read_*` functions now close properly all connections, including on errors like HTTP errors when reading from a url (@cderv, #1050).
+
+* `read_delimited()` no longer mistakenly stats literal filenames (#1063)
+
+* `read_lines()` now ignores quotations when skipping lines (#991).
+
+* `read_lines(skip_empty_rows = TRUE)` no longer crashes if a file ends with an empty line (#968)
+
+* `write_*()` functions now invisibly return the input data frame unchanged, rather than a version with factors and dates converted to strings. (@jesse-ross, #975). 
+
+* `write_csv2()` now formats decimal numbers more consistently with `utils::write.csv2()` (#1087)
+
+* `write_csv2()` and `format_csv2()` no longer pad number columns with whitespaces (@keesdeschepper, #1046).
+
+* `write_excel_csv()` no longer outputs a byte order mark when appending to a file (#1075).
+
+* Uses of `tibble::data_frame` updated to `tibble::tibble` ([tidyverse/dplyr#4069](https://github.com/tidyverse/dplyr/issues/4069), @thays42, #1124, @brianrice2)
+
+* `read_delimited()` now returns an empty `tibble::data_frame()` rather than signaling an error when given a connection with an empty file (@pralitp, #963).
+
 * More helpful error when trying to write out data frames with list columns (@ellessenne, #938)
 
 * `type_convert()` removes a 'spec' attribute, because the current columns likely have modified data types.  The 'spec' attribute is set by functions like `read_delim()` (@jimhester, @wibeasley, #1032).
 
-* `write_rds()` now can specify the Rds version to use. The default value is
-  2 as it's compatible to R versions prior to 3.5.0 (@shrektan, #1001).
+* `write_rds()` now can specify the Rds version to use. The default value is 2 as it's compatible to R versions prior to 3.5.0 (@shrektan, #1001).
 
 # readr 1.3.1
 
