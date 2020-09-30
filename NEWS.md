@@ -9,6 +9,8 @@
 
 ## Additional features and fixes
 
+* `as.character.col_spec()` now handles logical columns as well (#1127)
+
 * The cli package is now used for all messages.
 
 * Compressed files are now detected by magic numbers rather than by the file extension (#1125)

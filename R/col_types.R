@@ -178,15 +178,16 @@ as.col_spec.data.frame <- function(x) {
 
 col_to_short <- function(x, ...) {
   switch(class(x)[[1]],
-    collector_skip = "-",
-    collector_guess = "?",
     collector_character = "c",
-    collector_factor = "f",
-    collector_double = "d",
-    collector_integer = "i",
-    collector_number = "n",
     collector_date = "D",
     collector_datetime = "T",
+    collector_double = "d",
+    collector_factor = "f",
+    collector_guess = "?",
+    collector_integer = "i",
+    collector_logical = "l",
+    collector_number = "n",
+    collector_skip = "-",
     collector_time = "t"
   )
 }
