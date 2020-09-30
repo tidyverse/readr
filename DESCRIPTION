@@ -64,7 +64,7 @@ VignetteBuilder:
     knitr
 Config/Needs/website: 
   pkgdown,
-  tidytemplate
+  tidyverse/tidytemplate
 Config/testthat/edition: 3
 Config/testthat/parallel: false
 Encoding: UTF-8
