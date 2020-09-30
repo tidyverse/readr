@@ -71,5 +71,5 @@ Encoding: UTF-8
 Language: en-US
 Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.1.1
-SystemRequirements: GNU make, C++11
+SystemRequirements: C++11
 RdMacros: lifecycle
