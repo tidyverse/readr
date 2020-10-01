@@ -31,6 +31,7 @@ jobs:
           restore-keys: ${{ runner.os }}-${{ hashFiles('.github/R-version') }}-2-
 
       - name: Install dependencies
+      R_REMOTES_NO_ERRORS_FROM_WARNINGS: true
         run: |
           remotes::install_deps(dependencies = c("soft", "Config/Needs/website"))
         shell: Rscript {0}
