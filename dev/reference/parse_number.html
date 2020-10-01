@@ -79,7 +79,7 @@ The grouping mark specified by the locale is ignored inside the number." />
 
   </head>
 
-  <body>
+  <body data-spy="scroll" data-target="#toc">
     <div class="container template-reference-topic">
       <header>
       <div class="navbar navbar-default navbar-fixed-top" role="navigation">
@@ -141,7 +141,7 @@ The grouping mark specified by the locale is ignored inside the number." />
   </ul>
 </li>
         <li>
-  <a href="https://github.com/tidyverse/readr">
+  <a href="https://github.com/tidyverse/readr/">
     <span class="fab fa fab fa-github fa-lg"></span>
      
   </a>
@@ -169,9 +169,9 @@ The grouping mark specified by the locale is ignored inside the number." />
 The grouping mark specified by the locale is ignored inside the number.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>parse_number</span>(<span class='no'>x</span>, <span class='kw'>na</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>""</span>, <span class='st'>"NA"</span>), <span class='kw'>locale</span> <span class='kw'>=</span> <span class='fu'><a href='locale.html'>default_locale</a></span>(), <span class='kw'>trim_ws</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)
+    <pre class="usage"><span class='fu'>parse_number</span><span class='op'>(</span><span class='va'>x</span>, na <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>""</span>, <span class='st'>"NA"</span><span class='op'>)</span>, locale <span class='op'>=</span> <span class='fu'><a href='locale.html'>default_locale</a></span><span class='op'>(</span><span class='op'>)</span>, trim_ws <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span>
 
-<span class='fu'>col_number</span>()</pre>
+<span class='fu'>col_number</span><span class='op'>(</span><span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -207,7 +207,7 @@ each field before parsing it?</p></td>
 
     <div class='dont-index'><p>Other parsers: 
 <code><a href='col_skip.html'>col_skip</a>()</code>,
-<code><a href='spec.html'>cols_condense</a>()</code>,
+<code><a href='cols_condense.html'>cols_condense</a>()</code>,
 <code><a href='cols.html'>cols</a>()</code>,
 <code><a href='parse_datetime.html'>parse_datetime</a>()</code>,
 <code><a href='parse_factor.html'>parse_factor</a>()</code>,
@@ -217,22 +217,24 @@ each field before parsing it?</p></td>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='co'>## These all return 1000</span>
-<span class='fu'>parse_number</span>(<span class='st'>"$1,000"</span>)     <span class='co'>## leading $ and grouping character , ignored</span></div><div class='output co'>#&gt; [1] 1000</div><div class='input'><span class='fu'>parse_number</span>(<span class='st'>"euro1,000"</span>)  <span class='co'>## leading non-numeric euro ignored</span></div><div class='output co'>#&gt; [1] 1000</div><div class='input'>
-<span class='fu'>parse_number</span>(<span class='st'>"1,234.56"</span>)</div><div class='output co'>#&gt; [1] 1234.56</div><div class='input'><span class='co'>## explicit locale specifying European grouping and decimal marks</span>
-<span class='fu'>parse_number</span>(<span class='st'>"1.234,56"</span>, <span class='kw'>locale</span> <span class='kw'>=</span> <span class='fu'><a href='locale.html'>locale</a></span>(<span class='kw'>decimal_mark</span> <span class='kw'>=</span> <span class='st'>","</span>, <span class='kw'>grouping_mark</span> <span class='kw'>=</span> <span class='st'>"."</span>))</div><div class='output co'>#&gt; [1] 1234.56</div><div class='input'><span class='co'>## SI/ISO 31-0 standard spaces for number grouping</span>
-<span class='fu'>parse_number</span>(<span class='st'>"1 234.56"</span>, <span class='kw'>locale</span> <span class='kw'>=</span> <span class='fu'><a href='locale.html'>locale</a></span>(<span class='kw'>decimal_mark</span> <span class='kw'>=</span> <span class='st'>"."</span>, <span class='kw'>grouping_mark</span> <span class='kw'>=</span> <span class='st'>" "</span>))</div><div class='output co'>#&gt; [1] 1234.56</div><div class='input'>
+<span class='fu'>parse_number</span><span class='op'>(</span><span class='st'>"$1,000"</span><span class='op'>)</span>     <span class='co'>## leading $ and grouping character , ignored</span>
+</div><div class='output co'>#&gt; [1] 1000</div><div class='input'><span class='fu'>parse_number</span><span class='op'>(</span><span class='st'>"euro1,000"</span><span class='op'>)</span>  <span class='co'>## leading non-numeric euro ignored</span>
+</div><div class='output co'>#&gt; [1] 1000</div><div class='input'>
+<span class='fu'>parse_number</span><span class='op'>(</span><span class='st'>"1,234.56"</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; [1] 1234.56</div><div class='input'><span class='co'>## explicit locale specifying European grouping and decimal marks</span>
+<span class='fu'>parse_number</span><span class='op'>(</span><span class='st'>"1.234,56"</span>, locale <span class='op'>=</span> <span class='fu'><a href='locale.html'>locale</a></span><span class='op'>(</span>decimal_mark <span class='op'>=</span> <span class='st'>","</span>, grouping_mark <span class='op'>=</span> <span class='st'>"."</span><span class='op'>)</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; [1] 1234.56</div><div class='input'><span class='co'>## SI/ISO 31-0 standard spaces for number grouping</span>
+<span class='fu'>parse_number</span><span class='op'>(</span><span class='st'>"1 234.56"</span>, locale <span class='op'>=</span> <span class='fu'><a href='locale.html'>locale</a></span><span class='op'>(</span>decimal_mark <span class='op'>=</span> <span class='st'>"."</span>, grouping_mark <span class='op'>=</span> <span class='st'>" "</span><span class='op'>)</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; [1] 1234.56</div><div class='input'>
 <span class='co'>## Specifying strings for NAs</span>
-<span class='fu'>parse_number</span>(<span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"1"</span>, <span class='st'>"2"</span>, <span class='st'>"3"</span>, <span class='st'>"NA"</span>))</div><div class='output co'>#&gt; [1]  1  2  3 NA</div><div class='input'><span class='fu'>parse_number</span>(<span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"1"</span>, <span class='st'>"2"</span>, <span class='st'>"3"</span>, <span class='st'>"NA"</span>, <span class='st'>"Nothing"</span>), <span class='kw'>na</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"NA"</span>, <span class='st'>"Nothing"</span>))</div><div class='output co'>#&gt; [1]  1  2  3 NA NA</div></pre>
+<span class='fu'>parse_number</span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"1"</span>, <span class='st'>"2"</span>, <span class='st'>"3"</span>, <span class='st'>"NA"</span><span class='op'>)</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; [1]  1  2  3 NA</div><div class='input'><span class='fu'>parse_number</span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"1"</span>, <span class='st'>"2"</span>, <span class='st'>"3"</span>, <span class='st'>"NA"</span>, <span class='st'>"Nothing"</span><span class='op'>)</span>, na <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"NA"</span>, <span class='st'>"Nothing"</span><span class='op'>)</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; [1]  1  2  3 NA NA</div></pre>
   </div>
-  <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
-    <h2>Contents</h2>
-    <ul class="nav nav-pills nav-stacked">
-      <li><a href="#arguments">Arguments</a></li>
-      <li><a href="#value">Value</a></li>
-      <li><a href="#see-also">See also</a></li>
-      <li><a href="#examples">Examples</a></li>
-    </ul>
-
+  <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
+    <nav id="toc" data-toggle="toc" class="sticky-top">
+      <h2 data-toc-skip>Contents</h2>
+    </nav>
   </div>
 </div>
 

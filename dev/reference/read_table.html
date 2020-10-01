@@ -86,7 +86,7 @@ the column specifications rather than a data frame." />
 
   </head>
 
-  <body>
+  <body data-spy="scroll" data-target="#toc">
     <div class="container template-reference-topic">
       <header>
       <div class="navbar navbar-default navbar-fixed-top" role="navigation">
@@ -148,7 +148,7 @@ the column specifications rather than a data frame." />
   </ul>
 </li>
         <li>
-  <a href="https://github.com/tidyverse/readr">
+  <a href="https://github.com/tidyverse/readr/">
     <span class="fab fa fab fa-github fa-lg"></span>
      
   </a>
@@ -183,33 +183,33 @@ parses like a fixed width file.</p>
 the column specifications rather than a data frame.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>read_table</span>(
-  <span class='no'>file</span>,
-  <span class='kw'>col_names</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
-  <span class='kw'>col_types</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>locale</span> <span class='kw'>=</span> <span class='fu'><a href='locale.html'>default_locale</a></span>(),
-  <span class='kw'>na</span> <span class='kw'>=</span> <span class='st'>"NA"</span>,
-  <span class='kw'>skip</span> <span class='kw'>=</span> <span class='fl'>0</span>,
-  <span class='kw'>n_max</span> <span class='kw'>=</span> <span class='fl'>Inf</span>,
-  <span class='kw'>guess_max</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/Extremes.html'>min</a></span>(<span class='no'>n_max</span>, <span class='fl'>1000</span>),
-  <span class='kw'>progress</span> <span class='kw'>=</span> <span class='fu'><a href='show_progress.html'>show_progress</a></span>(),
-  <span class='kw'>comment</span> <span class='kw'>=</span> <span class='st'>""</span>,
-  <span class='kw'>skip_empty_rows</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>
-)
+    <pre class="usage"><span class='fu'>read_table</span><span class='op'>(</span>
+  <span class='va'>file</span>,
+  col_names <span class='op'>=</span> <span class='cn'>TRUE</span>,
+  col_types <span class='op'>=</span> <span class='cn'>NULL</span>,
+  locale <span class='op'>=</span> <span class='fu'><a href='locale.html'>default_locale</a></span><span class='op'>(</span><span class='op'>)</span>,
+  na <span class='op'>=</span> <span class='st'>"NA"</span>,
+  skip <span class='op'>=</span> <span class='fl'>0</span>,
+  n_max <span class='op'>=</span> <span class='cn'>Inf</span>,
+  guess_max <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/Extremes.html'>min</a></span><span class='op'>(</span><span class='va'>n_max</span>, <span class='fl'>1000</span><span class='op'>)</span>,
+  progress <span class='op'>=</span> <span class='fu'><a href='show_progress.html'>show_progress</a></span><span class='op'>(</span><span class='op'>)</span>,
+  comment <span class='op'>=</span> <span class='st'>""</span>,
+  skip_empty_rows <span class='op'>=</span> <span class='cn'>TRUE</span>
+<span class='op'>)</span>
 
-<span class='fu'>read_table2</span>(
-  <span class='no'>file</span>,
-  <span class='kw'>col_names</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
-  <span class='kw'>col_types</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>locale</span> <span class='kw'>=</span> <span class='fu'><a href='locale.html'>default_locale</a></span>(),
-  <span class='kw'>na</span> <span class='kw'>=</span> <span class='st'>"NA"</span>,
-  <span class='kw'>skip</span> <span class='kw'>=</span> <span class='fl'>0</span>,
-  <span class='kw'>n_max</span> <span class='kw'>=</span> <span class='fl'>Inf</span>,
-  <span class='kw'>guess_max</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/Extremes.html'>min</a></span>(<span class='no'>n_max</span>, <span class='fl'>1000</span>),
-  <span class='kw'>progress</span> <span class='kw'>=</span> <span class='fu'><a href='show_progress.html'>show_progress</a></span>(),
-  <span class='kw'>comment</span> <span class='kw'>=</span> <span class='st'>""</span>,
-  <span class='kw'>skip_empty_rows</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>
-)</pre>
+<span class='fu'>read_table2</span><span class='op'>(</span>
+  <span class='va'>file</span>,
+  col_names <span class='op'>=</span> <span class='cn'>TRUE</span>,
+  col_types <span class='op'>=</span> <span class='cn'>NULL</span>,
+  locale <span class='op'>=</span> <span class='fu'><a href='locale.html'>default_locale</a></span><span class='op'>(</span><span class='op'>)</span>,
+  na <span class='op'>=</span> <span class='st'>"NA"</span>,
+  skip <span class='op'>=</span> <span class='fl'>0</span>,
+  n_max <span class='op'>=</span> <span class='cn'>Inf</span>,
+  guess_max <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/Extremes.html'>min</a></span><span class='op'>(</span><span class='va'>n_max</span>, <span class='fl'>1000</span><span class='op'>)</span>,
+  progress <span class='op'>=</span> <span class='fu'><a href='show_progress.html'>show_progress</a></span><span class='op'>(</span><span class='op'>)</span>,
+  comment <span class='op'>=</span> <span class='st'>""</span>,
+  skip_empty_rows <span class='op'>=</span> <span class='cn'>TRUE</span>
+<span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -324,8 +324,9 @@ tabular data with non-standard formatting.</p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='co'># One corner from http://www.masseyratings.com/cf/compare.htm</span>
-<span class='no'>massey</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='readr_example.html'>readr_example</a></span>(<span class='st'>"massey-rating.txt"</span>)
-<span class='fu'><a href='https://rdrr.io/r/base/cat.html'>cat</a></span>(<span class='fu'><a href='read_file.html'>read_file</a></span>(<span class='no'>massey</span>))</div><div class='output co'>#&gt; UCC PAY LAZ KPK  RT   COF BIH DII ENG ACU Rank Team            Conf
+<span class='va'>massey</span> <span class='op'>&lt;-</span> <span class='fu'><a href='readr_example.html'>readr_example</a></span><span class='op'>(</span><span class='st'>"massey-rating.txt"</span><span class='op'>)</span>
+<span class='fu'><a href='https://rdrr.io/r/base/cat.html'>cat</a></span><span class='op'>(</span><span class='fu'><a href='read_file.html'>read_file</a></span><span class='op'>(</span><span class='va'>massey</span><span class='op'>)</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; UCC PAY LAZ KPK  RT   COF BIH DII ENG ACU Rank Team            Conf
 #&gt;   1   1   1   1   1     1   1   1   1   1    1 Ohio St          B10 
 #&gt;   2   2   2   2   2     2   2   2   4   2    2 Oregon           P12 
 #&gt;   3   4   3   4   3     4   3   4   2   3    3 Alabama          SEC 
@@ -335,9 +336,11 @@ tabular data with non-standard formatting.</p></div>
 #&gt;   5   5   5   7   6     8   4   6   5   5    7 Florida St       ACC 
 #&gt;   8   8   9   9  10     5   7   7  10   7    8 Baylor           B12 
 #&gt;   9  11   8  13  11    11  12   9  14   9    9 Georgia Tech     ACC 
-#&gt;  13  10  13  11   8     9  10  11   9  10   10 Mississippi      SEC </div><div class='input'><span class='fu'>read_table</span>(<span class='no'>massey</span>)</div><div class='output co'>#&gt; <span class='message'>Parsed with column specification:</span>
+#&gt;  13  10  13  11   8     9  10  11   9  10   10 Mississippi      SEC </div><div class='input'><span class='fu'>read_table</span><span class='op'>(</span><span class='va'>massey</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; <span class='message'></span>
+#&gt; <span class='message'><span style='color: #00BBBB;'>──</span><span> </span><span style='font-weight: bold;'>Column specification</span><span> </span><span style='color: #00BBBB;'>────────────────────────────────────────────────────────</span><span></span>
 #&gt; <span class='message'>cols(</span>
-#&gt; <span class='message'>  UCC = <span style='color: #00BB00;'>col_double()</span><span>,</span>
+#&gt; <span class='message'>  UCC = </span><span style='color: #00BB00;'>col_double()</span><span>,</span>
 #&gt; <span class='message'>  PAY = </span><span style='color: #00BB00;'>col_double()</span><span>,</span>
 #&gt; <span class='message'>  LAZ = </span><span style='color: #00BB00;'>col_double()</span><span>,</span>
 #&gt; <span class='message'>  KPK = </span><span style='color: #00BB00;'>col_double()</span><span>,</span>
@@ -365,8 +368,9 @@ tabular data with non-standard formatting.</p></div>
 #&gt; </span><span style='color: #555555;'>10</span><span>    13    10    13    11     8     9    10    11     9    10    10 Miss… SEC  </div><div class='input'>
 <span class='co'># Sample of 1978 fuel economy data from</span>
 <span class='co'># http://www.fueleconomy.gov/feg/epadata/78data.zip</span>
-<span class='no'>epa</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='readr_example.html'>readr_example</a></span>(<span class='st'>"epa78.txt"</span>)
-<span class='fu'><a href='https://rdrr.io/r/base/cat.html'>cat</a></span>(<span class='fu'><a href='read_file.html'>read_file</a></span>(<span class='no'>epa</span>))</div><div class='output co'>#&gt; ALFA ROMEO                                                                     ALFA ROMEO           78010003
+<span class='va'>epa</span> <span class='op'>&lt;-</span> <span class='fu'><a href='readr_example.html'>readr_example</a></span><span class='op'>(</span><span class='st'>"epa78.txt"</span><span class='op'>)</span>
+<span class='fu'><a href='https://rdrr.io/r/base/cat.html'>cat</a></span><span class='op'>(</span><span class='fu'><a href='read_file.html'>read_file</a></span><span class='op'>(</span><span class='va'>epa</span><span class='op'>)</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; ALFA ROMEO                                                                     ALFA ROMEO           78010003
 #&gt; ALFETTA                              03  81  8    74  7   89  9                ALFETTA              78010053
 #&gt; SPIDER 2000                          01                                        SPIDER 2000          78010103
 #&gt; AMC                                                                            AMC                  78020002
@@ -385,7 +389,9 @@ tabular data with non-standard formatting.</p></div>
 #&gt; FOX WAGON                            07  83 40            83 40                FOX WAGON            78050103
 #&gt; 5000                                 04  90 15            90 15                5000                 78050153
 #&gt; AVANTI                                                                         AVANTI               78065002
-#&gt; AVANTI II                            02  75  8    75  8                        AVANTI II            78065053</div><div class='input'><span class='fu'>read_table</span>(<span class='no'>epa</span>, <span class='kw'>col_names</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</div><div class='output co'>#&gt; <span class='message'>Parsed with column specification:</span>
+#&gt; AVANTI II                            02  75  8    75  8                        AVANTI II            78065053</div><div class='input'><span class='fu'>read_table</span><span class='op'>(</span><span class='va'>epa</span>, col_names <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; <span class='message'></span>
+#&gt; <span class='message'></span><span style='color: #00BBBB;'>──</span><span> </span><span style='font-weight: bold;'>Column specification</span><span> </span><span style='color: #00BBBB;'>────────────────────────────────────────────────────────</span><span></span>
 #&gt; <span class='message'>cols(</span>
 #&gt; <span class='message'>  X1 = </span><span style='color: #BB0000;'>col_character()</span><span>,</span>
 #&gt; <span class='message'>  X2 = </span><span style='color: #BB0000;'>col_character()</span><span>,</span>
@@ -423,14 +429,10 @@ tabular data with non-standard formatting.</p></div>
 #&gt; </span><span style='color: #555555;'>19</span><span> AVANTI   </span><span style='color: #555555;'>""</span><span>       </span><span style='color: #BB0000;'>NA</span><span>    </span><span style='color: #BB0000;'>NA</span><span>    </span><span style='color: #BB0000;'>NA</span><span>    </span><span style='color: #BB0000;'>NA</span><span>    </span><span style='color: #BB0000;'>NA</span><span>    </span><span style='color: #BB0000;'>NA</span><span>    </span><span style='color: #BB0000;'>NA</span><span>    </span><span style='color: #BB0000;'>NA</span><span> AVANTI  7.81</span><span style='color: #555555;'>e</span><span>7
 #&gt; </span><span style='color: #555555;'>20</span><span> AVANTI … </span><span style='color: #555555;'>"</span><span>02</span><span style='color: #555555;'>"</span><span>     75     8    75     8    </span><span style='color: #BB0000;'>NA</span><span>    </span><span style='color: #BB0000;'>NA</span><span>    </span><span style='color: #BB0000;'>NA</span><span>    </span><span style='color: #BB0000;'>NA</span><span> AVANTI… 7.81</span><span style='color: #555555;'>e</span><span>7</div></span></pre>
   </div>
-  <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
-    <h2>Contents</h2>
-    <ul class="nav nav-pills nav-stacked">
-      <li><a href="#arguments">Arguments</a></li>
-      <li><a href="#see-also">See also</a></li>
-      <li><a href="#examples">Examples</a></li>
-    </ul>
-
+  <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
+    <nav id="toc" data-toggle="toc" class="sticky-top">
+      <h2 data-toc-skip>Contents</h2>
+    </nav>
   </div>
 </div>
 

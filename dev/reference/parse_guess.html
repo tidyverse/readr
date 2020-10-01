@@ -82,7 +82,7 @@ if needed." />
 
   </head>
 
-  <body>
+  <body data-spy="scroll" data-target="#toc">
     <div class="container template-reference-topic">
       <header>
       <div class="navbar navbar-default navbar-fixed-top" role="navigation">
@@ -144,7 +144,7 @@ if needed." />
   </ul>
 </li>
         <li>
-  <a href="https://github.com/tidyverse/readr">
+  <a href="https://github.com/tidyverse/readr/">
     <span class="fab fa fab fa-github fa-lg"></span>
      
   </a>
@@ -175,22 +175,22 @@ the side of safety, as it's straightforward to override the parsing choice
 if needed.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>parse_guess</span>(
-  <span class='no'>x</span>,
-  <span class='kw'>na</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>""</span>, <span class='st'>"NA"</span>),
-  <span class='kw'>locale</span> <span class='kw'>=</span> <span class='fu'><a href='locale.html'>default_locale</a></span>(),
-  <span class='kw'>trim_ws</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
-  <span class='kw'>guess_integer</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>
-)
+    <pre class="usage"><span class='fu'>parse_guess</span><span class='op'>(</span>
+  <span class='va'>x</span>,
+  na <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>""</span>, <span class='st'>"NA"</span><span class='op'>)</span>,
+  locale <span class='op'>=</span> <span class='fu'><a href='locale.html'>default_locale</a></span><span class='op'>(</span><span class='op'>)</span>,
+  trim_ws <span class='op'>=</span> <span class='cn'>TRUE</span>,
+  guess_integer <span class='op'>=</span> <span class='cn'>FALSE</span>
+<span class='op'>)</span>
 
-<span class='fu'>col_guess</span>()
+<span class='fu'>col_guess</span><span class='op'>(</span><span class='op'>)</span>
 
-<span class='fu'>guess_parser</span>(
-  <span class='no'>x</span>,
-  <span class='kw'>locale</span> <span class='kw'>=</span> <span class='fu'><a href='locale.html'>default_locale</a></span>(),
-  <span class='kw'>guess_integer</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
-  <span class='kw'>na</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>""</span>, <span class='st'>"NA"</span>)
-)</pre>
+<span class='fu'>guess_parser</span><span class='op'>(</span>
+  <span class='va'>x</span>,
+  locale <span class='op'>=</span> <span class='fu'><a href='locale.html'>default_locale</a></span><span class='op'>(</span><span class='op'>)</span>,
+  guess_integer <span class='op'>=</span> <span class='cn'>FALSE</span>,
+  na <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>""</span>, <span class='st'>"NA"</span><span class='op'>)</span>
+<span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -228,7 +228,7 @@ each field before parsing it?</p></td>
 
     <div class='dont-index'><p>Other parsers: 
 <code><a href='col_skip.html'>col_skip</a>()</code>,
-<code><a href='spec.html'>cols_condense</a>()</code>,
+<code><a href='cols_condense.html'>cols_condense</a>()</code>,
 <code><a href='cols.html'>cols</a>()</code>,
 <code><a href='parse_datetime.html'>parse_datetime</a>()</code>,
 <code><a href='parse_factor.html'>parse_factor</a>()</code>,
@@ -238,22 +238,25 @@ each field before parsing it?</p></td>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='co'># Logical vectors</span>
-<span class='fu'>parse_guess</span>(<span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"FALSE"</span>, <span class='st'>"TRUE"</span>, <span class='st'>"F"</span>, <span class='st'>"T"</span>))</div><div class='output co'>#&gt; [1] FALSE  TRUE FALSE  TRUE</div><div class='input'>
+<span class='fu'>parse_guess</span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"FALSE"</span>, <span class='st'>"TRUE"</span>, <span class='st'>"F"</span>, <span class='st'>"T"</span><span class='op'>)</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; [1] FALSE  TRUE FALSE  TRUE</div><div class='input'>
 <span class='co'># Integers and doubles</span>
-<span class='fu'>parse_guess</span>(<span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"1"</span>,<span class='st'>"2"</span>,<span class='st'>"3"</span>))</div><div class='output co'>#&gt; [1] 1 2 3</div><div class='input'><span class='fu'>parse_guess</span>(<span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"1.6"</span>,<span class='st'>"2.6"</span>,<span class='st'>"3.4"</span>))</div><div class='output co'>#&gt; [1] 1.6 2.6 3.4</div><div class='input'>
+<span class='fu'>parse_guess</span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"1"</span>,<span class='st'>"2"</span>,<span class='st'>"3"</span><span class='op'>)</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; [1] 1 2 3</div><div class='input'><span class='fu'>parse_guess</span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"1.6"</span>,<span class='st'>"2.6"</span>,<span class='st'>"3.4"</span><span class='op'>)</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; [1] 1.6 2.6 3.4</div><div class='input'>
 <span class='co'># Numbers containing grouping mark</span>
-<span class='fu'>guess_parser</span>(<span class='st'>"1,234,566"</span>)</div><div class='output co'>#&gt; [1] "number"</div><div class='input'><span class='fu'>parse_guess</span>(<span class='st'>"1,234,566"</span>)</div><div class='output co'>#&gt; [1] 1234566</div><div class='input'>
+<span class='fu'>guess_parser</span><span class='op'>(</span><span class='st'>"1,234,566"</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; [1] "number"</div><div class='input'><span class='fu'>parse_guess</span><span class='op'>(</span><span class='st'>"1,234,566"</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; [1] 1234566</div><div class='input'>
 <span class='co'># ISO 8601 date times</span>
-<span class='fu'>guess_parser</span>(<span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"2010-10-10"</span>))</div><div class='output co'>#&gt; [1] "date"</div><div class='input'><span class='fu'>parse_guess</span>(<span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"2010-10-10"</span>))</div><div class='output co'>#&gt; [1] "2010-10-10"</div></pre>
+<span class='fu'>guess_parser</span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"2010-10-10"</span><span class='op'>)</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; [1] "date"</div><div class='input'><span class='fu'>parse_guess</span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"2010-10-10"</span><span class='op'>)</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; [1] "2010-10-10"</div></pre>
   </div>
-  <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
-    <h2>Contents</h2>
-    <ul class="nav nav-pills nav-stacked">
-      <li><a href="#arguments">Arguments</a></li>
-      <li><a href="#see-also">See also</a></li>
-      <li><a href="#examples">Examples</a></li>
-    </ul>
-
+  <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
+    <nav id="toc" data-toggle="toc" class="sticky-top">
+      <h2 data-toc-skip>Contents</h2>
+    </nav>
   </div>
 </div>
 

@@ -78,7 +78,7 @@
 
   </head>
 
-  <body>
+  <body data-spy="scroll" data-target="#toc">
     <div class="container template-reference-topic">
       <header>
       <div class="navbar navbar-default navbar-fixed-top" role="navigation">
@@ -140,7 +140,7 @@
   </ul>
 </li>
         <li>
-  <a href="https://github.com/tidyverse/readr">
+  <a href="https://github.com/tidyverse/readr/">
     <span class="fab fa fab fa-github fa-lg"></span>
      
   </a>
@@ -172,7 +172,7 @@
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
     
-<dl class='dl-horizontal'>
+<dl>
 <dt>ChunkCallback</dt><dd><p>Callback interface definition, all callback functions should inherit from this class.</p></dd>
 <dt>SideEffectChunkCallback</dt><dd><p>Callback function that is used only for side effects, no results are returned.</p></dd>
 <dt>DataFrameCallback</dt><dd><p>Callback function that combines each result together at the end.</p></dd>
@@ -190,7 +190,7 @@ the initial value of the accumulator.  The parameter <code>acc</code> is <code>N
     <h2 class="hasAnchor" id="methods"><a class="anchor" href="#methods"></a>Methods</h2>
 
     
-<h3>Public methods</h3>
+<h3 class='hasAnchor' id='arguments'><a class='anchor' href='#arguments'></a>Public methods</h3>
 
 <ul>
 <li><p><a href='#method-new'><code>ChunkCallback$new()</code></a></p></li>
@@ -201,42 +201,42 @@ the initial value of the accumulator.  The parameter <code>acc</code> is <code>N
 <li><p><a href='#method-clone'><code>ChunkCallback$clone()</code></a></p></li>
 </ul>
 <p><hr>
-<a id="method-new"></a></p><h3>Method <code>new()</code></h3>
+<a id="method-new"></a></p><h3 class='hasAnchor' id='arguments'><a class='anchor' href='#arguments'></a>Method <code>new()</code></h3>
 
-<h3>Usage</h3>
-<p><div class="r"></p><pre>ChunkCallback$new(callback)</pre><p></div></p>
-
-<p><hr>
-<a id="method-receive"></a></p><h3>Method <code>receive()</code></h3>
-
-<h3>Usage</h3>
-<p><div class="r"></p><pre>ChunkCallback$receive(data, index)</pre><p></div></p>
+<h4 class='hasAnchor' id='arguments'><a class='anchor' href='#arguments'></a>Usage</h4>
+<p><div class="r"></p><pre><span class='va'>ChunkCallback</span><span class='op'>$</span><span class='fu'>new</span><span class='op'>(</span><span class='va'>callback</span><span class='op'>)</span></pre><p></div></p>
 
 <p><hr>
-<a id="method-continue"></a></p><h3>Method <code>continue()</code></h3>
+<a id="method-receive"></a></p><h3 class='hasAnchor' id='arguments'><a class='anchor' href='#arguments'></a>Method <code>receive()</code></h3>
 
-<h3>Usage</h3>
-<p><div class="r"></p><pre>ChunkCallback$continue()</pre><p></div></p>
-
-<p><hr>
-<a id="method-result"></a></p><h3>Method <code>result()</code></h3>
-
-<h3>Usage</h3>
-<p><div class="r"></p><pre>ChunkCallback$result()</pre><p></div></p>
+<h4 class='hasAnchor' id='arguments'><a class='anchor' href='#arguments'></a>Usage</h4>
+<p><div class="r"></p><pre><span class='va'>ChunkCallback</span><span class='op'>$</span><span class='fu'>receive</span><span class='op'>(</span><span class='va'>data</span>, <span class='va'>index</span><span class='op'>)</span></pre><p></div></p>
 
 <p><hr>
-<a id="method-finally"></a></p><h3>Method <code>finally()</code></h3>
+<a id="method-continue"></a></p><h3 class='hasAnchor' id='arguments'><a class='anchor' href='#arguments'></a>Method <code>continue()</code></h3>
 
-<h3>Usage</h3>
-<p><div class="r"></p><pre>ChunkCallback$finally()</pre><p></div></p>
+<h4 class='hasAnchor' id='arguments'><a class='anchor' href='#arguments'></a>Usage</h4>
+<p><div class="r"></p><pre><span class='va'>ChunkCallback</span><span class='op'>$</span><span class='fu'>continue</span><span class='op'>(</span><span class='op'>)</span></pre><p></div></p>
 
 <p><hr>
-<a id="method-clone"></a></p><h3>Method <code>clone()</code></h3>
-<p>The objects of this class are cloneable with this method.</p><h3>Usage</h3>
-<p><div class="r"></p><pre>ChunkCallback$clone(deep = FALSE)</pre><p></div></p>
+<a id="method-result"></a></p><h3 class='hasAnchor' id='arguments'><a class='anchor' href='#arguments'></a>Method <code>result()</code></h3>
 
-<h3>Arguments</h3>
-<p><div class="arguments"></p><dl class='dl-horizontal'>
+<h4 class='hasAnchor' id='arguments'><a class='anchor' href='#arguments'></a>Usage</h4>
+<p><div class="r"></p><pre><span class='va'>ChunkCallback</span><span class='op'>$</span><span class='fu'>result</span><span class='op'>(</span><span class='op'>)</span></pre><p></div></p>
+
+<p><hr>
+<a id="method-finally"></a></p><h3 class='hasAnchor' id='arguments'><a class='anchor' href='#arguments'></a>Method <code>finally()</code></h3>
+
+<h4 class='hasAnchor' id='arguments'><a class='anchor' href='#arguments'></a>Usage</h4>
+<p><div class="r"></p><pre><span class='va'>ChunkCallback</span><span class='op'>$</span><span class='fu'>finally</span><span class='op'>(</span><span class='op'>)</span></pre><p></div></p>
+
+<p><hr>
+<a id="method-clone"></a></p><h3 class='hasAnchor' id='arguments'><a class='anchor' href='#arguments'></a>Method <code>clone()</code></h3>
+<p>The objects of this class are cloneable with this method.</p><h4 class='hasAnchor' id='arguments'><a class='anchor' href='#arguments'></a>Usage</h4>
+<p><div class="r"></p><pre><span class='va'>ChunkCallback</span><span class='op'>$</span><span class='fu'>clone</span><span class='op'>(</span>deep <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span></pre><p></div></p>
+
+<h4 class='hasAnchor' id='arguments'><a class='anchor' href='#arguments'></a>Arguments</h4>
+<p><div class="arguments"></p><dl>
 <dt><code>deep</code></dt><dd><p>Whether to make a deep clone.</p></dd>
 
 </dl><p></div></p>
@@ -248,7 +248,7 @@ the initial value of the accumulator.  The parameter <code>acc</code> is <code>N
     <h2 class="hasAnchor" id="methods"><a class="anchor" href="#methods"></a>Methods</h2>
 
     
-<h3>Public methods</h3>
+<h3 class='hasAnchor' id='arguments'><a class='anchor' href='#arguments'></a>Public methods</h3>
 
 <ul>
 <li><p><a href='#method-new'><code>SideEffectChunkCallback$new()</code></a></p></li>
@@ -264,30 +264,30 @@ the initial value of the accumulator.  The parameter <code>acc</code> is <code>N
 </details>
 
 <hr>
-<a id="method-new"></a></p><h3>Method <code>new()</code></h3>
+<a id="method-new"></a></p><h3 class='hasAnchor' id='arguments'><a class='anchor' href='#arguments'></a>Method <code>new()</code></h3>
 
-<h3>Usage</h3>
-<p><div class="r"></p><pre>SideEffectChunkCallback$new(callback)</pre><p></div></p>
-
-<p><hr>
-<a id="method-receive"></a></p><h3>Method <code>receive()</code></h3>
-
-<h3>Usage</h3>
-<p><div class="r"></p><pre>SideEffectChunkCallback$receive(data, index)</pre><p></div></p>
+<h4 class='hasAnchor' id='arguments'><a class='anchor' href='#arguments'></a>Usage</h4>
+<p><div class="r"></p><pre><span class='va'>SideEffectChunkCallback</span><span class='op'>$</span><span class='fu'>new</span><span class='op'>(</span><span class='va'>callback</span><span class='op'>)</span></pre><p></div></p>
 
 <p><hr>
-<a id="method-continue"></a></p><h3>Method <code>continue()</code></h3>
+<a id="method-receive"></a></p><h3 class='hasAnchor' id='arguments'><a class='anchor' href='#arguments'></a>Method <code>receive()</code></h3>
 
-<h3>Usage</h3>
-<p><div class="r"></p><pre>SideEffectChunkCallback$continue()</pre><p></div></p>
+<h4 class='hasAnchor' id='arguments'><a class='anchor' href='#arguments'></a>Usage</h4>
+<p><div class="r"></p><pre><span class='va'>SideEffectChunkCallback</span><span class='op'>$</span><span class='fu'>receive</span><span class='op'>(</span><span class='va'>data</span>, <span class='va'>index</span><span class='op'>)</span></pre><p></div></p>
 
 <p><hr>
-<a id="method-clone"></a></p><h3>Method <code>clone()</code></h3>
-<p>The objects of this class are cloneable with this method.</p><h3>Usage</h3>
-<p><div class="r"></p><pre>SideEffectChunkCallback$clone(deep = FALSE)</pre><p></div></p>
+<a id="method-continue"></a></p><h3 class='hasAnchor' id='arguments'><a class='anchor' href='#arguments'></a>Method <code>continue()</code></h3>
 
-<h3>Arguments</h3>
-<p><div class="arguments"></p><dl class='dl-horizontal'>
+<h4 class='hasAnchor' id='arguments'><a class='anchor' href='#arguments'></a>Usage</h4>
+<p><div class="r"></p><pre><span class='va'>SideEffectChunkCallback</span><span class='op'>$</span><span class='fu'>continue</span><span class='op'>(</span><span class='op'>)</span></pre><p></div></p>
+
+<p><hr>
+<a id="method-clone"></a></p><h3 class='hasAnchor' id='arguments'><a class='anchor' href='#arguments'></a>Method <code>clone()</code></h3>
+<p>The objects of this class are cloneable with this method.</p><h4 class='hasAnchor' id='arguments'><a class='anchor' href='#arguments'></a>Usage</h4>
+<p><div class="r"></p><pre><span class='va'>SideEffectChunkCallback</span><span class='op'>$</span><span class='fu'>clone</span><span class='op'>(</span>deep <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span></pre><p></div></p>
+
+<h4 class='hasAnchor' id='arguments'><a class='anchor' href='#arguments'></a>Arguments</h4>
+<p><div class="arguments"></p><dl>
 <dt><code>deep</code></dt><dd><p>Whether to make a deep clone.</p></dd>
 
 </dl><p></div></p>
@@ -299,7 +299,7 @@ the initial value of the accumulator.  The parameter <code>acc</code> is <code>N
     <h2 class="hasAnchor" id="methods"><a class="anchor" href="#methods"></a>Methods</h2>
 
     
-<h3>Public methods</h3>
+<h3 class='hasAnchor' id='arguments'><a class='anchor' href='#arguments'></a>Public methods</h3>
 
 <ul>
 <li><p><a href='#method-new'><code>DataFrameCallback$new()</code></a></p></li>
@@ -315,36 +315,36 @@ the initial value of the accumulator.  The parameter <code>acc</code> is <code>N
 </details>
 
 <hr>
-<a id="method-new"></a></p><h3>Method <code>new()</code></h3>
+<a id="method-new"></a></p><h3 class='hasAnchor' id='arguments'><a class='anchor' href='#arguments'></a>Method <code>new()</code></h3>
 
-<h3>Usage</h3>
-<p><div class="r"></p><pre>DataFrameCallback$new(callback)</pre><p></div></p>
-
-<p><hr>
-<a id="method-receive"></a></p><h3>Method <code>receive()</code></h3>
-
-<h3>Usage</h3>
-<p><div class="r"></p><pre>DataFrameCallback$receive(data, index)</pre><p></div></p>
+<h4 class='hasAnchor' id='arguments'><a class='anchor' href='#arguments'></a>Usage</h4>
+<p><div class="r"></p><pre><span class='va'>DataFrameCallback</span><span class='op'>$</span><span class='fu'>new</span><span class='op'>(</span><span class='va'>callback</span><span class='op'>)</span></pre><p></div></p>
 
 <p><hr>
-<a id="method-result"></a></p><h3>Method <code>result()</code></h3>
+<a id="method-receive"></a></p><h3 class='hasAnchor' id='arguments'><a class='anchor' href='#arguments'></a>Method <code>receive()</code></h3>
 
-<h3>Usage</h3>
-<p><div class="r"></p><pre>DataFrameCallback$result()</pre><p></div></p>
-
-<p><hr>
-<a id="method-finally"></a></p><h3>Method <code>finally()</code></h3>
-
-<h3>Usage</h3>
-<p><div class="r"></p><pre>DataFrameCallback$finally()</pre><p></div></p>
+<h4 class='hasAnchor' id='arguments'><a class='anchor' href='#arguments'></a>Usage</h4>
+<p><div class="r"></p><pre><span class='va'>DataFrameCallback</span><span class='op'>$</span><span class='fu'>receive</span><span class='op'>(</span><span class='va'>data</span>, <span class='va'>index</span><span class='op'>)</span></pre><p></div></p>
 
 <p><hr>
-<a id="method-clone"></a></p><h3>Method <code>clone()</code></h3>
-<p>The objects of this class are cloneable with this method.</p><h3>Usage</h3>
-<p><div class="r"></p><pre>DataFrameCallback$clone(deep = FALSE)</pre><p></div></p>
+<a id="method-result"></a></p><h3 class='hasAnchor' id='arguments'><a class='anchor' href='#arguments'></a>Method <code>result()</code></h3>
 
-<h3>Arguments</h3>
-<p><div class="arguments"></p><dl class='dl-horizontal'>
+<h4 class='hasAnchor' id='arguments'><a class='anchor' href='#arguments'></a>Usage</h4>
+<p><div class="r"></p><pre><span class='va'>DataFrameCallback</span><span class='op'>$</span><span class='fu'>result</span><span class='op'>(</span><span class='op'>)</span></pre><p></div></p>
+
+<p><hr>
+<a id="method-finally"></a></p><h3 class='hasAnchor' id='arguments'><a class='anchor' href='#arguments'></a>Method <code>finally()</code></h3>
+
+<h4 class='hasAnchor' id='arguments'><a class='anchor' href='#arguments'></a>Usage</h4>
+<p><div class="r"></p><pre><span class='va'>DataFrameCallback</span><span class='op'>$</span><span class='fu'>finally</span><span class='op'>(</span><span class='op'>)</span></pre><p></div></p>
+
+<p><hr>
+<a id="method-clone"></a></p><h3 class='hasAnchor' id='arguments'><a class='anchor' href='#arguments'></a>Method <code>clone()</code></h3>
+<p>The objects of this class are cloneable with this method.</p><h4 class='hasAnchor' id='arguments'><a class='anchor' href='#arguments'></a>Usage</h4>
+<p><div class="r"></p><pre><span class='va'>DataFrameCallback</span><span class='op'>$</span><span class='fu'>clone</span><span class='op'>(</span>deep <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span></pre><p></div></p>
+
+<h4 class='hasAnchor' id='arguments'><a class='anchor' href='#arguments'></a>Arguments</h4>
+<p><div class="arguments"></p><dl>
 <dt><code>deep</code></dt><dd><p>Whether to make a deep clone.</p></dd>
 
 </dl><p></div></p>
@@ -356,7 +356,7 @@ the initial value of the accumulator.  The parameter <code>acc</code> is <code>N
     <h2 class="hasAnchor" id="methods"><a class="anchor" href="#methods"></a>Methods</h2>
 
     
-<h3>Public methods</h3>
+<h3 class='hasAnchor' id='arguments'><a class='anchor' href='#arguments'></a>Public methods</h3>
 
 <ul>
 <li><p><a href='#method-new'><code>ListCallback$new()</code></a></p></li>
@@ -372,36 +372,36 @@ the initial value of the accumulator.  The parameter <code>acc</code> is <code>N
 </details>
 
 <hr>
-<a id="method-new"></a></p><h3>Method <code>new()</code></h3>
+<a id="method-new"></a></p><h3 class='hasAnchor' id='arguments'><a class='anchor' href='#arguments'></a>Method <code>new()</code></h3>
 
-<h3>Usage</h3>
-<p><div class="r"></p><pre>ListCallback$new(callback)</pre><p></div></p>
-
-<p><hr>
-<a id="method-receive"></a></p><h3>Method <code>receive()</code></h3>
-
-<h3>Usage</h3>
-<p><div class="r"></p><pre>ListCallback$receive(data, index)</pre><p></div></p>
+<h4 class='hasAnchor' id='arguments'><a class='anchor' href='#arguments'></a>Usage</h4>
+<p><div class="r"></p><pre><span class='va'>ListCallback</span><span class='op'>$</span><span class='fu'>new</span><span class='op'>(</span><span class='va'>callback</span><span class='op'>)</span></pre><p></div></p>
 
 <p><hr>
-<a id="method-result"></a></p><h3>Method <code>result()</code></h3>
+<a id="method-receive"></a></p><h3 class='hasAnchor' id='arguments'><a class='anchor' href='#arguments'></a>Method <code>receive()</code></h3>
 
-<h3>Usage</h3>
-<p><div class="r"></p><pre>ListCallback$result()</pre><p></div></p>
-
-<p><hr>
-<a id="method-finally"></a></p><h3>Method <code>finally()</code></h3>
-
-<h3>Usage</h3>
-<p><div class="r"></p><pre>ListCallback$finally()</pre><p></div></p>
+<h4 class='hasAnchor' id='arguments'><a class='anchor' href='#arguments'></a>Usage</h4>
+<p><div class="r"></p><pre><span class='va'>ListCallback</span><span class='op'>$</span><span class='fu'>receive</span><span class='op'>(</span><span class='va'>data</span>, <span class='va'>index</span><span class='op'>)</span></pre><p></div></p>
 
 <p><hr>
-<a id="method-clone"></a></p><h3>Method <code>clone()</code></h3>
-<p>The objects of this class are cloneable with this method.</p><h3>Usage</h3>
-<p><div class="r"></p><pre>ListCallback$clone(deep = FALSE)</pre><p></div></p>
+<a id="method-result"></a></p><h3 class='hasAnchor' id='arguments'><a class='anchor' href='#arguments'></a>Method <code>result()</code></h3>
 
-<h3>Arguments</h3>
-<p><div class="arguments"></p><dl class='dl-horizontal'>
+<h4 class='hasAnchor' id='arguments'><a class='anchor' href='#arguments'></a>Usage</h4>
+<p><div class="r"></p><pre><span class='va'>ListCallback</span><span class='op'>$</span><span class='fu'>result</span><span class='op'>(</span><span class='op'>)</span></pre><p></div></p>
+
+<p><hr>
+<a id="method-finally"></a></p><h3 class='hasAnchor' id='arguments'><a class='anchor' href='#arguments'></a>Method <code>finally()</code></h3>
+
+<h4 class='hasAnchor' id='arguments'><a class='anchor' href='#arguments'></a>Usage</h4>
+<p><div class="r"></p><pre><span class='va'>ListCallback</span><span class='op'>$</span><span class='fu'>finally</span><span class='op'>(</span><span class='op'>)</span></pre><p></div></p>
+
+<p><hr>
+<a id="method-clone"></a></p><h3 class='hasAnchor' id='arguments'><a class='anchor' href='#arguments'></a>Method <code>clone()</code></h3>
+<p>The objects of this class are cloneable with this method.</p><h4 class='hasAnchor' id='arguments'><a class='anchor' href='#arguments'></a>Usage</h4>
+<p><div class="r"></p><pre><span class='va'>ListCallback</span><span class='op'>$</span><span class='fu'>clone</span><span class='op'>(</span>deep <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span></pre><p></div></p>
+
+<h4 class='hasAnchor' id='arguments'><a class='anchor' href='#arguments'></a>Arguments</h4>
+<p><div class="arguments"></p><dl>
 <dt><code>deep</code></dt><dd><p>Whether to make a deep clone.</p></dd>
 
 </dl><p></div></p>
@@ -413,7 +413,7 @@ the initial value of the accumulator.  The parameter <code>acc</code> is <code>N
     <h2 class="hasAnchor" id="methods"><a class="anchor" href="#methods"></a>Methods</h2>
 
     
-<h3>Public methods</h3>
+<h3 class='hasAnchor' id='arguments'><a class='anchor' href='#arguments'></a>Public methods</h3>
 
 <ul>
 <li><p><a href='#method-new'><code>AccumulateCallback$new()</code></a></p></li>
@@ -429,30 +429,30 @@ the initial value of the accumulator.  The parameter <code>acc</code> is <code>N
 </details>
 
 <hr>
-<a id="method-new"></a></p><h3>Method <code>new()</code></h3>
+<a id="method-new"></a></p><h3 class='hasAnchor' id='arguments'><a class='anchor' href='#arguments'></a>Method <code>new()</code></h3>
 
-<h3>Usage</h3>
-<p><div class="r"></p><pre>AccumulateCallback$new(callback, acc = NULL)</pre><p></div></p>
-
-<p><hr>
-<a id="method-receive"></a></p><h3>Method <code>receive()</code></h3>
-
-<h3>Usage</h3>
-<p><div class="r"></p><pre>AccumulateCallback$receive(data, index)</pre><p></div></p>
+<h4 class='hasAnchor' id='arguments'><a class='anchor' href='#arguments'></a>Usage</h4>
+<p><div class="r"></p><pre><span class='va'>AccumulateCallback</span><span class='op'>$</span><span class='fu'>new</span><span class='op'>(</span><span class='va'>callback</span>, acc <span class='op'>=</span> <span class='cn'>NULL</span><span class='op'>)</span></pre><p></div></p>
 
 <p><hr>
-<a id="method-result"></a></p><h3>Method <code>result()</code></h3>
+<a id="method-receive"></a></p><h3 class='hasAnchor' id='arguments'><a class='anchor' href='#arguments'></a>Method <code>receive()</code></h3>
 
-<h3>Usage</h3>
-<p><div class="r"></p><pre>AccumulateCallback$result()</pre><p></div></p>
+<h4 class='hasAnchor' id='arguments'><a class='anchor' href='#arguments'></a>Usage</h4>
+<p><div class="r"></p><pre><span class='va'>AccumulateCallback</span><span class='op'>$</span><span class='fu'>receive</span><span class='op'>(</span><span class='va'>data</span>, <span class='va'>index</span><span class='op'>)</span></pre><p></div></p>
 
 <p><hr>
-<a id="method-clone"></a></p><h3>Method <code>clone()</code></h3>
-<p>The objects of this class are cloneable with this method.</p><h3>Usage</h3>
-<p><div class="r"></p><pre>AccumulateCallback$clone(deep = FALSE)</pre><p></div></p>
+<a id="method-result"></a></p><h3 class='hasAnchor' id='arguments'><a class='anchor' href='#arguments'></a>Method <code>result()</code></h3>
 
-<h3>Arguments</h3>
-<p><div class="arguments"></p><dl class='dl-horizontal'>
+<h4 class='hasAnchor' id='arguments'><a class='anchor' href='#arguments'></a>Usage</h4>
+<p><div class="r"></p><pre><span class='va'>AccumulateCallback</span><span class='op'>$</span><span class='fu'>result</span><span class='op'>(</span><span class='op'>)</span></pre><p></div></p>
+
+<p><hr>
+<a id="method-clone"></a></p><h3 class='hasAnchor' id='arguments'><a class='anchor' href='#arguments'></a>Method <code>clone()</code></h3>
+<p>The objects of this class are cloneable with this method.</p><h4 class='hasAnchor' id='arguments'><a class='anchor' href='#arguments'></a>Usage</h4>
+<p><div class="r"></p><pre><span class='va'>AccumulateCallback</span><span class='op'>$</span><span class='fu'>clone</span><span class='op'>(</span>deep <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span></pre><p></div></p>
+
+<h4 class='hasAnchor' id='arguments'><a class='anchor' href='#arguments'></a>Arguments</h4>
+<p><div class="arguments"></p><dl>
 <dt><code>deep</code></dt><dd><p>Whether to make a deep clone.</p></dd>
 
 </dl><p></div></p>
@@ -463,7 +463,8 @@ the initial value of the accumulator.  The parameter <code>acc</code> is <code>N
     <pre class="examples"><div class='input'><span class='co'>## If given a regular function it is converted to a SideEffectChunkCallback</span>
 
 <span class='co'># view structure of each chunk</span>
-<span class='fu'><a href='read_lines_chunked.html'>read_lines_chunked</a></span>(<span class='fu'><a href='readr_example.html'>readr_example</a></span>(<span class='st'>"mtcars.csv"</span>), <span class='no'>str</span>, <span class='kw'>chunk_size</span> <span class='kw'>=</span> <span class='fl'>5</span>)</div><div class='output co'>#&gt;  chr [1:5] "\"mpg\",\"cyl\",\"disp\",\"hp\",\"drat\",\"wt\",\"qsec\",\"vs\",\"am\",\"gear\",\"carb\"" ...
+<span class='fu'><a href='read_lines_chunked.html'>read_lines_chunked</a></span><span class='op'>(</span><span class='fu'><a href='readr_example.html'>readr_example</a></span><span class='op'>(</span><span class='st'>"mtcars.csv"</span><span class='op'>)</span>, <span class='va'>str</span>, chunk_size <span class='op'>=</span> <span class='fl'>5</span><span class='op'>)</span>
+</div><div class='output co'>#&gt;  chr [1:5] "\"mpg\",\"cyl\",\"disp\",\"hp\",\"drat\",\"wt\",\"qsec\",\"vs\",\"am\",\"gear\",\"carb\"" ...
 #&gt;  chr [1:5] "18.7,8,360,175,3.15,3.44,17.02,0,0,3,2" ...
 #&gt;  chr [1:5] "19.2,6,167.6,123,3.92,3.44,18.3,1,0,4,4" ...
 #&gt;  chr [1:5] "10.4,8,472,205,2.93,5.25,17.98,0,0,3,4" ...
@@ -471,8 +472,9 @@ the initial value of the accumulator.  The parameter <code>acc</code> is <code>N
 #&gt;  chr [1:5] "19.2,8,400,175,3.08,3.845,17.05,0,0,3,2" ...
 #&gt;  chr [1:3] "19.7,6,145,175,3.62,2.77,15.5,0,1,5,6" ...</div><div class='output co'>#&gt; NULL</div><div class='input'>
 <span class='co'># Print starting line of each chunk</span>
-<span class='no'>f</span> <span class='kw'>&lt;-</span> <span class='kw'>function</span>(<span class='no'>x</span>, <span class='no'>pos</span>) <span class='fu'><a href='https://rdrr.io/r/base/print.html'>print</a></span>(<span class='no'>pos</span>)
-<span class='fu'><a href='read_lines_chunked.html'>read_lines_chunked</a></span>(<span class='fu'><a href='readr_example.html'>readr_example</a></span>(<span class='st'>"mtcars.csv"</span>), <span class='no'>SideEffectChunkCallback</span>$<span class='fu'>new</span>(<span class='no'>f</span>), <span class='kw'>chunk_size</span> <span class='kw'>=</span> <span class='fl'>5</span>)</div><div class='output co'>#&gt; [1] 1
+<span class='va'>f</span> <span class='op'>&lt;-</span> <span class='kw'>function</span><span class='op'>(</span><span class='va'>x</span>, <span class='va'>pos</span><span class='op'>)</span> <span class='fu'><a href='https://rdrr.io/r/base/print.html'>print</a></span><span class='op'>(</span><span class='va'>pos</span><span class='op'>)</span>
+<span class='fu'><a href='read_lines_chunked.html'>read_lines_chunked</a></span><span class='op'>(</span><span class='fu'><a href='readr_example.html'>readr_example</a></span><span class='op'>(</span><span class='st'>"mtcars.csv"</span><span class='op'>)</span>, <span class='va'>SideEffectChunkCallback</span><span class='op'>$</span><span class='fu'>new</span><span class='op'>(</span><span class='va'>f</span><span class='op'>)</span>, chunk_size <span class='op'>=</span> <span class='fl'>5</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; [1] 1
 #&gt; [1] 6
 #&gt; [1] 11
 #&gt; [1] 16
@@ -482,10 +484,12 @@ the initial value of the accumulator.  The parameter <code>acc</code> is <code>N
 <span class='co'># If combined results are desired you can use the DataFrameCallback</span>
 
 <span class='co'># Cars with 3 gears</span>
-<span class='no'>f</span> <span class='kw'>&lt;-</span> <span class='kw'>function</span>(<span class='no'>x</span>, <span class='no'>pos</span>) <span class='fu'><a href='https://rdrr.io/r/base/subset.html'>subset</a></span>(<span class='no'>x</span>, <span class='no'>gear</span> <span class='kw'>==</span> <span class='fl'>3</span>)
-<span class='fu'><a href='read_delim_chunked.html'>read_csv_chunked</a></span>(<span class='fu'><a href='readr_example.html'>readr_example</a></span>(<span class='st'>"mtcars.csv"</span>), <span class='no'>DataFrameCallback</span>$<span class='fu'>new</span>(<span class='no'>f</span>), <span class='kw'>chunk_size</span> <span class='kw'>=</span> <span class='fl'>5</span>)</div><div class='output co'>#&gt; <span class='message'>Parsed with column specification:</span>
+<span class='va'>f</span> <span class='op'>&lt;-</span> <span class='kw'>function</span><span class='op'>(</span><span class='va'>x</span>, <span class='va'>pos</span><span class='op'>)</span> <span class='fu'><a href='https://rdrr.io/r/base/subset.html'>subset</a></span><span class='op'>(</span><span class='va'>x</span>, <span class='va'>gear</span> <span class='op'>==</span> <span class='fl'>3</span><span class='op'>)</span>
+<span class='fu'><a href='read_delim_chunked.html'>read_csv_chunked</a></span><span class='op'>(</span><span class='fu'><a href='readr_example.html'>readr_example</a></span><span class='op'>(</span><span class='st'>"mtcars.csv"</span><span class='op'>)</span>, <span class='va'>DataFrameCallback</span><span class='op'>$</span><span class='fu'>new</span><span class='op'>(</span><span class='va'>f</span><span class='op'>)</span>, chunk_size <span class='op'>=</span> <span class='fl'>5</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; <span class='message'></span>
+#&gt; <span class='message'><span style='color: #00BBBB;'>──</span><span> </span><span style='font-weight: bold;'>Column specification</span><span> </span><span style='color: #00BBBB;'>────────────────────────────────────────────────────────</span><span></span>
 #&gt; <span class='message'>cols(</span>
-#&gt; <span class='message'>  mpg = <span style='color: #00BB00;'>col_double()</span><span>,</span>
+#&gt; <span class='message'>  mpg = </span><span style='color: #00BB00;'>col_double()</span><span>,</span>
 #&gt; <span class='message'>  cyl = </span><span style='color: #00BB00;'>col_double()</span><span>,</span>
 #&gt; <span class='message'>  disp = </span><span style='color: #00BB00;'>col_double()</span><span>,</span>
 #&gt; <span class='message'>  hp = </span><span style='color: #00BB00;'>col_double()</span><span>,</span>
@@ -515,8 +519,10 @@ the initial value of the accumulator.  The parameter <code>acc</code> is <code>N
 #&gt; </span><span style='color: #555555;'>14</span><span>  13.3     8  350    245  3.73  3.84  15.4     0     0     3     4
 #&gt; </span><span style='color: #555555;'>15</span><span>  19.2     8  400    175  3.08  3.84  17.0     0     0     3     2</div><div class='input'>
 <span class='co'># The ListCallback can be used for more flexible output</span>
-<span class='no'>f</span> <span class='kw'>&lt;-</span> <span class='kw'>function</span>(<span class='no'>x</span>, <span class='no'>pos</span>) <span class='no'>x</span>$<span class='no'>mpg</span>[<span class='no'>x</span>$<span class='no'>hp</span> <span class='kw'>&gt;</span> <span class='fl'>100</span>]
-<span class='fu'><a href='read_delim_chunked.html'>read_csv_chunked</a></span>(<span class='fu'><a href='readr_example.html'>readr_example</a></span>(<span class='st'>"mtcars.csv"</span>), <span class='no'>ListCallback</span>$<span class='fu'>new</span>(<span class='no'>f</span>), <span class='kw'>chunk_size</span> <span class='kw'>=</span> <span class='fl'>5</span>)</div><div class='output co'>#&gt; <span class='message'>Parsed with column specification:</span>
+<span class='va'>f</span> <span class='op'>&lt;-</span> <span class='kw'>function</span><span class='op'>(</span><span class='va'>x</span>, <span class='va'>pos</span><span class='op'>)</span> <span class='va'>x</span><span class='op'>$</span><span class='va'>mpg</span><span class='op'>[</span><span class='va'>x</span><span class='op'>$</span><span class='va'>hp</span> <span class='op'>&gt;</span> <span class='fl'>100</span><span class='op'>]</span>
+<span class='fu'><a href='read_delim_chunked.html'>read_csv_chunked</a></span><span class='op'>(</span><span class='fu'><a href='readr_example.html'>readr_example</a></span><span class='op'>(</span><span class='st'>"mtcars.csv"</span><span class='op'>)</span>, <span class='va'>ListCallback</span><span class='op'>$</span><span class='fu'>new</span><span class='op'>(</span><span class='va'>f</span><span class='op'>)</span>, chunk_size <span class='op'>=</span> <span class='fl'>5</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; <span class='message'></span>
+#&gt; <span class='message'></span><span style='color: #00BBBB;'>──</span><span> </span><span style='font-weight: bold;'>Column specification</span><span> </span><span style='color: #00BBBB;'>────────────────────────────────────────────────────────</span><span></span>
 #&gt; <span class='message'>cols(</span>
 #&gt; <span class='message'>  mpg = </span><span style='color: #00BB00;'>col_double()</span><span>,</span>
 #&gt; <span class='message'>  cyl = </span><span style='color: #00BB00;'>col_double()</span><span>,</span>
@@ -551,8 +557,10 @@ the initial value of the accumulator.  The parameter <code>acc</code> is <code>N
 #&gt; [1] 15.0 21.4
 #&gt; </div><div class='input'>
 <span class='co'># The AccumulateCallback accumulates results from each chunk</span>
-<span class='no'>f</span> <span class='kw'>&lt;-</span> <span class='kw'>function</span>(<span class='no'>x</span>, <span class='no'>pos</span>, <span class='no'>acc</span>) <span class='fu'><a href='https://rdrr.io/r/base/sum.html'>sum</a></span>(<span class='no'>x</span>$<span class='no'>mpg</span>) + <span class='no'>acc</span>
-<span class='fu'><a href='read_delim_chunked.html'>read_csv_chunked</a></span>(<span class='fu'><a href='readr_example.html'>readr_example</a></span>(<span class='st'>"mtcars.csv"</span>), <span class='no'>AccumulateCallback</span>$<span class='fu'>new</span>(<span class='no'>f</span>, <span class='kw'>acc</span> <span class='kw'>=</span> <span class='fl'>0</span>), <span class='kw'>chunk_size</span> <span class='kw'>=</span> <span class='fl'>5</span>)</div><div class='output co'>#&gt; <span class='message'>Parsed with column specification:</span>
+<span class='va'>f</span> <span class='op'>&lt;-</span> <span class='kw'>function</span><span class='op'>(</span><span class='va'>x</span>, <span class='va'>pos</span>, <span class='va'>acc</span><span class='op'>)</span> <span class='fu'><a href='https://rdrr.io/r/base/sum.html'>sum</a></span><span class='op'>(</span><span class='va'>x</span><span class='op'>$</span><span class='va'>mpg</span><span class='op'>)</span> <span class='op'>+</span> <span class='va'>acc</span>
+<span class='fu'><a href='read_delim_chunked.html'>read_csv_chunked</a></span><span class='op'>(</span><span class='fu'><a href='readr_example.html'>readr_example</a></span><span class='op'>(</span><span class='st'>"mtcars.csv"</span><span class='op'>)</span>, <span class='va'>AccumulateCallback</span><span class='op'>$</span><span class='fu'>new</span><span class='op'>(</span><span class='va'>f</span>, acc <span class='op'>=</span> <span class='fl'>0</span><span class='op'>)</span>, chunk_size <span class='op'>=</span> <span class='fl'>5</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; <span class='message'></span>
+#&gt; <span class='message'></span><span style='color: #00BBBB;'>──</span><span> </span><span style='font-weight: bold;'>Column specification</span><span> </span><span style='color: #00BBBB;'>────────────────────────────────────────────────────────</span><span></span>
 #&gt; <span class='message'>cols(</span>
 #&gt; <span class='message'>  mpg = </span><span style='color: #00BB00;'>col_double()</span><span>,</span>
 #&gt; <span class='message'>  cyl = </span><span style='color: #00BB00;'>col_double()</span><span>,</span>
@@ -567,23 +575,10 @@ the initial value of the accumulator.  The parameter <code>acc</code> is <code>N
 #&gt; <span class='message'>  carb = </span><span style='color: #00BB00;'>col_double()</span><span></span>
 #&gt; <span class='message'>)</span></div><div class='output co'>#&gt; [1] 642.9</div></span></pre>
   </div>
-  <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
-    <h2>Contents</h2>
-    <ul class="nav nav-pills nav-stacked">
-      <li><a href="#details">Details</a></li>
-      <li><a href="#see-also">See also</a></li>
-      <li><a href="#methods">Methods</a></li>
-      <li><a href="#super-class">Super class</a></li>
-      <li><a href="#methods">Methods</a></li>
-      <li><a href="#super-class">Super class</a></li>
-      <li><a href="#methods">Methods</a></li>
-      <li><a href="#super-class">Super class</a></li>
-      <li><a href="#methods">Methods</a></li>
-      <li><a href="#super-class">Super class</a></li>
-      <li><a href="#methods">Methods</a></li>
-      <li><a href="#examples">Examples</a></li>
-    </ul>
-
+  <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
+    <nav id="toc" data-toggle="toc" class="sticky-top">
+      <h2 data-toc-skip>Contents</h2>
+    </nav>
   </div>
 </div>
 

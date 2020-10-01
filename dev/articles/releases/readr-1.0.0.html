@@ -20,7 +20,7 @@
 <script src="../../pkgdown.js"></script><link href="../../tidyverse-2.css" rel="stylesheet">
 <!--optional theme--><link href="../../.css" rel="stylesheet">
 <meta property="og:title" content="readr 1.0.0">
-<meta property="og:description" content="">
+<meta property="og:description" content="readr">
 <meta property="og:image" content="https://readr.tidyverse.org/logo.png">
 <meta name="twitter:card" content="summary">
 <meta name="robots" content="noindex">
@@ -35,7 +35,7 @@
   gtag('config', 'UA-115082821-1');
 </script>
 </head>
-<body>
+<body data-spy="scroll" data-target="#toc">
     <div class="container template-article">
       <header><div class="navbar navbar-default navbar-fixed-top" role="navigation">
   <div class="container">
@@ -96,7 +96,7 @@
   </ul>
 </li>
         <li>
-  <a href="https://github.com/tidyverse/readr">
+  <a href="https://github.com/tidyverse/readr/">
     <span class="fab fa fab fa-github fa-lg"></span>
      
   </a>
@@ -114,7 +114,7 @@
       </header><script src="readr-1.0.0_files/accessible-code-block-0.0.1/empty-anchor.js"></script><div class="row">
   <div class="col-md-9 contents">
     <div class="page-header toc-ignore">
-      <h1>readr 1.0.0</h1>
+      <h1 data-toc-skip>readr 1.0.0</h1>
             
       
       <small class="dont-index">Source: <a href="https://github.com/tidyverse/readr/blob/master/vignettes/releases/readr-1.0.0.Rmd"><code>vignettes/releases/readr-1.0.0.Rmd</code></a></small>
@@ -125,7 +125,8 @@
     
     
 <p>readr 1.0.0 is now available on CRAN. readr makes it easy to read many types of rectangular data, including csv, tsv and fixed width files. Compared to base equivalents like <code><a href="https://rdrr.io/r/utils/read.table.html">read.csv()</a></code>, readr is much faster and gives more convenient output: it never converts strings to factors, can parse date/times, and it doesn’t munge the column names. Install the latest version with:</p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1"></a><span class="kw"><a href="https://rdrr.io/r/utils/install.packages.html">install.packages</a></span>(<span class="st">"readr"</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb1"><pre class="downlit">
+<span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html">install.packages</a></span><span class="op">(</span><span class="st">"readr"</span><span class="op">)</span></pre></div>
 <p>Releasing a version 1.0.0 was a deliberate choice to reflect the maturity and stability and readr, thanks largely to work by Jim Hester. readr is by no means perfect, but I don’t expect any major changes to the API in the future.</p>
 <p>In this version we:</p>
 <ul>
@@ -138,69 +139,76 @@
 <h2 class="hasAnchor">
 <a href="#column-guessing" class="anchor"></a>Column guessing</h2>
 <p>The process by which readr guesses the types of columns has received a substantial overhaul to make it easier to fix problems when the initial guesses aren’t correct, and to make it easier to generate reproducible code. Now column specifications are printing by default when you read from a file:</p>
-<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1"></a>mtcars2 &lt;-<span class="st"> </span><span class="kw"><a href="../../reference/read_delim.html">read_csv</a></span>(<span class="kw"><a href="../../reference/readr_example.html">readr_example</a></span>(<span class="st">"mtcars.csv"</span>))</span>
-<span id="cb2-2"><a href="#cb2-2"></a><span class="co">#&gt; Parsed with column specification:</span></span>
-<span id="cb2-3"><a href="#cb2-3"></a><span class="co">#&gt; cols(</span></span>
-<span id="cb2-4"><a href="#cb2-4"></a><span class="co">#&gt;   mpg = col_double(),</span></span>
-<span id="cb2-5"><a href="#cb2-5"></a><span class="co">#&gt;   cyl = col_double(),</span></span>
-<span id="cb2-6"><a href="#cb2-6"></a><span class="co">#&gt;   disp = col_double(),</span></span>
-<span id="cb2-7"><a href="#cb2-7"></a><span class="co">#&gt;   hp = col_double(),</span></span>
-<span id="cb2-8"><a href="#cb2-8"></a><span class="co">#&gt;   drat = col_double(),</span></span>
-<span id="cb2-9"><a href="#cb2-9"></a><span class="co">#&gt;   wt = col_double(),</span></span>
-<span id="cb2-10"><a href="#cb2-10"></a><span class="co">#&gt;   qsec = col_double(),</span></span>
-<span id="cb2-11"><a href="#cb2-11"></a><span class="co">#&gt;   vs = col_double(),</span></span>
-<span id="cb2-12"><a href="#cb2-12"></a><span class="co">#&gt;   am = col_double(),</span></span>
-<span id="cb2-13"><a href="#cb2-13"></a><span class="co">#&gt;   gear = col_double(),</span></span>
-<span id="cb2-14"><a href="#cb2-14"></a><span class="co">#&gt;   carb = col_double()</span></span>
-<span id="cb2-15"><a href="#cb2-15"></a><span class="co">#&gt; )</span></span></code></pre></div>
+<div class="sourceCode" id="cb2"><pre class="downlit">
+<span class="va">mtcars2</span> <span class="op">&lt;-</span> <span class="fu"><a href="../../reference/read_delim.html">read_csv</a></span><span class="op">(</span><span class="fu"><a href="../../reference/readr_example.html">readr_example</a></span><span class="op">(</span><span class="st">"mtcars.csv"</span><span class="op">)</span><span class="op">)</span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt; ── Column specification ────────────────────────────────────────────────────────</span>
+<span class="co">#&gt; cols(</span>
+<span class="co">#&gt;   mpg = col_double(),</span>
+<span class="co">#&gt;   cyl = col_double(),</span>
+<span class="co">#&gt;   disp = col_double(),</span>
+<span class="co">#&gt;   hp = col_double(),</span>
+<span class="co">#&gt;   drat = col_double(),</span>
+<span class="co">#&gt;   wt = col_double(),</span>
+<span class="co">#&gt;   qsec = col_double(),</span>
+<span class="co">#&gt;   vs = col_double(),</span>
+<span class="co">#&gt;   am = col_double(),</span>
+<span class="co">#&gt;   gear = col_double(),</span>
+<span class="co">#&gt;   carb = col_double()</span>
+<span class="co">#&gt; )</span></pre></div>
 <p>The thought is that once you’ve figured out the correct column types for a file, you should make the parsing strict. You can do this either by copying and pasting the printed column specification or by saving the spec to disk:</p>
-<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1"></a><span class="co"># Once you've figured out the correct types</span></span>
-<span id="cb3-2"><a href="#cb3-2"></a>mtcars_spec &lt;-<span class="st"> </span><span class="kw"><a href="../../reference/read_rds.html">write_rds</a></span>(<span class="kw"><a href="../../reference/spec.html">spec</a></span>(mtcars2), <span class="st">"mtcars2-spec.rds"</span>)</span>
-<span id="cb3-3"><a href="#cb3-3"></a></span>
-<span id="cb3-4"><a href="#cb3-4"></a><span class="co"># Every subsequent load</span></span>
-<span id="cb3-5"><a href="#cb3-5"></a>mtcars2 &lt;-<span class="st"> </span><span class="kw"><a href="../../reference/read_delim.html">read_csv</a></span>(</span>
-<span id="cb3-6"><a href="#cb3-6"></a>  <span class="kw"><a href="../../reference/readr_example.html">readr_example</a></span>(<span class="st">"mtcars.csv"</span>), </span>
-<span id="cb3-7"><a href="#cb3-7"></a>  <span class="dt">col_types =</span> <span class="kw"><a href="../../reference/read_rds.html">read_rds</a></span>(<span class="st">"mtcars2-spec.rds"</span>)</span>
-<span id="cb3-8"><a href="#cb3-8"></a>)</span>
-<span id="cb3-9"><a href="#cb3-9"></a><span class="co"># In production, you might want to throw an error if there</span></span>
-<span id="cb3-10"><a href="#cb3-10"></a><span class="co"># are any parsing problems.</span></span>
-<span id="cb3-11"><a href="#cb3-11"></a><span class="kw"><a href="../../reference/problems.html">stop_for_problems</a></span>(mtcars2)</span></code></pre></div>
+<div class="sourceCode" id="cb3"><pre class="downlit">
+<span class="co"># Once you've figured out the correct types</span>
+<span class="va">mtcars_spec</span> <span class="op">&lt;-</span> <span class="fu"><a href="../../reference/read_rds.html">write_rds</a></span><span class="op">(</span><span class="fu"><a href="../../reference/cols_condense.html">spec</a></span><span class="op">(</span><span class="va">mtcars2</span><span class="op">)</span>, <span class="st">"mtcars2-spec.rds"</span><span class="op">)</span>
+
+<span class="co"># Every subsequent load</span>
+<span class="va">mtcars2</span> <span class="op">&lt;-</span> <span class="fu"><a href="../../reference/read_delim.html">read_csv</a></span><span class="op">(</span>
+  <span class="fu"><a href="../../reference/readr_example.html">readr_example</a></span><span class="op">(</span><span class="st">"mtcars.csv"</span><span class="op">)</span>, 
+  col_types <span class="op">=</span> <span class="fu"><a href="../../reference/read_rds.html">read_rds</a></span><span class="op">(</span><span class="st">"mtcars2-spec.rds"</span><span class="op">)</span>
+<span class="op">)</span>
+<span class="co"># In production, you might want to throw an error if there</span>
+<span class="co"># are any parsing problems.</span>
+<span class="fu"><a href="../../reference/problems.html">stop_for_problems</a></span><span class="op">(</span><span class="va">mtcars2</span><span class="op">)</span></pre></div>
 <p>You can now also adjust the number of rows that readr uses to guess the column types with <code>guess_max</code>:</p>
-<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1"></a>challenge &lt;-<span class="st"> </span><span class="kw"><a href="../../reference/read_delim.html">read_csv</a></span>(<span class="kw"><a href="../../reference/readr_example.html">readr_example</a></span>(<span class="st">"challenge.csv"</span>))</span>
-<span id="cb4-2"><a href="#cb4-2"></a><span class="co">#&gt; Parsed with column specification:</span></span>
-<span id="cb4-3"><a href="#cb4-3"></a><span class="co">#&gt; cols(</span></span>
-<span id="cb4-4"><a href="#cb4-4"></a><span class="co">#&gt;   x = col_double(),</span></span>
-<span id="cb4-5"><a href="#cb4-5"></a><span class="co">#&gt;   y = col_logical()</span></span>
-<span id="cb4-6"><a href="#cb4-6"></a><span class="co">#&gt; )</span></span>
-<span id="cb4-7"><a href="#cb4-7"></a><span class="co">#&gt; Warning: 1000 parsing failures.</span></span>
-<span id="cb4-8"><a href="#cb4-8"></a><span class="co">#&gt;  row col           expected     actual                                                           file</span></span>
-<span id="cb4-9"><a href="#cb4-9"></a><span class="co">#&gt; 1001   y 1/0/T/F/TRUE/FALSE 2015-01-16 '/Users/runner/work/_temp/Library/readr/extdata/challenge.csv'</span></span>
-<span id="cb4-10"><a href="#cb4-10"></a><span class="co">#&gt; 1002   y 1/0/T/F/TRUE/FALSE 2018-05-18 '/Users/runner/work/_temp/Library/readr/extdata/challenge.csv'</span></span>
-<span id="cb4-11"><a href="#cb4-11"></a><span class="co">#&gt; 1003   y 1/0/T/F/TRUE/FALSE 2015-09-05 '/Users/runner/work/_temp/Library/readr/extdata/challenge.csv'</span></span>
-<span id="cb4-12"><a href="#cb4-12"></a><span class="co">#&gt; 1004   y 1/0/T/F/TRUE/FALSE 2012-11-28 '/Users/runner/work/_temp/Library/readr/extdata/challenge.csv'</span></span>
-<span id="cb4-13"><a href="#cb4-13"></a><span class="co">#&gt; 1005   y 1/0/T/F/TRUE/FALSE 2020-01-13 '/Users/runner/work/_temp/Library/readr/extdata/challenge.csv'</span></span>
-<span id="cb4-14"><a href="#cb4-14"></a><span class="co">#&gt; .... ... .................. .......... ..............................................................</span></span>
-<span id="cb4-15"><a href="#cb4-15"></a><span class="co">#&gt; See problems(...) for more details.</span></span>
-<span id="cb4-16"><a href="#cb4-16"></a>challenge &lt;-<span class="st"> </span><span class="kw"><a href="../../reference/read_delim.html">read_csv</a></span>(<span class="kw"><a href="../../reference/readr_example.html">readr_example</a></span>(<span class="st">"challenge.csv"</span>), <span class="dt">guess_max =</span> <span class="dv">1500</span>)</span>
-<span id="cb4-17"><a href="#cb4-17"></a><span class="co">#&gt; Parsed with column specification:</span></span>
-<span id="cb4-18"><a href="#cb4-18"></a><span class="co">#&gt; cols(</span></span>
-<span id="cb4-19"><a href="#cb4-19"></a><span class="co">#&gt;   x = col_double(),</span></span>
-<span id="cb4-20"><a href="#cb4-20"></a><span class="co">#&gt;   y = col_date(format = "")</span></span>
-<span id="cb4-21"><a href="#cb4-21"></a><span class="co">#&gt; )</span></span></code></pre></div>
+<div class="sourceCode" id="cb4"><pre class="downlit">
+<span class="va">challenge</span> <span class="op">&lt;-</span> <span class="fu"><a href="../../reference/read_delim.html">read_csv</a></span><span class="op">(</span><span class="fu"><a href="../../reference/readr_example.html">readr_example</a></span><span class="op">(</span><span class="st">"challenge.csv"</span><span class="op">)</span><span class="op">)</span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt; ── Column specification ────────────────────────────────────────────────────────</span>
+<span class="co">#&gt; cols(</span>
+<span class="co">#&gt;   x = col_double(),</span>
+<span class="co">#&gt;   y = col_logical()</span>
+<span class="co">#&gt; )</span>
+<span class="co">#&gt; Warning: 1000 parsing failures.</span>
+<span class="co">#&gt;  row col           expected     actual                                                           file</span>
+<span class="co">#&gt; 1001   y 1/0/T/F/TRUE/FALSE 2015-01-16 '/Users/runner/work/_temp/Library/readr/extdata/challenge.csv'</span>
+<span class="co">#&gt; 1002   y 1/0/T/F/TRUE/FALSE 2018-05-18 '/Users/runner/work/_temp/Library/readr/extdata/challenge.csv'</span>
+<span class="co">#&gt; 1003   y 1/0/T/F/TRUE/FALSE 2015-09-05 '/Users/runner/work/_temp/Library/readr/extdata/challenge.csv'</span>
+<span class="co">#&gt; 1004   y 1/0/T/F/TRUE/FALSE 2012-11-28 '/Users/runner/work/_temp/Library/readr/extdata/challenge.csv'</span>
+<span class="co">#&gt; 1005   y 1/0/T/F/TRUE/FALSE 2020-01-13 '/Users/runner/work/_temp/Library/readr/extdata/challenge.csv'</span>
+<span class="co">#&gt; .... ... .................. .......... ..............................................................</span>
+<span class="co">#&gt; See problems(...) for more details.</span>
+<span class="va">challenge</span> <span class="op">&lt;-</span> <span class="fu"><a href="../../reference/read_delim.html">read_csv</a></span><span class="op">(</span><span class="fu"><a href="../../reference/readr_example.html">readr_example</a></span><span class="op">(</span><span class="st">"challenge.csv"</span><span class="op">)</span>, guess_max <span class="op">=</span> <span class="fl">1500</span><span class="op">)</span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt; ── Column specification ────────────────────────────────────────────────────────</span>
+<span class="co">#&gt; cols(</span>
+<span class="co">#&gt;   x = col_double(),</span>
+<span class="co">#&gt;   y = col_date(format = "")</span>
+<span class="co">#&gt; )</span></pre></div>
 <p>(If you want to suppress the printed specification, just provide the dummy spec <code>col_types = cols()</code>)</p>
 <p>You can now access the guessing algorithm from R: <code><a href="../../reference/parse_guess.html">guess_parser()</a></code> will tell you which parser readr will select.</p>
-<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1"></a><span class="kw"><a href="../../reference/parse_guess.html">guess_parser</a></span>(<span class="st">"1,234"</span>)</span>
-<span id="cb5-2"><a href="#cb5-2"></a><span class="co">#&gt; [1] "number"</span></span>
-<span id="cb5-3"><a href="#cb5-3"></a></span>
-<span id="cb5-4"><a href="#cb5-4"></a><span class="co"># Were previously guessed as numbers</span></span>
-<span id="cb5-5"><a href="#cb5-5"></a><span class="kw"><a href="../../reference/parse_guess.html">guess_parser</a></span>(<span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">"."</span>, <span class="st">"-"</span>))</span>
-<span id="cb5-6"><a href="#cb5-6"></a><span class="co">#&gt; [1] "character"</span></span>
-<span id="cb5-7"><a href="#cb5-7"></a><span class="kw"><a href="../../reference/parse_guess.html">guess_parser</a></span>(<span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">"10W"</span>, <span class="st">"20N"</span>))</span>
-<span id="cb5-8"><a href="#cb5-8"></a><span class="co">#&gt; [1] "character"</span></span>
-<span id="cb5-9"><a href="#cb5-9"></a></span>
-<span id="cb5-10"><a href="#cb5-10"></a><span class="co"># Now uses the default time format</span></span>
-<span id="cb5-11"><a href="#cb5-11"></a><span class="kw"><a href="../../reference/parse_guess.html">guess_parser</a></span>(<span class="st">"10:30"</span>)</span>
-<span id="cb5-12"><a href="#cb5-12"></a><span class="co">#&gt; [1] "time"</span></span></code></pre></div>
+<div class="sourceCode" id="cb5"><pre class="downlit">
+<span class="fu"><a href="../../reference/parse_guess.html">guess_parser</a></span><span class="op">(</span><span class="st">"1,234"</span><span class="op">)</span>
+<span class="co">#&gt; [1] "number"</span>
+
+<span class="co"># Were previously guessed as numbers</span>
+<span class="fu"><a href="../../reference/parse_guess.html">guess_parser</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"."</span>, <span class="st">"-"</span><span class="op">)</span><span class="op">)</span>
+<span class="co">#&gt; [1] "character"</span>
+<span class="fu"><a href="../../reference/parse_guess.html">guess_parser</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"10W"</span>, <span class="st">"20N"</span><span class="op">)</span><span class="op">)</span>
+<span class="co">#&gt; [1] "character"</span>
+
+<span class="co"># Now uses the default time format</span>
+<span class="fu"><a href="../../reference/parse_guess.html">guess_parser</a></span><span class="op">(</span><span class="st">"10:30"</span><span class="op">)</span>
+<span class="co">#&gt; [1] "time"</span></pre></div>
 </div>
 <div id="date-time-parsing-improvements" class="section level2">
 <h2 class="hasAnchor">
@@ -209,17 +217,19 @@
 <ul>
 <li>
 <p><code>%I</code> for 12 hour time format:</p>
-<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1"></a><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span>(hms)</span>
-<span id="cb6-2"><a href="#cb6-2"></a><span class="kw"><a href="../../reference/parse_datetime.html">parse_time</a></span>(<span class="st">"1 pm"</span>, <span class="st">"%I %p"</span>)</span>
-<span id="cb6-3"><a href="#cb6-3"></a><span class="co">#&gt; 13:00:00</span></span></code></pre></div>
+<div class="sourceCode" id="cb6"><pre class="downlit">
+<span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://hms.tidyverse.org/">hms</a></span><span class="op">)</span>
+<span class="fu"><a href="../../reference/parse_datetime.html">parse_time</a></span><span class="op">(</span><span class="st">"1 pm"</span>, <span class="st">"%I %p"</span><span class="op">)</span>
+<span class="co">#&gt; 13:00:00</span></pre></div>
 <p>Note that <code><a href="../../reference/parse_datetime.html">parse_time()</a></code> returns <code>hms</code> from the <a href="https://github.com/rstats-db/hms">hms</a> package, rather than a custom <code>time</code> class</p>
 </li>
 <li>
 <p><code>%AD</code> and <code>%AT</code> are “automatic” date and time parsers. They are both slightly less flexible than previous defaults. The automatic date parser requires a four digit year, and only accepts <code><a href="https://rdrr.io/r/base/Arithmetic.html">-</a></code> and <code><a href="https://rdrr.io/r/base/Arithmetic.html">/</a></code> as separators. The flexible time parser now requires colons between hours and minutes and optional seconds.</p>
-<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1"></a><span class="kw"><a href="../../reference/parse_datetime.html">parse_date</a></span>(<span class="st">"2010-01-01"</span>, <span class="st">"%AD"</span>)</span>
-<span id="cb7-2"><a href="#cb7-2"></a><span class="co">#&gt; [1] "2010-01-01"</span></span>
-<span id="cb7-3"><a href="#cb7-3"></a><span class="kw"><a href="../../reference/parse_datetime.html">parse_time</a></span>(<span class="st">"15:01"</span>, <span class="st">"%AT"</span>)</span>
-<span id="cb7-4"><a href="#cb7-4"></a><span class="co">#&gt; 15:01:00</span></span></code></pre></div>
+<div class="sourceCode" id="cb7"><pre class="downlit">
+<span class="fu"><a href="../../reference/parse_datetime.html">parse_date</a></span><span class="op">(</span><span class="st">"2010-01-01"</span>, <span class="st">"%AD"</span><span class="op">)</span>
+<span class="co">#&gt; [1] "2010-01-01"</span>
+<span class="fu"><a href="../../reference/parse_datetime.html">parse_time</a></span><span class="op">(</span><span class="st">"15:01"</span>, <span class="st">"%AT"</span><span class="op">)</span>
+<span class="co">#&gt; 15:01:00</span></pre></div>
 </li>
 </ul>
 <p>If the format argument is omitted in <code><a href="../../reference/parse_datetime.html">parse_date()</a></code> or <code><a href="../../reference/parse_datetime.html">parse_time()</a></code>, the default date and time formats specified in the locale will be used. These now default to <code>%AD</code> and <code>%AT</code> respectively. You may want to override in your standard <code><a href="../../reference/locale.html">locale()</a></code> if the conventions are different where you live.</p>
@@ -246,19 +256,11 @@
 </div>
   </div>
 
-  <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
+  <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
 
-        <div id="tocnav">
-      <h2 class="hasAnchor">
-<a href="#tocnav" class="anchor"></a>Contents</h2>
-      <ul class="nav nav-pills nav-stacked">
-<li><a href="#column-guessing">Column guessing</a></li>
-      <li><a href="#date-time-parsing-improvements">Date-time parsing improvements:</a></li>
-      <li><a href="#low-level-readers-and-writers">Low-level readers and writers</a></li>
-      <li><a href="#other-changes">Other changes</a></li>
-      </ul>
+        <nav id="toc" data-toggle="toc"><h2 data-toc-skip>Contents</h2>
+    </nav>
 </div>
-      </div>
 
 </div>
 

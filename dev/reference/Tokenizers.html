@@ -80,7 +80,7 @@ read_csv()." />
 
   </head>
 
-  <body>
+  <body data-spy="scroll" data-target="#toc">
     <div class="container template-reference-topic">
       <header>
       <div class="navbar navbar-default navbar-fixed-top" role="navigation">
@@ -142,7 +142,7 @@ read_csv()." />
   </ul>
 </li>
         <li>
-  <a href="https://github.com/tidyverse/readr">
+  <a href="https://github.com/tidyverse/readr/">
     <span class="fab fa fab fa-github fa-lg"></span>
      
   </a>
@@ -171,50 +171,50 @@ function, but will instead use one of the use friendly wrappers like
 <code><a href='read_delim.html'>read_csv()</a></code>.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>tokenizer_delim</span>(
-  <span class='no'>delim</span>,
-  <span class='kw'>quote</span> <span class='kw'>=</span> <span class='st'>"\""</span>,
-  <span class='kw'>na</span> <span class='kw'>=</span> <span class='st'>"NA"</span>,
-  <span class='kw'>quoted_na</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
-  <span class='kw'>comment</span> <span class='kw'>=</span> <span class='st'>""</span>,
-  <span class='kw'>trim_ws</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
-  <span class='kw'>escape_double</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
-  <span class='kw'>escape_backslash</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
-  <span class='kw'>skip_empty_rows</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>
-)
+    <pre class="usage"><span class='fu'>tokenizer_delim</span><span class='op'>(</span>
+  <span class='va'>delim</span>,
+  quote <span class='op'>=</span> <span class='st'>"\""</span>,
+  na <span class='op'>=</span> <span class='st'>"NA"</span>,
+  quoted_na <span class='op'>=</span> <span class='cn'>TRUE</span>,
+  comment <span class='op'>=</span> <span class='st'>""</span>,
+  trim_ws <span class='op'>=</span> <span class='cn'>TRUE</span>,
+  escape_double <span class='op'>=</span> <span class='cn'>TRUE</span>,
+  escape_backslash <span class='op'>=</span> <span class='cn'>FALSE</span>,
+  skip_empty_rows <span class='op'>=</span> <span class='cn'>TRUE</span>
+<span class='op'>)</span>
 
-<span class='fu'>tokenizer_csv</span>(
-  <span class='kw'>na</span> <span class='kw'>=</span> <span class='st'>"NA"</span>,
-  <span class='kw'>quoted_na</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
-  <span class='kw'>quote</span> <span class='kw'>=</span> <span class='st'>"\""</span>,
-  <span class='kw'>comment</span> <span class='kw'>=</span> <span class='st'>""</span>,
-  <span class='kw'>trim_ws</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
-  <span class='kw'>skip_empty_rows</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>
-)
+<span class='fu'>tokenizer_csv</span><span class='op'>(</span>
+  na <span class='op'>=</span> <span class='st'>"NA"</span>,
+  quoted_na <span class='op'>=</span> <span class='cn'>TRUE</span>,
+  quote <span class='op'>=</span> <span class='st'>"\""</span>,
+  comment <span class='op'>=</span> <span class='st'>""</span>,
+  trim_ws <span class='op'>=</span> <span class='cn'>TRUE</span>,
+  skip_empty_rows <span class='op'>=</span> <span class='cn'>TRUE</span>
+<span class='op'>)</span>
 
-<span class='fu'>tokenizer_tsv</span>(
-  <span class='kw'>na</span> <span class='kw'>=</span> <span class='st'>"NA"</span>,
-  <span class='kw'>quoted_na</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
-  <span class='kw'>quote</span> <span class='kw'>=</span> <span class='st'>"\""</span>,
-  <span class='kw'>comment</span> <span class='kw'>=</span> <span class='st'>""</span>,
-  <span class='kw'>trim_ws</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
-  <span class='kw'>skip_empty_rows</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>
-)
+<span class='fu'>tokenizer_tsv</span><span class='op'>(</span>
+  na <span class='op'>=</span> <span class='st'>"NA"</span>,
+  quoted_na <span class='op'>=</span> <span class='cn'>TRUE</span>,
+  quote <span class='op'>=</span> <span class='st'>"\""</span>,
+  comment <span class='op'>=</span> <span class='st'>""</span>,
+  trim_ws <span class='op'>=</span> <span class='cn'>TRUE</span>,
+  skip_empty_rows <span class='op'>=</span> <span class='cn'>TRUE</span>
+<span class='op'>)</span>
 
-<span class='fu'>tokenizer_line</span>(<span class='kw'>na</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/character.html'>character</a></span>(), <span class='kw'>skip_empty_rows</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)
+<span class='fu'>tokenizer_line</span><span class='op'>(</span>na <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/character.html'>character</a></span><span class='op'>(</span><span class='op'>)</span>, skip_empty_rows <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span>
 
-<span class='fu'>tokenizer_log</span>()
+<span class='fu'>tokenizer_log</span><span class='op'>(</span><span class='op'>)</span>
 
-<span class='fu'>tokenizer_fwf</span>(
-  <span class='no'>begin</span>,
-  <span class='no'>end</span>,
-  <span class='kw'>na</span> <span class='kw'>=</span> <span class='st'>"NA"</span>,
-  <span class='kw'>comment</span> <span class='kw'>=</span> <span class='st'>""</span>,
-  <span class='kw'>trim_ws</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
-  <span class='kw'>skip_empty_rows</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>
-)
+<span class='fu'>tokenizer_fwf</span><span class='op'>(</span>
+  <span class='va'>begin</span>,
+  <span class='va'>end</span>,
+  na <span class='op'>=</span> <span class='st'>"NA"</span>,
+  comment <span class='op'>=</span> <span class='st'>""</span>,
+  trim_ws <span class='op'>=</span> <span class='cn'>TRUE</span>,
+  skip_empty_rows <span class='op'>=</span> <span class='cn'>TRUE</span>
+<span class='op'>)</span>
 
-<span class='fu'>tokenizer_ws</span>(<span class='kw'>na</span> <span class='kw'>=</span> <span class='st'>"NA"</span>, <span class='kw'>comment</span> <span class='kw'>=</span> <span class='st'>""</span>, <span class='kw'>skip_empty_rows</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</pre>
+<span class='fu'>tokenizer_ws</span><span class='op'>(</span>na <span class='op'>=</span> <span class='st'>"NA"</span>, comment <span class='op'>=</span> <span class='st'>""</span>, skip_empty_rows <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -276,7 +276,8 @@ offsets so the first column is column zero, and the ranges are
 
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='fu'>tokenizer_csv</span>()</div><div class='output co'>#&gt; $delim
+    <pre class="examples"><div class='input'><span class='fu'>tokenizer_csv</span><span class='op'>(</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; $delim
 #&gt; [1] ","
 #&gt; 
 #&gt; $quote
@@ -306,13 +307,10 @@ offsets so the first column is column zero, and the ranges are
 #&gt; attr(,"class")
 #&gt; [1] "tokenizer_delim"</div></pre>
   </div>
-  <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
-    <h2>Contents</h2>
-    <ul class="nav nav-pills nav-stacked">
-      <li><a href="#arguments">Arguments</a></li>
-      <li><a href="#examples">Examples</a></li>
-    </ul>
-
+  <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
+    <nav id="toc" data-toggle="toc" class="sticky-top">
+      <h2 data-toc-skip>Contents</h2>
+    </nav>
   </div>
 </div>
 

@@ -78,7 +78,7 @@
 
   </head>
 
-  <body>
+  <body data-spy="scroll" data-target="#toc">
     <div class="container template-reference-topic">
       <header>
       <div class="navbar navbar-default navbar-fixed-top" role="navigation">
@@ -140,7 +140,7 @@
   </ul>
 </li>
         <li>
-  <a href="https://github.com/tidyverse/readr">
+  <a href="https://github.com/tidyverse/readr/">
     <span class="fab fa fab fa-github fa-lg"></span>
      
   </a>
@@ -167,23 +167,23 @@
     <p>Read lines from a file or string by chunk.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>read_lines_chunked</span>(
-  <span class='no'>file</span>,
-  <span class='no'>callback</span>,
-  <span class='kw'>chunk_size</span> <span class='kw'>=</span> <span class='fl'>10000</span>,
-  <span class='kw'>skip</span> <span class='kw'>=</span> <span class='fl'>0</span>,
-  <span class='kw'>locale</span> <span class='kw'>=</span> <span class='fu'><a href='locale.html'>default_locale</a></span>(),
-  <span class='kw'>na</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/character.html'>character</a></span>(),
-  <span class='kw'>progress</span> <span class='kw'>=</span> <span class='fu'><a href='show_progress.html'>show_progress</a></span>()
-)
+    <pre class="usage"><span class='fu'>read_lines_chunked</span><span class='op'>(</span>
+  <span class='va'>file</span>,
+  <span class='va'>callback</span>,
+  chunk_size <span class='op'>=</span> <span class='fl'>10000</span>,
+  skip <span class='op'>=</span> <span class='fl'>0</span>,
+  locale <span class='op'>=</span> <span class='fu'><a href='locale.html'>default_locale</a></span><span class='op'>(</span><span class='op'>)</span>,
+  na <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/character.html'>character</a></span><span class='op'>(</span><span class='op'>)</span>,
+  progress <span class='op'>=</span> <span class='fu'><a href='show_progress.html'>show_progress</a></span><span class='op'>(</span><span class='op'>)</span>
+<span class='op'>)</span>
 
-<span class='fu'>read_lines_raw_chunked</span>(
-  <span class='no'>file</span>,
-  <span class='no'>callback</span>,
-  <span class='kw'>chunk_size</span> <span class='kw'>=</span> <span class='fl'>10000</span>,
-  <span class='kw'>skip</span> <span class='kw'>=</span> <span class='fl'>0</span>,
-  <span class='kw'>progress</span> <span class='kw'>=</span> <span class='fu'><a href='show_progress.html'>show_progress</a></span>()
-)</pre>
+<span class='fu'>read_lines_raw_chunked</span><span class='op'>(</span>
+  <span class='va'>file</span>,
+  <span class='va'>callback</span>,
+  chunk_size <span class='op'>=</span> <span class='fl'>10000</span>,
+  skip <span class='op'>=</span> <span class='fl'>0</span>,
+  progress <span class='op'>=</span> <span class='fu'><a href='show_progress.html'>show_progress</a></span><span class='op'>(</span><span class='op'>)</span>
+<span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -245,13 +245,10 @@ setting option <code>readr.show_progress</code> to <code>FALSE</code>.</p></td>
 <code><a href='read_delim_chunked.html'>read_delim_chunked</a>()</code></p></div>
 
   </div>
-  <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
-    <h2>Contents</h2>
-    <ul class="nav nav-pills nav-stacked">
-      <li><a href="#arguments">Arguments</a></li>
-      <li><a href="#see-also">See also</a></li>
-    </ul>
-
+  <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
+    <nav id="toc" data-toggle="toc" class="sticky-top">
+      <h2 data-toc-skip>Contents</h2>
+    </nav>
   </div>
 </div>
 

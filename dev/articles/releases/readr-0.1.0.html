@@ -20,7 +20,7 @@
 <script src="../../pkgdown.js"></script><link href="../../tidyverse-2.css" rel="stylesheet">
 <!--optional theme--><link href="../../.css" rel="stylesheet">
 <meta property="og:title" content="readr 0.1.0">
-<meta property="og:description" content="">
+<meta property="og:description" content="readr">
 <meta property="og:image" content="https://readr.tidyverse.org/logo.png">
 <meta name="twitter:card" content="summary">
 <meta name="robots" content="noindex">
@@ -35,7 +35,7 @@
   gtag('config', 'UA-115082821-1');
 </script>
 </head>
-<body>
+<body data-spy="scroll" data-target="#toc">
     <div class="container template-article">
       <header><div class="navbar navbar-default navbar-fixed-top" role="navigation">
   <div class="container">
@@ -96,7 +96,7 @@
   </ul>
 </li>
         <li>
-  <a href="https://github.com/tidyverse/readr">
+  <a href="https://github.com/tidyverse/readr/">
     <span class="fab fa fab fa-github fa-lg"></span>
      
   </a>
@@ -114,7 +114,7 @@
       </header><script src="readr-0.1.0_files/accessible-code-block-0.0.1/empty-anchor.js"></script><div class="row">
   <div class="col-md-9 contents">
     <div class="page-header toc-ignore">
-      <h1>readr 0.1.0</h1>
+      <h1 data-toc-skip>readr 0.1.0</h1>
             
       
       <small class="dont-index">Source: <a href="https://github.com/tidyverse/readr/blob/master/vignettes/releases/readr-0.1.0.Rmd"><code>vignettes/releases/readr-0.1.0.Rmd</code></a></small>
@@ -131,7 +131,8 @@
 <li><p>Web log files with <code><a href="../../reference/read_log.html">read_log()</a></code>.</p></li>
 </ul>
 <p>You can install it by running:</p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1"></a><span class="kw"><a href="https://rdrr.io/r/utils/install.packages.html">install.packages</a></span>(<span class="st">"readr"</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb1"><pre class="downlit">
+<span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html">install.packages</a></span><span class="op">(</span><span class="st">"readr"</span><span class="op">)</span></pre></div>
 <p>Compared to the equivalent base functions, readr functions are around 10x faster. They’re also easier to use because they’re more consistent, they produce data frames that are easier to use (no more <code>stringsAsFactors = FALSE</code>!), they have a more flexible column specification, and any parsing problems are recorded in a data frame. Each of these features is described in more detail below.</p>
 <div id="input" class="section level2">
 <h2 class="hasAnchor">
@@ -141,13 +142,14 @@
 <li>
 <p><code>file</code> gives the file to read; a url or local path. A local path can point to a a zipped, bzipped, xzipped, or gzipped file - it’ll be automatically uncompressed in memory before reading. You can also pass in a connection or a raw vector.</p>
 <p>For small examples, you can also supply literal data: if <code>file</code> contains a new line, then the data will be read directly from the string. Thanks to <a href="https://github.com/Rdatatable/data.table">data.table</a> for this great idea!</p>
-<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1"></a><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span>(readr)</span>
-<span id="cb2-2"><a href="#cb2-2"></a><span class="kw"><a href="../../reference/read_delim.html">read_csv</a></span>(<span class="st">"x,y</span><span class="ch">\n</span><span class="st">1,2</span><span class="ch">\n</span><span class="st">3,4"</span>)</span>
-<span id="cb2-3"><a href="#cb2-3"></a><span class="co">#&gt; # A tibble: 2 x 2</span></span>
-<span id="cb2-4"><a href="#cb2-4"></a><span class="co">#&gt;       x     y</span></span>
-<span id="cb2-5"><a href="#cb2-5"></a><span class="co">#&gt;   &lt;dbl&gt; &lt;dbl&gt;</span></span>
-<span id="cb2-6"><a href="#cb2-6"></a><span class="co">#&gt; 1     1     2</span></span>
-<span id="cb2-7"><a href="#cb2-7"></a><span class="co">#&gt; 2     3     4</span></span></code></pre></div>
+<div class="sourceCode" id="cb2"><pre class="downlit">
+<span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://readr.tidyverse.org">readr</a></span><span class="op">)</span>
+<span class="fu"><a href="../../reference/read_delim.html">read_csv</a></span><span class="op">(</span><span class="st">"x,y\n1,2\n3,4"</span><span class="op">)</span>
+<span class="co">#&gt; # A tibble: 2 x 2</span>
+<span class="co">#&gt;       x     y</span>
+<span class="co">#&gt;   &lt;dbl&gt; &lt;dbl&gt;</span>
+<span class="co">#&gt; 1     1     2</span>
+<span class="co">#&gt; 2     3     4</span></pre></div>
 </li>
 <li>
 <p><code>col_names</code>: describes the column names (equivalent to <code>header</code> in base R). It has three possible values:</p>
@@ -206,16 +208,17 @@
 <li><p>Use a compact string: <code>"dc__d"</code>. Each letter corresponds to a column so this specification means: read first column as double, second as character, skip the next two and read the last column as a double. (There’s no way to use this form with column types that need parameters.)</p></li>
 <li>
 <p>With a (named) list of col objects:</p>
-<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1"></a><span class="kw"><a href="../../reference/read_delim.html">read_csv</a></span>(<span class="st">"iris.csv"</span>, <span class="dt">col_types =</span> <span class="kw"><a href="https://rdrr.io/r/base/list.html">list</a></span>(</span>
-<span id="cb3-2"><a href="#cb3-2"></a>  <span class="dt">Sepal.Length =</span> <span class="kw"><a href="../../reference/parse_atomic.html">col_double</a></span>(),</span>
-<span id="cb3-3"><a href="#cb3-3"></a>  <span class="dt">Sepal.Width =</span> <span class="kw"><a href="../../reference/parse_atomic.html">col_double</a></span>(),</span>
-<span id="cb3-4"><a href="#cb3-4"></a>  <span class="dt">Petal.Length =</span> <span class="kw"><a href="../../reference/parse_atomic.html">col_double</a></span>(),</span>
-<span id="cb3-5"><a href="#cb3-5"></a>  <span class="dt">Petal.Width =</span> <span class="kw"><a href="../../reference/parse_atomic.html">col_double</a></span>(),</span>
-<span id="cb3-6"><a href="#cb3-6"></a>  <span class="dt">Species =</span> <span class="kw"><a href="../../reference/parse_factor.html">col_factor</a></span>(<span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">"setosa"</span>, <span class="st">"versicolor"</span>, <span class="st">"virginica"</span>))</span>
-<span id="cb3-7"><a href="#cb3-7"></a>))</span></code></pre></div>
+<div class="sourceCode" id="cb3"><pre class="downlit">
+<span class="fu"><a href="../../reference/read_delim.html">read_csv</a></span><span class="op">(</span><span class="st">"iris.csv"</span>, col_types <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span>
+  Sepal.Length <span class="op">=</span> <span class="fu"><a href="../../reference/parse_atomic.html">col_double</a></span><span class="op">(</span><span class="op">)</span>,
+  Sepal.Width <span class="op">=</span> <span class="fu"><a href="../../reference/parse_atomic.html">col_double</a></span><span class="op">(</span><span class="op">)</span>,
+  Petal.Length <span class="op">=</span> <span class="fu"><a href="../../reference/parse_atomic.html">col_double</a></span><span class="op">(</span><span class="op">)</span>,
+  Petal.Width <span class="op">=</span> <span class="fu"><a href="../../reference/parse_atomic.html">col_double</a></span><span class="op">(</span><span class="op">)</span>,
+  Species <span class="op">=</span> <span class="fu"><a href="../../reference/parse_factor.html">col_factor</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"setosa"</span>, <span class="st">"versicolor"</span>, <span class="st">"virginica"</span><span class="op">)</span><span class="op">)</span>
+<span class="op">)</span><span class="op">)</span></pre></div>
 <p>Any omitted columns will be parsed automatically, so the previous call is equivalent to:</p>
-<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1"></a><span class="kw"><a href="../../reference/read_delim.html">read_csv</a></span>(<span class="st">"iris.csv"</span>, <span class="dt">col_types =</span> <span class="kw"><a href="https://rdrr.io/r/base/list.html">list</a></span>(</span>
-<span id="cb4-2"><a href="#cb4-2"></a>  <span class="dt">Species =</span> <span class="kw"><a href="../../reference/parse_factor.html">col_factor</a></span>(<span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">"setosa"</span>, <span class="st">"versicolor"</span>, <span class="st">"virginica"</span>))</span>
+<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1"></a><span class="kw">read_csv</span>(<span class="st">"iris.csv"</span>, <span class="dt">col_types =</span> <span class="kw">list</span>(</span>
+<span id="cb4-2"><a href="#cb4-2"></a>  <span class="dt">Species =</span> <span class="kw">col_factor</span>(<span class="kw">c</span>(<span class="st">"setosa"</span>, <span class="st">"versicolor"</span>, <span class="st">"virginica"</span>))</span>
 <span id="cb4-3"><a href="#cb4-3"></a>)</span></code></pre></div>
 </li>
 </ul>
@@ -240,43 +243,45 @@
 <li><p>Shortcuts: <code>\%D</code> = <code>\%m/\%d/\%y</code>, <code>\%F</code> = <code>\%Y-\%m-\%d</code>, <code>\%R</code> = <code>\%H:\%M</code>, <code>\%T</code> = <code>\%H:\%M:\%S</code>, <code>\%x</code> = <code>\%y/\%m/\%d</code>.</p></li>
 </ul>
 <p>To practice parsing date times with out having to load the file each time, you can use <code><a href="../../reference/parse_datetime.html">parse_datetime()</a></code> and <code><a href="../../reference/parse_datetime.html">parse_date()</a></code>:</p>
-<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1"></a><span class="kw"><a href="../../reference/parse_datetime.html">parse_date</a></span>(<span class="st">"2015-10-10"</span>)</span>
-<span id="cb5-2"><a href="#cb5-2"></a><span class="co">#&gt; [1] "2015-10-10"</span></span>
-<span id="cb5-3"><a href="#cb5-3"></a><span class="kw"><a href="../../reference/parse_datetime.html">parse_datetime</a></span>(<span class="st">"2015-10-10 15:14"</span>)</span>
-<span id="cb5-4"><a href="#cb5-4"></a><span class="co">#&gt; [1] "2015-10-10 15:14:00 UTC"</span></span>
-<span id="cb5-5"><a href="#cb5-5"></a></span>
-<span id="cb5-6"><a href="#cb5-6"></a><span class="kw"><a href="../../reference/parse_datetime.html">parse_date</a></span>(<span class="st">"02/01/2015"</span>, <span class="st">"%m/%d/%Y"</span>)</span>
-<span id="cb5-7"><a href="#cb5-7"></a><span class="co">#&gt; [1] "2015-02-01"</span></span>
-<span id="cb5-8"><a href="#cb5-8"></a><span class="kw"><a href="../../reference/parse_datetime.html">parse_date</a></span>(<span class="st">"02/01/2015"</span>, <span class="st">"%d/%m/%Y"</span>)</span>
-<span id="cb5-9"><a href="#cb5-9"></a><span class="co">#&gt; [1] "2015-01-02"</span></span></code></pre></div>
+<div class="sourceCode" id="cb5"><pre class="downlit">
+<span class="fu"><a href="../../reference/parse_datetime.html">parse_date</a></span><span class="op">(</span><span class="st">"2015-10-10"</span><span class="op">)</span>
+<span class="co">#&gt; [1] "2015-10-10"</span>
+<span class="fu"><a href="../../reference/parse_datetime.html">parse_datetime</a></span><span class="op">(</span><span class="st">"2015-10-10 15:14"</span><span class="op">)</span>
+<span class="co">#&gt; [1] "2015-10-10 15:14:00 UTC"</span>
+
+<span class="fu"><a href="../../reference/parse_datetime.html">parse_date</a></span><span class="op">(</span><span class="st">"02/01/2015"</span>, <span class="st">"%m/%d/%Y"</span><span class="op">)</span>
+<span class="co">#&gt; [1] "2015-02-01"</span>
+<span class="fu"><a href="../../reference/parse_datetime.html">parse_date</a></span><span class="op">(</span><span class="st">"02/01/2015"</span>, <span class="st">"%d/%m/%Y"</span><span class="op">)</span>
+<span class="co">#&gt; [1] "2015-01-02"</span></pre></div>
 </div>
 </div>
 <div id="problems" class="section level2">
 <h2 class="hasAnchor">
 <a href="#problems" class="anchor"></a>Problems</h2>
 <p>If there are any problems parsing the file, the <code>read_</code> function will throw a warning telling you how many problems there are. You can then use the <code><a href="../../reference/problems.html">problems()</a></code> function to access a data frame that gives information about each problem:</p>
-<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1"></a>csv &lt;-<span class="st"> "x,y</span></span>
-<span id="cb6-2"><a href="#cb6-2"></a><span class="st">1,a</span></span>
-<span id="cb6-3"><a href="#cb6-3"></a><span class="st">b,2</span></span>
-<span id="cb6-4"><a href="#cb6-4"></a><span class="st">"</span></span>
-<span id="cb6-5"><a href="#cb6-5"></a></span>
-<span id="cb6-6"><a href="#cb6-6"></a>df &lt;-<span class="st"> </span><span class="kw"><a href="../../reference/read_delim.html">read_csv</a></span>(csv, <span class="dt">col_types =</span> <span class="st">"ii"</span>)</span>
-<span id="cb6-7"><a href="#cb6-7"></a><span class="co">#&gt; Warning: 2 parsing failures.</span></span>
-<span id="cb6-8"><a href="#cb6-8"></a><span class="co">#&gt; row col   expected actual         file</span></span>
-<span id="cb6-9"><a href="#cb6-9"></a><span class="co">#&gt;   1   y an integer      a literal data</span></span>
-<span id="cb6-10"><a href="#cb6-10"></a><span class="co">#&gt;   2   x an integer      b literal data</span></span>
-<span id="cb6-11"><a href="#cb6-11"></a><span class="kw"><a href="../../reference/problems.html">problems</a></span>(df)</span>
-<span id="cb6-12"><a href="#cb6-12"></a><span class="co">#&gt; # A tibble: 2 x 5</span></span>
-<span id="cb6-13"><a href="#cb6-13"></a><span class="co">#&gt;     row col   expected   actual file        </span></span>
-<span id="cb6-14"><a href="#cb6-14"></a><span class="co">#&gt;   &lt;int&gt; &lt;chr&gt; &lt;chr&gt;      &lt;chr&gt;  &lt;chr&gt;       </span></span>
-<span id="cb6-15"><a href="#cb6-15"></a><span class="co">#&gt; 1     1 y     an integer a      literal data</span></span>
-<span id="cb6-16"><a href="#cb6-16"></a><span class="co">#&gt; 2     2 x     an integer b      literal data</span></span>
-<span id="cb6-17"><a href="#cb6-17"></a>df</span>
-<span id="cb6-18"><a href="#cb6-18"></a><span class="co">#&gt; # A tibble: 2 x 2</span></span>
-<span id="cb6-19"><a href="#cb6-19"></a><span class="co">#&gt;       x     y</span></span>
-<span id="cb6-20"><a href="#cb6-20"></a><span class="co">#&gt;   &lt;int&gt; &lt;int&gt;</span></span>
-<span id="cb6-21"><a href="#cb6-21"></a><span class="co">#&gt; 1     1    NA</span></span>
-<span id="cb6-22"><a href="#cb6-22"></a><span class="co">#&gt; 2    NA     2</span></span></code></pre></div>
+<div class="sourceCode" id="cb6"><pre class="downlit">
+<span class="va">csv</span> <span class="op">&lt;-</span> <span class="st">"x,y
+1,a
+b,2
+"</span>
+
+<span class="va">df</span> <span class="op">&lt;-</span> <span class="fu"><a href="../../reference/read_delim.html">read_csv</a></span><span class="op">(</span><span class="va">csv</span>, col_types <span class="op">=</span> <span class="st">"ii"</span><span class="op">)</span>
+<span class="co">#&gt; Warning: 2 parsing failures.</span>
+<span class="co">#&gt; row col   expected actual         file</span>
+<span class="co">#&gt;   1   y an integer      a literal data</span>
+<span class="co">#&gt;   2   x an integer      b literal data</span>
+<span class="fu"><a href="../../reference/problems.html">problems</a></span><span class="op">(</span><span class="va">df</span><span class="op">)</span>
+<span class="co">#&gt; # A tibble: 2 x 5</span>
+<span class="co">#&gt;     row col   expected   actual file        </span>
+<span class="co">#&gt;   &lt;int&gt; &lt;chr&gt; &lt;chr&gt;      &lt;chr&gt;  &lt;chr&gt;       </span>
+<span class="co">#&gt; 1     1 y     an integer a      literal data</span>
+<span class="co">#&gt; 2     2 x     an integer b      literal data</span>
+<span class="va">df</span>
+<span class="co">#&gt; # A tibble: 2 x 2</span>
+<span class="co">#&gt;       x     y</span>
+<span class="co">#&gt;   &lt;int&gt; &lt;int&gt;</span>
+<span class="co">#&gt; 1     1    NA</span>
+<span class="co">#&gt; 2    NA     2</span></pre></div>
 </div>
 <div id="helper-functions" class="section level2">
 <h2 class="hasAnchor">
@@ -296,21 +301,11 @@
 </div>
   </div>
 
-  <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
+  <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
 
-        <div id="tocnav">
-      <h2 class="hasAnchor">
-<a href="#tocnav" class="anchor"></a>Contents</h2>
-      <ul class="nav nav-pills nav-stacked">
-<li><a href="#input">Input</a></li>
-      <li><a href="#output">Output</a></li>
-      <li><a href="#column-types">Column types</a></li>
-      <li><a href="#problems">Problems</a></li>
-      <li><a href="#helper-functions">Helper functions</a></li>
-      <li><a href="#development">Development</a></li>
-      </ul>
+        <nav id="toc" data-toggle="toc"><h2 data-toc-skip>Contents</h2>
+    </nav>
 </div>
-      </div>
 
 </div>
 

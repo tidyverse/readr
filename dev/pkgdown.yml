@@ -1,12 +1,13 @@
 pandoc: 2.7.3
-pkgdown: 1.4.1.9000
-pkgdown_sha: 732fb5b9ccc0ef87a73dfd0772ae661a4039b2a8
+pkgdown: 1.6.1
+pkgdown_sha: ~
 articles:
   locales: locales.html
   readr: readr.html
-  readr-0.1.0: releases/readr-0.1.0.html
-  readr-0.2.0: releases/readr-0.2.0.html
-  readr-1.0.0: releases/readr-1.0.0.html
+  releases/readr-0.1.0: readr-0.1.0.html
+  releases/readr-0.2.0: readr-0.2.0.html
+  releases/readr-1.0.0: readr-1.0.0.html
+last_built: 2020-10-01T14:21Z
 urls:
   reference: https://readr.tidyverse.org/reference
   article: https://readr.tidyverse.org/articles

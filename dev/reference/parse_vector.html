@@ -78,7 +78,7 @@
 
   </head>
 
-  <body>
+  <body data-spy="scroll" data-target="#toc">
     <div class="container template-reference-topic">
       <header>
       <div class="navbar navbar-default navbar-fixed-top" role="navigation">
@@ -140,7 +140,7 @@
   </ul>
 </li>
         <li>
-  <a href="https://github.com/tidyverse/readr">
+  <a href="https://github.com/tidyverse/readr/">
     <span class="fab fa fab fa-github fa-lg"></span>
      
   </a>
@@ -167,13 +167,13 @@
     <p>Parse a character vector.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>parse_vector</span>(
-  <span class='no'>x</span>,
-  <span class='no'>collector</span>,
-  <span class='kw'>na</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>""</span>, <span class='st'>"NA"</span>),
-  <span class='kw'>locale</span> <span class='kw'>=</span> <span class='fu'><a href='locale.html'>default_locale</a></span>(),
-  <span class='kw'>trim_ws</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>
-)</pre>
+    <pre class="usage"><span class='fu'>parse_vector</span><span class='op'>(</span>
+  <span class='va'>x</span>,
+  <span class='va'>collector</span>,
+  na <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>""</span>, <span class='st'>"NA"</span><span class='op'>)</span>,
+  locale <span class='op'>=</span> <span class='fu'><a href='locale.html'>default_locale</a></span><span class='op'>(</span><span class='op'>)</span>,
+  trim_ws <span class='op'>=</span> <span class='cn'>TRUE</span>
+<span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -210,7 +210,7 @@ each field before parsing it?</p></td>
 
     <div class='dont-index'><p>Other parsers: 
 <code><a href='col_skip.html'>col_skip</a>()</code>,
-<code><a href='spec.html'>cols_condense</a>()</code>,
+<code><a href='cols_condense.html'>cols_condense</a>()</code>,
 <code><a href='cols.html'>cols</a>()</code>,
 <code><a href='parse_datetime.html'>parse_datetime</a>()</code>,
 <code><a href='parse_factor.html'>parse_factor</a>()</code>,
@@ -219,17 +219,15 @@ each field before parsing it?</p></td>
 <code><a href='parse_number.html'>parse_number</a>()</code></p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='no'>x</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"1"</span>, <span class='st'>"2"</span>, <span class='st'>"3"</span>, <span class='st'>"NA"</span>)
-<span class='fu'>parse_vector</span>(<span class='no'>x</span>, <span class='fu'><a href='parse_atomic.html'>col_integer</a></span>())</div><div class='output co'>#&gt; [1]  1  2  3 NA</div><div class='input'><span class='fu'>parse_vector</span>(<span class='no'>x</span>, <span class='fu'><a href='parse_atomic.html'>col_double</a></span>())</div><div class='output co'>#&gt; [1]  1  2  3 NA</div></pre>
+    <pre class="examples"><div class='input'><span class='va'>x</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"1"</span>, <span class='st'>"2"</span>, <span class='st'>"3"</span>, <span class='st'>"NA"</span><span class='op'>)</span>
+<span class='fu'>parse_vector</span><span class='op'>(</span><span class='va'>x</span>, <span class='fu'><a href='parse_atomic.html'>col_integer</a></span><span class='op'>(</span><span class='op'>)</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; [1]  1  2  3 NA</div><div class='input'><span class='fu'>parse_vector</span><span class='op'>(</span><span class='va'>x</span>, <span class='fu'><a href='parse_atomic.html'>col_double</a></span><span class='op'>(</span><span class='op'>)</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; [1]  1  2  3 NA</div></pre>
   </div>
-  <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
-    <h2>Contents</h2>
-    <ul class="nav nav-pills nav-stacked">
-      <li><a href="#arguments">Arguments</a></li>
-      <li><a href="#see-also">See also</a></li>
-      <li><a href="#examples">Examples</a></li>
-    </ul>
-
+  <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
+    <nav id="toc" data-toggle="toc" class="sticky-top">
+      <h2 data-toc-skip>Contents</h2>
+    </nav>
   </div>
 </div>
 

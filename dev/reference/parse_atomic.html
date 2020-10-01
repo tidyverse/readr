@@ -80,7 +80,7 @@ values as they're read in." />
 
   </head>
 
-  <body>
+  <body data-spy="scroll" data-target="#toc">
     <div class="container template-reference-topic">
       <header>
       <div class="navbar navbar-default navbar-fixed-top" role="navigation">
@@ -142,7 +142,7 @@ values as they're read in." />
   </ul>
 </li>
         <li>
-  <a href="https://github.com/tidyverse/readr">
+  <a href="https://github.com/tidyverse/readr/">
     <span class="fab fa fab fa-github fa-lg"></span>
      
   </a>
@@ -171,21 +171,21 @@ values as they're read in." />
 values as they're read in.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>parse_logical</span>(<span class='no'>x</span>, <span class='kw'>na</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>""</span>, <span class='st'>"NA"</span>), <span class='kw'>locale</span> <span class='kw'>=</span> <span class='fu'><a href='locale.html'>default_locale</a></span>(), <span class='kw'>trim_ws</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)
+    <pre class="usage"><span class='fu'>parse_logical</span><span class='op'>(</span><span class='va'>x</span>, na <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>""</span>, <span class='st'>"NA"</span><span class='op'>)</span>, locale <span class='op'>=</span> <span class='fu'><a href='locale.html'>default_locale</a></span><span class='op'>(</span><span class='op'>)</span>, trim_ws <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span>
 
-<span class='fu'>parse_integer</span>(<span class='no'>x</span>, <span class='kw'>na</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>""</span>, <span class='st'>"NA"</span>), <span class='kw'>locale</span> <span class='kw'>=</span> <span class='fu'><a href='locale.html'>default_locale</a></span>(), <span class='kw'>trim_ws</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)
+<span class='fu'>parse_integer</span><span class='op'>(</span><span class='va'>x</span>, na <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>""</span>, <span class='st'>"NA"</span><span class='op'>)</span>, locale <span class='op'>=</span> <span class='fu'><a href='locale.html'>default_locale</a></span><span class='op'>(</span><span class='op'>)</span>, trim_ws <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span>
 
-<span class='fu'>parse_double</span>(<span class='no'>x</span>, <span class='kw'>na</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>""</span>, <span class='st'>"NA"</span>), <span class='kw'>locale</span> <span class='kw'>=</span> <span class='fu'><a href='locale.html'>default_locale</a></span>(), <span class='kw'>trim_ws</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)
+<span class='fu'>parse_double</span><span class='op'>(</span><span class='va'>x</span>, na <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>""</span>, <span class='st'>"NA"</span><span class='op'>)</span>, locale <span class='op'>=</span> <span class='fu'><a href='locale.html'>default_locale</a></span><span class='op'>(</span><span class='op'>)</span>, trim_ws <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span>
 
-<span class='fu'>parse_character</span>(<span class='no'>x</span>, <span class='kw'>na</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>""</span>, <span class='st'>"NA"</span>), <span class='kw'>locale</span> <span class='kw'>=</span> <span class='fu'><a href='locale.html'>default_locale</a></span>(), <span class='kw'>trim_ws</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)
+<span class='fu'>parse_character</span><span class='op'>(</span><span class='va'>x</span>, na <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>""</span>, <span class='st'>"NA"</span><span class='op'>)</span>, locale <span class='op'>=</span> <span class='fu'><a href='locale.html'>default_locale</a></span><span class='op'>(</span><span class='op'>)</span>, trim_ws <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span>
 
-<span class='fu'>col_logical</span>()
+<span class='fu'>col_logical</span><span class='op'>(</span><span class='op'>)</span>
 
-<span class='fu'>col_integer</span>()
+<span class='fu'>col_integer</span><span class='op'>(</span><span class='op'>)</span>
 
-<span class='fu'>col_double</span>()
+<span class='fu'>col_double</span><span class='op'>(</span><span class='op'>)</span>
 
-<span class='fu'>col_character</span>()</pre>
+<span class='fu'>col_character</span><span class='op'>(</span><span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -218,7 +218,7 @@ each field before parsing it?</p></td>
 
     <div class='dont-index'><p>Other parsers: 
 <code><a href='col_skip.html'>col_skip</a>()</code>,
-<code><a href='spec.html'>cols_condense</a>()</code>,
+<code><a href='cols_condense.html'>cols_condense</a>()</code>,
 <code><a href='cols.html'>cols</a>()</code>,
 <code><a href='parse_datetime.html'>parse_datetime</a>()</code>,
 <code><a href='parse_factor.html'>parse_factor</a>()</code>,
@@ -227,13 +227,18 @@ each field before parsing it?</p></td>
 <code><a href='parse_vector.html'>parse_vector</a>()</code></p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='fu'>parse_integer</span>(<span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"1"</span>, <span class='st'>"2"</span>, <span class='st'>"3"</span>))</div><div class='output co'>#&gt; [1] 1 2 3</div><div class='input'><span class='fu'>parse_double</span>(<span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"1"</span>, <span class='st'>"2"</span>, <span class='st'>"3.123"</span>))</div><div class='output co'>#&gt; [1] 1.000 2.000 3.123</div><div class='input'><span class='fu'><a href='parse_number.html'>parse_number</a></span>(<span class='st'>"$1,123,456.00"</span>)</div><div class='output co'>#&gt; [1] 1123456</div><div class='input'>
+    <pre class="examples"><div class='input'><span class='fu'>parse_integer</span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"1"</span>, <span class='st'>"2"</span>, <span class='st'>"3"</span><span class='op'>)</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; [1] 1 2 3</div><div class='input'><span class='fu'>parse_double</span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"1"</span>, <span class='st'>"2"</span>, <span class='st'>"3.123"</span><span class='op'>)</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; [1] 1.000 2.000 3.123</div><div class='input'><span class='fu'><a href='parse_number.html'>parse_number</a></span><span class='op'>(</span><span class='st'>"$1,123,456.00"</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; [1] 1123456</div><div class='input'>
 <span class='co'># Use locale to override default decimal and grouping marks</span>
-<span class='no'>es_MX</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='locale.html'>locale</a></span>(<span class='st'>"es"</span>, <span class='kw'>decimal_mark</span> <span class='kw'>=</span> <span class='st'>","</span>)
-<span class='fu'><a href='parse_number.html'>parse_number</a></span>(<span class='st'>"$1.123.456,00"</span>, <span class='kw'>locale</span> <span class='kw'>=</span> <span class='no'>es_MX</span>)</div><div class='output co'>#&gt; [1] 1123456</div><div class='input'>
+<span class='va'>es_MX</span> <span class='op'>&lt;-</span> <span class='fu'><a href='locale.html'>locale</a></span><span class='op'>(</span><span class='st'>"es"</span>, decimal_mark <span class='op'>=</span> <span class='st'>","</span><span class='op'>)</span>
+<span class='fu'><a href='parse_number.html'>parse_number</a></span><span class='op'>(</span><span class='st'>"$1.123.456,00"</span>, locale <span class='op'>=</span> <span class='va'>es_MX</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; [1] 1123456</div><div class='input'>
 <span class='co'># Invalid values are replaced with missing values with a warning.</span>
-<span class='no'>x</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"1"</span>, <span class='st'>"2"</span>, <span class='st'>"3"</span>, <span class='st'>"-"</span>)
-<span class='fu'>parse_double</span>(<span class='no'>x</span>)</div><div class='output co'>#&gt; <span class='warning'>Warning: 1 parsing failure.</span>
+<span class='va'>x</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"1"</span>, <span class='st'>"2"</span>, <span class='st'>"3"</span>, <span class='st'>"-"</span><span class='op'>)</span>
+<span class='fu'>parse_double</span><span class='op'>(</span><span class='va'>x</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; <span class='warning'>Warning: 1 parsing failure.</span>
 #&gt; <span class='warning'>row col expected actual</span>
 #&gt; <span class='warning'>  4  -- a double      -</span></div><div class='output co'>#&gt; [1]  1  2  3 NA
 #&gt; attr(,"problems")
@@ -241,16 +246,13 @@ each field before parsing it?</p></td>
 #&gt;     row   col expected actual
 #&gt;   </span><span style='color: #555555;font-style: italic;'>&lt;int&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;int&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>    </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span> 
 #&gt; </span><span style='color: #555555;'>1</span><span>     4    </span><span style='color: #BB0000;'>NA</span><span> a double -     </div><div class='input'><span class='co'># Or flag values as missing</span>
-<span class='fu'>parse_double</span>(<span class='no'>x</span>, <span class='kw'>na</span> <span class='kw'>=</span> <span class='st'>"-"</span>)</div><div class='output co'>#&gt; [1]  1  2  3 NA</div></span></pre>
+<span class='fu'>parse_double</span><span class='op'>(</span><span class='va'>x</span>, na <span class='op'>=</span> <span class='st'>"-"</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; [1]  1  2  3 NA</div></span></pre>
   </div>
-  <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
-    <h2>Contents</h2>
-    <ul class="nav nav-pills nav-stacked">
-      <li><a href="#arguments">Arguments</a></li>
-      <li><a href="#see-also">See also</a></li>
-      <li><a href="#examples">Examples</a></li>
-    </ul>
-
+  <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
+    <nav id="toc" data-toggle="toc" class="sticky-top">
+      <h2 data-toc-skip>Contents</h2>
+    </nav>
   </div>
 </div>
 

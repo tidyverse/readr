@@ -78,7 +78,7 @@
 
   </head>
 
-  <body>
+  <body data-spy="scroll" data-target="#toc">
     <div class="container template-reference-topic">
       <header>
       <div class="navbar navbar-default navbar-fixed-top" role="navigation">
@@ -140,7 +140,7 @@
   </ul>
 </li>
         <li>
-  <a href="https://github.com/tidyverse/readr">
+  <a href="https://github.com/tidyverse/readr/">
     <span class="fab fa fab fa-github fa-lg"></span>
      
   </a>
@@ -167,7 +167,13 @@
     <p>Create a source object.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>datasource</span>(<span class='no'>file</span>, <span class='kw'>skip</span> <span class='kw'>=</span> <span class='fl'>0</span>, <span class='kw'>skip_empty_rows</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>comment</span> <span class='kw'>=</span> <span class='st'>""</span>)</pre>
+    <pre class="usage"><span class='fu'>datasource</span><span class='op'>(</span>
+  <span class='va'>file</span>,
+  skip <span class='op'>=</span> <span class='fl'>0</span>,
+  skip_empty_rows <span class='op'>=</span> <span class='cn'>FALSE</span>,
+  comment <span class='op'>=</span> <span class='st'>""</span>,
+  skip_quote <span class='op'>=</span> <span class='cn'>TRUE</span>
+<span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -195,7 +201,8 @@ vector of greater than length 1.</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='co'># Literal csv</span>
-<span class='fu'>datasource</span>(<span class='st'>"a,b,c\n1,2,3"</span>)</div><div class='output co'>#&gt; [[1]]
+<span class='fu'>datasource</span><span class='op'>(</span><span class='st'>"a,b,c\n1,2,3"</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; [[1]]
 #&gt; [1] "a,b,c\n1,2,3"
 #&gt; 
 #&gt; $skip
@@ -207,8 +214,12 @@ vector of greater than length 1.</p>
 #&gt; $comment
 #&gt; [1] ""
 #&gt; 
+#&gt; $skip_quote
+#&gt; [1] TRUE
+#&gt; 
 #&gt; attr(,"class")
-#&gt; [1] "source_string" "source"       </div><div class='input'><span class='fu'>datasource</span>(<span class='fu'><a href='https://rdrr.io/r/base/rawConversion.html'>charToRaw</a></span>(<span class='st'>"a,b,c\n1,2,3"</span>))</div><div class='output co'>#&gt; [[1]]
+#&gt; [1] "source_string" "source"       </div><div class='input'><span class='fu'>datasource</span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/rawConversion.html'>charToRaw</a></span><span class='op'>(</span><span class='st'>"a,b,c\n1,2,3"</span><span class='op'>)</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; [[1]]
 #&gt;  [1] 61 2c 62 2c 63 0a 31 2c 32 2c 33
 #&gt; 
 #&gt; $skip
@@ -220,10 +231,14 @@ vector of greater than length 1.</p>
 #&gt; $comment
 #&gt; [1] ""
 #&gt; 
+#&gt; $skip_quote
+#&gt; [1] TRUE
+#&gt; 
 #&gt; attr(,"class")
 #&gt; [1] "source_raw" "source"    </div><div class='input'>
 <span class='co'># Strings</span>
-<span class='fu'>datasource</span>(<span class='fu'><a href='readr_example.html'>readr_example</a></span>(<span class='st'>"mtcars.csv"</span>))</div><div class='output co'>#&gt; [[1]]
+<span class='fu'>datasource</span><span class='op'>(</span><span class='fu'><a href='readr_example.html'>readr_example</a></span><span class='op'>(</span><span class='st'>"mtcars.csv"</span><span class='op'>)</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; [[1]]
 #&gt; [1] "/Users/runner/work/_temp/Library/readr/extdata/mtcars.csv"
 #&gt; 
 #&gt; $skip
@@ -235,9 +250,13 @@ vector of greater than length 1.</p>
 #&gt; $comment
 #&gt; [1] ""
 #&gt; 
+#&gt; $skip_quote
+#&gt; [1] TRUE
+#&gt; 
 #&gt; attr(,"class")
-#&gt; [1] "source_file" "source"     </div><div class='input'><span class='fu'>datasource</span>(<span class='fu'><a href='readr_example.html'>readr_example</a></span>(<span class='st'>"mtcars.csv.bz2"</span>))</div><div class='output co'>#&gt; [[1]]
-#&gt; [1] "/private/var/folders/24/8k48jl6d249_n_qfxwsl6xvm0000gn/T/RtmpKexXS3/filea7b4e234f34"
+#&gt; [1] "source_file" "source"     </div><div class='input'><span class='fu'>datasource</span><span class='op'>(</span><span class='fu'><a href='readr_example.html'>readr_example</a></span><span class='op'>(</span><span class='st'>"mtcars.csv.bz2"</span><span class='op'>)</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; [[1]]
+#&gt; [1] "/private/var/folders/24/8k48jl6d249_n_qfxwsl6xvm0000gn/T/RtmplA5Baf/file3e7d55560f37"
 #&gt; 
 #&gt; $skip
 #&gt; [1] 0
@@ -248,12 +267,16 @@ vector of greater than length 1.</p>
 #&gt; $comment
 #&gt; [1] ""
 #&gt; 
+#&gt; $skip_quote
+#&gt; [1] TRUE
+#&gt; 
 #&gt; $env
-#&gt; &lt;environment: 0x7fd893702eb0&gt;
+#&gt; &lt;environment: 0x7fcb0d5d9b70&gt;
 #&gt; 
 #&gt; attr(,"class")
-#&gt; [1] "source_file" "source"     </div><div class='input'><span class='fu'>datasource</span>(<span class='fu'><a href='readr_example.html'>readr_example</a></span>(<span class='st'>"mtcars.csv.zip"</span>))</div><div class='output co'>#&gt; [[1]]
-#&gt; [1] "/private/var/folders/24/8k48jl6d249_n_qfxwsl6xvm0000gn/T/RtmpKexXS3/filea7b702506ff"
+#&gt; [1] "source_file" "source"     </div><div class='input'><span class='fu'>datasource</span><span class='op'>(</span><span class='fu'><a href='readr_example.html'>readr_example</a></span><span class='op'>(</span><span class='st'>"mtcars.csv.zip"</span><span class='op'>)</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; [[1]]
+#&gt; [1] "/private/var/folders/24/8k48jl6d249_n_qfxwsl6xvm0000gn/T/RtmplA5Baf/file3e7d5010fa6"
 #&gt; 
 #&gt; $skip
 #&gt; [1] 0
@@ -264,18 +287,22 @@ vector of greater than length 1.</p>
 #&gt; $comment
 #&gt; [1] ""
 #&gt; 
+#&gt; $skip_quote
+#&gt; [1] TRUE
+#&gt; 
 #&gt; $env
-#&gt; &lt;environment: 0x7fd8937d31f8&gt;
+#&gt; &lt;environment: 0x7fcb0b31b9c8&gt;
 #&gt; 
 #&gt; attr(,"class")
-#&gt; [1] "source_file" "source"     </div><div class='input'><span class='kw'>if</span> (<span class='fl'>FALSE</span>) {
-<span class='fu'>datasource</span>(<span class='st'>"https://github.com/tidyverse/readr/raw/master/inst/extdata/mtcars.csv"</span>)
-}
+#&gt; [1] "source_file" "source"     </div><div class='input'><span class='kw'>if</span> <span class='op'>(</span><span class='cn'>FALSE</span><span class='op'>)</span> <span class='op'>{</span>
+<span class='fu'>datasource</span><span class='op'>(</span><span class='st'>"https://github.com/tidyverse/readr/raw/master/inst/extdata/mtcars.csv"</span><span class='op'>)</span>
+<span class='op'>}</span>
 
 <span class='co'># Connection</span>
-<span class='no'>con</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/rawConnection.html'>rawConnection</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/rawConversion.html'>charToRaw</a></span>(<span class='st'>"abc\n123"</span>))
-<span class='fu'>datasource</span>(<span class='no'>con</span>)</div><div class='output co'>#&gt; [[1]]
-#&gt; [1] "/private/var/folders/24/8k48jl6d249_n_qfxwsl6xvm0000gn/T/RtmpKexXS3/filea7beee88de"
+<span class='va'>con</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/rawConnection.html'>rawConnection</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/rawConversion.html'>charToRaw</a></span><span class='op'>(</span><span class='st'>"abc\n123"</span><span class='op'>)</span><span class='op'>)</span>
+<span class='fu'>datasource</span><span class='op'>(</span><span class='va'>con</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; [[1]]
+#&gt; [1] "/private/var/folders/24/8k48jl6d249_n_qfxwsl6xvm0000gn/T/RtmplA5Baf/file3e7d8aa5ddb"
 #&gt; 
 #&gt; $skip
 #&gt; [1] 0
@@ -286,19 +313,20 @@ vector of greater than length 1.</p>
 #&gt; $comment
 #&gt; [1] ""
 #&gt; 
+#&gt; $skip_quote
+#&gt; [1] TRUE
+#&gt; 
 #&gt; $env
-#&gt; &lt;environment: 0x7fd895148cf8&gt;
+#&gt; &lt;environment: 0x7fcb0ec6b520&gt;
 #&gt; 
 #&gt; attr(,"class")
-#&gt; [1] "source_file" "source"     </div><div class='input'><span class='fu'><a href='https://rdrr.io/r/base/connections.html'>close</a></span>(<span class='no'>con</span>)</div></pre>
+#&gt; [1] "source_file" "source"     </div><div class='input'><span class='fu'><a href='https://rdrr.io/r/base/connections.html'>close</a></span><span class='op'>(</span><span class='va'>con</span><span class='op'>)</span>
+</div></pre>
   </div>
-  <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
-    <h2>Contents</h2>
-    <ul class="nav nav-pills nav-stacked">
-      <li><a href="#arguments">Arguments</a></li>
-      <li><a href="#examples">Examples</a></li>
-    </ul>
-
+  <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
+    <nav id="toc" data-toggle="toc" class="sticky-top">
+      <h2 data-toc-skip>Contents</h2>
+    </nav>
   </div>
 </div>
 
