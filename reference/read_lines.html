@@ -8,60 +8,81 @@
 
 <title>Read/write lines to/from a file — read_lines • readr</title>
 
+<!-- favicons -->
+<link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
+<link rel="icon" type="image/png" sizes="32x32" href="../favicon-32x32.png">
+<link rel="apple-touch-icon" type="image/png" sizes="180x180" href="../apple-touch-icon.png" />
+<link rel="apple-touch-icon" type="image/png" sizes="120x120" href="../apple-touch-icon-120x120.png" />
+<link rel="apple-touch-icon" type="image/png" sizes="76x76" href="../apple-touch-icon-76x76.png" />
+<link rel="apple-touch-icon" type="image/png" sizes="60x60" href="../apple-touch-icon-60x60.png" />
+
 <!-- jquery -->
-<script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha384-nrOSfDHtoPMzJHjVTdCopGqIqeYETSXhZDFyniQ8ZHcVy08QesyHcnOUpMpqnmWq" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
 
 <!-- Bootstrap -->
 <link href="../tidyverse.css" rel="stylesheet">
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/js/bootstrap.min.js" integrity="sha256-nuL8/2cJ5NDSSwnKD8VqreErSWHtnEP9E7AySL+1ev4=" crossorigin="anonymous"></script>
+
+<!-- bootstrap-toc -->
+<link rel="stylesheet" href="../bootstrap-toc.css">
+<script src="../bootstrap-toc.js"></script>
 
 <!-- Font Awesome icons -->
-<link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-T8Gy5hrqNKT+hzMclPo118YTQO6cYprQmhrYwIiQ/3axmI1hQomh7Ud2hPOy8SP1" crossorigin="anonymous">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/v4-shims.min.css" integrity="sha256-wZjR52fzng1pJHwx4aV2AO3yyTOXrcDW7jBpJtTwVxw=" crossorigin="anonymous" />
 
 <!-- clipboard.js -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/1.7.1/clipboard.min.js" integrity="sha384-cV+rhyOuRHc9Ub/91rihWcGmMmCXDeksTtCihMupQHSsi8GIIRDG0ThDc3HGQFJ3" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.4/clipboard.min.js" integrity="sha256-FiZwavyI2V6+EXO1U+xzLG3IKldpiTFf3153ea9zikQ=" crossorigin="anonymous"></script>
 
-<!-- sticky kit -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/sticky-kit/1.1.3/sticky-kit.min.js" integrity="sha256-c4Rlo1ZozqTPE2RLuvbusY3+SU1pQaJC0TjuhygMipw=" crossorigin="anonymous"></script>
+<!-- headroom.js -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/headroom.min.js" integrity="sha256-AsUX4SJE1+yuDu5+mAVzJbuYNPHj/WroHuZ8Ir/CkE0=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script>
 
 <!-- pkgdown -->
 <link href="../pkgdown.css" rel="stylesheet">
 <script src="../pkgdown.js"></script>
 <link href="../tidyverse-2.css" rel="stylesheet">
 
-<meta property="og:title" content="Read/write lines to/from a file — read_lines" />
+<!--optional theme-->
+<link href="../.css" rel="stylesheet">
 
+
+
+
+<meta property="og:title" content="Read/write lines to/from a file — read_lines" />
 <meta property="og:description" content="read_lines() reads up to n_max lines from a file. New lines are
 not included in the output. read_lines_raw() produces a list of raw
 vectors, and is useful for handling data with unknown encoding.
 write_lines() takes a character vector or list of raw vectors, appending a
 new line after each entry." />
-
 <meta property="og:image" content="https://readr.tidyverse.org/logo.png" />
 <meta name="twitter:card" content="summary" />
 
 
 
+
 <!-- mathjax -->
-<script src='https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML'></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js" integrity="sha256-nvJJv9wWKEm88qvoQl9ekL2J+k/RWIsaSScxxlsrv8k=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/config/TeX-AMS-MML_HTMLorMML.js" integrity="sha256-84DKXVJXs0/F8OTMzX4UR909+jtl4G7SPypPavF+GfA=" crossorigin="anonymous"></script>
 
 <!--[if lt IE 9]>
 <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
 <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
 <![endif]-->
 
-<!-- google analytics -->
+<!-- Global site tag (gtag.js) - Google Analytics -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=UA-115082821-1"></script>
 <script>
- window.dataLayer = window.dataLayer || [];
- function gtag(){dataLayer.push(arguments);}
- gtag('js', new Date());
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
 
- gtag('config', 'UA-115082821-1');
+  gtag('config', 'UA-115082821-1');
 </script>
+
   </head>
 
-  <body>
+  <body data-spy="scroll" data-target="#toc">
     <div class="container template-reference-topic">
       <header>
       <div class="navbar navbar-default navbar-fixed-top" role="navigation">
@@ -76,9 +97,9 @@ new line after each entry." />
 
       <div class="navbar-brand-container">
         <a class="navbar-brand" href="../index.html">readr</a>
-        <div class="info">
+        <div class="info hidden-xs hidden-sm">
           <span class="partof">part of the <a href="https://tidyverse.org">tidyverse</a></span>
-          <span class="version version-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.3.1</span>
+          <span class="version version-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.4.0</span>
         </div>
       </div>
     </div>
@@ -105,6 +126,9 @@ new line after each entry." />
   <ul class="dropdown-menu" role="menu">
     <li class="dropdown-header">Release notes</li>
     <li>
+      <a href="../articles/2018/12/readr-1-3-1/">Version 1.3.1</a>
+    </li>
+    <li>
       <a href="../articles/releases/readr-1.0.0.html">Version 1.0.0</a>
     </li>
     <li>
@@ -120,8 +144,8 @@ new line after each entry." />
   </ul>
 </li>
         <li>
-  <a href="https://github.com/tidyverse/readr">
-    <span class="fa fa-github fa-lg"></span>
+  <a href="https://github.com/tidyverse/readr/">
+    <span class="fab fa fab fa-github fa-lg"></span>
      
   </a>
 </li>
@@ -132,6 +156,7 @@ new line after each entry." />
 </div><!--/.navbar -->
 
       
+
       </header>
 
 <div class="row">
@@ -143,24 +168,34 @@ new line after each entry." />
     </div>
 
     <div class="ref-description">
-    
     <p><code>read_lines()</code> reads up to <code>n_max</code> lines from a file. New lines are
 not included in the output. <code>read_lines_raw()</code> produces a list of raw
 vectors, and is useful for handling data with unknown encoding.
 <code>write_lines()</code> takes a character vector or list of raw vectors, appending a
 new line after each entry.</p>
-    
     </div>
 
-    <pre class="usage"><span class='fu'>read_lines</span>(<span class='no'>file</span>, <span class='kw'>skip</span> <span class='kw'>=</span> <span class='fl'>0</span>, <span class='kw'>skip_empty_rows</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>n_max</span> <span class='kw'>=</span> -<span class='fl'>1L</span>,
-  <span class='kw'>locale</span> <span class='kw'>=</span> <span class='fu'><a href='locale.html'>default_locale</a></span>(), <span class='kw'>na</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/character'>character</a></span>(),
-  <span class='kw'>progress</span> <span class='kw'>=</span> <span class='fu'><a href='show_progress.html'>show_progress</a></span>())
+    <pre class="usage"><span class='fu'>read_lines</span><span class='op'>(</span>
+  <span class='va'>file</span>,
+  skip <span class='op'>=</span> <span class='fl'>0</span>,
+  skip_empty_rows <span class='op'>=</span> <span class='cn'>FALSE</span>,
+  n_max <span class='op'>=</span> <span class='op'>-</span><span class='fl'>1L</span>,
+  locale <span class='op'>=</span> <span class='fu'><a href='locale.html'>default_locale</a></span><span class='op'>(</span><span class='op'>)</span>,
+  na <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/character.html'>character</a></span><span class='op'>(</span><span class='op'>)</span>,
+  progress <span class='op'>=</span> <span class='fu'><a href='show_progress.html'>show_progress</a></span><span class='op'>(</span><span class='op'>)</span>
+<span class='op'>)</span>
 
-<span class='fu'>read_lines_raw</span>(<span class='no'>file</span>, <span class='kw'>skip</span> <span class='kw'>=</span> <span class='fl'>0</span>, <span class='kw'>n_max</span> <span class='kw'>=</span> -<span class='fl'>1L</span>,
-  <span class='kw'>progress</span> <span class='kw'>=</span> <span class='fu'><a href='show_progress.html'>show_progress</a></span>())
+<span class='fu'>read_lines_raw</span><span class='op'>(</span><span class='va'>file</span>, skip <span class='op'>=</span> <span class='fl'>0</span>, n_max <span class='op'>=</span> <span class='op'>-</span><span class='fl'>1L</span>, progress <span class='op'>=</span> <span class='fu'><a href='show_progress.html'>show_progress</a></span><span class='op'>(</span><span class='op'>)</span><span class='op'>)</span>
 
-<span class='fu'>write_lines</span>(<span class='no'>x</span>, <span class='no'>path</span>, <span class='kw'>sep</span> <span class='kw'>=</span> <span class='st'>"\n"</span>, <span class='kw'>na</span> <span class='kw'>=</span> <span class='st'>"NA"</span>, <span class='kw'>append</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</pre>
-    
+<span class='fu'>write_lines</span><span class='op'>(</span>
+  <span class='va'>x</span>,
+  <span class='va'>file</span>,
+  sep <span class='op'>=</span> <span class='st'>"\n"</span>,
+  na <span class='op'>=</span> <span class='st'>"NA"</span>,
+  append <span class='op'>=</span> <span class='cn'>FALSE</span>,
+  path <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/Deprecated.html'>deprecated</a></span><span class='op'>(</span><span class='op'>)</span>
+<span class='op'>)</span></pre>
+
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
@@ -204,7 +239,7 @@ names.</p></td>
     <tr>
       <th>na</th>
       <td><p>Character vector of strings to interpret as missing values. Set this
-option to <code><a href='https://www.rdocumentation.org/packages/base/topics/character'>character()</a></code> to indicate no missing values.</p></td>
+option to <code><a href='https://rdrr.io/r/base/character.html'>character()</a></code> to indicate no missing values.</p></td>
     </tr>
     <tr>
       <th>progress</th>
@@ -216,35 +251,35 @@ setting option <code>readr.show_progress</code> to <code>FALSE</code>.</p></td>
     </tr>
     <tr>
       <th>x</th>
-      <td><p>A data frame to write to disk</p></td>
-    </tr>
-    <tr>
-      <th>path</th>
-      <td><p>Path or connection to write to.</p></td>
+      <td><p>A character vector or list of raw vectors to write to disk.</p></td>
     </tr>
     <tr>
       <th>sep</th>
-      <td><p>The line separator. Defaults to <code>\n</code>, commonly used on POSIX
+      <td><p>The line separator. Defaults to <code>\\n</code>, commonly used on POSIX
 systems like macOS and linux. For native windows (CRLF) separators use
-<code>\r\n</code>.</p></td>
+<code>\\r\\n</code>.</p></td>
     </tr>
     <tr>
       <th>append</th>
       <td><p>If <code>FALSE</code>, will overwrite existing file. If <code>TRUE</code>,
-will append to existing file. In both cases, if file does not exist a new
+will append to existing file. In both cases, if the file does not exist a new
 file is created.</p></td>
     </tr>
+    <tr>
+      <th>path</th>
+      <td><p><img src='figures/lifecycle-deprecated.svg' alt='Deprecated lifecycle' /></p></td>
+    </tr>
     </table>
-    
+
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
     <p><code>read_lines()</code>: A character vector with one element for each line.
 <code>read_lines_raw()</code>: A list containing a raw vector for each line.</p>
 <p><code>write_lines()</code> returns <code>x</code>, invisibly.</p>
-    
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='fu'>read_lines</span>(<span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/file.path'>file.path</a></span>(<span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/Rhome'>R.home</a></span>(<span class='st'>"doc"</span>), <span class='st'>"AUTHORS"</span>), <span class='kw'>n_max</span> <span class='kw'>=</span> <span class='fl'>10</span>)</div><div class='output co'>#&gt;  [1] "Authors of R."                                                                     
+    <pre class="examples"><div class='input'><span class='fu'>read_lines</span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/file.path.html'>file.path</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/Rhome.html'>R.home</a></span><span class='op'>(</span><span class='st'>"doc"</span><span class='op'>)</span>, <span class='st'>"AUTHORS"</span><span class='op'>)</span>, n_max <span class='op'>=</span> <span class='fl'>10</span><span class='op'>)</span>
+</div><div class='output co'>#&gt;  [1] "Authors of R."                                                                     
 #&gt;  [2] ""                                                                                  
 #&gt;  [3] "R was initially written by Robert Gentleman and Ross Ihaka—also known as \"R &amp; R\""
 #&gt;  [4] "of the Statistics Department of the University of Auckland."                       
@@ -253,7 +288,8 @@ file is created.</p></td>
 #&gt;  [7] "source, currently consisting of"                                                   
 #&gt;  [8] ""                                                                                  
 #&gt;  [9] "Douglas Bates"                                                                     
-#&gt; [10] "John Chambers"                                                                     </div><div class='input'><span class='fu'>read_lines_raw</span>(<span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/file.path'>file.path</a></span>(<span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/Rhome'>R.home</a></span>(<span class='st'>"doc"</span>), <span class='st'>"AUTHORS"</span>), <span class='kw'>n_max</span> <span class='kw'>=</span> <span class='fl'>10</span>)</div><div class='output co'>#&gt; [[1]]
+#&gt; [10] "John Chambers"                                                                     </div><div class='input'><span class='fu'>read_lines_raw</span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/file.path.html'>file.path</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/Rhome.html'>R.home</a></span><span class='op'>(</span><span class='st'>"doc"</span><span class='op'>)</span>, <span class='st'>"AUTHORS"</span><span class='op'>)</span>, n_max <span class='op'>=</span> <span class='fl'>10</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; [[1]]
 #&gt;  [1] 41 75 74 68 6f 72 73 20 6f 66 20 52 2e
 #&gt; 
 #&gt; [[2]]
@@ -291,10 +327,11 @@ file is created.</p></td>
 #&gt; [[10]]
 #&gt;  [1] 4a 6f 68 6e 20 43 68 61 6d 62 65 72 73
 #&gt; </div><div class='input'>
-<span class='no'>tmp</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/tempfile'>tempfile</a></span>()
+<span class='va'>tmp</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/tempfile.html'>tempfile</a></span><span class='op'>(</span><span class='op'>)</span>
 
-<span class='fu'>write_lines</span>(<span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/colnames'>rownames</a></span>(<span class='no'>mtcars</span>), <span class='no'>tmp</span>)
-<span class='fu'>read_lines</span>(<span class='no'>tmp</span>)</div><div class='output co'>#&gt;  [1] "Mazda RX4"           "Mazda RX4 Wag"       "Datsun 710"         
+<span class='fu'>write_lines</span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/colnames.html'>rownames</a></span><span class='op'>(</span><span class='va'>mtcars</span><span class='op'>)</span>, <span class='va'>tmp</span><span class='op'>)</span>
+<span class='fu'>read_lines</span><span class='op'>(</span><span class='va'>tmp</span><span class='op'>)</span>
+</div><div class='output co'>#&gt;  [1] "Mazda RX4"           "Mazda RX4 Wag"       "Datsun 710"         
 #&gt;  [4] "Hornet 4 Drive"      "Hornet Sportabout"   "Valiant"            
 #&gt;  [7] "Duster 360"          "Merc 240D"           "Merc 230"           
 #&gt; [10] "Merc 280"            "Merc 280C"           "Merc 450SE"         
@@ -304,9 +341,11 @@ file is created.</p></td>
 #&gt; [22] "Dodge Challenger"    "AMC Javelin"         "Camaro Z28"         
 #&gt; [25] "Pontiac Firebird"    "Fiat X1-9"           "Porsche 914-2"      
 #&gt; [28] "Lotus Europa"        "Ford Pantera L"      "Ferrari Dino"       
-#&gt; [31] "Maserati Bora"       "Volvo 142E"         </div><div class='input'><span class='fu'><a href='read_file.html'>read_file</a></span>(<span class='no'>tmp</span>) <span class='co'># note trailing \n</span></div><div class='output co'>#&gt; [1] "Mazda RX4\nMazda RX4 Wag\nDatsun 710\nHornet 4 Drive\nHornet Sportabout\nValiant\nDuster 360\nMerc 240D\nMerc 230\nMerc 280\nMerc 280C\nMerc 450SE\nMerc 450SL\nMerc 450SLC\nCadillac Fleetwood\nLincoln Continental\nChrysler Imperial\nFiat 128\nHonda Civic\nToyota Corolla\nToyota Corona\nDodge Challenger\nAMC Javelin\nCamaro Z28\nPontiac Firebird\nFiat X1-9\nPorsche 914-2\nLotus Europa\nFord Pantera L\nFerrari Dino\nMaserati Bora\nVolvo 142E\n"</div><div class='input'>
-<span class='fu'>write_lines</span>(<span class='no'>airquality</span>$<span class='no'>Ozone</span>, <span class='no'>tmp</span>, <span class='kw'>na</span> <span class='kw'>=</span> <span class='st'>"-1"</span>)
-<span class='fu'>read_lines</span>(<span class='no'>tmp</span>)</div><div class='output co'>#&gt;   [1] "41"  "36"  "12"  "18"  "-1"  "28"  "23"  "19"  "8"   "-1"  "7"   "16" 
+#&gt; [31] "Maserati Bora"       "Volvo 142E"         </div><div class='input'><span class='fu'><a href='read_file.html'>read_file</a></span><span class='op'>(</span><span class='va'>tmp</span><span class='op'>)</span> <span class='co'># note trailing \n</span>
+</div><div class='output co'>#&gt; [1] "Mazda RX4\nMazda RX4 Wag\nDatsun 710\nHornet 4 Drive\nHornet Sportabout\nValiant\nDuster 360\nMerc 240D\nMerc 230\nMerc 280\nMerc 280C\nMerc 450SE\nMerc 450SL\nMerc 450SLC\nCadillac Fleetwood\nLincoln Continental\nChrysler Imperial\nFiat 128\nHonda Civic\nToyota Corolla\nToyota Corona\nDodge Challenger\nAMC Javelin\nCamaro Z28\nPontiac Firebird\nFiat X1-9\nPorsche 914-2\nLotus Europa\nFord Pantera L\nFerrari Dino\nMaserati Bora\nVolvo 142E\n"</div><div class='input'>
+<span class='fu'>write_lines</span><span class='op'>(</span><span class='va'>airquality</span><span class='op'>$</span><span class='va'>Ozone</span>, <span class='va'>tmp</span>, na <span class='op'>=</span> <span class='st'>"-1"</span><span class='op'>)</span>
+<span class='fu'>read_lines</span><span class='op'>(</span><span class='va'>tmp</span><span class='op'>)</span>
+</div><div class='output co'>#&gt;   [1] "41"  "36"  "12"  "18"  "-1"  "28"  "23"  "19"  "8"   "-1"  "7"   "16" 
 #&gt;  [13] "11"  "14"  "18"  "14"  "34"  "6"   "30"  "11"  "1"   "11"  "4"   "32" 
 #&gt;  [25] "-1"  "-1"  "-1"  "23"  "45"  "115" "37"  "-1"  "-1"  "-1"  "-1"  "-1" 
 #&gt;  [37] "-1"  "29"  "-1"  "71"  "39"  "-1"  "-1"  "23"  "-1"  "-1"  "21"  "37" 
@@ -320,18 +359,13 @@ file is created.</p></td>
 #&gt; [133] "24"  "44"  "21"  "28"  "9"   "13"  "46"  "18"  "13"  "24"  "16"  "13" 
 #&gt; [145] "23"  "36"  "7"   "14"  "30"  "-1"  "14"  "18"  "20" </div></pre>
   </div>
-  <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
-    <h2>Contents</h2>
-    <ul class="nav nav-pills nav-stacked">
-      <li><a href="#arguments">Arguments</a></li>
-      
-      <li><a href="#value">Value</a></li>
-      
-      <li><a href="#examples">Examples</a></li>
-    </ul>
-
+  <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
+    <nav id="toc" data-toggle="toc" class="sticky-top">
+      <h2 data-toc-skip>Contents</h2>
+    </nav>
   </div>
 </div>
+
 
       <footer>
       <div class="tidyverse">
@@ -340,15 +374,18 @@ file is created.</p></td>
 
 <div class="author">
   <p>
-    Developed by <a href='http://hadley.nz'>Hadley Wickham</a>, <a href='http://jimhester.com'>Jim Hester</a>, Romain Francois, <a href='https://www.rstudio.com'><img src='https://www.tidyverse.org/rstudio-logo.svg' alt='RStudio' height='24' /></a>.
+    Developed by <a href='http://hadley.nz'>Hadley Wickham</a>, <a href='http://jimhester.com'>Jim Hester</a>, <a href='https://www.rstudio.com'><img src='https://www.tidyverse.org/rstudio-logo.svg' alt='RStudio' height='24' /></a>.
     Site built by <a href="https://pkgdown.r-lib.org">pkgdown</a>.
   </p>
 </div>
+
       </footer>
    </div>
 
   
 
+
   </body>
 </html>
+
 

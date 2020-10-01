@@ -6,26 +6,35 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>readr 0.2.0 • readr</title>
-<!-- jquery --><script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha384-nrOSfDHtoPMzJHjVTdCopGqIqeYETSXhZDFyniQ8ZHcVy08QesyHcnOUpMpqnmWq" crossorigin="anonymous"></script><!-- Bootstrap --><link href="../../tidyverse.css" rel="stylesheet">
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script><!-- Font Awesome icons --><link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-T8Gy5hrqNKT+hzMclPo118YTQO6cYprQmhrYwIiQ/3axmI1hQomh7Ud2hPOy8SP1" crossorigin="anonymous">
-<!-- clipboard.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/1.7.1/clipboard.min.js" integrity="sha384-cV+rhyOuRHc9Ub/91rihWcGmMmCXDeksTtCihMupQHSsi8GIIRDG0ThDc3HGQFJ3" crossorigin="anonymous"></script><!-- sticky kit --><script src="https://cdnjs.cloudflare.com/ajax/libs/sticky-kit/1.1.3/sticky-kit.min.js" integrity="sha256-c4Rlo1ZozqTPE2RLuvbusY3+SU1pQaJC0TjuhygMipw=" crossorigin="anonymous"></script><!-- pkgdown --><link href="../../pkgdown.css" rel="stylesheet">
+<!-- favicons --><link rel="icon" type="image/png" sizes="16x16" href="../../favicon-16x16.png">
+<link rel="icon" type="image/png" sizes="32x32" href="../../favicon-32x32.png">
+<link rel="apple-touch-icon" type="image/png" sizes="180x180" href="../../apple-touch-icon.png">
+<link rel="apple-touch-icon" type="image/png" sizes="120x120" href="../../apple-touch-icon-120x120.png">
+<link rel="apple-touch-icon" type="image/png" sizes="76x76" href="../../apple-touch-icon-76x76.png">
+<link rel="apple-touch-icon" type="image/png" sizes="60x60" href="../../apple-touch-icon-60x60.png">
+<!-- jquery --><script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script><!-- Bootstrap --><link href="../../tidyverse.css" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/js/bootstrap.min.js" integrity="sha256-nuL8/2cJ5NDSSwnKD8VqreErSWHtnEP9E7AySL+1ev4=" crossorigin="anonymous"></script><!-- bootstrap-toc --><link rel="stylesheet" href="../../bootstrap-toc.css">
+<script src="../../bootstrap-toc.js"></script><!-- Font Awesome icons --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/v4-shims.min.css" integrity="sha256-wZjR52fzng1pJHwx4aV2AO3yyTOXrcDW7jBpJtTwVxw=" crossorigin="anonymous">
+<!-- clipboard.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.4/clipboard.min.js" integrity="sha256-FiZwavyI2V6+EXO1U+xzLG3IKldpiTFf3153ea9zikQ=" crossorigin="anonymous"></script><!-- headroom.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/headroom.min.js" integrity="sha256-AsUX4SJE1+yuDu5+mAVzJbuYNPHj/WroHuZ8Ir/CkE0=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script><!-- pkgdown --><link href="../../pkgdown.css" rel="stylesheet">
 <script src="../../pkgdown.js"></script><link href="../../tidyverse-2.css" rel="stylesheet">
+<!--optional theme--><link href="../../.css" rel="stylesheet">
 <meta property="og:title" content="readr 0.2.0">
-<meta property="og:description" content="">
+<meta property="og:description" content="readr">
 <meta property="og:image" content="https://readr.tidyverse.org/logo.png">
 <meta name="twitter:card" content="summary">
-<!-- mathjax --><script src="https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script><!--[if lt IE 9]>
+<!-- mathjax --><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js" integrity="sha256-nvJJv9wWKEm88qvoQl9ekL2J+k/RWIsaSScxxlsrv8k=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/config/TeX-AMS-MML_HTMLorMML.js" integrity="sha256-84DKXVJXs0/F8OTMzX4UR909+jtl4G7SPypPavF+GfA=" crossorigin="anonymous"></script><!--[if lt IE 9]>
 <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
 <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
-<![endif]--><!-- google analytics --><script async src="https://www.googletagmanager.com/gtag/js?id=UA-115082821-1"></script><script>
- window.dataLayer = window.dataLayer || [];
- function gtag(){dataLayer.push(arguments);}
- gtag('js', new Date());
+<![endif]--><!-- Global site tag (gtag.js) - Google Analytics --><script async src="https://www.googletagmanager.com/gtag/js?id=UA-115082821-1"></script><script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
 
- gtag('config', 'UA-115082821-1');
+  gtag('config', 'UA-115082821-1');
 </script>
 </head>
-<body>
+<body data-spy="scroll" data-target="#toc">
     <div class="container template-article">
       <header><div class="navbar navbar-default navbar-fixed-top" role="navigation">
   <div class="container">
@@ -39,9 +48,9 @@
 
       <div class="navbar-brand-container">
         <a class="navbar-brand" href="../../index.html">readr</a>
-        <div class="info">
+        <div class="info hidden-xs hidden-sm">
           <span class="partof">part of the <a href="https://tidyverse.org">tidyverse</a></span>
-          <span class="version version-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.3.1</span>
+          <span class="version version-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.4.0</span>
         </div>
       </div>
     </div>
@@ -68,6 +77,9 @@
   <ul class="dropdown-menu" role="menu">
 <li class="dropdown-header">Release notes</li>
     <li>
+      <a href="../../articles/2018/12/readr-1-3-1/">Version 1.3.1</a>
+    </li>
+    <li>
       <a href="../../articles/releases/readr-1.0.0.html">Version 1.0.0</a>
     </li>
     <li>
@@ -83,8 +95,8 @@
   </ul>
 </li>
         <li>
-  <a href="https://github.com/tidyverse/readr">
-    <span class="fa fa-github fa-lg"></span>
+  <a href="https://github.com/tidyverse/readr/">
+    <span class="fab fa fab fa-github fa-lg"></span>
      
   </a>
 </li>
@@ -97,10 +109,11 @@
 <!--/.navbar -->
 
       
-      </header><div class="row">
+
+      </header><script src="readr-0.2.0_files/accessible-code-block-0.0.1/empty-anchor.js"></script><div class="row">
   <div class="col-md-9 contents">
     <div class="page-header toc-ignore">
-      <h1>readr 0.2.0</h1>
+      <h1 data-toc-skip>readr 0.2.0</h1>
             
       
       <small class="dont-index">Source: <a href="https://github.com/tidyverse/readr/blob/master/vignettes/releases/readr-0.2.0.Rmd"><code>vignettes/releases/readr-0.2.0.Rmd</code></a></small>
@@ -110,7 +123,7 @@
 
     
     
-<p>readr 0.2.0 is now available on CRAN. readr makes it easy to read many types of tabular data, including csv, tsv and fixed width. Compared to base equivalents like <code><a href="https://www.rdocumentation.org/packages/utils/topics/read.table">read.csv()</a></code>, readr is much faster and gives more convenient output: it never converts strings to factors, can parse date/times, and it doesn’t munge the column names.</p>
+<p>readr 0.2.0 is now available on CRAN. readr makes it easy to read many types of tabular data, including csv, tsv and fixed width. Compared to base equivalents like <code><a href="https://rdrr.io/r/utils/read.table.html">read.csv()</a></code>, readr is much faster and gives more convenient output: it never converts strings to factors, can parse date/times, and it doesn’t munge the column names.</p>
 <p>This is a big release, so below I describe the new features divided into four main categories:</p>
 <ul>
 <li>Improved support for international data.</li>
@@ -131,55 +144,57 @@
 <li>The decimal and grouping marks, used when reading numbers.</li>
 </ul>
 <p>I’ll cover the most important of these parameters below. For more details, see <code><a href="../../articles/locales.html">vignette("locales")</a></code>.</p>
-<p>To override the default US-centric locale, you pass a custom locale to <code><a href="../../reference/read_delim.html">read_csv()</a></code>, <code><a href="../../reference/read_delim.html">read_tsv()</a></code>, or <code><a href="../../reference/read_fwf.html">read_fwf()</a></code>. Rather than showing those funtions here, I’ll use the <code>parse_*()</code> functions because they work with character vectors instead of a files, but are otherwise identical.</p>
+<p>To override the default US-centric locale, you pass a custom locale to <code><a href="../../reference/read_delim.html">read_csv()</a></code>, <code><a href="../../reference/read_delim.html">read_tsv()</a></code>, or <code><a href="../../reference/read_fwf.html">read_fwf()</a></code>. Rather than showing those functions here, I’ll use the <code>parse_*()</code> functions because they work with character vectors instead of a files, but are otherwise identical.</p>
 <div id="names-of-months-and-days" class="section level3">
 <h3 class="hasAnchor">
 <a href="#names-of-months-and-days" class="anchor"></a>Names of months and days</h3>
 <p>The first argument to <code><a href="../../reference/locale.html">locale()</a></code> is <code>date_names</code> which controls what values are used for month and day names. The easiest way to specify them is with a ISO 639 language code:</p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1-1" data-line-number="1"><span class="kw"><a href="../../reference/locale.html">locale</a></span>(<span class="st">"ko"</span>) <span class="co"># Korean</span></a>
-<a class="sourceLine" id="cb1-2" data-line-number="2"><span class="co">#&gt; &lt;locale&gt;</span></a>
-<a class="sourceLine" id="cb1-3" data-line-number="3"><span class="co">#&gt; Numbers:  123,456.78</span></a>
-<a class="sourceLine" id="cb1-4" data-line-number="4"><span class="co">#&gt; Formats:  %AD / %AT</span></a>
-<a class="sourceLine" id="cb1-5" data-line-number="5"><span class="co">#&gt; Timezone: UTC</span></a>
-<a class="sourceLine" id="cb1-6" data-line-number="6"><span class="co">#&gt; Encoding: UTF-8</span></a>
-<a class="sourceLine" id="cb1-7" data-line-number="7"><span class="co">#&gt; &lt;date_names&gt;</span></a>
-<a class="sourceLine" id="cb1-8" data-line-number="8"><span class="co">#&gt; Days:   일요일 (일), 월요일 (월), 화요일 (화), 수요일 (수), 목요일 (목),</span></a>
-<a class="sourceLine" id="cb1-9" data-line-number="9"><span class="co">#&gt;         금요일 (금), 토요일 (토)</span></a>
-<a class="sourceLine" id="cb1-10" data-line-number="10"><span class="co">#&gt; Months: 1월, 2월, 3월, 4월, 5월, 6월, 7월, 8월, 9월, 10월, 11월, 12월</span></a>
-<a class="sourceLine" id="cb1-11" data-line-number="11"><span class="co">#&gt; AM/PM:  오전/오후</span></a>
-<a class="sourceLine" id="cb1-12" data-line-number="12"><span class="kw"><a href="../../reference/locale.html">locale</a></span>(<span class="st">"fr"</span>) <span class="co"># French</span></a>
-<a class="sourceLine" id="cb1-13" data-line-number="13"><span class="co">#&gt; &lt;locale&gt;</span></a>
-<a class="sourceLine" id="cb1-14" data-line-number="14"><span class="co">#&gt; Numbers:  123,456.78</span></a>
-<a class="sourceLine" id="cb1-15" data-line-number="15"><span class="co">#&gt; Formats:  %AD / %AT</span></a>
-<a class="sourceLine" id="cb1-16" data-line-number="16"><span class="co">#&gt; Timezone: UTC</span></a>
-<a class="sourceLine" id="cb1-17" data-line-number="17"><span class="co">#&gt; Encoding: UTF-8</span></a>
-<a class="sourceLine" id="cb1-18" data-line-number="18"><span class="co">#&gt; &lt;date_names&gt;</span></a>
-<a class="sourceLine" id="cb1-19" data-line-number="19"><span class="co">#&gt; Days:   dimanche (dim.), lundi (lun.), mardi (mar.), mercredi (mer.),</span></a>
-<a class="sourceLine" id="cb1-20" data-line-number="20"><span class="co">#&gt;         jeudi (jeu.), vendredi (ven.), samedi (sam.)</span></a>
-<a class="sourceLine" id="cb1-21" data-line-number="21"><span class="co">#&gt; Months: janvier (janv.), février (févr.), mars (mars), avril (avr.), mai</span></a>
-<a class="sourceLine" id="cb1-22" data-line-number="22"><span class="co">#&gt;         (mai), juin (juin), juillet (juil.), août (août),</span></a>
-<a class="sourceLine" id="cb1-23" data-line-number="23"><span class="co">#&gt;         septembre (sept.), octobre (oct.), novembre (nov.),</span></a>
-<a class="sourceLine" id="cb1-24" data-line-number="24"><span class="co">#&gt;         décembre (déc.)</span></a>
-<a class="sourceLine" id="cb1-25" data-line-number="25"><span class="co">#&gt; AM/PM:  AM/PM</span></a></code></pre></div>
+<div class="sourceCode" id="cb1"><pre class="downlit">
+<span class="fu"><a href="../../reference/locale.html">locale</a></span><span class="op">(</span><span class="st">"ko"</span><span class="op">)</span> <span class="co"># Korean</span>
+<span class="co">#&gt; &lt;locale&gt;</span>
+<span class="co">#&gt; Numbers:  123,456.78</span>
+<span class="co">#&gt; Formats:  %AD / %AT</span>
+<span class="co">#&gt; Timezone: UTC</span>
+<span class="co">#&gt; Encoding: UTF-8</span>
+<span class="co">#&gt; &lt;date_names&gt;</span>
+<span class="co">#&gt; Days:   일요일 (일), 월요일 (월), 화요일 (화), 수요일 (수), 목요일 (목), 금요일</span>
+<span class="co">#&gt;         (금), 토요일 (토)</span>
+<span class="co">#&gt; Months: 1월, 2월, 3월, 4월, 5월, 6월, 7월, 8월, 9월, 10월, 11월, 12월</span>
+<span class="co">#&gt; AM/PM:  오전/오후</span>
+<span class="fu"><a href="../../reference/locale.html">locale</a></span><span class="op">(</span><span class="st">"fr"</span><span class="op">)</span> <span class="co"># French</span>
+<span class="co">#&gt; &lt;locale&gt;</span>
+<span class="co">#&gt; Numbers:  123,456.78</span>
+<span class="co">#&gt; Formats:  %AD / %AT</span>
+<span class="co">#&gt; Timezone: UTC</span>
+<span class="co">#&gt; Encoding: UTF-8</span>
+<span class="co">#&gt; &lt;date_names&gt;</span>
+<span class="co">#&gt; Days:   dimanche (dim.), lundi (lun.), mardi (mar.), mercredi (mer.), jeudi</span>
+<span class="co">#&gt;         (jeu.), vendredi (ven.), samedi (sam.)</span>
+<span class="co">#&gt; Months: janvier (janv.), février (févr.), mars (mars), avril (avr.), mai (mai),</span>
+<span class="co">#&gt;         juin (juin), juillet (juil.), août (août), septembre (sept.),</span>
+<span class="co">#&gt;         octobre (oct.), novembre (nov.), décembre (déc.)</span>
+<span class="co">#&gt; AM/PM:  AM/PM</span></pre></div>
 <p>This allows you to parse dates in other languages:</p>
-<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb2-1" data-line-number="1"><span class="kw"><a href="../../reference/parse_datetime.html">parse_date</a></span>(<span class="st">"1 janvier 2015"</span>, <span class="st">"%d %B %Y"</span>, <span class="dt">locale =</span> <span class="kw"><a href="../../reference/locale.html">locale</a></span>(<span class="st">"fr"</span>))</a>
-<a class="sourceLine" id="cb2-2" data-line-number="2"><span class="co">#&gt; [1] "2015-01-01"</span></a>
-<a class="sourceLine" id="cb2-3" data-line-number="3"><span class="kw"><a href="../../reference/parse_datetime.html">parse_date</a></span>(<span class="st">"14 oct. 1979"</span>, <span class="st">"%d %b %Y"</span>, <span class="dt">locale =</span> <span class="kw"><a href="../../reference/locale.html">locale</a></span>(<span class="st">"fr"</span>))</a>
-<a class="sourceLine" id="cb2-4" data-line-number="4"><span class="co">#&gt; [1] "1979-10-14"</span></a></code></pre></div>
+<div class="sourceCode" id="cb2"><pre class="downlit">
+<span class="fu"><a href="../../reference/parse_datetime.html">parse_date</a></span><span class="op">(</span><span class="st">"1 janvier 2015"</span>, <span class="st">"%d %B %Y"</span>, locale <span class="op">=</span> <span class="fu"><a href="../../reference/locale.html">locale</a></span><span class="op">(</span><span class="st">"fr"</span><span class="op">)</span><span class="op">)</span>
+<span class="co">#&gt; [1] "2015-01-01"</span>
+<span class="fu"><a href="../../reference/parse_datetime.html">parse_date</a></span><span class="op">(</span><span class="st">"14 oct. 1979"</span>, <span class="st">"%d %b %Y"</span>, locale <span class="op">=</span> <span class="fu"><a href="../../reference/locale.html">locale</a></span><span class="op">(</span><span class="st">"fr"</span><span class="op">)</span><span class="op">)</span>
+<span class="co">#&gt; [1] "1979-10-14"</span></pre></div>
 </div>
 <div id="timezones" class="section level3">
 <h3 class="hasAnchor">
 <a href="#timezones" class="anchor"></a>Timezones</h3>
 <p>readr assumes that times are in <a href="https://en.wikipedia.org/wiki/Coordinated_Universal_Time">Coordinated Universal Time</a>, aka UTC. UTC is the best timezone for data because it doesn’t have daylight savings. If your data isn’t already in UTC, you’ll need to supply a <code>tz</code> in the locale:</p>
-<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb3-1" data-line-number="1"><span class="kw"><a href="../../reference/parse_datetime.html">parse_datetime</a></span>(<span class="st">"2001-10-10 20:10"</span>)</a>
-<a class="sourceLine" id="cb3-2" data-line-number="2"><span class="co">#&gt; [1] "2001-10-10 20:10:00 UTC"</span></a>
-<a class="sourceLine" id="cb3-3" data-line-number="3"><span class="kw"><a href="../../reference/parse_datetime.html">parse_datetime</a></span>(<span class="st">"2001-10-10 20:10"</span>, </a>
-<a class="sourceLine" id="cb3-4" data-line-number="4">  <span class="dt">locale =</span> <span class="kw"><a href="../../reference/locale.html">locale</a></span>(<span class="dt">tz =</span> <span class="st">"Pacific/Auckland"</span>))</a>
-<a class="sourceLine" id="cb3-5" data-line-number="5"><span class="co">#&gt; [1] "2001-10-10 20:10:00 NZDT"</span></a>
-<a class="sourceLine" id="cb3-6" data-line-number="6"><span class="kw"><a href="../../reference/parse_datetime.html">parse_datetime</a></span>(<span class="st">"2001-10-10 20:10"</span>, </a>
-<a class="sourceLine" id="cb3-7" data-line-number="7">  <span class="dt">locale =</span> <span class="kw"><a href="../../reference/locale.html">locale</a></span>(<span class="dt">tz =</span> <span class="st">"Europe/Dublin"</span>))</a>
-<a class="sourceLine" id="cb3-8" data-line-number="8"><span class="co">#&gt; [1] "2001-10-10 20:10:00 IST"</span></a></code></pre></div>
-<p>List all available times zones with <code><a href="https://www.rdocumentation.org/packages/base/topics/timezones">OlsonNames()</a></code>. If you’re American, note that “EST” is not Eastern Standard Time – it’s a Canadian time zone that doesn’t have DST! Instead of relying on ambiguous abbreivations, use:</p>
+<div class="sourceCode" id="cb3"><pre class="downlit">
+<span class="fu"><a href="../../reference/parse_datetime.html">parse_datetime</a></span><span class="op">(</span><span class="st">"2001-10-10 20:10"</span><span class="op">)</span>
+<span class="co">#&gt; [1] "2001-10-10 20:10:00 UTC"</span>
+<span class="fu"><a href="../../reference/parse_datetime.html">parse_datetime</a></span><span class="op">(</span><span class="st">"2001-10-10 20:10"</span>, 
+  locale <span class="op">=</span> <span class="fu"><a href="../../reference/locale.html">locale</a></span><span class="op">(</span>tz <span class="op">=</span> <span class="st">"Pacific/Auckland"</span><span class="op">)</span><span class="op">)</span>
+<span class="co">#&gt; [1] "2001-10-10 20:10:00 NZDT"</span>
+<span class="fu"><a href="../../reference/parse_datetime.html">parse_datetime</a></span><span class="op">(</span><span class="st">"2001-10-10 20:10"</span>, 
+  locale <span class="op">=</span> <span class="fu"><a href="../../reference/locale.html">locale</a></span><span class="op">(</span>tz <span class="op">=</span> <span class="st">"Europe/Dublin"</span><span class="op">)</span><span class="op">)</span>
+<span class="co">#&gt; [1] "2001-10-10 20:10:00 IST"</span></pre></div>
+<p>List all available times zones with <code><a href="https://rdrr.io/r/base/timezones.html">OlsonNames()</a></code>. If you’re American, note that “EST” is not Eastern Standard Time – it’s a Canadian time zone that doesn’t have DST! Instead of relying on ambiguous abbreviations, use:</p>
 <ul>
 <li>PST/PDT = “US/Pacific”</li>
 <li>CST/CDT = “US/Central”</li>
@@ -191,86 +206,92 @@
 <h3 class="hasAnchor">
 <a href="#default-formats" class="anchor"></a>Default formats</h3>
 <p>Locales also provide default date and time formats. The time format isn’t currently used for anything, but the date format is used when guessing column types. The default date format is <code>%Y-%m-%d</code> because that’s unambiguous:</p>
-<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb4-1" data-line-number="1"><span class="kw"><a href="https://www.rdocumentation.org/packages/utils/topics/str">str</a></span>(<span class="kw"><a href="../../reference/parse_guess.html">parse_guess</a></span>(<span class="st">"2010-10-10"</span>))</a>
-<a class="sourceLine" id="cb4-2" data-line-number="2"><span class="co">#&gt;  Date[1:1], format: "2010-10-10"</span></a></code></pre></div>
-<p>If you’re an American, you might want you use your illogical date sytem::</p>
-<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb5-1" data-line-number="1"><span class="kw"><a href="https://www.rdocumentation.org/packages/utils/topics/str">str</a></span>(<span class="kw"><a href="../../reference/parse_guess.html">parse_guess</a></span>(<span class="st">"01/02/2013"</span>))</a>
-<a class="sourceLine" id="cb5-2" data-line-number="2"><span class="co">#&gt;  chr "01/02/2013"</span></a>
-<a class="sourceLine" id="cb5-3" data-line-number="3"><span class="kw"><a href="https://www.rdocumentation.org/packages/utils/topics/str">str</a></span>(<span class="kw"><a href="../../reference/parse_guess.html">parse_guess</a></span>(<span class="st">"01/02/2013"</span>, </a>
-<a class="sourceLine" id="cb5-4" data-line-number="4">  <span class="dt">locale =</span> <span class="kw"><a href="../../reference/locale.html">locale</a></span>(<span class="dt">date_format =</span> <span class="st">"%d/%m/%Y"</span>)))</a>
-<a class="sourceLine" id="cb5-5" data-line-number="5"><span class="co">#&gt;  Date[1:1], format: "2013-02-01"</span></a></code></pre></div>
+<div class="sourceCode" id="cb4"><pre class="downlit">
+<span class="fu"><a href="https://rdrr.io/r/utils/str.html">str</a></span><span class="op">(</span><span class="fu"><a href="../../reference/parse_guess.html">parse_guess</a></span><span class="op">(</span><span class="st">"2010-10-10"</span><span class="op">)</span><span class="op">)</span>
+<span class="co">#&gt;  Date[1:1], format: "2010-10-10"</span></pre></div>
+<p>If you’re an American, you might want you use your illogical date system::</p>
+<div class="sourceCode" id="cb5"><pre class="downlit">
+<span class="fu"><a href="https://rdrr.io/r/utils/str.html">str</a></span><span class="op">(</span><span class="fu"><a href="../../reference/parse_guess.html">parse_guess</a></span><span class="op">(</span><span class="st">"01/02/2013"</span><span class="op">)</span><span class="op">)</span>
+<span class="co">#&gt;  chr "01/02/2013"</span>
+<span class="fu"><a href="https://rdrr.io/r/utils/str.html">str</a></span><span class="op">(</span><span class="fu"><a href="../../reference/parse_guess.html">parse_guess</a></span><span class="op">(</span><span class="st">"01/02/2013"</span>, 
+  locale <span class="op">=</span> <span class="fu"><a href="../../reference/locale.html">locale</a></span><span class="op">(</span>date_format <span class="op">=</span> <span class="st">"%d/%m/%Y"</span><span class="op">)</span><span class="op">)</span><span class="op">)</span>
+<span class="co">#&gt;  Date[1:1], format: "2013-02-01"</span></pre></div>
 </div>
 <div id="character-encoding" class="section level3">
 <h3 class="hasAnchor">
 <a href="#character-encoding" class="anchor"></a>Character encoding</h3>
 <p>All readr functions yield strings encoded in UTF-8. This encoding is the most likely to give good results in the widest variety of settings. By default, readr assumes that your input is also in UTF-8, which is less likely to be the case, especially when you’re working with older datasets. To parse a dataset that’s not in UTF-8, you need to a supply an <code>encoding</code>.</p>
 <p>The following code creates a string encoded with latin1 (aka ISO-8859-1), and shows how it’s different from the string encoded as UTF-8, and how to parse it with readr:</p>
-<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb6-1" data-line-number="1">x &lt;-<span class="st"> "Émigré cause célèbre déjà vu.</span><span class="ch">\n</span><span class="st">"</span></a>
-<a class="sourceLine" id="cb6-2" data-line-number="2">y &lt;-<span class="st"> </span>stringi<span class="op">::</span><span class="kw"><a href="https://www.rdocumentation.org/packages/stringi/topics/stri_encode">stri_conv</a></span>(x, <span class="st">"UTF-8"</span>, <span class="st">"Latin1"</span>)</a>
-<a class="sourceLine" id="cb6-3" data-line-number="3"></a>
-<a class="sourceLine" id="cb6-4" data-line-number="4"><span class="co"># These strings look like they're identical:</span></a>
-<a class="sourceLine" id="cb6-5" data-line-number="5">x</a>
-<a class="sourceLine" id="cb6-6" data-line-number="6"><span class="co">#&gt; [1] "Émigré cause célèbre déjà vu.\n"</span></a>
-<a class="sourceLine" id="cb6-7" data-line-number="7">y</a>
-<a class="sourceLine" id="cb6-8" data-line-number="8"><span class="co">#&gt; [1] "Émigré cause célèbre déjà vu.\n"</span></a>
-<a class="sourceLine" id="cb6-9" data-line-number="9"><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/identical">identical</a></span>(x, y)</a>
-<a class="sourceLine" id="cb6-10" data-line-number="10"><span class="co">#&gt; [1] TRUE</span></a>
-<a class="sourceLine" id="cb6-11" data-line-number="11"></a>
-<a class="sourceLine" id="cb6-12" data-line-number="12"><span class="co"># But they have different encodings:</span></a>
-<a class="sourceLine" id="cb6-13" data-line-number="13"><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/Encoding">Encoding</a></span>(x)</a>
-<a class="sourceLine" id="cb6-14" data-line-number="14"><span class="co">#&gt; [1] "unknown"</span></a>
-<a class="sourceLine" id="cb6-15" data-line-number="15"><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/Encoding">Encoding</a></span>(y)</a>
-<a class="sourceLine" id="cb6-16" data-line-number="16"><span class="co">#&gt; [1] "latin1"</span></a>
-<a class="sourceLine" id="cb6-17" data-line-number="17"></a>
-<a class="sourceLine" id="cb6-18" data-line-number="18"><span class="co"># That means while they print the same, their raw (binary)</span></a>
-<a class="sourceLine" id="cb6-19" data-line-number="19"><span class="co"># representation is actually rather different:</span></a>
-<a class="sourceLine" id="cb6-20" data-line-number="20"><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/rawConversion">charToRaw</a></span>(x)</a>
-<a class="sourceLine" id="cb6-21" data-line-number="21"><span class="co">#&gt;  [1] c3 89 6d 69 67 72 c3 a9 20 63 61 75 73 65 20 63 c3 a9 6c c3 a8 62 72</span></a>
-<a class="sourceLine" id="cb6-22" data-line-number="22"><span class="co">#&gt; [24] 65 20 64 c3 a9 6a c3 a0 20 76 75 2e 0a</span></a>
-<a class="sourceLine" id="cb6-23" data-line-number="23"><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/rawConversion">charToRaw</a></span>(y)</a>
-<a class="sourceLine" id="cb6-24" data-line-number="24"><span class="co">#&gt;  [1] c9 6d 69 67 72 e9 20 63 61 75 73 65 20 63 e9 6c e8 62 72 65 20 64 e9</span></a>
-<a class="sourceLine" id="cb6-25" data-line-number="25"><span class="co">#&gt; [24] 6a e0 20 76 75 2e 0a</span></a>
-<a class="sourceLine" id="cb6-26" data-line-number="26"></a>
-<a class="sourceLine" id="cb6-27" data-line-number="27"><span class="co"># readr expects strings to be encoded as UTF-8. If they're</span></a>
-<a class="sourceLine" id="cb6-28" data-line-number="28"><span class="co"># not, you'll get weird characters</span></a>
-<a class="sourceLine" id="cb6-29" data-line-number="29"><span class="kw"><a href="../../reference/parse_atomic.html">parse_character</a></span>(x)</a>
-<a class="sourceLine" id="cb6-30" data-line-number="30"><span class="co">#&gt; [1] "Émigré cause célèbre déjà vu.\n"</span></a>
-<a class="sourceLine" id="cb6-31" data-line-number="31"><span class="kw"><a href="../../reference/parse_atomic.html">parse_character</a></span>(y)</a>
-<a class="sourceLine" id="cb6-32" data-line-number="32"><span class="co">#&gt; [1] "\xc9migr\xe9 cause c\xe9l\xe8bre d\xe9j\xe0 vu.\n"</span></a>
-<a class="sourceLine" id="cb6-33" data-line-number="33"></a>
-<a class="sourceLine" id="cb6-34" data-line-number="34"><span class="co"># If you know the encoding, supply it:</span></a>
-<a class="sourceLine" id="cb6-35" data-line-number="35"><span class="kw"><a href="../../reference/parse_atomic.html">parse_character</a></span>(y, <span class="dt">locale =</span> <span class="kw"><a href="../../reference/locale.html">locale</a></span>(<span class="dt">encoding =</span> <span class="st">"latin1"</span>))</a>
-<a class="sourceLine" id="cb6-36" data-line-number="36"><span class="co">#&gt; [1] "Émigré cause célèbre déjà vu.\n"</span></a></code></pre></div>
-<p>If you don’t know what encoding the file uses, try <code><a href="../../reference/encoding.html">guess_encoding()</a></code>. It’s not 100% perfect (as it’s fundamentally a heuristic), but should at least get you pointed in the right direction:</p>
-<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb7-1" data-line-number="1"><span class="kw"><a href="../../reference/encoding.html">guess_encoding</a></span>(y)</a>
-<a class="sourceLine" id="cb7-2" data-line-number="2"><span class="co">#&gt; # A tibble: 2 x 2</span></a>
-<a class="sourceLine" id="cb7-3" data-line-number="3"><span class="co">#&gt;   encoding   confidence</span></a>
-<a class="sourceLine" id="cb7-4" data-line-number="4"><span class="co">#&gt;   &lt;chr&gt;           &lt;dbl&gt;</span></a>
-<a class="sourceLine" id="cb7-5" data-line-number="5"><span class="co">#&gt; 1 ISO-8859-2        0.4</span></a>
-<a class="sourceLine" id="cb7-6" data-line-number="6"><span class="co">#&gt; 2 ISO-8859-1        0.3</span></a>
-<a class="sourceLine" id="cb7-7" data-line-number="7"></a>
-<a class="sourceLine" id="cb7-8" data-line-number="8"><span class="co"># Note that the first guess produces a valid string, </span></a>
-<a class="sourceLine" id="cb7-9" data-line-number="9"><span class="co"># but isn't correct:</span></a>
-<a class="sourceLine" id="cb7-10" data-line-number="10"><span class="kw"><a href="../../reference/parse_atomic.html">parse_character</a></span>(y, <span class="dt">locale =</span> <span class="kw"><a href="../../reference/locale.html">locale</a></span>(<span class="dt">encoding =</span> <span class="st">"ISO-8859-2"</span>))</a>
-<a class="sourceLine" id="cb7-11" data-line-number="11"><span class="co">#&gt; [1] "Émigré cause célčbre déjŕ vu.\n"</span></a>
-<a class="sourceLine" id="cb7-12" data-line-number="12"><span class="co"># But ISO-8859-1 is another name for latin1</span></a>
-<a class="sourceLine" id="cb7-13" data-line-number="13"><span class="kw"><a href="../../reference/parse_atomic.html">parse_character</a></span>(y, <span class="dt">locale =</span> <span class="kw"><a href="../../reference/locale.html">locale</a></span>(<span class="dt">encoding =</span> <span class="st">"ISO-8859-1"</span>))</a>
-<a class="sourceLine" id="cb7-14" data-line-number="14"><span class="co">#&gt; [1] "Émigré cause célèbre déjà vu.\n"</span></a></code></pre></div>
+<div class="sourceCode" id="cb6"><pre class="downlit">
+<span class="va">x</span> <span class="op">&lt;-</span> <span class="st">"Émigré cause célèbre déjà vu.\n"</span>
+<span class="va">y</span> <span class="op">&lt;-</span> <span class="fu">stringi</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/stringi/man/stri_encode.html">stri_conv</a></span><span class="op">(</span><span class="va">x</span>, <span class="st">"UTF-8"</span>, <span class="st">"Latin1"</span><span class="op">)</span>
+
+<span class="co"># These strings look like they're identical:</span>
+<span class="va">x</span>
+<span class="co">#&gt; [1] "Émigré cause célèbre déjà vu.\n"</span>
+<span class="va">y</span>
+<span class="co">#&gt; [1] "Émigré cause célèbre déjà vu.\n"</span>
+<span class="fu"><a href="https://rdrr.io/r/base/identical.html">identical</a></span><span class="op">(</span><span class="va">x</span>, <span class="va">y</span><span class="op">)</span>
+<span class="co">#&gt; [1] TRUE</span>
+
+<span class="co"># But they have different encodings:</span>
+<span class="fu"><a href="https://rdrr.io/r/base/Encoding.html">Encoding</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span>
+<span class="co">#&gt; [1] "UTF-8"</span>
+<span class="fu"><a href="https://rdrr.io/r/base/Encoding.html">Encoding</a></span><span class="op">(</span><span class="va">y</span><span class="op">)</span>
+<span class="co">#&gt; [1] "latin1"</span>
+
+<span class="co"># That means while they print the same, their raw (binary)</span>
+<span class="co"># representation is actually rather different:</span>
+<span class="fu"><a href="https://rdrr.io/r/base/rawConversion.html">charToRaw</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span>
+<span class="co">#&gt;  [1] c3 89 6d 69 67 72 c3 a9 20 63 61 75 73 65 20 63 c3 a9 6c c3 a8 62 72 65 20</span>
+<span class="co">#&gt; [26] 64 c3 a9 6a c3 a0 20 76 75 2e 0a</span>
+<span class="fu"><a href="https://rdrr.io/r/base/rawConversion.html">charToRaw</a></span><span class="op">(</span><span class="va">y</span><span class="op">)</span>
+<span class="co">#&gt;  [1] c9 6d 69 67 72 e9 20 63 61 75 73 65 20 63 e9 6c e8 62 72 65 20 64 e9 6a e0</span>
+<span class="co">#&gt; [26] 20 76 75 2e 0a</span>
+
+<span class="co"># readr expects strings to be encoded as UTF-8. If they're</span>
+<span class="co"># not, you'll get weird characters</span>
+<span class="fu"><a href="../../reference/parse_atomic.html">parse_character</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span>
+<span class="co">#&gt; [1] "Émigré cause célèbre déjà vu.\n"</span>
+<span class="fu"><a href="../../reference/parse_atomic.html">parse_character</a></span><span class="op">(</span><span class="va">y</span><span class="op">)</span>
+<span class="co">#&gt; [1] "\xc9migr\xe9 cause c\xe9l\xe8bre d\xe9j\xe0 vu.\n"</span>
+
+<span class="co"># If you know the encoding, supply it:</span>
+<span class="fu"><a href="../../reference/parse_atomic.html">parse_character</a></span><span class="op">(</span><span class="va">y</span>, locale <span class="op">=</span> <span class="fu"><a href="../../reference/locale.html">locale</a></span><span class="op">(</span>encoding <span class="op">=</span> <span class="st">"latin1"</span><span class="op">)</span><span class="op">)</span>
+<span class="co">#&gt; [1] "Émigré cause célèbre déjà vu.\n"</span></pre></div>
+<p>If you don’t know what encoding the file uses, try <code><a href="../../reference/guess_encoding.html">guess_encoding()</a></code>. It’s not 100% perfect (as it’s fundamentally a heuristic), but should at least get you pointed in the right direction:</p>
+<div class="sourceCode" id="cb7"><pre class="downlit">
+<span class="fu"><a href="../../reference/guess_encoding.html">guess_encoding</a></span><span class="op">(</span><span class="va">y</span><span class="op">)</span>
+<span class="co">#&gt; # A tibble: 2 x 2</span>
+<span class="co">#&gt;   encoding   confidence</span>
+<span class="co">#&gt;   &lt;chr&gt;           &lt;dbl&gt;</span>
+<span class="co">#&gt; 1 ISO-8859-2        0.4</span>
+<span class="co">#&gt; 2 ISO-8859-1        0.3</span>
+
+<span class="co"># Note that the first guess produces a valid string, </span>
+<span class="co"># but isn't correct:</span>
+<span class="fu"><a href="../../reference/parse_atomic.html">parse_character</a></span><span class="op">(</span><span class="va">y</span>, locale <span class="op">=</span> <span class="fu"><a href="../../reference/locale.html">locale</a></span><span class="op">(</span>encoding <span class="op">=</span> <span class="st">"ISO-8859-2"</span><span class="op">)</span><span class="op">)</span>
+<span class="co">#&gt; [1] "Émigré cause célčbre déjŕ vu.\n"</span>
+<span class="co"># But ISO-8859-1 is another name for latin1</span>
+<span class="fu"><a href="../../reference/parse_atomic.html">parse_character</a></span><span class="op">(</span><span class="va">y</span>, locale <span class="op">=</span> <span class="fu"><a href="../../reference/locale.html">locale</a></span><span class="op">(</span>encoding <span class="op">=</span> <span class="st">"ISO-8859-1"</span><span class="op">)</span><span class="op">)</span>
+<span class="co">#&gt; [1] "Émigré cause célèbre déjà vu.\n"</span></pre></div>
 </div>
 <div id="numbers" class="section level3">
 <h3 class="hasAnchor">
 <a href="#numbers" class="anchor"></a>Numbers</h3>
 <p>Some countries use the decimal point, while others use the decimal comma. The <code>decimal_mark</code> option controls which readr uses when parsing doubles:</p>
-<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb8-1" data-line-number="1"><span class="kw"><a href="../../reference/parse_atomic.html">parse_double</a></span>(<span class="st">"1,23"</span>, <span class="dt">locale =</span> <span class="kw"><a href="../../reference/locale.html">locale</a></span>(<span class="dt">decimal_mark =</span> <span class="st">","</span>))</a>
-<a class="sourceLine" id="cb8-2" data-line-number="2"><span class="co">#&gt; [1] 1.23</span></a></code></pre></div>
+<div class="sourceCode" id="cb8"><pre class="downlit">
+<span class="fu"><a href="../../reference/parse_atomic.html">parse_double</a></span><span class="op">(</span><span class="st">"1,23"</span>, locale <span class="op">=</span> <span class="fu"><a href="../../reference/locale.html">locale</a></span><span class="op">(</span>decimal_mark <span class="op">=</span> <span class="st">","</span><span class="op">)</span><span class="op">)</span>
+<span class="co">#&gt; [1] 1.23</span></pre></div>
 <p>The <code>big_mark</code> option describes which character is used to space groups of digits. Do you write <code>1,000,000</code>, <code>1.000.000</code>, <code>1 000 000</code>, or <code>1'000'000</code>? Specifying the grouping mark allows <code><a href="../../reference/parse_number.html">parse_number()</a></code> to parse large number as they’re commonly written:</p>
-<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb9-1" data-line-number="1"><span class="kw"><a href="../../reference/parse_number.html">parse_number</a></span>(<span class="st">"1,234.56"</span>)</a>
-<a class="sourceLine" id="cb9-2" data-line-number="2"><span class="co">#&gt; [1] 1234.56</span></a>
-<a class="sourceLine" id="cb9-3" data-line-number="3"></a>
-<a class="sourceLine" id="cb9-4" data-line-number="4"><span class="co"># dplyr is smart enough to guess that if you're using , for </span></a>
-<a class="sourceLine" id="cb9-5" data-line-number="5"><span class="co"># decimals then you're probably using . for grouping:</span></a>
-<a class="sourceLine" id="cb9-6" data-line-number="6"><span class="kw"><a href="../../reference/parse_number.html">parse_number</a></span>(<span class="st">"1.234,56"</span>, <span class="dt">locale =</span> <span class="kw"><a href="../../reference/locale.html">locale</a></span>(<span class="dt">decimal_mark =</span> <span class="st">","</span>))</a>
-<a class="sourceLine" id="cb9-7" data-line-number="7"><span class="co">#&gt; [1] 1234.56</span></a></code></pre></div>
+<div class="sourceCode" id="cb9"><pre class="downlit">
+<span class="fu"><a href="../../reference/parse_number.html">parse_number</a></span><span class="op">(</span><span class="st">"1,234.56"</span><span class="op">)</span>
+<span class="co">#&gt; [1] 1234.56</span>
+
+<span class="co"># dplyr is smart enough to guess that if you're using , for </span>
+<span class="co"># decimals then you're probably using . for grouping:</span>
+<span class="fu"><a href="../../reference/parse_number.html">parse_number</a></span><span class="op">(</span><span class="st">"1.234,56"</span>, locale <span class="op">=</span> <span class="fu"><a href="../../reference/locale.html">locale</a></span><span class="op">(</span>decimal_mark <span class="op">=</span> <span class="st">","</span><span class="op">)</span><span class="op">)</span>
+<span class="co">#&gt; [1] 1234.56</span></pre></div>
 </div>
 </div>
 <div id="column-parsing-improvements" class="section level2">
@@ -288,20 +309,22 @@
 <ul>
 <li>
 <p>New <code><a href="../../reference/cols.html">cols()</a></code> function takes of assembling the list of column types, and with its <code>.default</code> argument, allows you to control the default column type:</p>
-<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb10-1" data-line-number="1"><span class="kw"><a href="../../reference/read_delim.html">read_csv</a></span>(<span class="st">"x,y</span><span class="ch">\n</span><span class="st">1,2"</span>, <span class="dt">col_types =</span> <span class="kw"><a href="../../reference/cols.html">cols</a></span>(<span class="dt">.default =</span> <span class="st">"c"</span>))</a>
-<a class="sourceLine" id="cb10-2" data-line-number="2"><span class="co">#&gt; # A tibble: 1 x 2</span></a>
-<a class="sourceLine" id="cb10-3" data-line-number="3"><span class="co">#&gt;   x     y    </span></a>
-<a class="sourceLine" id="cb10-4" data-line-number="4"><span class="co">#&gt;   &lt;chr&gt; &lt;chr&gt;</span></a>
-<a class="sourceLine" id="cb10-5" data-line-number="5"><span class="co">#&gt; 1 1     2</span></a></code></pre></div>
-<p>You can refer to parsers with their full name (e.g. <code><a href="../../reference/parse_atomic.html">col_character()</a></code>) or their one letter abbreviation (e.g. <code>c</code>). The default value of <code>.default</code> is “?”: guess the type of column from the data.</p>
+<div class="sourceCode" id="cb10"><pre class="downlit">
+<span class="fu"><a href="../../reference/read_delim.html">read_csv</a></span><span class="op">(</span><span class="st">"x,y\n1,2"</span>, col_types <span class="op">=</span> <span class="fu"><a href="../../reference/cols.html">cols</a></span><span class="op">(</span>.default <span class="op">=</span> <span class="st">"c"</span><span class="op">)</span><span class="op">)</span>
+<span class="co">#&gt; # A tibble: 1 x 2</span>
+<span class="co">#&gt;   x     y    </span>
+<span class="co">#&gt;   &lt;chr&gt; &lt;chr&gt;</span>
+<span class="co">#&gt; 1 1     2</span></pre></div>
+<p>You can refer to parsers with their full name (e.g. <code><a href="../../reference/parse_atomic.html">col_character()</a></code>) or their one letter abbreviation (e.g. <code>c</code>). The default value of <code>.default</code> is “?”: guess the type of column from the data.</p>
 </li>
 <li>
 <p><code><a href="../../reference/cols.html">cols_only()</a></code> allows you to load only the specified columns:</p>
-<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb11-1" data-line-number="1"><span class="kw"><a href="../../reference/read_delim.html">read_csv</a></span>(<span class="st">"a,b,c</span><span class="ch">\n</span><span class="st">1,2,3"</span>, <span class="dt">col_types =</span> <span class="kw"><a href="../../reference/cols.html">cols_only</a></span>(<span class="st">"b"</span> =<span class="st"> "?"</span>))</a>
-<a class="sourceLine" id="cb11-2" data-line-number="2"><span class="co">#&gt; # A tibble: 1 x 1</span></a>
-<a class="sourceLine" id="cb11-3" data-line-number="3"><span class="co">#&gt;       b</span></a>
-<a class="sourceLine" id="cb11-4" data-line-number="4"><span class="co">#&gt;   &lt;dbl&gt;</span></a>
-<a class="sourceLine" id="cb11-5" data-line-number="5"><span class="co">#&gt; 1     2</span></a></code></pre></div>
+<div class="sourceCode" id="cb11"><pre class="downlit">
+<span class="fu"><a href="../../reference/read_delim.html">read_csv</a></span><span class="op">(</span><span class="st">"a,b,c\n1,2,3"</span>, col_types <span class="op">=</span> <span class="fu"><a href="../../reference/cols.html">cols_only</a></span><span class="op">(</span><span class="st">"b"</span> <span class="op">=</span> <span class="st">"?"</span><span class="op">)</span><span class="op">)</span>
+<span class="co">#&gt; # A tibble: 1 x 1</span>
+<span class="co">#&gt;       b</span>
+<span class="co">#&gt;   &lt;dbl&gt;</span>
+<span class="co">#&gt; 1     2</span></pre></div>
 </li>
 </ul>
 <p>Many of the individual parsers have also been improved:</p>
@@ -309,22 +332,24 @@
 <li><p><code><a href="../../reference/parse_atomic.html">col_integer()</a></code> and <code><a href="../../reference/parse_atomic.html">col_double()</a></code> no longer silently ignore trailing characters after the number.</p></li>
 <li>
 <p>New <code><a href="../../reference/parse_number.html">col_number()</a></code>/<code><a href="../../reference/parse_number.html">parse_number()</a></code> replace the old <code>col_numeric()</code>/ <code>parse_numeric()</code>. This parser is less flexible, so it’s less likely to silently ignored bad input. It’s designed specifically to read currencies and percentages. It only reads the first number from a string, ignoring the grouping mark defined by the locale:</p>
-<div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb12-1" data-line-number="1"><span class="kw"><a href="../../reference/parse_number.html">parse_number</a></span>(<span class="st">"1,234,566"</span>)</a>
-<a class="sourceLine" id="cb12-2" data-line-number="2"><span class="co">#&gt; [1] 1234566</span></a>
-<a class="sourceLine" id="cb12-3" data-line-number="3"><span class="kw"><a href="../../reference/parse_number.html">parse_number</a></span>(<span class="st">"$1,234"</span>)</a>
-<a class="sourceLine" id="cb12-4" data-line-number="4"><span class="co">#&gt; [1] 1234</span></a>
-<a class="sourceLine" id="cb12-5" data-line-number="5"><span class="kw"><a href="../../reference/parse_number.html">parse_number</a></span>(<span class="st">"27%"</span>)</a>
-<a class="sourceLine" id="cb12-6" data-line-number="6"><span class="co">#&gt; [1] 27</span></a></code></pre></div>
+<div class="sourceCode" id="cb12"><pre class="downlit">
+<span class="fu"><a href="../../reference/parse_number.html">parse_number</a></span><span class="op">(</span><span class="st">"1,234,566"</span><span class="op">)</span>
+<span class="co">#&gt; [1] 1234566</span>
+<span class="fu"><a href="../../reference/parse_number.html">parse_number</a></span><span class="op">(</span><span class="st">"$1,234"</span><span class="op">)</span>
+<span class="co">#&gt; [1] 1234</span>
+<span class="fu"><a href="../../reference/parse_number.html">parse_number</a></span><span class="op">(</span><span class="st">"27%"</span><span class="op">)</span>
+<span class="co">#&gt; [1] 27</span></pre></div>
 </li>
 <li>
 <p>New <code><a href="../../reference/parse_datetime.html">parse_time()</a></code> and <code><a href="../../reference/parse_datetime.html">col_time()</a></code> allow you to parse times. They have an optional <code>format</code> argument, that uses the same components as <code><a href="../../reference/parse_datetime.html">parse_datetime()</a></code>. If <code>format</code> is omitted, they use a flexible parser that looks for hours, then an optional colon, then minutes, then an optional colon, then optional seconds, then optional am/pm.</p>
-<div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb13-1" data-line-number="1"><span class="kw"><a href="../../reference/parse_datetime.html">parse_time</a></span>(<span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/c">c</a></span>(<span class="st">"1:45 PM"</span>, <span class="st">"1345"</span>, <span class="st">"13:45:00"</span>))</a>
-<a class="sourceLine" id="cb13-2" data-line-number="2"><span class="co">#&gt; Warning: 1 parsing failure.</span></a>
-<a class="sourceLine" id="cb13-3" data-line-number="3"><span class="co">#&gt; row col   expected actual</span></a>
-<a class="sourceLine" id="cb13-4" data-line-number="4"><span class="co">#&gt;   2  -- time like    1345</span></a>
-<a class="sourceLine" id="cb13-5" data-line-number="5"><span class="co">#&gt; 13:45:00</span></a>
-<a class="sourceLine" id="cb13-6" data-line-number="6"><span class="co">#&gt;       NA</span></a>
-<a class="sourceLine" id="cb13-7" data-line-number="7"><span class="co">#&gt; 13:45:00</span></a></code></pre></div>
+<div class="sourceCode" id="cb13"><pre class="downlit">
+<span class="fu"><a href="../../reference/parse_datetime.html">parse_time</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"1:45 PM"</span>, <span class="st">"1345"</span>, <span class="st">"13:45:00"</span><span class="op">)</span><span class="op">)</span>
+<span class="co">#&gt; Warning: 1 parsing failure.</span>
+<span class="co">#&gt; row col   expected actual</span>
+<span class="co">#&gt;   2  -- time like    1345</span>
+<span class="co">#&gt; 13:45:00</span>
+<span class="co">#&gt;       NA</span>
+<span class="co">#&gt; 13:45:00</span></pre></div>
 <p><code><a href="../../reference/parse_datetime.html">parse_time()</a></code> returns the number of seconds since midnight as an integer with class “time”. readr includes a basic print method.</p>
 </li>
 <li><p><code><a href="../../reference/parse_datetime.html">parse_date()</a></code>/<code><a href="../../reference/parse_datetime.html">col_date()</a></code> and <code><a href="../../reference/parse_datetime.html">parse_datetime()</a></code>/<code><a href="../../reference/parse_datetime.html">col_datetime()</a></code> gain two new format strings: “%+” skips one or more non-digits, and <code>%p</code> reads in AM/PM (and am/pm).</p></li>
@@ -337,52 +362,56 @@
 <ul>
 <li>
 <p>Multiple NA values can be specified by passing a character vector to <code>na</code>. The default has been changed to <code>na = c("", "NA")</code>.</p>
-<div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb14-1" data-line-number="1"><span class="kw"><a href="../../reference/read_delim.html">read_csv</a></span>(<span class="st">"a,b</span><span class="ch">\n</span><span class="st">.,NA</span><span class="ch">\n</span><span class="st">1,3"</span>, <span class="dt">na =</span> <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/c">c</a></span>(<span class="st">"."</span>, <span class="st">"NA"</span>))</a>
-<a class="sourceLine" id="cb14-2" data-line-number="2"><span class="co">#&gt; # A tibble: 2 x 2</span></a>
-<a class="sourceLine" id="cb14-3" data-line-number="3"><span class="co">#&gt;       a     b</span></a>
-<a class="sourceLine" id="cb14-4" data-line-number="4"><span class="co">#&gt;   &lt;dbl&gt; &lt;dbl&gt;</span></a>
-<a class="sourceLine" id="cb14-5" data-line-number="5"><span class="co">#&gt; 1    NA    NA</span></a>
-<a class="sourceLine" id="cb14-6" data-line-number="6"><span class="co">#&gt; 2     1     3</span></a></code></pre></div>
+<div class="sourceCode" id="cb14"><pre class="downlit">
+<span class="fu"><a href="../../reference/read_delim.html">read_csv</a></span><span class="op">(</span><span class="st">"a,b\n.,NA\n1,3"</span>, na <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"."</span>, <span class="st">"NA"</span><span class="op">)</span><span class="op">)</span>
+<span class="co">#&gt; # A tibble: 2 x 2</span>
+<span class="co">#&gt;       a     b</span>
+<span class="co">#&gt;   &lt;dbl&gt; &lt;dbl&gt;</span>
+<span class="co">#&gt; 1    NA    NA</span>
+<span class="co">#&gt; 2     1     3</span></pre></div>
 </li>
 <li>
 <p>New <code>comment</code> argument allows you to ignore all text after a string:</p>
-<div class="sourceCode" id="cb15"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb15-1" data-line-number="1"><span class="kw"><a href="../../reference/read_delim.html">read_csv</a></span>(</a>
-<a class="sourceLine" id="cb15-2" data-line-number="2"><span class="st">"#This is a comment</span></a>
-<a class="sourceLine" id="cb15-3" data-line-number="3"><span class="st">#This is another comment</span></a>
-<a class="sourceLine" id="cb15-4" data-line-number="4"><span class="st">a,b</span></a>
-<a class="sourceLine" id="cb15-5" data-line-number="5"><span class="st">1,10</span></a>
-<a class="sourceLine" id="cb15-6" data-line-number="6"><span class="st">2,20"</span>, <span class="dt">comment =</span> <span class="st">"#"</span>)</a>
-<a class="sourceLine" id="cb15-7" data-line-number="7"><span class="co">#&gt; # A tibble: 2 x 2</span></a>
-<a class="sourceLine" id="cb15-8" data-line-number="8"><span class="co">#&gt;       a     b</span></a>
-<a class="sourceLine" id="cb15-9" data-line-number="9"><span class="co">#&gt;   &lt;dbl&gt; &lt;dbl&gt;</span></a>
-<a class="sourceLine" id="cb15-10" data-line-number="10"><span class="co">#&gt; 1     1    10</span></a>
-<a class="sourceLine" id="cb15-11" data-line-number="11"><span class="co">#&gt; 2     2    20</span></a></code></pre></div>
+<div class="sourceCode" id="cb15"><pre class="downlit">
+<span class="fu"><a href="../../reference/read_delim.html">read_csv</a></span><span class="op">(</span>
+<span class="st">"#This is a comment
+#This is another comment
+a,b
+1,10
+2,20"</span>, comment <span class="op">=</span> <span class="st">"#"</span><span class="op">)</span>
+<span class="co">#&gt; # A tibble: 2 x 2</span>
+<span class="co">#&gt;       a     b</span>
+<span class="co">#&gt;   &lt;dbl&gt; &lt;dbl&gt;</span>
+<span class="co">#&gt; 1     1    10</span>
+<span class="co">#&gt; 2     2    20</span></pre></div>
 </li>
 <li>
 <p><code>trim_ws</code> argument controls whether leading and trailing whitespace is removed. It defaults to <code>TRUE</code>.</p>
-<div class="sourceCode" id="cb16"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb16-1" data-line-number="1"><span class="kw"><a href="../../reference/read_delim.html">read_csv</a></span>(<span class="st">"a,b</span><span class="ch">\n</span><span class="st">     1,     2"</span>)</a>
-<a class="sourceLine" id="cb16-2" data-line-number="2"><span class="co">#&gt; # A tibble: 1 x 2</span></a>
-<a class="sourceLine" id="cb16-3" data-line-number="3"><span class="co">#&gt;       a     b</span></a>
-<a class="sourceLine" id="cb16-4" data-line-number="4"><span class="co">#&gt;   &lt;dbl&gt; &lt;dbl&gt;</span></a>
-<a class="sourceLine" id="cb16-5" data-line-number="5"><span class="co">#&gt; 1     1     2</span></a>
-<a class="sourceLine" id="cb16-6" data-line-number="6"><span class="kw"><a href="../../reference/read_delim.html">read_csv</a></span>(<span class="st">"a,b</span><span class="ch">\n</span><span class="st">     1,     2"</span>, <span class="dt">trim_ws =</span> <span class="ot">FALSE</span>)</a>
-<a class="sourceLine" id="cb16-7" data-line-number="7"><span class="co">#&gt; # A tibble: 1 x 2</span></a>
-<a class="sourceLine" id="cb16-8" data-line-number="8"><span class="co">#&gt;   a        b       </span></a>
-<a class="sourceLine" id="cb16-9" data-line-number="9"><span class="co">#&gt;   &lt;chr&gt;    &lt;chr&gt;   </span></a>
-<a class="sourceLine" id="cb16-10" data-line-number="10"><span class="co">#&gt; 1 "     1" "     2"</span></a></code></pre></div>
+<div class="sourceCode" id="cb16"><pre class="downlit">
+<span class="fu"><a href="../../reference/read_delim.html">read_csv</a></span><span class="op">(</span><span class="st">"a,b\n     1,     2"</span><span class="op">)</span>
+<span class="co">#&gt; # A tibble: 1 x 2</span>
+<span class="co">#&gt;       a     b</span>
+<span class="co">#&gt;   &lt;dbl&gt; &lt;dbl&gt;</span>
+<span class="co">#&gt; 1     1     2</span>
+<span class="fu"><a href="../../reference/read_delim.html">read_csv</a></span><span class="op">(</span><span class="st">"a,b\n     1,     2"</span>, trim_ws <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span>
+<span class="co">#&gt; # A tibble: 1 x 2</span>
+<span class="co">#&gt;   a        b       </span>
+<span class="co">#&gt;   &lt;chr&gt;    &lt;chr&gt;   </span>
+<span class="co">#&gt; 1 "     1" "     2"</span></pre></div>
 </li>
 </ul>
 <p>Specifying the wrong number of column names, or having rows with an unexpected number of columns, now gives a warning, rather than an error:</p>
-<div class="sourceCode" id="cb17"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb17-1" data-line-number="1"><span class="kw"><a href="../../reference/read_delim.html">read_csv</a></span>(<span class="st">"a,b,c</span><span class="ch">\n</span><span class="st">1,2</span><span class="ch">\n</span><span class="st">1,2,3,4"</span>)</a>
-<a class="sourceLine" id="cb17-2" data-line-number="2"><span class="co">#&gt; Warning: 2 parsing failures.</span></a>
-<a class="sourceLine" id="cb17-3" data-line-number="3"><span class="co">#&gt; row col  expected    actual         file</span></a>
-<a class="sourceLine" id="cb17-4" data-line-number="4"><span class="co">#&gt;   1  -- 3 columns 2 columns literal data</span></a>
-<a class="sourceLine" id="cb17-5" data-line-number="5"><span class="co">#&gt;   2  -- 3 columns 4 columns literal data</span></a>
-<a class="sourceLine" id="cb17-6" data-line-number="6"><span class="co">#&gt; # A tibble: 2 x 3</span></a>
-<a class="sourceLine" id="cb17-7" data-line-number="7"><span class="co">#&gt;       a     b     c</span></a>
-<a class="sourceLine" id="cb17-8" data-line-number="8"><span class="co">#&gt;   &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;</span></a>
-<a class="sourceLine" id="cb17-9" data-line-number="9"><span class="co">#&gt; 1     1     2    NA</span></a>
-<a class="sourceLine" id="cb17-10" data-line-number="10"><span class="co">#&gt; 2     1     2     3</span></a></code></pre></div>
+<div class="sourceCode" id="cb17"><pre class="downlit">
+<span class="fu"><a href="../../reference/read_delim.html">read_csv</a></span><span class="op">(</span><span class="st">"a,b,c\n1,2\n1,2,3,4"</span><span class="op">)</span>
+<span class="co">#&gt; Warning: 2 parsing failures.</span>
+<span class="co">#&gt; row col  expected    actual         file</span>
+<span class="co">#&gt;   1  -- 3 columns 2 columns literal data</span>
+<span class="co">#&gt;   2  -- 3 columns 4 columns literal data</span>
+<span class="co">#&gt; # A tibble: 2 x 3</span>
+<span class="co">#&gt;       a     b     c</span>
+<span class="co">#&gt;   &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;</span>
+<span class="co">#&gt; 1     1     2    NA</span>
+<span class="co">#&gt; 2     1     2     3</span></pre></div>
 <p>Note that the warning message now also shows you the first five problems. I hope this will often allow you to iterate immediately, rather than having to look at the full <code><a href="../../reference/problems.html">problems()</a></code>.</p>
 </div>
 <div id="writers" class="section level2">
@@ -390,47 +419,43 @@
 <a href="#writers" class="anchor"></a>Writers</h2>
 <p>Despite the name, readr also provides some tools for writing data frames to disk. In this version there are three output functions:</p>
 <ul>
-<li><p><code><a href="../../reference/write_delim.html">write_csv()</a></code> and <code><a href="../../reference/write_delim.html">write_tsv()</a></code> write tab and comma delimted files, and <code><a href="../../reference/write_delim.html">write_delim()</a></code> writes with user specified delimiter.</p></li>
-<li><p><code><a href="../../reference/read_rds.html">write_rds()</a></code> and <code><a href="../../reference/read_rds.html">read_rds()</a></code> wrap around <code><a href="https://www.rdocumentation.org/packages/base/topics/readRDS">readRDS()</a></code> and <code><a href="https://www.rdocumentation.org/packages/base/topics/readRDS">saveRDS()</a></code>, defaulting to no compression, because you’re usually more interested in saving time (expensive) than disk space (cheap).</p></li>
+<li><p><code><a href="../../reference/write_delim.html">write_csv()</a></code> and <code><a href="../../reference/write_delim.html">write_tsv()</a></code> write tab and comma delimited files, and <code><a href="../../reference/write_delim.html">write_delim()</a></code> writes with user specified delimiter.</p></li>
+<li><p><code><a href="../../reference/read_rds.html">write_rds()</a></code> and <code><a href="../../reference/read_rds.html">read_rds()</a></code> wrap around <code><a href="https://rdrr.io/r/base/readRDS.html">readRDS()</a></code> and <code><a href="https://rdrr.io/r/base/readRDS.html">saveRDS()</a></code>, defaulting to no compression, because you’re usually more interested in saving time (expensive) than disk space (cheap).</p></li>
 </ul>
 <p>All these functions invisibly return their output so you can use them as part of a pipeline:</p>
-<div class="sourceCode" id="cb18"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb18-1" data-line-number="1">my_df <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb18-2" data-line-number="2"><span class="st">  </span><span class="kw">some_manipulation</span>() <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb18-3" data-line-number="3"><span class="st">  </span><span class="kw"><a href="../../reference/write_delim.html">write_csv</a></span>(<span class="st">"interim-a.csv"</span>) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb18-4" data-line-number="4"><span class="st">  </span><span class="kw">some_more_manipulation</span>() <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb18-5" data-line-number="5"><span class="st">  </span><span class="kw"><a href="../../reference/write_delim.html">write_csv</a></span>(<span class="st">"interim-b.csv"</span>) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb18-6" data-line-number="6"><span class="st">  </span><span class="kw">even_more_manipulation</span>() <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb18-7" data-line-number="7"><span class="st">  </span><span class="kw"><a href="../../reference/write_delim.html">write_csv</a></span>(<span class="st">"final.csv"</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb18"><pre class="downlit">
+<span class="va">my_df</span> <span class="op">%&gt;%</span>
+  <span class="fu">some_manipulation</span><span class="op">(</span><span class="op">)</span> <span class="op">%&gt;%</span>
+  <span class="fu"><a href="../../reference/write_delim.html">write_csv</a></span><span class="op">(</span><span class="st">"interim-a.csv"</span><span class="op">)</span> <span class="op">%&gt;%</span>
+  <span class="fu">some_more_manipulation</span><span class="op">(</span><span class="op">)</span> <span class="op">%&gt;%</span>
+  <span class="fu"><a href="../../reference/write_delim.html">write_csv</a></span><span class="op">(</span><span class="st">"interim-b.csv"</span><span class="op">)</span> <span class="op">%&gt;%</span>
+  <span class="fu">even_more_manipulation</span><span class="op">(</span><span class="op">)</span> <span class="op">%&gt;%</span>
+  <span class="fu"><a href="../../reference/write_delim.html">write_csv</a></span><span class="op">(</span><span class="st">"final.csv"</span><span class="op">)</span></pre></div>
 <p>You can now control how missing values are written with the <code>na</code> argument, and the quoting algorithm has been further refined to only add quotes when needed: when the string contains a quote, the delimiter, a new line or the same text as missing value.</p>
 <p>Output for doubles now uses the same precision as R, and POSIXt vectors are saved in a ISO8601 compatible format.</p>
 <p>For testing, you can use <code><a href="../../reference/format_delim.html">format_csv()</a></code>, <code><a href="../../reference/format_delim.html">format_tsv()</a></code>, and <code><a href="../../reference/format_delim.html">format_delim()</a></code> to write csv to a string:</p>
-<div class="sourceCode" id="cb19"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb19-1" data-line-number="1">mtcars <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb19-2" data-line-number="2"><span class="st">  </span><span class="kw"><a href="https://www.rdocumentation.org/packages/utils/topics/head">head</a></span>(<span class="dv">4</span>) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb19-3" data-line-number="3"><span class="st">  </span><span class="kw"><a href="../../reference/format_delim.html">format_csv</a></span>() <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb19-4" data-line-number="4"><span class="st">  </span><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/cat">cat</a></span>()</a>
-<a class="sourceLine" id="cb19-5" data-line-number="5"><span class="co">#&gt; mpg,cyl,disp,hp,drat,wt,qsec,vs,am,gear,carb</span></a>
-<a class="sourceLine" id="cb19-6" data-line-number="6"><span class="co">#&gt; 21,6,160,110,3.9,2.62,16.46,0,1,4,4</span></a>
-<a class="sourceLine" id="cb19-7" data-line-number="7"><span class="co">#&gt; 21,6,160,110,3.9,2.875,17.02,0,1,4,4</span></a>
-<a class="sourceLine" id="cb19-8" data-line-number="8"><span class="co">#&gt; 22.8,4,108,93,3.85,2.32,18.61,1,1,4,1</span></a>
-<a class="sourceLine" id="cb19-9" data-line-number="9"><span class="co">#&gt; 21.4,6,258,110,3.08,3.215,19.44,1,0,3,1</span></a></code></pre></div>
+<div class="sourceCode" id="cb19"><pre class="downlit">
+<span class="va">mtcars</span> <span class="op">%&gt;%</span>
+  <span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span><span class="op">(</span><span class="fl">4</span><span class="op">)</span> <span class="op">%&gt;%</span>
+  <span class="fu"><a href="../../reference/format_delim.html">format_csv</a></span><span class="op">(</span><span class="op">)</span> <span class="op">%&gt;%</span>
+  <span class="fu"><a href="https://rdrr.io/r/base/cat.html">cat</a></span><span class="op">(</span><span class="op">)</span>
+<span class="co">#&gt; mpg,cyl,disp,hp,drat,wt,qsec,vs,am,gear,carb</span>
+<span class="co">#&gt; 21,6,160,110,3.9,2.62,16.46,0,1,4,4</span>
+<span class="co">#&gt; 21,6,160,110,3.9,2.875,17.02,0,1,4,4</span>
+<span class="co">#&gt; 22.8,4,108,93,3.85,2.32,18.61,1,1,4,1</span>
+<span class="co">#&gt; 21.4,6,258,110,3.08,3.215,19.44,1,0,3,1</span></pre></div>
 <p>This is particularly useful for generating <a href="https://github.com/jennybc/reprex">reprexes</a>.</p>
 </div>
   </div>
 
-  <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
-        <div id="tocnav">
-      <h2 class="hasAnchor">
-<a href="#tocnav" class="anchor"></a>Contents</h2>
-      <ul class="nav nav-pills nav-stacked">
-<li><a href="#internationalisation">Internationalisation</a></li>
-      <li><a href="#column-parsing-improvements">Column parsing improvements</a></li>
-      <li><a href="#file-parsing-improvements">File parsing improvements</a></li>
-      <li><a href="#writers">Writers</a></li>
-      </ul>
+  <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
+
+        <nav id="toc" data-toggle="toc"><h2 data-toc-skip>Contents</h2>
+    </nav>
 </div>
-      </div>
 
 </div>
+
 
 
       <footer><div class="tidyverse">
@@ -439,14 +464,16 @@
 
 <div class="author">
   <p>
-    Developed by <a href="http://hadley.nz">Hadley Wickham</a>, <a href="http://jimhester.com">Jim Hester</a>, Romain Francois, <a href="https://www.rstudio.com"><img src="https://www.tidyverse.org/rstudio-logo.svg" alt="RStudio" height="24"></a>.
+    Developed by <a href="http://hadley.nz">Hadley Wickham</a>, <a href="http://jimhester.com">Jim Hester</a>, <a href="https://www.rstudio.com"><img src="https://www.tidyverse.org/rstudio-logo.svg" alt="RStudio" height="24"></a>.
     Site built by <a href="https://pkgdown.r-lib.org">pkgdown</a>.
   </p>
 </div>
+
       </footer>
 </div>
 
   
+
 
   </body>
 </html>
