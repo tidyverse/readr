@@ -11,17 +11,17 @@
 
 * It is now possible to generate a column specification from any tibble (or data.frame) with `as.col_spec()` and convert any column specification to a short representation with `as.character()`
 
-    s <- as.col_spec(iris)
-    s
-    #> cols(
-    #>   Sepal.Length = col_double(),
-    #>   Sepal.Width = col_double(),
-    #>   Petal.Length = col_double(),
-    #>   Petal.Width = col_double(),
-    #>   Species = col_factor(levels = c("setosa", "versicolor", "virginica"), ordered = FALSE, include_na = FALSE)
-    #> )
-    as.character(s)
-    #> [1] "ddddf"
+      s <- as.col_spec(iris)
+      s
+      #> cols(
+      #>   Sepal.Length = col_double(),
+      #>   Sepal.Width = col_double(),
+      #>   Petal.Length = col_double(),
+      #>   Petal.Width = col_double(),
+      #>   Species = col_factor(levels = c("setosa", "versicolor", "virginica"), ordered = FALSE, include_na = FALSE)
+      #> )
+      as.character(s)
+      #> [1] "ddddf"
 
 * The cli package is now used for all messages.
 
