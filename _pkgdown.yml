@@ -79,7 +79,7 @@ reference:
 
 - title: Column parsers
   desc: >
-    Column parsers define how a single column is parsed, or a parse a single
+    Column parsers define how a single column is parsed, or how to parse a single
     vector. Each parser comes in two forms: `parse_xxx()` which is used to parse
     vectors that already exist in R and `col_xxx()` which is used to parse
     vectors as they are loaded by a `read_xxx()` function.
