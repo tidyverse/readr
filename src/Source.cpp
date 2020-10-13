@@ -37,8 +37,8 @@ const char* Source::skipLines(
     bool skipEmptyRows,
     const std::string& comment,
     bool skipQuote) {
-  bool hasComment = comment != "";
-  bool isComment;
+  bool hasComment = !comment.empty();
+  bool isComment = false;
 
   const char* cur = begin;
 
