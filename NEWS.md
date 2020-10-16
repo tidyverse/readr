@@ -80,6 +80,8 @@
 
 * `write_rds()` now can specify the Rds version to use. The default value is 2 as it's compatible to R versions prior to 3.5.0 (@shrektan, #1001).
 
+* Fixes for issues related to variable initialization in C++ code (@michaelquinn32, ##1133).
+
 # readr 1.3.1
 
 * Column specifications are now coloured when printed. This makes it easy to
