@@ -263,3 +263,7 @@ test_that("must have either two - or none", {
   expect_equal(guess_parser("200010-10"), "character")
   expect_equal(guess_parser("20001010"), "double")
 })
+
+test_that("Invalid formats error", {
+  expect_error(parse_date("2020-11-17", "%%Y-%m-%d"), "Unsupported format %%Y-%m-%d")
+})

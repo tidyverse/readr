@@ -285,7 +285,7 @@ public:
         break;
 
       default:
-        cpp11::stop("Unsupported format %%%s", *formatItr);
+        cpp11::stop("Unsupported format %%%s", formatItr);
       }
     }
 

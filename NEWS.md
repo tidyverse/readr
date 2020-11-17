@@ -1,5 +1,7 @@
 # readr (development version)
 
+* Invalid date formats no longer can potentially crash R (#1151)
+
 # readr 1.4.0
 
 ## Breaking changes
