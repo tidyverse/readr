@@ -46,7 +46,7 @@ Imports:
     R6,
     tibble,
     utils,
-    lifecycle
+    lifecycle (>= 0.2.0)
 Suggests:
     covr,
     curl,
