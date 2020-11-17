@@ -313,7 +313,8 @@
 <h3 class="hasAnchor">
 <a href="#melt-functions" class="anchor"></a>Melt functions</h3>
 <p>There is now a family of <code>melt_*()</code> functions in readr. These functions store data in ‘long’ or ‘melted’ form, where each row corresponds to a single value in the dataset. This form is useful when your data is ragged and not rectangular.</p>
-<div class="sourceCode" id="cb2"><pre class="downlit">
+<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
+<code class="sourceCode R">
 <span class="va">data</span> <span class="op">&lt;-</span><span class="st">"a,b,c
 1,2
 w,x,y,z"</span>
@@ -330,7 +331,7 @@ w,x,y,z"</span>
 <span class="co">#&gt; 6     3     1 character w    </span>
 <span class="co">#&gt; 7     3     2 character x    </span>
 <span class="co">#&gt; 8     3     3 character y    </span>
-<span class="co">#&gt; 9     3     4 character z</span></pre></div>
+<span class="co">#&gt; 9     3     4 character z</span></code></pre></div>
 <p>Thanks to Duncan Garmonsway (<a href='https://github.com/nacnudus'>@nacnudus</a>) for great work on the idea an implementation of the <code>melt_*()</code> functions!</p>
 </div>
 <div id="connection-improvements" class="section level3">
@@ -536,31 +537,34 @@ w,x,y,z"</span>
 <h2 class="hasAnchor">
 <a href="#column-guessing" class="anchor"></a>Column guessing</h2>
 <p>The process by which readr guesses the types of columns has received a substantial overhaul to make it easier to fix problems when the initial guesses aren’t correct, and to make it easier to generate reproducible code. Now column specifications are printing by default when you read from a file:</p>
-<div class="sourceCode" id="cb3"><pre class="downlit">
+<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
+<code class="sourceCode R">
 <span class="va">challenge</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/read_delim.html">read_csv</a></span><span class="op">(</span><span class="fu"><a href="../reference/readr_example.html">readr_example</a></span><span class="op">(</span><span class="st">"challenge.csv"</span><span class="op">)</span><span class="op">)</span>
 <span class="co">#&gt; Parsed with column specification:</span>
 <span class="co">#&gt; cols(</span>
 <span class="co">#&gt;   x = col_integer(),</span>
 <span class="co">#&gt;   y = col_character()</span>
-<span class="co">#&gt; )</span></pre></div>
+<span class="co">#&gt; )</span></code></pre></div>
 <p>And you can extract those values after the fact with <code><a href="../reference/cols_condense.html">spec()</a></code>:</p>
-<div class="sourceCode" id="cb4"><pre class="downlit">
+<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
+<code class="sourceCode R">
 <span class="fu"><a href="../reference/cols_condense.html">spec</a></span><span class="op">(</span><span class="va">challenge</span><span class="op">)</span>
 <span class="co">#&gt; cols(</span>
 <span class="co">#&gt;   x = col_integer(),</span>
 <span class="co">#&gt;   y = col_character()</span>
-<span class="co">#&gt; )</span></pre></div>
+<span class="co">#&gt; )</span></code></pre></div>
 <p>This makes it easier to quickly identify parsing problems and fix them (<a href='https://github.com/tidyverse/readr/issues/314'>#314</a>). If the column specification is long, the new <code><a href="../reference/cols_condense.html">cols_condense()</a></code> is used to condense the spec by identifying the most common type and setting it as the default. This is particularly useful when only a handful of columns have a different type (<a href='https://github.com/tidyverse/readr/issues/466'>#466</a>).</p>
 <p>You can also generating an initial specification without parsing the file using <code><a href="../reference/spec_delim.html">spec_csv()</a></code>, <code><a href="../reference/spec_delim.html">spec_tsv()</a></code>, etc.</p>
 <p>Once you have figured out the correct column types for a file, it’s often useful to make the parsing strict. You can do this either by copying and pasting the printed output, or for very long specs, saving the spec to disk with <code><a href="../reference/read_rds.html">write_rds()</a></code>. In production scripts, combine this with <code><a href="../reference/problems.html">stop_for_problems()</a></code> (<a href='https://github.com/tidyverse/readr/issues/465'>#465</a>): if the input data changes form, you’ll fail fast with an error.</p>
 <p>You can now also adjust the number of rows that readr uses to guess the column types with <code>guess_max</code>:</p>
-<div class="sourceCode" id="cb5"><pre class="downlit">
+<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
+<code class="sourceCode R">
 <span class="va">challenge</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/read_delim.html">read_csv</a></span><span class="op">(</span><span class="fu"><a href="../reference/readr_example.html">readr_example</a></span><span class="op">(</span><span class="st">"challenge.csv"</span><span class="op">)</span>, guess_max <span class="op">=</span> <span class="fl">1500</span><span class="op">)</span>
 <span class="co">#&gt; Parsed with column specification:</span>
 <span class="co">#&gt; cols(</span>
 <span class="co">#&gt;   x = col_double(),</span>
 <span class="co">#&gt;   y = col_date(format = "")</span>
-<span class="co">#&gt; )</span></pre></div>
+<span class="co">#&gt; )</span></code></pre></div>
 <p>You can now access the guessing algorithm from R. <code><a href="../reference/parse_guess.html">guess_parser()</a></code> will tell you which parser readr will select for a character vector (<a href='https://github.com/tidyverse/readr/issues/377'>#377</a>). We’ve made a number of fixes to the guessing algorithm:</p>
 <ul>
 <li><p>New example <code>extdata/challenge.csv</code> which is carefully created to cause problems with the default column type guessing heuristics.</p></li>
