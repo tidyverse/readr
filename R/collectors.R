@@ -260,55 +260,47 @@ col_factor <- function(levels = NULL, ordered = FALSE, include_na = FALSE) {
 #' `readr` uses a format specification similar to [strptime()].
 #' There are three types of element:
 #'
-#' \enumerate{
-#'   \item Date components are specified with "%" followed by a letter.
-#'     For example "%Y" matches a 4 digit year, "%m", matches a 2 digit
-#'     month and "%d" matches a 2 digit day. Month and day default to `1`,
-#'     (i.e. Jan 1st) if not present, for example if only a year is given.
-#'   \item Whitespace is any sequence of zero or more whitespace characters.
-#'   \item Any other character is matched exactly.
-#' }
+#' 1. Date components are specified with "%" followed by a letter. For example
+#'   "%Y" matches a 4 digit year, "%m", matches a 2 digit month and "%d" matches
+#'   a 2 digit day. Month and day default to `1`, (i.e. Jan 1st) if not present,
+#'   for example if only a year is given.
+#' 2. Whitespace is any sequence of zero or more whitespace characters.
+#' 3. Any other character is matched exactly.
 #'
 #' `parse_datetime()` recognises the following format specifications:
-#' \itemize{
-#'   \item Year: "%Y" (4 digits). "%y" (2 digits); 00-69 -> 2000-2069,
-#'     70-99 -> 1970-1999.
-#'   \item Month: "%m" (2 digits), "%b" (abbreviated name in current
-#'     locale), "%B" (full name in current locale).
-#'   \item Day: "%d" (2 digits), "%e" (optional leading space),
-#'     "%a" (abbreviated name in current locale).
-#'   \item Hour: "%H" or "%I" or "%h", use I (and not H) with AM/PM,
-#'     use h (and not H) if your times represent durations longer than one day.
-#'   \item Minutes: "%M"
-#'   \item Seconds: "%S" (integer seconds), "%OS" (partial seconds)
-#'   \item Time zone: "%Z" (as name, e.g. "America/Chicago"), "%z" (as
-#'     offset from UTC, e.g. "+0800")
-#'   \item AM/PM indicator: "%p".
-#'   \item Non-digits: "%." skips one non-digit character,
-#'     "%+" skips one or more non-digit characters,
-#'     "%*" skips any number of non-digits characters.
-#'   \item Automatic parsers: "%AD" parses with a flexible YMD parser,
-#'      "%AT" parses with a flexible HMS parser.
-#'   \item Shortcuts: "%D" = "%m/%d/%y",  "%F" = "%Y-%m-%d",
-#'       "%R" = "%H:%M", "%T" = "%H:%M:%S",  "%x" = "%y/%m/%d".
-#' }
+#'
+#' * Year: "%Y" (4 digits). "%y" (2 digits); 00-69 -> 2000-2069, 70-99 ->
+#'   1970-1999.
+#' * Month: "%m" (2 digits), "%b" (abbreviated name in current locale), "%B"
+#'   (full name in current locale).
+#' * Day: "%d" (2 digits), "%e" (optional leading space), "%a" (abbreviated
+#'   name in current locale).
+#' * Hour: "%H" or "%I" or "%h", use I (and not H) with AM/PM, use h (and not H)
+#'   if your times represent durations longer than one day.
+#' * Minutes: "%M"
+#' * Seconds: "%S" (integer seconds), "%OS" (partial seconds)
+#' * Time zone: "%Z" (as name, e.g. "America/Chicago"), "%z" (as offset from
+#'   UTC, e.g. "+0800")
+#' * AM/PM indicator: "%p".
+#' * Non-digits: "%." skips one non-digit character, "%+" skips one or more
+#'   non-digit characters, "%*" skips any number of non-digits characters.
+#' * Automatic parsers: "%AD" parses with a flexible YMD parser, "%AT" parses
+#'   with a flexible HMS parser.
+#' * Shortcuts: "%D" = "%m/%d/%y", "%F" = "%Y-%m-%d", "%R" = "%H:%M", "%T" =
+#'   "%H:%M:%S", "%x" = "%y/%m/%d".
 #'
 #' @section ISO8601 support:
 #'
 #' Currently, readr does not support all of ISO8601. Missing features:
 #'
-#' \itemize{
-#' \item Week & weekday specifications, e.g. "2013-W05", "2013-W05-10"
-#' \item Ordinal dates, e.g. "2013-095".
-#' \item Using commas instead of a period for decimal separator
-#' }
+#' * Week & weekday specifications, e.g. "2013-W05", "2013-W05-10".
+#' * Ordinal dates, e.g. "2013-095".
+#' * Using commas instead of a period for decimal separator.
 #'
 #' The parser is also a little laxer than ISO8601:
 #'
-#' \itemize{
-#' \item Dates and times can be separated with a space, not just T.
-#' \item Mostly correct specifications like "2009-05-19 14:" and  "200912-01" work.
-#' }
+#' * Dates and times can be separated with a space, not just T.
+#' * Mostly correct specifications like "2009-05-19 14:" and "200912-01" work.
 #'
 #' @param x A character vector of dates to parse.
 #' @param format A format specification, as described below. If set to "",
