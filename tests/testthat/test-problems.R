@@ -43,3 +43,8 @@ test_that("problems returns full original field (#444)", {
   expect_equal(NROW(probs), 3)
   expect_equal(probs$actual, c("-$12,500", "-$5,000", "-$3,000"))
 })
+
+test_that("warn_problems fails when parsing non-ASCII characters (#1152)", {
+  probs <- warn_problems(readRDS("test-non-ascii-1152.rds"))
+  expect_equal(NROW(probs), 10)
+})
