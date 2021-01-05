@@ -165,7 +165,7 @@ parse_character(y)
 parse_character(y, locale = locale(encoding = "latin1"))
 ```
 
-If you don't know what encoding the file uses, try `guess_encoding()`. It's not 100% perfect (as it's fundamentally a heuristic), but should at least get you pointed in the right direction:
+If you don't know what encoding the file uses, try [`guess_encoding()`](https://readr.tidyverse.org/reference/encoding.html). It's not 100% perfect (as it's fundamentally a heuristic), but should at least get you pointed in the right direction:
 
 ```{r}
 guess_encoding(x)
