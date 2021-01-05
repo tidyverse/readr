@@ -2,6 +2,8 @@
 
 * Invalid date formats no longer can potentially crash R (#1151)
 
+* `read_delim()` fails when sample of parsing problems contains non-ASCII characters (@hidekoji, #1152)
+
 # readr 1.4.0
 
 ## Breaking changes
