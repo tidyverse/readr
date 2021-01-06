@@ -80,7 +80,8 @@ warn_problems <- function(x) {
   probs_f <- lapply(probs_f, format, justify = "right")
 
   if (many_problems) {
-    width <- vapply(probs_f, function(x) max(nchar(x)), integer(1))
+    # nchar fails with non-ascii characters, so encode characters beforehand.
+    width <- vapply(probs_f, function(x) max(nchar(encodeString(x))), integer(1))
     dots <- vapply(width, function(i) paste(rep(".", i), collapse = ""),
       FUN.VALUE = character(1))
 
