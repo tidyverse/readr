@@ -203,10 +203,24 @@ test_that("Show column name in error message when writing list column (#938)", {
 })
 
 test_that("More helpful error when trying to write out data frames with list columns (#938)", {
+  f <- tempfile()
+  on.exit(unlink(f))
+
   df <- tibble::tibble(id = seq(1), list = list(1))
-  expect_error(write_csv(x = df, file = tempfile()), "Flat files can't store the list column")
+  expect_error(write_csv(x = df, file = f), "`x` must not contain list columns")
 })
 
+test_that("duplicate columns data is duplicated (#1169)", {
+  df <- tibble::tibble(x = 1, x2 = 2)
+  names(df) <- c("x", "x")
+
+  f <- tempfile()
+  on.exit(unlink(f))
+
+  write_csv(df, f)
+
+  expect_equal(readLines(f), c("x,x", "1,2"))
+})
 
 test_that("write_ family of functions return input data frame without changes", {
   tmp <- tempfile()

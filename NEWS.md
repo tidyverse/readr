@@ -1,5 +1,7 @@
 # readr (development version)
 
+* `write_csv()` now again is able to write data with duplicated column names (#1169)
+
 * Invalid date formats no longer can potentially crash R (#1151)
 
 * `read_delim()` fails when sample of parsing problems contains non-ASCII characters (@hidekoji, #1136)

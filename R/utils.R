@@ -75,7 +75,7 @@ utctime <- function(year, month, day, hour, min, sec, psec) {
   )
 }
 
-cli_block <- function(expr, class = NULL) {
+cli_block <- function(expr, class = NULL, type = rlang::inform) {
   msg <- ""
   withCallingHandlers(
     expr,
@@ -84,5 +84,5 @@ cli_block <- function(expr, class = NULL) {
       invokeRestart("muffleMessage")
     }
   )
-  rlang::inform(msg, class = class)
+  type(msg, class = class)
 }
