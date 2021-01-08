@@ -57,7 +57,7 @@ test_that("roundtrip preserves dates and datetimes", {
 })
 
 test_that("fails to create file in non-existent directory", {
-  expect_warning(expect_error(write_csv(mtcars, file.path(tempdir(), "/x/y")), "cannot open the connection"), "No such file or directory")
+  expect_error(write_csv(mtcars, file.path(tempdir(), "/x/y")), "Cannot open")
 })
 
 test_that("write_excel_csv/csv2 includes a byte order mark", {
@@ -187,7 +187,6 @@ test_that("Can change the escape behavior for quotes", {
   expect_equal(format_delim(df, "\t", quote_escape = "double"), "x\na\n\"\"\"\"\n,\n\"\n\"\n")
   expect_equal(format_delim(df, "\t", quote_escape = "backslash"), "x\na\n\"\\\"\"\n,\n\"\n\"\n")
   expect_equal(format_delim(df, "\t", quote_escape = "none"), "x\na\n\"\"\"\n,\n\"\n\"\n")
-  expect_equal(format_delim(df, "\t", quote_escape = FALSE), "x\na\n\"\"\"\n,\n\"\n\"\n")
 })
 
 test_that("hms NAs are written without padding (#930)", {
@@ -199,7 +198,7 @@ test_that("Show column name in error message when writing list column (#938)", {
   df <- data.frame(x = LETTERS[1:4],
                    y = I(list(1, "foo", 2:9, iris)))
   expect_error(write_csv(df, "test_list_col_name.csv"),
-               "Don't know how to handle vector of type list in column 'y'.")
+               "`x` must not contain list columns")
 })
 
 test_that("More helpful error when trying to write out data frames with list columns (#938)", {

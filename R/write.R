@@ -79,8 +79,8 @@ write_delim <- function(x, file, delim = " ", na = "NA", append = FALSE,
 
   x_out <- x
   x[] <- lapply(x, output_column)
-  stream_delim(x, file, delim = delim, col_names = col_names, append = append,
-    na = na, quote_escape = quote_escape, eol = eol)
+  vroom::vroom_write(x, file, delim = delim, col_names = col_names, append = append,
+    na = na, eol = eol, escape = quote_escape)
 
   invisible(x_out)
 }
@@ -132,8 +132,8 @@ write_excel_csv <- function(x, file, na = "NA", append = FALSE,
   x[datetime_cols] <- lapply(x[datetime_cols], format, "%Y/%m/%d %H:%M:%S")
 
   x[] <- lapply(x, output_column)
-  stream_delim(x, file, delim, col_names = col_names, append = append,
-    na = na, bom = !append, quote_escape = quote_escape, eol = eol
+  vroom::vroom_write(x, file, delim, col_names = col_names, append = append,
+    na = na, bom = !append, eol = eol
   )
 
   invisible(x_out)
@@ -211,7 +211,7 @@ format_delim <- function(x, delim, na = "NA", append = FALSE,
   check_list_columns(x)
 
   x[] <- lapply(x, output_column)
-  res <- stream_delim(df = x, file = NULL, delim = delim, col_names = col_names, append = append, na = na, quote_escape = quote_escape, eol = eol)
+  res <- vroom::vroom_format(x, delim = delim, eol = eol, col_names = col_names, na = na, escape = quote_escape)
   Encoding(res) <- "UTF-8"
   res
 }
@@ -314,7 +314,7 @@ standardise_escape <- function(x) {
 }
 
 check_list_columns <- function(x) {
-  is_list_column <- vapply(x, inherits, logical(1), "list")
+  is_list_column <- vapply(x, function(x) inherits(x, "list") || identical(typeof(x), "list"), logical(1))
   if (any(is_list_column)) {
     cli_block(type = rlang::abort, {
       cli::cli_text("`x` must not contain list columns:")

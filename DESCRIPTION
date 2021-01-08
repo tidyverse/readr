@@ -45,6 +45,7 @@ Imports:
     rlang,
     R6,
     tibble,
+    vroom,
     utils,
     lifecycle (>= 0.2.0)
 Suggests:
@@ -73,3 +74,5 @@ Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.1.1
 SystemRequirements: C++11
 RdMacros: lifecycle
+Remotes:
+  r-lib/vroom
