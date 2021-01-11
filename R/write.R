@@ -75,7 +75,7 @@ write_delim <- function(x, file, delim = " ", na = "NA", append = FALSE,
   }
 
   stopifnot(is.data.frame(x))
-  check_list_columns(x)
+  check_column_types(x)
 
   x_out <- x
   x[] <- lapply(x, output_column)
@@ -125,7 +125,7 @@ write_excel_csv <- function(x, file, na = "NA", append = FALSE,
   }
 
   stopifnot(is.data.frame(x))
-  check_list_columns(x)
+  check_column_types(x)
 
   x_out <- x
   datetime_cols <- vapply(x, inherits, logical(1), "POSIXt")
@@ -150,7 +150,7 @@ write_excel_csv2 <- function(x, file, na = "NA", append = FALSE,
   }
 
   stopifnot(is.data.frame(x))
-  check_list_columns(x)
+  check_column_types(x)
 
   x_out <- x
   x <- change_decimal_separator(x, decimal_mark = ",")
@@ -208,7 +208,7 @@ write_tsv <- function(x, file, na = "NA", append = FALSE, col_names = !append,
 format_delim <- function(x, delim, na = "NA", append = FALSE,
                          col_names = !append, quote_escape = "double", eol = "\n") {
   stopifnot(is.data.frame(x))
-  check_list_columns(x)
+  check_column_types(x)
 
   x[] <- lapply(x, output_column)
   res <- stream_delim(df = x, file = NULL, delim = delim, col_names = col_names, append = append, na = na, quote_escape = quote_escape, eol = eol)
@@ -313,12 +313,12 @@ standardise_escape <- function(x) {
   escape_types[escape]
 }
 
-check_list_columns <- function(x) {
-  is_list_column <- vapply(x, inherits, logical(1), "list")
-  if (any(is_list_column)) {
+check_column_types <- function(x) {
+  is_bad_column <- vapply(x, function(xx) !is.null(dim(xx)), logical(1))
+  if (any(is_bad_column)) {
     cli_block(type = rlang::abort, {
-      cli::cli_text("`x` must not contain list columns:")
-      cli::cli_alert_danger("list columns at index(s): {paste0(which(is_list_column), collapse = '\n')}")
+      cli::cli_text("`x` must not contain list or matrix columns:")
+      cli::cli_alert_danger("invalid columns at index(s): {paste0(which(is_bad_column), collapse = '\n')}")
     })
   }
 }
