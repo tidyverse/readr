@@ -87,7 +87,7 @@ hij"
   )
 })
 
-# These tests are slow so are commented out
+#These tests are slow so are commented out
 #test_that("long vectors are supported", {
   #tmp <- tempfile(fileext = ".gz")
   #on.exit(unlink(tmp))
