@@ -10,7 +10,7 @@ read_lines(
   file,
   skip = 0,
   skip_empty_rows = FALSE,
-  n_max = -1L,
+  n_max = -1,
   locale = default_locale(),
   na = character(),
   progress = show_progress()
