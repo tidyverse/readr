@@ -131,11 +131,24 @@ read_csv <- function(file, col_names = TRUE, col_types = NULL,
                      quoted_na = TRUE, quote = "\"", comment = "", trim_ws = TRUE,
                      skip = 0, n_max = Inf, guess_max = min(1000, n_max),
                      progress = show_progress(), skip_empty_rows = TRUE) {
+  if (edition_first()) {
   tokenizer <- tokenizer_csv(na = na, quoted_na = quoted_na, quote = quote,
     comment = comment, trim_ws = trim_ws, skip_empty_rows = skip_empty_rows)
-  read_delimited(file, tokenizer, col_names = col_names, col_types = col_types,
-    locale = locale, skip = skip, skip_empty_rows = skip_empty_rows,
-    comment = comment, n_max = n_max, guess_max = guess_max, progress = progress)
+  return(
+    read_delimited(file, tokenizer, col_names = col_names, col_types = col_types,
+      locale = locale, skip = skip, skip_empty_rows = skip_empty_rows,
+      comment = comment, n_max = n_max, guess_max = guess_max, progress = progress
+    )
+  )
+  }
+
+  if (!missing(quoted_na)) {
+    lifecycle::deprecate_soft("2.0.0", "read_csv(quoted_na = )")
+  }
+  vroom::vroom(file, delim = ",", col_names = col_names, col_types = col_types,
+    skip = skip, n_max = n_max, na = na, quote = quote, comment = comment, trim_ws = trim_ws,
+    escape_double = TRUE, escape_backslash = FALSE, locale = locale, guess_max = guess_max,
+    progress = progress)
 }
 
 #' @rdname read_delim

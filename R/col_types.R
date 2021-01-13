@@ -50,15 +50,18 @@
 #' t3
 
 cols <- function(..., .default = col_guess()) {
-  col_types <- list(...)
-  is_character <- vapply(col_types, is.character, logical(1))
-  col_types[is_character] <- lapply(col_types[is_character], col_concise)
+  if (edition_first()) {
+    col_types <- list(...)
+    is_character <- vapply(col_types, is.character, logical(1))
+    col_types[is_character] <- lapply(col_types[is_character], col_concise)
 
-  if (is.character(.default)) {
-    .default <- col_concise(.default)
+    if (is.character(.default)) {
+      .default <- col_concise(.default)
+    }
+
+    return(col_spec(col_types, .default))
   }
-
-  col_spec(col_types, .default)
+  vroom::cols(..., .default = .default)
 }
 
 #' @export
