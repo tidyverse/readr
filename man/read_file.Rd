@@ -53,6 +53,25 @@ single string, or a raw vector, and writes it exactly as is.  Raw vectors
 are useful when dealing with binary data, or if you have text data with
 unknown encoding.
 }
+\section{Second edition changes}{
+
+\subsection{Deprecated Parameters}{
+\itemize{
+\item \code{skip_empty_rows}
+\item \code{na}
+}
+}
+
+\subsection{Behavior changes}{
+\itemize{
+\item Normalizing newlines in files with just carriage returns \verb{\\r} is no longer
+supported. The last major OS to use only CR as the newline was 'classic' Mac
+OS, which had its final release
+in 2001.
+}
+}
+}
+
 \examples{
 read_file(file.path(R.home("doc"), "AUTHORS"))
 read_file_raw(file.path(R.home("doc"), "AUTHORS"))

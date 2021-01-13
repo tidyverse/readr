@@ -10,10 +10,12 @@ test_that("read_lines returns an empty character vector on an empty file", {
 })
 
 test_that("read_lines handles embedded nuls", {
+  skip_if_edition_second()
   expect_equal(read_lines("null-file", progress = FALSE), c("a,b,c", "1,2,", "3,4,5"))
 })
 
 test_that("read_lines uses na argument", {
+  skip_if_edition_second()
   expect_equal(read_lines("sample_text.txt", na = "abc", progress = FALSE), c(NA_character_, "123"))
   expect_equal(read_lines("sample_text.txt", na = "123", progress = FALSE), c("abc", NA_character_))
   expect_equal(read_lines("sample_text.txt", na = c("abc", "123"), progress = FALSE), c(NA_character_, NA_character_))
@@ -26,10 +28,11 @@ test_that("blank lines are passed unchanged", {
   x <- c("abc", "", "123")
   write_lines(file = tmp, x)
   expect_equal(read_lines(tmp), x)
-  expect_equal(read_lines(tmp, na = ""), c("abc", NA_character_, "123"))
+  expect_equal(read_lines(tmp, na = ""), c("abc", "", "123"))
 })
 
 test_that("read_lines can skip blank lines (#923)", {
+  skip_if_edition_second()
   x <-
 "1
 2
@@ -61,6 +64,7 @@ test_that("allocation works as expected", {
 
 test_that("read_lines(skip_empty_rows) works when blank lines are at the end of the file (#968)", {
   skip_on_os("windows")
+  skip_if_edition_second()
 
   tmp <- tempfile()
   on.exit(unlink(tmp))
@@ -73,6 +77,7 @@ test_that("read_lines(skip_empty_rows) works when blank lines are at the end of 
 })
 
 test_that("read_lines(skip_empty_rows) works if there are double quotes in the lines (#991)", {
+  skip_if_edition_second()
   data <-
 "a\"b
 cde

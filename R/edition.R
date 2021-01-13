@@ -1,14 +1,15 @@
 #' @export
 edition_set <- function(edition) {
-  stopifnot(edition %in% c(1, 2))
+  edition <- as.integer(edition)
+  stopifnot(edition %in% c(1L, 2L))
 
-  Sys.setenv("readr.edition" = edition)
+  options("readr.edition" = edition)
 }
 
 edition_get <- function() {
-  Sys.getenv("readr.edition", 2)
+  getOption("readr.edition", 2L)
 }
 
 edition_first <- function() {
-  edition_get() == 1
+  edition_get() == 1L
 }

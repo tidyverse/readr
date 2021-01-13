@@ -10,7 +10,7 @@ read_lines(
   file,
   skip = 0,
   skip_empty_rows = FALSE,
-  n_max = -1L,
+  n_max = Inf,
   locale = default_locale(),
   na = character(),
   progress = show_progress()
@@ -92,6 +92,25 @@ vectors, and is useful for handling data with unknown encoding.
 \code{write_lines()} takes a character vector or list of raw vectors, appending a
 new line after each entry.
 }
+\section{Second edition changes}{
+
+\subsection{Deprecated Parameters}{
+\itemize{
+\item \code{skip_empty_rows}
+\item \code{na}
+}
+}
+
+\subsection{Behavior changes}{
+\itemize{
+\item Normalizing newlines in files with just carriage returns \verb{\\r} is no longer
+supported. The last major OS to use only CR as the newline was 'classic' Mac
+OS, which had its final release
+in 2001.
+}
+}
+}
+
 \examples{
 read_lines(file.path(R.home("doc"), "AUTHORS"), n_max = 10)
 read_lines_raw(file.path(R.home("doc"), "AUTHORS"), n_max = 10)

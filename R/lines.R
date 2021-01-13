@@ -6,6 +6,15 @@
 #' `write_lines()` takes a character vector or list of raw vectors, appending a
 #' new line after each entry.
 #'
+#' @section Second edition changes:
+#' ## Deprecated Parameters ##
+#' - `skip_empty_rows`
+#' - `na`
+#' ## Behavior changes
+#' - Normalizing newlines in files with just carriage returns `\r` is no longer
+#'   supported. The last major OS to use only CR as the newline was 'classic' Mac
+#'   OS, which had its final release
+#'   in 2001.
 #' @inheritParams datasource
 #' @inheritParams read_delim
 #' @param n_max Number of lines to read. If `n_max` is -1, all lines in

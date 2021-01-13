@@ -79,6 +79,11 @@ write_delim <- function(x, file, delim = " ", na = "NA", append = FALSE,
 
   x_out <- x
   x[] <- lapply(x, output_column)
+  if (edition_first()) {
+    stream_delim(x, file, delim = delim, col_names = col_names, append = append,
+      na = na, quote_escape = quote_escape, eol = eol)
+    return(invisible(x_out))
+  }
   vroom::vroom_write(x, file, delim = delim, col_names = col_names, append = append,
     na = na, eol = eol, escape = quote_escape)
 
@@ -132,6 +137,12 @@ write_excel_csv <- function(x, file, na = "NA", append = FALSE,
   x[datetime_cols] <- lapply(x[datetime_cols], format, "%Y/%m/%d %H:%M:%S")
 
   x[] <- lapply(x, output_column)
+  if (edition_first()) {
+    stream_delim(x, file, delim, col_names = col_names, append = append,
+      na = na, bom = !append, quote_escape = quote_escape, eol = eol
+    )
+    return(invisible(x_out))
+  }
   vroom::vroom_write(x, file, delim, col_names = col_names, append = append,
     na = na, bom = !append, eol = eol
   )
@@ -211,6 +222,11 @@ format_delim <- function(x, delim, na = "NA", append = FALSE,
   check_list_columns(x)
 
   x[] <- lapply(x, output_column)
+  if (edition_first()) {
+    res <- stream_delim(df = x, file = NULL, delim = delim, col_names = col_names, append = append, na = na, quote_escape = quote_escape, eol = eol)
+    Encoding(res) <- "UTF-8"
+    return(res)
+  }
   res <- vroom::vroom_format(x, delim = delim, eol = eol, col_names = col_names, na = na, escape = quote_escape)
   Encoding(res) <- "UTF-8"
   res
