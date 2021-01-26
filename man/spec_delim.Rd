@@ -43,7 +43,8 @@ spec_csv(
   n_max = 0,
   guess_max = 1000,
   progress = show_progress(),
-  skip_empty_rows = TRUE
+  skip_empty_rows = TRUE,
+  lazy = TRUE
 )
 
 spec_csv2(
@@ -77,7 +78,8 @@ spec_tsv(
   n_max = 0,
   guess_max = 1000,
   progress = show_progress(),
-  skip_empty_rows = TRUE
+  skip_empty_rows = TRUE,
+  lazy = TRUE
 )
 
 spec_table(
@@ -216,6 +218,9 @@ setting option \code{readr.show_progress} to \code{FALSE}.}
 \item{skip_empty_rows}{Should blank rows be ignored altogether? i.e. If this
 option is \code{TRUE} then blank rows will not be represented at all.  If it is
 \code{FALSE} then they will be represented by \code{NA} values in all the columns.}
+
+\item{lazy}{Read values lazily? By default the file is initially only
+indexed. The actual values are read lazily on-demand when accessed.}
 }
 \value{
 The \code{col_spec} generated for the file.

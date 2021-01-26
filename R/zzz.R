@@ -2,6 +2,7 @@
 .onLoad <- function(libname, pkgname) {
   register_s3_method("testthat", "compare", "col_spec")
   register_s3_method("testthat", "compare", "tbl_df")
+  register_s3_method("waldo", "compare_proxy", "tbl_df")
 
   opt <- options()
   opt_readr <- list(

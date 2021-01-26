@@ -41,7 +41,8 @@ read_csv(
   n_max = Inf,
   guess_max = min(1000, n_max),
   progress = show_progress(),
-  skip_empty_rows = TRUE
+  skip_empty_rows = TRUE,
+  lazy = TRUE
 )
 
 read_csv2(
@@ -75,7 +76,8 @@ read_tsv(
   n_max = Inf,
   guess_max = min(1000, n_max),
   progress = show_progress(),
-  skip_empty_rows = TRUE
+  skip_empty_rows = TRUE,
+  lazy = TRUE
 )
 }
 \arguments{
@@ -186,6 +188,9 @@ setting option \code{readr.show_progress} to \code{FALSE}.}
 \item{skip_empty_rows}{Should blank rows be ignored altogether? i.e. If this
 option is \code{TRUE} then blank rows will not be represented at all.  If it is
 \code{FALSE} then they will be represented by \code{NA} values in all the columns.}
+
+\item{lazy}{Read values lazily? By default the file is initially only
+indexed. The actual values are read lazily on-demand when accessed.}
 }
 \value{
 A \code{\link[=tibble]{tibble()}}. If there are parsing problems, a warning tells you

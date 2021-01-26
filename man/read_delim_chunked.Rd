@@ -41,7 +41,7 @@ read_csv_chunked(
   comment = "",
   trim_ws = TRUE,
   skip = 0,
-  guess_max = min(1000, chunk_size),
+  guess_max = chunk_size,
   progress = show_progress(),
   skip_empty_rows = TRUE
 )
@@ -77,7 +77,7 @@ read_tsv_chunked(
   comment = "",
   trim_ws = TRUE,
   skip = 0,
-  guess_max = min(1000, chunk_size),
+  guess_max = chunk_size,
   progress = show_progress(),
   skip_empty_rows = TRUE
 )

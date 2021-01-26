@@ -64,6 +64,8 @@ NULL
 #'   is updated every 50,000 values and will only display if estimated reading
 #'   time is 5 seconds or more. The automatic progress bar can be disabled by
 #'   setting option `readr.show_progress` to `FALSE`.
+#' @param lazy Read values lazily? By default the file is initially only
+#'   indexed. The actual values are read lazily on-demand when accessed.
 #' @return A [tibble()]. If there are parsing problems, a warning tells you
 #'   how many, and you can retrieve the details with [problems()].
 #' @export
@@ -130,7 +132,7 @@ read_csv <- function(file, col_names = TRUE, col_types = NULL,
                      locale = default_locale(), na = c("", "NA"),
                      quoted_na = TRUE, quote = "\"", comment = "", trim_ws = TRUE,
                      skip = 0, n_max = Inf, guess_max = min(1000, n_max),
-                     progress = show_progress(), skip_empty_rows = TRUE) {
+                     progress = show_progress(), skip_empty_rows = TRUE, lazy = TRUE) {
   if (edition_first()) {
   tokenizer <- tokenizer_csv(na = na, quoted_na = quoted_na, quote = quote,
     comment = comment, trim_ws = trim_ws, skip_empty_rows = skip_empty_rows)
@@ -148,7 +150,7 @@ read_csv <- function(file, col_names = TRUE, col_types = NULL,
   vroom::vroom(file, delim = ",", col_names = col_names, col_types = col_types,
     skip = skip, n_max = n_max, na = na, quote = quote, comment = comment, trim_ws = trim_ws,
     escape_double = TRUE, escape_backslash = FALSE, locale = locale, guess_max = guess_max,
-    progress = progress)
+    progress = progress, altrep = lazy)
 }
 
 #' @rdname read_delim
@@ -181,12 +183,18 @@ read_tsv <- function(file, col_names = TRUE, col_types = NULL,
                      na = c("", "NA"), quoted_na = TRUE, quote = "\"",
                      comment = "", trim_ws = TRUE, skip = 0, n_max = Inf,
                      guess_max = min(1000, n_max), progress = show_progress(),
-                     skip_empty_rows = TRUE) {
+                     skip_empty_rows = TRUE, lazy = TRUE) {
   tokenizer <- tokenizer_tsv(na = na, quoted_na = quoted_na, quote = quote,
     comment = comment, trim_ws = trim_ws, skip_empty_rows = skip_empty_rows)
-  read_delimited(file, tokenizer, col_names = col_names, col_types = col_types,
-    locale = locale, skip = skip, skip_empty_rows = skip_empty_rows,
-    comment = comment, n_max = n_max, guess_max = guess_max, progress = progress)
+  if (edition_first()) {
+    return(read_delimited(file, tokenizer, col_names = col_names, col_types = col_types,
+        locale = locale, skip = skip, skip_empty_rows = skip_empty_rows,
+        comment = comment, n_max = n_max, guess_max = guess_max, progress = progress))
+  }
+
+  vroom::vroom(file, delim = "\t", col_names = col_names,
+    col_types = col_types, locale = locale, skip = skip, comment = comment,
+    n_max = n_max, guess_max = guess_max, progress = progress, altrep = lazy)
 }
 
 # Helper functions for reading from delimited files ----------------------------

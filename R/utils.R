@@ -59,6 +59,13 @@ compare.col_spec <- function(x, y, ...) {
   NextMethod("compare")
 }
 
+# @export
+compare_proxy.tbl_df <- function(x) {
+  attr(x, "spec") <- NULL
+  attr(x, "problems") <- NULL
+  x
+}
+
 is_named <- function(x) {
   nms <- names(x)
 

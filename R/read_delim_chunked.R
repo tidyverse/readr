@@ -95,7 +95,20 @@ read_delim_chunked <- generate_chunked_fun(read_delim)
 
 #' @rdname read_delim_chunked
 #' @export
-read_csv_chunked <- generate_chunked_fun(read_csv)
+read_csv_chunked <- function(file, callback, chunk_size = 10000, col_names = TRUE, col_types = NULL,
+                     locale = default_locale(), na = c("", "NA"),
+                     quoted_na = TRUE, quote = "\"", comment = "", trim_ws = TRUE,
+                     skip = 0, guess_max = chunk_size,
+                     progress = show_progress(), skip_empty_rows = TRUE) {
+
+  tokenizer <- tokenizer_csv(na = na, quoted_na = quoted_na, quote = quote,
+    comment = comment, trim_ws = trim_ws, skip_empty_rows = skip_empty_rows)
+  read_delimited_chunked(file, callback = callback, chunk_size = chunk_size,
+    tokenizer, col_names = col_names, col_types = col_types, locale = locale,
+    skip = skip, skip_empty_rows = skip_empty_rows, comment = comment,
+    guess_max = guess_max, progress = progress
+  )
+}
 
 #' @rdname read_delim_chunked
 #' @export
@@ -103,4 +116,17 @@ read_csv2_chunked <- generate_chunked_fun(read_csv2)
 
 #' @rdname read_delim_chunked
 #' @export
-read_tsv_chunked <- generate_chunked_fun(read_tsv)
+read_tsv_chunked <- function(file, callback, chunk_size = 10000, col_names = TRUE, col_types = NULL,
+                     locale = default_locale(), na = c("", "NA"),
+                     quoted_na = TRUE, quote = "\"", comment = "", trim_ws = TRUE,
+                     skip = 0, guess_max = chunk_size,
+                     progress = show_progress(), skip_empty_rows = TRUE) {
+
+  tokenizer <- tokenizer_tsv(na = na, quoted_na = quoted_na, quote = quote,
+    comment = comment, trim_ws = trim_ws, skip_empty_rows = skip_empty_rows)
+  read_delimited_chunked(file, callback = callback, chunk_size = chunk_size,
+    tokenizer, col_names = col_names, col_types = col_types, locale = locale,
+    skip = skip, skip_empty_rows = skip_empty_rows, comment = comment,
+    guess_max = guess_max, progress = progress
+  )
+}

@@ -224,7 +224,10 @@ empty_file <- function(x) {
 #' @seealso read_delim
 #' @export
 clipboard <- function() {
-  clipr::read_clip()
+  if (edition_first()) {
+    return(clipr::read_clip())
+  }
+  paste0(clipr::read_clip(), collapse = "\n")
 }
 
 detect_compression <- function(path) {

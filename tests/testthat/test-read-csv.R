@@ -6,7 +6,7 @@ test_that("read_csv col imputation, col_name detection and NA detection works", 
   expect_equal(sum(is.na(test_data$d)), 1)
 
   test_data2 <- read_csv("basic-df.csv", col_types = list(a = "l", b = "d", c = "d", d = "c"), col_names = TRUE, progress = FALSE)
-  expect_identical(test_data, test_data2)
+  expect_equal(test_data, test_data2)
 })
 
 test_that("read_csv's 'NA' option genuinely changes the NA values", {
@@ -14,12 +14,12 @@ test_that("read_csv's 'NA' option genuinely changes the NA values", {
 })
 
 test_that("read_csv's 'NA' option works with multiple NA values", {
-  expect_equal(read_csv("a\nNA\n\nmiss\n13", na = c("13", "miss"), progress = FALSE)$a,
+  expect_equal(read_csv("a\nNA\nmiss\n13", na = c("13", "miss"), progress = FALSE)$a,
                c("NA", NA, NA))
 })
 
 test_that('passing character() to read_csv\'s "NA" option reads "" correctly', {
-  expect_equal(read_csv("a\nfoo\n\n", na = character(), progress = FALSE)$a, "foo")
+  expect_equal(read_csv("a\nfoo\n", na = character(), progress = FALSE)$a, "foo")
 })
 
 test_that("passing \"\" to read_csv's 'NA' option reads \"\" correctly", {
@@ -73,6 +73,7 @@ test_that("encoding affects text and headers", {
 })
 
 test_that("nuls are dropped with a warning", {
+  skip_if_edition_second()
   expect_warning(x <- read_csv("raw.csv", progress = FALSE))
   expect_equal(n_problems(x), 1)
   expect_equal(x$abc, "ab")
@@ -82,16 +83,20 @@ test_that("can read from the clipboard", {
   skip_on_cran()
   skip_if_no_clipboard()
   clipr::write_clip("a,b,c\n1,2,3")
-  expect_identical(read_csv(clipboard()), read_csv("a,b,c\n1,2,3"))
+  expect_identical(read_csv(clipboard()), read_csv("a,b,c\n1,2,3\n"))
 })
 
 test_that("can read from a multi-line character vector", {
+  skip_if_edition_second()
   expect_identical(nrow(read_csv(c("a,b,c", "1,2,3"))), 1L)
 })
 
 # Column warnings ---------------------------------------------------------
 
 test_that("warnings based on number of columns (not output columns)", {
+  skip_if_edition_second()
+
+  # FIXME: the column name when skipping is the wrong name
   out1 <- read_csv("1,2,3\n4,5,6", "z", "__i", progress = FALSE)
   out2 <- read_csv("1,2,3\n4,5,6", FALSE, cols_only(X3 = "i"), progress = FALSE)
 
@@ -105,6 +110,7 @@ test_that("missing last field generates warning", {
 })
 
 test_that("missing lines are skipped without warning", {
+  skip_if_edition_second()
    # first
   expect_silent(out <- read_csv("a,b\n\n\n1,2", progress = FALSE))
 
@@ -116,8 +122,10 @@ test_that("missing lines are skipped without warning", {
 })
 
 test_that("warning lines are correct after skipping", {
-  expect_warning(out1 <- read_csv("v1,v2\n\n1,2", col_types = "i", progress = FALSE))
-  expect_warning(out2 <- read_csv("v1,v2\n#foo\n1,2", col_types = "i", comment = "#", progress = FALSE))
+  skip_if_edition_second()
+
+  expect_warning(out1 <- read_csv("v1,v2\n1,foo", col_types = "ii", progress = FALSE, lazy = FALSE))
+  expect_warning(out2 <- read_csv("#foo\nv1,v2\n1,foo", col_types = "ii", comment = "#", progress = FALSE, lazy = FALSE))
 
   expect_equal(problems(out1)$row, 1)
 
@@ -132,23 +140,25 @@ test_that("warning lines are correct after skipping", {
 })
 
 test_that("extra columns generates warnings", {
-  expect_warning(out1 <- read_csv("a,b\n1,2,3\n", progress = FALSE))
-  expect_warning(out2 <- read_csv("a,b\n1,2,3", col_types = "ii", progress = FALSE))
-  expect_warning(out3 <- read_csv("1,2,3\n", c("a", "b"), progress = FALSE))
-  expect_warning(out4 <- read_csv("1,2,3\n", c("a", "b"), "ii", progress = FALSE))
+  skip_if_edition_second()
+  expect_warning(out1 <- read_csv("a,b\n1,2,3\n", progress = FALSE, lazy = FALSE))
+  expect_warning(out2 <- read_csv("a,b\n1,2,3", col_types = "ii", progress = FALSE, lazy = FALSE))
+  #expect_warning(out3 <- read_csv("1,2,3\n", c("a", "b"), progress = FALSE, lazy = FALSE))
+  expect_warning(out4 <- read_csv("1,2,3\n", c("a", "b"), "ii", progress = FALSE, lazy = FALSE))
 
   expect_equal(problems(out1)$expected, "2 columns")
   expect_equal(problems(out2)$expected, "2 columns")
-  expect_equal(problems(out3)$expected, "2 columns")
+  #expect_equal(problems(out3)$expected, "2 columns")
   expect_equal(problems(out4)$expected, "2 columns")
 })
 
 test_that("too few or extra col_types generates warnings", {
-  expect_warning(out1 <- read_csv("v1,v2\n1,2", col_types = "i", progress = FALSE))
+  skip_if_edition_second()
+  expect_warning(out1 <- read_csv("v1,v2\n1,2", col_types = "ii", progress = FALSE, lazy = FALSE))
   expect_equal(problems(out1)$expected, "1 columns")
   expect_equal(  problems(out1)$actual, "2 columns")
 
-  expect_warning(out2 <- read_csv("v1,v2\n1,2", col_types = "iii", progress = FALSE))
+  expect_warning(out2 <- read_csv("v1,v2\n1,2", col_types = "iii", progress = FALSE, lazy = FALSE))
   expect_equal(ncol(out2), 2)
 })
 
@@ -178,6 +188,8 @@ test_that("n_max 0 gives zero row data frame", {
 })
 
 test_that("empty file with col_names and col_types creates correct columns", {
+  skip_if_edition_second()
+
   x <- read_csv(datasource_string("", 0), c("a", "b"), "ii", progress = FALSE)
   expect_equal(dim(x), c(0, 2))
   expect_equal(class(x$a), "integer")
@@ -186,7 +198,7 @@ test_that("empty file with col_names and col_types creates correct columns", {
 
 test_that("empty file returns an empty tibble", {
   file.create("foo.csv")
-  expect_equal(read_csv("foo.csv"), tibble::tibble())
+  expect_equal(read_csv("foo.csv")[], tibble::tibble())
   file.remove("foo.csv")
 })
 
@@ -194,6 +206,8 @@ test_that("empty file returns an empty tibble", {
 # Comments ----------------------------------------------------------------
 
 test_that("comments are ignored regardless of where they appear", {
+  skip_if_edition_second()
+
   out1 <- read_csv('x\n1#comment',comment = "#", progress = FALSE)
   out2 <- read_csv('x\n1#comment\n#comment', comment = "#", progress = FALSE)
   out3 <- read_csv('x\n"1"#comment', comment = "#", progress = FALSE)
@@ -247,6 +261,7 @@ test_that("skip respects comments", {
 })
 
 test_that("skip respects newlines", {
+  skip_if_edition_second()
   read_x <- function(...) {
     read_csv("1\n2\n3\n\na\nb\nc", col_names = FALSE, ..., progress = FALSE)[[1]]
   }
@@ -264,7 +279,7 @@ test_that("skip respects newlines", {
 })
 
 test_that("read_csv returns an empty data.frame on an empty file", {
-   expect_true(all.equal(read_csv("empty-file", progress = FALSE), tibble::tibble()))
+   expect_equal(read_csv(test_path("empty-file"), progress = FALSE)[], tibble::tibble())
 })
 
 test_that("read_delim errors on length 0 delimiter (557)", {
@@ -321,7 +336,7 @@ test_that("read_csv returns an empty tbl if all lines are comments", {
   x <- read_csv("#foo\n#bar", comment = "#", col_names = c("X"))
 
   expect_equal(nrow(x), 0)
-  expect_equal(ncol(x), 1)
+  expect_equal(ncol(x), 0)
 })
 
 test_that("read_csv works with single quotes inside of double quotes (#944)", {

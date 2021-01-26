@@ -23,8 +23,9 @@
 #' problems(y)
 problems <- function(x) {
   probs <- probs(x)
+  if (edition_first() || is.null(probs) || inherits(probs, "tbl_df")) {
   if (is.null(probs)) {
-    structure(
+    res <- structure(
       data.frame(
         row = integer(),
         col = integer(),
@@ -35,8 +36,11 @@ problems <- function(x) {
       class = c("tbl_df", "data.frame")
     )
   } else {
-    probs
+    res <- probs
   }
+  return(res)
+  }
+  vroom::problems(x)
 }
 
 #' @export

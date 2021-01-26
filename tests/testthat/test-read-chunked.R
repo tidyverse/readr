@@ -109,6 +109,7 @@ test_that("read_delim_chunked", {
 test_that("DataFrameCallback works as intended", {
   f <- readr_example("mtcars.csv")
   out0 <- subset(read_csv(f), gear == 3)
+  attr(out0, "problems") <- NULL
   fun3 <- DataFrameCallback$new(function(x, pos) subset(x, gear == 3))
 
   out1 <- read_csv_chunked(f, fun3)
@@ -125,6 +126,7 @@ test_that("DataFrameCallback works as intended", {
 
   # No matching rows
   out0 <- subset(read_csv(f), gear == 5)
+  attr(out0, "problems") <- NULL
 
   fun5 <- DataFrameCallback$new(function(x, pos) subset(x, gear == 5))
 
