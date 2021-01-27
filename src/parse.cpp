@@ -127,7 +127,8 @@ tokenize_(cpp11::list sourceSpec, cpp11::list tokenizerSpec, int n_max) {
   out.reserve(rows.size());
 
   for (auto&& row : rows) {
-    out.push_back(cpp11::as_sexp(row));
+    cpp11::sexp row_data(cpp11::as_sexp(row));
+    out.push_back(row_data);
   }
 
   return warnings.addAsAttribute(out);
