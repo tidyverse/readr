@@ -8,6 +8,8 @@
 
 * `read_delim()` fails when sample of parsing problems contains non-ASCII characters (@hidekoji, #1136)
 
+* Chunked readers now support files with more than `INT_MAX` (~ 2 Billion) number of lines (#1177)
+
 # readr 1.4.0
 
 ## Breaking changes

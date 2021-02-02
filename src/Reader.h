@@ -21,10 +21,10 @@ public:
       bool progress,
       cpp11::strings colNames = cpp11::strings());
 
-  cpp11::sexp readToDataFrame(int lines = -1);
-  cpp11::sexp meltToDataFrame(cpp11::list locale_, int lines = -1);
+  cpp11::sexp readToDataFrame(R_xlen_t lines = -1);
+  cpp11::sexp meltToDataFrame(cpp11::list locale_, R_xlen_t lines = -1);
 
-  template <typename T> T readToVector(int lines) {
+  template <typename T> T readToVector(R_xlen_t lines) {
     read(lines);
 
     SEXP x = collectors_[0]->vector();
@@ -45,13 +45,13 @@ private:
   bool begun_;
   Token t_;
 
-  const static int progressStep_ = 10000;
+  const static R_xlen_t progressStep_ = 10000;
 
   void init(cpp11::strings colNames);
-  int read(int lines = -1);
-  int melt(cpp11::list locale_, int lines = -1);
+  R_xlen_t read(R_xlen_t lines = -1);
+  R_xlen_t melt(cpp11::list locale_, R_xlen_t lines = -1);
   void checkColumns(int i, int j, int n);
 
-  void collectorsResize(int n);
+  void collectorsResize(R_xlen_t n);
   void collectorsClear();
 };
