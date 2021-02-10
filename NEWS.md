@@ -1,5 +1,13 @@
 # readr (development version)
 
+## second edition changes
+
+* `melt_csv()`, `melt_delim()`, `melt_tsv()` and `melt_fwf()` have been deprecated.
+  These functions rely on the older parsing code and would be challenging to update to the new parser.
+  When the older parsing code is eventually removed from readr they will be split off into a new package.
+
+## Additional features and fixes
+
 * `write_csv()` now errors if given a matrix column (#1171)
 
 * `write_csv()` now again is able to write data with duplicated column names (#1169)
