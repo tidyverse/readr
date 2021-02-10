@@ -218,7 +218,7 @@ test_that("print(col_spec) with colors", {
 })
 
 test_that("non-syntatic names are escaped", {
-  x <- read_csv("a b,_c,1,a`b\n1,2,3,4")
+  x <- read_csv(I("a b,_c,1,a`b\n1,2,3,4"))
   expect_equal(format(spec(x), colour = FALSE),
 "cols(
   `a b` = col_double(),

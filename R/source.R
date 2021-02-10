@@ -227,7 +227,7 @@ clipboard <- function() {
   if (edition_first()) {
     return(clipr::read_clip())
   }
-  paste0(clipr::read_clip(), collapse = "\n")
+  I(paste0(clipr::read_clip(), collapse = "\n"))
 }
 
 detect_compression <- function(path) {

@@ -20,9 +20,9 @@ test_that("read_delim/csv/tsv and write_delim round trip special chars", {
   x <- c("a", '"', ",", "\n","at\t")
 
   output <- data.frame(x)
-  input <- read_delim(format_delim(output, delim = " "), delim = " ", trim_ws = FALSE, progress = FALSE)
-  input_csv <- read_csv(format_delim(output, delim = ","), trim_ws = FALSE, progress = FALSE)
-  input_tsv <- read_tsv(format_delim(output, delim = "\t"), trim_ws = FALSE, progress = FALSE)
+  input <- read_delim(I(format_delim(output, delim = " ")), delim = " ", trim_ws = FALSE, progress = FALSE)
+  input_csv <- read_csv(I(format_delim(output, delim = ",")), trim_ws = FALSE, progress = FALSE)
+  input_tsv <- read_tsv(I(format_delim(output, delim = "\t")), trim_ws = FALSE, progress = FALSE)
   expect_equal(input$x, input_csv$x)
   expect_equal(input_tsv$x,  x)
 })
@@ -139,7 +139,7 @@ test_that("write_csv writes large integers without scientific notation up to 1E1
   write_csv(x, filename)
   content <- read_file(filename)
   expect_equal(content, "a\n10000000000000\n100000000000000\n1e15\n1e16\n")
-  x_exp <- read_csv(filename, col_types = "d")
+  x_exp <- read_csv(filename, col_types = "d", progress = FALSE)
   expect_equal(x$a, x_exp$a)
 })
 
