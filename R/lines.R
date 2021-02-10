@@ -54,11 +54,11 @@ read_lines <- function(file, skip = 0, skip_empty_rows = FALSE, n_max = Inf,
   }
 
   if (!missing(skip_empty_rows)) {
-    lifecycle::deprecate_soft("2.0.0", "read_lines(skip_empty_rows = )")
+    lifecycle::deprecate_soft("2.0.0", "readr::read_lines(skip_empty_rows = )")
   }
 
   if (!missing(na)) {
-    lifecycle::deprecate_soft("2.0.0", "read_lines(na = )")
+    lifecycle::deprecate_soft("2.0.0", "readr::read_lines(na = )")
   }
 
   vroom::vroom_lines(file, skip = skip, locale = locale, n_max = n_max, progress = progress)

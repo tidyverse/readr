@@ -237,7 +237,7 @@ spec_csv(system.file("extdata/mtcars.csv", package = "readr"))
 spec_csv(system.file("extdata/mtcars.csv.zip", package = "readr"))
 
 # Or directly from a string (must contain a newline)
-spec_csv("x,y\n1,2\n3,4")
+spec_csv(I("x,y\n1,2\n3,4"))
 
 # Column types --------------------------------------------------------------
 # By default, readr guesses the columns types, looking at the first 1000 rows.

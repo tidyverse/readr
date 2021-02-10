@@ -82,5 +82,5 @@ x <- format_csv(mtcars[1:6, ])
 write_file(x, tmp)
 identical(x, read_file(tmp))
 
-read_lines(x)
+read_lines(I(x))
 }
