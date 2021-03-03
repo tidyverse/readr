@@ -1,5 +1,7 @@
 # readr (development version)
 
+* `col_factor()` now throws a more informative error message if given non-character levels (#1140)
+
 * `write_csv()` now errors if given a matrix column (#1171)
 
 * `write_csv()` now again is able to write data with duplicated column names (#1169)

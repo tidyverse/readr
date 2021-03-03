@@ -249,6 +249,9 @@ parse_factor <- function(x, levels = NULL, ordered = FALSE, na = c("", "NA"),
 #' @rdname parse_factor
 #' @export
 col_factor <- function(levels = NULL, ordered = FALSE, include_na = FALSE) {
+  if (!(is.null(levels) || is.character(levels))) {
+    stop(sprintf("`levels` must be `NULL` or a character vector:\n- `levels` is a '%s'", class(levels)), call. = FALSE)
+  }
   collector("factor", levels = levels, ordered = ordered, include_na = include_na)
 }
 
