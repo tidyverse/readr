@@ -329,7 +329,7 @@ Token TokenizerDelim::stringToken(
 }
 
 void TokenizerDelim::unescape(
-    SourceIterator begin, SourceIterator end, boost::container::string* pOut) {
+    SourceIterator begin, SourceIterator end, std::string* pOut) {
   if (escapeDouble_ && !escapeBackslash_) {
     unescapeDouble(begin, end, pOut);
   } else if (escapeBackslash_ && !escapeDouble_) {
@@ -340,7 +340,7 @@ void TokenizerDelim::unescape(
 }
 
 void TokenizerDelim::unescapeDouble(
-    SourceIterator begin, SourceIterator end, boost::container::string* pOut) {
+    SourceIterator begin, SourceIterator end, std::string* pOut) {
   pOut->reserve(end - begin);
 
   bool inEscape = false;
@@ -359,7 +359,7 @@ void TokenizerDelim::unescapeDouble(
 }
 
 void TokenizerDelim::unescapeBackslash(
-    SourceIterator begin, SourceIterator end, boost::container::string* pOut) {
+    SourceIterator begin, SourceIterator end, std::string* pOut) {
   pOut->reserve(end - begin);
 
   bool inEscape = false;

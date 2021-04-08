@@ -13,8 +13,7 @@ class Token;
 
 typedef const char* SourceIterator;
 typedef std::pair<SourceIterator, SourceIterator> SourceIterators;
-typedef void (*UnescapeFun)(
-    SourceIterator, SourceIterator, boost::container::string*);
+typedef void (*UnescapeFun)(SourceIterator, SourceIterator, std::string*);
 
 class Tokenizer;
 typedef std::shared_ptr<Tokenizer> TokenizerPtr;
@@ -31,10 +30,8 @@ public:
   // Percentage & bytes
   virtual std::pair<double, size_t> progress() = 0;
 
-  virtual void unescape(
-      SourceIterator begin,
-      SourceIterator end,
-      boost::container::string* pOut) {
+  virtual void
+  unescape(SourceIterator begin, SourceIterator end, std::string* pOut) {
     pOut->reserve(end - begin);
     for (SourceIterator cur = begin; cur != end; ++cur)
       pOut->push_back(*cur);
