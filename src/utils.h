@@ -1,7 +1,8 @@
 #ifndef FASTREAD_UTILS_H_
 #define FASTREAD_UTILS_H_
 
-#include <string.h>
+#include <locale>
+#include <string>
 
 #include <boost/range/algorithm/equal.hpp>
 
@@ -48,6 +49,37 @@ inline bool isFalse(const char* start, const char* end) {
 
 inline bool isLogical(const char* start, const char* end) {
   return isTrue(start, end) || isFalse(start, end);
+}
+
+inline bool istarts_with(const std::string& input, const std::string& test) {
+  if (test.size() > input.size()) {
+    return false;
+  }
+
+  auto test_it = test.cbegin();
+  auto input_it = input.cbegin();
+  auto test_end = test.cend();
+  auto locale = std::locale();
+  while (test_it != test_end) {
+    if (std::toupper(*test_it++, locale) != std::toupper(*input_it++, locale)) {
+      return false;
+    }
+  }
+  return true;
+}
+
+inline bool starts_with_comment(
+    const char* cur, const char* end, const std::string& comment) {
+  // If the comment is bigger than what we are testing, it cannot start with it.
+  if ((long)comment.size() > (end - cur)) {
+    return false;
+  }
+  for (auto c : comment) {
+    if (*cur++ != c) {
+      return false;
+    }
+  }
+  return true;
 }
 
 #endif

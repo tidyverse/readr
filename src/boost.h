@@ -8,7 +8,6 @@
 
 #include <boost/container/string.hpp>
 
-#include <boost/algorithm/string/predicate.hpp>
 #include <boost/spirit/include/qi.hpp>
 
 #endif
