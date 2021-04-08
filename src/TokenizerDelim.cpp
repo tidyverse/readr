@@ -279,8 +279,7 @@ bool TokenizerDelim::isComment(const char* cur) const {
   if (!hasComment_)
     return false;
 
-  boost::iterator_range<const char*> haystack(cur, end_);
-  return boost::starts_with(haystack, comment_);
+  return starts_with_comment(cur, end_, comment_);
 }
 
 void TokenizerDelim::newField() {

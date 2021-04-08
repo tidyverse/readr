@@ -7,6 +7,7 @@
 #include "cpp11/protect.hpp"
 
 #include "boost.h"
+#include "utils.h"
 #include <ctime>
 
 // Parsing ---------------------------------------------------------------------
@@ -381,7 +382,7 @@ private:
     std::string needleUTF8 = pLocale_->encoder_.makeString(dateItr_, dateEnd_);
 
     for (size_t i = 0; i < haystack.size(); ++i) {
-      if (boost::istarts_with(needleUTF8, haystack[i])) {
+      if (istarts_with(needleUTF8, haystack[i])) {
         *pOut = i;
         dateItr_ += haystack[i].size();
         return true;
