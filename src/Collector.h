@@ -12,10 +12,10 @@
 #include "LocaleInfo.h"
 #include "Token.h"
 #include "Warnings.h"
-#include <boost/shared_ptr.hpp>
+#include <memory>
 
 class Collector;
-typedef boost::shared_ptr<Collector> CollectorPtr;
+typedef std::shared_ptr<Collector> CollectorPtr;
 
 class Collector {
 protected:

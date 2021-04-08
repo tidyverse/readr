@@ -5,9 +5,10 @@
 #include "utils.h"
 
 #include "boost.h"
+#include <memory>
 
 class Source;
-typedef boost::shared_ptr<Source> SourcePtr;
+typedef std::shared_ptr<Source> SourcePtr;
 
 class Source {
 public:
