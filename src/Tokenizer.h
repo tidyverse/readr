@@ -61,11 +61,13 @@ public:
 // Helper class for parsers - ensures iterator always advanced no matter
 // how loop is exited
 
-class Advance : boost::noncopyable {
+class Advance {
   SourceIterator* pIter_;
 
 public:
   Advance(SourceIterator* pIter) : pIter_(pIter) {}
+  Advance(const Advance&) = delete;
+  Advance& operator=(const Advance&) = delete;
   ~Advance() { (*pIter_)++; }
 };
 
