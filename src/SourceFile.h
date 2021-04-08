@@ -4,11 +4,10 @@
 #include "Source.h"
 #include "cpp11/protect.hpp"
 
-#include "boost.h"
+#include "unicode_fopen.h"
 
 class SourceFile : public Source {
-  boost::interprocess::file_mapping fm_;
-  boost::interprocess::mapped_region mr_;
+  mio::mmap_source source_;
 
   const char* begin_;
   const char* end_;
@@ -20,17 +19,16 @@ public:
       bool skipEmptyRows = true,
       const std::string& comment = "",
       bool skipQuotes = true) {
-    try {
-      fm_ = boost::interprocess::file_mapping(
-          path.c_str(), boost::interprocess::read_only);
-      mr_ = boost::interprocess::mapped_region(
-          fm_, boost::interprocess::read_private);
-    } catch (boost::interprocess::interprocess_exception& e) {
-      cpp11::stop("Cannot read file %s: %s", path.c_str(), e.what());
+
+    std::error_code error;
+    source_ = make_mmap_source(path.c_str(), error);
+
+    if (error) {
+      cpp11::stop("Cannot read file %s: %s", error.message().c_str());
     }
 
-    begin_ = static_cast<char*>(mr_.get_address());
-    end_ = begin_ + mr_.get_size();
+    begin_ = source_.begin();
+    end_ = begin_ + source_.size();
 
     // Skip byte order mark, if needed
     begin_ = skipBom(begin_, end_);
