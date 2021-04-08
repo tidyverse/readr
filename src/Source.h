@@ -4,7 +4,6 @@
 #include "cpp11/list.hpp"
 #include "utils.h"
 
-#include "boost.h"
 #include <memory>
 
 class Source;
