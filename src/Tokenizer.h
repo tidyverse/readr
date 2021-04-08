@@ -7,6 +7,7 @@
 
 #include "Warnings.h"
 #include "boost.h"
+#include <memory>
 
 class Token;
 
@@ -16,7 +17,7 @@ typedef void (*UnescapeFun)(
     SourceIterator, SourceIterator, boost::container::string*);
 
 class Tokenizer;
-typedef boost::shared_ptr<Tokenizer> TokenizerPtr;
+typedef std::shared_ptr<Tokenizer> TokenizerPtr;
 
 class Tokenizer {
   Warnings* pWarnings_;
