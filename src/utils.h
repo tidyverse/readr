@@ -4,8 +4,6 @@
 #include <locale>
 #include <string>
 
-#include <boost/range/algorithm/equal.hpp>
-
 // Advances iterator if the next character is a LF.
 // Returns iterator to end of line.
 template <class Iter> inline Iter advanceForLF(Iter* pBegin, Iter end) {
