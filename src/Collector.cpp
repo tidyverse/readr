@@ -65,7 +65,7 @@ collectorsCreate(cpp11::list specs, LocaleInfo* pLocale) {
 void CollectorCharacter::setValue(int i, const Token& t) {
   switch (t.type()) {
   case TOKEN_STRING: {
-    boost::container::string buffer;
+    std::string buffer;
     SourceIterators string = t.getString(&buffer);
 
     if (t.hasNull())
@@ -95,7 +95,7 @@ void CollectorCharacter::setValue(int i, const std::string& s) {
 void CollectorDate::setValue(int i, const Token& t) {
   switch (t.type()) {
   case TOKEN_STRING: {
-    boost::container::string buffer;
+    std::string buffer;
     SourceIterators string = t.getString(&buffer);
     std::string std_string(string.first, string.second);
 
@@ -130,7 +130,7 @@ void CollectorDate::setValue(int i, const Token& t) {
 void CollectorDateTime::setValue(int i, const Token& t) {
   switch (t.type()) {
   case TOKEN_STRING: {
-    boost::container::string buffer;
+    std::string buffer;
     SourceIterators string = t.getString(&buffer);
     std::string std_string(string.first, string.second);
 
@@ -168,7 +168,7 @@ void CollectorDateTime::setValue(int i, const Token& t) {
 void CollectorDouble::setValue(int i, const Token& t) {
   switch (t.type()) {
   case TOKEN_STRING: {
-    boost::container::string buffer;
+    std::string buffer;
     SourceIterators str = t.getString(&buffer);
 
     bool ok =
@@ -222,7 +222,7 @@ void CollectorFactor::setValue(int i, const Token& t) {
   switch (t.type()) {
   case TOKEN_EMPTY:
   case TOKEN_STRING: {
-    boost::container::string buffer;
+    std::string buffer;
     SourceIterators string = t.getString(&buffer);
 
     cpp11::r_string std_string(
@@ -246,7 +246,7 @@ void CollectorInteger::setValue(int i, const Token& t) {
 
   switch (t.type()) {
   case TOKEN_STRING: {
-    boost::container::string buffer;
+    std::string buffer;
     SourceIterators str = t.getString(&buffer);
 
     bool ok = parseInt(str.first, str.second, INTEGER(column_)[i]);
@@ -279,7 +279,7 @@ void CollectorLogical::setValue(int i, const Token& t) {
 
   switch (t.type()) {
   case TOKEN_STRING: {
-    boost::container::string buffer;
+    std::string buffer;
     SourceIterators string = t.getString(&buffer);
     std::string str(string.first, string.second);
     size_t len = string.second - string.first;
@@ -312,7 +312,7 @@ void CollectorLogical::setValue(int i, const Token& t) {
 void CollectorNumeric::setValue(int i, const Token& t) {
   switch (t.type()) {
   case TOKEN_STRING: {
-    boost::container::string buffer;
+    std::string buffer;
     SourceIterators str = t.getString(&buffer);
 
     bool ok = parseNumber(
@@ -339,7 +339,7 @@ void CollectorNumeric::setValue(int i, const Token& t) {
 void CollectorTime::setValue(int i, const Token& t) {
   switch (t.type()) {
   case TOKEN_STRING: {
-    boost::container::string buffer;
+    std::string buffer;
     SourceIterators string = t.getString(&buffer);
     std::string std_string(string.first, string.second);
 

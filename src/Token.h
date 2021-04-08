@@ -47,7 +47,7 @@ public:
   std::string asString() const {
     switch (type_) {
     case TOKEN_STRING: {
-      boost::container::string buffer;
+      std::string buffer;
       SourceIterators string = getString(&buffer);
 
       return std::string(string.first, string.second);
@@ -76,7 +76,7 @@ public:
   SEXP asSEXP(Iconv* pEncoder) const {
     switch (type_) {
     case TOKEN_STRING: {
-      boost::container::string buffer;
+      std::string buffer;
       SourceIterators string = getString(&buffer);
 
       return pEncoder->makeSEXP(string.first, string.second, hasNull_);
@@ -88,7 +88,7 @@ public:
 
   TokenType type() const { return type_; }
 
-  SourceIterators getString(boost::container::string* pOut) const {
+  SourceIterators getString(std::string* pOut) const {
     if (pTokenizer_ == NULL)
       return std::make_pair(begin_, end_);
 

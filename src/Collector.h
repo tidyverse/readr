@@ -158,7 +158,7 @@ class CollectorFactor : public Collector {
   std::vector<cpp11::r_string> levels_;
   std::map<cpp11::r_string, int> levelset_;
   bool ordered_, implicitLevels_, includeNa_;
-  boost::container::string buffer_;
+  std::string buffer_;
 
   void insert(int i, cpp11::r_string str, const Token& t);
 
