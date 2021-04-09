@@ -69,9 +69,11 @@ bool isDouble(const std::string& x, LocaleInfo* pLocale) {
     return false;
 
   double res = 0;
-  std::string::const_iterator begin = x.begin(), end = x.end();
+  const char* begin = x.c_str();
+  const char* end = begin + x.size();
 
-  return parseDouble(pLocale->decimalMark_, begin, end, res) && begin == end;
+  return parseDouble(pLocale->decimalMark_, begin, end, res) &&
+         end == begin + x.size();
 }
 
 bool isTime(const std::string& x, LocaleInfo* pLocale) {

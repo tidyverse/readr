@@ -422,7 +422,10 @@ private:
   inline bool consumeDouble(double* pOut) {
     if (dateItr_ == dateEnd_ || *dateItr_ == '-' || *dateItr_ == '+')
       return false;
-    return parseDouble(pLocale_->decimalMark_, dateItr_, dateEnd_, *pOut);
+    const char* end = dateEnd_;
+    bool ok = parseDouble(pLocale_->decimalMark_, dateItr_, end, *pOut);
+    dateItr_ = end;
+    return ok;
   }
 
   inline bool consumeWhiteSpace() {

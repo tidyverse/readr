@@ -58,7 +58,6 @@ Suggests:
     testthat,
     xml2
 LinkingTo: 
-    BH,
     cpp11
 VignetteBuilder: 
     knitr

@@ -6,7 +6,6 @@
 #include "cpp11/protect.hpp"
 
 #include "Warnings.h"
-#include "boost.h"
 #include <memory>
 
 class Token;
