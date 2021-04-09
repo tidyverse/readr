@@ -12,6 +12,7 @@
 #include "LocaleInfo.h"
 #include "Token.h"
 #include "Warnings.h"
+#include <map>
 #include <memory>
 
 class Collector;

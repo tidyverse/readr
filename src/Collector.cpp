@@ -171,6 +171,7 @@ void CollectorDouble::setValue(int i, const Token& t) {
     std::string buffer;
     SourceIterators str = t.getString(&buffer);
 
+    const char* end = str.second;
     bool ok =
         parseDouble(decimalMark_, str.first, str.second, REAL(column_)[i]);
     if (!ok) {
@@ -180,7 +181,7 @@ void CollectorDouble::setValue(int i, const Token& t) {
       return;
     }
 
-    if (str.first != str.second) {
+    if (str.second != end) {
       REAL(column_)[i] = NA_REAL;
       SourceIterators org_str = t.getString(&buffer);
       warn(t.row(), t.col(), "no trailing characters", org_str);
