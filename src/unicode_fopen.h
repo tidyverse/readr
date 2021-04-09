@@ -5,10 +5,10 @@
 #ifdef __clang__
 # pragma clang diagnostic push
 # pragma clang diagnostic ignored "-Wsign-compare"
-#include "mio.hpp"
+#include "mio.h"
 # pragma clang diagnostic pop
 #else
-#include "mio.hpp"
+#include "mio.h"
 #endif
 // clang-format on
 
