@@ -1,6 +1,7 @@
 #ifndef FASTREAD_UTILS_H_
 #define FASTREAD_UTILS_H_
 
+#include <cstring>
 #include <locale>
 #include <string>
 
