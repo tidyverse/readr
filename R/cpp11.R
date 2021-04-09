@@ -85,7 +85,7 @@ type_convert_col <- function(x, spec, locale_, col, na, trim_ws) {
 }
 
 stream_delim_ <- function(df, connection, delim, na, col_names, bom, quote_escape, eol) {
-  .Call(`_readr_stream_delim_`, df, connection, delim, na, col_names, bom, quote_escape, eol)
+  invisible(.Call(`_readr_stream_delim_`, df, connection, delim, na, col_names, bom, quote_escape, eol))
 }
 
 write_lines_ <- function(lines, connection, na, sep) {

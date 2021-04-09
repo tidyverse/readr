@@ -275,6 +275,19 @@ stream_delim <- function(df, file, append = FALSE, bom = FALSE, ..., quote_escap
 
   file <- standardise_path(file, input = FALSE)
 
+  if (is.null(file)) {
+    out_file <- tempfile()
+    con <- file(out_file, "wb")
+    on.exit({
+      try(close(con), silent = TRUE)
+      unlink(out_file)
+    }, add = TRUE)
+
+    stream_delim_(df, con, ..., bom = bom, quote_escape = quote_escape, eol = eol)
+    close(con)
+    return(read_file(out_file))
+  }
+
   if (inherits(file, "connection") && !isOpen(file)) {
     on.exit(close(file), add = TRUE)
     if (isTRUE(append)) {
