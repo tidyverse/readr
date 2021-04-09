@@ -25,3 +25,10 @@ inline size_t R_WriteConnection(SEXP con, void* buf, size_t n) {
 
   return n;
 }
+
+inline void write_bytes(SEXP con, const char* bytes, size_t size) {
+  size_t write_size;
+  if ((write_size = R_WriteConnection(con, (void*)bytes, size)) != size) {
+    cpp11::stop("write failed, expected %l, got %l", size, write_size);
+  }
+}
