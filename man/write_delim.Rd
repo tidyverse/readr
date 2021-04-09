@@ -143,17 +143,16 @@ Three extensions are currently supported: \code{.gz} for gzip compression, \code
 \dontshow{
 .old_wd <- setwd(tempdir())
 }
-data(storms, package = "dplyr")
 # If only a file name is specified, write_()* will write
 # the file to the current working directory.
-write_csv(storms, "storms.csv")
-write_tsv(storms, "storms.tsv")
+write_csv(mtcars, "mtcars.csv")
+write_tsv(mtcars, "mtcars.tsv")
 
 # If you add an extension to the file name, write_()* will
 # automatically compress the output.
-write_tsv(storms, "storms.tsv.gz")
-write_tsv(storms, "storms.tsv.bz2")
-write_tsv(storms, "storms.tsv.xz")
+write_tsv(mtcars, "mtcars.tsv.gz")
+write_tsv(mtcars, "mtcars.tsv.bz2")
+write_tsv(mtcars, "mtcars.tsv.xz")
 
 \dontshow{setwd(.old_wd)}
 }
