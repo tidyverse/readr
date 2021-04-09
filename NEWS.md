@@ -1,5 +1,7 @@
 # readr (development version)
 
+* The BH package is no longer a dependency. The boost C++ headers in BH have thousands of files, so can take a long time to extract and compiling them takes a great deal of memory, which made readr difficult to compile on systems with limited memory (#1147).
+
 * `col_factor()` now throws a more informative error message if given non-character levels (#1140)
 
 * `write_csv()` now errors if given a matrix column (#1171)
