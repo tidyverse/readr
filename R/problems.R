@@ -58,7 +58,7 @@ probs <- function(x) {
 }
 
 n_problems <- function(x) {
-  probs <- probs(x)
+  probs <- problems(x)
   if (is.null(probs)) 0 else nrow(probs)
 }
 

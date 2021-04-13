@@ -33,10 +33,8 @@ test_that("Numbers with trailing characters are parsed as characters", {
 })
 
 test_that("problems() returns the full failed string if parsing fails (548)", {
-  skip_if_edition_second()
-
   probs <- problems(read_tsv("x\n1\nx", na = "", col_types = "n", lazy = FALSE))
-  expect_equal(probs$row, 2)
+  expect_equal(probs$row, 3)
   expect_equal(probs$expected, "a number")
   expect_equal(probs$actual, "x")
 })

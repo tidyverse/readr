@@ -39,8 +39,7 @@ test_that("problems returns the filename (#581)", {
 })
 
 test_that("problems returns full original field (#444)", {
-  skip_if_edition_second()
-  probs <- problems(read_tsv("X\n-$12,500\n$2,000\n-$5,000\n$1,000\n-$3,000\n", col_types = list(.default = col_number())))
+  probs <- problems(read_tsv("X\n-$12,500\n$2,000\n-$5,000\n$1,000\n-$3,000\n", col_types = list(.default = col_number()), lazy = FALSE))
 
   expect_equal(NROW(probs), 3)
   expect_equal(probs$actual, c("-$12,500", "-$5,000", "-$3,000"))

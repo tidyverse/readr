@@ -13,6 +13,7 @@ read_lines(
   n_max = Inf,
   locale = default_locale(),
   na = character(),
+  lazy = TRUE,
   progress = show_progress()
 )
 
@@ -60,6 +61,9 @@ names.}
 
 \item{na}{Character vector of strings to interpret as missing values. Set this
 option to \code{character()} to indicate no missing values.}
+
+\item{lazy}{Read values lazily? By default the file is initially only
+indexed. The actual values are read lazily on-demand when accessed.}
 
 \item{progress}{Display a progress bar? By default it will only display
 in an interactive session and not while knitting a document. The display

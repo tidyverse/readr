@@ -41,6 +41,7 @@
 read_lines <- function(file, skip = 0, skip_empty_rows = FALSE, n_max = Inf,
                        locale = default_locale(),
                        na = character(),
+                       lazy = TRUE,
                        progress = show_progress()) {
   if (edition_first()) {
     if (is.infinite(n_max)) {
@@ -57,11 +58,7 @@ read_lines <- function(file, skip = 0, skip_empty_rows = FALSE, n_max = Inf,
     lifecycle::deprecate_soft("2.0.0", "readr::read_lines(skip_empty_rows = )")
   }
 
-  if (!missing(na)) {
-    lifecycle::deprecate_soft("2.0.0", "readr::read_lines(na = )")
-  }
-
-  vroom::vroom_lines(file, skip = skip, locale = locale, n_max = n_max, progress = progress)
+  vroom::vroom_lines(file, skip = skip, locale = locale, n_max = n_max, progress = progress, altrep = lazy, na = na)
 }
 
 #' @export

@@ -10,25 +10,20 @@ test_that("read_lines returns an empty character vector on an empty file", {
 })
 
 test_that("read_lines handles embedded nuls", {
-  skip_if_edition_second()
-  expect_equal(read_lines("null-file", progress = FALSE), c("a,b,c", "1,2,", "3,4,5"))
+  res <- expect_warning(read_lines(test_path("null-file"), progress = FALSE, lazy = FALSE))
+  expect_equal(res, c("a,b,c", "1,2,", "3,4,5"))
 })
 
 test_that("read_lines uses na argument", {
-  skip_if_edition_second()
-  expect_equal(read_lines("sample_text.txt", na = "abc", progress = FALSE), c(NA_character_, "123"))
-  expect_equal(read_lines("sample_text.txt", na = "123", progress = FALSE), c("abc", NA_character_))
-  expect_equal(read_lines("sample_text.txt", na = c("abc", "123"), progress = FALSE), c(NA_character_, NA_character_))
+  expect_equal(read_lines(I("abc\n123"), progress = FALSE), c("abc", "123"))
+  expect_equal(read_lines(I("abc\n123"), na = "abc", progress = FALSE), c(NA_character_, "123"))
+  expect_equal(read_lines(I("abc\n123"), na = "123", progress = FALSE), c("abc", NA_character_))
+  expect_equal(read_lines(I("abc\n123"), na = c("abc", "123"), progress = FALSE), c(NA_character_, NA_character_))
 })
 
 test_that("blank lines are passed unchanged", {
-  tmp <- tempfile()
-  on.exit(unlink(tmp))
-
-  x <- c("abc", "", "123")
-  write_lines(file = tmp, x)
-  expect_equal(read_lines(tmp), x)
-  expect_equal(read_lines(tmp, na = ""), c("abc", "", "123"))
+  expect_equal(read_lines(I("abc\n\n123")), c("abc", "", "123"))
+  expect_equal(read_lines(I("abc\n\n123"), na = ""), c("abc", NA, "123"))
 })
 
 test_that("read_lines can skip blank lines (#923)", {
