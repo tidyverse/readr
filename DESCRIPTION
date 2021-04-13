@@ -57,6 +57,7 @@ Suggests:
     spelling,
     stringi,
     testthat,
+    withr,
     xml2
 LinkingTo: 
     clock (>= 0.2.0),
