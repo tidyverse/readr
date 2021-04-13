@@ -1,6 +1,7 @@
 # readr (development version)
 
 * readr now uses the clock package when parsing date-times (@DavisVaughan, r-lib/vroom#273)
+* Memory no longer inadvertently leaks when reading memory from R connections (#1161)
 
 * The BH package is no longer a dependency. The boost C++ headers in BH have thousands of files, so can take a long time to extract and compiling them takes a great deal of memory, which made readr difficult to compile on systems with limited memory (#1147).
 

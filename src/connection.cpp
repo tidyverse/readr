@@ -6,10 +6,10 @@
 #include <fstream>
 
 // Wrapper around R's read_bin function
-cpp11::raws read_bin(cpp11::sexp con, int bytes) {
-  auto readBin = cpp11::package("base")["readBin"];
+SEXP read_bin(cpp11::sexp con, int bytes) {
+  static auto readBin = cpp11::package("base")["readBin"];
 
-  return cpp11::raws(readBin(con, "raw", bytes));
+  return readBin(con, "raw", bytes);
 }
 
 // Read data from a connection in chunks and then combine into a single
@@ -20,9 +20,16 @@ read_connection_(cpp11::sexp con, std::string filename, int chunk_size) {
 
   std::ofstream out(filename.c_str(), std::fstream::out | std::fstream::binary);
 
-  cpp11::writable::raws chunk;
-  while ((chunk = read_bin(con, chunk_size)).size() > 0) {
-    std::copy(chunk.begin(), chunk.end(), std::ostream_iterator<char>(out));
+  SEXP chunk = read_bin(con, chunk_size);
+  R_xlen_t chunk_len = Rf_xlength(chunk);
+
+  while (chunk_len > 0) {
+    std::copy(
+        RAW(chunk),
+        RAW(chunk) + Rf_xlength(chunk),
+        std::ostream_iterator<char>(out));
+    chunk = read_bin(con, chunk_size);
+    chunk_len = Rf_xlength(chunk);
   }
 
   return filename;
