@@ -3,8 +3,7 @@
 
 #include "cpp11/R.hpp"
 
-#include "localtime.h"
-#include <ctime>
+#include <clock/clock.h>
 #include <stdlib.h>
 #include <string>
 
@@ -65,7 +64,7 @@ public:
       int min = 0,
       int sec = 0,
       double psec = 0,
-      const std::string& tz = "")
+      const std::string& tz = "UTC")
       : year_(year),
         mon_(mon),
         day_(day),
@@ -86,12 +85,8 @@ public:
   bool validDate() const {
     if (year_ < 0)
       return false;
-    if (mon_ < 0 || mon_ > 11)
-      return false;
-    if (day_ < 0 || day_ >= days_in_month())
-      return false;
 
-    return true;
+    return (date::year{year_} / mon_ / day_).ok();
   }
 
   bool validTime() const {
@@ -134,52 +129,38 @@ private:
     if (!validDate())
       return NA_REAL;
 
-    // Number of days since start of year
-    int day = month_start[mon_] + day_;
-    if (mon_ > 1 && is_leap(year_))
-      day++;
-
-    // Number of days since 0000-01-01
-    // Leap years come in 400 year cycles so determine which cycle we're
-    // in, and what position we're in within that cycle.
-    int ly_cycle = year_ / 400;
-    int ly_offset = year_ - (ly_cycle * 400);
-    if (ly_offset < 0) {
-      ly_offset += 400;
-      ly_cycle--;
-    }
-    day += ly_cycle * cycle_days + ly_offset * 365 + leap_days[ly_offset];
-
-    // Convert to number of days since 1970-01-01
-    day -= 719528;
-
-    return day;
+    const date::year_month_day ymd{date::year(year_) / mon_ / day_};
+    const date::sys_days st{ymd};
+    return st.time_since_epoch().count();
   }
 
   double localtime() const {
     if (!validDateTime())
       return NA_REAL;
 
-    struct Rtm tm;
-    tm.tm_year = year_ - 1900;
-    tm.tm_mon = mon_;
-    tm.tm_mday = day_ + 1;
-    tm.tm_hour = hour_;
-    tm.tm_min = min_;
-    tm.tm_sec = sec_;
-    // The Daylight Saving Time flag (tm_isdst) is greater than zero if Daylight
-    // Saving Time is in effect, zero if Daylight Saving Time is not in effect,
-    // and less than zero if the information is not available.
-    tm.tm_isdst = -1;
+    const date::time_zone* p_time_zone = rclock::locate_zone(tz_);
 
-    time_t time = my_mktime(&tm, tz_.c_str());
-    return time + psec_ + offset_;
-  }
+    const date::local_seconds lt =
+        std::chrono::seconds{sec_} + std::chrono::minutes{min_} +
+        std::chrono::hours{hour_} +
+        date::local_days{date::year{year_} / mon_ / day_};
 
-  inline int days_in_month() const {
-    return month_length[mon_] + (mon_ == 1 && is_leap(year_));
+    const date::local_info info = rclock::get_local_info(lt, p_time_zone);
+
+    switch (info.result) {
+    case date::local_info::unique:
+      return (lt.time_since_epoch() - info.first.offset).count() + psec_ +
+             offset_;
+    case date::local_info::ambiguous:
+      // Choose `earliest` of the two ambiguous times
+      return (lt.time_since_epoch() - info.first.offset).count() + psec_ +
+             offset_;
+    case date::local_info::nonexistent:
+      return NA_REAL;
+    }
+
+    throw std::runtime_error("should never happen");
   }
-  inline int days_in_year() const { return 365 + is_leap(year_); }
 };
 
 #endif

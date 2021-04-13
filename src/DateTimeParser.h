@@ -44,11 +44,11 @@ public:
       return false;
     if (consumeThisChar('-'))
       compactDate_ = false;
-    if (!consumeInteger1(2, &mon_))
+    if (!consumeInteger(2, &mon_))
       return false;
     if (!compactDate_ && !consumeThisChar('-'))
       return false;
-    if (!consumeInteger1(2, &day_))
+    if (!consumeInteger(2, &day_))
       return false;
 
     if (isComplete())
@@ -109,11 +109,11 @@ public:
       return false;
     if (!consumeThisChar('-') && !consumeThisChar('/'))
       return false;
-    if (!consumeInteger1(2, &mon_))
+    if (!consumeInteger(2, &mon_))
       return false;
     if (!consumeThisChar('-') && !consumeThisChar('/'))
       return false;
-    if (!consumeInteger1(2, &day_))
+    if (!consumeInteger(2, &day_))
       return false;
 
     return isComplete();
@@ -160,7 +160,7 @@ public:
         year_ += (year_ < 69) ? 2000 : 1900;
         break;
       case 'm': // month
-        if (!consumeInteger1(2, &mon_, false))
+        if (!consumeInteger(2, &mon_, false))
           return false;
         break;
       case 'b': // abbreviated month name
@@ -172,7 +172,7 @@ public:
           return false;
         break;
       case 'd': // day
-        if (!consumeInteger1(2, &day_, false))
+        if (!consumeInteger(2, &day_, false))
           return false;
         break;
       case 'a': // abbreviated day of week
@@ -180,7 +180,7 @@ public:
           return false;
         break;
       case 'e': // day with optional leading space
-        if (!consumeInteger1WithSpace(2, &day_))
+        if (!consumeIntegerWithSpace(2, &day_))
           return false;
         break;
       case 'h': // hour, unrestricted
@@ -308,8 +308,8 @@ public:
   DateTime makeTime() {
     DateTime dt(
         0,
-        0,
-        0,
+        1,
+        1,
         sign_ * hour(),
         sign_ * min_,
         sign_ * sec_,
@@ -327,7 +327,7 @@ private:
     if (hour_ == 12) {
 
       // 12 AM
-      if (amPm_ == 0) {
+      if (amPm_ == 1) {
         return hour_ - 12;
       }
 
@@ -336,7 +336,7 @@ private:
     }
 
     // Rest of PM
-    if (amPm_ == 1) {
+    if (amPm_ == 2) {
       return hour_ + 12;
     }
 
@@ -377,12 +377,13 @@ private:
 
   inline bool
   consumeString(const std::vector<std::string>& haystack, int* pOut) {
+    // Assumes `pOut` is 1-indexed
     // haystack is always in UTF-8
     std::string needleUTF8 = pLocale_->encoder_.makeString(dateItr_, dateEnd_);
 
     for (size_t i = 0; i < haystack.size(); ++i) {
       if (istarts_with(needleUTF8, haystack[i])) {
-        *pOut = i;
+        *pOut = i + 1;
         dateItr_ += haystack[i].size();
         return true;
       }
@@ -402,21 +403,12 @@ private:
     return ok && (!exact || (dateItr_ - start) == n);
   }
 
-  // Integer indexed from 1 (i.e. month and date)
-  inline bool consumeInteger1(int n, int* pOut, bool exact = true) {
-    if (!consumeInteger(n, pOut, exact))
-      return false;
-
-    (*pOut)--;
-    return true;
-  }
-
   // Integer indexed from 1 with optional space
-  inline bool consumeInteger1WithSpace(int n, int* pOut) {
+  inline bool consumeIntegerWithSpace(int n, int* pOut) {
     if (consumeThisChar(' '))
       n--;
 
-    return consumeInteger1(n, pOut);
+    return consumeInteger(n, pOut);
   }
 
   inline bool consumeDouble(double* pOut) {
@@ -529,8 +521,8 @@ private:
   void reset() {
     sign_ = 1;
     year_ = -1;
-    mon_ = 0;
-    day_ = 0;
+    mon_ = 1;
+    day_ = 1;
     hour_ = 0;
     min_ = 0;
     sec_ = 0;

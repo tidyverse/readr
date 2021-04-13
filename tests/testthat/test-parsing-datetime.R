@@ -245,6 +245,42 @@ test_that("unambiguous times with and without daylight savings", {
   )
 })
 
+test_that("ambiguous times always choose the earliest time", {
+  ny <- locale(tz = "America/New_York")
+
+  format <- "%Y-%m-%d %H:%M:%S%z"
+  expected <- as.POSIXct("1970-10-25 01:30:00-0400", tz = "America/New_York", format = format)
+
+  actual <- parse_datetime("1970-10-25 01:30:00", locale = ny)
+
+  expect_equal(actual, expected)
+})
+
+test_that("nonexistent times return NA", {
+  ny <- locale(tz = "America/New_York")
+  expected <- .POSIXct(NA_real_, tz = "America/New_York")
+
+  actual <- parse_datetime("1970-04-26 02:30:00", locale = ny)
+
+  expect_equal(actual, expected)
+})
+
+test_that("can use `tz = ''` for system time zone", {
+  withr::local_timezone("Europe/London")
+
+  system <- locale(tz = "")
+  expected <- as.POSIXct("1970-01-01 00:00:00", tz = "Europe/London")
+
+  actual <- parse_datetime("1970-01-01 00:00:00", locale = system)
+
+  expect_equal(actual, expected)
+})
+
+test_that("can catch faulty system time zones", {
+  withr::local_timezone("foo")
+  expect_error(locale(tz = ""), "Unknown TZ foo")
+})
+
 
 # Guessing ---------------------------------------------------------------------
 

@@ -39,6 +39,7 @@ Depends:
 Imports:
     cli,
     clipr,
+    clock (>= 0.2.0),
     crayon,
     hms (>= 0.4.1),
     methods,
@@ -56,8 +57,10 @@ Suggests:
     spelling,
     stringi,
     testthat,
+    withr,
     xml2
 LinkingTo: 
+    clock (>= 0.2.0),
     cpp11
 VignetteBuilder: 
     knitr
