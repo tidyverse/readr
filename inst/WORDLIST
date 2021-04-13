@@ -6,6 +6,7 @@ automata
 BCP
 BDR
 behaviour
+BH
 BOM
 Bugfixes
 bz
@@ -37,11 +38,13 @@ Garmonsway
 Gb
 generalises
 ghaarsma
+github
 grisu
 gz
 gzip
 gzipped
 hms
+https
 Internationalisation
 jennybc
 jeroenooms
@@ -55,7 +58,9 @@ localtime
 Loitsch
 lzma
 macOS
+mandreyel
 Māori
+mio
 munge
 na
 nd
@@ -102,6 +107,7 @@ tz
 valgrind
 versicolor
 virginica
+vroom
 xz
 xzipped
 YMD
