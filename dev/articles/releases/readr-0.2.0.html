@@ -399,9 +399,9 @@ a,b
 <span class="co">#&gt; 1     1     2</span>
 <span class="fu"><a href="../../reference/read_delim.html">read_csv</a></span><span class="op">(</span><span class="st">"a,b\n     1,     2"</span>, trim_ws <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span>
 <span class="co">#&gt; # A tibble: 1 x 2</span>
-<span class="co">#&gt;   a        b       </span>
-<span class="co">#&gt;   &lt;chr&gt;    &lt;chr&gt;   </span>
-<span class="co">#&gt; 1 "     1" "     2"</span></code></pre></div>
+<span class="co">#&gt;       a     b</span>
+<span class="co">#&gt;   &lt;dbl&gt; &lt;dbl&gt;</span>
+<span class="co">#&gt; 1     1     2</span></code></pre></div>
 </li>
 </ul>
 <p>Specifying the wrong number of column names, or having rows with an unexpected number of columns, now gives a warning, rather than an error:</p>

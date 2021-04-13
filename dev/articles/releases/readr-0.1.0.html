@@ -270,15 +270,15 @@ b,2
 
 <span class="va">df</span> <span class="op">&lt;-</span> <span class="fu"><a href="../../reference/read_delim.html">read_csv</a></span><span class="op">(</span><span class="va">csv</span>, col_types <span class="op">=</span> <span class="st">"ii"</span><span class="op">)</span>
 <span class="co">#&gt; Warning: 2 parsing failures.</span>
-<span class="co">#&gt; row col   expected actual         file</span>
-<span class="co">#&gt;   1   y an integer      a literal data</span>
-<span class="co">#&gt;   2   x an integer      b literal data</span>
+<span class="co">#&gt; row col               expected actual         file</span>
+<span class="co">#&gt;   1   y no trailing characters      a literal data</span>
+<span class="co">#&gt;   2   x no trailing characters      b literal data</span>
 <span class="fu"><a href="../../reference/problems.html">problems</a></span><span class="op">(</span><span class="va">df</span><span class="op">)</span>
 <span class="co">#&gt; # A tibble: 2 x 5</span>
-<span class="co">#&gt;     row col   expected   actual file        </span>
-<span class="co">#&gt;   &lt;int&gt; &lt;chr&gt; &lt;chr&gt;      &lt;chr&gt;  &lt;chr&gt;       </span>
-<span class="co">#&gt; 1     1 y     an integer a      literal data</span>
-<span class="co">#&gt; 2     2 x     an integer b      literal data</span>
+<span class="co">#&gt;     row col   expected               actual file        </span>
+<span class="co">#&gt;   &lt;int&gt; &lt;chr&gt; &lt;chr&gt;                  &lt;chr&gt;  &lt;chr&gt;       </span>
+<span class="co">#&gt; 1     1 y     no trailing characters a      literal data</span>
+<span class="co">#&gt; 2     2 x     no trailing characters b      literal data</span>
 <span class="va">df</span>
 <span class="co">#&gt; # A tibble: 2 x 2</span>
 <span class="co">#&gt;       x     y</span>
