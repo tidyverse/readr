@@ -163,7 +163,7 @@ standardise_path <- function(path, input = TRUE) {
     if (!isTRUE(input)) {
       file(path, "")
     } else {
-      path
+      normalizePath(path, mustWork = FALSE)
     })
 }
 
