@@ -54,17 +54,16 @@
 #' \dontshow{
 #' .old_wd <- setwd(tempdir())
 #' }
-#' data(storms, package = "dplyr")
 #' # If only a file name is specified, write_()* will write
 #' # the file to the current working directory.
-#' write_csv(storms, "storms.csv")
-#' write_tsv(storms, "storms.tsv")
+#' write_csv(mtcars, "mtcars.csv")
+#' write_tsv(mtcars, "mtcars.tsv")
 #'
 #' # If you add an extension to the file name, write_()* will
 #' # automatically compress the output.
-#' write_tsv(storms, "storms.tsv.gz")
-#' write_tsv(storms, "storms.tsv.bz2")
-#' write_tsv(storms, "storms.tsv.xz")
+#' write_tsv(mtcars, "mtcars.tsv.gz")
+#' write_tsv(mtcars, "mtcars.tsv.bz2")
+#' write_tsv(mtcars, "mtcars.tsv.xz")
 #'
 #' \dontshow{setwd(.old_wd)}
 write_delim <- function(x, file, delim = " ", na = "NA", append = FALSE,
@@ -202,11 +201,10 @@ write_tsv <- function(x, file, na = "NA", append = FALSE, col_names = !append,
 #' @param x A data frame.
 #' @inherit write_delim references
 #' @examples
-#' data(band_members, package = "dplyr")
 #' # format_()* functions are useful for testing and reprexes
-#' cat(format_csv(band_members))
-#' cat(format_tsv(band_members))
-#' cat(format_delim(band_members, ";"))
+#' cat(format_csv(mtcars))
+#' cat(format_tsv(mtcars))
+#' cat(format_delim(mtcars, ";"))
 #'
 #' # Specifying missing values
 #' df <- data.frame(x = c(1, NA, 3))
@@ -290,6 +288,19 @@ stream_delim <- function(df, file, append = FALSE, bom = FALSE, ..., quote_escap
   quote_escape <- standardise_escape(quote_escape)
 
   file <- standardise_path(file, input = FALSE)
+
+  if (is.null(file)) {
+    out_file <- tempfile()
+    con <- file(out_file, "wb")
+    on.exit({
+      try(close(con), silent = TRUE)
+      unlink(out_file)
+    }, add = TRUE)
+
+    stream_delim_(df, con, ..., bom = bom, quote_escape = quote_escape, eol = eol)
+    close(con)
+    return(read_file(out_file))
+  }
 
   if (inherits(file, "connection") && !isOpen(file)) {
     on.exit(close(file), add = TRUE)

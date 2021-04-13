@@ -7,6 +7,11 @@
   When the older parsing code is eventually removed from readr they will be split off into a new package.
 
 ## Additional features and fixes
+* readr now uses the clock package when parsing date-times (@DavisVaughan, r-lib/vroom#273)
+
+* The BH package is no longer a dependency. The boost C++ headers in BH have thousands of files, so can take a long time to extract and compiling them takes a great deal of memory, which made readr difficult to compile on systems with limited memory (#1147).
+
+* `col_factor()` now throws a more informative error message if given non-character levels (#1140)
 
 * `write_csv()` now errors if given a matrix column (#1171)
 

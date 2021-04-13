@@ -279,8 +279,7 @@ bool TokenizerDelim::isComment(const char* cur) const {
   if (!hasComment_)
     return false;
 
-  boost::iterator_range<const char*> haystack(cur, end_);
-  return boost::starts_with(haystack, comment_);
+  return starts_with_comment(cur, end_, comment_);
 }
 
 void TokenizerDelim::newField() {
@@ -330,7 +329,7 @@ Token TokenizerDelim::stringToken(
 }
 
 void TokenizerDelim::unescape(
-    SourceIterator begin, SourceIterator end, boost::container::string* pOut) {
+    SourceIterator begin, SourceIterator end, std::string* pOut) {
   if (escapeDouble_ && !escapeBackslash_) {
     unescapeDouble(begin, end, pOut);
   } else if (escapeBackslash_ && !escapeDouble_) {
@@ -341,7 +340,7 @@ void TokenizerDelim::unescape(
 }
 
 void TokenizerDelim::unescapeDouble(
-    SourceIterator begin, SourceIterator end, boost::container::string* pOut) {
+    SourceIterator begin, SourceIterator end, std::string* pOut) {
   pOut->reserve(end - begin);
 
   bool inEscape = false;
@@ -360,7 +359,7 @@ void TokenizerDelim::unescapeDouble(
 }
 
 void TokenizerDelim::unescapeBackslash(
-    SourceIterator begin, SourceIterator end, boost::container::string* pOut) {
+    SourceIterator begin, SourceIterator end, std::string* pOut) {
   pOut->reserve(end - begin);
 
   bool inEscape = false;

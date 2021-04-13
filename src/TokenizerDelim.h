@@ -49,8 +49,7 @@ public:
 
   Token nextToken();
 
-  void unescape(
-      SourceIterator begin, SourceIterator end, boost::container::string* pOut);
+  void unescape(SourceIterator begin, SourceIterator end, std::string* pOut);
 
 private:
   bool isComment(const char* cur) const;
@@ -79,9 +78,9 @@ private:
       int col);
 
   void unescapeBackslash(
-      SourceIterator begin, SourceIterator end, boost::container::string* pOut);
+      SourceIterator begin, SourceIterator end, std::string* pOut);
 
-  void unescapeDouble(
-      SourceIterator begin, SourceIterator end, boost::container::string* pOut);
+  void
+  unescapeDouble(SourceIterator begin, SourceIterator end, std::string* pOut);
 };
 #endif

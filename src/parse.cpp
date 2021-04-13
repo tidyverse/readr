@@ -2,6 +2,7 @@
 #include "cpp11/integers.hpp"
 #include "cpp11/list.hpp"
 #include "cpp11/sexp.hpp"
+#include <memory>
 
 #include "Collector.h"
 #include "LocaleInfo.h"
@@ -145,7 +146,7 @@ tokenize_(cpp11::list sourceSpec, cpp11::list tokenizerSpec, int n_max) {
 
   LocaleInfo locale(locale_);
 
-  boost::shared_ptr<Collector> col = Collector::create(collectorSpec, &locale);
+  std::shared_ptr<Collector> col(Collector::create(collectorSpec, &locale));
   col->setWarnings(&warnings);
   col->resize(n);
 

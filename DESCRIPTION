@@ -13,11 +13,11 @@ Authors@R:
       person(given = "Romain",
              family = "Francois",
              role = "ctb"),
-      person(given = "R Core Team",
-             role = "ctb",
-             comment = "Date time code adapted from R"),
       person(given = "RStudio",
              role = c("cph", "fnd")),
+      person(given = "https://github.com/mandreyel/",
+             role = "cph",
+             comment = "mio library"),
       person(given = "Jukka",
              family = "Jylänki",
              role = c("ctb", "cph"),
@@ -39,6 +39,7 @@ Depends:
 Imports:
     cli,
     clipr,
+    clock (>= 0.2.0),
     crayon,
     hms (>= 0.4.1),
     methods,
@@ -57,9 +58,10 @@ Suggests:
     spelling,
     stringi,
     testthat,
+    withr,
     xml2
 LinkingTo: 
-    BH,
+    clock (>= 0.2.0),
     cpp11
 VignetteBuilder: 
     knitr

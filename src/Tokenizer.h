@@ -6,17 +6,16 @@
 #include "cpp11/protect.hpp"
 
 #include "Warnings.h"
-#include "boost.h"
+#include <memory>
 
 class Token;
 
 typedef const char* SourceIterator;
 typedef std::pair<SourceIterator, SourceIterator> SourceIterators;
-typedef void (*UnescapeFun)(
-    SourceIterator, SourceIterator, boost::container::string*);
+typedef void (*UnescapeFun)(SourceIterator, SourceIterator, std::string*);
 
 class Tokenizer;
-typedef boost::shared_ptr<Tokenizer> TokenizerPtr;
+typedef std::shared_ptr<Tokenizer> TokenizerPtr;
 
 class Tokenizer {
   Warnings* pWarnings_;
@@ -30,10 +29,8 @@ public:
   // Percentage & bytes
   virtual std::pair<double, size_t> progress() = 0;
 
-  virtual void unescape(
-      SourceIterator begin,
-      SourceIterator end,
-      boost::container::string* pOut) {
+  virtual void
+  unescape(SourceIterator begin, SourceIterator end, std::string* pOut) {
     pOut->reserve(end - begin);
     for (SourceIterator cur = begin; cur != end; ++cur)
       pOut->push_back(*cur);
@@ -61,11 +58,13 @@ public:
 // Helper class for parsers - ensures iterator always advanced no matter
 // how loop is exited
 
-class Advance : boost::noncopyable {
+class Advance {
   SourceIterator* pIter_;
 
 public:
   Advance(SourceIterator* pIter) : pIter_(pIter) {}
+  Advance(const Advance&) = delete;
+  Advance& operator=(const Advance&) = delete;
   ~Advance() { (*pIter_)++; }
 };
 

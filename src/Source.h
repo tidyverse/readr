@@ -4,10 +4,10 @@
 #include "cpp11/list.hpp"
 #include "utils.h"
 
-#include "boost.h"
+#include <memory>
 
 class Source;
-typedef boost::shared_ptr<Source> SourcePtr;
+typedef std::shared_ptr<Source> SourcePtr;
 
 class Source {
 public:
@@ -39,8 +39,7 @@ public:
 private:
   static bool
   inComment(const char* cur, const char* end, const std::string& comment) {
-    boost::iterator_range<const char*> haystack(cur, end);
-    return boost::starts_with(haystack, comment);
+    return starts_with_comment(cur, end, comment);
   }
 
   size_t skippedRows_;

@@ -1,5 +1,8 @@
 # nocov start
 .onLoad <- function(libname, pkgname) {
+  # Ensure clock callables are loaded
+  requireNamespace("clock", quietly = TRUE)
+
   register_s3_method("testthat", "compare", "col_spec")
   register_s3_method("testthat", "compare", "tbl_df")
   register_s3_method("waldo", "compare_proxy", "tbl_df")

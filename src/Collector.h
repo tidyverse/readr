@@ -12,10 +12,11 @@
 #include "LocaleInfo.h"
 #include "Token.h"
 #include "Warnings.h"
-#include <boost/shared_ptr.hpp>
+#include <map>
+#include <memory>
 
 class Collector;
-typedef boost::shared_ptr<Collector> CollectorPtr;
+typedef std::shared_ptr<Collector> CollectorPtr;
 
 class Collector {
 protected:
@@ -158,7 +159,7 @@ class CollectorFactor : public Collector {
   std::vector<cpp11::r_string> levels_;
   std::map<cpp11::r_string, int> levelset_;
   bool ordered_, implicitLevels_, includeNa_;
-  boost::container::string buffer_;
+  std::string buffer_;
 
   void insert(int i, cpp11::r_string str, const Token& t);
 

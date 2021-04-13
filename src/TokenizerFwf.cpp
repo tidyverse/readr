@@ -25,8 +25,7 @@ skip_t skip_comments(
 
   SourceIterator cur = begin;
   int skip = 0;
-  boost::iterator_range<const char*> haystack(cur, end);
-  while (boost::starts_with(haystack, comment)) {
+  while (starts_with_comment(cur, end, comment)) {
     // Skip rest of line
     while (cur != end && *cur != '\n' && *cur != '\r') {
       ++cur;
@@ -34,7 +33,6 @@ skip_t skip_comments(
 
     advanceForLF(&cur, end);
     ++cur;
-    haystack = boost::iterator_range<const char*>(cur, end);
     ++skip;
   }
 
@@ -313,8 +311,7 @@ bool TokenizerFwf::isComment(const char* cur) const {
   if (!hasComment_)
     return false;
 
-  boost::iterator_range<const char*> haystack(cur, end_);
-  return boost::starts_with(haystack, comment_);
+  return starts_with_comment(cur, end_, comment_);
 }
 
 bool TokenizerFwf::isEmpty() const {
