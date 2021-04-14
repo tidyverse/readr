@@ -159,12 +159,17 @@ standardise_path <- function(path, input = TRUE) {
     xz = xzfile(path, ""),
     zip = zipfile(path, ""),
 
-    # Use a file connection for output
-    if (!isTRUE(input)) {
-      file(path, "")
-    } else {
-      normalizePath(path, mustWork = FALSE)
-    })
+    {
+      path <- normalizePath(path, mustWork = FALSE)
+
+      # Use a file connection for output
+      if (!isTRUE(input)) {
+        file(path, "")
+      } else {
+        path
+      }
+    }
+  )
 }
 
 source_name <- function(x) {
