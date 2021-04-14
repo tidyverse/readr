@@ -2,11 +2,16 @@
 
 ## second edition changes
 
+* New `with_edition()` and `local_edition()` functions to temporarily change the edition of readr.
+  For example you can use `with_edition(1, read_csv("my-file"))` to read a CSV file with the first edition of readr.
+  *Note* we will continue to support the first edition for a number of releases, but eventually this support will be first deprecated and then removed.
+
 * `melt_csv()`, `melt_delim()`, `melt_tsv()` and `melt_fwf()` have been deprecated.
-  These functions rely on the older parsing code and would be challenging to update to the new parser.
-  When the older parsing code is eventually removed from readr they will be split off into a new package.
+  These functions rely on the first edition parsing code and would be challenging to update to the new parser.
+  When the first edition parsing code is eventually removed from readr they will be split off into a new package.
 
 ## Additional features and fixes
+
 * readr now uses the clock package when parsing date-times (@DavisVaughan, r-lib/vroom#273)
 
 * The BH package is no longer a dependency. The boost C++ headers in BH have thousands of files, so can take a long time to extract and compiling them takes a great deal of memory, which made readr difficult to compile on systems with limited memory (#1147).
