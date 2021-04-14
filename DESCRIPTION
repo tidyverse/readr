@@ -77,4 +77,5 @@ RoxygenNote: 7.1.1
 SystemRequirements: C++11
 RdMacros: lifecycle
 Remotes:
-  r-lib/vroom
+  r-lib/vroom,
+  r-lib/withr
