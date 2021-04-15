@@ -10,8 +10,8 @@
 read_delim_chunked(
   file,
   callback,
+  delim = NULL,
   chunk_size = 10000,
-  delim,
   quote = "\\"",
   escape_backslash = FALSE,
   escape_double = TRUE,
@@ -23,7 +23,8 @@ read_delim_chunked(
   comment = "",
   trim_ws = FALSE,
   skip = 0,
-  guess_max = min(1000, chunk_size),
+  n_max = Inf,
+  guess_max = min(1000, n_max),
   progress = show_progress(),
   skip_empty_rows = TRUE
 )
@@ -100,9 +101,9 @@ Using a value of \code{\link[=clipboard]{clipboard()}} will read from the system
 
 \item{callback}{A callback function to call on each chunk}
 
-\item{chunk_size}{The number of rows to include in each chunk}
-
 \item{delim}{Single character used to separate fields within a record.}
+
+\item{chunk_size}{The number of rows to include in each chunk}
 
 \item{quote}{Single character used to quote strings.}
 
@@ -180,6 +181,8 @@ comment characters will be silently ignored.}
 each field before parsing it?}
 
 \item{skip}{Number of lines to skip before reading data.}
+
+\item{n_max}{Maximum number of records to read.}
 
 \item{guess_max}{Maximum number of records to use for guessing column types.}
 

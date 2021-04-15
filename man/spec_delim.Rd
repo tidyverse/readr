@@ -11,7 +11,7 @@
 \usage{
 spec_delim(
   file,
-  delim,
+  delim = NULL,
   quote = "\\"",
   escape_backslash = FALSE,
   escape_double = TRUE,
@@ -26,7 +26,8 @@ spec_delim(
   n_max = 0,
   guess_max = 1000,
   progress = show_progress(),
-  skip_empty_rows = TRUE
+  skip_empty_rows = TRUE,
+  lazy = TRUE
 )
 
 spec_csv(

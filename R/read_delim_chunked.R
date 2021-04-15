@@ -91,7 +91,23 @@ read_delimited_chunked <- generate_read_delimited_chunked(read_delimited)
 #' # Cars with 3 gears
 #' f <- function(x, pos) subset(x, gear == 3)
 #' read_csv_chunked(readr_example("mtcars.csv"), DataFrameCallback$new(f), chunk_size = 5)
-read_delim_chunked <- generate_chunked_fun(read_delim)
+read_delim_chunked <- function(file, callback, delim = NULL, chunk_size = 10000, quote = '"',
+                       escape_backslash = FALSE, escape_double = TRUE,
+                       col_names = TRUE, col_types = NULL,
+                       locale = default_locale(),
+                       na = c("", "NA"), quoted_na = TRUE,
+                       comment = "", trim_ws = FALSE,
+                       skip = 0, n_max = Inf, guess_max = min(1000, n_max),
+                       progress = show_progress(),
+                       skip_empty_rows = TRUE) {
+  tokenizer <- tokenizer_delim(delim, quote = quote,
+    escape_backslash = escape_backslash, escape_double = escape_double,
+    na = na, quoted_na = quoted_na, comment = comment, trim_ws = trim_ws,
+    skip_empty_rows = skip_empty_rows)
+  read_delimited(file, tokenizer, col_names = col_names, col_types = col_types,
+    locale = locale, skip = skip, skip_empty_rows = skip_empty_rows,
+    comment = comment, n_max = n_max, guess_max = guess_max, progress = progress)
+}
 
 #' @rdname read_delim_chunked
 #' @export

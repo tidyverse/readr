@@ -103,7 +103,7 @@ NULL
 #' read_csv2(I("a;b\n1,0;2,0"))
 #' read_tsv(I("a\tb\n1.0\t2.0"))
 #' read_delim(I("a|b\n1.0|2.0"), delim = "|")
-read_delim <- function(file, delim, quote = '"',
+read_delim <- function(file, delim = NULL, quote = '"',
                        escape_backslash = FALSE, escape_double = TRUE,
                        col_names = TRUE, col_types = NULL,
                        locale = default_locale(),
@@ -111,8 +111,9 @@ read_delim <- function(file, delim, quote = '"',
                        comment = "", trim_ws = FALSE,
                        skip = 0, n_max = Inf, guess_max = min(1000, n_max),
                        progress = show_progress(),
-                       skip_empty_rows = TRUE) {
+                       skip_empty_rows = TRUE, lazy = TRUE) {
 
+  if (edition_first()) {
   if (!nzchar(delim)) {
     stop("`delim` must be at least one character, ",
       "use `read_table()` for whitespace delimited input.", call. = FALSE)
@@ -121,9 +122,21 @@ read_delim <- function(file, delim, quote = '"',
     escape_backslash = escape_backslash, escape_double = escape_double,
     na = na, quoted_na = quoted_na, comment = comment, trim_ws = trim_ws,
     skip_empty_rows = skip_empty_rows)
-  read_delimited(file, tokenizer, col_names = col_names, col_types = col_types,
+  return(read_delimited(file, tokenizer, col_names = col_names, col_types = col_types,
     locale = locale, skip = skip, skip_empty_rows = skip_empty_rows,
-    comment = comment, n_max = n_max, guess_max = guess_max, progress = progress)
+    comment = comment, n_max = n_max, guess_max = guess_max, progress = progress))
+}
+  if (!missing(quoted_na)) {
+    lifecycle::deprecate_soft("2.0.0", "readr::read_delim(quoted_na = )")
+  }
+  if (!missing(skip_empty_rows)) {
+    lifecycle::deprecate_soft("2.0.0", "readr::read_delim(skip_empty_rows = )")
+  }
+
+  vroom::vroom(file, delim = delim, col_names = col_names, col_types = col_types,
+    skip = skip, n_max = n_max, na = na, quote = quote, comment = comment, trim_ws = trim_ws,
+    escape_double = escape_double, escape_backslash = escape_backslash, locale = locale, guess_max = guess_max,
+    progress = progress, altrep = lazy)
 }
 
 #' @rdname read_delim

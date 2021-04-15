@@ -9,7 +9,7 @@
 \usage{
 read_delim(
   file,
-  delim,
+  delim = NULL,
   quote = "\\"",
   escape_backslash = FALSE,
   escape_double = TRUE,
@@ -24,7 +24,8 @@ read_delim(
   n_max = Inf,
   guess_max = min(1000, n_max),
   progress = show_progress(),
-  skip_empty_rows = TRUE
+  skip_empty_rows = TRUE,
+  lazy = TRUE
 )
 
 read_csv(

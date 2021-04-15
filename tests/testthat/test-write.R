@@ -50,7 +50,7 @@ test_that("roundtrip preserves dates and datetimes", {
   attr(y, "tzone") <- "UTC"
 
   input <- data.frame(x, y)
-  output <- read_delim(format_delim(input, delim = " "), delim = " ", progress = FALSE)
+  output <- read_delim(I(format_delim(input, delim = ",")), delim = ",", progress = FALSE)
 
   expect_equal(output$x, x)
   expect_equal(output$y, y)
