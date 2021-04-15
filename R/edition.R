@@ -2,9 +2,11 @@ edition_set <- function(edition) {
   edition <- as.integer(edition)
   stopifnot(edition %in% c(1L, 2L))
 
+  old <- edition_get()
+
   options("readr.edition" = edition)
 
-  invisible(edition)
+  invisible(old)
 }
 
 #' @rdname with_edition
@@ -32,6 +34,10 @@ with_edition <- function(edition, code) {
 #' @export
 local_edition <- function(edition, env = parent.frame()) {
   rlang::check_installed("withr")
-  old <- edition_set(x)
+  old <- edition_set(edition)
   withr::defer(edition_set(old), envir = env)
+}
+
+edition_first <- function() {
+  edition_get() == 1L
 }

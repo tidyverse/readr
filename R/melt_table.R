@@ -42,6 +42,7 @@ melt_table <- function(file, locale = default_locale(), na = "NA", skip = 0,
                              data_type = character(), value = character()))
   }
 
+  local_edition(1)
   columns <- fwf_empty(ds, skip = skip, skip_empty_rows = skip_empty_rows, n = guess_max, comment = comment)
   tokenizer <- tokenizer_fwf(columns$begin, columns$end, na = na,
                              comment = comment,
