@@ -97,14 +97,12 @@ test_that("write_file with raw round trips with an empty vector", {
 
 test_that("write_lines can write to compressed files", {
 
-  mt <- read_lines(readr_example("mtcars.csv.bz2"))
-
-  filename <- file.path(tempdir(), "mtcars.csv.bz2")
+  filename <- file.path(tempdir(), "foo.bz2")
   on.exit(unlink(filename))
-  write_lines(mt, filename)
+  write_lines(c("foo", "bar", "baz"), filename)
 
   expect_true(is_bz2_file(filename))
-  expect_equal(mt, read_lines(filename))
+  expect_equal(c("foo", "bar", "baz"), read_lines(filename))
 })
 
 test_that("write_lines can write CRLF files", {

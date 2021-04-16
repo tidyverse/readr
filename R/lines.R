@@ -78,26 +78,32 @@ read_lines_raw <- function(file, skip = 0,
 #' @export
 #' @rdname read_lines
 write_lines <- function(x, file, sep = "\n", na = "NA", append = FALSE, path = deprecated()) {
-  if (is_present(path)) {
-    deprecate_warn("1.4.0", "write_lines(path = )", "write_lines(file = )")
-    file <- path
-  }
-
   is_raw <- is.list(x) && inherits(x[[1]], "raw")
-  if (!is_raw) {
-    x <- as.character(x)
+
+  if (is_raw || edition_first()) {
+    if (is_present(path)) {
+      deprecate_warn("1.4.0", "write_lines(path = )", "write_lines(file = )")
+      file <- path
+    }
+
+    is_raw <- is.list(x) && inherits(x[[1]], "raw")
+    if (!is_raw) {
+      x <- as.character(x)
+    }
+
+    file <- standardise_path(file, input = FALSE)
+    if (!isOpen(file)) {
+      on.exit(close(file), add = TRUE)
+      open(file, if (isTRUE(append)) "ab" else "wb")
+    }
+    if (is_raw) {
+      write_lines_raw_(x, file, sep)
+    } else {
+      write_lines_(x, file, na, sep)
+    }
+
+    return(invisible(x))
   }
 
-  file <- standardise_path(file, input = FALSE)
-  if (!isOpen(file)) {
-    on.exit(close(file), add = TRUE)
-    open(file, if (isTRUE(append)) "ab" else "wb")
-  }
-  if (is_raw) {
-    write_lines_raw_(x, file, sep)
-  } else {
-    write_lines_(x, file, na, sep)
-  }
-
-  invisible(x)
+  vroom::vroom_write_lines(x, file, eol = sep, na = na, append = append)
 }
