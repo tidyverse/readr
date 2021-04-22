@@ -38,6 +38,9 @@ melt_fwf <- function(file, col_positions,
                      comment = "", trim_ws = TRUE, skip = 0, n_max = Inf,
                      progress = show_progress(),
                      skip_empty_rows = FALSE) {
+  if (!edition_first()) {
+    lifecycle::deprecate_soft("2.0.0", "readr::melt_fwf()")
+  }
   ds <- datasource(file, skip = skip, skip_empty_rows = skip_empty_rows)
   if (inherits(ds, "source_file") && empty_file(file)) {
        return(tibble::tibble(row = double(), col = double(),

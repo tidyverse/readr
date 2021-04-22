@@ -10,9 +10,10 @@ read_lines(
   file,
   skip = 0,
   skip_empty_rows = FALSE,
-  n_max = -1,
+  n_max = Inf,
   locale = default_locale(),
   na = character(),
+  lazy = TRUE,
   progress = show_progress()
 )
 
@@ -61,6 +62,9 @@ names.}
 \item{na}{Character vector of strings to interpret as missing values. Set this
 option to \code{character()} to indicate no missing values.}
 
+\item{lazy}{Read values lazily? By default the file is initially only
+indexed. The actual values are read lazily on-demand when accessed.}
+
 \item{progress}{Display a progress bar? By default it will only display
 in an interactive session and not while knitting a document. The display
 is updated every 50,000 values and will only display if estimated reading
@@ -92,6 +96,25 @@ vectors, and is useful for handling data with unknown encoding.
 \code{write_lines()} takes a character vector or list of raw vectors, appending a
 new line after each entry.
 }
+\section{Second edition changes}{
+
+\subsection{Deprecated Parameters}{
+\itemize{
+\item \code{skip_empty_rows}
+\item \code{na}
+}
+}
+
+\subsection{Behavior changes}{
+\itemize{
+\item Normalizing newlines in files with just carriage returns \verb{\\r} is no longer
+supported. The last major OS to use only CR as the newline was 'classic' Mac
+OS, which had its final release
+in 2001.
+}
+}
+}
+
 \examples{
 read_lines(file.path(R.home("doc"), "AUTHORS"), n_max = 10)
 read_lines_raw(file.path(R.home("doc"), "AUTHORS"), n_max = 10)
@@ -99,7 +122,7 @@ read_lines_raw(file.path(R.home("doc"), "AUTHORS"), n_max = 10)
 tmp <- tempfile()
 
 write_lines(rownames(mtcars), tmp)
-read_lines(tmp)
+read_lines(tmp, lazy = FALSE)
 read_file(tmp) # note trailing \n
 
 write_lines(airquality$Ozone, tmp, na = "-1")

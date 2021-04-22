@@ -1,5 +1,19 @@
 # readr (development version)
 
+## second edition changes
+
+* New `with_edition()` and `local_edition()` functions to temporarily change the edition of readr.
+  For example you can use `with_edition(1, read_csv("my-file"))` to read a CSV file with the first edition of readr.
+  *Note* we will continue to support the first edition for a number of releases, but eventually this support will be first deprecated and then removed.
+
+* `melt_csv()`, `melt_delim()`, `melt_tsv()` and `melt_fwf()` have been deprecated.
+  These functions rely on the first edition parsing code and would be challenging to update to the new parser.
+  When the first edition parsing code is eventually removed from readr they will be split off into a new package.
+
+## Additional features and fixes
+
+* `read_*()` functions gain a `show_col_types` argument, if set to `FALSE` this turns off showing the column types unconditionally.
+
 * readr now uses the clock package when parsing date-times (@DavisVaughan, r-lib/vroom#273)
 * Memory no longer inadvertently leaks when reading memory from R connections (#1161)
 
@@ -14,6 +28,8 @@
 * Invalid date formats no longer can potentially crash R (#1151)
 
 * `read_delim()` fails when sample of parsing problems contains non-ASCII characters (@hidekoji, #1136)
+
+* Chunked readers now support files with more than `INT_MAX` (~ 2 Billion) number of lines (#1177)
 
 # readr 1.4.0
 

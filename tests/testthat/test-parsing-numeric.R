@@ -16,7 +16,7 @@ test_that("parse functions converts NAs", {
 
 test_that("leading/trailing ws ignored when parsing", {
   expect_equal(parse_double(c(" 1.5", "1.5", "1.5 ")), rep(1.5, 3))
-  expect_equal(read_csv("x\n 1.5\n1.5\n1.5 \n", progress = FALSE)$x, rep(1.5, 3))
+  expect_equal(read_csv(I("x\n 1.5\n1.5\n1.5 \n"))$x, rep(1.5, 3))
 })
 
 test_that("lone - or decimal marks are not numbers", {
@@ -33,8 +33,8 @@ test_that("Numbers with trailing characters are parsed as characters", {
 })
 
 test_that("problems() returns the full failed string if parsing fails (548)", {
-  probs <- problems(read_tsv("x\n1\nx", na = "", col_types = "n"))
-  expect_equal(probs$row, 2)
+  probs <- problems(read_tsv("x\n1\nx", na = "", col_types = "n", lazy = FALSE))
+  expect_equal(probs$row, 3)
   expect_equal(probs$expected, "a number")
   expect_equal(probs$actual, "x")
 })
@@ -85,7 +85,7 @@ test_that("type_convert passes along decimal_mark", {
 })
 
 test_that("read_tsv passes on decimal_mark", {
-  out <- read_tsv("x\n1,5", locale = es_MX, progress = FALSE)
+  out <- read_tsv(I("x\n1,5"), locale = es_MX)
   expect_equal(out$x, 1.5)
 })
 

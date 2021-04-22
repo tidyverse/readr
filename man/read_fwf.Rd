@@ -10,7 +10,7 @@
 \usage{
 read_fwf(
   file,
-  col_positions,
+  col_positions = fwf_empty(file, skip, n = guess_max),
   col_types = NULL,
   locale = default_locale(),
   na = c("", "NA"),
@@ -20,6 +20,8 @@ read_fwf(
   n_max = Inf,
   guess_max = min(n_max, 1000),
   progress = show_progress(),
+  show_col_types = should_show_types(),
+  lazy = TRUE,
   skip_empty_rows = TRUE
 )
 
@@ -34,7 +36,7 @@ fwf_empty(
 
 fwf_widths(widths, col_names = NULL)
 
-fwf_positions(start, end, col_names = NULL)
+fwf_positions(start, end = NULL, col_names = NULL)
 
 fwf_cols(...)
 }
@@ -87,7 +89,8 @@ character represents one column:
 
 By default, reading a file without a column specification will print a
 message showing what \code{readr} guessed they were. To remove this message,
-use \code{col_types = cols()}.
+use \code{col_types = list()}, set \code{show_col_types = FALSE} or set
+`options(readr.show_col_types = FALSE)
 }}
 
 \item{locale}{The locale controls defaults that vary from place to place.
@@ -116,6 +119,14 @@ in an interactive session and not while knitting a document. The display
 is updated every 50,000 values and will only display if estimated reading
 time is 5 seconds or more. The automatic progress bar can be disabled by
 setting option \code{readr.show_progress} to \code{FALSE}.}
+
+\item{show_col_types}{If \code{FALSE}, do not show the guessed column types. If
+\code{TRUE} always show the column types, even if they are supplied. If \code{NULL}
+(the default) only show the column types if they are not explicitly supplied
+by the \code{col_types} argument.}
+
+\item{lazy}{Read values lazily? By default the file is initially only
+indexed. The actual values are read lazily on-demand when accessed.}
 
 \item{skip_empty_rows}{Should blank rows be ignored altogether? i.e. If this
 option is \code{TRUE} then blank rows will not be represented at all.  If it is

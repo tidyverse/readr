@@ -55,9 +55,13 @@ test_that("NAs included in levels if desired", {
 })
 
 test_that("Factors handle encodings properly (#615)", {
-  x <- read_csv(encoded("test\nA\n\xC4\n", "latin1"),
+  f <- tempfile()
+  on.exit(unlink(f))
+  writeBin(charToRaw(encoded("test\nA\n\xC4\n", "latin1")), f)
+
+  x <- read_csv(f,
     col_types = cols(col_factor(c("A", "\uC4"))),
-    locale = locale(encoding = "latin1"), progress = FALSE)
+    locale = locale(encoding = "latin1"))
 
   expect_s3_class(x$test, "factor")
   expect_equal(x$test, factor(c("A", "\uC4")))

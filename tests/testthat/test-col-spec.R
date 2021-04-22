@@ -111,12 +111,12 @@ test_that("print(col_spec) with truncated output", {
 
 test_that("spec object attached to read data", {
 
-  test_data <- read_csv("basic-df.csv", col_types = NULL, col_names = TRUE, progress = FALSE)
+  test_data <- read_csv(test_path("basic-df.csv"), col_types = NULL, col_names = TRUE)
   sp <- spec(test_data)
   sp$skip <- NULL
 
   expect_equal(sp,
-    cols(
+    cols(.delim = ",",
        a = col_logical(),
        b = col_double(),
        c = col_double(),
@@ -218,7 +218,7 @@ test_that("print(col_spec) with colors", {
 })
 
 test_that("non-syntatic names are escaped", {
-  x <- read_csv("a b,_c,1,a`b\n1,2,3,4")
+  x <- read_csv(I("a b,_c,1,a`b\n1,2,3,4"))
   expect_equal(format(spec(x), colour = FALSE),
 "cols(
   `a b` = col_double(),

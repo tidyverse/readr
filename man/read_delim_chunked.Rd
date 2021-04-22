@@ -10,8 +10,8 @@
 read_delim_chunked(
   file,
   callback,
+  delim = NULL,
   chunk_size = 10000,
-  delim,
   quote = "\\"",
   escape_backslash = FALSE,
   escape_double = TRUE,
@@ -23,7 +23,7 @@ read_delim_chunked(
   comment = "",
   trim_ws = FALSE,
   skip = 0,
-  guess_max = min(1000, chunk_size),
+  guess_max = chunk_size,
   progress = show_progress(),
   skip_empty_rows = TRUE
 )
@@ -41,7 +41,7 @@ read_csv_chunked(
   comment = "",
   trim_ws = TRUE,
   skip = 0,
-  guess_max = min(1000, chunk_size),
+  guess_max = chunk_size,
   progress = show_progress(),
   skip_empty_rows = TRUE
 )
@@ -59,7 +59,7 @@ read_csv2_chunked(
   comment = "",
   trim_ws = TRUE,
   skip = 0,
-  guess_max = min(1000, chunk_size),
+  guess_max = chunk_size,
   progress = show_progress(),
   skip_empty_rows = TRUE
 )
@@ -77,7 +77,7 @@ read_tsv_chunked(
   comment = "",
   trim_ws = TRUE,
   skip = 0,
-  guess_max = min(1000, chunk_size),
+  guess_max = chunk_size,
   progress = show_progress(),
   skip_empty_rows = TRUE
 )
@@ -100,9 +100,9 @@ Using a value of \code{\link[=clipboard]{clipboard()}} will read from the system
 
 \item{callback}{A callback function to call on each chunk}
 
-\item{chunk_size}{The number of rows to include in each chunk}
-
 \item{delim}{Single character used to separate fields within a record.}
+
+\item{chunk_size}{The number of rows to include in each chunk}
 
 \item{quote}{Single character used to quote strings.}
 
@@ -158,7 +158,8 @@ character represents one column:
 
 By default, reading a file without a column specification will print a
 message showing what \code{readr} guessed they were. To remove this message,
-use \code{col_types = cols()}.
+use \code{col_types = list()}, set \code{show_col_types = FALSE} or set
+`options(readr.show_col_types = FALSE)
 }}
 
 \item{locale}{The locale controls defaults that vary from place to place.

@@ -23,7 +23,7 @@
 #' write_file(x, tmp)
 #' identical(x, read_file(tmp))
 #'
-#' read_lines(x)
+#' read_lines(I(x))
 read_file <- function(file, locale = default_locale()) {
   if (empty_file(file)) {
     return("")

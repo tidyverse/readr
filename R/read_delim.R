@@ -51,7 +51,12 @@ NULL
 #'
 #'    By default, reading a file without a column specification will print a
 #'    message showing what `readr` guessed they were. To remove this message,
-#'    use `col_types = cols()`.
+#'    use `col_types = list()`, set `show_col_types = FALSE` or set
+#'    `options(readr.show_col_types = FALSE)
+#' @param show_col_types If `FALSE`, do not show the guessed column types. If
+#'   `TRUE` always show the column types, even if they are supplied. If `NULL`
+#'   (the default) only show the column types if they are not explicitly supplied
+#'   by the `col_types` argument.
 #' @param locale The locale controls defaults that vary from place to place.
 #'   The default locale is US-centric (like R), but you can use
 #'   [locale()] to create your own locale that controls things like
@@ -64,6 +69,8 @@ NULL
 #'   is updated every 50,000 values and will only display if estimated reading
 #'   time is 5 seconds or more. The automatic progress bar can be disabled by
 #'   setting option `readr.show_progress` to `FALSE`.
+#' @param lazy Read values lazily? By default the file is initially only
+#'   indexed. The actual values are read lazily on-demand when accessed.
 #' @return A [tibble()]. If there are parsing problems, a warning tells you
 #'   how many, and you can retrieve the details with [problems()].
 #' @export
@@ -79,29 +86,29 @@ NULL
 #' read_csv("https://github.com/tidyverse/readr/raw/master/inst/extdata/mtcars.csv")
 #' }
 #'
-#' # Or directly from a string (must contain a newline)
-#' read_csv("x,y\n1,2\n3,4")
+#' # Or directly from a string with `I()`
+#' read_csv(I("x,y\n1,2\n3,4"))
 #'
 #' # Column types --------------------------------------------------------------
 #' # By default, readr guesses the columns types, looking at the first 1000 rows.
 #' # You can override with a compact specification:
-#' read_csv("x,y\n1,2\n3,4", col_types = "dc")
+#' read_csv(I("x,y\n1,2\n3,4"), col_types = "dc")
 #'
 #' # Or with a list of column types:
-#' read_csv("x,y\n1,2\n3,4", col_types = list(col_double(), col_character()))
+#' read_csv(I("x,y\n1,2\n3,4"), col_types = list(col_double(), col_character()))
 #'
 #' # If there are parsing problems, you get a warning, and can extract
 #' # more details with problems()
-#' y <- read_csv("x\n1\n2\nb", col_types = list(col_double()))
+#' y <- read_csv(I("x\n1\n2\nb"), col_types = list(col_double()))
 #' y
 #' problems(y)
 #'
 #' # File types ----------------------------------------------------------------
-#' read_csv("a,b\n1.0,2.0")
-#' read_csv2("a;b\n1,0;2,0")
-#' read_tsv("a\tb\n1.0\t2.0")
-#' read_delim("a|b\n1.0|2.0", delim = "|")
-read_delim <- function(file, delim, quote = '"',
+#' read_csv(I("a,b\n1.0,2.0"))
+#' read_csv2(I("a;b\n1,0;2,0"))
+#' read_tsv(I("a\tb\n1.0\t2.0"))
+#' read_delim(I("a|b\n1.0|2.0"), delim = "|")
+read_delim <- function(file, delim = NULL, quote = '"',
                        escape_backslash = FALSE, escape_double = TRUE,
                        col_names = TRUE, col_types = NULL,
                        locale = default_locale(),
@@ -109,8 +116,10 @@ read_delim <- function(file, delim, quote = '"',
                        comment = "", trim_ws = FALSE,
                        skip = 0, n_max = Inf, guess_max = min(1000, n_max),
                        progress = show_progress(),
-                       skip_empty_rows = TRUE) {
+                       show_col_types = should_show_types(),
+                       skip_empty_rows = TRUE, lazy = TRUE) {
 
+  if (edition_first()) {
   if (!nzchar(delim)) {
     stop("`delim` must be at least one character, ",
       "use `read_table()` for whitespace delimited input.", call. = FALSE)
@@ -119,9 +128,21 @@ read_delim <- function(file, delim, quote = '"',
     escape_backslash = escape_backslash, escape_double = escape_double,
     na = na, quoted_na = quoted_na, comment = comment, trim_ws = trim_ws,
     skip_empty_rows = skip_empty_rows)
-  read_delimited(file, tokenizer, col_names = col_names, col_types = col_types,
+  return(read_delimited(file, tokenizer, col_names = col_names, col_types = col_types,
     locale = locale, skip = skip, skip_empty_rows = skip_empty_rows,
-    comment = comment, n_max = n_max, guess_max = guess_max, progress = progress)
+    comment = comment, n_max = n_max, guess_max = guess_max, progress = progress))
+}
+  if (!missing(quoted_na)) {
+    lifecycle::deprecate_soft("2.0.0", "readr::read_delim(quoted_na = )")
+  }
+  if (!missing(skip_empty_rows)) {
+    lifecycle::deprecate_soft("2.0.0", "readr::read_delim(skip_empty_rows = )")
+  }
+
+  vroom::vroom(file, delim = delim, col_names = col_names, col_types = col_types,
+    skip = skip, n_max = n_max, na = na, quote = quote, comment = comment, trim_ws = trim_ws,
+    escape_double = escape_double, escape_backslash = escape_backslash, locale = locale, guess_max = guess_max,
+    progress = progress, altrep = lazy, show_col_spec = show_col_types)
 }
 
 #' @rdname read_delim
@@ -130,12 +151,26 @@ read_csv <- function(file, col_names = TRUE, col_types = NULL,
                      locale = default_locale(), na = c("", "NA"),
                      quoted_na = TRUE, quote = "\"", comment = "", trim_ws = TRUE,
                      skip = 0, n_max = Inf, guess_max = min(1000, n_max),
-                     progress = show_progress(), skip_empty_rows = TRUE) {
+                     progress = show_progress(), show_col_types = should_show_types(), skip_empty_rows = TRUE, lazy = TRUE) {
+  if (edition_first()) {
   tokenizer <- tokenizer_csv(na = na, quoted_na = quoted_na, quote = quote,
     comment = comment, trim_ws = trim_ws, skip_empty_rows = skip_empty_rows)
-  read_delimited(file, tokenizer, col_names = col_names, col_types = col_types,
-    locale = locale, skip = skip, skip_empty_rows = skip_empty_rows,
-    comment = comment, n_max = n_max, guess_max = guess_max, progress = progress)
+  return(
+    read_delimited(file, tokenizer, col_names = col_names, col_types = col_types,
+      locale = locale, skip = skip, skip_empty_rows = skip_empty_rows,
+      comment = comment, n_max = n_max, guess_max = guess_max, progress = progress
+    )
+  )
+  }
+
+  if (!missing(quoted_na)) {
+    lifecycle::deprecate_soft("2.0.0", "readr::read_csv(quoted_na = )")
+  }
+  vroom::vroom(file, delim = ",", col_names = col_names, col_types = col_types,
+    skip = skip, n_max = n_max, na = na, quote = quote, comment = comment, trim_ws = trim_ws,
+    escape_double = TRUE, escape_backslash = FALSE, locale = locale, guess_max = guess_max,
+    show_col_spec = show_col_types,
+    progress = progress, altrep = lazy)
 }
 
 #' @rdname read_delim
@@ -145,21 +180,28 @@ read_csv2 <- function(file, col_names = TRUE, col_types = NULL,
                       na = c("", "NA"), quoted_na = TRUE, quote = "\"",
                       comment = "", trim_ws = TRUE, skip = 0, n_max = Inf,
                       guess_max = min(1000, n_max), progress = show_progress(),
-                      skip_empty_rows = TRUE) {
+                      show_col_types = should_show_types(),
+                      skip_empty_rows = TRUE, lazy = TRUE) {
 
   if (locale$decimal_mark == ".") {
     cli::cli_alert_info("Using {.val ','} as decimal and {.val '.'} as grouping mark. Use {.fn read_delim} for more control.")
     locale$decimal_mark <- ","
     locale$grouping_mark <- "."
   }
+  if (edition_first()) {
   tokenizer <- tokenizer_delim(delim = ";", na = na, quoted_na = quoted_na,
     quote = quote, comment = comment, trim_ws = trim_ws,
     skip_empty_rows = skip_empty_rows)
-  read_delimited(file, tokenizer, col_names = col_names, col_types = col_types,
+  return(read_delimited(file, tokenizer, col_names = col_names, col_types = col_types,
     locale = locale, skip = skip, skip_empty_rows = skip_empty_rows,
-    comment = comment, n_max = n_max, guess_max = guess_max, progress = progress)
+    comment = comment, n_max = n_max, guess_max = guess_max, progress = progress))
 }
-
+  vroom::vroom(file, delim = ";", col_names = col_names, col_types = col_types,
+    skip = skip, n_max = n_max, na = na, quote = quote, comment = comment, trim_ws = trim_ws,
+    escape_double = TRUE, escape_backslash = FALSE, locale = locale, guess_max = guess_max,
+    show_col_spec = show_col_types,
+    progress = progress, altrep = lazy)
+}
 
 #' @rdname read_delim
 #' @export
@@ -168,12 +210,20 @@ read_tsv <- function(file, col_names = TRUE, col_types = NULL,
                      na = c("", "NA"), quoted_na = TRUE, quote = "\"",
                      comment = "", trim_ws = TRUE, skip = 0, n_max = Inf,
                      guess_max = min(1000, n_max), progress = show_progress(),
-                     skip_empty_rows = TRUE) {
+                      show_col_types = should_show_types(),
+                     skip_empty_rows = TRUE, lazy = TRUE) {
   tokenizer <- tokenizer_tsv(na = na, quoted_na = quoted_na, quote = quote,
     comment = comment, trim_ws = trim_ws, skip_empty_rows = skip_empty_rows)
-  read_delimited(file, tokenizer, col_names = col_names, col_types = col_types,
-    locale = locale, skip = skip, skip_empty_rows = skip_empty_rows,
-    comment = comment, n_max = n_max, guess_max = guess_max, progress = progress)
+  if (edition_first()) {
+    return(read_delimited(file, tokenizer, col_names = col_names, col_types = col_types,
+        locale = locale, skip = skip, skip_empty_rows = skip_empty_rows,
+        comment = comment, n_max = n_max, guess_max = guess_max, progress = progress))
+  }
+
+  vroom::vroom(file, delim = "\t", col_names = col_names,
+    col_types = col_types, locale = locale, skip = skip, comment = comment,
+    n_max = n_max, guess_max = guess_max, progress = progress,
+    show_col_spec = show_col_types, altrep = lazy)
 }
 
 # Helper functions for reading from delimited files ----------------------------
@@ -227,20 +277,12 @@ read_delimited <- function(file, tokenizer, col_names = TRUE, col_types = NULL,
   warn_problems(out)
 }
 
-generate_spec_fun <- function(x) {
-  formals(x)$n_max <- 0
-  formals(x)$guess_max <- 1000
+generate_spec_fun <- function(f) {
+  formals(f)$n_max <- 0
+  formals(f)$guess_max <- 1000
 
-  args <- formals(x)
-
-  body(x) <-
-    call("attr",
-      as.call(c(substitute(x), stats::setNames(lapply(names(args), as.symbol), names(args)))),
-      "spec")
-
-  formals(x) <- args
-
-  x
+  body(f) <- call("attr", body(f), "spec")
+  f
 }
 
 #' Generate a column specification
@@ -259,7 +301,7 @@ generate_spec_fun <- function(x) {
 #' spec_csv(system.file("extdata/mtcars.csv.zip", package = "readr"))
 #'
 #' # Or directly from a string (must contain a newline)
-#' spec_csv("x,y\n1,2\n3,4")
+#' spec_csv(I("x,y\n1,2\n3,4"))
 #'
 #' # Column types --------------------------------------------------------------
 #' # By default, readr guesses the columns types, looking at the first 1000 rows.

@@ -33,40 +33,52 @@
 #' read_fwf(fwf_sample, fwf_cols(name = c(1, 20), ssn = c(30, 42)))
 #' # 5. Named arguments with column widths
 #' read_fwf(fwf_sample, fwf_cols(name = 20, state = 10, ssn = 12))
-read_fwf <- function(file, col_positions, col_types = NULL,
+read_fwf <- function(file, col_positions = fwf_empty(file, skip, n = guess_max), col_types = NULL,
                      locale = default_locale(), na = c("", "NA"),
                      comment = "", trim_ws = TRUE, skip = 0, n_max = Inf,
                      guess_max = min(n_max, 1000), progress = show_progress(),
-                     skip_empty_rows = TRUE) {
-  ds <- datasource(file, skip = skip, skip_empty_rows = skip_empty_rows)
-  if (inherits(ds, "source_file") && empty_file(file)) {
-    return(tibble::tibble())
+                      show_col_types = should_show_types(),
+                     lazy = TRUE, skip_empty_rows = TRUE) {
+  if (edition_first()) {
+    ds <- datasource(file, skip = skip, skip_empty_rows = skip_empty_rows)
+    if (inherits(ds, "source_file") && empty_file(file)) {
+      return(tibble::tibble())
+    }
+
+    tokenizer <- tokenizer_fwf(col_positions$begin, col_positions$end, na = na, comment = comment, trim_ws = trim_ws, skip_empty_rows = skip_empty_rows)
+
+    spec <- col_spec_standardise(
+      file,
+      skip = skip,
+      guess_max = guess_max,
+      tokenizer = tokenizer,
+      locale = locale,
+      col_names = col_positions$col_names,
+      col_types = col_types,
+      drop_skipped_names = TRUE
+    )
+
+    if (is.null(col_types) && !inherits(ds, "source_string") && !is_testing()) {
+      show_cols_spec(spec)
+    }
+
+    out <- read_tokens(datasource(file, skip = spec$skip, skip_empty_rows = skip_empty_rows), tokenizer, spec$cols, names(spec$cols),
+      locale_ = locale, n_max = if (n_max == Inf) -1 else n_max,
+      progress = progress)
+
+    out <- name_problems(out, names(spec$cols), source_name(file))
+    attr(out, "spec") <- spec
+    return(warn_problems(out))
   }
 
-  tokenizer <- tokenizer_fwf(col_positions$begin, col_positions$end, na = na, comment = comment, trim_ws = trim_ws, skip_empty_rows = skip_empty_rows)
-
-  spec <- col_spec_standardise(
-    file,
-    skip = skip,
-    guess_max = guess_max,
-    tokenizer = tokenizer,
-    locale = locale,
-    col_names = col_positions$col_names,
-    col_types = col_types,
-    drop_skipped_names = TRUE
-  )
-
-  if (is.null(col_types) && !inherits(ds, "source_string") && !is_testing()) {
-    show_cols_spec(spec)
+  if (!missing(skip_empty_rows)) {
+    lifecycle::deprecate_soft("2.0.0", "readr::read_fwf(skip_empty_rows = )")
   }
 
-  out <- read_tokens(datasource(file, skip = spec$skip, skip_empty_rows = skip_empty_rows), tokenizer, spec$cols, names(spec$cols),
-    locale_ = locale, n_max = if (n_max == Inf) -1 else n_max,
-    progress = progress)
-
-  out <- name_problems(out, names(spec$cols), source_name(file))
-  attr(out, "spec") <- spec
-  warn_problems(out)
+  vroom::vroom_fwf(file, col_positions = col_positions, col_types = col_types,
+    locale = locale, na = na, comment = comment, trim_ws = trim_ws, skip = skip,
+    n_max = n_max, guess_max = guess_max, show_col_spec = show_col_types,
+    progress = progress, altrep = lazy)
 }
 
 #' @rdname read_fwf
@@ -74,14 +86,22 @@ read_fwf <- function(file, col_positions, col_types = NULL,
 #' @param n Number of lines the tokenizer will read to determine file structure. By default
 #'      it is set to 100.
 fwf_empty <- function(file, skip = 0, skip_empty_rows = FALSE, col_names = NULL, comment = "", n = 100L) {
-  ds <- datasource(file, skip = skip, skip_empty_rows = skip_empty_rows)
+  if (edition_first()) {
+    ds <- datasource(file, skip = skip, skip_empty_rows = skip_empty_rows)
 
-  out <- whitespaceColumns(ds, comment = comment, n = n)
-  out$end[length(out$end)] <- NA
+    out <- whitespaceColumns(ds, comment = comment, n = n)
+    out$end[length(out$end)] <- NA
 
-  col_names <- fwf_col_names(col_names, length(out$begin))
-  out$col_names <- col_names
-  out
+    col_names <- fwf_col_names(col_names, length(out$begin))
+    out$col_names <- col_names
+    return(out)
+  }
+
+  if (!missing(skip_empty_rows)) {
+    lifecycle::deprecate_soft("2.0.0", "readr::fwf_empty(skip_empty_rows = )")
+  }
+
+  vroom::fwf_empty(file = file, skip = skip, col_names = col_names, comment = comment, n = n)
 }
 
 #' @rdname read_fwf
@@ -90,24 +110,31 @@ fwf_empty <- function(file, skip = 0, skip_empty_rows = FALSE, col_names = NULL,
 #'    reading a ragged fwf file.
 #' @param col_names Either NULL, or a character vector column names.
 fwf_widths <- function(widths, col_names = NULL) {
-  pos <- cumsum(c(1L, abs(widths)))
-  fwf_positions(pos[-length(pos)], pos[-1] - 1L, col_names)
+  if (edition_first()) {
+    pos <- cumsum(c(1L, abs(widths)))
+    return(fwf_positions(pos[-length(pos)], pos[-1] - 1L, col_names))
+  }
+  vroom::fwf_widths(widths = widths, col_names = col_names)
 }
 
 #' @rdname read_fwf
 #' @export
 #' @param start,end Starting and ending (inclusive) positions of each field.
 #'    Use NA as last end field when reading a ragged fwf file.
-fwf_positions <- function(start, end, col_names = NULL) {
+fwf_positions <- function(start, end = NULL, col_names = NULL) {
+  if (edition_first()) {
 
-  stopifnot(length(start) == length(end))
-  col_names <- fwf_col_names(col_names, length(start))
+    stopifnot(length(start) == length(end))
+    col_names <- fwf_col_names(col_names, length(start))
 
-  tibble(
-    begin = start - 1L,
-    end = end, # -1 to change to 0 offset, +1 to be exclusive,
-    col_names = as.character(col_names)
-  )
+    return(tibble(
+        begin = start - 1L,
+        end = end, # -1 to change to 0 offset, +1 to be exclusive,
+        col_names = as.character(col_names)
+        )
+    )
+  }
+  vroom::fwf_positions(start = start, end = end, col_names = col_names)
 }
 
 
@@ -120,17 +147,21 @@ fwf_positions <- function(start, end, col_names = NULL) {
 #'   positions. The elements of `...` are used to construct a data frame
 #'   with or or two rows as above.
 fwf_cols <- function(...) {
-  x <- lapply(list(...), as.integer)
-  names(x) <- fwf_col_names(names(x), length(x))
-  x <- tibble::as_tibble(x)
-  if (nrow(x) == 2) {
-    fwf_positions(as.integer(x[1, ]), as.integer(x[2, ]), names(x))
-  } else if (nrow(x) == 1) {
-    fwf_widths(as.integer(x[1, ]), names(x))
-  } else {
-    stop("All variables must have either one (width) two (start, end) values.",
-         call. = FALSE)
+  if (edition_first()) {
+    x <- lapply(list(...), as.integer)
+    names(x) <- fwf_col_names(names(x), length(x))
+    x <- tibble::as_tibble(x)
+    if (nrow(x) == 2) {
+      res <- fwf_positions(as.integer(x[1, ]), as.integer(x[2, ]), names(x))
+    } else if (nrow(x) == 1) {
+      res <- fwf_widths(as.integer(x[1, ]), names(x))
+    } else {
+      stop("All variables must have either one (width) two (start, end) values.",
+        call. = FALSE)
+    }
+    return(res)
   }
+  vroom::fwf_cols(...)
 }
 
 fwf_col_names <- function(nm, n) {

@@ -11,7 +11,7 @@
 \usage{
 spec_delim(
   file,
-  delim,
+  delim = NULL,
   quote = "\\"",
   escape_backslash = FALSE,
   escape_double = TRUE,
@@ -26,7 +26,9 @@ spec_delim(
   n_max = 0,
   guess_max = 1000,
   progress = show_progress(),
-  skip_empty_rows = TRUE
+  show_col_types = should_show_types(),
+  skip_empty_rows = TRUE,
+  lazy = TRUE
 )
 
 spec_csv(
@@ -43,7 +45,9 @@ spec_csv(
   n_max = 0,
   guess_max = 1000,
   progress = show_progress(),
-  skip_empty_rows = TRUE
+  show_col_types = should_show_types(),
+  skip_empty_rows = TRUE,
+  lazy = TRUE
 )
 
 spec_csv2(
@@ -60,7 +64,9 @@ spec_csv2(
   n_max = 0,
   guess_max = 1000,
   progress = show_progress(),
-  skip_empty_rows = TRUE
+  show_col_types = should_show_types(),
+  skip_empty_rows = TRUE,
+  lazy = TRUE
 )
 
 spec_tsv(
@@ -77,7 +83,9 @@ spec_tsv(
   n_max = 0,
   guess_max = 1000,
   progress = show_progress(),
-  skip_empty_rows = TRUE
+  show_col_types = should_show_types(),
+  skip_empty_rows = TRUE,
+  lazy = TRUE
 )
 
 spec_table(
@@ -180,7 +188,8 @@ character represents one column:
 
 By default, reading a file without a column specification will print a
 message showing what \code{readr} guessed they were. To remove this message,
-use \code{col_types = cols()}.
+use \code{col_types = list()}, set \code{show_col_types = FALSE} or set
+`options(readr.show_col_types = FALSE)
 }}
 
 \item{locale}{The locale controls defaults that vary from place to place.
@@ -213,9 +222,17 @@ is updated every 50,000 values and will only display if estimated reading
 time is 5 seconds or more. The automatic progress bar can be disabled by
 setting option \code{readr.show_progress} to \code{FALSE}.}
 
+\item{show_col_types}{If \code{FALSE}, do not show the guessed column types. If
+\code{TRUE} always show the column types, even if they are supplied. If \code{NULL}
+(the default) only show the column types if they are not explicitly supplied
+by the \code{col_types} argument.}
+
 \item{skip_empty_rows}{Should blank rows be ignored altogether? i.e. If this
 option is \code{TRUE} then blank rows will not be represented at all.  If it is
 \code{FALSE} then they will be represented by \code{NA} values in all the columns.}
+
+\item{lazy}{Read values lazily? By default the file is initially only
+indexed. The actual values are read lazily on-demand when accessed.}
 }
 \value{
 The \code{col_spec} generated for the file.
@@ -232,7 +249,7 @@ spec_csv(system.file("extdata/mtcars.csv", package = "readr"))
 spec_csv(system.file("extdata/mtcars.csv.zip", package = "readr"))
 
 # Or directly from a string (must contain a newline)
-spec_csv("x,y\n1,2\n3,4")
+spec_csv(I("x,y\n1,2\n3,4"))
 
 # Column types --------------------------------------------------------------
 # By default, readr guesses the columns types, looking at the first 1000 rows.

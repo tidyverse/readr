@@ -20,9 +20,9 @@ test_that("read_delim/csv/tsv and write_delim round trip special chars", {
   x <- c("a", '"', ",", "\n","at\t")
 
   output <- data.frame(x)
-  input <- read_delim(format_delim(output, delim = " "), delim = " ", trim_ws = FALSE, progress = FALSE)
-  input_csv <- read_csv(format_delim(output, delim = ","), trim_ws = FALSE, progress = FALSE)
-  input_tsv <- read_tsv(format_delim(output, delim = "\t"), trim_ws = FALSE, progress = FALSE)
+  input <- read_delim(I(format_delim(output, delim = " ")), delim = " ", trim_ws = FALSE)
+  input_csv <- read_csv(I(format_delim(output, delim = ",")), trim_ws = FALSE)
+  input_tsv <- read_tsv(I(format_delim(output, delim = "\t")), trim_ws = FALSE)
   expect_equal(input$x, input_csv$x)
   expect_equal(input_tsv$x,  x)
 })
@@ -39,7 +39,7 @@ test_that("logical values give long names", {
 
 test_that("roundtrip preserved floating point numbers", {
   input <- data.frame(x = runif(100))
-  output <- read_delim(format_delim(input, delim = " "), delim = " ", progress = FALSE)
+  output <- read_delim(I(format_delim(input, delim = " ")), delim = " ")
 
   expect_equal(input$x, output$x)
 })
@@ -50,14 +50,14 @@ test_that("roundtrip preserves dates and datetimes", {
   attr(y, "tzone") <- "UTC"
 
   input <- data.frame(x, y)
-  output <- read_delim(format_delim(input, delim = " "), delim = " ", progress = FALSE)
+  output <- read_delim(I(format_delim(input, delim = ",")), delim = ",")
 
   expect_equal(output$x, x)
   expect_equal(output$y, y)
 })
 
 test_that("fails to create file in non-existent directory", {
-  expect_warning(expect_error(write_csv(mtcars, file.path(tempdir(), "/x/y")), "cannot open the connection"), "No such file or directory")
+  expect_error(write_csv(mtcars, file.path(tempdir(), "/x/y")), "Cannot open")
 })
 
 test_that("write_excel_csv/csv2 includes a byte order mark", {
@@ -187,7 +187,6 @@ test_that("Can change the escape behavior for quotes", {
   expect_equal(format_delim(df, "\t", quote_escape = "double"), "x\na\n\"\"\"\"\n,\n\"\n\"\n")
   expect_equal(format_delim(df, "\t", quote_escape = "backslash"), "x\na\n\"\\\"\"\n,\n\"\n\"\n")
   expect_equal(format_delim(df, "\t", quote_escape = "none"), "x\na\n\"\"\"\n,\n\"\n\"\n")
-  expect_equal(format_delim(df, "\t", quote_escape = FALSE), "x\na\n\"\"\"\n,\n\"\n\"\n")
 })
 
 test_that("hms NAs are written without padding (#930)", {

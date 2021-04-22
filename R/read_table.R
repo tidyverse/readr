@@ -37,6 +37,7 @@ read_table <- function(file, col_names = TRUE, col_types = NULL,
                        n_max = Inf, guess_max = min(n_max, 1000),
                        progress = show_progress(), comment = "",
                        skip_empty_rows = TRUE) {
+  local_edition(1)
   ds <- datasource(file, skip = skip, skip_empty_rows = skip_empty_rows)
   columns <- fwf_empty(ds, skip = skip, n = guess_max, comment = comment)
   skip <- skip + columns$skip

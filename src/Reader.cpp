@@ -59,12 +59,12 @@ void Reader::init(cpp11::strings colNames) {
   }
 }
 
-cpp11::sexp Reader::readToDataFrame(int lines) {
-  int rows = read(lines);
+cpp11::sexp Reader::readToDataFrame(R_xlen_t lines) {
+  R_xlen_t rows = read(lines);
 
   // Save individual columns into a data frame
   cpp11::writable::list out(outNames_.size());
-  int j = 0;
+  R_xlen_t j = 0;
   for (std::vector<int>::const_iterator it = keptColumns_.begin();
        it != keptColumns_.end();
        ++it) {
@@ -75,7 +75,7 @@ cpp11::sexp Reader::readToDataFrame(int lines) {
 
   out2.attr("names") = outNames_;
   out2.attr("class") = {"spec_tbl_df", "tbl_df", "tbl", "data.frame"};
-  out2.attr("row.names") = {NA_INTEGER, -(rows + 1)};
+  out2.attr("row.names") = {NA_REAL, -(static_cast<double>(rows + 1))};
 
   collectorsClear();
   warnings_.clear();
@@ -85,18 +85,18 @@ cpp11::sexp Reader::readToDataFrame(int lines) {
   return out2;
 }
 
-int Reader::read(int lines) {
+R_xlen_t Reader::read(R_xlen_t lines) {
 
   if (t_.type() == TOKEN_EOF) {
     return (-1);
   }
 
-  int n = (lines < 0) ? 1000 : lines;
+  R_xlen_t n = (lines < 0) ? 1000 : lines;
 
   collectorsResize(n);
 
-  int last_row = -1, last_col = -1, cells = 0;
-  int first_row;
+  R_xlen_t last_row = -1, last_col = -1, cells = 0;
+  R_xlen_t first_row;
   if (!begun_) {
     t_ = tokenizer_->nextToken();
     begun_ = true;
@@ -111,15 +111,15 @@ int Reader::read(int lines) {
       progressBar_.show(tokenizer_->progress());
     }
 
-    if (t_.col() == 0 && static_cast<int>(t_.row()) != first_row) {
+    if (t_.col() == 0 && static_cast<R_xlen_t>(t_.row()) != first_row) {
       checkColumns(last_row, last_col, collectors_.size());
     }
 
-    if (lines >= 0 && static_cast<int>(t_.row()) - first_row >= lines) {
+    if (lines >= 0 && static_cast<R_xlen_t>(t_.row()) - first_row >= lines) {
       break;
     }
 
-    if (static_cast<int>(t_.row()) - first_row >= n) {
+    if (static_cast<R_xlen_t>(t_.row()) - first_row >= n) {
       // Estimate rows in full dataset and resize collectors
       n = ((t_.row() - first_row) / tokenizer_->progress().first) * 1.1;
       collectorsResize(n);
@@ -168,7 +168,7 @@ void Reader::checkColumns(int i, int j, int n) {
   warnings_.addWarning(i, -1, ss1.str(), ss2.str());
 }
 
-void Reader::collectorsResize(int n) {
+void Reader::collectorsResize(R_xlen_t n) {
   for (size_t j = 0; j < collectors_.size(); ++j) {
     collectors_[j]->resize(n);
   }
@@ -180,7 +180,7 @@ void Reader::collectorsClear() {
   }
 }
 
-cpp11::sexp Reader::meltToDataFrame(cpp11::list locale_, int lines) {
+cpp11::sexp Reader::meltToDataFrame(cpp11::list locale_, R_xlen_t lines) {
   melt(locale_, lines);
 
   // Save individual columns into a data frame
@@ -202,18 +202,18 @@ cpp11::sexp Reader::meltToDataFrame(cpp11::list locale_, int lines) {
   return as_tibble(out);
 }
 
-int Reader::melt(cpp11::list locale_, int lines) {
+R_xlen_t Reader::melt(cpp11::list locale_, R_xlen_t lines) {
 
   if (t_.type() == TOKEN_EOF) {
     return (-1);
   }
 
-  int n = (lines < 0) ? 10000 : lines * 10; // Start with 10 cells per line
+  R_xlen_t n = (lines < 0) ? 10000 : lines * 10; // Start with 10 cells per line
 
   collectorsResize(n);
 
-  int last_row = -1, cells = 0;
-  int first_row;
+  R_xlen_t last_row = -1, cells = 0;
+  R_xlen_t first_row;
   if (!begun_) {
     t_ = tokenizer_->nextToken();
     begun_ = true;
@@ -229,7 +229,7 @@ int Reader::melt(cpp11::list locale_, int lines) {
       progressBar_.show(tokenizer_->progress());
     }
 
-    if (lines >= 0 && static_cast<int>(t_.row()) - first_row >= lines) {
+    if (lines >= 0 && static_cast<R_xlen_t>(t_.row()) - first_row >= lines) {
       --cells;
       break;
     }

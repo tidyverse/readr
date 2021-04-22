@@ -159,12 +159,17 @@ standardise_path <- function(path, input = TRUE) {
     xz = xzfile(path, ""),
     zip = zipfile(path, ""),
 
-    # Use a file connection for output
-    if (!isTRUE(input)) {
-      file(path, "")
-    } else {
-      path
-    })
+    {
+      path <- normalizePath(path, mustWork = FALSE)
+
+      # Use a file connection for output
+      if (!isTRUE(input)) {
+        file(path, "")
+      } else {
+        path
+      }
+    }
+  )
 }
 
 source_name <- function(x) {
@@ -224,7 +229,10 @@ empty_file <- function(x) {
 #' @seealso read_delim
 #' @export
 clipboard <- function() {
-  clipr::read_clip()
+  if (edition_first()) {
+    return(clipr::read_clip())
+  }
+  I(paste0(clipr::read_clip(), collapse = "\n"))
 }
 
 detect_compression <- function(path) {

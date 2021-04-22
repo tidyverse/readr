@@ -2,7 +2,7 @@
 % Please edit documentation in R/utils.R
 \name{show_progress}
 \alias{show_progress}
-\title{Determine progress bars should be shown}
+\title{Determine whether progress bars should be shown}
 \usage{
 show_progress()
 }
