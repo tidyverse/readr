@@ -105,5 +105,7 @@ write_lines <- function(x, file, sep = "\n", na = "NA", append = FALSE, path = d
     return(invisible(x))
   }
 
-  vroom::vroom_write_lines(x, file, eol = sep, na = na, append = append)
+  vroom::vroom_write_lines(as.character(x), file, eol = sep, na = na, append = append)
+
+  invisible(x)
 }

@@ -274,8 +274,6 @@ findBeginning:
       // Proceed to the end of the line when you are possibly not there.
       // This is needed in case the last column in the file is not being read.
       while (fieldEnd != end_ && *fieldEnd != '\r' && *fieldEnd != '\n') {
-        if (*fieldEnd == '\0')
-          hasNull = true;
         fieldEnd++;
       }
     }

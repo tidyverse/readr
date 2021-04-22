@@ -10,7 +10,7 @@ is.connection <- function(x) inherits(x, "connection")
 
 is_syntactic <- function(x) make.names(x) == x
 
-#' Determine progress bars should be shown
+#' Determine whether progress bars should be shown
 #'
 #' Progress bars are shown _unless_ one of the following is `TRUE`
 #' - The bar is explicitly disabled by setting `options(readr.show_progress = FALSE)`
@@ -23,6 +23,20 @@ show_progress <- function() {
   interactive() && # an interactive session
   !isTRUE(getOption("rstudio.notebook.executing")) && # Not running in an RStudio notebook chunk
   !isTRUE(getOption("knitr.in.progress")) # Not actively knitting a document
+}
+
+#' Determine whether column types should be shown
+#'
+#' Column types are shown unless
+#' - They are disabled by setting `options(readr.show_types = FALSE)`
+#' - The column types are supplied with the `col_types` argument.
+#' @export
+should_show_types <- function() {
+  if (identical(getOption("readr.show_types", TRUE), FALSE)) {
+    FALSE
+  } else {
+    NULL
+  }
 }
 
 deparse2 <- function(expr, ..., sep = "\n") {

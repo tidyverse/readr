@@ -1,15 +1,15 @@
 test_that("ws dropped by default", {
-  df <- read_csv(I("x\n a \n    b\n"), progress = FALSE)
+  df <- read_csv(I("x\n a \n    b\n"))
   expect_equal(df$x, c("a", "b"))
 })
 
 test_that("trim_ws = FALSE keeps ws", {
-  df <- read_csv(I("x\n a\nb \n"), trim_ws = FALSE, progress = FALSE)
+  df <- read_csv(I("x\n a\nb \n"), trim_ws = FALSE)
   expect_equal(df$x, c(" a", "b "))
 })
 
 test_that("trim_ws = TRUE trims spaces and tabs", {
-  df <- read_csv(I("x\n a\n\tb \t\n"), trim_ws = TRUE, progress = FALSE)
+  df <- read_csv(I("x\n a\n\tb \t\n"), trim_ws = TRUE)
   expect_equal(df$x, c("a", "b"))
 })
 

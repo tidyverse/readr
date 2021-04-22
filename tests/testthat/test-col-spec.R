@@ -111,7 +111,7 @@ test_that("print(col_spec) with truncated output", {
 
 test_that("spec object attached to read data", {
 
-  test_data <- read_csv(test_path("basic-df.csv"), col_types = NULL, col_names = TRUE, progress = FALSE)
+  test_data <- read_csv(test_path("basic-df.csv"), col_types = NULL, col_names = TRUE)
   sp <- spec(test_data)
   sp$skip <- NULL
 

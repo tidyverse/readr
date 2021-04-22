@@ -37,6 +37,7 @@ read_fwf <- function(file, col_positions = fwf_empty(file, skip, n = guess_max),
                      locale = default_locale(), na = c("", "NA"),
                      comment = "", trim_ws = TRUE, skip = 0, n_max = Inf,
                      guess_max = min(n_max, 1000), progress = show_progress(),
+                      show_col_types = should_show_types(),
                      lazy = TRUE, skip_empty_rows = TRUE) {
   if (edition_first()) {
     ds <- datasource(file, skip = skip, skip_empty_rows = skip_empty_rows)
@@ -74,7 +75,10 @@ read_fwf <- function(file, col_positions = fwf_empty(file, skip, n = guess_max),
     lifecycle::deprecate_soft("2.0.0", "readr::read_fwf(skip_empty_rows = )")
   }
 
-  vroom::vroom_fwf(file, col_positions = col_positions, col_types = col_types, locale = locale, na = na, comment = comment, trim_ws = trim_ws, skip = skip, n_max = n_max, guess_max = guess_max, progress = progress, altrep = lazy)
+  vroom::vroom_fwf(file, col_positions = col_positions, col_types = col_types,
+    locale = locale, na = na, comment = comment, trim_ws = trim_ws, skip = skip,
+    n_max = n_max, guess_max = guess_max, show_col_spec = show_col_types,
+    progress = progress, altrep = lazy)
 }
 
 #' @rdname read_fwf

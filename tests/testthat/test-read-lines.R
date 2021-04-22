@@ -1,24 +1,24 @@
 test_that("read_lines respects encoding", {
   skip_on_os("solaris")
 
-  x <- read_lines("enc-iso-8859-1.txt", locale = locale(encoding = "ISO-8859-1"), progress = FALSE)
+  x <- read_lines("enc-iso-8859-1.txt", locale = locale(encoding = "ISO-8859-1"))
   expect_equal(x, c("fran\u00e7ais", "\u00e9l\u00e8ve"))
 })
 
 test_that("read_lines returns an empty character vector on an empty file", {
-  expect_equal(read_lines("empty-file", progress = FALSE), character())
+  expect_equal(read_lines("empty-file"), character())
 })
 
 test_that("read_lines handles embedded nuls", {
-  res <- expect_warning(read_lines(test_path("null-file"), progress = FALSE, lazy = FALSE))
+  res <- expect_warning(read_lines(test_path("null-file"), lazy = FALSE))
   expect_equal(res, c("a,b,c", "1,2,", "3,4,5"))
 })
 
 test_that("read_lines uses na argument", {
-  expect_equal(read_lines(I("abc\n123"), progress = FALSE), c("abc", "123"))
-  expect_equal(read_lines(I("abc\n123"), na = "abc", progress = FALSE), c(NA_character_, "123"))
-  expect_equal(read_lines(I("abc\n123"), na = "123", progress = FALSE), c("abc", NA_character_))
-  expect_equal(read_lines(I("abc\n123"), na = c("abc", "123"), progress = FALSE), c(NA_character_, NA_character_))
+  expect_equal(read_lines(I("abc\n123")), c("abc", "123"))
+  expect_equal(read_lines(I("abc\n123"), na = "abc"), c(NA_character_, "123"))
+  expect_equal(read_lines(I("abc\n123"), na = "123"), c("abc", NA_character_))
+  expect_equal(read_lines(I("abc\n123"), na = c("abc", "123")), c(NA_character_, NA_character_))
 })
 
 test_that("blank lines are passed unchanged", {

@@ -23,7 +23,7 @@ bsd_strtod(const char* begin, const char** endptr, const char decimal_mark) {
   }
   int sign = 0, expSign = 0, i;
   double fraction, dblExp;
-  const char* p = begin;
+  const char* p;
   char c;
 
   /* Exponent read from "EX" field. */

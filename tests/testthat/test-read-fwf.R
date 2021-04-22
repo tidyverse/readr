@@ -3,7 +3,7 @@ test_that("trailing spaces ommitted", {
   expect_equal(spec$begin, c(0, 4))
   expect_equal(spec$end, c(3, NA))
 
-  df <- read_fwf("fwf-trailing.txt", spec, progress = FALSE)
+  df <- read_fwf("fwf-trailing.txt", spec)
   expect_equal(df$X1, df$X2)
 })
 
@@ -49,18 +49,18 @@ test_that("fwf_empty can skip comments", {
 })
 
 test_that("passing \"\" to read_fwf's 'na' option", {
-  expect_equal(read_fwf(I("foobar\nfoo   "), fwf_widths(c(3, 3)), na = "", progress = FALSE)[[2]],
+  expect_equal(read_fwf(I("foobar\nfoo   "), fwf_widths(c(3, 3)), na = "")[[2]],
                c("bar", NA))
 })
 
 test_that("ragged last column expanded with NA", {
-  x <- read_fwf(I("1a\n2ab\n3abc"), fwf_widths(c(1, NA)), progress = FALSE)
+  x <- read_fwf(I("1a\n2ab\n3abc"), fwf_widths(c(1, NA)))
   expect_equal(x$X2, c("a", "ab", "abc"))
   expect_equal(n_problems(x), 0)
 })
 
 test_that("ragged last column shrunk with warning", {
-  expect_warning(x <- read_fwf("1a\n2ab\n3abc", fwf_widths(c(1, 3)), progress = FALSE))
+  expect_warning(x <- read_fwf("1a\n2ab\n3abc", fwf_widths(c(1, 3))))
   expect_equal(x$X2, c("a", "ab", "abc"))
   skip_if_edition_second()
   expect_equal(n_problems(x), 2)
@@ -68,14 +68,14 @@ test_that("ragged last column shrunk with warning", {
 
 test_that("read all columns with positions, non ragged", {
   col_pos <- fwf_positions(c(1,3,6),c(2,5,6))
-  x <- read_fwf(I("12345A\n67890BBBBBBBBB\n54321C"), col_positions = col_pos, progress = FALSE)
+  x <- read_fwf(I("12345A\n67890BBBBBBBBB\n54321C"), col_positions = col_pos)
   expect_equal(x$X3, c("A", "B", "C"))
   expect_equal(n_problems(x), 0)
 })
 
 test_that("read subset columns with positions", {
   col_pos <- fwf_positions(c(1,3), c(2,5))
-  x <- read_fwf(I("12345A\n67890BBBBBBBBB\n54321C"), col_positions = col_pos, progress = FALSE)
+  x <- read_fwf(I("12345A\n67890BBBBBBBBB\n54321C"), col_positions = col_pos)
   expect_equal(x$X1, c(12, 67, 54))
   expect_equal(x$X2, c(345, 890, 321))
   expect_equal(n_problems(x), 0)
@@ -83,7 +83,7 @@ test_that("read subset columns with positions", {
 
 test_that("read columns with positions, ragged", {
   col_pos <- fwf_positions(c(1,3,6),c(2,5,NA))
-  x <- read_fwf(I("12345A\n67890BBBBBBBBB\n54321C"), col_positions = col_pos, progress = FALSE)
+  x <- read_fwf(I("12345A\n67890BBBBBBBBB\n54321C"), col_positions = col_pos)
   expect_equal(x$X1, c(12, 67, 54))
   expect_equal(x$X2, c(345, 890, 321))
   expect_equal(x$X3, c("A", "BBBBBBBBB", "C"))
@@ -92,7 +92,7 @@ test_that("read columns with positions, ragged", {
 
 test_that("read columns with width, ragged", {
   col_pos <- fwf_widths(c(2,3,NA))
-  x <- read_fwf(I("12345A\n67890BBBBBBBBB\n54321C"), col_positions = col_pos, progress = FALSE)
+  x <- read_fwf(I("12345A\n67890BBBBBBBBB\n54321C"), col_positions = col_pos)
   expect_equal(x$X1, c(12, 67, 54))
   expect_equal(x$X2, c(345, 890, 321))
   expect_equal(x$X3, c("A", "BBBBBBBBB", "C"))
@@ -133,10 +133,10 @@ test_that("check for line breaks in between widths", {
 test_that("ignore commented lines anywhere in file", {
   skip_if_edition_second()
   col_pos <- fwf_positions(c(1,3,6),c(2,5,6))
-  x1 <- read_fwf(I("COMMENT\n12345A\n67890BBBBBBBBB\n54321C"), col_positions = col_pos, comment = "COMMENT", progress = FALSE)
-  x2 <- read_fwf(I("12345A\n67890BBBBBBBBB\nCOMMENT\n54321C"), col_positions = col_pos, comment = "COMMENT", progress = FALSE)
-  x3 <- read_fwf(I("12345A\n67890BBBBBBBBB\n54321C\nCOMMENT"), col_positions = col_pos, comment = "COMMENT", progress = FALSE)
-  x4 <- read_fwf(I("COMMENT\n12345A\nCOMMENT\n67890BBBBBBBBB\n54321C\nCOMMENT"), col_positions = col_pos, comment = "COMMENT", progress = FALSE)
+  x1 <- read_fwf(I("COMMENT\n12345A\n67890BBBBBBBBB\n54321C"), col_positions = col_pos, comment = "COMMENT")
+  x2 <- read_fwf(I("12345A\n67890BBBBBBBBB\nCOMMENT\n54321C"), col_positions = col_pos, comment = "COMMENT")
+  x3 <- read_fwf(I("12345A\n67890BBBBBBBBB\n54321C\nCOMMENT"), col_positions = col_pos, comment = "COMMENT")
+  x4 <- read_fwf(I("COMMENT\n12345A\nCOMMENT\n67890BBBBBBBBB\n54321C\nCOMMENT"), col_positions = col_pos, comment = "COMMENT")
 
   expect_identical(x1, x2)
   expect_identical(x1, x3)
@@ -200,20 +200,20 @@ test_that("fwf_cols works with unnamed columns", {
 # read_table -------------------------------------------------------------------
 
 test_that("read_table silently reads ragged last column", {
-  x <- read_table("foo bar\n1   2\n3   4\n5   6\n", progress = FALSE)
+  x <- read_table("foo bar\n1   2\n3   4\n5   6\n")
   expect_equal(x$foo, c(1, 3, 5))
 })
 
 test_that("read_table skips all comment lines", {
-  x <- read_table("foo bar\n1   2\n3   4\n5   6\n", progress = FALSE)
+  x <- read_table("foo bar\n1   2\n3   4\n5   6\n")
 
-  y <- read_table("#comment1\n#comment2\nfoo bar\n1   2\n3   4\n5   6\n", progress = FALSE, comment = "#")
+  y <- read_table("#comment1\n#comment2\nfoo bar\n1   2\n3   4\n5   6\n", comment = "#")
 
   expect_equal(x[], y[])
 })
 
 test_that("read_table can read from a pipe (552)", {
-  x <- read_table(pipe("echo a b c && echo 1 2 3 && echo 4 5 6"), progress = FALSE)
+  x <- read_table(pipe("echo a b c && echo 1 2 3 && echo 4 5 6"))
   expect_equal(x$a, c(1, 4))
 })
 

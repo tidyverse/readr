@@ -23,8 +23,7 @@ read_delim_chunked(
   comment = "",
   trim_ws = FALSE,
   skip = 0,
-  n_max = Inf,
-  guess_max = min(1000, n_max),
+  guess_max = chunk_size,
   progress = show_progress(),
   skip_empty_rows = TRUE
 )
@@ -60,7 +59,7 @@ read_csv2_chunked(
   comment = "",
   trim_ws = TRUE,
   skip = 0,
-  guess_max = min(1000, chunk_size),
+  guess_max = chunk_size,
   progress = show_progress(),
   skip_empty_rows = TRUE
 )
@@ -159,7 +158,8 @@ character represents one column:
 
 By default, reading a file without a column specification will print a
 message showing what \code{readr} guessed they were. To remove this message,
-use \code{col_types = cols()}.
+use \code{col_types = list()}, set \code{show_col_types = FALSE} or set
+`options(readr.show_col_types = FALSE)
 }}
 
 \item{locale}{The locale controls defaults that vary from place to place.
@@ -181,8 +181,6 @@ comment characters will be silently ignored.}
 each field before parsing it?}
 
 \item{skip}{Number of lines to skip before reading data.}
-
-\item{n_max}{Maximum number of records to read.}
 
 \item{guess_max}{Maximum number of records to use for guessing column types.}
 

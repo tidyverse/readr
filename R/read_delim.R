@@ -51,7 +51,12 @@ NULL
 #'
 #'    By default, reading a file without a column specification will print a
 #'    message showing what `readr` guessed they were. To remove this message,
-#'    use `col_types = cols()`.
+#'    use `col_types = list()`, set `show_col_types = FALSE` or set
+#'    `options(readr.show_col_types = FALSE)
+#' @param show_col_types If `FALSE`, do not show the guessed column types. If
+#'   `TRUE` always show the column types, even if they are supplied. If `NULL`
+#'   (the default) only show the column types if they are not explicitly supplied
+#'   by the `col_types` argument.
 #' @param locale The locale controls defaults that vary from place to place.
 #'   The default locale is US-centric (like R), but you can use
 #'   [locale()] to create your own locale that controls things like
@@ -111,6 +116,7 @@ read_delim <- function(file, delim = NULL, quote = '"',
                        comment = "", trim_ws = FALSE,
                        skip = 0, n_max = Inf, guess_max = min(1000, n_max),
                        progress = show_progress(),
+                       show_col_types = should_show_types(),
                        skip_empty_rows = TRUE, lazy = TRUE) {
 
   if (edition_first()) {
@@ -136,7 +142,7 @@ read_delim <- function(file, delim = NULL, quote = '"',
   vroom::vroom(file, delim = delim, col_names = col_names, col_types = col_types,
     skip = skip, n_max = n_max, na = na, quote = quote, comment = comment, trim_ws = trim_ws,
     escape_double = escape_double, escape_backslash = escape_backslash, locale = locale, guess_max = guess_max,
-    progress = progress, altrep = lazy)
+    progress = progress, altrep = lazy, show_col_spec = show_col_types)
 }
 
 #' @rdname read_delim
@@ -145,7 +151,7 @@ read_csv <- function(file, col_names = TRUE, col_types = NULL,
                      locale = default_locale(), na = c("", "NA"),
                      quoted_na = TRUE, quote = "\"", comment = "", trim_ws = TRUE,
                      skip = 0, n_max = Inf, guess_max = min(1000, n_max),
-                     progress = show_progress(), skip_empty_rows = TRUE, lazy = TRUE) {
+                     progress = show_progress(), show_col_types = should_show_types(), skip_empty_rows = TRUE, lazy = TRUE) {
   if (edition_first()) {
   tokenizer <- tokenizer_csv(na = na, quoted_na = quoted_na, quote = quote,
     comment = comment, trim_ws = trim_ws, skip_empty_rows = skip_empty_rows)
@@ -163,6 +169,7 @@ read_csv <- function(file, col_names = TRUE, col_types = NULL,
   vroom::vroom(file, delim = ",", col_names = col_names, col_types = col_types,
     skip = skip, n_max = n_max, na = na, quote = quote, comment = comment, trim_ws = trim_ws,
     escape_double = TRUE, escape_backslash = FALSE, locale = locale, guess_max = guess_max,
+    show_col_spec = show_col_types,
     progress = progress, altrep = lazy)
 }
 
@@ -173,21 +180,28 @@ read_csv2 <- function(file, col_names = TRUE, col_types = NULL,
                       na = c("", "NA"), quoted_na = TRUE, quote = "\"",
                       comment = "", trim_ws = TRUE, skip = 0, n_max = Inf,
                       guess_max = min(1000, n_max), progress = show_progress(),
-                      skip_empty_rows = TRUE) {
+                      show_col_types = should_show_types(),
+                      skip_empty_rows = TRUE, lazy = TRUE) {
 
   if (locale$decimal_mark == ".") {
     cli::cli_alert_info("Using {.val ','} as decimal and {.val '.'} as grouping mark. Use {.fn read_delim} for more control.")
     locale$decimal_mark <- ","
     locale$grouping_mark <- "."
   }
+  if (edition_first()) {
   tokenizer <- tokenizer_delim(delim = ";", na = na, quoted_na = quoted_na,
     quote = quote, comment = comment, trim_ws = trim_ws,
     skip_empty_rows = skip_empty_rows)
-  read_delimited(file, tokenizer, col_names = col_names, col_types = col_types,
+  return(read_delimited(file, tokenizer, col_names = col_names, col_types = col_types,
     locale = locale, skip = skip, skip_empty_rows = skip_empty_rows,
-    comment = comment, n_max = n_max, guess_max = guess_max, progress = progress)
+    comment = comment, n_max = n_max, guess_max = guess_max, progress = progress))
 }
-
+  vroom::vroom(file, delim = ";", col_names = col_names, col_types = col_types,
+    skip = skip, n_max = n_max, na = na, quote = quote, comment = comment, trim_ws = trim_ws,
+    escape_double = TRUE, escape_backslash = FALSE, locale = locale, guess_max = guess_max,
+    show_col_spec = show_col_types,
+    progress = progress, altrep = lazy)
+}
 
 #' @rdname read_delim
 #' @export
@@ -196,6 +210,7 @@ read_tsv <- function(file, col_names = TRUE, col_types = NULL,
                      na = c("", "NA"), quoted_na = TRUE, quote = "\"",
                      comment = "", trim_ws = TRUE, skip = 0, n_max = Inf,
                      guess_max = min(1000, n_max), progress = show_progress(),
+                      show_col_types = should_show_types(),
                      skip_empty_rows = TRUE, lazy = TRUE) {
   tokenizer <- tokenizer_tsv(na = na, quoted_na = quoted_na, quote = quote,
     comment = comment, trim_ws = trim_ws, skip_empty_rows = skip_empty_rows)
@@ -207,7 +222,8 @@ read_tsv <- function(file, col_names = TRUE, col_types = NULL,
 
   vroom::vroom(file, delim = "\t", col_names = col_names,
     col_types = col_types, locale = locale, skip = skip, comment = comment,
-    n_max = n_max, guess_max = guess_max, progress = progress, altrep = lazy)
+    n_max = n_max, guess_max = guess_max, progress = progress,
+    show_col_spec = show_col_types, altrep = lazy)
 }
 
 # Helper functions for reading from delimited files ----------------------------

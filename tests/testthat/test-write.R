@@ -20,9 +20,9 @@ test_that("read_delim/csv/tsv and write_delim round trip special chars", {
   x <- c("a", '"', ",", "\n","at\t")
 
   output <- data.frame(x)
-  input <- read_delim(I(format_delim(output, delim = " ")), delim = " ", trim_ws = FALSE, progress = FALSE)
-  input_csv <- read_csv(I(format_delim(output, delim = ",")), trim_ws = FALSE, progress = FALSE)
-  input_tsv <- read_tsv(I(format_delim(output, delim = "\t")), trim_ws = FALSE, progress = FALSE)
+  input <- read_delim(I(format_delim(output, delim = " ")), delim = " ", trim_ws = FALSE)
+  input_csv <- read_csv(I(format_delim(output, delim = ",")), trim_ws = FALSE)
+  input_tsv <- read_tsv(I(format_delim(output, delim = "\t")), trim_ws = FALSE)
   expect_equal(input$x, input_csv$x)
   expect_equal(input_tsv$x,  x)
 })
@@ -39,7 +39,7 @@ test_that("logical values give long names", {
 
 test_that("roundtrip preserved floating point numbers", {
   input <- data.frame(x = runif(100))
-  output <- read_delim(format_delim(input, delim = " "), delim = " ", progress = FALSE)
+  output <- read_delim(I(format_delim(input, delim = " ")), delim = " ")
 
   expect_equal(input$x, output$x)
 })
@@ -50,7 +50,7 @@ test_that("roundtrip preserves dates and datetimes", {
   attr(y, "tzone") <- "UTC"
 
   input <- data.frame(x, y)
-  output <- read_delim(I(format_delim(input, delim = ",")), delim = ",", progress = FALSE)
+  output <- read_delim(I(format_delim(input, delim = ",")), delim = ",")
 
   expect_equal(output$x, x)
   expect_equal(output$y, y)
@@ -139,7 +139,7 @@ test_that("write_csv writes large integers without scientific notation up to 1E1
   write_csv(x, filename)
   content <- read_file(filename)
   expect_equal(content, "a\n10000000000000\n100000000000000\n1e15\n1e16\n")
-  x_exp <- read_csv(filename, col_types = "d", progress = FALSE)
+  x_exp <- read_csv(filename, col_types = "d")
   expect_equal(x$a, x_exp$a)
 })
 

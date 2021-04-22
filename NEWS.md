@@ -12,6 +12,8 @@
 
 ## Additional features and fixes
 
+* `read_*()` functions gain a `show_col_types` argument, if set to `FALSE` this turns off showing the column types unconditionally.
+
 * readr now uses the clock package when parsing date-times (@DavisVaughan, r-lib/vroom#273)
 
 * The BH package is no longer a dependency. The boost C++ headers in BH have thousands of files, so can take a long time to extract and compiling them takes a great deal of memory, which made readr difficult to compile on systems with limited memory (#1147).
