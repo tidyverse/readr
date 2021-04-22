@@ -208,21 +208,11 @@ created by readr.</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='va'>df</span> <span class='op'>&lt;-</span> <span class='fu'><a href='read_delim.html'>read_csv</a></span><span class='op'>(</span><span class='fu'><a href='readr_example.html'>readr_example</a></span><span class='op'>(</span><span class='st'>"mtcars.csv"</span><span class='op'>)</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; <span class='message'></span>
-#&gt; <span class='message'><span style='color: #00BBBB;'>──</span><span> </span><span style='font-weight: bold;'>Column specification</span><span> </span><span style='color: #00BBBB;'>────────────────────────────────────────────────────────</span><span></span>
-#&gt; <span class='message'>cols(</span>
-#&gt; <span class='message'>  mpg = </span><span style='color: #00BB00;'>col_double()</span><span>,</span>
-#&gt; <span class='message'>  cyl = </span><span style='color: #00BB00;'>col_double()</span><span>,</span>
-#&gt; <span class='message'>  disp = </span><span style='color: #00BB00;'>col_double()</span><span>,</span>
-#&gt; <span class='message'>  hp = </span><span style='color: #00BB00;'>col_double()</span><span>,</span>
-#&gt; <span class='message'>  drat = </span><span style='color: #00BB00;'>col_double()</span><span>,</span>
-#&gt; <span class='message'>  wt = </span><span style='color: #00BB00;'>col_double()</span><span>,</span>
-#&gt; <span class='message'>  qsec = </span><span style='color: #00BB00;'>col_double()</span><span>,</span>
-#&gt; <span class='message'>  vs = </span><span style='color: #00BB00;'>col_double()</span><span>,</span>
-#&gt; <span class='message'>  am = </span><span style='color: #00BB00;'>col_double()</span><span>,</span>
-#&gt; <span class='message'>  gear = </span><span style='color: #00BB00;'>col_double()</span><span>,</span>
-#&gt; <span class='message'>  carb = </span><span style='color: #00BB00;'>col_double()</span><span></span>
-#&gt; <span class='message'>)</span></div><div class='input'><span class='va'>s</span> <span class='op'>&lt;-</span> <span class='fu'>spec</span><span class='op'>(</span><span class='va'>df</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; <span class='message'><span style='font-weight: bold;'>Rows: </span><span style='color: #0000BB;'>32</span><span> </span><span style='font-weight: bold;'>Columns: </span><span style='color: #0000BB;'>11</span><span></span></div><div class='output co'>#&gt; <span class='message'></span><span style='color: #00BBBB;'>──</span><span> </span><span style='font-weight: bold;'>Column specification</span><span> </span><span style='color: #00BBBB;'>────────────────────────────────────────────────────────</span><span></span>
+#&gt; <span class='message'></span><span style='font-weight: bold;'>Delimiter:</span><span> ","</span>
+#&gt; <span class='message'></span><span style='color: #00BB00;'>dbl</span><span> (11): mpg, cyl, disp, hp, drat, wt, qsec, vs, am, gear, carb</span></div><div class='output co'>#&gt; <span class='message'></span>
+#&gt; <span class='message'></span><span style='color: #00BBBB;'>ℹ</span><span> Use </span><span style='color: #262626;background-color: #DADADA;'>`spec()`</span><span> to retrieve the full column specification for this data.</span>
+#&gt; <span class='message'></span><span style='color: #00BBBB;'>ℹ</span><span> Specify the column types or set </span><span style='color: #262626;background-color: #DADADA;'>`show_col_types = FALSE`</span><span> to quiet this message.</span></div><div class='input'><span class='va'>s</span> <span class='op'>&lt;-</span> <span class='fu'>spec</span><span class='op'>(</span><span class='va'>df</span><span class='op'>)</span>
 <span class='va'>s</span>
 </div><div class='output co'>#&gt; cols(
 #&gt;   mpg = </span><span style='color: #00BB00;'>col_double()</span><span>,

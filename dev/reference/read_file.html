@@ -229,6 +229,28 @@ file is created.</p></td>
 
     <p><code>read_file</code>: A length 1 character vector.
 <code>read_lines_raw</code>: A raw vector.</p>
+    <h2 class="hasAnchor" id="second-edition-changes"><a class="anchor" href="#second-edition-changes"></a>Second edition changes</h2>
+
+    
+
+<h3 class='hasAnchor' id='arguments'><a class='anchor' href='#arguments'></a>Deprecated Parameters</h3>
+
+<ul>
+<li><p><code>skip_empty_rows</code></p></li>
+<li><p><code>na</code></p></li>
+</ul>
+
+
+<h3 class='hasAnchor' id='arguments'><a class='anchor' href='#arguments'></a>Behavior changes</h3>
+
+<ul>
+<li><p>Normalizing newlines in files with just carriage returns <code>\r</code> is no longer
+supported. The last major OS to use only CR as the newline was 'classic' Mac
+OS, which had its final release
+in 2001.</p></li>
+</ul>
+
+
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='fu'>read_file</span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/file.path.html'>file.path</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/Rhome.html'>R.home</a></span><span class='op'>(</span><span class='st'>"doc"</span><span class='op'>)</span>, <span class='st'>"AUTHORS"</span><span class='op'>)</span><span class='op'>)</span>
@@ -279,7 +301,7 @@ file is created.</p></td>
 <span class='fu'>write_file</span><span class='op'>(</span><span class='va'>x</span>, <span class='va'>tmp</span><span class='op'>)</span>
 <span class='fu'><a href='https://rdrr.io/r/base/identical.html'>identical</a></span><span class='op'>(</span><span class='va'>x</span>, <span class='fu'>read_file</span><span class='op'>(</span><span class='va'>tmp</span><span class='op'>)</span><span class='op'>)</span>
 </div><div class='output co'>#&gt; [1] TRUE</div><div class='input'>
-<span class='fu'><a href='read_lines.html'>read_lines</a></span><span class='op'>(</span><span class='va'>x</span><span class='op'>)</span>
+<span class='fu'><a href='read_lines.html'>read_lines</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/AsIs.html'>I</a></span><span class='op'>(</span><span class='va'>x</span><span class='op'>)</span><span class='op'>)</span>
 </div><div class='output co'>#&gt; [1] "mpg,cyl,disp,hp,drat,wt,qsec,vs,am,gear,carb"
 #&gt; [2] "21,6,160,110,3.9,2.62,16.46,0,1,4,4"         
 #&gt; [3] "21,6,160,110,3.9,2.875,17.02,0,1,4,4"        

@@ -173,8 +173,8 @@
     <pre class="usage"><span class='fu'>read_delim_chunked</span><span class='op'>(</span>
   <span class='va'>file</span>,
   <span class='va'>callback</span>,
+  delim <span class='op'>=</span> <span class='cn'>NULL</span>,
   chunk_size <span class='op'>=</span> <span class='fl'>10000</span>,
-  <span class='va'>delim</span>,
   quote <span class='op'>=</span> <span class='st'>"\""</span>,
   escape_backslash <span class='op'>=</span> <span class='cn'>FALSE</span>,
   escape_double <span class='op'>=</span> <span class='cn'>TRUE</span>,
@@ -186,7 +186,7 @@
   comment <span class='op'>=</span> <span class='st'>""</span>,
   trim_ws <span class='op'>=</span> <span class='cn'>FALSE</span>,
   skip <span class='op'>=</span> <span class='fl'>0</span>,
-  guess_max <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/Extremes.html'>min</a></span><span class='op'>(</span><span class='fl'>1000</span>, <span class='va'>chunk_size</span><span class='op'>)</span>,
+  guess_max <span class='op'>=</span> <span class='va'>chunk_size</span>,
   progress <span class='op'>=</span> <span class='fu'><a href='show_progress.html'>show_progress</a></span><span class='op'>(</span><span class='op'>)</span>,
   skip_empty_rows <span class='op'>=</span> <span class='cn'>TRUE</span>
 <span class='op'>)</span>
@@ -204,7 +204,7 @@
   comment <span class='op'>=</span> <span class='st'>""</span>,
   trim_ws <span class='op'>=</span> <span class='cn'>TRUE</span>,
   skip <span class='op'>=</span> <span class='fl'>0</span>,
-  guess_max <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/Extremes.html'>min</a></span><span class='op'>(</span><span class='fl'>1000</span>, <span class='va'>chunk_size</span><span class='op'>)</span>,
+  guess_max <span class='op'>=</span> <span class='va'>chunk_size</span>,
   progress <span class='op'>=</span> <span class='fu'><a href='show_progress.html'>show_progress</a></span><span class='op'>(</span><span class='op'>)</span>,
   skip_empty_rows <span class='op'>=</span> <span class='cn'>TRUE</span>
 <span class='op'>)</span>
@@ -222,7 +222,7 @@
   comment <span class='op'>=</span> <span class='st'>""</span>,
   trim_ws <span class='op'>=</span> <span class='cn'>TRUE</span>,
   skip <span class='op'>=</span> <span class='fl'>0</span>,
-  guess_max <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/Extremes.html'>min</a></span><span class='op'>(</span><span class='fl'>1000</span>, <span class='va'>chunk_size</span><span class='op'>)</span>,
+  guess_max <span class='op'>=</span> <span class='va'>chunk_size</span>,
   progress <span class='op'>=</span> <span class='fu'><a href='show_progress.html'>show_progress</a></span><span class='op'>(</span><span class='op'>)</span>,
   skip_empty_rows <span class='op'>=</span> <span class='cn'>TRUE</span>
 <span class='op'>)</span>
@@ -240,7 +240,7 @@
   comment <span class='op'>=</span> <span class='st'>""</span>,
   trim_ws <span class='op'>=</span> <span class='cn'>TRUE</span>,
   skip <span class='op'>=</span> <span class='fl'>0</span>,
-  guess_max <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/Extremes.html'>min</a></span><span class='op'>(</span><span class='fl'>1000</span>, <span class='va'>chunk_size</span><span class='op'>)</span>,
+  guess_max <span class='op'>=</span> <span class='va'>chunk_size</span>,
   progress <span class='op'>=</span> <span class='fu'><a href='show_progress.html'>show_progress</a></span><span class='op'>(</span><span class='op'>)</span>,
   skip_empty_rows <span class='op'>=</span> <span class='cn'>TRUE</span>
 <span class='op'>)</span></pre>
@@ -267,12 +267,12 @@ vector of greater than length 1.</p>
       <td><p>A callback function to call on each chunk</p></td>
     </tr>
     <tr>
-      <th>chunk_size</th>
-      <td><p>The number of rows to include in each chunk</p></td>
-    </tr>
-    <tr>
       <th>delim</th>
       <td><p>Single character used to separate fields within a record.</p></td>
+    </tr>
+    <tr>
+      <th>chunk_size</th>
+      <td><p>The number of rows to include in each chunk</p></td>
     </tr>
     <tr>
       <th>quote</th>
@@ -330,7 +330,8 @@ character represents one column:</p><ul>
 <li><p>_ or - = skip</p>
 <p>By default, reading a file without a column specification will print a
 message showing what <code>readr</code> guessed they were. To remove this message,
-use <code>col_types = cols()</code>.</p></li>
+use <code>col_types = list()</code>, set <code>show_col_types = FALSE</code> or set
+`options(readr.show_col_types = FALSE)</p></li>
 </ul></td>
     </tr>
     <tr>

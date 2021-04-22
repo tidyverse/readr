@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Determine whether progress bars should be shown — show_progress • readr</title>
+<title>Determine whether column types should be shown — should_show_types • readr</title>
 
 <!-- favicons -->
 <link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
@@ -49,12 +49,10 @@
 
 
 
-<meta property="og:title" content="Determine whether progress bars should be shown — show_progress" />
-<meta property="og:description" content="Progress bars are shown unless one of the following is TRUE
-The bar is explicitly disabled by setting options(readr.show_progress = FALSE)
-The code is run in a non-interactive session (interactive() is FALSE).
-The code is run in an RStudio notebook chunk.
-The code is run by knitr / rmarkdown.
+<meta property="og:title" content="Determine whether column types should be shown — should_show_types" />
+<meta property="og:description" content="Column types are shown unless
+They are disabled by setting options(readr.show_types = FALSE)
+The column types are supplied with the col_types argument.
 
 " />
 <meta property="og:image" content="https://readr.tidyverse.org/logo.png" />
@@ -167,22 +165,20 @@ The code is run by knitr / rmarkdown.
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Determine whether progress bars should be shown</h1>
+    <h1>Determine whether column types should be shown</h1>
     <small class="dont-index">Source: <a href='https://github.com/tidyverse/readr/blob/master/R/utils.R'><code>R/utils.R</code></a></small>
-    <div class="hidden name"><code>show_progress.Rd</code></div>
+    <div class="hidden name"><code>should_show_types.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>Progress bars are shown <em>unless</em> one of the following is <code>TRUE</code></p><ul>
-<li><p>The bar is explicitly disabled by setting <code><a href='https://rdrr.io/r/base/options.html'>options(readr.show_progress = FALSE)</a></code></p></li>
-<li><p>The code is run in a non-interactive session (<code><a href='https://rdrr.io/r/base/interactive.html'>interactive()</a></code> is <code>FALSE</code>).</p></li>
-<li><p>The code is run in an RStudio notebook chunk.</p></li>
-<li><p>The code is run by knitr / rmarkdown.</p></li>
+    <p>Column types are shown unless</p><ul>
+<li><p>They are disabled by setting <code><a href='https://rdrr.io/r/base/options.html'>options(readr.show_types = FALSE)</a></code></p></li>
+<li><p>The column types are supplied with the <code>col_types</code> argument.</p></li>
 </ul>
 
     </div>
 
-    <pre class="usage"><span class='fu'>show_progress</span><span class='op'>(</span><span class='op'>)</span></pre>
+    <pre class="usage"><span class='fu'>should_show_types</span><span class='op'>(</span><span class='op'>)</span></pre>
 
 
 

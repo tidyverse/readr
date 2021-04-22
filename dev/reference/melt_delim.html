@@ -350,7 +350,7 @@ from delimited files.</p></div>
     <pre class="examples"><div class='input'><span class='co'># Input sources -------------------------------------------------------------</span>
 <span class='co'># Read from a path</span>
 <span class='fu'>melt_csv</span><span class='op'>(</span><span class='fu'><a href='readr_example.html'>readr_example</a></span><span class='op'>(</span><span class='st'>"mtcars.csv"</span><span class='op'>)</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; <span style='color: #949494;'># A tibble: 363 x 4</span><span>
+</div><div class='output co'>#&gt; <span class='warning'>Warning: `melt_csv()` was deprecated in readr 2.0.0.</span></div><div class='output co'>#&gt; <span style='color: #949494;'># A tibble: 363 x 4</span><span>
 #&gt;      row   col data_type value
 #&gt;    </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span> </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span> </span><span style='color: #949494;font-style: italic;'>&lt;chr&gt;</span><span>     </span><span style='color: #949494;font-style: italic;'>&lt;chr&gt;</span><span>
 #&gt; </span><span style='color: #BCBCBC;'> 1</span><span>     1     1 character mpg  
@@ -364,7 +364,7 @@ from delimited files.</p></div>
 #&gt; </span><span style='color: #BCBCBC;'> 9</span><span>     1     9 character am   
 #&gt; </span><span style='color: #BCBCBC;'>10</span><span>     1    10 character gear 
 #&gt; </span><span style='color: #949494;'># … with 353 more rows</span><span></div><div class='input'><span class='fu'>melt_csv</span><span class='op'>(</span><span class='fu'><a href='readr_example.html'>readr_example</a></span><span class='op'>(</span><span class='st'>"mtcars.csv.zip"</span><span class='op'>)</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; </span><span style='color: #949494;'># A tibble: 363 x 4</span><span>
+</div><div class='output co'>#&gt; <span class='warning'>Warning: `melt_csv()` was deprecated in readr 2.0.0.</span></div><div class='output co'>#&gt; </span><span style='color: #949494;'># A tibble: 363 x 4</span><span>
 #&gt;      row   col data_type value
 #&gt;    </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span> </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span> </span><span style='color: #949494;font-style: italic;'>&lt;chr&gt;</span><span>     </span><span style='color: #949494;font-style: italic;'>&lt;chr&gt;</span><span>
 #&gt; </span><span style='color: #BCBCBC;'> 1</span><span>     1     1 character mpg  
@@ -378,7 +378,7 @@ from delimited files.</p></div>
 #&gt; </span><span style='color: #BCBCBC;'> 9</span><span>     1     9 character am   
 #&gt; </span><span style='color: #BCBCBC;'>10</span><span>     1    10 character gear 
 #&gt; </span><span style='color: #949494;'># … with 353 more rows</span><span></div><div class='input'><span class='fu'>melt_csv</span><span class='op'>(</span><span class='fu'><a href='readr_example.html'>readr_example</a></span><span class='op'>(</span><span class='st'>"mtcars.csv.bz2"</span><span class='op'>)</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; </span><span style='color: #949494;'># A tibble: 363 x 4</span><span>
+</div><div class='output co'>#&gt; <span class='warning'>Warning: `melt_csv()` was deprecated in readr 2.0.0.</span></div><div class='output co'>#&gt; </span><span style='color: #949494;'># A tibble: 363 x 4</span><span>
 #&gt;      row   col data_type value
 #&gt;    </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span> </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span> </span><span style='color: #949494;font-style: italic;'>&lt;chr&gt;</span><span>     </span><span style='color: #949494;font-style: italic;'>&lt;chr&gt;</span><span>
 #&gt; </span><span style='color: #BCBCBC;'> 1</span><span>     1     1 character mpg  
@@ -397,7 +397,7 @@ from delimited files.</p></div>
 
 <span class='co'># Or directly from a string (must contain a newline)</span>
 <span class='fu'>melt_csv</span><span class='op'>(</span><span class='st'>"x,y\n1,2\n3,4"</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; </span><span style='color: #949494;'># A tibble: 6 x 4</span><span>
+</div><div class='output co'>#&gt; <span class='warning'>Warning: `melt_csv()` was deprecated in readr 2.0.0.</span></div><div class='output co'>#&gt; </span><span style='color: #949494;'># A tibble: 6 x 4</span><span>
 #&gt;     row   col data_type value
 #&gt;   </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span> </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span> </span><span style='color: #949494;font-style: italic;'>&lt;chr&gt;</span><span>     </span><span style='color: #949494;font-style: italic;'>&lt;chr&gt;</span><span>
 #&gt; </span><span style='color: #BCBCBC;'>1</span><span>     1     1 character x    
@@ -408,7 +408,7 @@ from delimited files.</p></div>
 #&gt; </span><span style='color: #BCBCBC;'>6</span><span>     3     2 integer   4    </div><div class='input'>
 <span class='co'># To import empty cells as 'empty' rather than `NA`</span>
 <span class='fu'>melt_csv</span><span class='op'>(</span><span class='st'>"x,y\n,NA,\"\",''"</span>, na <span class='op'>=</span> <span class='st'>"NA"</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; </span><span style='color: #949494;'># A tibble: 6 x 4</span><span>
+</div><div class='output co'>#&gt; <span class='warning'>Warning: `melt_csv()` was deprecated in readr 2.0.0.</span></div><div class='output co'>#&gt; </span><span style='color: #949494;'># A tibble: 6 x 4</span><span>
 #&gt;     row   col data_type value
 #&gt;   </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span> </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span> </span><span style='color: #949494;font-style: italic;'>&lt;chr&gt;</span><span>     </span><span style='color: #949494;font-style: italic;'>&lt;chr&gt;</span><span>
 #&gt; </span><span style='color: #BCBCBC;'>1</span><span>     1     1 character </span><span style='color: #949494;'>"</span><span>x</span><span style='color: #949494;'>"</span><span>  
@@ -419,28 +419,28 @@ from delimited files.</p></div>
 #&gt; </span><span style='color: #BCBCBC;'>6</span><span>     2     4 character </span><span style='color: #949494;'>"</span><span>''</span><span style='color: #949494;'>"</span><span> </div><div class='input'>
 <span class='co'># File types ----------------------------------------------------------------</span>
 <span class='fu'>melt_csv</span><span class='op'>(</span><span class='st'>"a,b\n1.0,2.0"</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; </span><span style='color: #949494;'># A tibble: 4 x 4</span><span>
+</div><div class='output co'>#&gt; <span class='warning'>Warning: `melt_csv()` was deprecated in readr 2.0.0.</span></div><div class='output co'>#&gt; </span><span style='color: #949494;'># A tibble: 4 x 4</span><span>
 #&gt;     row   col data_type value
 #&gt;   </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span> </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span> </span><span style='color: #949494;font-style: italic;'>&lt;chr&gt;</span><span>     </span><span style='color: #949494;font-style: italic;'>&lt;chr&gt;</span><span>
 #&gt; </span><span style='color: #BCBCBC;'>1</span><span>     1     1 character a    
 #&gt; </span><span style='color: #BCBCBC;'>2</span><span>     1     2 character b    
 #&gt; </span><span style='color: #BCBCBC;'>3</span><span>     2     1 double    1.0  
 #&gt; </span><span style='color: #BCBCBC;'>4</span><span>     2     2 double    2.0  </div><div class='input'><span class='fu'>melt_csv2</span><span class='op'>(</span><span class='st'>"a;b\n1,0;2,0"</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; <span class='message'></span><span style='color: #00BBBB;'>ℹ</span><span> Using </span><span style='color: #0000BB;'>','</span><span> as decimal and </span><span style='color: #0000BB;'>'.'</span><span> as grouping mark. Use </span><span style='color: #262626;background-color: #DADADA;'>`read_delim()`</span><span> for more control.</span></div><div class='output co'>#&gt; </span><span style='color: #949494;'># A tibble: 4 x 4</span><span>
+</div><div class='output co'>#&gt; <span class='warning'>Warning: `melt_csv2()` was deprecated in readr 2.0.0.</span></div><div class='output co'>#&gt; <span class='message'></span><span style='color: #00BBBB;'>ℹ</span><span> Using </span><span style='color: #0000BB;'>','</span><span> as decimal and </span><span style='color: #0000BB;'>'.'</span><span> as grouping mark. Use </span><span style='color: #262626;background-color: #DADADA;'>`read_delim()`</span><span> for more control.</span></div><div class='output co'>#&gt; </span><span style='color: #949494;'># A tibble: 4 x 4</span><span>
 #&gt;     row   col data_type value
 #&gt;   </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span> </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span> </span><span style='color: #949494;font-style: italic;'>&lt;chr&gt;</span><span>     </span><span style='color: #949494;font-style: italic;'>&lt;chr&gt;</span><span>
 #&gt; </span><span style='color: #BCBCBC;'>1</span><span>     1     1 character a    
 #&gt; </span><span style='color: #BCBCBC;'>2</span><span>     1     2 character b    
 #&gt; </span><span style='color: #BCBCBC;'>3</span><span>     2     1 double    1,0  
 #&gt; </span><span style='color: #BCBCBC;'>4</span><span>     2     2 double    2,0  </div><div class='input'><span class='fu'>melt_tsv</span><span class='op'>(</span><span class='st'>"a\tb\n1.0\t2.0"</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; </span><span style='color: #949494;'># A tibble: 4 x 4</span><span>
+</div><div class='output co'>#&gt; <span class='warning'>Warning: `melt_delim()` was deprecated in readr 2.0.0.</span></div><div class='output co'>#&gt; </span><span style='color: #949494;'># A tibble: 4 x 4</span><span>
 #&gt;     row   col data_type value
 #&gt;   </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span> </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span> </span><span style='color: #949494;font-style: italic;'>&lt;chr&gt;</span><span>     </span><span style='color: #949494;font-style: italic;'>&lt;chr&gt;</span><span>
 #&gt; </span><span style='color: #BCBCBC;'>1</span><span>     1     1 character a    
 #&gt; </span><span style='color: #BCBCBC;'>2</span><span>     1     2 character b    
 #&gt; </span><span style='color: #BCBCBC;'>3</span><span>     2     1 double    1.0  
 #&gt; </span><span style='color: #BCBCBC;'>4</span><span>     2     2 double    2.0  </div><div class='input'><span class='fu'>melt_delim</span><span class='op'>(</span><span class='st'>"a|b\n1.0|2.0"</span>, delim <span class='op'>=</span> <span class='st'>"|"</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; </span><span style='color: #949494;'># A tibble: 4 x 4</span><span>
+</div><div class='output co'>#&gt; <span class='warning'>Warning: `melt_delim()` was deprecated in readr 2.0.0.</span></div><div class='output co'>#&gt; </span><span style='color: #949494;'># A tibble: 4 x 4</span><span>
 #&gt;     row   col data_type value
 #&gt;   </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span> </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span> </span><span style='color: #949494;font-style: italic;'>&lt;chr&gt;</span><span>     </span><span style='color: #949494;font-style: italic;'>&lt;chr&gt;</span><span>
 #&gt; </span><span style='color: #BCBCBC;'>1</span><span>     1     1 character a    

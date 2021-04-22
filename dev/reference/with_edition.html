@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Determine whether progress bars should be shown — show_progress • readr</title>
+<title>Temporarily change the active readr edition — edition_get • readr</title>
 
 <!-- favicons -->
 <link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
@@ -49,14 +49,10 @@
 
 
 
-<meta property="og:title" content="Determine whether progress bars should be shown — show_progress" />
-<meta property="og:description" content="Progress bars are shown unless one of the following is TRUE
-The bar is explicitly disabled by setting options(readr.show_progress = FALSE)
-The code is run in a non-interactive session (interactive() is FALSE).
-The code is run in an RStudio notebook chunk.
-The code is run by knitr / rmarkdown.
-
-" />
+<meta property="og:title" content="Temporarily change the active readr edition — edition_get" />
+<meta property="og:description" content="with_edition() allows you to change the active edition of readr for a given block of code.
+local_edition() allows you to change the active edition of readr until the end of the current function or file.
+edition_get() allows you to retrieve the currently active edition." />
 <meta property="og:image" content="https://readr.tidyverse.org/logo.png" />
 <meta name="twitter:card" content="summary" />
 
@@ -167,23 +163,39 @@ The code is run by knitr / rmarkdown.
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Determine whether progress bars should be shown</h1>
-    <small class="dont-index">Source: <a href='https://github.com/tidyverse/readr/blob/master/R/utils.R'><code>R/utils.R</code></a></small>
-    <div class="hidden name"><code>show_progress.Rd</code></div>
+    <h1>Temporarily change the active readr edition</h1>
+    <small class="dont-index">Source: <a href='https://github.com/tidyverse/readr/blob/master/R/edition.R'><code>R/edition.R</code></a></small>
+    <div class="hidden name"><code>with_edition.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>Progress bars are shown <em>unless</em> one of the following is <code>TRUE</code></p><ul>
-<li><p>The bar is explicitly disabled by setting <code><a href='https://rdrr.io/r/base/options.html'>options(readr.show_progress = FALSE)</a></code></p></li>
-<li><p>The code is run in a non-interactive session (<code><a href='https://rdrr.io/r/base/interactive.html'>interactive()</a></code> is <code>FALSE</code>).</p></li>
-<li><p>The code is run in an RStudio notebook chunk.</p></li>
-<li><p>The code is run by knitr / rmarkdown.</p></li>
-</ul>
-
+    <p><code>with_edition()</code> allows you to change the active edition of readr for a given block of code.
+<code>local_edition()</code> allows you to change the active edition of readr until the end of the current function or file.
+<code>edition_get()</code> allows you to retrieve the currently active edition.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>show_progress</span><span class='op'>(</span><span class='op'>)</span></pre>
+    <pre class="usage"><span class='fu'>edition_get</span><span class='op'>(</span><span class='op'>)</span>
 
+<span class='fu'>with_edition</span><span class='op'>(</span><span class='va'>edition</span>, <span class='va'>code</span><span class='op'>)</span>
+
+<span class='fu'>local_edition</span><span class='op'>(</span><span class='va'>edition</span>, env <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/sys.parent.html'>parent.frame</a></span><span class='op'>(</span><span class='op'>)</span><span class='op'>)</span></pre>
+
+    <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
+    <table class="ref-arguments">
+    <colgroup><col class="name" /><col class="desc" /></colgroup>
+    <tr>
+      <th>edition</th>
+      <td><p>Should be a single integer.</p></td>
+    </tr>
+    <tr>
+      <th>code</th>
+      <td><p>Code to run with the changed edition.</p></td>
+    </tr>
+    <tr>
+      <th>env</th>
+      <td><p>Environment that controls scope of changes. For expert use only.</p></td>
+    </tr>
+    </table>
 
 
   </div>

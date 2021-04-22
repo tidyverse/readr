@@ -168,7 +168,19 @@
 <h1 class="page-header" data-toc-text="development version">
 <a href="#readr-development-version" class="anchor"></a>readr (development version)<small> Unreleased </small>
 </h1>
+<div id="second-edition-changes" class="section level2">
+<h2 class="hasAnchor">
+<a href="#second-edition-changes" class="anchor"></a>second edition changes</h2>
 <ul>
+<li><p>New <code><a href="../reference/edition_get.html">with_edition()</a></code> and <code><a href="../reference/edition_get.html">local_edition()</a></code> functions to temporarily change the edition of readr. For example you can use <code><a href="../reference/edition_get.html">with_edition(1, read_csv("my-file"))</a></code> to read a CSV file with the first edition of readr. <em>Note</em> we will continue to support the first edition for a number of releases, but eventually this support will be first deprecated and then removed.</p></li>
+<li><p><code><a href="../reference/melt_delim.html">melt_csv()</a></code>, <code><a href="../reference/melt_delim.html">melt_delim()</a></code>, <code><a href="../reference/melt_delim.html">melt_tsv()</a></code> and <code><a href="../reference/melt_fwf.html">melt_fwf()</a></code> have been deprecated. These functions rely on the first edition parsing code and would be challenging to update to the new parser. When the first edition parsing code is eventually removed from readr they will be split off into a new package.</p></li>
+</ul>
+</div>
+<div id="additional-features-and-fixes" class="section level2">
+<h2 class="hasAnchor">
+<a href="#additional-features-and-fixes" class="anchor"></a>Additional features and fixes</h2>
+<ul>
+<li><p><code>read_*()</code> functions gain a <code>show_col_types</code> argument, if set to <code>FALSE</code> this turns off showing the column types unconditionally.</p></li>
 <li><p>readr now uses the clock package when parsing date-times (<a href='https://github.com/DavisVaughan'>@DavisVaughan</a>, r-lib/vroom<a href='https://github.com/tidyverse/readr/issues/273'>#273</a>)</p></li>
 <li><p>Memory no longer inadvertently leaks when reading memory from R connections (<a href='https://github.com/tidyverse/readr/issues/1161'>#1161</a>)</p></li>
 <li><p>The BH package is no longer a dependency. The boost C++ headers in BH have thousands of files, so can take a long time to extract and compiling them takes a great deal of memory, which made readr difficult to compile on systems with limited memory (<a href='https://github.com/tidyverse/readr/issues/1147'>#1147</a>).</p></li>
@@ -177,7 +189,9 @@
 <li><p><code><a href="../reference/write_delim.html">write_csv()</a></code> now again is able to write data with duplicated column names (<a href='https://github.com/tidyverse/readr/issues/1169'>#1169</a>)</p></li>
 <li><p>Invalid date formats no longer can potentially crash R (<a href='https://github.com/tidyverse/readr/issues/1151'>#1151</a>)</p></li>
 <li><p><code><a href="../reference/read_delim.html">read_delim()</a></code> fails when sample of parsing problems contains non-ASCII characters (<a href='https://github.com/hidekoji'>@hidekoji</a>, <a href='https://github.com/tidyverse/readr/issues/1136'>#1136</a>)</p></li>
+<li><p>Chunked readers now support files with more than <code>INT_MAX</code> (~ 2 Billion) number of lines (<a href='https://github.com/tidyverse/readr/issues/1177'>#1177</a>)</p></li>
 </ul>
+</div>
 </div>
     <div id="readr-140" class="section level1">
 <h1 class="page-header" data-toc-text="1.4.0">
@@ -218,9 +232,9 @@
 <li><p>The build system has been greatly simplified so should work on more systems.</p></li>
 </ul>
 </div>
-<div id="additional-features-and-fixes" class="section level2">
+<div id="additional-features-and-fixes-1" class="section level2">
 <h2 class="hasAnchor">
-<a href="#additional-features-and-fixes" class="anchor"></a>Additional features and fixes</h2>
+<a href="#additional-features-and-fixes-1" class="anchor"></a>Additional features and fixes</h2>
 <ul>
 <li><p>The full problem field is now displayed in the problems tibble, as intended (<a href='https://github.com/tidyverse/readr/issues/444'>#444</a>).</p></li>
 <li><p>New <code>%h</code> placeholder for parsing unrestricted hours (&lt;0 and &gt;23) to support parsing durations (<a href='https://github.com/tidyverse/readr/issues/549'>#549</a>, <a href='https://github.com/krlmlr'>@krlmlr</a>).</p></li>
