@@ -1,4 +1,5 @@
 test_that("read_csv type imputation and NA detection works", {
+  skip_on_os("windows")
   withr::local_options(lifecycle_verbosity = "quiet")
   melt_data <- melt_csv("non-tabular.csv", na = "NA")
   expect_equal(melt_data$data_type[7:11],
