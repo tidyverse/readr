@@ -54,6 +54,8 @@ write_file <- function(x, file, append = FALSE, path = deprecated()) {
     file <- path
   }
 
+  force(x)
+
   file <- standardise_path(file, input = FALSE)
   if (!isOpen(file)) {
     on.exit(close(file), add = TRUE)

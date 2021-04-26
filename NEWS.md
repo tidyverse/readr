@@ -10,6 +10,8 @@
   These functions rely on the first edition parsing code and would be challenging to update to the new parser.
   When the first edition parsing code is eventually removed from readr they will be split off into a new package.
 
+* `write_file()` now forces its argument before opening the output file (#1158)
+
 ## Additional features and fixes
 
 * `read_*()` functions gain a `show_col_types` argument, if set to `FALSE` this turns off showing the column types unconditionally.
