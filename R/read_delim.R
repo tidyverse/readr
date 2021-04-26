@@ -142,7 +142,7 @@ read_delim <- function(file, delim = NULL, quote = '"',
   vroom::vroom(file, delim = delim, col_names = col_names, col_types = col_types,
     skip = skip, n_max = n_max, na = na, quote = quote, comment = comment, trim_ws = trim_ws,
     escape_double = escape_double, escape_backslash = escape_backslash, locale = locale, guess_max = guess_max,
-    progress = progress, altrep = lazy, show_col_spec = show_col_types)
+    progress = progress, altrep = lazy, show_col_types = show_col_types)
 }
 
 #' @rdname read_delim
@@ -169,7 +169,7 @@ read_csv <- function(file, col_names = TRUE, col_types = NULL,
   vroom::vroom(file, delim = ",", col_names = col_names, col_types = col_types,
     skip = skip, n_max = n_max, na = na, quote = quote, comment = comment, trim_ws = trim_ws,
     escape_double = TRUE, escape_backslash = FALSE, locale = locale, guess_max = guess_max,
-    show_col_spec = show_col_types,
+    show_col_types = show_col_types,
     progress = progress, altrep = lazy)
 }
 
@@ -199,7 +199,7 @@ read_csv2 <- function(file, col_names = TRUE, col_types = NULL,
   vroom::vroom(file, delim = ";", col_names = col_names, col_types = col_types,
     skip = skip, n_max = n_max, na = na, quote = quote, comment = comment, trim_ws = trim_ws,
     escape_double = TRUE, escape_backslash = FALSE, locale = locale, guess_max = guess_max,
-    show_col_spec = show_col_types,
+    show_col_types = show_col_types,
     progress = progress, altrep = lazy)
 }
 
@@ -223,7 +223,7 @@ read_tsv <- function(file, col_names = TRUE, col_types = NULL,
   vroom::vroom(file, delim = "\t", col_names = col_names,
     col_types = col_types, locale = locale, skip = skip, comment = comment,
     n_max = n_max, guess_max = guess_max, progress = progress,
-    show_col_spec = show_col_types, altrep = lazy)
+    show_col_types = show_col_types, altrep = lazy)
 }
 
 # Helper functions for reading from delimited files ----------------------------

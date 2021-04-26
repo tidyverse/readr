@@ -77,7 +77,7 @@ read_fwf <- function(file, col_positions = fwf_empty(file, skip, n = guess_max),
 
   vroom::vroom_fwf(file, col_positions = col_positions, col_types = col_types,
     locale = locale, na = na, comment = comment, trim_ws = trim_ws, skip = skip,
-    n_max = n_max, guess_max = guess_max, show_col_spec = show_col_types,
+    n_max = n_max, guess_max = guess_max, show_col_types = show_col_types,
     progress = progress, altrep = lazy)
 }
 
