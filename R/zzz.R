@@ -1,7 +1,6 @@
 # nocov start
 .onLoad <- function(libname, pkgname) {
-  # Ensure clock callables are loaded
-  requireNamespace("clock", quietly = TRUE)
+  tzdb::tzdb_initialize()
 
   register_s3_method("testthat", "compare", "col_spec")
   register_s3_method("testthat", "compare", "tbl_df")
