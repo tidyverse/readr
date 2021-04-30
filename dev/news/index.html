@@ -176,6 +176,7 @@
 <li><p><code><a href="../reference/melt_delim.html">melt_csv()</a></code>, <code><a href="../reference/melt_delim.html">melt_delim()</a></code>, <code><a href="../reference/melt_delim.html">melt_tsv()</a></code> and <code><a href="../reference/melt_fwf.html">melt_fwf()</a></code> have been deprecated. These functions rely on the first edition parsing code and would be challenging to update to the new parser. When the first edition parsing code is eventually removed from readr they will be split off into a new package.</p></li>
 <li><p><code><a href="../reference/read_file.html">write_file()</a></code> now forces its argument before opening the output file (<a href='https://github.com/tidyverse/readr/issues/1158'>#1158</a>)</p></li>
 <li><p>All <code>read_*()</code> functions gain a <code>col_select</code> argument to more easily choose which columns to select.</p></li>
+<li><p>All <code>read_*()</code> functions gain a <code>id</code> argument to optionally store the file paths when reading multiple files.</p></li>
 <li><p>All <code>read_*()</code> and <code>write_*()</code> functions gain a <code>num_threads</code> argument to control the number of processing threads they use (<a href='https://github.com/tidyverse/readr/issues/1201'>#1201</a>)</p></li>
 </ul>
 </div>
