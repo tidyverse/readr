@@ -25,6 +25,7 @@ read_delim(
   skip = 0,
   n_max = Inf,
   guess_max = min(1000, n_max),
+  name_repair = "unique",
   num_threads = readr_threads(),
   progress = show_progress(),
   show_col_types = should_show_types(),
@@ -47,6 +48,7 @@ read_csv(
   skip = 0,
   n_max = Inf,
   guess_max = min(1000, n_max),
+  name_repair = "unique",
   num_threads = readr_threads(),
   progress = show_progress(),
   show_col_types = should_show_types(),
@@ -70,6 +72,7 @@ read_csv2(
   n_max = Inf,
   guess_max = min(1000, n_max),
   progress = show_progress(),
+  name_repair = "unique",
   num_threads = readr_threads(),
   show_col_types = should_show_types(),
   skip_empty_rows = TRUE,
@@ -92,6 +95,7 @@ read_tsv(
   n_max = Inf,
   guess_max = min(1000, n_max),
   progress = show_progress(),
+  name_repair = "unique",
   num_threads = readr_threads(),
   show_col_types = should_show_types(),
   skip_empty_rows = TRUE,
@@ -207,6 +211,22 @@ each field before parsing it?}
 \item{n_max}{Maximum number of records to read.}
 
 \item{guess_max}{Maximum number of records to use for guessing column types.}
+
+\item{name_repair}{Treatment of problematic column names:
+\itemize{
+\item \code{"minimal"}: No name repair or checks, beyond basic existence,
+\item \code{"unique"}: Make sure names are unique and not empty,
+\item \code{"check_unique"}: (default value), no name repair, but check they are
+\code{unique},
+\item \code{"universal"}: Make the names \code{unique} and syntactic
+\item a function: apply custom name repair (e.g., \code{.name_repair = make.names}
+for names in the style of base R).
+\item A purrr-style anonymous function, see \code{\link[rlang:as_function]{rlang::as_function()}}
+}
+
+This argument is passed on as \code{repair} to \code{\link[vctrs:vec_as_names]{vctrs::vec_as_names()}}.
+See there for more details on these terms and the strategies used
+to enforce them.}
 
 \item{num_threads}{The number of processing threads to use for initial
 parsing and lazy reading of data.}

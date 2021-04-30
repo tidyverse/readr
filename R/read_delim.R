@@ -81,6 +81,19 @@ NULL
 #'   indexed. The actual values are read lazily on-demand when accessed.
 #' @param num_threads The number of processing threads to use for initial
 #'   parsing and lazy reading of data.
+#' @param name_repair Treatment of problematic column names:
+#'   * `"minimal"`: No name repair or checks, beyond basic existence,
+#'   * `"unique"`: Make sure names are unique and not empty,
+#'   * `"check_unique"`: (default value), no name repair, but check they are
+#'     `unique`,
+#'   * `"universal"`: Make the names `unique` and syntactic
+#'   * a function: apply custom name repair (e.g., `.name_repair = make.names`
+#'     for names in the style of base R).
+#'   * A purrr-style anonymous function, see [rlang::as_function()]
+#'
+#'   This argument is passed on as `repair` to [vctrs::vec_as_names()].
+#'   See there for more details on these terms and the strategies used
+#'   to enforce them.
 #' @return A [tibble()]. If there are parsing problems, a warning tells you
 #'   how many, and you can retrieve the details with [problems()].
 #' @export
@@ -126,6 +139,7 @@ read_delim <- function(file, delim = NULL, quote = '"',
                        na = c("", "NA"), quoted_na = TRUE,
                        comment = "", trim_ws = FALSE,
                        skip = 0, n_max = Inf, guess_max = min(1000, n_max),
+                       name_repair = "unique",
                        num_threads = readr_threads(),
                        progress = show_progress(),
                        show_col_types = should_show_types(),
@@ -160,6 +174,7 @@ read_delim <- function(file, delim = NULL, quote = '"',
     delim = delim, col_names = col_names, col_types = col_types,
     col_select = {{col_select}},
     id = id,
+    .name_repair = name_repair,
     skip = skip, n_max = n_max, na = na, quote = quote, comment = comment, trim_ws = trim_ws,
     escape_double = escape_double, escape_backslash = escape_backslash, locale = locale, guess_max = guess_max,
     progress = progress, altrep = lazy, show_col_types = show_col_types, num_threads = num_threads
@@ -174,6 +189,7 @@ read_csv <- function(file, col_names = TRUE, col_types = NULL,
                      locale = default_locale(), na = c("", "NA"),
                      quoted_na = TRUE, quote = "\"", comment = "", trim_ws = TRUE,
                      skip = 0, n_max = Inf, guess_max = min(1000, n_max),
+                     name_repair = "unique",
                      num_threads = readr_threads(),
                      progress = show_progress(), show_col_types = should_show_types(), skip_empty_rows = TRUE, lazy = TRUE) {
   if (edition_first()) {
@@ -197,6 +213,7 @@ read_csv <- function(file, col_names = TRUE, col_types = NULL,
     delim = ",", col_names = col_names, col_types = col_types,
     col_select = {{col_select}},
     id = id,
+    .name_repair = name_repair,
     skip = skip, n_max = n_max, na = na, quote = quote, comment = comment, trim_ws = trim_ws,
     escape_double = TRUE, escape_backslash = FALSE, locale = locale, guess_max = guess_max,
     show_col_types = show_col_types,
@@ -213,6 +230,7 @@ read_csv2 <- function(file, col_names = TRUE, col_types = NULL,
                       na = c("", "NA"), quoted_na = TRUE, quote = "\"",
                       comment = "", trim_ws = TRUE, skip = 0, n_max = Inf,
                       guess_max = min(1000, n_max), progress = show_progress(),
+                      name_repair = "unique",
                       num_threads = readr_threads(),
                       show_col_types = should_show_types(),
                       skip_empty_rows = TRUE, lazy = TRUE) {
@@ -237,6 +255,7 @@ read_csv2 <- function(file, col_names = TRUE, col_types = NULL,
     delim = ";", col_names = col_names, col_types = col_types,
     col_select = {{col_select}},
     id = id,
+    .name_repair = name_repair,
     skip = skip, n_max = n_max, na = na, quote = quote, comment = comment, trim_ws = trim_ws,
     escape_double = TRUE, escape_backslash = FALSE, locale = locale, guess_max = guess_max,
     show_col_types = show_col_types,
@@ -253,6 +272,7 @@ read_tsv <- function(file, col_names = TRUE, col_types = NULL,
                      na = c("", "NA"), quoted_na = TRUE, quote = "\"",
                      comment = "", trim_ws = TRUE, skip = 0, n_max = Inf,
                      guess_max = min(1000, n_max), progress = show_progress(),
+                     name_repair = "unique",
                      num_threads = readr_threads(),
                      show_col_types = should_show_types(),
                      skip_empty_rows = TRUE, lazy = TRUE) {
@@ -273,6 +293,7 @@ read_tsv <- function(file, col_names = TRUE, col_types = NULL,
     col_types = col_types,
     col_select = {{col_select}},
     id = id,
+    .name_repair = name_repair,
     locale = locale, skip = skip, comment = comment,
     n_max = n_max, guess_max = guess_max, progress = progress,
     show_col_types = show_col_types, altrep = lazy, num_threads = num_threads
