@@ -186,6 +186,7 @@ decimal point. This is common in some European countries.</p>
   escape_double <span class='op'>=</span> <span class='cn'>TRUE</span>,
   col_names <span class='op'>=</span> <span class='cn'>TRUE</span>,
   col_types <span class='op'>=</span> <span class='cn'>NULL</span>,
+  col_select <span class='op'>=</span> <span class='cn'>NULL</span>,
   locale <span class='op'>=</span> <span class='fu'><a href='locale.html'>default_locale</a></span><span class='op'>(</span><span class='op'>)</span>,
   na <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>""</span>, <span class='st'>"NA"</span><span class='op'>)</span>,
   quoted_na <span class='op'>=</span> <span class='cn'>TRUE</span>,
@@ -205,6 +206,7 @@ decimal point. This is common in some European countries.</p>
   <span class='va'>file</span>,
   col_names <span class='op'>=</span> <span class='cn'>TRUE</span>,
   col_types <span class='op'>=</span> <span class='cn'>NULL</span>,
+  col_select <span class='op'>=</span> <span class='cn'>NULL</span>,
   locale <span class='op'>=</span> <span class='fu'><a href='locale.html'>default_locale</a></span><span class='op'>(</span><span class='op'>)</span>,
   na <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>""</span>, <span class='st'>"NA"</span><span class='op'>)</span>,
   quoted_na <span class='op'>=</span> <span class='cn'>TRUE</span>,
@@ -225,6 +227,7 @@ decimal point. This is common in some European countries.</p>
   <span class='va'>file</span>,
   col_names <span class='op'>=</span> <span class='cn'>TRUE</span>,
   col_types <span class='op'>=</span> <span class='cn'>NULL</span>,
+  col_select <span class='op'>=</span> <span class='cn'>NULL</span>,
   locale <span class='op'>=</span> <span class='fu'><a href='locale.html'>default_locale</a></span><span class='op'>(</span><span class='op'>)</span>,
   na <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>""</span>, <span class='st'>"NA"</span><span class='op'>)</span>,
   quoted_na <span class='op'>=</span> <span class='cn'>TRUE</span>,
@@ -245,6 +248,7 @@ decimal point. This is common in some European countries.</p>
   <span class='va'>file</span>,
   col_names <span class='op'>=</span> <span class='cn'>TRUE</span>,
   col_types <span class='op'>=</span> <span class='cn'>NULL</span>,
+  col_select <span class='op'>=</span> <span class='cn'>NULL</span>,
   locale <span class='op'>=</span> <span class='fu'><a href='locale.html'>default_locale</a></span><span class='op'>(</span><span class='op'>)</span>,
   na <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>""</span>, <span class='st'>"NA"</span><span class='op'>)</span>,
   quoted_na <span class='op'>=</span> <span class='cn'>TRUE</span>,
@@ -341,6 +345,13 @@ message showing what <code>readr</code> guessed they were. To remove this messag
 use <code>col_types = list()</code>, set <code>show_col_types = FALSE</code> or set
 `options(readr.show_col_types = FALSE)</p></li>
 </ul></td>
+    </tr>
+    <tr>
+      <th>col_select</th>
+      <td><p>&lt;<code><a href='https://tidyselect.r-lib.org/reference/language.html'>tidy-select</a></code>&gt; Columns to include
+in the results, either by name or by numeric index. Use <code><a href='https://rdrr.io/r/base/c.html'>c()</a></code> or <code><a href='https://rdrr.io/r/base/list.html'>list()</a></code>
+to select with more than one expression and <code><a href='https://tidyselect.r-lib.org/reference/language.html'>?tidyselect::language</a></code> for full
+details on the selection language.</p></td>
     </tr>
     <tr>
       <th>locale</th>
