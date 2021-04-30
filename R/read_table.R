@@ -42,9 +42,11 @@ read_table <- function(file, col_names = TRUE, col_types = NULL,
   columns <- fwf_empty(ds, skip = skip, n = guess_max, comment = comment)
   skip <- skip + columns$skip
 
-  tokenizer <- tokenizer_fwf(columns$begin, columns$end, na = na,
-                             comment = comment,
-                             skip_empty_rows = skip_empty_rows)
+  tokenizer <- tokenizer_fwf(columns$begin, columns$end,
+    na = na,
+    comment = comment,
+    skip_empty_rows = skip_empty_rows
+  )
 
   spec <- col_spec_standardise(
     file = ds, skip = skip, skip_empty_rows = skip_empty_rows,
@@ -57,8 +59,10 @@ read_table <- function(file, col_names = TRUE, col_types = NULL,
     show_cols_spec(spec)
   }
 
-  res <- read_tokens(ds, tokenizer, spec$cols, names(spec$cols), locale_ = locale,
-    n_max = n_max, progress = progress)
+  res <- read_tokens(ds, tokenizer, spec$cols, names(spec$cols),
+    locale_ = locale,
+    n_max = n_max, progress = progress
+  )
   attr(res, "spec") <- spec
 
   res
@@ -67,16 +71,19 @@ read_table <- function(file, col_names = TRUE, col_types = NULL,
 #' @rdname read_table
 #' @export
 read_table2 <- function(file, col_names = TRUE, col_types = NULL,
-                       locale = default_locale(), na = "NA", skip = 0,
-                       n_max = Inf, guess_max = min(n_max, 1000),
-                       progress = show_progress(), comment = "",
-                       skip_empty_rows = TRUE) {
-
-  tokenizer <- tokenizer_ws(na = na, comment = comment,
-                            skip_empty_rows = skip_empty_rows)
-  read_delimited(file, tokenizer, col_names = col_names, col_types = col_types,
+                        locale = default_locale(), na = "NA", skip = 0,
+                        n_max = Inf, guess_max = min(n_max, 1000),
+                        progress = show_progress(), comment = "",
+                        skip_empty_rows = TRUE) {
+  tokenizer <- tokenizer_ws(
+    na = na, comment = comment,
+    skip_empty_rows = skip_empty_rows
+  )
+  read_delimited(file, tokenizer,
+    col_names = col_names, col_types = col_types,
     locale = locale, skip = skip, skip_empty_rows = skip_empty_rows,
-    comment = comment, n_max = n_max, guess_max = guess_max, progress = progress)
+    comment = comment, n_max = n_max, guess_max = guess_max, progress = progress
+  )
 }
 
 #' @rdname spec_delim

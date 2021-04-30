@@ -65,7 +65,8 @@ read_fwf <- function(file, col_positions = fwf_empty(file, skip, n = guess_max),
 
     out <- read_tokens(datasource(file, skip = spec$skip, skip_empty_rows = skip_empty_rows), tokenizer, spec$cols, names(spec$cols),
       locale_ = locale, n_max = if (n_max == Inf) -1 else n_max,
-      progress = progress)
+      progress = progress
+    )
 
     out <- name_problems(out, names(spec$cols), source_name(file))
     attr(out, "spec") <- spec
@@ -76,10 +77,12 @@ read_fwf <- function(file, col_positions = fwf_empty(file, skip, n = guess_max),
     lifecycle::deprecate_soft("2.0.0", "readr::read_fwf(skip_empty_rows = )")
   }
 
-  vroom::vroom_fwf(file, col_positions = col_positions, col_types = col_types,
+  vroom::vroom_fwf(file,
+    col_positions = col_positions, col_types = col_types,
     locale = locale, na = na, comment = comment, trim_ws = trim_ws, skip = skip,
     n_max = n_max, guess_max = guess_max, show_col_types = show_col_types,
-    progress = progress, altrep = lazy, num_threads = num_threads)
+    progress = progress, altrep = lazy, num_threads = num_threads
+  )
 }
 
 #' @rdname read_fwf
@@ -124,16 +127,14 @@ fwf_widths <- function(widths, col_names = NULL) {
 #'    Use NA as last end field when reading a ragged fwf file.
 fwf_positions <- function(start, end = NULL, col_names = NULL) {
   if (edition_first()) {
-
     stopifnot(length(start) == length(end))
     col_names <- fwf_col_names(col_names, length(start))
 
     return(tibble(
-        begin = start - 1L,
-        end = end, # -1 to change to 0 offset, +1 to be exclusive,
-        col_names = as.character(col_names)
-        )
-    )
+      begin = start - 1L,
+      end = end, # -1 to change to 0 offset, +1 to be exclusive,
+      col_names = as.character(col_names)
+    ))
   }
   vroom::fwf_positions(start = start, end = end, col_names = col_names)
 }
@@ -158,7 +159,8 @@ fwf_cols <- function(...) {
       res <- fwf_widths(as.integer(x[1, ]), names(x))
     } else {
       stop("All variables must have either one (width) two (start, end) values.",
-        call. = FALSE)
+        call. = FALSE
+      )
     }
     return(res)
   }

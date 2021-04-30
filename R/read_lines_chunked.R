@@ -6,7 +6,7 @@
 #' @family chunked
 #' @export
 read_lines_chunked <- function(file, callback, chunk_size = 10000, skip = 0,
-  locale = default_locale(), na = character(), progress = show_progress()) {
+                               locale = default_locale(), na = character(), progress = show_progress()) {
   if (empty_file(file)) {
     return(character())
   }

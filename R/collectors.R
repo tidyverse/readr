@@ -139,8 +139,8 @@ col_skip <- function() {
 #' @export
 #' @examples
 #' ## These all return 1000
-#' parse_number("$1,000")     ## leading $ and grouping character , ignored
-#' parse_number("euro1,000")  ## leading non-numeric euro ignored
+#' parse_number("$1,000") ## leading $ and grouping character , ignored
+#' parse_number("euro1,000") ## leading non-numeric euro ignored
 #'
 #' parse_number("1,234.56")
 #' ## explicit locale specifying European grouping and decimal marks
@@ -180,8 +180,8 @@ col_number <- function() {
 #' parse_guess(c("FALSE", "TRUE", "F", "T"))
 #'
 #' # Integers and doubles
-#' parse_guess(c("1","2","3"))
-#' parse_guess(c("1.6","2.6","3.4"))
+#' parse_guess(c("1", "2", "3"))
+#' parse_guess(c("1.6", "2.6", "3.4"))
 #'
 #' # Numbers containing grouping mark
 #' guess_parser("1,234,566")
@@ -349,9 +349,11 @@ col_factor <- function(levels = NULL, ordered = FALSE, include_na = FALSE) {
 #' # Use the locale parameter to control the default time zone
 #' # (but note UTC is considerably faster than other options)
 #' parse_datetime("2010/01/01 12:00", "%Y/%m/%d %H:%M",
-#'   locale = locale(tz = "US/Central"))
+#'   locale = locale(tz = "US/Central")
+#' )
 #' parse_datetime("2010/01/01 12:00", "%Y/%m/%d %H:%M",
-#'   locale = locale(tz = "US/Eastern"))
+#'   locale = locale(tz = "US/Eastern")
+#' )
 #'
 #' # Unlike strptime, the format specification must match the complete
 #' # string (ignoring leading and trailing whitespace). This avoids common

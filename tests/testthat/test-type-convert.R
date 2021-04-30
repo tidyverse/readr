@@ -11,7 +11,6 @@ test_that("requires data.frame input", {
 })
 
 test_that("col_types accepts character specifications", {
-
   df <- data.frame(x = 1:3, y = "3", z = "a", stringsAsFactors = FALSE)
   df_conv <- data.frame(x = 1:3, y = 3L, z = "a", stringsAsFactors = FALSE)
 
@@ -22,7 +21,6 @@ test_that("col_types accepts character specifications", {
   expect_equal(type_convert(df, col_types = "_ic"), df_conv)
 })
 test_that("col_types accepts cols specifications", {
-
   df <- data.frame(x = 1:3, y = "3", z = "a", stringsAsFactors = FALSE)
   df_conv <- data.frame(x = 1:3, y = 3L, z = "a", stringsAsFactors = FALSE)
 

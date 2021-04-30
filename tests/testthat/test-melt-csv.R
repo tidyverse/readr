@@ -2,8 +2,10 @@ test_that("read_csv type imputation and NA detection works", {
   skip_on_os("windows")
   withr::local_options(lifecycle_verbosity = "quiet")
   melt_data <- melt_csv("non-tabular.csv", na = "NA")
-  expect_equal(melt_data$data_type[7:11],
-    c("missing", "empty", "character", "integer", "double"))
+  expect_equal(
+    melt_data$data_type[7:11],
+    c("missing", "empty", "character", "integer", "double")
+  )
 })
 
 test_that("read_tsv works on a simple file", {
@@ -19,8 +21,10 @@ test_that("melt_csv's 'NA' option genuinely changes the NA values", {
 
 test_that("melt_csv's 'NA' option works with multiple NA values", {
   withr::local_options(lifecycle_verbosity = "quiet")
-  expect_equal(melt_csv("NA\nmiss\n13", na = c("13", "miss"))$data_type,
-               c("character", "missing", "missing"))
+  expect_equal(
+    melt_csv("NA\nmiss\n13", na = c("13", "miss"))$data_type,
+    c("character", "missing", "missing")
+  )
 })
 
 test_that('passing character() to melt_csv\'s "NA" option reads "" correctly', {
@@ -30,14 +34,16 @@ test_that('passing character() to melt_csv\'s "NA" option reads "" correctly', {
 
 test_that("passing \"\" to melt_csv's 'NA' option reads \"\" correctly", {
   withr::local_options(lifecycle_verbosity = "quiet")
-  expect_equal(melt_csv("foo,bar\nfoo,\n", na = "")$value,
-               c("foo", "bar", "foo", NA))
+  expect_equal(
+    melt_csv("foo,bar\nfoo,\n", na = "")$value,
+    c("foo", "bar", "foo", NA)
+  )
 })
 
 test_that("changing melt_csv's 'quote' argument works correctly", {
   withr::local_options(lifecycle_verbosity = "quiet")
   test_data <- melt_csv("basic-df.csv")
-  test_data_singlequote <- melt_csv("basic-df-singlequote.csv", quote="'")
+  test_data_singlequote <- melt_csv("basic-df-singlequote.csv", quote = "'")
   expect_identical(test_data, test_data_singlequote)
 })
 
@@ -56,7 +62,7 @@ test_that("melt_csv's 'n_max' allows for a maximum number of records and does no
 
 test_that("can read more than 100 columns", {
   withr::local_options(lifecycle_verbosity = "quiet")
-  set.seed(2015-3-13)
+  set.seed(2015 - 3 - 13)
   x <- as.data.frame(matrix(rbinom(300, 2, .5), nrow = 2))
   y <- format_csv(x)
   expect_equal(max(melt_csv(y)$col), 150)
@@ -92,10 +98,10 @@ test_that("can read from a multi-line character vector", {
 
 test_that("missing lines are not skipped", {
   withr::local_options(lifecycle_verbosity = "quiet")
-   # first
+  # first
   expect_equal(max(melt_csv("a,b\n\n\n1,2")$row), 4)
 
-   # middle
+  # middle
   expect_equal(max(melt_csv("a,b\n1,2\n\n\n2,3\n")$row), 5)
 
   # last (trailing \n is ignored)
@@ -108,7 +114,8 @@ test_that("decimal mark automatically set to ,", {
   withr::local_options(lifecycle_verbosity = "quiet")
   expect_message(
     x <- melt_csv2("x\n1,23"),
-    if (default_locale()$decimal_mark == ".") "decimal .*grouping .*mark" else NA)
+    if (default_locale()$decimal_mark == ".") "decimal .*grouping .*mark" else NA
+  )
   expect_equal(x$data_type[2], "double")
 })
 
@@ -124,15 +131,16 @@ test_that("n_max 0 gives zero row data frame", {
 
 test_that("comments are ignored regardless of where they appear", {
   withr::local_options(lifecycle_verbosity = "quiet")
-  out1 <- melt_csv('x\n1#comment',comment = "#")
-  out2 <- melt_csv('x\n1#comment\n#comment', comment = "#")
+  out1 <- melt_csv("x\n1#comment", comment = "#")
+  out2 <- melt_csv("x\n1#comment\n#comment", comment = "#")
   out3 <- melt_csv('x\n"1"#comment', comment = "#")
 
   chk1 <- tibble::tibble(
     row = c(1, 2),
     col = c(1, 1),
     data_type = c("character", "integer"),
-    value = c("x", "1"))
+    value = c("x", "1")
+  )
 
   expect_true(all.equal(chk1, out1))
   expect_true(all.equal(chk1, out2))
@@ -146,7 +154,8 @@ test_that("comments are ignored regardless of where they appear", {
     row = c(1, 1, 1, 2, 2, 2, 3, 4, 4, 4),
     col = c(1, 2, 3, 1, 2, 3, 1, 1, 2, 3),
     data_type = "character",
-    value = c("x1", "x2", "x3", "A2", "B2", "C2", "A3", "A4", "A5", "A6"))
+    value = c("x1", "x2", "x3", "A2", "B2", "C2", "A3", "A4", "A5", "A6")
+  )
 
   expect_true(all.equal(chk2, out5))
   expect_true(all.equal(chk2, out6))
@@ -155,8 +164,10 @@ test_that("comments are ignored regardless of where they appear", {
 
 test_that("escaped/quoted comments are ignored", {
   withr::local_options(lifecycle_verbosity = "quiet")
-  out1 <- melt_delim('x\n\\#', comment = "#", delim = ",",
-    escape_backslash = TRUE, escape_double = FALSE)
+  out1 <- melt_delim("x\n\\#",
+    comment = "#", delim = ",",
+    escape_backslash = TRUE, escape_double = FALSE
+  )
   out2 <- melt_csv('x\n"#"', comment = "#")
 
   expect_equal(out1$value[2], "#")
@@ -185,13 +196,15 @@ test_that("skip respects comments", {
 
 test_that("melt_csv returns a four-col zero-row data.frame on an empty file", {
   withr::local_options(lifecycle_verbosity = "quiet")
-   expect_equal(dim(melt_csv("empty-file")), c(0, 4))
+  expect_equal(dim(melt_csv("empty-file")), c(0, 4))
 })
 
 test_that("melt_delim errors on length 0 delimiter", {
   withr::local_options(lifecycle_verbosity = "quiet")
-  expect_error(melt_delim("a b\n1 2\n", delim = ""),
-    "`delim` must be at least one character, use `melt_table\\(\\)` for whitespace delimited input\\.")
+  expect_error(
+    melt_delim("a b\n1 2\n", delim = ""),
+    "`delim` must be at least one character, use `melt_table\\(\\)` for whitespace delimited input\\."
+  )
 })
 
 test_that("melt_csv handles whitespace between delimiters and quoted fields", {

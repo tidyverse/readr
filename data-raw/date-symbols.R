@@ -4,7 +4,6 @@ locs <- stri_locale_list()
 base <- unique(stri_split_fixed(locs, "_", n = 2, simplify = TRUE)[, 1])
 
 locale_info <- function(x) {
-
   full <- stri_datetime_symbols(x, context = "format", width = "wide")
   abbr <- stri_datetime_symbols(x, context = "format", width = "abbreviated")
 

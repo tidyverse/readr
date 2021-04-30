@@ -29,7 +29,7 @@ test_that("blank lines are passed unchanged", {
 test_that("read_lines can skip blank lines (#923)", {
   skip_if_edition_second()
   x <-
-"1
+    "1
 2
 3
 
@@ -52,7 +52,7 @@ test_that("allocation works as expected", {
   tmp <- tempfile(fileext = ".gz")
   on.exit(unlink(tmp))
 
-  x <- rep(paste(rep("a", 2 ^ 10), collapse = ''), 2 ^ 11)
+  x <- rep(paste(rep("a", 2^10), collapse = ""), 2^11)
   writeLines(x, tmp)
   expect_equal(length(read_lines(tmp)), 2^11)
 })
@@ -64,9 +64,11 @@ test_that("read_lines(skip_empty_rows) works when blank lines are at the end of 
   tmp <- tempfile()
   on.exit(unlink(tmp))
 
-  writeLines(con = tmp,
-"test
-")
+  writeLines(
+    con = tmp,
+    "test
+"
+  )
 
   expect_equal(read_lines(tmp, skip_empty_rows = TRUE), "test")
 })
@@ -74,30 +76,32 @@ test_that("read_lines(skip_empty_rows) works when blank lines are at the end of 
 test_that("read_lines(skip_empty_rows) works if there are double quotes in the lines (#991)", {
   skip_if_edition_second()
   data <-
-"a\"b
+    "a\"b
 cde
 f\"g
 hij"
 
   expect_equal(
     read_lines(data, skip = 1),
-    c("cde",
+    c(
+      "cde",
       "f\"g",
-      "hij")
+      "hij"
+    )
   )
 })
 
-#These tests are slow so are commented out
-#test_that("long vectors are supported", {
-  #tmp <- tempfile(fileext = ".gz")
-  #on.exit(unlink(tmp))
+# These tests are slow so are commented out
+# test_that("long vectors are supported", {
+# tmp <- tempfile(fileext = ".gz")
+# on.exit(unlink(tmp))
 
-  #x <- rep(paste(rep("a", 2 ^ 16), collapse = ''), 2 ^ 15)
-  #con <- gzfile(tmp, open = "w", compression = 0)
-  #writeLines(x, con)
-  #close(con)
+# x <- rep(paste(rep("a", 2 ^ 16), collapse = ''), 2 ^ 15)
+# con <- gzfile(tmp, open = "w", compression = 0)
+# writeLines(x, con)
+# close(con)
 
-  #expect_equal(length(read_lines(tmp)), 2^15)
+# expect_equal(length(read_lines(tmp)), 2^15)
 
-  #expect_equal(length(read_lines_raw(tmp)), 2^15)
-#})
+# expect_equal(length(read_lines_raw(tmp)), 2^15)
+# })

@@ -1,7 +1,9 @@
 test_that("read_csv col imputation, col_name detection and NA detection works", {
   test_data <- read_csv(test_path("basic-df.csv"), col_types = list(), col_names = TRUE)
-  expect_equal(unname(unlist(lapply(test_data, class))),
-    c("logical", "numeric", "numeric", "character"))
+  expect_equal(
+    unname(unlist(lapply(test_data, class))),
+    c("logical", "numeric", "numeric", "character")
+  )
   expect_equal(names(test_data), c("a", "b", "c", "d"))
   expect_equal(sum(is.na(test_data$d)), 1)
 
@@ -14,8 +16,10 @@ test_that("read_csv's 'NA' option genuinely changes the NA values", {
 })
 
 test_that("read_csv's 'NA' option works with multiple NA values", {
-  expect_equal(read_csv(I("a\nNA\nmiss\n13"), na = c("13", "miss"))$a,
-               c("NA", NA, NA))
+  expect_equal(
+    read_csv(I("a\nNA\nmiss\n13"), na = c("13", "miss"))$a,
+    c("NA", NA, NA)
+  )
 })
 
 test_that('passing character() to read_csv\'s "NA" option reads "" correctly', {
@@ -28,7 +32,7 @@ test_that("passing \"\" to read_csv's 'NA' option reads \"\" correctly", {
 
 test_that("changing read_csv's 'quote' argument works correctly", {
   test_data <- read_csv("basic-df.csv", col_types = NULL, col_names = TRUE)
-  test_data_singlequote <- read_csv("basic-df-singlequote.csv", quote="'")
+  test_data_singlequote <- read_csv("basic-df-singlequote.csv", quote = "'")
   expect_identical(test_data, test_data_singlequote)
 })
 
@@ -49,15 +53,17 @@ test_that("read_csv's 'n_max' allows for a maximum number of records and does no
 })
 
 test_that("n_max also affects column guessing", {
-  df <- read_csv(n_max = 1, I('x,y,z
+  df <- read_csv(
+    n_max = 1, I("x,y,z
     1,2,3
-    1,2,3,4'),
-    progress = FALSE)
+    1,2,3,4"),
+    progress = FALSE
+  )
   expect_equal(dim(df), c(1, 3))
 })
 
 test_that("can read more than 100 columns", {
-  set.seed(2015-3-13)
+  set.seed(2015 - 3 - 13)
   x <- as.data.frame(matrix(rbinom(300, 2, .5), nrow = 2))
   y <- format_csv(x)
 
@@ -110,10 +116,10 @@ test_that("missing last field generates warning", {
 
 test_that("missing lines are skipped without warning", {
   skip_if_edition_second()
-   # first
+  # first
   expect_silent(out <- read_csv(I("a,b\n\n\n1,2")))
 
-   # middle
+  # middle
   expect_silent(out <- read_csv(I("a,b\n1,2\n\n\n2,3\n")))
 
   # last (trailing \n is ignored)
@@ -142,12 +148,12 @@ test_that("extra columns generates warnings", {
   skip_if_edition_second()
   expect_warning(out1 <- read_csv(I("a,b\n1,2,3\n"), lazy = FALSE))
   expect_warning(out2 <- read_csv(I("a,b\n1,2,3"), col_types = "ii", lazy = FALSE))
-  #expect_warning(out3 <- read_csv(I("1,2,3\n"), c("a", "b"), lazy = FALSE))
+  # expect_warning(out3 <- read_csv(I("1,2,3\n"), c("a", "b"), lazy = FALSE))
   expect_warning(out4 <- read_csv(I("1,2,3\n"), c("a", "b"), "ii", lazy = FALSE))
 
   expect_equal(problems(out1)$expected, "2 columns")
   expect_equal(problems(out2)$expected, "2 columns")
-  #expect_equal(problems(out3)$expected, "2 columns")
+  # expect_equal(problems(out3)$expected, "2 columns")
   expect_equal(problems(out4)$expected, "2 columns")
 })
 
@@ -155,7 +161,7 @@ test_that("too few or extra col_types generates warnings", {
   skip_if_edition_second()
   expect_warning(out1 <- read_csv(I("v1,v2\n1,2"), col_types = "ii", lazy = FALSE))
   expect_equal(problems(out1)$expected, "1 columns")
-  expect_equal(  problems(out1)$actual, "2 columns")
+  expect_equal(problems(out1)$actual, "2 columns")
 
   expect_warning(out2 <- read_csv(I("v1,v2\n1,2"), col_types = "iii", lazy = FALSE))
   expect_equal(ncol(out2), 2)
@@ -166,7 +172,8 @@ test_that("too few or extra col_types generates warnings", {
 test_that("decimal mark automatically set to ,", {
   expect_message(
     x <- read_csv2(I("x\n1,23")),
-    if (default_locale()$decimal_mark == ".") "decimal .*grouping mark" else NA)
+    if (default_locale()$decimal_mark == ".") "decimal .*grouping mark" else NA
+  )
   expect_equal(x[[1]], 1.23)
 })
 
@@ -205,16 +212,15 @@ test_that("empty file returns an empty tibble", {
 # Comments ----------------------------------------------------------------
 
 test_that("comments are ignored regardless of where they appear", {
-
-  out1 <- read_csv(I('x\n1#comment'),comment = "#")
-  out2 <- read_csv(I('x\n1#comment\n#comment'), comment = "#")
+  out1 <- read_csv(I("x\n1#comment"), comment = "#")
+  out2 <- read_csv(I("x\n1#comment\n#comment"), comment = "#")
   out3 <- read_csv(I('x\n"1"#comment'), comment = "#")
 
   expect_equal(out1$x, 1)
   expect_equal(out2$x, 1)
   expect_equal(out3$x, 1)
 
-  out4 <- read_csv(I('x,y\n1,#comment'), comment = "#", col_types = "cc")
+  out4 <- read_csv(I("x,y\n1,#comment"), comment = "#", col_types = "cc")
   expect_equal(out4$y, NA_character_)
 
   expect_warning(out5 <- read_csv(I("x1,x2,x3\nA2,B2,C2\nA3#,B2,C2\nA4,A5,A6"), comment = "#", lazy = FALSE))
@@ -224,7 +230,8 @@ test_that("comments are ignored regardless of where they appear", {
   chk <- tibble::tibble(
     x1 = c("A2", "A3", "A4"),
     x2 = c("B2", NA_character_, "A5"),
-    x3 = c("C2", NA_character_, "A6"))
+    x3 = c("C2", NA_character_, "A6")
+  )
 
   expect_true(all.equal(chk, out5, check.attributes = FALSE))
   expect_true(all.equal(chk, out6, check.attributes = FALSE))
@@ -232,8 +239,10 @@ test_that("comments are ignored regardless of where they appear", {
 })
 
 test_that("escaped/quoted comments are ignored", {
-  out1 <- read_delim(I('x\n\\#'), comment = "#", delim = ",",
-    escape_backslash = TRUE, escape_double = FALSE)
+  out1 <- read_delim(I("x\n\\#"),
+    comment = "#", delim = ",",
+    escape_backslash = TRUE, escape_double = FALSE
+  )
   out2 <- read_csv(I('x\n"#"'), comment = "#")
 
   expect_equal(out1$x, "#")
@@ -277,13 +286,15 @@ test_that("skip respects newlines", {
 })
 
 test_that("read_csv returns an empty data.frame on an empty file", {
-   expect_equal(read_csv(test_path("empty-file"))[], tibble::tibble())
+  expect_equal(read_csv(test_path("empty-file"))[], tibble::tibble())
 })
 
 test_that("read_delim errors on length 0 delimiter (557)", {
   skip_if_edition_second()
-  expect_error(read_delim(I("a b\n1 2\n"), delim = ""),
-    "`delim` must be at least one character, use `read_table\\(\\)` for whitespace delimited input\\.")
+  expect_error(
+    read_delim(I("a b\n1 2\n"), delim = ""),
+    "`delim` must be at least one character, use `read_table\\(\\)` for whitespace delimited input\\."
+  )
 })
 
 test_that("read_csv does not duplicate header rows for leading whitespace (747)", {

@@ -22,7 +22,7 @@ test_that("read_file works with a local text file passed as character", {
 test_that("read_file works with a local text file, skipping one line", {
   expect_equal(
     read_file(datasource("sample_text.txt", skip = 1)),
-    paste(tail(strsplit(sample_text_str,"\n")[[1]], -1), collapse = "\n")
+    paste(tail(strsplit(sample_text_str, "\n")[[1]], -1), collapse = "\n")
   )
 })
 
@@ -62,7 +62,7 @@ test_that("read_file works via https on gz file", {
 })
 
 test_that("read_file returns \"\" on an empty file", {
-   expect_equal(read_file("empty-file"), "")
+  expect_equal(read_file("empty-file"), "")
 })
 
 # read_file_raw ---------------------------------------------------------------

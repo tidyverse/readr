@@ -33,11 +33,11 @@ test_that("respects the trim_ws argument with empty fields", {
 test_that("skipping column doesn't pad col_names", {
   x <- "1 2 3\n4 5 6"
 
-  out1 <- read_fwf(I(x), fwf_empty(I(x)), col_types = 'd-d')
+  out1 <- read_fwf(I(x), fwf_empty(I(x)), col_types = "d-d")
   expect_named(out1, c("X1", "X3"))
 
   names <- c("a", "b", "c")
-  out2 <- read_fwf(I(x), fwf_empty(I(x), col_names = names), col_types = 'd-d')
+  out2 <- read_fwf(I(x), fwf_empty(I(x), col_names = names), col_types = "d-d")
   expect_named(out2, c("a", "c"))
 })
 
@@ -49,8 +49,10 @@ test_that("fwf_empty can skip comments", {
 })
 
 test_that("passing \"\" to read_fwf's 'na' option", {
-  expect_equal(read_fwf(I("foobar\nfoo   "), fwf_widths(c(3, 3)), na = "")[[2]],
-               c("bar", NA))
+  expect_equal(
+    read_fwf(I("foobar\nfoo   "), fwf_widths(c(3, 3)), na = "")[[2]],
+    c("bar", NA)
+  )
 })
 
 test_that("ragged last column expanded with NA", {
@@ -67,14 +69,14 @@ test_that("ragged last column shrunk with warning", {
 })
 
 test_that("read all columns with positions, non ragged", {
-  col_pos <- fwf_positions(c(1,3,6),c(2,5,6))
+  col_pos <- fwf_positions(c(1, 3, 6), c(2, 5, 6))
   x <- read_fwf(I("12345A\n67890BBBBBBBBB\n54321C"), col_positions = col_pos)
   expect_equal(x$X3, c("A", "B", "C"))
   expect_equal(n_problems(x), 0)
 })
 
 test_that("read subset columns with positions", {
-  col_pos <- fwf_positions(c(1,3), c(2,5))
+  col_pos <- fwf_positions(c(1, 3), c(2, 5))
   x <- read_fwf(I("12345A\n67890BBBBBBBBB\n54321C"), col_positions = col_pos)
   expect_equal(x$X1, c(12, 67, 54))
   expect_equal(x$X2, c(345, 890, 321))
@@ -82,7 +84,7 @@ test_that("read subset columns with positions", {
 })
 
 test_that("read columns with positions, ragged", {
-  col_pos <- fwf_positions(c(1,3,6),c(2,5,NA))
+  col_pos <- fwf_positions(c(1, 3, 6), c(2, 5, NA))
   x <- read_fwf(I("12345A\n67890BBBBBBBBB\n54321C"), col_positions = col_pos)
   expect_equal(x$X1, c(12, 67, 54))
   expect_equal(x$X2, c(345, 890, 321))
@@ -91,7 +93,7 @@ test_that("read columns with positions, ragged", {
 })
 
 test_that("read columns with width, ragged", {
-  col_pos <- fwf_widths(c(2,3,NA))
+  col_pos <- fwf_widths(c(2, 3, NA))
   x <- read_fwf(I("12345A\n67890BBBBBBBBB\n54321C"), col_positions = col_pos)
   expect_equal(x$X1, c(12, 67, 54))
   expect_equal(x$X2, c(345, 890, 321))
@@ -101,7 +103,7 @@ test_that("read columns with width, ragged", {
 
 test_that("read_fwf returns an empty data.frame on an empty file", {
   skip_if_edition_second()
-   expect_true(all.equal(read_fwf(test_path("empty-file"), fwf_widths(c(1, 3))), tibble::tibble()))
+  expect_true(all.equal(read_fwf(test_path("empty-file"), fwf_widths(c(1, 3))), tibble::tibble()))
 })
 
 test_that("check for line breaks in between widths", {
@@ -127,12 +129,11 @@ test_that("check for line breaks in between widths", {
   exp <- tibble::tibble(X1 = c(1, 2, 1), X2 = c(1, NA, 1))
   expect_true(all.equal(out1, exp, check.attributes = FALSE))
   expect_true(all.equal(out2, exp, check.attributes = FALSE))
-
 })
 
 test_that("ignore commented lines anywhere in file", {
   skip_if_edition_second()
-  col_pos <- fwf_positions(c(1,3,6),c(2,5,6))
+  col_pos <- fwf_positions(c(1, 3, 6), c(2, 5, 6))
   x1 <- read_fwf(I("COMMENT\n12345A\n67890BBBBBBBBB\n54321C"), col_positions = col_pos, comment = "COMMENT")
   x2 <- read_fwf(I("12345A\n67890BBBBBBBBB\nCOMMENT\n54321C"), col_positions = col_pos, comment = "COMMENT")
   x3 <- read_fwf(I("12345A\n67890BBBBBBBBB\n54321C\nCOMMENT"), col_positions = col_pos, comment = "COMMENT")
@@ -148,23 +149,23 @@ test_that("ignore commented lines anywhere in file", {
 
 test_that("error on empty spec (#511, #519)", {
   skip_if_edition_second()
-  txt = "foo\n"
-  pos = fwf_positions(start = numeric(0), end = numeric(0))
+  txt <- "foo\n"
+  pos <- fwf_positions(start = numeric(0), end = numeric(0))
   expect_error(read_fwf(I(txt), pos), "Zero-length.*specifications not supported")
 })
 
 test_that("error on negatives in fwf spec", {
   skip_if_edition_second()
-  txt = "foo\n"
-  pos = fwf_positions(start = c(1, -1), end = c(2, 3))
+  txt <- "foo\n"
+  pos <- fwf_positions(start = c(1, -1), end = c(2, 3))
   expect_error(read_fwf(I(txt), pos), ".*offset.*greater than 0")
 })
 
 test_that("fwf spec can overlap", {
-    x <- read_fwf(I("2015a\n2016b"), fwf_positions(c(1, 3, 5), c(4, 4, 5)))
-    expect_equal(x$X1, c(2015, 2016))
-    expect_equal(x$X2, c(15, 16))
-    expect_equal(x$X3, c("a", "b"))
+  x <- read_fwf(I("2015a\n2016b"), fwf_positions(c(1, 3, 5), c(4, 4, 5)))
+  expect_equal(x$X1, c(2015, 2016))
+  expect_equal(x$X2, c(15, 16))
+  expect_equal(x$X3, c("a", "b"))
 })
 
 # fwf_cols

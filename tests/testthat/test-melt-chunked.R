@@ -39,8 +39,9 @@ test_that("DataFrameCallback works as intended", {
   withr::local_options(lifecycle_verbosity = "quiet")
   f <- readr_example("mtcars.csv")
   out0 <- subset(melt_csv(f), data_type == "integer")
-  fun3 <- DataFrameCallback$new(function(x, pos)
-                                subset(x, data_type == "integer"))
+  fun3 <- DataFrameCallback$new(function(x, pos) {
+    subset(x, data_type == "integer")
+  })
 
   out1 <- melt_csv_chunked(f, fun3)
   out2 <- melt_csv_chunked(f, fun3, chunk_size = 1)

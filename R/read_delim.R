@@ -82,7 +82,6 @@ NULL
 #' read_csv(readr_example("mtcars.csv"))
 #' read_csv(readr_example("mtcars.csv.zip"))
 #' read_csv(readr_example("mtcars.csv.bz2"))
-#'
 #' \dontrun{
 #' # Including remote paths
 #' read_csv("https://github.com/tidyverse/readr/raw/master/inst/extdata/mtcars.csv")
@@ -121,20 +120,25 @@ read_delim <- function(file, delim = NULL, quote = '"',
                        progress = show_progress(),
                        show_col_types = should_show_types(),
                        skip_empty_rows = TRUE, lazy = TRUE) {
-
   if (edition_first()) {
-  if (!nzchar(delim)) {
-    stop("`delim` must be at least one character, ",
-      "use `read_table()` for whitespace delimited input.", call. = FALSE)
+    if (!nzchar(delim)) {
+      stop("`delim` must be at least one character, ",
+        "use `read_table()` for whitespace delimited input.",
+        call. = FALSE
+      )
+    }
+    tokenizer <- tokenizer_delim(delim,
+      quote = quote,
+      escape_backslash = escape_backslash, escape_double = escape_double,
+      na = na, quoted_na = quoted_na, comment = comment, trim_ws = trim_ws,
+      skip_empty_rows = skip_empty_rows
+    )
+    return(read_delimited(file, tokenizer,
+      col_names = col_names, col_types = col_types,
+      locale = locale, skip = skip, skip_empty_rows = skip_empty_rows,
+      comment = comment, n_max = n_max, guess_max = guess_max, progress = progress
+    ))
   }
-  tokenizer <- tokenizer_delim(delim, quote = quote,
-    escape_backslash = escape_backslash, escape_double = escape_double,
-    na = na, quoted_na = quoted_na, comment = comment, trim_ws = trim_ws,
-    skip_empty_rows = skip_empty_rows)
-  return(read_delimited(file, tokenizer, col_names = col_names, col_types = col_types,
-    locale = locale, skip = skip, skip_empty_rows = skip_empty_rows,
-    comment = comment, n_max = n_max, guess_max = guess_max, progress = progress))
-}
   if (!missing(quoted_na)) {
     lifecycle::deprecate_soft("2.0.0", "readr::read_delim(quoted_na = )")
   }
@@ -142,10 +146,12 @@ read_delim <- function(file, delim = NULL, quote = '"',
     lifecycle::deprecate_soft("2.0.0", "readr::read_delim(skip_empty_rows = )")
   }
 
-  vroom::vroom(file, delim = delim, col_names = col_names, col_types = col_types,
+  vroom::vroom(file,
+    delim = delim, col_names = col_names, col_types = col_types,
     skip = skip, n_max = n_max, na = na, quote = quote, comment = comment, trim_ws = trim_ws,
     escape_double = escape_double, escape_backslash = escape_backslash, locale = locale, guess_max = guess_max,
-    progress = progress, altrep = lazy, show_col_types = show_col_types, num_threads = num_threads)
+    progress = progress, altrep = lazy, show_col_types = show_col_types, num_threads = num_threads
+  )
 }
 
 #' @rdname read_delim
@@ -157,24 +163,29 @@ read_csv <- function(file, col_names = TRUE, col_types = NULL,
                      num_threads = readr_threads(),
                      progress = show_progress(), show_col_types = should_show_types(), skip_empty_rows = TRUE, lazy = TRUE) {
   if (edition_first()) {
-  tokenizer <- tokenizer_csv(na = na, quoted_na = quoted_na, quote = quote,
-    comment = comment, trim_ws = trim_ws, skip_empty_rows = skip_empty_rows)
-  return(
-    read_delimited(file, tokenizer, col_names = col_names, col_types = col_types,
-      locale = locale, skip = skip, skip_empty_rows = skip_empty_rows,
-      comment = comment, n_max = n_max, guess_max = guess_max, progress = progress
+    tokenizer <- tokenizer_csv(
+      na = na, quoted_na = quoted_na, quote = quote,
+      comment = comment, trim_ws = trim_ws, skip_empty_rows = skip_empty_rows
     )
-  )
+    return(
+      read_delimited(file, tokenizer,
+        col_names = col_names, col_types = col_types,
+        locale = locale, skip = skip, skip_empty_rows = skip_empty_rows,
+        comment = comment, n_max = n_max, guess_max = guess_max, progress = progress
+      )
+    )
   }
 
   if (!missing(quoted_na)) {
     lifecycle::deprecate_soft("2.0.0", "readr::read_csv(quoted_na = )")
   }
-  vroom::vroom(file, delim = ",", col_names = col_names, col_types = col_types,
+  vroom::vroom(file,
+    delim = ",", col_names = col_names, col_types = col_types,
     skip = skip, n_max = n_max, na = na, quote = quote, comment = comment, trim_ws = trim_ws,
     escape_double = TRUE, escape_backslash = FALSE, locale = locale, guess_max = guess_max,
     show_col_types = show_col_types,
-    progress = progress, altrep = lazy, num_threads = num_threads)
+    progress = progress, altrep = lazy, num_threads = num_threads
+  )
 }
 
 #' @rdname read_delim
@@ -187,25 +198,30 @@ read_csv2 <- function(file, col_names = TRUE, col_types = NULL,
                       num_threads = readr_threads(),
                       show_col_types = should_show_types(),
                       skip_empty_rows = TRUE, lazy = TRUE) {
-
   if (locale$decimal_mark == ".") {
     cli::cli_alert_info("Using {.val ','} as decimal and {.val '.'} as grouping mark. Use {.fn read_delim} for more control.")
     locale$decimal_mark <- ","
     locale$grouping_mark <- "."
   }
   if (edition_first()) {
-  tokenizer <- tokenizer_delim(delim = ";", na = na, quoted_na = quoted_na,
-    quote = quote, comment = comment, trim_ws = trim_ws,
-    skip_empty_rows = skip_empty_rows)
-  return(read_delimited(file, tokenizer, col_names = col_names, col_types = col_types,
-    locale = locale, skip = skip, skip_empty_rows = skip_empty_rows,
-    comment = comment, n_max = n_max, guess_max = guess_max, progress = progress))
-}
-  vroom::vroom(file, delim = ";", col_names = col_names, col_types = col_types,
+    tokenizer <- tokenizer_delim(
+      delim = ";", na = na, quoted_na = quoted_na,
+      quote = quote, comment = comment, trim_ws = trim_ws,
+      skip_empty_rows = skip_empty_rows
+    )
+    return(read_delimited(file, tokenizer,
+      col_names = col_names, col_types = col_types,
+      locale = locale, skip = skip, skip_empty_rows = skip_empty_rows,
+      comment = comment, n_max = n_max, guess_max = guess_max, progress = progress
+    ))
+  }
+  vroom::vroom(file,
+    delim = ";", col_names = col_names, col_types = col_types,
     skip = skip, n_max = n_max, na = na, quote = quote, comment = comment, trim_ws = trim_ws,
     escape_double = TRUE, escape_backslash = FALSE, locale = locale, guess_max = guess_max,
     show_col_types = show_col_types,
-    progress = progress, altrep = lazy, num_threads = num_threads)
+    progress = progress, altrep = lazy, num_threads = num_threads
+  )
 }
 
 #' @rdname read_delim
@@ -218,18 +234,24 @@ read_tsv <- function(file, col_names = TRUE, col_types = NULL,
                      num_threads = readr_threads(),
                      show_col_types = should_show_types(),
                      skip_empty_rows = TRUE, lazy = TRUE) {
-  tokenizer <- tokenizer_tsv(na = na, quoted_na = quoted_na, quote = quote,
-    comment = comment, trim_ws = trim_ws, skip_empty_rows = skip_empty_rows)
+  tokenizer <- tokenizer_tsv(
+    na = na, quoted_na = quoted_na, quote = quote,
+    comment = comment, trim_ws = trim_ws, skip_empty_rows = skip_empty_rows
+  )
   if (edition_first()) {
-    return(read_delimited(file, tokenizer, col_names = col_names, col_types = col_types,
-        locale = locale, skip = skip, skip_empty_rows = skip_empty_rows,
-        comment = comment, n_max = n_max, guess_max = guess_max, progress = progress))
+    return(read_delimited(file, tokenizer,
+      col_names = col_names, col_types = col_types,
+      locale = locale, skip = skip, skip_empty_rows = skip_empty_rows,
+      comment = comment, n_max = n_max, guess_max = guess_max, progress = progress
+    ))
   }
 
-  vroom::vroom(file, delim = "\t", col_names = col_names,
+  vroom::vroom(file,
+    delim = "\t", col_names = col_names,
     col_types = col_types, locale = locale, skip = skip, comment = comment,
     n_max = n_max, guess_max = guess_max, progress = progress,
-    show_col_types = show_col_types, altrep = lazy, num_threads = num_threads)
+    show_col_types = show_col_types, altrep = lazy, num_threads = num_threads
+  )
 }
 
 # Helper functions for reading from delimited files ----------------------------
@@ -249,11 +271,11 @@ read_delimited <- function(file, tokenizer, col_names = TRUE, col_types = NULL,
   if (is.connection(file)) {
     data <- datasource_connection(file, skip, skip_empty_rows, comment)
     if (empty_file(data[[1]])) {
-       return(tibble::tibble())
+      return(tibble::tibble())
     }
   } else {
     if (!isTRUE(grepl("\n", file)[[1]]) && empty_file(file)) {
-       return(tibble::tibble())
+      return(tibble::tibble())
     }
     if (is.character(file) && identical(locale$encoding, "UTF-8")) {
       # When locale is not set, file is probably marked as its correct encoding.
@@ -265,9 +287,11 @@ read_delimited <- function(file, tokenizer, col_names = TRUE, col_types = NULL,
   }
 
   spec <- col_spec_standardise(
-    data, skip = skip, skip_empty_rows = skip_empty_rows,
+    data,
+    skip = skip, skip_empty_rows = skip_empty_rows,
     comment = comment, guess_max = guess_max, col_names = col_names,
-    col_types = col_types, tokenizer = tokenizer, locale = locale)
+    col_types = col_types, tokenizer = tokenizer, locale = locale
+  )
 
   ds <- datasource(data, skip = spec$skip, skip_empty_rows = skip_empty_rows, comment = comment)
 
@@ -275,8 +299,10 @@ read_delimited <- function(file, tokenizer, col_names = TRUE, col_types = NULL,
     show_cols_spec(spec)
   }
 
-  out <- read_tokens(ds, tokenizer, spec$cols, names(spec$cols), locale_ = locale,
-    n_max = n_max, progress = progress)
+  out <- read_tokens(ds, tokenizer, spec$cols, names(spec$cols),
+    locale_ = locale,
+    n_max = n_max, progress = progress
+  )
 
   out <- name_problems(out, names(spec$cols), name)
   attr(out, "spec") <- spec

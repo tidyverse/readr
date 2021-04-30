@@ -1,10 +1,10 @@
 test_that("strings are only quoted if needed", {
-  x <- c("a", ',')
+  x <- c("a", ",")
 
-  csv <- format_delim(data.frame(x), delim = ",",col_names = FALSE)
+  csv <- format_delim(data.frame(x), delim = ",", col_names = FALSE)
   expect_equal(csv, 'a\n\",\"\n')
-  ssv <- format_delim(data.frame(x), delim = " ",col_names = FALSE)
-  expect_equal(ssv, 'a\n,\n')
+  ssv <- format_delim(data.frame(x), delim = " ", col_names = FALSE)
+  expect_equal(ssv, "a\n,\n")
 })
 
 test_that("a literal NA is quoted", {
@@ -17,14 +17,14 @@ test_that("na argument modifies how missing values are written", {
 })
 
 test_that("read_delim/csv/tsv and write_delim round trip special chars", {
-  x <- c("a", '"', ",", "\n","at\t")
+  x <- c("a", '"', ",", "\n", "at\t")
 
   output <- data.frame(x)
   input <- read_delim(I(format_delim(output, delim = " ")), delim = " ", trim_ws = FALSE)
   input_csv <- read_csv(I(format_delim(output, delim = ",")), trim_ws = FALSE)
   input_tsv <- read_tsv(I(format_delim(output, delim = "\t")), trim_ws = FALSE)
   expect_equal(input$x, input_csv$x)
-  expect_equal(input_tsv$x,  x)
+  expect_equal(input_tsv$x, x)
 })
 
 test_that("special floating point values translated to text", {
@@ -196,12 +196,16 @@ test_that("hms NAs are written without padding (#930)", {
 
 test_that("Error when writing list columns or matrix columns", {
   df <- data.frame(x = LETTERS[1:4], y = I(list(1, "foo", 2:9, iris)), z = I(matrix(1:16, nrow = 4)))
-  expect_error(write_csv(df, tempfile()),
-               "`x` must not contain list or matrix columns")
+  expect_error(
+    write_csv(df, tempfile()),
+    "`x` must not contain list or matrix columns"
+  )
 
   df2 <- data.frame(x = LETTERS[1:4], y = I(matrix(1:40, nrow = 4)))
-  expect_error(write_csv(df2, tempfile()),
-               "`x` must not contain list or matrix columns")
+  expect_error(
+    write_csv(df2, tempfile()),
+    "`x` must not contain list or matrix columns"
+  )
 })
 
 test_that("duplicate columns data is duplicated (#1169)", {

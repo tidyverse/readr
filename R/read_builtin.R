@@ -15,7 +15,7 @@
 #'   read_builtin("starwars", "dplyr")
 #'
 #'   read_builtin("storms", "dplyr")
-#'}
+#' }
 read_builtin <- function(x, package = NULL) {
   warn_to_error <- function(e) {
     stop(conditionMessage(e), call. = FALSE)

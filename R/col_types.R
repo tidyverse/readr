@@ -40,15 +40,16 @@
 #'
 #' t1 <- cols(
 #'   column_one = col_integer(),
-#'   column_two = col_number())
+#'   column_two = col_number()
+#' )
 #'
 #' t2 <- cols(
-#'  column_three = col_character())
+#'   column_three = col_character()
+#' )
 #'
 #' t3 <- t1
 #' t3$cols <- c(t1$cols, t2$cols)
 #' t3
-
 cols <- function(..., .default = col_guess()) {
   if (edition_first()) {
     col_types <- list(...)
@@ -80,7 +81,9 @@ col_spec <- function(col_types, default = col_guess()) {
   is_collector <- vapply(col_types, is.collector, logical(1))
   if (any(!is_collector)) {
     stop("Some `col_types` are not S3 collector objects: ",
-      paste(which(!is_collector), collapse = ", "), call. = FALSE)
+      paste(which(!is_collector), collapse = ", "),
+      call. = FALSE
+    )
   }
 
   structure(
@@ -197,7 +200,8 @@ col_to_short <- function(x, ...) {
 
 #' @export
 as.character.col_spec <- function(x, ...) {
-  paste0(collapse = "",
+  paste0(
+    collapse = "",
     vapply(x$cols, col_to_short, character(1))
   )
 }
@@ -227,7 +231,6 @@ cols_condense <- function(x) {
 
 #' @export
 format.col_spec <- function(x, n = Inf, condense = NULL, colour = crayon::has_color(), ...) {
-
   if (n == 0) {
     return("")
   }
@@ -252,8 +255,10 @@ format.col_spec <- function(x, n = Inf, condense = NULL, colour = crayon::has_co
     default <- paste0(".default = col_", type, "()")
   }
 
-  cols_args <- c(default,
-    vapply(seq_along(cols),
+  cols_args <- c(
+    default,
+    vapply(
+      seq_along(cols),
       function(i) {
         col_funs <- sub("^collector_", "col_", class(cols[[i]])[[1]])
         args <- vapply(cols[[i]], deparse2, character(1), sep = "\n    ")
@@ -293,7 +298,6 @@ format.col_spec <- function(x, n = Inf, condense = NULL, colour = crayon::has_co
 }
 
 colourise_cols <- function(cols, colourise = crayon::has_color()) {
-
   if (!isTRUE(colourise)) {
     return(cols)
   }
@@ -316,7 +320,7 @@ colourise_cols <- function(cols, colourise = crayon::has_color()) {
       col_date = ,
       col_datetime = ,
       col_time = crayon::blue(cols[[i]])
-      )
+    )
   }
   cols
 }
@@ -325,13 +329,13 @@ colourise_cols <- function(cols, colourise = crayon::has_color()) {
 show_cols_spec <- function(spec, n = getOption("readr.num_columns", 20)) {
   if (n > 0) {
     cli_block(class = "readr_spec_message", {
-    cli::cli_h1("Column specification")
-    txt <- strsplit(format(spec, n = n, condense = NULL), "\n")[[1]]
-    cli::cli_verbatim(txt)
-    if (length(spec$cols) >= n) {
-      cli::cli_alert_info("Use {.fn spec} for the full column specifications.")
-    }
-  })
+      cli::cli_h1("Column specification")
+      txt <- strsplit(format(spec, n = n, condense = NULL), "\n")[[1]]
+      cli::cli_verbatim(txt)
+      if (length(spec$cols) >= n) {
+        cli::cli_alert_info("Use {.fn spec} for the full column specifications.")
+      }
+    })
   }
 }
 
@@ -341,13 +345,15 @@ str.col_spec <- function(object, ..., indent.str = "") {
 
   # Split the formatted column spec into strings
   specs <- strsplit(format(object), "\n")[[1]]
-  cat(sep = "",
+  cat(
+    sep = "",
     "\n",
 
     # Append the current indentation string to the specs
     paste(indent.str, specs, collapse = "\n"),
 
-    "\n")
+    "\n"
+  )
 }
 
 
@@ -426,7 +432,8 @@ col_spec_standardise <- function(file, col_names = TRUE, col_types = NULL,
         encodeString(new_names, quote = "'"),
         " [", which(missing_names), "]",
         collapse = ", "
-      ), call. = FALSE
+      ),
+      call. = FALSE
     )
   }
 
@@ -444,7 +451,8 @@ col_spec_standardise <- function(file, col_names = TRUE, col_types = NULL,
         encodeString(col_names[dups], quote = "'"),
         " [", which(dups), "]",
         collapse = ", "
-      ), call. = FALSE
+      ),
+      call. = FALSE
     )
   }
 
@@ -465,7 +473,9 @@ col_spec_standardise <- function(file, col_names = TRUE, col_types = NULL,
 
     if (length(spec$cols) != length(col_names)) {
       warning("Unnamed `col_types` should have the same length as `col_names`. ",
-        "Using smaller of the two.", call. = FALSE)
+        "Using smaller of the two.",
+        call. = FALSE
+      )
       n <- min(length(col_names), length(spec$cols))
       spec$cols <- spec$cols[seq_len(n)]
       col_names <- col_names[seq_len(n)]
@@ -475,7 +485,8 @@ col_spec_standardise <- function(file, col_names = TRUE, col_types = NULL,
   } else if (is.null(type_names) && !guessed_names) {
     # unnamed types & names supplied: match non-skipped columns
     skipped <- vapply(spec$cols, inherits, "collector_skip",
-      FUN.VALUE = logical(1))
+      FUN.VALUE = logical(1)
+    )
 
     # Needed for read_fwf() because width generator functions have name for
     # every column, even those that are skipped. Not need for read_delim()
@@ -489,11 +500,13 @@ col_spec_standardise <- function(file, col_names = TRUE, col_types = NULL,
     n_new <- abs(n_names - n_read)
     if (n_read < n_names) {
       warning("Insufficient `col_types`. Guessing ", n_new, " columns.",
-        call. = FALSE)
+        call. = FALSE
+      )
       spec$cols <- c(spec$cols, list(rep(col_guess(), n_new)))
     } else if (n_read > n_names) {
       warning("Insufficient `col_names`. Adding ", n_new, " names.",
-        call. = FALSE)
+        call. = FALSE
+      )
 
       col_names2 <- rep("", length(spec$cols))
       col_names2[!skipped] <- c(col_names, paste0("X", seq_len(n_new) + n_names))
@@ -510,7 +523,9 @@ col_spec_standardise <- function(file, col_names = TRUE, col_types = NULL,
     bad_types <- !(type_names %in% col_names)
     if (any(bad_types)) {
       warning("The following named parsers don't match the column names: ",
-        paste0(type_names[bad_types], collapse = ", "), call. = FALSE)
+        paste0(type_names[bad_types], collapse = ", "),
+        call. = FALSE
+      )
       spec$cols <- spec$cols[!bad_types]
       type_names <- type_names[!bad_types]
     }
@@ -544,23 +559,23 @@ col_spec_standardise <- function(file, col_names = TRUE, col_types = NULL,
 
 
 check_guess_max <- function(guess_max, max_limit = .Machine$integer.max %/% 100) {
-
   if (length(guess_max) != 1 || !is.numeric(guess_max) || !is_integerish(guess_max) ||
-      is.na(guess_max) || guess_max < 0) {
+    is.na(guess_max) || guess_max < 0) {
     stop("`guess_max` must be a positive integer", call. = FALSE)
   }
 
   if (guess_max > max_limit) {
     warning("`guess_max` is a very large value, setting to `", max_limit,
-      "` to avoid exhausting memory", call. = FALSE)
+      "` to avoid exhausting memory",
+      call. = FALSE
+    )
     guess_max <- max_limit
   }
   guess_max
 }
 
 guess_types <- function(datasource, tokenizer, locale, guess_max = 1000,
-  max_limit = .Machine$integer.max %/% 100) {
-
+                        max_limit = .Machine$integer.max %/% 100) {
   guess_max <- check_guess_max(guess_max, max_limit)
 
   guess_types_(datasource, tokenizer, locale, n = guess_max)

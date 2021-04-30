@@ -78,88 +78,113 @@ regex_escape <- function(x) {
 
 test_that("print(col_spec) with guess_parser", {
   out <- col_spec_standardise("a,b,c\n1,2,3")
-  expect_output(print(out),
+  expect_output(
+    print(out),
     regex_escape(
-"cols(
+      "cols(
   a = col_double(),
   b = col_double(),
   c = col_double()
-)"))
+)"
+    )
+  )
 })
 
 test_that("print(col_spec) with collector_skip", {
   out <- cols_only(a = col_integer(), c = col_integer())
-  expect_output(print(out),
+  expect_output(
+    print(out),
     regex_escape(
-"cols_only(
+      "cols_only(
   a = col_integer(),
   c = col_integer()
-)"))
+)"
+    )
+  )
 })
 
 test_that("print(col_spec) with truncated output", {
   out <- col_spec_standardise("a,b,c\n1,2,3", col_types = cols(.default = "c"))
-  expect_output(print(out, n = 2, condense = FALSE),
+  expect_output(
+    print(out, n = 2, condense = FALSE),
     regex_escape(
-"cols(
+      "cols(
   .default = col_character(),
   a = col_character(),
   b = col_character()
   # ... with 1 more columns
-)"))
+)"
+    )
+  )
 })
 
 test_that("spec object attached to read data", {
-
   test_data <- read_csv(test_path("basic-df.csv"), col_types = NULL, col_names = TRUE)
   sp <- spec(test_data)
   sp$skip <- NULL
 
-  expect_equal(sp,
-    cols(.delim = ",",
-       a = col_logical(),
-       b = col_double(),
-       c = col_double(),
-       d = col_character()))
+  expect_equal(
+    sp,
+    cols(
+      .delim = ",",
+      a = col_logical(),
+      b = col_double(),
+      c = col_double(),
+      d = col_character()
+    )
+  )
 })
 
 
 test_that("print(col_spec) works with dates", {
   out <- col_spec_standardise("a,b,c\n",
-    col_types = cols(a = col_date(format = "%Y-%m-%d"),
+    col_types = cols(
+      a = col_date(format = "%Y-%m-%d"),
       b = col_date(),
-      c = col_date()))
+      c = col_date()
+    )
+  )
 
-  expect_output(print(out),
+  expect_output(
+    print(out),
     regex_escape(
-"cols(
+      "cols(
   a = col_date(format = \"%Y-%m-%d\"),
   b = col_date(format = \"\"),
   c = col_date(format = \"\")
-)"))
+)"
+    )
+  )
 })
 
 test_that("print(col_spec) with unnamed columns", {
   out <- col_spec_standardise(col_types = "c_c", col_names = c("a", "c"))
-  expect_output(print(out),
+  expect_output(
+    print(out),
     regex_escape(
-"cols(
+      "cols(
   a = col_character(),
   col_skip(),
   c = col_character()
-)"))
+)"
+    )
+  )
 })
 
 test_that("print(cols_only()) prints properly", {
   out <- cols_only(
     a = col_character(),
-    c = col_integer())
-  expect_output(print(out),
+    c = col_integer()
+  )
+  expect_output(
+    print(out),
     regex_escape(
-"cols_only(
+      "cols_only(
   a = col_character(),
   c = col_integer()
-)"))
+)"
+    )
+  )
 })
 
 test_that("print(col_spec) with n == 0 prints nothing", {
@@ -169,19 +194,25 @@ test_that("print(col_spec) with n == 0 prints nothing", {
 
 test_that("print(col_spec, condense = TRUE) condenses the spec", {
   out <- col_spec_standardise("a,b,c,d\n1,2,3,a")
-  expect_output(print(cols_condense(out)),
+  expect_output(
+    print(cols_condense(out)),
     regex_escape(
-"cols(
+      "cols(
   .default = col_double(),
   d = col_character()
-)"))
+)"
+    )
+  )
 
   out <- col_spec_standardise("a,b,c,d\n1,2,3,4")
-  expect_output(print(cols_condense(out)),
+  expect_output(
+    print(cols_condense(out)),
     regex_escape(
-"cols(
+      "cols(
   .default = col_double()
-)"))
+)"
+    )
+  )
 })
 
 test_that("print(col_spec) with no columns specified", {
@@ -190,26 +221,29 @@ test_that("print(col_spec) with no columns specified", {
 
   out <- cols(.default = col_character())
   expect_output(print(out), regex_escape(
-"cols(
+    "cols(
   .default = col_character()
-)"))
+)"
+  ))
 })
 
 test_that("print(col_spec) and condense edge cases", {
   out <- cols(a = col_integer(), b = col_integer(), c = col_double())
 
-  expect_equal(format(out, n = 1, condense = TRUE, colour = FALSE),
-"cols(
+  expect_equal(
+    format(out, n = 1, condense = TRUE, colour = FALSE),
+    "cols(
   .default = col_integer(),
   c = col_double()
 )
-")
+"
+  )
 })
 
 test_that("print(col_spec) with colors", {
   out <- col_spec_standardise(
-    "a,b,c,d,e,f,g,h,i\n1,2,F,a,2018-01-01,2018-01-01 12:01:01,12:01:01,foo,blah"
-    , col_types = c(b = "i", h = "f", i = "_")
+    "a,b,c,d,e,f,g,h,i\n1,2,F,a,2018-01-01,2018-01-01 12:01:01,12:01:01,foo,blah",
+    col_types = c(b = "i", h = "f", i = "_")
   )
 
   with_crayon(
@@ -219,23 +253,27 @@ test_that("print(col_spec) with colors", {
 
 test_that("non-syntatic names are escaped", {
   x <- read_csv(I("a b,_c,1,a`b\n1,2,3,4"))
-  expect_equal(format(spec(x), colour = FALSE),
-"cols(
+  expect_equal(
+    format(spec(x), colour = FALSE),
+    "cols(
   `a b` = col_double(),
   `_c` = col_double(),
   `1` = col_double(),
   `a\\`b` = col_double()
 )
-")
+"
+  )
 })
 
 test_that("long expressions are wrapped (597)", {
-  expect_equal(format(cols(a = col_factor(levels = c("apple", "pear", "banana", "peach", "apricot", "orange", "plum"), ordered = TRUE)), colour = FALSE),
-'cols(
+  expect_equal(
+    format(cols(a = col_factor(levels = c("apple", "pear", "banana", "peach", "apricot", "orange", "plum"), ordered = TRUE)), colour = FALSE),
+    'cols(
   a = col_factor(levels = c("apple", "pear", "banana", "peach", "apricot", "orange", "plum"
     ), ordered = TRUE, include_na = FALSE)
 )
-')
+'
+  )
 })
 
 test_that("guess_types errors on invalid inputs", {

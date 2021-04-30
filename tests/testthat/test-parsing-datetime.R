@@ -88,7 +88,7 @@ test_that("ISO8601 partial dates are not parsed", {
 
 test_that("Year only gets parsed", {
   expect_equal(parse_datetime("2010", "%Y"), ISOdate(2010, 1, 1, 0, tz = "UTC"))
-  expect_equal(parse_datetime("2010-06", "%Y-%m"),ISOdate(2010, 6, 1, 0, tz = "UTC"))
+  expect_equal(parse_datetime("2010-06", "%Y-%m"), ISOdate(2010, 6, 1, 0, tz = "UTC"))
 })
 
 test_that("%p detects AM/PM", {
@@ -97,17 +97,25 @@ test_that("%p detects AM/PM", {
 
   expect_equal(pm, am + 12 * 3600)
 
-  expect_equal(parse_datetime("12/31/1991 12:01 AM", "%m/%d/%Y %I:%M %p"),
-    POSIXct(694137660, "UTC"))
+  expect_equal(
+    parse_datetime("12/31/1991 12:01 AM", "%m/%d/%Y %I:%M %p"),
+    POSIXct(694137660, "UTC")
+  )
 
-  expect_equal(parse_datetime("12/31/1991 12:01 PM", "%m/%d/%Y %I:%M %p"),
-    POSIXct(694180860, "UTC"))
+  expect_equal(
+    parse_datetime("12/31/1991 12:01 PM", "%m/%d/%Y %I:%M %p"),
+    POSIXct(694180860, "UTC")
+  )
 
-  expect_equal(parse_datetime("12/31/1991 1:01 AM", "%m/%d/%Y %I:%M %p"),
-    POSIXct(694141260, "UTC"))
+  expect_equal(
+    parse_datetime("12/31/1991 1:01 AM", "%m/%d/%Y %I:%M %p"),
+    POSIXct(694141260, "UTC")
+  )
 
-  expect_warning(x <- parse_datetime(c("12/31/1991 00:01 PM", "12/31/1991 13:01 PM"),
-      "%m/%d/%Y %I:%M %p"))
+  expect_warning(x <- parse_datetime(
+    c("12/31/1991 00:01 PM", "12/31/1991 13:01 PM"),
+    "%m/%d/%Y %I:%M %p"
+  ))
   expect_equal(n_problems(x), 2)
 })
 
@@ -170,10 +178,10 @@ test_that("locale affects day of week", {
   a <- parse_datetime("2010-01-01")
   b <- parse_date("2010-01-01")
   fr <- locale("fr")
-  expect_equal(parse_datetime("Ven. 1 janv. 2010", "%a %d %b %Y", locale=fr), a)
-  expect_equal(parse_date("Ven. 1 janv. 2010", "%a %d %b %Y", locale=fr), b)
-  expect_warning(parse_datetime("Fri 1 janv. 1020", "%a %d %b %Y", locale=fr))
-  expect_warning(parse_date("Fri 1 janv. 2010", "%a %d %b %Y", locale=fr))
+  expect_equal(parse_datetime("Ven. 1 janv. 2010", "%a %d %b %Y", locale = fr), a)
+  expect_equal(parse_date("Ven. 1 janv. 2010", "%a %d %b %Y", locale = fr), b)
+  expect_warning(parse_datetime("Fri 1 janv. 1020", "%a %d %b %Y", locale = fr))
+  expect_warning(parse_date("Fri 1 janv. 2010", "%a %d %b %Y", locale = fr))
 })
 
 test_that("locale affects am/pm", {

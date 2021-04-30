@@ -25,7 +25,6 @@ skip_if_no_clipboard <- function() {
 }
 
 with_crayon <- function(expr) {
-
   old <- options(crayon.enabled = TRUE, crayon.colors = 16)
   crayon::num_colors(forget = TRUE)
   on.exit({

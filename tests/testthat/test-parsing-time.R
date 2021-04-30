@@ -26,21 +26,26 @@ test_that("parses NA/empty correctly", {
   exp <- hms::hms(seconds = c(NA_real_, NA_real_))
   expect_equal(out, exp)
 
-  expect_equal(parse_time("TeSt", na = "TeSt"),
-    hms::hms(seconds = NA_real_))
+  expect_equal(
+    parse_time("TeSt", na = "TeSt"),
+    hms::hms(seconds = NA_real_)
+  )
 })
 
 test_that("times are guessed as expected", {
   expect_equal(guess_parser("12:01"), "time")
 
   expect_equal(
-    guess_parser("12:01:01"), "time")
+    guess_parser("12:01:01"), "time"
+  )
 
   expect_equal(
-    guess_parser(c("04:00:00", "04:30:00", "14:00:22")), "time")
+    guess_parser(c("04:00:00", "04:30:00", "14:00:22")), "time"
+  )
 
   expect_equal(
-    guess_parser("25:01:01"), "time")
+    guess_parser("25:01:01"), "time"
+  )
 })
 
 test_that("durations", {

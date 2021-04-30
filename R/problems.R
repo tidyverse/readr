@@ -24,21 +24,21 @@
 problems <- function(x) {
   probs <- probs(x)
   if (edition_first() || is.null(probs) || inherits(probs, "tbl_df")) {
-  if (is.null(probs)) {
-    res <- structure(
-      data.frame(
-        row = integer(),
-        col = integer(),
-        expected = character(),
-        actual = character(),
-        stringsAsFactors = FALSE
-      ),
-      class = c("tbl_df", "data.frame")
-    )
-  } else {
-    res <- probs
-  }
-  return(res)
+    if (is.null(probs)) {
+      res <- structure(
+        data.frame(
+          row = integer(),
+          col = integer(),
+          expected = character(),
+          actual = character(),
+          stringsAsFactors = FALSE
+        ),
+        class = c("tbl_df", "data.frame")
+      )
+    } else {
+      res <- probs
+    }
+    return(res)
   }
   vroom::problems(x)
 }
@@ -47,8 +47,9 @@ problems <- function(x) {
 #' @rdname problems
 stop_for_problems <- function(x) {
   n <- n_problems(x)
-  if (n == 0)
+  if (n == 0) {
     return(invisible(x))
+  }
 
   stop(n, " parsing failure", if (n > 1) "s", call. = FALSE)
 }
@@ -63,8 +64,9 @@ n_problems <- function(x) {
 }
 
 problem_rows <- function(x) {
-  if (n_problems(x) == 0)
+  if (n_problems(x) == 0) {
     return(x[0, , drop = FALSE])
+  }
 
   probs <- problems(x)
   x[unique(probs$row), , drop = FALSE]
@@ -72,8 +74,9 @@ problem_rows <- function(x) {
 
 warn_problems <- function(x) {
   n <- n_problems(x)
-  if (n == 0)
+  if (n == 0) {
     return(x)
+  }
 
   probs <- as.data.frame(attr(x, "problems"))
   many_problems <- nrow(probs) > 5
@@ -87,7 +90,8 @@ warn_problems <- function(x) {
     # nchar fails with non-ascii characters, so encode characters beforehand.
     width <- vapply(probs_f, function(x) max(nchar(encodeString(x))), integer(1))
     dots <- vapply(width, function(i) paste(rep(".", i), collapse = ""),
-      FUN.VALUE = character(1))
+      FUN.VALUE = character(1)
+    )
 
     probs_f <- Map(c, probs_f, dots)
   }
@@ -96,15 +100,16 @@ warn_problems <- function(x) {
   warning(n, " parsing failure", if (n > 1) "s", ".\n",
     probs_f, "\n",
     if (many_problems) "See problems(...) for more details.\n",
-    call. = FALSE, immediate. = TRUE, noBreaks. = TRUE)
+    call. = FALSE, immediate. = TRUE, noBreaks. = TRUE
+  )
 
   x
 }
 
 name_problems <- function(x, all_colnames, name = "input") {
-
-  if (n_problems(x) == 0)
+  if (n_problems(x) == 0) {
     return(x)
+  }
 
   problems <- problems(x)
   problems$file <- name

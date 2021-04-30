@@ -157,11 +157,11 @@ test_that("AccumulateCallback works as intended", {
   f <- readr_example("mtcars.csv")
   out0 <- read_csv(f)
 
-  min_chunks <- function(x, pos, acc){
-    f <- function(x){
+  min_chunks <- function(x, pos, acc) {
+    f <- function(x) {
       x[order(x$wt), ][1, ]
     }
-    if(is.null(acc)){
+    if (is.null(acc)) {
       acc <- data.frame()
     }
     f(rbind(x, acc))
@@ -171,7 +171,7 @@ test_that("AccumulateCallback works as intended", {
   out1 <- read_csv_chunked(f, fun1, chunk_size = 10)
   expect_equal(min_chunks(out0, acc = NULL), out1)
 
-  sum_chunks <- function(x, pos, acc){
+  sum_chunks <- function(x, pos, acc) {
     sum(x$wt) + acc
   }
 
@@ -183,5 +183,4 @@ test_that("AccumulateCallback works as intended", {
     AccumulateCallback$new(function(x, i) x),
     "`callback` must have three or more arguments"
   )
-
 })

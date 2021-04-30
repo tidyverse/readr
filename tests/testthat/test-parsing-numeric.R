@@ -126,4 +126,3 @@ test_that("scientific notation is parsed properly", {
   expect_equal(parse_number("-17E-5-5"), -0.00017)
   expect_equal(parse_number("1.2E-3"), 0.0012)
 })
-

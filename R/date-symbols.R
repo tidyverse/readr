@@ -72,7 +72,7 @@ print.date_names <- function(x, ...) {
   am_pm <- paste0(x$am_pm, collapse = "/")
 
   cat_wrap("Days:   ", day)
-  cat_wrap("Months: ",  mon)
+  cat_wrap("Months: ", mon)
   cat_wrap("AM/PM:  ", am_pm)
 }
 

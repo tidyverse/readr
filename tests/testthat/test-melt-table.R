@@ -17,10 +17,10 @@ test_that("melt_table skips all comment lines", {
 
 test_that("missing lines are not skipped", {
   withr::local_options(lifecycle_verbosity = "quiet")
-   # first
+  # first
   expect_equal(max(melt_table("a   b\n\n\n12 34")$row), 4)
 
-   # middle
+  # middle
   expect_equal(max(melt_table("a   b\n12 34\n\n\n23 45")$row), 5)
 
   # last (trailing \n is ignored)
@@ -40,9 +40,11 @@ test_that("melt_table can read a truncated file without crashing", {
 
 test_that("melt_table returns an empty data.frame on an empty file", {
   withr::local_options(lifecycle_verbosity = "quiet")
-   empty_df <- tibble::tibble(row = double(), col = double(),
-                              data_type = character(), value = character())
-   expect_true(all.equal(melt_table("empty-file"), empty_df))
+  empty_df <- tibble::tibble(
+    row = double(), col = double(),
+    data_type = character(), value = character()
+  )
+  expect_true(all.equal(melt_table("empty-file"), empty_df))
 })
 
 # melt_table2 -------------------------------------------------------------------
@@ -84,7 +86,9 @@ test_that("melt_table2 ignores blank lines at the end of a file", {
 
 test_that("melt_table2 returns an empty data.frame on an empty file", {
   withr::local_options(lifecycle_verbosity = "quiet")
-   empty_df <- tibble::tibble(row = double(), col = double(),
-                              data_type = character(), value = character())
-   expect_true(all.equal(melt_table2("empty-file"), empty_df))
+  empty_df <- tibble::tibble(
+    row = double(), col = double(),
+    data_type = character(), value = character()
+  )
+  expect_true(all.equal(melt_table2("empty-file"), empty_df))
 })

@@ -5,7 +5,7 @@ generate_melt_chunked_fun <- function(x) { # nocov start
   # Remove n_max argument
   args <- args[names(args) != "n_max"]
 
-  args <- append(args, alist(callback =, chunk_size = 10000), 1)
+  args <- append(args, alist(callback = , chunk_size = 10000), 1)
 
   b <- as.list(body(x))
 
@@ -31,13 +31,13 @@ generate_melt_chunked_fun <- function(x) { # nocov start
 generate_melt_delimited_chunked <- function(x) { # nocov start
   args <- formals(x)
   args <- args[names(args) != "n_max"]
-  args <- append(args, alist(callback =, chunk_size = 10000), 1)
+  args <- append(args, alist(callback = , chunk_size = 10000), 1)
 
   b <- as.list(body(x))
 
   for (i in seq_along(b)) {
     if (is.call(b[[i]]) && identical(b[[i]][[1]], as.symbol("<-")) &&
-        is.call(b[[i]][[3]]) && identical(b[[i]][[3]][[1]], quote(melt_tokens))) {
+      is.call(b[[i]][[3]]) && identical(b[[i]][[3]][[1]], quote(melt_tokens))) {
 
       # Change melt_tokens() to melt_tokens_chunked
       b[[i]][[3]][[1]] <- quote(melt_tokens_chunked)
@@ -64,8 +64,10 @@ melt_tokens_chunked <- function(data, callback, chunk_size, tokenizer, locale_, 
   callback <- as_chunk_callback(callback)
   on.exit(callback$finally(), add = TRUE)
 
-  melt_tokens_chunked_(data, callback, chunk_size, tokenizer, col_spec_melt,
-                       locale_, progress)
+  melt_tokens_chunked_(
+    data, callback, chunk_size, tokenizer, col_spec_melt,
+    locale_, progress
+  )
 
   return(callback$result())
 }

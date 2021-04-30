@@ -68,10 +68,11 @@ ChunkCallback <- R6::R6Class("ChunkCallback",
 #' @format NULL
 #' @rdname callback
 #' @export
-SideEffectChunkCallback <- R6::R6Class("SideEffectChunkCallback", inherit = ChunkCallback,
+SideEffectChunkCallback <- R6::R6Class("SideEffectChunkCallback",
+  inherit = ChunkCallback,
   private = list(
-     cancel = FALSE
-    ),
+    cancel = FALSE
+  ),
   public = list(
     initialize = function(callback) {
       check_callback_fun(callback)
@@ -91,7 +92,8 @@ SideEffectChunkCallback <- R6::R6Class("SideEffectChunkCallback", inherit = Chun
 #' @format NULL
 #' @rdname callback
 #' @export
-DataFrameCallback <- R6::R6Class("DataFrameCallback", inherit = ChunkCallback,
+DataFrameCallback <- R6::R6Class("DataFrameCallback",
+  inherit = ChunkCallback,
   private = list(
     results = list()
   ),
@@ -116,7 +118,8 @@ DataFrameCallback <- R6::R6Class("DataFrameCallback", inherit = ChunkCallback,
 #' @format NULL
 #' @rdname callback
 #' @export
-ListCallback <- R6::R6Class("ListCallback", inherit = ChunkCallback,
+ListCallback <- R6::R6Class("ListCallback",
+  inherit = ChunkCallback,
   private = list(
     results = list()
   ),
@@ -129,7 +132,7 @@ ListCallback <- R6::R6Class("ListCallback", inherit = ChunkCallback,
       private$results <- c(private$results, list(result))
     },
     result = function() {
-        private$results
+      private$results
     },
     finally = function() {
       private$results <- list()
@@ -141,14 +144,17 @@ ListCallback <- R6::R6Class("ListCallback", inherit = ChunkCallback,
 #' @format NULL
 #' @rdname callback
 #' @export
-AccumulateCallback <- R6::R6Class("AccumulateCallback", inherit = ChunkCallback,
+AccumulateCallback <- R6::R6Class("AccumulateCallback",
+  inherit = ChunkCallback,
   private = list(
     acc = NULL
   ),
   public = list(
     initialize = function(callback, acc = NULL) {
-      check_callback_fun(callback, req_args = 3,
-                         message = "`callback` must have three or more arguments")
+      check_callback_fun(callback,
+        req_args = 3,
+        message = "`callback` must have three or more arguments"
+      )
       private$acc <- acc
       private$callback <- callback
     },
@@ -162,7 +168,7 @@ AccumulateCallback <- R6::R6Class("AccumulateCallback", inherit = ChunkCallback,
 )
 
 check_callback_fun <- function(callback, req_args = 2, message = NULL) {
-  if(is.null(message)){
+  if (is.null(message)) {
     message <- "`callback` must have two or more arguments"
   }
   n_args <- length(formals(callback))

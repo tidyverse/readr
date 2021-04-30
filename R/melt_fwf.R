@@ -43,13 +43,19 @@ melt_fwf <- function(file, col_positions,
   }
   ds <- datasource(file, skip = skip, skip_empty_rows = skip_empty_rows)
   if (inherits(ds, "source_file") && empty_file(file)) {
-       return(tibble::tibble(row = double(), col = double(),
-                             data_type = character(), value = character()))
+    return(tibble::tibble(
+      row = double(), col = double(),
+      data_type = character(), value = character()
+    ))
   }
-  tokenizer <- tokenizer_fwf(as.integer(col_positions$begin), as.integer(col_positions$end), na = na,
-                             comment = comment, trim_ws = trim_ws,
-                             skip_empty_rows = skip_empty_rows)
-  out <- melt_tokens(ds, tokenizer, locale_ = locale,
-                     n_max = if (n_max == Inf) -1 else n_max, progress = progress)
+  tokenizer <- tokenizer_fwf(as.integer(col_positions$begin), as.integer(col_positions$end),
+    na = na,
+    comment = comment, trim_ws = trim_ws,
+    skip_empty_rows = skip_empty_rows
+  )
+  out <- melt_tokens(ds, tokenizer,
+    locale_ = locale,
+    n_max = if (n_max == Inf) -1 else n_max, progress = progress
+  )
   warn_problems(out)
 }

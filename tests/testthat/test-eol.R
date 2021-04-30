@@ -14,30 +14,30 @@ if (FALSE) {
 
 test_that("read_csv standardises line breaks", {
   expect_equal(read_csv(test_path("eol-lf.csv"))$y, letters[1:3])
-  #expect_equal(read_csv(test_path("eol-cr.csv"))$y, letters[1:3])
+  # expect_equal(read_csv(test_path("eol-cr.csv"))$y, letters[1:3])
   expect_equal(read_csv(test_path("eol-crlf.csv"))$y, letters[1:3])
 })
 
 test_that("read_csv skipping works with windows newlines", {
   expect_equal(read_csv(test_path("eol-lf.csv"), skip = 2, col_names = FALSE)[[2]], letters[2:3])
-  #expect_equal(read_csv("eol-cr.csv", skip = 2, col_names = FALSE)[[2]], letters[2:3])
+  # expect_equal(read_csv("eol-cr.csv", skip = 2, col_names = FALSE)[[2]], letters[2:3])
   expect_equal(read_csv("eol-crlf.csv", skip = 2, col_names = FALSE)[[2]], letters[2:3])
 })
 
 test_that("read_lines standardises line breaks", {
   lf <- read_lines(test_path("eol-lf.csv"))
-  #expect_equal(read_lines(test_path("eol-cr.csv")), lf)
+  # expect_equal(read_lines(test_path("eol-cr.csv")), lf)
   expect_equal(read_lines(test_path("eol-crlf.csv")), lf)
 })
 
 test_that("read_fwf/read_table standardises line breaks", {
   expect_equal(read_table("eol-lf.txt")$y, letters[1:3])
-  #expect_equal(read_table("eol-cr.txt")$y, letters[1:3])
+  # expect_equal(read_table("eol-cr.txt")$y, letters[1:3])
   expect_equal(read_table("eol-crlf.txt")$y, letters[1:3])
 })
 
 test_that("read_table2 standardises line breaks", {
   expect_equal(read_table2("eol-lf.txt")$y, letters[0:3])
-  #expect_equal(read_table2("eol-cr.txt")$y, letters[1:3])
+  # expect_equal(read_table2("eol-cr.txt")$y, letters[1:3])
   expect_equal(read_table2("eol-crlf.txt")$y, letters[1:3])
 })

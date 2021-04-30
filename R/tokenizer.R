@@ -116,7 +116,8 @@ tokenizer_tsv <- function(na = "NA", quoted_na = TRUE, quote = "\"",
 #' @rdname Tokenizers
 tokenizer_line <- function(na = character(), skip_empty_rows = TRUE) {
   structure(list(na = na, skip_empty_rows = skip_empty_rows),
-            class = "tokenizer_line")
+    class = "tokenizer_line"
+  )
 }
 
 #' @export
@@ -133,14 +134,18 @@ tokenizer_log <- function() {
 #'   [begin, end) (i.e inclusive-exclusive).
 tokenizer_fwf <- function(begin, end, na = "NA", comment = "", trim_ws = TRUE,
                           skip_empty_rows = TRUE) {
-  structure(list(begin = as.integer(begin), end = as.integer(end), na = na, comment = comment,
-                 trim_ws = trim_ws, skip_empty_rows = skip_empty_rows),
-            class = "tokenizer_fwf")
+  structure(list(
+    begin = as.integer(begin), end = as.integer(end), na = na, comment = comment,
+    trim_ws = trim_ws, skip_empty_rows = skip_empty_rows
+  ),
+  class = "tokenizer_fwf"
+  )
 }
 
 #' @export
 #' @rdname Tokenizers
 tokenizer_ws <- function(na = "NA", comment = "", skip_empty_rows = TRUE) {
   structure(list(na = na, comment = comment, skip_empty_rows = skip_empty_rows),
-            class = "tokenizer_ws")
+    class = "tokenizer_ws"
+  )
 }

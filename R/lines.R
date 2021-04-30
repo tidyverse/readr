@@ -46,7 +46,7 @@ read_lines <- function(file, skip = 0, skip_empty_rows = FALSE, n_max = Inf,
                        progress = show_progress()) {
   if (edition_first()) {
     if (is.infinite(n_max)) {
-      n_max = -1L
+      n_max <- -1L
     }
     if (empty_file(file)) {
       return(character())
@@ -81,8 +81,8 @@ read_lines_raw <- function(file, skip = 0,
 #' @export
 #' @rdname read_lines
 write_lines <- function(x, file, sep = "\n", na = "NA", append = FALSE,
-  num_threads = readr_threads(),
-  path = deprecated()) {
+                        num_threads = readr_threads(),
+                        path = deprecated()) {
   is_raw <- is.list(x) && inherits(x[[1]], "raw")
 
   if (is_raw || edition_first()) {

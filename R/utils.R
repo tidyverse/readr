@@ -20,9 +20,9 @@ is_syntactic <- function(x) make.names(x) == x
 #' @export
 show_progress <- function() {
   isTRUE(getOption("readr.show_progress")) && # user disables progress bar
-  interactive() && # an interactive session
-  !isTRUE(getOption("rstudio.notebook.executing")) && # Not running in an RStudio notebook chunk
-  !isTRUE(getOption("knitr.in.progress")) # Not actively knitting a document
+    interactive() && # an interactive session
+    !isTRUE(getOption("rstudio.notebook.executing")) && # Not running in an RStudio notebook chunk
+    !isTRUE(getOption("knitr.in.progress")) # Not actively knitting a document
 }
 
 #' Determine whether column types should be shown
@@ -113,7 +113,8 @@ is_named <- function(x) {
 }
 
 utctime <- function(year, month, day, hour, min, sec, psec) {
-  utctime_(as.integer(year), as.integer(month), as.integer(day),
+  utctime_(
+    as.integer(year), as.integer(month), as.integer(day),
     as.integer(hour), as.integer(min), as.integer(sec), as.numeric(psec)
   )
 }

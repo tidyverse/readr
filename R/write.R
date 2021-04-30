@@ -65,8 +65,9 @@
 #' write_tsv(mtcars, "mtcars.tsv.gz")
 #' write_tsv(mtcars, "mtcars.tsv.bz2")
 #' write_tsv(mtcars, "mtcars.tsv.xz")
-#'
-#' \dontshow{setwd(.old_wd)}
+#' \dontshow{
+#' setwd(.old_wd)
+#' }
 write_delim <- function(x, file, delim = " ", na = "NA", append = FALSE,
                         col_names = !append, quote_escape = "double", eol = "\n",
                         num_threads = readr_threads(),
@@ -82,12 +83,16 @@ write_delim <- function(x, file, delim = " ", na = "NA", append = FALSE,
   x_out <- x
   x[] <- lapply(x, output_column)
   if (edition_first()) {
-    stream_delim(x, file, delim = delim, col_names = col_names, append = append,
-      na = na, quote_escape = quote_escape, eol = eol)
+    stream_delim(x, file,
+      delim = delim, col_names = col_names, append = append,
+      na = na, quote_escape = quote_escape, eol = eol
+    )
     return(invisible(x_out))
   }
-  vroom::vroom_write(x, file, delim = delim, col_names = col_names, append = append,
-    na = na, eol = eol, escape = quote_escape, num_threads = num_threads)
+  vroom::vroom_write(x, file,
+    delim = delim, col_names = col_names, append = append,
+    na = na, eol = eol, escape = quote_escape, num_threads = num_threads
+  )
 
   invisible(x_out)
 }
@@ -102,8 +107,10 @@ write_csv <- function(x, file, na = "NA", append = FALSE, col_names = !append,
     deprecate_warn("1.4.0", "write_csv(path = )", "write_csv(file = )")
     file <- path
   }
-  write_delim(x, file, delim = ",", na = na, append = append,
-    col_names = col_names, quote_escape = quote_escape, eol = eol, num_threads = num_threads)
+  write_delim(x, file,
+    delim = ",", na = na, append = append,
+    col_names = col_names, quote_escape = quote_escape, eol = eol, num_threads = num_threads
+  )
 }
 
 #' @rdname write_delim
@@ -119,8 +126,10 @@ write_csv2 <- function(x, file, na = "NA", append = FALSE, col_names = !append,
 
   x_out <- x
   x <- change_decimal_separator(x, decimal_mark = ",")
-  write_delim(x, file, delim = ";", na = na, append = append,
-    col_names = col_names, quote_escape = quote_escape, eol = eol, num_threads = num_threads)
+  write_delim(x, file,
+    delim = ";", na = na, append = append,
+    col_names = col_names, quote_escape = quote_escape, eol = eol, num_threads = num_threads
+  )
 
   invisible(x_out)
 }
@@ -146,12 +155,14 @@ write_excel_csv <- function(x, file, na = "NA", append = FALSE,
 
   x[] <- lapply(x, output_column)
   if (edition_first()) {
-    stream_delim(x, file, delim, col_names = col_names, append = append,
+    stream_delim(x, file, delim,
+      col_names = col_names, append = append,
       na = na, bom = !append, quote_escape = quote_escape, eol = eol
     )
     return(invisible(x_out))
   }
-  vroom::vroom_write(x, file, delim, col_names = col_names, append = append,
+  vroom::vroom_write(x, file, delim,
+    col_names = col_names, append = append,
     na = na, bom = !append, eol = eol, num_threads = num_threads
   )
 
@@ -180,7 +191,8 @@ write_excel_csv2 <- function(x, file, na = "NA", append = FALSE,
   x[datetime_cols] <- lapply(x[datetime_cols], format, "%Y/%m/%d %H:%M:%S")
 
   x[] <- lapply(x, output_column)
-  write_excel_csv(x, file, na, append, col_names, delim, quote_escape = quote_escape,
+  write_excel_csv(x, file, na, append, col_names, delim,
+    quote_escape = quote_escape,
     eol = eol, num_threads = num_threads
   )
 
@@ -198,8 +210,9 @@ write_tsv <- function(x, file, na = "NA", append = FALSE, col_names = !append,
     file <- path
   }
 
-  write_delim(x, file, delim = '\t', na = na, append = append, col_names =
-              col_names, quote_escape = quote_escape, eol = eol, num_threads = num_threads
+  write_delim(x, file,
+    delim = "\t", na = na, append = append, col_names =
+      col_names, quote_escape = quote_escape, eol = eol, num_threads = num_threads
   )
 }
 
@@ -305,10 +318,13 @@ stream_delim <- function(df, file, append = FALSE, bom = FALSE, ..., quote_escap
   if (is.null(file)) {
     out_file <- tempfile()
     con <- file(out_file, "wb")
-    on.exit({
-      try(close(con), silent = TRUE)
-      unlink(out_file)
-    }, add = TRUE)
+    on.exit(
+      {
+        try(close(con), silent = TRUE)
+        unlink(out_file)
+      },
+      add = TRUE
+    )
 
     stream_delim_(df, con, ..., bom = bom, quote_escape = quote_escape, eol = eol)
     close(con)
