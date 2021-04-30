@@ -12,6 +12,8 @@
 
 * `write_file()` now forces its argument before opening the output file (#1158)
 
+* All `read_*()` and `write_*()` functions gain a `num_threads` argument to control the number of processing threads they use (#1201)
+
 ## Additional features and fixes
 
 * `read_*()` functions gain a `show_col_types` argument, if set to `FALSE` this turns off showing the column types unconditionally.

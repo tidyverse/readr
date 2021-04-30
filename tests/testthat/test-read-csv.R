@@ -293,6 +293,8 @@ test_that("read_csv does not duplicate header rows for leading whitespace (747)"
 })
 
 test_that("read_csv handles whitespace between delimiters and quoted fields (668)", {
+  # This is no longer supported, retrospectively it was a mistake to support it in the first place.
+  skip_if_edition_second()
   x <- read_csv(I('x,y\n1, \"hi,there\"\n3,4'))
   expect_equal(x$y, c("hi,there", "4"))
 })

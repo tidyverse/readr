@@ -46,6 +46,7 @@
 #'   Unix style newlines, or `"\r\n"` for Windows style newlines.
 #' @param path \Sexpr[results=rd, stage=render]{lifecycle::badge("deprecated")}
 #' @return `write_*()` returns the input `x` invisibly.
+#' @inheritParams read_delim
 #' @references Florian Loitsch, Printing Floating-Point Numbers Quickly and
 #' Accurately with Integers, PLDI '10,
 #' <http://www.cs.tufts.edu/~nr/cs257/archive/florian-loitsch/printf.pdf>
@@ -67,7 +68,9 @@
 #'
 #' \dontshow{setwd(.old_wd)}
 write_delim <- function(x, file, delim = " ", na = "NA", append = FALSE,
-                        col_names = !append, quote_escape = "double", eol = "\n", path = deprecated()) {
+                        col_names = !append, quote_escape = "double", eol = "\n",
+                        num_threads = readr_threads(),
+                        path = deprecated()) {
   if (is_present(path)) {
     deprecate_warn("1.4.0", "write_delim(path = )", "write_delim(file = )")
     file <- path
@@ -84,7 +87,7 @@ write_delim <- function(x, file, delim = " ", na = "NA", append = FALSE,
     return(invisible(x_out))
   }
   vroom::vroom_write(x, file, delim = delim, col_names = col_names, append = append,
-    na = na, eol = eol, escape = quote_escape)
+    na = na, eol = eol, escape = quote_escape, num_threads = num_threads)
 
   invisible(x_out)
 }
@@ -92,19 +95,23 @@ write_delim <- function(x, file, delim = " ", na = "NA", append = FALSE,
 #' @rdname write_delim
 #' @export
 write_csv <- function(x, file, na = "NA", append = FALSE, col_names = !append,
-                      quote_escape = "double", eol = "\n", path = deprecated()) {
+                      quote_escape = "double", eol = "\n",
+                      num_threads = readr_threads(),
+                      path = deprecated()) {
   if (is_present(path)) {
     deprecate_warn("1.4.0", "write_csv(path = )", "write_csv(file = )")
     file <- path
   }
   write_delim(x, file, delim = ",", na = na, append = append,
-    col_names = col_names, quote_escape = quote_escape, eol = eol)
+    col_names = col_names, quote_escape = quote_escape, eol = eol, num_threads = num_threads)
 }
 
 #' @rdname write_delim
 #' @export
 write_csv2 <- function(x, file, na = "NA", append = FALSE, col_names = !append,
-                       quote_escape = "double", eol = "\n", path = deprecated()) {
+                       quote_escape = "double", eol = "\n",
+                       num_threads = readr_threads(),
+                       path = deprecated()) {
   if (is_present(path)) {
     deprecate_warn("1.4.0", "write_csv2(path = )", "write_csv2(file = )")
     file <- path
@@ -113,7 +120,7 @@ write_csv2 <- function(x, file, na = "NA", append = FALSE, col_names = !append,
   x_out <- x
   x <- change_decimal_separator(x, decimal_mark = ",")
   write_delim(x, file, delim = ";", na = na, append = append,
-    col_names = col_names, quote_escape = quote_escape, eol = eol)
+    col_names = col_names, quote_escape = quote_escape, eol = eol, num_threads = num_threads)
 
   invisible(x_out)
 }
@@ -122,7 +129,9 @@ write_csv2 <- function(x, file, na = "NA", append = FALSE, col_names = !append,
 #' @export
 write_excel_csv <- function(x, file, na = "NA", append = FALSE,
                             col_names = !append, delim = ",", quote_escape = "double",
-                            eol = "\n", path = deprecated()) {
+                            eol = "\n",
+                            num_threads = readr_threads(),
+                            path = deprecated()) {
   if (is_present(path)) {
     deprecate_warn("1.4.0", "write_excel_csv(path = )", "write_excel_csv(file = )")
     file <- path
@@ -143,7 +152,7 @@ write_excel_csv <- function(x, file, na = "NA", append = FALSE,
     return(invisible(x_out))
   }
   vroom::vroom_write(x, file, delim, col_names = col_names, append = append,
-    na = na, bom = !append, eol = eol
+    na = na, bom = !append, eol = eol, num_threads = num_threads
   )
 
   invisible(x_out)
@@ -153,7 +162,9 @@ write_excel_csv <- function(x, file, na = "NA", append = FALSE,
 #' @export
 write_excel_csv2 <- function(x, file, na = "NA", append = FALSE,
                              col_names = !append, delim = ";", quote_escape = "double",
-                             eol = "\n", path = deprecated()) {
+                             eol = "\n",
+                             num_threads = readr_threads(),
+                             path = deprecated()) {
   if (is_present(path)) {
     deprecate_warn("1.4.0", "write_excel_csv2(path = )", "write_excel_csv2(file = )")
     file <- path
@@ -170,7 +181,7 @@ write_excel_csv2 <- function(x, file, na = "NA", append = FALSE,
 
   x[] <- lapply(x, output_column)
   write_excel_csv(x, file, na, append, col_names, delim, quote_escape = quote_escape,
-    eol = eol
+    eol = eol, num_threads = num_threads
   )
 
   invisible(x_out)
@@ -179,14 +190,16 @@ write_excel_csv2 <- function(x, file, na = "NA", append = FALSE,
 #' @rdname write_delim
 #' @export
 write_tsv <- function(x, file, na = "NA", append = FALSE, col_names = !append,
-                      quote_escape = "double", eol = "\n", path = deprecated()) {
+                      quote_escape = "double", eol = "\n",
+                      num_threads = readr_threads(),
+                      path = deprecated()) {
   if (is_present(path)) {
     deprecate_warn("1.4.0", "write_tsv(path = )", "write_tsv(file = )")
     file <- path
   }
 
   write_delim(x, file, delim = '\t', na = na, append = append, col_names =
-              col_names, quote_escape = quote_escape, eol = eol
+              col_names, quote_escape = quote_escape, eol = eol, num_threads = num_threads
   )
 }
 

@@ -14,10 +14,17 @@ read_lines(
   locale = default_locale(),
   na = character(),
   lazy = TRUE,
+  num_threads = readr_threads(),
   progress = show_progress()
 )
 
-read_lines_raw(file, skip = 0, n_max = -1L, progress = show_progress())
+read_lines_raw(
+  file,
+  skip = 0,
+  n_max = -1L,
+  num_threads = readr_threads(),
+  progress = show_progress()
+)
 
 write_lines(
   x,
@@ -25,6 +32,7 @@ write_lines(
   sep = "\\n",
   na = "NA",
   append = FALSE,
+  num_threads = readr_threads(),
   path = deprecated()
 )
 }
@@ -64,6 +72,9 @@ option to \code{character()} to indicate no missing values.}
 
 \item{lazy}{Read values lazily? By default the file is initially only
 indexed. The actual values are read lazily on-demand when accessed.}
+
+\item{num_threads}{The number of processing threads to use for initial
+parsing and lazy reading of data.}
 
 \item{progress}{Display a progress bar? By default it will only display
 in an interactive session and not while knitting a document. The display

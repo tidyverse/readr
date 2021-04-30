@@ -20,6 +20,7 @@ read_fwf(
   n_max = Inf,
   guess_max = min(n_max, 1000),
   progress = show_progress(),
+  num_threads = readr_threads(),
   show_col_types = should_show_types(),
   lazy = TRUE,
   skip_empty_rows = TRUE
@@ -119,6 +120,9 @@ in an interactive session and not while knitting a document. The display
 is updated every 50,000 values and will only display if estimated reading
 time is 5 seconds or more. The automatic progress bar can be disabled by
 setting option \code{readr.show_progress} to \code{FALSE}.}
+
+\item{num_threads}{The number of processing threads to use for initial
+parsing and lazy reading of data.}
 
 \item{show_col_types}{If \code{FALSE}, do not show the guessed column types. If
 \code{TRUE} always show the column types, even if they are supplied. If \code{NULL}

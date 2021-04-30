@@ -47,6 +47,28 @@ is_integerish <- function(x) {
   floor(x) == x
 }
 
+#' Determine how many threads readr should use when processing
+#'
+#' The number of threads returned can be set by
+#' - The global option `readr.num_threads`
+#' - The environment variable `VROOM_THREADS`
+#' - The value of [parallel::detectCores()]
+#' @export
+readr_threads <- function() {
+  res <- getOption("readr.num_threads")
+
+  if (is.null(res)) {
+    res <- as.integer(Sys.getenv("VROOM_THREADS", parallel::detectCores()))
+    options("readr.num_threads" = res)
+  }
+
+  if (is.na(res) || res <= 0) {
+    res <- 1
+  }
+
+  res
+}
+
 #' @export
 `[.spec_tbl_df` <- function(x, ...) {
   attr(x, "spec") <- NULL

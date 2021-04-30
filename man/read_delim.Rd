@@ -23,6 +23,7 @@ read_delim(
   skip = 0,
   n_max = Inf,
   guess_max = min(1000, n_max),
+  num_threads = readr_threads(),
   progress = show_progress(),
   show_col_types = should_show_types(),
   skip_empty_rows = TRUE,
@@ -42,6 +43,7 @@ read_csv(
   skip = 0,
   n_max = Inf,
   guess_max = min(1000, n_max),
+  num_threads = readr_threads(),
   progress = show_progress(),
   show_col_types = should_show_types(),
   skip_empty_rows = TRUE,
@@ -62,6 +64,7 @@ read_csv2(
   n_max = Inf,
   guess_max = min(1000, n_max),
   progress = show_progress(),
+  num_threads = readr_threads(),
   show_col_types = should_show_types(),
   skip_empty_rows = TRUE,
   lazy = TRUE
@@ -81,6 +84,7 @@ read_tsv(
   n_max = Inf,
   guess_max = min(1000, n_max),
   progress = show_progress(),
+  num_threads = readr_threads(),
   show_col_types = should_show_types(),
   skip_empty_rows = TRUE,
   lazy = TRUE
@@ -185,6 +189,9 @@ each field before parsing it?}
 \item{n_max}{Maximum number of records to read.}
 
 \item{guess_max}{Maximum number of records to use for guessing column types.}
+
+\item{num_threads}{The number of processing threads to use for initial
+parsing and lazy reading of data.}
 
 \item{progress}{Display a progress bar? By default it will only display
 in an interactive session and not while knitting a document. The display

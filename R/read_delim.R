@@ -71,6 +71,8 @@ NULL
 #'   setting option `readr.show_progress` to `FALSE`.
 #' @param lazy Read values lazily? By default the file is initially only
 #'   indexed. The actual values are read lazily on-demand when accessed.
+#' @param num_threads The number of processing threads to use for initial
+#'   parsing and lazy reading of data.
 #' @return A [tibble()]. If there are parsing problems, a warning tells you
 #'   how many, and you can retrieve the details with [problems()].
 #' @export
@@ -115,6 +117,7 @@ read_delim <- function(file, delim = NULL, quote = '"',
                        na = c("", "NA"), quoted_na = TRUE,
                        comment = "", trim_ws = FALSE,
                        skip = 0, n_max = Inf, guess_max = min(1000, n_max),
+                       num_threads = readr_threads(),
                        progress = show_progress(),
                        show_col_types = should_show_types(),
                        skip_empty_rows = TRUE, lazy = TRUE) {
@@ -142,7 +145,7 @@ read_delim <- function(file, delim = NULL, quote = '"',
   vroom::vroom(file, delim = delim, col_names = col_names, col_types = col_types,
     skip = skip, n_max = n_max, na = na, quote = quote, comment = comment, trim_ws = trim_ws,
     escape_double = escape_double, escape_backslash = escape_backslash, locale = locale, guess_max = guess_max,
-    progress = progress, altrep = lazy, show_col_types = show_col_types)
+    progress = progress, altrep = lazy, show_col_types = show_col_types, num_threads = num_threads)
 }
 
 #' @rdname read_delim
@@ -151,6 +154,7 @@ read_csv <- function(file, col_names = TRUE, col_types = NULL,
                      locale = default_locale(), na = c("", "NA"),
                      quoted_na = TRUE, quote = "\"", comment = "", trim_ws = TRUE,
                      skip = 0, n_max = Inf, guess_max = min(1000, n_max),
+                     num_threads = readr_threads(),
                      progress = show_progress(), show_col_types = should_show_types(), skip_empty_rows = TRUE, lazy = TRUE) {
   if (edition_first()) {
   tokenizer <- tokenizer_csv(na = na, quoted_na = quoted_na, quote = quote,
@@ -170,7 +174,7 @@ read_csv <- function(file, col_names = TRUE, col_types = NULL,
     skip = skip, n_max = n_max, na = na, quote = quote, comment = comment, trim_ws = trim_ws,
     escape_double = TRUE, escape_backslash = FALSE, locale = locale, guess_max = guess_max,
     show_col_types = show_col_types,
-    progress = progress, altrep = lazy)
+    progress = progress, altrep = lazy, num_threads = num_threads)
 }
 
 #' @rdname read_delim
@@ -180,6 +184,7 @@ read_csv2 <- function(file, col_names = TRUE, col_types = NULL,
                       na = c("", "NA"), quoted_na = TRUE, quote = "\"",
                       comment = "", trim_ws = TRUE, skip = 0, n_max = Inf,
                       guess_max = min(1000, n_max), progress = show_progress(),
+                      num_threads = readr_threads(),
                       show_col_types = should_show_types(),
                       skip_empty_rows = TRUE, lazy = TRUE) {
 
@@ -200,7 +205,7 @@ read_csv2 <- function(file, col_names = TRUE, col_types = NULL,
     skip = skip, n_max = n_max, na = na, quote = quote, comment = comment, trim_ws = trim_ws,
     escape_double = TRUE, escape_backslash = FALSE, locale = locale, guess_max = guess_max,
     show_col_types = show_col_types,
-    progress = progress, altrep = lazy)
+    progress = progress, altrep = lazy, num_threads = num_threads)
 }
 
 #' @rdname read_delim
@@ -210,7 +215,8 @@ read_tsv <- function(file, col_names = TRUE, col_types = NULL,
                      na = c("", "NA"), quoted_na = TRUE, quote = "\"",
                      comment = "", trim_ws = TRUE, skip = 0, n_max = Inf,
                      guess_max = min(1000, n_max), progress = show_progress(),
-                      show_col_types = should_show_types(),
+                     num_threads = readr_threads(),
+                     show_col_types = should_show_types(),
                      skip_empty_rows = TRUE, lazy = TRUE) {
   tokenizer <- tokenizer_tsv(na = na, quoted_na = quoted_na, quote = quote,
     comment = comment, trim_ws = trim_ws, skip_empty_rows = skip_empty_rows)
@@ -223,7 +229,7 @@ read_tsv <- function(file, col_names = TRUE, col_types = NULL,
   vroom::vroom(file, delim = "\t", col_names = col_names,
     col_types = col_types, locale = locale, skip = skip, comment = comment,
     n_max = n_max, guess_max = guess_max, progress = progress,
-    show_col_types = show_col_types, altrep = lazy)
+    show_col_types = show_col_types, altrep = lazy, num_threads = num_threads)
 }
 
 # Helper functions for reading from delimited files ----------------------------

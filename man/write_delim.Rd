@@ -18,6 +18,7 @@ write_delim(
   col_names = !append,
   quote_escape = "double",
   eol = "\\n",
+  num_threads = readr_threads(),
   path = deprecated()
 )
 
@@ -29,6 +30,7 @@ write_csv(
   col_names = !append,
   quote_escape = "double",
   eol = "\\n",
+  num_threads = readr_threads(),
   path = deprecated()
 )
 
@@ -40,6 +42,7 @@ write_csv2(
   col_names = !append,
   quote_escape = "double",
   eol = "\\n",
+  num_threads = readr_threads(),
   path = deprecated()
 )
 
@@ -52,6 +55,7 @@ write_excel_csv(
   delim = ",",
   quote_escape = "double",
   eol = "\\n",
+  num_threads = readr_threads(),
   path = deprecated()
 )
 
@@ -64,6 +68,7 @@ write_excel_csv2(
   delim = ";",
   quote_escape = "double",
   eol = "\\n",
+  num_threads = readr_threads(),
   path = deprecated()
 )
 
@@ -75,6 +80,7 @@ write_tsv(
   col_names = !append,
   quote_escape = "double",
   eol = "\\n",
+  num_threads = readr_threads(),
   path = deprecated()
 )
 }
@@ -103,6 +109,9 @@ equivalent to "none". The default is \code{"double"}, which is expected format f
 
 \item{eol}{The end of line character to use. Most commonly either \code{"\\n"} for
 Unix style newlines, or \code{"\\r\\n"} for Windows style newlines.}
+
+\item{num_threads}{The number of processing threads to use for initial
+parsing and lazy reading of data.}
 
 \item{path}{\Sexpr[results=rd, stage=render]{lifecycle::badge("deprecated")}}
 }
