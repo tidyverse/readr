@@ -149,9 +149,11 @@ parse_datetime("2010/01/01 12:00 -0600", "\%Y/\%m/\%d \%H:\%M \%z")
 # Use the locale parameter to control the default time zone
 # (but note UTC is considerably faster than other options)
 parse_datetime("2010/01/01 12:00", "\%Y/\%m/\%d \%H:\%M",
-  locale = locale(tz = "US/Central"))
+  locale = locale(tz = "US/Central")
+)
 parse_datetime("2010/01/01 12:00", "\%Y/\%m/\%d \%H:\%M",
-  locale = locale(tz = "US/Eastern"))
+  locale = locale(tz = "US/Eastern")
+)
 
 # Unlike strptime, the format specification must match the complete
 # string (ignoring leading and trailing whitespace). This avoids common

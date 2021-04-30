@@ -45,7 +45,6 @@ than time.
 temp <- tempfile()
 write_rds(mtcars, temp)
 read_rds(temp)
-
 \dontrun{
 write_rds(mtcars, "compressed_mtc.rds", "xz", compression = 9L)
 }

@@ -162,8 +162,9 @@ write_tsv(mtcars, "mtcars.tsv")
 write_tsv(mtcars, "mtcars.tsv.gz")
 write_tsv(mtcars, "mtcars.tsv.bz2")
 write_tsv(mtcars, "mtcars.tsv.xz")
-
-\dontshow{setwd(.old_wd)}
+\dontshow{
+setwd(.old_wd)
+}
 }
 \references{
 Florian Loitsch, Printing Floating-Point Numbers Quickly and

@@ -53,8 +53,8 @@ if needed.
 parse_guess(c("FALSE", "TRUE", "F", "T"))
 
 # Integers and doubles
-parse_guess(c("1","2","3"))
-parse_guess(c("1.6","2.6","3.4"))
+parse_guess(c("1", "2", "3"))
+parse_guess(c("1.6", "2.6", "3.4"))
 
 # Numbers containing grouping mark
 guess_parser("1,234,566")
