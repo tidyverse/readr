@@ -247,10 +247,12 @@ will be read with this column type.</p></td>
 
 <span class='va'>t1</span> <span class='op'>&lt;-</span> <span class='fu'>cols</span><span class='op'>(</span>
   column_one <span class='op'>=</span> <span class='fu'><a href='parse_atomic.html'>col_integer</a></span><span class='op'>(</span><span class='op'>)</span>,
-  column_two <span class='op'>=</span> <span class='fu'><a href='parse_number.html'>col_number</a></span><span class='op'>(</span><span class='op'>)</span><span class='op'>)</span>
+  column_two <span class='op'>=</span> <span class='fu'><a href='parse_number.html'>col_number</a></span><span class='op'>(</span><span class='op'>)</span>
+<span class='op'>)</span>
 
 <span class='va'>t2</span> <span class='op'>&lt;-</span> <span class='fu'>cols</span><span class='op'>(</span>
- column_three <span class='op'>=</span> <span class='fu'><a href='parse_atomic.html'>col_character</a></span><span class='op'>(</span><span class='op'>)</span><span class='op'>)</span>
+  column_three <span class='op'>=</span> <span class='fu'><a href='parse_atomic.html'>col_character</a></span><span class='op'>(</span><span class='op'>)</span>
+<span class='op'>)</span>
 
 <span class='va'>t3</span> <span class='op'>&lt;-</span> <span class='va'>t1</span>
 <span class='va'>t3</span><span class='op'>$</span><span class='va'>cols</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='va'>t1</span><span class='op'>$</span><span class='va'>cols</span>, <span class='va'>t2</span><span class='op'>$</span><span class='va'>cols</span><span class='op'>)</span>

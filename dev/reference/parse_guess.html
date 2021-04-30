@@ -244,8 +244,8 @@ each field before parsing it?</p></td>
 <span class='fu'>parse_guess</span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"FALSE"</span>, <span class='st'>"TRUE"</span>, <span class='st'>"F"</span>, <span class='st'>"T"</span><span class='op'>)</span><span class='op'>)</span>
 </div><div class='output co'>#&gt; [1] FALSE  TRUE FALSE  TRUE</div><div class='input'>
 <span class='co'># Integers and doubles</span>
-<span class='fu'>parse_guess</span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"1"</span>,<span class='st'>"2"</span>,<span class='st'>"3"</span><span class='op'>)</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; [1] 1 2 3</div><div class='input'><span class='fu'>parse_guess</span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"1.6"</span>,<span class='st'>"2.6"</span>,<span class='st'>"3.4"</span><span class='op'>)</span><span class='op'>)</span>
+<span class='fu'>parse_guess</span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"1"</span>, <span class='st'>"2"</span>, <span class='st'>"3"</span><span class='op'>)</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; [1] 1 2 3</div><div class='input'><span class='fu'>parse_guess</span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"1.6"</span>, <span class='st'>"2.6"</span>, <span class='st'>"3.4"</span><span class='op'>)</span><span class='op'>)</span>
 </div><div class='output co'>#&gt; [1] 1.6 2.6 3.4</div><div class='input'>
 <span class='co'># Numbers containing grouping mark</span>
 <span class='fu'>guess_parser</span><span class='op'>(</span><span class='st'>"1,234,566"</span><span class='op'>)</span>

@@ -253,7 +253,8 @@ because it likely modifies the column data types.
 
 <span class='co'># first read the data as character</span>
 <span class='va'>data</span> <span class='op'>&lt;-</span> <span class='fu'><a href='read_delim.html'>read_csv</a></span><span class='op'>(</span><span class='fu'><a href='readr_example.html'>readr_example</a></span><span class='op'>(</span><span class='st'>"mtcars.csv"</span><span class='op'>)</span>,
-                 col_types <span class='op'>=</span> <span class='fu'><a href='cols.html'>cols</a></span><span class='op'>(</span>.default <span class='op'>=</span> <span class='fu'><a href='parse_atomic.html'>col_character</a></span><span class='op'>(</span><span class='op'>)</span><span class='op'>)</span><span class='op'>)</span>
+  col_types <span class='op'>=</span> <span class='fu'><a href='cols.html'>cols</a></span><span class='op'>(</span>.default <span class='op'>=</span> <span class='fu'><a href='parse_atomic.html'>col_character</a></span><span class='op'>(</span><span class='op'>)</span><span class='op'>)</span>
+<span class='op'>)</span>
 <span class='fu'><a href='https://rdrr.io/r/utils/str.html'>str</a></span><span class='op'>(</span><span class='va'>data</span><span class='op'>)</span>
 </div><div class='output co'>#&gt; spec_tbl_df[,11] [32 × 11] (S3: spec_tbl_df/tbl_df/tbl/data.frame)
 #&gt;  $ mpg : chr [1:32] "21" "21" "22.8" "21.4" ...
