@@ -190,6 +190,7 @@ turns off printing).</p>
   skip <span class='op'>=</span> <span class='fl'>0</span>,
   n_max <span class='op'>=</span> <span class='fl'>0</span>,
   guess_max <span class='op'>=</span> <span class='fl'>1000</span>,
+  num_threads <span class='op'>=</span> <span class='fu'><a href='readr_threads.html'>readr_threads</a></span><span class='op'>(</span><span class='op'>)</span>,
   progress <span class='op'>=</span> <span class='fu'><a href='show_progress.html'>show_progress</a></span><span class='op'>(</span><span class='op'>)</span>,
   show_col_types <span class='op'>=</span> <span class='fu'><a href='should_show_types.html'>should_show_types</a></span><span class='op'>(</span><span class='op'>)</span>,
   skip_empty_rows <span class='op'>=</span> <span class='cn'>TRUE</span>,
@@ -209,6 +210,7 @@ turns off printing).</p>
   skip <span class='op'>=</span> <span class='fl'>0</span>,
   n_max <span class='op'>=</span> <span class='fl'>0</span>,
   guess_max <span class='op'>=</span> <span class='fl'>1000</span>,
+  num_threads <span class='op'>=</span> <span class='fu'><a href='readr_threads.html'>readr_threads</a></span><span class='op'>(</span><span class='op'>)</span>,
   progress <span class='op'>=</span> <span class='fu'><a href='show_progress.html'>show_progress</a></span><span class='op'>(</span><span class='op'>)</span>,
   show_col_types <span class='op'>=</span> <span class='fu'><a href='should_show_types.html'>should_show_types</a></span><span class='op'>(</span><span class='op'>)</span>,
   skip_empty_rows <span class='op'>=</span> <span class='cn'>TRUE</span>,
@@ -229,6 +231,7 @@ turns off printing).</p>
   n_max <span class='op'>=</span> <span class='fl'>0</span>,
   guess_max <span class='op'>=</span> <span class='fl'>1000</span>,
   progress <span class='op'>=</span> <span class='fu'><a href='show_progress.html'>show_progress</a></span><span class='op'>(</span><span class='op'>)</span>,
+  num_threads <span class='op'>=</span> <span class='fu'><a href='readr_threads.html'>readr_threads</a></span><span class='op'>(</span><span class='op'>)</span>,
   show_col_types <span class='op'>=</span> <span class='fu'><a href='should_show_types.html'>should_show_types</a></span><span class='op'>(</span><span class='op'>)</span>,
   skip_empty_rows <span class='op'>=</span> <span class='cn'>TRUE</span>,
   lazy <span class='op'>=</span> <span class='cn'>TRUE</span>
@@ -248,6 +251,7 @@ turns off printing).</p>
   n_max <span class='op'>=</span> <span class='fl'>0</span>,
   guess_max <span class='op'>=</span> <span class='fl'>1000</span>,
   progress <span class='op'>=</span> <span class='fu'><a href='show_progress.html'>show_progress</a></span><span class='op'>(</span><span class='op'>)</span>,
+  num_threads <span class='op'>=</span> <span class='fu'><a href='readr_threads.html'>readr_threads</a></span><span class='op'>(</span><span class='op'>)</span>,
   show_col_types <span class='op'>=</span> <span class='fu'><a href='should_show_types.html'>should_show_types</a></span><span class='op'>(</span><span class='op'>)</span>,
   skip_empty_rows <span class='op'>=</span> <span class='cn'>TRUE</span>,
   lazy <span class='op'>=</span> <span class='cn'>TRUE</span>
@@ -401,6 +405,11 @@ each field before parsing it?</p></td>
     <tr>
       <th>guess_max</th>
       <td><p>Maximum number of records to use for guessing column types.</p></td>
+    </tr>
+    <tr>
+      <th>num_threads</th>
+      <td><p>The number of processing threads to use for initial
+parsing and lazy reading of data.</p></td>
     </tr>
     <tr>
       <th>progress</th>

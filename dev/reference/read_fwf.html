@@ -190,6 +190,7 @@ by providing a number of different ways to describe the field structure.</p>
   n_max <span class='op'>=</span> <span class='cn'>Inf</span>,
   guess_max <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/Extremes.html'>min</a></span><span class='op'>(</span><span class='va'>n_max</span>, <span class='fl'>1000</span><span class='op'>)</span>,
   progress <span class='op'>=</span> <span class='fu'><a href='show_progress.html'>show_progress</a></span><span class='op'>(</span><span class='op'>)</span>,
+  num_threads <span class='op'>=</span> <span class='fu'><a href='readr_threads.html'>readr_threads</a></span><span class='op'>(</span><span class='op'>)</span>,
   show_col_types <span class='op'>=</span> <span class='fu'><a href='should_show_types.html'>should_show_types</a></span><span class='op'>(</span><span class='op'>)</span>,
   lazy <span class='op'>=</span> <span class='cn'>TRUE</span>,
   skip_empty_rows <span class='op'>=</span> <span class='cn'>TRUE</span>
@@ -305,6 +306,11 @@ in an interactive session and not while knitting a document. The display
 is updated every 50,000 values and will only display if estimated reading
 time is 5 seconds or more. The automatic progress bar can be disabled by
 setting option <code>readr.show_progress</code> to <code>FALSE</code>.</p></td>
+    </tr>
+    <tr>
+      <th>num_threads</th>
+      <td><p>The number of processing threads to use for initial
+parsing and lazy reading of data.</p></td>
     </tr>
     <tr>
       <th>show_col_types</th>

@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Create a source object. — datasource • readr</title>
+<title>Determine how many threads readr should use when processing — readr_threads • readr</title>
 
 <!-- favicons -->
 <link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
@@ -49,8 +49,13 @@
 
 
 
-<meta property="og:title" content="Create a source object. — datasource" />
-<meta property="og:description" content="Create a source object." />
+<meta property="og:title" content="Determine how many threads readr should use when processing — readr_threads" />
+<meta property="og:description" content="The number of threads returned can be set by
+The global option readr.num_threads
+The environment variable VROOM_THREADS
+The value of parallel::detectCores()
+
+" />
 <meta property="og:image" content="https://readr.tidyverse.org/logo.png" />
 <meta name="twitter:card" content="summary" />
 
@@ -161,170 +166,24 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Create a source object.</h1>
-    <small class="dont-index">Source: <a href='https://github.com/tidyverse/readr/blob/master/R/source.R'><code>R/source.R</code></a></small>
-    <div class="hidden name"><code>datasource.Rd</code></div>
+    <h1>Determine how many threads readr should use when processing</h1>
+    <small class="dont-index">Source: <a href='https://github.com/tidyverse/readr/blob/master/R/utils.R'><code>R/utils.R</code></a></small>
+    <div class="hidden name"><code>readr_threads.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>Create a source object.</p>
+    <p>The number of threads returned can be set by</p><ul>
+<li><p>The global option <code>readr.num_threads</code></p></li>
+<li><p>The environment variable <code>VROOM_THREADS</code></p></li>
+<li><p>The value of <code><a href='https://rdrr.io/r/parallel/detectCores.html'>parallel::detectCores()</a></code></p></li>
+</ul>
+
     </div>
 
-    <pre class="usage"><span class='fu'>datasource</span><span class='op'>(</span>
-  <span class='va'>file</span>,
-  skip <span class='op'>=</span> <span class='fl'>0</span>,
-  skip_empty_rows <span class='op'>=</span> <span class='cn'>FALSE</span>,
-  comment <span class='op'>=</span> <span class='st'>""</span>,
-  skip_quote <span class='op'>=</span> <span class='cn'>TRUE</span>
-<span class='op'>)</span></pre>
-
-    <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
-    <table class="ref-arguments">
-    <colgroup><col class="name" /><col class="desc" /></colgroup>
-    <tr>
-      <th>file</th>
-      <td><p>Either a path to a file, a connection, or literal data
-(either a single string or a raw vector).</p>
-<p>Files ending in <code>.gz</code>, <code>.bz2</code>, <code>.xz</code>, or <code>.zip</code> will
-be automatically uncompressed. Files starting with <code>http://</code>,
-<code>https://</code>, <code>ftp://</code>, or <code>ftps://</code> will be automatically
-downloaded. Remote gz files can also be automatically downloaded and
-decompressed.</p>
-<p>Literal data is most useful for examples and tests. It must contain at
-least one new line to be recognised as data (instead of a path) or be a
-vector of greater than length 1.</p>
-<p>Using a value of <code><a href='clipboard.html'>clipboard()</a></code> will read from the system clipboard.</p></td>
-    </tr>
-    <tr>
-      <th>skip</th>
-      <td><p>Number of lines to skip before reading data.</p></td>
-    </tr>
-    </table>
+    <pre class="usage"><span class='fu'>readr_threads</span><span class='op'>(</span><span class='op'>)</span></pre>
 
 
-    <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='co'># Literal csv</span>
-<span class='fu'>datasource</span><span class='op'>(</span><span class='st'>"a,b,c\n1,2,3"</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; [[1]]
-#&gt; [1] "a,b,c\n1,2,3"
-#&gt; 
-#&gt; $skip
-#&gt; [1] 0
-#&gt; 
-#&gt; $skip_empty_rows
-#&gt; [1] FALSE
-#&gt; 
-#&gt; $comment
-#&gt; [1] ""
-#&gt; 
-#&gt; $skip_quote
-#&gt; [1] TRUE
-#&gt; 
-#&gt; attr(,"class")
-#&gt; [1] "source_string" "source"       </div><div class='input'><span class='fu'>datasource</span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/rawConversion.html'>charToRaw</a></span><span class='op'>(</span><span class='st'>"a,b,c\n1,2,3"</span><span class='op'>)</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; [[1]]
-#&gt;  [1] 61 2c 62 2c 63 0a 31 2c 32 2c 33
-#&gt; 
-#&gt; $skip
-#&gt; [1] 0
-#&gt; 
-#&gt; $skip_empty_rows
-#&gt; [1] FALSE
-#&gt; 
-#&gt; $comment
-#&gt; [1] ""
-#&gt; 
-#&gt; $skip_quote
-#&gt; [1] TRUE
-#&gt; 
-#&gt; attr(,"class")
-#&gt; [1] "source_raw" "source"    </div><div class='input'>
-<span class='co'># Strings</span>
-<span class='fu'>datasource</span><span class='op'>(</span><span class='fu'><a href='readr_example.html'>readr_example</a></span><span class='op'>(</span><span class='st'>"mtcars.csv"</span><span class='op'>)</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; [[1]]
-#&gt; [1] "/Users/runner/work/_temp/Library/readr/extdata/mtcars.csv"
-#&gt; 
-#&gt; $skip
-#&gt; [1] 0
-#&gt; 
-#&gt; $skip_empty_rows
-#&gt; [1] FALSE
-#&gt; 
-#&gt; $comment
-#&gt; [1] ""
-#&gt; 
-#&gt; $skip_quote
-#&gt; [1] TRUE
-#&gt; 
-#&gt; attr(,"class")
-#&gt; [1] "source_file" "source"     </div><div class='input'><span class='fu'>datasource</span><span class='op'>(</span><span class='fu'><a href='readr_example.html'>readr_example</a></span><span class='op'>(</span><span class='st'>"mtcars.csv.bz2"</span><span class='op'>)</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; [[1]]
-#&gt; [1] "/private/var/folders/24/8k48jl6d249_n_qfxwsl6xvm0000gn/T/RtmpwbO5N4/filee36650786e9"
-#&gt; 
-#&gt; $skip
-#&gt; [1] 0
-#&gt; 
-#&gt; $skip_empty_rows
-#&gt; [1] FALSE
-#&gt; 
-#&gt; $comment
-#&gt; [1] ""
-#&gt; 
-#&gt; $skip_quote
-#&gt; [1] TRUE
-#&gt; 
-#&gt; $env
-#&gt; &lt;environment: 0x7f92663dda40&gt;
-#&gt; 
-#&gt; attr(,"class")
-#&gt; [1] "source_file" "source"     </div><div class='input'><span class='fu'>datasource</span><span class='op'>(</span><span class='fu'><a href='readr_example.html'>readr_example</a></span><span class='op'>(</span><span class='st'>"mtcars.csv.zip"</span><span class='op'>)</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; [[1]]
-#&gt; [1] "/private/var/folders/24/8k48jl6d249_n_qfxwsl6xvm0000gn/T/RtmpwbO5N4/filee36512a5ed0"
-#&gt; 
-#&gt; $skip
-#&gt; [1] 0
-#&gt; 
-#&gt; $skip_empty_rows
-#&gt; [1] FALSE
-#&gt; 
-#&gt; $comment
-#&gt; [1] ""
-#&gt; 
-#&gt; $skip_quote
-#&gt; [1] TRUE
-#&gt; 
-#&gt; $env
-#&gt; &lt;environment: 0x7f926652e690&gt;
-#&gt; 
-#&gt; attr(,"class")
-#&gt; [1] "source_file" "source"     </div><div class='input'><span class='kw'>if</span> <span class='op'>(</span><span class='cn'>FALSE</span><span class='op'>)</span> <span class='op'>{</span>
-<span class='fu'>datasource</span><span class='op'>(</span><span class='st'>"https://github.com/tidyverse/readr/raw/master/inst/extdata/mtcars.csv"</span><span class='op'>)</span>
-<span class='op'>}</span>
 
-<span class='co'># Connection</span>
-<span class='va'>con</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/rawConnection.html'>rawConnection</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/rawConversion.html'>charToRaw</a></span><span class='op'>(</span><span class='st'>"abc\n123"</span><span class='op'>)</span><span class='op'>)</span>
-<span class='fu'>datasource</span><span class='op'>(</span><span class='va'>con</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; [[1]]
-#&gt; [1] "/private/var/folders/24/8k48jl6d249_n_qfxwsl6xvm0000gn/T/RtmpwbO5N4/filee3634b6d351"
-#&gt; 
-#&gt; $skip
-#&gt; [1] 0
-#&gt; 
-#&gt; $skip_empty_rows
-#&gt; [1] FALSE
-#&gt; 
-#&gt; $comment
-#&gt; [1] ""
-#&gt; 
-#&gt; $skip_quote
-#&gt; [1] TRUE
-#&gt; 
-#&gt; $env
-#&gt; &lt;environment: 0x7f9264c725c8&gt;
-#&gt; 
-#&gt; attr(,"class")
-#&gt; [1] "source_file" "source"     </div><div class='input'><span class='fu'><a href='https://rdrr.io/r/base/connections.html'>close</a></span><span class='op'>(</span><span class='va'>con</span><span class='op'>)</span>
-</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
