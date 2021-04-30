@@ -17,6 +17,7 @@ spec_delim(
   escape_double = TRUE,
   col_names = TRUE,
   col_types = NULL,
+  col_select = NULL,
   locale = default_locale(),
   na = c("", "NA"),
   quoted_na = TRUE,
@@ -36,6 +37,7 @@ spec_csv(
   file,
   col_names = TRUE,
   col_types = NULL,
+  col_select = NULL,
   locale = default_locale(),
   na = c("", "NA"),
   quoted_na = TRUE,
@@ -56,6 +58,7 @@ spec_csv2(
   file,
   col_names = TRUE,
   col_types = NULL,
+  col_select = NULL,
   locale = default_locale(),
   na = c("", "NA"),
   quoted_na = TRUE,
@@ -76,6 +79,7 @@ spec_tsv(
   file,
   col_names = TRUE,
   col_types = NULL,
+  col_select = NULL,
   locale = default_locale(),
   na = c("", "NA"),
   quoted_na = TRUE,
@@ -195,6 +199,11 @@ message showing what \code{readr} guessed they were. To remove this message,
 use \code{col_types = list()}, set \code{show_col_types = FALSE} or set
 `options(readr.show_col_types = FALSE)
 }}
+
+\item{col_select}{<\code{\link[tidyselect:language]{tidy-select}}> Columns to include
+in the results, either by name or by numeric index. Use \code{\link[=c]{c()}} or \code{\link[=list]{list()}}
+to select with more than one expression and \code{\link[tidyselect:language]{?tidyselect::language}} for full
+details on the selection language.}
 
 \item{locale}{The locale controls defaults that vary from place to place.
 The default locale is US-centric (like R), but you can use

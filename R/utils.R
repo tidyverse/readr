@@ -130,3 +130,10 @@ cli_block <- function(expr, class = NULL, type = rlang::inform) {
   )
   type(msg, class = class)
 }
+
+readr_enquo <- function(x) {
+  if (rlang::quo_is_call(x, "c") || rlang::quo_is_call(x, "list")) {
+    return(rlang::as_quosures(rlang::get_expr(x)[-1], rlang::get_env(x)))
+  }
+  x
+}

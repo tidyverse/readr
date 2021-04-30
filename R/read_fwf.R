@@ -34,6 +34,7 @@
 #' # 5. Named arguments with column widths
 #' read_fwf(fwf_sample, fwf_cols(name = 20, state = 10, ssn = 12))
 read_fwf <- function(file, col_positions = fwf_empty(file, skip, n = guess_max), col_types = NULL,
+                     col_select = NULL,
                      locale = default_locale(), na = c("", "NA"),
                      comment = "", trim_ws = TRUE, skip = 0, n_max = Inf,
                      guess_max = min(n_max, 1000), progress = show_progress(),
@@ -79,6 +80,7 @@ read_fwf <- function(file, col_positions = fwf_empty(file, skip, n = guess_max),
 
   vroom::vroom_fwf(file,
     col_positions = col_positions, col_types = col_types,
+    col_select = {{col_select}},
     locale = locale, na = na, comment = comment, trim_ws = trim_ws, skip = skip,
     n_max = n_max, guess_max = guess_max, show_col_types = show_col_types,
     progress = progress, altrep = lazy, num_threads = num_threads
