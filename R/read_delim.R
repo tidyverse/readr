@@ -57,6 +57,10 @@ NULL
 #'   in the results, either by name or by numeric index. Use [c()] or [list()]
 #'   to select with more than one expression and [`?tidyselect::language`][tidyselect::language] for full
 #'   details on the selection language.
+#' @param id The name of a column in which to store the file path. This is
+#'   useful when reading multiple input files and there is data in the file
+#'   paths, such as the data collection date. If `NULL` no extra column is
+#'   created.
 #' @param show_col_types If `FALSE`, do not show the guessed column types. If
 #'   `TRUE` always show the column types, even if they are supplied. If `NULL`
 #'   (the default) only show the column types if they are not explicitly supplied
@@ -117,6 +121,7 @@ read_delim <- function(file, delim = NULL, quote = '"',
                        escape_backslash = FALSE, escape_double = TRUE,
                        col_names = TRUE, col_types = NULL,
                        col_select = NULL,
+                       id = NULL,
                        locale = default_locale(),
                        na = c("", "NA"), quoted_na = TRUE,
                        comment = "", trim_ws = FALSE,
@@ -154,6 +159,7 @@ read_delim <- function(file, delim = NULL, quote = '"',
   vroom::vroom(file,
     delim = delim, col_names = col_names, col_types = col_types,
     col_select = {{col_select}},
+    id = id,
     skip = skip, n_max = n_max, na = na, quote = quote, comment = comment, trim_ws = trim_ws,
     escape_double = escape_double, escape_backslash = escape_backslash, locale = locale, guess_max = guess_max,
     progress = progress, altrep = lazy, show_col_types = show_col_types, num_threads = num_threads
@@ -164,6 +170,7 @@ read_delim <- function(file, delim = NULL, quote = '"',
 #' @export
 read_csv <- function(file, col_names = TRUE, col_types = NULL,
                      col_select = NULL,
+                     id = NULL,
                      locale = default_locale(), na = c("", "NA"),
                      quoted_na = TRUE, quote = "\"", comment = "", trim_ws = TRUE,
                      skip = 0, n_max = Inf, guess_max = min(1000, n_max),
@@ -189,6 +196,7 @@ read_csv <- function(file, col_names = TRUE, col_types = NULL,
   vroom::vroom(file,
     delim = ",", col_names = col_names, col_types = col_types,
     col_select = {{col_select}},
+    id = id,
     skip = skip, n_max = n_max, na = na, quote = quote, comment = comment, trim_ws = trim_ws,
     escape_double = TRUE, escape_backslash = FALSE, locale = locale, guess_max = guess_max,
     show_col_types = show_col_types,
@@ -200,6 +208,7 @@ read_csv <- function(file, col_names = TRUE, col_types = NULL,
 #' @export
 read_csv2 <- function(file, col_names = TRUE, col_types = NULL,
                       col_select = NULL,
+                      id = NULL,
                       locale = default_locale(),
                       na = c("", "NA"), quoted_na = TRUE, quote = "\"",
                       comment = "", trim_ws = TRUE, skip = 0, n_max = Inf,
@@ -227,6 +236,7 @@ read_csv2 <- function(file, col_names = TRUE, col_types = NULL,
   vroom::vroom(file,
     delim = ";", col_names = col_names, col_types = col_types,
     col_select = {{col_select}},
+    id = id,
     skip = skip, n_max = n_max, na = na, quote = quote, comment = comment, trim_ws = trim_ws,
     escape_double = TRUE, escape_backslash = FALSE, locale = locale, guess_max = guess_max,
     show_col_types = show_col_types,
@@ -238,6 +248,7 @@ read_csv2 <- function(file, col_names = TRUE, col_types = NULL,
 #' @export
 read_tsv <- function(file, col_names = TRUE, col_types = NULL,
                      col_select = NULL,
+                     id = NULL,
                      locale = default_locale(),
                      na = c("", "NA"), quoted_na = TRUE, quote = "\"",
                      comment = "", trim_ws = TRUE, skip = 0, n_max = Inf,
@@ -261,6 +272,7 @@ read_tsv <- function(file, col_names = TRUE, col_types = NULL,
     delim = "\t", col_names = col_names,
     col_types = col_types,
     col_select = {{col_select}},
+    id = id,
     locale = locale, skip = skip, comment = comment,
     n_max = n_max, guess_max = guess_max, progress = progress,
     show_col_types = show_col_types, altrep = lazy, num_threads = num_threads

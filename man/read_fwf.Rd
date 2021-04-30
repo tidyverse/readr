@@ -13,6 +13,7 @@ read_fwf(
   col_positions = fwf_empty(file, skip, n = guess_max),
   col_types = NULL,
   col_select = NULL,
+  id = NULL,
   locale = default_locale(),
   na = c("", "NA"),
   comment = "",
@@ -99,6 +100,11 @@ use \code{col_types = list()}, set \code{show_col_types = FALSE} or set
 in the results, either by name or by numeric index. Use \code{\link[=c]{c()}} or \code{\link[=list]{list()}}
 to select with more than one expression and \code{\link[tidyselect:language]{?tidyselect::language}} for full
 details on the selection language.}
+
+\item{id}{The name of a column in which to store the file path. This is
+useful when reading multiple input files and there is data in the file
+paths, such as the data collection date. If \code{NULL} no extra column is
+created.}
 
 \item{locale}{The locale controls defaults that vary from place to place.
 The default locale is US-centric (like R), but you can use

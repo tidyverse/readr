@@ -14,6 +14,8 @@
 
 * All `read_*()` functions gain a `col_select` argument to more easily choose which columns to select.
 
+* All `read_*()` functions gain a `id` argument to optionally store the file paths when reading multiple files.
+
 * All `read_*()` and `write_*()` functions gain a `num_threads` argument to control the number of processing threads they use (#1201)
 
 ## Additional features and fixes
