@@ -78,8 +78,8 @@ test_that("write_excel_csv/csv2 includes a byte order mark", {
   expect_equal(output2[1:3], charToRaw("\xEF\xBB\xBF"))
 
   # Rest of file also there
-  expect_equal(output[4:6], charToRaw("mpg"))
-  expect_equal(output2[4:6], charToRaw("mpg"))
+  expect_equal(output[4:8], charToRaw('"mpg"'))
+  expect_equal(output2[4:8], charToRaw('"mpg"'))
 })
 
 test_that("write_excel_csv/csv2 includes a byte order mark, but not when appending", {
@@ -93,7 +93,7 @@ test_that("write_excel_csv/csv2 includes a byte order mark, but not when appendi
   expect_equal(output[1:3], charToRaw("\xEF\xBB\xBF"))
 
   # But not in the rest of the file
-  expect_equal(output[-1:-3], charToRaw("a\n1\n2\n"))
+  expect_equal(output[-1:-3], charToRaw('"a"\n1\n2\n'))
 })
 
 test_that("does not writes a tailing .0 for whole number doubles", {
@@ -181,12 +181,12 @@ test_that("write_csv2 and format_csv2 use same precision as write.csv2 (#1087)",
 test_that("Can change the escape behavior for quotes", {
   df <- data.frame(x = c("a", '"', ",", "\n"))
 
-  expect_error(format_delim(df, "\t", quote_escape = "invalid"), "should be one of")
+  expect_error(format_delim(df, "\t", escape = "invalid"), "should be one of")
 
   expect_equal(format_delim(df, "\t"), "x\na\n\"\"\"\"\n,\n\"\n\"\n")
-  expect_equal(format_delim(df, "\t", quote_escape = "double"), "x\na\n\"\"\"\"\n,\n\"\n\"\n")
-  expect_equal(format_delim(df, "\t", quote_escape = "backslash"), "x\na\n\"\\\"\"\n,\n\"\n\"\n")
-  expect_equal(format_delim(df, "\t", quote_escape = "none"), "x\na\n\"\"\"\n,\n\"\n\"\n")
+  expect_equal(format_delim(df, "\t", escape = "double"), "x\na\n\"\"\"\"\n,\n\"\n\"\n")
+  expect_equal(format_delim(df, "\t", escape = "backslash"), "x\na\n\"\\\"\"\n,\n\"\n\"\n")
+  expect_equal(format_delim(df, "\t", escape = "none"), "x\na\n\"\"\"\n,\n\"\n\"\n")
 })
 
 test_that("hms NAs are written without padding (#930)", {

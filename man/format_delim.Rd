@@ -13,8 +13,10 @@ format_delim(
   na = "NA",
   append = FALSE,
   col_names = !append,
-  quote_escape = "double",
-  eol = "\\n"
+  quote = c("needed", "all", "none"),
+  escape = c("double", "backslash", "none"),
+  eol = "\\n",
+  quote_escape = deprecated()
 )
 
 format_csv(
@@ -22,8 +24,10 @@ format_csv(
   na = "NA",
   append = FALSE,
   col_names = !append,
-  quote_escape = "double",
-  eol = "\\n"
+  quote = c("needed", "all", "none"),
+  escape = c("double", "backslash", "none"),
+  eol = "\\n",
+  quote_escape = deprecated()
 )
 
 format_csv2(
@@ -31,8 +35,10 @@ format_csv2(
   na = "NA",
   append = FALSE,
   col_names = !append,
-  quote_escape = "double",
-  eol = "\\n"
+  quote = c("needed", "all", "none"),
+  escape = c("double", "backslash", "none"),
+  eol = "\\n",
+  quote_escape = deprecated()
 )
 
 format_tsv(
@@ -40,8 +46,10 @@ format_tsv(
   na = "NA",
   append = FALSE,
   col_names = !append,
-  quote_escape = "double",
-  eol = "\\n"
+  quote = c("needed", "all", "none"),
+  escape = c("double", "backslash", "none"),
+  eol = "\\n",
+  quote_escape = deprecated()
 )
 }
 \arguments{
@@ -61,12 +69,24 @@ file is created.}
 \item{col_names}{If \code{FALSE}, column names will not be included at the top of the file. If \code{TRUE},
 column names will be included. If not specified, \code{col_names} will take the opposite value given to \code{append}.}
 
-\item{quote_escape}{The type of escaping to use for quoted values, one of
-\code{"double"}, \code{"backslash"} or \code{"none"}. You can also use \code{FALSE}, which is
-equivalent to "none". The default is \code{"double"}, which is expected format for Excel.}
+\item{quote}{How to handle fields which contain characters that need to be quoted.
+\itemize{
+\item \code{needed} - Only quote fields which need them.
+\item \code{all} - Quote all fields.
+\item \code{none} - Never quote fields.
+}}
+
+\item{escape}{The type of escape to use when quotes are in the data.
+\itemize{
+\item \code{double} - quotes are escaped by doubling them.
+\item \code{backslash} - quotes are escaped by a preceding backslash.
+\item \code{none} - quotes are not escaped.
+}}
 
 \item{eol}{The end of line character to use. Most commonly either \code{"\\n"} for
 Unix style newlines, or \code{"\\r\\n"} for Windows style newlines.}
+
+\item{quote_escape}{\Sexpr[results=rd, stage=render]{lifecycle::badge("deprecated")}}
 }
 \value{
 A string.

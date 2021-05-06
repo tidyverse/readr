@@ -20,6 +20,12 @@
 
 * All `read_*()` and `write_*()` functions gain a `num_threads` argument to control the number of processing threads they use (#1201)
 
+* All `write_*()` and `format_*()` functions gain `quote` and `escape` arguments, to explicitly control how fields are quoted and how double quotes are escaped. (#653, #759, #844, #993, #1018, #1083)
+
+* write_tsv() now defaults to `quote = "none"` (#993)
+
+* write_excel_csv() now defaults to `quote = "all"` (#759)
+
 ## Additional features and fixes
 
 * `read_rds()` can now read .Rds files from URLs (#1186)
