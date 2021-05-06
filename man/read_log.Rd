@@ -81,10 +81,9 @@ use \code{col_types = list()}, set \code{show_col_types = FALSE} or set
 \item{n_max}{Maximum number of records to read.}
 
 \item{progress}{Display a progress bar? By default it will only display
-in an interactive session and not while knitting a document. The display
-is updated every 50,000 values and will only display if estimated reading
-time is 5 seconds or more. The automatic progress bar can be disabled by
-setting option \code{readr.show_progress} to \code{FALSE}.}
+in an interactive session and not while knitting a document. The automatic
+progress bar can be disabled by setting option \code{readr.show_progress} to
+\code{FALSE}.}
 }
 \description{
 This is a fairly standard format for log files - it uses both quotes

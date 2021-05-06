@@ -20,6 +20,7 @@ write_delim(
   escape = c("double", "backslash", "none"),
   eol = "\\n",
   num_threads = readr_threads(),
+  progress = show_progress(),
   path = deprecated(),
   quote_escape = deprecated()
 )
@@ -34,6 +35,7 @@ write_csv(
   escape = c("double", "backslash", "none"),
   eol = "\\n",
   num_threads = readr_threads(),
+  progress = show_progress(),
   path = deprecated(),
   quote_escape = deprecated()
 )
@@ -48,6 +50,7 @@ write_csv2(
   escape = c("double", "backslash", "none"),
   eol = "\\n",
   num_threads = readr_threads(),
+  progress = show_progress(),
   path = deprecated(),
   quote_escape = deprecated()
 )
@@ -63,6 +66,7 @@ write_excel_csv(
   escape = c("double", "backslash", "none"),
   eol = "\\n",
   num_threads = readr_threads(),
+  progress = show_progress(),
   path = deprecated(),
   quote_escape = deprecated()
 )
@@ -78,6 +82,7 @@ write_excel_csv2(
   escape = c("double", "backslash", "none"),
   eol = "\\n",
   num_threads = readr_threads(),
+  progress = show_progress(),
   path = deprecated(),
   quote_escape = deprecated()
 )
@@ -92,6 +97,7 @@ write_tsv(
   escape = c("double", "backslash", "none"),
   eol = "\\n",
   num_threads = readr_threads(),
+  progress = show_progress(),
   path = deprecated(),
   quote_escape = deprecated()
 )
@@ -135,6 +141,12 @@ Unix style newlines, or \code{"\\r\\n"} for Windows style newlines.}
 \item{num_threads}{Number of threads to use when reading and materializing
 vectors. If your data contains newlines within fields the parser will
 automatically be forced to use a single thread only.}
+
+\item{progress}{Display a progress bar? By default it will only display
+in an interactive session and not while knitting a document. The display
+is updated every 50,000 values and will only display if estimated reading
+time is 5 seconds or more. The automatic progress bar can be disabled by
+setting option \code{readr.show_progress} to \code{FALSE}.}
 
 \item{path}{\Sexpr[results=rd, stage=render]{lifecycle::badge("deprecated")}}
 

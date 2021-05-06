@@ -73,6 +73,7 @@ write_delim <- function(x, file, delim = " ", na = "NA", append = FALSE,
                         escape = c("double", "backslash", "none"),
                         eol = "\n",
                         num_threads = readr_threads(),
+                        progress = show_progress(),
                         path = deprecated(),
                         quote_escape = deprecated()) {
   if (is_present(path)) {
@@ -99,7 +100,8 @@ write_delim <- function(x, file, delim = " ", na = "NA", append = FALSE,
   }
   vroom::vroom_write(x, file,
     delim = delim, col_names = col_names, append = append,
-    na = na, eol = eol, quote = quote, escape = escape, num_threads = num_threads
+    na = na, eol = eol, quote = quote, escape = escape, num_threads = num_threads,
+    progress = progress
   )
 
   invisible(x_out)
@@ -112,6 +114,7 @@ write_csv <- function(x, file, na = "NA", append = FALSE, col_names = !append,
                       escape = c("double", "backslash", "none"),
                       eol = "\n",
                       num_threads = readr_threads(),
+                      progress = show_progress(),
                       path = deprecated(),
                       quote_escape = deprecated()) {
 
@@ -127,7 +130,8 @@ write_csv <- function(x, file, na = "NA", append = FALSE, col_names = !append,
 
   write_delim(x, file,
     delim = ",", na = na, append = append,
-    col_names = col_names, quote = quote, escape = escape, eol = eol, num_threads = num_threads
+    col_names = col_names, quote = quote, escape = escape, eol = eol, num_threads = num_threads,
+    progress = progress
   )
 }
 
@@ -138,6 +142,7 @@ write_csv2 <- function(x, file, na = "NA", append = FALSE, col_names = !append,
                        escape = c("double", "backslash", "none"),
                        eol = "\n",
                        num_threads = readr_threads(),
+                       progress = show_progress(),
                        path = deprecated(),
                        quote_escape = deprecated()) {
   if (is_present(path)) {
@@ -154,7 +159,8 @@ write_csv2 <- function(x, file, na = "NA", append = FALSE, col_names = !append,
   x <- change_decimal_separator(x, decimal_mark = ",")
   write_delim(x, file,
     delim = ";", na = na, append = append,
-    col_names = col_names, quote = quote, escape = escape, eol = eol, num_threads = num_threads
+    col_names = col_names, quote = quote, escape = escape, eol = eol, num_threads = num_threads,
+    progress = progress
   )
 
   invisible(x_out)
@@ -168,6 +174,7 @@ write_excel_csv <- function(x, file, na = "NA", append = FALSE,
                             escape = c("double", "backslash", "none"),
                             eol = "\n",
                             num_threads = readr_threads(),
+                            progress = show_progress(),
                             path = deprecated(),
                             quote_escape = deprecated()) {
   if (is_present(path)) {
@@ -199,7 +206,8 @@ write_excel_csv <- function(x, file, na = "NA", append = FALSE,
     col_names = col_names, append = append,
     na = na, bom = !append,
     quote = quote, escape = escape,
-    eol = eol, num_threads = num_threads
+    eol = eol, num_threads = num_threads,
+    progress = progress
   )
 
   invisible(x_out)
@@ -213,6 +221,7 @@ write_excel_csv2 <- function(x, file, na = "NA", append = FALSE,
                              escape = c("double", "backslash", "none"),
                              eol = "\n",
                              num_threads = readr_threads(),
+                             progress = show_progress(),
                              path = deprecated(),
                              quote_escape = deprecated()) {
   if (is_present(path)) {
@@ -238,7 +247,8 @@ write_excel_csv2 <- function(x, file, na = "NA", append = FALSE,
   write_excel_csv(x, file, na, append, col_names, delim,
     quote = quote,
     escape = escape,
-    eol = eol, num_threads = num_threads
+    eol = eol, num_threads = num_threads,
+    progress = progress
   )
 
   invisible(x_out)
@@ -251,6 +261,7 @@ write_tsv <- function(x, file, na = "NA", append = FALSE, col_names = !append,
                       escape = c("double", "backslash", "none"),
                       eol = "\n",
                       num_threads = readr_threads(),
+                      progress = show_progress(),
                       path = deprecated(),
                       quote_escape = deprecated()) {
   if (is_present(path)) {
@@ -265,8 +276,9 @@ write_tsv <- function(x, file, na = "NA", append = FALSE, col_names = !append,
 
 
   write_delim(x, file,
-    delim = "\t", na = na, append = append, col_names =
-      col_names, quote = quote, escape = escape, eol = eol, num_threads = num_threads
+    delim = "\t", na = na, append = append,
+    col_names = col_names, quote = quote, escape = escape, eol = eol,
+    num_threads = num_threads, progress = progress
   )
 }
 

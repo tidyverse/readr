@@ -129,10 +129,9 @@ each field before parsing it?}
 \item{guess_max}{Maximum number of records to use for guessing column types.}
 
 \item{progress}{Display a progress bar? By default it will only display
-in an interactive session and not while knitting a document. The display
-is updated every 50,000 values and will only display if estimated reading
-time is 5 seconds or more. The automatic progress bar can be disabled by
-setting option \code{readr.show_progress} to \code{FALSE}.}
+in an interactive session and not while knitting a document. The automatic
+progress bar can be disabled by setting option \code{readr.show_progress} to
+\code{FALSE}.}
 
 \item{name_repair}{Treatment of problematic column names:
 \itemize{

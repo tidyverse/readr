@@ -185,10 +185,9 @@ each field before parsing it?}
 \item{guess_max}{Maximum number of records to use for guessing column types.}
 
 \item{progress}{Display a progress bar? By default it will only display
-in an interactive session and not while knitting a document. The display
-is updated every 50,000 values and will only display if estimated reading
-time is 5 seconds or more. The automatic progress bar can be disabled by
-setting option \code{readr.show_progress} to \code{FALSE}.}
+in an interactive session and not while knitting a document. The automatic
+progress bar can be disabled by setting option \code{readr.show_progress} to
+\code{FALSE}.}
 
 \item{skip_empty_rows}{Should blank rows be ignored altogether? i.e. If this
 option is \code{TRUE} then blank rows will not be represented at all.  If it is

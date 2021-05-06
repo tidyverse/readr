@@ -73,10 +73,9 @@ NULL
 #' @param n_max Maximum number of records to read.
 #' @param guess_max Maximum number of records to use for guessing column types.
 #' @param progress Display a progress bar? By default it will only display
-#'   in an interactive session and not while knitting a document. The display
-#'   is updated every 50,000 values and will only display if estimated reading
-#'   time is 5 seconds or more. The automatic progress bar can be disabled by
-#'   setting option `readr.show_progress` to `FALSE`.
+#'   in an interactive session and not while knitting a document. The automatic
+#'   progress bar can be disabled by setting option `readr.show_progress` to
+#'   `FALSE`.
 #' @param lazy Read values lazily? By default the file is initially only
 #'   indexed. The actual values are read lazily on-demand when accessed.
 #' @param num_threads The number of processing threads to use for initial

@@ -22,6 +22,8 @@
 
 * All `write_*()` and `format_*()` functions gain `quote` and `escape` arguments, to explicitly control how fields are quoted and how double quotes are escaped. (#653, #759, #844, #993, #1018, #1083)
 
+* All `write_*()` functions gain a `progress` argument and display a progress bar when writing (#791).
+
 * write_tsv() now defaults to `quote = "none"` (#993)
 
 * write_excel_csv() now defaults to `quote = "all"` (#759)
