@@ -310,7 +310,7 @@ format_delim <- function(x, delim, na = "NA", append = FALSE,
 
   x[] <- lapply(x, output_column)
   if (edition_first()) {
-    res <- stream_delim(df = x, file = NULL, delim = delim, col_names = col_names, append = append, na = na, quote_escape = quotequote_escape, eol = eol)
+    res <- stream_delim(df = x, file = NULL, delim = delim, col_names = col_names, append = append, na = na, quote_escape = escape, eol = eol)
     Encoding(res) <- "UTF-8"
     return(res)
   }
