@@ -22,6 +22,8 @@
 
 ## Additional features and fixes
 
+* `read_rds()` can now read .Rds files from URLs (#1186)
+
 * `read_*()` functions gain a `show_col_types` argument, if set to `FALSE` this turns off showing the column types unconditionally.
 
 * readr now uses the clock package when parsing date-times (@DavisVaughan, r-lib/vroom#273)

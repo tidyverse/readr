@@ -15,7 +15,10 @@
 #' write_rds(mtcars, "compressed_mtc.rds", "xz", compression = 9L)
 #' }
 read_rds <- function(file) {
-  readRDS(file)
+  con <- file(file)
+  on.exit(close(con))
+
+  readRDS(con)
 }
 
 
