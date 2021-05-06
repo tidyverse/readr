@@ -185,10 +185,12 @@ to coerce columns to suitable output.</p>
   na <span class='op'>=</span> <span class='st'>"NA"</span>,
   append <span class='op'>=</span> <span class='cn'>FALSE</span>,
   col_names <span class='op'>=</span> <span class='op'>!</span><span class='va'>append</span>,
-  quote_escape <span class='op'>=</span> <span class='st'>"double"</span>,
+  quote <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"needed"</span>, <span class='st'>"all"</span>, <span class='st'>"none"</span><span class='op'>)</span>,
+  escape <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"double"</span>, <span class='st'>"backslash"</span>, <span class='st'>"none"</span><span class='op'>)</span>,
   eol <span class='op'>=</span> <span class='st'>"\n"</span>,
   num_threads <span class='op'>=</span> <span class='fu'><a href='readr_threads.html'>readr_threads</a></span><span class='op'>(</span><span class='op'>)</span>,
-  path <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/Deprecated.html'>deprecated</a></span><span class='op'>(</span><span class='op'>)</span>
+  path <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/Deprecated.html'>deprecated</a></span><span class='op'>(</span><span class='op'>)</span>,
+  quote_escape <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/Deprecated.html'>deprecated</a></span><span class='op'>(</span><span class='op'>)</span>
 <span class='op'>)</span>
 
 <span class='fu'>write_csv</span><span class='op'>(</span>
@@ -197,10 +199,12 @@ to coerce columns to suitable output.</p>
   na <span class='op'>=</span> <span class='st'>"NA"</span>,
   append <span class='op'>=</span> <span class='cn'>FALSE</span>,
   col_names <span class='op'>=</span> <span class='op'>!</span><span class='va'>append</span>,
-  quote_escape <span class='op'>=</span> <span class='st'>"double"</span>,
+  quote <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"needed"</span>, <span class='st'>"all"</span>, <span class='st'>"none"</span><span class='op'>)</span>,
+  escape <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"double"</span>, <span class='st'>"backslash"</span>, <span class='st'>"none"</span><span class='op'>)</span>,
   eol <span class='op'>=</span> <span class='st'>"\n"</span>,
   num_threads <span class='op'>=</span> <span class='fu'><a href='readr_threads.html'>readr_threads</a></span><span class='op'>(</span><span class='op'>)</span>,
-  path <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/Deprecated.html'>deprecated</a></span><span class='op'>(</span><span class='op'>)</span>
+  path <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/Deprecated.html'>deprecated</a></span><span class='op'>(</span><span class='op'>)</span>,
+  quote_escape <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/Deprecated.html'>deprecated</a></span><span class='op'>(</span><span class='op'>)</span>
 <span class='op'>)</span>
 
 <span class='fu'>write_csv2</span><span class='op'>(</span>
@@ -209,10 +213,12 @@ to coerce columns to suitable output.</p>
   na <span class='op'>=</span> <span class='st'>"NA"</span>,
   append <span class='op'>=</span> <span class='cn'>FALSE</span>,
   col_names <span class='op'>=</span> <span class='op'>!</span><span class='va'>append</span>,
-  quote_escape <span class='op'>=</span> <span class='st'>"double"</span>,
+  quote <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"needed"</span>, <span class='st'>"all"</span>, <span class='st'>"none"</span><span class='op'>)</span>,
+  escape <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"double"</span>, <span class='st'>"backslash"</span>, <span class='st'>"none"</span><span class='op'>)</span>,
   eol <span class='op'>=</span> <span class='st'>"\n"</span>,
   num_threads <span class='op'>=</span> <span class='fu'><a href='readr_threads.html'>readr_threads</a></span><span class='op'>(</span><span class='op'>)</span>,
-  path <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/Deprecated.html'>deprecated</a></span><span class='op'>(</span><span class='op'>)</span>
+  path <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/Deprecated.html'>deprecated</a></span><span class='op'>(</span><span class='op'>)</span>,
+  quote_escape <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/Deprecated.html'>deprecated</a></span><span class='op'>(</span><span class='op'>)</span>
 <span class='op'>)</span>
 
 <span class='fu'>write_excel_csv</span><span class='op'>(</span>
@@ -222,10 +228,12 @@ to coerce columns to suitable output.</p>
   append <span class='op'>=</span> <span class='cn'>FALSE</span>,
   col_names <span class='op'>=</span> <span class='op'>!</span><span class='va'>append</span>,
   delim <span class='op'>=</span> <span class='st'>","</span>,
-  quote_escape <span class='op'>=</span> <span class='st'>"double"</span>,
+  quote <span class='op'>=</span> <span class='st'>"all"</span>,
+  escape <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"double"</span>, <span class='st'>"backslash"</span>, <span class='st'>"none"</span><span class='op'>)</span>,
   eol <span class='op'>=</span> <span class='st'>"\n"</span>,
   num_threads <span class='op'>=</span> <span class='fu'><a href='readr_threads.html'>readr_threads</a></span><span class='op'>(</span><span class='op'>)</span>,
-  path <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/Deprecated.html'>deprecated</a></span><span class='op'>(</span><span class='op'>)</span>
+  path <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/Deprecated.html'>deprecated</a></span><span class='op'>(</span><span class='op'>)</span>,
+  quote_escape <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/Deprecated.html'>deprecated</a></span><span class='op'>(</span><span class='op'>)</span>
 <span class='op'>)</span>
 
 <span class='fu'>write_excel_csv2</span><span class='op'>(</span>
@@ -235,10 +243,12 @@ to coerce columns to suitable output.</p>
   append <span class='op'>=</span> <span class='cn'>FALSE</span>,
   col_names <span class='op'>=</span> <span class='op'>!</span><span class='va'>append</span>,
   delim <span class='op'>=</span> <span class='st'>";"</span>,
-  quote_escape <span class='op'>=</span> <span class='st'>"double"</span>,
+  quote <span class='op'>=</span> <span class='st'>"all"</span>,
+  escape <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"double"</span>, <span class='st'>"backslash"</span>, <span class='st'>"none"</span><span class='op'>)</span>,
   eol <span class='op'>=</span> <span class='st'>"\n"</span>,
   num_threads <span class='op'>=</span> <span class='fu'><a href='readr_threads.html'>readr_threads</a></span><span class='op'>(</span><span class='op'>)</span>,
-  path <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/Deprecated.html'>deprecated</a></span><span class='op'>(</span><span class='op'>)</span>
+  path <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/Deprecated.html'>deprecated</a></span><span class='op'>(</span><span class='op'>)</span>,
+  quote_escape <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/Deprecated.html'>deprecated</a></span><span class='op'>(</span><span class='op'>)</span>
 <span class='op'>)</span>
 
 <span class='fu'>write_tsv</span><span class='op'>(</span>
@@ -247,10 +257,12 @@ to coerce columns to suitable output.</p>
   na <span class='op'>=</span> <span class='st'>"NA"</span>,
   append <span class='op'>=</span> <span class='cn'>FALSE</span>,
   col_names <span class='op'>=</span> <span class='op'>!</span><span class='va'>append</span>,
-  quote_escape <span class='op'>=</span> <span class='st'>"double"</span>,
+  quote <span class='op'>=</span> <span class='st'>"none"</span>,
+  escape <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"double"</span>, <span class='st'>"backslash"</span>, <span class='st'>"none"</span><span class='op'>)</span>,
   eol <span class='op'>=</span> <span class='st'>"\n"</span>,
   num_threads <span class='op'>=</span> <span class='fu'><a href='readr_threads.html'>readr_threads</a></span><span class='op'>(</span><span class='op'>)</span>,
-  path <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/Deprecated.html'>deprecated</a></span><span class='op'>(</span><span class='op'>)</span>
+  path <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/Deprecated.html'>deprecated</a></span><span class='op'>(</span><span class='op'>)</span>,
+  quote_escape <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/Deprecated.html'>deprecated</a></span><span class='op'>(</span><span class='op'>)</span>
 <span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
@@ -287,10 +299,20 @@ file is created.</p></td>
 column names will be included. If not specified, <code>col_names</code> will take the opposite value given to <code>append</code>.</p></td>
     </tr>
     <tr>
-      <th>quote_escape</th>
-      <td><p>The type of escaping to use for quoted values, one of
-<code>"double"</code>, <code>"backslash"</code> or <code>"none"</code>. You can also use <code>FALSE</code>, which is
-equivalent to "none". The default is <code>"double"</code>, which is expected format for Excel.</p></td>
+      <th>quote</th>
+      <td><p>How to handle fields which contain characters that need to be quoted.</p><ul>
+<li><p><code>needed</code> - Only quote fields which need them.</p></li>
+<li><p><code>all</code> - Quote all fields.</p></li>
+<li><p><code>none</code> - Never quote fields.</p></li>
+</ul></td>
+    </tr>
+    <tr>
+      <th>escape</th>
+      <td><p>The type of escape to use when quotes are in the data.</p><ul>
+<li><p><code>double</code> - quotes are escaped by doubling them.</p></li>
+<li><p><code>backslash</code> - quotes are escaped by a preceding backslash.</p></li>
+<li><p><code>none</code> - quotes are not escaped.</p></li>
+</ul></td>
     </tr>
     <tr>
       <th>eol</th>
@@ -299,11 +321,16 @@ Unix style newlines, or <code>"\r\n"</code> for Windows style newlines.</p></td>
     </tr>
     <tr>
       <th>num_threads</th>
-      <td><p>The number of processing threads to use for initial
-parsing and lazy reading of data.</p></td>
+      <td><p>Number of threads to use when reading and materializing
+vectors. If your data contains newlines within fields the parser will
+automatically be forced to use a single thread only.</p></td>
     </tr>
     <tr>
       <th>path</th>
+      <td><p><a href='https://lifecycle.r-lib.org/articles/stages.html#deprecated'><img src='figures/lifecycle-deprecated.svg' alt='[Deprecated]' /></a></p></td>
+    </tr>
+    <tr>
+      <th>quote_escape</th>
       <td><p><a href='https://lifecycle.r-lib.org/articles/stages.html#deprecated'><img src='figures/lifecycle-deprecated.svg' alt='[Deprecated]' /></a></p></td>
     </tr>
     </table>

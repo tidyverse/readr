@@ -179,6 +179,9 @@
 <li><p>All <code>read_*()</code> functions gain a <code>id</code> argument to optionally store the file paths when reading multiple files.</p></li>
 <li><p>All <code>read_*()</code> functions gain a <code>name_repair</code> argument to control how column names are repaired.</p></li>
 <li><p>All <code>read_*()</code> and <code>write_*()</code> functions gain a <code>num_threads</code> argument to control the number of processing threads they use (<a href='https://github.com/tidyverse/readr/issues/1201'>#1201</a>)</p></li>
+<li><p>All <code>write_*()</code> and <code>format_*()</code> functions gain <code>quote</code> and <code>escape</code> arguments, to explicitly control how fields are quoted and how double quotes are escaped. (<a href='https://github.com/tidyverse/readr/issues/653'>#653</a>, <a href='https://github.com/tidyverse/readr/issues/759'>#759</a>, <a href='https://github.com/tidyverse/readr/issues/844'>#844</a>, <a href='https://github.com/tidyverse/readr/issues/993'>#993</a>, <a href='https://github.com/tidyverse/readr/issues/1018'>#1018</a>, <a href='https://github.com/tidyverse/readr/issues/1083'>#1083</a>)</p></li>
+<li><p>write_tsv() now defaults to <code>quote = "none"</code> (<a href='https://github.com/tidyverse/readr/issues/993'>#993</a>)</p></li>
+<li><p>write_excel_csv() now defaults to <code>quote = "all"</code> (<a href='https://github.com/tidyverse/readr/issues/759'>#759</a>)</p></li>
 </ul>
 </div>
 <div id="additional-features-and-fixes" class="section level2">

@@ -178,8 +178,10 @@ of writing to disk, they return a string.</p>
   na <span class='op'>=</span> <span class='st'>"NA"</span>,
   append <span class='op'>=</span> <span class='cn'>FALSE</span>,
   col_names <span class='op'>=</span> <span class='op'>!</span><span class='va'>append</span>,
-  quote_escape <span class='op'>=</span> <span class='st'>"double"</span>,
-  eol <span class='op'>=</span> <span class='st'>"\n"</span>
+  quote <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"needed"</span>, <span class='st'>"all"</span>, <span class='st'>"none"</span><span class='op'>)</span>,
+  escape <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"double"</span>, <span class='st'>"backslash"</span>, <span class='st'>"none"</span><span class='op'>)</span>,
+  eol <span class='op'>=</span> <span class='st'>"\n"</span>,
+  quote_escape <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/Deprecated.html'>deprecated</a></span><span class='op'>(</span><span class='op'>)</span>
 <span class='op'>)</span>
 
 <span class='fu'>format_csv</span><span class='op'>(</span>
@@ -187,8 +189,10 @@ of writing to disk, they return a string.</p>
   na <span class='op'>=</span> <span class='st'>"NA"</span>,
   append <span class='op'>=</span> <span class='cn'>FALSE</span>,
   col_names <span class='op'>=</span> <span class='op'>!</span><span class='va'>append</span>,
-  quote_escape <span class='op'>=</span> <span class='st'>"double"</span>,
-  eol <span class='op'>=</span> <span class='st'>"\n"</span>
+  quote <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"needed"</span>, <span class='st'>"all"</span>, <span class='st'>"none"</span><span class='op'>)</span>,
+  escape <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"double"</span>, <span class='st'>"backslash"</span>, <span class='st'>"none"</span><span class='op'>)</span>,
+  eol <span class='op'>=</span> <span class='st'>"\n"</span>,
+  quote_escape <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/Deprecated.html'>deprecated</a></span><span class='op'>(</span><span class='op'>)</span>
 <span class='op'>)</span>
 
 <span class='fu'>format_csv2</span><span class='op'>(</span>
@@ -196,8 +200,10 @@ of writing to disk, they return a string.</p>
   na <span class='op'>=</span> <span class='st'>"NA"</span>,
   append <span class='op'>=</span> <span class='cn'>FALSE</span>,
   col_names <span class='op'>=</span> <span class='op'>!</span><span class='va'>append</span>,
-  quote_escape <span class='op'>=</span> <span class='st'>"double"</span>,
-  eol <span class='op'>=</span> <span class='st'>"\n"</span>
+  quote <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"needed"</span>, <span class='st'>"all"</span>, <span class='st'>"none"</span><span class='op'>)</span>,
+  escape <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"double"</span>, <span class='st'>"backslash"</span>, <span class='st'>"none"</span><span class='op'>)</span>,
+  eol <span class='op'>=</span> <span class='st'>"\n"</span>,
+  quote_escape <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/Deprecated.html'>deprecated</a></span><span class='op'>(</span><span class='op'>)</span>
 <span class='op'>)</span>
 
 <span class='fu'>format_tsv</span><span class='op'>(</span>
@@ -205,8 +211,10 @@ of writing to disk, they return a string.</p>
   na <span class='op'>=</span> <span class='st'>"NA"</span>,
   append <span class='op'>=</span> <span class='cn'>FALSE</span>,
   col_names <span class='op'>=</span> <span class='op'>!</span><span class='va'>append</span>,
-  quote_escape <span class='op'>=</span> <span class='st'>"double"</span>,
-  eol <span class='op'>=</span> <span class='st'>"\n"</span>
+  quote <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"needed"</span>, <span class='st'>"all"</span>, <span class='st'>"none"</span><span class='op'>)</span>,
+  escape <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"double"</span>, <span class='st'>"backslash"</span>, <span class='st'>"none"</span><span class='op'>)</span>,
+  eol <span class='op'>=</span> <span class='st'>"\n"</span>,
+  quote_escape <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/Deprecated.html'>deprecated</a></span><span class='op'>(</span><span class='op'>)</span>
 <span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
@@ -239,15 +247,29 @@ file is created.</p></td>
 column names will be included. If not specified, <code>col_names</code> will take the opposite value given to <code>append</code>.</p></td>
     </tr>
     <tr>
-      <th>quote_escape</th>
-      <td><p>The type of escaping to use for quoted values, one of
-<code>"double"</code>, <code>"backslash"</code> or <code>"none"</code>. You can also use <code>FALSE</code>, which is
-equivalent to "none". The default is <code>"double"</code>, which is expected format for Excel.</p></td>
+      <th>quote</th>
+      <td><p>How to handle fields which contain characters that need to be quoted.</p><ul>
+<li><p><code>needed</code> - Only quote fields which need them.</p></li>
+<li><p><code>all</code> - Quote all fields.</p></li>
+<li><p><code>none</code> - Never quote fields.</p></li>
+</ul></td>
+    </tr>
+    <tr>
+      <th>escape</th>
+      <td><p>The type of escape to use when quotes are in the data.</p><ul>
+<li><p><code>double</code> - quotes are escaped by doubling them.</p></li>
+<li><p><code>backslash</code> - quotes are escaped by a preceding backslash.</p></li>
+<li><p><code>none</code> - quotes are not escaped.</p></li>
+</ul></td>
     </tr>
     <tr>
       <th>eol</th>
       <td><p>The end of line character to use. Most commonly either <code>"\n"</code> for
 Unix style newlines, or <code>"\r\n"</code> for Windows style newlines.</p></td>
+    </tr>
+    <tr>
+      <th>quote_escape</th>
+      <td><p><a href='https://lifecycle.r-lib.org/articles/stages.html#deprecated'><img src='figures/lifecycle-deprecated.svg' alt='[Deprecated]' /></a></p></td>
     </tr>
     </table>
 
