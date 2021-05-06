@@ -189,6 +189,12 @@ It's also very fast to parse, because every field is in the same place in
 every line. Unfortunately, it's painful to parse because you need to
 describe the length of every field. Readr aims to make it as easy as possible
 by providing a number of different ways to describe the field structure.
+\itemize{
+\item \code{\link[=fwf_empty]{fwf_empty()}} - Guesses based on the positions of empty columns.
+\item \code{\link[=fwf_widths]{fwf_widths()}} - Supply the widths of the columns.
+\item \code{\link[=fwf_positions]{fwf_positions()}} - Supply paired vectors of start and end positions.
+\item \code{\link[=fwf_cols]{fwf_cols()}} - Supply named arguments of paired start and end positions or column widths.
+}
 }
 \examples{
 fwf_sample <- readr_example("fwf-sample.txt")

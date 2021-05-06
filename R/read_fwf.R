@@ -7,6 +7,10 @@
 #' every line. Unfortunately, it's painful to parse because you need to
 #' describe the length of every field. Readr aims to make it as easy as possible
 #' by providing a number of different ways to describe the field structure.
+#' - [fwf_empty()] - Guesses based on the positions of empty columns.
+#' - [fwf_widths()] - Supply the widths of the columns.
+#' - [fwf_positions()] - Supply paired vectors of start and end positions.
+#' - [fwf_cols()] - Supply named arguments of paired start and end positions or column widths.
 #'
 #' @seealso [read_table()] to read fixed width files where each
 #'   column is separated by whitespace.
