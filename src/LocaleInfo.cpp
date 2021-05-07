@@ -6,7 +6,7 @@
 
 #include "LocaleInfo.h"
 
-LocaleInfo::LocaleInfo(cpp11::list x)
+LocaleInfo::LocaleInfo(const cpp11::list& x)
     : encoding_(cpp11::as_cpp<std::string>(x["encoding"])),
       encoder_(Iconv(encoding_)) {
   std::string klass = cpp11::as_cpp<std::string>(x.attr("class"));

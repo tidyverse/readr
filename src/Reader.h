@@ -12,17 +12,17 @@ public:
       TokenizerPtr tokenizer,
       std::vector<CollectorPtr> collectors,
       bool progress,
-      cpp11::strings colNames = cpp11::strings());
+      const cpp11::strings& colNames = cpp11::strings());
 
   Reader(
       SourcePtr source,
       TokenizerPtr tokenizer,
-      CollectorPtr collector,
+      const CollectorPtr& collector,
       bool progress,
-      cpp11::strings colNames = cpp11::strings());
+      const cpp11::strings& colNames = cpp11::strings());
 
   cpp11::sexp readToDataFrame(R_xlen_t lines = -1);
-  cpp11::sexp meltToDataFrame(cpp11::list locale_, R_xlen_t lines = -1);
+  cpp11::sexp meltToDataFrame(const cpp11::list& locale_, R_xlen_t lines = -1);
 
   template <typename T> T readToVector(R_xlen_t lines) {
     read(lines);
@@ -47,9 +47,9 @@ private:
 
   const static R_xlen_t progressStep_ = 10000;
 
-  void init(cpp11::strings colNames);
+  void init(const cpp11::strings& colNames);
   R_xlen_t read(R_xlen_t lines = -1);
-  R_xlen_t melt(cpp11::list locale_, R_xlen_t lines = -1);
+  R_xlen_t melt(const cpp11::list& locale_, R_xlen_t lines = -1);
   void checkColumns(int i, int j, int n);
 
   void collectorsResize(R_xlen_t n);

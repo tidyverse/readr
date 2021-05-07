@@ -6,7 +6,7 @@
 #include <fstream>
 
 // Wrapper around R's read_bin function
-SEXP read_bin(cpp11::sexp con, int bytes) {
+SEXP read_bin(const cpp11::sexp& con, int bytes) {
   static auto readBin = cpp11::package("base")["readBin"];
 
   return readBin(con, "raw", bytes);
@@ -16,7 +16,7 @@ SEXP read_bin(cpp11::sexp con, int bytes) {
 // raw vector.
 //
 [[cpp11::register]] std::string
-read_connection_(cpp11::sexp con, std::string filename, int chunk_size) {
+read_connection_(const cpp11::sexp& con, std::string filename, int chunk_size) {
 
   std::ofstream out(filename.c_str(), std::fstream::out | std::fstream::binary);
 

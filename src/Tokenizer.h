@@ -51,7 +51,7 @@ public:
     pWarnings_->addWarning(row, col, expected, actual);
   }
 
-  static TokenizerPtr create(cpp11::list spec);
+  static TokenizerPtr create(const cpp11::list& spec);
 };
 
 // -----------------------------------------------------------------------------

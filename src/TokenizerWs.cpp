@@ -11,10 +11,12 @@
 // --------------------------------------------------------------------
 
 #include <cctype>
+#include <utility>
+
 
 TokenizerWs::TokenizerWs(
-    std::vector<std::string> NA, std::string comment, bool skipEmptyRows)
-    : NA_(NA),
+    std::vector<std::string> NA, const std::string& comment, bool skipEmptyRows)
+    : NA_(std::move(NA)),
       comment_(comment),
       moreTokens_(false),
       hasComment_(comment.size() > 0),

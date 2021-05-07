@@ -7,8 +7,8 @@
 #include <ostream>
 
 [[cpp11::register]] void write_lines_(
-    cpp11::strings lines,
-    cpp11::sexp connection,
+    const cpp11::strings& lines,
+    const cpp11::sexp& connection,
     const std::string& na,
     const std::string& sep) {
 
@@ -27,7 +27,7 @@
 }
 
 [[cpp11::register]] void write_lines_raw_(
-    cpp11::list x, cpp11::sexp connection, const std::string& sep) {
+    const cpp11::list& x, const cpp11::sexp& connection, const std::string& sep) {
 
   for (int i = 0; i < x.size(); ++i) {
     cpp11::raws y(x.at(i));
@@ -41,13 +41,13 @@
   return;
 }
 
-[[cpp11::register]] void write_file_(std::string x, cpp11::sexp connection) {
+[[cpp11::register]] void write_file_(const std::string& x, const cpp11::sexp& connection) {
   write_bytes(connection, x.c_str(), x.size());
   return;
 }
 
 [[cpp11::register]] void
-write_file_raw_(cpp11::raws x, cpp11::sexp connection) {
+write_file_raw_(const cpp11::raws& x, const cpp11::sexp& connection) {
 
   write_bytes(
       connection,

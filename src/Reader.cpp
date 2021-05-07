@@ -4,16 +4,18 @@
 #include "cpp11/list.hpp"
 
 #include <sstream>
+#include <utility>
+
 
 Reader::Reader(
     SourcePtr source,
     TokenizerPtr tokenizer,
     std::vector<CollectorPtr> collectors,
     bool progress,
-    cpp11::strings colNames)
-    : source_(source),
-      tokenizer_(tokenizer),
-      collectors_(collectors),
+    const cpp11::strings& colNames)
+    : source_(std::move(source)),
+      tokenizer_(std::move(tokenizer)),
+      collectors_(std::move(collectors)),
       progress_(progress),
       begun_(false) {
   init(colNames);
@@ -22,11 +24,11 @@ Reader::Reader(
 Reader::Reader(
     SourcePtr source,
     TokenizerPtr tokenizer,
-    CollectorPtr collector,
+    const CollectorPtr& collector,
     bool progress,
-    cpp11::strings colNames)
-    : source_(source),
-      tokenizer_(tokenizer),
+    const cpp11::strings& colNames)
+    : source_(std::move(source)),
+      tokenizer_(std::move(tokenizer)),
       progress_(progress),
       begun_(false) {
 
@@ -34,7 +36,7 @@ Reader::Reader(
   init(colNames);
 }
 
-void Reader::init(cpp11::strings colNames) {
+void Reader::init(const cpp11::strings& colNames) {
   tokenizer_->tokenize(source_->begin(), source_->end());
   tokenizer_->setWarnings(&warnings_);
 
@@ -180,7 +182,7 @@ void Reader::collectorsClear() {
   }
 }
 
-cpp11::sexp Reader::meltToDataFrame(cpp11::list locale_, R_xlen_t lines) {
+cpp11::sexp Reader::meltToDataFrame(const cpp11::list& locale_, R_xlen_t lines) {
   melt(locale_, lines);
 
   // Save individual columns into a data frame
@@ -202,7 +204,7 @@ cpp11::sexp Reader::meltToDataFrame(cpp11::list locale_, R_xlen_t lines) {
   return as_tibble(out);
 }
 
-R_xlen_t Reader::melt(cpp11::list locale_, R_xlen_t lines) {
+R_xlen_t Reader::melt(const cpp11::list& locale_, R_xlen_t lines) {
 
   if (t_.type() == TOKEN_EOF) {
     return (-1);

@@ -34,7 +34,7 @@ public:
 
   static const char* skipBom(const char* begin, const char* end);
 
-  static SourcePtr create(cpp11::list spec);
+  static SourcePtr create(const cpp11::list& spec);
 
 private:
   static bool

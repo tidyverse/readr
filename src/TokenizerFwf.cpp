@@ -8,6 +8,8 @@
 #include "Source.h"
 
 #include <sstream>
+#include <utility>
+
 
 struct skip_t {
   SourceIterator begin;
@@ -15,7 +17,7 @@ struct skip_t {
 };
 
 skip_t skip_comments(
-    SourceIterator begin, SourceIterator end, std::string comment = "") {
+    SourceIterator begin, SourceIterator end, const std::string& comment = "") {
   skip_t out;
   if (comment.length() == 0) {
     out.begin = begin;
@@ -76,10 +78,10 @@ std::vector<bool> emptyCols_(
 }
 
 [[cpp11::register]] cpp11::list
-whitespaceColumns(cpp11::list sourceSpec, int n, std::string comment) {
+whitespaceColumns(const cpp11::list& sourceSpec, int n, std::string comment) {
   SourcePtr source = Source::create(sourceSpec);
 
-  skip_t s = skip_comments(source->begin(), source->end(), comment);
+  skip_t s = skip_comments(source->begin(), source->end(), std::move(comment));
 
   std::vector<bool> empty = emptyCols_(s.begin, source->end(), n);
   std::vector<int> begin, end;
@@ -112,12 +114,12 @@ TokenizerFwf::TokenizerFwf(
     const std::vector<int>& beginOffset,
     const std::vector<int>& endOffset,
     std::vector<std::string> NA,
-    std::string comment,
+    const std::string& comment,
     bool trimWS,
     bool skipEmptyRows)
     : beginOffset_(beginOffset),
       endOffset_(endOffset),
-      NA_(NA),
+      NA_(std::move(NA)),
       cols_(beginOffset.size()),
       comment_(comment),
       moreTokens_(false),

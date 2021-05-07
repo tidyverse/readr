@@ -9,7 +9,7 @@
 #include "TokenizerLog.h"
 #include "TokenizerWs.h"
 
-TokenizerPtr Tokenizer::create(cpp11::list spec) {
+TokenizerPtr Tokenizer::create(const cpp11::list& spec) {
   std::string subclass(cpp11::strings(spec.attr("class"))[0]);
 
   if (subclass == "tokenizer_delim") {

@@ -85,7 +85,7 @@ void stream_delim(
   }
 }
 
-void validate_col_type(SEXP x, std::string name) {
+void validate_col_type(SEXP x, const std::string& name) {
   switch (TYPEOF(x)) {
   case LGLSXP:
   case INTSXP:
@@ -144,7 +144,7 @@ void stream_delim(
 
 [[cpp11::register]] void stream_delim_(
     const cpp11::list& df,
-    cpp11::sexp connection,
+    const cpp11::sexp& connection,
     char delim,
     const std::string& na,
     bool col_names,

@@ -5,193 +5,193 @@
 #include "cpp11/declarations.hpp"
 
 // CollectorGuess.cpp
-std::string collectorGuess(cpp11::strings input, cpp11::list locale_, bool guessInteger);
+std::string collectorGuess(const cpp11::strings& input, const cpp11::list& locale_, bool guessInteger);
 extern "C" SEXP _readr_collectorGuess(SEXP input, SEXP locale_, SEXP guessInteger) {
   BEGIN_CPP11
-    return cpp11::as_sexp(collectorGuess(cpp11::as_cpp<cpp11::decay_t<cpp11::strings>>(input), cpp11::as_cpp<cpp11::decay_t<cpp11::list>>(locale_), cpp11::as_cpp<cpp11::decay_t<bool>>(guessInteger)));
+    return cpp11::as_sexp(collectorGuess(cpp11::as_cpp<cpp11::decay_t<const cpp11::strings&>>(input), cpp11::as_cpp<cpp11::decay_t<const cpp11::list&>>(locale_), cpp11::as_cpp<cpp11::decay_t<bool>>(guessInteger)));
   END_CPP11
 }
 // connection.cpp
-std::string read_connection_(cpp11::sexp con, std::string filename, int chunk_size);
+std::string read_connection_(const cpp11::sexp& con, std::string filename, int chunk_size);
 extern "C" SEXP _readr_read_connection_(SEXP con, SEXP filename, SEXP chunk_size) {
   BEGIN_CPP11
-    return cpp11::as_sexp(read_connection_(cpp11::as_cpp<cpp11::decay_t<cpp11::sexp>>(con), cpp11::as_cpp<cpp11::decay_t<std::string>>(filename), cpp11::as_cpp<cpp11::decay_t<int>>(chunk_size)));
+    return cpp11::as_sexp(read_connection_(cpp11::as_cpp<cpp11::decay_t<const cpp11::sexp&>>(con), cpp11::as_cpp<cpp11::decay_t<std::string>>(filename), cpp11::as_cpp<cpp11::decay_t<int>>(chunk_size)));
   END_CPP11
 }
 // datetime.cpp
-cpp11::writable::doubles utctime_(cpp11::integers year, cpp11::integers month, cpp11::integers day, cpp11::integers hour, cpp11::integers min, cpp11::integers sec, cpp11::doubles psec);
+cpp11::writable::doubles utctime_(const cpp11::integers& year, const cpp11::integers& month, const cpp11::integers& day, const cpp11::integers& hour, const cpp11::integers& min, const cpp11::integers& sec, const cpp11::doubles& psec);
 extern "C" SEXP _readr_utctime_(SEXP year, SEXP month, SEXP day, SEXP hour, SEXP min, SEXP sec, SEXP psec) {
   BEGIN_CPP11
-    return cpp11::as_sexp(utctime_(cpp11::as_cpp<cpp11::decay_t<cpp11::integers>>(year), cpp11::as_cpp<cpp11::decay_t<cpp11::integers>>(month), cpp11::as_cpp<cpp11::decay_t<cpp11::integers>>(day), cpp11::as_cpp<cpp11::decay_t<cpp11::integers>>(hour), cpp11::as_cpp<cpp11::decay_t<cpp11::integers>>(min), cpp11::as_cpp<cpp11::decay_t<cpp11::integers>>(sec), cpp11::as_cpp<cpp11::decay_t<cpp11::doubles>>(psec)));
+    return cpp11::as_sexp(utctime_(cpp11::as_cpp<cpp11::decay_t<const cpp11::integers&>>(year), cpp11::as_cpp<cpp11::decay_t<const cpp11::integers&>>(month), cpp11::as_cpp<cpp11::decay_t<const cpp11::integers&>>(day), cpp11::as_cpp<cpp11::decay_t<const cpp11::integers&>>(hour), cpp11::as_cpp<cpp11::decay_t<const cpp11::integers&>>(min), cpp11::as_cpp<cpp11::decay_t<const cpp11::integers&>>(sec), cpp11::as_cpp<cpp11::decay_t<const cpp11::doubles&>>(psec)));
   END_CPP11
 }
 // parse.cpp
-cpp11::integers dim_tokens_(cpp11::list sourceSpec, cpp11::list tokenizerSpec);
+cpp11::integers dim_tokens_(const cpp11::list& sourceSpec, const cpp11::list& tokenizerSpec);
 extern "C" SEXP _readr_dim_tokens_(SEXP sourceSpec, SEXP tokenizerSpec) {
   BEGIN_CPP11
-    return cpp11::as_sexp(dim_tokens_(cpp11::as_cpp<cpp11::decay_t<cpp11::list>>(sourceSpec), cpp11::as_cpp<cpp11::decay_t<cpp11::list>>(tokenizerSpec)));
+    return cpp11::as_sexp(dim_tokens_(cpp11::as_cpp<cpp11::decay_t<const cpp11::list&>>(sourceSpec), cpp11::as_cpp<cpp11::decay_t<const cpp11::list&>>(tokenizerSpec)));
   END_CPP11
 }
 // parse.cpp
-std::vector<int> count_fields_(cpp11::list sourceSpec, cpp11::list tokenizerSpec, int n_max);
+std::vector<int> count_fields_(const cpp11::list& sourceSpec, const cpp11::list& tokenizerSpec, int n_max);
 extern "C" SEXP _readr_count_fields_(SEXP sourceSpec, SEXP tokenizerSpec, SEXP n_max) {
   BEGIN_CPP11
-    return cpp11::as_sexp(count_fields_(cpp11::as_cpp<cpp11::decay_t<cpp11::list>>(sourceSpec), cpp11::as_cpp<cpp11::decay_t<cpp11::list>>(tokenizerSpec), cpp11::as_cpp<cpp11::decay_t<int>>(n_max)));
+    return cpp11::as_sexp(count_fields_(cpp11::as_cpp<cpp11::decay_t<const cpp11::list&>>(sourceSpec), cpp11::as_cpp<cpp11::decay_t<const cpp11::list&>>(tokenizerSpec), cpp11::as_cpp<cpp11::decay_t<int>>(n_max)));
   END_CPP11
 }
 // parse.cpp
-cpp11::list guess_header_(cpp11::list sourceSpec, cpp11::list tokenizerSpec, cpp11::list locale_);
+cpp11::list guess_header_(const cpp11::list& sourceSpec, const cpp11::list& tokenizerSpec, const cpp11::list& locale_);
 extern "C" SEXP _readr_guess_header_(SEXP sourceSpec, SEXP tokenizerSpec, SEXP locale_) {
   BEGIN_CPP11
-    return cpp11::as_sexp(guess_header_(cpp11::as_cpp<cpp11::decay_t<cpp11::list>>(sourceSpec), cpp11::as_cpp<cpp11::decay_t<cpp11::list>>(tokenizerSpec), cpp11::as_cpp<cpp11::decay_t<cpp11::list>>(locale_)));
+    return cpp11::as_sexp(guess_header_(cpp11::as_cpp<cpp11::decay_t<const cpp11::list&>>(sourceSpec), cpp11::as_cpp<cpp11::decay_t<const cpp11::list&>>(tokenizerSpec), cpp11::as_cpp<cpp11::decay_t<const cpp11::list&>>(locale_)));
   END_CPP11
 }
 // parse.cpp
-SEXP tokenize_(cpp11::list sourceSpec, cpp11::list tokenizerSpec, int n_max);
+SEXP tokenize_(const cpp11::list& sourceSpec, const cpp11::list& tokenizerSpec, int n_max);
 extern "C" SEXP _readr_tokenize_(SEXP sourceSpec, SEXP tokenizerSpec, SEXP n_max) {
   BEGIN_CPP11
-    return cpp11::as_sexp(tokenize_(cpp11::as_cpp<cpp11::decay_t<cpp11::list>>(sourceSpec), cpp11::as_cpp<cpp11::decay_t<cpp11::list>>(tokenizerSpec), cpp11::as_cpp<cpp11::decay_t<int>>(n_max)));
+    return cpp11::as_sexp(tokenize_(cpp11::as_cpp<cpp11::decay_t<const cpp11::list&>>(sourceSpec), cpp11::as_cpp<cpp11::decay_t<const cpp11::list&>>(tokenizerSpec), cpp11::as_cpp<cpp11::decay_t<int>>(n_max)));
   END_CPP11
 }
 // parse.cpp
-SEXP parse_vector_(cpp11::strings x, cpp11::list collectorSpec, cpp11::list locale_, const std::vector<std::string>& na, const bool trim_ws);
+SEXP parse_vector_(const cpp11::strings& x, const cpp11::list& collectorSpec, const cpp11::list& locale_, const std::vector<std::string>& na, const bool trim_ws);
 extern "C" SEXP _readr_parse_vector_(SEXP x, SEXP collectorSpec, SEXP locale_, SEXP na, SEXP trim_ws) {
   BEGIN_CPP11
-    return cpp11::as_sexp(parse_vector_(cpp11::as_cpp<cpp11::decay_t<cpp11::strings>>(x), cpp11::as_cpp<cpp11::decay_t<cpp11::list>>(collectorSpec), cpp11::as_cpp<cpp11::decay_t<cpp11::list>>(locale_), cpp11::as_cpp<cpp11::decay_t<const std::vector<std::string>&>>(na), cpp11::as_cpp<cpp11::decay_t<const bool>>(trim_ws)));
+    return cpp11::as_sexp(parse_vector_(cpp11::as_cpp<cpp11::decay_t<const cpp11::strings&>>(x), cpp11::as_cpp<cpp11::decay_t<const cpp11::list&>>(collectorSpec), cpp11::as_cpp<cpp11::decay_t<const cpp11::list&>>(locale_), cpp11::as_cpp<cpp11::decay_t<const std::vector<std::string>&>>(na), cpp11::as_cpp<cpp11::decay_t<const bool>>(trim_ws)));
   END_CPP11
 }
 // read.cpp
-cpp11::strings read_file_(cpp11::list sourceSpec, cpp11::list locale_);
+cpp11::strings read_file_(const cpp11::list& sourceSpec, const cpp11::list& locale_);
 extern "C" SEXP _readr_read_file_(SEXP sourceSpec, SEXP locale_) {
   BEGIN_CPP11
-    return cpp11::as_sexp(read_file_(cpp11::as_cpp<cpp11::decay_t<cpp11::list>>(sourceSpec), cpp11::as_cpp<cpp11::decay_t<cpp11::list>>(locale_)));
+    return cpp11::as_sexp(read_file_(cpp11::as_cpp<cpp11::decay_t<const cpp11::list&>>(sourceSpec), cpp11::as_cpp<cpp11::decay_t<const cpp11::list&>>(locale_)));
   END_CPP11
 }
 // read.cpp
-cpp11::raws read_file_raw_(cpp11::list sourceSpec);
+cpp11::raws read_file_raw_(const cpp11::list& sourceSpec);
 extern "C" SEXP _readr_read_file_raw_(SEXP sourceSpec) {
   BEGIN_CPP11
-    return cpp11::as_sexp(read_file_raw_(cpp11::as_cpp<cpp11::decay_t<cpp11::list>>(sourceSpec)));
+    return cpp11::as_sexp(read_file_raw_(cpp11::as_cpp<cpp11::decay_t<const cpp11::list&>>(sourceSpec)));
   END_CPP11
 }
 // read.cpp
-cpp11::writable::strings read_lines_(cpp11::list sourceSpec, cpp11::list locale_, std::vector<std::string> na, int n_max, bool skip_empty_rows, bool progress);
+cpp11::writable::strings read_lines_(const cpp11::list& sourceSpec, const cpp11::list& locale_, std::vector<std::string> na, int n_max, bool skip_empty_rows, bool progress);
 extern "C" SEXP _readr_read_lines_(SEXP sourceSpec, SEXP locale_, SEXP na, SEXP n_max, SEXP skip_empty_rows, SEXP progress) {
   BEGIN_CPP11
-    return cpp11::as_sexp(read_lines_(cpp11::as_cpp<cpp11::decay_t<cpp11::list>>(sourceSpec), cpp11::as_cpp<cpp11::decay_t<cpp11::list>>(locale_), cpp11::as_cpp<cpp11::decay_t<std::vector<std::string>>>(na), cpp11::as_cpp<cpp11::decay_t<int>>(n_max), cpp11::as_cpp<cpp11::decay_t<bool>>(skip_empty_rows), cpp11::as_cpp<cpp11::decay_t<bool>>(progress)));
+    return cpp11::as_sexp(read_lines_(cpp11::as_cpp<cpp11::decay_t<const cpp11::list&>>(sourceSpec), cpp11::as_cpp<cpp11::decay_t<const cpp11::list&>>(locale_), cpp11::as_cpp<cpp11::decay_t<std::vector<std::string>>>(na), cpp11::as_cpp<cpp11::decay_t<int>>(n_max), cpp11::as_cpp<cpp11::decay_t<bool>>(skip_empty_rows), cpp11::as_cpp<cpp11::decay_t<bool>>(progress)));
   END_CPP11
 }
 // read.cpp
-void read_lines_chunked_(cpp11::list sourceSpec, cpp11::list locale_, std::vector<std::string> na, int chunkSize, cpp11::environment callback, bool skip_empty_rows, bool progress);
+void read_lines_chunked_(const cpp11::list& sourceSpec, const cpp11::list& locale_, std::vector<std::string> na, int chunkSize, const cpp11::environment& callback, bool skip_empty_rows, bool progress);
 extern "C" SEXP _readr_read_lines_chunked_(SEXP sourceSpec, SEXP locale_, SEXP na, SEXP chunkSize, SEXP callback, SEXP skip_empty_rows, SEXP progress) {
   BEGIN_CPP11
-    read_lines_chunked_(cpp11::as_cpp<cpp11::decay_t<cpp11::list>>(sourceSpec), cpp11::as_cpp<cpp11::decay_t<cpp11::list>>(locale_), cpp11::as_cpp<cpp11::decay_t<std::vector<std::string>>>(na), cpp11::as_cpp<cpp11::decay_t<int>>(chunkSize), cpp11::as_cpp<cpp11::decay_t<cpp11::environment>>(callback), cpp11::as_cpp<cpp11::decay_t<bool>>(skip_empty_rows), cpp11::as_cpp<cpp11::decay_t<bool>>(progress));
+    read_lines_chunked_(cpp11::as_cpp<cpp11::decay_t<const cpp11::list&>>(sourceSpec), cpp11::as_cpp<cpp11::decay_t<const cpp11::list&>>(locale_), cpp11::as_cpp<cpp11::decay_t<std::vector<std::string>>>(na), cpp11::as_cpp<cpp11::decay_t<int>>(chunkSize), cpp11::as_cpp<cpp11::decay_t<const cpp11::environment&>>(callback), cpp11::as_cpp<cpp11::decay_t<bool>>(skip_empty_rows), cpp11::as_cpp<cpp11::decay_t<bool>>(progress));
     return R_NilValue;
   END_CPP11
 }
 // read.cpp
-cpp11::list read_lines_raw_(cpp11::list sourceSpec, int n_max, bool progress);
+cpp11::list read_lines_raw_(const cpp11::list& sourceSpec, int n_max, bool progress);
 extern "C" SEXP _readr_read_lines_raw_(SEXP sourceSpec, SEXP n_max, SEXP progress) {
   BEGIN_CPP11
-    return cpp11::as_sexp(read_lines_raw_(cpp11::as_cpp<cpp11::decay_t<cpp11::list>>(sourceSpec), cpp11::as_cpp<cpp11::decay_t<int>>(n_max), cpp11::as_cpp<cpp11::decay_t<bool>>(progress)));
+    return cpp11::as_sexp(read_lines_raw_(cpp11::as_cpp<cpp11::decay_t<const cpp11::list&>>(sourceSpec), cpp11::as_cpp<cpp11::decay_t<int>>(n_max), cpp11::as_cpp<cpp11::decay_t<bool>>(progress)));
   END_CPP11
 }
 // read.cpp
-void read_lines_raw_chunked_(cpp11::list sourceSpec, int chunkSize, cpp11::environment callback, bool progress);
+void read_lines_raw_chunked_(const cpp11::list& sourceSpec, int chunkSize, const cpp11::environment& callback, bool progress);
 extern "C" SEXP _readr_read_lines_raw_chunked_(SEXP sourceSpec, SEXP chunkSize, SEXP callback, SEXP progress) {
   BEGIN_CPP11
-    read_lines_raw_chunked_(cpp11::as_cpp<cpp11::decay_t<cpp11::list>>(sourceSpec), cpp11::as_cpp<cpp11::decay_t<int>>(chunkSize), cpp11::as_cpp<cpp11::decay_t<cpp11::environment>>(callback), cpp11::as_cpp<cpp11::decay_t<bool>>(progress));
+    read_lines_raw_chunked_(cpp11::as_cpp<cpp11::decay_t<const cpp11::list&>>(sourceSpec), cpp11::as_cpp<cpp11::decay_t<int>>(chunkSize), cpp11::as_cpp<cpp11::decay_t<const cpp11::environment&>>(callback), cpp11::as_cpp<cpp11::decay_t<bool>>(progress));
     return R_NilValue;
   END_CPP11
 }
 // read.cpp
-cpp11::sexp read_tokens_(cpp11::list sourceSpec, cpp11::list tokenizerSpec, cpp11::list colSpecs, cpp11::strings colNames, cpp11::list locale_, int n_max, bool progress);
+cpp11::sexp read_tokens_(const cpp11::list& sourceSpec, const cpp11::list& tokenizerSpec, const cpp11::list& colSpecs, const cpp11::strings& colNames, const cpp11::list& locale_, int n_max, bool progress);
 extern "C" SEXP _readr_read_tokens_(SEXP sourceSpec, SEXP tokenizerSpec, SEXP colSpecs, SEXP colNames, SEXP locale_, SEXP n_max, SEXP progress) {
   BEGIN_CPP11
-    return cpp11::as_sexp(read_tokens_(cpp11::as_cpp<cpp11::decay_t<cpp11::list>>(sourceSpec), cpp11::as_cpp<cpp11::decay_t<cpp11::list>>(tokenizerSpec), cpp11::as_cpp<cpp11::decay_t<cpp11::list>>(colSpecs), cpp11::as_cpp<cpp11::decay_t<cpp11::strings>>(colNames), cpp11::as_cpp<cpp11::decay_t<cpp11::list>>(locale_), cpp11::as_cpp<cpp11::decay_t<int>>(n_max), cpp11::as_cpp<cpp11::decay_t<bool>>(progress)));
+    return cpp11::as_sexp(read_tokens_(cpp11::as_cpp<cpp11::decay_t<const cpp11::list&>>(sourceSpec), cpp11::as_cpp<cpp11::decay_t<const cpp11::list&>>(tokenizerSpec), cpp11::as_cpp<cpp11::decay_t<const cpp11::list&>>(colSpecs), cpp11::as_cpp<cpp11::decay_t<const cpp11::strings&>>(colNames), cpp11::as_cpp<cpp11::decay_t<const cpp11::list&>>(locale_), cpp11::as_cpp<cpp11::decay_t<int>>(n_max), cpp11::as_cpp<cpp11::decay_t<bool>>(progress)));
   END_CPP11
 }
 // read.cpp
-void read_tokens_chunked_(cpp11::list sourceSpec, cpp11::environment callback, int chunkSize, cpp11::list tokenizerSpec, cpp11::list colSpecs, cpp11::strings colNames, cpp11::list locale_, bool progress);
+void read_tokens_chunked_(const cpp11::list& sourceSpec, const cpp11::environment& callback, int chunkSize, const cpp11::list& tokenizerSpec, const cpp11::list& colSpecs, const cpp11::strings& colNames, const cpp11::list& locale_, bool progress);
 extern "C" SEXP _readr_read_tokens_chunked_(SEXP sourceSpec, SEXP callback, SEXP chunkSize, SEXP tokenizerSpec, SEXP colSpecs, SEXP colNames, SEXP locale_, SEXP progress) {
   BEGIN_CPP11
-    read_tokens_chunked_(cpp11::as_cpp<cpp11::decay_t<cpp11::list>>(sourceSpec), cpp11::as_cpp<cpp11::decay_t<cpp11::environment>>(callback), cpp11::as_cpp<cpp11::decay_t<int>>(chunkSize), cpp11::as_cpp<cpp11::decay_t<cpp11::list>>(tokenizerSpec), cpp11::as_cpp<cpp11::decay_t<cpp11::list>>(colSpecs), cpp11::as_cpp<cpp11::decay_t<cpp11::strings>>(colNames), cpp11::as_cpp<cpp11::decay_t<cpp11::list>>(locale_), cpp11::as_cpp<cpp11::decay_t<bool>>(progress));
+    read_tokens_chunked_(cpp11::as_cpp<cpp11::decay_t<const cpp11::list&>>(sourceSpec), cpp11::as_cpp<cpp11::decay_t<const cpp11::environment&>>(callback), cpp11::as_cpp<cpp11::decay_t<int>>(chunkSize), cpp11::as_cpp<cpp11::decay_t<const cpp11::list&>>(tokenizerSpec), cpp11::as_cpp<cpp11::decay_t<const cpp11::list&>>(colSpecs), cpp11::as_cpp<cpp11::decay_t<const cpp11::strings&>>(colNames), cpp11::as_cpp<cpp11::decay_t<const cpp11::list&>>(locale_), cpp11::as_cpp<cpp11::decay_t<bool>>(progress));
     return R_NilValue;
   END_CPP11
 }
 // read.cpp
-cpp11::sexp melt_tokens_(cpp11::list sourceSpec, cpp11::list tokenizerSpec, cpp11::list colSpecs, cpp11::list locale_, int n_max, bool progress);
+cpp11::sexp melt_tokens_(const cpp11::list& sourceSpec, const cpp11::list& tokenizerSpec, const cpp11::list& colSpecs, const cpp11::list& locale_, int n_max, bool progress);
 extern "C" SEXP _readr_melt_tokens_(SEXP sourceSpec, SEXP tokenizerSpec, SEXP colSpecs, SEXP locale_, SEXP n_max, SEXP progress) {
   BEGIN_CPP11
-    return cpp11::as_sexp(melt_tokens_(cpp11::as_cpp<cpp11::decay_t<cpp11::list>>(sourceSpec), cpp11::as_cpp<cpp11::decay_t<cpp11::list>>(tokenizerSpec), cpp11::as_cpp<cpp11::decay_t<cpp11::list>>(colSpecs), cpp11::as_cpp<cpp11::decay_t<cpp11::list>>(locale_), cpp11::as_cpp<cpp11::decay_t<int>>(n_max), cpp11::as_cpp<cpp11::decay_t<bool>>(progress)));
+    return cpp11::as_sexp(melt_tokens_(cpp11::as_cpp<cpp11::decay_t<const cpp11::list&>>(sourceSpec), cpp11::as_cpp<cpp11::decay_t<const cpp11::list&>>(tokenizerSpec), cpp11::as_cpp<cpp11::decay_t<const cpp11::list&>>(colSpecs), cpp11::as_cpp<cpp11::decay_t<const cpp11::list&>>(locale_), cpp11::as_cpp<cpp11::decay_t<int>>(n_max), cpp11::as_cpp<cpp11::decay_t<bool>>(progress)));
   END_CPP11
 }
 // read.cpp
-void melt_tokens_chunked_(cpp11::list sourceSpec, cpp11::environment callback, int chunkSize, cpp11::list tokenizerSpec, cpp11::list colSpecs, cpp11::list locale_, bool progress);
+void melt_tokens_chunked_(const cpp11::list& sourceSpec, const cpp11::environment& callback, int chunkSize, const cpp11::list& tokenizerSpec, const cpp11::list& colSpecs, const cpp11::list& locale_, bool progress);
 extern "C" SEXP _readr_melt_tokens_chunked_(SEXP sourceSpec, SEXP callback, SEXP chunkSize, SEXP tokenizerSpec, SEXP colSpecs, SEXP locale_, SEXP progress) {
   BEGIN_CPP11
-    melt_tokens_chunked_(cpp11::as_cpp<cpp11::decay_t<cpp11::list>>(sourceSpec), cpp11::as_cpp<cpp11::decay_t<cpp11::environment>>(callback), cpp11::as_cpp<cpp11::decay_t<int>>(chunkSize), cpp11::as_cpp<cpp11::decay_t<cpp11::list>>(tokenizerSpec), cpp11::as_cpp<cpp11::decay_t<cpp11::list>>(colSpecs), cpp11::as_cpp<cpp11::decay_t<cpp11::list>>(locale_), cpp11::as_cpp<cpp11::decay_t<bool>>(progress));
+    melt_tokens_chunked_(cpp11::as_cpp<cpp11::decay_t<const cpp11::list&>>(sourceSpec), cpp11::as_cpp<cpp11::decay_t<const cpp11::environment&>>(callback), cpp11::as_cpp<cpp11::decay_t<int>>(chunkSize), cpp11::as_cpp<cpp11::decay_t<const cpp11::list&>>(tokenizerSpec), cpp11::as_cpp<cpp11::decay_t<const cpp11::list&>>(colSpecs), cpp11::as_cpp<cpp11::decay_t<const cpp11::list&>>(locale_), cpp11::as_cpp<cpp11::decay_t<bool>>(progress));
     return R_NilValue;
   END_CPP11
 }
 // read.cpp
-std::vector<std::string> guess_types_(cpp11::list sourceSpec, cpp11::list tokenizerSpec, cpp11::list locale_, int n);
+std::vector<std::string> guess_types_(const cpp11::list& sourceSpec, const cpp11::list& tokenizerSpec, const cpp11::list& locale_, int n);
 extern "C" SEXP _readr_guess_types_(SEXP sourceSpec, SEXP tokenizerSpec, SEXP locale_, SEXP n) {
   BEGIN_CPP11
-    return cpp11::as_sexp(guess_types_(cpp11::as_cpp<cpp11::decay_t<cpp11::list>>(sourceSpec), cpp11::as_cpp<cpp11::decay_t<cpp11::list>>(tokenizerSpec), cpp11::as_cpp<cpp11::decay_t<cpp11::list>>(locale_), cpp11::as_cpp<cpp11::decay_t<int>>(n)));
+    return cpp11::as_sexp(guess_types_(cpp11::as_cpp<cpp11::decay_t<const cpp11::list&>>(sourceSpec), cpp11::as_cpp<cpp11::decay_t<const cpp11::list&>>(tokenizerSpec), cpp11::as_cpp<cpp11::decay_t<const cpp11::list&>>(locale_), cpp11::as_cpp<cpp11::decay_t<int>>(n)));
   END_CPP11
 }
 // TokenizerFwf.cpp
-cpp11::list whitespaceColumns(cpp11::list sourceSpec, int n, std::string comment);
+cpp11::list whitespaceColumns(const cpp11::list& sourceSpec, int n, std::string comment);
 extern "C" SEXP _readr_whitespaceColumns(SEXP sourceSpec, SEXP n, SEXP comment) {
   BEGIN_CPP11
-    return cpp11::as_sexp(whitespaceColumns(cpp11::as_cpp<cpp11::decay_t<cpp11::list>>(sourceSpec), cpp11::as_cpp<cpp11::decay_t<int>>(n), cpp11::as_cpp<cpp11::decay_t<std::string>>(comment)));
+    return cpp11::as_sexp(whitespaceColumns(cpp11::as_cpp<cpp11::decay_t<const cpp11::list&>>(sourceSpec), cpp11::as_cpp<cpp11::decay_t<int>>(n), cpp11::as_cpp<cpp11::decay_t<std::string>>(comment)));
   END_CPP11
 }
 // type_convert.cpp
-cpp11::sexp type_convert_col(cpp11::strings x, cpp11::list spec, cpp11::list locale_, int col, const std::vector<std::string>& na, bool trim_ws);
+cpp11::sexp type_convert_col(const cpp11::strings& x, const cpp11::list& spec, const cpp11::list& locale_, int col, const std::vector<std::string>& na, bool trim_ws);
 extern "C" SEXP _readr_type_convert_col(SEXP x, SEXP spec, SEXP locale_, SEXP col, SEXP na, SEXP trim_ws) {
   BEGIN_CPP11
-    return cpp11::as_sexp(type_convert_col(cpp11::as_cpp<cpp11::decay_t<cpp11::strings>>(x), cpp11::as_cpp<cpp11::decay_t<cpp11::list>>(spec), cpp11::as_cpp<cpp11::decay_t<cpp11::list>>(locale_), cpp11::as_cpp<cpp11::decay_t<int>>(col), cpp11::as_cpp<cpp11::decay_t<const std::vector<std::string>&>>(na), cpp11::as_cpp<cpp11::decay_t<bool>>(trim_ws)));
+    return cpp11::as_sexp(type_convert_col(cpp11::as_cpp<cpp11::decay_t<const cpp11::strings&>>(x), cpp11::as_cpp<cpp11::decay_t<const cpp11::list&>>(spec), cpp11::as_cpp<cpp11::decay_t<const cpp11::list&>>(locale_), cpp11::as_cpp<cpp11::decay_t<int>>(col), cpp11::as_cpp<cpp11::decay_t<const std::vector<std::string>&>>(na), cpp11::as_cpp<cpp11::decay_t<bool>>(trim_ws)));
   END_CPP11
 }
 // write_delim.cpp
-void stream_delim_(const cpp11::list& df, cpp11::sexp connection, char delim, const std::string& na, bool col_names, bool bom, int quote_escape, const char* eol);
+void stream_delim_(const cpp11::list& df, const cpp11::sexp& connection, char delim, const std::string& na, bool col_names, bool bom, int quote_escape, const char* eol);
 extern "C" SEXP _readr_stream_delim_(SEXP df, SEXP connection, SEXP delim, SEXP na, SEXP col_names, SEXP bom, SEXP quote_escape, SEXP eol) {
   BEGIN_CPP11
-    stream_delim_(cpp11::as_cpp<cpp11::decay_t<const cpp11::list&>>(df), cpp11::as_cpp<cpp11::decay_t<cpp11::sexp>>(connection), cpp11::as_cpp<cpp11::decay_t<char>>(delim), cpp11::as_cpp<cpp11::decay_t<const std::string&>>(na), cpp11::as_cpp<cpp11::decay_t<bool>>(col_names), cpp11::as_cpp<cpp11::decay_t<bool>>(bom), cpp11::as_cpp<cpp11::decay_t<int>>(quote_escape), cpp11::as_cpp<cpp11::decay_t<const char*>>(eol));
+    stream_delim_(cpp11::as_cpp<cpp11::decay_t<const cpp11::list&>>(df), cpp11::as_cpp<cpp11::decay_t<const cpp11::sexp&>>(connection), cpp11::as_cpp<cpp11::decay_t<char>>(delim), cpp11::as_cpp<cpp11::decay_t<const std::string&>>(na), cpp11::as_cpp<cpp11::decay_t<bool>>(col_names), cpp11::as_cpp<cpp11::decay_t<bool>>(bom), cpp11::as_cpp<cpp11::decay_t<int>>(quote_escape), cpp11::as_cpp<cpp11::decay_t<const char*>>(eol));
     return R_NilValue;
   END_CPP11
 }
 // write.cpp
-void write_lines_(cpp11::strings lines, cpp11::sexp connection, const std::string& na, const std::string& sep);
+void write_lines_(const cpp11::strings& lines, const cpp11::sexp& connection, const std::string& na, const std::string& sep);
 extern "C" SEXP _readr_write_lines_(SEXP lines, SEXP connection, SEXP na, SEXP sep) {
   BEGIN_CPP11
-    write_lines_(cpp11::as_cpp<cpp11::decay_t<cpp11::strings>>(lines), cpp11::as_cpp<cpp11::decay_t<cpp11::sexp>>(connection), cpp11::as_cpp<cpp11::decay_t<const std::string&>>(na), cpp11::as_cpp<cpp11::decay_t<const std::string&>>(sep));
+    write_lines_(cpp11::as_cpp<cpp11::decay_t<const cpp11::strings&>>(lines), cpp11::as_cpp<cpp11::decay_t<const cpp11::sexp&>>(connection), cpp11::as_cpp<cpp11::decay_t<const std::string&>>(na), cpp11::as_cpp<cpp11::decay_t<const std::string&>>(sep));
     return R_NilValue;
   END_CPP11
 }
 // write.cpp
-void write_lines_raw_(cpp11::list x, cpp11::sexp connection, const std::string& sep);
+void write_lines_raw_(const cpp11::list& x, const cpp11::sexp& connection, const std::string& sep);
 extern "C" SEXP _readr_write_lines_raw_(SEXP x, SEXP connection, SEXP sep) {
   BEGIN_CPP11
-    write_lines_raw_(cpp11::as_cpp<cpp11::decay_t<cpp11::list>>(x), cpp11::as_cpp<cpp11::decay_t<cpp11::sexp>>(connection), cpp11::as_cpp<cpp11::decay_t<const std::string&>>(sep));
+    write_lines_raw_(cpp11::as_cpp<cpp11::decay_t<const cpp11::list&>>(x), cpp11::as_cpp<cpp11::decay_t<const cpp11::sexp&>>(connection), cpp11::as_cpp<cpp11::decay_t<const std::string&>>(sep));
     return R_NilValue;
   END_CPP11
 }
 // write.cpp
-void write_file_(std::string x, cpp11::sexp connection);
+void write_file_(const std::string& x, const cpp11::sexp& connection);
 extern "C" SEXP _readr_write_file_(SEXP x, SEXP connection) {
   BEGIN_CPP11
-    write_file_(cpp11::as_cpp<cpp11::decay_t<std::string>>(x), cpp11::as_cpp<cpp11::decay_t<cpp11::sexp>>(connection));
+    write_file_(cpp11::as_cpp<cpp11::decay_t<const std::string&>>(x), cpp11::as_cpp<cpp11::decay_t<const cpp11::sexp&>>(connection));
     return R_NilValue;
   END_CPP11
 }
 // write.cpp
-void write_file_raw_(cpp11::raws x, cpp11::sexp connection);
+void write_file_raw_(const cpp11::raws& x, const cpp11::sexp& connection);
 extern "C" SEXP _readr_write_file_raw_(SEXP x, SEXP connection) {
   BEGIN_CPP11
-    write_file_raw_(cpp11::as_cpp<cpp11::decay_t<cpp11::raws>>(x), cpp11::as_cpp<cpp11::decay_t<cpp11::sexp>>(connection));
+    write_file_raw_(cpp11::as_cpp<cpp11::decay_t<const cpp11::raws&>>(x), cpp11::as_cpp<cpp11::decay_t<const cpp11::sexp&>>(connection));
     return R_NilValue;
   END_CPP11
 }

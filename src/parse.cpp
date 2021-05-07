@@ -12,7 +12,7 @@
 #include "Warnings.h"
 
 [[cpp11::register]] cpp11::integers
-dim_tokens_(cpp11::list sourceSpec, cpp11::list tokenizerSpec) {
+dim_tokens_(const cpp11::list& sourceSpec, const cpp11::list& tokenizerSpec) {
   SourcePtr source = Source::create(sourceSpec);
   TokenizerPtr tokenizer = Tokenizer::create(tokenizerSpec);
   tokenizer->tokenize(source->begin(), source->end());
@@ -35,7 +35,7 @@ dim_tokens_(cpp11::list sourceSpec, cpp11::list tokenizerSpec) {
 }
 
 [[cpp11::register]] std::vector<int>
-count_fields_(cpp11::list sourceSpec, cpp11::list tokenizerSpec, int n_max) {
+count_fields_(const cpp11::list& sourceSpec, const cpp11::list& tokenizerSpec, int n_max) {
   SourcePtr source = Source::create(sourceSpec);
   TokenizerPtr tokenizer = Tokenizer::create(tokenizerSpec);
   tokenizer->tokenize(source->begin(), source->end());
@@ -58,7 +58,7 @@ count_fields_(cpp11::list sourceSpec, cpp11::list tokenizerSpec, int n_max) {
 }
 
 [[cpp11::register]] cpp11::list guess_header_(
-    cpp11::list sourceSpec, cpp11::list tokenizerSpec, cpp11::list locale_) {
+    const cpp11::list& sourceSpec, const cpp11::list& tokenizerSpec, const cpp11::list& locale_) {
   Warnings warnings;
   LocaleInfo locale(locale_);
   SourcePtr source = Source::create(sourceSpec);
@@ -98,7 +98,7 @@ count_fields_(cpp11::list sourceSpec, cpp11::list tokenizerSpec, int n_max) {
 }
 
 [[cpp11::register]] SEXP
-tokenize_(cpp11::list sourceSpec, cpp11::list tokenizerSpec, int n_max) {
+tokenize_(const cpp11::list& sourceSpec, const cpp11::list& tokenizerSpec, int n_max) {
   Warnings warnings;
 
   SourcePtr source = Source::create(sourceSpec);
@@ -136,9 +136,9 @@ tokenize_(cpp11::list sourceSpec, cpp11::list tokenizerSpec, int n_max) {
 }
 
 [[cpp11::register]] SEXP parse_vector_(
-    cpp11::strings x,
-    cpp11::list collectorSpec,
-    cpp11::list locale_,
+    const cpp11::strings& x,
+    const cpp11::list& collectorSpec,
+    const cpp11::list& locale_,
     const std::vector<std::string>& na,
     const bool trim_ws) {
   Warnings warnings;

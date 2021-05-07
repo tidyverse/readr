@@ -36,7 +36,7 @@ public:
       char delim = ',',
       char quote = '"',
       std::vector<std::string> NA = std::vector<std::string>(1, "NA"),
-      std::string comment = "",
+      const std::string& comment = "",
       bool trimWS = true,
       bool escapeBackslash = false,
       bool escapeDouble = true,

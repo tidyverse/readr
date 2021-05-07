@@ -1,11 +1,15 @@
 #include "TokenizerDelim.h"
+
+
+#include <utility>
+
 #include "cpp11/protect.hpp"
 
 TokenizerDelim::TokenizerDelim(
     char delim,
     char quote,
     std::vector<std::string> NA,
-    std::string comment,
+    const std::string& comment,
     bool trimWS,
     bool escapeBackslash,
     bool escapeDouble,
@@ -13,7 +17,7 @@ TokenizerDelim::TokenizerDelim(
     bool skipEmptyRows)
     : delim_(delim),
       quote_(quote),
-      NA_(NA),
+      NA_(std::move(NA)),
       comment_(comment),
       hasComment_(comment.size() > 0),
       trimWS_(trimWS),

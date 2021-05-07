@@ -7,9 +7,9 @@
 #include "Token.h"
 
 [[cpp11::register]] cpp11::sexp type_convert_col(
-    cpp11::strings x,
-    cpp11::list spec,
-    cpp11::list locale_,
+    const cpp11::strings& x,
+    const cpp11::list& spec,
+    const cpp11::list& locale_,
     int col,
     const std::vector<std::string>& na,
     bool trim_ws) {

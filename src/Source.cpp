@@ -6,7 +6,7 @@
 #include "SourceRaw.h"
 #include "SourceString.h"
 
-SourcePtr Source::create(cpp11::list spec) {
+SourcePtr Source::create(const cpp11::list& spec) {
   std::string subclass(cpp11::as_cpp<cpp11::strings>(spec.attr("class"))[0]);
 
   int skip = cpp11::as_cpp<int>(spec["skip"]);

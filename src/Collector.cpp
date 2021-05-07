@@ -5,7 +5,7 @@
 #include "QiParsers.h"
 #include "utils.h"
 
-CollectorPtr Collector::create(cpp11::list spec, LocaleInfo* pLocale) {
+CollectorPtr Collector::create(const cpp11::list& spec, LocaleInfo* pLocale) {
   std::string subclass(cpp11::as_cpp<cpp11::strings>(spec.attr("class"))[0]);
 
   if (subclass == "collector_skip")
@@ -50,7 +50,7 @@ CollectorPtr Collector::create(cpp11::list spec, LocaleInfo* pLocale) {
 }
 
 std::vector<CollectorPtr>
-collectorsCreate(cpp11::list specs, LocaleInfo* pLocale) {
+collectorsCreate(const cpp11::list& specs, LocaleInfo* pLocale) {
   std::vector<CollectorPtr> collectors;
   for (int j = 0; j < specs.size(); ++j) {
     CollectorPtr col(Collector::create(SEXP(specs[j]), pLocale));
@@ -201,7 +201,7 @@ void CollectorDouble::setValue(int i, const Token& t) {
 
 void CollectorDouble::setValue(int i, size_t st) { REAL(column_)[i] = st; }
 
-void CollectorFactor::insert(int i, cpp11::r_string str, const Token& t) {
+void CollectorFactor::insert(int i, const cpp11::r_string& str, const Token& t) {
   std::map<cpp11::r_string, int>::iterator it = levelset_.find(str);
   if (it == levelset_.end()) {
     if (implicitLevels_ || (includeNa_ && str == NA_STRING)) {

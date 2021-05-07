@@ -20,7 +20,7 @@ public:
       const std::vector<int>& beginOffset,
       const std::vector<int>& endOffset,
       std::vector<std::string> NA = std::vector<std::string>(1, "NA"),
-      std::string comment = "",
+      const std::string& comment = "",
       bool trimWS = true,
       bool skipEmptyRows = true);
 

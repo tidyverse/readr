@@ -1,3 +1,7 @@
+#include <utility>
+
+
+
 #include "cpp11/environment.hpp"
 #include "cpp11/function.hpp"
 #include "cpp11/list.hpp"
@@ -13,7 +17,7 @@
 #include "Warnings.h"
 
 [[cpp11::register]] cpp11::strings
-read_file_(cpp11::list sourceSpec, cpp11::list locale_) {
+read_file_(const cpp11::list& sourceSpec, const cpp11::list& locale_) {
   SourcePtr source = Source::create(sourceSpec);
   LocaleInfo locale(locale_);
 
@@ -21,7 +25,7 @@ read_file_(cpp11::list sourceSpec, cpp11::list locale_) {
       locale.encoder_.makeSEXP(source->begin(), source->end()));
 }
 
-[[cpp11::register]] cpp11::raws read_file_raw_(cpp11::list sourceSpec) {
+[[cpp11::register]] cpp11::raws read_file_raw_(const cpp11::list& sourceSpec) {
   SourcePtr source = Source::create(sourceSpec);
 
   cpp11::writable::raws res(
@@ -31,8 +35,8 @@ read_file_(cpp11::list sourceSpec, cpp11::list locale_) {
 }
 
 [[cpp11::register]] cpp11::writable::strings read_lines_(
-    cpp11::list sourceSpec,
-    cpp11::list locale_,
+    const cpp11::list& sourceSpec,
+    const cpp11::list& locale_,
     std::vector<std::string> na,
     int n_max,
     bool skip_empty_rows,
@@ -41,7 +45,7 @@ read_file_(cpp11::list sourceSpec, cpp11::list locale_) {
   LocaleInfo locale(locale_);
   Reader r(
       Source::create(sourceSpec),
-      TokenizerPtr(new TokenizerLine(na, skip_empty_rows)),
+      TokenizerPtr(new TokenizerLine(std::move(na), skip_empty_rows)),
       CollectorPtr(new CollectorCharacter(&locale.encoder_)),
       progress);
 
@@ -60,18 +64,18 @@ bool isTrue(SEXP x) {
 }
 
 [[cpp11::register]] void read_lines_chunked_(
-    cpp11::list sourceSpec,
-    cpp11::list locale_,
+    const cpp11::list& sourceSpec,
+    const cpp11::list& locale_,
     std::vector<std::string> na,
     int chunkSize,
-    cpp11::environment callback,
+    const cpp11::environment& callback,
     bool skip_empty_rows,
     bool progress) {
 
   LocaleInfo locale(locale_);
   Reader r(
       Source::create(sourceSpec),
-      TokenizerPtr(new TokenizerLine(na, skip_empty_rows)),
+      TokenizerPtr(new TokenizerLine(std::move(na), skip_empty_rows)),
       CollectorPtr(new CollectorCharacter(&locale.encoder_)),
       progress);
 
@@ -91,7 +95,7 @@ bool isTrue(SEXP x) {
 }
 
 [[cpp11::register]] cpp11::list
-read_lines_raw_(cpp11::list sourceSpec, int n_max = -1, bool progress = false) {
+read_lines_raw_(const cpp11::list& sourceSpec, int n_max = -1, bool progress = false) {
 
   Reader r(
       Source::create(sourceSpec),
@@ -103,9 +107,9 @@ read_lines_raw_(cpp11::list sourceSpec, int n_max = -1, bool progress = false) {
 }
 
 [[cpp11::register]] void read_lines_raw_chunked_(
-    cpp11::list sourceSpec,
+    const cpp11::list& sourceSpec,
     int chunkSize,
-    cpp11::environment callback,
+    const cpp11::environment& callback,
     bool progress) {
 
   Reader r(
@@ -132,11 +136,11 @@ read_lines_raw_(cpp11::list sourceSpec, int n_max = -1, bool progress = false) {
 typedef std::vector<CollectorPtr>::iterator CollectorItr;
 
 [[cpp11::register]] cpp11::sexp read_tokens_(
-    cpp11::list sourceSpec,
-    cpp11::list tokenizerSpec,
-    cpp11::list colSpecs,
-    cpp11::strings colNames,
-    cpp11::list locale_,
+    const cpp11::list& sourceSpec,
+    const cpp11::list& tokenizerSpec,
+    const cpp11::list& colSpecs,
+    const cpp11::strings& colNames,
+    const cpp11::list& locale_,
     int n_max,
     bool progress) {
 
@@ -152,13 +156,13 @@ typedef std::vector<CollectorPtr>::iterator CollectorItr;
 }
 
 [[cpp11::register]] void read_tokens_chunked_(
-    cpp11::list sourceSpec,
-    cpp11::environment callback,
+    const cpp11::list& sourceSpec,
+    const cpp11::environment& callback,
     int chunkSize,
-    cpp11::list tokenizerSpec,
-    cpp11::list colSpecs,
-    cpp11::strings colNames,
-    cpp11::list locale_,
+    const cpp11::list& tokenizerSpec,
+    const cpp11::list& colSpecs,
+    const cpp11::strings& colNames,
+    const cpp11::list& locale_,
     bool progress) {
 
   LocaleInfo l(locale_);
@@ -183,10 +187,10 @@ typedef std::vector<CollectorPtr>::iterator CollectorItr;
 }
 
 [[cpp11::register]] cpp11::sexp melt_tokens_(
-    cpp11::list sourceSpec,
-    cpp11::list tokenizerSpec,
-    cpp11::list colSpecs,
-    cpp11::list locale_,
+    const cpp11::list& sourceSpec,
+    const cpp11::list& tokenizerSpec,
+    const cpp11::list& colSpecs,
+    const cpp11::list& locale_,
     int n_max,
     bool progress) {
 
@@ -201,12 +205,12 @@ typedef std::vector<CollectorPtr>::iterator CollectorItr;
 }
 
 [[cpp11::register]] void melt_tokens_chunked_(
-    cpp11::list sourceSpec,
-    cpp11::environment callback,
+    const cpp11::list& sourceSpec,
+    const cpp11::environment& callback,
     int chunkSize,
-    cpp11::list tokenizerSpec,
-    cpp11::list colSpecs,
-    cpp11::list locale_,
+    const cpp11::list& tokenizerSpec,
+    const cpp11::list& colSpecs,
+    const cpp11::list& locale_,
     bool progress) {
 
   LocaleInfo l(locale_);
@@ -231,9 +235,9 @@ typedef std::vector<CollectorPtr>::iterator CollectorItr;
 }
 
 [[cpp11::register]] std::vector<std::string> guess_types_(
-    cpp11::list sourceSpec,
-    cpp11::list tokenizerSpec,
-    cpp11::list locale_,
+    const cpp11::list& sourceSpec,
+    const cpp11::list& tokenizerSpec,
+    const cpp11::list& locale_,
     int n) {
   Warnings warnings;
   SourcePtr source = Source::create(sourceSpec);
