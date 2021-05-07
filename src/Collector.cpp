@@ -167,8 +167,6 @@ void CollectorDateTime::setValue(int i, const Token& t) {
   case TOKEN_EOF:
     cpp11::stop("Invalid token");
   }
-
-  return;
 }
 
 void CollectorDouble::setValue(int i, const Token& t) {
@@ -384,5 +382,4 @@ void CollectorRaw::setValue(int i, const Token& t) {
     cpp11::stop("Invalid token");
   }
   SET_VECTOR_ELT(column_, i, t.asRaw());
-  return;
 }

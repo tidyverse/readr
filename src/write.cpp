@@ -22,8 +22,6 @@
     }
     write_bytes(connection, sep.c_str(), sep.size());
   }
-
-  return;
 }
 
 [[cpp11::register]] void write_lines_raw_(
@@ -39,14 +37,11 @@
         y.size() * sizeof(RAW(y)[0]));
     write_bytes(connection, sep.c_str(), sep.size());
   }
-
-  return;
 }
 
 [[cpp11::register]] void
 write_file_(const std::string& x, const cpp11::sexp& connection) {
   write_bytes(connection, x.c_str(), x.size());
-  return;
 }
 
 [[cpp11::register]] void
@@ -56,5 +51,4 @@ write_file_raw_(const cpp11::raws& x, const cpp11::sexp& connection) {
       connection,
       reinterpret_cast<const char*>(RAW(x)),
       x.size() * sizeof(RAW(x)[0]));
-  return;
 }

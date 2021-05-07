@@ -88,8 +88,6 @@ bool isTrue(SEXP x) {
     R6method(callback, "receive")(out, pos);
     pos += out.size();
   }
-
-  return;
 }
 
 [[cpp11::register]] cpp11::list read_lines_raw_(
@@ -127,8 +125,6 @@ bool isTrue(SEXP x) {
     R6method(callback, "receive")(out, pos);
     pos += out.size();
   }
-
-  return;
 }
 
 typedef std::vector<CollectorPtr>::iterator CollectorItr;
@@ -180,8 +176,6 @@ typedef std::vector<CollectorPtr>::iterator CollectorItr;
     R6method(callback, "receive")(out, pos);
     pos += out.nrow();
   }
-
-  return;
 }
 
 [[cpp11::register]] cpp11::sexp melt_tokens_(
@@ -228,8 +222,6 @@ typedef std::vector<CollectorPtr>::iterator CollectorItr;
     R6method(callback, "receive")(out, pos);
     pos += out.nrow();
   }
-
-  return;
 }
 
 [[cpp11::register]] std::vector<std::string> guess_types_(
