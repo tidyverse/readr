@@ -50,15 +50,11 @@
 
 
 <meta property="og:title" content="Read whitespace-separated columns into a tibble — read_table" />
-<meta property="og:description" content="read_table() and read_table2() are designed to read the type of textual
+<meta property="og:description" content="read_table() is designed to read the type of textual
 data where each column is separated by one (or more) columns of space.
-read_table2() is like read.table(), it allows any number of whitespace
+read_table() is like read.table(), it allows any number of whitespace
 characters between columns, and the lines can be of different lengths.
-read_table() is more strict, each line must be the same length,
-and each field is in the same position in every line. It first finds empty columns and then
-parses like a fixed width file.
-spec_table() and spec_table2() return
-the column specifications rather than a data frame." />
+spec_table() returns the column specifications rather than a data frame." />
 <meta property="og:image" content="https://readr.tidyverse.org/logo.png" />
 <meta name="twitter:card" content="summary" />
 
@@ -175,32 +171,14 @@ the column specifications rather than a data frame." />
     </div>
 
     <div class="ref-description">
-    <p><code>read_table()</code> and <code>read_table2()</code> are designed to read the type of textual
+    <p><code>read_table()</code> is designed to read the type of textual
 data where each column is separated by one (or more) columns of space.</p>
-<p><code>read_table2()</code> is like <code><a href='https://rdrr.io/r/utils/read.table.html'>read.table()</a></code>, it allows any number of whitespace
+<p><code>read_table()</code> is like <code><a href='https://rdrr.io/r/utils/read.table.html'>read.table()</a></code>, it allows any number of whitespace
 characters between columns, and the lines can be of different lengths.</p>
-<p><code>read_table()</code> is more strict, each line must be the same length,
-and each field is in the same position in every line. It first finds empty columns and then
-parses like a fixed width file.</p>
-<p><code><a href='spec_delim.html'>spec_table()</a></code> and <code><a href='spec_delim.html'>spec_table2()</a></code> return
-the column specifications rather than a data frame.</p>
+<p><code><a href='spec_delim.html'>spec_table()</a></code> returns the column specifications rather than a data frame.</p>
     </div>
 
     <pre class="usage"><span class='fu'>read_table</span><span class='op'>(</span>
-  <span class='va'>file</span>,
-  col_names <span class='op'>=</span> <span class='cn'>TRUE</span>,
-  col_types <span class='op'>=</span> <span class='cn'>NULL</span>,
-  locale <span class='op'>=</span> <span class='fu'><a href='locale.html'>default_locale</a></span><span class='op'>(</span><span class='op'>)</span>,
-  na <span class='op'>=</span> <span class='st'>"NA"</span>,
-  skip <span class='op'>=</span> <span class='fl'>0</span>,
-  n_max <span class='op'>=</span> <span class='cn'>Inf</span>,
-  guess_max <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/Extremes.html'>min</a></span><span class='op'>(</span><span class='va'>n_max</span>, <span class='fl'>1000</span><span class='op'>)</span>,
-  progress <span class='op'>=</span> <span class='fu'><a href='show_progress.html'>show_progress</a></span><span class='op'>(</span><span class='op'>)</span>,
-  comment <span class='op'>=</span> <span class='st'>""</span>,
-  skip_empty_rows <span class='op'>=</span> <span class='cn'>TRUE</span>
-<span class='op'>)</span>
-
-<span class='fu'>read_table2</span><span class='op'>(</span>
   <span class='va'>file</span>,
   col_names <span class='op'>=</span> <span class='cn'>TRUE</span>,
   col_types <span class='op'>=</span> <span class='cn'>NULL</span>,
@@ -356,18 +334,26 @@ tabular data with non-standard formatting.</p></div>
 #&gt; <span class='message'>  Rank = </span><span style='color: #00BB00;'>col_double()</span><span>,</span>
 #&gt; <span class='message'>  Team = </span><span style='color: #BB0000;'>col_character()</span><span>,</span>
 #&gt; <span class='message'>  Conf = </span><span style='color: #BB0000;'>col_character()</span><span></span>
-#&gt; <span class='message'>)</span></div><div class='output co'>#&gt; </span><span style='color: #949494;'># A tibble: 10 x 13</span><span>
+#&gt; <span class='message'>)</span></div><div class='output co'>#&gt; <span class='warning'>Warning: 10 parsing failures.</span>
+#&gt; <span class='warning'>row col   expected     actual                                                               file</span>
+#&gt; <span class='warning'>  1  -- 13 columns 15 columns '/Users/runner/work/_temp/Library/readr/extdata/massey-rating.txt'</span>
+#&gt; <span class='warning'>  2  -- 13 columns 14 columns '/Users/runner/work/_temp/Library/readr/extdata/massey-rating.txt'</span>
+#&gt; <span class='warning'>  3  -- 13 columns 14 columns '/Users/runner/work/_temp/Library/readr/extdata/massey-rating.txt'</span>
+#&gt; <span class='warning'>  4  -- 13 columns 14 columns '/Users/runner/work/_temp/Library/readr/extdata/massey-rating.txt'</span>
+#&gt; <span class='warning'>  5  -- 13 columns 15 columns '/Users/runner/work/_temp/Library/readr/extdata/massey-rating.txt'</span>
+#&gt; <span class='warning'>... ... .......... .......... ..................................................................</span>
+#&gt; <span class='warning'>See problems(...) for more details.</span></div><div class='output co'>#&gt; </span><span style='color: #949494;'># A tibble: 10 x 13</span><span>
 #&gt;      UCC   PAY   LAZ   KPK    RT   COF   BIH   DII   ENG   ACU  Rank Team  Conf 
 #&gt;    </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span> </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span> </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span> </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span> </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span> </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span> </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span> </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span> </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span> </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span> </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span> </span><span style='color: #949494;font-style: italic;'>&lt;chr&gt;</span><span> </span><span style='color: #949494;font-style: italic;'>&lt;chr&gt;</span><span>
-#&gt; </span><span style='color: #BCBCBC;'> 1</span><span>     1     1     1     1     1     1     1     1     1     1     1 Ohio… B10  
+#&gt; </span><span style='color: #BCBCBC;'> 1</span><span>     1     1     1     1     1     1     1     1     1     1     1 Ohio  St   
 #&gt; </span><span style='color: #BCBCBC;'> 2</span><span>     2     2     2     2     2     2     2     2     4     2     2 Oreg… P12  
 #&gt; </span><span style='color: #BCBCBC;'> 3</span><span>     3     4     3     4     3     4     3     4     2     3     3 Alab… SEC  
 #&gt; </span><span style='color: #BCBCBC;'> 4</span><span>     4     3     4     3     4     3     5     3     3     4     4 TCU   B12  
-#&gt; </span><span style='color: #BCBCBC;'> 5</span><span>     6     6     6     5     5     7     6     5     6    11     5 Mich… B10  
+#&gt; </span><span style='color: #BCBCBC;'> 5</span><span>     6     6     6     5     5     7     6     5     6    11     5 Mich… St   
 #&gt; </span><span style='color: #BCBCBC;'> 6</span><span>     7     7     7     6     7     6    11     8     7     8     6 Geor… SEC  
-#&gt; </span><span style='color: #BCBCBC;'> 7</span><span>     5     5     5     7     6     8     4     6     5     5     7 Flor… ACC  
+#&gt; </span><span style='color: #BCBCBC;'> 7</span><span>     5     5     5     7     6     8     4     6     5     5     7 Flor… St   
 #&gt; </span><span style='color: #BCBCBC;'> 8</span><span>     8     8     9     9    10     5     7     7    10     7     8 Bayl… B12  
-#&gt; </span><span style='color: #BCBCBC;'> 9</span><span>     9    11     8    13    11    11    12     9    14     9     9 Geor… ACC  
+#&gt; </span><span style='color: #BCBCBC;'> 9</span><span>     9    11     8    13    11    11    12     9    14     9     9 Geor… Tech 
 #&gt; </span><span style='color: #BCBCBC;'>10</span><span>    13    10    13    11     8     9    10    11     9    10    10 Miss… SEC  </div><div class='input'>
 <span class='co'># Sample of 1978 fuel economy data from</span>
 <span class='co'># http://www.fueleconomy.gov/feg/epadata/78data.zip</span>
@@ -398,39 +384,40 @@ tabular data with non-standard formatting.</p></div>
 #&gt; <span class='message'>cols(</span>
 #&gt; <span class='message'>  X1 = </span><span style='color: #BB0000;'>col_character()</span><span>,</span>
 #&gt; <span class='message'>  X2 = </span><span style='color: #BB0000;'>col_character()</span><span>,</span>
-#&gt; <span class='message'>  X3 = </span><span style='color: #00BB00;'>col_double()</span><span>,</span>
-#&gt; <span class='message'>  X4 = </span><span style='color: #00BB00;'>col_double()</span><span>,</span>
-#&gt; <span class='message'>  X5 = </span><span style='color: #00BB00;'>col_double()</span><span>,</span>
-#&gt; <span class='message'>  X6 = </span><span style='color: #00BB00;'>col_double()</span><span>,</span>
-#&gt; <span class='message'>  X7 = </span><span style='color: #00BB00;'>col_double()</span><span>,</span>
-#&gt; <span class='message'>  X8 = </span><span style='color: #00BB00;'>col_double()</span><span>,</span>
-#&gt; <span class='message'>  X9 = </span><span style='color: #00BB00;'>col_double()</span><span>,</span>
-#&gt; <span class='message'>  X10 = </span><span style='color: #00BB00;'>col_double()</span><span>,</span>
-#&gt; <span class='message'>  X11 = </span><span style='color: #BB0000;'>col_character()</span><span>,</span>
-#&gt; <span class='message'>  X12 = </span><span style='color: #00BB00;'>col_double()</span><span></span>
-#&gt; <span class='message'>)</span></div><div class='output co'>#&gt; </span><span style='color: #949494;'># A tibble: 20 x 12</span><span>
-#&gt;    X1       X2       X3    X4    X5    X6    X7    X8    X9   X10 X11        X12
-#&gt;    </span><span style='color: #949494;font-style: italic;'>&lt;chr&gt;</span><span>    </span><span style='color: #949494;font-style: italic;'>&lt;chr&gt;</span><span> </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span> </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span> </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span> </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span> </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span> </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span> </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span> </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span> </span><span style='color: #949494;font-style: italic;'>&lt;chr&gt;</span><span>    </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span>
-#&gt; </span><span style='color: #BCBCBC;'> 1</span><span> ALFA RO… </span><span style='color: #949494;'>""</span><span>       </span><span style='color: #BB0000;'>NA</span><span>    </span><span style='color: #BB0000;'>NA</span><span>    </span><span style='color: #BB0000;'>NA</span><span>    </span><span style='color: #BB0000;'>NA</span><span>    </span><span style='color: #BB0000;'>NA</span><span>    </span><span style='color: #BB0000;'>NA</span><span>    </span><span style='color: #BB0000;'>NA</span><span>    </span><span style='color: #BB0000;'>NA</span><span> ALFA R… 7.80</span><span style='color: #949494;'>e</span><span>7
-#&gt; </span><span style='color: #BCBCBC;'> 2</span><span> ALFETTA  </span><span style='color: #949494;'>"</span><span>03</span><span style='color: #949494;'>"</span><span>     81     8    74     7    89     9    </span><span style='color: #BB0000;'>NA</span><span>    </span><span style='color: #BB0000;'>NA</span><span> ALFETTA 7.80</span><span style='color: #949494;'>e</span><span>7
-#&gt; </span><span style='color: #BCBCBC;'> 3</span><span> SPIDER … </span><span style='color: #949494;'>"</span><span>01</span><span style='color: #949494;'>"</span><span>     </span><span style='color: #BB0000;'>NA</span><span>    </span><span style='color: #BB0000;'>NA</span><span>    </span><span style='color: #BB0000;'>NA</span><span>    </span><span style='color: #BB0000;'>NA</span><span>    </span><span style='color: #BB0000;'>NA</span><span>    </span><span style='color: #BB0000;'>NA</span><span>    </span><span style='color: #BB0000;'>NA</span><span>    </span><span style='color: #BB0000;'>NA</span><span> SPIDER… 7.80</span><span style='color: #949494;'>e</span><span>7
-#&gt; </span><span style='color: #BCBCBC;'> 4</span><span> AMC      </span><span style='color: #949494;'>""</span><span>       </span><span style='color: #BB0000;'>NA</span><span>    </span><span style='color: #BB0000;'>NA</span><span>    </span><span style='color: #BB0000;'>NA</span><span>    </span><span style='color: #BB0000;'>NA</span><span>    </span><span style='color: #BB0000;'>NA</span><span>    </span><span style='color: #BB0000;'>NA</span><span>    </span><span style='color: #BB0000;'>NA</span><span>    </span><span style='color: #BB0000;'>NA</span><span> AMC     7.80</span><span style='color: #949494;'>e</span><span>7
-#&gt; </span><span style='color: #BCBCBC;'> 5</span><span> GREMLIN  </span><span style='color: #949494;'>"</span><span>03</span><span style='color: #949494;'>"</span><span>     79     9    </span><span style='color: #BB0000;'>NA</span><span>    </span><span style='color: #BB0000;'>NA</span><span>    </span><span style='color: #BB0000;'>NA</span><span>    </span><span style='color: #BB0000;'>NA</span><span>    79     9 GREMLIN 7.80</span><span style='color: #949494;'>e</span><span>7
-#&gt; </span><span style='color: #BCBCBC;'> 6</span><span> PACER    </span><span style='color: #949494;'>"</span><span>04</span><span style='color: #949494;'>"</span><span>     89    11    </span><span style='color: #BB0000;'>NA</span><span>    </span><span style='color: #BB0000;'>NA</span><span>    </span><span style='color: #BB0000;'>NA</span><span>    </span><span style='color: #BB0000;'>NA</span><span>    89    11 PACER   7.80</span><span style='color: #949494;'>e</span><span>7
-#&gt; </span><span style='color: #BCBCBC;'> 7</span><span> PACER W… </span><span style='color: #949494;'>"</span><span>07</span><span style='color: #949494;'>"</span><span>     90    26    91    26    </span><span style='color: #BB0000;'>NA</span><span>    </span><span style='color: #BB0000;'>NA</span><span>    </span><span style='color: #BB0000;'>NA</span><span>    </span><span style='color: #BB0000;'>NA</span><span> PACER … 7.80</span><span style='color: #949494;'>e</span><span>7
-#&gt; </span><span style='color: #BCBCBC;'> 8</span><span> CONCORD  </span><span style='color: #949494;'>"</span><span>04</span><span style='color: #949494;'>"</span><span>     88    12    90    11    90    11    83    16 CONCORD 7.80</span><span style='color: #949494;'>e</span><span>7
-#&gt; </span><span style='color: #BCBCBC;'> 9</span><span> CONCORD… </span><span style='color: #949494;'>"</span><span>07</span><span style='color: #949494;'>"</span><span>     91    30    </span><span style='color: #BB0000;'>NA</span><span>    </span><span style='color: #BB0000;'>NA</span><span>    91    30    </span><span style='color: #BB0000;'>NA</span><span>    </span><span style='color: #BB0000;'>NA</span><span> CONCOR… 7.80</span><span style='color: #949494;'>e</span><span>7
-#&gt; </span><span style='color: #BCBCBC;'>10</span><span> MATADOR… </span><span style='color: #949494;'>"</span><span>05</span><span style='color: #949494;'>"</span><span>     97    14    97    14    </span><span style='color: #BB0000;'>NA</span><span>    </span><span style='color: #BB0000;'>NA</span><span>    </span><span style='color: #BB0000;'>NA</span><span>    </span><span style='color: #BB0000;'>NA</span><span> MATADO… 7.80</span><span style='color: #949494;'>e</span><span>7
-#&gt; </span><span style='color: #BCBCBC;'>11</span><span> MATADOR… </span><span style='color: #949494;'>"</span><span>06</span><span style='color: #949494;'>"</span><span>    110    20    </span><span style='color: #BB0000;'>NA</span><span>    </span><span style='color: #BB0000;'>NA</span><span>   110    20    </span><span style='color: #BB0000;'>NA</span><span>    </span><span style='color: #BB0000;'>NA</span><span> MATADO… 7.80</span><span style='color: #949494;'>e</span><span>7
-#&gt; </span><span style='color: #BCBCBC;'>12</span><span> MATADOR… </span><span style='color: #949494;'>"</span><span>09</span><span style='color: #949494;'>"</span><span>    112    50    </span><span style='color: #BB0000;'>NA</span><span>    </span><span style='color: #BB0000;'>NA</span><span>   112    50    </span><span style='color: #BB0000;'>NA</span><span>    </span><span style='color: #BB0000;'>NA</span><span> MATADO… 7.80</span><span style='color: #949494;'>e</span><span>7
-#&gt; </span><span style='color: #BCBCBC;'>13</span><span> ASTON M… </span><span style='color: #949494;'>""</span><span>       </span><span style='color: #BB0000;'>NA</span><span>    </span><span style='color: #BB0000;'>NA</span><span>    </span><span style='color: #BB0000;'>NA</span><span>    </span><span style='color: #BB0000;'>NA</span><span>    </span><span style='color: #BB0000;'>NA</span><span>    </span><span style='color: #BB0000;'>NA</span><span>    </span><span style='color: #BB0000;'>NA</span><span>    </span><span style='color: #BB0000;'>NA</span><span> ASTON … 7.80</span><span style='color: #949494;'>e</span><span>7
-#&gt; </span><span style='color: #BCBCBC;'>14</span><span> ASTON M… </span><span style='color: #949494;'>""</span><span>       </span><span style='color: #BB0000;'>NA</span><span>    </span><span style='color: #BB0000;'>NA</span><span>    </span><span style='color: #BB0000;'>NA</span><span>    </span><span style='color: #BB0000;'>NA</span><span>    </span><span style='color: #BB0000;'>NA</span><span>    </span><span style='color: #BB0000;'>NA</span><span>    </span><span style='color: #BB0000;'>NA</span><span>    </span><span style='color: #BB0000;'>NA</span><span> ASTON … 7.80</span><span style='color: #949494;'>e</span><span>7
-#&gt; </span><span style='color: #BCBCBC;'>15</span><span> AUDI     </span><span style='color: #949494;'>""</span><span>       </span><span style='color: #BB0000;'>NA</span><span>    </span><span style='color: #BB0000;'>NA</span><span>    </span><span style='color: #BB0000;'>NA</span><span>    </span><span style='color: #BB0000;'>NA</span><span>    </span><span style='color: #BB0000;'>NA</span><span>    </span><span style='color: #BB0000;'>NA</span><span>    </span><span style='color: #BB0000;'>NA</span><span>    </span><span style='color: #BB0000;'>NA</span><span> AUDI    7.81</span><span style='color: #949494;'>e</span><span>7
-#&gt; </span><span style='color: #BCBCBC;'>16</span><span> FOX      </span><span style='color: #949494;'>"</span><span>03</span><span style='color: #949494;'>"</span><span>     84    11    84    11    84    11    </span><span style='color: #BB0000;'>NA</span><span>    </span><span style='color: #BB0000;'>NA</span><span> FOX     7.81</span><span style='color: #949494;'>e</span><span>7
-#&gt; </span><span style='color: #BCBCBC;'>17</span><span> FOX WAG… </span><span style='color: #949494;'>"</span><span>07</span><span style='color: #949494;'>"</span><span>     83    40    </span><span style='color: #BB0000;'>NA</span><span>    </span><span style='color: #BB0000;'>NA</span><span>    83    40    </span><span style='color: #BB0000;'>NA</span><span>    </span><span style='color: #BB0000;'>NA</span><span> FOX WA… 7.81</span><span style='color: #949494;'>e</span><span>7
-#&gt; </span><span style='color: #BCBCBC;'>18</span><span> 5000     </span><span style='color: #949494;'>"</span><span>04</span><span style='color: #949494;'>"</span><span>     90    15    </span><span style='color: #BB0000;'>NA</span><span>    </span><span style='color: #BB0000;'>NA</span><span>    90    15    </span><span style='color: #BB0000;'>NA</span><span>    </span><span style='color: #BB0000;'>NA</span><span> 5000    7.81</span><span style='color: #949494;'>e</span><span>7
-#&gt; </span><span style='color: #BCBCBC;'>19</span><span> AVANTI   </span><span style='color: #949494;'>""</span><span>       </span><span style='color: #BB0000;'>NA</span><span>    </span><span style='color: #BB0000;'>NA</span><span>    </span><span style='color: #BB0000;'>NA</span><span>    </span><span style='color: #BB0000;'>NA</span><span>    </span><span style='color: #BB0000;'>NA</span><span>    </span><span style='color: #BB0000;'>NA</span><span>    </span><span style='color: #BB0000;'>NA</span><span>    </span><span style='color: #BB0000;'>NA</span><span> AVANTI  7.81</span><span style='color: #949494;'>e</span><span>7
-#&gt; </span><span style='color: #BCBCBC;'>20</span><span> AVANTI … </span><span style='color: #949494;'>"</span><span>02</span><span style='color: #949494;'>"</span><span>     75     8    75     8    </span><span style='color: #BB0000;'>NA</span><span>    </span><span style='color: #BB0000;'>NA</span><span>    </span><span style='color: #BB0000;'>NA</span><span>    </span><span style='color: #BB0000;'>NA</span><span> AVANTI… 7.81</span><span style='color: #949494;'>e</span><span>7</div></span></pre>
+#&gt; <span class='message'>  X3 = </span><span style='color: #BB0000;'>col_character()</span><span>,</span>
+#&gt; <span class='message'>  X4 = </span><span style='color: #BB0000;'>col_character()</span><span>,</span>
+#&gt; <span class='message'>  X5 = </span><span style='color: #00BB00;'>col_double()</span><span></span>
+#&gt; <span class='message'>)</span></div><div class='output co'>#&gt; <span class='warning'>Warning: 17 parsing failures.</span>
+#&gt; <span class='warning'>row col  expected     actual                                                       file</span>
+#&gt; <span class='warning'>  2  -- 5 columns 10 columns '/Users/runner/work/_temp/Library/readr/extdata/epa78.txt'</span>
+#&gt; <span class='warning'>  3  -- 5 columns 6 columns  '/Users/runner/work/_temp/Library/readr/extdata/epa78.txt'</span>
+#&gt; <span class='warning'>  4  -- 5 columns 3 columns  '/Users/runner/work/_temp/Library/readr/extdata/epa78.txt'</span>
+#&gt; <span class='warning'>  5  -- 5 columns 8 columns  '/Users/runner/work/_temp/Library/readr/extdata/epa78.txt'</span>
+#&gt; <span class='warning'>  6  -- 5 columns 8 columns  '/Users/runner/work/_temp/Library/readr/extdata/epa78.txt'</span>
+#&gt; <span class='warning'>... ... ......... .......... ..........................................................</span>
+#&gt; <span class='warning'>See problems(...) for more details.</span></div><div class='output co'>#&gt; </span><span style='color: #949494;'># A tibble: 20 x 5</span><span>
+#&gt;    X1      X2     X3       X4           X5
+#&gt;    </span><span style='color: #949494;font-style: italic;'>&lt;chr&gt;</span><span>   </span><span style='color: #949494;font-style: italic;'>&lt;chr&gt;</span><span>  </span><span style='color: #949494;font-style: italic;'>&lt;chr&gt;</span><span>    </span><span style='color: #949494;font-style: italic;'>&lt;chr&gt;</span><span>     </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span>
+#&gt; </span><span style='color: #BCBCBC;'> 1</span><span> ALFA    ROMEO  ALFA     ROMEO  78</span><span style='text-decoration: underline;'>010</span><span>003
+#&gt; </span><span style='color: #BCBCBC;'> 2</span><span> ALFETTA 03     81       8            74
+#&gt; </span><span style='color: #BCBCBC;'> 3</span><span> SPIDER  2000   01       SPIDER     </span><span style='text-decoration: underline;'>2</span><span>000
+#&gt; </span><span style='color: #BCBCBC;'> 4</span><span> AMC     AMC    78020002 </span><span style='color: #BB0000;'>NA</span><span>           </span><span style='color: #BB0000;'>NA</span><span>
+#&gt; </span><span style='color: #BCBCBC;'> 5</span><span> GREMLIN 03     79       9            79
+#&gt; </span><span style='color: #BCBCBC;'> 6</span><span> PACER   04     89       11           89
+#&gt; </span><span style='color: #BCBCBC;'> 7</span><span> PACER   WAGON  07       90           26
+#&gt; </span><span style='color: #BCBCBC;'> 8</span><span> CONCORD 04     88       12           90
+#&gt; </span><span style='color: #BCBCBC;'> 9</span><span> CONCORD WAGON  07       91           30
+#&gt; </span><span style='color: #BCBCBC;'>10</span><span> MATADOR COUPE  05       97           14
+#&gt; </span><span style='color: #BCBCBC;'>11</span><span> MATADOR SEDAN  06       110          20
+#&gt; </span><span style='color: #BCBCBC;'>12</span><span> MATADOR WAGON  09       112          50
+#&gt; </span><span style='color: #BCBCBC;'>13</span><span> ASTON   MARTIN ASTON    MARTIN 78</span><span style='text-decoration: underline;'>040</span><span>002
+#&gt; </span><span style='color: #BCBCBC;'>14</span><span> ASTON   MARTIN ASTON    MARTIN 78</span><span style='text-decoration: underline;'>040</span><span>053
+#&gt; </span><span style='color: #BCBCBC;'>15</span><span> AUDI    AUDI   78050002 </span><span style='color: #BB0000;'>NA</span><span>           </span><span style='color: #BB0000;'>NA</span><span>
+#&gt; </span><span style='color: #BCBCBC;'>16</span><span> FOX     03     84       11           84
+#&gt; </span><span style='color: #BCBCBC;'>17</span><span> FOX     WAGON  07       83           40
+#&gt; </span><span style='color: #BCBCBC;'>18</span><span> 5000    04     90       15           90
+#&gt; </span><span style='color: #BCBCBC;'>19</span><span> AVANTI  AVANTI 78065002 </span><span style='color: #BB0000;'>NA</span><span>           </span><span style='color: #BB0000;'>NA</span><span>
+#&gt; </span><span style='color: #BCBCBC;'>20</span><span> AVANTI  II     02       75            8</div></span></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

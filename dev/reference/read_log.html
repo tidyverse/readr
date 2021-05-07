@@ -178,6 +178,7 @@ in a quoted string. The dash, "-", is used for missing values.</p>
   <span class='va'>file</span>,
   col_names <span class='op'>=</span> <span class='cn'>FALSE</span>,
   col_types <span class='op'>=</span> <span class='cn'>NULL</span>,
+  trim_ws <span class='op'>=</span> <span class='cn'>TRUE</span>,
   skip <span class='op'>=</span> <span class='fl'>0</span>,
   n_max <span class='op'>=</span> <span class='cn'>Inf</span>,
   progress <span class='op'>=</span> <span class='fu'><a href='show_progress.html'>show_progress</a></span><span class='op'>(</span><span class='op'>)</span>
@@ -242,6 +243,11 @@ message showing what <code>readr</code> guessed they were. To remove this messag
 use <code>col_types = list()</code>, set <code>show_col_types = FALSE</code> or set
 `options(readr.show_col_types = FALSE)</p></li>
 </ul></td>
+    </tr>
+    <tr>
+      <th>trim_ws</th>
+      <td><p>Should leading and trailing whitespace be trimmed from
+each field before parsing it?</p></td>
     </tr>
     <tr>
       <th>skip</th>
