@@ -96,7 +96,11 @@ R_xlen_t Reader::read(R_xlen_t lines) {
 
   collectorsResize(n);
 
-  R_xlen_t last_row = -1, last_col = -1, cells = 0;
+  R_xlen_t last_row = -1;
+
+  R_xlen_t last_col = -1;
+
+  R_xlen_t cells = 0;
   R_xlen_t first_row;
   if (!begun_) {
     t_ = tokenizer_->nextToken();
@@ -215,7 +219,9 @@ R_xlen_t Reader::melt(const cpp11::list& locale_, R_xlen_t lines) {
 
   collectorsResize(n);
 
-  R_xlen_t last_row = -1, cells = 0;
+  R_xlen_t last_row = -1;
+
+  R_xlen_t cells = 0;
   R_xlen_t first_row;
   if (!begun_) {
     t_ = tokenizer_->nextToken();

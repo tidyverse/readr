@@ -35,8 +35,9 @@ TokenizerPtr Tokenizer::create(const cpp11::list& spec) {
         quotedNA,
         skipEmptyRows));
   } else if (subclass == "tokenizer_fwf") {
-    std::vector<int> begin = cpp11::as_cpp<std::vector<int>>(spec["begin"]),
-                     end = cpp11::as_cpp<std::vector<int>>(spec["end"]);
+    std::vector<int> begin = cpp11::as_cpp<std::vector<int>>(spec["begin"]);
+
+    std::vector<int> end = cpp11::as_cpp<std::vector<int>>(spec["end"]);
     std::vector<std::string> na =
         cpp11::as_cpp<std::vector<std::string>>(spec["na"]);
     std::string comment = cpp11::as_cpp<std::string>(spec["comment"]);

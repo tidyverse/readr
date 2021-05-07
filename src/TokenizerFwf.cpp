@@ -47,7 +47,9 @@ emptyCols_(SourceIterator begin, SourceIterator end, size_t n = 100) {
 
   std::vector<bool> is_white;
 
-  size_t row = 0, col = 0;
+  size_t row = 0;
+
+  size_t col = 0;
   for (SourceIterator cur = begin; cur != end; ++cur) {
     if (row > n) {
       break;
@@ -83,7 +85,9 @@ whitespaceColumns(const cpp11::list& sourceSpec, int n, std::string comment) {
   skip_t s = skip_comments(source->begin(), source->end(), std::move(comment));
 
   std::vector<bool> empty = emptyCols_(s.begin, source->end(), n);
-  std::vector<int> begin, end;
+  std::vector<int> begin;
+
+  std::vector<int> end;
 
   bool in_col = false;
 
@@ -241,7 +245,11 @@ findBeginning:
 
   // Find end of field
   SourceIterator fieldEnd = fieldBegin;
-  bool lastCol = (col_ == cols_ - 1), tooShort = false, hasNull = false;
+  bool lastCol = (col_ == cols_ - 1);
+
+  bool tooShort = false;
+
+  bool hasNull = false;
 
   if (lastCol && isRagged_) {
     // Last column is ragged, so read until end of line (ignoring width)

@@ -53,14 +53,20 @@ std::pair<double, size_t> TokenizerDelim::progress() {
 
 Token TokenizerDelim::nextToken() {
   // Capture current position
-  int row = row_, col = col_;
+  int row = row_;
+
+  int col = col_;
 
   if (!moreTokens_) {
     return Token(TOKEN_EOF, row, col);
   }
 
   SourceIterator token_begin = cur_;
-  bool hasEscapeD = false, hasEscapeB = false, hasNull = false;
+  bool hasEscapeD = false;
+
+  bool hasEscapeB = false;
+
+  bool hasNull = false;
 
   while (cur_ < end_) {
     // Increments cur on destruct, ensuring that we always move on to the

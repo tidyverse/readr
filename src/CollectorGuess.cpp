@@ -50,7 +50,9 @@ bool isNumber(const std::string& x, LocaleInfo* pLocale) {
   }
 
   double res = 0;
-  std::string::const_iterator begin = x.begin(), end = x.end();
+  std::string::const_iterator begin = x.begin();
+
+  std::string::const_iterator end = x.end();
 
   bool ok = parseNumber(
       pLocale->decimalMark_, pLocale->groupingMark_, begin, end, res);
@@ -64,7 +66,9 @@ bool isInteger(const std::string& x, LocaleInfo* /*unused*/) {
   }
 
   double res = 0;
-  std::string::const_iterator begin = x.begin(), end = x.end();
+  std::string::const_iterator begin = x.begin();
+
+  std::string::const_iterator end = x.end();
 
   return parseInt(begin, end, res) && begin == end;
 }

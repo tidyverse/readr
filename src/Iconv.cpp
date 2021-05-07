@@ -38,7 +38,9 @@ size_t Iconv::convert(const char* start, const char* end) {
   }
 
   char* outbuf = &buffer_[0];
-  size_t inbytesleft = n, outbytesleft = max_size;
+  size_t inbytesleft = n;
+
+  size_t outbytesleft = max_size;
   size_t res = Riconv(cd_, &start, &inbytesleft, &outbuf, &outbytesleft);
 
   if (res == (size_t)-1) {

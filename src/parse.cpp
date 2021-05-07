@@ -17,7 +17,9 @@ dim_tokens_(const cpp11::list& sourceSpec, const cpp11::list& tokenizerSpec) {
   TokenizerPtr tokenizer = Tokenizer::create(tokenizerSpec);
   tokenizer->tokenize(source->begin(), source->end());
 
-  int rows = -1, cols = -1;
+  int rows = -1;
+
+  int cols = -1;
 
   for (Token t = tokenizer->nextToken(); t.type() != TOKEN_EOF;
        t = tokenizer->nextToken()) {
