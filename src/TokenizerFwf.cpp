@@ -44,8 +44,7 @@ skip_t skip_comments(
 std::vector<bool> emptyCols_(
     SourceIterator begin,
     SourceIterator end,
-    size_t n = 100,
-    std::string comment = "") {
+    size_t n = 100) {
 
   std::vector<bool> is_white;
 

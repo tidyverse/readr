@@ -33,7 +33,7 @@ bool allMissing(cpp11::strings x) {
   return true;
 }
 
-bool isLogical(const std::string& x, LocaleInfo* pLocale) {
+bool isLogical(const std::string& x, LocaleInfo* /*unused*/) {
   const char* const str = x.data();
   bool res = isLogical(str, str + x.size());
   return res;
@@ -52,7 +52,7 @@ bool isNumber(const std::string& x, LocaleInfo* pLocale) {
   return ok && begin == x.begin() && end == x.end();
 }
 
-bool isInteger(const std::string& x, LocaleInfo* pLocale) {
+bool isInteger(const std::string& x, LocaleInfo* /*unused*/) {
   // Leading zero
   if (x[0] == '0' && x.size() > 1)
     return false;
