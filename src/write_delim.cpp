@@ -39,14 +39,12 @@ void stream_delim_row(
 bool needs_quote(const char* string, char delim, const std::string& na) {
   if (string == na) {
     return true;
-
-}
+  }
 
   for (const char* cur = string; *cur != '\0'; ++cur) {
     if (*cur == '\n' || *cur == '\r' || *cur == '"' || *cur == delim) {
       return true;
-
-}
+    }
   }
 
   return false;
@@ -116,8 +114,7 @@ void stream_delim(
   int p = Rf_length(df);
   if (p == 0) {
     return;
-
-}
+  }
 
   if (bom) {
     write_bytes(connection, "\xEF\xBB\xBF", 3);

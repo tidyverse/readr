@@ -1,6 +1,6 @@
-#include "cpp11/strings.hpp"
 #include "cpp11/list.hpp"
 #include "cpp11/sexp.hpp"
+#include "cpp11/strings.hpp"
 
 #include "Collector.h"
 #include "LocaleInfo.h"
@@ -29,8 +29,7 @@
       t = Token(begin, begin + Rf_length(string), i - 1, col - 1, false);
       if (trim_ws) {
         t.trim();
-
-}
+      }
       t.flagNA(na);
     }
 

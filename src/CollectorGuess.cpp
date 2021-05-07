@@ -15,18 +15,15 @@ bool canParse(
   for (int i = 0; i < x.size(); ++i) {
     if (x[i] == NA_STRING) {
       continue;
-
-}
+    }
 
     if (x[i].size() == 0) {
       continue;
-
-}
+    }
 
     if (!canParse(std::string(x[i]), pLocale)) {
       return false;
-
-}
+    }
   }
   return true;
 }
@@ -35,8 +32,7 @@ bool allMissing(const cpp11::strings& x) {
   for (int i = 0; i < x.size(); ++i) {
     if (x[i] != NA_STRING && x[i].size() > 0) {
       return false;
-
-}
+    }
   }
   return true;
 }
@@ -51,8 +47,7 @@ bool isNumber(const std::string& x, LocaleInfo* pLocale) {
   // Leading zero not followed by decimal mark
   if (x[0] == '0' && x.size() > 1 && x[1] != pLocale->decimalMark_) {
     return false;
-
-}
+  }
 
   double res = 0;
   std::string::const_iterator begin = x.begin(), end = x.end();
@@ -66,8 +61,7 @@ bool isInteger(const std::string& x, LocaleInfo* /*unused*/) {
   // Leading zero
   if (x[0] == '0' && x.size() > 1) {
     return false;
-
-}
+  }
 
   double res = 0;
   std::string::const_iterator begin = x.begin(), end = x.end();
@@ -79,8 +73,7 @@ bool isDouble(const std::string& x, LocaleInfo* pLocale) {
   // Leading zero not followed by decimal mark
   if (x[0] == '0' && x.size() > 1 && x[1] != pLocale->decimalMark_) {
     return false;
-
-}
+  }
 
   double res = 0;
   const char* begin = x.c_str();
@@ -112,20 +105,20 @@ static bool isDateTime(const std::string& x, LocaleInfo* pLocale) {
 
   if (!ok) {
     return false;
-
-}
+  }
 
   if (!parser.compactDate()) {
     return true;
-
-}
+  }
 
   // Values like 00014567 are unlikely to be dates, so don't guess
   return parser.year() > 999;
 }
 
 [[cpp11::register]] std::string collectorGuess(
-    const cpp11::strings& input, const cpp11::list& locale_, bool guessInteger) {
+    const cpp11::strings& input,
+    const cpp11::list& locale_,
+    bool guessInteger) {
   LocaleInfo locale(static_cast<SEXP>(locale_));
 
   if (input.size() == 0) {
@@ -139,32 +132,25 @@ static bool isDateTime(const std::string& x, LocaleInfo* pLocale) {
   // Work from strictest to most flexible
   if (canParse(input, isLogical, &locale)) {
     return "logical";
-
-}
+  }
   if (guessInteger && canParse(input, isInteger, &locale)) {
     return "integer";
-
-}
+  }
   if (canParse(input, isDouble, &locale)) {
     return "double";
-
-}
+  }
   if (canParse(input, isNumber, &locale)) {
     return "number";
-
-}
+  }
   if (canParse(input, isTime, &locale)) {
     return "time";
-
-}
+  }
   if (canParse(input, isDate, &locale)) {
     return "date";
-
-}
+  }
   if (canParse(input, isDateTime, &locale)) {
     return "datetime";
-
-}
+  }
 
   // Otherwise can always parse as a character
   return "character";

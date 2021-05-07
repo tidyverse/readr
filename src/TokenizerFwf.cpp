@@ -10,7 +10,6 @@
 #include <sstream>
 #include <utility>
 
-
 struct skip_t {
   SourceIterator begin;
   int lines;
@@ -43,10 +42,8 @@ skip_t skip_comments(
   return out;
 }
 
-std::vector<bool> emptyCols_(
-    SourceIterator begin,
-    SourceIterator end,
-    size_t n = 100) {
+std::vector<bool>
+emptyCols_(SourceIterator begin, SourceIterator end, size_t n = 100) {
 
   std::vector<bool> is_white;
 
@@ -54,8 +51,7 @@ std::vector<bool> emptyCols_(
   for (SourceIterator cur = begin; cur != end; ++cur) {
     if (row > n) {
       break;
-
-}
+    }
 
     switch (*cur) {
     case '\n':
@@ -71,8 +67,7 @@ std::vector<bool> emptyCols_(
       // Make sure there's enough room
       if (col >= is_white.size()) {
         is_white.resize(col + 1, true);
-
-}
+      }
       is_white[col] = false;
       col++;
     }
@@ -104,8 +99,7 @@ whitespaceColumns(const cpp11::list& sourceSpec, int n, std::string comment) {
 
   if (in_col) {
     end.push_back(empty.size());
-
-}
+  }
 
   using namespace cpp11::literals;
   return cpp11::writable::list(
@@ -137,13 +131,11 @@ TokenizerFwf::TokenizerFwf(
         "Begin (%i) and end (%i) specifications must have equal length",
         beginOffset_.size(),
         endOffset_.size());
-
-}
+  }
 
   if (beginOffset_.size() == 0) {
     cpp11::stop("Zero-length begin and end specifications not supported");
-
-}
+  }
 
   // File is assumed to be ragged (last column can have variable width)
   // when the last element of endOffset_ is NA
@@ -156,18 +148,15 @@ TokenizerFwf::TokenizerFwf(
           "Begin offset (%i) must be smaller than end offset (%i)",
           beginOffset_[j],
           endOffset_[j]);
-
-}
+    }
 
     if (beginOffset_[j] < 0) {
       cpp11::stop("Begin offset (%i) must be greater than 0", beginOffset_[j]);
-
-}
+    }
 
     if (endOffset_[j] < 0) {
       cpp11::stop("End offset (%i) must be greater than 0", endOffset_[j]);
-
-}
+    }
 
     if (endOffset_[j] > max_) {
       max_ = endOffset_[j];
@@ -195,8 +184,7 @@ std::pair<double, size_t> TokenizerFwf::progress() {
 Token TokenizerFwf::nextToken() {
   if (!moreTokens_) {
     return Token(TOKEN_EOF, 0, 0);
-
-}
+  }
 
   // Check for comments only at start of line
   while (cur_ != end_ && col_ == 0 &&
@@ -222,8 +210,7 @@ findBeginning:
     for (int i = 0; i < skip; ++i) {
       if (fieldBegin == end_) {
         break;
-
-}
+      }
 
       if (*fieldBegin == '\n' || *fieldBegin == '\r') {
         std::stringstream ss1;
@@ -238,8 +225,7 @@ findBeginning:
         advanceForLF(&fieldBegin, end_);
         if (fieldBegin != end_) {
           fieldBegin++;
-
-}
+        }
         cur_ = curLine_ = fieldBegin;
         goto findBeginning;
       }
@@ -262,8 +248,7 @@ findBeginning:
     while (fieldEnd != end_ && *fieldEnd != '\r' && *fieldEnd != '\n') {
       if (*fieldEnd == '\0') {
         hasNull = true;
-
-}
+      }
       fieldEnd++;
     }
   } else {
@@ -284,8 +269,7 @@ findBeginning:
       }
       if (*fieldEnd == '\0') {
         hasNull = true;
-
-}
+      }
 
       fieldEnd++;
     }
@@ -309,8 +293,7 @@ findBeginning:
     advanceForLF(&curLine_, end_);
     if (curLine_ != end_) {
       curLine_++;
-
-}
+    }
     cur_ = curLine_;
   } else {
     col_++;
@@ -324,8 +307,7 @@ Token TokenizerFwf::fieldToken(
     SourceIterator begin, SourceIterator end, bool hasNull) {
   if (begin == end) {
     return Token(TOKEN_MISSING, row_, col_);
-
-}
+  }
 
   Token t = Token(begin, end, row_, col_, hasNull);
   if (trimWS_) {
@@ -339,8 +321,7 @@ Token TokenizerFwf::fieldToken(
 bool TokenizerFwf::isComment(const char* cur) const {
   if (!hasComment_) {
     return false;
-
-}
+  }
 
   return starts_with_comment(cur, end_, comment_);
 }

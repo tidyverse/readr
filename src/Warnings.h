@@ -46,10 +46,11 @@ public:
   cpp11::data_frame asDataFrame() {
     using namespace cpp11::literals;
 
-    cpp11::writable::data_frame out({"row"_nm = row_,
-                                     "col"_nm = col_,
-                                     "expected"_nm = expected_,
-                                     "actual"_nm = actual_});
+    cpp11::writable::data_frame out(
+        {"row"_nm = row_,
+         "col"_nm = col_,
+         "expected"_nm = expected_,
+         "actual"_nm = actual_});
     out.attr("class") = {"tbl_df", "tbl", "data.frame"};
 
     return static_cast<SEXP>(out);

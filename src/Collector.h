@@ -276,6 +276,8 @@ collectorsCreate(const cpp11::list& specs, LocaleInfo* pLocale);
 void collectorsResize(std::vector<CollectorPtr>& collectors, int n);
 void collectorsClear(std::vector<CollectorPtr>& collectors);
 std::string collectorGuess(
-    const cpp11::strings& input, const cpp11::list& locale_, bool guessInteger = false);
+    const cpp11::strings& input,
+    const cpp11::list& locale_,
+    bool guessInteger = false);
 
 #endif

@@ -1,7 +1,5 @@
 #include <utility>
 
-
-
 #include "cpp11/environment.hpp"
 #include "cpp11/function.hpp"
 #include "cpp11/list.hpp"
@@ -94,8 +92,8 @@ bool isTrue(SEXP x) {
   return;
 }
 
-[[cpp11::register]] cpp11::list
-read_lines_raw_(const cpp11::list& sourceSpec, int n_max = -1, bool progress = false) {
+[[cpp11::register]] cpp11::list read_lines_raw_(
+    const cpp11::list& sourceSpec, int n_max = -1, bool progress = false) {
 
   Reader r(
       Source::create(sourceSpec),
@@ -252,8 +250,7 @@ typedef std::vector<CollectorPtr>::iterator CollectorItr;
        t = tokenizer->nextToken()) {
     if (t.row() >= (size_t)n) {
       break;
-
-}
+    }
 
     // Add new collectors, if needed
     if (t.col() >= collectors.size()) {

@@ -24,8 +24,22 @@ class Token {
   Tokenizer* pTokenizer_;
 
 public:
-  Token() : type_(TOKEN_EMPTY), begin_(0), end_(0), row_(0), col_(0), hasNull_(false), pTokenizer_(nullptr) {}
-  Token(TokenType type, int row, int col) : type_(type), begin_(0), end_(0), row_(row), col_(col), hasNull_(false), pTokenizer_(nullptr) {}
+  Token()
+      : type_(TOKEN_EMPTY),
+        begin_(0),
+        end_(0),
+        row_(0),
+        col_(0),
+        hasNull_(false),
+        pTokenizer_(nullptr) {}
+  Token(TokenType type, int row, int col)
+      : type_(type),
+        begin_(0),
+        end_(0),
+        row_(row),
+        col_(col),
+        hasNull_(false),
+        pTokenizer_(nullptr) {}
   Token(
       SourceIterator begin,
       SourceIterator end,

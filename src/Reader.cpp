@@ -6,7 +6,6 @@
 #include <sstream>
 #include <utility>
 
-
 Reader::Reader(
     SourcePtr source,
     TokenizerPtr tokenizer,
@@ -161,8 +160,7 @@ R_xlen_t Reader::read(R_xlen_t lines) {
 void Reader::checkColumns(int i, int j, int n) {
   if (j + 1 == n) {
     return;
-
-}
+  }
 
   std::stringstream ss1;
   ss1 << n << " columns";
@@ -184,7 +182,8 @@ void Reader::collectorsClear() {
   }
 }
 
-cpp11::sexp Reader::meltToDataFrame(const cpp11::list& locale_, R_xlen_t lines) {
+cpp11::sexp
+Reader::meltToDataFrame(const cpp11::list& locale_, R_xlen_t lines) {
   melt(locale_, lines);
 
   // Save individual columns into a data frame

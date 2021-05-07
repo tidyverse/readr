@@ -10,28 +10,23 @@ CollectorPtr Collector::create(const cpp11::list& spec, LocaleInfo* pLocale) {
 
   if (subclass == "collector_skip") {
     return CollectorPtr(new CollectorSkip());
-
-}
+  }
   if (subclass == "collector_logical") {
     return CollectorPtr(new CollectorLogical());
-
-}
+  }
   if (subclass == "collector_integer") {
     return CollectorPtr(new CollectorInteger());
-
-}
+  }
   if (subclass == "collector_double") {
     return CollectorPtr(new CollectorDouble(pLocale->decimalMark_));
   }
   if (subclass == "collector_number") {
     return CollectorPtr(
         new CollectorNumeric(pLocale->decimalMark_, pLocale->groupingMark_));
-
-}
+  }
   if (subclass == "collector_character") {
     return CollectorPtr(new CollectorCharacter(&pLocale->encoder_));
-
-}
+  }
   if (subclass == "collector_date") {
     SEXP format_ = spec["format"];
     std::string format = (Rf_isNull(format_))
@@ -80,8 +75,7 @@ void CollectorCharacter::setValue(int i, const Token& t) {
 
     if (t.hasNull()) {
       warn(t.row(), t.col(), "", "embedded null");
-
-}
+    }
 
     SET_STRING_ELT(
         column_,
@@ -213,7 +207,8 @@ void CollectorDouble::setValue(int i, const Token& t) {
 
 void CollectorDouble::setValue(int i, size_t st) { REAL(column_)[i] = st; }
 
-void CollectorFactor::insert(int i, const cpp11::r_string& str, const Token& t) {
+void CollectorFactor::insert(
+    int i, const cpp11::r_string& str, const Token& t) {
   std::map<cpp11::r_string, int>::iterator it = levelset_.find(str);
   if (it == levelset_.end()) {
     if (implicitLevels_ || (includeNa_ && str == NA_STRING)) {

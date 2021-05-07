@@ -35,8 +35,7 @@ size_t Iconv::convert(const char* start, const char* end) {
   size_t max_size = n * 4;
   if (buffer_.size() < max_size) {
     buffer_.resize(max_size);
-
-}
+  }
 
   char* outbuf = &buffer_[0];
   size_t inbytesleft = n, outbytesleft = max_size;
@@ -62,8 +61,7 @@ int my_strnlen(const char* s, int maxlen) {
   for (int n = 0; n < maxlen; ++n) {
     if (s[n] == '\0') {
       return n;
-
-}
+    }
   }
   return maxlen;
 }
@@ -87,8 +85,7 @@ SEXP safeMakeChar(const char* start, size_t n, bool hasNull) {
 SEXP Iconv::makeSEXP(const char* start, const char* end, bool hasNull) {
   if (cd_ == NULL) {
     return safeMakeChar(start, end - start, hasNull);
-
-}
+  }
 
   int n = convert(start, end);
   return safeMakeChar(&buffer_[0], n, hasNull);
@@ -97,8 +94,7 @@ SEXP Iconv::makeSEXP(const char* start, const char* end, bool hasNull) {
 std::string Iconv::makeString(const char* start, const char* end) {
   if (cd_ == NULL) {
     return std::string(start, end);
-
-}
+  }
 
   int n = convert(start, end);
   return std::string(&buffer_[0], n);
