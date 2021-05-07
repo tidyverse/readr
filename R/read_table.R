@@ -46,6 +46,15 @@ read_table <- function(file, col_names = TRUE, col_types = NULL,
   )
 }
 
+#' Read whitespace-separated columns into a tibble
+#'
+#' @description
+#' `r lifecycle::badge("deprecated")`
+#'
+#' This function is deprecated because we renamed it to [read_table()] and
+#' removed the old `read_table` function, which was too strict for most cases
+#' and was analogous to just using `read_fwf()`.
+#' @keywords internal
 #' @export
 read_table2 <- function(file, col_names = TRUE, col_types = NULL,
                         locale = default_locale(), na = "NA", skip = 0,
