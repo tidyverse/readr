@@ -28,6 +28,9 @@
 
 * write_excel_csv() now defaults to `quote = "all"` (#759)
 
+* `read_table2()` has been renamed to `read_table()`, as most users expect `read_table()` to work like `utils::read.table()`.
+  If you want the previous strict behavior of the `read_table()` you can use `read_fwf()` with `fwf_empty()` directly (#717).
+
 ## Additional features and fixes
 
 * `read_log()` gains a `trim_ws` argument (#738)

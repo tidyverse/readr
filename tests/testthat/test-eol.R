@@ -35,9 +35,3 @@ test_that("read_fwf/read_table standardises line breaks", {
   # expect_equal(read_table("eol-cr.txt")$y, letters[1:3])
   expect_equal(read_table("eol-crlf.txt")$y, letters[1:3])
 })
-
-test_that("read_table2 standardises line breaks", {
-  expect_equal(read_table2("eol-lf.txt")$y, letters[0:3])
-  # expect_equal(read_table2("eol-cr.txt")$y, letters[1:3])
-  expect_equal(read_table2("eol-crlf.txt")$y, letters[1:3])
-})

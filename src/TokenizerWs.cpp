@@ -65,7 +65,7 @@ Token TokenizerWs::nextToken() {
   while (fieldEnd != end_ && !isspace(*fieldEnd)) {
     ++fieldEnd;
   }
-  bool hasNull = *fieldEnd == '\0';
+  bool hasNull = fieldEnd != end_ && *fieldEnd == '\0';
   Token t = fieldToken(fieldBegin, fieldEnd, hasNull);
   cur_ = fieldEnd;
   ++col_;

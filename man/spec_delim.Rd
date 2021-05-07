@@ -6,7 +6,6 @@
 \alias{spec_csv2}
 \alias{spec_tsv}
 \alias{spec_table}
-\alias{spec_table2}
 \title{Generate a column specification}
 \usage{
 spec_delim(
@@ -105,20 +104,6 @@ spec_tsv(
 )
 
 spec_table(
-  file,
-  col_names = TRUE,
-  col_types = NULL,
-  locale = default_locale(),
-  na = "NA",
-  skip = 0,
-  n_max = 0,
-  guess_max = 1000,
-  progress = show_progress(),
-  comment = "",
-  skip_empty_rows = TRUE
-)
-
-spec_table2(
   file,
   col_names = TRUE,
   col_types = NULL,
