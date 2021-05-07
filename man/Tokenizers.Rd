@@ -43,7 +43,7 @@ tokenizer_tsv(
 
 tokenizer_line(na = character(), skip_empty_rows = TRUE)
 
-tokenizer_log()
+tokenizer_log(trim_ws)
 
 tokenizer_fwf(
   begin,

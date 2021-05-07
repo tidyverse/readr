@@ -122,8 +122,8 @@ tokenizer_line <- function(na = character(), skip_empty_rows = TRUE) {
 
 #' @export
 #' @rdname Tokenizers
-tokenizer_log <- function() {
-  structure(list(), class = "tokenizer_log")
+tokenizer_log <- function(trim_ws) {
+  structure(list(trim_ws = trim_ws), class = "tokenizer_log")
 }
 
 

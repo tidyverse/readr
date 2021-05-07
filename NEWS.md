@@ -30,6 +30,8 @@
 
 ## Additional features and fixes
 
+* `read_log()` gains a `trim_ws` argument (#738)
+
 * `read_rds()` can now read .Rds files from URLs (#1186)
 
 * `read_*()` functions gain a `show_col_types` argument, if set to `FALSE` this turns off showing the column types unconditionally.

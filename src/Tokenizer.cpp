@@ -51,7 +51,8 @@ TokenizerPtr Tokenizer::create(cpp11::list spec) {
     bool skipEmptyRows = cpp11::as_cpp<bool>(spec["skip_empty_rows"]);
     return TokenizerPtr(new TokenizerLine(na, skipEmptyRows));
   } else if (subclass == "tokenizer_log") {
-    return TokenizerPtr(new TokenizerLog());
+    bool trimWs = cpp11::as_cpp<bool>(spec["trim_ws"]);
+    return TokenizerPtr(new TokenizerLog(trimWs));
   } else if (subclass == "tokenizer_ws") {
     std::vector<std::string> na =
         cpp11::as_cpp<std::vector<std::string>>(spec["na"]);

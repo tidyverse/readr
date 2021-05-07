@@ -8,6 +8,7 @@ read_log(
   file,
   col_names = FALSE,
   col_types = NULL,
+  trim_ws = TRUE,
   skip = 0,
   n_max = Inf,
   progress = show_progress()
@@ -75,6 +76,9 @@ message showing what \code{readr} guessed they were. To remove this message,
 use \code{col_types = list()}, set \code{show_col_types = FALSE} or set
 `options(readr.show_col_types = FALSE)
 }}
+
+\item{trim_ws}{Should leading and trailing whitespace be trimmed from
+each field before parsing it?}
 
 \item{skip}{Number of lines to skip before reading data.}
 

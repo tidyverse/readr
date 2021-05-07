@@ -21,9 +21,10 @@ class TokenizerLog : public Tokenizer {
   LogState state_;
   int row_, col_;
   bool moreTokens_;
+  bool trimWS_;
 
 public:
-  TokenizerLog() {}
+  TokenizerLog(bool trimWS) : trimWS_(trimWS) {}
 
   void tokenize(SourceIterator begin, SourceIterator end) {
     cur_ = begin;
@@ -63,8 +64,7 @@ public:
           advanceForLF(&cur_, end_);
           return Token(TOKEN_EMPTY, row, col);
         } else if (*cur_ == ' ') {
-          newField();
-          return Token(TOKEN_EMPTY, row, col);
+          break;
         } else if (*cur_ == '"') {
           state_ = LOG_STRING;
         } else if (*cur_ == '[') {
@@ -165,8 +165,14 @@ private:
   }
 
   Token fieldToken(SourceIterator begin, SourceIterator end, int row, int col) {
-    return Token(begin, end, row, col, false)
-        .flagNA(std::vector<std::string>(1, "-"));
+    Token t(begin, end, row, col, false);
+    if (trimWS_) {
+      t.trim();
+    }
+
+    t.flagNA(std::vector<std::string>(1, "-"));
+
+    return t;
   }
 };
 
