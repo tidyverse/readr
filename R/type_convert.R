@@ -42,6 +42,10 @@ type_convert <- function(df, col_types = NULL, na = c("", "NA"), trim_ws = TRUE,
   stopifnot(is.data.frame(df))
   is_character <- vapply(df, is.character, logical(1))
 
+  if (!any(is_character)) {
+    warning("`type_convert()` only converts columns of type 'character'.\n- `df` has no columns of type 'character'", call. = FALSE)
+  }
+
   char_cols <- df[is_character]
 
   col_types <- keep_character_col_types(df, col_types)

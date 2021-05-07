@@ -33,6 +33,8 @@
 
 ## Additional features and fixes
 
+* `type_convert()` now throws a warning if the input has no character columns (#1020)
+
 * `read_log()` gains a `trim_ws` argument (#738)
 
 * `read_rds()` can now read .Rds files from URLs (#1186)

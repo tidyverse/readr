@@ -46,3 +46,7 @@ test_that("spec attribute is removed", {
   # The spec attribute should be cleared by `type_convert()`.
   expect_null(attr(df2, "spec"))
 })
+
+test_that("warning is thrown if there are no character columns (1020)", {
+  expect_warning(type_convert(mtcars), "only converts columns")
+})
