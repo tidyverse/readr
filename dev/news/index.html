@@ -183,7 +183,7 @@
 <li><p>All <code>write_*()</code> functions gain a <code>progress</code> argument and display a progress bar when writing (<a href='https://github.com/tidyverse/readr/issues/791'>#791</a>).</p></li>
 <li><p>write_tsv() now defaults to <code>quote = "none"</code> (<a href='https://github.com/tidyverse/readr/issues/993'>#993</a>)</p></li>
 <li><p>write_excel_csv() now defaults to <code>quote = "all"</code> (<a href='https://github.com/tidyverse/readr/issues/759'>#759</a>)</p></li>
-<li><p><code>read_table2()</code> has been renamed to <code><a href="../reference/read_table.html">read_table()</a></code>, as most users expect <code><a href="../reference/read_table.html">read_table()</a></code> to work like <code><a href="https://rdrr.io/r/utils/read.table.html">utils::read.table()</a></code>. If you want the previous strict behavior of the <code><a href="../reference/read_table.html">read_table()</a></code> you can use <code><a href="../reference/read_fwf.html">read_fwf()</a></code> with <code><a href="../reference/read_fwf.html">fwf_empty()</a></code> directly (<a href='https://github.com/tidyverse/readr/issues/717'>#717</a>).</p></li>
+<li><p><code><a href="../reference/read_table2.html">read_table2()</a></code> has been renamed to <code><a href="../reference/read_table.html">read_table()</a></code>, as most users expect <code><a href="../reference/read_table.html">read_table()</a></code> to work like <code><a href="https://rdrr.io/r/utils/read.table.html">utils::read.table()</a></code>. If you want the previous strict behavior of the <code><a href="../reference/read_table.html">read_table()</a></code> you can use <code><a href="../reference/read_fwf.html">read_fwf()</a></code> with <code><a href="../reference/read_fwf.html">fwf_empty()</a></code> directly (<a href='https://github.com/tidyverse/readr/issues/717'>#717</a>).</p></li>
 </ul>
 </div>
 <div id="additional-features-and-fixes" class="section level2">
@@ -411,7 +411,7 @@ w,x,y,z"</span>
 <li>
 <code>read*()</code> functions now have a more informative error when trying to read a remote bz2 file (<a href='https://github.com/tidyverse/readr/issues/891'>#891</a>).</li>
 <li>
-<code>spec_table2()</code> function added to correspond to <code>read_table2()</code> (<a href='https://github.com/tidyverse/readr/issues/778'>#778</a>, <a href='https://github.com/mawds'>@mawds</a>).</li>
+<code>spec_table2()</code> function added to correspond to <code><a href="../reference/read_table2.html">read_table2()</a></code> (<a href='https://github.com/tidyverse/readr/issues/778'>#778</a>, <a href='https://github.com/mawds'>@mawds</a>).</li>
 <li>
 <code><a href="../reference/parse_factor.html">parse_factor()</a></code> now has <code>levels = NULL</code> by default (<a href='https://github.com/tidyverse/readr/issues/862'>#862</a>, <a href='https://github.com/mikmart'>@mikmart</a>).</li>
 <li>
@@ -431,7 +431,7 @@ w,x,y,z"</span>
 <li>
 <code>read_*()</code> now do not print a progress bar when running inside a RStudio notebook chunk (<a href='https://github.com/tidyverse/readr/issues/793'>#793</a>)</li>
 <li>
-<code>read_table2()</code> now skips comments anywhere in the file (<a href='https://github.com/tidyverse/readr/issues/908'>#908</a>).</li>
+<code><a href="../reference/read_table2.html">read_table2()</a></code> now skips comments anywhere in the file (<a href='https://github.com/tidyverse/readr/issues/908'>#908</a>).</li>
 <li>
 <code><a href="../reference/parse_factor.html">parse_factor()</a></code> now handles the case of empty strings separately, so you can have a factor level that is an empty string (<a href='https://github.com/tidyverse/readr/issues/864'>#864</a>).</li>
 <li>
@@ -443,7 +443,7 @@ w,x,y,z"</span>
 <li>
 <code><a href="../reference/read_delim.html">read_delim()</a></code> now ignores whitespace between the delimiter and quoted fields (<a href='https://github.com/tidyverse/readr/issues/668'>#668</a>).</li>
 <li>
-<code>read_table2()</code> now properly ignores blank lines at the end of a file like <code><a href="../reference/read_table.html">read_table()</a></code> and <code><a href="../reference/read_delim.html">read_delim()</a></code> (<a href='https://github.com/tidyverse/readr/issues/657'>#657</a>).</li>
+<code><a href="../reference/read_table2.html">read_table2()</a></code> now properly ignores blank lines at the end of a file like <code><a href="../reference/read_table.html">read_table()</a></code> and <code><a href="../reference/read_delim.html">read_delim()</a></code> (<a href='https://github.com/tidyverse/readr/issues/657'>#657</a>).</li>
 <li>
 <code><a href="../reference/read_delim.html">read_delim()</a></code>, <code><a href="../reference/read_table.html">read_table()</a></code> and <code><a href="../reference/read_table.html">read_table()</a></code> now skip blank lines at the start of a file (<a href='https://github.com/tidyverse/readr/issues/680'>#680</a>, <a href='https://github.com/tidyverse/readr/issues/747'>#747</a>).</li>
 <li>
@@ -515,7 +515,7 @@ w,x,y,z"</span>
 <li>
 <code><a href="../reference/read_table.html">read_table()</a></code> can now handle files with many lines of leading comments (<a href='https://github.com/tidyverse/readr/issues/563'>#563</a>).</li>
 <li>
-<code>read_table2()</code> which allows any number of whitespace characters as delimiters, a more exact replacement for <code><a href="https://rdrr.io/r/utils/read.table.html">utils::read.table()</a></code> (<a href='https://github.com/tidyverse/readr/issues/608'>#608</a>).</li>
+<code><a href="../reference/read_table2.html">read_table2()</a></code> which allows any number of whitespace characters as delimiters, a more exact replacement for <code><a href="https://rdrr.io/r/utils/read.table.html">utils::read.table()</a></code> (<a href='https://github.com/tidyverse/readr/issues/608'>#608</a>).</li>
 </ul>
 </div>
 </div>
