@@ -39,10 +39,10 @@
 #' @param na String used for missing values. Defaults to NA. Missing values
 #'   will never be quoted; strings with the same value as `na` will
 #'   always be quoted.
-#' @param quote_escape \Sexpr[results=rd, stage=render]{lifecycle::badge("deprecated")}
+#' @param quote_escape \Sexpr[results=rd, stage=render]{lifecycle::badge("deprecated")}, use the `escape` argument instead.
 #' @param eol The end of line character to use. Most commonly either `"\n"` for
 #'   Unix style newlines, or `"\r\n"` for Windows style newlines.
-#' @param path \Sexpr[results=rd, stage=render]{lifecycle::badge("deprecated")}
+#' @param path \Sexpr[results=rd, stage=render]{lifecycle::badge("deprecated")}, use the `file` argument instead.
 #' @return `write_*()` returns the input `x` invisibly.
 #' @inheritParams vroom::vroom_write
 #' @inheritParams read_delim

@@ -148,9 +148,9 @@ is updated every 50,000 values and will only display if estimated reading
 time is 5 seconds or more. The automatic progress bar can be disabled by
 setting option \code{readr.show_progress} to \code{FALSE}.}
 
-\item{path}{\Sexpr[results=rd, stage=render]{lifecycle::badge("deprecated")}}
+\item{path}{\Sexpr[results=rd, stage=render]{lifecycle::badge("deprecated")}, use the \code{file} argument instead.}
 
-\item{quote_escape}{\Sexpr[results=rd, stage=render]{lifecycle::badge("deprecated")}}
+\item{quote_escape}{\Sexpr[results=rd, stage=render]{lifecycle::badge("deprecated")}, use the \code{escape} argument instead.}
 }
 \value{
 \verb{write_*()} returns the input \code{x} invisibly.
