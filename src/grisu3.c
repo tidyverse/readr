@@ -218,7 +218,9 @@ static const unsigned int pow10_cache[] = { 0, 1, 10, 100, 1000, 10000, 100000, 
 static int largest_pow10(uint32_t n, int n_bits, uint32_t *power)
 {
 	int guess = ((n_bits + 1) * 1233 >> 12) + 1/*skip first entry*/;
-	if (n < pow10_cache[guess]) --guess; // We don't have any guarantees that 2^n_bits <= n.
+	if (n < pow10_cache[guess]) { --guess; // We don't have any guarantees that 2^n_bits <= n.
+
+}
 	*power = pow10_cache[guess];
 	return guess;
 }
@@ -234,8 +236,10 @@ static int round_weed(char *buffer, int len, uint64_t wp_W, uint64_t delta, uint
 		rest += ten_kappa;
 	}
 	if (rest < wp_Wdown && delta - rest >= ten_kappa
-		&& (rest + ten_kappa < wp_Wdown || wp_Wdown - rest > rest + ten_kappa - wp_Wdown))
+		&& (rest + ten_kappa < wp_Wdown || wp_Wdown - rest > rest + ten_kappa - wp_Wdown)) {
 		return 0;
+
+}
 
 	return 2*ulp <= rest && rest <= delta - 4*ulp;
 }
@@ -262,7 +266,9 @@ static int digit_gen(diy_fp low, diy_fp w, diy_fp high, char *buffer, int *lengt
 		p1 %= div;
 		--*kappa;
 		rest = ((uint64_t)p1 << -one.e) + p2;
-		if (rest < unsafe_interval.f) return round_weed(buffer, *length, minus(too_high, w).f, unsafe_interval.f, rest, (uint64_t)div << -one.e, unit);
+		if (rest < unsafe_interval.f) { return round_weed(buffer, *length, minus(too_high, w).f, unsafe_interval.f, rest, (uint64_t)div << -one.e, unit);
+
+}
 		div /= 10;
 	}
 
@@ -278,7 +284,9 @@ static int digit_gen(diy_fp low, diy_fp w, diy_fp high, char *buffer, int *lengt
 		++*length;
 		p2 &= one.f - 1;  // Modulo by one.
 		--*kappa;
-		if (p2 < unsafe_interval.f) return round_weed(buffer, *length, minus(too_high, w).f * unit, unsafe_interval.f, p2, one.f, unit);
+		if (p2 < unsafe_interval.f) { return round_weed(buffer, *length, minus(too_high, w).f * unit, unsafe_interval.f, p2, one.f, unit);
+
+}
 	}
 }
 
@@ -324,8 +332,10 @@ static int i_to_str(int val, char *str)
 		int ni = val / 10;
 		int digit = val - ni*10;
 		*s++ = (char)('0' + digit);
-		if (ni == 0)
+		if (ni == 0) {
 			break;
+
+}
 		val = ni;
 	}
 	*s = '\0';
@@ -348,7 +358,9 @@ int dtoa_grisu3(double v, char *dst)
 	assert(dst);
 
 	// Prehandle NaNs
-	if ((u64 << 1) > 0xFFE0000000000000ULL) return sprintf(dst, "NaN(%08X%08X)", (uint32_t)(u64 >> 32), (uint32_t)u64);
+	if ((u64 << 1) > 0xFFE0000000000000ULL) { return sprintf(dst, "NaN(%08X%08X)", (uint32_t)(u64 >> 32), (uint32_t)u64);
+
+}
 	// Prehandle negative values.
 	if ((u64 & D64_SIGN) != 0) { *s2++ = '-'; v = -v; u64 ^= D64_SIGN; }
 	// Prehandle zero.
@@ -358,11 +370,15 @@ int dtoa_grisu3(double v, char *dst)
 
 	success = grisu3(v, s2, &len, &d_exp);
 	// If grisu3 was not able to convert the number to a string, then use old sprintf (suboptimal).
-	if (!success) return sprintf(s2, "%.17g", v) + (int)(s2 - dst);
+	if (!success) { return sprintf(s2, "%.17g", v) + (int)(s2 - dst);
+
+}
 
 	// handle whole numbers as integers if they are < 10^15
 	if (d_exp >= 0 && d_exp <= MAX(2, 15 - len)) {
-		while(d_exp-- > 0) s2[len++] = '0';
+		while(d_exp-- > 0) { s2[len++] = '0';
+
+}
 		s2[len] = '\0';
 		return (int)(s2+len-dst);
 	}
@@ -383,12 +399,16 @@ int dtoa_grisu3(double v, char *dst)
 		memmove(s2 + 2 - d_exp - len, s2, len);
 		s2[0] = '0';
 		s2[1] = '.';
-		for (i = 2; i < 2-d_exp-len; ++i) s2[i] = '0';
+		for (i = 2; i < 2-d_exp-len; ++i) { s2[i] = '0';
+
+}
 		len += i;
 	}
 	else if (d_exp < 0 && len > 1) // Add decimal point?
 	{
-		for(i = 0; i < decimals; ++i) s2[len-i] = s2[len-i-1];
+		for(i = 0; i < decimals; ++i) { s2[len-i] = s2[len-i-1];
+
+}
 		s2[len++ - decimals] = '.';
 		d_exp += decimals;
 		// Need scientific notation as well?

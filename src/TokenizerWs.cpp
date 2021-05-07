@@ -46,8 +46,10 @@ Token TokenizerWs::nextToken() {
     ignoreLine();
   }
 
-  if (cur_ == end_)
+  if (cur_ == end_) {
     return Token(TOKEN_EOF, 0, 0);
+
+}
 
   // Find start of field
   SourceIterator fieldBegin = cur_;
@@ -82,8 +84,10 @@ Token TokenizerWs::nextToken() {
 
 Token TokenizerWs::fieldToken(
     SourceIterator begin, SourceIterator end, bool hasNull) {
-  if (begin == end)
+  if (begin == end) {
     return Token(TOKEN_MISSING, row_, col_);
+
+}
 
   Token t = Token(begin, end, row_, col_, hasNull);
   t.trim();
@@ -93,8 +97,10 @@ Token TokenizerWs::fieldToken(
 }
 
 bool TokenizerWs::isComment(const char* cur) const {
-  if (!hasComment_)
+  if (!hasComment_) {
     return false;
+
+}
 
   return starts_with_comment(cur, end_, comment_);
 }

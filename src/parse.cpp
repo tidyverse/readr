@@ -23,8 +23,10 @@ dim_tokens_(const cpp11::list& sourceSpec, const cpp11::list& tokenizerSpec) {
        t = tokenizer->nextToken()) {
     rows = t.row();
 
-    if ((int)t.col() > cols)
+    if ((int)t.col() > cols) {
       cols = t.col();
+
+}
   }
 
   cpp11::writable::integers out(rows + 1);
@@ -44,8 +46,10 @@ count_fields_(const cpp11::list& sourceSpec, const cpp11::list& tokenizerSpec, i
 
   for (Token t = tokenizer->nextToken(); t.type() != TOKEN_EOF;
        t = tokenizer->nextToken()) {
-    if (n_max > 0 && t.row() >= (size_t)n_max)
+    if (n_max > 0 && t.row() >= (size_t)n_max) {
       break;
+
+}
 
     if (t.row() >= fields.size()) {
       fields.resize(t.row() + 1);
@@ -110,16 +114,20 @@ tokenize_(const cpp11::list& sourceSpec, const cpp11::list& tokenizerSpec, int n
 
   for (Token t = tokenizer->nextToken(); t.type() != TOKEN_EOF;
        t = tokenizer->nextToken()) {
-    if (n_max > 0 && t.row() >= (size_t)n_max)
+    if (n_max > 0 && t.row() >= (size_t)n_max) {
       break;
+
+}
 
     if (t.row() >= rows.size()) {
       rows.resize(t.row() + 1);
     }
 
     std::vector<std::string>& row = rows[t.row()];
-    if (t.col() >= row.size())
+    if (t.col() >= row.size()) {
       row.resize(t.col() + 1);
+
+}
 
     row[t.col()] = t.asString();
   }

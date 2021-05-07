@@ -13,22 +13,30 @@ typedef bool (*canParseFun)(const std::string&, LocaleInfo* pLocale);
 bool canParse(
     const cpp11::strings& x, const canParseFun& canParse, LocaleInfo* pLocale) {
   for (int i = 0; i < x.size(); ++i) {
-    if (x[i] == NA_STRING)
+    if (x[i] == NA_STRING) {
       continue;
 
-    if (x[i].size() == 0)
+}
+
+    if (x[i].size() == 0) {
       continue;
 
-    if (!canParse(std::string(x[i]), pLocale))
+}
+
+    if (!canParse(std::string(x[i]), pLocale)) {
       return false;
+
+}
   }
   return true;
 }
 
 bool allMissing(const cpp11::strings& x) {
   for (int i = 0; i < x.size(); ++i) {
-    if (x[i] != NA_STRING && x[i].size() > 0)
+    if (x[i] != NA_STRING && x[i].size() > 0) {
       return false;
+
+}
   }
   return true;
 }
@@ -41,8 +49,10 @@ bool isLogical(const std::string& x, LocaleInfo* /*unused*/) {
 
 bool isNumber(const std::string& x, LocaleInfo* pLocale) {
   // Leading zero not followed by decimal mark
-  if (x[0] == '0' && x.size() > 1 && x[1] != pLocale->decimalMark_)
+  if (x[0] == '0' && x.size() > 1 && x[1] != pLocale->decimalMark_) {
     return false;
+
+}
 
   double res = 0;
   std::string::const_iterator begin = x.begin(), end = x.end();
@@ -54,8 +64,10 @@ bool isNumber(const std::string& x, LocaleInfo* pLocale) {
 
 bool isInteger(const std::string& x, LocaleInfo* /*unused*/) {
   // Leading zero
-  if (x[0] == '0' && x.size() > 1)
+  if (x[0] == '0' && x.size() > 1) {
     return false;
+
+}
 
   double res = 0;
   std::string::const_iterator begin = x.begin(), end = x.end();
@@ -65,8 +77,10 @@ bool isInteger(const std::string& x, LocaleInfo* /*unused*/) {
 
 bool isDouble(const std::string& x, LocaleInfo* pLocale) {
   // Leading zero not followed by decimal mark
-  if (x[0] == '0' && x.size() > 1 && x[1] != pLocale->decimalMark_)
+  if (x[0] == '0' && x.size() > 1 && x[1] != pLocale->decimalMark_) {
     return false;
+
+}
 
   double res = 0;
   const char* begin = x.c_str();
@@ -96,11 +110,15 @@ static bool isDateTime(const std::string& x, LocaleInfo* pLocale) {
   parser.setDate(x.c_str());
   bool ok = parser.parseISO8601();
 
-  if (!ok)
+  if (!ok) {
     return false;
 
-  if (!parser.compactDate())
+}
+
+  if (!parser.compactDate()) {
     return true;
+
+}
 
   // Values like 00014567 are unlikely to be dates, so don't guess
   return parser.year() > 999;
@@ -119,20 +137,34 @@ static bool isDateTime(const std::string& x, LocaleInfo* pLocale) {
   }
 
   // Work from strictest to most flexible
-  if (canParse(input, isLogical, &locale))
+  if (canParse(input, isLogical, &locale)) {
     return "logical";
-  if (guessInteger && canParse(input, isInteger, &locale))
+
+}
+  if (guessInteger && canParse(input, isInteger, &locale)) {
     return "integer";
-  if (canParse(input, isDouble, &locale))
+
+}
+  if (canParse(input, isDouble, &locale)) {
     return "double";
-  if (canParse(input, isNumber, &locale))
+
+}
+  if (canParse(input, isNumber, &locale)) {
     return "number";
-  if (canParse(input, isTime, &locale))
+
+}
+  if (canParse(input, isTime, &locale)) {
     return "time";
-  if (canParse(input, isDate, &locale))
+
+}
+  if (canParse(input, isDate, &locale)) {
     return "date";
-  if (canParse(input, isDateTime, &locale))
+
+}
+  if (canParse(input, isDateTime, &locale)) {
     return "datetime";
+
+}
 
   // Otherwise can always parse as a character
   return "character";

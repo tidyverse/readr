@@ -8,20 +8,30 @@
 CollectorPtr Collector::create(const cpp11::list& spec, LocaleInfo* pLocale) {
   std::string subclass(cpp11::as_cpp<cpp11::strings>(spec.attr("class"))[0]);
 
-  if (subclass == "collector_skip")
+  if (subclass == "collector_skip") {
     return CollectorPtr(new CollectorSkip());
-  if (subclass == "collector_logical")
+
+}
+  if (subclass == "collector_logical") {
     return CollectorPtr(new CollectorLogical());
-  if (subclass == "collector_integer")
+
+}
+  if (subclass == "collector_integer") {
     return CollectorPtr(new CollectorInteger());
+
+}
   if (subclass == "collector_double") {
     return CollectorPtr(new CollectorDouble(pLocale->decimalMark_));
   }
-  if (subclass == "collector_number")
+  if (subclass == "collector_number") {
     return CollectorPtr(
         new CollectorNumeric(pLocale->decimalMark_, pLocale->groupingMark_));
-  if (subclass == "collector_character")
+
+}
+  if (subclass == "collector_character") {
     return CollectorPtr(new CollectorCharacter(&pLocale->encoder_));
+
+}
   if (subclass == "collector_date") {
     SEXP format_ = spec["format"];
     std::string format = (Rf_isNull(format_))
@@ -68,8 +78,10 @@ void CollectorCharacter::setValue(int i, const Token& t) {
     std::string buffer;
     SourceIterators string = t.getString(&buffer);
 
-    if (t.hasNull())
+    if (t.hasNull()) {
       warn(t.row(), t.col(), "", "embedded null");
+
+}
 
     SET_STRING_ELT(
         column_,

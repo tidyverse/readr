@@ -250,8 +250,10 @@ typedef std::vector<CollectorPtr>::iterator CollectorItr;
   std::vector<CollectorPtr> collectors;
   for (Token t = tokenizer->nextToken(); t.type() != TOKEN_EOF;
        t = tokenizer->nextToken()) {
-    if (t.row() >= (size_t)n)
+    if (t.row() >= (size_t)n) {
       break;
+
+}
 
     // Add new collectors, if needed
     if (t.col() >= collectors.size()) {

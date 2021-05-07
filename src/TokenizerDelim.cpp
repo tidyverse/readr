@@ -56,8 +56,10 @@ Token TokenizerDelim::nextToken() {
   // Capture current position
   int row = row_, col = col_;
 
-  if (!moreTokens_)
+  if (!moreTokens_) {
     return Token(TOKEN_EOF, row, col);
+
+}
 
   SourceIterator token_begin = cur_;
   bool hasEscapeD = false, hasEscapeB = false, hasNull = false;
@@ -67,11 +69,15 @@ Token TokenizerDelim::nextToken() {
     // next character
     Advance advance(&cur_);
 
-    if (*cur_ == '\0')
+    if (*cur_ == '\0') {
       hasNull = true;
 
-    if ((end_ - cur_) % 131072 == 0)
+}
+
+    if ((end_ - cur_) % 131072 == 0) {
       cpp11::check_user_interrupt();
+
+}
 
     switch (state_) {
     case STATE_DELIM: {
@@ -280,8 +286,10 @@ Token TokenizerDelim::nextToken() {
 }
 
 bool TokenizerDelim::isComment(const char* cur) const {
-  if (!hasComment_)
+  if (!hasComment_) {
     return false;
+
+}
 
   return starts_with_comment(cur, end_, comment_);
 }
@@ -309,8 +317,10 @@ Token TokenizerDelim::fieldToken(
     int row,
     int col) {
   Token t(begin, end, row, col, hasNull, (hasEscapeB) ? this : NULL);
-  if (trimWS_)
+  if (trimWS_) {
     t.trim();
+
+}
   t.flagNA(NA_);
   return t;
 }
@@ -325,10 +335,14 @@ Token TokenizerDelim::stringToken(
     int col) {
   Token t(
       begin, end, row, col, hasNull, (hasEscapeD || hasEscapeB) ? this : NULL);
-  if (trimWS_)
+  if (trimWS_) {
     t.trim();
-  if (quotedNA_)
+
+}
+  if (quotedNA_) {
     t.flagNA(NA_);
+
+}
   return t;
 }
 

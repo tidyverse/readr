@@ -159,8 +159,10 @@ R_xlen_t Reader::read(R_xlen_t lines) {
 }
 
 void Reader::checkColumns(int i, int j, int n) {
-  if (j + 1 == n)
+  if (j + 1 == n) {
     return;
+
+}
 
   std::stringstream ss1;
   ss1 << n << " columns";
