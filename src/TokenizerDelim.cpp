@@ -18,7 +18,7 @@ TokenizerDelim::TokenizerDelim(
       quote_(quote),
       NA_(std::move(NA)),
       comment_(comment),
-      hasComment_(comment.size() > 0),
+      hasComment_(!comment.empty()),
       trimWS_(trimWS),
       escapeBackslash_(escapeBackslash),
       escapeDouble_(escapeDouble),
@@ -27,7 +27,7 @@ TokenizerDelim::TokenizerDelim(
       moreTokens_(false),
       skipEmptyRows_(skipEmptyRows) {
   for (size_t i = 0; i < NA_.size(); ++i) {
-    if (NA_[i] == "") {
+    if (NA_[i].empty()) {
       hasEmptyNA_ = true;
       break;
     }

@@ -123,7 +123,7 @@ TokenizerFwf::TokenizerFwf(
       cols_(beginOffset.size()),
       comment_(comment),
       moreTokens_(false),
-      hasComment_(comment.size() > 0),
+      hasComment_(!comment.empty()),
       trimWS_(trimWS),
       skipEmptyRows_(skipEmptyRows) {
   if (beginOffset_.size() != endOffset_.size()) {
@@ -133,7 +133,7 @@ TokenizerFwf::TokenizerFwf(
         endOffset_.size());
   }
 
-  if (beginOffset_.size() == 0) {
+  if (beginOffset_.empty()) {
     cpp11::stop("Zero-length begin and end specifications not supported");
   }
 

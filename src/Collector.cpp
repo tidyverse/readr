@@ -107,7 +107,7 @@ void CollectorDate::setValue(int i, const Token& t) {
 
     parser_.setDate(std_string.c_str());
     bool res =
-        (format_ == "") ? parser_.parseLocaleDate() : parser_.parse(format_);
+        (format_.empty()) ? parser_.parseLocaleDate() : parser_.parse(format_);
 
     if (!res) {
       warn(t.row(), t.col(), "date like " + format_, std_string);
@@ -142,7 +142,7 @@ void CollectorDateTime::setValue(int i, const Token& t) {
 
     parser_.setDate(std_string.c_str());
     bool res =
-        (format_ == "") ? parser_.parseISO8601() : parser_.parse(format_);
+        (format_.empty()) ? parser_.parseISO8601() : parser_.parse(format_);
 
     if (!res) {
       warn(t.row(), t.col(), "date like " + format_, std_string);
@@ -353,7 +353,7 @@ void CollectorTime::setValue(int i, const Token& t) {
 
     parser_.setDate(std_string.c_str());
     bool res =
-        (format_ == "") ? parser_.parseLocaleTime() : parser_.parse(format_);
+        (format_.empty()) ? parser_.parseLocaleTime() : parser_.parse(format_);
 
     if (!res) {
       warn(t.row(), t.col(), "time like " + format_, std_string);

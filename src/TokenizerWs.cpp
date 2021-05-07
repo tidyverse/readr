@@ -18,7 +18,7 @@ TokenizerWs::TokenizerWs(
     : NA_(std::move(NA)),
       comment_(comment),
       moreTokens_(false),
-      hasComment_(comment.size() > 0),
+      hasComment_(!comment.empty()),
       skipEmptyRows_(skipEmptyRows) {}
 
 void TokenizerWs::tokenize(SourceIterator begin, SourceIterator end) {
