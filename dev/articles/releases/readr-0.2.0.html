@@ -348,6 +348,9 @@
 <p>New <code><a href="../../reference/parse_datetime.html">parse_time()</a></code> and <code><a href="../../reference/parse_datetime.html">col_time()</a></code> allow you to parse times. They have an optional <code>format</code> argument, that uses the same components as <code><a href="../../reference/parse_datetime.html">parse_datetime()</a></code>. If <code>format</code> is omitted, they use a flexible parser that looks for hours, then an optional colon, then minutes, then an optional colon, then optional seconds, then optional am/pm.</p>
 <div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="../../reference/parse_datetime.html">parse_time</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"1:45 PM"</span>, <span class="st">"1345"</span>, <span class="st">"13:45:00"</span><span class="op">)</span><span class="op">)</span>
+<span class="co">#&gt; Warning: 1 parsing failure.</span>
+<span class="co">#&gt; row col   expected actual</span>
+<span class="co">#&gt;   2  -- time like    1345</span>
 <span class="co">#&gt; 13:45:00</span>
 <span class="co">#&gt;       NA</span>
 <span class="co">#&gt; 13:45:00</span></code></pre></div>

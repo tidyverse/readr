@@ -249,7 +249,9 @@ each field before parsing it?</p></td>
 
 <span class='co'># parse_factor generates a warning &amp; problems</span>
 <span class='va'>x2</span> <span class='op'>&lt;-</span> <span class='fu'>parse_factor</span><span class='op'>(</span><span class='va'>x</span>, <span class='va'>levels</span><span class='op'>)</span>
-
+</div><div class='output co'>#&gt; <span class='warning'>Warning: 1 parsing failure.</span>
+#&gt; <span class='warning'>row col           expected actual</span>
+#&gt; <span class='warning'>  3  -- value in level set    caw</span></div><div class='input'>
 <span class='co'># Using an argument of `NULL` will generate levels based on values of `x`</span>
 <span class='va'>x2</span> <span class='op'>&lt;-</span> <span class='fu'>parse_factor</span><span class='op'>(</span><span class='va'>x</span>, levels <span class='op'>=</span> <span class='cn'>NULL</span><span class='op'>)</span>
 </div></pre>
