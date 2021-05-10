@@ -35,52 +35,37 @@ TokenizerPtr Tokenizer::create(const cpp11::list& spec) {
         quotedNA,
         skipEmptyRows));
   }
+
   if (subclass == "tokenizer_fwf") {
-
     std::vector<int> begin = cpp11::as_cpp<std::vector<int>>(spec["begin"]);
-
     std::vector<int> end = cpp11::as_cpp<std::vector<int>>(spec["end"]);
-
     std::vector<std::string> na =
-
         cpp11::as_cpp<std::vector<std::string>>(spec["na"]);
-
     std::string comment = cpp11::as_cpp<std::string>(spec["comment"]);
-
     bool trimWs = cpp11::as_cpp<bool>(spec["trim_ws"]);
-
     bool skipEmptyRows = cpp11::as_cpp<bool>(spec["skip_empty_rows"]);
-
     return TokenizerPtr(
-
         new TokenizerFwf(begin, end, na, comment, trimWs, skipEmptyRows));
+  }
 
-  } else if (subclass == "tokenizer_line") {
-
+  if (subclass == "tokenizer_line") {
     std::vector<std::string> na =
-
         cpp11::as_cpp<std::vector<std::string>>(spec["na"]);
-
     bool skipEmptyRows = cpp11::as_cpp<bool>(spec["skip_empty_rows"]);
-
     return TokenizerPtr(new TokenizerLine(na, skipEmptyRows));
+  }
 
-  } else if (subclass == "tokenizer_log") {
-
+  if (subclass == "tokenizer_log") {
     bool trimWs = cpp11::as_cpp<bool>(spec["trim_ws"]);
 
     return TokenizerPtr(new TokenizerLog(trimWs));
+  }
 
-  } else if (subclass == "tokenizer_ws") {
-
+  if (subclass == "tokenizer_ws") {
     std::vector<std::string> na =
-
         cpp11::as_cpp<std::vector<std::string>>(spec["na"]);
-
     std::string comment = cpp11::as_cpp<std::string>(spec["comment"]);
-
     bool skipEmptyRows = cpp11::as_cpp<bool>(spec["skip_empty_rows"]);
-
     return TokenizerPtr(new TokenizerWs(na, comment, skipEmptyRows));
   }
 
