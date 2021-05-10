@@ -46,7 +46,7 @@ Token TokenizerWs::nextToken() {
   }
 
   if (cur_ == end_) {
-    return Token(TOKEN_EOF, 0, 0);
+    return {TOKEN_EOF, 0, 0};
   }
 
   // Find start of field
@@ -83,7 +83,7 @@ Token TokenizerWs::nextToken() {
 Token TokenizerWs::fieldToken(
     SourceIterator begin, SourceIterator end, bool hasNull) {
   if (begin == end) {
-    return Token(TOKEN_MISSING, row_, col_);
+    return {TOKEN_MISSING, row_, col_};
   }
 
   Token t = Token(begin, end, row_, col_, hasNull);

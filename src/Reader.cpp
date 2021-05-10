@@ -52,10 +52,8 @@ void Reader::init(const cpp11::strings& colNames) {
   if (colNames.size() > 0) {
     outNames_ = cpp11::writable::strings(keptColumns_.size());
     int i = 0;
-    for (std::vector<int>::const_iterator it = keptColumns_.begin();
-         it != keptColumns_.end();
-         ++it) {
-      outNames_[i++] = colNames[*it];
+    for (int keptColumn : keptColumns_) {
+      outNames_[i++] = colNames[keptColumn];
     }
   }
 }
@@ -66,10 +64,8 @@ cpp11::sexp Reader::readToDataFrame(R_xlen_t lines) {
   // Save individual columns into a data frame
   cpp11::writable::list out(outNames_.size());
   R_xlen_t j = 0;
-  for (std::vector<int>::const_iterator it = keptColumns_.begin();
-       it != keptColumns_.end();
-       ++it) {
-    out[j++] = collectors_[*it]->vector();
+  for (int keptColumn : keptColumns_) {
+    out[j++] = collectors_[keptColumn]->vector();
   }
 
   cpp11::sexp out2(warnings_.addAsAttribute(static_cast<SEXP>(out)));
@@ -175,14 +171,14 @@ void Reader::checkColumns(int i, int j, int n) {
 }
 
 void Reader::collectorsResize(R_xlen_t n) {
-  for (size_t j = 0; j < collectors_.size(); ++j) {
-    collectors_[j]->resize(n);
+  for (auto & collector : collectors_) {
+    collector->resize(n);
   }
 }
 
 void Reader::collectorsClear() {
-  for (size_t j = 0; j < collectors_.size(); ++j) {
-    collectors_[j]->clear();
+  for (auto & collector : collectors_) {
+    collector->clear();
   }
 }
 

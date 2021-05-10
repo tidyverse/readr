@@ -12,16 +12,16 @@ typedef bool (*canParseFun)(const std::string&, LocaleInfo* pLocale);
 
 bool canParse(
     const cpp11::strings& x, const canParseFun& canParse, LocaleInfo* pLocale) {
-  for (int i = 0; i < x.size(); ++i) {
-    if (x[i] == NA_STRING) {
+  for (const auto & i : x) {
+    if (i == NA_STRING) {
       continue;
     }
 
-    if (x[i].size() == 0) {
+    if (i.size() == 0) {
       continue;
     }
 
-    if (!canParse(std::string(x[i]), pLocale)) {
+    if (!canParse(std::string(i), pLocale)) {
       return false;
     }
   }
@@ -29,8 +29,8 @@ bool canParse(
 }
 
 bool allMissing(const cpp11::strings& x) {
-  for (int i = 0; i < x.size(); ++i) {
-    if (x[i] != NA_STRING && x[i].size() > 0) {
+  for (const auto & i : x) {
+    if (i != NA_STRING && i.size() > 0) {
       return false;
     }
   }

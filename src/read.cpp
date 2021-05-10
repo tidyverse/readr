@@ -260,8 +260,8 @@ typedef std::vector<CollectorPtr>::iterator CollectorItr;
   }
 
   std::vector<std::string> out;
-  for (size_t j = 0; j < collectors.size(); ++j) {
-    cpp11::strings col(collectors[j]->vector());
+  for (auto & collector : collectors) {
+    cpp11::strings col(collector->vector());
     out.push_back(collectorGuess(SEXP(col), cpp11::list(locale_)));
   }
 

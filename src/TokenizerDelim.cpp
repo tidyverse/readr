@@ -26,8 +26,8 @@ TokenizerDelim::TokenizerDelim(
       hasEmptyNA_(false),
       moreTokens_(false),
       skipEmptyRows_(skipEmptyRows) {
-  for (size_t i = 0; i < NA_.size(); ++i) {
-    if (NA_[i].empty()) {
+  for (auto & i : NA_) {
+    if (i.empty()) {
       hasEmptyNA_ = true;
       break;
     }
@@ -296,7 +296,7 @@ Token TokenizerDelim::nextToken() {
     return Token(TOKEN_EOF, row, col);
   }
 
-  return Token(TOKEN_EOF, row, col);
+  return {TOKEN_EOF, row, col};
 }
 
 bool TokenizerDelim::isComment(const char* cur) const {
@@ -319,7 +319,7 @@ void TokenizerDelim::newRecord() {
 }
 
 Token TokenizerDelim::emptyToken(int row, int col) const {
-  return Token(hasEmptyNA_ ? TOKEN_MISSING : TOKEN_EMPTY, row, col);
+  return {hasEmptyNA_ ? TOKEN_MISSING : TOKEN_EMPTY, row, col};
 }
 
 Token TokenizerDelim::fieldToken(
@@ -329,7 +329,7 @@ Token TokenizerDelim::fieldToken(
     bool hasNull,
     int row,
     int col) {
-  Token t(begin, end, row, col, hasNull, (hasEscapeB) ? this : NULL);
+  Token t(begin, end, row, col, hasNull, (hasEscapeB) ? this : nullptr);
   if (trimWS_) {
     t.trim();
   }
@@ -346,7 +346,7 @@ Token TokenizerDelim::stringToken(
     int row,
     int col) {
   Token t(
-      begin, end, row, col, hasNull, (hasEscapeD || hasEscapeB) ? this : NULL);
+      begin, end, row, col, hasNull, (hasEscapeD || hasEscapeB) ? this : nullptr);
   if (trimWS_) {
     t.trim();
   }

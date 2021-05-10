@@ -29,8 +29,8 @@
     const cpp11::sexp& connection,
     const std::string& sep) {
 
-  for (int i = 0; i < x.size(); ++i) {
-    cpp11::raws y(x.at(i));
+  for (auto i : x) {
+    cpp11::raws y(i);
     write_bytes(
         connection,
         reinterpret_cast<const char*>(RAW(y)),

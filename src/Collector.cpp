@@ -57,8 +57,8 @@ CollectorPtr Collector::create(const cpp11::list& spec, LocaleInfo* pLocale) {
 std::vector<CollectorPtr>
 collectorsCreate(const cpp11::list& specs, LocaleInfo* pLocale) {
   std::vector<CollectorPtr> collectors;
-  for (int j = 0; j < specs.size(); ++j) {
-    CollectorPtr col(Collector::create(SEXP(specs[j]), pLocale));
+  for (auto spec : specs) {
+    CollectorPtr col(Collector::create(SEXP(spec), pLocale));
     collectors.push_back(col);
   }
 
@@ -207,7 +207,7 @@ void CollectorDouble::setValue(int i, size_t st) { REAL(column_)[i] = st; }
 
 void CollectorFactor::insert(
     int i, const cpp11::r_string& str, const Token& t) {
-  std::map<cpp11::r_string, int>::iterator it = levelset_.find(str);
+  auto it = levelset_.find(str);
   if (it == levelset_.end()) {
     if (implicitLevels_ || (includeNa_ && str == NA_STRING)) {
       int n = levelset_.size();
