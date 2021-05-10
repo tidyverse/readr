@@ -21,7 +21,11 @@
 #'
 #' y <- parse_integer(c("1", "2", "3"))
 #' problems(y)
-problems <- function(x) {
+problems <- function(x = .Last.value) {
+  if (!inherits(x, "spec_tbl_df")) {
+    return(invisible())
+  }
+
   probs <- probs(x)
   if (edition_first() || is.null(probs) || inherits(probs, "tbl_df")) {
     if (is.null(probs)) {

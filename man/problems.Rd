@@ -5,7 +5,7 @@
 \alias{stop_for_problems}
 \title{Retrieve parsing problems}
 \usage{
-problems(x)
+problems(x = .Last.value)
 
 stop_for_problems(x)
 }

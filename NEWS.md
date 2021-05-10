@@ -33,6 +33,9 @@
 
 ## Additional features and fixes
 
+* `problems()` now takes `.Last.value` as its default argument.
+  This lets you run `problems()` without an argument to see the problems in the previously read dataset.
+
 * `type_convert()` now throws a warning if the input has no character columns (#1020)
 
 * `read_log()` gains a `trim_ws` argument (#738)
