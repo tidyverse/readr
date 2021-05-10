@@ -67,6 +67,7 @@ VignetteBuilder:
     knitr
 Config/Needs/website: 
   pkgdown,
+  tidyverse,
   tidyverse/tidytemplate
 Config/testthat/edition: 3
 Config/testthat/parallel: false
