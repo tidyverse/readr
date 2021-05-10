@@ -94,17 +94,29 @@ Token TokenizerDelim::nextToken() {
         }
         newRecord();
         return emptyToken(row, col);
-      } else if (isComment(cur_)) {
+      }
+      if (isComment(cur_)) {
+
         state_ = STATE_COMMENT;
+
       } else if (*cur_ == delim_) {
+
         newField();
+
         return emptyToken(row, col);
+
       } else if (*cur_ == quote_) {
+
         token_begin = cur_;
+
         state_ = STATE_STRING;
+
       } else if (escapeBackslash_ && *cur_ == '\\') {
+
         state_ = STATE_ESCAPE_F;
+
       } else {
+
         state_ = STATE_FIELD;
       }
       break;
