@@ -29,7 +29,7 @@ CollectorPtr Collector::create(const cpp11::list& spec, LocaleInfo* pLocale) {
   }
   if (subclass == "collector_date") {
     SEXP format_ = spec["format"];
-    std::string format = (Rf_isNull(format_))
+    std::string format = (Rf_isNull(format_)) != 0u
                              ? pLocale->dateFormat_
                              : cpp11::as_cpp<std::string>(format_);
     return CollectorPtr(new CollectorDate(pLocale, format));

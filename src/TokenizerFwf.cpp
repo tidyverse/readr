@@ -146,7 +146,7 @@ TokenizerFwf::TokenizerFwf(
   isRagged_ = endOffset_[endOffset_.size() - 1L] == NA_INTEGER;
 
   max_ = 0;
-  for (int j = 0; j < (cols_ - isRagged_); ++j) {
+  for (int j = 0; j < (cols_ - static_cast<int>(isRagged_)); ++j) {
     if (endOffset_[j] <= beginOffset_[j]) {
       cpp11::stop(
           "Begin offset (%i) must be smaller than end offset (%i)",

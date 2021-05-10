@@ -51,7 +51,7 @@ Token TokenizerWs::nextToken() {
 
   // Find start of field
   SourceIterator fieldBegin = cur_;
-  while (fieldBegin != end_ && isblank(*fieldBegin)) {
+  while (fieldBegin != end_ && (isblank(*fieldBegin) != 0)) {
     ++fieldBegin;
   }
 
@@ -64,7 +64,7 @@ Token TokenizerWs::nextToken() {
   }
 
   SourceIterator fieldEnd = fieldBegin;
-  while (fieldEnd != end_ && !isspace(*fieldEnd)) {
+  while (fieldEnd != end_ && (isspace(*fieldEnd) == 0)) {
     ++fieldEnd;
   }
   bool hasNull = fieldEnd != end_ && *fieldEnd == '\0';
