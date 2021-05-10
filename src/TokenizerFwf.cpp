@@ -240,7 +240,7 @@ findBeginning:
   if (fieldBegin == end_) {
     // need to warn here if col != 0/cols - 1
     moreTokens_ = false;
-    return Token(TOKEN_EOF, 0, 0);
+    return {TOKEN_EOF, 0, 0};
   }
 
   // Find end of field

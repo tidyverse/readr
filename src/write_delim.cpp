@@ -4,6 +4,7 @@
 
 #include "connection.h"
 #include "grisu3.h"
+#include <array>
 #include <fstream>
 #include <sstream>
 
@@ -194,12 +195,12 @@ void stream_delim(
     if (value == NA_INTEGER) {
       write_bytes(connection, na.c_str(), na.size());
     } else {
-      char str[32];
-      int len = snprintf(str, 32, "%i", value);
+      std::array<char, 32> str;
+      int len = snprintf(str.data(), 32, "%i", value);
       if (len > 32) {
         cpp11::stop("integer too big");
       }
-      write_bytes(connection, str, len);
+      write_bytes(connection, str.data(), len);
     }
     break;
   }
@@ -214,9 +215,9 @@ void stream_delim(
         write_bytes(connection, "-Inf", 4);
       }
     } else {
-      char str[32];
-      int len = dtoa_grisu3(value, str);
-      write_bytes(connection, str, len);
+      std::array<char, 32> str;
+      int len = dtoa_grisu3(value, str.data());
+      write_bytes(connection, str.data(), len);
     }
     break;
   }

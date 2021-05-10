@@ -6,7 +6,8 @@
 #include "utils.h"
 
 class TokenizerFwf : public Tokenizer {
-  std::vector<int> beginOffset_, endOffset_;
+  std::vector<int> beginOffset_;
+  std::vector<int> endOffset_;
   std::vector<std::string> NA_;
 
   SourceIterator begin_, cur_, curLine_, end_;

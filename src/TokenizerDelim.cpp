@@ -26,7 +26,7 @@ TokenizerDelim::TokenizerDelim(
       hasEmptyNA_(false),
       moreTokens_(false),
       skipEmptyRows_(skipEmptyRows) {
-  for (auto & i : NA_) {
+  for (auto& i : NA_) {
     if (i.empty()) {
       hasEmptyNA_ = true;
       break;
@@ -58,7 +58,7 @@ Token TokenizerDelim::nextToken() {
   int col = col_;
 
   if (!moreTokens_) {
-    return Token(TOKEN_EOF, row, col);
+    return {TOKEN_EOF, row, col};
   }
 
   SourceIterator token_begin = cur_;
@@ -268,7 +268,7 @@ Token TokenizerDelim::nextToken() {
   switch (state_) {
   case STATE_DELIM:
     if (col_ == 0) {
-      return Token(TOKEN_EOF, row, col);
+      return {TOKEN_EOF, row, col};
     } else {
       return emptyToken(row, col);
     }
@@ -293,7 +293,7 @@ Token TokenizerDelim::nextToken() {
     return fieldToken(token_begin, end_, hasEscapeB, hasNull, row, col);
 
   case STATE_COMMENT:
-    return Token(TOKEN_EOF, row, col);
+    return {TOKEN_EOF, row, col};
   }
 
   return {TOKEN_EOF, row, col};
@@ -346,7 +346,12 @@ Token TokenizerDelim::stringToken(
     int row,
     int col) {
   Token t(
-      begin, end, row, col, hasNull, (hasEscapeD || hasEscapeB) ? this : nullptr);
+      begin,
+      end,
+      row,
+      col,
+      hasNull,
+      (hasEscapeD || hasEscapeB) ? this : nullptr);
   if (trimWS_) {
     t.trim();
   }
