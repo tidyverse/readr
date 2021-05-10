@@ -21,31 +21,28 @@
 #'
 #' y <- parse_integer(c("1", "2", "3"))
 #' problems(y)
-problems <- function(x = .Last.value) {
-  if (!inherits(x, "spec_tbl_df")) {
-    return(invisible())
-  }
+problems <- local({
+  no_problems <- tibble::tibble(
+    row = integer(),
+    col = integer(),
+    expected = character(),
+    actual = character()
+  )
 
-  probs <- probs(x)
-  if (edition_first() || is.null(probs) || inherits(probs, "tbl_df")) {
-    if (is.null(probs)) {
-      res <- structure(
-        data.frame(
-          row = integer(),
-          col = integer(),
-          expected = character(),
-          actual = character(),
-          stringsAsFactors = FALSE
-        ),
-        class = c("tbl_df", "data.frame")
-      )
-    } else {
-      res <- probs
+  function(x = .Last.value) {
+    problems <- probs(x)
+
+    if (is.null(problems)) {
+      return(invisible(no_problems))
     }
-    return(res)
+
+    if (inherits(problems, "tbl_df")) {
+      return(problems)
+    }
+
+    vroom::problems(x)
   }
-  vroom::problems(x)
-}
+})
 
 #' @export
 #' @rdname problems
