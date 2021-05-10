@@ -25,10 +25,10 @@ public:
       const std::string& comment = "",
       bool skipQuote = true);
 
-  const char*
+  static const char*
   skipLine(const char* begin, const char* end, bool isComment, bool skipQuote);
 
-  const char* skipDoubleQuoted(const char* begin, const char* end);
+  static const char* skipDoubleQuoted(const char* begin, const char* end);
 
   size_t skippedRows() { return skippedRows_; }
 

@@ -152,7 +152,7 @@ dim_tokens_(const cpp11::list& sourceSpec, const cpp11::list& tokenizerSpec) {
     const cpp11::list& collectorSpec,
     const cpp11::list& locale_,
     const std::vector<std::string>& na,
-    const bool trim_ws) {
+    bool trim_ws) {
   Warnings warnings;
   int n = x.size();
 

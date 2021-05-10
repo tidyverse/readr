@@ -58,7 +58,7 @@ private:
 
   void newRecord();
 
-  Token emptyToken(int row, int col);
+  Token emptyToken(int row, int col) const;
 
   Token fieldToken(
       SourceIterator begin,
@@ -81,6 +81,6 @@ private:
       SourceIterator begin, SourceIterator end, std::string* pOut);
 
   void
-  unescapeDouble(SourceIterator begin, SourceIterator end, std::string* pOut);
+  unescapeDouble(SourceIterator begin, SourceIterator end, std::string* pOut) const;
 };
 #endif

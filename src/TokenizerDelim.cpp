@@ -318,7 +318,7 @@ void TokenizerDelim::newRecord() {
   state_ = STATE_DELIM;
 }
 
-Token TokenizerDelim::emptyToken(int row, int col) {
+Token TokenizerDelim::emptyToken(int row, int col) const {
   return Token(hasEmptyNA_ ? TOKEN_MISSING : TOKEN_EMPTY, row, col);
 }
 
@@ -368,7 +368,7 @@ void TokenizerDelim::unescape(
 }
 
 void TokenizerDelim::unescapeDouble(
-    SourceIterator begin, SourceIterator end, std::string* pOut) {
+    SourceIterator begin, SourceIterator end, std::string* pOut) const {
   pOut->reserve(end - begin);
 
   bool inEscape = false;

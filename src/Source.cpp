@@ -18,18 +18,15 @@ SourcePtr Source::create(const cpp11::list& spec) {
     return SourcePtr(
         new SourceRaw(spec[0], skip, skipEmptyRows, comment, skipQuote));
   }
+
   if (subclass == "source_string") {
-
     return SourcePtr(
-
         new SourceString(spec[0], skip, skipEmptyRows, comment, skipQuote));
+  }
 
-  } else if (subclass == "source_file") {
-
+  if (subclass == "source_file") {
     cpp11::strings path(spec[0]);
-
     return SourcePtr(new SourceFile(
-
         Rf_translateChar(path[0]), skip, skipEmptyRows, comment, skipQuote));
   }
 

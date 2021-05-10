@@ -54,10 +54,10 @@ extern "C" SEXP _readr_tokenize_(SEXP sourceSpec, SEXP tokenizerSpec, SEXP n_max
   END_CPP11
 }
 // parse.cpp
-SEXP parse_vector_(const cpp11::strings& x, const cpp11::list& collectorSpec, const cpp11::list& locale_, const std::vector<std::string>& na, const bool trim_ws);
+SEXP parse_vector_(const cpp11::strings& x, const cpp11::list& collectorSpec, const cpp11::list& locale_, const std::vector<std::string>& na, bool trim_ws);
 extern "C" SEXP _readr_parse_vector_(SEXP x, SEXP collectorSpec, SEXP locale_, SEXP na, SEXP trim_ws) {
   BEGIN_CPP11
-    return cpp11::as_sexp(parse_vector_(cpp11::as_cpp<cpp11::decay_t<const cpp11::strings&>>(x), cpp11::as_cpp<cpp11::decay_t<const cpp11::list&>>(collectorSpec), cpp11::as_cpp<cpp11::decay_t<const cpp11::list&>>(locale_), cpp11::as_cpp<cpp11::decay_t<const std::vector<std::string>&>>(na), cpp11::as_cpp<cpp11::decay_t<const bool>>(trim_ws)));
+    return cpp11::as_sexp(parse_vector_(cpp11::as_cpp<cpp11::decay_t<const cpp11::strings&>>(x), cpp11::as_cpp<cpp11::decay_t<const cpp11::list&>>(collectorSpec), cpp11::as_cpp<cpp11::decay_t<const cpp11::list&>>(locale_), cpp11::as_cpp<cpp11::decay_t<const std::vector<std::string>&>>(na), cpp11::as_cpp<cpp11::decay_t<bool>>(trim_ws)));
   END_CPP11
 }
 // read.cpp
