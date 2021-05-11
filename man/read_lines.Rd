@@ -71,7 +71,11 @@ names.}
 option to \code{character()} to indicate no missing values.}
 
 \item{lazy}{Read values lazily? By default the file is initially only
-indexed. The actual values are read lazily on-demand when accessed.}
+indexed and the values are read lazily when accessed. Lazy reading is
+useful interactively, particularly if you are only interested in a subset
+of the full dataset. Note, lazy reading on windows will lock the file
+until all the data has been read from it, if you run into this issue set
+\code{lazy = FALSE}.}
 
 \item{num_threads}{The number of processing threads to use for initial
 parsing and lazy reading of data.}

@@ -55,7 +55,7 @@ each field before parsing it?}
 
 \item{skip}{Number of lines to skip before reading data.}
 
-\item{n_max}{Maximum number of records to read.}
+\item{n_max}{Maximum number of lines to read.}
 
 \item{progress}{Display a progress bar? By default it will only display
 in an interactive session and not while knitting a document. The automatic

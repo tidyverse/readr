@@ -43,16 +43,18 @@ the first row of the output data frame.
 
 Missing (\code{NA}) column names will generate a warning, and be filled
 in with dummy names \code{X1}, \code{X2} etc. Duplicate column names
-will generate a warning and be made unique with a numeric suffix.}
+will generate a warning and be made unique, see \code{name_repair} to control
+how this is done.}
 
 \item{col_types}{One of \code{NULL}, a \code{\link[=cols]{cols()}} specification, or
 a string. See \code{vignette("readr")} for more details.
 
 If \code{NULL}, all column types will be imputed from the first 1000 rows
 on the input. This is convenient (and fast), but not robust. If the
-imputation fails, you'll need to supply the correct types yourself.
+imputation fails, you'll need to increase the \code{guess_max} or supply the
+correct types yourself.
 
-If a column specification created by \code{\link[=cols]{cols()}}, it must contain
+Column specifications created by \code{\link[=list]{list()}} or \code{\link[=cols]{cols()}} must contain
 one column specification for each column. If you only want to read a
 subset of the columns, use \code{\link[=cols_only]{cols_only()}}.
 
@@ -73,8 +75,7 @@ character represents one column:
 
 By default, reading a file without a column specification will print a
 message showing what \code{readr} guessed they were. To remove this message,
-use \code{col_types = list()}, set \code{show_col_types = FALSE} or set
-`options(readr.show_col_types = FALSE)
+set \code{show_col_types = FALSE} or set `options(readr.show_col_types = FALSE).
 }}
 
 \item{trim_ws}{Should leading and trailing whitespace be trimmed from
@@ -82,7 +83,7 @@ each field before parsing it?}
 
 \item{skip}{Number of lines to skip before reading data.}
 
-\item{n_max}{Maximum number of records to read.}
+\item{n_max}{Maximum number of lines to read.}
 
 \item{progress}{Display a progress bar? By default it will only display
 in an interactive session and not while knitting a document. The automatic

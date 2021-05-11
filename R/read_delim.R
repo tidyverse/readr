@@ -1,13 +1,13 @@
 #' @useDynLib readr, .registration = TRUE
 NULL
 
-#' Read a delimited file (including csv & tsv) into a tibble
+#' Read a delimited file (including CSV and TSV) into a tibble
 #'
-#' `read_csv()` and `read_tsv()` are special cases of the general
+#' `read_csv()` and `read_tsv()` are special cases of the more general
 #' `read_delim()`. They're useful for reading the most common types of
 #' flat file data, comma separated values and tab separated values,
 #' respectively. `read_csv2()` uses `;` for the field separator and `,` for the
-#' decimal point. This is common in some European countries.
+#' decimal point. This format is common in some European countries.
 #' @inheritParams datasource
 #' @inheritParams tokenizer_delim
 #' @param col_names Either `TRUE`, `FALSE` or a character vector
@@ -23,15 +23,17 @@ NULL
 #'
 #'   Missing (`NA`) column names will generate a warning, and be filled
 #'   in with dummy names `X1`, `X2` etc. Duplicate column names
-#'   will generate a warning and be made unique with a numeric suffix.
+#'   will generate a warning and be made unique, see `name_repair` to control
+#'   how this is done.
 #' @param col_types One of `NULL`, a [cols()] specification, or
 #'   a string. See `vignette("readr")` for more details.
 #'
 #'   If `NULL`, all column types will be imputed from the first 1000 rows
 #'   on the input. This is convenient (and fast), but not robust. If the
-#'   imputation fails, you'll need to supply the correct types yourself.
+#'   imputation fails, you'll need to increase the `guess_max` or supply the
+#'   correct types yourself.
 #'
-#'   If a column specification created by [cols()], it must contain
+#'   Column specifications created by [list()] or [cols()] must contain
 #'   one column specification for each column. If you only want to read a
 #'   subset of the columns, use [cols_only()].
 #'
@@ -51,16 +53,15 @@ NULL
 #'
 #'    By default, reading a file without a column specification will print a
 #'    message showing what `readr` guessed they were. To remove this message,
-#'    use `col_types = list()`, set `show_col_types = FALSE` or set
-#'    `options(readr.show_col_types = FALSE)
+#'    set `show_col_types = FALSE` or set `options(readr.show_col_types = FALSE).
 #' @param col_select <[`tidy-select`][tidyselect::language]> Columns to include
 #'   in the results, either by name or by numeric index. Use [c()] or [list()]
 #'   to select with more than one expression and [`?tidyselect::language`][tidyselect::language] for full
 #'   details on the selection language.
 #' @param id The name of a column in which to store the file path. This is
 #'   useful when reading multiple input files and there is data in the file
-#'   paths, such as the data collection date. If `NULL` no extra column is
-#'   created.
+#'   paths, such as the data collection date. If `NULL` (the default) no extra
+#'   column is created.
 #' @param show_col_types If `FALSE`, do not show the guessed column types. If
 #'   `TRUE` always show the column types, even if they are supplied. If `NULL`
 #'   (the default) only show the column types if they are not explicitly supplied
@@ -70,31 +71,35 @@ NULL
 #'   [locale()] to create your own locale that controls things like
 #'   the default time zone, encoding, decimal mark, big mark, and day/month
 #'   names.
-#' @param n_max Maximum number of records to read.
-#' @param guess_max Maximum number of records to use for guessing column types.
+#' @param n_max Maximum number of lines to read.
+#' @param guess_max Maximum number of lines to use for guessing column types.
 #' @param progress Display a progress bar? By default it will only display
 #'   in an interactive session and not while knitting a document. The automatic
 #'   progress bar can be disabled by setting option `readr.show_progress` to
 #'   `FALSE`.
 #' @param lazy Read values lazily? By default the file is initially only
-#'   indexed. The actual values are read lazily on-demand when accessed.
+#'   indexed and the values are read lazily when accessed. Lazy reading is
+#'   useful interactively, particularly if you are only interested in a subset
+#'   of the full dataset. Note, lazy reading on windows will lock the file
+#'   until all the data has been read from it, if you run into this issue set
+#'   `lazy = FALSE`.
 #' @param num_threads The number of processing threads to use for initial
 #'   parsing and lazy reading of data.
 #' @param name_repair Treatment of problematic column names:
-#'   * `"minimal"`: No name repair or checks, beyond basic existence,
-#'   * `"unique"`: Make sure names are unique and not empty,
+#'   * `"minimal"`: No name repair or checks, beyond basic existence of names
+#'   * `"unique"`: Make sure names are unique and not empty
 #'   * `"check_unique"`: (default value), no name repair, but check they are
-#'     `unique`,
+#'     `unique`
 #'   * `"universal"`: Make the names `unique` and syntactic
 #'   * a function: apply custom name repair (e.g., `.name_repair = make.names`
-#'     for names in the style of base R).
+#'     for names in the style of base R)
 #'   * A purrr-style anonymous function, see [rlang::as_function()]
 #'
 #'   This argument is passed on as `repair` to [vctrs::vec_as_names()].
 #'   See there for more details on these terms and the strategies used
 #'   to enforce them.
-#' @return A [tibble()]. If there are parsing problems, a warning tells you
-#'   how many, and you can retrieve the details with [problems()].
+#' @return A [tibble()]. If there are parsing problems, a warning will alert you.
+#'   You can retrieve the full details by calling [problems()] on your dataset.
 #' @export
 #' @examples
 #' # Input sources -------------------------------------------------------------

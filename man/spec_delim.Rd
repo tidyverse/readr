@@ -159,16 +159,18 @@ the first row of the output data frame.
 
 Missing (\code{NA}) column names will generate a warning, and be filled
 in with dummy names \code{X1}, \code{X2} etc. Duplicate column names
-will generate a warning and be made unique with a numeric suffix.}
+will generate a warning and be made unique, see \code{name_repair} to control
+how this is done.}
 
 \item{col_types}{One of \code{NULL}, a \code{\link[=cols]{cols()}} specification, or
 a string. See \code{vignette("readr")} for more details.
 
 If \code{NULL}, all column types will be imputed from the first 1000 rows
 on the input. This is convenient (and fast), but not robust. If the
-imputation fails, you'll need to supply the correct types yourself.
+imputation fails, you'll need to increase the \code{guess_max} or supply the
+correct types yourself.
 
-If a column specification created by \code{\link[=cols]{cols()}}, it must contain
+Column specifications created by \code{\link[=list]{list()}} or \code{\link[=cols]{cols()}} must contain
 one column specification for each column. If you only want to read a
 subset of the columns, use \code{\link[=cols_only]{cols_only()}}.
 
@@ -189,8 +191,7 @@ character represents one column:
 
 By default, reading a file without a column specification will print a
 message showing what \code{readr} guessed they were. To remove this message,
-use \code{col_types = list()}, set \code{show_col_types = FALSE} or set
-`options(readr.show_col_types = FALSE)
+set \code{show_col_types = FALSE} or set `options(readr.show_col_types = FALSE).
 }}
 
 \item{col_select}{<\code{\link[tidyselect:language]{tidy-select}}> Columns to include
@@ -200,8 +201,8 @@ details on the selection language.}
 
 \item{id}{The name of a column in which to store the file path. This is
 useful when reading multiple input files and there is data in the file
-paths, such as the data collection date. If \code{NULL} no extra column is
-created.}
+paths, such as the data collection date. If \code{NULL} (the default) no extra
+column is created.}
 
 \item{locale}{The locale controls defaults that vary from place to place.
 The default locale is US-centric (like R), but you can use
@@ -223,19 +224,19 @@ each field before parsing it?}
 
 \item{skip}{Number of lines to skip before reading data.}
 
-\item{n_max}{Maximum number of records to read.}
+\item{n_max}{Maximum number of lines to read.}
 
-\item{guess_max}{Maximum number of records to use for guessing column types.}
+\item{guess_max}{Maximum number of lines to use for guessing column types.}
 
 \item{name_repair}{Treatment of problematic column names:
 \itemize{
-\item \code{"minimal"}: No name repair or checks, beyond basic existence,
-\item \code{"unique"}: Make sure names are unique and not empty,
+\item \code{"minimal"}: No name repair or checks, beyond basic existence of names
+\item \code{"unique"}: Make sure names are unique and not empty
 \item \code{"check_unique"}: (default value), no name repair, but check they are
-\code{unique},
+\code{unique}
 \item \code{"universal"}: Make the names \code{unique} and syntactic
 \item a function: apply custom name repair (e.g., \code{.name_repair = make.names}
-for names in the style of base R).
+for names in the style of base R)
 \item A purrr-style anonymous function, see \code{\link[rlang:as_function]{rlang::as_function()}}
 }
 
@@ -261,7 +262,11 @@ option is \code{TRUE} then blank rows will not be represented at all.  If it is
 \code{FALSE} then they will be represented by \code{NA} values in all the columns.}
 
 \item{lazy}{Read values lazily? By default the file is initially only
-indexed. The actual values are read lazily on-demand when accessed.}
+indexed and the values are read lazily when accessed. Lazy reading is
+useful interactively, particularly if you are only interested in a subset
+of the full dataset. Note, lazy reading on windows will lock the file
+until all the data has been read from it, if you run into this issue set
+\code{lazy = FALSE}.}
 }
 \value{
 The \code{col_spec} generated for the file.

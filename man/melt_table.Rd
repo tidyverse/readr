@@ -55,9 +55,9 @@ option to \code{character()} to indicate no missing values.}
 
 \item{skip}{Number of lines to skip before reading data.}
 
-\item{n_max}{Maximum number of records to read.}
+\item{n_max}{Maximum number of lines to read.}
 
-\item{guess_max}{Maximum number of records to use for guessing column types.}
+\item{guess_max}{Maximum number of lines to use for guessing column types.}
 
 \item{progress}{Display a progress bar? By default it will only display
 in an interactive session and not while knitting a document. The automatic
