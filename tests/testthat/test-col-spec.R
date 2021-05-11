@@ -54,7 +54,6 @@ test_that("col_spec_standardise works properly with 1 row inputs and no header c
 
 test_that("warns about duplicated names", {
   expect_warning(col_spec_standardise("a,a\n1,2"), "Duplicated column names")
-  expect_warning(col_spec_standardise("X2,\n1,2"), "Duplicated column names")
   expect_warning(
     col_spec_standardise("1,2\n1,2", col_names = c("X", "X")),
     "Duplicated column names"
@@ -247,7 +246,7 @@ test_that("print(col_spec) with colors", {
   )
 
   with_crayon(
-    expect_known_output(out, "colour-test", print = TRUE)
+    expect_snapshot_output(out)
   )
 })
 
