@@ -333,7 +333,8 @@ names of the columns, and the first row of the input will be read into
 the first row of the output data frame.</p>
 <p>Missing (<code>NA</code>) column names will generate a warning, and be filled
 in with dummy names <code>X1</code>, <code>X2</code> etc. Duplicate column names
-will generate a warning and be made unique with a numeric suffix.</p></td>
+will generate a warning and be made unique, see <code>name_repair</code> to control
+how this is done.</p></td>
     </tr>
     <tr>
       <th>col_types</th>
@@ -341,8 +342,9 @@ will generate a warning and be made unique with a numeric suffix.</p></td>
 a string. See <code><a href='../articles/readr.html'>vignette("readr")</a></code> for more details.</p>
 <p>If <code>NULL</code>, all column types will be imputed from the first 1000 rows
 on the input. This is convenient (and fast), but not robust. If the
-imputation fails, you'll need to supply the correct types yourself.</p>
-<p>If a column specification created by <code><a href='cols.html'>cols()</a></code>, it must contain
+imputation fails, you'll need to increase the <code>guess_max</code> or supply the
+correct types yourself.</p>
+<p>Column specifications created by <code><a href='https://rdrr.io/r/base/list.html'>list()</a></code> or <code><a href='cols.html'>cols()</a></code> must contain
 one column specification for each column. If you only want to read a
 subset of the columns, use <code><a href='cols.html'>cols_only()</a></code>.</p>
 <p>Alternatively, you can use a compact string representation where each
@@ -360,8 +362,7 @@ character represents one column:</p><ul>
 <li><p>_ or - = skip</p>
 <p>By default, reading a file without a column specification will print a
 message showing what <code>readr</code> guessed they were. To remove this message,
-use <code>col_types = list()</code>, set <code>show_col_types = FALSE</code> or set
-`options(readr.show_col_types = FALSE)</p></li>
+set <code>show_col_types = FALSE</code> or set `options(readr.show_col_types = FALSE).</p></li>
 </ul></td>
     </tr>
     <tr>
@@ -375,8 +376,8 @@ details on the selection language.</p></td>
       <th>id</th>
       <td><p>The name of a column in which to store the file path. This is
 useful when reading multiple input files and there is data in the file
-paths, such as the data collection date. If <code>NULL</code> no extra column is
-created.</p></td>
+paths, such as the data collection date. If <code>NULL</code> (the default) no extra
+column is created.</p></td>
     </tr>
     <tr>
       <th>locale</th>
@@ -412,22 +413,22 @@ each field before parsing it?</p></td>
     </tr>
     <tr>
       <th>n_max</th>
-      <td><p>Maximum number of records to read.</p></td>
+      <td><p>Maximum number of lines to read.</p></td>
     </tr>
     <tr>
       <th>guess_max</th>
-      <td><p>Maximum number of records to use for guessing column types.</p></td>
+      <td><p>Maximum number of lines to use for guessing column types.</p></td>
     </tr>
     <tr>
       <th>name_repair</th>
       <td><p>Treatment of problematic column names:</p><ul>
-<li><p><code>"minimal"</code>: No name repair or checks, beyond basic existence,</p></li>
-<li><p><code>"unique"</code>: Make sure names are unique and not empty,</p></li>
+<li><p><code>"minimal"</code>: No name repair or checks, beyond basic existence of names</p></li>
+<li><p><code>"unique"</code>: Make sure names are unique and not empty</p></li>
 <li><p><code>"check_unique"</code>: (default value), no name repair, but check they are
-<code>unique</code>,</p></li>
+<code>unique</code></p></li>
 <li><p><code>"universal"</code>: Make the names <code>unique</code> and syntactic</p></li>
 <li><p>a function: apply custom name repair (e.g., <code>.name_repair = make.names</code>
-for names in the style of base R).</p></li>
+for names in the style of base R)</p></li>
 <li><p>A purrr-style anonymous function, see <code><a href='https://rlang.r-lib.org/reference/as_function.html'>rlang::as_function()</a></code></p></li>
 </ul>
 
@@ -463,7 +464,11 @@ option is <code>TRUE</code> then blank rows will not be represented at all.  If 
     <tr>
       <th>lazy</th>
       <td><p>Read values lazily? By default the file is initially only
-indexed. The actual values are read lazily on-demand when accessed.</p></td>
+indexed and the values are read lazily when accessed. Lazy reading is
+useful interactively, particularly if you are only interested in a subset
+of the full dataset. Note, lazy reading on windows will lock the file
+until all the data has been read from it, if you run into this issue set
+<code>lazy = FALSE</code>.</p></td>
     </tr>
     </table>
 
