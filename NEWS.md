@@ -2,15 +2,29 @@
 
 ## second edition changes
 
-* New `with_edition()` and `local_edition()` functions to temporarily change the edition of readr.
-  For example you can use `with_edition(1, read_csv("my-file"))` to read a CSV file with the first edition of readr.
-  *Note* we will continue to support the first edition for a number of releases, but eventually this support will be first deprecated and then removed.
+Readr 2.0.0 is a major release of readr and introduces a new second edition parsing and writing engine implemented in the [vroom](https://vroom.r-lib.org/) package.
+This engine takes advantage of lazy reading, multi-threading and performance properties of modern SSD drives to significantly improve the performance of reading and writing compared to the first edition.
+
+We will continue to support the first edition for a number of releases, but eventually this support will be first deprecated and then removed.
+
+You can use `with_edition()` or `local_edition()` functions to temporarily change the edition of readr for a section of code.
+For example you can use `with_edition(1, read_csv("my-file"))` to read a CSV file with the first edition of readr.
+
+### License change
+
+readr is now released under a more permissive MIT license.
+Previously versions of readr were licensed as GPL-3.
+
+### Deprecated functions
 
 * `melt_csv()`, `melt_delim()`, `melt_tsv()` and `melt_fwf()` have been deprecated.
   These functions rely on the first edition parsing code and would be challenging to update to the new parser.
   When the first edition parsing code is eventually removed from readr they will be split off into a new package.
 
-* `write_file()` now forces its argument before opening the output file (#1158)
+* `read_table2()` has been renamed to `read_table()`, as most users expect `read_table()` to work like `utils::read.table()`.
+  If you want the previous strict behavior of the `read_table()` you can use `read_fwf()` with `fwf_empty()` directly (#717).
+
+### Other second edition changes
 
 * All `read_*()` functions gain a `col_select` argument to more easily choose which columns to select.
 
@@ -24,44 +38,45 @@
 
 * All `write_*()` functions gain a `progress` argument and display a progress bar when writing (#791).
 
-* write_tsv() now defaults to `quote = "none"` (#993)
-
 * write_excel_csv() now defaults to `quote = "all"` (#759)
 
-* `read_table2()` has been renamed to `read_table()`, as most users expect `read_table()` to work like `utils::read.table()`.
-  If you want the previous strict behavior of the `read_table()` you can use `read_fwf()` with `fwf_empty()` directly (#717).
+* write_tsv() now defaults to `quote = "none"` (#993)
 
 ## Additional features and fixes
 
-* `read_rds()` and `write_rds()` gain a `refhook` argument, to pass functions that handle references objects (#1206)
+* The BH package is no longer a dependency.
+  The boost C++ headers in BH have thousands of files, so can take a long time to extract and compiling them takes a great deal of memory, which made readr difficult to compile on systems with limited memory (#1147).
+
+* readr now uses the clock package when parsing date-times (@DavisVaughan, r-lib/vroom#273)
+
+* Chunked readers now support files with more than `INT_MAX` (~ 2 Billion) number of lines (#1177)
+
+* Memory no longer inadvertently leaks when reading memory from R connections (#1161)
+
+* Invalid date formats no longer can potentially crash R (#1151)
+
+* `col_factor()` now throws a more informative error message if given non-character levels (#1140)
 
 * `problems()` now takes `.Last.value` as its default argument.
   This lets you run `problems()` without an argument to see the problems in the previously read dataset.
 
-* `type_convert()` now throws a warning if the input has no character columns (#1020)
+* `read_delim()` fails when sample of parsing problems contains non-ASCII characters (@hidekoji, #1136)
 
 * `read_log()` gains a `trim_ws` argument (#738)
+
+* `read_rds()` and `write_rds()` gain a `refhook` argument, to pass functions that handle references objects (#1206)
 
 * `read_rds()` can now read .Rds files from URLs (#1186)
 
 * `read_*()` functions gain a `show_col_types` argument, if set to `FALSE` this turns off showing the column types unconditionally.
 
-* readr now uses the clock package when parsing date-times (@DavisVaughan, r-lib/vroom#273)
-* Memory no longer inadvertently leaks when reading memory from R connections (#1161)
-
-* The BH package is no longer a dependency. The boost C++ headers in BH have thousands of files, so can take a long time to extract and compiling them takes a great deal of memory, which made readr difficult to compile on systems with limited memory (#1147).
-
-* `col_factor()` now throws a more informative error message if given non-character levels (#1140)
+* `type_convert()` now throws a warning if the input has no character columns (#1020)
 
 * `write_csv()` now errors if given a matrix column (#1171)
 
 * `write_csv()` now again is able to write data with duplicated column names (#1169)
 
-* Invalid date formats no longer can potentially crash R (#1151)
-
-* `read_delim()` fails when sample of parsing problems contains non-ASCII characters (@hidekoji, #1136)
-
-* Chunked readers now support files with more than `INT_MAX` (~ 2 Billion) number of lines (#1177)
+* `write_file()` now forces its argument before opening the output file (#1158)
 
 # readr 1.4.0
 
