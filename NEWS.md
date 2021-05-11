@@ -33,6 +33,8 @@
 
 ## Additional features and fixes
 
+* `read_rds()` and `write_rds()` gain a `refhook` argument, to pass functions that handle references objects (#1206)
+
 * `problems()` now takes `.Last.value` as its default argument.
   This lets you run `problems()` without an argument to see the problems in the previously read dataset.
 

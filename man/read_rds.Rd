@@ -5,19 +5,22 @@
 \alias{write_rds}
 \title{Read/write RDS files.}
 \usage{
-read_rds(file)
+read_rds(file, refhook = NULL)
 
 write_rds(
   x,
   file,
   compress = c("none", "gz", "bz2", "xz"),
   version = 2,
+  refhook = NULL,
   path = deprecated(),
   ...
 )
 }
 \arguments{
 \item{file}{The file path to read from/write to.}
+
+\item{refhook}{A function to handle reference objects.}
 
 \item{x}{R object to write to serialise.}
 
