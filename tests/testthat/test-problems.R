@@ -4,6 +4,8 @@ test_that("stop_for_problems throws error", {
 })
 
 test_that("skipping columns gives incorrect problem column (#573)", {
+  skip_if_edition_first()
+
   delim.skip0 <- problems(read_csv("aa,bb,cc\n", col_names = F, col_types = "dcc", lazy = FALSE))
   delim.skip1 <- problems(read_csv("aa,bb,cc\n", col_names = F, col_types = "_dc", lazy = FALSE))
   delim.skip2 <- problems(read_csv("aa,bb,cc\n", col_names = F, col_types = "--d", lazy = FALSE))
@@ -32,6 +34,7 @@ test_that("skipping columns gives incorrect problem column (#573)", {
 })
 
 test_that("problems returns the filename (#581)", {
+  skip_if_edition_first()
   files <- problems(read_csv(readr_example("mtcars.csv"), col_types = cols(mpg = col_integer()), lazy = FALSE))$file
 
   expect_equal(length(files), 28L)

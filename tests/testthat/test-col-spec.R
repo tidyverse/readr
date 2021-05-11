@@ -31,6 +31,7 @@ test_that("col_names expanded to match col_types, with skipping", {
 })
 
 test_that("col_types expanded to col_names by guessing", {
+  skip_if(edition_first())
   expect_warning(
     out <- col_spec_standardise("1,2,3\n", c("a", "b", "c"), "ii"),
     "Insufficient `col_types`"
@@ -118,6 +119,8 @@ test_that("print(col_spec) with truncated output", {
 })
 
 test_that("spec object attached to read data", {
+  skip_if(edition_first())
+
   test_data <- read_csv(test_path("basic-df.csv"), col_types = NULL, col_names = TRUE)
   sp <- spec(test_data)
   sp$skip <- NULL

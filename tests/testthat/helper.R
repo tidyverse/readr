@@ -38,3 +38,7 @@ with_crayon <- function(expr) {
 skip_if_edition_second <- function() {
   skip_if_not(edition_first())
 }
+
+skip_if_edition_first <- function() {
+  skip_if(edition_first())
+}

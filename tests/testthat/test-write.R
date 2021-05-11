@@ -57,10 +57,11 @@ test_that("roundtrip preserves dates and datetimes", {
 })
 
 test_that("fails to create file in non-existent directory", {
-  expect_error(write_csv(mtcars, file.path(tempdir(), "/x/y")), "Cannot open")
+  expect_error(write_csv(mtcars, file.path(tempdir(), "/x/y")), "open")
 })
 
 test_that("write_excel_csv/csv2 includes a byte order mark", {
+  skip_if_edition_first()
   tmp <- tempfile()
   on.exit(unlink(tmp))
 
@@ -83,6 +84,7 @@ test_that("write_excel_csv/csv2 includes a byte order mark", {
 })
 
 test_that("write_excel_csv/csv2 includes a byte order mark, but not when appending", {
+  skip_if_edition_first()
   tmp <- tempfile()
   on.exit(unlink(tmp))
 

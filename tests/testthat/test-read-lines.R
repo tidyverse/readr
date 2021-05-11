@@ -10,6 +10,7 @@ test_that("read_lines returns an empty character vector on an empty file", {
 })
 
 test_that("read_lines handles embedded nuls", {
+  skip_if_edition_first()
   res <- expect_warning(read_lines(test_path("null-file"), lazy = FALSE))
   expect_equal(res, c("a,b,c", "1,2,", "3,4,5"))
 })

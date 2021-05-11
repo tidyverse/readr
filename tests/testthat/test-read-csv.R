@@ -159,7 +159,7 @@ test_that("extra columns generates warnings", {
 
 test_that("too few or extra col_types generates warnings", {
   skip_if_edition_second()
-  expect_warning(out1 <- read_csv(I("v1,v2\n1,2"), col_types = "ii", lazy = FALSE))
+  expect_warning(out1 <- read_csv(I("v1,v2\n1,2"), col_types = "i", lazy = FALSE))
   expect_equal(problems(out1)$expected, "1 columns")
   expect_equal(problems(out1)$actual, "2 columns")
 
@@ -345,10 +345,11 @@ test_that("read_csv returns a spec_tbl_df and the spec attribute is removed once
 })
 
 test_that("read_csv returns an empty tbl if all lines are comments", {
+  skip_if_edition_second()
   x <- read_csv(I("#foo\n#bar"), comment = "#", col_names = c("X"))
 
   expect_equal(nrow(x), 0)
-  expect_equal(ncol(x), 0)
+  expect_equal(ncol(x), 1)
 })
 
 test_that("read_csv works with single quotes inside of double quotes (#944)", {
