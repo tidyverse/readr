@@ -94,7 +94,7 @@
         <a class="navbar-brand" href="../index.html">readr</a>
         <div class="info hidden-xs hidden-sm">
           <span class="partof">part of the <a href="https://tidyverse.org">tidyverse</a></span>
-          <span class="version version-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">1.4.0.9000</span>
+          <span class="version version-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">1.9.9.9000</span>
         </div>
       </div>
     </div>
@@ -171,40 +171,57 @@
 <div id="second-edition-changes" class="section level2">
 <h2 class="hasAnchor">
 <a href="#second-edition-changes" class="anchor"></a>second edition changes</h2>
+<p>Readr 2.0.0 is a major release of readr and introduces a new second edition parsing and writing engine implemented in the <a href="https://vroom.r-lib.org/">vroom</a> package. This engine takes advantage of lazy reading, multi-threading and performance properties of modern SSD drives to significantly improve the performance of reading and writing compared to the first edition.</p>
+<p>We will continue to support the first edition for a number of releases, but eventually this support will be first deprecated and then removed.</p>
+<p>You can use <code><a href="../reference/edition_get.html">with_edition()</a></code> or <code><a href="../reference/edition_get.html">local_edition()</a></code> functions to temporarily change the edition of readr for a section of code. For example you can use <code><a href="../reference/edition_get.html">with_edition(1, read_csv("my-file"))</a></code> to read a CSV file with the first edition of readr.</p>
+<div id="license-change" class="section level3">
+<h3 class="hasAnchor">
+<a href="#license-change" class="anchor"></a>License change</h3>
+<p>readr is now released under a more permissive MIT license. Previously versions of readr were licensed as GPL-3.</p>
+</div>
+<div id="deprecated-functions" class="section level3">
+<h3 class="hasAnchor">
+<a href="#deprecated-functions" class="anchor"></a>Deprecated functions</h3>
 <ul>
-<li><p>New <code><a href="../reference/edition_get.html">with_edition()</a></code> and <code><a href="../reference/edition_get.html">local_edition()</a></code> functions to temporarily change the edition of readr. For example you can use <code><a href="../reference/edition_get.html">with_edition(1, read_csv("my-file"))</a></code> to read a CSV file with the first edition of readr. <em>Note</em> we will continue to support the first edition for a number of releases, but eventually this support will be first deprecated and then removed.</p></li>
 <li><p><code><a href="../reference/melt_delim.html">melt_csv()</a></code>, <code><a href="../reference/melt_delim.html">melt_delim()</a></code>, <code><a href="../reference/melt_delim.html">melt_tsv()</a></code> and <code><a href="../reference/melt_fwf.html">melt_fwf()</a></code> have been deprecated. These functions rely on the first edition parsing code and would be challenging to update to the new parser. When the first edition parsing code is eventually removed from readr they will be split off into a new package.</p></li>
-<li><p><code><a href="../reference/read_file.html">write_file()</a></code> now forces its argument before opening the output file (<a href='https://github.com/tidyverse/readr/issues/1158'>#1158</a>)</p></li>
+<li><p><code><a href="../reference/read_table2.html">read_table2()</a></code> has been renamed to <code><a href="../reference/read_table.html">read_table()</a></code>, as most users expect <code><a href="../reference/read_table.html">read_table()</a></code> to work like <code><a href="https://rdrr.io/r/utils/read.table.html">utils::read.table()</a></code>. If you want the previous strict behavior of the <code><a href="../reference/read_table.html">read_table()</a></code> you can use <code><a href="../reference/read_fwf.html">read_fwf()</a></code> with <code><a href="../reference/read_fwf.html">fwf_empty()</a></code> directly (<a href='https://github.com/tidyverse/readr/issues/717'>#717</a>).</p></li>
+</ul>
+</div>
+<div id="other-second-edition-changes" class="section level3">
+<h3 class="hasAnchor">
+<a href="#other-second-edition-changes" class="anchor"></a>Other second edition changes</h3>
+<ul>
 <li><p>All <code>read_*()</code> functions gain a <code>col_select</code> argument to more easily choose which columns to select.</p></li>
 <li><p>All <code>read_*()</code> functions gain a <code>id</code> argument to optionally store the file paths when reading multiple files.</p></li>
 <li><p>All <code>read_*()</code> functions gain a <code>name_repair</code> argument to control how column names are repaired.</p></li>
 <li><p>All <code>read_*()</code> and <code>write_*()</code> functions gain a <code>num_threads</code> argument to control the number of processing threads they use (<a href='https://github.com/tidyverse/readr/issues/1201'>#1201</a>)</p></li>
 <li><p>All <code>write_*()</code> and <code>format_*()</code> functions gain <code>quote</code> and <code>escape</code> arguments, to explicitly control how fields are quoted and how double quotes are escaped. (<a href='https://github.com/tidyverse/readr/issues/653'>#653</a>, <a href='https://github.com/tidyverse/readr/issues/759'>#759</a>, <a href='https://github.com/tidyverse/readr/issues/844'>#844</a>, <a href='https://github.com/tidyverse/readr/issues/993'>#993</a>, <a href='https://github.com/tidyverse/readr/issues/1018'>#1018</a>, <a href='https://github.com/tidyverse/readr/issues/1083'>#1083</a>)</p></li>
 <li><p>All <code>write_*()</code> functions gain a <code>progress</code> argument and display a progress bar when writing (<a href='https://github.com/tidyverse/readr/issues/791'>#791</a>).</p></li>
-<li><p>write_tsv() now defaults to <code>quote = "none"</code> (<a href='https://github.com/tidyverse/readr/issues/993'>#993</a>)</p></li>
 <li><p>write_excel_csv() now defaults to <code>quote = "all"</code> (<a href='https://github.com/tidyverse/readr/issues/759'>#759</a>)</p></li>
-<li><p><code><a href="../reference/read_table2.html">read_table2()</a></code> has been renamed to <code><a href="../reference/read_table.html">read_table()</a></code>, as most users expect <code><a href="../reference/read_table.html">read_table()</a></code> to work like <code><a href="https://rdrr.io/r/utils/read.table.html">utils::read.table()</a></code>. If you want the previous strict behavior of the <code><a href="../reference/read_table.html">read_table()</a></code> you can use <code><a href="../reference/read_fwf.html">read_fwf()</a></code> with <code><a href="../reference/read_fwf.html">fwf_empty()</a></code> directly (<a href='https://github.com/tidyverse/readr/issues/717'>#717</a>).</p></li>
+<li><p>write_tsv() now defaults to <code>quote = "none"</code> (<a href='https://github.com/tidyverse/readr/issues/993'>#993</a>)</p></li>
 </ul>
+</div>
 </div>
 <div id="additional-features-and-fixes" class="section level2">
 <h2 class="hasAnchor">
 <a href="#additional-features-and-fixes" class="anchor"></a>Additional features and fixes</h2>
 <ul>
-<li><p><code><a href="../reference/read_rds.html">read_rds()</a></code> and <code><a href="../reference/read_rds.html">write_rds()</a></code> gain a <code>refhook</code> argument, to pass functions that handle references objects (<a href='https://github.com/tidyverse/readr/issues/1206'>#1206</a>)</p></li>
+<li><p>The BH package is no longer a dependency. The boost C++ headers in BH have thousands of files, so can take a long time to extract and compiling them takes a great deal of memory, which made readr difficult to compile on systems with limited memory (<a href='https://github.com/tidyverse/readr/issues/1147'>#1147</a>).</p></li>
+<li><p>readr now uses the clock package when parsing date-times (<a href='https://github.com/DavisVaughan'>@DavisVaughan</a>, r-lib/vroom<a href='https://github.com/tidyverse/readr/issues/273'>#273</a>)</p></li>
+<li><p>Chunked readers now support files with more than <code>INT_MAX</code> (~ 2 Billion) number of lines (<a href='https://github.com/tidyverse/readr/issues/1177'>#1177</a>)</p></li>
+<li><p>Memory no longer inadvertently leaks when reading memory from R connections (<a href='https://github.com/tidyverse/readr/issues/1161'>#1161</a>)</p></li>
+<li><p>Invalid date formats no longer can potentially crash R (<a href='https://github.com/tidyverse/readr/issues/1151'>#1151</a>)</p></li>
+<li><p><code><a href="../reference/parse_factor.html">col_factor()</a></code> now throws a more informative error message if given non-character levels (<a href='https://github.com/tidyverse/readr/issues/1140'>#1140</a>)</p></li>
 <li><p><code><a href="../reference/problems.html">problems()</a></code> now takes <code>.Last.value</code> as its default argument. This lets you run <code><a href="../reference/problems.html">problems()</a></code> without an argument to see the problems in the previously read dataset.</p></li>
-<li><p><code><a href="../reference/type_convert.html">type_convert()</a></code> now throws a warning if the input has no character columns (<a href='https://github.com/tidyverse/readr/issues/1020'>#1020</a>)</p></li>
+<li><p><code><a href="../reference/read_delim.html">read_delim()</a></code> fails when sample of parsing problems contains non-ASCII characters (<a href='https://github.com/hidekoji'>@hidekoji</a>, <a href='https://github.com/tidyverse/readr/issues/1136'>#1136</a>)</p></li>
 <li><p><code><a href="../reference/read_log.html">read_log()</a></code> gains a <code>trim_ws</code> argument (<a href='https://github.com/tidyverse/readr/issues/738'>#738</a>)</p></li>
+<li><p><code><a href="../reference/read_rds.html">read_rds()</a></code> and <code><a href="../reference/read_rds.html">write_rds()</a></code> gain a <code>refhook</code> argument, to pass functions that handle references objects (<a href='https://github.com/tidyverse/readr/issues/1206'>#1206</a>)</p></li>
 <li><p><code><a href="../reference/read_rds.html">read_rds()</a></code> can now read .Rds files from URLs (<a href='https://github.com/tidyverse/readr/issues/1186'>#1186</a>)</p></li>
 <li><p><code>read_*()</code> functions gain a <code>show_col_types</code> argument, if set to <code>FALSE</code> this turns off showing the column types unconditionally.</p></li>
-<li><p>readr now uses the clock package when parsing date-times (<a href='https://github.com/DavisVaughan'>@DavisVaughan</a>, r-lib/vroom<a href='https://github.com/tidyverse/readr/issues/273'>#273</a>)</p></li>
-<li><p>Memory no longer inadvertently leaks when reading memory from R connections (<a href='https://github.com/tidyverse/readr/issues/1161'>#1161</a>)</p></li>
-<li><p>The BH package is no longer a dependency. The boost C++ headers in BH have thousands of files, so can take a long time to extract and compiling them takes a great deal of memory, which made readr difficult to compile on systems with limited memory (<a href='https://github.com/tidyverse/readr/issues/1147'>#1147</a>).</p></li>
-<li><p><code><a href="../reference/parse_factor.html">col_factor()</a></code> now throws a more informative error message if given non-character levels (<a href='https://github.com/tidyverse/readr/issues/1140'>#1140</a>)</p></li>
+<li><p><code><a href="../reference/type_convert.html">type_convert()</a></code> now throws a warning if the input has no character columns (<a href='https://github.com/tidyverse/readr/issues/1020'>#1020</a>)</p></li>
 <li><p><code><a href="../reference/write_delim.html">write_csv()</a></code> now errors if given a matrix column (<a href='https://github.com/tidyverse/readr/issues/1171'>#1171</a>)</p></li>
 <li><p><code><a href="../reference/write_delim.html">write_csv()</a></code> now again is able to write data with duplicated column names (<a href='https://github.com/tidyverse/readr/issues/1169'>#1169</a>)</p></li>
-<li><p>Invalid date formats no longer can potentially crash R (<a href='https://github.com/tidyverse/readr/issues/1151'>#1151</a>)</p></li>
-<li><p><code><a href="../reference/read_delim.html">read_delim()</a></code> fails when sample of parsing problems contains non-ASCII characters (<a href='https://github.com/hidekoji'>@hidekoji</a>, <a href='https://github.com/tidyverse/readr/issues/1136'>#1136</a>)</p></li>
-<li><p>Chunked readers now support files with more than <code>INT_MAX</code> (~ 2 Billion) number of lines (<a href='https://github.com/tidyverse/readr/issues/1177'>#1177</a>)</p></li>
+<li><p><code><a href="../reference/read_file.html">write_file()</a></code> now forces its argument before opening the output file (<a href='https://github.com/tidyverse/readr/issues/1158'>#1158</a>)</p></li>
 </ul>
 </div>
 </div>
