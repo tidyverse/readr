@@ -71,6 +71,8 @@ NULL
 #'   [locale()] to create your own locale that controls things like
 #'   the default time zone, encoding, decimal mark, big mark, and day/month
 #'   names.
+#' @param skip Number of lines to skip before reading data. If `comment` is
+#'   supplied any commented lines are ignored _after_ skipping.
 #' @param n_max Maximum number of lines to read.
 #' @param guess_max Maximum number of lines to use for guessing column types.
 #' @param progress Display a progress bar? By default it will only display

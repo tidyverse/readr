@@ -121,7 +121,8 @@ comment characters will be silently ignored.}
 \item{trim_ws}{Should leading and trailing whitespace be trimmed from
 each field before parsing it?}
 
-\item{skip}{Number of lines to skip before reading data.}
+\item{skip}{Number of lines to skip before reading data. If \code{comment} is
+supplied any commented lines are ignored \emph{after} skipping.}
 
 \item{progress}{Display a progress bar? By default it will only display
 in an interactive session and not while knitting a document. The automatic
