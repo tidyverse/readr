@@ -72,6 +72,7 @@ readr_threads <- function() {
 #' @export
 `[.spec_tbl_df` <- function(x, ...) {
   attr(x, "spec") <- NULL
+  attr(x, "problems") <- NULL
   class(x) <- setdiff(class(x), "spec_tbl_df")
   NextMethod(`[`)
 }
