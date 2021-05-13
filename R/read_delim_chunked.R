@@ -75,7 +75,7 @@ read_delim_chunked <- function(file, callback, delim = NULL, chunk_size = 10000,
     skip_empty_rows = skip_empty_rows
   )
   read_delimited_chunked(file,
-    callback = callback, tokenizer, col_names = col_names, col_types = col_types,
+    callback = callback, tokenizer = tokenizer, col_names = col_names, col_types = col_types,
     locale = locale, skip = skip, skip_empty_rows = skip_empty_rows,
     comment = comment, guess_max = guess_max, progress = progress
   )
@@ -94,7 +94,7 @@ read_csv_chunked <- function(file, callback, chunk_size = 10000, col_names = TRU
   )
   read_delimited_chunked(file,
     callback = callback, chunk_size = chunk_size,
-    tokenizer, col_names = col_names, col_types = col_types, locale = locale,
+    tokenizer = tokenizer, col_names = col_names, col_types = col_types, locale = locale,
     skip = skip, skip_empty_rows = skip_empty_rows, comment = comment,
     guess_max = guess_max, progress = progress
   )
@@ -114,7 +114,7 @@ read_csv2_chunked <- function(file, callback, chunk_size = 10000, col_names = TR
   )
   read_delimited_chunked(file,
     callback = callback, chunk_size = chunk_size,
-    tokenizer, col_names = col_names, col_types = col_types, locale = locale,
+    tokenizer = tokenizer, col_names = col_names, col_types = col_types, locale = locale,
     skip = skip, skip_empty_rows = skip_empty_rows, comment = comment,
     guess_max = guess_max, progress = progress
   )
@@ -133,7 +133,7 @@ read_tsv_chunked <- function(file, callback, chunk_size = 10000, col_names = TRU
   )
   read_delimited_chunked(file,
     callback = callback, chunk_size = chunk_size,
-    tokenizer, col_names = col_names, col_types = col_types, locale = locale,
+    tokenizer = tokenizer, col_names = col_names, col_types = col_types, locale = locale,
     skip = skip, skip_empty_rows = skip_empty_rows, comment = comment,
     guess_max = guess_max, progress = progress
   )
