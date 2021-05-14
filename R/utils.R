@@ -99,7 +99,10 @@ setOldClass(c("spec_tbl_df", "tbl_df", "tbl", "data.frame"))
 # @export
 compare.tbl_df <- function(x, y, ...) {
   attr(x, "spec") <- NULL
+  attr(x, "problems") <- NULL
+
   attr(y, "spec") <- NULL
+  attr(y, "problems") <- NULL
 
   NextMethod("compare")
 }
@@ -113,7 +116,7 @@ compare.col_spec <- function(x, y, ...) {
 }
 
 # @export
-compare_proxy.tbl_df <- function(x) {
+compare_proxy.spec_tbl_df <- function(x) {
   attr(x, "spec") <- NULL
   attr(x, "problems") <- NULL
   x
