@@ -13,3 +13,7 @@ There were no ERRORs, WARNINGs
 There was 1 NOTEs:
 
 * GNU make is a SystemRequirements.
+
+- eyelinker - https://github.com/a-hurst/eyelinker/pull/2
+- dataRetrieval - https://github.com/USGS-R/dataRetrieval/pull/571
+
