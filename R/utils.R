@@ -70,6 +70,22 @@ readr_threads <- function() {
 }
 
 #' @export
+`as_tibble.spec_tbl_df` <- function(x, ...) {
+  attr(x, "spec") <- NULL
+  attr(x, "problems") <- NULL
+  class(x) <- setdiff(class(x), "spec_tbl_df")
+  NextMethod("as_tibble")
+}
+
+#' @export
+`as.data.frame.spec_tbl_df` <- function(x, ...) {
+  attr(x, "spec") <- NULL
+  attr(x, "problems") <- NULL
+  class(x) <- setdiff(class(x), "spec_tbl_df")
+  NextMethod("as.data.frame")
+}
+
+#' @export
 `[.spec_tbl_df` <- function(x, ...) {
   attr(x, "spec") <- NULL
   attr(x, "problems") <- NULL
