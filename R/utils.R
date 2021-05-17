@@ -69,8 +69,9 @@ readr_threads <- function() {
   res
 }
 
+#' @importFrom tibble as_tibble
 #' @export
-`as_tibble.spec_tbl_df` <- function(x, ...) {
+as_tibble.spec_tbl_df <- function(x, ...) {
   attr(x, "spec") <- NULL
   attr(x, "problems") <- NULL
   class(x) <- setdiff(class(x), "spec_tbl_df")
@@ -78,7 +79,7 @@ readr_threads <- function() {
 }
 
 #' @export
-`as.data.frame.spec_tbl_df` <- function(x, ...) {
+as.data.frame.spec_tbl_df <- function(x, ...) {
   attr(x, "spec") <- NULL
   attr(x, "problems") <- NULL
   class(x) <- setdiff(class(x), "spec_tbl_df")
