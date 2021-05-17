@@ -422,14 +422,14 @@ a,b
 <span class="co">#&gt; Rows: 1 Columns: 2</span>
 <span class="co">#&gt; ── Column specification ────────────────────────────────────────────────────────</span>
 <span class="co">#&gt; Delimiter: ","</span>
-<span class="co">#&gt; dbl (2): a, b</span>
+<span class="co">#&gt; chr (2): a, b</span>
 <span class="co">#&gt; </span>
 <span class="co">#&gt; ℹ Use `spec()` to retrieve the full column specification for this data.</span>
 <span class="co">#&gt; ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.</span>
 <span class="co">#&gt; # A tibble: 1 x 2</span>
-<span class="co">#&gt;       a     b</span>
-<span class="co">#&gt;   &lt;dbl&gt; &lt;dbl&gt;</span>
-<span class="co">#&gt; 1     1     2</span></code></pre></div>
+<span class="co">#&gt;   a        b       </span>
+<span class="co">#&gt;   &lt;chr&gt;    &lt;chr&gt;   </span>
+<span class="co">#&gt; 1 "     1" "     2"</span></code></pre></div>
 </li>
 </ul>
 <p>Specifying the wrong number of column names, or having rows with an unexpected number of columns, now gives a warning, rather than an error:</p>
