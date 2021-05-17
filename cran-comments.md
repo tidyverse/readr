@@ -16,4 +16,7 @@ There was 1 NOTEs:
 
 - eyelinker - https://github.com/a-hurst/eyelinker/pull/2
 - dataRetrieval - https://github.com/USGS-R/dataRetrieval/pull/571
-
+- valr - https://github.com/rnabioco/valr/pull/374
+- truthiness - https://github.com/dalejbarr/truthiness/pull/5
+- rhmmer - :/
+- fgeo.tool - invalid 5
