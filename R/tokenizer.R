@@ -43,8 +43,8 @@ NULL
 #'   values (the default) or strings.
 #' @param delim Single character used to separate fields within a record.
 #' @param quote Single character used to quote strings.
-#' @param trim_ws Should leading and trailing whitespace be trimmed from
-#'   each field before parsing it?
+#' @param trim_ws Should leading and trailing whitespace (ASCII spaces and tabs) be trimmed from
+#'     each field before parsing it?
 #' @param escape_double Does the file escape quotes by doubling them?
 #'   i.e. If this option is `TRUE`, the value `""""` represents
 #'   a single quote, `\"`.

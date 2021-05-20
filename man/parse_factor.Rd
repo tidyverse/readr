@@ -37,7 +37,7 @@ names.}
 
 \item{include_na}{If \code{NA} are present, include as an explicit factor to level?}
 
-\item{trim_ws}{Should leading and trailing whitespace be trimmed from
+\item{trim_ws}{Should leading and trailing whitespace (spaces and tabs) be trimmed from
 each field before parsing it?}
 }
 \description{

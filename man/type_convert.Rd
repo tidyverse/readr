@@ -23,7 +23,7 @@ If \code{NULL}, column types will be imputed using all rows.}
 \item{na}{Character vector of strings to interpret as missing values. Set this
 option to \code{character()} to indicate no missing values.}
 
-\item{trim_ws}{Should leading and trailing whitespace be trimmed from
+\item{trim_ws}{Should leading and trailing whitespace (spaces and tabs) be trimmed from
 each field before parsing it?}
 
 \item{locale}{The locale controls defaults that vary from place to place.

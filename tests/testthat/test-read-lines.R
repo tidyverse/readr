@@ -28,16 +28,16 @@ test_that("blank lines are passed unchanged", {
 })
 
 test_that("read_lines can skip blank lines (#923)", {
-  skip_if_edition_second()
   x <-
-    "1
+    I("1
 2
 3
 
 foo
 bar
 baz
-"
+")
+
   expect_equal(read_lines(x), c("1", "2", "3", "", "foo", "bar", "baz"))
   expect_equal(read_lines(x, skip_empty_rows = TRUE), c("1", "2", "3", "foo", "bar", "baz"))
   expect_equal(read_lines(x, skip = 1), c("2", "3", "", "foo", "bar", "baz"))
@@ -60,7 +60,6 @@ test_that("allocation works as expected", {
 
 test_that("read_lines(skip_empty_rows) works when blank lines are at the end of the file (#968)", {
   skip_on_os("windows")
-  skip_if_edition_second()
 
   tmp <- tempfile()
   on.exit(unlink(tmp))
@@ -75,6 +74,7 @@ test_that("read_lines(skip_empty_rows) works when blank lines are at the end of 
 })
 
 test_that("read_lines(skip_empty_rows) works if there are double quotes in the lines (#991)", {
+  # TODO: turn on test
   skip_if_edition_second()
   data <-
     "a\"b

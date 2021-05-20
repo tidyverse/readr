@@ -10,6 +10,41 @@ We will continue to support the first edition for a number of releases, but even
 You can use `with_edition()` or `local_edition()` functions to temporarily change the edition of readr for a section of code.
 For example you can use `with_edition(1, read_csv("my-file"))` to read a CSV file with the first edition of readr.
 
+Normalizing newlines in files with just carriage returns `\r` is no longer supported.
+The last major OS to use only CR as the newline was 'classic' Mac OS, which had its final release in 2001.
+
+### Lazy reading
+
+readr 2.0.0 by default uses lazy reading. When you first call a reading
+function the delimiters in the file are located, but the data is not actually
+read until it is used in your program. This can provide substantial speed
+improvements for reading character data. Particularly for interactive
+exploration of only a subset of a full dataset.
+
+However this also means that problematic values are not necessarily seen
+immediately, a warning will be issued the first time a problem is encountered,
+which may happen after initial reading.
+
+Use `lazy = FALSE` if you want to uncover all problems up front or want to use
+eager reading for any other reason.
+
+### Reading multiple files at once
+
+readr 2.0.0 has built-in support for reading sets of files with the
+same columns into one output table. Just pass the filenames to be read in the
+same vector to the reading function.
+
+If the filenames contain data, such as the date when the sample was collected
+use the `id` argument to control write the paths as a column.
+
+### Literal data
+
+In previous version of readr the reading functions took literal data as any
+filename with a newline in it or vectors of length > 1. In readr 2.0.0 vectors
+of length > 1 are now  assumed to correspond to multiple files. Because of this
+we now use a more explicit way to represent literal data, by using the `I()`
+function around the input.
+
 ### License change
 
 readr is now released under a more permissive MIT license.

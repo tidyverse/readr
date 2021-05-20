@@ -115,7 +115,6 @@ test_that("missing last field generates warning", {
 })
 
 test_that("missing lines are skipped without warning", {
-  skip_if_edition_second()
   # first
   expect_silent(out <- read_csv(I("a,b\n\n\n1,2")))
 
@@ -194,9 +193,9 @@ test_that("n_max 0 gives zero row data frame", {
 })
 
 test_that("empty file with col_names and col_types creates correct columns", {
-  skip_if_edition_second()
+  skip_if_edition_first()
 
-  x <- read_csv(datasource_string("", 0), c("a", "b"), "ii")
+  x <- read_csv(I(""), c("a", "b"), "ii")
   expect_equal(dim(x), c(0, 2))
   expect_equal(class(x$a), "integer")
   expect_equal(class(x$b), "integer")
@@ -268,7 +267,6 @@ test_that("skip respects comments", {
 })
 
 test_that("skip respects newlines", {
-  skip_if_edition_second()
   read_x <- function(...) {
     read_csv(I("1\n2\n3\n\na\nb\nc"), col_names = FALSE, ...)[[1]]
   }
@@ -290,7 +288,6 @@ test_that("read_csv returns an empty data.frame on an empty file", {
 })
 
 test_that("read_delim errors on length 0 delimiter (557)", {
-  skip_if_edition_second()
   expect_error(
     read_delim(I("a b\n1 2\n"), delim = ""),
     "`delim` must be at least one character, use `read_table\\(\\)` for whitespace delimited input\\."
@@ -304,9 +301,8 @@ test_that("read_csv does not duplicate header rows for leading whitespace (747)"
 })
 
 test_that("read_csv handles whitespace between delimiters and quoted fields (668)", {
-  # This is no longer supported, retrospectively it was a mistake to support it in the first place.
-  skip_if_edition_second()
-  x <- read_csv(I('x,y\n1, \"hi,there\"\n3,4'))
+  skip_if_edition_first()
+  expect_warning(x <- read_csv(I('x,y\n1, \"hi,there\"\n3,4'), lazy = FALSE))
   expect_equal(x$y, c("hi,there", "4"))
 })
 

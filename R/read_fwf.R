@@ -14,6 +14,11 @@
 #'
 #' @seealso [read_table()] to read fixed width files where each
 #'   column is separated by whitespace.
+#'
+#' @section Second edition changes
+#' ## Changed behavior
+#' Comments are no longer looked for anywhere in the file.
+#' They are now only ignored at the start of a line.
 #' @inheritParams datasource
 #' @inheritParams tokenizer_fwf
 #' @inheritParams read_delim
@@ -80,18 +85,24 @@ read_fwf <- function(file, col_positions = fwf_empty(file, skip, n = guess_max),
     return(warn_problems(out))
   }
 
-  if (!missing(skip_empty_rows)) {
-    lifecycle::deprecate_soft("2.0.0", "readr::read_fwf(skip_empty_rows = )")
-  }
-
   vroom::vroom_fwf(file,
-    col_positions = col_positions, col_types = col_types,
+    col_positions = col_positions,
+    col_types = col_types,
     col_select = {{col_select}},
     id = id,
     .name_repair = name_repair,
-    locale = locale, na = na, comment = comment, trim_ws = trim_ws, skip = skip,
-    n_max = n_max, guess_max = guess_max, show_col_types = show_col_types,
-    progress = progress, altrep = lazy, num_threads = num_threads
+    locale = locale,
+    na = na,
+    comment = comment,
+    skip_empty_rows = skip_empty_rows,
+    trim_ws = trim_ws,
+    skip = skip,
+    n_max = n_max,
+    guess_max = guess_max,
+    show_col_types = show_col_types,
+    progress = progress,
+    altrep = lazy,
+    num_threads = num_threads
   )
 }
 

@@ -6,15 +6,6 @@
 #' `write_lines()` takes a character vector or list of raw vectors, appending a
 #' new line after each entry.
 #'
-#' @section Second edition changes:
-#' ## Deprecated Parameters ##
-#' - `skip_empty_rows`
-#' - `na`
-#' ## Behavior changes
-#' - Normalizing newlines in files with just carriage returns `\r` is no longer
-#'   supported. The last major OS to use only CR as the newline was 'classic' Mac
-#'   OS, which had its final release
-#'   in 2001.
 #' @inheritParams datasource
 #' @inheritParams read_delim
 #' @param n_max Number of lines to read. If `n_max` is -1, all lines in
@@ -55,11 +46,16 @@ read_lines <- function(file, skip = 0, skip_empty_rows = FALSE, n_max = Inf,
     return(read_lines_(ds, skip_empty_rows = skip_empty_rows, locale_ = locale, na = na, n_max = n_max, progress = progress))
   }
 
-  if (!missing(skip_empty_rows)) {
-    lifecycle::deprecate_soft("2.0.0", "readr::read_lines(skip_empty_rows = )")
-  }
-
-  vroom::vroom_lines(file, skip = skip, locale = locale, n_max = n_max, progress = progress, altrep = lazy, na = na, num_threads = num_threads)
+  vroom::vroom_lines(file,
+    skip = skip,
+    locale = locale,
+    n_max = n_max,
+    progress = progress,
+    altrep = lazy,
+    skip_empty_rows = skip_empty_rows,
+    na = na,
+    num_threads = num_threads
+  )
 }
 
 #' @export

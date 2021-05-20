@@ -119,7 +119,7 @@ option to \code{character()} to indicate no missing values.}
 \item{comment}{A string used to identify comments. Any text after the
 comment characters will be silently ignored.}
 
-\item{trim_ws}{Should leading and trailing whitespace be trimmed from
+\item{trim_ws}{Should leading and trailing whitespace (spaces and tabs) be trimmed from
 each field before parsing it?}
 
 \item{skip}{Number of lines to skip before reading data.}

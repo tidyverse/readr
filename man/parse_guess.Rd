@@ -35,7 +35,7 @@ The default locale is US-centric (like R), but you can use
 the default time zone, encoding, decimal mark, big mark, and day/month
 names.}
 
-\item{trim_ws}{Should leading and trailing whitespace be trimmed from
+\item{trim_ws}{Should leading and trailing whitespace (spaces and tabs) be trimmed from
 each field before parsing it?}
 
 \item{guess_integer}{If \code{TRUE}, guess integer types for whole numbers, if
