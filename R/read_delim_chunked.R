@@ -55,6 +55,7 @@ read_delimited_chunked <- generate_read_delimited_chunked(read_delimited)
 #' @keywords internal
 #' @family chunked
 #' @export
+#' @details The number of lines in `file` can exceed the maximum integer value in R (~2 billion).
 #' @examples
 #' # Cars with 3 gears
 #' f <- function(x, pos) subset(x, gear == 3)
