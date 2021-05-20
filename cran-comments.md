@@ -15,10 +15,9 @@ There was 1 NOTEs:
 * GNU make is a SystemRequirements.
 
 - auk - https://github.com/CornellLabofOrnithology/auk/pull/55
-- blaise - https://github.com/tidyverse/readr/issues/1211
+- blaise - https://github.com/sophof/blaise/pull/5
 - dataRetrieval - https://github.com/USGS-R/dataRetrieval/pull/571
 - DSSAT - https://github.com/palderman/DSSAT/pull/27
-- esmisc - Fixed
 - eyelinker - https://github.com/a-hurst/eyelinker/pull/2
 - fgeo.tool - https://github.com/forestgeo/fgeo.tool/pull/189
 - fitzRoy - This seems spurious, tests work locally
