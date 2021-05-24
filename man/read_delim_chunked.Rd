@@ -178,7 +178,7 @@ values (the default) or strings.}
 \item{comment}{A string used to identify comments. Any text after the
 comment characters will be silently ignored.}
 
-\item{trim_ws}{Should leading and trailing whitespace (spaces and tabs) be trimmed from
+\item{trim_ws}{Should leading and trailing whitespace (ASCII spaces and tabs) be trimmed from
 each field before parsing it?}
 
 \item{skip}{Number of lines to skip before reading data. If \code{comment} is
@@ -197,6 +197,9 @@ option is \code{TRUE} then blank rows will not be represented at all.  If it is
 }
 \description{
 Read a delimited file by chunks
+}
+\details{
+The number of lines in \code{file} can exceed the maximum integer value in R (~2 billion).
 }
 \examples{
 # Cars with 3 gears
