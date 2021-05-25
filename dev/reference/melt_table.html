@@ -293,20 +293,20 @@ conventional way to read tabular data from whitespace-separated files.</p></div>
 #&gt;   8   8   9   9  10     5   7   7  10   7    8 Baylor           B12 
 #&gt;   9  11   8  13  11    11  12   9  14   9    9 Georgia Tech     ACC 
 #&gt;  13  10  13  11   8     9  10  11   9  10   10 Mississippi      SEC </div><div class='input'><span class='fu'>melt_table</span><span class='op'>(</span><span class='va'>massey</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; <span style='color: #949494;'># A tibble: 143 x 4</span><span>
+</div><div class='output co'>#&gt; <span style='color: #949494;'># A tibble: 143 x 4</span>
 #&gt;      row   col data_type value
-#&gt;    </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span> </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span> </span><span style='color: #949494;font-style: italic;'>&lt;chr&gt;</span><span>     </span><span style='color: #949494;font-style: italic;'>&lt;chr&gt;</span><span>
-#&gt; </span><span style='color: #BCBCBC;'> 1</span><span>     1     1 character UCC  
-#&gt; </span><span style='color: #BCBCBC;'> 2</span><span>     1     2 character PAY  
-#&gt; </span><span style='color: #BCBCBC;'> 3</span><span>     1     3 character LAZ  
-#&gt; </span><span style='color: #BCBCBC;'> 4</span><span>     1     4 character KPK  
-#&gt; </span><span style='color: #BCBCBC;'> 5</span><span>     1     5 character RT   
-#&gt; </span><span style='color: #BCBCBC;'> 6</span><span>     1     6 character COF  
-#&gt; </span><span style='color: #BCBCBC;'> 7</span><span>     1     7 character BIH  
-#&gt; </span><span style='color: #BCBCBC;'> 8</span><span>     1     8 character DII  
-#&gt; </span><span style='color: #BCBCBC;'> 9</span><span>     1     9 character ENG  
-#&gt; </span><span style='color: #BCBCBC;'>10</span><span>     1    10 character ACU  
-#&gt; </span><span style='color: #949494;'># … with 133 more rows</span><span></div><div class='input'>
+#&gt;    <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span> <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span> <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span>     <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span>
+#&gt; <span style='color: #BCBCBC;'> 1</span>     1     1 character UCC  
+#&gt; <span style='color: #BCBCBC;'> 2</span>     1     2 character PAY  
+#&gt; <span style='color: #BCBCBC;'> 3</span>     1     3 character LAZ  
+#&gt; <span style='color: #BCBCBC;'> 4</span>     1     4 character KPK  
+#&gt; <span style='color: #BCBCBC;'> 5</span>     1     5 character RT   
+#&gt; <span style='color: #BCBCBC;'> 6</span>     1     6 character COF  
+#&gt; <span style='color: #BCBCBC;'> 7</span>     1     7 character BIH  
+#&gt; <span style='color: #BCBCBC;'> 8</span>     1     8 character DII  
+#&gt; <span style='color: #BCBCBC;'> 9</span>     1     9 character ENG  
+#&gt; <span style='color: #BCBCBC;'>10</span>     1    10 character ACU  
+#&gt; <span style='color: #949494;'># … with 133 more rows</span></div><div class='input'>
 <span class='co'># Sample of 1978 fuel economy data from</span>
 <span class='co'># http://www.fueleconomy.gov/feg/epadata/78data.zip</span>
 <span class='va'>epa</span> <span class='op'>&lt;-</span> <span class='fu'><a href='readr_example.html'>readr_example</a></span><span class='op'>(</span><span class='st'>"epa78.txt"</span><span class='op'>)</span>
@@ -331,20 +331,20 @@ conventional way to read tabular data from whitespace-separated files.</p></div>
 #&gt; 5000                                 04  90 15            90 15                5000                 78050153
 #&gt; AVANTI                                                                         AVANTI               78065002
 #&gt; AVANTI II                            02  75  8    75  8                        AVANTI II            78065053</div><div class='input'><span class='fu'>melt_table</span><span class='op'>(</span><span class='va'>epa</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; </span><span style='color: #949494;'># A tibble: 240 x 4</span><span>
+</div><div class='output co'>#&gt; <span style='color: #949494;'># A tibble: 240 x 4</span>
 #&gt;      row   col data_type value       
-#&gt;    </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span> </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span> </span><span style='color: #949494;font-style: italic;'>&lt;chr&gt;</span><span>     </span><span style='color: #949494;font-style: italic;'>&lt;chr&gt;</span><span>       
-#&gt; </span><span style='color: #BCBCBC;'> 1</span><span>     1     1 character </span><span style='color: #949494;'>"</span><span>ALFA ROMEO</span><span style='color: #949494;'>"</span><span>
-#&gt; </span><span style='color: #BCBCBC;'> 2</span><span>     1     2 empty     </span><span style='color: #949494;'>""</span><span>          
-#&gt; </span><span style='color: #BCBCBC;'> 3</span><span>     1     3 empty     </span><span style='color: #949494;'>""</span><span>          
-#&gt; </span><span style='color: #BCBCBC;'> 4</span><span>     1     4 empty     </span><span style='color: #949494;'>""</span><span>          
-#&gt; </span><span style='color: #BCBCBC;'> 5</span><span>     1     5 empty     </span><span style='color: #949494;'>""</span><span>          
-#&gt; </span><span style='color: #BCBCBC;'> 6</span><span>     1     6 empty     </span><span style='color: #949494;'>""</span><span>          
-#&gt; </span><span style='color: #BCBCBC;'> 7</span><span>     1     7 empty     </span><span style='color: #949494;'>""</span><span>          
-#&gt; </span><span style='color: #BCBCBC;'> 8</span><span>     1     8 empty     </span><span style='color: #949494;'>""</span><span>          
-#&gt; </span><span style='color: #BCBCBC;'> 9</span><span>     1     9 empty     </span><span style='color: #949494;'>""</span><span>          
-#&gt; </span><span style='color: #BCBCBC;'>10</span><span>     1    10 empty     </span><span style='color: #949494;'>""</span><span>          
-#&gt; </span><span style='color: #949494;'># … with 230 more rows</span><span></div></span></pre>
+#&gt;    <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span> <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span> <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span>     <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span>       
+#&gt; <span style='color: #BCBCBC;'> 1</span>     1     1 character <span style='color: #949494;'>"</span>ALFA ROMEO<span style='color: #949494;'>"</span>
+#&gt; <span style='color: #BCBCBC;'> 2</span>     1     2 empty     <span style='color: #949494;'>""</span>          
+#&gt; <span style='color: #BCBCBC;'> 3</span>     1     3 empty     <span style='color: #949494;'>""</span>          
+#&gt; <span style='color: #BCBCBC;'> 4</span>     1     4 empty     <span style='color: #949494;'>""</span>          
+#&gt; <span style='color: #BCBCBC;'> 5</span>     1     5 empty     <span style='color: #949494;'>""</span>          
+#&gt; <span style='color: #BCBCBC;'> 6</span>     1     6 empty     <span style='color: #949494;'>""</span>          
+#&gt; <span style='color: #BCBCBC;'> 7</span>     1     7 empty     <span style='color: #949494;'>""</span>          
+#&gt; <span style='color: #BCBCBC;'> 8</span>     1     8 empty     <span style='color: #949494;'>""</span>          
+#&gt; <span style='color: #BCBCBC;'> 9</span>     1     9 empty     <span style='color: #949494;'>""</span>          
+#&gt; <span style='color: #BCBCBC;'>10</span>     1    10 empty     <span style='color: #949494;'>""</span>          
+#&gt; <span style='color: #949494;'># … with 230 more rows</span></div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

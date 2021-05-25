@@ -404,7 +404,7 @@ comment characters will be silently ignored.</p></td>
     </tr>
     <tr>
       <th>trim_ws</th>
-      <td><p>Should leading and trailing whitespace (spaces and tabs) be trimmed from
+      <td><p>Should leading and trailing whitespace (ASCII spaces and tabs) be trimmed from
 each field before parsing it?</p></td>
     </tr>
     <tr>
@@ -481,71 +481,71 @@ until all the data has been read from it, if you run into this issue set
     <pre class="examples"><div class='input'><span class='co'># Input sources -------------------------------------------------------------</span>
 <span class='co'># Retrieve specs from a path</span>
 <span class='fu'>spec_csv</span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/system.file.html'>system.file</a></span><span class='op'>(</span><span class='st'>"extdata/mtcars.csv"</span>, package <span class='op'>=</span> <span class='st'>"readr"</span><span class='op'>)</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; <span class='message'><span style='font-weight: bold;'>Rows: </span><span style='color: #0000BB;'>0</span><span> </span><span style='font-weight: bold;'>Columns: </span><span style='color: #0000BB;'>11</span><span></span></div><div class='output co'>#&gt; <span class='message'></span><span style='color: #00BBBB;'>──</span><span> </span><span style='font-weight: bold;'>Column specification</span><span> </span><span style='color: #00BBBB;'>────────────────────────────────────────────────────────</span><span></span>
-#&gt; <span class='message'></span><span style='font-weight: bold;'>Delimiter:</span><span> ","</span>
-#&gt; <span class='message'></span><span style='color: #BB0000;'>chr</span><span> (11): mpg, cyl, disp, hp, drat, wt, qsec, vs, am, gear, carb</span></div><div class='output co'>#&gt; <span class='message'></span>
-#&gt; <span class='message'></span><span style='color: #00BBBB;'>ℹ</span><span> Use </span><span style='color: #262626;background-color: #DADADA;'>`spec()`</span><span> to retrieve the full column specification for this data.</span>
-#&gt; <span class='message'></span><span style='color: #00BBBB;'>ℹ</span><span> Specify the column types or set </span><span style='color: #262626;background-color: #DADADA;'>`show_col_types = FALSE`</span><span> to quiet this message.</span></div><div class='output co'>#&gt; cols(
-#&gt;   mpg = </span><span style='color: #BB0000;'>col_character()</span><span>,
-#&gt;   cyl = </span><span style='color: #BB0000;'>col_character()</span><span>,
-#&gt;   disp = </span><span style='color: #BB0000;'>col_character()</span><span>,
-#&gt;   hp = </span><span style='color: #BB0000;'>col_character()</span><span>,
-#&gt;   drat = </span><span style='color: #BB0000;'>col_character()</span><span>,
-#&gt;   wt = </span><span style='color: #BB0000;'>col_character()</span><span>,
-#&gt;   qsec = </span><span style='color: #BB0000;'>col_character()</span><span>,
-#&gt;   vs = </span><span style='color: #BB0000;'>col_character()</span><span>,
-#&gt;   am = </span><span style='color: #BB0000;'>col_character()</span><span>,
-#&gt;   gear = </span><span style='color: #BB0000;'>col_character()</span><span>,
-#&gt;   carb = </span><span style='color: #BB0000;'>col_character()</span><span>
+</div><div class='output co'>#&gt; <span class='message'><span style='font-weight: bold;'>Rows: </span><span style='color: #0000BB;'>0</span> <span style='font-weight: bold;'>Columns: </span><span style='color: #0000BB;'>11</span></span></div><div class='output co'>#&gt; <span class='message'><span style='color: #00BBBB;'>──</span> <span style='font-weight: bold;'>Column specification</span> <span style='color: #00BBBB;'>────────────────────────────────────────────────────────</span></span>
+#&gt; <span class='message'><span style='font-weight: bold;'>Delimiter:</span> ","</span>
+#&gt; <span class='message'><span style='color: #BB0000;'>chr</span> (11): mpg, cyl, disp, hp, drat, wt, qsec, vs, am, gear, carb</span></div><div class='output co'>#&gt; <span class='message'></span>
+#&gt; <span class='message'><span style='color: #00BBBB;'>ℹ</span> Use <span style='color: #262626; background-color: #DADADA;'>`spec()`</span> to retrieve the full column specification for this data.</span>
+#&gt; <span class='message'><span style='color: #00BBBB;'>ℹ</span> Specify the column types or set <span style='color: #262626; background-color: #DADADA;'>`show_col_types = FALSE`</span> to quiet this message.</span></div><div class='output co'>#&gt; cols(
+#&gt;   mpg = <span style='color: #BB0000;'>col_character()</span>,
+#&gt;   cyl = <span style='color: #BB0000;'>col_character()</span>,
+#&gt;   disp = <span style='color: #BB0000;'>col_character()</span>,
+#&gt;   hp = <span style='color: #BB0000;'>col_character()</span>,
+#&gt;   drat = <span style='color: #BB0000;'>col_character()</span>,
+#&gt;   wt = <span style='color: #BB0000;'>col_character()</span>,
+#&gt;   qsec = <span style='color: #BB0000;'>col_character()</span>,
+#&gt;   vs = <span style='color: #BB0000;'>col_character()</span>,
+#&gt;   am = <span style='color: #BB0000;'>col_character()</span>,
+#&gt;   gear = <span style='color: #BB0000;'>col_character()</span>,
+#&gt;   carb = <span style='color: #BB0000;'>col_character()</span>
 #&gt; )</div><div class='input'><span class='fu'>spec_csv</span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/system.file.html'>system.file</a></span><span class='op'>(</span><span class='st'>"extdata/mtcars.csv.zip"</span>, package <span class='op'>=</span> <span class='st'>"readr"</span><span class='op'>)</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; <span class='message'></span><span style='font-weight: bold;'>Rows: </span><span style='color: #0000BB;'>0</span><span> </span><span style='font-weight: bold;'>Columns: </span><span style='color: #0000BB;'>11</span><span></span></div><div class='output co'>#&gt; <span class='message'></span><span style='color: #00BBBB;'>──</span><span> </span><span style='font-weight: bold;'>Column specification</span><span> </span><span style='color: #00BBBB;'>────────────────────────────────────────────────────────</span><span></span>
-#&gt; <span class='message'></span><span style='font-weight: bold;'>Delimiter:</span><span> ","</span>
-#&gt; <span class='message'></span><span style='color: #BB0000;'>chr</span><span> (11): mpg, cyl, disp, hp, drat, wt, qsec, vs, am, gear, carb</span></div><div class='output co'>#&gt; <span class='message'></span>
-#&gt; <span class='message'></span><span style='color: #00BBBB;'>ℹ</span><span> Use </span><span style='color: #262626;background-color: #DADADA;'>`spec()`</span><span> to retrieve the full column specification for this data.</span>
-#&gt; <span class='message'></span><span style='color: #00BBBB;'>ℹ</span><span> Specify the column types or set </span><span style='color: #262626;background-color: #DADADA;'>`show_col_types = FALSE`</span><span> to quiet this message.</span></div><div class='output co'>#&gt; cols(
-#&gt;   mpg = </span><span style='color: #BB0000;'>col_character()</span><span>,
-#&gt;   cyl = </span><span style='color: #BB0000;'>col_character()</span><span>,
-#&gt;   disp = </span><span style='color: #BB0000;'>col_character()</span><span>,
-#&gt;   hp = </span><span style='color: #BB0000;'>col_character()</span><span>,
-#&gt;   drat = </span><span style='color: #BB0000;'>col_character()</span><span>,
-#&gt;   wt = </span><span style='color: #BB0000;'>col_character()</span><span>,
-#&gt;   qsec = </span><span style='color: #BB0000;'>col_character()</span><span>,
-#&gt;   vs = </span><span style='color: #BB0000;'>col_character()</span><span>,
-#&gt;   am = </span><span style='color: #BB0000;'>col_character()</span><span>,
-#&gt;   gear = </span><span style='color: #BB0000;'>col_character()</span><span>,
-#&gt;   carb = </span><span style='color: #BB0000;'>col_character()</span><span>
+</div><div class='output co'>#&gt; <span class='message'><span style='font-weight: bold;'>Rows: </span><span style='color: #0000BB;'>0</span> <span style='font-weight: bold;'>Columns: </span><span style='color: #0000BB;'>11</span></span></div><div class='output co'>#&gt; <span class='message'><span style='color: #00BBBB;'>──</span> <span style='font-weight: bold;'>Column specification</span> <span style='color: #00BBBB;'>────────────────────────────────────────────────────────</span></span>
+#&gt; <span class='message'><span style='font-weight: bold;'>Delimiter:</span> ","</span>
+#&gt; <span class='message'><span style='color: #BB0000;'>chr</span> (11): mpg, cyl, disp, hp, drat, wt, qsec, vs, am, gear, carb</span></div><div class='output co'>#&gt; <span class='message'></span>
+#&gt; <span class='message'><span style='color: #00BBBB;'>ℹ</span> Use <span style='color: #262626; background-color: #DADADA;'>`spec()`</span> to retrieve the full column specification for this data.</span>
+#&gt; <span class='message'><span style='color: #00BBBB;'>ℹ</span> Specify the column types or set <span style='color: #262626; background-color: #DADADA;'>`show_col_types = FALSE`</span> to quiet this message.</span></div><div class='output co'>#&gt; cols(
+#&gt;   mpg = <span style='color: #BB0000;'>col_character()</span>,
+#&gt;   cyl = <span style='color: #BB0000;'>col_character()</span>,
+#&gt;   disp = <span style='color: #BB0000;'>col_character()</span>,
+#&gt;   hp = <span style='color: #BB0000;'>col_character()</span>,
+#&gt;   drat = <span style='color: #BB0000;'>col_character()</span>,
+#&gt;   wt = <span style='color: #BB0000;'>col_character()</span>,
+#&gt;   qsec = <span style='color: #BB0000;'>col_character()</span>,
+#&gt;   vs = <span style='color: #BB0000;'>col_character()</span>,
+#&gt;   am = <span style='color: #BB0000;'>col_character()</span>,
+#&gt;   gear = <span style='color: #BB0000;'>col_character()</span>,
+#&gt;   carb = <span style='color: #BB0000;'>col_character()</span>
 #&gt; )</div><div class='input'>
 <span class='co'># Or directly from a string (must contain a newline)</span>
 <span class='fu'>spec_csv</span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/AsIs.html'>I</a></span><span class='op'>(</span><span class='st'>"x,y\n1,2\n3,4"</span><span class='op'>)</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; <span class='message'></span><span style='font-weight: bold;'>Rows: </span><span style='color: #0000BB;'>0</span><span> </span><span style='font-weight: bold;'>Columns: </span><span style='color: #0000BB;'>2</span><span></span></div><div class='output co'>#&gt; <span class='message'></span><span style='color: #00BBBB;'>──</span><span> </span><span style='font-weight: bold;'>Column specification</span><span> </span><span style='color: #00BBBB;'>────────────────────────────────────────────────────────</span><span></span>
-#&gt; <span class='message'></span><span style='font-weight: bold;'>Delimiter:</span><span> ","</span>
-#&gt; <span class='message'></span><span style='color: #BB0000;'>chr</span><span> (2): x, y</span></div><div class='output co'>#&gt; <span class='message'></span>
-#&gt; <span class='message'></span><span style='color: #00BBBB;'>ℹ</span><span> Use </span><span style='color: #262626;background-color: #DADADA;'>`spec()`</span><span> to retrieve the full column specification for this data.</span>
-#&gt; <span class='message'></span><span style='color: #00BBBB;'>ℹ</span><span> Specify the column types or set </span><span style='color: #262626;background-color: #DADADA;'>`show_col_types = FALSE`</span><span> to quiet this message.</span></div><div class='output co'>#&gt; cols(
-#&gt;   x = </span><span style='color: #BB0000;'>col_character()</span><span>,
-#&gt;   y = </span><span style='color: #BB0000;'>col_character()</span><span>
+</div><div class='output co'>#&gt; <span class='message'><span style='font-weight: bold;'>Rows: </span><span style='color: #0000BB;'>0</span> <span style='font-weight: bold;'>Columns: </span><span style='color: #0000BB;'>2</span></span></div><div class='output co'>#&gt; <span class='message'><span style='color: #00BBBB;'>──</span> <span style='font-weight: bold;'>Column specification</span> <span style='color: #00BBBB;'>────────────────────────────────────────────────────────</span></span>
+#&gt; <span class='message'><span style='font-weight: bold;'>Delimiter:</span> ","</span>
+#&gt; <span class='message'><span style='color: #BB0000;'>chr</span> (2): x, y</span></div><div class='output co'>#&gt; <span class='message'></span>
+#&gt; <span class='message'><span style='color: #00BBBB;'>ℹ</span> Use <span style='color: #262626; background-color: #DADADA;'>`spec()`</span> to retrieve the full column specification for this data.</span>
+#&gt; <span class='message'><span style='color: #00BBBB;'>ℹ</span> Specify the column types or set <span style='color: #262626; background-color: #DADADA;'>`show_col_types = FALSE`</span> to quiet this message.</span></div><div class='output co'>#&gt; cols(
+#&gt;   x = <span style='color: #BB0000;'>col_character()</span>,
+#&gt;   y = <span style='color: #BB0000;'>col_character()</span>
 #&gt; )</div><div class='input'>
 <span class='co'># Column types --------------------------------------------------------------</span>
 <span class='co'># By default, readr guesses the columns types, looking at the first 1000 rows.</span>
 <span class='co'># You can specify the number of rows used with guess_max.</span>
 <span class='fu'>spec_csv</span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/system.file.html'>system.file</a></span><span class='op'>(</span><span class='st'>"extdata/mtcars.csv"</span>, package <span class='op'>=</span> <span class='st'>"readr"</span><span class='op'>)</span>, guess_max <span class='op'>=</span> <span class='fl'>20</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; <span class='message'></span><span style='font-weight: bold;'>Rows: </span><span style='color: #0000BB;'>0</span><span> </span><span style='font-weight: bold;'>Columns: </span><span style='color: #0000BB;'>11</span><span></span></div><div class='output co'>#&gt; <span class='message'></span><span style='color: #00BBBB;'>──</span><span> </span><span style='font-weight: bold;'>Column specification</span><span> </span><span style='color: #00BBBB;'>────────────────────────────────────────────────────────</span><span></span>
-#&gt; <span class='message'></span><span style='font-weight: bold;'>Delimiter:</span><span> ","</span>
-#&gt; <span class='message'></span><span style='color: #BB0000;'>chr</span><span> (11): mpg, cyl, disp, hp, drat, wt, qsec, vs, am, gear, carb</span></div><div class='output co'>#&gt; <span class='message'></span>
-#&gt; <span class='message'></span><span style='color: #00BBBB;'>ℹ</span><span> Use </span><span style='color: #262626;background-color: #DADADA;'>`spec()`</span><span> to retrieve the full column specification for this data.</span>
-#&gt; <span class='message'></span><span style='color: #00BBBB;'>ℹ</span><span> Specify the column types or set </span><span style='color: #262626;background-color: #DADADA;'>`show_col_types = FALSE`</span><span> to quiet this message.</span></div><div class='output co'>#&gt; cols(
-#&gt;   mpg = </span><span style='color: #BB0000;'>col_character()</span><span>,
-#&gt;   cyl = </span><span style='color: #BB0000;'>col_character()</span><span>,
-#&gt;   disp = </span><span style='color: #BB0000;'>col_character()</span><span>,
-#&gt;   hp = </span><span style='color: #BB0000;'>col_character()</span><span>,
-#&gt;   drat = </span><span style='color: #BB0000;'>col_character()</span><span>,
-#&gt;   wt = </span><span style='color: #BB0000;'>col_character()</span><span>,
-#&gt;   qsec = </span><span style='color: #BB0000;'>col_character()</span><span>,
-#&gt;   vs = </span><span style='color: #BB0000;'>col_character()</span><span>,
-#&gt;   am = </span><span style='color: #BB0000;'>col_character()</span><span>,
-#&gt;   gear = </span><span style='color: #BB0000;'>col_character()</span><span>,
-#&gt;   carb = </span><span style='color: #BB0000;'>col_character()</span><span>
-#&gt; )</div></span></pre>
+</div><div class='output co'>#&gt; <span class='message'><span style='font-weight: bold;'>Rows: </span><span style='color: #0000BB;'>0</span> <span style='font-weight: bold;'>Columns: </span><span style='color: #0000BB;'>11</span></span></div><div class='output co'>#&gt; <span class='message'><span style='color: #00BBBB;'>──</span> <span style='font-weight: bold;'>Column specification</span> <span style='color: #00BBBB;'>────────────────────────────────────────────────────────</span></span>
+#&gt; <span class='message'><span style='font-weight: bold;'>Delimiter:</span> ","</span>
+#&gt; <span class='message'><span style='color: #BB0000;'>chr</span> (11): mpg, cyl, disp, hp, drat, wt, qsec, vs, am, gear, carb</span></div><div class='output co'>#&gt; <span class='message'></span>
+#&gt; <span class='message'><span style='color: #00BBBB;'>ℹ</span> Use <span style='color: #262626; background-color: #DADADA;'>`spec()`</span> to retrieve the full column specification for this data.</span>
+#&gt; <span class='message'><span style='color: #00BBBB;'>ℹ</span> Specify the column types or set <span style='color: #262626; background-color: #DADADA;'>`show_col_types = FALSE`</span> to quiet this message.</span></div><div class='output co'>#&gt; cols(
+#&gt;   mpg = <span style='color: #BB0000;'>col_character()</span>,
+#&gt;   cyl = <span style='color: #BB0000;'>col_character()</span>,
+#&gt;   disp = <span style='color: #BB0000;'>col_character()</span>,
+#&gt;   hp = <span style='color: #BB0000;'>col_character()</span>,
+#&gt;   drat = <span style='color: #BB0000;'>col_character()</span>,
+#&gt;   wt = <span style='color: #BB0000;'>col_character()</span>,
+#&gt;   qsec = <span style='color: #BB0000;'>col_character()</span>,
+#&gt;   vs = <span style='color: #BB0000;'>col_character()</span>,
+#&gt;   am = <span style='color: #BB0000;'>col_character()</span>,
+#&gt;   gear = <span style='color: #BB0000;'>col_character()</span>,
+#&gt;   carb = <span style='color: #BB0000;'>col_character()</span>
+#&gt; )</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

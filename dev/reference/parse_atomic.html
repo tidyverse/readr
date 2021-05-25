@@ -212,7 +212,7 @@ names.</p></td>
     </tr>
     <tr>
       <th>trim_ws</th>
-      <td><p>Should leading and trailing whitespace (spaces and tabs) be trimmed from
+      <td><p>Should leading and trailing whitespace (ASCII spaces and tabs) be trimmed from
 each field before parsing it?</p></td>
     </tr>
     </table>
@@ -245,12 +245,12 @@ each field before parsing it?</p></td>
 #&gt; <span class='warning'>row col expected actual</span>
 #&gt; <span class='warning'>  4  -- a double      -</span></div><div class='output co'>#&gt; [1]  1  2  3 NA
 #&gt; attr(,"problems")
-#&gt; <span style='color: #949494;'># A tibble: 1 x 4</span><span>
+#&gt; <span style='color: #949494;'># A tibble: 1 x 4</span>
 #&gt;     row   col expected actual
-#&gt;   </span><span style='color: #949494;font-style: italic;'>&lt;int&gt;</span><span> </span><span style='color: #949494;font-style: italic;'>&lt;int&gt;</span><span> </span><span style='color: #949494;font-style: italic;'>&lt;chr&gt;</span><span>    </span><span style='color: #949494;font-style: italic;'>&lt;chr&gt;</span><span> 
-#&gt; </span><span style='color: #BCBCBC;'>1</span><span>     4    </span><span style='color: #BB0000;'>NA</span><span> a double -     </div><div class='input'><span class='co'># Or flag values as missing</span>
+#&gt;   <span style='color: #949494; font-style: italic;'>&lt;int&gt;</span> <span style='color: #949494; font-style: italic;'>&lt;int&gt;</span> <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span>    <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span> 
+#&gt; <span style='color: #BCBCBC;'>1</span>     4    <span style='color: #BB0000;'>NA</span> a double -     </div><div class='input'><span class='co'># Or flag values as missing</span>
 <span class='fu'>parse_double</span><span class='op'>(</span><span class='va'>x</span>, na <span class='op'>=</span> <span class='st'>"-"</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; [1]  1  2  3 NA</div></span></pre>
+</div><div class='output co'>#&gt; [1]  1  2  3 NA</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
