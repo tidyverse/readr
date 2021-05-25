@@ -64,3 +64,8 @@ test_that("read_table ignores blank lines at the end of a file (657)", {
   expect_equal(nrow(x), 1)
   expect_equal(x$x, 1)
 })
+
+test_that("read_table ignores unpaired quotes when skipping (#1180)", {
+  res <- tibble::as_tibble(read_table('dummy"\nvar1 var2 var3\n1 2 3\n4 5 6\n', skip = 1))
+  expect_equal(res, tibble::tibble(var1 = c(1,4), var2 = c(2,5), var3 = c(3,6)))
+})

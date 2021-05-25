@@ -399,6 +399,7 @@ col_spec_standardise <- function(file, col_names = TRUE, col_types = NULL,
                                  guessed_types = NULL,
                                  comment = "",
                                  skip = 0, skip_empty_rows = TRUE,
+                                 skip_quote = TRUE,
                                  guess_max = 1000,
                                  tokenizer = tokenizer_csv(),
                                  locale = default_locale(),
@@ -406,7 +407,7 @@ col_spec_standardise <- function(file, col_names = TRUE, col_types = NULL,
 
   # Figure out the column names -----------------------------------------------
   if (is.logical(col_names) && length(col_names) == 1) {
-    ds_header <- datasource(file, skip = skip, skip_empty_rows = skip_empty_rows, comment = comment)
+    ds_header <- datasource(file, skip = skip, skip_empty_rows = skip_empty_rows, skip_quote = skip_quote, comment = comment)
     if (col_names) {
       res <- guess_header(ds_header, tokenizer, locale)
       col_names <- res$header
@@ -545,7 +546,7 @@ col_spec_standardise <- function(file, col_names = TRUE, col_types = NULL,
   is_guess <- vapply(spec$cols, function(x) inherits(x, "collector_guess"), logical(1))
   if (any(is_guess)) {
     if (is.null(guessed_types)) {
-      ds <- datasource(file, skip = spec$skip, skip_empty_rows = skip_empty_rows, comment = comment)
+      ds <- datasource(file, skip = spec$skip, skip_empty_rows = skip_empty_rows, skip_quote = skip_quote, comment = comment)
       guessed_types <- guess_types(ds, tokenizer, locale, guess_max = guess_max)
     }
 

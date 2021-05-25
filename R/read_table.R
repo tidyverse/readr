@@ -42,7 +42,7 @@ read_table <- function(file, col_names = TRUE, col_types = NULL,
   read_delimited(file, tokenizer,
     col_names = col_names, col_types = col_types,
     locale = locale, skip = skip, skip_empty_rows = skip_empty_rows,
-    comment = comment, n_max = n_max, guess_max = guess_max, progress = progress
+    skip_quote = FALSE, comment = comment, n_max = n_max, guess_max = guess_max, progress = progress
   )
 }
 

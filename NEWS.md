@@ -77,6 +77,8 @@ Previously versions of readr were licensed as GPL-3.
 
 * write_tsv() now defaults to `quote = "none"` (#993)
 
+* `read_table()` now handles skipped lines with unpaired quotes properly (#1180)
+
 ## Additional features and fixes
 
 * The BH package is no longer a dependency.
