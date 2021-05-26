@@ -102,6 +102,7 @@ UTC, e.g. "+0800")
 non-digit characters, "\%*" skips any number of non-digits characters.
 \item Automatic parsers: "\%AD" parses with a flexible YMD parser, "\%AT" parses
 with a flexible HMS parser.
+\item Time since the Unix epoch: "\%s" decimal seconds since the Unix epoch.
 \item Shortcuts: "\%D" = "\%m/\%d/\%y", "\%F" = "\%Y-\%m-\%d", "\%R" = "\%H:\%M", "\%T" =
 "\%H:\%M:\%S", "\%x" = "\%y/\%m/\%d".
 }

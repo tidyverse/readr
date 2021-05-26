@@ -289,6 +289,7 @@ col_factor <- function(levels = NULL, ordered = FALSE, include_na = FALSE) {
 #'   non-digit characters, "%*" skips any number of non-digits characters.
 #' * Automatic parsers: "%AD" parses with a flexible YMD parser, "%AT" parses
 #'   with a flexible HMS parser.
+#' * Time since the Unix epoch: "%s" decimal seconds since the Unix epoch.
 #' * Shortcuts: "%D" = "%m/%d/%y", "%F" = "%Y-%m-%d", "%R" = "%H:%M", "%T" =
 #'   "%H:%M:%S", "%x" = "%y/%m/%d".
 #'
