@@ -430,7 +430,12 @@ generate_spec_fun <- function(f) {
   formals(f)$n_max <- 0
   formals(f)$guess_max <- 1000
 
-  body(f) <- bquote(spec((function() with_edition(1, .(body)))()), list(body = body(f)))
+  body(f) <- call("spec",
+    as.call(c(
+        call("function", NULL, bquote(with_edition(1, .(body)), list(body = body(f)))),
+        alist())
+    )
+  )
   f
 }
 
