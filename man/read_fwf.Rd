@@ -199,6 +199,12 @@ by providing a number of different ways to describe the field structure.
 \item \code{\link[=fwf_cols]{fwf_cols()}} - Supply named arguments of paired start and end positions or column widths.
 }
 }
+\section{Second edition changes}{
+
+Comments are no longer looked for anywhere in the file.
+They are now only ignored at the start of a line.
+}
+
 \examples{
 fwf_sample <- readr_example("fwf-sample.txt")
 writeLines(read_lines(fwf_sample))

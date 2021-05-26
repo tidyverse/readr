@@ -15,10 +15,10 @@
 #' @seealso [read_table()] to read fixed width files where each
 #'   column is separated by whitespace.
 #'
-#' @section Second edition changes
-#' ## Changed behavior
+#' @section Second edition changes:
 #' Comments are no longer looked for anywhere in the file.
 #' They are now only ignored at the start of a line.
+#'
 #' @inheritParams datasource
 #' @inheritParams tokenizer_fwf
 #' @inheritParams read_delim

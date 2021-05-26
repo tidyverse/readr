@@ -6,7 +6,6 @@
 #'
 #' @param file The file path to read from/write to.
 #' @param refhook A function to handle reference objects.
-#' @keywords internal
 #' @export
 #' @examples
 #' temp <- tempfile()
@@ -32,7 +31,6 @@ read_rds <- function(file, refhook = NULL) {
 #'   the space-time trade-off of different compression methods with
 #'   `compression`. See [connections()] for more details.
 #' @param path \Sexpr[results=rd, stage=render]{lifecycle::badge("deprecated")}
-#' @inheritParams read_rds
 #' @return `write_rds()` returns `x`, invisibly.
 #' @rdname read_rds
 #' @export

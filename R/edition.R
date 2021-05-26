@@ -9,7 +9,9 @@ edition_set <- function(edition) {
   invisible(old)
 }
 
-#' @rdname with_edition
+#' Retrieve the currently active edition
+#'
+#' @returns An integer corresponding to the currently active edition.
 #' @export
 edition_get <- function() {
   getOption("readr.edition", 2L)
@@ -19,7 +21,6 @@ edition_get <- function() {
 #'
 #' `with_edition()` allows you to change the active edition of readr for a given block of code.
 #' `local_edition()` allows you to change the active edition of readr until the end of the current function or file.
-#' `edition_get()` allows you to retrieve the currently active edition.
 #'
 #' @export
 #' @param edition Should be a single integer.

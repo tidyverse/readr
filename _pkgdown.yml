@@ -111,6 +111,15 @@ reference:
   - format_csv
   - write_csv
 
+- title: Readr editions
+  desc: >
+    readr supports two editions of parser.
+    Version one is a single threaded eager parser that readr used by default from its first release to version 1.4.0.
+    Version two is a multi-threaded lazy parser used by default from readr 2.0.0 onwards.
+  contents:
+    - with_edition
+    - edition_get
+
 - title: Low-level IO and debugging tools
   desc: >
     These functions can be used with non-rectangular files, binary data,
@@ -118,20 +127,13 @@ reference:
   contents:
   - read_file
   - read_lines
+  - read_rds
+  - read_builtin
   - count_fields
   - guess_encoding
   - type_convert
   - readr_example
   - clipboard
   - show_progress
-
-- title: Chunked API
-  desc: >
-    The chunked API allows you to read in files that are larger than memory,
-    processing a chunk at a time. The API experimental: please try it out but
-    be aware that it may change in the future.
-  contents:
-  - callback
-  - read_delim_chunked
-  - melt_delim_chunked
-  - read_lines_chunked
+  - readr_threads
+  - should_show_types
