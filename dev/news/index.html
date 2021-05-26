@@ -173,7 +173,7 @@
 <a href="#second-edition-changes" class="anchor"></a>second edition changes</h2>
 <p>Readr 2.0.0 is a major release of readr and introduces a new second edition parsing and writing engine implemented in the <a href="https://vroom.r-lib.org/">vroom</a> package. This engine takes advantage of lazy reading, multi-threading and performance properties of modern SSD drives to significantly improve the performance of reading and writing compared to the first edition.</p>
 <p>We will continue to support the first edition for a number of releases, but eventually this support will be first deprecated and then removed.</p>
-<p>You can use <code><a href="../reference/edition_get.html">with_edition()</a></code> or <code><a href="../reference/edition_get.html">local_edition()</a></code> functions to temporarily change the edition of readr for a section of code. For example you can use <code><a href="../reference/edition_get.html">with_edition(1, read_csv("my-file"))</a></code> to read a CSV file with the first edition of readr.</p>
+<p>You can use <code><a href="../reference/with_edition.html">with_edition()</a></code> or <code><a href="../reference/with_edition.html">local_edition()</a></code> functions to temporarily change the edition of readr for a section of code. For example you can use <code><a href="../reference/with_edition.html">with_edition(1, read_csv("my-file"))</a></code> to read a CSV file with the first edition of readr.</p>
 <p>Normalizing newlines in files with just carriage returns <code>\r</code> is no longer supported. The last major OS to use only CR as the newline was ‘classic’ Mac OS, which had its final release in 2001.</p>
 <div id="lazy-reading" class="section level3">
 <h3 class="hasAnchor">

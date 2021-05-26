@@ -378,6 +378,31 @@
     </tbody><tbody>
       <tr>
         <th colspan="2">
+          <h2 id="section-readr-editions" class="hasAnchor"><a href="#section-readr-editions" class="anchor"></a>Readr editions</h2>
+          <p class="section-desc"><p>readr supports two editions of parser. Version one is a single threaded eager parser that readr used by default from its first release to version 1.4.0. Version two is a multi-threaded lazy parser used by default from readr 2.0.0 onwards.</p></p>
+        </th>
+      </tr>
+      
+      
+    </tbody><tbody>
+      
+      
+      <tr>
+        
+        <td>
+          <p><code><a href="with_edition.html">with_edition()</a></code> <code><a href="with_edition.html">local_edition()</a></code> </p>
+        </td>
+        <td><p>Temporarily change the active readr edition</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="edition_get.html">edition_get()</a></code> </p>
+        </td>
+        <td><p>Retrieve the currently active edition</p></td>
+      </tr>
+    </tbody><tbody>
+      <tr>
+        <th colspan="2">
           <h2 id="section-low-level-io-and-debugging-tools" class="hasAnchor"><a href="#section-low-level-io-and-debugging-tools" class="anchor"></a>Low-level IO and debugging tools</h2>
           <p class="section-desc"><p>These functions can be used with non-rectangular files, binary data, and to help debug rectangular files that fail to parse.</p></p>
         </th>
@@ -399,6 +424,18 @@
           <p><code><a href="read_lines.html">read_lines()</a></code> <code><a href="read_lines.html">read_lines_raw()</a></code> <code><a href="read_lines.html">write_lines()</a></code> </p>
         </td>
         <td><p>Read/write lines to/from a file</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="read_rds.html">read_rds()</a></code> <code><a href="read_rds.html">write_rds()</a></code> </p>
+        </td>
+        <td><p>Read/write RDS files.</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="read_builtin.html">read_builtin()</a></code> </p>
+        </td>
+        <td><p>Read built-in object from package</p></td>
       </tr><tr>
         
         <td>
@@ -435,43 +472,18 @@
           <p><code><a href="show_progress.html">show_progress()</a></code> </p>
         </td>
         <td><p>Determine whether progress bars should be shown</p></td>
-      </tr>
-    </tbody><tbody>
-      <tr>
-        <th colspan="2">
-          <h2 id="section-chunked-api" class="hasAnchor"><a href="#section-chunked-api" class="anchor"></a>Chunked API</h2>
-          <p class="section-desc"><p>The chunked API allows you to read in files that are larger than memory, processing a chunk at a time. The API experimental: please try it out but be aware that it may change in the future.</p></p>
-        </th>
-      </tr>
-      
-      
-    </tbody><tbody>
-      
-      
-      <tr>
-        
-        <td>
-          <p><code><a href="callback.html">callback</a></code> </p>
-        </td>
-        <td><p>Callback classes</p></td>
       </tr><tr>
         
         <td>
-          <p><code><a href="read_delim_chunked.html">read_delim_chunked()</a></code> <code><a href="read_delim_chunked.html">read_csv_chunked()</a></code> <code><a href="read_delim_chunked.html">read_csv2_chunked()</a></code> <code><a href="read_delim_chunked.html">read_tsv_chunked()</a></code> </p>
+          <p><code><a href="readr_threads.html">readr_threads()</a></code> </p>
         </td>
-        <td><p>Read a delimited file by chunks</p></td>
+        <td><p>Determine how many threads readr should use when processing</p></td>
       </tr><tr>
         
         <td>
-          <p><code><a href="melt_delim_chunked.html">melt_delim_chunked()</a></code> <code><a href="melt_delim_chunked.html">melt_csv_chunked()</a></code> <code><a href="melt_delim_chunked.html">melt_csv2_chunked()</a></code> <code><a href="melt_delim_chunked.html">melt_tsv_chunked()</a></code> </p>
+          <p><code><a href="should_show_types.html">should_show_types()</a></code> </p>
         </td>
-        <td><p>Melt a delimited file by chunks</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="read_lines_chunked.html">read_lines_chunked()</a></code> <code><a href="read_lines_chunked.html">read_lines_raw_chunked()</a></code> </p>
-        </td>
-        <td><p>Read lines from a file or string by chunk.</p></td>
+        <td><p>Determine whether column types should be shown</p></td>
       </tr>
     </tbody>
     </table>
