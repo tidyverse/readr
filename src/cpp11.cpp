@@ -112,10 +112,10 @@ extern "C" SEXP _readr_read_tokens_(SEXP sourceSpec, SEXP tokenizerSpec, SEXP co
   END_CPP11
 }
 // read.cpp
-void read_tokens_chunked_(const cpp11::list& sourceSpec, const cpp11::environment& callback, int chunkSize, const cpp11::list& tokenizerSpec, const cpp11::list& colSpecs, const cpp11::strings& colNames, const cpp11::list& locale_, bool progress);
-extern "C" SEXP _readr_read_tokens_chunked_(SEXP sourceSpec, SEXP callback, SEXP chunkSize, SEXP tokenizerSpec, SEXP colSpecs, SEXP colNames, SEXP locale_, SEXP progress) {
+void read_tokens_chunked_(const cpp11::list& sourceSpec, const cpp11::environment& callback, int chunkSize, const cpp11::list& tokenizerSpec, const cpp11::list& colSpecs, const cpp11::strings& colNames, const cpp11::list& locale_, const cpp11::sexp& spec, bool progress);
+extern "C" SEXP _readr_read_tokens_chunked_(SEXP sourceSpec, SEXP callback, SEXP chunkSize, SEXP tokenizerSpec, SEXP colSpecs, SEXP colNames, SEXP locale_, SEXP spec, SEXP progress) {
   BEGIN_CPP11
-    read_tokens_chunked_(cpp11::as_cpp<cpp11::decay_t<const cpp11::list&>>(sourceSpec), cpp11::as_cpp<cpp11::decay_t<const cpp11::environment&>>(callback), cpp11::as_cpp<cpp11::decay_t<int>>(chunkSize), cpp11::as_cpp<cpp11::decay_t<const cpp11::list&>>(tokenizerSpec), cpp11::as_cpp<cpp11::decay_t<const cpp11::list&>>(colSpecs), cpp11::as_cpp<cpp11::decay_t<const cpp11::strings&>>(colNames), cpp11::as_cpp<cpp11::decay_t<const cpp11::list&>>(locale_), cpp11::as_cpp<cpp11::decay_t<bool>>(progress));
+    read_tokens_chunked_(cpp11::as_cpp<cpp11::decay_t<const cpp11::list&>>(sourceSpec), cpp11::as_cpp<cpp11::decay_t<const cpp11::environment&>>(callback), cpp11::as_cpp<cpp11::decay_t<int>>(chunkSize), cpp11::as_cpp<cpp11::decay_t<const cpp11::list&>>(tokenizerSpec), cpp11::as_cpp<cpp11::decay_t<const cpp11::list&>>(colSpecs), cpp11::as_cpp<cpp11::decay_t<const cpp11::strings&>>(colNames), cpp11::as_cpp<cpp11::decay_t<const cpp11::list&>>(locale_), cpp11::as_cpp<cpp11::decay_t<const cpp11::sexp&>>(spec), cpp11::as_cpp<cpp11::decay_t<bool>>(progress));
     return R_NilValue;
   END_CPP11
 }
@@ -214,7 +214,7 @@ extern SEXP _readr_read_lines_chunked_(SEXP, SEXP, SEXP, SEXP, SEXP, SEXP, SEXP)
 extern SEXP _readr_read_lines_raw_(SEXP, SEXP, SEXP);
 extern SEXP _readr_read_lines_raw_chunked_(SEXP, SEXP, SEXP, SEXP);
 extern SEXP _readr_read_tokens_(SEXP, SEXP, SEXP, SEXP, SEXP, SEXP, SEXP);
-extern SEXP _readr_read_tokens_chunked_(SEXP, SEXP, SEXP, SEXP, SEXP, SEXP, SEXP, SEXP);
+extern SEXP _readr_read_tokens_chunked_(SEXP, SEXP, SEXP, SEXP, SEXP, SEXP, SEXP, SEXP, SEXP);
 extern SEXP _readr_stream_delim_(SEXP, SEXP, SEXP, SEXP, SEXP, SEXP, SEXP, SEXP);
 extern SEXP _readr_tokenize_(SEXP, SEXP, SEXP);
 extern SEXP _readr_type_convert_col(SEXP, SEXP, SEXP, SEXP, SEXP, SEXP);
@@ -242,7 +242,7 @@ static const R_CallMethodDef CallEntries[] = {
     {"_readr_read_lines_raw_",         (DL_FUNC) &_readr_read_lines_raw_,         3},
     {"_readr_read_lines_raw_chunked_", (DL_FUNC) &_readr_read_lines_raw_chunked_, 4},
     {"_readr_read_tokens_",            (DL_FUNC) &_readr_read_tokens_,            7},
-    {"_readr_read_tokens_chunked_",    (DL_FUNC) &_readr_read_tokens_chunked_,    8},
+    {"_readr_read_tokens_chunked_",    (DL_FUNC) &_readr_read_tokens_chunked_,    9},
     {"_readr_stream_delim_",           (DL_FUNC) &_readr_stream_delim_,           8},
     {"_readr_tokenize_",               (DL_FUNC) &_readr_tokenize_,               3},
     {"_readr_type_convert_col",        (DL_FUNC) &_readr_type_convert_col,        6},

@@ -157,6 +157,7 @@ typedef std::vector<CollectorPtr>::iterator CollectorItr;
     const cpp11::list& colSpecs,
     const cpp11::strings& colNames,
     const cpp11::list& locale_,
+    const cpp11::sexp& spec,
     bool progress) {
 
   LocaleInfo l(locale_);
@@ -173,6 +174,11 @@ typedef std::vector<CollectorPtr>::iterator CollectorItr;
     if (out.nrow() == 0) {
       return;
     }
+
+    // We use the C API directly, as we are modifying the read-only data_frame
+    // here.
+    Rf_setAttrib(out, Rf_install("spec"), spec);
+
     R6method(callback, "receive")(out, pos);
     pos += out.nrow();
   }
@@ -260,7 +266,7 @@ typedef std::vector<CollectorPtr>::iterator CollectorItr;
   }
 
   std::vector<std::string> out;
-  for (auto & collector : collectors) {
+  for (auto& collector : collectors) {
     cpp11::strings col(collector->vector());
     out.push_back(collectorGuess(SEXP(col), cpp11::list(locale_)));
   }

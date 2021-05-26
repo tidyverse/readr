@@ -21,7 +21,7 @@ generate_read_delimited_chunked <- function(x) {
       chunked_call <- chunked_call[!names(chunked_call) == "n_max"]
 
       # Add the callback and chunk_size arguments
-      b[[i]] <- as.call(append(chunked_call, alist(callback = callback, chunk_size = chunk_size), 2))
+      b[[i]] <- as.call(append(chunked_call, alist(callback = callback, chunk_size = chunk_size, spec = spec), 2))
 
       # Remove additional calls
       b <- b[-seq(i + 1, length(b))]
@@ -34,11 +34,11 @@ generate_read_delimited_chunked <- function(x) {
   x
 }
 
-read_tokens_chunked <- function(data, callback, chunk_size, tokenizer, col_specs, col_names, locale_, progress) {
+read_tokens_chunked <- function(data, callback, chunk_size, tokenizer, col_specs, col_names, locale_, spec, progress) {
   callback <- as_chunk_callback(callback)
   on.exit(callback$finally(), add = TRUE)
 
-  read_tokens_chunked_(data, callback, chunk_size, tokenizer, col_specs, col_names, locale_, progress)
+  read_tokens_chunked_(data, callback, chunk_size, tokenizer, col_specs, col_names, locale_, spec, progress)
 
   return(callback$result())
 }

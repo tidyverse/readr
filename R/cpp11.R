@@ -60,8 +60,8 @@ read_tokens_ <- function(sourceSpec, tokenizerSpec, colSpecs, colNames, locale_,
   .Call(`_readr_read_tokens_`, sourceSpec, tokenizerSpec, colSpecs, colNames, locale_, n_max, progress)
 }
 
-read_tokens_chunked_ <- function(sourceSpec, callback, chunkSize, tokenizerSpec, colSpecs, colNames, locale_, progress) {
-  invisible(.Call(`_readr_read_tokens_chunked_`, sourceSpec, callback, chunkSize, tokenizerSpec, colSpecs, colNames, locale_, progress))
+read_tokens_chunked_ <- function(sourceSpec, callback, chunkSize, tokenizerSpec, colSpecs, colNames, locale_, spec, progress) {
+  invisible(.Call(`_readr_read_tokens_chunked_`, sourceSpec, callback, chunkSize, tokenizerSpec, colSpecs, colNames, locale_, spec, progress))
 }
 
 melt_tokens_ <- function(sourceSpec, tokenizerSpec, colSpecs, locale_, n_max, progress) {

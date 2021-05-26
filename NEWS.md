@@ -61,6 +61,8 @@ Previously versions of readr were licensed as GPL-3.
 
 ### Other second edition changes
 
+* `read_*_chunked()` functions now include their specification as an attribute (#1143)
+
 * All `read_*()` functions gain a `col_select` argument to more easily choose which columns to select.
 
 * All `read_*()` functions gain a `id` argument to optionally store the file paths when reading multiple files.
