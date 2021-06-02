@@ -26,8 +26,7 @@ SourcePtr Source::create(const cpp11::list& spec) {
 
   if (subclass == "source_file") {
     cpp11::strings path(spec[0]);
-    return SourcePtr(new SourceFile(
-        Rf_translateChar(path[0]), skip, skipEmptyRows, comment, skipQuote));
+    return SourcePtr(new SourceFile(Rf_translateCharUTF8(path[0]), skip, skipEmptyRows, comment, skipQuote));
   }
 
   cpp11::stop("Unknown source type");
