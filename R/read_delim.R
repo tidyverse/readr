@@ -173,7 +173,7 @@ read_delim <- function(file, delim = NULL, quote = '"',
     lifecycle::deprecate_soft("2.0.0", "readr::read_delim(quoted_na = )")
   }
 
-  vroom::vroom(file,
+  out <- vroom::vroom(file,
     delim = delim, col_names = col_names, col_types = col_types,
     col_select = {{ col_select }},
     id = id,
@@ -194,6 +194,12 @@ read_delim <- function(file, delim = NULL, quote = '"',
     show_col_types = show_col_types,
     num_threads = num_threads
   )
+
+  if (!is.logical(col_names)) {
+    n <- min(length(col_names), length(out))
+    names(out)[seq_len(n)] <- col_names[seq_len(n)]
+  }
+  out
 }
 
 #' @rdname read_delim
@@ -235,7 +241,7 @@ read_csv <- function(file,
   if (!missing(quoted_na)) {
     lifecycle::deprecate_soft("2.0.0", "readr::read_csv(quoted_na = )")
   }
-  vroom::vroom(
+  out <- vroom::vroom(
     file,
     delim = ",",
     col_names = col_names,
@@ -259,6 +265,12 @@ read_csv <- function(file,
     altrep = lazy,
     num_threads = num_threads
   )
+
+  if (!is.logical(col_names)) {
+    n <- min(length(col_names), length(out))
+    names(out)[seq_len(n)] <- col_names[seq_len(n)]
+  }
+  out
 }
 
 #' @rdname read_delim
@@ -300,7 +312,7 @@ read_csv2 <- function(file,
       comment = comment, n_max = n_max, guess_max = guess_max, progress = progress
     ))
   }
-  vroom::vroom(file,
+  out <- vroom::vroom(file,
     delim = ";",
     col_names = col_names,
     col_types = col_types,
@@ -323,6 +335,12 @@ read_csv2 <- function(file,
     altrep = lazy,
     num_threads = num_threads
   )
+
+  if (!is.logical(col_names)) {
+    n <- min(length(col_names), length(out))
+    names(out)[seq_len(n)] <- col_names[seq_len(n)]
+  }
+  out
 }
 
 #' @rdname read_delim
@@ -350,7 +368,7 @@ read_tsv <- function(file, col_names = TRUE, col_types = NULL,
     ))
   }
 
-  vroom::vroom(file,
+  out <- vroom::vroom(file,
     delim = "\t",
     col_names = col_names,
     col_types = col_types,
@@ -368,6 +386,12 @@ read_tsv <- function(file, col_names = TRUE, col_types = NULL,
     altrep = lazy,
     num_threads = num_threads
   )
+
+  if (!is.logical(col_names)) {
+    n <- min(length(col_names), length(out))
+    names(out)[seq_len(n)] <- col_names[seq_len(n)]
+  }
+  out
 }
 
 # Helper functions for reading from delimited files ----------------------------
