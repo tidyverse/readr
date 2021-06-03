@@ -1,5 +1,7 @@
 # readr (development version)
 
+* readr is now licensed as MIT (#1189, #1190).
+
 ## second edition changes
 
 Readr 2.0.0 is a major release of readr and introduces a new second edition parsing and writing engine implemented in the [vroom](https://vroom.r-lib.org/) package.
