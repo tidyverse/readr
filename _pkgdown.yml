@@ -57,16 +57,6 @@ reference:
   - read_log
   - read_table
 
-- title: Read non-rectangular files
-  desc: >
-    These functions parse non-rectangular files (like csv or fixed-width format)
-    into long (so-called melted) format. They specify the overall structure of
-    the file, and how each line is divided up into fields.
-  contents:
-  - melt_delim
-  - melt_fwf
-  - melt_table
-
 - title: Column specification
   desc: >
     The column specification describes how each column is parsed from a
@@ -119,6 +109,16 @@ reference:
   contents:
     - with_edition
     - edition_get
+
+- title: Read non-rectangular files
+  desc: >
+    These functions parse non-rectangular files (like csv or fixed-width format)
+    into long (so-called melted) format. They specify the overall structure of
+    the file, and how each line is divided up into fields.
+  contents:
+  - melt_delim
+  - melt_fwf
+  - melt_table
 
 - title: Low-level IO and debugging tools
   desc: >
