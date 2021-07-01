@@ -145,7 +145,7 @@ created by readr." />
 </li>
         <li>
   <a href="https://github.com/tidyverse/readr/">
-    <span class="fab fa fab fa-github fa-lg"></span>
+    <span class="fab fa-github fa-lg"></span>
      
   </a>
 </li>
@@ -206,38 +206,38 @@ created by readr.</p>
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='va'>df</span> <span class='op'>&lt;-</span> <span class='fu'><a href='read_delim.html'>read_csv</a></span><span class='op'>(</span><span class='fu'><a href='readr_example.html'>readr_example</a></span><span class='op'>(</span><span class='st'>"mtcars.csv"</span><span class='op'>)</span><span class='op'>)</span>
 </div><div class='output co'>#&gt; <span class='message'></span>
-#&gt; <span class='message'><span style='color: #00BBBB;'>──</span><span> </span><span style='font-weight: bold;'>Column specification</span><span> </span><span style='color: #00BBBB;'>────────────────────────────────────────────────────────</span><span></span>
+#&gt; <span class='message'><span style='color: #00BBBB;'>──</span> <span style='font-weight: bold;'>Column specification</span> <span style='color: #00BBBB;'>─────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────</span></span>
 #&gt; <span class='message'>cols(</span>
-#&gt; <span class='message'>  mpg = </span><span style='color: #00BB00;'>col_double()</span><span>,</span>
-#&gt; <span class='message'>  cyl = </span><span style='color: #00BB00;'>col_double()</span><span>,</span>
-#&gt; <span class='message'>  disp = </span><span style='color: #00BB00;'>col_double()</span><span>,</span>
-#&gt; <span class='message'>  hp = </span><span style='color: #00BB00;'>col_double()</span><span>,</span>
-#&gt; <span class='message'>  drat = </span><span style='color: #00BB00;'>col_double()</span><span>,</span>
-#&gt; <span class='message'>  wt = </span><span style='color: #00BB00;'>col_double()</span><span>,</span>
-#&gt; <span class='message'>  qsec = </span><span style='color: #00BB00;'>col_double()</span><span>,</span>
-#&gt; <span class='message'>  vs = </span><span style='color: #00BB00;'>col_double()</span><span>,</span>
-#&gt; <span class='message'>  am = </span><span style='color: #00BB00;'>col_double()</span><span>,</span>
-#&gt; <span class='message'>  gear = </span><span style='color: #00BB00;'>col_double()</span><span>,</span>
-#&gt; <span class='message'>  carb = </span><span style='color: #00BB00;'>col_double()</span><span></span>
+#&gt; <span class='message'>  mpg = <span style='color: #00BB00;'>col_double()</span>,</span>
+#&gt; <span class='message'>  cyl = <span style='color: #00BB00;'>col_double()</span>,</span>
+#&gt; <span class='message'>  disp = <span style='color: #00BB00;'>col_double()</span>,</span>
+#&gt; <span class='message'>  hp = <span style='color: #00BB00;'>col_double()</span>,</span>
+#&gt; <span class='message'>  drat = <span style='color: #00BB00;'>col_double()</span>,</span>
+#&gt; <span class='message'>  wt = <span style='color: #00BB00;'>col_double()</span>,</span>
+#&gt; <span class='message'>  qsec = <span style='color: #00BB00;'>col_double()</span>,</span>
+#&gt; <span class='message'>  vs = <span style='color: #00BB00;'>col_double()</span>,</span>
+#&gt; <span class='message'>  am = <span style='color: #00BB00;'>col_double()</span>,</span>
+#&gt; <span class='message'>  gear = <span style='color: #00BB00;'>col_double()</span>,</span>
+#&gt; <span class='message'>  carb = <span style='color: #00BB00;'>col_double()</span></span>
 #&gt; <span class='message'>)</span></div><div class='input'><span class='va'>s</span> <span class='op'>&lt;-</span> <span class='fu'>spec</span><span class='op'>(</span><span class='va'>df</span><span class='op'>)</span>
 <span class='va'>s</span>
 </div><div class='output co'>#&gt; cols(
-#&gt;   mpg = </span><span style='color: #00BB00;'>col_double()</span><span>,
-#&gt;   cyl = </span><span style='color: #00BB00;'>col_double()</span><span>,
-#&gt;   disp = </span><span style='color: #00BB00;'>col_double()</span><span>,
-#&gt;   hp = </span><span style='color: #00BB00;'>col_double()</span><span>,
-#&gt;   drat = </span><span style='color: #00BB00;'>col_double()</span><span>,
-#&gt;   wt = </span><span style='color: #00BB00;'>col_double()</span><span>,
-#&gt;   qsec = </span><span style='color: #00BB00;'>col_double()</span><span>,
-#&gt;   vs = </span><span style='color: #00BB00;'>col_double()</span><span>,
-#&gt;   am = </span><span style='color: #00BB00;'>col_double()</span><span>,
-#&gt;   gear = </span><span style='color: #00BB00;'>col_double()</span><span>,
-#&gt;   carb = </span><span style='color: #00BB00;'>col_double()</span><span>
+#&gt;   mpg = <span style='color: #00BB00;'>col_double()</span>,
+#&gt;   cyl = <span style='color: #00BB00;'>col_double()</span>,
+#&gt;   disp = <span style='color: #00BB00;'>col_double()</span>,
+#&gt;   hp = <span style='color: #00BB00;'>col_double()</span>,
+#&gt;   drat = <span style='color: #00BB00;'>col_double()</span>,
+#&gt;   wt = <span style='color: #00BB00;'>col_double()</span>,
+#&gt;   qsec = <span style='color: #00BB00;'>col_double()</span>,
+#&gt;   vs = <span style='color: #00BB00;'>col_double()</span>,
+#&gt;   am = <span style='color: #00BB00;'>col_double()</span>,
+#&gt;   gear = <span style='color: #00BB00;'>col_double()</span>,
+#&gt;   carb = <span style='color: #00BB00;'>col_double()</span>
 #&gt; )</div><div class='input'>
 <span class='fu'>cols_condense</span><span class='op'>(</span><span class='va'>s</span><span class='op'>)</span>
 </div><div class='output co'>#&gt; cols(
 #&gt;   .default = col_double()
-#&gt; )</div></span></pre>
+#&gt; )</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

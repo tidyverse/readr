@@ -141,7 +141,7 @@
 </li>
         <li>
   <a href="https://github.com/tidyverse/readr/">
-    <span class="fab fa fab fa-github fa-lg"></span>
+    <span class="fab fa-github fa-lg"></span>
      
   </a>
 </li>
@@ -487,54 +487,54 @@ the initial value of the accumulator.  The parameter <code>acc</code> is <code>N
 <span class='va'>f</span> <span class='op'>&lt;-</span> <span class='kw'>function</span><span class='op'>(</span><span class='va'>x</span>, <span class='va'>pos</span><span class='op'>)</span> <span class='fu'><a href='https://rdrr.io/r/base/subset.html'>subset</a></span><span class='op'>(</span><span class='va'>x</span>, <span class='va'>gear</span> <span class='op'>==</span> <span class='fl'>3</span><span class='op'>)</span>
 <span class='fu'><a href='read_delim_chunked.html'>read_csv_chunked</a></span><span class='op'>(</span><span class='fu'><a href='readr_example.html'>readr_example</a></span><span class='op'>(</span><span class='st'>"mtcars.csv"</span><span class='op'>)</span>, <span class='va'>DataFrameCallback</span><span class='op'>$</span><span class='fu'>new</span><span class='op'>(</span><span class='va'>f</span><span class='op'>)</span>, chunk_size <span class='op'>=</span> <span class='fl'>5</span><span class='op'>)</span>
 </div><div class='output co'>#&gt; <span class='message'></span>
-#&gt; <span class='message'><span style='color: #00BBBB;'>──</span><span> </span><span style='font-weight: bold;'>Column specification</span><span> </span><span style='color: #00BBBB;'>────────────────────────────────────────────────────────</span><span></span>
+#&gt; <span class='message'><span style='color: #00BBBB;'>──</span> <span style='font-weight: bold;'>Column specification</span> <span style='color: #00BBBB;'>─────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────</span></span>
 #&gt; <span class='message'>cols(</span>
-#&gt; <span class='message'>  mpg = </span><span style='color: #00BB00;'>col_double()</span><span>,</span>
-#&gt; <span class='message'>  cyl = </span><span style='color: #00BB00;'>col_double()</span><span>,</span>
-#&gt; <span class='message'>  disp = </span><span style='color: #00BB00;'>col_double()</span><span>,</span>
-#&gt; <span class='message'>  hp = </span><span style='color: #00BB00;'>col_double()</span><span>,</span>
-#&gt; <span class='message'>  drat = </span><span style='color: #00BB00;'>col_double()</span><span>,</span>
-#&gt; <span class='message'>  wt = </span><span style='color: #00BB00;'>col_double()</span><span>,</span>
-#&gt; <span class='message'>  qsec = </span><span style='color: #00BB00;'>col_double()</span><span>,</span>
-#&gt; <span class='message'>  vs = </span><span style='color: #00BB00;'>col_double()</span><span>,</span>
-#&gt; <span class='message'>  am = </span><span style='color: #00BB00;'>col_double()</span><span>,</span>
-#&gt; <span class='message'>  gear = </span><span style='color: #00BB00;'>col_double()</span><span>,</span>
-#&gt; <span class='message'>  carb = </span><span style='color: #00BB00;'>col_double()</span><span></span>
-#&gt; <span class='message'>)</span></div><div class='output co'>#&gt; </span><span style='color: #555555;'># A tibble: 15 x 11</span><span>
+#&gt; <span class='message'>  mpg = <span style='color: #00BB00;'>col_double()</span>,</span>
+#&gt; <span class='message'>  cyl = <span style='color: #00BB00;'>col_double()</span>,</span>
+#&gt; <span class='message'>  disp = <span style='color: #00BB00;'>col_double()</span>,</span>
+#&gt; <span class='message'>  hp = <span style='color: #00BB00;'>col_double()</span>,</span>
+#&gt; <span class='message'>  drat = <span style='color: #00BB00;'>col_double()</span>,</span>
+#&gt; <span class='message'>  wt = <span style='color: #00BB00;'>col_double()</span>,</span>
+#&gt; <span class='message'>  qsec = <span style='color: #00BB00;'>col_double()</span>,</span>
+#&gt; <span class='message'>  vs = <span style='color: #00BB00;'>col_double()</span>,</span>
+#&gt; <span class='message'>  am = <span style='color: #00BB00;'>col_double()</span>,</span>
+#&gt; <span class='message'>  gear = <span style='color: #00BB00;'>col_double()</span>,</span>
+#&gt; <span class='message'>  carb = <span style='color: #00BB00;'>col_double()</span></span>
+#&gt; <span class='message'>)</span></div><div class='output co'>#&gt; <span style='color: #949494;'># A tibble: 15 x 11</span>
 #&gt;      mpg   cyl  disp    hp  drat    wt  qsec    vs    am  gear  carb
-#&gt;    </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>
-#&gt; </span><span style='color: #555555;'> 1</span><span>  21.4     6  258    110  3.08  3.22  19.4     1     0     3     1
-#&gt; </span><span style='color: #555555;'> 2</span><span>  18.7     8  360    175  3.15  3.44  17.0     0     0     3     2
-#&gt; </span><span style='color: #555555;'> 3</span><span>  18.1     6  225    105  2.76  3.46  20.2     1     0     3     1
-#&gt; </span><span style='color: #555555;'> 4</span><span>  14.3     8  360    245  3.21  3.57  15.8     0     0     3     4
-#&gt; </span><span style='color: #555555;'> 5</span><span>  16.4     8  276.   180  3.07  4.07  17.4     0     0     3     3
-#&gt; </span><span style='color: #555555;'> 6</span><span>  17.3     8  276.   180  3.07  3.73  17.6     0     0     3     3
-#&gt; </span><span style='color: #555555;'> 7</span><span>  15.2     8  276.   180  3.07  3.78  18       0     0     3     3
-#&gt; </span><span style='color: #555555;'> 8</span><span>  10.4     8  472    205  2.93  5.25  18.0     0     0     3     4
-#&gt; </span><span style='color: #555555;'> 9</span><span>  10.4     8  460    215  3     5.42  17.8     0     0     3     4
-#&gt; </span><span style='color: #555555;'>10</span><span>  14.7     8  440    230  3.23  5.34  17.4     0     0     3     4
-#&gt; </span><span style='color: #555555;'>11</span><span>  21.5     4  120.    97  3.7   2.46  20.0     1     0     3     1
-#&gt; </span><span style='color: #555555;'>12</span><span>  15.5     8  318    150  2.76  3.52  16.9     0     0     3     2
-#&gt; </span><span style='color: #555555;'>13</span><span>  15.2     8  304    150  3.15  3.44  17.3     0     0     3     2
-#&gt; </span><span style='color: #555555;'>14</span><span>  13.3     8  350    245  3.73  3.84  15.4     0     0     3     4
-#&gt; </span><span style='color: #555555;'>15</span><span>  19.2     8  400    175  3.08  3.84  17.0     0     0     3     2</div><div class='input'>
+#&gt;    <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span> <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span> <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span> <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span> <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span> <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span> <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span> <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span> <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span> <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span> <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span>
+#&gt; <span style='color: #BCBCBC;'> 1</span>  21.4     6  258    110  3.08  3.22  19.4     1     0     3     1
+#&gt; <span style='color: #BCBCBC;'> 2</span>  18.7     8  360    175  3.15  3.44  17.0     0     0     3     2
+#&gt; <span style='color: #BCBCBC;'> 3</span>  18.1     6  225    105  2.76  3.46  20.2     1     0     3     1
+#&gt; <span style='color: #BCBCBC;'> 4</span>  14.3     8  360    245  3.21  3.57  15.8     0     0     3     4
+#&gt; <span style='color: #BCBCBC;'> 5</span>  16.4     8  276.   180  3.07  4.07  17.4     0     0     3     3
+#&gt; <span style='color: #BCBCBC;'> 6</span>  17.3     8  276.   180  3.07  3.73  17.6     0     0     3     3
+#&gt; <span style='color: #BCBCBC;'> 7</span>  15.2     8  276.   180  3.07  3.78  18       0     0     3     3
+#&gt; <span style='color: #BCBCBC;'> 8</span>  10.4     8  472    205  2.93  5.25  18.0     0     0     3     4
+#&gt; <span style='color: #BCBCBC;'> 9</span>  10.4     8  460    215  3     5.42  17.8     0     0     3     4
+#&gt; <span style='color: #BCBCBC;'>10</span>  14.7     8  440    230  3.23  5.34  17.4     0     0     3     4
+#&gt; <span style='color: #BCBCBC;'>11</span>  21.5     4  120.    97  3.7   2.46  20.0     1     0     3     1
+#&gt; <span style='color: #BCBCBC;'>12</span>  15.5     8  318    150  2.76  3.52  16.9     0     0     3     2
+#&gt; <span style='color: #BCBCBC;'>13</span>  15.2     8  304    150  3.15  3.44  17.3     0     0     3     2
+#&gt; <span style='color: #BCBCBC;'>14</span>  13.3     8  350    245  3.73  3.84  15.4     0     0     3     4
+#&gt; <span style='color: #BCBCBC;'>15</span>  19.2     8  400    175  3.08  3.84  17.0     0     0     3     2</div><div class='input'>
 <span class='co'># The ListCallback can be used for more flexible output</span>
 <span class='va'>f</span> <span class='op'>&lt;-</span> <span class='kw'>function</span><span class='op'>(</span><span class='va'>x</span>, <span class='va'>pos</span><span class='op'>)</span> <span class='va'>x</span><span class='op'>$</span><span class='va'>mpg</span><span class='op'>[</span><span class='va'>x</span><span class='op'>$</span><span class='va'>hp</span> <span class='op'>&gt;</span> <span class='fl'>100</span><span class='op'>]</span>
 <span class='fu'><a href='read_delim_chunked.html'>read_csv_chunked</a></span><span class='op'>(</span><span class='fu'><a href='readr_example.html'>readr_example</a></span><span class='op'>(</span><span class='st'>"mtcars.csv"</span><span class='op'>)</span>, <span class='va'>ListCallback</span><span class='op'>$</span><span class='fu'>new</span><span class='op'>(</span><span class='va'>f</span><span class='op'>)</span>, chunk_size <span class='op'>=</span> <span class='fl'>5</span><span class='op'>)</span>
 </div><div class='output co'>#&gt; <span class='message'></span>
-#&gt; <span class='message'></span><span style='color: #00BBBB;'>──</span><span> </span><span style='font-weight: bold;'>Column specification</span><span> </span><span style='color: #00BBBB;'>────────────────────────────────────────────────────────</span><span></span>
+#&gt; <span class='message'><span style='color: #00BBBB;'>──</span> <span style='font-weight: bold;'>Column specification</span> <span style='color: #00BBBB;'>─────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────</span></span>
 #&gt; <span class='message'>cols(</span>
-#&gt; <span class='message'>  mpg = </span><span style='color: #00BB00;'>col_double()</span><span>,</span>
-#&gt; <span class='message'>  cyl = </span><span style='color: #00BB00;'>col_double()</span><span>,</span>
-#&gt; <span class='message'>  disp = </span><span style='color: #00BB00;'>col_double()</span><span>,</span>
-#&gt; <span class='message'>  hp = </span><span style='color: #00BB00;'>col_double()</span><span>,</span>
-#&gt; <span class='message'>  drat = </span><span style='color: #00BB00;'>col_double()</span><span>,</span>
-#&gt; <span class='message'>  wt = </span><span style='color: #00BB00;'>col_double()</span><span>,</span>
-#&gt; <span class='message'>  qsec = </span><span style='color: #00BB00;'>col_double()</span><span>,</span>
-#&gt; <span class='message'>  vs = </span><span style='color: #00BB00;'>col_double()</span><span>,</span>
-#&gt; <span class='message'>  am = </span><span style='color: #00BB00;'>col_double()</span><span>,</span>
-#&gt; <span class='message'>  gear = </span><span style='color: #00BB00;'>col_double()</span><span>,</span>
-#&gt; <span class='message'>  carb = </span><span style='color: #00BB00;'>col_double()</span><span></span>
+#&gt; <span class='message'>  mpg = <span style='color: #00BB00;'>col_double()</span>,</span>
+#&gt; <span class='message'>  cyl = <span style='color: #00BB00;'>col_double()</span>,</span>
+#&gt; <span class='message'>  disp = <span style='color: #00BB00;'>col_double()</span>,</span>
+#&gt; <span class='message'>  hp = <span style='color: #00BB00;'>col_double()</span>,</span>
+#&gt; <span class='message'>  drat = <span style='color: #00BB00;'>col_double()</span>,</span>
+#&gt; <span class='message'>  wt = <span style='color: #00BB00;'>col_double()</span>,</span>
+#&gt; <span class='message'>  qsec = <span style='color: #00BB00;'>col_double()</span>,</span>
+#&gt; <span class='message'>  vs = <span style='color: #00BB00;'>col_double()</span>,</span>
+#&gt; <span class='message'>  am = <span style='color: #00BB00;'>col_double()</span>,</span>
+#&gt; <span class='message'>  gear = <span style='color: #00BB00;'>col_double()</span>,</span>
+#&gt; <span class='message'>  carb = <span style='color: #00BB00;'>col_double()</span></span>
 #&gt; <span class='message'>)</span></div><div class='output co'>#&gt; [[1]]
 #&gt; [1] 21.0 21.0 21.4 18.7
 #&gt; 
@@ -560,20 +560,20 @@ the initial value of the accumulator.  The parameter <code>acc</code> is <code>N
 <span class='va'>f</span> <span class='op'>&lt;-</span> <span class='kw'>function</span><span class='op'>(</span><span class='va'>x</span>, <span class='va'>pos</span>, <span class='va'>acc</span><span class='op'>)</span> <span class='fu'><a href='https://rdrr.io/r/base/sum.html'>sum</a></span><span class='op'>(</span><span class='va'>x</span><span class='op'>$</span><span class='va'>mpg</span><span class='op'>)</span> <span class='op'>+</span> <span class='va'>acc</span>
 <span class='fu'><a href='read_delim_chunked.html'>read_csv_chunked</a></span><span class='op'>(</span><span class='fu'><a href='readr_example.html'>readr_example</a></span><span class='op'>(</span><span class='st'>"mtcars.csv"</span><span class='op'>)</span>, <span class='va'>AccumulateCallback</span><span class='op'>$</span><span class='fu'>new</span><span class='op'>(</span><span class='va'>f</span>, acc <span class='op'>=</span> <span class='fl'>0</span><span class='op'>)</span>, chunk_size <span class='op'>=</span> <span class='fl'>5</span><span class='op'>)</span>
 </div><div class='output co'>#&gt; <span class='message'></span>
-#&gt; <span class='message'></span><span style='color: #00BBBB;'>──</span><span> </span><span style='font-weight: bold;'>Column specification</span><span> </span><span style='color: #00BBBB;'>────────────────────────────────────────────────────────</span><span></span>
+#&gt; <span class='message'><span style='color: #00BBBB;'>──</span> <span style='font-weight: bold;'>Column specification</span> <span style='color: #00BBBB;'>─────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────</span></span>
 #&gt; <span class='message'>cols(</span>
-#&gt; <span class='message'>  mpg = </span><span style='color: #00BB00;'>col_double()</span><span>,</span>
-#&gt; <span class='message'>  cyl = </span><span style='color: #00BB00;'>col_double()</span><span>,</span>
-#&gt; <span class='message'>  disp = </span><span style='color: #00BB00;'>col_double()</span><span>,</span>
-#&gt; <span class='message'>  hp = </span><span style='color: #00BB00;'>col_double()</span><span>,</span>
-#&gt; <span class='message'>  drat = </span><span style='color: #00BB00;'>col_double()</span><span>,</span>
-#&gt; <span class='message'>  wt = </span><span style='color: #00BB00;'>col_double()</span><span>,</span>
-#&gt; <span class='message'>  qsec = </span><span style='color: #00BB00;'>col_double()</span><span>,</span>
-#&gt; <span class='message'>  vs = </span><span style='color: #00BB00;'>col_double()</span><span>,</span>
-#&gt; <span class='message'>  am = </span><span style='color: #00BB00;'>col_double()</span><span>,</span>
-#&gt; <span class='message'>  gear = </span><span style='color: #00BB00;'>col_double()</span><span>,</span>
-#&gt; <span class='message'>  carb = </span><span style='color: #00BB00;'>col_double()</span><span></span>
-#&gt; <span class='message'>)</span></div><div class='output co'>#&gt; [1] 642.9</div></span></pre>
+#&gt; <span class='message'>  mpg = <span style='color: #00BB00;'>col_double()</span>,</span>
+#&gt; <span class='message'>  cyl = <span style='color: #00BB00;'>col_double()</span>,</span>
+#&gt; <span class='message'>  disp = <span style='color: #00BB00;'>col_double()</span>,</span>
+#&gt; <span class='message'>  hp = <span style='color: #00BB00;'>col_double()</span>,</span>
+#&gt; <span class='message'>  drat = <span style='color: #00BB00;'>col_double()</span>,</span>
+#&gt; <span class='message'>  wt = <span style='color: #00BB00;'>col_double()</span>,</span>
+#&gt; <span class='message'>  qsec = <span style='color: #00BB00;'>col_double()</span>,</span>
+#&gt; <span class='message'>  vs = <span style='color: #00BB00;'>col_double()</span>,</span>
+#&gt; <span class='message'>  am = <span style='color: #00BB00;'>col_double()</span>,</span>
+#&gt; <span class='message'>  gear = <span style='color: #00BB00;'>col_double()</span>,</span>
+#&gt; <span class='message'>  carb = <span style='color: #00BB00;'>col_double()</span></span>
+#&gt; <span class='message'>)</span></div><div class='output co'>#&gt; [1] 642.9</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
