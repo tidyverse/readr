@@ -355,12 +355,34 @@ file is created.</p></td>
 <span class='va'>tmp</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/tempfile.html'>tempfile</a></span><span class='op'>(</span><span class='op'>)</span>
 
 <span class='fu'>write_lines</span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/colnames.html'>rownames</a></span><span class='op'>(</span><span class='va'>mtcars</span><span class='op'>)</span>, <span class='va'>tmp</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; <span class='warning'>Warning: cannot open file '/tmp/RtmpCFdegz/file33af23dee027': No such file or directory</span></div><div class='output co'>#&gt; <span class='error'>Error in file(con, "rb"): cannot open the connection</span></div><div class='input'><span class='fu'>read_lines</span><span class='op'>(</span><span class='va'>tmp</span>, lazy <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; <span class='error'>Error: '/tmp/RtmpCFdegz/file33af23dee027' does not exist.</span></div><div class='input'><span class='fu'><a href='read_file.html'>read_file</a></span><span class='op'>(</span><span class='va'>tmp</span><span class='op'>)</span> <span class='co'># note trailing \n</span>
-</div><div class='output co'>#&gt; <span class='error'>Error: '/tmp/RtmpCFdegz/file33af23dee027' does not exist.</span></div><div class='input'>
+<span class='fu'>read_lines</span><span class='op'>(</span><span class='va'>tmp</span>, lazy <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span>
+</div><div class='output co'>#&gt;  [1] "Mazda RX4"           "Mazda RX4 Wag"       "Datsun 710"         
+#&gt;  [4] "Hornet 4 Drive"      "Hornet Sportabout"   "Valiant"            
+#&gt;  [7] "Duster 360"          "Merc 240D"           "Merc 230"           
+#&gt; [10] "Merc 280"            "Merc 280C"           "Merc 450SE"         
+#&gt; [13] "Merc 450SL"          "Merc 450SLC"         "Cadillac Fleetwood" 
+#&gt; [16] "Lincoln Continental" "Chrysler Imperial"   "Fiat 128"           
+#&gt; [19] "Honda Civic"         "Toyota Corolla"      "Toyota Corona"      
+#&gt; [22] "Dodge Challenger"    "AMC Javelin"         "Camaro Z28"         
+#&gt; [25] "Pontiac Firebird"    "Fiat X1-9"           "Porsche 914-2"      
+#&gt; [28] "Lotus Europa"        "Ford Pantera L"      "Ferrari Dino"       
+#&gt; [31] "Maserati Bora"       "Volvo 142E"         </div><div class='input'><span class='fu'><a href='read_file.html'>read_file</a></span><span class='op'>(</span><span class='va'>tmp</span><span class='op'>)</span> <span class='co'># note trailing \n</span>
+</div><div class='output co'>#&gt; [1] "Mazda RX4\nMazda RX4 Wag\nDatsun 710\nHornet 4 Drive\nHornet Sportabout\nValiant\nDuster 360\nMerc 240D\nMerc 230\nMerc 280\nMerc 280C\nMerc 450SE\nMerc 450SL\nMerc 450SLC\nCadillac Fleetwood\nLincoln Continental\nChrysler Imperial\nFiat 128\nHonda Civic\nToyota Corolla\nToyota Corona\nDodge Challenger\nAMC Javelin\nCamaro Z28\nPontiac Firebird\nFiat X1-9\nPorsche 914-2\nLotus Europa\nFord Pantera L\nFerrari Dino\nMaserati Bora\nVolvo 142E\n"</div><div class='input'>
 <span class='fu'>write_lines</span><span class='op'>(</span><span class='va'>airquality</span><span class='op'>$</span><span class='va'>Ozone</span>, <span class='va'>tmp</span>, na <span class='op'>=</span> <span class='st'>"-1"</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; <span class='warning'>Warning: cannot open file '/tmp/RtmpCFdegz/file33af23dee027': No such file or directory</span></div><div class='output co'>#&gt; <span class='error'>Error in file(con, "rb"): cannot open the connection</span></div><div class='input'><span class='fu'>read_lines</span><span class='op'>(</span><span class='va'>tmp</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; <span class='error'>Error: '/tmp/RtmpCFdegz/file33af23dee027' does not exist.</span></div></pre>
+<span class='fu'>read_lines</span><span class='op'>(</span><span class='va'>tmp</span><span class='op'>)</span>
+</div><div class='output co'>#&gt;   [1] "41"  "36"  "12"  "18"  "-1"  "28"  "23"  "19"  "8"   "-1"  "7"   "16" 
+#&gt;  [13] "11"  "14"  "18"  "14"  "34"  "6"   "30"  "11"  "1"   "11"  "4"   "32" 
+#&gt;  [25] "-1"  "-1"  "-1"  "23"  "45"  "115" "37"  "-1"  "-1"  "-1"  "-1"  "-1" 
+#&gt;  [37] "-1"  "29"  "-1"  "71"  "39"  "-1"  "-1"  "23"  "-1"  "-1"  "21"  "37" 
+#&gt;  [49] "20"  "12"  "13"  "-1"  "-1"  "-1"  "-1"  "-1"  "-1"  "-1"  "-1"  "-1" 
+#&gt;  [61] "-1"  "135" "49"  "32"  "-1"  "64"  "40"  "77"  "97"  "97"  "85"  "-1" 
+#&gt;  [73] "10"  "27"  "-1"  "7"   "48"  "35"  "61"  "79"  "63"  "16"  "-1"  "-1" 
+#&gt;  [85] "80"  "108" "20"  "52"  "82"  "50"  "64"  "59"  "39"  "9"   "16"  "78" 
+#&gt;  [97] "35"  "66"  "122" "89"  "110" "-1"  "-1"  "44"  "28"  "65"  "-1"  "22" 
+#&gt; [109] "59"  "23"  "31"  "44"  "21"  "9"   "-1"  "45"  "168" "73"  "-1"  "76" 
+#&gt; [121] "118" "84"  "85"  "96"  "78"  "73"  "91"  "47"  "32"  "20"  "23"  "21" 
+#&gt; [133] "24"  "44"  "21"  "28"  "9"   "13"  "46"  "18"  "13"  "24"  "16"  "13" 
+#&gt; [145] "23"  "36"  "7"   "14"  "30"  "-1"  "14"  "18"  "20" </div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

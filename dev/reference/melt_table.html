@@ -50,7 +50,9 @@
 
 
 <meta property="og:title" content="Return melted data for each token in a whitespace-separated file — melt_table" />
-<meta property="og:description" content="For certain non-rectangular data formats, it can be useful to parse the data
+<meta property="og:description" content="
+This function has been superseded in readr and moved to the meltr package.
+For certain non-rectangular data formats, it can be useful to parse the data
 into a melted format where each row represents a single token.
 melt_table() and melt_table2() are designed to read the type of textual
 data where each column is separated by one (or more) columns of space.
@@ -175,7 +177,9 @@ columns and then parses like a fixed width file." />
     </div>
 
     <div class="ref-description">
-    <p>For certain non-rectangular data formats, it can be useful to parse the data
+    <p><a href='https://lifecycle.r-lib.org/articles/stages.html#superseded'><img src='figures/lifecycle-superseded.svg' alt='[Superseded]' /></a>
+This function has been superseded in readr and moved to the meltr package.</p>
+<p>For certain non-rectangular data formats, it can be useful to parse the data
 into a melted format where each row represents a single token.</p>
 <p><code>melt_table()</code> and <code>melt_table2()</code> are designed to read the type of textual
 data where each column is separated by one (or more) columns of space.</p>
@@ -293,7 +297,8 @@ conventional way to read tabular data from whitespace-separated files.</p></div>
 #&gt;   8   8   9   9  10     5   7   7  10   7    8 Baylor           B12 
 #&gt;   9  11   8  13  11    11  12   9  14   9    9 Georgia Tech     ACC 
 #&gt;  13  10  13  11   8     9  10  11   9  10   10 Mississippi      SEC </div><div class='input'><span class='fu'>melt_table</span><span class='op'>(</span><span class='va'>massey</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; <span style='color: #949494;'># A tibble: 143 x 4</span>
+</div><div class='output co'>#&gt; <span class='warning'>Warning: `melt_table()` was deprecated in readr 2.0.0.</span>
+#&gt; <span class='warning'>Please use `meltr::melt_table()` instead</span></div><div class='output co'>#&gt; <span style='color: #949494;'># A tibble: 143 x 4</span>
 #&gt;      row   col data_type value
 #&gt;    <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span> <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span> <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span>     <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span>
 #&gt; <span style='color: #BCBCBC;'> 1</span>     1     1 character UCC  
@@ -331,7 +336,8 @@ conventional way to read tabular data from whitespace-separated files.</p></div>
 #&gt; 5000                                 04  90 15            90 15                5000                 78050153
 #&gt; AVANTI                                                                         AVANTI               78065002
 #&gt; AVANTI II                            02  75  8    75  8                        AVANTI II            78065053</div><div class='input'><span class='fu'>melt_table</span><span class='op'>(</span><span class='va'>epa</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; <span style='color: #949494;'># A tibble: 240 x 4</span>
+</div><div class='output co'>#&gt; <span class='warning'>Warning: `melt_table()` was deprecated in readr 2.0.0.</span>
+#&gt; <span class='warning'>Please use `meltr::melt_table()` instead</span></div><div class='output co'>#&gt; <span style='color: #949494;'># A tibble: 240 x 4</span>
 #&gt;      row   col data_type value       
 #&gt;    <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span> <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span> <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span>     <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span>       
 #&gt; <span style='color: #BCBCBC;'> 1</span>     1     1 character <span style='color: #949494;'>"</span>ALFA ROMEO<span style='color: #949494;'>"</span>
