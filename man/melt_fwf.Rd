@@ -67,10 +67,13 @@ option is \code{TRUE} then blank rows will not be represented at all.  If it is
 \code{FALSE} then they will be represented by \code{NA} values in all the columns.}
 }
 \description{
-For certain non-rectangular data formats, it can be useful to parse the data
-into a melted format where each row represents a single token.
+\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#superseded}{\figure{lifecycle-superseded.svg}{options: alt='[Superseded]'}}}{\strong{[Superseded]}}
+This function has been superseded in readr and moved to the meltr package.
 }
 \details{
+For certain non-rectangular data formats, it can be useful to parse the data
+into a melted format where each row represents a single token.
+
 \code{melt_fwf()} parses each token of a fixed width file into a single row, but
 it still requires that each field is in the same in every row of the
 source file.

@@ -142,10 +142,13 @@ If there are parsing problems, a warning tells you
 how many, and you can retrieve the details with \code{\link[=problems]{problems()}}.
 }
 \description{
-For certain non-rectangular data formats, it can be useful to parse the data
-into a melted format where each row represents a single token.
+\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#superseded}{\figure{lifecycle-superseded.svg}{options: alt='[Superseded]'}}}{\strong{[Superseded]}}
+This function has been superseded in readr and moved to the meltr package.
 }
 \details{
+For certain non-rectangular data formats, it can be useful to parse the data
+into a melted format where each row represents a single token.
+
 \code{melt_csv()} and \code{melt_tsv()} are special cases of the general
 \code{melt_delim()}. They're useful for reading the most common types of
 flat file data, comma separated values and tab separated values,

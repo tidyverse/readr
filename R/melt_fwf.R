@@ -2,6 +2,9 @@
 
 #' Return melted data for each token in a fixed width file
 #'
+#' `r lifecycle::badge("superseded")`
+#' This function has been superseded in readr and moved to the meltr package.
+#'
 #' For certain non-rectangular data formats, it can be useful to parse the data
 #' into a melted format where each row represents a single token.
 #'
@@ -39,7 +42,7 @@ melt_fwf <- function(file, col_positions,
                      progress = show_progress(),
                      skip_empty_rows = FALSE) {
   if (!edition_first()) {
-    lifecycle::deprecate_soft("2.0.0", "readr::melt_fwf()")
+    lifecycle::deprecate_soft("2.0.0", what = "melt_fwf()", details = "Please use `meltr::melt_fwf()` instead")
   }
   ds <- datasource(file, skip = skip, skip_empty_rows = skip_empty_rows)
   if (inherits(ds, "source_file") && empty_file(file)) {

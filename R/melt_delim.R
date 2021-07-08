@@ -1,5 +1,8 @@
 #' Return melted data for each token in a delimited file (including csv & tsv)
 #'
+#' `r lifecycle::badge("superseded")`
+#' This function has been superseded in readr and moved to the meltr package.
+#'
 #' For certain non-rectangular data formats, it can be useful to parse the data
 #' into a melted format where each row represents a single token.
 #'
@@ -53,7 +56,7 @@ melt_delim <- function(file, delim, quote = '"',
                        progress = show_progress(),
                        skip_empty_rows = FALSE) {
   if (!edition_first()) {
-    lifecycle::deprecate_soft("2.0.0", "readr::melt_delim()")
+    lifecycle::deprecate_soft("2.0.0", what = "melt_delim()", details = "Please use `meltr::melt_delim()` instead")
   }
 
   if (!nzchar(delim)) {
@@ -77,7 +80,7 @@ melt_csv <- function(file, locale = default_locale(), na = c("", "NA"),
                      progress = show_progress(),
                      skip_empty_rows = FALSE) {
   if (!edition_first()) {
-    lifecycle::deprecate_soft("2.0.0", "readr::melt_csv()")
+    lifecycle::deprecate_soft("2.0.0", what = "melt_csv()", details = "Please use `meltr::melt_csv()` instead")
   }
 
   tokenizer <- tokenizer_csv(na = na, quoted_na = quoted_na, quote = quote,
@@ -95,7 +98,7 @@ melt_csv2 <- function(file, locale = default_locale(), na = c("", "NA"),
                       progress = show_progress(),
                       skip_empty_rows = FALSE) {
   if (!edition_first()) {
-    lifecycle::deprecate_soft("2.0.0", "readr::melt_csv2()")
+    lifecycle::deprecate_soft("2.0.0", what = "melt_csv2()", details = "Please use `meltr::melt_csv2()` instead")
   }
 
   if (locale$decimal_mark == ".") {
@@ -120,7 +123,7 @@ melt_tsv <- function(file, locale = default_locale(), na = c("", "NA"),
                      progress = show_progress(),
                      skip_empty_rows = FALSE) {
   if (!edition_first()) {
-    lifecycle::deprecate_soft("2.0.0", "readr::melt_delim()")
+    lifecycle::deprecate_soft("2.0.0", what = "melt_tsv()", details = "Please use `meltr::melt_tsv()` instead")
   }
 
   tokenizer <- tokenizer_tsv(na = na, quoted_na = quoted_na, quote = quote,

@@ -1,6 +1,8 @@
 #' Return melted data for each token in a whitespace-separated file
 #'
 #' @description
+#' `r lifecycle::badge("superseded")`
+#' This function has been superseded in readr and moved to the meltr package.
 #'
 #' For certain non-rectangular data formats, it can be useful to parse the data
 #' into a melted format where each row represents a single token.
@@ -36,6 +38,9 @@ melt_table <- function(file, locale = default_locale(), na = "NA", skip = 0,
                        n_max = Inf, guess_max = min(n_max, 1000),
                        progress = show_progress(), comment = "",
                        skip_empty_rows = FALSE) {
+  if (!edition_first()) {
+    lifecycle::deprecate_soft("2.0.0", what = "melt_table()", details = "Please use `meltr::melt_table()` instead")
+  }
   ds <- datasource(file, skip = skip, skip_empty_rows = skip_empty_rows)
   if (inherits(ds, "source_file") && empty_file(file)) {
     return(tibble::tibble(
@@ -65,6 +70,11 @@ melt_table <- function(file, locale = default_locale(), na = "NA", skip = 0,
 melt_table2 <- function(file, locale = default_locale(), na = "NA", skip = 0,
                         n_max = Inf, progress = show_progress(), comment = "",
                         skip_empty_rows = FALSE) {
+
+  if (!edition_first()) {
+    lifecycle::deprecate_soft("2.0.0", what = "melt_table2()", details = "Please use `meltr::melt_table2()` instead")
+  }
+
   ds <- datasource(file, skip = skip, skip_empty_rows = skip_empty_rows)
   if (inherits(ds, "source_file") && empty_file(file)) {
     return(tibble::tibble(
