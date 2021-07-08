@@ -52,11 +52,12 @@ function around the input.
 readr is now released under a more permissive MIT license.
 Previously versions of readr were licensed as GPL-3.
 
-### Deprecated functions
+### Deprecated and superseded functions
 
-* `melt_csv()`, `melt_delim()`, `melt_tsv()` and `melt_fwf()` have been deprecated.
+* `melt_csv()`, `melt_delim()`, `melt_tsv()` and `melt_fwf()` have been superseded by functions in the same name in the meltr package.
+  The versions in readr have been deprecated.
   These functions rely on the first edition parsing code and would be challenging to update to the new parser.
-  When the first edition parsing code is eventually removed from readr they will be split off into a new package.
+  When the first edition parsing code is eventually removed from readr they will be removed.
 
 * `read_table2()` has been renamed to `read_table()`, as most users expect `read_table()` to work like `utils::read.table()`.
   If you want the previous strict behavior of the `read_table()` you can use `read_fwf()` with `fwf_empty()` directly (#717).
