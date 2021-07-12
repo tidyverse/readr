@@ -201,11 +201,11 @@
 <a href="#license-change" class="anchor"></a>License change</h3>
 <p>readr is now released under a more permissive MIT license. Previously versions of readr were licensed as GPL-3.</p>
 </div>
-<div id="deprecated-functions" class="section level3">
+<div id="deprecated-and-superseded-functions" class="section level3">
 <h3 class="hasAnchor">
-<a href="#deprecated-functions" class="anchor"></a>Deprecated functions</h3>
+<a href="#deprecated-and-superseded-functions" class="anchor"></a>Deprecated and superseded functions</h3>
 <ul>
-<li><p><code><a href="../reference/melt_delim.html">melt_csv()</a></code>, <code><a href="../reference/melt_delim.html">melt_delim()</a></code>, <code><a href="../reference/melt_delim.html">melt_tsv()</a></code> and <code><a href="../reference/melt_fwf.html">melt_fwf()</a></code> have been deprecated. These functions rely on the first edition parsing code and would be challenging to update to the new parser. When the first edition parsing code is eventually removed from readr they will be split off into a new package.</p></li>
+<li><p><code><a href="../reference/melt_delim.html">melt_csv()</a></code>, <code><a href="../reference/melt_delim.html">melt_delim()</a></code>, <code><a href="../reference/melt_delim.html">melt_tsv()</a></code> and <code><a href="../reference/melt_fwf.html">melt_fwf()</a></code> have been superseded by functions in the same name in the meltr package. The versions in readr have been deprecated. These functions rely on the first edition parsing code and would be challenging to update to the new parser. When the first edition parsing code is eventually removed from readr they will be removed.</p></li>
 <li><p><code><a href="../reference/read_table2.html">read_table2()</a></code> has been renamed to <code><a href="../reference/read_table.html">read_table()</a></code>, as most users expect <code><a href="../reference/read_table.html">read_table()</a></code> to work like <code><a href="https://rdrr.io/r/utils/read.table.html">utils::read.table()</a></code>. If you want the previous strict behavior of the <code><a href="../reference/read_table.html">read_table()</a></code> you can use <code><a href="../reference/read_fwf.html">read_fwf()</a></code> with <code><a href="../reference/read_fwf.html">fwf_empty()</a></code> directly (<a href='https://github.com/tidyverse/readr/issues/717'>#717</a>).</p></li>
 </ul>
 </div>
