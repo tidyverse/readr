@@ -3,8 +3,6 @@
 .RData
 *.o
 *.so
-bench/*.csv
-inst/doc
 .DS_Store
 .httr-oauth
 Makefile
