@@ -206,7 +206,7 @@ If you want to manually specify the column types, you can start by copying and p
 ```{r}
 df3 <- read_csv(
   readr_example("challenge.csv"), 
-  col_types = cols(
+  col_types = list(
     x = col_double(),
     y = col_date(format = "")
   )
@@ -240,7 +240,7 @@ Use the `col_types` argument to override the default choices. There are two ways
 * With a (named) list of col objects:
 
     ```r
-    read_csv("iris.csv", col_types = cols(
+    read_csv("iris.csv", col_types = list(
       Sepal.Length = col_double(),
       Sepal.Width = col_double(),
       Petal.Length = col_double(),
@@ -252,7 +252,7 @@ Use the `col_types` argument to override the default choices. There are two ways
   Or, with their abbreviations:
     
     ```r
-      read_csv("iris.csv", col_types = cols(
+      read_csv("iris.csv", col_types = list(
       Sepal.Length = "d",
       Sepal.Width = "d",
       Petal.Length = "d",
@@ -265,7 +265,7 @@ Any omitted columns will be parsed automatically, so the previous call
 will lead to the same result as:
 
 ```r
-read_csv("iris.csv", col_types = cols(
+read_csv("iris.csv", col_types = list(
   Species = col_factor(c("setosa", "versicolor", "virginica")))
 )
 ```
@@ -274,7 +274,7 @@ You can also set a default type that will be used instead of
 relying on the automatic detection for columns you don't specify:
 
 ```r
-read_csv("iris.csv", col_types = cols(
+read_csv("iris.csv", col_types = list(
   Species = col_factor(c("setosa", "versicolor", "virginica")),
   .default = col_double())
 )

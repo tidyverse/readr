@@ -2,7 +2,8 @@
 #'
 #' `cols()` includes all columns in the input data, guessing the column types
 #' as the default. `cols_only()` includes only the columns you explicitly
-#' specify, skipping the rest.
+#' specify, skipping the rest. In general you can substitute `list()` for
+#' `cols()` without changing the behavior.
 #'
 #' The available specifications are: (with string abbreviations in brackets)
 #'

@@ -69,7 +69,7 @@ Note that readr prints the column specification. This is useful because it allow
 
 ```{r, eval = FALSE}
 mtcars <- read_csv(readr_example("mtcars.csv"), col_types = 
-  cols(
+  list(
     mpg = col_double(),
     cyl = col_integer(),
     disp = col_double(),
@@ -98,7 +98,7 @@ Compared to the corresponding base functions, readr functions:
 * Use a consistent naming scheme for the parameters (e.g. `col_names` and 
  `col_types` not `header` and `colClasses`).
  
-* Are much faster (up to 10x).
+* Are generally much faster (up to 10x-100x) faster depending on the dataset.
 
 * Leave strings as is by default, and automatically parse common 
   date/time formats.
@@ -112,19 +112,11 @@ Compared to the corresponding base functions, readr functions:
 
 [data.table](https://github.com/Rdatatable/data.table) has a function similar to `read_csv()` called fread. Compared to fread, readr functions:
 
-* Are slower (currently ~1.2-2x slower. If you want absolutely the best 
-  performance, use `data.table::fread()`.
-  
-* Use a slightly more sophisticated parser.
-  
+* Are sometimes slower, particularly on numeric heavy data.
+
 * Forces you to supply all parameters, where `fread()` saves you work by
   automatically guessing the delimiter, whether or not the file has a
   header, and how many lines to skip.
-  
-* Are built on a different underlying infrastructure. Readr functions
-  are designed to be quite general, which makes it easier to add 
-  support for new rectangular data formats. `fread()` is designed to be 
-  as fast as possible.
 
 ## Acknowledgements
 

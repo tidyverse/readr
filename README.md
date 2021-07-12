@@ -42,11 +42,11 @@ readr is part of the core tidyverse, so load it with:
 
 ``` r
 library(tidyverse)
-#> ── Attaching packages ─────────────────────────────────────── tidyverse 1.3.0 ──
-#> ✔ ggplot2 3.3.2          ✔ purrr   0.3.4     
-#> ✔ tibble  3.0.3          ✔ dplyr   1.0.2.9000
-#> ✔ tidyr   1.1.2          ✔ stringr 1.4.0     
-#> ✔ readr   1.3.1.9000     ✔ forcats 0.5.0
+#> ── Attaching packages ─────────────────────────────────────── tidyverse 1.3.1 ──
+#> ✔ ggplot2 3.3.5          ✔ purrr   0.3.4     
+#> ✔ tibble  3.1.2          ✔ dplyr   1.0.7     
+#> ✔ tidyr   1.1.3          ✔ stringr 1.4.0     
+#> ✔ readr   1.9.9.9000     ✔ forcats 0.5.1
 #> ── Conflicts ────────────────────────────────────────── tidyverse_conflicts() ──
 #> ✖ dplyr::filter() masks stats::filter()
 #> ✖ dplyr::lag()    masks stats::lag()
@@ -61,13 +61,13 @@ automatically.
 
 readr supports seven file formats with seven `read_` functions:
 
-  - `read_csv()`: comma separated (CSV) files
-  - `read_tsv()`: tab separated files
-  - `read_delim()`: general delimited files
-  - `read_fwf()`: fixed width files
-  - `read_table()`: tabular files where columns are separated by
+-   `read_csv()`: comma separated (CSV) files
+-   `read_tsv()`: tab separated files
+-   `read_delim()`: general delimited files
+-   `read_fwf()`: fixed width files
+-   `read_table()`: tabular files where columns are separated by
     white-space.
-  - `read_log()`: web log files
+-   `read_log()`: web log files
 
 In many cases, these functions will just work: you supply the path to a
 file and you get a tibble back. The following example loads a sample
@@ -75,21 +75,13 @@ file bundled with readr:
 
 ``` r
 mtcars <- read_csv(readr_example("mtcars.csv"))
-#> 
+#> Rows: 32 Columns: 11
 #> ── Column specification ────────────────────────────────────────────────────────
-#> cols(
-#>   mpg = col_double(),
-#>   cyl = col_double(),
-#>   disp = col_double(),
-#>   hp = col_double(),
-#>   drat = col_double(),
-#>   wt = col_double(),
-#>   qsec = col_double(),
-#>   vs = col_double(),
-#>   am = col_double(),
-#>   gear = col_double(),
-#>   carb = col_double()
-#> )
+#> Delimiter: ","
+#> dbl (11): mpg, cyl, disp, hp, drat, wt, qsec, vs, am, gear, carb
+#> 
+#> ℹ Use `spec()` to retrieve the full column specification for this data.
+#> ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.
 ```
 
 Note that readr prints the column specification. This is useful because
@@ -98,7 +90,7 @@ and if they haven’t, you can easily copy and paste into a new call:
 
 ``` r
 mtcars <- read_csv(readr_example("mtcars.csv"), col_types = 
-  cols(
+  list(
     mpg = col_double(),
     cyl = col_integer(),
     disp = col_double(),
@@ -127,17 +119,18 @@ There are two main alternatives to readr: base R and data.table’s
 
 Compared to the corresponding base functions, readr functions:
 
-  - Use a consistent naming scheme for the parameters (e.g. `col_names`
+-   Use a consistent naming scheme for the parameters (e.g. `col_names`
     and `col_types` not `header` and `colClasses`).
 
-  - Are much faster (up to 10x).
+-   Are generally much faster (up to 10x-100x) faster depending on the
+    dataset.
 
-  - Leave strings as is by default, and automatically parse common
+-   Leave strings as is by default, and automatically parse common
     date/time formats.
 
-  - Have a helpful progress bar if loading is going to take a while.
+-   Have a helpful progress bar if loading is going to take a while.
 
-  - All functions work exactly the same way regardless of the current
+-   All functions work exactly the same way regardless of the current
     locale. To override the US-centric defaults, use `locale()`.
 
 ### data.table and `fread()`
@@ -146,33 +139,25 @@ Compared to the corresponding base functions, readr functions:
 similar to `read_csv()` called fread. Compared to fread, readr
 functions:
 
-  - Are slower (currently \~1.2-2x slower. If you want absolutely the
-    best performance, use `data.table::fread()`.
+-   Are sometimes slower, particularly on numeric heavy data.
 
-  - Use a slightly more sophisticated parser.
-
-  - Forces you to supply all parameters, where `fread()` saves you work
+-   Forces you to supply all parameters, where `fread()` saves you work
     by automatically guessing the delimiter, whether or not the file has
     a header, and how many lines to skip.
-
-  - Are built on a different underlying infrastructure. Readr functions
-    are designed to be quite general, which makes it easier to add
-    support for new rectangular data formats. `fread()` is designed to
-    be as fast as possible.
 
 ## Acknowledgements
 
 Thanks to:
 
-  - [Joe Cheng](https://github.com/jcheng5) for showing me the beauty of
+-   [Joe Cheng](https://github.com/jcheng5) for showing me the beauty of
     deterministic finite automata for parsing, and for teaching me why I
     should write a tokenizer.
 
-  - [JJ Allaire](https://github.com/jjallaire) for helping me come up
+-   [JJ Allaire](https://github.com/jjallaire) for helping me come up
     with a design that makes very few copies, and is easy to extend.
 
-  - [Dirk Eddelbuettel](http://dirk.eddelbuettel.com) for coming up with
-    the name\!
+-   [Dirk Eddelbuettel](http://dirk.eddelbuettel.com) for coming up with
+    the name!
 
 ## Code of Conduct
 

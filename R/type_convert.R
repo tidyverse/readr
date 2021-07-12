@@ -32,7 +32,7 @@
 #'
 #' # first read the data as character
 #' data <- read_csv(readr_example("mtcars.csv"),
-#'   col_types = cols(.default = col_character())
+#'   col_types = list(.default = col_character())
 #' )
 #' str(data)
 #' # Then convert it with type_convert

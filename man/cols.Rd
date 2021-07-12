@@ -22,7 +22,8 @@ will be read with this column type.}
 \description{
 \code{cols()} includes all columns in the input data, guessing the column types
 as the default. \code{cols_only()} includes only the columns you explicitly
-specify, skipping the rest.
+specify, skipping the rest. In general you can substitute \code{list()} for
+\code{cols()} without changing the behavior.
 }
 \details{
 The available specifications are: (with string abbreviations in brackets)

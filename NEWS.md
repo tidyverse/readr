@@ -80,7 +80,7 @@ x <- read_delim(readr_example("mtcars.csv"))
 ### Literal data
 
 In edition one the reading functions treated any input with a newline in it or vectors of length > 1 as literal data.
-In edition two vectors of length > 1 are nowassumed to correspond to multiple files.
+In edition two vectors of length > 1 are now assumed to correspond to multiple files.
 Because of this we now have a more explicit way to represent literal data, by putting `I()` around the input.
 
 ```{r}
