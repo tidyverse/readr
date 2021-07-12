@@ -133,7 +133,7 @@ To this end the readr and vroom packages are now released under the MIT license.
 * The BH package is no longer a dependency.
   The boost C++ headers in BH have thousands of files, so can take a long time to extract and compiling them takes a great deal of memory, which made readr difficult to compile on systems with limited memory (#1147).
 
-* readr now uses the clock package when parsing date-times (@DavisVaughan, r-lib/vroom#273)
+* readr now uses the tzdb package when parsing date-times (@DavisVaughan, r-lib/vroom#273)
 
 * Chunked readers now support files with more than `INT_MAX` (~ 2 Billion) number of lines (#1177)
 
