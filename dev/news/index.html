@@ -213,7 +213,7 @@ readr::read_tsv(files)</code></pre>
 <div id="literal-data" class="section level3">
 <h3 class="hasAnchor">
 <a href="#literal-data" class="anchor"></a>Literal data</h3>
-<p>In edition one the reading functions treated any input with a newline in it or vectors of length &gt; 1 as literal data. In edition two vectors of length &gt; 1 are nowassumed to correspond to multiple files. Because of this we now have a more explicit way to represent literal data, by putting <code><a href="https://rdrr.io/r/base/AsIs.html">I()</a></code> around the input.</p>
+<p>In edition one the reading functions treated any input with a newline in it or vectors of length &gt; 1 as literal data. In edition two vectors of length &gt; 1 are now assumed to correspond to multiple files. Because of this we now have a more explicit way to represent literal data, by putting <code><a href="https://rdrr.io/r/base/AsIs.html">I()</a></code> around the input.</p>
 <pre class="{r}"><code><a href="../reference/read_delim.html">readr::read_csv(I("a,b\n1,2"))</a></code></pre>
 </div>
 <div id="license-changes" class="section level3">

@@ -52,7 +52,8 @@
 <meta property="og:title" content="Create column specification — cols" />
 <meta property="og:description" content="cols() includes all columns in the input data, guessing the column types
 as the default. cols_only() includes only the columns you explicitly
-specify, skipping the rest." />
+specify, skipping the rest. In general you can substitute list() for
+cols() without changing the behavior." />
 <meta property="og:image" content="https://readr.tidyverse.org/logo.png" />
 <meta name="twitter:card" content="summary" />
 
@@ -171,7 +172,8 @@ specify, skipping the rest." />
     <div class="ref-description">
     <p><code>cols()</code> includes all columns in the input data, guessing the column types
 as the default. <code>cols_only()</code> includes only the columns you explicitly
-specify, skipping the rest.</p>
+specify, skipping the rest. In general you can substitute <code><a href='https://rdrr.io/r/base/list.html'>list()</a></code> for
+<code>cols()</code> without changing the behavior.</p>
     </div>
 
     <pre class="usage"><span class='fu'>cols</span><span class='op'>(</span><span class='va'>...</span>, .default <span class='op'>=</span> <span class='fu'><a href='parse_guess.html'>col_guess</a></span><span class='op'>(</span><span class='op'>)</span><span class='op'>)</span>
