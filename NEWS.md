@@ -1,4 +1,4 @@
-# readr (development version)
+# readr 2.0.0
 
 ## second edition changes
 
