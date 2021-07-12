@@ -253,7 +253,7 @@ readr::read_tsv(files)</code></pre>
 <a href="#additional-features-and-fixes" class="anchor"></a>Additional features and fixes</h2>
 <ul>
 <li><p>The BH package is no longer a dependency. The boost C++ headers in BH have thousands of files, so can take a long time to extract and compiling them takes a great deal of memory, which made readr difficult to compile on systems with limited memory (<a href='https://github.com/tidyverse/readr/issues/1147'>#1147</a>).</p></li>
-<li><p>readr now uses the clock package when parsing date-times (<a href='https://github.com/DavisVaughan'>@DavisVaughan</a>, r-lib/vroom<a href='https://github.com/tidyverse/readr/issues/273'>#273</a>)</p></li>
+<li><p>readr now uses the tzdb package when parsing date-times (<a href='https://github.com/DavisVaughan'>@DavisVaughan</a>, r-lib/vroom<a href='https://github.com/tidyverse/readr/issues/273'>#273</a>)</p></li>
 <li><p>Chunked readers now support files with more than <code>INT_MAX</code> (~ 2 Billion) number of lines (<a href='https://github.com/tidyverse/readr/issues/1177'>#1177</a>)</p></li>
 <li><p>Memory no longer inadvertently leaks when reading memory from R connections (<a href='https://github.com/tidyverse/readr/issues/1161'>#1161</a>)</p></li>
 <li><p>Invalid date formats no longer can potentially crash R (<a href='https://github.com/tidyverse/readr/issues/1151'>#1151</a>)</p></li>
