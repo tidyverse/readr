@@ -1,58 +1,99 @@
 # readr (development version)
 
-* readr is now licensed as MIT (#1189, #1190).
-
 ## second edition changes
 
-Readr 2.0.0 is a major release of readr and introduces a new second edition parsing and writing engine implemented in the [vroom](https://vroom.r-lib.org/) package.
-This engine takes advantage of lazy reading, multi-threading and performance properties of modern SSD drives to significantly improve the performance of reading and writing compared to the first edition.
+readr 2.0.0 is a major release of readr and introduces a new second edition parsing and writing engine implemented via the [vroom](https://vroom.r-lib.org/) package.
+
+This engine takes advantage of lazy reading, multi-threading and performance characteristics of modern SSD drives to significantly improve the performance of reading and writing compared to the first edition engine.
 
 We will continue to support the first edition for a number of releases, but eventually this support will be first deprecated and then removed.
 
-You can use `with_edition()` or `local_edition()` functions to temporarily change the edition of readr for a section of code.
-For example you can use `with_edition(1, read_csv("my-file"))` to read a CSV file with the first edition of readr.
+You can use the `with_edition()` or `local_edition()` functions to temporarily change the edition of readr for a section of code.
 
-Normalizing newlines in files with just carriage returns `\r` is no longer supported.
-The last major OS to use only CR as the newline was 'classic' Mac OS, which had its final release in 2001.
+e.g.
+
+- `with_edition(1, read_csv("my_file.csv"))` will read `my_file.csv` with the first edition of readr.
+
+- `readr::local_edition(1)` placed at the top of your function or script will use the first edition for the rest of the function or script.
+
 
 ### Lazy reading
 
-readr 2.0.0 by default uses lazy reading. When you first call a reading
-function the delimiters in the file are located, but the data is not actually
-read until it is used in your program. This can provide substantial speed
-improvements for reading character data. Particularly for interactive
-exploration of only a subset of a full dataset.
+Edition two uses lazy reading by default.
+When you first call a `read_*()` function the delimiters and newlines throughout the entire file are found, but the data is not actually read until it is used in your program.
+This can provide substantial speed improvements for reading character data.
+It is particularly useful during interactive exploration of only a subset of a full dataset.
 
 However this also means that problematic values are not necessarily seen
-immediately, a warning will be issued the first time a problem is encountered,
+immediately, only when they are actually read.
+Because of this a warning will be issued the first time a problem is encountered,
 which may happen after initial reading.
 
-Use `lazy = FALSE` if you want to uncover all problems up front or want to use
-eager reading for any other reason.
+Run `problems()` on your dataset to read the entire dataset and return all of the problems found.
+Run `problems(lazy = TRUE)` if you only want to retrieve the problems found so far.
+
+Deleting files after reading is also impacted by laziness.
+On Windows open files cannot be deleted as long as a process has the file open.
+Because readr keeps a file open when reading lazily this means you cannot read, then immediately delete the file.
+readr will in most cases close the file once it has been completely read.
+However, if you know you want to be able to delete the file after reading it is best to pass `lazy = FALSE` when reading the file.
 
 ### Reading multiple files at once
 
-readr 2.0.0 has built-in support for reading sets of files with the
-same columns into one output table. Just pass the filenames to be read in the
-same vector to the reading function.
+Edition two has built-in support for reading sets of files with the
+same columns into one output table in a single command.
+Just pass the filenames to be read in the same vector to the reading function.
 
-If the filenames contain data, such as the date when the sample was collected
-use the `id` argument to control write the paths as a column.
+First we generate some files to read by splitting the nycflights dataset by
+airline.
+
+```{r}
+library(nycflights13)
+purrr::iwalk(
+  split(flights, flights$carrier),
+  ~ { .x$carrier[[1]]; vroom::vroom_write(.x, glue::glue("flights_{.y}.tsv"), delim = "\t") }
+)
+```
+
+Then we can efficiently read them into one tibble by passing the filenames
+directly to readr.
+
+```{r}
+files <- fs::dir_ls(glob = "flights*tsv")
+files
+readr::read_tsv(files)
+```
+
+If the filenames contain data, such as the date when the sample was collected,
+use `id` argument to include the paths as a column in the data.
+You will likely have to post-process the paths to keep only the relevant portion for your use case.
+
+### Delimiter guessing
+
+Edition two supports automatic guessing of delimiters.
+Because of this you can now use `read_delim()` without specifying a `delim` argument in many cases.
+
+```{r}
+x <- read_delim(readr_example("mtcars.csv"))
+```
 
 ### Literal data
 
-In previous version of readr the reading functions took literal data as any
-filename with a newline in it or vectors of length > 1. In readr 2.0.0 vectors
-of length > 1 are now  assumed to correspond to multiple files. Because of this
-we now use a more explicit way to represent literal data, by using the `I()`
-function around the input.
+In edition one the reading functions treated any input with a newline in it or vectors of length > 1 as literal data.
+In edition two vectors of length > 1 are nowassumed to correspond to multiple files.
+Because of this we now have a more explicit way to represent literal data, by putting `I()` around the input.
 
-### License change
+```{r}
+readr::read_csv(I("a,b\n1,2"))
+```
 
-readr is now released under a more permissive MIT license.
-Previously versions of readr were licensed as GPL-3.
+### License changes
 
-### Deprecated and superseded functions
+We are systematically re-licensing tidyverse and r-lib packages to use the MIT license, to make our package licenses as clear and permissive as possible.
+
+To this end the readr and vroom packages are now released under the MIT license.
+
+### Deprecated or superseded functions and features
 
 * `melt_csv()`, `melt_delim()`, `melt_tsv()` and `melt_fwf()` have been superseded by functions in the same name in the meltr package.
   The versions in readr have been deprecated.
@@ -61,6 +102,9 @@ Previously versions of readr were licensed as GPL-3.
 
 * `read_table2()` has been renamed to `read_table()`, as most users expect `read_table()` to work like `utils::read.table()`.
   If you want the previous strict behavior of the `read_table()` you can use `read_fwf()` with `fwf_empty()` directly (#717).
+
+* Normalizing newlines in files with just carriage returns `\r` is no longer supported.
+  The last major OS to use only CR as the newline was 'classic' Mac OS, which had its final release in 2001.
 
 ### Other second edition changes
 
