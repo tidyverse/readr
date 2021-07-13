@@ -81,11 +81,12 @@ write_lines <- function(x, file, sep = "\n", na = "NA", append = FALSE,
                         path = deprecated()) {
   is_raw <- is.list(x) && inherits(x[[1]], "raw")
 
+  if (is_present(path)) {
+    deprecate_warn("1.4.0", "write_lines(path = )", "write_lines(file = )")
+    file <- path
+  }
+
   if (is_raw || edition_first()) {
-    if (is_present(path)) {
-      deprecate_warn("1.4.0", "write_lines(path = )", "write_lines(file = )")
-      file <- path
-    }
 
     is_raw <- is.list(x) && inherits(x[[1]], "raw")
     if (!is_raw) {
