@@ -50,7 +50,7 @@
         <a class="navbar-brand" href="../index.html">readr</a>
         <div class="info hidden-xs hidden-sm">
           <span class="partof">part of the <a href="https://tidyverse.org">tidyverse</a></span>
-          <span class="version version-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.4.0</span>
+          <span class="version version-default" data-toggle="tooltip" data-placement="bottom" title="Released version">2.0.0</span>
         </div>
       </div>
     </div>
@@ -77,7 +77,10 @@
   <ul class="dropdown-menu" role="menu">
 <li class="dropdown-header">Release notes</li>
     <li>
-      <a href="../articles/2018/12/readr-1-3-1/">Version 1.3.1</a>
+      <a href="https://www.tidyverse.org/blog/2020/10/readr-1-4-0/">Version 1.4.0</a>
+    </li>
+    <li>
+      <a href="https://www.tidyverse.org/blog/2018/12/readr-1-3-1/">Version 1.3.1</a>
     </li>
     <li>
       <a href="../articles/releases/readr-1.0.0.html">Version 1.0.0</a>
@@ -110,7 +113,7 @@
 
       
 
-      </header><script src="readr_files/header-attrs-2.9/header-attrs.js"></script><div class="row">
+      </header><script src="readr_files/accessible-code-block-0.0.1/empty-anchor.js"></script><div class="row">
   <div class="col-md-9 contents">
     <div class="page-header toc-ignore">
       <h1 data-toc-skip>Introduction to readr</h1>
@@ -307,47 +310,31 @@
 <p>Each of these functions firsts calls <code>spec_xxx()</code> (as described above), and then parses the file according to that column specification:</p>
 <div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">df1</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/read_delim.html">read_csv</a></span><span class="op">(</span><span class="fu"><a href="../reference/readr_example.html">readr_example</a></span><span class="op">(</span><span class="st">"challenge.csv"</span><span class="op">)</span><span class="op">)</span>
-<span class="co">#&gt; </span>
+<span class="co">#&gt; Rows: 2000 Columns: 2</span>
 <span class="co">#&gt; ── Column specification ────────────────────────────────────────────────────────</span>
-<span class="co">#&gt; cols(</span>
-<span class="co">#&gt;   x = col_double(),</span>
-<span class="co">#&gt;   y = col_logical()</span>
-<span class="co">#&gt; )</span>
-<span class="co">#&gt; Warning: 1000 parsing failures.</span>
-<span class="co">#&gt;  row col           expected     actual                                                               file</span>
-<span class="co">#&gt; 1001   y 1/0/T/F/TRUE/FALSE 2015-01-16 '/Users/jhester/Library/R/4.0/library/readr/extdata/challenge.csv'</span>
-<span class="co">#&gt; 1002   y 1/0/T/F/TRUE/FALSE 2018-05-18 '/Users/jhester/Library/R/4.0/library/readr/extdata/challenge.csv'</span>
-<span class="co">#&gt; 1003   y 1/0/T/F/TRUE/FALSE 2015-09-05 '/Users/jhester/Library/R/4.0/library/readr/extdata/challenge.csv'</span>
-<span class="co">#&gt; 1004   y 1/0/T/F/TRUE/FALSE 2012-11-28 '/Users/jhester/Library/R/4.0/library/readr/extdata/challenge.csv'</span>
-<span class="co">#&gt; 1005   y 1/0/T/F/TRUE/FALSE 2020-01-13 '/Users/jhester/Library/R/4.0/library/readr/extdata/challenge.csv'</span>
-<span class="co">#&gt; .... ... .................. .......... ..................................................................</span>
-<span class="co">#&gt; See problems(...) for more details.</span></code></pre></div>
+<span class="co">#&gt; Delimiter: ","</span>
+<span class="co">#&gt; dbl  (1): x</span>
+<span class="co">#&gt; date (1): y</span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt; ℹ Use `spec()` to retrieve the full column specification for this data.</span>
+<span class="co">#&gt; ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.</span></code></pre></div>
 <p>The rectangular parsing functions almost always succeed; they’ll only fail if the format is severely messed up. Instead, readr will generate a data frame of problems. The first few will be printed out, and you can access them all with <code><a href="../reference/problems.html">problems()</a></code>:</p>
 <div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="../reference/problems.html">problems</a></span><span class="op">(</span><span class="va">df1</span><span class="op">)</span>
-<span class="co">#&gt; # A tibble: 1,000 x 5</span>
-<span class="co">#&gt;      row col   expected       actual    file                                    </span>
-<span class="co">#&gt;    &lt;int&gt; &lt;chr&gt; &lt;chr&gt;          &lt;chr&gt;     &lt;chr&gt;                                   </span>
-<span class="co">#&gt;  1  1001 y     1/0/T/F/TRUE/… 2015-01-… '/Users/jhester/Library/R/4.0/library/r…</span>
-<span class="co">#&gt;  2  1002 y     1/0/T/F/TRUE/… 2018-05-… '/Users/jhester/Library/R/4.0/library/r…</span>
-<span class="co">#&gt;  3  1003 y     1/0/T/F/TRUE/… 2015-09-… '/Users/jhester/Library/R/4.0/library/r…</span>
-<span class="co">#&gt;  4  1004 y     1/0/T/F/TRUE/… 2012-11-… '/Users/jhester/Library/R/4.0/library/r…</span>
-<span class="co">#&gt;  5  1005 y     1/0/T/F/TRUE/… 2020-01-… '/Users/jhester/Library/R/4.0/library/r…</span>
-<span class="co">#&gt;  6  1006 y     1/0/T/F/TRUE/… 2016-04-… '/Users/jhester/Library/R/4.0/library/r…</span>
-<span class="co">#&gt;  7  1007 y     1/0/T/F/TRUE/… 2011-05-… '/Users/jhester/Library/R/4.0/library/r…</span>
-<span class="co">#&gt;  8  1008 y     1/0/T/F/TRUE/… 2020-07-… '/Users/jhester/Library/R/4.0/library/r…</span>
-<span class="co">#&gt;  9  1009 y     1/0/T/F/TRUE/… 2011-04-… '/Users/jhester/Library/R/4.0/library/r…</span>
-<span class="co">#&gt; 10  1010 y     1/0/T/F/TRUE/… 2010-05-… '/Users/jhester/Library/R/4.0/library/r…</span>
-<span class="co">#&gt; # … with 990 more rows</span></code></pre></div>
+<span class="co">#&gt; # A tibble: 0 x 5</span>
+<span class="co">#&gt; # … with 5 variables: row &lt;int&gt;, col &lt;int&gt;, expected &lt;chr&gt;, actual &lt;chr&gt;,</span>
+<span class="co">#&gt; #   file &lt;chr&gt;</span></code></pre></div>
 <p>You’ve already seen one way of handling bad guesses: increasing the number of rows used to guess the type of each column.</p>
 <div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">df2</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/read_delim.html">read_csv</a></span><span class="op">(</span><span class="fu"><a href="../reference/readr_example.html">readr_example</a></span><span class="op">(</span><span class="st">"challenge.csv"</span><span class="op">)</span>, guess_max <span class="op">=</span> <span class="fl">1001</span><span class="op">)</span>
-<span class="co">#&gt; </span>
+<span class="co">#&gt; Rows: 2000 Columns: 2</span>
 <span class="co">#&gt; ── Column specification ────────────────────────────────────────────────────────</span>
-<span class="co">#&gt; cols(</span>
-<span class="co">#&gt;   x = col_double(),</span>
-<span class="co">#&gt;   y = col_date(format = "")</span>
-<span class="co">#&gt; )</span></code></pre></div>
+<span class="co">#&gt; Delimiter: ","</span>
+<span class="co">#&gt; dbl  (1): x</span>
+<span class="co">#&gt; date (1): y</span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt; ℹ Use `spec()` to retrieve the full column specification for this data.</span>
+<span class="co">#&gt; ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.</span></code></pre></div>
 <p>Another approach is to manually supply the column specification.</p>
 <div id="overriding-the-defaults" class="section level3">
 <h3 class="hasAnchor">
@@ -364,7 +351,7 @@
 <code class="sourceCode R"><span class="fu"><a href="../reference/cols_condense.html">spec</a></span><span class="op">(</span><span class="va">df1</span><span class="op">)</span>
 <span class="co">#&gt; cols(</span>
 <span class="co">#&gt;   x = col_double(),</span>
-<span class="co">#&gt;   y = col_logical()</span>
+<span class="co">#&gt;   y = col_date(format = "")</span>
 <span class="co">#&gt; )</span>
 <span class="fu"><a href="../reference/cols_condense.html">spec</a></span><span class="op">(</span><span class="va">df2</span><span class="op">)</span>
 <span class="co">#&gt; cols(</span>
@@ -376,7 +363,7 @@
 <div class="sourceCode" id="cb16"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">df3</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/read_delim.html">read_csv</a></span><span class="op">(</span>
   <span class="fu"><a href="../reference/readr_example.html">readr_example</a></span><span class="op">(</span><span class="st">"challenge.csv"</span><span class="op">)</span>, 
-  col_types <span class="op">=</span> <span class="fu"><a href="../reference/cols.html">cols</a></span><span class="op">(</span>
+  col_types <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span>
     x <span class="op">=</span> <span class="fu"><a href="../reference/parse_atomic.html">col_double</a></span><span class="op">(</span><span class="op">)</span>,
     y <span class="op">=</span> <span class="fu"><a href="../reference/parse_datetime.html">col_date</a></span><span class="op">(</span>format <span class="op">=</span> <span class="st">""</span><span class="op">)</span>
   <span class="op">)</span>
@@ -418,7 +405,7 @@
 <li>
 <p>With a (named) list of col objects:</p>
 <div class="sourceCode" id="cb17"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="../reference/read_delim.html">read_csv</a></span><span class="op">(</span><span class="st">"iris.csv"</span>, col_types <span class="op">=</span> <span class="fu"><a href="../reference/cols.html">cols</a></span><span class="op">(</span>
+<code class="sourceCode R"><span class="fu"><a href="../reference/read_delim.html">read_csv</a></span><span class="op">(</span><span class="st">"iris.csv"</span>, col_types <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span>
   Sepal.Length <span class="op">=</span> <span class="fu"><a href="../reference/parse_atomic.html">col_double</a></span><span class="op">(</span><span class="op">)</span>,
   Sepal.Width <span class="op">=</span> <span class="fu"><a href="../reference/parse_atomic.html">col_double</a></span><span class="op">(</span><span class="op">)</span>,
   Petal.Length <span class="op">=</span> <span class="fu"><a href="../reference/parse_atomic.html">col_double</a></span><span class="op">(</span><span class="op">)</span>,
@@ -427,7 +414,7 @@
 <span class="op">)</span><span class="op">)</span></code></pre></div>
 <p>Or, with their abbreviations:</p>
 <div class="sourceCode" id="cb18"><pre class="downlit sourceCode r">
-<code class="sourceCode R">  <span class="fu"><a href="../reference/read_delim.html">read_csv</a></span><span class="op">(</span><span class="st">"iris.csv"</span>, col_types <span class="op">=</span> <span class="fu"><a href="../reference/cols.html">cols</a></span><span class="op">(</span>
+<code class="sourceCode R">  <span class="fu"><a href="../reference/read_delim.html">read_csv</a></span><span class="op">(</span><span class="st">"iris.csv"</span>, col_types <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span>
   Sepal.Length <span class="op">=</span> <span class="st">"d"</span>,
   Sepal.Width <span class="op">=</span> <span class="st">"d"</span>,
   Petal.Length <span class="op">=</span> <span class="st">"d"</span>,
@@ -438,12 +425,12 @@
 </ul>
 <p>Any omitted columns will be parsed automatically, so the previous call will lead to the same result as:</p>
 <div class="sourceCode" id="cb19"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="../reference/read_delim.html">read_csv</a></span><span class="op">(</span><span class="st">"iris.csv"</span>, col_types <span class="op">=</span> <span class="fu"><a href="../reference/cols.html">cols</a></span><span class="op">(</span>
+<code class="sourceCode R"><span class="fu"><a href="../reference/read_delim.html">read_csv</a></span><span class="op">(</span><span class="st">"iris.csv"</span>, col_types <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span>
   Species <span class="op">=</span> <span class="fu"><a href="../reference/parse_factor.html">col_factor</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"setosa"</span>, <span class="st">"versicolor"</span>, <span class="st">"virginica"</span><span class="op">)</span><span class="op">)</span><span class="op">)</span>
 <span class="op">)</span></code></pre></div>
 <p>You can also set a default type that will be used instead of relying on the automatic detection for columns you don’t specify:</p>
 <div class="sourceCode" id="cb20"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="../reference/read_delim.html">read_csv</a></span><span class="op">(</span><span class="st">"iris.csv"</span>, col_types <span class="op">=</span> <span class="fu"><a href="../reference/cols.html">cols</a></span><span class="op">(</span>
+<code class="sourceCode R"><span class="fu"><a href="../reference/read_delim.html">read_csv</a></span><span class="op">(</span><span class="st">"iris.csv"</span>, col_types <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span>
   Species <span class="op">=</span> <span class="fu"><a href="../reference/parse_factor.html">col_factor</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"setosa"</span>, <span class="st">"versicolor"</span>, <span class="st">"virginica"</span><span class="op">)</span><span class="op">)</span>,
   .default <span class="op">=</span> <span class="fu"><a href="../reference/parse_atomic.html">col_double</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span>
 <span class="op">)</span></code></pre></div>

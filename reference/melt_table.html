@@ -50,7 +50,9 @@
 
 
 <meta property="og:title" content="Return melted data for each token in a whitespace-separated file — melt_table" />
-<meta property="og:description" content="For certain non-rectangular data formats, it can be useful to parse the data
+<meta property="og:description" content="
+This function has been superseded in readr and moved to the meltr package.
+For certain non-rectangular data formats, it can be useful to parse the data
 into a melted format where each row represents a single token.
 melt_table() and melt_table2() are designed to read the type of textual
 data where each column is separated by one (or more) columns of space.
@@ -103,7 +105,7 @@ columns and then parses like a fixed width file." />
         <a class="navbar-brand" href="../index.html">readr</a>
         <div class="info hidden-xs hidden-sm">
           <span class="partof">part of the <a href="https://tidyverse.org">tidyverse</a></span>
-          <span class="version version-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.4.0</span>
+          <span class="version version-default" data-toggle="tooltip" data-placement="bottom" title="Released version">2.0.0</span>
         </div>
       </div>
     </div>
@@ -130,7 +132,10 @@ columns and then parses like a fixed width file." />
   <ul class="dropdown-menu" role="menu">
     <li class="dropdown-header">Release notes</li>
     <li>
-      <a href="../articles/2018/12/readr-1-3-1/">Version 1.3.1</a>
+      <a href="https://www.tidyverse.org/blog/2020/10/readr-1-4-0/">Version 1.4.0</a>
+    </li>
+    <li>
+      <a href="https://www.tidyverse.org/blog/2018/12/readr-1-3-1/">Version 1.3.1</a>
     </li>
     <li>
       <a href="../articles/releases/readr-1.0.0.html">Version 1.0.0</a>
@@ -172,7 +177,9 @@ columns and then parses like a fixed width file." />
     </div>
 
     <div class="ref-description">
-    <p>For certain non-rectangular data formats, it can be useful to parse the data
+    <p><a href='https://lifecycle.r-lib.org/articles/stages.html#superseded'><img src='figures/lifecycle-superseded.svg' alt='[Superseded]' /></a>
+This function has been superseded in readr and moved to the meltr package.</p>
+<p>For certain non-rectangular data formats, it can be useful to parse the data
 into a melted format where each row represents a single token.</p>
 <p><code>melt_table()</code> and <code>melt_table2()</code> are designed to read the type of textual
 data where each column is separated by one (or more) columns of space.</p>
@@ -242,19 +249,18 @@ option to <code><a href='https://rdrr.io/r/base/character.html'>character()</a><
     </tr>
     <tr>
       <th>n_max</th>
-      <td><p>Maximum number of records to read.</p></td>
+      <td><p>Maximum number of lines to read.</p></td>
     </tr>
     <tr>
       <th>guess_max</th>
-      <td><p>Maximum number of records to use for guessing column types.</p></td>
+      <td><p>Maximum number of lines to use for guessing column types.</p></td>
     </tr>
     <tr>
       <th>progress</th>
       <td><p>Display a progress bar? By default it will only display
-in an interactive session and not while knitting a document. The display
-is updated every 50,000 values and will only display if estimated reading
-time is 5 seconds or more. The automatic progress bar can be disabled by
-setting option <code>readr.show_progress</code> to <code>FALSE</code>.</p></td>
+in an interactive session and not while knitting a document. The automatic
+progress bar can be disabled by setting option <code>readr.show_progress</code> to
+<code>FALSE</code>.</p></td>
     </tr>
     <tr>
       <th>comment</th>
@@ -291,7 +297,8 @@ conventional way to read tabular data from whitespace-separated files.</p></div>
 #&gt;   8   8   9   9  10     5   7   7  10   7    8 Baylor           B12 
 #&gt;   9  11   8  13  11    11  12   9  14   9    9 Georgia Tech     ACC 
 #&gt;  13  10  13  11   8     9  10  11   9  10   10 Mississippi      SEC </div><div class='input'><span class='fu'>melt_table</span><span class='op'>(</span><span class='va'>massey</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; <span style='color: #949494;'># A tibble: 143 x 4</span>
+</div><div class='output co'>#&gt; <span class='warning'>Warning: `melt_table()` was deprecated in readr 2.0.0.</span>
+#&gt; <span class='warning'>Please use `meltr::melt_table()` instead</span></div><div class='output co'>#&gt; <span style='color: #949494;'># A tibble: 143 x 4</span>
 #&gt;      row   col data_type value
 #&gt;    <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span> <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span> <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span>     <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span>
 #&gt; <span style='color: #BCBCBC;'> 1</span>     1     1 character UCC  
@@ -329,7 +336,8 @@ conventional way to read tabular data from whitespace-separated files.</p></div>
 #&gt; 5000                                 04  90 15            90 15                5000                 78050153
 #&gt; AVANTI                                                                         AVANTI               78065002
 #&gt; AVANTI II                            02  75  8    75  8                        AVANTI II            78065053</div><div class='input'><span class='fu'>melt_table</span><span class='op'>(</span><span class='va'>epa</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; <span style='color: #949494;'># A tibble: 240 x 4</span>
+</div><div class='output co'>#&gt; <span class='warning'>Warning: `melt_table()` was deprecated in readr 2.0.0.</span>
+#&gt; <span class='warning'>Please use `meltr::melt_table()` instead</span></div><div class='output co'>#&gt; <span style='color: #949494;'># A tibble: 240 x 4</span>
 #&gt;      row   col data_type value       
 #&gt;    <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span> <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span> <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span>     <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span>       
 #&gt; <span style='color: #BCBCBC;'> 1</span>     1     1 character <span style='color: #949494;'>"</span>ALFA ROMEO<span style='color: #949494;'>"</span>

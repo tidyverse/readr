@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Read a delimited file (including csv &amp; tsv) into a tibble — read_delim • readr</title>
+<title>Read a delimited file (including CSV and TSV) into a tibble — read_delim • readr</title>
 
 <!-- favicons -->
 <link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
@@ -49,12 +49,12 @@
 
 
 
-<meta property="og:title" content="Read a delimited file (including csv &amp; tsv) into a tibble — read_delim" />
-<meta property="og:description" content="read_csv() and read_tsv() are special cases of the general
+<meta property="og:title" content="Read a delimited file (including CSV and TSV) into a tibble — read_delim" />
+<meta property="og:description" content="read_csv() and read_tsv() are special cases of the more general
 read_delim(). They're useful for reading the most common types of
 flat file data, comma separated values and tab separated values,
 respectively. read_csv2() uses ; for the field separator and , for the
-decimal point. This is common in some European countries." />
+decimal point. This format is common in some European countries." />
 <meta property="og:image" content="https://readr.tidyverse.org/logo.png" />
 <meta name="twitter:card" content="summary" />
 
@@ -99,7 +99,7 @@ decimal point. This is common in some European countries." />
         <a class="navbar-brand" href="../index.html">readr</a>
         <div class="info hidden-xs hidden-sm">
           <span class="partof">part of the <a href="https://tidyverse.org">tidyverse</a></span>
-          <span class="version version-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.4.0</span>
+          <span class="version version-default" data-toggle="tooltip" data-placement="bottom" title="Released version">2.0.0</span>
         </div>
       </div>
     </div>
@@ -126,7 +126,10 @@ decimal point. This is common in some European countries." />
   <ul class="dropdown-menu" role="menu">
     <li class="dropdown-header">Release notes</li>
     <li>
-      <a href="../articles/2018/12/readr-1-3-1/">Version 1.3.1</a>
+      <a href="https://www.tidyverse.org/blog/2020/10/readr-1-4-0/">Version 1.4.0</a>
+    </li>
+    <li>
+      <a href="https://www.tidyverse.org/blog/2018/12/readr-1-3-1/">Version 1.3.1</a>
     </li>
     <li>
       <a href="../articles/releases/readr-1.0.0.html">Version 1.0.0</a>
@@ -162,27 +165,29 @@ decimal point. This is common in some European countries." />
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Read a delimited file (including csv &amp; tsv) into a tibble</h1>
+    <h1>Read a delimited file (including CSV and TSV) into a tibble</h1>
     <small class="dont-index">Source: <a href='https://github.com/tidyverse/readr/blob/master/R/read_delim.R'><code>R/read_delim.R</code></a></small>
     <div class="hidden name"><code>read_delim.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p><code>read_csv()</code> and <code>read_tsv()</code> are special cases of the general
+    <p><code>read_csv()</code> and <code>read_tsv()</code> are special cases of the more general
 <code>read_delim()</code>. They're useful for reading the most common types of
 flat file data, comma separated values and tab separated values,
 respectively. <code>read_csv2()</code> uses <code>;</code> for the field separator and <code>,</code> for the
-decimal point. This is common in some European countries.</p>
+decimal point. This format is common in some European countries.</p>
     </div>
 
     <pre class="usage"><span class='fu'>read_delim</span><span class='op'>(</span>
   <span class='va'>file</span>,
-  <span class='va'>delim</span>,
+  delim <span class='op'>=</span> <span class='cn'>NULL</span>,
   quote <span class='op'>=</span> <span class='st'>"\""</span>,
   escape_backslash <span class='op'>=</span> <span class='cn'>FALSE</span>,
   escape_double <span class='op'>=</span> <span class='cn'>TRUE</span>,
   col_names <span class='op'>=</span> <span class='cn'>TRUE</span>,
   col_types <span class='op'>=</span> <span class='cn'>NULL</span>,
+  col_select <span class='op'>=</span> <span class='cn'>NULL</span>,
+  id <span class='op'>=</span> <span class='cn'>NULL</span>,
   locale <span class='op'>=</span> <span class='fu'><a href='locale.html'>default_locale</a></span><span class='op'>(</span><span class='op'>)</span>,
   na <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>""</span>, <span class='st'>"NA"</span><span class='op'>)</span>,
   quoted_na <span class='op'>=</span> <span class='cn'>TRUE</span>,
@@ -191,14 +196,20 @@ decimal point. This is common in some European countries.</p>
   skip <span class='op'>=</span> <span class='fl'>0</span>,
   n_max <span class='op'>=</span> <span class='cn'>Inf</span>,
   guess_max <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/Extremes.html'>min</a></span><span class='op'>(</span><span class='fl'>1000</span>, <span class='va'>n_max</span><span class='op'>)</span>,
+  name_repair <span class='op'>=</span> <span class='st'>"unique"</span>,
+  num_threads <span class='op'>=</span> <span class='fu'><a href='readr_threads.html'>readr_threads</a></span><span class='op'>(</span><span class='op'>)</span>,
   progress <span class='op'>=</span> <span class='fu'><a href='show_progress.html'>show_progress</a></span><span class='op'>(</span><span class='op'>)</span>,
-  skip_empty_rows <span class='op'>=</span> <span class='cn'>TRUE</span>
+  show_col_types <span class='op'>=</span> <span class='fu'><a href='should_show_types.html'>should_show_types</a></span><span class='op'>(</span><span class='op'>)</span>,
+  skip_empty_rows <span class='op'>=</span> <span class='cn'>TRUE</span>,
+  lazy <span class='op'>=</span> <span class='cn'>TRUE</span>
 <span class='op'>)</span>
 
 <span class='fu'>read_csv</span><span class='op'>(</span>
   <span class='va'>file</span>,
   col_names <span class='op'>=</span> <span class='cn'>TRUE</span>,
   col_types <span class='op'>=</span> <span class='cn'>NULL</span>,
+  col_select <span class='op'>=</span> <span class='cn'>NULL</span>,
+  id <span class='op'>=</span> <span class='cn'>NULL</span>,
   locale <span class='op'>=</span> <span class='fu'><a href='locale.html'>default_locale</a></span><span class='op'>(</span><span class='op'>)</span>,
   na <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>""</span>, <span class='st'>"NA"</span><span class='op'>)</span>,
   quoted_na <span class='op'>=</span> <span class='cn'>TRUE</span>,
@@ -208,14 +219,20 @@ decimal point. This is common in some European countries.</p>
   skip <span class='op'>=</span> <span class='fl'>0</span>,
   n_max <span class='op'>=</span> <span class='cn'>Inf</span>,
   guess_max <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/Extremes.html'>min</a></span><span class='op'>(</span><span class='fl'>1000</span>, <span class='va'>n_max</span><span class='op'>)</span>,
+  name_repair <span class='op'>=</span> <span class='st'>"unique"</span>,
+  num_threads <span class='op'>=</span> <span class='fu'><a href='readr_threads.html'>readr_threads</a></span><span class='op'>(</span><span class='op'>)</span>,
   progress <span class='op'>=</span> <span class='fu'><a href='show_progress.html'>show_progress</a></span><span class='op'>(</span><span class='op'>)</span>,
-  skip_empty_rows <span class='op'>=</span> <span class='cn'>TRUE</span>
+  show_col_types <span class='op'>=</span> <span class='fu'><a href='should_show_types.html'>should_show_types</a></span><span class='op'>(</span><span class='op'>)</span>,
+  skip_empty_rows <span class='op'>=</span> <span class='cn'>TRUE</span>,
+  lazy <span class='op'>=</span> <span class='cn'>TRUE</span>
 <span class='op'>)</span>
 
 <span class='fu'>read_csv2</span><span class='op'>(</span>
   <span class='va'>file</span>,
   col_names <span class='op'>=</span> <span class='cn'>TRUE</span>,
   col_types <span class='op'>=</span> <span class='cn'>NULL</span>,
+  col_select <span class='op'>=</span> <span class='cn'>NULL</span>,
+  id <span class='op'>=</span> <span class='cn'>NULL</span>,
   locale <span class='op'>=</span> <span class='fu'><a href='locale.html'>default_locale</a></span><span class='op'>(</span><span class='op'>)</span>,
   na <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>""</span>, <span class='st'>"NA"</span><span class='op'>)</span>,
   quoted_na <span class='op'>=</span> <span class='cn'>TRUE</span>,
@@ -226,13 +243,19 @@ decimal point. This is common in some European countries.</p>
   n_max <span class='op'>=</span> <span class='cn'>Inf</span>,
   guess_max <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/Extremes.html'>min</a></span><span class='op'>(</span><span class='fl'>1000</span>, <span class='va'>n_max</span><span class='op'>)</span>,
   progress <span class='op'>=</span> <span class='fu'><a href='show_progress.html'>show_progress</a></span><span class='op'>(</span><span class='op'>)</span>,
-  skip_empty_rows <span class='op'>=</span> <span class='cn'>TRUE</span>
+  name_repair <span class='op'>=</span> <span class='st'>"unique"</span>,
+  num_threads <span class='op'>=</span> <span class='fu'><a href='readr_threads.html'>readr_threads</a></span><span class='op'>(</span><span class='op'>)</span>,
+  show_col_types <span class='op'>=</span> <span class='fu'><a href='should_show_types.html'>should_show_types</a></span><span class='op'>(</span><span class='op'>)</span>,
+  skip_empty_rows <span class='op'>=</span> <span class='cn'>TRUE</span>,
+  lazy <span class='op'>=</span> <span class='cn'>TRUE</span>
 <span class='op'>)</span>
 
 <span class='fu'>read_tsv</span><span class='op'>(</span>
   <span class='va'>file</span>,
   col_names <span class='op'>=</span> <span class='cn'>TRUE</span>,
   col_types <span class='op'>=</span> <span class='cn'>NULL</span>,
+  col_select <span class='op'>=</span> <span class='cn'>NULL</span>,
+  id <span class='op'>=</span> <span class='cn'>NULL</span>,
   locale <span class='op'>=</span> <span class='fu'><a href='locale.html'>default_locale</a></span><span class='op'>(</span><span class='op'>)</span>,
   na <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>""</span>, <span class='st'>"NA"</span><span class='op'>)</span>,
   quoted_na <span class='op'>=</span> <span class='cn'>TRUE</span>,
@@ -243,7 +266,11 @@ decimal point. This is common in some European countries.</p>
   n_max <span class='op'>=</span> <span class='cn'>Inf</span>,
   guess_max <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/Extremes.html'>min</a></span><span class='op'>(</span><span class='fl'>1000</span>, <span class='va'>n_max</span><span class='op'>)</span>,
   progress <span class='op'>=</span> <span class='fu'><a href='show_progress.html'>show_progress</a></span><span class='op'>(</span><span class='op'>)</span>,
-  skip_empty_rows <span class='op'>=</span> <span class='cn'>TRUE</span>
+  name_repair <span class='op'>=</span> <span class='st'>"unique"</span>,
+  num_threads <span class='op'>=</span> <span class='fu'><a href='readr_threads.html'>readr_threads</a></span><span class='op'>(</span><span class='op'>)</span>,
+  show_col_types <span class='op'>=</span> <span class='fu'><a href='should_show_types.html'>should_show_types</a></span><span class='op'>(</span><span class='op'>)</span>,
+  skip_empty_rows <span class='op'>=</span> <span class='cn'>TRUE</span>,
+  lazy <span class='op'>=</span> <span class='cn'>TRUE</span>
 <span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
@@ -296,7 +323,8 @@ names of the columns, and the first row of the input will be read into
 the first row of the output data frame.</p>
 <p>Missing (<code>NA</code>) column names will generate a warning, and be filled
 in with dummy names <code>X1</code>, <code>X2</code> etc. Duplicate column names
-will generate a warning and be made unique with a numeric suffix.</p></td>
+will generate a warning and be made unique, see <code>name_repair</code> to control
+how this is done.</p></td>
     </tr>
     <tr>
       <th>col_types</th>
@@ -304,8 +332,9 @@ will generate a warning and be made unique with a numeric suffix.</p></td>
 a string. See <code><a href='../articles/readr.html'>vignette("readr")</a></code> for more details.</p>
 <p>If <code>NULL</code>, all column types will be imputed from the first 1000 rows
 on the input. This is convenient (and fast), but not robust. If the
-imputation fails, you'll need to supply the correct types yourself.</p>
-<p>If a column specification created by <code><a href='cols.html'>cols()</a></code>, it must contain
+imputation fails, you'll need to increase the <code>guess_max</code> or supply the
+correct types yourself.</p>
+<p>Column specifications created by <code><a href='https://rdrr.io/r/base/list.html'>list()</a></code> or <code><a href='cols.html'>cols()</a></code> must contain
 one column specification for each column. If you only want to read a
 subset of the columns, use <code><a href='cols.html'>cols_only()</a></code>.</p>
 <p>Alternatively, you can use a compact string representation where each
@@ -323,8 +352,22 @@ character represents one column:</p><ul>
 <li><p>_ or - = skip</p>
 <p>By default, reading a file without a column specification will print a
 message showing what <code>readr</code> guessed they were. To remove this message,
-use <code>col_types = cols()</code>.</p></li>
+set <code>show_col_types = FALSE</code> or set `options(readr.show_col_types = FALSE).</p></li>
 </ul></td>
+    </tr>
+    <tr>
+      <th>col_select</th>
+      <td><p>&lt;<code><a href='https://tidyselect.r-lib.org/reference/language.html'>tidy-select</a></code>&gt; Columns to include
+in the results, either by name or by numeric index. Use <code><a href='https://rdrr.io/r/base/c.html'>c()</a></code> or <code><a href='https://rdrr.io/r/base/list.html'>list()</a></code>
+to select with more than one expression and <code><a href='https://tidyselect.r-lib.org/reference/language.html'>?tidyselect::language</a></code> for full
+details on the selection language.</p></td>
+    </tr>
+    <tr>
+      <th>id</th>
+      <td><p>The name of a column in which to store the file path. This is
+useful when reading multiple input files and there is data in the file
+paths, such as the data collection date. If <code>NULL</code> (the default) no extra
+column is created.</p></td>
     </tr>
     <tr>
       <th>locale</th>
@@ -351,28 +394,57 @@ comment characters will be silently ignored.</p></td>
     </tr>
     <tr>
       <th>trim_ws</th>
-      <td><p>Should leading and trailing whitespace be trimmed from
+      <td><p>Should leading and trailing whitespace (ASCII spaces and tabs) be trimmed from
 each field before parsing it?</p></td>
     </tr>
     <tr>
       <th>skip</th>
-      <td><p>Number of lines to skip before reading data.</p></td>
+      <td><p>Number of lines to skip before reading data. If <code>comment</code> is
+supplied any commented lines are ignored <em>after</em> skipping.</p></td>
     </tr>
     <tr>
       <th>n_max</th>
-      <td><p>Maximum number of records to read.</p></td>
+      <td><p>Maximum number of lines to read.</p></td>
     </tr>
     <tr>
       <th>guess_max</th>
-      <td><p>Maximum number of records to use for guessing column types.</p></td>
+      <td><p>Maximum number of lines to use for guessing column types.</p></td>
+    </tr>
+    <tr>
+      <th>name_repair</th>
+      <td><p>Treatment of problematic column names:</p><ul>
+<li><p><code>"minimal"</code>: No name repair or checks, beyond basic existence of names</p></li>
+<li><p><code>"unique"</code>: Make sure names are unique and not empty</p></li>
+<li><p><code>"check_unique"</code>: (default value), no name repair, but check they are
+<code>unique</code></p></li>
+<li><p><code>"universal"</code>: Make the names <code>unique</code> and syntactic</p></li>
+<li><p>a function: apply custom name repair (e.g., <code>.name_repair = make.names</code>
+for names in the style of base R)</p></li>
+<li><p>A purrr-style anonymous function, see <code><a href='https://rlang.r-lib.org/reference/as_function.html'>rlang::as_function()</a></code></p></li>
+</ul>
+
+<p>This argument is passed on as <code>repair</code> to <code><a href='https://vctrs.r-lib.org/reference/vec_as_names.html'>vctrs::vec_as_names()</a></code>.
+See there for more details on these terms and the strategies used
+to enforce them.</p></td>
+    </tr>
+    <tr>
+      <th>num_threads</th>
+      <td><p>The number of processing threads to use for initial
+parsing and lazy reading of data.</p></td>
     </tr>
     <tr>
       <th>progress</th>
       <td><p>Display a progress bar? By default it will only display
-in an interactive session and not while knitting a document. The display
-is updated every 50,000 values and will only display if estimated reading
-time is 5 seconds or more. The automatic progress bar can be disabled by
-setting option <code>readr.show_progress</code> to <code>FALSE</code>.</p></td>
+in an interactive session and not while knitting a document. The automatic
+progress bar can be disabled by setting option <code>readr.show_progress</code> to
+<code>FALSE</code>.</p></td>
+    </tr>
+    <tr>
+      <th>show_col_types</th>
+      <td><p>If <code>FALSE</code>, do not show the guessed column types. If
+<code>TRUE</code> always show the column types, even if they are supplied. If <code>NULL</code>
+(the default) only show the column types if they are not explicitly supplied
+by the <code>col_types</code> argument.</p></td>
     </tr>
     <tr>
       <th>skip_empty_rows</th>
@@ -380,32 +452,31 @@ setting option <code>readr.show_progress</code> to <code>FALSE</code>.</p></td>
 option is <code>TRUE</code> then blank rows will not be represented at all.  If it is
 <code>FALSE</code> then they will be represented by <code>NA</code> values in all the columns.</p></td>
     </tr>
+    <tr>
+      <th>lazy</th>
+      <td><p>Read values lazily? By default the file is initially only
+indexed and the values are read lazily when accessed. Lazy reading is
+useful interactively, particularly if you are only interested in a subset
+of the full dataset. Note, lazy reading on windows will lock the file
+until all the data has been read from it, if you run into this issue set
+<code>lazy = FALSE</code>.</p></td>
+    </tr>
     </table>
 
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>A <code>tibble()</code>. If there are parsing problems, a warning tells you
-how many, and you can retrieve the details with <code><a href='problems.html'>problems()</a></code>.</p>
+    <p>A <code>tibble()</code>. If there are parsing problems, a warning will alert you.
+You can retrieve the full details by calling <code><a href='problems.html'>problems()</a></code> on your dataset.</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='co'># Input sources -------------------------------------------------------------</span>
 <span class='co'># Read from a path</span>
 <span class='fu'>read_csv</span><span class='op'>(</span><span class='fu'><a href='readr_example.html'>readr_example</a></span><span class='op'>(</span><span class='st'>"mtcars.csv"</span><span class='op'>)</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; <span class='message'></span>
-#&gt; <span class='message'><span style='color: #00BBBB;'>──</span> <span style='font-weight: bold;'>Column specification</span> <span style='color: #00BBBB;'>─────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────</span></span>
-#&gt; <span class='message'>cols(</span>
-#&gt; <span class='message'>  mpg = <span style='color: #00BB00;'>col_double()</span>,</span>
-#&gt; <span class='message'>  cyl = <span style='color: #00BB00;'>col_double()</span>,</span>
-#&gt; <span class='message'>  disp = <span style='color: #00BB00;'>col_double()</span>,</span>
-#&gt; <span class='message'>  hp = <span style='color: #00BB00;'>col_double()</span>,</span>
-#&gt; <span class='message'>  drat = <span style='color: #00BB00;'>col_double()</span>,</span>
-#&gt; <span class='message'>  wt = <span style='color: #00BB00;'>col_double()</span>,</span>
-#&gt; <span class='message'>  qsec = <span style='color: #00BB00;'>col_double()</span>,</span>
-#&gt; <span class='message'>  vs = <span style='color: #00BB00;'>col_double()</span>,</span>
-#&gt; <span class='message'>  am = <span style='color: #00BB00;'>col_double()</span>,</span>
-#&gt; <span class='message'>  gear = <span style='color: #00BB00;'>col_double()</span>,</span>
-#&gt; <span class='message'>  carb = <span style='color: #00BB00;'>col_double()</span></span>
-#&gt; <span class='message'>)</span></div><div class='output co'>#&gt; <span style='color: #949494;'># A tibble: 32 x 11</span>
+</div><div class='output co'>#&gt; <span class='message'><span style='font-weight: bold;'>Rows: </span><span style='color: #0000BB;'>32</span> <span style='font-weight: bold;'>Columns: </span><span style='color: #0000BB;'>11</span></span></div><div class='output co'>#&gt; <span class='message'><span style='color: #00BBBB;'>──</span> <span style='font-weight: bold;'>Column specification</span> <span style='color: #00BBBB;'>────────────────────────────────────────────────────────</span></span>
+#&gt; <span class='message'><span style='font-weight: bold;'>Delimiter:</span> ","</span>
+#&gt; <span class='message'><span style='color: #00BB00;'>dbl</span> (11): mpg, cyl, disp, hp, drat, wt, qsec, vs, am, gear, carb</span></div><div class='output co'>#&gt; <span class='message'></span>
+#&gt; <span class='message'><span style='color: #00BBBB;'>ℹ</span> Use <span style='color: #262626; background-color: #DADADA;'>`spec()`</span> to retrieve the full column specification for this data.</span>
+#&gt; <span class='message'><span style='color: #00BBBB;'>ℹ</span> Specify the column types or set <span style='color: #262626; background-color: #DADADA;'>`show_col_types = FALSE`</span> to quiet this message.</span></div><div class='output co'>#&gt; <span style='color: #949494;'># A tibble: 32 x 11</span>
 #&gt;      mpg   cyl  disp    hp  drat    wt  qsec    vs    am  gear  carb
 #&gt;    <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span> <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span> <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span> <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span> <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span> <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span> <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span> <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span> <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span> <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span> <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span>
 #&gt; <span style='color: #BCBCBC;'> 1</span>  21       6  160    110  3.9   2.62  16.5     0     1     4     4
@@ -419,21 +490,11 @@ how many, and you can retrieve the details with <code><a href='problems.html'>pr
 #&gt; <span style='color: #BCBCBC;'> 9</span>  22.8     4  141.    95  3.92  3.15  22.9     1     0     4     2
 #&gt; <span style='color: #BCBCBC;'>10</span>  19.2     6  168.   123  3.92  3.44  18.3     1     0     4     4
 #&gt; <span style='color: #949494;'># … with 22 more rows</span></div><div class='input'><span class='fu'>read_csv</span><span class='op'>(</span><span class='fu'><a href='readr_example.html'>readr_example</a></span><span class='op'>(</span><span class='st'>"mtcars.csv.zip"</span><span class='op'>)</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; <span class='message'></span>
-#&gt; <span class='message'><span style='color: #00BBBB;'>──</span> <span style='font-weight: bold;'>Column specification</span> <span style='color: #00BBBB;'>─────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────</span></span>
-#&gt; <span class='message'>cols(</span>
-#&gt; <span class='message'>  mpg = <span style='color: #00BB00;'>col_double()</span>,</span>
-#&gt; <span class='message'>  cyl = <span style='color: #00BB00;'>col_double()</span>,</span>
-#&gt; <span class='message'>  disp = <span style='color: #00BB00;'>col_double()</span>,</span>
-#&gt; <span class='message'>  hp = <span style='color: #00BB00;'>col_double()</span>,</span>
-#&gt; <span class='message'>  drat = <span style='color: #00BB00;'>col_double()</span>,</span>
-#&gt; <span class='message'>  wt = <span style='color: #00BB00;'>col_double()</span>,</span>
-#&gt; <span class='message'>  qsec = <span style='color: #00BB00;'>col_double()</span>,</span>
-#&gt; <span class='message'>  vs = <span style='color: #00BB00;'>col_double()</span>,</span>
-#&gt; <span class='message'>  am = <span style='color: #00BB00;'>col_double()</span>,</span>
-#&gt; <span class='message'>  gear = <span style='color: #00BB00;'>col_double()</span>,</span>
-#&gt; <span class='message'>  carb = <span style='color: #00BB00;'>col_double()</span></span>
-#&gt; <span class='message'>)</span></div><div class='output co'>#&gt; <span style='color: #949494;'># A tibble: 32 x 11</span>
+</div><div class='output co'>#&gt; <span class='message'><span style='font-weight: bold;'>Rows: </span><span style='color: #0000BB;'>32</span> <span style='font-weight: bold;'>Columns: </span><span style='color: #0000BB;'>11</span></span></div><div class='output co'>#&gt; <span class='message'><span style='color: #00BBBB;'>──</span> <span style='font-weight: bold;'>Column specification</span> <span style='color: #00BBBB;'>────────────────────────────────────────────────────────</span></span>
+#&gt; <span class='message'><span style='font-weight: bold;'>Delimiter:</span> ","</span>
+#&gt; <span class='message'><span style='color: #00BB00;'>dbl</span> (11): mpg, cyl, disp, hp, drat, wt, qsec, vs, am, gear, carb</span></div><div class='output co'>#&gt; <span class='message'></span>
+#&gt; <span class='message'><span style='color: #00BBBB;'>ℹ</span> Use <span style='color: #262626; background-color: #DADADA;'>`spec()`</span> to retrieve the full column specification for this data.</span>
+#&gt; <span class='message'><span style='color: #00BBBB;'>ℹ</span> Specify the column types or set <span style='color: #262626; background-color: #DADADA;'>`show_col_types = FALSE`</span> to quiet this message.</span></div><div class='output co'>#&gt; <span style='color: #949494;'># A tibble: 32 x 11</span>
 #&gt;      mpg   cyl  disp    hp  drat    wt  qsec    vs    am  gear  carb
 #&gt;    <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span> <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span> <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span> <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span> <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span> <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span> <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span> <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span> <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span> <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span> <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span>
 #&gt; <span style='color: #BCBCBC;'> 1</span>  21       6  160    110  3.9   2.62  16.5     0     1     4     4
@@ -447,21 +508,11 @@ how many, and you can retrieve the details with <code><a href='problems.html'>pr
 #&gt; <span style='color: #BCBCBC;'> 9</span>  22.8     4  141.    95  3.92  3.15  22.9     1     0     4     2
 #&gt; <span style='color: #BCBCBC;'>10</span>  19.2     6  168.   123  3.92  3.44  18.3     1     0     4     4
 #&gt; <span style='color: #949494;'># … with 22 more rows</span></div><div class='input'><span class='fu'>read_csv</span><span class='op'>(</span><span class='fu'><a href='readr_example.html'>readr_example</a></span><span class='op'>(</span><span class='st'>"mtcars.csv.bz2"</span><span class='op'>)</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; <span class='message'></span>
-#&gt; <span class='message'><span style='color: #00BBBB;'>──</span> <span style='font-weight: bold;'>Column specification</span> <span style='color: #00BBBB;'>─────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────</span></span>
-#&gt; <span class='message'>cols(</span>
-#&gt; <span class='message'>  mpg = <span style='color: #00BB00;'>col_double()</span>,</span>
-#&gt; <span class='message'>  cyl = <span style='color: #00BB00;'>col_double()</span>,</span>
-#&gt; <span class='message'>  disp = <span style='color: #00BB00;'>col_double()</span>,</span>
-#&gt; <span class='message'>  hp = <span style='color: #00BB00;'>col_double()</span>,</span>
-#&gt; <span class='message'>  drat = <span style='color: #00BB00;'>col_double()</span>,</span>
-#&gt; <span class='message'>  wt = <span style='color: #00BB00;'>col_double()</span>,</span>
-#&gt; <span class='message'>  qsec = <span style='color: #00BB00;'>col_double()</span>,</span>
-#&gt; <span class='message'>  vs = <span style='color: #00BB00;'>col_double()</span>,</span>
-#&gt; <span class='message'>  am = <span style='color: #00BB00;'>col_double()</span>,</span>
-#&gt; <span class='message'>  gear = <span style='color: #00BB00;'>col_double()</span>,</span>
-#&gt; <span class='message'>  carb = <span style='color: #00BB00;'>col_double()</span></span>
-#&gt; <span class='message'>)</span></div><div class='output co'>#&gt; <span style='color: #949494;'># A tibble: 32 x 11</span>
+</div><div class='output co'>#&gt; <span class='message'><span style='font-weight: bold;'>Rows: </span><span style='color: #0000BB;'>32</span> <span style='font-weight: bold;'>Columns: </span><span style='color: #0000BB;'>11</span></span></div><div class='output co'>#&gt; <span class='message'><span style='color: #00BBBB;'>──</span> <span style='font-weight: bold;'>Column specification</span> <span style='color: #00BBBB;'>────────────────────────────────────────────────────────</span></span>
+#&gt; <span class='message'><span style='font-weight: bold;'>Delimiter:</span> ","</span>
+#&gt; <span class='message'><span style='color: #00BB00;'>dbl</span> (11): mpg, cyl, disp, hp, drat, wt, qsec, vs, am, gear, carb</span></div><div class='output co'>#&gt; <span class='message'></span>
+#&gt; <span class='message'><span style='color: #00BBBB;'>ℹ</span> Use <span style='color: #262626; background-color: #DADADA;'>`spec()`</span> to retrieve the full column specification for this data.</span>
+#&gt; <span class='message'><span style='color: #00BBBB;'>ℹ</span> Specify the column types or set <span style='color: #262626; background-color: #DADADA;'>`show_col_types = FALSE`</span> to quiet this message.</span></div><div class='output co'>#&gt; <span style='color: #949494;'># A tibble: 32 x 11</span>
 #&gt;      mpg   cyl  disp    hp  drat    wt  qsec    vs    am  gear  carb
 #&gt;    <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span> <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span> <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span> <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span> <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span> <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span> <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span> <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span> <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span> <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span> <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span>
 #&gt; <span style='color: #BCBCBC;'> 1</span>  21       6  160    110  3.9   2.62  16.5     0     1     4     4
@@ -474,15 +525,18 @@ how many, and you can retrieve the details with <code><a href='problems.html'>pr
 #&gt; <span style='color: #BCBCBC;'> 8</span>  24.4     4  147.    62  3.69  3.19  20       1     0     4     2
 #&gt; <span style='color: #BCBCBC;'> 9</span>  22.8     4  141.    95  3.92  3.15  22.9     1     0     4     2
 #&gt; <span style='color: #BCBCBC;'>10</span>  19.2     6  168.   123  3.92  3.44  18.3     1     0     4     4
-#&gt; <span style='color: #949494;'># … with 22 more rows</span></div><div class='input'>
-<span class='kw'>if</span> <span class='op'>(</span><span class='cn'>FALSE</span><span class='op'>)</span> <span class='op'>{</span>
+#&gt; <span style='color: #949494;'># … with 22 more rows</span></div><div class='input'><span class='kw'>if</span> <span class='op'>(</span><span class='cn'>FALSE</span><span class='op'>)</span> <span class='op'>{</span>
 <span class='co'># Including remote paths</span>
 <span class='fu'>read_csv</span><span class='op'>(</span><span class='st'>"https://github.com/tidyverse/readr/raw/master/inst/extdata/mtcars.csv"</span><span class='op'>)</span>
 <span class='op'>}</span>
 
-<span class='co'># Or directly from a string (must contain a newline)</span>
-<span class='fu'>read_csv</span><span class='op'>(</span><span class='st'>"x,y\n1,2\n3,4"</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; <span style='color: #949494;'># A tibble: 2 x 2</span>
+<span class='co'># Or directly from a string with `I()`</span>
+<span class='fu'>read_csv</span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/AsIs.html'>I</a></span><span class='op'>(</span><span class='st'>"x,y\n1,2\n3,4"</span><span class='op'>)</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; <span class='message'><span style='font-weight: bold;'>Rows: </span><span style='color: #0000BB;'>2</span> <span style='font-weight: bold;'>Columns: </span><span style='color: #0000BB;'>2</span></span></div><div class='output co'>#&gt; <span class='message'><span style='color: #00BBBB;'>──</span> <span style='font-weight: bold;'>Column specification</span> <span style='color: #00BBBB;'>────────────────────────────────────────────────────────</span></span>
+#&gt; <span class='message'><span style='font-weight: bold;'>Delimiter:</span> ","</span>
+#&gt; <span class='message'><span style='color: #00BB00;'>dbl</span> (2): x, y</span></div><div class='output co'>#&gt; <span class='message'></span>
+#&gt; <span class='message'><span style='color: #00BBBB;'>ℹ</span> Use <span style='color: #262626; background-color: #DADADA;'>`spec()`</span> to retrieve the full column specification for this data.</span>
+#&gt; <span class='message'><span style='color: #00BBBB;'>ℹ</span> Specify the column types or set <span style='color: #262626; background-color: #DADADA;'>`show_col_types = FALSE`</span> to quiet this message.</span></div><div class='output co'>#&gt; <span style='color: #949494;'># A tibble: 2 x 2</span>
 #&gt;       x     y
 #&gt;   <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span> <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span>
 #&gt; <span style='color: #BCBCBC;'>1</span>     1     2
@@ -490,14 +544,14 @@ how many, and you can retrieve the details with <code><a href='problems.html'>pr
 <span class='co'># Column types --------------------------------------------------------------</span>
 <span class='co'># By default, readr guesses the columns types, looking at the first 1000 rows.</span>
 <span class='co'># You can override with a compact specification:</span>
-<span class='fu'>read_csv</span><span class='op'>(</span><span class='st'>"x,y\n1,2\n3,4"</span>, col_types <span class='op'>=</span> <span class='st'>"dc"</span><span class='op'>)</span>
+<span class='fu'>read_csv</span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/AsIs.html'>I</a></span><span class='op'>(</span><span class='st'>"x,y\n1,2\n3,4"</span><span class='op'>)</span>, col_types <span class='op'>=</span> <span class='st'>"dc"</span><span class='op'>)</span>
 </div><div class='output co'>#&gt; <span style='color: #949494;'># A tibble: 2 x 2</span>
 #&gt;       x y    
 #&gt;   <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span> <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span>
 #&gt; <span style='color: #BCBCBC;'>1</span>     1 2    
 #&gt; <span style='color: #BCBCBC;'>2</span>     3 4    </div><div class='input'>
 <span class='co'># Or with a list of column types:</span>
-<span class='fu'>read_csv</span><span class='op'>(</span><span class='st'>"x,y\n1,2\n3,4"</span>, col_types <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span><span class='fu'><a href='parse_atomic.html'>col_double</a></span><span class='op'>(</span><span class='op'>)</span>, <span class='fu'><a href='parse_atomic.html'>col_character</a></span><span class='op'>(</span><span class='op'>)</span><span class='op'>)</span><span class='op'>)</span>
+<span class='fu'>read_csv</span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/AsIs.html'>I</a></span><span class='op'>(</span><span class='st'>"x,y\n1,2\n3,4"</span><span class='op'>)</span>, col_types <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span><span class='fu'><a href='parse_atomic.html'>col_double</a></span><span class='op'>(</span><span class='op'>)</span>, <span class='fu'><a href='parse_atomic.html'>col_character</a></span><span class='op'>(</span><span class='op'>)</span><span class='op'>)</span><span class='op'>)</span>
 </div><div class='output co'>#&gt; <span style='color: #949494;'># A tibble: 2 x 2</span>
 #&gt;       x y    
 #&gt;   <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span> <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span>
@@ -505,35 +559,50 @@ how many, and you can retrieve the details with <code><a href='problems.html'>pr
 #&gt; <span style='color: #BCBCBC;'>2</span>     3 4    </div><div class='input'>
 <span class='co'># If there are parsing problems, you get a warning, and can extract</span>
 <span class='co'># more details with problems()</span>
-<span class='va'>y</span> <span class='op'>&lt;-</span> <span class='fu'>read_csv</span><span class='op'>(</span><span class='st'>"x\n1\n2\nb"</span>, col_types <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span><span class='fu'><a href='parse_atomic.html'>col_double</a></span><span class='op'>(</span><span class='op'>)</span><span class='op'>)</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; <span class='warning'>Warning: 1 parsing failure.</span>
-#&gt; <span class='warning'>row col expected actual         file</span>
-#&gt; <span class='warning'>  3   x a double      b literal data</span></div><div class='input'><span class='va'>y</span>
-</div><div class='output co'>#&gt; <span style='color: #949494;'># A tibble: 3 x 1</span>
+<span class='va'>y</span> <span class='op'>&lt;-</span> <span class='fu'>read_csv</span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/AsIs.html'>I</a></span><span class='op'>(</span><span class='st'>"x\n1\n2\nb"</span><span class='op'>)</span>, col_types <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span><span class='fu'><a href='parse_atomic.html'>col_double</a></span><span class='op'>(</span><span class='op'>)</span><span class='op'>)</span><span class='op'>)</span>
+<span class='va'>y</span>
+</div><div class='output co'>#&gt; <span class='warning'>Warning: One or more parsing issues, see `problems()` for details</span></div><div class='output co'>#&gt; <span style='color: #949494;'># A tibble: 3 x 1</span>
 #&gt;       x
 #&gt;   <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span>
 #&gt; <span style='color: #BCBCBC;'>1</span>     1
 #&gt; <span style='color: #BCBCBC;'>2</span>     2
 #&gt; <span style='color: #BCBCBC;'>3</span>    <span style='color: #BB0000;'>NA</span></div><div class='input'><span class='fu'><a href='problems.html'>problems</a></span><span class='op'>(</span><span class='va'>y</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; <span style='color: #949494;'># A tibble: 1 x 5</span>
-#&gt;     row col   expected actual file        
-#&gt;   <span style='color: #949494; font-style: italic;'>&lt;int&gt;</span> <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span> <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span>    <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span>  <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span>       
-#&gt; <span style='color: #BCBCBC;'>1</span>     3 x     a double b      literal data</div><div class='input'>
+</div><div class='output co'>#&gt; <span style='color: #949494;'># A tibble: 2 x 5</span>
+#&gt;     row   col expected actual file                            
+#&gt;   <span style='color: #949494; font-style: italic;'>&lt;int&gt;</span> <span style='color: #949494; font-style: italic;'>&lt;int&gt;</span> <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span>    <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span>  <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span>                           
+#&gt; <span style='color: #BCBCBC;'>1</span>     2     1 a double b      /tmp/Rtmp9nkCAt/file2952164c3654
+#&gt; <span style='color: #BCBCBC;'>2</span>     4     1 a double b      /tmp/Rtmp9nkCAt/file2952164c3654</div><div class='input'>
 <span class='co'># File types ----------------------------------------------------------------</span>
-<span class='fu'>read_csv</span><span class='op'>(</span><span class='st'>"a,b\n1.0,2.0"</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; <span style='color: #949494;'># A tibble: 1 x 2</span>
+<span class='fu'>read_csv</span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/AsIs.html'>I</a></span><span class='op'>(</span><span class='st'>"a,b\n1.0,2.0"</span><span class='op'>)</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; <span class='message'><span style='font-weight: bold;'>Rows: </span><span style='color: #0000BB;'>1</span> <span style='font-weight: bold;'>Columns: </span><span style='color: #0000BB;'>2</span></span></div><div class='output co'>#&gt; <span class='message'><span style='color: #00BBBB;'>──</span> <span style='font-weight: bold;'>Column specification</span> <span style='color: #00BBBB;'>────────────────────────────────────────────────────────</span></span>
+#&gt; <span class='message'><span style='font-weight: bold;'>Delimiter:</span> ","</span>
+#&gt; <span class='message'><span style='color: #00BB00;'>dbl</span> (2): a, b</span></div><div class='output co'>#&gt; <span class='message'></span>
+#&gt; <span class='message'><span style='color: #00BBBB;'>ℹ</span> Use <span style='color: #262626; background-color: #DADADA;'>`spec()`</span> to retrieve the full column specification for this data.</span>
+#&gt; <span class='message'><span style='color: #00BBBB;'>ℹ</span> Specify the column types or set <span style='color: #262626; background-color: #DADADA;'>`show_col_types = FALSE`</span> to quiet this message.</span></div><div class='output co'>#&gt; <span style='color: #949494;'># A tibble: 1 x 2</span>
 #&gt;       a     b
 #&gt;   <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span> <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span>
-#&gt; <span style='color: #BCBCBC;'>1</span>     1     2</div><div class='input'><span class='fu'>read_csv2</span><span class='op'>(</span><span class='st'>"a;b\n1,0;2,0"</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; <span class='message'><span style='color: #00BBBB;'>ℹ</span> Using <span style='color: #0000BB;'>"','"</span> as decimal and <span style='color: #0000BB;'>"'.'"</span> as grouping mark. Use <span style='color: #262626; background-color: #DADADA;'>`read_delim()`</span> for more control.</span></div><div class='output co'>#&gt; <span style='color: #949494;'># A tibble: 1 x 2</span>
+#&gt; <span style='color: #BCBCBC;'>1</span>     1     2</div><div class='input'><span class='fu'>read_csv2</span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/AsIs.html'>I</a></span><span class='op'>(</span><span class='st'>"a;b\n1,0;2,0"</span><span class='op'>)</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; <span class='message'><span style='color: #00BBBB;'>ℹ</span> Using <span style='color: #0000BB;'>"','"</span> as decimal and <span style='color: #0000BB;'>"'.'"</span> as grouping mark. Use <span style='color: #262626; background-color: #DADADA;'>`read_delim()`</span> for more control.</span></div><div class='output co'>#&gt; <span class='message'><span style='font-weight: bold;'>Rows: </span><span style='color: #0000BB;'>1</span> <span style='font-weight: bold;'>Columns: </span><span style='color: #0000BB;'>2</span></span></div><div class='output co'>#&gt; <span class='message'><span style='color: #00BBBB;'>──</span> <span style='font-weight: bold;'>Column specification</span> <span style='color: #00BBBB;'>────────────────────────────────────────────────────────</span></span>
+#&gt; <span class='message'><span style='font-weight: bold;'>Delimiter:</span> ";"</span>
+#&gt; <span class='message'><span style='color: #00BB00;'>dbl</span> (2): a, b</span></div><div class='output co'>#&gt; <span class='message'></span>
+#&gt; <span class='message'><span style='color: #00BBBB;'>ℹ</span> Use <span style='color: #262626; background-color: #DADADA;'>`spec()`</span> to retrieve the full column specification for this data.</span>
+#&gt; <span class='message'><span style='color: #00BBBB;'>ℹ</span> Specify the column types or set <span style='color: #262626; background-color: #DADADA;'>`show_col_types = FALSE`</span> to quiet this message.</span></div><div class='output co'>#&gt; <span style='color: #949494;'># A tibble: 1 x 2</span>
 #&gt;       a     b
 #&gt;   <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span> <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span>
-#&gt; <span style='color: #BCBCBC;'>1</span>     1     2</div><div class='input'><span class='fu'>read_tsv</span><span class='op'>(</span><span class='st'>"a\tb\n1.0\t2.0"</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; <span style='color: #949494;'># A tibble: 1 x 2</span>
+#&gt; <span style='color: #BCBCBC;'>1</span>     1     2</div><div class='input'><span class='fu'>read_tsv</span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/AsIs.html'>I</a></span><span class='op'>(</span><span class='st'>"a\tb\n1.0\t2.0"</span><span class='op'>)</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; <span class='message'><span style='font-weight: bold;'>Rows: </span><span style='color: #0000BB;'>1</span> <span style='font-weight: bold;'>Columns: </span><span style='color: #0000BB;'>2</span></span></div><div class='output co'>#&gt; <span class='message'><span style='color: #00BBBB;'>──</span> <span style='font-weight: bold;'>Column specification</span> <span style='color: #00BBBB;'>────────────────────────────────────────────────────────</span></span>
+#&gt; <span class='message'><span style='font-weight: bold;'>Delimiter:</span> "\t"</span>
+#&gt; <span class='message'><span style='color: #00BB00;'>dbl</span> (2): a, b</span></div><div class='output co'>#&gt; <span class='message'></span>
+#&gt; <span class='message'><span style='color: #00BBBB;'>ℹ</span> Use <span style='color: #262626; background-color: #DADADA;'>`spec()`</span> to retrieve the full column specification for this data.</span>
+#&gt; <span class='message'><span style='color: #00BBBB;'>ℹ</span> Specify the column types or set <span style='color: #262626; background-color: #DADADA;'>`show_col_types = FALSE`</span> to quiet this message.</span></div><div class='output co'>#&gt; <span style='color: #949494;'># A tibble: 1 x 2</span>
 #&gt;       a     b
 #&gt;   <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span> <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span>
-#&gt; <span style='color: #BCBCBC;'>1</span>     1     2</div><div class='input'><span class='fu'>read_delim</span><span class='op'>(</span><span class='st'>"a|b\n1.0|2.0"</span>, delim <span class='op'>=</span> <span class='st'>"|"</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; <span style='color: #949494;'># A tibble: 1 x 2</span>
+#&gt; <span style='color: #BCBCBC;'>1</span>     1     2</div><div class='input'><span class='fu'>read_delim</span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/AsIs.html'>I</a></span><span class='op'>(</span><span class='st'>"a|b\n1.0|2.0"</span><span class='op'>)</span>, delim <span class='op'>=</span> <span class='st'>"|"</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; <span class='message'><span style='font-weight: bold;'>Rows: </span><span style='color: #0000BB;'>1</span> <span style='font-weight: bold;'>Columns: </span><span style='color: #0000BB;'>2</span></span></div><div class='output co'>#&gt; <span class='message'><span style='color: #00BBBB;'>──</span> <span style='font-weight: bold;'>Column specification</span> <span style='color: #00BBBB;'>────────────────────────────────────────────────────────</span></span>
+#&gt; <span class='message'><span style='font-weight: bold;'>Delimiter:</span> "|"</span>
+#&gt; <span class='message'><span style='color: #00BB00;'>dbl</span> (2): a, b</span></div><div class='output co'>#&gt; <span class='message'></span>
+#&gt; <span class='message'><span style='color: #00BBBB;'>ℹ</span> Use <span style='color: #262626; background-color: #DADADA;'>`spec()`</span> to retrieve the full column specification for this data.</span>
+#&gt; <span class='message'><span style='color: #00BBBB;'>ℹ</span> Specify the column types or set <span style='color: #262626; background-color: #DADADA;'>`show_col_types = FALSE`</span> to quiet this message.</span></div><div class='output co'>#&gt; <span style='color: #949494;'># A tibble: 1 x 2</span>
 #&gt;       a     b
 #&gt;   <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span> <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span>
 #&gt; <span style='color: #BCBCBC;'>1</span>     1     2</div></pre>

@@ -54,7 +54,13 @@
 It's also very fast to parse, because every field is in the same place in
 every line. Unfortunately, it's painful to parse because you need to
 describe the length of every field. Readr aims to make it as easy as possible
-by providing a number of different ways to describe the field structure." />
+by providing a number of different ways to describe the field structure.
+fwf_empty() - Guesses based on the positions of empty columns.
+fwf_widths() - Supply the widths of the columns.
+fwf_positions() - Supply paired vectors of start and end positions.
+fwf_cols() - Supply named arguments of paired start and end positions or column widths.
+
+" />
 <meta property="og:image" content="https://readr.tidyverse.org/logo.png" />
 <meta name="twitter:card" content="summary" />
 
@@ -99,7 +105,7 @@ by providing a number of different ways to describe the field structure." />
         <a class="navbar-brand" href="../index.html">readr</a>
         <div class="info hidden-xs hidden-sm">
           <span class="partof">part of the <a href="https://tidyverse.org">tidyverse</a></span>
-          <span class="version version-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.4.0</span>
+          <span class="version version-default" data-toggle="tooltip" data-placement="bottom" title="Released version">2.0.0</span>
         </div>
       </div>
     </div>
@@ -126,7 +132,10 @@ by providing a number of different ways to describe the field structure." />
   <ul class="dropdown-menu" role="menu">
     <li class="dropdown-header">Release notes</li>
     <li>
-      <a href="../articles/2018/12/readr-1-3-1/">Version 1.3.1</a>
+      <a href="https://www.tidyverse.org/blog/2020/10/readr-1-4-0/">Version 1.4.0</a>
+    </li>
+    <li>
+      <a href="https://www.tidyverse.org/blog/2018/12/readr-1-3-1/">Version 1.3.1</a>
     </li>
     <li>
       <a href="../articles/releases/readr-1.0.0.html">Version 1.0.0</a>
@@ -172,13 +181,21 @@ by providing a number of different ways to describe the field structure." />
 It's also very fast to parse, because every field is in the same place in
 every line. Unfortunately, it's painful to parse because you need to
 describe the length of every field. Readr aims to make it as easy as possible
-by providing a number of different ways to describe the field structure.</p>
+by providing a number of different ways to describe the field structure.</p><ul>
+<li><p><code>fwf_empty()</code> - Guesses based on the positions of empty columns.</p></li>
+<li><p><code>fwf_widths()</code> - Supply the widths of the columns.</p></li>
+<li><p><code>fwf_positions()</code> - Supply paired vectors of start and end positions.</p></li>
+<li><p><code>fwf_cols()</code> - Supply named arguments of paired start and end positions or column widths.</p></li>
+</ul>
+
     </div>
 
     <pre class="usage"><span class='fu'>read_fwf</span><span class='op'>(</span>
   <span class='va'>file</span>,
-  <span class='va'>col_positions</span>,
+  col_positions <span class='op'>=</span> <span class='fu'>fwf_empty</span><span class='op'>(</span><span class='va'>file</span>, <span class='va'>skip</span>, n <span class='op'>=</span> <span class='va'>guess_max</span><span class='op'>)</span>,
   col_types <span class='op'>=</span> <span class='cn'>NULL</span>,
+  col_select <span class='op'>=</span> <span class='cn'>NULL</span>,
+  id <span class='op'>=</span> <span class='cn'>NULL</span>,
   locale <span class='op'>=</span> <span class='fu'><a href='locale.html'>default_locale</a></span><span class='op'>(</span><span class='op'>)</span>,
   na <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>""</span>, <span class='st'>"NA"</span><span class='op'>)</span>,
   comment <span class='op'>=</span> <span class='st'>""</span>,
@@ -187,6 +204,10 @@ by providing a number of different ways to describe the field structure.</p>
   n_max <span class='op'>=</span> <span class='cn'>Inf</span>,
   guess_max <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/Extremes.html'>min</a></span><span class='op'>(</span><span class='va'>n_max</span>, <span class='fl'>1000</span><span class='op'>)</span>,
   progress <span class='op'>=</span> <span class='fu'><a href='show_progress.html'>show_progress</a></span><span class='op'>(</span><span class='op'>)</span>,
+  name_repair <span class='op'>=</span> <span class='st'>"unique"</span>,
+  num_threads <span class='op'>=</span> <span class='fu'><a href='readr_threads.html'>readr_threads</a></span><span class='op'>(</span><span class='op'>)</span>,
+  show_col_types <span class='op'>=</span> <span class='fu'><a href='should_show_types.html'>should_show_types</a></span><span class='op'>(</span><span class='op'>)</span>,
+  lazy <span class='op'>=</span> <span class='cn'>TRUE</span>,
   skip_empty_rows <span class='op'>=</span> <span class='cn'>TRUE</span>
 <span class='op'>)</span>
 
@@ -201,7 +222,7 @@ by providing a number of different ways to describe the field structure.</p>
 
 <span class='fu'>fwf_widths</span><span class='op'>(</span><span class='va'>widths</span>, col_names <span class='op'>=</span> <span class='cn'>NULL</span><span class='op'>)</span>
 
-<span class='fu'>fwf_positions</span><span class='op'>(</span><span class='va'>start</span>, <span class='va'>end</span>, col_names <span class='op'>=</span> <span class='cn'>NULL</span><span class='op'>)</span>
+<span class='fu'>fwf_positions</span><span class='op'>(</span><span class='va'>start</span>, end <span class='op'>=</span> <span class='cn'>NULL</span>, col_names <span class='op'>=</span> <span class='cn'>NULL</span><span class='op'>)</span>
 
 <span class='fu'>fwf_cols</span><span class='op'>(</span><span class='va'>...</span><span class='op'>)</span></pre>
 
@@ -235,8 +256,9 @@ ragged fwf file), supply the last end position as NA.</p></td>
 a string. See <code><a href='../articles/readr.html'>vignette("readr")</a></code> for more details.</p>
 <p>If <code>NULL</code>, all column types will be imputed from the first 1000 rows
 on the input. This is convenient (and fast), but not robust. If the
-imputation fails, you'll need to supply the correct types yourself.</p>
-<p>If a column specification created by <code><a href='cols.html'>cols()</a></code>, it must contain
+imputation fails, you'll need to increase the <code>guess_max</code> or supply the
+correct types yourself.</p>
+<p>Column specifications created by <code><a href='https://rdrr.io/r/base/list.html'>list()</a></code> or <code><a href='cols.html'>cols()</a></code> must contain
 one column specification for each column. If you only want to read a
 subset of the columns, use <code><a href='cols.html'>cols_only()</a></code>.</p>
 <p>Alternatively, you can use a compact string representation where each
@@ -254,8 +276,22 @@ character represents one column:</p><ul>
 <li><p>_ or - = skip</p>
 <p>By default, reading a file without a column specification will print a
 message showing what <code>readr</code> guessed they were. To remove this message,
-use <code>col_types = cols()</code>.</p></li>
+set <code>show_col_types = FALSE</code> or set `options(readr.show_col_types = FALSE).</p></li>
 </ul></td>
+    </tr>
+    <tr>
+      <th>col_select</th>
+      <td><p>&lt;<code><a href='https://tidyselect.r-lib.org/reference/language.html'>tidy-select</a></code>&gt; Columns to include
+in the results, either by name or by numeric index. Use <code><a href='https://rdrr.io/r/base/c.html'>c()</a></code> or <code><a href='https://rdrr.io/r/base/list.html'>list()</a></code>
+to select with more than one expression and <code><a href='https://tidyselect.r-lib.org/reference/language.html'>?tidyselect::language</a></code> for full
+details on the selection language.</p></td>
+    </tr>
+    <tr>
+      <th>id</th>
+      <td><p>The name of a column in which to store the file path. This is
+useful when reading multiple input files and there is data in the file
+paths, such as the data collection date. If <code>NULL</code> (the default) no extra
+column is created.</p></td>
     </tr>
     <tr>
       <th>locale</th>
@@ -277,7 +313,7 @@ comment characters will be silently ignored.</p></td>
     </tr>
     <tr>
       <th>trim_ws</th>
-      <td><p>Should leading and trailing whitespace be trimmed from
+      <td><p>Should leading and trailing whitespace (ASCII spaces and tabs) be trimmed from
 each field before parsing it?</p></td>
     </tr>
     <tr>
@@ -286,19 +322,56 @@ each field before parsing it?</p></td>
     </tr>
     <tr>
       <th>n_max</th>
-      <td><p>Maximum number of records to read.</p></td>
+      <td><p>Maximum number of lines to read.</p></td>
     </tr>
     <tr>
       <th>guess_max</th>
-      <td><p>Maximum number of records to use for guessing column types.</p></td>
+      <td><p>Maximum number of lines to use for guessing column types.</p></td>
     </tr>
     <tr>
       <th>progress</th>
       <td><p>Display a progress bar? By default it will only display
-in an interactive session and not while knitting a document. The display
-is updated every 50,000 values and will only display if estimated reading
-time is 5 seconds or more. The automatic progress bar can be disabled by
-setting option <code>readr.show_progress</code> to <code>FALSE</code>.</p></td>
+in an interactive session and not while knitting a document. The automatic
+progress bar can be disabled by setting option <code>readr.show_progress</code> to
+<code>FALSE</code>.</p></td>
+    </tr>
+    <tr>
+      <th>name_repair</th>
+      <td><p>Treatment of problematic column names:</p><ul>
+<li><p><code>"minimal"</code>: No name repair or checks, beyond basic existence of names</p></li>
+<li><p><code>"unique"</code>: Make sure names are unique and not empty</p></li>
+<li><p><code>"check_unique"</code>: (default value), no name repair, but check they are
+<code>unique</code></p></li>
+<li><p><code>"universal"</code>: Make the names <code>unique</code> and syntactic</p></li>
+<li><p>a function: apply custom name repair (e.g., <code>.name_repair = make.names</code>
+for names in the style of base R)</p></li>
+<li><p>A purrr-style anonymous function, see <code><a href='https://rlang.r-lib.org/reference/as_function.html'>rlang::as_function()</a></code></p></li>
+</ul>
+
+<p>This argument is passed on as <code>repair</code> to <code><a href='https://vctrs.r-lib.org/reference/vec_as_names.html'>vctrs::vec_as_names()</a></code>.
+See there for more details on these terms and the strategies used
+to enforce them.</p></td>
+    </tr>
+    <tr>
+      <th>num_threads</th>
+      <td><p>The number of processing threads to use for initial
+parsing and lazy reading of data.</p></td>
+    </tr>
+    <tr>
+      <th>show_col_types</th>
+      <td><p>If <code>FALSE</code>, do not show the guessed column types. If
+<code>TRUE</code> always show the column types, even if they are supplied. If <code>NULL</code>
+(the default) only show the column types if they are not explicitly supplied
+by the <code>col_types</code> argument.</p></td>
+    </tr>
+    <tr>
+      <th>lazy</th>
+      <td><p>Read values lazily? By default the file is initially only
+indexed and the values are read lazily when accessed. Lazy reading is
+useful interactively, particularly if you are only interested in a subset
+of the full dataset. Note, lazy reading on windows will lock the file
+until all the data has been read from it, if you run into this issue set
+<code>lazy = FALSE</code>.</p></td>
     </tr>
     <tr>
       <th>skip_empty_rows</th>
@@ -336,6 +409,12 @@ with or or two rows as above.</p></td>
     </tr>
     </table>
 
+    <h2 class="hasAnchor" id="second-edition-changes"><a class="anchor" href="#second-edition-changes"></a>Second edition changes</h2>
+
+    
+
+<p>Comments are no longer looked for anywhere in the file.
+They are now only ignored at the start of a line.</p>
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
     <div class='dont-index'><p><code><a href='read_table.html'>read_table()</a></code> to read fixed width files where each
@@ -350,64 +429,55 @@ column is separated by whitespace.</p></div>
 <span class='co'># You can specify column positions in several ways:</span>
 <span class='co'># 1. Guess based on position of empty columns</span>
 <span class='fu'>read_fwf</span><span class='op'>(</span><span class='va'>fwf_sample</span>, <span class='fu'>fwf_empty</span><span class='op'>(</span><span class='va'>fwf_sample</span>, col_names <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"first"</span>, <span class='st'>"last"</span>, <span class='st'>"state"</span>, <span class='st'>"ssn"</span><span class='op'>)</span><span class='op'>)</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; <span class='message'></span>
-#&gt; <span class='message'><span style='color: #00BBBB;'>──</span> <span style='font-weight: bold;'>Column specification</span> <span style='color: #00BBBB;'>─────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────</span></span>
-#&gt; <span class='message'>cols(</span>
-#&gt; <span class='message'>  first = <span style='color: #BB0000;'>col_character()</span>,</span>
-#&gt; <span class='message'>  last = <span style='color: #BB0000;'>col_character()</span>,</span>
-#&gt; <span class='message'>  state = <span style='color: #BB0000;'>col_character()</span>,</span>
-#&gt; <span class='message'>  ssn = <span style='color: #BB0000;'>col_character()</span></span>
-#&gt; <span class='message'>)</span></div><div class='output co'>#&gt; <span style='color: #949494;'># A tibble: 3 x 4</span>
+</div><div class='output co'>#&gt; <span class='message'><span style='font-weight: bold;'>Rows: </span><span style='color: #0000BB;'>3</span> <span style='font-weight: bold;'>Columns: </span><span style='color: #0000BB;'>4</span></span></div><div class='output co'>#&gt; <span class='message'><span style='color: #00BBBB;'>──</span> <span style='font-weight: bold;'>Column specification</span> <span style='color: #00BBBB;'>────────────────────────────────────────────────────────</span></span>
+#&gt; <span class='message'></span>
+#&gt; <span class='message'><span style='color: #BB0000;'>chr</span> (4): first, last, state, ssn</span></div><div class='output co'>#&gt; <span class='message'></span>
+#&gt; <span class='message'><span style='color: #00BBBB;'>ℹ</span> Use <span style='color: #262626; background-color: #DADADA;'>`spec()`</span> to retrieve the full column specification for this data.</span>
+#&gt; <span class='message'><span style='color: #00BBBB;'>ℹ</span> Specify the column types or set <span style='color: #262626; background-color: #DADADA;'>`show_col_types = FALSE`</span> to quiet this message.</span></div><div class='output co'>#&gt; <span style='color: #949494;'># A tibble: 3 x 4</span>
 #&gt;   first last     state ssn         
 #&gt;   <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span> <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span>    <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span> <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span>       
 #&gt; <span style='color: #BCBCBC;'>1</span> John  Smith    WA    418-Y11-4111
 #&gt; <span style='color: #BCBCBC;'>2</span> Mary  Hartford CA    319-Z19-4341
 #&gt; <span style='color: #BCBCBC;'>3</span> Evan  Nolan    IL    219-532-c301</div><div class='input'><span class='co'># 2. A vector of field widths</span>
 <span class='fu'>read_fwf</span><span class='op'>(</span><span class='va'>fwf_sample</span>, <span class='fu'>fwf_widths</span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>20</span>, <span class='fl'>10</span>, <span class='fl'>12</span><span class='op'>)</span>, <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"name"</span>, <span class='st'>"state"</span>, <span class='st'>"ssn"</span><span class='op'>)</span><span class='op'>)</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; <span class='message'></span>
-#&gt; <span class='message'><span style='color: #00BBBB;'>──</span> <span style='font-weight: bold;'>Column specification</span> <span style='color: #00BBBB;'>─────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────</span></span>
-#&gt; <span class='message'>cols(</span>
-#&gt; <span class='message'>  name = <span style='color: #BB0000;'>col_character()</span>,</span>
-#&gt; <span class='message'>  state = <span style='color: #BB0000;'>col_character()</span>,</span>
-#&gt; <span class='message'>  ssn = <span style='color: #BB0000;'>col_character()</span></span>
-#&gt; <span class='message'>)</span></div><div class='output co'>#&gt; <span style='color: #949494;'># A tibble: 3 x 3</span>
+</div><div class='output co'>#&gt; <span class='message'><span style='font-weight: bold;'>Rows: </span><span style='color: #0000BB;'>3</span> <span style='font-weight: bold;'>Columns: </span><span style='color: #0000BB;'>3</span></span></div><div class='output co'>#&gt; <span class='message'><span style='color: #00BBBB;'>──</span> <span style='font-weight: bold;'>Column specification</span> <span style='color: #00BBBB;'>────────────────────────────────────────────────────────</span></span>
+#&gt; <span class='message'></span>
+#&gt; <span class='message'><span style='color: #BB0000;'>chr</span> (3): name, state, ssn</span></div><div class='output co'>#&gt; <span class='message'></span>
+#&gt; <span class='message'><span style='color: #00BBBB;'>ℹ</span> Use <span style='color: #262626; background-color: #DADADA;'>`spec()`</span> to retrieve the full column specification for this data.</span>
+#&gt; <span class='message'><span style='color: #00BBBB;'>ℹ</span> Specify the column types or set <span style='color: #262626; background-color: #DADADA;'>`show_col_types = FALSE`</span> to quiet this message.</span></div><div class='output co'>#&gt; <span style='color: #949494;'># A tibble: 3 x 3</span>
 #&gt;   name          state ssn         
 #&gt;   <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span>         <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span> <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span>       
 #&gt; <span style='color: #BCBCBC;'>1</span> John Smith    WA    418-Y11-4111
 #&gt; <span style='color: #BCBCBC;'>2</span> Mary Hartford CA    319-Z19-4341
 #&gt; <span style='color: #BCBCBC;'>3</span> Evan Nolan    IL    219-532-c301</div><div class='input'><span class='co'># 3. Paired vectors of start and end positions</span>
 <span class='fu'>read_fwf</span><span class='op'>(</span><span class='va'>fwf_sample</span>, <span class='fu'>fwf_positions</span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>1</span>, <span class='fl'>30</span><span class='op'>)</span>, <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>20</span>, <span class='fl'>42</span><span class='op'>)</span>, <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"name"</span>, <span class='st'>"ssn"</span><span class='op'>)</span><span class='op'>)</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; <span class='message'></span>
-#&gt; <span class='message'><span style='color: #00BBBB;'>──</span> <span style='font-weight: bold;'>Column specification</span> <span style='color: #00BBBB;'>─────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────</span></span>
-#&gt; <span class='message'>cols(</span>
-#&gt; <span class='message'>  name = <span style='color: #BB0000;'>col_character()</span>,</span>
-#&gt; <span class='message'>  ssn = <span style='color: #BB0000;'>col_character()</span></span>
-#&gt; <span class='message'>)</span></div><div class='output co'>#&gt; <span style='color: #949494;'># A tibble: 3 x 2</span>
+</div><div class='output co'>#&gt; <span class='message'><span style='font-weight: bold;'>Rows: </span><span style='color: #0000BB;'>3</span> <span style='font-weight: bold;'>Columns: </span><span style='color: #0000BB;'>2</span></span></div><div class='output co'>#&gt; <span class='message'><span style='color: #00BBBB;'>──</span> <span style='font-weight: bold;'>Column specification</span> <span style='color: #00BBBB;'>────────────────────────────────────────────────────────</span></span>
+#&gt; <span class='message'></span>
+#&gt; <span class='message'><span style='color: #BB0000;'>chr</span> (2): name, ssn</span></div><div class='output co'>#&gt; <span class='message'></span>
+#&gt; <span class='message'><span style='color: #00BBBB;'>ℹ</span> Use <span style='color: #262626; background-color: #DADADA;'>`spec()`</span> to retrieve the full column specification for this data.</span>
+#&gt; <span class='message'><span style='color: #00BBBB;'>ℹ</span> Specify the column types or set <span style='color: #262626; background-color: #DADADA;'>`show_col_types = FALSE`</span> to quiet this message.</span></div><div class='output co'>#&gt; <span style='color: #949494;'># A tibble: 3 x 2</span>
 #&gt;   name          ssn         
 #&gt;   <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span>         <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span>       
 #&gt; <span style='color: #BCBCBC;'>1</span> John Smith    418-Y11-4111
 #&gt; <span style='color: #BCBCBC;'>2</span> Mary Hartford 319-Z19-4341
 #&gt; <span style='color: #BCBCBC;'>3</span> Evan Nolan    219-532-c301</div><div class='input'><span class='co'># 4. Named arguments with start and end positions</span>
 <span class='fu'>read_fwf</span><span class='op'>(</span><span class='va'>fwf_sample</span>, <span class='fu'>fwf_cols</span><span class='op'>(</span>name <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>1</span>, <span class='fl'>20</span><span class='op'>)</span>, ssn <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>30</span>, <span class='fl'>42</span><span class='op'>)</span><span class='op'>)</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; <span class='message'></span>
-#&gt; <span class='message'><span style='color: #00BBBB;'>──</span> <span style='font-weight: bold;'>Column specification</span> <span style='color: #00BBBB;'>─────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────</span></span>
-#&gt; <span class='message'>cols(</span>
-#&gt; <span class='message'>  name = <span style='color: #BB0000;'>col_character()</span>,</span>
-#&gt; <span class='message'>  ssn = <span style='color: #BB0000;'>col_character()</span></span>
-#&gt; <span class='message'>)</span></div><div class='output co'>#&gt; <span style='color: #949494;'># A tibble: 3 x 2</span>
+</div><div class='output co'>#&gt; <span class='message'><span style='font-weight: bold;'>Rows: </span><span style='color: #0000BB;'>3</span> <span style='font-weight: bold;'>Columns: </span><span style='color: #0000BB;'>2</span></span></div><div class='output co'>#&gt; <span class='message'><span style='color: #00BBBB;'>──</span> <span style='font-weight: bold;'>Column specification</span> <span style='color: #00BBBB;'>────────────────────────────────────────────────────────</span></span>
+#&gt; <span class='message'></span>
+#&gt; <span class='message'><span style='color: #BB0000;'>chr</span> (2): name, ssn</span></div><div class='output co'>#&gt; <span class='message'></span>
+#&gt; <span class='message'><span style='color: #00BBBB;'>ℹ</span> Use <span style='color: #262626; background-color: #DADADA;'>`spec()`</span> to retrieve the full column specification for this data.</span>
+#&gt; <span class='message'><span style='color: #00BBBB;'>ℹ</span> Specify the column types or set <span style='color: #262626; background-color: #DADADA;'>`show_col_types = FALSE`</span> to quiet this message.</span></div><div class='output co'>#&gt; <span style='color: #949494;'># A tibble: 3 x 2</span>
 #&gt;   name          ssn         
 #&gt;   <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span>         <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span>       
 #&gt; <span style='color: #BCBCBC;'>1</span> John Smith    418-Y11-4111
 #&gt; <span style='color: #BCBCBC;'>2</span> Mary Hartford 319-Z19-4341
 #&gt; <span style='color: #BCBCBC;'>3</span> Evan Nolan    219-532-c301</div><div class='input'><span class='co'># 5. Named arguments with column widths</span>
 <span class='fu'>read_fwf</span><span class='op'>(</span><span class='va'>fwf_sample</span>, <span class='fu'>fwf_cols</span><span class='op'>(</span>name <span class='op'>=</span> <span class='fl'>20</span>, state <span class='op'>=</span> <span class='fl'>10</span>, ssn <span class='op'>=</span> <span class='fl'>12</span><span class='op'>)</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; <span class='message'></span>
-#&gt; <span class='message'><span style='color: #00BBBB;'>──</span> <span style='font-weight: bold;'>Column specification</span> <span style='color: #00BBBB;'>─────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────</span></span>
-#&gt; <span class='message'>cols(</span>
-#&gt; <span class='message'>  name = <span style='color: #BB0000;'>col_character()</span>,</span>
-#&gt; <span class='message'>  state = <span style='color: #BB0000;'>col_character()</span>,</span>
-#&gt; <span class='message'>  ssn = <span style='color: #BB0000;'>col_character()</span></span>
-#&gt; <span class='message'>)</span></div><div class='output co'>#&gt; <span style='color: #949494;'># A tibble: 3 x 3</span>
+</div><div class='output co'>#&gt; <span class='message'><span style='font-weight: bold;'>Rows: </span><span style='color: #0000BB;'>3</span> <span style='font-weight: bold;'>Columns: </span><span style='color: #0000BB;'>3</span></span></div><div class='output co'>#&gt; <span class='message'><span style='color: #00BBBB;'>──</span> <span style='font-weight: bold;'>Column specification</span> <span style='color: #00BBBB;'>────────────────────────────────────────────────────────</span></span>
+#&gt; <span class='message'></span>
+#&gt; <span class='message'><span style='color: #BB0000;'>chr</span> (3): name, state, ssn</span></div><div class='output co'>#&gt; <span class='message'></span>
+#&gt; <span class='message'><span style='color: #00BBBB;'>ℹ</span> Use <span style='color: #262626; background-color: #DADADA;'>`spec()`</span> to retrieve the full column specification for this data.</span>
+#&gt; <span class='message'><span style='color: #00BBBB;'>ℹ</span> Specify the column types or set <span style='color: #262626; background-color: #DADADA;'>`show_col_types = FALSE`</span> to quiet this message.</span></div><div class='output co'>#&gt; <span style='color: #949494;'># A tibble: 3 x 3</span>
 #&gt;   name          state ssn         
 #&gt;   <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span>         <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span> <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span>       
 #&gt; <span style='color: #BCBCBC;'>1</span> John Smith    WA    418-Y11-4111

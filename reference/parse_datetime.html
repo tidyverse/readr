@@ -95,7 +95,7 @@
         <a class="navbar-brand" href="../index.html">readr</a>
         <div class="info hidden-xs hidden-sm">
           <span class="partof">part of the <a href="https://tidyverse.org">tidyverse</a></span>
-          <span class="version version-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.4.0</span>
+          <span class="version version-default" data-toggle="tooltip" data-placement="bottom" title="Released version">2.0.0</span>
         </div>
       </div>
     </div>
@@ -122,7 +122,10 @@
   <ul class="dropdown-menu" role="menu">
     <li class="dropdown-header">Release notes</li>
     <li>
-      <a href="../articles/2018/12/readr-1-3-1/">Version 1.3.1</a>
+      <a href="https://www.tidyverse.org/blog/2020/10/readr-1-4-0/">Version 1.4.0</a>
+    </li>
+    <li>
+      <a href="https://www.tidyverse.org/blog/2018/12/readr-1-3-1/">Version 1.3.1</a>
     </li>
     <li>
       <a href="../articles/releases/readr-1.0.0.html">Version 1.0.0</a>
@@ -227,7 +230,7 @@ names.</p></td>
     </tr>
     <tr>
       <th>trim_ws</th>
-      <td><p>Should leading and trailing whitespace be trimmed from
+      <td><p>Should leading and trailing whitespace (ASCII spaces and tabs) be trimmed from
 each field before parsing it?</p></td>
     </tr>
     </table>
@@ -243,37 +246,36 @@ you of the total number of failures.</p>
     
 
 <p><code>readr</code> uses a format specification similar to <code><a href='https://rdrr.io/r/base/strptime.html'>strptime()</a></code>.
-There are three types of element:</p>
-<ol>
-<li><p>Date components are specified with "\<!-- %" followed by a letter. -->
-For example "\<!-- %Y" matches a 4 digit year, "\\%m", matches a 2 digit -->
-month and "\<!-- %d" matches a 2 digit day. Month and day default to \code{1}, -->
-(i.e. Jan 1st) if not present, for example if only a year is given.</p></li>
+There are three types of element:</p><ol>
+<li><p>Date components are specified with "%" followed by a letter. For example
+"%Y" matches a 4 digit year, "%m", matches a 2 digit month and "%d" matches
+a 2 digit day. Month and day default to <code>1</code>, (i.e. Jan 1st) if not present,
+for example if only a year is given.</p></li>
 <li><p>Whitespace is any sequence of zero or more whitespace characters.</p></li>
 <li><p>Any other character is matched exactly.</p></li>
 </ol>
 
 <p><code>parse_datetime()</code> recognises the following format specifications:</p><ul>
-<li><p>Year: "\<!-- %Y" (4 digits). "\\%y" (2 digits); 00-69 -&gt; 2000-2069, -->
-70-99 -&gt; 1970-1999.</p></li>
-<li><p>Month: "\<!-- %m" (2 digits), "\\%b" (abbreviated name in current -->
-locale), "\<!-- %B" (full name in current locale). --></p></li>
-<li><p>Day: "\<!-- %d" (2 digits), "\\%e" (optional leading space), -->
-"%a" (abbreviated name in current locale).</p></li>
-<li><p>Hour: "\<!-- %H" or "\\%I" or "\\%h", use I (and not H) with AM/PM, -->
-use h (and not H) if your times represent durations longer than one day.</p></li>
-<li><p>Minutes: "\<!-- %M" --></p></li>
-<li><p>Seconds: "\<!-- %S" (integer seconds), "\\%OS" (partial seconds) --></p></li>
-<li><p>Time zone: "\<!-- %Z" (as name, e.g. "America/Chicago"), "\\%z" (as -->
-offset from UTC, e.g. "+0800")</p></li>
-<li><p>AM/PM indicator: "\<!-- %p". --></p></li>
-<li><p>Non-digits: "\<!-- %." skips one non-digit character, -->
-"\<!-- %+" skips one or more non-digit characters, -->
-"\<!-- %*" skips any number of non-digits characters. --></p></li>
-<li><p>Automatic parsers: "\<!-- %AD" parses with a flexible YMD parser, -->
-"\<!-- %AT" parses with a flexible HMS parser. --></p></li>
-<li><p>Shortcuts: "\<!-- %D" = "\\%m/\\%d/\\%y",  "\\%F" = "\\%Y-\\%m-\\%d", -->
-"\<!-- %R" = "\\%H:\\%M", "\\%T" = "\\%H:\\%M:\\%S",  "\\%x" = "\\%y/\\%m/\\%d". --></p></li>
+<li><p>Year: "%Y" (4 digits). "%y" (2 digits); 00-69 -&gt; 2000-2069, 70-99 -&gt;
+1970-1999.</p></li>
+<li><p>Month: "%m" (2 digits), "%b" (abbreviated name in current locale), "%B"
+(full name in current locale).</p></li>
+<li><p>Day: "%d" (2 digits), "%e" (optional leading space), "%a" (abbreviated
+name in current locale).</p></li>
+<li><p>Hour: "%H" or "%I" or "%h", use I (and not H) with AM/PM, use h (and not H)
+if your times represent durations longer than one day.</p></li>
+<li><p>Minutes: "%M"</p></li>
+<li><p>Seconds: "%S" (integer seconds), "%OS" (partial seconds)</p></li>
+<li><p>Time zone: "%Z" (as name, e.g. "America/Chicago"), "%z" (as offset from
+UTC, e.g. "+0800")</p></li>
+<li><p>AM/PM indicator: "%p".</p></li>
+<li><p>Non-digits: "%." skips one non-digit character, "%+" skips one or more
+non-digit characters, "%*" skips any number of non-digits characters.</p></li>
+<li><p>Automatic parsers: "%AD" parses with a flexible YMD parser, "%AT" parses
+with a flexible HMS parser.</p></li>
+<li><p>Time since the Unix epoch: "%s" decimal seconds since the Unix epoch.</p></li>
+<li><p>Shortcuts: "%D" = "%m/%d/%y", "%F" = "%Y-%m-%d", "%R" = "%H:%M", "%T" =
+"%H:%M:%S", "%x" = "%y/%m/%d".</p></li>
 </ul>
 
     <h2 class="hasAnchor" id="iso-support"><a class="anchor" href="#iso-support"></a>ISO8601 support</h2>
@@ -281,17 +283,15 @@ offset from UTC, e.g. "+0800")</p></li>
     
 
 
-<p>Currently, readr does not support all of ISO8601. Missing features:</p>
-<ul>
-<li><p>Week &amp; weekday specifications, e.g. "2013-W05", "2013-W05-10"</p></li>
+<p>Currently, readr does not support all of ISO8601. Missing features:</p><ul>
+<li><p>Week &amp; weekday specifications, e.g. "2013-W05", "2013-W05-10".</p></li>
 <li><p>Ordinal dates, e.g. "2013-095".</p></li>
-<li><p>Using commas instead of a period for decimal separator</p></li>
+<li><p>Using commas instead of a period for decimal separator.</p></li>
 </ul>
 
-<p>The parser is also a little laxer than ISO8601:</p>
-<ul>
+<p>The parser is also a little laxer than ISO8601:</p><ul>
 <li><p>Dates and times can be separated with a space, not just T.</p></li>
-<li><p>Mostly correct specifications like "2009-05-19 14:" and  "200912-01" work.</p></li>
+<li><p>Mostly correct specifications like "2009-05-19 14:" and "200912-01" work.</p></li>
 </ul>
 
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
@@ -327,15 +327,17 @@ offset from UTC, e.g. "+0800")</p></li>
 <span class='co'># Use the locale parameter to control the default time zone</span>
 <span class='co'># (but note UTC is considerably faster than other options)</span>
 <span class='fu'>parse_datetime</span><span class='op'>(</span><span class='st'>"2010/01/01 12:00"</span>, <span class='st'>"%Y/%m/%d %H:%M"</span>,
-  locale <span class='op'>=</span> <span class='fu'><a href='locale.html'>locale</a></span><span class='op'>(</span>tz <span class='op'>=</span> <span class='st'>"US/Central"</span><span class='op'>)</span><span class='op'>)</span>
+  locale <span class='op'>=</span> <span class='fu'><a href='locale.html'>locale</a></span><span class='op'>(</span>tz <span class='op'>=</span> <span class='st'>"US/Central"</span><span class='op'>)</span>
+<span class='op'>)</span>
 </div><div class='output co'>#&gt; [1] "2010-01-01 12:00:00 CST"</div><div class='input'><span class='fu'>parse_datetime</span><span class='op'>(</span><span class='st'>"2010/01/01 12:00"</span>, <span class='st'>"%Y/%m/%d %H:%M"</span>,
-  locale <span class='op'>=</span> <span class='fu'><a href='locale.html'>locale</a></span><span class='op'>(</span>tz <span class='op'>=</span> <span class='st'>"US/Eastern"</span><span class='op'>)</span><span class='op'>)</span>
+  locale <span class='op'>=</span> <span class='fu'><a href='locale.html'>locale</a></span><span class='op'>(</span>tz <span class='op'>=</span> <span class='st'>"US/Eastern"</span><span class='op'>)</span>
+<span class='op'>)</span>
 </div><div class='output co'>#&gt; [1] "2010-01-01 12:00:00 EST"</div><div class='input'>
 <span class='co'># Unlike strptime, the format specification must match the complete</span>
 <span class='co'># string (ignoring leading and trailing whitespace). This avoids common</span>
 <span class='co'># errors:</span>
 <span class='fu'><a href='https://rdrr.io/r/base/strptime.html'>strptime</a></span><span class='op'>(</span><span class='st'>"01/02/2010"</span>, <span class='st'>"%d/%m/%y"</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; [1] "2020-02-01 EST"</div><div class='input'><span class='fu'>parse_datetime</span><span class='op'>(</span><span class='st'>"01/02/2010"</span>, <span class='st'>"%d/%m/%y"</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; [1] "2020-02-01 UTC"</div><div class='input'><span class='fu'>parse_datetime</span><span class='op'>(</span><span class='st'>"01/02/2010"</span>, <span class='st'>"%d/%m/%y"</span><span class='op'>)</span>
 </div><div class='output co'>#&gt; <span class='warning'>Warning: 1 parsing failure.</span>
 #&gt; <span class='warning'>row col           expected     actual</span>
 #&gt; <span class='warning'>  1  -- date like %d/%m/%y 01/02/2010</span></div><div class='output co'>#&gt; [1] NA</div><div class='input'>
@@ -370,7 +372,7 @@ offset from UTC, e.g. "+0800")</p></li>
 </div><div class='output co'>#&gt; [1] "1979-10-14 10:10:00 CDT"</div><div class='input'><span class='fu'>parse_datetime</span><span class='op'>(</span><span class='st'>"1979-10-14T1010Z"</span>, locale <span class='op'>=</span> <span class='va'>us_central</span><span class='op'>)</span>
 </div><div class='output co'>#&gt; [1] "1979-10-14 05:10:00 CDT"</div><div class='input'><span class='co'># Your current time zone</span>
 <span class='fu'>parse_datetime</span><span class='op'>(</span><span class='st'>"1979-10-14T1010"</span>, locale <span class='op'>=</span> <span class='fu'><a href='locale.html'>locale</a></span><span class='op'>(</span>tz <span class='op'>=</span> <span class='st'>""</span><span class='op'>)</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; [1] "1979-10-14 06:10:00 EDT"</div></pre>
+</div><div class='output co'>#&gt; [1] "1979-10-14 10:10:00 UTC"</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

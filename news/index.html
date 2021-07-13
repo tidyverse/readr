@@ -94,7 +94,7 @@
         <a class="navbar-brand" href="../index.html">readr</a>
         <div class="info hidden-xs hidden-sm">
           <span class="partof">part of the <a href="https://tidyverse.org">tidyverse</a></span>
-          <span class="version version-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.4.0</span>
+          <span class="version version-default" data-toggle="tooltip" data-placement="bottom" title="Released version">2.0.0</span>
         </div>
       </div>
     </div>
@@ -121,7 +121,10 @@
   <ul class="dropdown-menu" role="menu">
     <li class="dropdown-header">Release notes</li>
     <li>
-      <a href="../articles/2018/12/readr-1-3-1/">Version 1.3.1</a>
+      <a href="https://www.tidyverse.org/blog/2020/10/readr-1-4-0/">Version 1.4.0</a>
+    </li>
+    <li>
+      <a href="https://www.tidyverse.org/blog/2018/12/readr-1-3-1/">Version 1.3.1</a>
     </li>
     <li>
       <a href="../articles/releases/readr-1.0.0.html">Version 1.0.0</a>
@@ -161,6 +164,113 @@
       <small>Source: <a href='https://github.com/tidyverse/readr/blob/master/NEWS.md'><code>NEWS.md</code></a></small>
     </div>
 
+    <div id="readr-200" class="section level1">
+<h1 class="page-header" data-toc-text="2.0.0">
+<a href="#readr-200" class="anchor"></a>readr 2.0.0<small> Unreleased </small>
+</h1>
+<div id="second-edition-changes" class="section level2">
+<h2 class="hasAnchor">
+<a href="#second-edition-changes" class="anchor"></a>second edition changes</h2>
+<p>readr 2.0.0 is a major release of readr and introduces a new second edition parsing and writing engine implemented via the <a href="https://vroom.r-lib.org/">vroom</a> package.</p>
+<p>This engine takes advantage of lazy reading, multi-threading and performance characteristics of modern SSD drives to significantly improve the performance of reading and writing compared to the first edition engine.</p>
+<p>We will continue to support the first edition for a number of releases, but eventually this support will be first deprecated and then removed.</p>
+<p>You can use the <code><a href="../reference/with_edition.html">with_edition()</a></code> or <code><a href="../reference/with_edition.html">local_edition()</a></code> functions to temporarily change the edition of readr for a section of code.</p>
+<p>e.g.</p>
+<ul>
+<li><p><code><a href="../reference/with_edition.html">with_edition(1, read_csv("my_file.csv"))</a></code> will read <code>my_file.csv</code> with the first edition of readr.</p></li>
+<li><p><code><a href="../reference/with_edition.html">readr::local_edition(1)</a></code> placed at the top of your function or script will use the first edition for the rest of the function or script.</p></li>
+</ul>
+<div id="lazy-reading" class="section level3">
+<h3 class="hasAnchor">
+<a href="#lazy-reading" class="anchor"></a>Lazy reading</h3>
+<p>Edition two uses lazy reading by default. When you first call a <code>read_*()</code> function the delimiters and newlines throughout the entire file are found, but the data is not actually read until it is used in your program. This can provide substantial speed improvements for reading character data. It is particularly useful during interactive exploration of only a subset of a full dataset.</p>
+<p>However this also means that problematic values are not necessarily seen immediately, only when they are actually read. Because of this a warning will be issued the first time a problem is encountered, which may happen after initial reading.</p>
+<p>Run <code><a href="../reference/problems.html">problems()</a></code> on your dataset to read the entire dataset and return all of the problems found. Run <code><a href="../reference/problems.html">problems(lazy = TRUE)</a></code> if you only want to retrieve the problems found so far.</p>
+<p>Deleting files after reading is also impacted by laziness. On Windows open files cannot be deleted as long as a process has the file open. Because readr keeps a file open when reading lazily this means you cannot read, then immediately delete the file. readr will in most cases close the file once it has been completely read. However, if you know you want to be able to delete the file after reading it is best to pass <code>lazy = FALSE</code> when reading the file.</p>
+</div>
+<div id="reading-multiple-files-at-once" class="section level3">
+<h3 class="hasAnchor">
+<a href="#reading-multiple-files-at-once" class="anchor"></a>Reading multiple files at once</h3>
+<p>Edition two has built-in support for reading sets of files with the same columns into one output table in a single command. Just pass the filenames to be read in the same vector to the reading function.</p>
+<p>First we generate some files to read by splitting the nycflights dataset by airline.</p>
+<pre class="{r}"><code><a href="https://rdrr.io/r/base/library.html">library(nycflights13)
+purrr::iwalk(
+  split(flights, flights$carrier),
+  ~ { .x$carrier[[1]]; vroom::vroom_write(.x, glue::glue("flights_{.y}.tsv"), delim = "\t") }
+)</a></code></pre>
+<p>Then we can efficiently read them into one tibble by passing the filenames directly to readr.</p>
+<pre class="{r}"><code>files &lt;- fs::dir_ls(glob = "flights*tsv")
+files
+readr::read_tsv(files)</code></pre>
+<p>If the filenames contain data, such as the date when the sample was collected, use <code>id</code> argument to include the paths as a column in the data. You will likely have to post-process the paths to keep only the relevant portion for your use case.</p>
+</div>
+<div id="delimiter-guessing" class="section level3">
+<h3 class="hasAnchor">
+<a href="#delimiter-guessing" class="anchor"></a>Delimiter guessing</h3>
+<p>Edition two supports automatic guessing of delimiters. Because of this you can now use <code><a href="../reference/read_delim.html">read_delim()</a></code> without specifying a <code>delim</code> argument in many cases.</p>
+<pre class="{r}"><code>x &lt;- read_delim(readr_example("mtcars.csv"))</code></pre>
+</div>
+<div id="literal-data" class="section level3">
+<h3 class="hasAnchor">
+<a href="#literal-data" class="anchor"></a>Literal data</h3>
+<p>In edition one the reading functions treated any input with a newline in it or vectors of length &gt; 1 as literal data. In edition two vectors of length &gt; 1 are now assumed to correspond to multiple files. Because of this we now have a more explicit way to represent literal data, by putting <code><a href="https://rdrr.io/r/base/AsIs.html">I()</a></code> around the input.</p>
+<pre class="{r}"><code><a href="../reference/read_delim.html">readr::read_csv(I("a,b\n1,2"))</a></code></pre>
+</div>
+<div id="license-changes" class="section level3">
+<h3 class="hasAnchor">
+<a href="#license-changes" class="anchor"></a>License changes</h3>
+<p>We are systematically re-licensing tidyverse and r-lib packages to use the MIT license, to make our package licenses as clear and permissive as possible.</p>
+<p>To this end the readr and vroom packages are now released under the MIT license.</p>
+</div>
+<div id="deprecated-or-superseded-functions-and-features" class="section level3">
+<h3 class="hasAnchor">
+<a href="#deprecated-or-superseded-functions-and-features" class="anchor"></a>Deprecated or superseded functions and features</h3>
+<ul>
+<li><p><code><a href="../reference/melt_delim.html">melt_csv()</a></code>, <code><a href="../reference/melt_delim.html">melt_delim()</a></code>, <code><a href="../reference/melt_delim.html">melt_tsv()</a></code> and <code><a href="../reference/melt_fwf.html">melt_fwf()</a></code> have been superseded by functions in the same name in the meltr package. The versions in readr have been deprecated. These functions rely on the first edition parsing code and would be challenging to update to the new parser. When the first edition parsing code is eventually removed from readr they will be removed.</p></li>
+<li><p><code><a href="../reference/read_table2.html">read_table2()</a></code> has been renamed to <code><a href="../reference/read_table.html">read_table()</a></code>, as most users expect <code><a href="../reference/read_table.html">read_table()</a></code> to work like <code><a href="https://rdrr.io/r/utils/read.table.html">utils::read.table()</a></code>. If you want the previous strict behavior of the <code><a href="../reference/read_table.html">read_table()</a></code> you can use <code><a href="../reference/read_fwf.html">read_fwf()</a></code> with <code><a href="../reference/read_fwf.html">fwf_empty()</a></code> directly (<a href='https://github.com/tidyverse/readr/issues/717'>#717</a>).</p></li>
+<li><p>Normalizing newlines in files with just carriage returns <code>\r</code> is no longer supported. The last major OS to use only CR as the newline was ‘classic’ Mac OS, which had its final release in 2001.</p></li>
+</ul>
+</div>
+<div id="other-second-edition-changes" class="section level3">
+<h3 class="hasAnchor">
+<a href="#other-second-edition-changes" class="anchor"></a>Other second edition changes</h3>
+<ul>
+<li><p><code>read_*_chunked()</code> functions now include their specification as an attribute (<a href='https://github.com/tidyverse/readr/issues/1143'>#1143</a>)</p></li>
+<li><p>All <code>read_*()</code> functions gain a <code>col_select</code> argument to more easily choose which columns to select.</p></li>
+<li><p>All <code>read_*()</code> functions gain a <code>id</code> argument to optionally store the file paths when reading multiple files.</p></li>
+<li><p>All <code>read_*()</code> functions gain a <code>name_repair</code> argument to control how column names are repaired.</p></li>
+<li><p>All <code>read_*()</code> and <code>write_*()</code> functions gain a <code>num_threads</code> argument to control the number of processing threads they use (<a href='https://github.com/tidyverse/readr/issues/1201'>#1201</a>)</p></li>
+<li><p>All <code>write_*()</code> and <code>format_*()</code> functions gain <code>quote</code> and <code>escape</code> arguments, to explicitly control how fields are quoted and how double quotes are escaped. (<a href='https://github.com/tidyverse/readr/issues/653'>#653</a>, <a href='https://github.com/tidyverse/readr/issues/759'>#759</a>, <a href='https://github.com/tidyverse/readr/issues/844'>#844</a>, <a href='https://github.com/tidyverse/readr/issues/993'>#993</a>, <a href='https://github.com/tidyverse/readr/issues/1018'>#1018</a>, <a href='https://github.com/tidyverse/readr/issues/1083'>#1083</a>)</p></li>
+<li><p>All <code>write_*()</code> functions gain a <code>progress</code> argument and display a progress bar when writing (<a href='https://github.com/tidyverse/readr/issues/791'>#791</a>).</p></li>
+<li><p>write_excel_csv() now defaults to <code>quote = "all"</code> (<a href='https://github.com/tidyverse/readr/issues/759'>#759</a>)</p></li>
+<li><p>write_tsv() now defaults to <code>quote = "none"</code> (<a href='https://github.com/tidyverse/readr/issues/993'>#993</a>)</p></li>
+<li><p><code><a href="../reference/read_table.html">read_table()</a></code> now handles skipped lines with unpaired quotes properly (<a href='https://github.com/tidyverse/readr/issues/1180'>#1180</a>)</p></li>
+</ul>
+</div>
+</div>
+<div id="additional-features-and-fixes" class="section level2">
+<h2 class="hasAnchor">
+<a href="#additional-features-and-fixes" class="anchor"></a>Additional features and fixes</h2>
+<ul>
+<li><p>The BH package is no longer a dependency. The boost C++ headers in BH have thousands of files, so can take a long time to extract and compiling them takes a great deal of memory, which made readr difficult to compile on systems with limited memory (<a href='https://github.com/tidyverse/readr/issues/1147'>#1147</a>).</p></li>
+<li><p>readr now uses the tzdb package when parsing date-times (<a href='https://github.com/DavisVaughan'>@DavisVaughan</a>, r-lib/vroom<a href='https://github.com/tidyverse/readr/issues/273'>#273</a>)</p></li>
+<li><p>Chunked readers now support files with more than <code>INT_MAX</code> (~ 2 Billion) number of lines (<a href='https://github.com/tidyverse/readr/issues/1177'>#1177</a>)</p></li>
+<li><p>Memory no longer inadvertently leaks when reading memory from R connections (<a href='https://github.com/tidyverse/readr/issues/1161'>#1161</a>)</p></li>
+<li><p>Invalid date formats no longer can potentially crash R (<a href='https://github.com/tidyverse/readr/issues/1151'>#1151</a>)</p></li>
+<li><p><code><a href="../reference/parse_factor.html">col_factor()</a></code> now throws a more informative error message if given non-character levels (<a href='https://github.com/tidyverse/readr/issues/1140'>#1140</a>)</p></li>
+<li><p><code><a href="../reference/problems.html">problems()</a></code> now takes <code>.Last.value</code> as its default argument. This lets you run <code><a href="../reference/problems.html">problems()</a></code> without an argument to see the problems in the previously read dataset.</p></li>
+<li><p><code><a href="../reference/read_delim.html">read_delim()</a></code> fails when sample of parsing problems contains non-ASCII characters (<a href='https://github.com/hidekoji'>@hidekoji</a>, <a href='https://github.com/tidyverse/readr/issues/1136'>#1136</a>)</p></li>
+<li><p><code><a href="../reference/read_log.html">read_log()</a></code> gains a <code>trim_ws</code> argument (<a href='https://github.com/tidyverse/readr/issues/738'>#738</a>)</p></li>
+<li><p><code><a href="../reference/read_rds.html">read_rds()</a></code> and <code><a href="../reference/read_rds.html">write_rds()</a></code> gain a <code>refhook</code> argument, to pass functions that handle references objects (<a href='https://github.com/tidyverse/readr/issues/1206'>#1206</a>)</p></li>
+<li><p><code><a href="../reference/read_rds.html">read_rds()</a></code> can now read .Rds files from URLs (<a href='https://github.com/tidyverse/readr/issues/1186'>#1186</a>)</p></li>
+<li><p><code>read_*()</code> functions gain a <code>show_col_types</code> argument, if set to <code>FALSE</code> this turns off showing the column types unconditionally.</p></li>
+<li><p><code><a href="../reference/type_convert.html">type_convert()</a></code> now throws a warning if the input has no character columns (<a href='https://github.com/tidyverse/readr/issues/1020'>#1020</a>)</p></li>
+<li><p><code><a href="../reference/write_delim.html">write_csv()</a></code> now errors if given a matrix column (<a href='https://github.com/tidyverse/readr/issues/1171'>#1171</a>)</p></li>
+<li><p><code><a href="../reference/write_delim.html">write_csv()</a></code> now again is able to write data with duplicated column names (<a href='https://github.com/tidyverse/readr/issues/1169'>#1169</a>)</p></li>
+<li><p><code><a href="../reference/read_file.html">write_file()</a></code> now forces its argument before opening the output file (<a href='https://github.com/tidyverse/readr/issues/1158'>#1158</a>)</p></li>
+</ul>
+</div>
+</div>
     <div id="readr-140" class="section level1">
 <h1 class="page-header" data-toc-text="1.4.0">
 <a href="#readr-140" class="anchor"></a>readr 1.4.0<small> 2020-10-05 </small>
@@ -179,17 +289,17 @@
 <ul>
 <li>
 <p>It is now possible to generate a column specification from any tibble (or data.frame) with <code><a href="../reference/as.col_spec.html">as.col_spec()</a></code> and convert any column specification to a short representation with <code><a href="https://rdrr.io/r/base/character.html">as.character()</a></code></p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>s <span class="ot">&lt;-</span> <span class="fu">as.col_spec</span>(iris)</span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>s</span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; cols(</span></span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   Sepal.Length = col_double(),</span></span>
-<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   Sepal.Width = col_double(),</span></span>
-<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   Petal.Length = col_double(),</span></span>
-<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   Petal.Width = col_double(),</span></span>
-<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   Species = col_factor(levels = c("setosa", "versicolor", "virginica"), ordered = FALSE, include_na = FALSE)</span></span>
-<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; )</span></span>
-<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a><span class="fu">as.character</span>(s)</span>
-<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] "ddddf"</span></span></code></pre></div>
+<div class="sourceCode" id="cb5"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1"></a>s &lt;-<span class="st"> </span><span class="kw">as.col_spec</span>(iris)</span>
+<span id="cb5-2"><a href="#cb5-2"></a>s</span>
+<span id="cb5-3"><a href="#cb5-3"></a><span class="co">#&gt; cols(</span></span>
+<span id="cb5-4"><a href="#cb5-4"></a><span class="co">#&gt;   Sepal.Length = col_double(),</span></span>
+<span id="cb5-5"><a href="#cb5-5"></a><span class="co">#&gt;   Sepal.Width = col_double(),</span></span>
+<span id="cb5-6"><a href="#cb5-6"></a><span class="co">#&gt;   Petal.Length = col_double(),</span></span>
+<span id="cb5-7"><a href="#cb5-7"></a><span class="co">#&gt;   Petal.Width = col_double(),</span></span>
+<span id="cb5-8"><a href="#cb5-8"></a><span class="co">#&gt;   Species = col_factor(levels = c("setosa", "versicolor", "virginica"), ordered = FALSE, include_na = FALSE)</span></span>
+<span id="cb5-9"><a href="#cb5-9"></a><span class="co">#&gt; )</span></span>
+<span id="cb5-10"><a href="#cb5-10"></a><span class="kw">as.character</span>(s)</span>
+<span id="cb5-11"><a href="#cb5-11"></a><span class="co">#&gt; [1] "ddddf"</span></span></code></pre></div>
 </li>
 <li><p>The cli package is now used for all messages.</p></li>
 <li><p>The runtime performance for tables with an extreme number of columns is greatly improved (<a href='https://github.com/tidyverse/readr/issues/825'>#825</a>)</p></li>
@@ -200,9 +310,9 @@
 <li><p>The build system has been greatly simplified so should work on more systems.</p></li>
 </ul>
 </div>
-<div id="additional-features-and-fixes" class="section level2">
+<div id="additional-features-and-fixes-1" class="section level2">
 <h2 class="hasAnchor">
-<a href="#additional-features-and-fixes" class="anchor"></a>Additional features and fixes</h2>
+<a href="#additional-features-and-fixes-1" class="anchor"></a>Additional features and fixes</h2>
 <ul>
 <li><p>The full problem field is now displayed in the problems tibble, as intended (<a href='https://github.com/tidyverse/readr/issues/444'>#444</a>).</p></li>
 <li><p>New <code>%h</code> placeholder for parsing unrestricted hours (&lt;0 and &gt;23) to support parsing durations (<a href='https://github.com/tidyverse/readr/issues/549'>#549</a>, <a href='https://github.com/krlmlr'>@krlmlr</a>).</p></li>
@@ -223,6 +333,7 @@
 <li><p>More helpful error when trying to write out data frames with list columns (<a href='https://github.com/ellessenne'>@ellessenne</a>, <a href='https://github.com/tidyverse/readr/issues/938'>#938</a>)</p></li>
 <li><p><code><a href="../reference/type_convert.html">type_convert()</a></code> removes a ‘spec’ attribute, because the current columns likely have modified data types. The ‘spec’ attribute is set by functions like <code><a href="../reference/read_delim.html">read_delim()</a></code> (<a href='https://github.com/jimhester'>@jimhester</a>, <a href='https://github.com/wibeasley'>@wibeasley</a>, <a href='https://github.com/tidyverse/readr/issues/1032'>#1032</a>).</p></li>
 <li><p><code><a href="../reference/read_rds.html">write_rds()</a></code> now can specify the Rds version to use. The default value is 2 as it’s compatible to R versions prior to 3.5.0 (<a href='https://github.com/shrektan'>@shrektan</a>, <a href='https://github.com/tidyverse/readr/issues/1001'>#1001</a>).</p></li>
+<li><p>Fixes for issues related to variable initialization in C++ code (<a href='https://github.com/michaelquinn32'>@michaelquinn32</a>, #<a href='https://github.com/tidyverse/readr/issues/1133'>#1133</a>).</p></li>
 </ul>
 </div>
 </div>
@@ -304,7 +415,7 @@
 <h3 class="hasAnchor">
 <a href="#melt-functions" class="anchor"></a>Melt functions</h3>
 <p>There is now a family of <code>melt_*()</code> functions in readr. These functions store data in ‘long’ or ‘melted’ form, where each row corresponds to a single value in the dataset. This form is useful when your data is ragged and not rectangular.</p>
-<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
 <code class="sourceCode R">
 <span class="va">data</span> <span class="op">&lt;-</span><span class="st">"a,b,c
 1,2
@@ -365,7 +476,7 @@ w,x,y,z"</span>
 <li>
 <code>read*()</code> functions now have a more informative error when trying to read a remote bz2 file (<a href='https://github.com/tidyverse/readr/issues/891'>#891</a>).</li>
 <li>
-<code><a href="../reference/spec_delim.html">spec_table2()</a></code> function added to correspond to <code><a href="../reference/read_table.html">read_table2()</a></code> (<a href='https://github.com/tidyverse/readr/issues/778'>#778</a>, <a href='https://github.com/mawds'>@mawds</a>).</li>
+<code>spec_table2()</code> function added to correspond to <code><a href="../reference/read_table2.html">read_table2()</a></code> (<a href='https://github.com/tidyverse/readr/issues/778'>#778</a>, <a href='https://github.com/mawds'>@mawds</a>).</li>
 <li>
 <code><a href="../reference/parse_factor.html">parse_factor()</a></code> now has <code>levels = NULL</code> by default (<a href='https://github.com/tidyverse/readr/issues/862'>#862</a>, <a href='https://github.com/mikmart'>@mikmart</a>).</li>
 <li>
@@ -385,7 +496,7 @@ w,x,y,z"</span>
 <li>
 <code>read_*()</code> now do not print a progress bar when running inside a RStudio notebook chunk (<a href='https://github.com/tidyverse/readr/issues/793'>#793</a>)</li>
 <li>
-<code><a href="../reference/read_table.html">read_table2()</a></code> now skips comments anywhere in the file (<a href='https://github.com/tidyverse/readr/issues/908'>#908</a>).</li>
+<code><a href="../reference/read_table2.html">read_table2()</a></code> now skips comments anywhere in the file (<a href='https://github.com/tidyverse/readr/issues/908'>#908</a>).</li>
 <li>
 <code><a href="../reference/parse_factor.html">parse_factor()</a></code> now handles the case of empty strings separately, so you can have a factor level that is an empty string (<a href='https://github.com/tidyverse/readr/issues/864'>#864</a>).</li>
 <li>
@@ -397,7 +508,7 @@ w,x,y,z"</span>
 <li>
 <code><a href="../reference/read_delim.html">read_delim()</a></code> now ignores whitespace between the delimiter and quoted fields (<a href='https://github.com/tidyverse/readr/issues/668'>#668</a>).</li>
 <li>
-<code><a href="../reference/read_table.html">read_table2()</a></code> now properly ignores blank lines at the end of a file like <code><a href="../reference/read_table.html">read_table()</a></code> and <code><a href="../reference/read_delim.html">read_delim()</a></code> (<a href='https://github.com/tidyverse/readr/issues/657'>#657</a>).</li>
+<code><a href="../reference/read_table2.html">read_table2()</a></code> now properly ignores blank lines at the end of a file like <code><a href="../reference/read_table.html">read_table()</a></code> and <code><a href="../reference/read_delim.html">read_delim()</a></code> (<a href='https://github.com/tidyverse/readr/issues/657'>#657</a>).</li>
 <li>
 <code><a href="../reference/read_delim.html">read_delim()</a></code>, <code><a href="../reference/read_table.html">read_table()</a></code> and <code><a href="../reference/read_table.html">read_table()</a></code> now skip blank lines at the start of a file (<a href='https://github.com/tidyverse/readr/issues/680'>#680</a>, <a href='https://github.com/tidyverse/readr/issues/747'>#747</a>).</li>
 <li>
@@ -469,7 +580,7 @@ w,x,y,z"</span>
 <li>
 <code><a href="../reference/read_table.html">read_table()</a></code> can now handle files with many lines of leading comments (<a href='https://github.com/tidyverse/readr/issues/563'>#563</a>).</li>
 <li>
-<code><a href="../reference/read_table.html">read_table2()</a></code> which allows any number of whitespace characters as delimiters, a more exact replacement for <code><a href="https://rdrr.io/r/utils/read.table.html">utils::read.table()</a></code> (<a href='https://github.com/tidyverse/readr/issues/608'>#608</a>).</li>
+<code><a href="../reference/read_table2.html">read_table2()</a></code> which allows any number of whitespace characters as delimiters, a more exact replacement for <code><a href="https://rdrr.io/r/utils/read.table.html">utils::read.table()</a></code> (<a href='https://github.com/tidyverse/readr/issues/608'>#608</a>).</li>
 </ul>
 </div>
 </div>
@@ -528,7 +639,7 @@ w,x,y,z"</span>
 <h2 class="hasAnchor">
 <a href="#column-guessing" class="anchor"></a>Column guessing</h2>
 <p>The process by which readr guesses the types of columns has received a substantial overhaul to make it easier to fix problems when the initial guesses aren’t correct, and to make it easier to generate reproducible code. Now column specifications are printing by default when you read from a file:</p>
-<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
 <code class="sourceCode R">
 <span class="va">challenge</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/read_delim.html">read_csv</a></span><span class="op">(</span><span class="fu"><a href="../reference/readr_example.html">readr_example</a></span><span class="op">(</span><span class="st">"challenge.csv"</span><span class="op">)</span><span class="op">)</span>
 <span class="co">#&gt; Parsed with column specification:</span>
@@ -537,7 +648,7 @@ w,x,y,z"</span>
 <span class="co">#&gt;   y = col_character()</span>
 <span class="co">#&gt; )</span></code></pre></div>
 <p>And you can extract those values after the fact with <code><a href="../reference/cols_condense.html">spec()</a></code>:</p>
-<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
 <code class="sourceCode R">
 <span class="fu"><a href="../reference/cols_condense.html">spec</a></span><span class="op">(</span><span class="va">challenge</span><span class="op">)</span>
 <span class="co">#&gt; cols(</span>
@@ -548,7 +659,7 @@ w,x,y,z"</span>
 <p>You can also generating an initial specification without parsing the file using <code><a href="../reference/spec_delim.html">spec_csv()</a></code>, <code><a href="../reference/spec_delim.html">spec_tsv()</a></code>, etc.</p>
 <p>Once you have figured out the correct column types for a file, it’s often useful to make the parsing strict. You can do this either by copying and pasting the printed output, or for very long specs, saving the spec to disk with <code><a href="../reference/read_rds.html">write_rds()</a></code>. In production scripts, combine this with <code><a href="../reference/problems.html">stop_for_problems()</a></code> (<a href='https://github.com/tidyverse/readr/issues/465'>#465</a>): if the input data changes form, you’ll fail fast with an error.</p>
 <p>You can now also adjust the number of rows that readr uses to guess the column types with <code>guess_max</code>:</p>
-<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
 <code class="sourceCode R">
 <span class="va">challenge</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/read_delim.html">read_csv</a></span><span class="op">(</span><span class="fu"><a href="../reference/readr_example.html">readr_example</a></span><span class="op">(</span><span class="st">"challenge.csv"</span><span class="op">)</span>, guess_max <span class="op">=</span> <span class="fl">1500</span><span class="op">)</span>
 <span class="co">#&gt; Parsed with column specification:</span>

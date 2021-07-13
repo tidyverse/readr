@@ -97,7 +97,7 @@ in a quoted string. The dash, &quot;-&quot;, is used for missing values." />
         <a class="navbar-brand" href="../index.html">readr</a>
         <div class="info hidden-xs hidden-sm">
           <span class="partof">part of the <a href="https://tidyverse.org">tidyverse</a></span>
-          <span class="version version-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.4.0</span>
+          <span class="version version-default" data-toggle="tooltip" data-placement="bottom" title="Released version">2.0.0</span>
         </div>
       </div>
     </div>
@@ -124,7 +124,10 @@ in a quoted string. The dash, &quot;-&quot;, is used for missing values." />
   <ul class="dropdown-menu" role="menu">
     <li class="dropdown-header">Release notes</li>
     <li>
-      <a href="../articles/2018/12/readr-1-3-1/">Version 1.3.1</a>
+      <a href="https://www.tidyverse.org/blog/2020/10/readr-1-4-0/">Version 1.4.0</a>
+    </li>
+    <li>
+      <a href="https://www.tidyverse.org/blog/2018/12/readr-1-3-1/">Version 1.3.1</a>
     </li>
     <li>
       <a href="../articles/releases/readr-1.0.0.html">Version 1.0.0</a>
@@ -175,6 +178,7 @@ in a quoted string. The dash, "-", is used for missing values.</p>
   <span class='va'>file</span>,
   col_names <span class='op'>=</span> <span class='cn'>FALSE</span>,
   col_types <span class='op'>=</span> <span class='cn'>NULL</span>,
+  trim_ws <span class='op'>=</span> <span class='cn'>TRUE</span>,
   skip <span class='op'>=</span> <span class='fl'>0</span>,
   n_max <span class='op'>=</span> <span class='cn'>Inf</span>,
   progress <span class='op'>=</span> <span class='fu'><a href='show_progress.html'>show_progress</a></span><span class='op'>(</span><span class='op'>)</span>
@@ -209,7 +213,8 @@ names of the columns, and the first row of the input will be read into
 the first row of the output data frame.</p>
 <p>Missing (<code>NA</code>) column names will generate a warning, and be filled
 in with dummy names <code>X1</code>, <code>X2</code> etc. Duplicate column names
-will generate a warning and be made unique with a numeric suffix.</p></td>
+will generate a warning and be made unique, see <code>name_repair</code> to control
+how this is done.</p></td>
     </tr>
     <tr>
       <th>col_types</th>
@@ -217,8 +222,9 @@ will generate a warning and be made unique with a numeric suffix.</p></td>
 a string. See <code><a href='../articles/readr.html'>vignette("readr")</a></code> for more details.</p>
 <p>If <code>NULL</code>, all column types will be imputed from the first 1000 rows
 on the input. This is convenient (and fast), but not robust. If the
-imputation fails, you'll need to supply the correct types yourself.</p>
-<p>If a column specification created by <code><a href='cols.html'>cols()</a></code>, it must contain
+imputation fails, you'll need to increase the <code>guess_max</code> or supply the
+correct types yourself.</p>
+<p>Column specifications created by <code><a href='https://rdrr.io/r/base/list.html'>list()</a></code> or <code><a href='cols.html'>cols()</a></code> must contain
 one column specification for each column. If you only want to read a
 subset of the columns, use <code><a href='cols.html'>cols_only()</a></code>.</p>
 <p>Alternatively, you can use a compact string representation where each
@@ -236,24 +242,29 @@ character represents one column:</p><ul>
 <li><p>_ or - = skip</p>
 <p>By default, reading a file without a column specification will print a
 message showing what <code>readr</code> guessed they were. To remove this message,
-use <code>col_types = cols()</code>.</p></li>
+set <code>show_col_types = FALSE</code> or set `options(readr.show_col_types = FALSE).</p></li>
 </ul></td>
     </tr>
     <tr>
+      <th>trim_ws</th>
+      <td><p>Should leading and trailing whitespace (ASCII spaces and tabs) be trimmed from
+each field before parsing it?</p></td>
+    </tr>
+    <tr>
       <th>skip</th>
-      <td><p>Number of lines to skip before reading data.</p></td>
+      <td><p>Number of lines to skip before reading data. If <code>comment</code> is
+supplied any commented lines are ignored <em>after</em> skipping.</p></td>
     </tr>
     <tr>
       <th>n_max</th>
-      <td><p>Maximum number of records to read.</p></td>
+      <td><p>Maximum number of lines to read.</p></td>
     </tr>
     <tr>
       <th>progress</th>
       <td><p>Display a progress bar? By default it will only display
-in an interactive session and not while knitting a document. The display
-is updated every 50,000 values and will only display if estimated reading
-time is 5 seconds or more. The automatic progress bar can be disabled by
-setting option <code>readr.show_progress</code> to <code>FALSE</code>.</p></td>
+in an interactive session and not while knitting a document. The automatic
+progress bar can be disabled by setting option <code>readr.show_progress</code> to
+<code>FALSE</code>.</p></td>
     </tr>
     </table>
 
@@ -261,7 +272,7 @@ setting option <code>readr.show_progress</code> to <code>FALSE</code>.</p></td>
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='fu'>read_log</span><span class='op'>(</span><span class='fu'><a href='readr_example.html'>readr_example</a></span><span class='op'>(</span><span class='st'>"example.log"</span><span class='op'>)</span><span class='op'>)</span>
 </div><div class='output co'>#&gt; <span class='message'></span>
-#&gt; <span class='message'><span style='color: #00BBBB;'>──</span> <span style='font-weight: bold;'>Column specification</span> <span style='color: #00BBBB;'>─────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────</span></span>
+#&gt; <span class='message'><span style='color: #00BBBB;'>──</span> <span style='font-weight: bold;'>Column specification</span> <span style='color: #00BBBB;'>────────────────────────────────────────────────────────</span></span>
 #&gt; <span class='message'>cols(</span>
 #&gt; <span class='message'>  X1 = <span style='color: #BB0000;'>col_character()</span>,</span>
 #&gt; <span class='message'>  X2 = <span style='color: #BBBB00;'>col_logical()</span>,</span>

@@ -99,7 +99,7 @@ new line after each entry." />
         <a class="navbar-brand" href="../index.html">readr</a>
         <div class="info hidden-xs hidden-sm">
           <span class="partof">part of the <a href="https://tidyverse.org">tidyverse</a></span>
-          <span class="version version-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.4.0</span>
+          <span class="version version-default" data-toggle="tooltip" data-placement="bottom" title="Released version">2.0.0</span>
         </div>
       </div>
     </div>
@@ -126,7 +126,10 @@ new line after each entry." />
   <ul class="dropdown-menu" role="menu">
     <li class="dropdown-header">Release notes</li>
     <li>
-      <a href="../articles/2018/12/readr-1-3-1/">Version 1.3.1</a>
+      <a href="https://www.tidyverse.org/blog/2020/10/readr-1-4-0/">Version 1.4.0</a>
+    </li>
+    <li>
+      <a href="https://www.tidyverse.org/blog/2018/12/readr-1-3-1/">Version 1.3.1</a>
     </li>
     <li>
       <a href="../articles/releases/readr-1.0.0.html">Version 1.0.0</a>
@@ -179,13 +182,21 @@ new line after each entry.</p>
   <span class='va'>file</span>,
   skip <span class='op'>=</span> <span class='fl'>0</span>,
   skip_empty_rows <span class='op'>=</span> <span class='cn'>FALSE</span>,
-  n_max <span class='op'>=</span> <span class='op'>-</span><span class='fl'>1L</span>,
+  n_max <span class='op'>=</span> <span class='cn'>Inf</span>,
   locale <span class='op'>=</span> <span class='fu'><a href='locale.html'>default_locale</a></span><span class='op'>(</span><span class='op'>)</span>,
   na <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/character.html'>character</a></span><span class='op'>(</span><span class='op'>)</span>,
+  lazy <span class='op'>=</span> <span class='cn'>TRUE</span>,
+  num_threads <span class='op'>=</span> <span class='fu'><a href='readr_threads.html'>readr_threads</a></span><span class='op'>(</span><span class='op'>)</span>,
   progress <span class='op'>=</span> <span class='fu'><a href='show_progress.html'>show_progress</a></span><span class='op'>(</span><span class='op'>)</span>
 <span class='op'>)</span>
 
-<span class='fu'>read_lines_raw</span><span class='op'>(</span><span class='va'>file</span>, skip <span class='op'>=</span> <span class='fl'>0</span>, n_max <span class='op'>=</span> <span class='op'>-</span><span class='fl'>1L</span>, progress <span class='op'>=</span> <span class='fu'><a href='show_progress.html'>show_progress</a></span><span class='op'>(</span><span class='op'>)</span><span class='op'>)</span>
+<span class='fu'>read_lines_raw</span><span class='op'>(</span>
+  <span class='va'>file</span>,
+  skip <span class='op'>=</span> <span class='fl'>0</span>,
+  n_max <span class='op'>=</span> <span class='op'>-</span><span class='fl'>1L</span>,
+  num_threads <span class='op'>=</span> <span class='fu'><a href='readr_threads.html'>readr_threads</a></span><span class='op'>(</span><span class='op'>)</span>,
+  progress <span class='op'>=</span> <span class='fu'><a href='show_progress.html'>show_progress</a></span><span class='op'>(</span><span class='op'>)</span>
+<span class='op'>)</span>
 
 <span class='fu'>write_lines</span><span class='op'>(</span>
   <span class='va'>x</span>,
@@ -193,6 +204,7 @@ new line after each entry.</p>
   sep <span class='op'>=</span> <span class='st'>"\n"</span>,
   na <span class='op'>=</span> <span class='st'>"NA"</span>,
   append <span class='op'>=</span> <span class='cn'>FALSE</span>,
+  num_threads <span class='op'>=</span> <span class='fu'><a href='readr_threads.html'>readr_threads</a></span><span class='op'>(</span><span class='op'>)</span>,
   path <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/Deprecated.html'>deprecated</a></span><span class='op'>(</span><span class='op'>)</span>
 <span class='op'>)</span></pre>
 
@@ -242,12 +254,25 @@ names.</p></td>
 option to <code><a href='https://rdrr.io/r/base/character.html'>character()</a></code> to indicate no missing values.</p></td>
     </tr>
     <tr>
+      <th>lazy</th>
+      <td><p>Read values lazily? By default the file is initially only
+indexed and the values are read lazily when accessed. Lazy reading is
+useful interactively, particularly if you are only interested in a subset
+of the full dataset. Note, lazy reading on windows will lock the file
+until all the data has been read from it, if you run into this issue set
+<code>lazy = FALSE</code>.</p></td>
+    </tr>
+    <tr>
+      <th>num_threads</th>
+      <td><p>The number of processing threads to use for initial
+parsing and lazy reading of data.</p></td>
+    </tr>
+    <tr>
       <th>progress</th>
       <td><p>Display a progress bar? By default it will only display
-in an interactive session and not while knitting a document. The display
-is updated every 50,000 values and will only display if estimated reading
-time is 5 seconds or more. The automatic progress bar can be disabled by
-setting option <code>readr.show_progress</code> to <code>FALSE</code>.</p></td>
+in an interactive session and not while knitting a document. The automatic
+progress bar can be disabled by setting option <code>readr.show_progress</code> to
+<code>FALSE</code>.</p></td>
     </tr>
     <tr>
       <th>x</th>
@@ -330,7 +355,7 @@ file is created.</p></td>
 <span class='va'>tmp</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/tempfile.html'>tempfile</a></span><span class='op'>(</span><span class='op'>)</span>
 
 <span class='fu'>write_lines</span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/colnames.html'>rownames</a></span><span class='op'>(</span><span class='va'>mtcars</span><span class='op'>)</span>, <span class='va'>tmp</span><span class='op'>)</span>
-<span class='fu'>read_lines</span><span class='op'>(</span><span class='va'>tmp</span><span class='op'>)</span>
+<span class='fu'>read_lines</span><span class='op'>(</span><span class='va'>tmp</span>, lazy <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span>
 </div><div class='output co'>#&gt;  [1] "Mazda RX4"           "Mazda RX4 Wag"       "Datsun 710"         
 #&gt;  [4] "Hornet 4 Drive"      "Hornet Sportabout"   "Valiant"            
 #&gt;  [7] "Duster 360"          "Merc 240D"           "Merc 230"           

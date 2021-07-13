@@ -31,6 +31,9 @@
     <loc>https://readr.tidyverse.org/reference/date_names.html</loc>
   </url>
   <url>
+    <loc>https://readr.tidyverse.org/reference/edition_get.html</loc>
+  </url>
+  <url>
     <loc>https://readr.tidyverse.org/reference/encoding.html</loc>
   </url>
   <url>
@@ -106,10 +109,19 @@
     <loc>https://readr.tidyverse.org/reference/read_table.html</loc>
   </url>
   <url>
+    <loc>https://readr.tidyverse.org/reference/read_table2.html</loc>
+  </url>
+  <url>
     <loc>https://readr.tidyverse.org/reference/readr-package.html</loc>
   </url>
   <url>
     <loc>https://readr.tidyverse.org/reference/readr_example.html</loc>
+  </url>
+  <url>
+    <loc>https://readr.tidyverse.org/reference/readr_threads.html</loc>
+  </url>
+  <url>
+    <loc>https://readr.tidyverse.org/reference/should_show_types.html</loc>
   </url>
   <url>
     <loc>https://readr.tidyverse.org/reference/show_progress.html</loc>
@@ -125,6 +137,9 @@
   </url>
   <url>
     <loc>https://readr.tidyverse.org/reference/type_convert.html</loc>
+  </url>
+  <url>
+    <loc>https://readr.tidyverse.org/reference/with_edition.html</loc>
   </url>
   <url>
     <loc>https://readr.tidyverse.org/reference/write_delim.html</loc>

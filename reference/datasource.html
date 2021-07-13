@@ -95,7 +95,7 @@
         <a class="navbar-brand" href="../index.html">readr</a>
         <div class="info hidden-xs hidden-sm">
           <span class="partof">part of the <a href="https://tidyverse.org">tidyverse</a></span>
-          <span class="version version-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.4.0</span>
+          <span class="version version-default" data-toggle="tooltip" data-placement="bottom" title="Released version">2.0.0</span>
         </div>
       </div>
     </div>
@@ -122,7 +122,10 @@
   <ul class="dropdown-menu" role="menu">
     <li class="dropdown-header">Release notes</li>
     <li>
-      <a href="../articles/2018/12/readr-1-3-1/">Version 1.3.1</a>
+      <a href="https://www.tidyverse.org/blog/2020/10/readr-1-4-0/">Version 1.4.0</a>
+    </li>
+    <li>
+      <a href="https://www.tidyverse.org/blog/2018/12/readr-1-3-1/">Version 1.3.1</a>
     </li>
     <li>
       <a href="../articles/releases/readr-1.0.0.html">Version 1.0.0</a>
@@ -239,7 +242,7 @@ vector of greater than length 1.</p>
 <span class='co'># Strings</span>
 <span class='fu'>datasource</span><span class='op'>(</span><span class='fu'><a href='readr_example.html'>readr_example</a></span><span class='op'>(</span><span class='st'>"mtcars.csv"</span><span class='op'>)</span><span class='op'>)</span>
 </div><div class='output co'>#&gt; [[1]]
-#&gt; [1] "/Users/jhester/Library/R/4.0/library/readr/extdata/mtcars.csv"
+#&gt; [1] "/home/runner/work/_temp/Library/readr/extdata/mtcars.csv"
 #&gt; 
 #&gt; $skip
 #&gt; [1] 0
@@ -256,7 +259,7 @@ vector of greater than length 1.</p>
 #&gt; attr(,"class")
 #&gt; [1] "source_file" "source"     </div><div class='input'><span class='fu'>datasource</span><span class='op'>(</span><span class='fu'><a href='readr_example.html'>readr_example</a></span><span class='op'>(</span><span class='st'>"mtcars.csv.bz2"</span><span class='op'>)</span><span class='op'>)</span>
 </div><div class='output co'>#&gt; [[1]]
-#&gt; [1] "/private/var/folders/9x/_8jnmxwj3rq1t90mlr6_0k1w0000gn/T/RtmpCcCfal/file2ad2be67f0e"
+#&gt; [1] "/tmp/Rtmp9nkCAt/file295222d3135c"
 #&gt; 
 #&gt; $skip
 #&gt; [1] 0
@@ -271,12 +274,12 @@ vector of greater than length 1.</p>
 #&gt; [1] TRUE
 #&gt; 
 #&gt; $env
-#&gt; &lt;environment: 0x7f7f9b85dcf8&gt;
+#&gt; &lt;environment: 0x55ba33cdd108&gt;
 #&gt; 
 #&gt; attr(,"class")
 #&gt; [1] "source_file" "source"     </div><div class='input'><span class='fu'>datasource</span><span class='op'>(</span><span class='fu'><a href='readr_example.html'>readr_example</a></span><span class='op'>(</span><span class='st'>"mtcars.csv.zip"</span><span class='op'>)</span><span class='op'>)</span>
 </div><div class='output co'>#&gt; [[1]]
-#&gt; [1] "/private/var/folders/9x/_8jnmxwj3rq1t90mlr6_0k1w0000gn/T/RtmpCcCfal/file2ad2499f763c"
+#&gt; [1] "/tmp/Rtmp9nkCAt/file295249fbcea7"
 #&gt; 
 #&gt; $skip
 #&gt; [1] 0
@@ -291,7 +294,7 @@ vector of greater than length 1.</p>
 #&gt; [1] TRUE
 #&gt; 
 #&gt; $env
-#&gt; &lt;environment: 0x7f7f8bbc5508&gt;
+#&gt; &lt;environment: 0x55ba34abd8b8&gt;
 #&gt; 
 #&gt; attr(,"class")
 #&gt; [1] "source_file" "source"     </div><div class='input'><span class='kw'>if</span> <span class='op'>(</span><span class='cn'>FALSE</span><span class='op'>)</span> <span class='op'>{</span>
@@ -302,7 +305,7 @@ vector of greater than length 1.</p>
 <span class='va'>con</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/rawConnection.html'>rawConnection</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/rawConversion.html'>charToRaw</a></span><span class='op'>(</span><span class='st'>"abc\n123"</span><span class='op'>)</span><span class='op'>)</span>
 <span class='fu'>datasource</span><span class='op'>(</span><span class='va'>con</span><span class='op'>)</span>
 </div><div class='output co'>#&gt; [[1]]
-#&gt; [1] "/private/var/folders/9x/_8jnmxwj3rq1t90mlr6_0k1w0000gn/T/RtmpCcCfal/file2ad240b82e7"
+#&gt; [1] "/tmp/Rtmp9nkCAt/file29524dc0a501"
 #&gt; 
 #&gt; $skip
 #&gt; [1] 0
@@ -317,7 +320,7 @@ vector of greater than length 1.</p>
 #&gt; [1] TRUE
 #&gt; 
 #&gt; $env
-#&gt; &lt;environment: 0x7f7f8b9646a0&gt;
+#&gt; &lt;environment: 0x55ba34778c10&gt;
 #&gt; 
 #&gt; attr(,"class")
 #&gt; [1] "source_file" "source"     </div><div class='input'><span class='fu'><a href='https://rdrr.io/r/base/connections.html'>close</a></span><span class='op'>(</span><span class='va'>con</span><span class='op'>)</span>

@@ -99,7 +99,7 @@ created by readr." />
         <a class="navbar-brand" href="../index.html">readr</a>
         <div class="info hidden-xs hidden-sm">
           <span class="partof">part of the <a href="https://tidyverse.org">tidyverse</a></span>
-          <span class="version version-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.4.0</span>
+          <span class="version version-default" data-toggle="tooltip" data-placement="bottom" title="Released version">2.0.0</span>
         </div>
       </div>
     </div>
@@ -126,7 +126,10 @@ created by readr." />
   <ul class="dropdown-menu" role="menu">
     <li class="dropdown-header">Release notes</li>
     <li>
-      <a href="../articles/2018/12/readr-1-3-1/">Version 1.3.1</a>
+      <a href="https://www.tidyverse.org/blog/2020/10/readr-1-4-0/">Version 1.4.0</a>
+    </li>
+    <li>
+      <a href="https://www.tidyverse.org/blog/2018/12/readr-1-3-1/">Version 1.3.1</a>
     </li>
     <li>
       <a href="../articles/releases/readr-1.0.0.html">Version 1.0.0</a>
@@ -205,21 +208,11 @@ created by readr.</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='va'>df</span> <span class='op'>&lt;-</span> <span class='fu'><a href='read_delim.html'>read_csv</a></span><span class='op'>(</span><span class='fu'><a href='readr_example.html'>readr_example</a></span><span class='op'>(</span><span class='st'>"mtcars.csv"</span><span class='op'>)</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; <span class='message'></span>
-#&gt; <span class='message'><span style='color: #00BBBB;'>──</span> <span style='font-weight: bold;'>Column specification</span> <span style='color: #00BBBB;'>─────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────</span></span>
-#&gt; <span class='message'>cols(</span>
-#&gt; <span class='message'>  mpg = <span style='color: #00BB00;'>col_double()</span>,</span>
-#&gt; <span class='message'>  cyl = <span style='color: #00BB00;'>col_double()</span>,</span>
-#&gt; <span class='message'>  disp = <span style='color: #00BB00;'>col_double()</span>,</span>
-#&gt; <span class='message'>  hp = <span style='color: #00BB00;'>col_double()</span>,</span>
-#&gt; <span class='message'>  drat = <span style='color: #00BB00;'>col_double()</span>,</span>
-#&gt; <span class='message'>  wt = <span style='color: #00BB00;'>col_double()</span>,</span>
-#&gt; <span class='message'>  qsec = <span style='color: #00BB00;'>col_double()</span>,</span>
-#&gt; <span class='message'>  vs = <span style='color: #00BB00;'>col_double()</span>,</span>
-#&gt; <span class='message'>  am = <span style='color: #00BB00;'>col_double()</span>,</span>
-#&gt; <span class='message'>  gear = <span style='color: #00BB00;'>col_double()</span>,</span>
-#&gt; <span class='message'>  carb = <span style='color: #00BB00;'>col_double()</span></span>
-#&gt; <span class='message'>)</span></div><div class='input'><span class='va'>s</span> <span class='op'>&lt;-</span> <span class='fu'>spec</span><span class='op'>(</span><span class='va'>df</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; <span class='message'><span style='font-weight: bold;'>Rows: </span><span style='color: #0000BB;'>32</span> <span style='font-weight: bold;'>Columns: </span><span style='color: #0000BB;'>11</span></span></div><div class='output co'>#&gt; <span class='message'><span style='color: #00BBBB;'>──</span> <span style='font-weight: bold;'>Column specification</span> <span style='color: #00BBBB;'>────────────────────────────────────────────────────────</span></span>
+#&gt; <span class='message'><span style='font-weight: bold;'>Delimiter:</span> ","</span>
+#&gt; <span class='message'><span style='color: #00BB00;'>dbl</span> (11): mpg, cyl, disp, hp, drat, wt, qsec, vs, am, gear, carb</span></div><div class='output co'>#&gt; <span class='message'></span>
+#&gt; <span class='message'><span style='color: #00BBBB;'>ℹ</span> Use <span style='color: #262626; background-color: #DADADA;'>`spec()`</span> to retrieve the full column specification for this data.</span>
+#&gt; <span class='message'><span style='color: #00BBBB;'>ℹ</span> Specify the column types or set <span style='color: #262626; background-color: #DADADA;'>`show_col_types = FALSE`</span> to quiet this message.</span></div><div class='input'><span class='va'>s</span> <span class='op'>&lt;-</span> <span class='fu'>spec</span><span class='op'>(</span><span class='va'>df</span><span class='op'>)</span>
 <span class='va'>s</span>
 </div><div class='output co'>#&gt; cols(
 #&gt;   mpg = <span style='color: #00BB00;'>col_double()</span>,

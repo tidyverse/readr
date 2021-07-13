@@ -97,7 +97,7 @@ turns off printing)." />
         <a class="navbar-brand" href="../index.html">readr</a>
         <div class="info hidden-xs hidden-sm">
           <span class="partof">part of the <a href="https://tidyverse.org">tidyverse</a></span>
-          <span class="version version-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.4.0</span>
+          <span class="version version-default" data-toggle="tooltip" data-placement="bottom" title="Released version">2.0.0</span>
         </div>
       </div>
     </div>
@@ -124,7 +124,10 @@ turns off printing)." />
   <ul class="dropdown-menu" role="menu">
     <li class="dropdown-header">Release notes</li>
     <li>
-      <a href="../articles/2018/12/readr-1-3-1/">Version 1.3.1</a>
+      <a href="https://www.tidyverse.org/blog/2020/10/readr-1-4-0/">Version 1.4.0</a>
+    </li>
+    <li>
+      <a href="https://www.tidyverse.org/blog/2018/12/readr-1-3-1/">Version 1.3.1</a>
     </li>
     <li>
       <a href="../articles/releases/readr-1.0.0.html">Version 1.0.0</a>
@@ -173,12 +176,14 @@ turns off printing).</p>
 
     <pre class="usage"><span class='fu'>spec_delim</span><span class='op'>(</span>
   <span class='va'>file</span>,
-  <span class='va'>delim</span>,
+  delim <span class='op'>=</span> <span class='cn'>NULL</span>,
   quote <span class='op'>=</span> <span class='st'>"\""</span>,
   escape_backslash <span class='op'>=</span> <span class='cn'>FALSE</span>,
   escape_double <span class='op'>=</span> <span class='cn'>TRUE</span>,
   col_names <span class='op'>=</span> <span class='cn'>TRUE</span>,
   col_types <span class='op'>=</span> <span class='cn'>NULL</span>,
+  col_select <span class='op'>=</span> <span class='cn'>NULL</span>,
+  id <span class='op'>=</span> <span class='cn'>NULL</span>,
   locale <span class='op'>=</span> <span class='fu'><a href='locale.html'>default_locale</a></span><span class='op'>(</span><span class='op'>)</span>,
   na <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>""</span>, <span class='st'>"NA"</span><span class='op'>)</span>,
   quoted_na <span class='op'>=</span> <span class='cn'>TRUE</span>,
@@ -187,14 +192,20 @@ turns off printing).</p>
   skip <span class='op'>=</span> <span class='fl'>0</span>,
   n_max <span class='op'>=</span> <span class='fl'>0</span>,
   guess_max <span class='op'>=</span> <span class='fl'>1000</span>,
+  name_repair <span class='op'>=</span> <span class='st'>"unique"</span>,
+  num_threads <span class='op'>=</span> <span class='fu'><a href='readr_threads.html'>readr_threads</a></span><span class='op'>(</span><span class='op'>)</span>,
   progress <span class='op'>=</span> <span class='fu'><a href='show_progress.html'>show_progress</a></span><span class='op'>(</span><span class='op'>)</span>,
-  skip_empty_rows <span class='op'>=</span> <span class='cn'>TRUE</span>
+  show_col_types <span class='op'>=</span> <span class='fu'><a href='should_show_types.html'>should_show_types</a></span><span class='op'>(</span><span class='op'>)</span>,
+  skip_empty_rows <span class='op'>=</span> <span class='cn'>TRUE</span>,
+  lazy <span class='op'>=</span> <span class='cn'>TRUE</span>
 <span class='op'>)</span>
 
 <span class='fu'>spec_csv</span><span class='op'>(</span>
   <span class='va'>file</span>,
   col_names <span class='op'>=</span> <span class='cn'>TRUE</span>,
   col_types <span class='op'>=</span> <span class='cn'>NULL</span>,
+  col_select <span class='op'>=</span> <span class='cn'>NULL</span>,
+  id <span class='op'>=</span> <span class='cn'>NULL</span>,
   locale <span class='op'>=</span> <span class='fu'><a href='locale.html'>default_locale</a></span><span class='op'>(</span><span class='op'>)</span>,
   na <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>""</span>, <span class='st'>"NA"</span><span class='op'>)</span>,
   quoted_na <span class='op'>=</span> <span class='cn'>TRUE</span>,
@@ -204,14 +215,20 @@ turns off printing).</p>
   skip <span class='op'>=</span> <span class='fl'>0</span>,
   n_max <span class='op'>=</span> <span class='fl'>0</span>,
   guess_max <span class='op'>=</span> <span class='fl'>1000</span>,
+  name_repair <span class='op'>=</span> <span class='st'>"unique"</span>,
+  num_threads <span class='op'>=</span> <span class='fu'><a href='readr_threads.html'>readr_threads</a></span><span class='op'>(</span><span class='op'>)</span>,
   progress <span class='op'>=</span> <span class='fu'><a href='show_progress.html'>show_progress</a></span><span class='op'>(</span><span class='op'>)</span>,
-  skip_empty_rows <span class='op'>=</span> <span class='cn'>TRUE</span>
+  show_col_types <span class='op'>=</span> <span class='fu'><a href='should_show_types.html'>should_show_types</a></span><span class='op'>(</span><span class='op'>)</span>,
+  skip_empty_rows <span class='op'>=</span> <span class='cn'>TRUE</span>,
+  lazy <span class='op'>=</span> <span class='cn'>TRUE</span>
 <span class='op'>)</span>
 
 <span class='fu'>spec_csv2</span><span class='op'>(</span>
   <span class='va'>file</span>,
   col_names <span class='op'>=</span> <span class='cn'>TRUE</span>,
   col_types <span class='op'>=</span> <span class='cn'>NULL</span>,
+  col_select <span class='op'>=</span> <span class='cn'>NULL</span>,
+  id <span class='op'>=</span> <span class='cn'>NULL</span>,
   locale <span class='op'>=</span> <span class='fu'><a href='locale.html'>default_locale</a></span><span class='op'>(</span><span class='op'>)</span>,
   na <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>""</span>, <span class='st'>"NA"</span><span class='op'>)</span>,
   quoted_na <span class='op'>=</span> <span class='cn'>TRUE</span>,
@@ -222,13 +239,19 @@ turns off printing).</p>
   n_max <span class='op'>=</span> <span class='fl'>0</span>,
   guess_max <span class='op'>=</span> <span class='fl'>1000</span>,
   progress <span class='op'>=</span> <span class='fu'><a href='show_progress.html'>show_progress</a></span><span class='op'>(</span><span class='op'>)</span>,
-  skip_empty_rows <span class='op'>=</span> <span class='cn'>TRUE</span>
+  name_repair <span class='op'>=</span> <span class='st'>"unique"</span>,
+  num_threads <span class='op'>=</span> <span class='fu'><a href='readr_threads.html'>readr_threads</a></span><span class='op'>(</span><span class='op'>)</span>,
+  show_col_types <span class='op'>=</span> <span class='fu'><a href='should_show_types.html'>should_show_types</a></span><span class='op'>(</span><span class='op'>)</span>,
+  skip_empty_rows <span class='op'>=</span> <span class='cn'>TRUE</span>,
+  lazy <span class='op'>=</span> <span class='cn'>TRUE</span>
 <span class='op'>)</span>
 
 <span class='fu'>spec_tsv</span><span class='op'>(</span>
   <span class='va'>file</span>,
   col_names <span class='op'>=</span> <span class='cn'>TRUE</span>,
   col_types <span class='op'>=</span> <span class='cn'>NULL</span>,
+  col_select <span class='op'>=</span> <span class='cn'>NULL</span>,
+  id <span class='op'>=</span> <span class='cn'>NULL</span>,
   locale <span class='op'>=</span> <span class='fu'><a href='locale.html'>default_locale</a></span><span class='op'>(</span><span class='op'>)</span>,
   na <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>""</span>, <span class='st'>"NA"</span><span class='op'>)</span>,
   quoted_na <span class='op'>=</span> <span class='cn'>TRUE</span>,
@@ -239,24 +262,14 @@ turns off printing).</p>
   n_max <span class='op'>=</span> <span class='fl'>0</span>,
   guess_max <span class='op'>=</span> <span class='fl'>1000</span>,
   progress <span class='op'>=</span> <span class='fu'><a href='show_progress.html'>show_progress</a></span><span class='op'>(</span><span class='op'>)</span>,
-  skip_empty_rows <span class='op'>=</span> <span class='cn'>TRUE</span>
+  name_repair <span class='op'>=</span> <span class='st'>"unique"</span>,
+  num_threads <span class='op'>=</span> <span class='fu'><a href='readr_threads.html'>readr_threads</a></span><span class='op'>(</span><span class='op'>)</span>,
+  show_col_types <span class='op'>=</span> <span class='fu'><a href='should_show_types.html'>should_show_types</a></span><span class='op'>(</span><span class='op'>)</span>,
+  skip_empty_rows <span class='op'>=</span> <span class='cn'>TRUE</span>,
+  lazy <span class='op'>=</span> <span class='cn'>TRUE</span>
 <span class='op'>)</span>
 
 <span class='fu'>spec_table</span><span class='op'>(</span>
-  <span class='va'>file</span>,
-  col_names <span class='op'>=</span> <span class='cn'>TRUE</span>,
-  col_types <span class='op'>=</span> <span class='cn'>NULL</span>,
-  locale <span class='op'>=</span> <span class='fu'><a href='locale.html'>default_locale</a></span><span class='op'>(</span><span class='op'>)</span>,
-  na <span class='op'>=</span> <span class='st'>"NA"</span>,
-  skip <span class='op'>=</span> <span class='fl'>0</span>,
-  n_max <span class='op'>=</span> <span class='fl'>0</span>,
-  guess_max <span class='op'>=</span> <span class='fl'>1000</span>,
-  progress <span class='op'>=</span> <span class='fu'><a href='show_progress.html'>show_progress</a></span><span class='op'>(</span><span class='op'>)</span>,
-  comment <span class='op'>=</span> <span class='st'>""</span>,
-  skip_empty_rows <span class='op'>=</span> <span class='cn'>TRUE</span>
-<span class='op'>)</span>
-
-<span class='fu'>spec_table2</span><span class='op'>(</span>
   <span class='va'>file</span>,
   col_names <span class='op'>=</span> <span class='cn'>TRUE</span>,
   col_types <span class='op'>=</span> <span class='cn'>NULL</span>,
@@ -320,7 +333,8 @@ names of the columns, and the first row of the input will be read into
 the first row of the output data frame.</p>
 <p>Missing (<code>NA</code>) column names will generate a warning, and be filled
 in with dummy names <code>X1</code>, <code>X2</code> etc. Duplicate column names
-will generate a warning and be made unique with a numeric suffix.</p></td>
+will generate a warning and be made unique, see <code>name_repair</code> to control
+how this is done.</p></td>
     </tr>
     <tr>
       <th>col_types</th>
@@ -328,8 +342,9 @@ will generate a warning and be made unique with a numeric suffix.</p></td>
 a string. See <code><a href='../articles/readr.html'>vignette("readr")</a></code> for more details.</p>
 <p>If <code>NULL</code>, all column types will be imputed from the first 1000 rows
 on the input. This is convenient (and fast), but not robust. If the
-imputation fails, you'll need to supply the correct types yourself.</p>
-<p>If a column specification created by <code><a href='cols.html'>cols()</a></code>, it must contain
+imputation fails, you'll need to increase the <code>guess_max</code> or supply the
+correct types yourself.</p>
+<p>Column specifications created by <code><a href='https://rdrr.io/r/base/list.html'>list()</a></code> or <code><a href='cols.html'>cols()</a></code> must contain
 one column specification for each column. If you only want to read a
 subset of the columns, use <code><a href='cols.html'>cols_only()</a></code>.</p>
 <p>Alternatively, you can use a compact string representation where each
@@ -347,8 +362,22 @@ character represents one column:</p><ul>
 <li><p>_ or - = skip</p>
 <p>By default, reading a file without a column specification will print a
 message showing what <code>readr</code> guessed they were. To remove this message,
-use <code>col_types = cols()</code>.</p></li>
+set <code>show_col_types = FALSE</code> or set `options(readr.show_col_types = FALSE).</p></li>
 </ul></td>
+    </tr>
+    <tr>
+      <th>col_select</th>
+      <td><p>&lt;<code><a href='https://tidyselect.r-lib.org/reference/language.html'>tidy-select</a></code>&gt; Columns to include
+in the results, either by name or by numeric index. Use <code><a href='https://rdrr.io/r/base/c.html'>c()</a></code> or <code><a href='https://rdrr.io/r/base/list.html'>list()</a></code>
+to select with more than one expression and <code><a href='https://tidyselect.r-lib.org/reference/language.html'>?tidyselect::language</a></code> for full
+details on the selection language.</p></td>
+    </tr>
+    <tr>
+      <th>id</th>
+      <td><p>The name of a column in which to store the file path. This is
+useful when reading multiple input files and there is data in the file
+paths, such as the data collection date. If <code>NULL</code> (the default) no extra
+column is created.</p></td>
     </tr>
     <tr>
       <th>locale</th>
@@ -375,34 +404,72 @@ comment characters will be silently ignored.</p></td>
     </tr>
     <tr>
       <th>trim_ws</th>
-      <td><p>Should leading and trailing whitespace be trimmed from
+      <td><p>Should leading and trailing whitespace (ASCII spaces and tabs) be trimmed from
 each field before parsing it?</p></td>
     </tr>
     <tr>
       <th>skip</th>
-      <td><p>Number of lines to skip before reading data.</p></td>
+      <td><p>Number of lines to skip before reading data. If <code>comment</code> is
+supplied any commented lines are ignored <em>after</em> skipping.</p></td>
     </tr>
     <tr>
       <th>n_max</th>
-      <td><p>Maximum number of records to read.</p></td>
+      <td><p>Maximum number of lines to read.</p></td>
     </tr>
     <tr>
       <th>guess_max</th>
-      <td><p>Maximum number of records to use for guessing column types.</p></td>
+      <td><p>Maximum number of lines to use for guessing column types.</p></td>
+    </tr>
+    <tr>
+      <th>name_repair</th>
+      <td><p>Treatment of problematic column names:</p><ul>
+<li><p><code>"minimal"</code>: No name repair or checks, beyond basic existence of names</p></li>
+<li><p><code>"unique"</code>: Make sure names are unique and not empty</p></li>
+<li><p><code>"check_unique"</code>: (default value), no name repair, but check they are
+<code>unique</code></p></li>
+<li><p><code>"universal"</code>: Make the names <code>unique</code> and syntactic</p></li>
+<li><p>a function: apply custom name repair (e.g., <code>.name_repair = make.names</code>
+for names in the style of base R)</p></li>
+<li><p>A purrr-style anonymous function, see <code><a href='https://rlang.r-lib.org/reference/as_function.html'>rlang::as_function()</a></code></p></li>
+</ul>
+
+<p>This argument is passed on as <code>repair</code> to <code><a href='https://vctrs.r-lib.org/reference/vec_as_names.html'>vctrs::vec_as_names()</a></code>.
+See there for more details on these terms and the strategies used
+to enforce them.</p></td>
+    </tr>
+    <tr>
+      <th>num_threads</th>
+      <td><p>The number of processing threads to use for initial
+parsing and lazy reading of data.</p></td>
     </tr>
     <tr>
       <th>progress</th>
       <td><p>Display a progress bar? By default it will only display
-in an interactive session and not while knitting a document. The display
-is updated every 50,000 values and will only display if estimated reading
-time is 5 seconds or more. The automatic progress bar can be disabled by
-setting option <code>readr.show_progress</code> to <code>FALSE</code>.</p></td>
+in an interactive session and not while knitting a document. The automatic
+progress bar can be disabled by setting option <code>readr.show_progress</code> to
+<code>FALSE</code>.</p></td>
+    </tr>
+    <tr>
+      <th>show_col_types</th>
+      <td><p>If <code>FALSE</code>, do not show the guessed column types. If
+<code>TRUE</code> always show the column types, even if they are supplied. If <code>NULL</code>
+(the default) only show the column types if they are not explicitly supplied
+by the <code>col_types</code> argument.</p></td>
     </tr>
     <tr>
       <th>skip_empty_rows</th>
       <td><p>Should blank rows be ignored altogether? i.e. If this
 option is <code>TRUE</code> then blank rows will not be represented at all.  If it is
 <code>FALSE</code> then they will be represented by <code>NA</code> values in all the columns.</p></td>
+    </tr>
+    <tr>
+      <th>lazy</th>
+      <td><p>Read values lazily? By default the file is initially only
+indexed and the values are read lazily when accessed. Lazy reading is
+useful interactively, particularly if you are only interested in a subset
+of the full dataset. Note, lazy reading on windows will lock the file
+until all the data has been read from it, if you run into this issue set
+<code>lazy = FALSE</code>.</p></td>
     </tr>
     </table>
 
@@ -415,7 +482,7 @@ option is <code>TRUE</code> then blank rows will not be represented at all.  If 
 <span class='co'># Retrieve specs from a path</span>
 <span class='fu'>spec_csv</span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/system.file.html'>system.file</a></span><span class='op'>(</span><span class='st'>"extdata/mtcars.csv"</span>, package <span class='op'>=</span> <span class='st'>"readr"</span><span class='op'>)</span><span class='op'>)</span>
 </div><div class='output co'>#&gt; <span class='message'></span>
-#&gt; <span class='message'><span style='color: #00BBBB;'>──</span> <span style='font-weight: bold;'>Column specification</span> <span style='color: #00BBBB;'>─────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────</span></span>
+#&gt; <span class='message'><span style='color: #00BBBB;'>──</span> <span style='font-weight: bold;'>Column specification</span> <span style='color: #00BBBB;'>────────────────────────────────────────────────────────</span></span>
 #&gt; <span class='message'>cols(</span>
 #&gt; <span class='message'>  mpg = <span style='color: #00BB00;'>col_double()</span>,</span>
 #&gt; <span class='message'>  cyl = <span style='color: #00BB00;'>col_double()</span>,</span>
@@ -442,7 +509,7 @@ option is <code>TRUE</code> then blank rows will not be represented at all.  If 
 #&gt;   carb = <span style='color: #00BB00;'>col_double()</span>
 #&gt; )</div><div class='input'><span class='fu'>spec_csv</span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/system.file.html'>system.file</a></span><span class='op'>(</span><span class='st'>"extdata/mtcars.csv.zip"</span>, package <span class='op'>=</span> <span class='st'>"readr"</span><span class='op'>)</span><span class='op'>)</span>
 </div><div class='output co'>#&gt; <span class='message'></span>
-#&gt; <span class='message'><span style='color: #00BBBB;'>──</span> <span style='font-weight: bold;'>Column specification</span> <span style='color: #00BBBB;'>─────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────</span></span>
+#&gt; <span class='message'><span style='color: #00BBBB;'>──</span> <span style='font-weight: bold;'>Column specification</span> <span style='color: #00BBBB;'>────────────────────────────────────────────────────────</span></span>
 #&gt; <span class='message'>cols(</span>
 #&gt; <span class='message'>  mpg = <span style='color: #00BB00;'>col_double()</span>,</span>
 #&gt; <span class='message'>  cyl = <span style='color: #00BB00;'>col_double()</span>,</span>
@@ -469,7 +536,7 @@ option is <code>TRUE</code> then blank rows will not be represented at all.  If 
 #&gt;   carb = <span style='color: #00BB00;'>col_double()</span>
 #&gt; )</div><div class='input'>
 <span class='co'># Or directly from a string (must contain a newline)</span>
-<span class='fu'>spec_csv</span><span class='op'>(</span><span class='st'>"x,y\n1,2\n3,4"</span><span class='op'>)</span>
+<span class='fu'>spec_csv</span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/AsIs.html'>I</a></span><span class='op'>(</span><span class='st'>"x,y\n1,2\n3,4"</span><span class='op'>)</span><span class='op'>)</span>
 </div><div class='output co'>#&gt; cols(
 #&gt;   x = <span style='color: #00BB00;'>col_double()</span>,
 #&gt;   y = <span style='color: #00BB00;'>col_double()</span>
@@ -479,7 +546,7 @@ option is <code>TRUE</code> then blank rows will not be represented at all.  If 
 <span class='co'># You can specify the number of rows used with guess_max.</span>
 <span class='fu'>spec_csv</span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/system.file.html'>system.file</a></span><span class='op'>(</span><span class='st'>"extdata/mtcars.csv"</span>, package <span class='op'>=</span> <span class='st'>"readr"</span><span class='op'>)</span>, guess_max <span class='op'>=</span> <span class='fl'>20</span><span class='op'>)</span>
 </div><div class='output co'>#&gt; <span class='message'></span>
-#&gt; <span class='message'><span style='color: #00BBBB;'>──</span> <span style='font-weight: bold;'>Column specification</span> <span style='color: #00BBBB;'>─────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────</span></span>
+#&gt; <span class='message'><span style='color: #00BBBB;'>──</span> <span style='font-weight: bold;'>Column specification</span> <span style='color: #00BBBB;'>────────────────────────────────────────────────────────</span></span>
 #&gt; <span class='message'>cols(</span>
 #&gt; <span class='message'>  mpg = <span style='color: #00BB00;'>col_double()</span>,</span>
 #&gt; <span class='message'>  cyl = <span style='color: #00BB00;'>col_double()</span>,</span>
