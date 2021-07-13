@@ -7,18 +7,16 @@ There were 0 NOTEs:
 
 We checked reverse dependency checks and proposed the following changes where need to fix reverse dependencies prior to releasing readr.
 
-- auk - https://github.com/CornellLabofOrnithology/auk/pull/55
 - blaise - https://github.com/sophof/blaise/pull/5
-- breathtestcore - number of column issue
-- dataRetrieval - https://github.com/USGS-R/dataRetrieval/pull/571
+- breathtestcore - https://github.com/r-lib/vroom/issues/355
 - DSSAT - https://github.com/palderman/DSSAT/pull/27
-- eyelinker - https://github.com/a-hurst/eyelinker/pull/2
-- fgeo.tool - https://github.com/forestgeo/fgeo.tool/pull/189
-- fitzRoy - This seems spurious, tests work locally
+- frenchdata - https://github.com/nareal/frenchdata/pull/1
 - genius - https://github.com/JosiahParry/genius/pull/55
-- radous - https://github.com/feddelegrand7/radous/pull/2
-- rglobi - https://github.com/ropensci/rglobi/pull/37
-- valr - https://github.com/rnabioco/valr/pull/374
+- geobr - https://github.com/ipeaGIT/geobr/pull/257
+- geometr - https://github.com/EhrmannS/geometr/pull/6
+- immunarch - fixed in readr
+- jstor - https://github.com/ropensci/jstor/pull/85
 - rhmmer - https://github.com/arendsee/rhmmer/pull/1
-- truthiness - https://github.com/dalejbarr/truthiness/pull/5
-- xpose - https://github.com/UUPharmacometrics/xpose/pull/194
+- rwebstat - fixed in readr
+- speakr - https://github.com/stefanocoretta/speakr/pull/9
+- spiR - https://github.com/warint/spiR/pull/1
