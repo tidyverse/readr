@@ -15,7 +15,7 @@ spec_delim(
   escape_backslash = FALSE,
   escape_double = TRUE,
   col_names = TRUE,
-  col_types = NULL,
+  col_types = list(),
   col_select = NULL,
   id = NULL,
   locale = default_locale(),
@@ -37,7 +37,7 @@ spec_delim(
 spec_csv(
   file,
   col_names = TRUE,
-  col_types = NULL,
+  col_types = list(),
   col_select = NULL,
   id = NULL,
   locale = default_locale(),
@@ -60,7 +60,7 @@ spec_csv(
 spec_csv2(
   file,
   col_names = TRUE,
-  col_types = NULL,
+  col_types = list(),
   col_select = NULL,
   id = NULL,
   locale = default_locale(),
@@ -83,7 +83,7 @@ spec_csv2(
 spec_tsv(
   file,
   col_names = TRUE,
-  col_types = NULL,
+  col_types = list(),
   col_select = NULL,
   id = NULL,
   locale = default_locale(),
@@ -106,7 +106,7 @@ spec_tsv(
 spec_table(
   file,
   col_names = TRUE,
-  col_types = NULL,
+  col_types = list(),
   locale = default_locale(),
   na = "NA",
   skip = 0,
