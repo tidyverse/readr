@@ -484,21 +484,7 @@ until all the data has been read from it, if you run into this issue set
     <pre class="examples"><div class='input'><span class='co'># Input sources -------------------------------------------------------------</span>
 <span class='co'># Retrieve specs from a path</span>
 <span class='fu'>spec_csv</span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/system.file.html'>system.file</a></span><span class='op'>(</span><span class='st'>"extdata/mtcars.csv"</span>, package <span class='op'>=</span> <span class='st'>"readr"</span><span class='op'>)</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; <span class='message'></span>
-#&gt; <span class='message'><span style='color: #00BBBB;'>──</span> <span style='font-weight: bold;'>Column specification</span> <span style='color: #00BBBB;'>────────────────────────────────────────────────────────</span></span>
-#&gt; <span class='message'>cols(</span>
-#&gt; <span class='message'>  mpg = <span style='color: #00BB00;'>col_double()</span>,</span>
-#&gt; <span class='message'>  cyl = <span style='color: #00BB00;'>col_double()</span>,</span>
-#&gt; <span class='message'>  disp = <span style='color: #00BB00;'>col_double()</span>,</span>
-#&gt; <span class='message'>  hp = <span style='color: #00BB00;'>col_double()</span>,</span>
-#&gt; <span class='message'>  drat = <span style='color: #00BB00;'>col_double()</span>,</span>
-#&gt; <span class='message'>  wt = <span style='color: #00BB00;'>col_double()</span>,</span>
-#&gt; <span class='message'>  qsec = <span style='color: #00BB00;'>col_double()</span>,</span>
-#&gt; <span class='message'>  vs = <span style='color: #00BB00;'>col_double()</span>,</span>
-#&gt; <span class='message'>  am = <span style='color: #00BB00;'>col_double()</span>,</span>
-#&gt; <span class='message'>  gear = <span style='color: #00BB00;'>col_double()</span>,</span>
-#&gt; <span class='message'>  carb = <span style='color: #00BB00;'>col_double()</span></span>
-#&gt; <span class='message'>)</span></div><div class='output co'>#&gt; cols(
+</div><div class='output co'>#&gt; cols(
 #&gt;   mpg = <span style='color: #00BB00;'>col_double()</span>,
 #&gt;   cyl = <span style='color: #00BB00;'>col_double()</span>,
 #&gt;   disp = <span style='color: #00BB00;'>col_double()</span>,
@@ -511,21 +497,7 @@ until all the data has been read from it, if you run into this issue set
 #&gt;   gear = <span style='color: #00BB00;'>col_double()</span>,
 #&gt;   carb = <span style='color: #00BB00;'>col_double()</span>
 #&gt; )</div><div class='input'><span class='fu'>spec_csv</span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/system.file.html'>system.file</a></span><span class='op'>(</span><span class='st'>"extdata/mtcars.csv.zip"</span>, package <span class='op'>=</span> <span class='st'>"readr"</span><span class='op'>)</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; <span class='message'></span>
-#&gt; <span class='message'><span style='color: #00BBBB;'>──</span> <span style='font-weight: bold;'>Column specification</span> <span style='color: #00BBBB;'>────────────────────────────────────────────────────────</span></span>
-#&gt; <span class='message'>cols(</span>
-#&gt; <span class='message'>  mpg = <span style='color: #00BB00;'>col_double()</span>,</span>
-#&gt; <span class='message'>  cyl = <span style='color: #00BB00;'>col_double()</span>,</span>
-#&gt; <span class='message'>  disp = <span style='color: #00BB00;'>col_double()</span>,</span>
-#&gt; <span class='message'>  hp = <span style='color: #00BB00;'>col_double()</span>,</span>
-#&gt; <span class='message'>  drat = <span style='color: #00BB00;'>col_double()</span>,</span>
-#&gt; <span class='message'>  wt = <span style='color: #00BB00;'>col_double()</span>,</span>
-#&gt; <span class='message'>  qsec = <span style='color: #00BB00;'>col_double()</span>,</span>
-#&gt; <span class='message'>  vs = <span style='color: #00BB00;'>col_double()</span>,</span>
-#&gt; <span class='message'>  am = <span style='color: #00BB00;'>col_double()</span>,</span>
-#&gt; <span class='message'>  gear = <span style='color: #00BB00;'>col_double()</span>,</span>
-#&gt; <span class='message'>  carb = <span style='color: #00BB00;'>col_double()</span></span>
-#&gt; <span class='message'>)</span></div><div class='output co'>#&gt; cols(
+</div><div class='output co'>#&gt; cols(
 #&gt;   mpg = <span style='color: #00BB00;'>col_double()</span>,
 #&gt;   cyl = <span style='color: #00BB00;'>col_double()</span>,
 #&gt;   disp = <span style='color: #00BB00;'>col_double()</span>,
@@ -548,21 +520,7 @@ until all the data has been read from it, if you run into this issue set
 <span class='co'># By default, readr guesses the columns types, looking at the first 1000 rows.</span>
 <span class='co'># You can specify the number of rows used with guess_max.</span>
 <span class='fu'>spec_csv</span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/system.file.html'>system.file</a></span><span class='op'>(</span><span class='st'>"extdata/mtcars.csv"</span>, package <span class='op'>=</span> <span class='st'>"readr"</span><span class='op'>)</span>, guess_max <span class='op'>=</span> <span class='fl'>20</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; <span class='message'></span>
-#&gt; <span class='message'><span style='color: #00BBBB;'>──</span> <span style='font-weight: bold;'>Column specification</span> <span style='color: #00BBBB;'>────────────────────────────────────────────────────────</span></span>
-#&gt; <span class='message'>cols(</span>
-#&gt; <span class='message'>  mpg = <span style='color: #00BB00;'>col_double()</span>,</span>
-#&gt; <span class='message'>  cyl = <span style='color: #00BB00;'>col_double()</span>,</span>
-#&gt; <span class='message'>  disp = <span style='color: #00BB00;'>col_double()</span>,</span>
-#&gt; <span class='message'>  hp = <span style='color: #00BB00;'>col_double()</span>,</span>
-#&gt; <span class='message'>  drat = <span style='color: #00BB00;'>col_double()</span>,</span>
-#&gt; <span class='message'>  wt = <span style='color: #00BB00;'>col_double()</span>,</span>
-#&gt; <span class='message'>  qsec = <span style='color: #00BB00;'>col_double()</span>,</span>
-#&gt; <span class='message'>  vs = <span style='color: #00BB00;'>col_double()</span>,</span>
-#&gt; <span class='message'>  am = <span style='color: #00BB00;'>col_double()</span>,</span>
-#&gt; <span class='message'>  gear = <span style='color: #00BB00;'>col_double()</span>,</span>
-#&gt; <span class='message'>  carb = <span style='color: #00BB00;'>col_double()</span></span>
-#&gt; <span class='message'>)</span></div><div class='output co'>#&gt; cols(
+</div><div class='output co'>#&gt; cols(
 #&gt;   mpg = <span style='color: #00BB00;'>col_double()</span>,
 #&gt;   cyl = <span style='color: #00BB00;'>col_double()</span>,
 #&gt;   disp = <span style='color: #00BB00;'>col_double()</span>,

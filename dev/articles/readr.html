@@ -242,31 +242,10 @@
 <p>There are two parsers that will never be guessed: <code><a href="../reference/col_skip.html">col_skip()</a></code> and <code><a href="../reference/parse_factor.html">col_factor()</a></code>. You will always need to supply these explicitly.</p>
 <p>You can see the specification that readr would generate for a column file by using <code><a href="../reference/spec_delim.html">spec_csv()</a></code>, <code><a href="../reference/spec_delim.html">spec_tsv()</a></code> and so on:</p>
 <div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">x</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/spec_delim.html">spec_csv</a></span><span class="op">(</span><span class="fu"><a href="../reference/readr_example.html">readr_example</a></span><span class="op">(</span><span class="st">"challenge.csv"</span><span class="op">)</span><span class="op">)</span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt; ── Column specification ────────────────────────────────────────────────────────</span>
-<span class="co">#&gt; cols(</span>
-<span class="co">#&gt;   x = col_double(),</span>
-<span class="co">#&gt;   y = col_logical()</span>
-<span class="co">#&gt; )</span></code></pre></div>
+<code class="sourceCode R"><span class="va">x</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/spec_delim.html">spec_csv</a></span><span class="op">(</span><span class="fu"><a href="../reference/readr_example.html">readr_example</a></span><span class="op">(</span><span class="st">"challenge.csv"</span><span class="op">)</span><span class="op">)</span></code></pre></div>
 <p>For bigger files, you can often make the specification simpler by changing the default column type using <code><a href="../reference/cols_condense.html">cols_condense()</a></code></p>
 <div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">mtcars_spec</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/spec_delim.html">spec_csv</a></span><span class="op">(</span><span class="fu"><a href="../reference/readr_example.html">readr_example</a></span><span class="op">(</span><span class="st">"mtcars.csv"</span><span class="op">)</span><span class="op">)</span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt; ── Column specification ────────────────────────────────────────────────────────</span>
-<span class="co">#&gt; cols(</span>
-<span class="co">#&gt;   mpg = col_double(),</span>
-<span class="co">#&gt;   cyl = col_double(),</span>
-<span class="co">#&gt;   disp = col_double(),</span>
-<span class="co">#&gt;   hp = col_double(),</span>
-<span class="co">#&gt;   drat = col_double(),</span>
-<span class="co">#&gt;   wt = col_double(),</span>
-<span class="co">#&gt;   qsec = col_double(),</span>
-<span class="co">#&gt;   vs = col_double(),</span>
-<span class="co">#&gt;   am = col_double(),</span>
-<span class="co">#&gt;   gear = col_double(),</span>
-<span class="co">#&gt;   carb = col_double()</span>
-<span class="co">#&gt; )</span>
 <span class="va">mtcars_spec</span>
 <span class="co">#&gt; cols(</span>
 <span class="co">#&gt;   mpg = col_double(),</span>
@@ -288,13 +267,7 @@
 <span class="co">#&gt; )</span></code></pre></div>
 <p>By default readr only looks at the first 1000 rows. This keeps file parsing speedy, but can generate incorrect guesses. For example, in <code>challenge.csv</code> the column types change in row 1001, so readr guesses the wrong types. One way to resolve the problem is to increase the number of rows:</p>
 <div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">x</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/spec_delim.html">spec_csv</a></span><span class="op">(</span><span class="fu"><a href="../reference/readr_example.html">readr_example</a></span><span class="op">(</span><span class="st">"challenge.csv"</span><span class="op">)</span>, guess_max <span class="op">=</span> <span class="fl">1001</span><span class="op">)</span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt; ── Column specification ────────────────────────────────────────────────────────</span>
-<span class="co">#&gt; cols(</span>
-<span class="co">#&gt;   x = col_double(),</span>
-<span class="co">#&gt;   y = col_date(format = "")</span>
-<span class="co">#&gt; )</span></code></pre></div>
+<code class="sourceCode R"><span class="va">x</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/spec_delim.html">spec_csv</a></span><span class="op">(</span><span class="fu"><a href="../reference/readr_example.html">readr_example</a></span><span class="op">(</span><span class="st">"challenge.csv"</span><span class="op">)</span>, guess_max <span class="op">=</span> <span class="fl">1001</span><span class="op">)</span></code></pre></div>
 <p>Another way is to manually specify the <code>col_type</code>, as described below.</p>
 </div>
 <div id="rectangular-parsers" class="section level2">
