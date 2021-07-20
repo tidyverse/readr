@@ -430,13 +430,10 @@ read_delimited <- function(file, tokenizer, col_names = TRUE, col_types = NULL,
 generate_spec_fun <- function(f) {
   formals(f)$n_max <- 0
   formals(f)$guess_max <- 1000
+  formals(f)$col_types <- list()
 
-  body(f) <- call("spec",
-    as.call(c(
-        call("function", NULL, bquote(with_edition(1, .(body)), list(body = body(f)))),
-        alist())
-    )
-  )
+  old_body <- body(f)
+  body(f) <- rlang::inject(quote(spec(with_edition(1, (function() !!old_body)()))))
   f
 }
 

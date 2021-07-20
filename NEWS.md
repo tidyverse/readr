@@ -1,5 +1,7 @@
 # readr (development version)
 
+* Avoid spurious byte compilation errors due to the programatically generated `spec_*()` functions.
+
 # readr 2.0.0
 
 ## second edition changes
