@@ -55,6 +55,7 @@ reference:
     line is divided up into fields.
   contents:
   - read_delim
+  - read_delim_chunked
   - read_fwf
   - read_log
   - read_table
@@ -119,6 +120,7 @@ reference:
     the file, and how each line is divided up into fields.
   contents:
   - melt_delim
+  - melt_delim_chunked
   - melt_fwf
   - melt_table
 
@@ -129,6 +131,7 @@ reference:
   contents:
   - read_file
   - read_lines
+  - read_lines_chunked
   - read_rds
   - read_builtin
   - count_fields
