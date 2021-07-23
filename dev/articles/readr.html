@@ -213,7 +213,7 @@
 <span class="co">#&gt;   3  -- value in level set      d</span>
 <span class="co">#&gt; [1] a    b    &lt;NA&gt;</span>
 <span class="co">#&gt; attr(,"problems")</span>
-<span class="co">#&gt; # A tibble: 1 x 4</span>
+<span class="co">#&gt; # A tibble: 1 × 4</span>
 <span class="co">#&gt;     row   col expected           actual</span>
 <span class="co">#&gt;   &lt;int&gt; &lt;int&gt; &lt;chr&gt;              &lt;chr&gt; </span>
 <span class="co">#&gt; 1     3    NA value in level set d     </span>
@@ -298,7 +298,7 @@
 <p>The rectangular parsing functions almost always succeed; they’ll only fail if the format is severely messed up. Instead, readr will generate a data frame of problems. The first few will be printed out, and you can access them all with <code><a href="../reference/problems.html">problems()</a></code>:</p>
 <div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="../reference/problems.html">problems</a></span><span class="op">(</span><span class="va">df1</span><span class="op">)</span>
-<span class="co">#&gt; # A tibble: 0 x 5</span>
+<span class="co">#&gt; # A tibble: 0 × 5</span>
 <span class="co">#&gt; # … with 5 variables: row &lt;int&gt;, col &lt;int&gt;, expected &lt;chr&gt;, actual &lt;chr&gt;,</span>
 <span class="co">#&gt; #   file &lt;chr&gt;</span></code></pre></div>
 <p>You’ve already seen one way of handling bad guesses: increasing the number of rows used to guess the type of each column.</p>

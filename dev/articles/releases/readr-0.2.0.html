@@ -269,7 +269,7 @@
 <p>If you don’t know what encoding the file uses, try <code><a href="../../reference/guess_encoding.html">guess_encoding()</a></code>. It’s not 100% perfect (as it’s fundamentally a heuristic), but should at least get you pointed in the right direction:</p>
 <div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="../../reference/guess_encoding.html">guess_encoding</a></span><span class="op">(</span><span class="va">y</span><span class="op">)</span>
-<span class="co">#&gt; # A tibble: 2 x 2</span>
+<span class="co">#&gt; # A tibble: 2 × 2</span>
 <span class="co">#&gt;   encoding   confidence</span>
 <span class="co">#&gt;   &lt;chr&gt;           &lt;dbl&gt;</span>
 <span class="co">#&gt; 1 ISO-8859-2        0.4</span>
@@ -318,7 +318,7 @@
 <p>New <code><a href="../../reference/cols.html">cols()</a></code> function takes of assembling the list of column types, and with its <code>.default</code> argument, allows you to control the default column type:</p>
 <div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="../../reference/read_delim.html">read_csv</a></span><span class="op">(</span><span class="st">"x,y\n1,2"</span>, col_types <span class="op">=</span> <span class="fu"><a href="../../reference/cols.html">cols</a></span><span class="op">(</span>.default <span class="op">=</span> <span class="st">"c"</span><span class="op">)</span><span class="op">)</span>
-<span class="co">#&gt; # A tibble: 1 x 2</span>
+<span class="co">#&gt; # A tibble: 1 × 2</span>
 <span class="co">#&gt;   x     y    </span>
 <span class="co">#&gt;   &lt;chr&gt; &lt;chr&gt;</span>
 <span class="co">#&gt; 1 1     2</span></code></pre></div>
@@ -328,7 +328,7 @@
 <p><code><a href="../../reference/cols.html">cols_only()</a></code> allows you to load only the specified columns:</p>
 <div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="../../reference/read_delim.html">read_csv</a></span><span class="op">(</span><span class="st">"a,b,c\n1,2,3"</span>, col_types <span class="op">=</span> <span class="fu"><a href="../../reference/cols.html">cols_only</a></span><span class="op">(</span><span class="st">"b"</span> <span class="op">=</span> <span class="st">"?"</span><span class="op">)</span><span class="op">)</span>
-<span class="co">#&gt; # A tibble: 1 x 1</span>
+<span class="co">#&gt; # A tibble: 1 × 1</span>
 <span class="co">#&gt;       b</span>
 <span class="co">#&gt;   &lt;dbl&gt;</span>
 <span class="co">#&gt; 1     2</span></code></pre></div>
@@ -378,7 +378,7 @@
 <span class="co">#&gt; </span>
 <span class="co">#&gt; ℹ Use `spec()` to retrieve the full column specification for this data.</span>
 <span class="co">#&gt; ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.</span>
-<span class="co">#&gt; # A tibble: 2 x 2</span>
+<span class="co">#&gt; # A tibble: 2 × 2</span>
 <span class="co">#&gt;       a     b</span>
 <span class="co">#&gt;   &lt;dbl&gt; &lt;dbl&gt;</span>
 <span class="co">#&gt; 1    NA    NA</span>
@@ -400,7 +400,7 @@ a,b
 <span class="co">#&gt; </span>
 <span class="co">#&gt; ℹ Use `spec()` to retrieve the full column specification for this data.</span>
 <span class="co">#&gt; ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.</span>
-<span class="co">#&gt; # A tibble: 2 x 2</span>
+<span class="co">#&gt; # A tibble: 2 × 2</span>
 <span class="co">#&gt;       a     b</span>
 <span class="co">#&gt;   &lt;dbl&gt; &lt;dbl&gt;</span>
 <span class="co">#&gt; 1     1    10</span>
@@ -417,7 +417,7 @@ a,b
 <span class="co">#&gt; </span>
 <span class="co">#&gt; ℹ Use `spec()` to retrieve the full column specification for this data.</span>
 <span class="co">#&gt; ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.</span>
-<span class="co">#&gt; # A tibble: 1 x 2</span>
+<span class="co">#&gt; # A tibble: 1 × 2</span>
 <span class="co">#&gt;       a     b</span>
 <span class="co">#&gt;   &lt;dbl&gt; &lt;dbl&gt;</span>
 <span class="co">#&gt; 1     1     2</span>
@@ -429,7 +429,7 @@ a,b
 <span class="co">#&gt; </span>
 <span class="co">#&gt; ℹ Use `spec()` to retrieve the full column specification for this data.</span>
 <span class="co">#&gt; ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.</span>
-<span class="co">#&gt; # A tibble: 1 x 2</span>
+<span class="co">#&gt; # A tibble: 1 × 2</span>
 <span class="co">#&gt;   a        b       </span>
 <span class="co">#&gt;   &lt;chr&gt;    &lt;chr&gt;   </span>
 <span class="co">#&gt; 1 "     1" "     2"</span></code></pre></div>
@@ -446,7 +446,7 @@ a,b
 <span class="co">#&gt; ℹ Use `spec()` to retrieve the full column specification for this data.</span>
 <span class="co">#&gt; ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.</span>
 <span class="co">#&gt; Warning: One or more parsing issues, see `problems()` for details</span>
-<span class="co">#&gt; # A tibble: 2 x 3</span>
+<span class="co">#&gt; # A tibble: 2 × 3</span>
 <span class="co">#&gt;       a     b     c</span>
 <span class="co">#&gt;   &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;</span>
 <span class="co">#&gt; 1     1     2    NA</span>
