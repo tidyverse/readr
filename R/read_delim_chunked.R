@@ -2,7 +2,7 @@
 generate_read_delimited_chunked <- function(x) {
   args <- formals(x)
   args <- args[names(args) != "n_max"]
-  args <- append(args, alist(callback = , chunk_size = 10000), 1)
+  args <- append(args, alist(callback = , chunk_size =), 1)
 
   # Change guess_max default to use chunk_size
   args$guess_max[[3]] <- quote(chunk_size)
@@ -76,9 +76,10 @@ read_delim_chunked <- function(file, callback, delim = NULL, chunk_size = 10000,
     skip_empty_rows = skip_empty_rows
   )
   read_delimited_chunked(file,
-    callback = callback, tokenizer = tokenizer, col_names = col_names, col_types = col_types,
-    locale = locale, skip = skip, skip_empty_rows = skip_empty_rows,
-    comment = comment, guess_max = guess_max, progress = progress
+    callback = callback, chunk_size = chunk_size, tokenizer = tokenizer,
+    col_names = col_names, col_types = col_types, locale = locale, skip = skip,
+    skip_empty_rows = skip_empty_rows, comment = comment, guess_max = guess_max,
+    progress = progress
   )
 }
 

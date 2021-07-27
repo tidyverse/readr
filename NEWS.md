@@ -2,6 +2,8 @@
 
 * Avoid spurious byte compilation errors due to the programatically generated `spec_*()` functions.
 
+* `read_delim_chunked()` now again correctly respects the `chunk_size` parameter (#1248)
+
 # readr 2.0.0
 
 ## second edition changes

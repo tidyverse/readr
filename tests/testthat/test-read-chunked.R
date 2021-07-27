@@ -93,6 +93,12 @@ test_that("read_delim_chunked", {
   expect_true(all(vapply(dims[1:6], identical, logical(1), c(5L, 11L))))
   expect_true(identical(dims[[7]], c(2L, 11L)))
 
+  # In chunks of 5 with read_delim
+  dims <- list()
+  read_delim_chunked(file, delim = ",", get_dims, chunk_size = 5)
+  expect_true(all(vapply(dims[1:6], identical, logical(1), c(5L, 11L))))
+  expect_true(identical(dims[[7]], c(2L, 11L)))
+
   # Halting early
   get_dims_stop <- function(data, pos) {
     dims[[length(dims) + 1]] <<- dim(data)
