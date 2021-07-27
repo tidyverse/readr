@@ -22,9 +22,9 @@ be automatically uncompressed. Files starting with \verb{http://},
 downloaded. Remote gz files can also be automatically downloaded and
 decompressed.
 
-Literal data is most useful for examples and tests. It must contain at
-least one new line to be recognised as data (instead of a path) or be a
-vector of greater than length 1.
+Literal data is most useful for examples and tests. To be recognised as a
+path, it must be wrapped with \code{I()}, be a string containing at least one
+new line, or be a vector containing at least one string with a new line.
 
 Using a value of \code{\link[=clipboard]{clipboard()}} will read from the system clipboard.}
 
@@ -40,7 +40,7 @@ names.}
 will append to existing file. In both cases, if the file does not exist a new
 file is created.}
 
-\item{path}{\Sexpr[results=rd, stage=render]{lifecycle::badge("deprecated")}}
+\item{path}{\Sexpr[results=rd, stage=render]{lifecycle::badge("deprecated")}, use the \code{file} argument instead.}
 }
 \value{
 \code{read_file}: A length 1 character vector.

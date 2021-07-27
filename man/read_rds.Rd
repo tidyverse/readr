@@ -30,7 +30,7 @@ write_rds(
 as it's compatible for R versions prior to 3.5.0. See \code{\link[base:readRDS]{base::saveRDS()}}
 for more details.}
 
-\item{path}{\Sexpr[results=rd, stage=render]{lifecycle::badge("deprecated")}}
+\item{path}{\Sexpr[results=rd, stage=render]{lifecycle::badge("deprecated")}, use the \code{file} argument instead.}
 
 \item{...}{Additional arguments to connection function. For example, control
 the space-time trade-off of different compression methods with

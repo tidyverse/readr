@@ -45,7 +45,7 @@ read_file_raw <- function(file) {
 }
 
 #' @inherit write_lines
-#' @param path \Sexpr[results=rd, stage=render]{lifecycle::badge("deprecated")}
+#' @param path \Sexpr[results=rd, stage=render]{lifecycle::badge("deprecated")}, use the `file` argument instead.
 #' @rdname read_file
 #' @export
 write_file <- function(x, file, append = FALSE, path = deprecated()) {

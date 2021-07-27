@@ -72,7 +72,7 @@ read_lines_raw <- function(file, skip = 0,
 }
 
 #' @inheritParams write_delim
-#' @param path \Sexpr[results=rd, stage=render]{lifecycle::badge("deprecated")}
+#' @param path \Sexpr[results=rd, stage=render]{lifecycle::badge("deprecated")}, use the `file` argument instead.
 #' @return `write_lines()` returns `x`, invisibly.
 #' @export
 #' @rdname read_lines
