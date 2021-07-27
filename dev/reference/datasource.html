@@ -193,9 +193,9 @@ be automatically uncompressed. Files starting with <code>http://</code>,
 <code>https://</code>, <code>ftp://</code>, or <code>ftps://</code> will be automatically
 downloaded. Remote gz files can also be automatically downloaded and
 decompressed.</p>
-<p>Literal data is most useful for examples and tests. It must contain at
-least one new line to be recognised as data (instead of a path) or be a
-vector of greater than length 1.</p>
+<p>Literal data is most useful for examples and tests. To be recognised as a
+path, it must be wrapped with <code><a href='https://rdrr.io/r/base/AsIs.html'>I()</a></code>, be a string containing at least one
+new line, or be a vector containing at least one string with a new line.</p>
 <p>Using a value of <code><a href='clipboard.html'>clipboard()</a></code> will read from the system clipboard.</p></td>
     </tr>
     <tr>
@@ -262,7 +262,7 @@ vector of greater than length 1.</p>
 #&gt; attr(,"class")
 #&gt; [1] "source_file" "source"     </div><div class='input'><span class='fu'>datasource</span><span class='op'>(</span><span class='fu'><a href='readr_example.html'>readr_example</a></span><span class='op'>(</span><span class='st'>"mtcars.csv.bz2"</span><span class='op'>)</span><span class='op'>)</span>
 </div><div class='output co'>#&gt; [[1]]
-#&gt; [1] "/tmp/RtmpmyUUBI/file2a8f213c16b2"
+#&gt; [1] "/tmp/RtmpmIqkQN/file2ad85701db75"
 #&gt; 
 #&gt; $skip
 #&gt; [1] 0
@@ -277,12 +277,12 @@ vector of greater than length 1.</p>
 #&gt; [1] TRUE
 #&gt; 
 #&gt; $env
-#&gt; &lt;environment: 0x55b16f3d0980&gt;
+#&gt; &lt;environment: 0x55e4de4f1fd8&gt;
 #&gt; 
 #&gt; attr(,"class")
 #&gt; [1] "source_file" "source"     </div><div class='input'><span class='fu'>datasource</span><span class='op'>(</span><span class='fu'><a href='readr_example.html'>readr_example</a></span><span class='op'>(</span><span class='st'>"mtcars.csv.zip"</span><span class='op'>)</span><span class='op'>)</span>
 </div><div class='output co'>#&gt; [[1]]
-#&gt; [1] "/tmp/RtmpmyUUBI/file2a8fd9feea1"
+#&gt; [1] "/tmp/RtmpmIqkQN/file2ad8a9223e3"
 #&gt; 
 #&gt; $skip
 #&gt; [1] 0
@@ -297,7 +297,7 @@ vector of greater than length 1.</p>
 #&gt; [1] TRUE
 #&gt; 
 #&gt; $env
-#&gt; &lt;environment: 0x55b16c89bdc0&gt;
+#&gt; &lt;environment: 0x55e4de315c10&gt;
 #&gt; 
 #&gt; attr(,"class")
 #&gt; [1] "source_file" "source"     </div><div class='input'><span class='kw'>if</span> <span class='op'>(</span><span class='cn'>FALSE</span><span class='op'>)</span> <span class='op'>{</span>
@@ -308,7 +308,7 @@ vector of greater than length 1.</p>
 <span class='va'>con</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/rawConnection.html'>rawConnection</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/rawConversion.html'>charToRaw</a></span><span class='op'>(</span><span class='st'>"abc\n123"</span><span class='op'>)</span><span class='op'>)</span>
 <span class='fu'>datasource</span><span class='op'>(</span><span class='va'>con</span><span class='op'>)</span>
 </div><div class='output co'>#&gt; [[1]]
-#&gt; [1] "/tmp/RtmpmyUUBI/file2a8f3378ce48"
+#&gt; [1] "/tmp/RtmpmIqkQN/file2ad85e8f3f48"
 #&gt; 
 #&gt; $skip
 #&gt; [1] 0
@@ -323,7 +323,7 @@ vector of greater than length 1.</p>
 #&gt; [1] TRUE
 #&gt; 
 #&gt; $env
-#&gt; &lt;environment: 0x55b16c5ec4c0&gt;
+#&gt; &lt;environment: 0x55e4de0ee010&gt;
 #&gt; 
 #&gt; attr(,"class")
 #&gt; [1] "source_file" "source"     </div><div class='input'><span class='fu'><a href='https://rdrr.io/r/base/connections.html'>close</a></span><span class='op'>(</span><span class='va'>con</span><span class='op'>)</span>
