@@ -58,6 +58,7 @@ Suggests:
     stringi,
     testthat,
     tzdb (>= 0.1.1),
+    waldo,
     withr,
     xml2
 LinkingTo: 

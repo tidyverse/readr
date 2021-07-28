@@ -318,6 +318,11 @@ test_that("as.character() works on col_spec objects", {
 })
 
 test_that("options(readr.show_col_spec) can turn off showing column specifications", {
+  skip_if_edition_first()
+
+  old <- options("readr.show_col_types")
+  on.exit(options(old))
+
   options(readr.show_col_types = NULL)
   expect_message(
     expect_message(
