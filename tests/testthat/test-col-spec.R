@@ -316,3 +316,17 @@ test_that("as.character() works on col_spec objects", {
   spec <- as.col_spec(iris)
   expect_equal(as.character(spec), "ddddf")
 })
+
+test_that("options(readr.show_col_spec) can turn off showing column specifications", {
+  options(readr.show_col_types = NULL)
+  expect_message(
+    expect_message(
+      expect_message(
+        read_csv(readr_example("mtcars.csv"))
+      )
+    )
+  )
+
+  options(readr.show_col_types = FALSE)
+  expect_silent(read_csv(readr_example("mtcars.csv")))
+})

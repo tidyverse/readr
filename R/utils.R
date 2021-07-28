@@ -28,11 +28,11 @@ show_progress <- function() {
 #' Determine whether column types should be shown
 #'
 #' Column types are shown unless
-#' - They are disabled by setting `options(readr.show_types = FALSE)`
+#' - They are disabled by setting `options(readr.show_col_types = FALSE)`
 #' - The column types are supplied with the `col_types` argument.
 #' @export
 should_show_types <- function() {
-  if (identical(getOption("readr.show_types", TRUE), FALSE)) {
+  if (identical(getOption("readr.show_col_types", TRUE), FALSE)) {
     FALSE
   } else {
     NULL

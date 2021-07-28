@@ -9,7 +9,7 @@ should_show_types()
 \description{
 Column types are shown unless
 \itemize{
-\item They are disabled by setting \code{options(readr.show_types = FALSE)}
+\item They are disabled by setting \code{options(readr.show_col_types = FALSE)}
 \item The column types are supplied with the \code{col_types} argument.
 }
 }
