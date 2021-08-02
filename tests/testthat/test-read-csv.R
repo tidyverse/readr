@@ -366,6 +366,6 @@ test_that("read_csv works with single quotes in skipped lines (#945)", {
 test_that("read_tsv correctly uses the quote and na arguments (#1254, #1255)", {
   x <- read_tsv(I("foo\tbar\n\"one baz\"\ttwo\nthree\t\n"), quote = "", na = character())
 
-  exepct_equal(x[[1]], c("\"one baz\"", "three"))
-  exepct_equal(x[[2]], c("two", ""))
+  expect_equal(x[[1]], c("\"one baz\"", "three"))
+  expect_equal(x[[2]], c("two", ""))
 })
