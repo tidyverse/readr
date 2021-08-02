@@ -246,7 +246,10 @@ See there for more details on these terms and the strategies used
 to enforce them.}
 
 \item{num_threads}{The number of processing threads to use for initial
-parsing and lazy reading of data.}
+parsing and lazy reading of data. If your data contains newlines within
+fields the parser should automatically detect this and fall back to using
+one thread only. However if you know your file has newlines within quoted
+fields it is safest to set \code{num_threads = 1} explicitly.}
 
 \item{progress}{Display a progress bar? By default it will only display
 in an interactive session and not while knitting a document. The automatic

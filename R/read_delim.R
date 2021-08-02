@@ -86,7 +86,10 @@ NULL
 #'   until all the data has been read from it, if you run into this issue set
 #'   `lazy = FALSE`.
 #' @param num_threads The number of processing threads to use for initial
-#'   parsing and lazy reading of data.
+#'   parsing and lazy reading of data. If your data contains newlines within
+#'   fields the parser should automatically detect this and fall back to using
+#'   one thread only. However if you know your file has newlines within quoted
+#'   fields it is safest to set `num_threads = 1` explicitly.
 #' @param name_repair Treatment of problematic column names:
 #'   * `"minimal"`: No name repair or checks, beyond basic existence of names
 #'   * `"unique"`: Make sure names are unique and not empty
