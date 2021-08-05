@@ -9,7 +9,8 @@ type_convert(
   col_types = NULL,
   na = c("", "NA"),
   trim_ws = TRUE,
-  locale = default_locale()
+  locale = default_locale(),
+  guess_integer = FALSE
 )
 }
 \arguments{
@@ -31,6 +32,9 @@ The default locale is US-centric (like R), but you can use
 \code{\link[=locale]{locale()}} to create your own locale that controls things like
 the default time zone, encoding, decimal mark, big mark, and day/month
 names.}
+
+\item{guess_integer}{If \code{TRUE}, guess integer types for whole numbers, if
+\code{FALSE} guess numeric type for all numbers.}
 }
 \description{
 This is useful if you need to do some manual munging - you can read the
