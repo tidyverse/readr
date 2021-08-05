@@ -51,8 +51,7 @@ test_that("warning is thrown if there are no character columns (1020)", {
   expect_warning(type_convert(mtcars), "only converts columns")
 })
 
-
-test_that("guess_integer is accepted", {
+test_that("guess_integer is implemented", {
   df <- data.frame(
     a = c("a", "b", "c"),
     b = c("1", "0", "-12"),
