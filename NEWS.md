@@ -8,6 +8,8 @@
 
 * `read_delim_chunked()` now again correctly respects the `chunk_size` parameter (#1248)
 
+* `type_convert()` gains a `guess_integer` argument, passed to `guess_parser()` (#1264)
+
 # readr 2.0.0
 
 ## second edition changes
