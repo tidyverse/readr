@@ -1,4 +1,4 @@
-# readr (development version)
+# readr 2.0.1
 
 * `options(readr.show_col_types = FALSE)` now works as intended (#1250)
 
