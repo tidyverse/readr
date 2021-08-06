@@ -50,3 +50,21 @@ test_that("spec attribute is removed", {
 test_that("warning is thrown if there are no character columns (1020)", {
   expect_warning(type_convert(mtcars), "only converts columns")
 })
+
+test_that("guess_integer is implemented", {
+  df <- data.frame(
+    a = c("a", "b", "c"),
+    b = c("1", "0", "-12"),
+    c = c("1", "0", ".00001"),
+    stringsAsFactors = FALSE
+  )
+
+  exp <- data.frame(
+    a = c("a", "b", "c"),
+    b = c(1L, 0L, -12L),
+    c = c(1, 0, .00001),
+    stringsAsFactors = FALSE
+  )
+
+  expect_identical(type_convert(df, guess_integer = TRUE), exp)
+})

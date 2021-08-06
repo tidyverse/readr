@@ -12,6 +12,7 @@
 #'   If `NULL`, column types will be imputed using all rows.
 #' @inheritParams tokenizer_delim
 #' @inheritParams read_delim
+#' @inheritParams guess_parser
 #' @note `type_convert()` removes a 'spec' attribute,
 #' because it likely modifies the column data types.
 #' (see [spec()] for more information about column specifications).
@@ -38,7 +39,7 @@
 #' # Then convert it with type_convert
 #' type_convert(data)
 type_convert <- function(df, col_types = NULL, na = c("", "NA"), trim_ws = TRUE,
-                         locale = default_locale()) {
+                         locale = default_locale(), guess_integer = FALSE) {
   stopifnot(is.data.frame(df))
   is_character <- vapply(df, is.character, logical(1))
 
@@ -50,7 +51,13 @@ type_convert <- function(df, col_types = NULL, na = c("", "NA"), trim_ws = TRUE,
 
   col_types <- keep_character_col_types(df, col_types)
 
-  guesses <- lapply(char_cols, guess_parser, locale = locale, na = na)
+  guesses <- lapply(
+    char_cols,
+    guess_parser,
+    locale = locale,
+    na = na,
+    guess_integer = guess_integer
+  )
 
   specs <- col_spec_standardise(
     col_types = col_types,
