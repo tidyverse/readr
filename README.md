@@ -44,9 +44,9 @@ readr is part of the core tidyverse, so load it with:
 library(tidyverse)
 #> ── Attaching packages ─────────────────────────────────────── tidyverse 1.3.1 ──
 #> ✔ ggplot2 3.3.5          ✔ purrr   0.3.4     
-#> ✔ tibble  3.1.2          ✔ dplyr   1.0.7     
+#> ✔ tibble  3.1.3          ✔ dplyr   1.0.7     
 #> ✔ tidyr   1.1.3          ✔ stringr 1.4.0     
-#> ✔ readr   1.9.9.9000     ✔ forcats 0.5.1
+#> ✔ readr   2.0.0.9000     ✔ forcats 0.5.1
 #> ── Conflicts ────────────────────────────────────────── tidyverse_conflicts() ──
 #> ✖ dplyr::filter() masks stats::filter()
 #> ✖ dplyr::lag()    masks stats::lag()
