@@ -13,6 +13,7 @@ write_rds(
   compress = c("none", "gz", "bz2", "xz"),
   version = 2,
   refhook = NULL,
+  text = FALSE,
   path = deprecated(),
   ...
 )
@@ -29,6 +30,8 @@ write_rds(
 \item{version}{Serialization format version to be used. The default value is 2
 as it's compatible for R versions prior to 3.5.0. See \code{\link[base:readRDS]{base::saveRDS()}}
 for more details.}
+
+\item{text}{If \code{TRUE} a text representation is used, otherwise a binary representation is used.}
 
 \item{path}{\Sexpr[results=rd, stage=render]{lifecycle::badge("deprecated")}, use the \code{file} argument instead.}
 

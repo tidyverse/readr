@@ -31,11 +31,12 @@ read_rds <- function(file, refhook = NULL) {
 #'   the space-time trade-off of different compression methods with
 #'   `compression`. See [connections()] for more details.
 #' @param path \Sexpr[results=rd, stage=render]{lifecycle::badge("deprecated")}, use the `file` argument instead.
+#' @param text If `TRUE` a text representation is used, otherwise a binary representation is used.
 #' @return `write_rds()` returns `x`, invisibly.
 #' @rdname read_rds
 #' @export
 write_rds <- function(x, file, compress = c("none", "gz", "bz2", "xz"),
-                      version = 2, refhook = NULL, path = deprecated(), ...) {
+                      version = 2, refhook = NULL, text = FALSE, path = deprecated(), ...) {
   if (is_present(path)) {
     deprecate_warn("1.4.0", "write_rds(path = )", "write_rds(file = )")
     file <- path
@@ -49,7 +50,7 @@ write_rds <- function(x, file, compress = c("none", "gz", "bz2", "xz"),
     xz = xzfile(file, ...)
   )
   on.exit(close(con), add = TRUE)
-  saveRDS(x, con, version = version, refhook = refhook)
+  saveRDS(x, con, version = version, refhook = refhook, ascii = text)
 
   invisible(x)
 }

@@ -1,5 +1,7 @@
 # readr 2.0.1
 
+* `write_rds()` gains a `text=` argument, to control using a text based object representation, like the `ascii=` argument in `saveRDS()` (#1270)
+
 * `options(readr.show_col_types = FALSE)` now works as intended (#1250)
 
 * `read_delim_chunked()` now again correctly respects the `chunk_size` parameter (#1248)
