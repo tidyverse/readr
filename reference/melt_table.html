@@ -105,7 +105,7 @@ columns and then parses like a fixed width file." />
         <a class="navbar-brand" href="../index.html">readr</a>
         <div class="info hidden-xs hidden-sm">
           <span class="partof">part of the <a href="https://tidyverse.org">tidyverse</a></span>
-          <span class="version version-default" data-toggle="tooltip" data-placement="bottom" title="Released version">2.0.0</span>
+          <span class="version version-default" data-toggle="tooltip" data-placement="bottom" title="Released version">2.0.1</span>
         </div>
       </div>
     </div>
@@ -228,9 +228,9 @@ be automatically uncompressed. Files starting with <code>http://</code>,
 <code>https://</code>, <code>ftp://</code>, or <code>ftps://</code> will be automatically
 downloaded. Remote gz files can also be automatically downloaded and
 decompressed.</p>
-<p>Literal data is most useful for examples and tests. It must contain at
-least one new line to be recognised as data (instead of a path) or be a
-vector of greater than length 1.</p>
+<p>Literal data is most useful for examples and tests. To be recognised as a
+path, it must be wrapped with <code><a href='https://rdrr.io/r/base/AsIs.html'>I()</a></code>, be a string containing at least one
+new line, or be a vector containing at least one string with a new line.</p>
 <p>Using a value of <code><a href='clipboard.html'>clipboard()</a></code> will read from the system clipboard.</p></td>
     </tr>
     <tr>
@@ -301,7 +301,7 @@ conventional way to read tabular data from whitespace-separated files.</p></div>
 #&gt;   9  11   8  13  11    11  12   9  14   9    9 Georgia Tech     ACC 
 #&gt;  13  10  13  11   8     9  10  11   9  10   10 Mississippi      SEC </div><div class='input'><span class='fu'>melt_table</span><span class='op'>(</span><span class='va'>massey</span><span class='op'>)</span>
 </div><div class='output co'>#&gt; <span class='warning'>Warning: `melt_table()` was deprecated in readr 2.0.0.</span>
-#&gt; <span class='warning'>Please use `meltr::melt_table()` instead</span></div><div class='output co'>#&gt; <span style='color: #949494;'># A tibble: 143 x 4</span>
+#&gt; <span class='warning'>Please use `meltr::melt_table()` instead</span></div><div class='output co'>#&gt; <span style='color: #949494;'># A tibble: 143 × 4</span>
 #&gt;      row   col data_type value
 #&gt;    <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span> <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span> <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span>     <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span>
 #&gt; <span style='color: #BCBCBC;'> 1</span>     1     1 character UCC  
@@ -340,7 +340,7 @@ conventional way to read tabular data from whitespace-separated files.</p></div>
 #&gt; AVANTI                                                                         AVANTI               78065002
 #&gt; AVANTI II                            02  75  8    75  8                        AVANTI II            78065053</div><div class='input'><span class='fu'>melt_table</span><span class='op'>(</span><span class='va'>epa</span><span class='op'>)</span>
 </div><div class='output co'>#&gt; <span class='warning'>Warning: `melt_table()` was deprecated in readr 2.0.0.</span>
-#&gt; <span class='warning'>Please use `meltr::melt_table()` instead</span></div><div class='output co'>#&gt; <span style='color: #949494;'># A tibble: 240 x 4</span>
+#&gt; <span class='warning'>Please use `meltr::melt_table()` instead</span></div><div class='output co'>#&gt; <span style='color: #949494;'># A tibble: 240 × 4</span>
 #&gt;      row   col data_type value       
 #&gt;    <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span> <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span> <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span>     <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span>       
 #&gt; <span style='color: #BCBCBC;'> 1</span>     1     1 character <span style='color: #949494;'>"</span>ALFA ROMEO<span style='color: #949494;'>"</span>

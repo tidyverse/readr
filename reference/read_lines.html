@@ -99,7 +99,7 @@ new line after each entry." />
         <a class="navbar-brand" href="../index.html">readr</a>
         <div class="info hidden-xs hidden-sm">
           <span class="partof">part of the <a href="https://tidyverse.org">tidyverse</a></span>
-          <span class="version version-default" data-toggle="tooltip" data-placement="bottom" title="Released version">2.0.0</span>
+          <span class="version version-default" data-toggle="tooltip" data-placement="bottom" title="Released version">2.0.1</span>
         </div>
       </div>
     </div>
@@ -223,9 +223,9 @@ be automatically uncompressed. Files starting with <code>http://</code>,
 <code>https://</code>, <code>ftp://</code>, or <code>ftps://</code> will be automatically
 downloaded. Remote gz files can also be automatically downloaded and
 decompressed.</p>
-<p>Literal data is most useful for examples and tests. It must contain at
-least one new line to be recognised as data (instead of a path) or be a
-vector of greater than length 1.</p>
+<p>Literal data is most useful for examples and tests. To be recognised as a
+path, it must be wrapped with <code><a href='https://rdrr.io/r/base/AsIs.html'>I()</a></code>, be a string containing at least one
+new line, or be a vector containing at least one string with a new line.</p>
 <p>Using a value of <code><a href='clipboard.html'>clipboard()</a></code> will read from the system clipboard.</p></td>
     </tr>
     <tr>
@@ -261,14 +261,17 @@ option to <code><a href='https://rdrr.io/r/base/character.html'>character()</a><
       <td><p>Read values lazily? By default the file is initially only
 indexed and the values are read lazily when accessed. Lazy reading is
 useful interactively, particularly if you are only interested in a subset
-of the full dataset. Note, lazy reading on windows will lock the file
-until all the data has been read from it, if you run into this issue set
-<code>lazy = FALSE</code>.</p></td>
+of the full dataset. <em>Note</em>, if you later write to the same file you read
+from you need to set <code>lazy = FALSE</code>. On Windows the file will be locked
+and on other systems the memory map will become invalid.</p></td>
     </tr>
     <tr>
       <th>num_threads</th>
       <td><p>The number of processing threads to use for initial
-parsing and lazy reading of data.</p></td>
+parsing and lazy reading of data. If your data contains newlines within
+fields the parser should automatically detect this and fall back to using
+one thread only. However if you know your file has newlines within quoted
+fields it is safest to set <code>num_threads = 1</code> explicitly.</p></td>
     </tr>
     <tr>
       <th>progress</th>
@@ -295,7 +298,8 @@ file is created.</p></td>
     </tr>
     <tr>
       <th>path</th>
-      <td><p><a href='https://lifecycle.r-lib.org/articles/stages.html#deprecated'><img src='figures/lifecycle-deprecated.svg' alt='[Deprecated]' /></a></p></td>
+      <td><p><a href='https://lifecycle.r-lib.org/articles/stages.html#deprecated'><img src='figures/lifecycle-deprecated.svg' alt='[Deprecated]' /></a>
+, use the <code>file</code> argument instead.</p></td>
     </tr>
     </table>
 

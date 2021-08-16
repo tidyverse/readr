@@ -50,7 +50,7 @@
         <a class="navbar-brand" href="../../index.html">readr</a>
         <div class="info hidden-xs hidden-sm">
           <span class="partof">part of the <a href="https://tidyverse.org">tidyverse</a></span>
-          <span class="version version-default" data-toggle="tooltip" data-placement="bottom" title="Released version">2.0.0</span>
+          <span class="version version-default" data-toggle="tooltip" data-placement="bottom" title="Released version">2.0.1</span>
         </div>
       </div>
     </div>
@@ -157,7 +157,7 @@
 <span class="co">#&gt; </span>
 <span class="co">#&gt; ℹ Use `spec()` to retrieve the full column specification for this data.</span>
 <span class="co">#&gt; ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.</span>
-<span class="co">#&gt; # A tibble: 2 x 2</span>
+<span class="co">#&gt; # A tibble: 2 × 2</span>
 <span class="co">#&gt;       x     y</span>
 <span class="co">#&gt;   &lt;dbl&gt; &lt;dbl&gt;</span>
 <span class="co">#&gt; 1     1     2</span>
@@ -280,13 +280,13 @@ b,2
 <span class="va">df</span> <span class="op">&lt;-</span> <span class="fu"><a href="../../reference/read_delim.html">read_csv</a></span><span class="op">(</span><span class="va">csv</span>, col_types <span class="op">=</span> <span class="st">"ii"</span><span class="op">)</span>
 <span class="fu"><a href="../../reference/problems.html">problems</a></span><span class="op">(</span><span class="va">df</span><span class="op">)</span>
 <span class="co">#&gt; Warning: One or more parsing issues, see `problems()` for details</span>
-<span class="co">#&gt; # A tibble: 2 x 5</span>
+<span class="co">#&gt; # A tibble: 2 × 5</span>
 <span class="co">#&gt;     row   col expected   actual file                            </span>
 <span class="co">#&gt;   &lt;int&gt; &lt;int&gt; &lt;chr&gt;      &lt;chr&gt;  &lt;chr&gt;                           </span>
-<span class="co">#&gt; 1     2     2 an integer a      /tmp/RtmpZFFR5i/file2d6e7dd3c714</span>
-<span class="co">#&gt; 2     3     1 an integer b      /tmp/RtmpZFFR5i/file2d6e7dd3c714</span>
+<span class="co">#&gt; 1     2     2 an integer a      /tmp/Rtmp60Fbae/file353a4cefe40f</span>
+<span class="co">#&gt; 2     3     1 an integer b      /tmp/Rtmp60Fbae/file353a4cefe40f</span>
 <span class="va">df</span>
-<span class="co">#&gt; # A tibble: 2 x 2</span>
+<span class="co">#&gt; # A tibble: 2 × 2</span>
 <span class="co">#&gt;       x     y</span>
 <span class="co">#&gt;   &lt;int&gt; &lt;int&gt;</span>
 <span class="co">#&gt; 1     1    NA</span>

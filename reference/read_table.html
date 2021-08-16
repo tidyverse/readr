@@ -99,7 +99,7 @@ spec_table() returns the column specifications rather than a data frame." />
         <a class="navbar-brand" href="../index.html">readr</a>
         <div class="info hidden-xs hidden-sm">
           <span class="partof">part of the <a href="https://tidyverse.org">tidyverse</a></span>
-          <span class="version version-default" data-toggle="tooltip" data-placement="bottom" title="Released version">2.0.0</span>
+          <span class="version version-default" data-toggle="tooltip" data-placement="bottom" title="Released version">2.0.1</span>
         </div>
       </div>
     </div>
@@ -207,9 +207,9 @@ be automatically uncompressed. Files starting with <code>http://</code>,
 <code>https://</code>, <code>ftp://</code>, or <code>ftps://</code> will be automatically
 downloaded. Remote gz files can also be automatically downloaded and
 decompressed.</p>
-<p>Literal data is most useful for examples and tests. It must contain at
-least one new line to be recognised as data (instead of a path) or be a
-vector of greater than length 1.</p>
+<p>Literal data is most useful for examples and tests. To be recognised as a
+path, it must be wrapped with <code><a href='https://rdrr.io/r/base/AsIs.html'>I()</a></code>, be a string containing at least one
+new line, or be a vector containing at least one string with a new line.</p>
 <p>Using a value of <code><a href='clipboard.html'>clipboard()</a></code> will read from the system clipboard.</p></td>
     </tr>
     <tr>
@@ -346,7 +346,7 @@ tabular data with non-standard formatting.</p></div>
 #&gt; <span class='warning'>  4  -- 13 columns 14 columns '/home/runner/work/_temp/Library/readr/extdata/massey-rating.txt'</span>
 #&gt; <span class='warning'>  5  -- 13 columns 15 columns '/home/runner/work/_temp/Library/readr/extdata/massey-rating.txt'</span>
 #&gt; <span class='warning'>... ... .......... .......... .................................................................</span>
-#&gt; <span class='warning'>See problems(...) for more details.</span></div><div class='output co'>#&gt; <span style='color: #949494;'># A tibble: 10 x 13</span>
+#&gt; <span class='warning'>See problems(...) for more details.</span></div><div class='output co'>#&gt; <span style='color: #949494;'># A tibble: 10 × 13</span>
 #&gt;      UCC   PAY   LAZ   KPK    RT   COF   BIH   DII   ENG   ACU  Rank Team  Conf 
 #&gt;    <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span> <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span> <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span> <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span> <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span> <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span> <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span> <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span> <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span> <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span> <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span> <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span> <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span>
 #&gt; <span style='color: #BCBCBC;'> 1</span>     1     1     1     1     1     1     1     1     1     1     1 Ohio  St   
@@ -399,7 +399,7 @@ tabular data with non-standard formatting.</p></div>
 #&gt; <span class='warning'>  5  -- 5 columns 8 columns  '/home/runner/work/_temp/Library/readr/extdata/epa78.txt'</span>
 #&gt; <span class='warning'>  6  -- 5 columns 8 columns  '/home/runner/work/_temp/Library/readr/extdata/epa78.txt'</span>
 #&gt; <span class='warning'>... ... ......... .......... .........................................................</span>
-#&gt; <span class='warning'>See problems(...) for more details.</span></div><div class='output co'>#&gt; <span style='color: #949494;'># A tibble: 20 x 5</span>
+#&gt; <span class='warning'>See problems(...) for more details.</span></div><div class='output co'>#&gt; <span style='color: #949494;'># A tibble: 20 × 5</span>
 #&gt;    X1      X2     X3       X4           X5
 #&gt;    <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span>   <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span>  <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span>    <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span>     <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span>
 #&gt; <span style='color: #BCBCBC;'> 1</span> ALFA    ROMEO  ALFA     ROMEO  78<span style='text-decoration: underline;'>010</span>003
