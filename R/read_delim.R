@@ -82,9 +82,9 @@ NULL
 #' @param lazy Read values lazily? By default the file is initially only
 #'   indexed and the values are read lazily when accessed. Lazy reading is
 #'   useful interactively, particularly if you are only interested in a subset
-#'   of the full dataset. Note, lazy reading on windows will lock the file
-#'   until all the data has been read from it, if you run into this issue set
-#'   `lazy = FALSE`.
+#'   of the full dataset. *Note*, if you later write to the same file you read
+#'   from you need to set `lazy = FALSE`. On Windows the file will be locked
+#'   and on other systems the memory map will become invalid.
 #' @param num_threads The number of processing threads to use for initial
 #'   parsing and lazy reading of data. If your data contains newlines within
 #'   fields the parser should automatically detect this and fall back to using

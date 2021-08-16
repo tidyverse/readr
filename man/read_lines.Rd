@@ -73,9 +73,9 @@ option to \code{character()} to indicate no missing values.}
 \item{lazy}{Read values lazily? By default the file is initially only
 indexed and the values are read lazily when accessed. Lazy reading is
 useful interactively, particularly if you are only interested in a subset
-of the full dataset. Note, lazy reading on windows will lock the file
-until all the data has been read from it, if you run into this issue set
-\code{lazy = FALSE}.}
+of the full dataset. \emph{Note}, if you later write to the same file you read
+from you need to set \code{lazy = FALSE}. On Windows the file will be locked
+and on other systems the memory map will become invalid.}
 
 \item{num_threads}{The number of processing threads to use for initial
 parsing and lazy reading of data. If your data contains newlines within
