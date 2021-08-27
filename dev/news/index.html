@@ -94,7 +94,7 @@
         <a class="navbar-brand" href="../index.html">readr</a>
         <div class="info hidden-xs hidden-sm">
           <span class="partof">part of the <a href="https://tidyverse.org">tidyverse</a></span>
-          <span class="version version-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">2.0.0.9000</span>
+          <span class="version version-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">2.0.1.9000</span>
         </div>
       </div>
     </div>
@@ -171,12 +171,18 @@
 <h1 class="page-header" data-toc-text="development version">
 <a href="#readr-development-version" class="anchor"></a>readr (development version)<small> Unreleased </small>
 </h1>
+</div>
+    <div id="readr-201" class="section level1">
+<h1 class="page-header" data-toc-text="2.0.1">
+<a href="#readr-201" class="anchor"></a>readr 2.0.1<small> 2021-08-10 </small>
+</h1>
 <ul>
-<li><p><code><a href="../reference/read_delim.html">read_tsv()</a></code> now correctly passes the <code>quote</code> and <code>na</code> arguments to <code><a href="https://vroom.r-lib.org/reference/vroom.html">vroom::vroom()</a></code> (<a href='https://github.com/tidyverse/readr/issues/1254'>#1254</a>, <a href='https://github.com/tidyverse/readr/issues/1255'>#1255</a>)</p></li>
+<li><p><code><a href="../reference/read_rds.html">write_rds()</a></code> gains a <code>text=</code> argument, to control using a text based object representation, like the <code>ascii=</code> argument in <code><a href="https://rdrr.io/r/base/readRDS.html">saveRDS()</a></code> (<a href='https://github.com/tidyverse/readr/issues/1270'>#1270</a>)</p></li>
 <li><p><code><a href="https://rdrr.io/r/base/options.html">options(readr.show_col_types = FALSE)</a></code> now works as intended (<a href='https://github.com/tidyverse/readr/issues/1250'>#1250</a>)</p></li>
-<li><p>Avoid spurious byte compilation errors due to the programatically generated <code>spec_*()</code> functions.</p></li>
 <li><p><code><a href="../reference/read_delim_chunked.html">read_delim_chunked()</a></code> now again correctly respects the <code>chunk_size</code> parameter (<a href='https://github.com/tidyverse/readr/issues/1248'>#1248</a>)</p></li>
 <li><p><code><a href="../reference/type_convert.html">type_convert()</a></code> gains a <code>guess_integer</code> argument, passed to <code><a href="../reference/parse_guess.html">guess_parser()</a></code> (<a href='https://github.com/jmbarbone'>@jmbarbone</a>, <a href='https://github.com/tidyverse/readr/issues/1264'>#1264</a>)</p></li>
+<li><p><code><a href="../reference/read_delim.html">read_tsv()</a></code> now correctly passes the <code>quote</code> and <code>na</code> arguments to <code><a href="https://vroom.r-lib.org/reference/vroom.html">vroom::vroom()</a></code> (<a href='https://github.com/tidyverse/readr/issues/1254'>#1254</a>, <a href='https://github.com/tidyverse/readr/issues/1255'>#1255</a>)</p></li>
+<li><p>Avoid spurious byte compilation errors due to the programatically generated <code>spec_*()</code> functions.</p></li>
 </ul>
 </div>
     <div id="readr-200" class="section level1">

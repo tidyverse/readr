@@ -97,7 +97,7 @@ turns off printing)." />
         <a class="navbar-brand" href="../index.html">readr</a>
         <div class="info hidden-xs hidden-sm">
           <span class="partof">part of the <a href="https://tidyverse.org">tidyverse</a></span>
-          <span class="version version-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">2.0.0.9000</span>
+          <span class="version version-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">2.0.1.9000</span>
         </div>
       </div>
     </div>
@@ -473,9 +473,9 @@ option is <code>TRUE</code> then blank rows will not be represented at all.  If 
       <td><p>Read values lazily? By default the file is initially only
 indexed and the values are read lazily when accessed. Lazy reading is
 useful interactively, particularly if you are only interested in a subset
-of the full dataset. Note, lazy reading on windows will lock the file
-until all the data has been read from it, if you run into this issue set
-<code>lazy = FALSE</code>.</p></td>
+of the full dataset. <em>Note</em>, if you later write to the same file you read
+from you need to set <code>lazy = FALSE</code>. On Windows the file will be locked
+and on other systems the memory map will become invalid.</p></td>
     </tr>
     </table>
 
