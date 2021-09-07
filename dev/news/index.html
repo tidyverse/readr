@@ -171,13 +171,16 @@
 <h1 class="page-header" data-toc-text="development version">
 <a href="#readr-development-version" class="anchor"></a>readr (development version)<small> Unreleased </small>
 </h1>
+<ul>
+<li>
+<code><a href="../reference/read_rds.html">write_rds()</a></code> gains a <code>text=</code> argument, to control using a text based object representation, like the <code>ascii=</code> argument in <code><a href="https://rdrr.io/r/base/readRDS.html">saveRDS()</a></code> (<a href='https://github.com/tidyverse/readr/issues/1270'>#1270</a>)</li>
+</ul>
 </div>
     <div id="readr-201" class="section level1">
 <h1 class="page-header" data-toc-text="2.0.1">
 <a href="#readr-201" class="anchor"></a>readr 2.0.1<small> 2021-08-10 </small>
 </h1>
 <ul>
-<li><p><code><a href="../reference/read_rds.html">write_rds()</a></code> gains a <code>text=</code> argument, to control using a text based object representation, like the <code>ascii=</code> argument in <code><a href="https://rdrr.io/r/base/readRDS.html">saveRDS()</a></code> (<a href='https://github.com/tidyverse/readr/issues/1270'>#1270</a>)</p></li>
 <li><p><code><a href="https://rdrr.io/r/base/options.html">options(readr.show_col_types = FALSE)</a></code> now works as intended (<a href='https://github.com/tidyverse/readr/issues/1250'>#1250</a>)</p></li>
 <li><p><code><a href="../reference/read_delim_chunked.html">read_delim_chunked()</a></code> now again correctly respects the <code>chunk_size</code> parameter (<a href='https://github.com/tidyverse/readr/issues/1248'>#1248</a>)</p></li>
 <li><p><code><a href="../reference/type_convert.html">type_convert()</a></code> gains a <code>guess_integer</code> argument, passed to <code><a href="../reference/parse_guess.html">guess_parser()</a></code> (<a href='https://github.com/jmbarbone'>@jmbarbone</a>, <a href='https://github.com/tidyverse/readr/issues/1264'>#1264</a>)</p></li>
