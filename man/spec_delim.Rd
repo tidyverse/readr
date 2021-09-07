@@ -213,8 +213,8 @@ names.}
 \item{na}{Character vector of strings to interpret as missing values. Set this
 option to \code{character()} to indicate no missing values.}
 
-\item{quoted_na}{Should missing values inside quotes be treated as missing
-values (the default) or strings.}
+\item{quoted_na}{\Sexpr[results=rd, stage=render]{lifecycle::badge("deprecated")} Should missing values inside quotes be treated as missing
+values (the default) or strings. This parameter is soft deprecated as of readr 2.0.0.}
 
 \item{comment}{A string used to identify comments. Any text after the
 comment characters will be silently ignored.}
