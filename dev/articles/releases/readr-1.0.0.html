@@ -192,13 +192,11 @@
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="../../reference/parse_guess.html">guess_parser</a></span><span class="op">(</span><span class="st">"1,234"</span><span class="op">)</span>
 <span class="co">#&gt; [1] "number"</span>
-
 <span class="co"># Were previously guessed as numbers</span>
 <span class="fu"><a href="../../reference/parse_guess.html">guess_parser</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"."</span>, <span class="st">"-"</span><span class="op">)</span><span class="op">)</span>
 <span class="co">#&gt; [1] "character"</span>
 <span class="fu"><a href="../../reference/parse_guess.html">guess_parser</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"10W"</span>, <span class="st">"20N"</span><span class="op">)</span><span class="op">)</span>
 <span class="co">#&gt; [1] "character"</span>
-
 <span class="co"># Now uses the default time format</span>
 <span class="fu"><a href="../../reference/parse_guess.html">guess_parser</a></span><span class="op">(</span><span class="st">"10:30"</span><span class="op">)</span>
 <span class="co">#&gt; [1] "time"</span></code></pre></div>
