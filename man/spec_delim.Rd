@@ -165,10 +165,10 @@ how this is done.}
 \item{col_types}{One of \code{NULL}, a \code{\link[=cols]{cols()}} specification, or
 a string. See \code{vignette("readr")} for more details.
 
-If \code{NULL}, all column types will be imputed from the first 1000 rows
-on the input. This is convenient (and fast), but not robust. If the
-imputation fails, you'll need to increase the \code{guess_max} or supply the
-correct types yourself.
+If \code{NULL}, all column types will be imputed from \code{guess_max} rows
+on the input interspersed throughout the file. This is convenient (and
+fast), but not robust. If the imputation fails, you'll need to increase
+the \code{guess_max} or supply the correct types yourself.
 
 Column specifications created by \code{\link[=list]{list()}} or \code{\link[=cols]{cols()}} must contain
 one column specification for each column. If you only want to read a
@@ -290,7 +290,8 @@ spec_csv(system.file("extdata/mtcars.csv.zip", package = "readr"))
 spec_csv(I("x,y\n1,2\n3,4"))
 
 # Column types --------------------------------------------------------------
-# By default, readr guesses the columns types, looking at the first 1000 rows.
+# By default, readr guesses the columns types, looking at 1000 rows
+throughout the file.
 # You can specify the number of rows used with guess_max.
 spec_csv(system.file("extdata/mtcars.csv", package = "readr"), guess_max = 20)
 }

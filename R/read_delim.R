@@ -28,10 +28,10 @@ NULL
 #' @param col_types One of `NULL`, a [cols()] specification, or
 #'   a string. See `vignette("readr")` for more details.
 #'
-#'   If `NULL`, all column types will be imputed from the first 1000 rows
-#'   on the input. This is convenient (and fast), but not robust. If the
-#'   imputation fails, you'll need to increase the `guess_max` or supply the
-#'   correct types yourself.
+#'   If `NULL`, all column types will be imputed from `guess_max` rows
+#'   on the input interspersed throughout the file. This is convenient (and
+#'   fast), but not robust. If the imputation fails, you'll need to increase
+#'   the `guess_max` or supply the correct types yourself.
 #'
 #'   Column specifications created by [list()] or [cols()] must contain
 #'   one column specification for each column. If you only want to read a
@@ -121,7 +121,7 @@ NULL
 #' read_csv(I("x,y\n1,2\n3,4"))
 #'
 #' # Column types --------------------------------------------------------------
-#' # By default, readr guesses the columns types, looking at the first 1000 rows.
+#' # By default, readr guesses the columns types, looking at `guess_max` rows.
 #' # You can override with a compact specification:
 #' read_csv(I("x,y\n1,2\n3,4"), col_types = "dc")
 #'
@@ -463,7 +463,8 @@ generate_spec_fun <- function(f) {
 #' spec_csv(I("x,y\n1,2\n3,4"))
 #'
 #' # Column types --------------------------------------------------------------
-#' # By default, readr guesses the columns types, looking at the first 1000 rows.
+#' # By default, readr guesses the columns types, looking at 1000 rows
+#' throughout the file.
 #' # You can specify the number of rows used with guess_max.
 #' spec_csv(system.file("extdata/mtcars.csv", package = "readr"), guess_max = 20)
 spec_delim <- generate_spec_fun(read_delim)
