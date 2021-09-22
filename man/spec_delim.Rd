@@ -291,7 +291,7 @@ spec_csv(I("x,y\n1,2\n3,4"))
 
 # Column types --------------------------------------------------------------
 # By default, readr guesses the columns types, looking at 1000 rows
-throughout the file.
+# throughout the file.
 # You can specify the number of rows used with guess_max.
 spec_csv(system.file("extdata/mtcars.csv", package = "readr"), guess_max = 20)
 }
