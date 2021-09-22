@@ -11,7 +11,7 @@
 * `type_convert()` gains a `guess_integer` argument, passed to `guess_parser()` (@jmbarbone, #1264)
 * `read_tsv()` now correctly passes the `quote` and `na` arguments to `vroom::vroom()` (#1254, #1255)
 
-* Avoid spurious byte compilation errors due to the programatically generated `spec_*()` functions.
+* Avoid spurious byte compilation errors due to the programmatically generated `spec_*()` functions.
 
 # readr 2.0.0
 
