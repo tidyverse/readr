@@ -1,4 +1,4 @@
-# readr (development version)
+# readr 2.0.2
 
 * minor test tweak for compatibility with testthat 3.1.0 (#@lionel-, #1304)
 
