@@ -27,7 +27,7 @@ for a complete list of available locales.}
 When parsing dates, you often need to know how weekdays of the week and
 months are represented as text. This pair of functions allows you to either
 create your own, or retrieve from a standard list. The standard list is
-derived from ICU (\url{http://site.icu-project.org}) via the stringi package.
+derived from ICU (\verb{http://site.icu-project.org}) via the stringi package.
 }
 \examples{
 date_names_lang("en")
