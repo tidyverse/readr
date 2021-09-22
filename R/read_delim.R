@@ -22,7 +22,7 @@ NULL
 #'   the first row of the output data frame.
 #'
 #'   Missing (`NA`) column names will generate a warning, and be filled
-#'   in with dummy names `X1`, `X2` etc. Duplicate column names
+#'   in with dummy names `...1`, `...2` etc. Duplicate column names
 #'   will generate a warning and be made unique, see `name_repair` to control
 #'   how this is done.
 #' @param col_types One of `NULL`, a [cols()] specification, or

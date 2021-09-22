@@ -127,7 +127,7 @@ names of the columns, and the first row of the input will be read into
 the first row of the output data frame.
 
 Missing (\code{NA}) column names will generate a warning, and be filled
-in with dummy names \code{X1}, \code{X2} etc. Duplicate column names
+in with dummy names \code{...1}, \code{...2} etc. Duplicate column names
 will generate a warning and be made unique, see \code{name_repair} to control
 how this is done.}
 
