@@ -20,7 +20,7 @@ date_names_langs()
 \item{am_pm}{Names used for AM and PM.}
 
 \item{language}{A BCP 47 locale, made up of a language and a region,
-e.g. \code{"en_US"} for American English. See \code{date_names_langs()}
+e.g. \code{"en"} for American English. See \code{date_names_langs()}
 for a complete list of available locales.}
 }
 \description{

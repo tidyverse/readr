@@ -35,7 +35,7 @@ date_names <- function(mon, mon_ab = mon, day, day_ab = day,
 #' @export
 #' @rdname date_names
 #' @param language A BCP 47 locale, made up of a language and a region,
-#'   e.g. `"en_US"` for American English. See `date_names_langs()`
+#'   e.g. `"en"` for American English. See `date_names_langs()`
 #'   for a complete list of available locales.
 date_names_lang <- function(language) {
   stopifnot(is.character(language), length(language) == 1)
