@@ -99,7 +99,7 @@ unknown encoding." />
         <a class="navbar-brand" href="../index.html">readr</a>
         <div class="info hidden-xs hidden-sm">
           <span class="partof">part of the <a href="https://tidyverse.org">tidyverse</a></span>
-          <span class="version version-default" data-toggle="tooltip" data-placement="bottom" title="Released version">2.0.1</span>
+          <span class="version version-default" data-toggle="tooltip" data-placement="bottom" title="Released version">2.0.2</span>
         </div>
       </div>
     </div>
@@ -236,7 +236,7 @@ file is created.</p></td>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='fu'>read_file</span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/file.path.html'>file.path</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/Rhome.html'>R.home</a></span><span class='op'>(</span><span class='st'>"doc"</span><span class='op'>)</span>, <span class='st'>"AUTHORS"</span><span class='op'>)</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; [1] "Authors of R.\n\nR was initially written by Robert Gentleman and Ross Ihaka—also known as \"R &amp; R\"\nof the Statistics Department of the University of Auckland.\n\nSince mid-1997 there has been a core group with write access to the R\nsource, currently consisting of\n\nDouglas Bates\nJohn Chambers\nPeter Dalgaard\nRobert Gentleman\nKurt Hornik\nRoss Ihaka\nTomas Kalibera\nMichael Lawrence\nFriedrich Leisch\nUwe Ligges\nThomas Lumley\nMartin Maechler\nMartin Morgan\nPaul Murrell\nMartyn Plummer\nBrian Ripley\nDeepayan Sarkar\nDuncan Temple Lang\nLuke Tierney\nSimon Urbanek\n\nplus Heiner Schwarte up to October 1999, Guido Masarotto up to June 2003,\nStefano Iacus up to July 2014, Seth Falcon up to August 2015 and Duncan Murdoch\nup to September 2017.\n\n\nCurrent R-core members can be contacted via email to R-project.org\nwith name made up by replacing spaces by dots in the name listed above.\n\n(The authors of code from other projects included in the R distribution\nare listed in the COPYRIGHTS file.)\n"</div><div class='input'><span class='fu'>read_file_raw</span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/file.path.html'>file.path</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/Rhome.html'>R.home</a></span><span class='op'>(</span><span class='st'>"doc"</span><span class='op'>)</span>, <span class='st'>"AUTHORS"</span><span class='op'>)</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; [1] "Authors of R.\n\nR was initially written by Robert Gentleman and Ross Ihaka—also known as \"R &amp; R\"\nof the Statistics Department of the University of Auckland.\n\nSince mid-1997 there has been a core group with write access to the R\nsource, currently consisting of\n\nDouglas Bates\nJohn Chambers\nPeter Dalgaard\nRobert Gentleman\nKurt Hornik\nRoss Ihaka\nTomas Kalibera\nMichael Lawrence\nFriedrich Leisch\nUwe Ligges\nThomas Lumley\nMartin Maechler\nPaul Murrell\nMartyn Plummer\nBrian Ripley\nDeepayan Sarkar\nDuncan Temple Lang\nLuke Tierney\nSimon Urbanek\n\nplus Heiner Schwarte up to October 1999, Guido Masarotto up to June 2003,\nStefano Iacus up to July 2014, Seth Falcon up to August 2015, Duncan Murdoch\nup to September 2017, and Martin Morgan up to June 2021.\n\n\nCurrent R-core members can be contacted via email to R-project.org\nwith name made up by replacing spaces by dots in the name listed above.\n\n(The authors of code from other projects included in the R distribution\nare listed in the COPYRIGHTS file.)\n"</div><div class='input'><span class='fu'>read_file_raw</span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/file.path.html'>file.path</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/Rhome.html'>R.home</a></span><span class='op'>(</span><span class='st'>"doc"</span><span class='op'>)</span>, <span class='st'>"AUTHORS"</span><span class='op'>)</span><span class='op'>)</span>
 </div><div class='output co'>#&gt;   [1] 41 75 74 68 6f 72 73 20 6f 66 20 52 2e 0a 0a 52 20 77 61 73 20 69 6e 69 74
 #&gt;  [26] 69 61 6c 6c 79 20 77 72 69 74 74 65 6e 20 62 79 20 52 6f 62 65 72 74 20 47
 #&gt;  [51] 65 6e 74 6c 65 6d 61 6e 20 61 6e 64 20 52 6f 73 73 20 49 68 61 6b 61 e2 80
@@ -254,29 +254,29 @@ file is created.</p></td>
 #&gt; [351] 20 4b 61 6c 69 62 65 72 61 0a 4d 69 63 68 61 65 6c 20 4c 61 77 72 65 6e 63
 #&gt; [376] 65 0a 46 72 69 65 64 72 69 63 68 20 4c 65 69 73 63 68 0a 55 77 65 20 4c 69
 #&gt; [401] 67 67 65 73 0a 54 68 6f 6d 61 73 20 4c 75 6d 6c 65 79 0a 4d 61 72 74 69 6e
-#&gt; [426] 20 4d 61 65 63 68 6c 65 72 0a 4d 61 72 74 69 6e 20 4d 6f 72 67 61 6e 0a 50
-#&gt; [451] 61 75 6c 20 4d 75 72 72 65 6c 6c 0a 4d 61 72 74 79 6e 20 50 6c 75 6d 6d 65
-#&gt; [476] 72 0a 42 72 69 61 6e 20 52 69 70 6c 65 79 0a 44 65 65 70 61 79 61 6e 20 53
-#&gt; [501] 61 72 6b 61 72 0a 44 75 6e 63 61 6e 20 54 65 6d 70 6c 65 20 4c 61 6e 67 0a
-#&gt; [526] 4c 75 6b 65 20 54 69 65 72 6e 65 79 0a 53 69 6d 6f 6e 20 55 72 62 61 6e 65
-#&gt; [551] 6b 0a 0a 70 6c 75 73 20 48 65 69 6e 65 72 20 53 63 68 77 61 72 74 65 20 75
-#&gt; [576] 70 20 74 6f 20 4f 63 74 6f 62 65 72 20 31 39 39 39 2c 20 47 75 69 64 6f 20
-#&gt; [601] 4d 61 73 61 72 6f 74 74 6f 20 75 70 20 74 6f 20 4a 75 6e 65 20 32 30 30 33
-#&gt; [626] 2c 0a 53 74 65 66 61 6e 6f 20 49 61 63 75 73 20 75 70 20 74 6f 20 4a 75 6c
-#&gt; [651] 79 20 32 30 31 34 2c 20 53 65 74 68 20 46 61 6c 63 6f 6e 20 75 70 20 74 6f
-#&gt; [676] 20 41 75 67 75 73 74 20 32 30 31 35 20 61 6e 64 20 44 75 6e 63 61 6e 20 4d
-#&gt; [701] 75 72 64 6f 63 68 0a 75 70 20 74 6f 20 53 65 70 74 65 6d 62 65 72 20 32 30
-#&gt; [726] 31 37 2e 0a 0a 0a 43 75 72 72 65 6e 74 20 52 2d 63 6f 72 65 20 6d 65 6d 62
-#&gt; [751] 65 72 73 20 63 61 6e 20 62 65 20 63 6f 6e 74 61 63 74 65 64 20 76 69 61 20
-#&gt; [776] 65 6d 61 69 6c 20 74 6f 20 52 2d 70 72 6f 6a 65 63 74 2e 6f 72 67 0a 77 69
-#&gt; [801] 74 68 20 6e 61 6d 65 20 6d 61 64 65 20 75 70 20 62 79 20 72 65 70 6c 61 63
-#&gt; [826] 69 6e 67 20 73 70 61 63 65 73 20 62 79 20 64 6f 74 73 20 69 6e 20 74 68 65
-#&gt; [851] 20 6e 61 6d 65 20 6c 69 73 74 65 64 20 61 62 6f 76 65 2e 0a 0a 28 54 68 65
-#&gt; [876] 20 61 75 74 68 6f 72 73 20 6f 66 20 63 6f 64 65 20 66 72 6f 6d 20 6f 74 68
-#&gt; [901] 65 72 20 70 72 6f 6a 65 63 74 73 20 69 6e 63 6c 75 64 65 64 20 69 6e 20 74
-#&gt; [926] 68 65 20 52 20 64 69 73 74 72 69 62 75 74 69 6f 6e 0a 61 72 65 20 6c 69 73
-#&gt; [951] 74 65 64 20 69 6e 20 74 68 65 20 43 4f 50 59 52 49 47 48 54 53 20 66 69 6c
-#&gt; [976] 65 2e 29 0a</div><div class='input'>
+#&gt; [426] 20 4d 61 65 63 68 6c 65 72 0a 50 61 75 6c 20 4d 75 72 72 65 6c 6c 0a 4d 61
+#&gt; [451] 72 74 79 6e 20 50 6c 75 6d 6d 65 72 0a 42 72 69 61 6e 20 52 69 70 6c 65 79
+#&gt; [476] 0a 44 65 65 70 61 79 61 6e 20 53 61 72 6b 61 72 0a 44 75 6e 63 61 6e 20 54
+#&gt; [501] 65 6d 70 6c 65 20 4c 61 6e 67 0a 4c 75 6b 65 20 54 69 65 72 6e 65 79 0a 53
+#&gt; [526] 69 6d 6f 6e 20 55 72 62 61 6e 65 6b 0a 0a 70 6c 75 73 20 48 65 69 6e 65 72
+#&gt; [551] 20 53 63 68 77 61 72 74 65 20 75 70 20 74 6f 20 4f 63 74 6f 62 65 72 20 31
+#&gt; [576] 39 39 39 2c 20 47 75 69 64 6f 20 4d 61 73 61 72 6f 74 74 6f 20 75 70 20 74
+#&gt; [601] 6f 20 4a 75 6e 65 20 32 30 30 33 2c 0a 53 74 65 66 61 6e 6f 20 49 61 63 75
+#&gt; [626] 73 20 75 70 20 74 6f 20 4a 75 6c 79 20 32 30 31 34 2c 20 53 65 74 68 20 46
+#&gt; [651] 61 6c 63 6f 6e 20 75 70 20 74 6f 20 41 75 67 75 73 74 20 32 30 31 35 2c 20
+#&gt; [676] 44 75 6e 63 61 6e 20 4d 75 72 64 6f 63 68 0a 75 70 20 74 6f 20 53 65 70 74
+#&gt; [701] 65 6d 62 65 72 20 32 30 31 37 2c 20 61 6e 64 20 4d 61 72 74 69 6e 20 4d 6f
+#&gt; [726] 72 67 61 6e 20 75 70 20 74 6f 20 4a 75 6e 65 20 32 30 32 31 2e 0a 0a 0a 43
+#&gt; [751] 75 72 72 65 6e 74 20 52 2d 63 6f 72 65 20 6d 65 6d 62 65 72 73 20 63 61 6e
+#&gt; [776] 20 62 65 20 63 6f 6e 74 61 63 74 65 64 20 76 69 61 20 65 6d 61 69 6c 20 74
+#&gt; [801] 6f 20 52 2d 70 72 6f 6a 65 63 74 2e 6f 72 67 0a 77 69 74 68 20 6e 61 6d 65
+#&gt; [826] 20 6d 61 64 65 20 75 70 20 62 79 20 72 65 70 6c 61 63 69 6e 67 20 73 70 61
+#&gt; [851] 63 65 73 20 62 79 20 64 6f 74 73 20 69 6e 20 74 68 65 20 6e 61 6d 65 20 6c
+#&gt; [876] 69 73 74 65 64 20 61 62 6f 76 65 2e 0a 0a 28 54 68 65 20 61 75 74 68 6f 72
+#&gt; [901] 73 20 6f 66 20 63 6f 64 65 20 66 72 6f 6d 20 6f 74 68 65 72 20 70 72 6f 6a
+#&gt; [926] 65 63 74 73 20 69 6e 63 6c 75 64 65 64 20 69 6e 20 74 68 65 20 52 20 64 69
+#&gt; [951] 73 74 72 69 62 75 74 69 6f 6e 0a 61 72 65 20 6c 69 73 74 65 64 20 69 6e 20
+#&gt; [976] 74 68 65 20 43 4f 50 59 52 49 47 48 54 53 20 66 69 6c 65 2e 29 0a</div><div class='input'>
 <span class='va'>tmp</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/tempfile.html'>tempfile</a></span><span class='op'>(</span><span class='op'>)</span>
 
 <span class='va'>x</span> <span class='op'>&lt;-</span> <span class='fu'><a href='format_delim.html'>format_csv</a></span><span class='op'>(</span><span class='va'>mtcars</span><span class='op'>[</span><span class='fl'>1</span><span class='op'>:</span><span class='fl'>6</span>, <span class='op'>]</span><span class='op'>)</span>

@@ -99,7 +99,7 @@ decimal point. This format is common in some European countries." />
         <a class="navbar-brand" href="../index.html">readr</a>
         <div class="info hidden-xs hidden-sm">
           <span class="partof">part of the <a href="https://tidyverse.org">tidyverse</a></span>
-          <span class="version version-default" data-toggle="tooltip" data-placement="bottom" title="Released version">2.0.1</span>
+          <span class="version version-default" data-toggle="tooltip" data-placement="bottom" title="Released version">2.0.2</span>
         </div>
       </div>
     </div>
@@ -325,7 +325,7 @@ names will be generated automatically: X1, X2, X3 etc.</p>
 names of the columns, and the first row of the input will be read into
 the first row of the output data frame.</p>
 <p>Missing (<code>NA</code>) column names will generate a warning, and be filled
-in with dummy names <code>X1</code>, <code>X2</code> etc. Duplicate column names
+in with dummy names <code>...1</code>, <code>...2</code> etc. Duplicate column names
 will generate a warning and be made unique, see <code>name_repair</code> to control
 how this is done.</p></td>
     </tr>
@@ -333,10 +333,10 @@ how this is done.</p></td>
       <th>col_types</th>
       <td><p>One of <code>NULL</code>, a <code><a href='cols.html'>cols()</a></code> specification, or
 a string. See <code><a href='../articles/readr.html'>vignette("readr")</a></code> for more details.</p>
-<p>If <code>NULL</code>, all column types will be imputed from the first 1000 rows
-on the input. This is convenient (and fast), but not robust. If the
-imputation fails, you'll need to increase the <code>guess_max</code> or supply the
-correct types yourself.</p>
+<p>If <code>NULL</code>, all column types will be imputed from <code>guess_max</code> rows
+on the input interspersed throughout the file. This is convenient (and
+fast), but not robust. If the imputation fails, you'll need to increase
+the <code>guess_max</code> or supply the correct types yourself.</p>
 <p>Column specifications created by <code><a href='https://rdrr.io/r/base/list.html'>list()</a></code> or <code><a href='cols.html'>cols()</a></code> must contain
 one column specification for each column. If you only want to read a
 subset of the columns, use <code><a href='cols.html'>cols_only()</a></code>.</p>
@@ -387,8 +387,9 @@ option to <code><a href='https://rdrr.io/r/base/character.html'>character()</a><
     </tr>
     <tr>
       <th>quoted_na</th>
-      <td><p>Should missing values inside quotes be treated as missing
-values (the default) or strings.</p></td>
+      <td><p><a href='https://lifecycle.r-lib.org/articles/stages.html#deprecated'><img src='figures/lifecycle-deprecated.svg' alt='[Deprecated]' /></a>
+ Should missing values inside quotes be treated as missing
+values (the default) or strings. This parameter is soft deprecated as of readr 2.0.0.</p></td>
     </tr>
     <tr>
       <th>comment</th>
@@ -548,7 +549,7 @@ You can retrieve the full details by calling <code><a href='problems.html'>probl
 #&gt; <span style='color: #BCBCBC;'>1</span>     1     2
 #&gt; <span style='color: #BCBCBC;'>2</span>     3     4</div><div class='input'>
 <span class='co'># Column types --------------------------------------------------------------</span>
-<span class='co'># By default, readr guesses the columns types, looking at the first 1000 rows.</span>
+<span class='co'># By default, readr guesses the columns types, looking at `guess_max` rows.</span>
 <span class='co'># You can override with a compact specification:</span>
 <span class='fu'>read_csv</span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/AsIs.html'>I</a></span><span class='op'>(</span><span class='st'>"x,y\n1,2\n3,4"</span><span class='op'>)</span>, col_types <span class='op'>=</span> <span class='st'>"dc"</span><span class='op'>)</span>
 </div><div class='output co'>#&gt; <span style='color: #949494;'># A tibble: 2 × 2</span>
@@ -574,10 +575,10 @@ You can retrieve the full details by calling <code><a href='problems.html'>probl
 #&gt; <span style='color: #BCBCBC;'>2</span>     2
 #&gt; <span style='color: #BCBCBC;'>3</span>    <span style='color: #BB0000;'>NA</span></div><div class='input'><span class='fu'><a href='problems.html'>problems</a></span><span class='op'>(</span><span class='va'>y</span><span class='op'>)</span>
 </div><div class='output co'>#&gt; <span style='color: #949494;'># A tibble: 2 × 5</span>
-#&gt;     row   col expected actual file                            
-#&gt;   <span style='color: #949494; font-style: italic;'>&lt;int&gt;</span> <span style='color: #949494; font-style: italic;'>&lt;int&gt;</span> <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span>    <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span>  <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span>                           
-#&gt; <span style='color: #BCBCBC;'>1</span>     2     1 a double b      /tmp/RtmpFCbyVW/file2d724de9fbf4
-#&gt; <span style='color: #BCBCBC;'>2</span>     4     1 a double b      /tmp/RtmpFCbyVW/file2d724de9fbf4</div><div class='input'>
+#&gt;     row   col expected actual file                           
+#&gt;   <span style='color: #949494; font-style: italic;'>&lt;int&gt;</span> <span style='color: #949494; font-style: italic;'>&lt;int&gt;</span> <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span>    <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span>  <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span>                          
+#&gt; <span style='color: #BCBCBC;'>1</span>     2     1 a double b      /tmp/RtmpGPp6p0/file38c784903ba
+#&gt; <span style='color: #BCBCBC;'>2</span>     4     1 a double b      /tmp/RtmpGPp6p0/file38c784903ba</div><div class='input'>
 <span class='co'># File types ----------------------------------------------------------------</span>
 <span class='fu'>read_csv</span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/AsIs.html'>I</a></span><span class='op'>(</span><span class='st'>"a,b\n1.0,2.0"</span><span class='op'>)</span><span class='op'>)</span>
 </div><div class='output co'>#&gt; <span class='message'><span style='font-weight: bold;'>Rows: </span><span style='color: #0000BB;'>1</span> <span style='font-weight: bold;'>Columns: </span><span style='color: #0000BB;'>2</span></span></div><div class='output co'>#&gt; <span class='message'><span style='color: #00BBBB;'>──</span> <span style='font-weight: bold;'>Column specification</span> <span style='color: #00BBBB;'>────────────────────────────────────────────────────────</span></span>
