@@ -193,9 +193,10 @@ be automatically uncompressed. Files starting with <code>http://</code>,
 <code>https://</code>, <code>ftp://</code>, or <code>ftps://</code> will be automatically
 downloaded. Remote gz files can also be automatically downloaded and
 decompressed.</p>
-<p>Literal data is most useful for examples and tests. To be recognised as a
-path, it must be wrapped with <code><a href='https://rdrr.io/r/base/AsIs.html'>I()</a></code>, be a string containing at least one
-new line, or be a vector containing at least one string with a new line.</p>
+<p>Literal data is most useful for examples and tests. To be recognised as
+literal data, the input must be either wrapped with <code><a href='https://rdrr.io/r/base/AsIs.html'>I()</a></code>, be a string
+containing at least one new line, or be a vector containing at least one
+string with a new line.</p>
 <p>Using a value of <code><a href='clipboard.html'>clipboard()</a></code> will read from the system clipboard.</p></td>
     </tr>
     <tr>
@@ -262,7 +263,7 @@ new line, or be a vector containing at least one string with a new line.</p>
 #&gt; attr(,"class")
 #&gt; [1] "source_file" "source"     </div><div class='input'><span class='fu'>datasource</span><span class='op'>(</span><span class='fu'><a href='readr_example.html'>readr_example</a></span><span class='op'>(</span><span class='st'>"mtcars.csv.bz2"</span><span class='op'>)</span><span class='op'>)</span>
 </div><div class='output co'>#&gt; [[1]]
-#&gt; [1] "/tmp/Rtmpctyl5D/file392a574fc220"
+#&gt; [1] "/tmp/Rtmpn9BNLZ/file381d2ee8eb49"
 #&gt; 
 #&gt; $skip
 #&gt; [1] 0
@@ -277,12 +278,12 @@ new line, or be a vector containing at least one string with a new line.</p>
 #&gt; [1] TRUE
 #&gt; 
 #&gt; $env
-#&gt; &lt;environment: 0x5559b802df80&gt;
+#&gt; &lt;environment: 0x555813476fa0&gt;
 #&gt; 
 #&gt; attr(,"class")
 #&gt; [1] "source_file" "source"     </div><div class='input'><span class='fu'>datasource</span><span class='op'>(</span><span class='fu'><a href='readr_example.html'>readr_example</a></span><span class='op'>(</span><span class='st'>"mtcars.csv.zip"</span><span class='op'>)</span><span class='op'>)</span>
 </div><div class='output co'>#&gt; [[1]]
-#&gt; [1] "/tmp/Rtmpctyl5D/file392a1e4c6373"
+#&gt; [1] "/tmp/Rtmpn9BNLZ/file381d4f21a269"
 #&gt; 
 #&gt; $skip
 #&gt; [1] 0
@@ -297,7 +298,7 @@ new line, or be a vector containing at least one string with a new line.</p>
 #&gt; [1] TRUE
 #&gt; 
 #&gt; $env
-#&gt; &lt;environment: 0x5559b8134e88&gt;
+#&gt; &lt;environment: 0x555813541e98&gt;
 #&gt; 
 #&gt; attr(,"class")
 #&gt; [1] "source_file" "source"     </div><div class='input'><span class='kw'>if</span> <span class='op'>(</span><span class='cn'>FALSE</span><span class='op'>)</span> <span class='op'>{</span>
@@ -308,7 +309,7 @@ new line, or be a vector containing at least one string with a new line.</p>
 <span class='va'>con</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/rawConnection.html'>rawConnection</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/rawConversion.html'>charToRaw</a></span><span class='op'>(</span><span class='st'>"abc\n123"</span><span class='op'>)</span><span class='op'>)</span>
 <span class='fu'>datasource</span><span class='op'>(</span><span class='va'>con</span><span class='op'>)</span>
 </div><div class='output co'>#&gt; [[1]]
-#&gt; [1] "/tmp/Rtmpctyl5D/file392a3eee93df"
+#&gt; [1] "/tmp/Rtmpn9BNLZ/file381d7c70ed1e"
 #&gt; 
 #&gt; $skip
 #&gt; [1] 0
@@ -323,7 +324,7 @@ new line, or be a vector containing at least one string with a new line.</p>
 #&gt; [1] TRUE
 #&gt; 
 #&gt; $env
-#&gt; &lt;environment: 0x5559b82a3218&gt;
+#&gt; &lt;environment: 0x5558136780d0&gt;
 #&gt; 
 #&gt; attr(,"class")
 #&gt; [1] "source_file" "source"     </div><div class='input'><span class='fu'><a href='https://rdrr.io/r/base/connections.html'>close</a></span><span class='op'>(</span><span class='va'>con</span><span class='op'>)</span>
