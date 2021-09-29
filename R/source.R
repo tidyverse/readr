@@ -9,9 +9,10 @@
 #'    downloaded. Remote gz files can also be automatically downloaded and
 #'    decompressed.
 #'
-#'    Literal data is most useful for examples and tests. To be recognised as a
-#'    path, it must be wrapped with `I()`, be a string containing at least one
-#'    new line, or be a vector containing at least one string with a new line.
+#'    Literal data is most useful for examples and tests. To be recognised as
+#'    literal data, the input must be either wrapped with `I()`, be a string
+#'    containing at least one new line, or be a vector containing at least one
+#'    string with a new line.
 #'
 #'    Using a value of [clipboard()] will read from the system clipboard.
 #'
