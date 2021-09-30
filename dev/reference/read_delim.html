@@ -204,7 +204,7 @@ decimal point. This format is common in some European countries.</p>
   progress <span class='op'>=</span> <span class='fu'><a href='show_progress.html'>show_progress</a></span><span class='op'>(</span><span class='op'>)</span>,
   show_col_types <span class='op'>=</span> <span class='fu'><a href='should_show_types.html'>should_show_types</a></span><span class='op'>(</span><span class='op'>)</span>,
   skip_empty_rows <span class='op'>=</span> <span class='cn'>TRUE</span>,
-  lazy <span class='op'>=</span> <span class='cn'>TRUE</span>
+  lazy <span class='op'>=</span> <span class='fu'><a href='should_read_lazy.html'>should_read_lazy</a></span><span class='op'>(</span><span class='op'>)</span>
 <span class='op'>)</span>
 
 <span class='fu'>read_csv</span><span class='op'>(</span>
@@ -227,7 +227,7 @@ decimal point. This format is common in some European countries.</p>
   progress <span class='op'>=</span> <span class='fu'><a href='show_progress.html'>show_progress</a></span><span class='op'>(</span><span class='op'>)</span>,
   show_col_types <span class='op'>=</span> <span class='fu'><a href='should_show_types.html'>should_show_types</a></span><span class='op'>(</span><span class='op'>)</span>,
   skip_empty_rows <span class='op'>=</span> <span class='cn'>TRUE</span>,
-  lazy <span class='op'>=</span> <span class='cn'>TRUE</span>
+  lazy <span class='op'>=</span> <span class='fu'><a href='should_read_lazy.html'>should_read_lazy</a></span><span class='op'>(</span><span class='op'>)</span>
 <span class='op'>)</span>
 
 <span class='fu'>read_csv2</span><span class='op'>(</span>
@@ -250,7 +250,7 @@ decimal point. This format is common in some European countries.</p>
   num_threads <span class='op'>=</span> <span class='fu'><a href='readr_threads.html'>readr_threads</a></span><span class='op'>(</span><span class='op'>)</span>,
   show_col_types <span class='op'>=</span> <span class='fu'><a href='should_show_types.html'>should_show_types</a></span><span class='op'>(</span><span class='op'>)</span>,
   skip_empty_rows <span class='op'>=</span> <span class='cn'>TRUE</span>,
-  lazy <span class='op'>=</span> <span class='cn'>TRUE</span>
+  lazy <span class='op'>=</span> <span class='fu'><a href='should_read_lazy.html'>should_read_lazy</a></span><span class='op'>(</span><span class='op'>)</span>
 <span class='op'>)</span>
 
 <span class='fu'>read_tsv</span><span class='op'>(</span>
@@ -273,7 +273,7 @@ decimal point. This format is common in some European countries.</p>
   num_threads <span class='op'>=</span> <span class='fu'><a href='readr_threads.html'>readr_threads</a></span><span class='op'>(</span><span class='op'>)</span>,
   show_col_types <span class='op'>=</span> <span class='fu'><a href='should_show_types.html'>should_show_types</a></span><span class='op'>(</span><span class='op'>)</span>,
   skip_empty_rows <span class='op'>=</span> <span class='cn'>TRUE</span>,
-  lazy <span class='op'>=</span> <span class='cn'>TRUE</span>
+  lazy <span class='op'>=</span> <span class='fu'><a href='should_read_lazy.html'>should_read_lazy</a></span><span class='op'>(</span><span class='op'>)</span>
 <span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
@@ -578,8 +578,8 @@ You can retrieve the full details by calling <code><a href='problems.html'>probl
 </div><div class='output co'>#&gt; <span style='color: #949494;'># A tibble: 2 × 5</span>
 #&gt;     row   col expected actual file                            
 #&gt;   <span style='color: #949494; font-style: italic;'>&lt;int&gt;</span> <span style='color: #949494; font-style: italic;'>&lt;int&gt;</span> <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span>    <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span>  <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span>                           
-#&gt; <span style='color: #BCBCBC;'>1</span>     2     1 a double b      /tmp/Rtmpn9BNLZ/file381d4f6d4122
-#&gt; <span style='color: #BCBCBC;'>2</span>     4     1 a double b      /tmp/Rtmpn9BNLZ/file381d4f6d4122</div><div class='input'>
+#&gt; <span style='color: #BCBCBC;'>1</span>     2     1 a double b      /tmp/RtmpeOtRWc/file37c125fd4ee5
+#&gt; <span style='color: #BCBCBC;'>2</span>     4     1 a double b      /tmp/RtmpeOtRWc/file37c125fd4ee5</div><div class='input'>
 <span class='co'># File types ----------------------------------------------------------------</span>
 <span class='fu'>read_csv</span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/AsIs.html'>I</a></span><span class='op'>(</span><span class='st'>"a,b\n1.0,2.0"</span><span class='op'>)</span><span class='op'>)</span>
 </div><div class='output co'>#&gt; <span class='message'><span style='font-weight: bold;'>Rows: </span><span style='color: #0000BB;'>1</span> <span style='font-weight: bold;'>Columns: </span><span style='color: #0000BB;'>2</span></span></div><div class='output co'>#&gt; <span class='message'><span style='color: #00BBBB;'>──</span> <span style='font-weight: bold;'>Column specification</span> <span style='color: #00BBBB;'>────────────────────────────────────────────────────────</span></span>
