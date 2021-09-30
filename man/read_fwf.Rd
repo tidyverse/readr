@@ -25,7 +25,7 @@ read_fwf(
   name_repair = "unique",
   num_threads = readr_threads(),
   show_col_types = should_show_types(),
-  lazy = TRUE,
+  lazy = should_read_lazy(),
   skip_empty_rows = TRUE
 )
 

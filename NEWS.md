@@ -1,5 +1,7 @@
 # readr (development version)
 
+* New `readr.read_lazy` global option to control if readr reads files lazily or not (#1266)
+
 # readr 2.0.2
 
 * minor test tweak for compatibility with testthat 3.1.0 (#@lionel-, #1304)

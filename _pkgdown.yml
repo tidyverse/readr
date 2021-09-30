@@ -139,3 +139,4 @@ reference:
   - show_progress
   - readr_threads
   - should_show_types
+  - should_read_lazy

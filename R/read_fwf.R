@@ -51,7 +51,7 @@ read_fwf <- function(file, col_positions = fwf_empty(file, skip, n = guess_max),
                      name_repair = "unique",
                      num_threads = readr_threads(),
                      show_col_types = should_show_types(),
-                     lazy = TRUE, skip_empty_rows = TRUE) {
+                     lazy = should_read_lazy(), skip_empty_rows = TRUE) {
   if (edition_first()) {
     ds <- datasource(file, skip = skip, skip_empty_rows = skip_empty_rows)
     if (inherits(ds, "source_file") && empty_file(file)) {

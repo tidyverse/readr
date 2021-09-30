@@ -13,7 +13,7 @@ read_lines(
   n_max = Inf,
   locale = default_locale(),
   na = character(),
-  lazy = TRUE,
+  lazy = should_read_lazy(),
   num_threads = readr_threads(),
   progress = show_progress()
 )

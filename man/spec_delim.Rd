@@ -31,7 +31,7 @@ spec_delim(
   progress = show_progress(),
   show_col_types = should_show_types(),
   skip_empty_rows = TRUE,
-  lazy = TRUE
+  lazy = should_read_lazy()
 )
 
 spec_csv(
@@ -54,7 +54,7 @@ spec_csv(
   progress = show_progress(),
   show_col_types = should_show_types(),
   skip_empty_rows = TRUE,
-  lazy = TRUE
+  lazy = should_read_lazy()
 )
 
 spec_csv2(
@@ -77,7 +77,7 @@ spec_csv2(
   num_threads = readr_threads(),
   show_col_types = should_show_types(),
   skip_empty_rows = TRUE,
-  lazy = TRUE
+  lazy = should_read_lazy()
 )
 
 spec_tsv(
@@ -100,7 +100,7 @@ spec_tsv(
   num_threads = readr_threads(),
   show_col_types = should_show_types(),
   skip_empty_rows = TRUE,
-  lazy = TRUE
+  lazy = should_read_lazy()
 )
 
 spec_table(

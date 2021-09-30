@@ -32,7 +32,7 @@
 read_lines <- function(file, skip = 0, skip_empty_rows = FALSE, n_max = Inf,
                        locale = default_locale(),
                        na = character(),
-                       lazy = TRUE,
+                       lazy = should_read_lazy(),
                        num_threads = readr_threads(),
                        progress = show_progress()) {
   if (edition_first()) {

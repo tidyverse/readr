@@ -30,7 +30,7 @@ read_delim(
   progress = show_progress(),
   show_col_types = should_show_types(),
   skip_empty_rows = TRUE,
-  lazy = TRUE
+  lazy = should_read_lazy()
 )
 
 read_csv(
@@ -53,7 +53,7 @@ read_csv(
   progress = show_progress(),
   show_col_types = should_show_types(),
   skip_empty_rows = TRUE,
-  lazy = TRUE
+  lazy = should_read_lazy()
 )
 
 read_csv2(
@@ -76,7 +76,7 @@ read_csv2(
   num_threads = readr_threads(),
   show_col_types = should_show_types(),
   skip_empty_rows = TRUE,
-  lazy = TRUE
+  lazy = should_read_lazy()
 )
 
 read_tsv(
@@ -99,7 +99,7 @@ read_tsv(
   num_threads = readr_threads(),
   show_col_types = should_show_types(),
   skip_empty_rows = TRUE,
-  lazy = TRUE
+  lazy = should_read_lazy()
 )
 }
 \arguments{

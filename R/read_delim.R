@@ -152,7 +152,7 @@ read_delim <- function(file, delim = NULL, quote = '"',
                        num_threads = readr_threads(),
                        progress = show_progress(),
                        show_col_types = should_show_types(),
-                       skip_empty_rows = TRUE, lazy = TRUE) {
+                       skip_empty_rows = TRUE, lazy = should_read_lazy()) {
   if (!is.null(delim) && !nzchar(delim)) {
     stop("`delim` must be at least one character, ",
       "use `read_table()` for whitespace delimited input.",
@@ -220,7 +220,7 @@ read_csv <- function(file,
                      progress = show_progress(),
                      show_col_types = should_show_types(),
                      skip_empty_rows = TRUE,
-                     lazy = TRUE) {
+                     lazy = should_read_lazy()) {
   if (edition_first()) {
     tokenizer <- tokenizer_csv(
       na = na, quoted_na = quoted_na, quote = quote,
@@ -285,7 +285,7 @@ read_csv2 <- function(file,
                       num_threads = readr_threads(),
                       show_col_types = should_show_types(),
                       skip_empty_rows = TRUE,
-                      lazy = TRUE) {
+                      lazy = should_read_lazy()) {
   if (locale$decimal_mark == ".") {
     cli::cli_alert_info("Using {.val ','} as decimal and {.val '.'} as grouping mark. Use {.fn read_delim} for more control.")
     locale$decimal_mark <- ","
@@ -340,7 +340,7 @@ read_tsv <- function(file, col_names = TRUE, col_types = NULL,
                      name_repair = "unique",
                      num_threads = readr_threads(),
                      show_col_types = should_show_types(),
-                     skip_empty_rows = TRUE, lazy = TRUE) {
+                     skip_empty_rows = TRUE, lazy = should_read_lazy()) {
   tokenizer <- tokenizer_tsv(
     na = na, quoted_na = quoted_na, quote = quote,
     comment = comment, trim_ws = trim_ws, skip_empty_rows = skip_empty_rows

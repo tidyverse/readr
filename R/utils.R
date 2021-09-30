@@ -39,6 +39,15 @@ should_show_types <- function() {
   }
 }
 
+#' Determine whether reading should be done lazily
+#'
+#' Reading in readr is done lazily unless
+#' - `options(readr.read_lazy = FALSE)`
+#' @export
+should_read_lazy <- function() {
+  identical(getOption("readr.read_lazy", TRUE), TRUE)
+}
+
 deparse2 <- function(expr, ..., sep = "\n") {
   paste(deparse(expr, ...), collapse = sep)
 }
