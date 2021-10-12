@@ -438,6 +438,7 @@ a,b
 <p>Specifying the wrong number of column names, or having rows with an unexpected number of columns, now gives a warning, rather than an error:</p>
 <div class="sourceCode" id="cb17"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="../../reference/read_delim.html">read_csv</a></span><span class="op">(</span><span class="st">"a,b,c\n1,2\n1,2,3,4"</span><span class="op">)</span>
+<span class="co">#&gt; Warning: One or more parsing issues, see `problems()` for details</span>
 <span class="co">#&gt; Rows: 2 Columns: 3</span>
 <span class="co">#&gt; ── Column specification ────────────────────────────────────────────────────────</span>
 <span class="co">#&gt; Delimiter: ","</span>
@@ -445,7 +446,6 @@ a,b
 <span class="co">#&gt; </span>
 <span class="co">#&gt; ℹ Use `spec()` to retrieve the full column specification for this data.</span>
 <span class="co">#&gt; ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.</span>
-<span class="co">#&gt; Warning: One or more parsing issues, see `problems()` for details</span>
 <span class="co">#&gt; # A tibble: 2 × 3</span>
 <span class="co">#&gt;       a     b     c</span>
 <span class="co">#&gt;   &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;</span>

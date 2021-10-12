@@ -172,6 +172,7 @@
 <a href="#readr-development-version" class="anchor"></a>readr (development version)<small> Unreleased </small>
 </h1>
 <ul>
+<li>All readr functions again read eagerly by default. Unfortunately many users experienced frustration from the drawbacks of lazy reading, in particular locking files on Windows, so it was decided to disable lazy reading default. However <code><a href="https://rdrr.io/r/base/options.html">options(readr.read_lazy = TRUE)</a></code> can be used to set the default to by lazy if desired.</li>
 <li>New <code>readr.read_lazy</code> global option to control if readr reads files lazily or not (<a href='https://github.com/tidyverse/readr/issues/1266'>#1266</a>)</li>
 </ul>
 </div>
