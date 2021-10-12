@@ -45,7 +45,7 @@ should_show_types <- function() {
 #' - `options(readr.read_lazy = FALSE)`
 #' @export
 should_read_lazy <- function() {
-  identical(getOption("readr.read_lazy", TRUE), TRUE)
+  identical(getOption("readr.read_lazy", FALSE), TRUE)
 }
 
 deparse2 <- function(expr, ..., sep = "\n") {
