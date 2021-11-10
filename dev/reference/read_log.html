@@ -274,22 +274,24 @@ progress bar can be disabled by setting option <code>readr.show_progress</code> 
 
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='fu'>read_log</span><span class='op'>(</span><span class='fu'><a href='readr_example.html'>readr_example</a></span><span class='op'>(</span><span class='st'>"example.log"</span><span class='op'>)</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; <span class='message'></span>
-#&gt; <span class='message'><span style='color: #00BBBB;'>──</span> <span style='font-weight: bold;'>Column specification</span> <span style='color: #00BBBB;'>────────────────────────────────────────────────────────</span></span>
-#&gt; <span class='message'>cols(</span>
-#&gt; <span class='message'>  X1 = <span style='color: #BB0000;'>col_character()</span>,</span>
-#&gt; <span class='message'>  X2 = <span style='color: #BBBB00;'>col_logical()</span>,</span>
-#&gt; <span class='message'>  X3 = <span style='color: #BB0000;'>col_character()</span>,</span>
-#&gt; <span class='message'>  X4 = <span style='color: #BB0000;'>col_character()</span>,</span>
-#&gt; <span class='message'>  X5 = <span style='color: #BB0000;'>col_character()</span>,</span>
-#&gt; <span class='message'>  X6 = <span style='color: #00BB00;'>col_double()</span>,</span>
-#&gt; <span class='message'>  X7 = <span style='color: #00BB00;'>col_double()</span></span>
-#&gt; <span class='message'>)</span></div><div class='output co'>#&gt; <span style='color: #949494;'># A tibble: 2 × 7</span>
-#&gt;   X1           X2    X3                   X4         X5                 X6    X7
-#&gt;   <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span>        <span style='color: #949494; font-style: italic;'>&lt;lgl&gt;</span> <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span>                <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span>      <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span>           <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span> <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span>
-#&gt; <span style='color: #BCBCBC;'>1</span> 172.21.13.45 <span style='color: #BB0000;'>NA</span>    <span style='color: #949494;'>"</span>Microsoft\\JohnDoe<span style='color: #949494;'>"</span> 08/Apr/20… GET /scripts/i…   200  <span style='text-decoration: underline;'>3</span>401
-#&gt; <span style='color: #BCBCBC;'>2</span> 127.0.0.1    <span style='color: #BB0000;'>NA</span>    <span style='color: #949494;'>"</span>frank<span style='color: #949494;'>"</span>              10/Oct/20… GET /apache_pb…   200  <span style='text-decoration: underline;'>2</span>326</div></pre>
+    <pre class="examples"><span class='r-in'><span class='fu'>read_log</span><span class='op'>(</span><span class='fu'><a href='readr_example.html'>readr_example</a></span><span class='op'>(</span><span class='st'>"example.log"</span><span class='op'>)</span><span class='op'>)</span></span>
+<span class='r-msg co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-msg co'><span class='r-pr'>#&gt;</span> <span style='color: #00BBBB;'>──</span> <span style='font-weight: bold;'>Column specification</span> <span style='color: #00BBBB;'>────────────────────────────────────────────────────────</span></span>
+<span class='r-msg co'><span class='r-pr'>#&gt;</span> cols(</span>
+<span class='r-msg co'><span class='r-pr'>#&gt;</span>   X1 = <span style='color: #BB0000;'>col_character()</span>,</span>
+<span class='r-msg co'><span class='r-pr'>#&gt;</span>   X2 = <span style='color: #BBBB00;'>col_logical()</span>,</span>
+<span class='r-msg co'><span class='r-pr'>#&gt;</span>   X3 = <span style='color: #BB0000;'>col_character()</span>,</span>
+<span class='r-msg co'><span class='r-pr'>#&gt;</span>   X4 = <span style='color: #BB0000;'>col_character()</span>,</span>
+<span class='r-msg co'><span class='r-pr'>#&gt;</span>   X5 = <span style='color: #BB0000;'>col_character()</span>,</span>
+<span class='r-msg co'><span class='r-pr'>#&gt;</span>   X6 = <span style='color: #00BB00;'>col_double()</span>,</span>
+<span class='r-msg co'><span class='r-pr'>#&gt;</span>   X7 = <span style='color: #00BB00;'>col_double()</span></span>
+<span class='r-msg co'><span class='r-pr'>#&gt;</span> )</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #949494;'># A tibble: 2 × 7</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   X1           X2    X3                   X4         X5                 X6    X7</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span>        <span style='color: #949494; font-style: italic;'>&lt;lgl&gt;</span> <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span>                <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span>      <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span>           <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span> <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #BCBCBC;'>1</span> 172.21.13.45 <span style='color: #BB0000;'>NA</span>    <span style='color: #949494;'>"</span>Microsoft\\JohnDoe<span style='color: #949494;'>"</span> 08/Apr/20… GET /scripts/i…   200  <span style='text-decoration: underline;'>3</span>401</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #BCBCBC;'>2</span> 127.0.0.1    <span style='color: #BB0000;'>NA</span>    <span style='color: #949494;'>"</span>frank<span style='color: #949494;'>"</span>              10/Oct/20… GET /apache_pb…   200  <span style='text-decoration: underline;'>2</span>326</span>
+</pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

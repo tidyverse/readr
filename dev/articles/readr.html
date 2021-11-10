@@ -345,7 +345,7 @@
     y <span class="op">=</span> <span class="fu"><a href="../reference/parse_datetime.html">col_date</a></span><span class="op">(</span>format <span class="op">=</span> <span class="st">""</span><span class="op">)</span>
   <span class="op">)</span>
 <span class="op">)</span></code></pre></div>
-<p>In general, it’s good practice to supply an explicit column specification. It is more work, but it ensures that you get warnings if the data changes in unexpected ways. To be really strict, you can use <code><a href="../reference/problems.html">stop_for_problems(df3)</a></code>. This will throw an error if there are any parsing problems, forcing you to fix those problems before proceeding with the analysis.</p>
+<p>In general, it’s good practice to supply an explicit column specification. It is more work, but it ensures that you get warnings if the data changes in unexpected ways. To be really strict, you can use <code>stop_for_problems(df3)</code>. This will throw an error if there are any parsing problems, forcing you to fix those problems before proceeding with the analysis.</p>
 </div>
 <div id="available-column-specifications" class="section level3">
 <h3 class="hasAnchor">
@@ -361,13 +361,13 @@
 <li>
 <code><a href="../reference/parse_atomic.html">col_character()</a></code> [c], everything else.</li>
 <li>
-<code><a href="../reference/parse_factor.html">col_factor(levels, ordered)</a></code> [f], a fixed set of values.</li>
+<code>col_factor(levels, ordered)</code> [f], a fixed set of values.</li>
 <li>
-<code><a href="../reference/parse_datetime.html">col_date(format = "")</a></code> [D]: with the locale’s <code>date_format</code>.</li>
+<code>col_date(format = "")</code> [D]: with the locale’s <code>date_format</code>.</li>
 <li>
-<code><a href="../reference/parse_datetime.html">col_time(format = "")</a></code> [t]: with the locale’s <code>time_format</code>.</li>
+<code>col_time(format = "")</code> [t]: with the locale’s <code>time_format</code>.</li>
 <li>
-<code><a href="../reference/parse_datetime.html">col_datetime(format = "")</a></code> [T]: ISO8601 date times</li>
+<code>col_datetime(format = "")</code> [T]: ISO8601 date times</li>
 <li>
 <code><a href="../reference/parse_number.html">col_number()</a></code> [n], numbers containing the <code>grouping_mark</code>
 </li>

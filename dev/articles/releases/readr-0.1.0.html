@@ -185,7 +185,7 @@
 <ul>
 <li><p>Characters are never automatically converted to factors (i.e. no more <code>stringsAsFactors = FALSE</code>!).</p></li>
 <li><p>Column names are left as is, not munged into valid R identifiers (i.e. there is no <code>check.names = TRUE</code>). Use backticks to refer to variables with unusual names, e.g. <code>df$`Income ($000)`</code>.</p></li>
-<li><p>The output has class <code><a href="https://rdrr.io/r/base/c.html">c("tbl_df", "tbl", "data.frame")</a></code> so if you also use <a href="http://blog.rstudio.org/2015/01/09/dplyr-0-4-0/">dplyr</a> you’ll get an enhanced print method (i.e. you’ll see just the first ten rows, not the first 10,000!).</p></li>
+<li><p>The output has class <code>c("tbl_df", "tbl", "data.frame")</code> so if you also use <a href="http://blog.rstudio.org/2015/01/09/dplyr-0-4-0/">dplyr</a> you’ll get an enhanced print method (i.e. you’ll see just the first ten rows, not the first 10,000!).</p></li>
 <li><p>Row names are never set.</p></li>
 </ul>
 </div>
@@ -212,9 +212,9 @@
 <p>You can manually specify other column types:</p>
 <ul>
 <li><p><code><a href="../../reference/col_skip.html">col_skip()</a></code> [_], don’t import this column.</p></li>
-<li><p><code><a href="../../reference/parse_datetime.html">col_date(format)</a></code> and <code><a href="../../reference/parse_datetime.html">col_datetime(format, tz)</a></code>, dates or date times parsed with given format string. Dates and times are rather complex, so they’re described in more detail in the next section.</p></li>
-<li><p><code>col_numeric()</code> [n], a sloppy numeric parser that ignores everything apart from 0-9, <code><a href="https://rdrr.io/r/base/Arithmetic.html">-</a></code> and <code>.</code> (this is useful for parsing currency data).</p></li>
-<li><p><code><a href="../../reference/parse_factor.html">col_factor(levels, ordered)</a></code>, parse a fixed set of known values into a (optionally ordered) factor.</p></li>
+<li><p><code>col_date(format)</code> and <code>col_datetime(format, tz)</code>, dates or date times parsed with given format string. Dates and times are rather complex, so they’re described in more detail in the next section.</p></li>
+<li><p><code>col_numeric()</code> [n], a sloppy numeric parser that ignores everything apart from 0-9, <code>-</code> and <code>.</code> (this is useful for parsing currency data).</p></li>
+<li><p><code>col_factor(levels, ordered)</code>, parse a fixed set of known values into a (optionally ordered) factor.</p></li>
 </ul>
 <p>There are two ways to override the default choices with the <code>col_types</code> argument:</p>
 <ul>
@@ -284,8 +284,8 @@ b,2
 <span class="co">#&gt; # A tibble: 2 × 5</span>
 <span class="co">#&gt;     row   col expected   actual file                            </span>
 <span class="co">#&gt;   &lt;int&gt; &lt;int&gt; &lt;chr&gt;      &lt;chr&gt;  &lt;chr&gt;                           </span>
-<span class="co">#&gt; 1     2     2 an integer a      /tmp/RtmpkyU8eg/file40ce6a50f7c3</span>
-<span class="co">#&gt; 2     3     1 an integer b      /tmp/RtmpkyU8eg/file40ce6a50f7c3</span>
+<span class="co">#&gt; 1     2     2 an integer a      /tmp/RtmpZrtBHB/file362742fb3e9e</span>
+<span class="co">#&gt; 2     3     1 an integer b      /tmp/RtmpZrtBHB/file362742fb3e9e</span>
 <span class="va">df</span>
 <span class="co">#&gt; # A tibble: 2 × 2</span>
 <span class="co">#&gt;       x     y</span>

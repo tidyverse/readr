@@ -428,68 +428,89 @@ They are now only ignored at the start of a line.</p>
 column is separated by whitespace.</p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='va'>fwf_sample</span> <span class='op'>&lt;-</span> <span class='fu'><a href='readr_example.html'>readr_example</a></span><span class='op'>(</span><span class='st'>"fwf-sample.txt"</span><span class='op'>)</span>
-<span class='fu'><a href='https://rdrr.io/r/base/writeLines.html'>writeLines</a></span><span class='op'>(</span><span class='fu'><a href='read_lines.html'>read_lines</a></span><span class='op'>(</span><span class='va'>fwf_sample</span><span class='op'>)</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; John Smith          WA        418-Y11-4111
-#&gt; Mary Hartford       CA        319-Z19-4341
-#&gt; Evan Nolan          IL        219-532-c301</div><div class='input'>
-<span class='co'># You can specify column positions in several ways:</span>
-<span class='co'># 1. Guess based on position of empty columns</span>
-<span class='fu'>read_fwf</span><span class='op'>(</span><span class='va'>fwf_sample</span>, <span class='fu'>fwf_empty</span><span class='op'>(</span><span class='va'>fwf_sample</span>, col_names <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"first"</span>, <span class='st'>"last"</span>, <span class='st'>"state"</span>, <span class='st'>"ssn"</span><span class='op'>)</span><span class='op'>)</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; <span class='message'><span style='font-weight: bold;'>Rows: </span><span style='color: #0000BB;'>3</span> <span style='font-weight: bold;'>Columns: </span><span style='color: #0000BB;'>4</span></span></div><div class='output co'>#&gt; <span class='message'><span style='color: #00BBBB;'>──</span> <span style='font-weight: bold;'>Column specification</span> <span style='color: #00BBBB;'>────────────────────────────────────────────────────────</span></span>
-#&gt; <span class='message'></span>
-#&gt; <span class='message'><span style='color: #BB0000;'>chr</span> (4): first, last, state, ssn</span></div><div class='output co'>#&gt; <span class='message'></span>
-#&gt; <span class='message'><span style='color: #00BBBB;'>ℹ</span> Use <span style='color: #262626; background-color: #DADADA;'>`spec()`</span> to retrieve the full column specification for this data.</span>
-#&gt; <span class='message'><span style='color: #00BBBB;'>ℹ</span> Specify the column types or set <span style='color: #262626; background-color: #DADADA;'>`show_col_types = FALSE`</span> to quiet this message.</span></div><div class='output co'>#&gt; <span style='color: #949494;'># A tibble: 3 × 4</span>
-#&gt;   first last     state ssn         
-#&gt;   <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span> <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span>    <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span> <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span>       
-#&gt; <span style='color: #BCBCBC;'>1</span> John  Smith    WA    418-Y11-4111
-#&gt; <span style='color: #BCBCBC;'>2</span> Mary  Hartford CA    319-Z19-4341
-#&gt; <span style='color: #BCBCBC;'>3</span> Evan  Nolan    IL    219-532-c301</div><div class='input'><span class='co'># 2. A vector of field widths</span>
-<span class='fu'>read_fwf</span><span class='op'>(</span><span class='va'>fwf_sample</span>, <span class='fu'>fwf_widths</span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>20</span>, <span class='fl'>10</span>, <span class='fl'>12</span><span class='op'>)</span>, <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"name"</span>, <span class='st'>"state"</span>, <span class='st'>"ssn"</span><span class='op'>)</span><span class='op'>)</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; <span class='message'><span style='font-weight: bold;'>Rows: </span><span style='color: #0000BB;'>3</span> <span style='font-weight: bold;'>Columns: </span><span style='color: #0000BB;'>3</span></span></div><div class='output co'>#&gt; <span class='message'><span style='color: #00BBBB;'>──</span> <span style='font-weight: bold;'>Column specification</span> <span style='color: #00BBBB;'>────────────────────────────────────────────────────────</span></span>
-#&gt; <span class='message'></span>
-#&gt; <span class='message'><span style='color: #BB0000;'>chr</span> (3): name, state, ssn</span></div><div class='output co'>#&gt; <span class='message'></span>
-#&gt; <span class='message'><span style='color: #00BBBB;'>ℹ</span> Use <span style='color: #262626; background-color: #DADADA;'>`spec()`</span> to retrieve the full column specification for this data.</span>
-#&gt; <span class='message'><span style='color: #00BBBB;'>ℹ</span> Specify the column types or set <span style='color: #262626; background-color: #DADADA;'>`show_col_types = FALSE`</span> to quiet this message.</span></div><div class='output co'>#&gt; <span style='color: #949494;'># A tibble: 3 × 3</span>
-#&gt;   name          state ssn         
-#&gt;   <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span>         <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span> <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span>       
-#&gt; <span style='color: #BCBCBC;'>1</span> John Smith    WA    418-Y11-4111
-#&gt; <span style='color: #BCBCBC;'>2</span> Mary Hartford CA    319-Z19-4341
-#&gt; <span style='color: #BCBCBC;'>3</span> Evan Nolan    IL    219-532-c301</div><div class='input'><span class='co'># 3. Paired vectors of start and end positions</span>
-<span class='fu'>read_fwf</span><span class='op'>(</span><span class='va'>fwf_sample</span>, <span class='fu'>fwf_positions</span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>1</span>, <span class='fl'>30</span><span class='op'>)</span>, <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>20</span>, <span class='fl'>42</span><span class='op'>)</span>, <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"name"</span>, <span class='st'>"ssn"</span><span class='op'>)</span><span class='op'>)</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; <span class='message'><span style='font-weight: bold;'>Rows: </span><span style='color: #0000BB;'>3</span> <span style='font-weight: bold;'>Columns: </span><span style='color: #0000BB;'>2</span></span></div><div class='output co'>#&gt; <span class='message'><span style='color: #00BBBB;'>──</span> <span style='font-weight: bold;'>Column specification</span> <span style='color: #00BBBB;'>────────────────────────────────────────────────────────</span></span>
-#&gt; <span class='message'></span>
-#&gt; <span class='message'><span style='color: #BB0000;'>chr</span> (2): name, ssn</span></div><div class='output co'>#&gt; <span class='message'></span>
-#&gt; <span class='message'><span style='color: #00BBBB;'>ℹ</span> Use <span style='color: #262626; background-color: #DADADA;'>`spec()`</span> to retrieve the full column specification for this data.</span>
-#&gt; <span class='message'><span style='color: #00BBBB;'>ℹ</span> Specify the column types or set <span style='color: #262626; background-color: #DADADA;'>`show_col_types = FALSE`</span> to quiet this message.</span></div><div class='output co'>#&gt; <span style='color: #949494;'># A tibble: 3 × 2</span>
-#&gt;   name          ssn         
-#&gt;   <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span>         <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span>       
-#&gt; <span style='color: #BCBCBC;'>1</span> John Smith    418-Y11-4111
-#&gt; <span style='color: #BCBCBC;'>2</span> Mary Hartford 319-Z19-4341
-#&gt; <span style='color: #BCBCBC;'>3</span> Evan Nolan    219-532-c301</div><div class='input'><span class='co'># 4. Named arguments with start and end positions</span>
-<span class='fu'>read_fwf</span><span class='op'>(</span><span class='va'>fwf_sample</span>, <span class='fu'>fwf_cols</span><span class='op'>(</span>name <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>1</span>, <span class='fl'>20</span><span class='op'>)</span>, ssn <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>30</span>, <span class='fl'>42</span><span class='op'>)</span><span class='op'>)</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; <span class='message'><span style='font-weight: bold;'>Rows: </span><span style='color: #0000BB;'>3</span> <span style='font-weight: bold;'>Columns: </span><span style='color: #0000BB;'>2</span></span></div><div class='output co'>#&gt; <span class='message'><span style='color: #00BBBB;'>──</span> <span style='font-weight: bold;'>Column specification</span> <span style='color: #00BBBB;'>────────────────────────────────────────────────────────</span></span>
-#&gt; <span class='message'></span>
-#&gt; <span class='message'><span style='color: #BB0000;'>chr</span> (2): name, ssn</span></div><div class='output co'>#&gt; <span class='message'></span>
-#&gt; <span class='message'><span style='color: #00BBBB;'>ℹ</span> Use <span style='color: #262626; background-color: #DADADA;'>`spec()`</span> to retrieve the full column specification for this data.</span>
-#&gt; <span class='message'><span style='color: #00BBBB;'>ℹ</span> Specify the column types or set <span style='color: #262626; background-color: #DADADA;'>`show_col_types = FALSE`</span> to quiet this message.</span></div><div class='output co'>#&gt; <span style='color: #949494;'># A tibble: 3 × 2</span>
-#&gt;   name          ssn         
-#&gt;   <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span>         <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span>       
-#&gt; <span style='color: #BCBCBC;'>1</span> John Smith    418-Y11-4111
-#&gt; <span style='color: #BCBCBC;'>2</span> Mary Hartford 319-Z19-4341
-#&gt; <span style='color: #BCBCBC;'>3</span> Evan Nolan    219-532-c301</div><div class='input'><span class='co'># 5. Named arguments with column widths</span>
-<span class='fu'>read_fwf</span><span class='op'>(</span><span class='va'>fwf_sample</span>, <span class='fu'>fwf_cols</span><span class='op'>(</span>name <span class='op'>=</span> <span class='fl'>20</span>, state <span class='op'>=</span> <span class='fl'>10</span>, ssn <span class='op'>=</span> <span class='fl'>12</span><span class='op'>)</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; <span class='message'><span style='font-weight: bold;'>Rows: </span><span style='color: #0000BB;'>3</span> <span style='font-weight: bold;'>Columns: </span><span style='color: #0000BB;'>3</span></span></div><div class='output co'>#&gt; <span class='message'><span style='color: #00BBBB;'>──</span> <span style='font-weight: bold;'>Column specification</span> <span style='color: #00BBBB;'>────────────────────────────────────────────────────────</span></span>
-#&gt; <span class='message'></span>
-#&gt; <span class='message'><span style='color: #BB0000;'>chr</span> (3): name, state, ssn</span></div><div class='output co'>#&gt; <span class='message'></span>
-#&gt; <span class='message'><span style='color: #00BBBB;'>ℹ</span> Use <span style='color: #262626; background-color: #DADADA;'>`spec()`</span> to retrieve the full column specification for this data.</span>
-#&gt; <span class='message'><span style='color: #00BBBB;'>ℹ</span> Specify the column types or set <span style='color: #262626; background-color: #DADADA;'>`show_col_types = FALSE`</span> to quiet this message.</span></div><div class='output co'>#&gt; <span style='color: #949494;'># A tibble: 3 × 3</span>
-#&gt;   name          state ssn         
-#&gt;   <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span>         <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span> <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span>       
-#&gt; <span style='color: #BCBCBC;'>1</span> John Smith    WA    418-Y11-4111
-#&gt; <span style='color: #BCBCBC;'>2</span> Mary Hartford CA    319-Z19-4341
-#&gt; <span style='color: #BCBCBC;'>3</span> Evan Nolan    IL    219-532-c301</div></pre>
+    <pre class="examples"><span class='r-in'><span class='va'>fwf_sample</span> <span class='op'>&lt;-</span> <span class='fu'><a href='readr_example.html'>readr_example</a></span><span class='op'>(</span><span class='st'>"fwf-sample.txt"</span><span class='op'>)</span></span>
+<span class='r-in'><span class='fu'><a href='https://rdrr.io/r/base/writeLines.html'>writeLines</a></span><span class='op'>(</span><span class='fu'><a href='read_lines.html'>read_lines</a></span><span class='op'>(</span><span class='va'>fwf_sample</span><span class='op'>)</span><span class='op'>)</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> John Smith          WA        418-Y11-4111</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> Mary Hartford       CA        319-Z19-4341</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> Evan Nolan          IL        219-532-c301</span>
+<span class='r-in'></span>
+<span class='r-in'><span class='co'># You can specify column positions in several ways:</span></span>
+<span class='r-in'><span class='co'># 1. Guess based on position of empty columns</span></span>
+<span class='r-in'><span class='fu'>read_fwf</span><span class='op'>(</span><span class='va'>fwf_sample</span>, <span class='fu'>fwf_empty</span><span class='op'>(</span><span class='va'>fwf_sample</span>, col_names <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"first"</span>, <span class='st'>"last"</span>, <span class='st'>"state"</span>, <span class='st'>"ssn"</span><span class='op'>)</span><span class='op'>)</span><span class='op'>)</span></span>
+<span class='r-msg co'><span class='r-pr'>#&gt;</span> <span style='font-weight: bold;'>Rows: </span><span style='color: #0000BB;'>3</span> <span style='font-weight: bold;'>Columns: </span><span style='color: #0000BB;'>4</span></span>
+<span class='r-msg co'><span class='r-pr'>#&gt;</span> <span style='color: #00BBBB;'>──</span> <span style='font-weight: bold;'>Column specification</span> <span style='color: #00BBBB;'>────────────────────────────────────────────────────────</span></span>
+<span class='r-msg co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-msg co'><span class='r-pr'>#&gt;</span> <span style='color: #BB0000;'>chr</span> (4): first, last, state, ssn</span>
+<span class='r-msg co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-msg co'><span class='r-pr'>#&gt;</span> <span style='color: #00BBBB;'>ℹ</span> Use <span style='color: #262626; background-color: #DADADA;'>`spec()`</span> to retrieve the full column specification for this data.</span>
+<span class='r-msg co'><span class='r-pr'>#&gt;</span> <span style='color: #00BBBB;'>ℹ</span> Specify the column types or set <span style='color: #262626; background-color: #DADADA;'>`show_col_types = FALSE`</span> to quiet this message.</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #949494;'># A tibble: 3 × 4</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   first last     state ssn         </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span> <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span>    <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span> <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span>       </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #BCBCBC;'>1</span> John  Smith    WA    418-Y11-4111</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #BCBCBC;'>2</span> Mary  Hartford CA    319-Z19-4341</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #BCBCBC;'>3</span> Evan  Nolan    IL    219-532-c301</span>
+<span class='r-in'><span class='co'># 2. A vector of field widths</span></span>
+<span class='r-in'><span class='fu'>read_fwf</span><span class='op'>(</span><span class='va'>fwf_sample</span>, <span class='fu'>fwf_widths</span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>20</span>, <span class='fl'>10</span>, <span class='fl'>12</span><span class='op'>)</span>, <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"name"</span>, <span class='st'>"state"</span>, <span class='st'>"ssn"</span><span class='op'>)</span><span class='op'>)</span><span class='op'>)</span></span>
+<span class='r-msg co'><span class='r-pr'>#&gt;</span> <span style='font-weight: bold;'>Rows: </span><span style='color: #0000BB;'>3</span> <span style='font-weight: bold;'>Columns: </span><span style='color: #0000BB;'>3</span></span>
+<span class='r-msg co'><span class='r-pr'>#&gt;</span> <span style='color: #00BBBB;'>──</span> <span style='font-weight: bold;'>Column specification</span> <span style='color: #00BBBB;'>────────────────────────────────────────────────────────</span></span>
+<span class='r-msg co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-msg co'><span class='r-pr'>#&gt;</span> <span style='color: #BB0000;'>chr</span> (3): name, state, ssn</span>
+<span class='r-msg co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-msg co'><span class='r-pr'>#&gt;</span> <span style='color: #00BBBB;'>ℹ</span> Use <span style='color: #262626; background-color: #DADADA;'>`spec()`</span> to retrieve the full column specification for this data.</span>
+<span class='r-msg co'><span class='r-pr'>#&gt;</span> <span style='color: #00BBBB;'>ℹ</span> Specify the column types or set <span style='color: #262626; background-color: #DADADA;'>`show_col_types = FALSE`</span> to quiet this message.</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #949494;'># A tibble: 3 × 3</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   name          state ssn         </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span>         <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span> <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span>       </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #BCBCBC;'>1</span> John Smith    WA    418-Y11-4111</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #BCBCBC;'>2</span> Mary Hartford CA    319-Z19-4341</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #BCBCBC;'>3</span> Evan Nolan    IL    219-532-c301</span>
+<span class='r-in'><span class='co'># 3. Paired vectors of start and end positions</span></span>
+<span class='r-in'><span class='fu'>read_fwf</span><span class='op'>(</span><span class='va'>fwf_sample</span>, <span class='fu'>fwf_positions</span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>1</span>, <span class='fl'>30</span><span class='op'>)</span>, <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>20</span>, <span class='fl'>42</span><span class='op'>)</span>, <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"name"</span>, <span class='st'>"ssn"</span><span class='op'>)</span><span class='op'>)</span><span class='op'>)</span></span>
+<span class='r-msg co'><span class='r-pr'>#&gt;</span> <span style='font-weight: bold;'>Rows: </span><span style='color: #0000BB;'>3</span> <span style='font-weight: bold;'>Columns: </span><span style='color: #0000BB;'>2</span></span>
+<span class='r-msg co'><span class='r-pr'>#&gt;</span> <span style='color: #00BBBB;'>──</span> <span style='font-weight: bold;'>Column specification</span> <span style='color: #00BBBB;'>────────────────────────────────────────────────────────</span></span>
+<span class='r-msg co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-msg co'><span class='r-pr'>#&gt;</span> <span style='color: #BB0000;'>chr</span> (2): name, ssn</span>
+<span class='r-msg co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-msg co'><span class='r-pr'>#&gt;</span> <span style='color: #00BBBB;'>ℹ</span> Use <span style='color: #262626; background-color: #DADADA;'>`spec()`</span> to retrieve the full column specification for this data.</span>
+<span class='r-msg co'><span class='r-pr'>#&gt;</span> <span style='color: #00BBBB;'>ℹ</span> Specify the column types or set <span style='color: #262626; background-color: #DADADA;'>`show_col_types = FALSE`</span> to quiet this message.</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #949494;'># A tibble: 3 × 2</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   name          ssn         </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span>         <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span>       </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #BCBCBC;'>1</span> John Smith    418-Y11-4111</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #BCBCBC;'>2</span> Mary Hartford 319-Z19-4341</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #BCBCBC;'>3</span> Evan Nolan    219-532-c301</span>
+<span class='r-in'><span class='co'># 4. Named arguments with start and end positions</span></span>
+<span class='r-in'><span class='fu'>read_fwf</span><span class='op'>(</span><span class='va'>fwf_sample</span>, <span class='fu'>fwf_cols</span><span class='op'>(</span>name <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>1</span>, <span class='fl'>20</span><span class='op'>)</span>, ssn <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>30</span>, <span class='fl'>42</span><span class='op'>)</span><span class='op'>)</span><span class='op'>)</span></span>
+<span class='r-msg co'><span class='r-pr'>#&gt;</span> <span style='font-weight: bold;'>Rows: </span><span style='color: #0000BB;'>3</span> <span style='font-weight: bold;'>Columns: </span><span style='color: #0000BB;'>2</span></span>
+<span class='r-msg co'><span class='r-pr'>#&gt;</span> <span style='color: #00BBBB;'>──</span> <span style='font-weight: bold;'>Column specification</span> <span style='color: #00BBBB;'>────────────────────────────────────────────────────────</span></span>
+<span class='r-msg co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-msg co'><span class='r-pr'>#&gt;</span> <span style='color: #BB0000;'>chr</span> (2): name, ssn</span>
+<span class='r-msg co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-msg co'><span class='r-pr'>#&gt;</span> <span style='color: #00BBBB;'>ℹ</span> Use <span style='color: #262626; background-color: #DADADA;'>`spec()`</span> to retrieve the full column specification for this data.</span>
+<span class='r-msg co'><span class='r-pr'>#&gt;</span> <span style='color: #00BBBB;'>ℹ</span> Specify the column types or set <span style='color: #262626; background-color: #DADADA;'>`show_col_types = FALSE`</span> to quiet this message.</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #949494;'># A tibble: 3 × 2</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   name          ssn         </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span>         <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span>       </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #BCBCBC;'>1</span> John Smith    418-Y11-4111</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #BCBCBC;'>2</span> Mary Hartford 319-Z19-4341</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #BCBCBC;'>3</span> Evan Nolan    219-532-c301</span>
+<span class='r-in'><span class='co'># 5. Named arguments with column widths</span></span>
+<span class='r-in'><span class='fu'>read_fwf</span><span class='op'>(</span><span class='va'>fwf_sample</span>, <span class='fu'>fwf_cols</span><span class='op'>(</span>name <span class='op'>=</span> <span class='fl'>20</span>, state <span class='op'>=</span> <span class='fl'>10</span>, ssn <span class='op'>=</span> <span class='fl'>12</span><span class='op'>)</span><span class='op'>)</span></span>
+<span class='r-msg co'><span class='r-pr'>#&gt;</span> <span style='font-weight: bold;'>Rows: </span><span style='color: #0000BB;'>3</span> <span style='font-weight: bold;'>Columns: </span><span style='color: #0000BB;'>3</span></span>
+<span class='r-msg co'><span class='r-pr'>#&gt;</span> <span style='color: #00BBBB;'>──</span> <span style='font-weight: bold;'>Column specification</span> <span style='color: #00BBBB;'>────────────────────────────────────────────────────────</span></span>
+<span class='r-msg co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-msg co'><span class='r-pr'>#&gt;</span> <span style='color: #BB0000;'>chr</span> (3): name, state, ssn</span>
+<span class='r-msg co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-msg co'><span class='r-pr'>#&gt;</span> <span style='color: #00BBBB;'>ℹ</span> Use <span style='color: #262626; background-color: #DADADA;'>`spec()`</span> to retrieve the full column specification for this data.</span>
+<span class='r-msg co'><span class='r-pr'>#&gt;</span> <span style='color: #00BBBB;'>ℹ</span> Specify the column types or set <span style='color: #262626; background-color: #DADADA;'>`show_col_types = FALSE`</span> to quiet this message.</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #949494;'># A tibble: 3 × 3</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   name          state ssn         </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span>         <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span> <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span>       </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #BCBCBC;'>1</span> John Smith    WA    418-Y11-4111</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #BCBCBC;'>2</span> Mary Hartford CA    319-Z19-4341</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #BCBCBC;'>3</span> Evan Nolan    IL    219-532-c301</span>
+</pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
