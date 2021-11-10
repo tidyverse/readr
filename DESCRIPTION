@@ -45,7 +45,7 @@ Imports:
     rlang,
     R6,
     tibble,
-    vroom (>= 1.5.4),
+    vroom (>= 1.5.6),
     utils,
     lifecycle (>= 0.2.0)
 Suggests:
