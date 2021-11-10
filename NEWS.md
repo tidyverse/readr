@@ -1,4 +1,4 @@
-# readr (development version)
+# readr 2.1.0
 
 * All readr functions again read eagerly by default. Unfortunately many users
   experienced frustration from the drawbacks of lazy reading, in particular
