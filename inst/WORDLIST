@@ -96,6 +96,7 @@ stringi
 stringsAsFactors
 subetting
 SSD
+testthat
 tibble
 tibbles
 tidyverse

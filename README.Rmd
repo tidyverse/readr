@@ -16,7 +16,7 @@ knitr::opts_chunk$set(
 
 [![CRAN_Status_Badge](https://www.r-pkg.org/badges/version/readr)](https://cran.r-project.org/package=readr)
 [![R build status](https://github.com/tidyverse/readr/workflows/R-CMD-check/badge.svg)](https://github.com/tidyverse/readr)
-[![Coverage Status](https://codecov.io/gh/tidyverse/readr/coverage.svg?branch=master)](https://codecov.io/gh/tidyverse/readr?branch=master)
+[![Coverage Status](https://codecov.io/gh/tidyverse/readr/coverage.svg?branch=master)](https://app.codecov.io/gh/tidyverse/readr?branch=master)
 
 ## Overview
 
