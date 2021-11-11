@@ -97,7 +97,7 @@ values as they're read in." />
         <a class="navbar-brand" href="../index.html">readr</a>
         <div class="info hidden-xs hidden-sm">
           <span class="partof">part of the <a href="https://tidyverse.org">tidyverse</a></span>
-          <span class="version version-default" data-toggle="tooltip" data-placement="bottom" title="Released version">2.0.2</span>
+          <span class="version version-default" data-toggle="tooltip" data-placement="bottom" title="Released version">2.1.0</span>
         </div>
       </div>
     </div>
@@ -233,27 +233,34 @@ each field before parsing it?</p></td>
 <code><a href='parse_vector.html'>parse_vector</a>()</code></p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='fu'>parse_integer</span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"1"</span>, <span class='st'>"2"</span>, <span class='st'>"3"</span><span class='op'>)</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; [1] 1 2 3</div><div class='input'><span class='fu'>parse_double</span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"1"</span>, <span class='st'>"2"</span>, <span class='st'>"3.123"</span><span class='op'>)</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; [1] 1.000 2.000 3.123</div><div class='input'><span class='fu'><a href='parse_number.html'>parse_number</a></span><span class='op'>(</span><span class='st'>"$1,123,456.00"</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; [1] 1123456</div><div class='input'>
-<span class='co'># Use locale to override default decimal and grouping marks</span>
-<span class='va'>es_MX</span> <span class='op'>&lt;-</span> <span class='fu'><a href='locale.html'>locale</a></span><span class='op'>(</span><span class='st'>"es"</span>, decimal_mark <span class='op'>=</span> <span class='st'>","</span><span class='op'>)</span>
-<span class='fu'><a href='parse_number.html'>parse_number</a></span><span class='op'>(</span><span class='st'>"$1.123.456,00"</span>, locale <span class='op'>=</span> <span class='va'>es_MX</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; [1] 1123456</div><div class='input'>
-<span class='co'># Invalid values are replaced with missing values with a warning.</span>
-<span class='va'>x</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"1"</span>, <span class='st'>"2"</span>, <span class='st'>"3"</span>, <span class='st'>"-"</span><span class='op'>)</span>
-<span class='fu'>parse_double</span><span class='op'>(</span><span class='va'>x</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; <span class='warning'>Warning: 1 parsing failure.</span>
-#&gt; <span class='warning'>row col expected actual</span>
-#&gt; <span class='warning'>  4  -- a double      -</span></div><div class='output co'>#&gt; [1]  1  2  3 NA
-#&gt; attr(,"problems")
-#&gt; <span style='color: #949494;'># A tibble: 1 × 4</span>
-#&gt;     row   col expected actual
-#&gt;   <span style='color: #949494; font-style: italic;'>&lt;int&gt;</span> <span style='color: #949494; font-style: italic;'>&lt;int&gt;</span> <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span>    <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span> 
-#&gt; <span style='color: #BCBCBC;'>1</span>     4    <span style='color: #BB0000;'>NA</span> a double -     </div><div class='input'><span class='co'># Or flag values as missing</span>
-<span class='fu'>parse_double</span><span class='op'>(</span><span class='va'>x</span>, na <span class='op'>=</span> <span class='st'>"-"</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; [1]  1  2  3 NA</div></pre>
+    <pre class="examples"><span class='r-in'><span class='fu'>parse_integer</span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"1"</span>, <span class='st'>"2"</span>, <span class='st'>"3"</span><span class='op'>)</span><span class='op'>)</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [1] 1 2 3</span>
+<span class='r-in'><span class='fu'>parse_double</span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"1"</span>, <span class='st'>"2"</span>, <span class='st'>"3.123"</span><span class='op'>)</span><span class='op'>)</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [1] 1.000 2.000 3.123</span>
+<span class='r-in'><span class='fu'><a href='parse_number.html'>parse_number</a></span><span class='op'>(</span><span class='st'>"$1,123,456.00"</span><span class='op'>)</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [1] 1123456</span>
+<span class='r-in'></span>
+<span class='r-in'><span class='co'># Use locale to override default decimal and grouping marks</span></span>
+<span class='r-in'><span class='va'>es_MX</span> <span class='op'>&lt;-</span> <span class='fu'><a href='locale.html'>locale</a></span><span class='op'>(</span><span class='st'>"es"</span>, decimal_mark <span class='op'>=</span> <span class='st'>","</span><span class='op'>)</span></span>
+<span class='r-in'><span class='fu'><a href='parse_number.html'>parse_number</a></span><span class='op'>(</span><span class='st'>"$1.123.456,00"</span>, locale <span class='op'>=</span> <span class='va'>es_MX</span><span class='op'>)</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [1] 1123456</span>
+<span class='r-in'></span>
+<span class='r-in'><span class='co'># Invalid values are replaced with missing values with a warning.</span></span>
+<span class='r-in'><span class='va'>x</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"1"</span>, <span class='st'>"2"</span>, <span class='st'>"3"</span>, <span class='st'>"-"</span><span class='op'>)</span></span>
+<span class='r-in'><span class='fu'>parse_double</span><span class='op'>(</span><span class='va'>x</span><span class='op'>)</span></span>
+<span class='r-wrn co'><span class='r-pr'>#&gt;</span> <span class='warning'>Warning: </span>1 parsing failure.</span>
+<span class='r-wrn co'><span class='r-pr'>#&gt;</span> row col expected actual</span>
+<span class='r-wrn co'><span class='r-pr'>#&gt;</span>   4  -- a double      -</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [1]  1  2  3 NA</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> attr(,"problems")</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #949494;'># A tibble: 1 × 4</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>     row   col expected actual</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   <span style='color: #949494; font-style: italic;'>&lt;int&gt;</span> <span style='color: #949494; font-style: italic;'>&lt;int&gt;</span> <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span>    <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #BCBCBC;'>1</span>     4    <span style='color: #BB0000;'>NA</span> a double -     </span>
+<span class='r-in'><span class='co'># Or flag values as missing</span></span>
+<span class='r-in'><span class='fu'>parse_double</span><span class='op'>(</span><span class='va'>x</span>, na <span class='op'>=</span> <span class='st'>"-"</span><span class='op'>)</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [1]  1  2  3 NA</span>
+</pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

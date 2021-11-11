@@ -98,7 +98,7 @@ cols() without changing the behavior." />
         <a class="navbar-brand" href="../index.html">readr</a>
         <div class="info hidden-xs hidden-sm">
           <span class="partof">part of the <a href="https://tidyverse.org">tidyverse</a></span>
-          <span class="version version-default" data-toggle="tooltip" data-placement="bottom" title="Released version">2.0.2</span>
+          <span class="version version-default" data-toggle="tooltip" data-placement="bottom" title="Released version">2.1.0</span>
         </div>
       </div>
     </div>
@@ -208,10 +208,10 @@ will be read with this column type.</p></td>
 <li><p><code><a href='parse_atomic.html'>col_integer()</a></code> [i], integers.</p></li>
 <li><p><code><a href='parse_atomic.html'>col_double()</a></code> [d], doubles.</p></li>
 <li><p><code><a href='parse_atomic.html'>col_character()</a></code> [c], everything else.</p></li>
-<li><p><code><a href='parse_factor.html'>col_factor(levels, ordered)</a></code> [f], a fixed set of values.</p></li>
-<li><p><code><a href='parse_datetime.html'>col_date(format = "")</a></code> [D]: with the locale's <code>date_format</code>.</p></li>
-<li><p><code><a href='parse_datetime.html'>col_time(format = "")</a></code> [t]: with the locale's <code>time_format</code>.</p></li>
-<li><p><code><a href='parse_datetime.html'>col_datetime(format = "")</a></code> [T]: ISO8601 date times</p></li>
+<li><p><code>col_factor(levels, ordered)</code> [f], a fixed set of values.</p></li>
+<li><p><code>col_date(format = "")</code> [D]: with the locale's <code>date_format</code>.</p></li>
+<li><p><code>col_time(format = "")</code> [t]: with the locale's <code>time_format</code>.</p></li>
+<li><p><code>col_datetime(format = "")</code> [T]: ISO8601 date times</p></li>
 <li><p><code><a href='parse_number.html'>col_number()</a></code> [n], numbers containing the <code>grouping_mark</code></p></li>
 <li><p><code><a href='col_skip.html'>col_skip()</a></code> [_, -], don't import this column.</p></li>
 <li><p><code><a href='parse_guess.html'>col_guess()</a></code> [?], parse using the "best" type based on the input.</p></li>
@@ -230,43 +230,48 @@ will be read with this column type.</p></td>
 <code><a href='parse_vector.html'>parse_vector</a>()</code></p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='fu'>cols</span><span class='op'>(</span>a <span class='op'>=</span> <span class='fu'><a href='parse_atomic.html'>col_integer</a></span><span class='op'>(</span><span class='op'>)</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; cols(
-#&gt;   a = <span style='color: #00BB00;'>col_integer()</span>
-#&gt; )</div><div class='input'><span class='fu'>cols_only</span><span class='op'>(</span>a <span class='op'>=</span> <span class='fu'><a href='parse_atomic.html'>col_integer</a></span><span class='op'>(</span><span class='op'>)</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; cols_only(
-#&gt;   a = <span style='color: #00BB00;'>col_integer()</span>
-#&gt; )</div><div class='input'>
-<span class='co'># You can also use the standard abbreviations</span>
-<span class='fu'>cols</span><span class='op'>(</span>a <span class='op'>=</span> <span class='st'>"i"</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; cols(
-#&gt;   a = <span style='color: #00BB00;'>col_integer()</span>
-#&gt; )</div><div class='input'><span class='fu'>cols</span><span class='op'>(</span>a <span class='op'>=</span> <span class='st'>"i"</span>, b <span class='op'>=</span> <span class='st'>"d"</span>, c <span class='op'>=</span> <span class='st'>"_"</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; cols(
-#&gt;   a = <span style='color: #00BB00;'>col_integer()</span>,
-#&gt;   b = <span style='color: #00BB00;'>col_double()</span>,
-#&gt;   c = col_skip()
-#&gt; )</div><div class='input'>
-<span class='co'># You can also use multiple sets of column definitions by combining</span>
-<span class='co'># them like so:</span>
-
-<span class='va'>t1</span> <span class='op'>&lt;-</span> <span class='fu'>cols</span><span class='op'>(</span>
-  column_one <span class='op'>=</span> <span class='fu'><a href='parse_atomic.html'>col_integer</a></span><span class='op'>(</span><span class='op'>)</span>,
-  column_two <span class='op'>=</span> <span class='fu'><a href='parse_number.html'>col_number</a></span><span class='op'>(</span><span class='op'>)</span>
-<span class='op'>)</span>
-
-<span class='va'>t2</span> <span class='op'>&lt;-</span> <span class='fu'>cols</span><span class='op'>(</span>
-  column_three <span class='op'>=</span> <span class='fu'><a href='parse_atomic.html'>col_character</a></span><span class='op'>(</span><span class='op'>)</span>
-<span class='op'>)</span>
-
-<span class='va'>t3</span> <span class='op'>&lt;-</span> <span class='va'>t1</span>
-<span class='va'>t3</span><span class='op'>$</span><span class='va'>cols</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='va'>t1</span><span class='op'>$</span><span class='va'>cols</span>, <span class='va'>t2</span><span class='op'>$</span><span class='va'>cols</span><span class='op'>)</span>
-<span class='va'>t3</span>
-</div><div class='output co'>#&gt; cols(
-#&gt;   column_one = <span style='color: #00BB00;'>col_integer()</span>,
-#&gt;   column_two = <span style='color: #00BB00;'>col_number()</span>,
-#&gt;   column_three = <span style='color: #BB0000;'>col_character()</span>
-#&gt; )</div></pre>
+    <pre class="examples"><span class='r-in'><span class='fu'>cols</span><span class='op'>(</span>a <span class='op'>=</span> <span class='fu'><a href='parse_atomic.html'>col_integer</a></span><span class='op'>(</span><span class='op'>)</span><span class='op'>)</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> cols(</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   a = <span style='color: #00BB00;'>col_integer()</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> )</span>
+<span class='r-in'><span class='fu'>cols_only</span><span class='op'>(</span>a <span class='op'>=</span> <span class='fu'><a href='parse_atomic.html'>col_integer</a></span><span class='op'>(</span><span class='op'>)</span><span class='op'>)</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> cols_only(</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   a = <span style='color: #00BB00;'>col_integer()</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> )</span>
+<span class='r-in'></span>
+<span class='r-in'><span class='co'># You can also use the standard abbreviations</span></span>
+<span class='r-in'><span class='fu'>cols</span><span class='op'>(</span>a <span class='op'>=</span> <span class='st'>"i"</span><span class='op'>)</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> cols(</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   a = <span style='color: #00BB00;'>col_integer()</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> )</span>
+<span class='r-in'><span class='fu'>cols</span><span class='op'>(</span>a <span class='op'>=</span> <span class='st'>"i"</span>, b <span class='op'>=</span> <span class='st'>"d"</span>, c <span class='op'>=</span> <span class='st'>"_"</span><span class='op'>)</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> cols(</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   a = <span style='color: #00BB00;'>col_integer()</span>,</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   b = <span style='color: #00BB00;'>col_double()</span>,</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   c = col_skip()</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> )</span>
+<span class='r-in'></span>
+<span class='r-in'><span class='co'># You can also use multiple sets of column definitions by combining</span></span>
+<span class='r-in'><span class='co'># them like so:</span></span>
+<span class='r-in'></span>
+<span class='r-in'><span class='va'>t1</span> <span class='op'>&lt;-</span> <span class='fu'>cols</span><span class='op'>(</span></span>
+<span class='r-in'>  column_one <span class='op'>=</span> <span class='fu'><a href='parse_atomic.html'>col_integer</a></span><span class='op'>(</span><span class='op'>)</span>,</span>
+<span class='r-in'>  column_two <span class='op'>=</span> <span class='fu'><a href='parse_number.html'>col_number</a></span><span class='op'>(</span><span class='op'>)</span></span>
+<span class='r-in'><span class='op'>)</span></span>
+<span class='r-in'></span>
+<span class='r-in'><span class='va'>t2</span> <span class='op'>&lt;-</span> <span class='fu'>cols</span><span class='op'>(</span></span>
+<span class='r-in'>  column_three <span class='op'>=</span> <span class='fu'><a href='parse_atomic.html'>col_character</a></span><span class='op'>(</span><span class='op'>)</span></span>
+<span class='r-in'><span class='op'>)</span></span>
+<span class='r-in'></span>
+<span class='r-in'><span class='va'>t3</span> <span class='op'>&lt;-</span> <span class='va'>t1</span></span>
+<span class='r-in'><span class='va'>t3</span><span class='op'>$</span><span class='va'>cols</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='va'>t1</span><span class='op'>$</span><span class='va'>cols</span>, <span class='va'>t2</span><span class='op'>$</span><span class='va'>cols</span><span class='op'>)</span></span>
+<span class='r-in'><span class='va'>t3</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> cols(</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   column_one = <span style='color: #00BB00;'>col_integer()</span>,</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   column_two = <span style='color: #00BB00;'>col_number()</span>,</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   column_three = <span style='color: #BB0000;'>col_character()</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> )</span>
+</pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

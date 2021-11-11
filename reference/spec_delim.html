@@ -97,7 +97,7 @@ turns off printing)." />
         <a class="navbar-brand" href="../index.html">readr</a>
         <div class="info hidden-xs hidden-sm">
           <span class="partof">part of the <a href="https://tidyverse.org">tidyverse</a></span>
-          <span class="version version-default" data-toggle="tooltip" data-placement="bottom" title="Released version">2.0.2</span>
+          <span class="version version-default" data-toggle="tooltip" data-placement="bottom" title="Released version">2.1.0</span>
         </div>
       </div>
     </div>
@@ -173,7 +173,7 @@ turns off printing)." />
 
     <div class="ref-description">
     <p>When printed, only the first 20 columns are printed by default. To override,
-set <code><a href='https://rdrr.io/r/base/options.html'>options(readr.num_columns)</a></code> can be used to modify this (a value of 0
+set <code>options(readr.num_columns)</code> can be used to modify this (a value of 0
 turns off printing).</p>
     </div>
 
@@ -200,7 +200,7 @@ turns off printing).</p>
   progress <span class='op'>=</span> <span class='fu'><a href='show_progress.html'>show_progress</a></span><span class='op'>(</span><span class='op'>)</span>,
   show_col_types <span class='op'>=</span> <span class='fu'><a href='should_show_types.html'>should_show_types</a></span><span class='op'>(</span><span class='op'>)</span>,
   skip_empty_rows <span class='op'>=</span> <span class='cn'>TRUE</span>,
-  lazy <span class='op'>=</span> <span class='cn'>TRUE</span>
+  lazy <span class='op'>=</span> <span class='fu'><a href='should_read_lazy.html'>should_read_lazy</a></span><span class='op'>(</span><span class='op'>)</span>
 <span class='op'>)</span>
 
 <span class='fu'>spec_csv</span><span class='op'>(</span>
@@ -223,7 +223,7 @@ turns off printing).</p>
   progress <span class='op'>=</span> <span class='fu'><a href='show_progress.html'>show_progress</a></span><span class='op'>(</span><span class='op'>)</span>,
   show_col_types <span class='op'>=</span> <span class='fu'><a href='should_show_types.html'>should_show_types</a></span><span class='op'>(</span><span class='op'>)</span>,
   skip_empty_rows <span class='op'>=</span> <span class='cn'>TRUE</span>,
-  lazy <span class='op'>=</span> <span class='cn'>TRUE</span>
+  lazy <span class='op'>=</span> <span class='fu'><a href='should_read_lazy.html'>should_read_lazy</a></span><span class='op'>(</span><span class='op'>)</span>
 <span class='op'>)</span>
 
 <span class='fu'>spec_csv2</span><span class='op'>(</span>
@@ -246,7 +246,7 @@ turns off printing).</p>
   num_threads <span class='op'>=</span> <span class='fu'><a href='readr_threads.html'>readr_threads</a></span><span class='op'>(</span><span class='op'>)</span>,
   show_col_types <span class='op'>=</span> <span class='fu'><a href='should_show_types.html'>should_show_types</a></span><span class='op'>(</span><span class='op'>)</span>,
   skip_empty_rows <span class='op'>=</span> <span class='cn'>TRUE</span>,
-  lazy <span class='op'>=</span> <span class='cn'>TRUE</span>
+  lazy <span class='op'>=</span> <span class='fu'><a href='should_read_lazy.html'>should_read_lazy</a></span><span class='op'>(</span><span class='op'>)</span>
 <span class='op'>)</span>
 
 <span class='fu'>spec_tsv</span><span class='op'>(</span>
@@ -269,7 +269,7 @@ turns off printing).</p>
   num_threads <span class='op'>=</span> <span class='fu'><a href='readr_threads.html'>readr_threads</a></span><span class='op'>(</span><span class='op'>)</span>,
   show_col_types <span class='op'>=</span> <span class='fu'><a href='should_show_types.html'>should_show_types</a></span><span class='op'>(</span><span class='op'>)</span>,
   skip_empty_rows <span class='op'>=</span> <span class='cn'>TRUE</span>,
-  lazy <span class='op'>=</span> <span class='cn'>TRUE</span>
+  lazy <span class='op'>=</span> <span class='fu'><a href='should_read_lazy.html'>should_read_lazy</a></span><span class='op'>(</span><span class='op'>)</span>
 <span class='op'>)</span>
 
 <span class='fu'>spec_table</span><span class='op'>(</span>
@@ -298,9 +298,10 @@ be automatically uncompressed. Files starting with <code>http://</code>,
 <code>https://</code>, <code>ftp://</code>, or <code>ftps://</code> will be automatically
 downloaded. Remote gz files can also be automatically downloaded and
 decompressed.</p>
-<p>Literal data is most useful for examples and tests. To be recognised as a
-path, it must be wrapped with <code><a href='https://rdrr.io/r/base/AsIs.html'>I()</a></code>, be a string containing at least one
-new line, or be a vector containing at least one string with a new line.</p>
+<p>Literal data is most useful for examples and tests. To be recognised as
+literal data, the input must be either wrapped with <code><a href='https://rdrr.io/r/base/AsIs.html'>I()</a></code>, be a string
+containing at least one new line, or be a vector containing at least one
+string with a new line.</p>
 <p>Using a value of <code><a href='clipboard.html'>clipboard()</a></code> will read from the system clipboard.</p></td>
     </tr>
     <tr>
@@ -485,59 +486,63 @@ and on other systems the memory map will become invalid.</p></td>
     <p>The <code>col_spec</code> generated for the file.</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='co'># Input sources -------------------------------------------------------------</span>
-<span class='co'># Retrieve specs from a path</span>
-<span class='fu'>spec_csv</span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/system.file.html'>system.file</a></span><span class='op'>(</span><span class='st'>"extdata/mtcars.csv"</span>, package <span class='op'>=</span> <span class='st'>"readr"</span><span class='op'>)</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; cols(
-#&gt;   mpg = <span style='color: #00BB00;'>col_double()</span>,
-#&gt;   cyl = <span style='color: #00BB00;'>col_double()</span>,
-#&gt;   disp = <span style='color: #00BB00;'>col_double()</span>,
-#&gt;   hp = <span style='color: #00BB00;'>col_double()</span>,
-#&gt;   drat = <span style='color: #00BB00;'>col_double()</span>,
-#&gt;   wt = <span style='color: #00BB00;'>col_double()</span>,
-#&gt;   qsec = <span style='color: #00BB00;'>col_double()</span>,
-#&gt;   vs = <span style='color: #00BB00;'>col_double()</span>,
-#&gt;   am = <span style='color: #00BB00;'>col_double()</span>,
-#&gt;   gear = <span style='color: #00BB00;'>col_double()</span>,
-#&gt;   carb = <span style='color: #00BB00;'>col_double()</span>
-#&gt; )</div><div class='input'><span class='fu'>spec_csv</span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/system.file.html'>system.file</a></span><span class='op'>(</span><span class='st'>"extdata/mtcars.csv.zip"</span>, package <span class='op'>=</span> <span class='st'>"readr"</span><span class='op'>)</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; cols(
-#&gt;   mpg = <span style='color: #00BB00;'>col_double()</span>,
-#&gt;   cyl = <span style='color: #00BB00;'>col_double()</span>,
-#&gt;   disp = <span style='color: #00BB00;'>col_double()</span>,
-#&gt;   hp = <span style='color: #00BB00;'>col_double()</span>,
-#&gt;   drat = <span style='color: #00BB00;'>col_double()</span>,
-#&gt;   wt = <span style='color: #00BB00;'>col_double()</span>,
-#&gt;   qsec = <span style='color: #00BB00;'>col_double()</span>,
-#&gt;   vs = <span style='color: #00BB00;'>col_double()</span>,
-#&gt;   am = <span style='color: #00BB00;'>col_double()</span>,
-#&gt;   gear = <span style='color: #00BB00;'>col_double()</span>,
-#&gt;   carb = <span style='color: #00BB00;'>col_double()</span>
-#&gt; )</div><div class='input'>
-<span class='co'># Or directly from a string (must contain a newline)</span>
-<span class='fu'>spec_csv</span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/AsIs.html'>I</a></span><span class='op'>(</span><span class='st'>"x,y\n1,2\n3,4"</span><span class='op'>)</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; cols(
-#&gt;   x = <span style='color: #00BB00;'>col_double()</span>,
-#&gt;   y = <span style='color: #00BB00;'>col_double()</span>
-#&gt; )</div><div class='input'>
-<span class='co'># Column types --------------------------------------------------------------</span>
-<span class='co'># By default, readr guesses the columns types, looking at 1000 rows</span>
-<span class='co'># throughout the file.</span>
-<span class='co'># You can specify the number of rows used with guess_max.</span>
-<span class='fu'>spec_csv</span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/system.file.html'>system.file</a></span><span class='op'>(</span><span class='st'>"extdata/mtcars.csv"</span>, package <span class='op'>=</span> <span class='st'>"readr"</span><span class='op'>)</span>, guess_max <span class='op'>=</span> <span class='fl'>20</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; cols(
-#&gt;   mpg = <span style='color: #00BB00;'>col_double()</span>,
-#&gt;   cyl = <span style='color: #00BB00;'>col_double()</span>,
-#&gt;   disp = <span style='color: #00BB00;'>col_double()</span>,
-#&gt;   hp = <span style='color: #00BB00;'>col_double()</span>,
-#&gt;   drat = <span style='color: #00BB00;'>col_double()</span>,
-#&gt;   wt = <span style='color: #00BB00;'>col_double()</span>,
-#&gt;   qsec = <span style='color: #00BB00;'>col_double()</span>,
-#&gt;   vs = <span style='color: #00BB00;'>col_double()</span>,
-#&gt;   am = <span style='color: #00BB00;'>col_double()</span>,
-#&gt;   gear = <span style='color: #00BB00;'>col_double()</span>,
-#&gt;   carb = <span style='color: #00BB00;'>col_double()</span>
-#&gt; )</div></pre>
+    <pre class="examples"><span class='r-in'><span class='co'># Input sources -------------------------------------------------------------</span></span>
+<span class='r-in'><span class='co'># Retrieve specs from a path</span></span>
+<span class='r-in'><span class='fu'>spec_csv</span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/system.file.html'>system.file</a></span><span class='op'>(</span><span class='st'>"extdata/mtcars.csv"</span>, package <span class='op'>=</span> <span class='st'>"readr"</span><span class='op'>)</span><span class='op'>)</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> cols(</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   mpg = <span style='color: #00BB00;'>col_double()</span>,</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   cyl = <span style='color: #00BB00;'>col_double()</span>,</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   disp = <span style='color: #00BB00;'>col_double()</span>,</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   hp = <span style='color: #00BB00;'>col_double()</span>,</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   drat = <span style='color: #00BB00;'>col_double()</span>,</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   wt = <span style='color: #00BB00;'>col_double()</span>,</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   qsec = <span style='color: #00BB00;'>col_double()</span>,</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   vs = <span style='color: #00BB00;'>col_double()</span>,</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   am = <span style='color: #00BB00;'>col_double()</span>,</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   gear = <span style='color: #00BB00;'>col_double()</span>,</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   carb = <span style='color: #00BB00;'>col_double()</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> )</span>
+<span class='r-in'><span class='fu'>spec_csv</span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/system.file.html'>system.file</a></span><span class='op'>(</span><span class='st'>"extdata/mtcars.csv.zip"</span>, package <span class='op'>=</span> <span class='st'>"readr"</span><span class='op'>)</span><span class='op'>)</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> cols(</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   mpg = <span style='color: #00BB00;'>col_double()</span>,</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   cyl = <span style='color: #00BB00;'>col_double()</span>,</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   disp = <span style='color: #00BB00;'>col_double()</span>,</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   hp = <span style='color: #00BB00;'>col_double()</span>,</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   drat = <span style='color: #00BB00;'>col_double()</span>,</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   wt = <span style='color: #00BB00;'>col_double()</span>,</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   qsec = <span style='color: #00BB00;'>col_double()</span>,</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   vs = <span style='color: #00BB00;'>col_double()</span>,</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   am = <span style='color: #00BB00;'>col_double()</span>,</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   gear = <span style='color: #00BB00;'>col_double()</span>,</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   carb = <span style='color: #00BB00;'>col_double()</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> )</span>
+<span class='r-in'></span>
+<span class='r-in'><span class='co'># Or directly from a string (must contain a newline)</span></span>
+<span class='r-in'><span class='fu'>spec_csv</span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/AsIs.html'>I</a></span><span class='op'>(</span><span class='st'>"x,y\n1,2\n3,4"</span><span class='op'>)</span><span class='op'>)</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> cols(</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   x = <span style='color: #00BB00;'>col_double()</span>,</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   y = <span style='color: #00BB00;'>col_double()</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> )</span>
+<span class='r-in'></span>
+<span class='r-in'><span class='co'># Column types --------------------------------------------------------------</span></span>
+<span class='r-in'><span class='co'># By default, readr guesses the columns types, looking at 1000 rows</span></span>
+<span class='r-in'><span class='co'># throughout the file.</span></span>
+<span class='r-in'><span class='co'># You can specify the number of rows used with guess_max.</span></span>
+<span class='r-in'><span class='fu'>spec_csv</span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/system.file.html'>system.file</a></span><span class='op'>(</span><span class='st'>"extdata/mtcars.csv"</span>, package <span class='op'>=</span> <span class='st'>"readr"</span><span class='op'>)</span>, guess_max <span class='op'>=</span> <span class='fl'>20</span><span class='op'>)</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> cols(</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   mpg = <span style='color: #00BB00;'>col_double()</span>,</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   cyl = <span style='color: #00BB00;'>col_double()</span>,</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   disp = <span style='color: #00BB00;'>col_double()</span>,</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   hp = <span style='color: #00BB00;'>col_double()</span>,</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   drat = <span style='color: #00BB00;'>col_double()</span>,</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   wt = <span style='color: #00BB00;'>col_double()</span>,</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   qsec = <span style='color: #00BB00;'>col_double()</span>,</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   vs = <span style='color: #00BB00;'>col_double()</span>,</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   am = <span style='color: #00BB00;'>col_double()</span>,</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   gear = <span style='color: #00BB00;'>col_double()</span>,</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   carb = <span style='color: #00BB00;'>col_double()</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> )</span>
+</pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

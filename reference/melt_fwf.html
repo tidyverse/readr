@@ -96,7 +96,7 @@ This function has been superseded in readr and moved to the meltr package." />
         <a class="navbar-brand" href="../index.html">readr</a>
         <div class="info hidden-xs hidden-sm">
           <span class="partof">part of the <a href="https://tidyverse.org">tidyverse</a></span>
-          <span class="version version-default" data-toggle="tooltip" data-placement="bottom" title="Released version">2.0.2</span>
+          <span class="version version-default" data-toggle="tooltip" data-placement="bottom" title="Released version">2.1.0</span>
         </div>
       </div>
     </div>
@@ -200,9 +200,10 @@ be automatically uncompressed. Files starting with <code>http://</code>,
 <code>https://</code>, <code>ftp://</code>, or <code>ftps://</code> will be automatically
 downloaded. Remote gz files can also be automatically downloaded and
 decompressed.</p>
-<p>Literal data is most useful for examples and tests. To be recognised as a
-path, it must be wrapped with <code><a href='https://rdrr.io/r/base/AsIs.html'>I()</a></code>, be a string containing at least one
-new line, or be a vector containing at least one string with a new line.</p>
+<p>Literal data is most useful for examples and tests. To be recognised as
+literal data, the input must be either wrapped with <code><a href='https://rdrr.io/r/base/AsIs.html'>I()</a></code>, be a string
+containing at least one new line, or be a vector containing at least one
+string with a new line.</p>
 <p>Using a value of <code><a href='clipboard.html'>clipboard()</a></code> will read from the system clipboard.</p></td>
     </tr>
     <tr>
@@ -272,78 +273,89 @@ column is separated by whitespace, and <code><a href='read_fwf.html'>read_fwf()<
 way to read rectangular data from fixed width files.</p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='va'>fwf_sample</span> <span class='op'>&lt;-</span> <span class='fu'><a href='readr_example.html'>readr_example</a></span><span class='op'>(</span><span class='st'>"fwf-sample.txt"</span><span class='op'>)</span>
-<span class='fu'><a href='https://rdrr.io/r/base/cat.html'>cat</a></span><span class='op'>(</span><span class='fu'><a href='read_lines.html'>read_lines</a></span><span class='op'>(</span><span class='va'>fwf_sample</span><span class='op'>)</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; John Smith          WA        418-Y11-4111 Mary Hartford       CA        319-Z19-4341 Evan Nolan          IL        219-532-c301</div><div class='input'>
-<span class='co'># You can specify column positions in several ways:</span>
-<span class='co'># 1. Guess based on position of empty columns</span>
-<span class='fu'>melt_fwf</span><span class='op'>(</span><span class='va'>fwf_sample</span>, <span class='fu'><a href='read_fwf.html'>fwf_empty</a></span><span class='op'>(</span><span class='va'>fwf_sample</span>, col_names <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"first"</span>, <span class='st'>"last"</span>, <span class='st'>"state"</span>, <span class='st'>"ssn"</span><span class='op'>)</span><span class='op'>)</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; <span class='warning'>Warning: `melt_fwf()` was deprecated in readr 2.0.0.</span>
-#&gt; <span class='warning'>Please use `meltr::melt_fwf()` instead</span></div><div class='output co'>#&gt; <span style='color: #949494;'># A tibble: 12 × 4</span>
-#&gt;      row   col data_type value       
-#&gt;    <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span> <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span> <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span>     <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span>       
-#&gt; <span style='color: #BCBCBC;'> 1</span>     1     1 character John        
-#&gt; <span style='color: #BCBCBC;'> 2</span>     1     2 character Smith       
-#&gt; <span style='color: #BCBCBC;'> 3</span>     1     3 character WA          
-#&gt; <span style='color: #BCBCBC;'> 4</span>     1     4 character 418-Y11-4111
-#&gt; <span style='color: #BCBCBC;'> 5</span>     2     1 character Mary        
-#&gt; <span style='color: #BCBCBC;'> 6</span>     2     2 character Hartford    
-#&gt; <span style='color: #BCBCBC;'> 7</span>     2     3 character CA          
-#&gt; <span style='color: #BCBCBC;'> 8</span>     2     4 character 319-Z19-4341
-#&gt; <span style='color: #BCBCBC;'> 9</span>     3     1 character Evan        
-#&gt; <span style='color: #BCBCBC;'>10</span>     3     2 character Nolan       
-#&gt; <span style='color: #BCBCBC;'>11</span>     3     3 character IL          
-#&gt; <span style='color: #BCBCBC;'>12</span>     3     4 character 219-532-c301</div><div class='input'><span class='co'># 2. A vector of field widths</span>
-<span class='fu'>melt_fwf</span><span class='op'>(</span><span class='va'>fwf_sample</span>, <span class='fu'><a href='read_fwf.html'>fwf_widths</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>20</span>, <span class='fl'>10</span>, <span class='fl'>12</span><span class='op'>)</span>, <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"name"</span>, <span class='st'>"state"</span>, <span class='st'>"ssn"</span><span class='op'>)</span><span class='op'>)</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; <span class='warning'>Warning: `melt_fwf()` was deprecated in readr 2.0.0.</span>
-#&gt; <span class='warning'>Please use `meltr::melt_fwf()` instead</span></div><div class='output co'>#&gt; <span style='color: #949494;'># A tibble: 9 × 4</span>
-#&gt;     row   col data_type value        
-#&gt;   <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span> <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span> <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span>     <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span>        
-#&gt; <span style='color: #BCBCBC;'>1</span>     1     1 character John Smith   
-#&gt; <span style='color: #BCBCBC;'>2</span>     1     2 character WA           
-#&gt; <span style='color: #BCBCBC;'>3</span>     1     3 character 418-Y11-4111 
-#&gt; <span style='color: #BCBCBC;'>4</span>     2     1 character Mary Hartford
-#&gt; <span style='color: #BCBCBC;'>5</span>     2     2 character CA           
-#&gt; <span style='color: #BCBCBC;'>6</span>     2     3 character 319-Z19-4341 
-#&gt; <span style='color: #BCBCBC;'>7</span>     3     1 character Evan Nolan   
-#&gt; <span style='color: #BCBCBC;'>8</span>     3     2 character IL           
-#&gt; <span style='color: #BCBCBC;'>9</span>     3     3 character 219-532-c301 </div><div class='input'><span class='co'># 3. Paired vectors of start and end positions</span>
-<span class='fu'>melt_fwf</span><span class='op'>(</span><span class='va'>fwf_sample</span>, <span class='fu'><a href='read_fwf.html'>fwf_positions</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>1</span>, <span class='fl'>30</span><span class='op'>)</span>, <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>10</span>, <span class='fl'>42</span><span class='op'>)</span>, <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"name"</span>, <span class='st'>"ssn"</span><span class='op'>)</span><span class='op'>)</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; <span class='warning'>Warning: `melt_fwf()` was deprecated in readr 2.0.0.</span>
-#&gt; <span class='warning'>Please use `meltr::melt_fwf()` instead</span></div><div class='output co'>#&gt; <span style='color: #949494;'># A tibble: 6 × 4</span>
-#&gt;     row   col data_type value       
-#&gt;   <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span> <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span> <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span>     <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span>       
-#&gt; <span style='color: #BCBCBC;'>1</span>     1     1 character John Smith  
-#&gt; <span style='color: #BCBCBC;'>2</span>     1     2 character 418-Y11-4111
-#&gt; <span style='color: #BCBCBC;'>3</span>     2     1 character Mary Hartf  
-#&gt; <span style='color: #BCBCBC;'>4</span>     2     2 character 319-Z19-4341
-#&gt; <span style='color: #BCBCBC;'>5</span>     3     1 character Evan Nolan  
-#&gt; <span style='color: #BCBCBC;'>6</span>     3     2 character 219-532-c301</div><div class='input'><span class='co'># 4. Named arguments with start and end positions</span>
-<span class='fu'>melt_fwf</span><span class='op'>(</span><span class='va'>fwf_sample</span>, <span class='fu'><a href='read_fwf.html'>fwf_cols</a></span><span class='op'>(</span>name <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>1</span>, <span class='fl'>10</span><span class='op'>)</span>, ssn <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>30</span>, <span class='fl'>42</span><span class='op'>)</span><span class='op'>)</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; <span class='warning'>Warning: `melt_fwf()` was deprecated in readr 2.0.0.</span>
-#&gt; <span class='warning'>Please use `meltr::melt_fwf()` instead</span></div><div class='output co'>#&gt; <span style='color: #949494;'># A tibble: 6 × 4</span>
-#&gt;     row   col data_type value       
-#&gt;   <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span> <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span> <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span>     <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span>       
-#&gt; <span style='color: #BCBCBC;'>1</span>     1     1 character John Smith  
-#&gt; <span style='color: #BCBCBC;'>2</span>     1     2 character 418-Y11-4111
-#&gt; <span style='color: #BCBCBC;'>3</span>     2     1 character Mary Hartf  
-#&gt; <span style='color: #BCBCBC;'>4</span>     2     2 character 319-Z19-4341
-#&gt; <span style='color: #BCBCBC;'>5</span>     3     1 character Evan Nolan  
-#&gt; <span style='color: #BCBCBC;'>6</span>     3     2 character 219-532-c301</div><div class='input'><span class='co'># 5. Named arguments with column widths</span>
-<span class='fu'>melt_fwf</span><span class='op'>(</span><span class='va'>fwf_sample</span>, <span class='fu'><a href='read_fwf.html'>fwf_cols</a></span><span class='op'>(</span>name <span class='op'>=</span> <span class='fl'>20</span>, state <span class='op'>=</span> <span class='fl'>10</span>, ssn <span class='op'>=</span> <span class='fl'>12</span><span class='op'>)</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; <span class='warning'>Warning: `melt_fwf()` was deprecated in readr 2.0.0.</span>
-#&gt; <span class='warning'>Please use `meltr::melt_fwf()` instead</span></div><div class='output co'>#&gt; <span style='color: #949494;'># A tibble: 9 × 4</span>
-#&gt;     row   col data_type value        
-#&gt;   <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span> <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span> <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span>     <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span>        
-#&gt; <span style='color: #BCBCBC;'>1</span>     1     1 character John Smith   
-#&gt; <span style='color: #BCBCBC;'>2</span>     1     2 character WA           
-#&gt; <span style='color: #BCBCBC;'>3</span>     1     3 character 418-Y11-4111 
-#&gt; <span style='color: #BCBCBC;'>4</span>     2     1 character Mary Hartford
-#&gt; <span style='color: #BCBCBC;'>5</span>     2     2 character CA           
-#&gt; <span style='color: #BCBCBC;'>6</span>     2     3 character 319-Z19-4341 
-#&gt; <span style='color: #BCBCBC;'>7</span>     3     1 character Evan Nolan   
-#&gt; <span style='color: #BCBCBC;'>8</span>     3     2 character IL           
-#&gt; <span style='color: #BCBCBC;'>9</span>     3     3 character 219-532-c301 </div></pre>
+    <pre class="examples"><span class='r-in'><span class='va'>fwf_sample</span> <span class='op'>&lt;-</span> <span class='fu'><a href='readr_example.html'>readr_example</a></span><span class='op'>(</span><span class='st'>"fwf-sample.txt"</span><span class='op'>)</span></span>
+<span class='r-in'><span class='fu'><a href='https://rdrr.io/r/base/cat.html'>cat</a></span><span class='op'>(</span><span class='fu'><a href='read_lines.html'>read_lines</a></span><span class='op'>(</span><span class='va'>fwf_sample</span><span class='op'>)</span><span class='op'>)</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> John Smith          WA        418-Y11-4111 Mary Hartford       CA        319-Z19-4341 Evan Nolan          IL        219-532-c301</span>
+<span class='r-in'></span>
+<span class='r-in'><span class='co'># You can specify column positions in several ways:</span></span>
+<span class='r-in'><span class='co'># 1. Guess based on position of empty columns</span></span>
+<span class='r-in'><span class='fu'>melt_fwf</span><span class='op'>(</span><span class='va'>fwf_sample</span>, <span class='fu'><a href='read_fwf.html'>fwf_empty</a></span><span class='op'>(</span><span class='va'>fwf_sample</span>, col_names <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"first"</span>, <span class='st'>"last"</span>, <span class='st'>"state"</span>, <span class='st'>"ssn"</span><span class='op'>)</span><span class='op'>)</span><span class='op'>)</span></span>
+<span class='r-wrn co'><span class='r-pr'>#&gt;</span> <span class='warning'>Warning: </span>`melt_fwf()` was deprecated in readr 2.0.0.</span>
+<span class='r-wrn co'><span class='r-pr'>#&gt;</span> Please use `meltr::melt_fwf()` instead</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #949494;'># A tibble: 12 × 4</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>      row   col data_type value       </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>    <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span> <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span> <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span>     <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span>       </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #BCBCBC;'> 1</span>     1     1 character John        </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #BCBCBC;'> 2</span>     1     2 character Smith       </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #BCBCBC;'> 3</span>     1     3 character WA          </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #BCBCBC;'> 4</span>     1     4 character 418-Y11-4111</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #BCBCBC;'> 5</span>     2     1 character Mary        </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #BCBCBC;'> 6</span>     2     2 character Hartford    </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #BCBCBC;'> 7</span>     2     3 character CA          </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #BCBCBC;'> 8</span>     2     4 character 319-Z19-4341</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #BCBCBC;'> 9</span>     3     1 character Evan        </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #BCBCBC;'>10</span>     3     2 character Nolan       </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #BCBCBC;'>11</span>     3     3 character IL          </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #BCBCBC;'>12</span>     3     4 character 219-532-c301</span>
+<span class='r-in'><span class='co'># 2. A vector of field widths</span></span>
+<span class='r-in'><span class='fu'>melt_fwf</span><span class='op'>(</span><span class='va'>fwf_sample</span>, <span class='fu'><a href='read_fwf.html'>fwf_widths</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>20</span>, <span class='fl'>10</span>, <span class='fl'>12</span><span class='op'>)</span>, <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"name"</span>, <span class='st'>"state"</span>, <span class='st'>"ssn"</span><span class='op'>)</span><span class='op'>)</span><span class='op'>)</span></span>
+<span class='r-wrn co'><span class='r-pr'>#&gt;</span> <span class='warning'>Warning: </span>`melt_fwf()` was deprecated in readr 2.0.0.</span>
+<span class='r-wrn co'><span class='r-pr'>#&gt;</span> Please use `meltr::melt_fwf()` instead</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #949494;'># A tibble: 9 × 4</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>     row   col data_type value        </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span> <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span> <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span>     <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span>        </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #BCBCBC;'>1</span>     1     1 character John Smith   </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #BCBCBC;'>2</span>     1     2 character WA           </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #BCBCBC;'>3</span>     1     3 character 418-Y11-4111 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #BCBCBC;'>4</span>     2     1 character Mary Hartford</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #BCBCBC;'>5</span>     2     2 character CA           </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #BCBCBC;'>6</span>     2     3 character 319-Z19-4341 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #BCBCBC;'>7</span>     3     1 character Evan Nolan   </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #BCBCBC;'>8</span>     3     2 character IL           </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #BCBCBC;'>9</span>     3     3 character 219-532-c301 </span>
+<span class='r-in'><span class='co'># 3. Paired vectors of start and end positions</span></span>
+<span class='r-in'><span class='fu'>melt_fwf</span><span class='op'>(</span><span class='va'>fwf_sample</span>, <span class='fu'><a href='read_fwf.html'>fwf_positions</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>1</span>, <span class='fl'>30</span><span class='op'>)</span>, <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>10</span>, <span class='fl'>42</span><span class='op'>)</span>, <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"name"</span>, <span class='st'>"ssn"</span><span class='op'>)</span><span class='op'>)</span><span class='op'>)</span></span>
+<span class='r-wrn co'><span class='r-pr'>#&gt;</span> <span class='warning'>Warning: </span>`melt_fwf()` was deprecated in readr 2.0.0.</span>
+<span class='r-wrn co'><span class='r-pr'>#&gt;</span> Please use `meltr::melt_fwf()` instead</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #949494;'># A tibble: 6 × 4</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>     row   col data_type value       </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span> <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span> <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span>     <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span>       </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #BCBCBC;'>1</span>     1     1 character John Smith  </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #BCBCBC;'>2</span>     1     2 character 418-Y11-4111</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #BCBCBC;'>3</span>     2     1 character Mary Hartf  </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #BCBCBC;'>4</span>     2     2 character 319-Z19-4341</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #BCBCBC;'>5</span>     3     1 character Evan Nolan  </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #BCBCBC;'>6</span>     3     2 character 219-532-c301</span>
+<span class='r-in'><span class='co'># 4. Named arguments with start and end positions</span></span>
+<span class='r-in'><span class='fu'>melt_fwf</span><span class='op'>(</span><span class='va'>fwf_sample</span>, <span class='fu'><a href='read_fwf.html'>fwf_cols</a></span><span class='op'>(</span>name <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>1</span>, <span class='fl'>10</span><span class='op'>)</span>, ssn <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>30</span>, <span class='fl'>42</span><span class='op'>)</span><span class='op'>)</span><span class='op'>)</span></span>
+<span class='r-wrn co'><span class='r-pr'>#&gt;</span> <span class='warning'>Warning: </span>`melt_fwf()` was deprecated in readr 2.0.0.</span>
+<span class='r-wrn co'><span class='r-pr'>#&gt;</span> Please use `meltr::melt_fwf()` instead</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #949494;'># A tibble: 6 × 4</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>     row   col data_type value       </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span> <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span> <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span>     <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span>       </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #BCBCBC;'>1</span>     1     1 character John Smith  </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #BCBCBC;'>2</span>     1     2 character 418-Y11-4111</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #BCBCBC;'>3</span>     2     1 character Mary Hartf  </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #BCBCBC;'>4</span>     2     2 character 319-Z19-4341</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #BCBCBC;'>5</span>     3     1 character Evan Nolan  </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #BCBCBC;'>6</span>     3     2 character 219-532-c301</span>
+<span class='r-in'><span class='co'># 5. Named arguments with column widths</span></span>
+<span class='r-in'><span class='fu'>melt_fwf</span><span class='op'>(</span><span class='va'>fwf_sample</span>, <span class='fu'><a href='read_fwf.html'>fwf_cols</a></span><span class='op'>(</span>name <span class='op'>=</span> <span class='fl'>20</span>, state <span class='op'>=</span> <span class='fl'>10</span>, ssn <span class='op'>=</span> <span class='fl'>12</span><span class='op'>)</span><span class='op'>)</span></span>
+<span class='r-wrn co'><span class='r-pr'>#&gt;</span> <span class='warning'>Warning: </span>`melt_fwf()` was deprecated in readr 2.0.0.</span>
+<span class='r-wrn co'><span class='r-pr'>#&gt;</span> Please use `meltr::melt_fwf()` instead</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #949494;'># A tibble: 9 × 4</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>     row   col data_type value        </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span> <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span> <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span>     <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span>        </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #BCBCBC;'>1</span>     1     1 character John Smith   </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #BCBCBC;'>2</span>     1     2 character WA           </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #BCBCBC;'>3</span>     1     3 character 418-Y11-4111 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #BCBCBC;'>4</span>     2     1 character Mary Hartford</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #BCBCBC;'>5</span>     2     2 character CA           </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #BCBCBC;'>6</span>     2     3 character 319-Z19-4341 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #BCBCBC;'>7</span>     3     1 character Evan Nolan   </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #BCBCBC;'>8</span>     3     2 character IL           </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #BCBCBC;'>9</span>     3     3 character 219-532-c301 </span>
+</pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

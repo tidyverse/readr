@@ -6,26 +6,26 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Contributor Code of Conduct • readr</title>
+<title>Determine whether reading should be done lazily — should_read_lazy • readr</title>
 
 <!-- favicons -->
-<link rel="icon" type="image/png" sizes="16x16" href="favicon-16x16.png">
-<link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png">
-<link rel="apple-touch-icon" type="image/png" sizes="180x180" href="apple-touch-icon.png" />
-<link rel="apple-touch-icon" type="image/png" sizes="120x120" href="apple-touch-icon-120x120.png" />
-<link rel="apple-touch-icon" type="image/png" sizes="76x76" href="apple-touch-icon-76x76.png" />
-<link rel="apple-touch-icon" type="image/png" sizes="60x60" href="apple-touch-icon-60x60.png" />
+<link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
+<link rel="icon" type="image/png" sizes="32x32" href="../favicon-32x32.png">
+<link rel="apple-touch-icon" type="image/png" sizes="180x180" href="../apple-touch-icon.png" />
+<link rel="apple-touch-icon" type="image/png" sizes="120x120" href="../apple-touch-icon-120x120.png" />
+<link rel="apple-touch-icon" type="image/png" sizes="76x76" href="../apple-touch-icon-76x76.png" />
+<link rel="apple-touch-icon" type="image/png" sizes="60x60" href="../apple-touch-icon-60x60.png" />
 
 <!-- jquery -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
 
 <!-- Bootstrap -->
-<link href="tidyverse.css" rel="stylesheet">
+<link href="../tidyverse.css" rel="stylesheet">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/js/bootstrap.min.js" integrity="sha256-nuL8/2cJ5NDSSwnKD8VqreErSWHtnEP9E7AySL+1ev4=" crossorigin="anonymous"></script>
 
 <!-- bootstrap-toc -->
-<link rel="stylesheet" href="bootstrap-toc.css">
-<script src="bootstrap-toc.js"></script>
+<link rel="stylesheet" href="../bootstrap-toc.css">
+<script src="../bootstrap-toc.js"></script>
 
 <!-- Font Awesome icons -->
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous" />
@@ -39,17 +39,21 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script>
 
 <!-- pkgdown -->
-<link href="pkgdown.css" rel="stylesheet">
-<script src="pkgdown.js"></script>
-<link href="tidyverse-2.css" rel="stylesheet">
+<link href="../pkgdown.css" rel="stylesheet">
+<script src="../pkgdown.js"></script>
+<link href="../tidyverse-2.css" rel="stylesheet">
 
 <!--optional theme-->
-<link href=".css" rel="stylesheet">
+<link href="../.css" rel="stylesheet">
 
 
 
 
-<meta property="og:title" content="Contributor Code of Conduct" />
+<meta property="og:title" content="Determine whether reading should be done lazily — should_read_lazy" />
+<meta property="og:description" content="Reading in readr is done lazily unless
+options(readr.read_lazy = FALSE)
+
+" />
 <meta property="og:image" content="https://readr.tidyverse.org/logo.png" />
 <meta name="twitter:card" content="summary" />
 
@@ -78,7 +82,7 @@
   </head>
 
   <body data-spy="scroll" data-target="#toc">
-    <div class="container template-title-body">
+    <div class="container template-reference-topic">
       <header>
       <div class="navbar navbar-default navbar-fixed-top" role="navigation">
   <div class="container">
@@ -91,7 +95,7 @@
       </button>
 
       <div class="navbar-brand-container">
-        <a class="navbar-brand" href="index.html">readr</a>
+        <a class="navbar-brand" href="../index.html">readr</a>
         <div class="info hidden-xs hidden-sm">
           <span class="partof">part of the <a href="https://tidyverse.org">tidyverse</a></span>
           <span class="version version-default" data-toggle="tooltip" data-placement="bottom" title="Released version">2.1.0</span>
@@ -101,16 +105,16 @@
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav navbar-right">
         <li>
-  <a href="index.html">Home</a>
+  <a href="../index.html">Home</a>
 </li>
 <li>
-  <a href="articles/readr.html">Overview</a>
+  <a href="../articles/readr.html">Overview</a>
 </li>
 <li>
-  <a href="articles/locales.html">Locales</a>
+  <a href="../articles/locales.html">Locales</a>
 </li>
 <li>
-  <a href="reference/index.html">Reference</a>
+  <a href="../reference/index.html">Reference</a>
 </li>
 <li class="dropdown">
   <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
@@ -130,17 +134,17 @@
       <a href="https://www.tidyverse.org/blog/2018/12/readr-1-3-1/">Version 1.3.1</a>
     </li>
     <li>
-      <a href="articles/releases/readr-1.0.0.html">Version 1.0.0</a>
+      <a href="../articles/releases/readr-1.0.0.html">Version 1.0.0</a>
     </li>
     <li>
-      <a href="articles/releases/readr-0.2.0.html">Version 0.2.0</a>
+      <a href="../articles/releases/readr-0.2.0.html">Version 0.2.0</a>
     </li>
     <li>
-      <a href="articles/releases/readr-0.1.0.html">Version 0.1.0</a>
+      <a href="../articles/releases/readr-0.1.0.html">Version 0.1.0</a>
     </li>
     <li class="divider"></li>
     <li>
-      <a href="news/index.html">Change log</a>
+      <a href="../news/index.html">Change log</a>
     </li>
   </ul>
 </li>
@@ -161,31 +165,31 @@
       </header>
 
 <div class="row">
-  <div class="contents col-md-9">
+  <div class="col-md-9 contents">
     <div class="page-header">
-      <h1>Contributor Code of Conduct</h1>
+    <h1>Determine whether reading should be done lazily</h1>
+    <small class="dont-index">Source: <a href='https://github.com/tidyverse/readr/blob/master/R/utils.R'><code>R/utils.R</code></a></small>
+    <div class="hidden name"><code>should_read_lazy.Rd</code></div>
     </div>
 
-<div id="contributor-code-of-conduct" class="section level1">
+    <div class="ref-description">
+    <p>Reading in readr is done lazily unless</p><ul>
+<li><p><code>options(readr.read_lazy = FALSE)</code></p></li>
+</ul>
 
-<p>As contributors and maintainers of this project, we pledge to respect all people who contribute through reporting issues, posting feature requests, updating documentation, submitting pull requests or patches, and other activities.</p>
-<p>We are committed to making participation in this project a harassment-free experience for everyone, regardless of level of experience, gender, gender identity and expression, sexual orientation, disability, personal appearance, body size, race, ethnicity, age, or religion.</p>
-<p>Examples of unacceptable behavior by participants include the use of sexual language or imagery, derogatory comments or personal attacks, trolling, public or private harassment, insults, or other unprofessional conduct.</p>
-<p>Project maintainers have the right and responsibility to remove, edit, or reject comments, commits, code, wiki edits, issues, and other contributions that are not aligned to this Code of Conduct. Project maintainers who do not follow the Code of Conduct may be removed from the project team.</p>
-<p>Instances of abusive, harassing, or otherwise unacceptable behavior may be reported by opening an issue or contacting one or more of the project maintainers.</p>
-<p>This Code of Conduct is adapted from the Contributor Covenant (<a href="https://www.contributor-covenant.org" class="uri">https://www.contributor-covenant.org</a>), version 1.0.0, available at <a href="https://contributor-covenant.org/version/1/0/0/" class="uri">https://contributor-covenant.org/version/1/0/0/</a>.</p>
-</div>
+    </div>
+
+    <pre class="usage"><span class='fu'>should_read_lazy</span><span class='op'>(</span><span class='op'>)</span></pre>
+
+
 
   </div>
-
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
       <h2 data-toc-skip>Contents</h2>
     </nav>
   </div>
-
 </div>
-
 
 
       <footer>

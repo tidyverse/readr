@@ -99,7 +99,7 @@ new line after each entry." />
         <a class="navbar-brand" href="../index.html">readr</a>
         <div class="info hidden-xs hidden-sm">
           <span class="partof">part of the <a href="https://tidyverse.org">tidyverse</a></span>
-          <span class="version version-default" data-toggle="tooltip" data-placement="bottom" title="Released version">2.0.2</span>
+          <span class="version version-default" data-toggle="tooltip" data-placement="bottom" title="Released version">2.1.0</span>
         </div>
       </div>
     </div>
@@ -188,7 +188,7 @@ new line after each entry.</p>
   n_max <span class='op'>=</span> <span class='cn'>Inf</span>,
   locale <span class='op'>=</span> <span class='fu'><a href='locale.html'>default_locale</a></span><span class='op'>(</span><span class='op'>)</span>,
   na <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/character.html'>character</a></span><span class='op'>(</span><span class='op'>)</span>,
-  lazy <span class='op'>=</span> <span class='cn'>TRUE</span>,
+  lazy <span class='op'>=</span> <span class='fu'><a href='should_read_lazy.html'>should_read_lazy</a></span><span class='op'>(</span><span class='op'>)</span>,
   num_threads <span class='op'>=</span> <span class='fu'><a href='readr_threads.html'>readr_threads</a></span><span class='op'>(</span><span class='op'>)</span>,
   progress <span class='op'>=</span> <span class='fu'><a href='show_progress.html'>show_progress</a></span><span class='op'>(</span><span class='op'>)</span>
 <span class='op'>)</span>
@@ -208,7 +208,7 @@ new line after each entry.</p>
   na <span class='op'>=</span> <span class='st'>"NA"</span>,
   append <span class='op'>=</span> <span class='cn'>FALSE</span>,
   num_threads <span class='op'>=</span> <span class='fu'><a href='readr_threads.html'>readr_threads</a></span><span class='op'>(</span><span class='op'>)</span>,
-  path <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/Deprecated.html'>deprecated</a></span><span class='op'>(</span><span class='op'>)</span>
+  path <span class='op'>=</span> <span class='fu'><a href='https://tibble.tidyverse.org/reference/deprecated.html'>deprecated</a></span><span class='op'>(</span><span class='op'>)</span>
 <span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
@@ -223,9 +223,10 @@ be automatically uncompressed. Files starting with <code>http://</code>,
 <code>https://</code>, <code>ftp://</code>, or <code>ftps://</code> will be automatically
 downloaded. Remote gz files can also be automatically downloaded and
 decompressed.</p>
-<p>Literal data is most useful for examples and tests. To be recognised as a
-path, it must be wrapped with <code><a href='https://rdrr.io/r/base/AsIs.html'>I()</a></code>, be a string containing at least one
-new line, or be a vector containing at least one string with a new line.</p>
+<p>Literal data is most useful for examples and tests. To be recognised as
+literal data, the input must be either wrapped with <code><a href='https://rdrr.io/r/base/AsIs.html'>I()</a></code>, be a string
+containing at least one new line, or be a vector containing at least one
+string with a new line.</p>
 <p>Using a value of <code><a href='clipboard.html'>clipboard()</a></code> will read from the system clipboard.</p></td>
     </tr>
     <tr>
@@ -310,86 +311,91 @@ file is created.</p></td>
 <p><code>write_lines()</code> returns <code>x</code>, invisibly.</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='fu'>read_lines</span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/file.path.html'>file.path</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/Rhome.html'>R.home</a></span><span class='op'>(</span><span class='st'>"doc"</span><span class='op'>)</span>, <span class='st'>"AUTHORS"</span><span class='op'>)</span>, n_max <span class='op'>=</span> <span class='fl'>10</span><span class='op'>)</span>
-</div><div class='output co'>#&gt;  [1] "Authors of R."                                                                     
-#&gt;  [2] ""                                                                                  
-#&gt;  [3] "R was initially written by Robert Gentleman and Ross Ihaka—also known as \"R &amp; R\""
-#&gt;  [4] "of the Statistics Department of the University of Auckland."                       
-#&gt;  [5] ""                                                                                  
-#&gt;  [6] "Since mid-1997 there has been a core group with write access to the R"             
-#&gt;  [7] "source, currently consisting of"                                                   
-#&gt;  [8] ""                                                                                  
-#&gt;  [9] "Douglas Bates"                                                                     
-#&gt; [10] "John Chambers"                                                                     </div><div class='input'><span class='fu'>read_lines_raw</span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/file.path.html'>file.path</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/Rhome.html'>R.home</a></span><span class='op'>(</span><span class='st'>"doc"</span><span class='op'>)</span>, <span class='st'>"AUTHORS"</span><span class='op'>)</span>, n_max <span class='op'>=</span> <span class='fl'>10</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; [[1]]
-#&gt;  [1] 41 75 74 68 6f 72 73 20 6f 66 20 52 2e
-#&gt; 
-#&gt; [[2]]
-#&gt; raw(0)
-#&gt; 
-#&gt; [[3]]
-#&gt;  [1] 52 20 77 61 73 20 69 6e 69 74 69 61 6c 6c 79 20 77 72 69 74 74 65 6e 20 62
-#&gt; [26] 79 20 52 6f 62 65 72 74 20 47 65 6e 74 6c 65 6d 61 6e 20 61 6e 64 20 52 6f
-#&gt; [51] 73 73 20 49 68 61 6b 61 e2 80 94 61 6c 73 6f 20 6b 6e 6f 77 6e 20 61 73 20
-#&gt; [76] 22 52 20 26 20 52 22
-#&gt; 
-#&gt; [[4]]
-#&gt;  [1] 6f 66 20 74 68 65 20 53 74 61 74 69 73 74 69 63 73 20 44 65 70 61 72 74 6d
-#&gt; [26] 65 6e 74 20 6f 66 20 74 68 65 20 55 6e 69 76 65 72 73 69 74 79 20 6f 66 20
-#&gt; [51] 41 75 63 6b 6c 61 6e 64 2e
-#&gt; 
-#&gt; [[5]]
-#&gt; raw(0)
-#&gt; 
-#&gt; [[6]]
-#&gt;  [1] 53 69 6e 63 65 20 6d 69 64 2d 31 39 39 37 20 74 68 65 72 65 20 68 61 73 20
-#&gt; [26] 62 65 65 6e 20 61 20 63 6f 72 65 20 67 72 6f 75 70 20 77 69 74 68 20 77 72
-#&gt; [51] 69 74 65 20 61 63 63 65 73 73 20 74 6f 20 74 68 65 20 52
-#&gt; 
-#&gt; [[7]]
-#&gt;  [1] 73 6f 75 72 63 65 2c 20 63 75 72 72 65 6e 74 6c 79 20 63 6f 6e 73 69 73 74
-#&gt; [26] 69 6e 67 20 6f 66
-#&gt; 
-#&gt; [[8]]
-#&gt; raw(0)
-#&gt; 
-#&gt; [[9]]
-#&gt;  [1] 44 6f 75 67 6c 61 73 20 42 61 74 65 73
-#&gt; 
-#&gt; [[10]]
-#&gt;  [1] 4a 6f 68 6e 20 43 68 61 6d 62 65 72 73
-#&gt; </div><div class='input'>
-<span class='va'>tmp</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/tempfile.html'>tempfile</a></span><span class='op'>(</span><span class='op'>)</span>
-
-<span class='fu'>write_lines</span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/colnames.html'>rownames</a></span><span class='op'>(</span><span class='va'>mtcars</span><span class='op'>)</span>, <span class='va'>tmp</span><span class='op'>)</span>
-<span class='fu'>read_lines</span><span class='op'>(</span><span class='va'>tmp</span>, lazy <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span>
-</div><div class='output co'>#&gt;  [1] "Mazda RX4"           "Mazda RX4 Wag"       "Datsun 710"         
-#&gt;  [4] "Hornet 4 Drive"      "Hornet Sportabout"   "Valiant"            
-#&gt;  [7] "Duster 360"          "Merc 240D"           "Merc 230"           
-#&gt; [10] "Merc 280"            "Merc 280C"           "Merc 450SE"         
-#&gt; [13] "Merc 450SL"          "Merc 450SLC"         "Cadillac Fleetwood" 
-#&gt; [16] "Lincoln Continental" "Chrysler Imperial"   "Fiat 128"           
-#&gt; [19] "Honda Civic"         "Toyota Corolla"      "Toyota Corona"      
-#&gt; [22] "Dodge Challenger"    "AMC Javelin"         "Camaro Z28"         
-#&gt; [25] "Pontiac Firebird"    "Fiat X1-9"           "Porsche 914-2"      
-#&gt; [28] "Lotus Europa"        "Ford Pantera L"      "Ferrari Dino"       
-#&gt; [31] "Maserati Bora"       "Volvo 142E"         </div><div class='input'><span class='fu'><a href='read_file.html'>read_file</a></span><span class='op'>(</span><span class='va'>tmp</span><span class='op'>)</span> <span class='co'># note trailing \n</span>
-</div><div class='output co'>#&gt; [1] "Mazda RX4\nMazda RX4 Wag\nDatsun 710\nHornet 4 Drive\nHornet Sportabout\nValiant\nDuster 360\nMerc 240D\nMerc 230\nMerc 280\nMerc 280C\nMerc 450SE\nMerc 450SL\nMerc 450SLC\nCadillac Fleetwood\nLincoln Continental\nChrysler Imperial\nFiat 128\nHonda Civic\nToyota Corolla\nToyota Corona\nDodge Challenger\nAMC Javelin\nCamaro Z28\nPontiac Firebird\nFiat X1-9\nPorsche 914-2\nLotus Europa\nFord Pantera L\nFerrari Dino\nMaserati Bora\nVolvo 142E\n"</div><div class='input'>
-<span class='fu'>write_lines</span><span class='op'>(</span><span class='va'>airquality</span><span class='op'>$</span><span class='va'>Ozone</span>, <span class='va'>tmp</span>, na <span class='op'>=</span> <span class='st'>"-1"</span><span class='op'>)</span>
-<span class='fu'>read_lines</span><span class='op'>(</span><span class='va'>tmp</span><span class='op'>)</span>
-</div><div class='output co'>#&gt;   [1] "41"  "36"  "12"  "18"  "-1"  "28"  "23"  "19"  "8"   "-1"  "7"   "16" 
-#&gt;  [13] "11"  "14"  "18"  "14"  "34"  "6"   "30"  "11"  "1"   "11"  "4"   "32" 
-#&gt;  [25] "-1"  "-1"  "-1"  "23"  "45"  "115" "37"  "-1"  "-1"  "-1"  "-1"  "-1" 
-#&gt;  [37] "-1"  "29"  "-1"  "71"  "39"  "-1"  "-1"  "23"  "-1"  "-1"  "21"  "37" 
-#&gt;  [49] "20"  "12"  "13"  "-1"  "-1"  "-1"  "-1"  "-1"  "-1"  "-1"  "-1"  "-1" 
-#&gt;  [61] "-1"  "135" "49"  "32"  "-1"  "64"  "40"  "77"  "97"  "97"  "85"  "-1" 
-#&gt;  [73] "10"  "27"  "-1"  "7"   "48"  "35"  "61"  "79"  "63"  "16"  "-1"  "-1" 
-#&gt;  [85] "80"  "108" "20"  "52"  "82"  "50"  "64"  "59"  "39"  "9"   "16"  "78" 
-#&gt;  [97] "35"  "66"  "122" "89"  "110" "-1"  "-1"  "44"  "28"  "65"  "-1"  "22" 
-#&gt; [109] "59"  "23"  "31"  "44"  "21"  "9"   "-1"  "45"  "168" "73"  "-1"  "76" 
-#&gt; [121] "118" "84"  "85"  "96"  "78"  "73"  "91"  "47"  "32"  "20"  "23"  "21" 
-#&gt; [133] "24"  "44"  "21"  "28"  "9"   "13"  "46"  "18"  "13"  "24"  "16"  "13" 
-#&gt; [145] "23"  "36"  "7"   "14"  "30"  "-1"  "14"  "18"  "20" </div></pre>
+    <pre class="examples"><span class='r-in'><span class='fu'>read_lines</span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/file.path.html'>file.path</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/Rhome.html'>R.home</a></span><span class='op'>(</span><span class='st'>"doc"</span><span class='op'>)</span>, <span class='st'>"AUTHORS"</span><span class='op'>)</span>, n_max <span class='op'>=</span> <span class='fl'>10</span><span class='op'>)</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  [1] "Authors of R."                                                                     </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  [2] ""                                                                                  </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  [3] "R was initially written by Robert Gentleman and Ross Ihaka—also known as \"R &amp; R\""</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  [4] "of the Statistics Department of the University of Auckland."                       </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  [5] ""                                                                                  </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  [6] "Since mid-1997 there has been a core group with write access to the R"             </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  [7] "source, currently consisting of"                                                   </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  [8] ""                                                                                  </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  [9] "Douglas Bates"                                                                     </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [10] "John Chambers"                                                                     </span>
+<span class='r-in'><span class='fu'>read_lines_raw</span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/file.path.html'>file.path</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/Rhome.html'>R.home</a></span><span class='op'>(</span><span class='st'>"doc"</span><span class='op'>)</span>, <span class='st'>"AUTHORS"</span><span class='op'>)</span>, n_max <span class='op'>=</span> <span class='fl'>10</span><span class='op'>)</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [[1]]</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  [1] 41 75 74 68 6f 72 73 20 6f 66 20 52 2e</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [[2]]</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> raw(0)</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [[3]]</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  [1] 52 20 77 61 73 20 69 6e 69 74 69 61 6c 6c 79 20 77 72 69 74 74 65 6e 20 62</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [26] 79 20 52 6f 62 65 72 74 20 47 65 6e 74 6c 65 6d 61 6e 20 61 6e 64 20 52 6f</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [51] 73 73 20 49 68 61 6b 61 e2 80 94 61 6c 73 6f 20 6b 6e 6f 77 6e 20 61 73 20</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [76] 22 52 20 26 20 52 22</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [[4]]</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  [1] 6f 66 20 74 68 65 20 53 74 61 74 69 73 74 69 63 73 20 44 65 70 61 72 74 6d</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [26] 65 6e 74 20 6f 66 20 74 68 65 20 55 6e 69 76 65 72 73 69 74 79 20 6f 66 20</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [51] 41 75 63 6b 6c 61 6e 64 2e</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [[5]]</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> raw(0)</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [[6]]</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  [1] 53 69 6e 63 65 20 6d 69 64 2d 31 39 39 37 20 74 68 65 72 65 20 68 61 73 20</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [26] 62 65 65 6e 20 61 20 63 6f 72 65 20 67 72 6f 75 70 20 77 69 74 68 20 77 72</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [51] 69 74 65 20 61 63 63 65 73 73 20 74 6f 20 74 68 65 20 52</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [[7]]</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  [1] 73 6f 75 72 63 65 2c 20 63 75 72 72 65 6e 74 6c 79 20 63 6f 6e 73 69 73 74</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [26] 69 6e 67 20 6f 66</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [[8]]</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> raw(0)</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [[9]]</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  [1] 44 6f 75 67 6c 61 73 20 42 61 74 65 73</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [[10]]</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  [1] 4a 6f 68 6e 20 43 68 61 6d 62 65 72 73</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-in'></span>
+<span class='r-in'><span class='va'>tmp</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/tempfile.html'>tempfile</a></span><span class='op'>(</span><span class='op'>)</span></span>
+<span class='r-in'></span>
+<span class='r-in'><span class='fu'>write_lines</span><span class='op'>(</span><span class='fu'><a href='https://tibble.tidyverse.org/reference/rownames.html'>rownames</a></span><span class='op'>(</span><span class='va'>mtcars</span><span class='op'>)</span>, <span class='va'>tmp</span><span class='op'>)</span></span>
+<span class='r-in'><span class='fu'>read_lines</span><span class='op'>(</span><span class='va'>tmp</span>, lazy <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  [1] "Mazda RX4"           "Mazda RX4 Wag"       "Datsun 710"         </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  [4] "Hornet 4 Drive"      "Hornet Sportabout"   "Valiant"            </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  [7] "Duster 360"          "Merc 240D"           "Merc 230"           </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [10] "Merc 280"            "Merc 280C"           "Merc 450SE"         </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [13] "Merc 450SL"          "Merc 450SLC"         "Cadillac Fleetwood" </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [16] "Lincoln Continental" "Chrysler Imperial"   "Fiat 128"           </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [19] "Honda Civic"         "Toyota Corolla"      "Toyota Corona"      </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [22] "Dodge Challenger"    "AMC Javelin"         "Camaro Z28"         </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [25] "Pontiac Firebird"    "Fiat X1-9"           "Porsche 914-2"      </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [28] "Lotus Europa"        "Ford Pantera L"      "Ferrari Dino"       </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [31] "Maserati Bora"       "Volvo 142E"         </span>
+<span class='r-in'><span class='fu'><a href='read_file.html'>read_file</a></span><span class='op'>(</span><span class='va'>tmp</span><span class='op'>)</span> <span class='co'># note trailing \n</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [1] "Mazda RX4\nMazda RX4 Wag\nDatsun 710\nHornet 4 Drive\nHornet Sportabout\nValiant\nDuster 360\nMerc 240D\nMerc 230\nMerc 280\nMerc 280C\nMerc 450SE\nMerc 450SL\nMerc 450SLC\nCadillac Fleetwood\nLincoln Continental\nChrysler Imperial\nFiat 128\nHonda Civic\nToyota Corolla\nToyota Corona\nDodge Challenger\nAMC Javelin\nCamaro Z28\nPontiac Firebird\nFiat X1-9\nPorsche 914-2\nLotus Europa\nFord Pantera L\nFerrari Dino\nMaserati Bora\nVolvo 142E\n"</span>
+<span class='r-in'></span>
+<span class='r-in'><span class='fu'>write_lines</span><span class='op'>(</span><span class='va'>airquality</span><span class='op'>$</span><span class='va'>Ozone</span>, <span class='va'>tmp</span>, na <span class='op'>=</span> <span class='st'>"-1"</span><span class='op'>)</span></span>
+<span class='r-in'><span class='fu'>read_lines</span><span class='op'>(</span><span class='va'>tmp</span><span class='op'>)</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   [1] "41"  "36"  "12"  "18"  "-1"  "28"  "23"  "19"  "8"   "-1"  "7"   "16" </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  [13] "11"  "14"  "18"  "14"  "34"  "6"   "30"  "11"  "1"   "11"  "4"   "32" </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  [25] "-1"  "-1"  "-1"  "23"  "45"  "115" "37"  "-1"  "-1"  "-1"  "-1"  "-1" </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  [37] "-1"  "29"  "-1"  "71"  "39"  "-1"  "-1"  "23"  "-1"  "-1"  "21"  "37" </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  [49] "20"  "12"  "13"  "-1"  "-1"  "-1"  "-1"  "-1"  "-1"  "-1"  "-1"  "-1" </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  [61] "-1"  "135" "49"  "32"  "-1"  "64"  "40"  "77"  "97"  "97"  "85"  "-1" </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  [73] "10"  "27"  "-1"  "7"   "48"  "35"  "61"  "79"  "63"  "16"  "-1"  "-1" </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  [85] "80"  "108" "20"  "52"  "82"  "50"  "64"  "59"  "39"  "9"   "16"  "78" </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  [97] "35"  "66"  "122" "89"  "110" "-1"  "-1"  "44"  "28"  "65"  "-1"  "22" </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [109] "59"  "23"  "31"  "44"  "21"  "9"   "-1"  "45"  "168" "73"  "-1"  "76" </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [121] "118" "84"  "85"  "96"  "78"  "73"  "91"  "47"  "32"  "20"  "23"  "21" </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [133] "24"  "44"  "21"  "28"  "9"   "13"  "46"  "18"  "13"  "24"  "16"  "13" </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [145] "23"  "36"  "7"   "14"  "30"  "-1"  "14"  "18"  "20" </span>
+</pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

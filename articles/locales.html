@@ -50,7 +50,7 @@
         <a class="navbar-brand" href="../index.html">readr</a>
         <div class="info hidden-xs hidden-sm">
           <span class="partof">part of the <a href="https://tidyverse.org">tidyverse</a></span>
-          <span class="version version-default" data-toggle="tooltip" data-placement="bottom" title="Released version">2.0.2</span>
+          <span class="version version-default" data-toggle="tooltip" data-placement="bottom" title="Released version">2.1.0</span>
         </div>
       </div>
     </div>
@@ -287,11 +287,13 @@
 <span class="co">#&gt; [1] "Émigré cause célèbre déjà vu.\n"</span>
 <span class="fu"><a href="https://rdrr.io/r/base/identical.html">identical</a></span><span class="op">(</span><span class="va">x</span>, <span class="va">y</span><span class="op">)</span>
 <span class="co">#&gt; [1] TRUE</span>
+
 <span class="co"># But they have difference encodings:</span>
 <span class="fu"><a href="https://rdrr.io/r/base/Encoding.html">Encoding</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span>
 <span class="co">#&gt; [1] "UTF-8"</span>
 <span class="fu"><a href="https://rdrr.io/r/base/Encoding.html">Encoding</a></span><span class="op">(</span><span class="va">y</span><span class="op">)</span>
 <span class="co">#&gt; [1] "latin1"</span>
+
 <span class="co"># That means while they print the same, their raw (binary)</span>
 <span class="co"># representation is actually quite different:</span>
 <span class="fu"><a href="https://rdrr.io/r/base/rawConversion.html">charToRaw</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span>
@@ -300,12 +302,14 @@
 <span class="fu"><a href="https://rdrr.io/r/base/rawConversion.html">charToRaw</a></span><span class="op">(</span><span class="va">y</span><span class="op">)</span>
 <span class="co">#&gt;  [1] c9 6d 69 67 72 e9 20 63 61 75 73 65 20 63 e9 6c e8 62 72 65 20 64 e9 6a e0</span>
 <span class="co">#&gt; [26] 20 76 75 2e 0a</span>
+
 <span class="co"># readr expects strings to be encoded as UTF-8. If they're</span>
 <span class="co"># not, you'll get weird characters</span>
 <span class="fu"><a href="../reference/parse_atomic.html">parse_character</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span>
 <span class="co">#&gt; [1] "Émigré cause célèbre déjà vu.\n"</span>
 <span class="fu"><a href="../reference/parse_atomic.html">parse_character</a></span><span class="op">(</span><span class="va">y</span><span class="op">)</span>
 <span class="co">#&gt; [1] "\xc9migr\xe9 cause c\xe9l\xe8bre d\xe9j\xe0 vu.\n"</span>
+
 <span class="co"># If you know the encoding, supply it:</span>
 <span class="fu"><a href="../reference/parse_atomic.html">parse_character</a></span><span class="op">(</span><span class="va">y</span>, locale <span class="op">=</span> <span class="fu"><a href="../reference/locale.html">locale</a></span><span class="op">(</span>encoding <span class="op">=</span> <span class="st">"latin1"</span><span class="op">)</span><span class="op">)</span>
 <span class="co">#&gt; [1] "Émigré cause célèbre déjà vu.\n"</span></code></pre></div>
@@ -324,6 +328,7 @@
 <span class="co">#&gt;   &lt;chr&gt;           &lt;dbl&gt;</span>
 <span class="co">#&gt; 1 ISO-8859-2        0.4</span>
 <span class="co">#&gt; 2 ISO-8859-1        0.3</span>
+
 <span class="co"># Note that the first guess produces a valid string, but isn't correct:</span>
 <span class="fu"><a href="../reference/parse_atomic.html">parse_character</a></span><span class="op">(</span><span class="va">y</span>, locale <span class="op">=</span> <span class="fu"><a href="../reference/locale.html">locale</a></span><span class="op">(</span>encoding <span class="op">=</span> <span class="st">"ISO-8859-2"</span><span class="op">)</span><span class="op">)</span>
 <span class="co">#&gt; [1] "Émigré cause célčbre déjŕ vu.\n"</span>
@@ -346,6 +351,7 @@
   locale <span class="op">=</span> <span class="fu"><a href="../reference/locale.html">locale</a></span><span class="op">(</span>decimal_mark <span class="op">=</span> <span class="st">","</span>, grouping_mark <span class="op">=</span> <span class="st">"."</span><span class="op">)</span>
 <span class="op">)</span>
 <span class="co">#&gt; [1] 1234.56</span>
+
 <span class="co"># readr is smart enough to guess that if you're using , for decimals then</span>
 <span class="co"># you're probably using . for grouping:</span>
 <span class="fu"><a href="../reference/parse_number.html">parse_number</a></span><span class="op">(</span><span class="st">"$1.234,56"</span>, locale <span class="op">=</span> <span class="fu"><a href="../reference/locale.html">locale</a></span><span class="op">(</span>decimal_mark <span class="op">=</span> <span class="st">","</span><span class="op">)</span><span class="op">)</span>

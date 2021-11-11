@@ -99,7 +99,7 @@ unknown encoding." />
         <a class="navbar-brand" href="../index.html">readr</a>
         <div class="info hidden-xs hidden-sm">
           <span class="partof">part of the <a href="https://tidyverse.org">tidyverse</a></span>
-          <span class="version version-default" data-toggle="tooltip" data-placement="bottom" title="Released version">2.0.2</span>
+          <span class="version version-default" data-toggle="tooltip" data-placement="bottom" title="Released version">2.1.0</span>
         </div>
       </div>
     </div>
@@ -185,7 +185,7 @@ unknown encoding.</p>
 
 <span class='fu'>read_file_raw</span><span class='op'>(</span><span class='va'>file</span><span class='op'>)</span>
 
-<span class='fu'>write_file</span><span class='op'>(</span><span class='va'>x</span>, <span class='va'>file</span>, append <span class='op'>=</span> <span class='cn'>FALSE</span>, path <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/Deprecated.html'>deprecated</a></span><span class='op'>(</span><span class='op'>)</span><span class='op'>)</span></pre>
+<span class='fu'>write_file</span><span class='op'>(</span><span class='va'>x</span>, <span class='va'>file</span>, append <span class='op'>=</span> <span class='cn'>FALSE</span>, path <span class='op'>=</span> <span class='fu'><a href='https://tibble.tidyverse.org/reference/deprecated.html'>deprecated</a></span><span class='op'>(</span><span class='op'>)</span><span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -199,9 +199,10 @@ be automatically uncompressed. Files starting with <code>http://</code>,
 <code>https://</code>, <code>ftp://</code>, or <code>ftps://</code> will be automatically
 downloaded. Remote gz files can also be automatically downloaded and
 decompressed.</p>
-<p>Literal data is most useful for examples and tests. To be recognised as a
-path, it must be wrapped with <code><a href='https://rdrr.io/r/base/AsIs.html'>I()</a></code>, be a string containing at least one
-new line, or be a vector containing at least one string with a new line.</p>
+<p>Literal data is most useful for examples and tests. To be recognised as
+literal data, the input must be either wrapped with <code><a href='https://rdrr.io/r/base/AsIs.html'>I()</a></code>, be a string
+containing at least one new line, or be a vector containing at least one
+string with a new line.</p>
 <p>Using a value of <code><a href='clipboard.html'>clipboard()</a></code> will read from the system clipboard.</p></td>
     </tr>
     <tr>
@@ -235,62 +236,69 @@ file is created.</p></td>
 <code>read_lines_raw</code>: A raw vector.</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='fu'>read_file</span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/file.path.html'>file.path</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/Rhome.html'>R.home</a></span><span class='op'>(</span><span class='st'>"doc"</span><span class='op'>)</span>, <span class='st'>"AUTHORS"</span><span class='op'>)</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; [1] "Authors of R.\n\nR was initially written by Robert Gentleman and Ross Ihaka—also known as \"R &amp; R\"\nof the Statistics Department of the University of Auckland.\n\nSince mid-1997 there has been a core group with write access to the R\nsource, currently consisting of\n\nDouglas Bates\nJohn Chambers\nPeter Dalgaard\nRobert Gentleman\nKurt Hornik\nRoss Ihaka\nTomas Kalibera\nMichael Lawrence\nFriedrich Leisch\nUwe Ligges\nThomas Lumley\nMartin Maechler\nPaul Murrell\nMartyn Plummer\nBrian Ripley\nDeepayan Sarkar\nDuncan Temple Lang\nLuke Tierney\nSimon Urbanek\n\nplus Heiner Schwarte up to October 1999, Guido Masarotto up to June 2003,\nStefano Iacus up to July 2014, Seth Falcon up to August 2015, Duncan Murdoch\nup to September 2017, and Martin Morgan up to June 2021.\n\n\nCurrent R-core members can be contacted via email to R-project.org\nwith name made up by replacing spaces by dots in the name listed above.\n\n(The authors of code from other projects included in the R distribution\nare listed in the COPYRIGHTS file.)\n"</div><div class='input'><span class='fu'>read_file_raw</span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/file.path.html'>file.path</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/Rhome.html'>R.home</a></span><span class='op'>(</span><span class='st'>"doc"</span><span class='op'>)</span>, <span class='st'>"AUTHORS"</span><span class='op'>)</span><span class='op'>)</span>
-</div><div class='output co'>#&gt;   [1] 41 75 74 68 6f 72 73 20 6f 66 20 52 2e 0a 0a 52 20 77 61 73 20 69 6e 69 74
-#&gt;  [26] 69 61 6c 6c 79 20 77 72 69 74 74 65 6e 20 62 79 20 52 6f 62 65 72 74 20 47
-#&gt;  [51] 65 6e 74 6c 65 6d 61 6e 20 61 6e 64 20 52 6f 73 73 20 49 68 61 6b 61 e2 80
-#&gt;  [76] 94 61 6c 73 6f 20 6b 6e 6f 77 6e 20 61 73 20 22 52 20 26 20 52 22 0a 6f 66
-#&gt; [101] 20 74 68 65 20 53 74 61 74 69 73 74 69 63 73 20 44 65 70 61 72 74 6d 65 6e
-#&gt; [126] 74 20 6f 66 20 74 68 65 20 55 6e 69 76 65 72 73 69 74 79 20 6f 66 20 41 75
-#&gt; [151] 63 6b 6c 61 6e 64 2e 0a 0a 53 69 6e 63 65 20 6d 69 64 2d 31 39 39 37 20 74
-#&gt; [176] 68 65 72 65 20 68 61 73 20 62 65 65 6e 20 61 20 63 6f 72 65 20 67 72 6f 75
-#&gt; [201] 70 20 77 69 74 68 20 77 72 69 74 65 20 61 63 63 65 73 73 20 74 6f 20 74 68
-#&gt; [226] 65 20 52 0a 73 6f 75 72 63 65 2c 20 63 75 72 72 65 6e 74 6c 79 20 63 6f 6e
-#&gt; [251] 73 69 73 74 69 6e 67 20 6f 66 0a 0a 44 6f 75 67 6c 61 73 20 42 61 74 65 73
-#&gt; [276] 0a 4a 6f 68 6e 20 43 68 61 6d 62 65 72 73 0a 50 65 74 65 72 20 44 61 6c 67
-#&gt; [301] 61 61 72 64 0a 52 6f 62 65 72 74 20 47 65 6e 74 6c 65 6d 61 6e 0a 4b 75 72
-#&gt; [326] 74 20 48 6f 72 6e 69 6b 0a 52 6f 73 73 20 49 68 61 6b 61 0a 54 6f 6d 61 73
-#&gt; [351] 20 4b 61 6c 69 62 65 72 61 0a 4d 69 63 68 61 65 6c 20 4c 61 77 72 65 6e 63
-#&gt; [376] 65 0a 46 72 69 65 64 72 69 63 68 20 4c 65 69 73 63 68 0a 55 77 65 20 4c 69
-#&gt; [401] 67 67 65 73 0a 54 68 6f 6d 61 73 20 4c 75 6d 6c 65 79 0a 4d 61 72 74 69 6e
-#&gt; [426] 20 4d 61 65 63 68 6c 65 72 0a 50 61 75 6c 20 4d 75 72 72 65 6c 6c 0a 4d 61
-#&gt; [451] 72 74 79 6e 20 50 6c 75 6d 6d 65 72 0a 42 72 69 61 6e 20 52 69 70 6c 65 79
-#&gt; [476] 0a 44 65 65 70 61 79 61 6e 20 53 61 72 6b 61 72 0a 44 75 6e 63 61 6e 20 54
-#&gt; [501] 65 6d 70 6c 65 20 4c 61 6e 67 0a 4c 75 6b 65 20 54 69 65 72 6e 65 79 0a 53
-#&gt; [526] 69 6d 6f 6e 20 55 72 62 61 6e 65 6b 0a 0a 70 6c 75 73 20 48 65 69 6e 65 72
-#&gt; [551] 20 53 63 68 77 61 72 74 65 20 75 70 20 74 6f 20 4f 63 74 6f 62 65 72 20 31
-#&gt; [576] 39 39 39 2c 20 47 75 69 64 6f 20 4d 61 73 61 72 6f 74 74 6f 20 75 70 20 74
-#&gt; [601] 6f 20 4a 75 6e 65 20 32 30 30 33 2c 0a 53 74 65 66 61 6e 6f 20 49 61 63 75
-#&gt; [626] 73 20 75 70 20 74 6f 20 4a 75 6c 79 20 32 30 31 34 2c 20 53 65 74 68 20 46
-#&gt; [651] 61 6c 63 6f 6e 20 75 70 20 74 6f 20 41 75 67 75 73 74 20 32 30 31 35 2c 20
-#&gt; [676] 44 75 6e 63 61 6e 20 4d 75 72 64 6f 63 68 0a 75 70 20 74 6f 20 53 65 70 74
-#&gt; [701] 65 6d 62 65 72 20 32 30 31 37 2c 20 61 6e 64 20 4d 61 72 74 69 6e 20 4d 6f
-#&gt; [726] 72 67 61 6e 20 75 70 20 74 6f 20 4a 75 6e 65 20 32 30 32 31 2e 0a 0a 0a 43
-#&gt; [751] 75 72 72 65 6e 74 20 52 2d 63 6f 72 65 20 6d 65 6d 62 65 72 73 20 63 61 6e
-#&gt; [776] 20 62 65 20 63 6f 6e 74 61 63 74 65 64 20 76 69 61 20 65 6d 61 69 6c 20 74
-#&gt; [801] 6f 20 52 2d 70 72 6f 6a 65 63 74 2e 6f 72 67 0a 77 69 74 68 20 6e 61 6d 65
-#&gt; [826] 20 6d 61 64 65 20 75 70 20 62 79 20 72 65 70 6c 61 63 69 6e 67 20 73 70 61
-#&gt; [851] 63 65 73 20 62 79 20 64 6f 74 73 20 69 6e 20 74 68 65 20 6e 61 6d 65 20 6c
-#&gt; [876] 69 73 74 65 64 20 61 62 6f 76 65 2e 0a 0a 28 54 68 65 20 61 75 74 68 6f 72
-#&gt; [901] 73 20 6f 66 20 63 6f 64 65 20 66 72 6f 6d 20 6f 74 68 65 72 20 70 72 6f 6a
-#&gt; [926] 65 63 74 73 20 69 6e 63 6c 75 64 65 64 20 69 6e 20 74 68 65 20 52 20 64 69
-#&gt; [951] 73 74 72 69 62 75 74 69 6f 6e 0a 61 72 65 20 6c 69 73 74 65 64 20 69 6e 20
-#&gt; [976] 74 68 65 20 43 4f 50 59 52 49 47 48 54 53 20 66 69 6c 65 2e 29 0a</div><div class='input'>
-<span class='va'>tmp</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/tempfile.html'>tempfile</a></span><span class='op'>(</span><span class='op'>)</span>
-
-<span class='va'>x</span> <span class='op'>&lt;-</span> <span class='fu'><a href='format_delim.html'>format_csv</a></span><span class='op'>(</span><span class='va'>mtcars</span><span class='op'>[</span><span class='fl'>1</span><span class='op'>:</span><span class='fl'>6</span>, <span class='op'>]</span><span class='op'>)</span>
-<span class='fu'>write_file</span><span class='op'>(</span><span class='va'>x</span>, <span class='va'>tmp</span><span class='op'>)</span>
-<span class='fu'><a href='https://rdrr.io/r/base/identical.html'>identical</a></span><span class='op'>(</span><span class='va'>x</span>, <span class='fu'>read_file</span><span class='op'>(</span><span class='va'>tmp</span><span class='op'>)</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; [1] TRUE</div><div class='input'>
-<span class='fu'><a href='read_lines.html'>read_lines</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/AsIs.html'>I</a></span><span class='op'>(</span><span class='va'>x</span><span class='op'>)</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; [1] "mpg,cyl,disp,hp,drat,wt,qsec,vs,am,gear,carb"
-#&gt; [2] "21,6,160,110,3.9,2.62,16.46,0,1,4,4"         
-#&gt; [3] "21,6,160,110,3.9,2.875,17.02,0,1,4,4"        
-#&gt; [4] "22.8,4,108,93,3.85,2.32,18.61,1,1,4,1"       
-#&gt; [5] "21.4,6,258,110,3.08,3.215,19.44,1,0,3,1"     
-#&gt; [6] "18.7,8,360,175,3.15,3.44,17.02,0,0,3,2"      
-#&gt; [7] "18.1,6,225,105,2.76,3.46,20.22,1,0,3,1"      </div></pre>
+    <pre class="examples"><span class='r-in'><span class='fu'>read_file</span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/file.path.html'>file.path</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/Rhome.html'>R.home</a></span><span class='op'>(</span><span class='st'>"doc"</span><span class='op'>)</span>, <span class='st'>"AUTHORS"</span><span class='op'>)</span><span class='op'>)</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [1] "Authors of R.\n\nR was initially written by Robert Gentleman and Ross Ihaka—also known as \"R &amp; R\"\nof the Statistics Department of the University of Auckland.\n\nSince mid-1997 there has been a core group with write access to the R\nsource, currently consisting of\n\nDouglas Bates\nJohn Chambers\nPeter Dalgaard\nRobert Gentleman\nKurt Hornik\nRoss Ihaka\nTomas Kalibera\nMichael Lawrence\nFriedrich Leisch\nUwe Ligges\nThomas Lumley\nMartin Maechler\nSebastian Meyer\nPaul Murrell\nMartyn Plummer\nBrian Ripley\nDeepayan Sarkar\nDuncan Temple Lang\nLuke Tierney\nSimon Urbanek\n\nplus Heiner Schwarte up to October 1999, Guido Masarotto up to June 2003,\nStefano Iacus up to July 2014, Seth Falcon up to August 2015, Duncan Murdoch\nup to September 2017, and Martin Morgan up to June 2021.\n\n\nCurrent R-core members can be contacted via email to R-project.org\nwith name made up by replacing spaces by dots in the name listed above.\n\n(The authors of code from other projects included in the R distribution\nare listed in the COPYRIGHTS file.)\n"</span>
+<span class='r-in'><span class='fu'>read_file_raw</span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/file.path.html'>file.path</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/Rhome.html'>R.home</a></span><span class='op'>(</span><span class='st'>"doc"</span><span class='op'>)</span>, <span class='st'>"AUTHORS"</span><span class='op'>)</span><span class='op'>)</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>    [1] 41 75 74 68 6f 72 73 20 6f 66 20 52 2e 0a 0a 52 20 77 61 73 20 69 6e 69</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   [25] 74 69 61 6c 6c 79 20 77 72 69 74 74 65 6e 20 62 79 20 52 6f 62 65 72 74</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   [49] 20 47 65 6e 74 6c 65 6d 61 6e 20 61 6e 64 20 52 6f 73 73 20 49 68 61 6b</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   [73] 61 e2 80 94 61 6c 73 6f 20 6b 6e 6f 77 6e 20 61 73 20 22 52 20 26 20 52</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   [97] 22 0a 6f 66 20 74 68 65 20 53 74 61 74 69 73 74 69 63 73 20 44 65 70 61</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  [121] 72 74 6d 65 6e 74 20 6f 66 20 74 68 65 20 55 6e 69 76 65 72 73 69 74 79</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  [145] 20 6f 66 20 41 75 63 6b 6c 61 6e 64 2e 0a 0a 53 69 6e 63 65 20 6d 69 64</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  [169] 2d 31 39 39 37 20 74 68 65 72 65 20 68 61 73 20 62 65 65 6e 20 61 20 63</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  [193] 6f 72 65 20 67 72 6f 75 70 20 77 69 74 68 20 77 72 69 74 65 20 61 63 63</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  [217] 65 73 73 20 74 6f 20 74 68 65 20 52 0a 73 6f 75 72 63 65 2c 20 63 75 72</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  [241] 72 65 6e 74 6c 79 20 63 6f 6e 73 69 73 74 69 6e 67 20 6f 66 0a 0a 44 6f</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  [265] 75 67 6c 61 73 20 42 61 74 65 73 0a 4a 6f 68 6e 20 43 68 61 6d 62 65 72</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  [289] 73 0a 50 65 74 65 72 20 44 61 6c 67 61 61 72 64 0a 52 6f 62 65 72 74 20</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  [313] 47 65 6e 74 6c 65 6d 61 6e 0a 4b 75 72 74 20 48 6f 72 6e 69 6b 0a 52 6f</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  [337] 73 73 20 49 68 61 6b 61 0a 54 6f 6d 61 73 20 4b 61 6c 69 62 65 72 61 0a</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  [361] 4d 69 63 68 61 65 6c 20 4c 61 77 72 65 6e 63 65 0a 46 72 69 65 64 72 69</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  [385] 63 68 20 4c 65 69 73 63 68 0a 55 77 65 20 4c 69 67 67 65 73 0a 54 68 6f</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  [409] 6d 61 73 20 4c 75 6d 6c 65 79 0a 4d 61 72 74 69 6e 20 4d 61 65 63 68 6c</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  [433] 65 72 0a 53 65 62 61 73 74 69 61 6e 20 4d 65 79 65 72 0a 50 61 75 6c 20</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  [457] 4d 75 72 72 65 6c 6c 0a 4d 61 72 74 79 6e 20 50 6c 75 6d 6d 65 72 0a 42</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  [481] 72 69 61 6e 20 52 69 70 6c 65 79 0a 44 65 65 70 61 79 61 6e 20 53 61 72</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  [505] 6b 61 72 0a 44 75 6e 63 61 6e 20 54 65 6d 70 6c 65 20 4c 61 6e 67 0a 4c</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  [529] 75 6b 65 20 54 69 65 72 6e 65 79 0a 53 69 6d 6f 6e 20 55 72 62 61 6e 65</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  [553] 6b 0a 0a 70 6c 75 73 20 48 65 69 6e 65 72 20 53 63 68 77 61 72 74 65 20</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  [577] 75 70 20 74 6f 20 4f 63 74 6f 62 65 72 20 31 39 39 39 2c 20 47 75 69 64</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  [601] 6f 20 4d 61 73 61 72 6f 74 74 6f 20 75 70 20 74 6f 20 4a 75 6e 65 20 32</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  [625] 30 30 33 2c 0a 53 74 65 66 61 6e 6f 20 49 61 63 75 73 20 75 70 20 74 6f</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  [649] 20 4a 75 6c 79 20 32 30 31 34 2c 20 53 65 74 68 20 46 61 6c 63 6f 6e 20</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  [673] 75 70 20 74 6f 20 41 75 67 75 73 74 20 32 30 31 35 2c 20 44 75 6e 63 61</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  [697] 6e 20 4d 75 72 64 6f 63 68 0a 75 70 20 74 6f 20 53 65 70 74 65 6d 62 65</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  [721] 72 20 32 30 31 37 2c 20 61 6e 64 20 4d 61 72 74 69 6e 20 4d 6f 72 67 61</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  [745] 6e 20 75 70 20 74 6f 20 4a 75 6e 65 20 32 30 32 31 2e 0a 0a 0a 43 75 72</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  [769] 72 65 6e 74 20 52 2d 63 6f 72 65 20 6d 65 6d 62 65 72 73 20 63 61 6e 20</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  [793] 62 65 20 63 6f 6e 74 61 63 74 65 64 20 76 69 61 20 65 6d 61 69 6c 20 74</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  [817] 6f 20 52 2d 70 72 6f 6a 65 63 74 2e 6f 72 67 0a 77 69 74 68 20 6e 61 6d</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  [841] 65 20 6d 61 64 65 20 75 70 20 62 79 20 72 65 70 6c 61 63 69 6e 67 20 73</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  [865] 70 61 63 65 73 20 62 79 20 64 6f 74 73 20 69 6e 20 74 68 65 20 6e 61 6d</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  [889] 65 20 6c 69 73 74 65 64 20 61 62 6f 76 65 2e 0a 0a 28 54 68 65 20 61 75</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  [913] 74 68 6f 72 73 20 6f 66 20 63 6f 64 65 20 66 72 6f 6d 20 6f 74 68 65 72</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  [937] 20 70 72 6f 6a 65 63 74 73 20 69 6e 63 6c 75 64 65 64 20 69 6e 20 74 68</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  [961] 65 20 52 20 64 69 73 74 72 69 62 75 74 69 6f 6e 0a 61 72 65 20 6c 69 73</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  [985] 74 65 64 20 69 6e 20 74 68 65 20 43 4f 50 59 52 49 47 48 54 53 20 66 69</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [1009] 6c 65 2e 29 0a</span>
+<span class='r-in'></span>
+<span class='r-in'><span class='va'>tmp</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/tempfile.html'>tempfile</a></span><span class='op'>(</span><span class='op'>)</span></span>
+<span class='r-in'></span>
+<span class='r-in'><span class='va'>x</span> <span class='op'>&lt;-</span> <span class='fu'><a href='format_delim.html'>format_csv</a></span><span class='op'>(</span><span class='va'>mtcars</span><span class='op'>[</span><span class='fl'>1</span><span class='op'>:</span><span class='fl'>6</span>, <span class='op'>]</span><span class='op'>)</span></span>
+<span class='r-in'><span class='fu'>write_file</span><span class='op'>(</span><span class='va'>x</span>, <span class='va'>tmp</span><span class='op'>)</span></span>
+<span class='r-in'><span class='fu'><a href='https://rdrr.io/r/base/identical.html'>identical</a></span><span class='op'>(</span><span class='va'>x</span>, <span class='fu'>read_file</span><span class='op'>(</span><span class='va'>tmp</span><span class='op'>)</span><span class='op'>)</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [1] TRUE</span>
+<span class='r-in'></span>
+<span class='r-in'><span class='fu'><a href='read_lines.html'>read_lines</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/AsIs.html'>I</a></span><span class='op'>(</span><span class='va'>x</span><span class='op'>)</span><span class='op'>)</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [1] "mpg,cyl,disp,hp,drat,wt,qsec,vs,am,gear,carb"</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [2] "21,6,160,110,3.9,2.62,16.46,0,1,4,4"         </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [3] "21,6,160,110,3.9,2.875,17.02,0,1,4,4"        </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [4] "22.8,4,108,93,3.85,2.32,18.61,1,1,4,1"       </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [5] "21.4,6,258,110,3.08,3.215,19.44,1,0,3,1"     </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [6] "18.7,8,360,175,3.15,3.44,17.02,0,0,3,2"      </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [7] "18.1,6,225,105,2.76,3.46,20.22,1,0,3,1"      </span>
+</pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

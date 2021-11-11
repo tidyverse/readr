@@ -94,7 +94,7 @@
         <a class="navbar-brand" href="../index.html">readr</a>
         <div class="info hidden-xs hidden-sm">
           <span class="partof">part of the <a href="https://tidyverse.org">tidyverse</a></span>
-          <span class="version version-default" data-toggle="tooltip" data-placement="bottom" title="Released version">2.0.2</span>
+          <span class="version version-default" data-toggle="tooltip" data-placement="bottom" title="Released version">2.1.0</span>
         </div>
       </div>
     </div>
@@ -167,6 +167,15 @@
       <small>Source: <a href='https://github.com/tidyverse/readr/blob/master/NEWS.md'><code>NEWS.md</code></a></small>
     </div>
 
+    <div id="readr-210" class="section level1">
+<h1 class="page-header" data-toc-text="2.1.0">
+<a href="#readr-210" class="anchor"></a>readr 2.1.0<small> 2021-11-11 </small>
+</h1>
+<ul>
+<li>All readr functions again read eagerly by default. Unfortunately many users experienced frustration from the drawbacks of lazy reading, in particular locking files on Windows, so it was decided to disable lazy reading default. However <code>options(readr.read_lazy = TRUE)</code> can be used to set the default to by lazy if desired.</li>
+<li>New <code>readr.read_lazy</code> global option to control if readr reads files lazily or not (<a href='https://github.com/tidyverse/readr/issues/1266'>#1266</a>)</li>
+</ul>
+</div>
     <div id="readr-202" class="section level1">
 <h1 class="page-header" data-toc-text="2.0.2">
 <a href="#readr-202" class="anchor"></a>readr 2.0.2<small> 2021-09-27 </small>
@@ -181,7 +190,7 @@
 <a href="#readr-201" class="anchor"></a>readr 2.0.1<small> 2021-08-10 </small>
 </h1>
 <ul>
-<li><p><code><a href="https://rdrr.io/r/base/options.html">options(readr.show_col_types = FALSE)</a></code> now works as intended (<a href='https://github.com/tidyverse/readr/issues/1250'>#1250</a>)</p></li>
+<li><p><code>options(readr.show_col_types = FALSE)</code> now works as intended (<a href='https://github.com/tidyverse/readr/issues/1250'>#1250</a>)</p></li>
 <li><p><code><a href="../reference/read_delim_chunked.html">read_delim_chunked()</a></code> now again correctly respects the <code>chunk_size</code> parameter (<a href='https://github.com/tidyverse/readr/issues/1248'>#1248</a>)</p></li>
 <li><p><code><a href="../reference/type_convert.html">type_convert()</a></code> gains a <code>guess_integer</code> argument, passed to <code><a href="../reference/parse_guess.html">guess_parser()</a></code> (<a href='https://github.com/jmbarbone'>@jmbarbone</a>, <a href='https://github.com/tidyverse/readr/issues/1264'>#1264</a>)</p></li>
 <li><p><code><a href="../reference/read_delim.html">read_tsv()</a></code> now correctly passes the <code>quote</code> and <code>na</code> arguments to <code><a href="https://vroom.r-lib.org/reference/vroom.html">vroom::vroom()</a></code> (<a href='https://github.com/tidyverse/readr/issues/1254'>#1254</a>, <a href='https://github.com/tidyverse/readr/issues/1255'>#1255</a>)</p></li>
@@ -201,15 +210,15 @@
 <p>You can use the <code><a href="../reference/with_edition.html">with_edition()</a></code> or <code><a href="../reference/with_edition.html">local_edition()</a></code> functions to temporarily change the edition of readr for a section of code.</p>
 <p>e.g.</p>
 <ul>
-<li><p><code><a href="../reference/with_edition.html">with_edition(1, read_csv("my_file.csv"))</a></code> will read <code>my_file.csv</code> with the first edition of readr.</p></li>
-<li><p><code><a href="../reference/with_edition.html">readr::local_edition(1)</a></code> placed at the top of your function or script will use the first edition for the rest of the function or script.</p></li>
+<li><p><code>with_edition(1, read_csv("my_file.csv"))</code> will read <code>my_file.csv</code> with the first edition of readr.</p></li>
+<li><p><code>readr::local_edition(1)</code> placed at the top of your function or script will use the first edition for the rest of the function or script.</p></li>
 </ul>
 <div id="lazy-reading" class="section level3">
 <h3 class="hasAnchor">
 <a href="#lazy-reading" class="anchor"></a>Lazy reading</h3>
 <p>Edition two uses lazy reading by default. When you first call a <code>read_*()</code> function the delimiters and newlines throughout the entire file are found, but the data is not actually read until it is used in your program. This can provide substantial speed improvements for reading character data. It is particularly useful during interactive exploration of only a subset of a full dataset.</p>
 <p>However this also means that problematic values are not necessarily seen immediately, only when they are actually read. Because of this a warning will be issued the first time a problem is encountered, which may happen after initial reading.</p>
-<p>Run <code><a href="../reference/problems.html">problems()</a></code> on your dataset to read the entire dataset and return all of the problems found. Run <code><a href="../reference/problems.html">problems(lazy = TRUE)</a></code> if you only want to retrieve the problems found so far.</p>
+<p>Run <code><a href="../reference/problems.html">problems()</a></code> on your dataset to read the entire dataset and return all of the problems found. Run <code>problems(lazy = TRUE)</code> if you only want to retrieve the problems found so far.</p>
 <p>Deleting files after reading is also impacted by laziness. On Windows open files cannot be deleted as long as a process has the file open. Because readr keeps a file open when reading lazily this means you cannot read, then immediately delete the file. readr will in most cases close the file once it has been completely read. However, if you know you want to be able to delete the file after reading it is best to pass <code>lazy = FALSE</code> when reading the file.</p>
 </div>
 <div id="reading-multiple-files-at-once" class="section level3">
@@ -217,7 +226,7 @@
 <a href="#reading-multiple-files-at-once" class="anchor"></a>Reading multiple files at once</h3>
 <p>Edition two has built-in support for reading sets of files with the same columns into one output table in a single command. Just pass the filenames to be read in the same vector to the reading function.</p>
 <p>First we generate some files to read by splitting the nycflights dataset by airline.</p>
-<pre class="{r}"><code><a href="https://rdrr.io/r/base/library.html">library(nycflights13)
+<pre class="{r}"><code><a href="https://github.com/hadley/nycflights13">library(nycflights13)
 purrr::iwalk(
   split(flights, flights$carrier),
   ~ { .x$carrier[[1]]; vroom::vroom_write(.x, glue::glue("flights_{.y}.tsv"), delim = "\t") }
@@ -238,7 +247,7 @@ readr::read_tsv(files)</code></pre>
 <h3 class="hasAnchor">
 <a href="#literal-data" class="anchor"></a>Literal data</h3>
 <p>In edition one the reading functions treated any input with a newline in it or vectors of length &gt; 1 as literal data. In edition two vectors of length &gt; 1 are now assumed to correspond to multiple files. Because of this we now have a more explicit way to represent literal data, by putting <code><a href="https://rdrr.io/r/base/AsIs.html">I()</a></code> around the input.</p>
-<pre class="{r}"><code><a href="../reference/read_delim.html">readr::read_csv(I("a,b\n1,2"))</a></code></pre>
+<pre class="{r}"><code>readr::read_csv(I("a,b\n1,2"))</code></pre>
 </div>
 <div id="license-changes" class="section level3">
 <h3 class="hasAnchor">
@@ -341,13 +350,13 @@ readr::read_tsv(files)</code></pre>
 <li><p>The full problem field is now displayed in the problems tibble, as intended (<a href='https://github.com/tidyverse/readr/issues/444'>#444</a>).</p></li>
 <li><p>New <code>%h</code> placeholder for parsing unrestricted hours (&lt;0 and &gt;23) to support parsing durations (<a href='https://github.com/tidyverse/readr/issues/549'>#549</a>, <a href='https://github.com/krlmlr'>@krlmlr</a>).</p></li>
 <li><p><code>as.character.col_spec()</code> now handles logical columns as well (<a href='https://github.com/tidyverse/readr/issues/1127'>#1127</a>)</p></li>
-<li><p><code><a href="../reference/read_fwf.html">fwf_positions(end)</a></code> no longer has a default argument and must be specified (<a href='https://github.com/tidyverse/readr/issues/996'>#996</a>)</p></li>
+<li><p><code>fwf_positions(end)</code> no longer has a default argument and must be specified (<a href='https://github.com/tidyverse/readr/issues/996'>#996</a>)</p></li>
 <li><p><code><a href="../reference/parse_guess.html">guess_parser()</a></code> gains a <code>na</code> argument and removes NA values before guessing (<a href='https://github.com/tidyverse/readr/issues/1041'>#1041</a>).</p></li>
 <li><p><code><a href="../reference/parse_guess.html">parse_guess()</a></code> now passes the <code>na</code> argument to <code><a href="../reference/parse_guess.html">guess_parser()</a></code></p></li>
 <li><p><code>read_*</code> functions now close properly all connections, including on errors like HTTP errors when reading from a url (<a href='https://github.com/cderv'>@cderv</a>, <a href='https://github.com/tidyverse/readr/issues/1050'>#1050</a>).</p></li>
 <li><p><code>read_delimited()</code> no longer mistakenly stats literal filenames (<a href='https://github.com/tidyverse/readr/issues/1063'>#1063</a>)</p></li>
 <li><p><code><a href="../reference/read_lines.html">read_lines()</a></code> now ignores quotations when skipping lines (<a href='https://github.com/tidyverse/readr/issues/991'>#991</a>).</p></li>
-<li><p><code><a href="../reference/read_lines.html">read_lines(skip_empty_rows = TRUE)</a></code> no longer crashes if a file ends with an empty line (<a href='https://github.com/tidyverse/readr/issues/968'>#968</a>)</p></li>
+<li><p><code>read_lines(skip_empty_rows = TRUE)</code> no longer crashes if a file ends with an empty line (<a href='https://github.com/tidyverse/readr/issues/968'>#968</a>)</p></li>
 <li><p><code>write_*()</code> functions now invisibly return the input data frame unchanged, rather than a version with factors and dates converted to strings. (<a href='https://github.com/jesse-ross'>@jesse-ross</a>, <a href='https://github.com/tidyverse/readr/issues/975'>#975</a>).</p></li>
 <li><p><code><a href="../reference/write_delim.html">write_csv2()</a></code> now formats decimal numbers more consistently with <code><a href="https://rdrr.io/r/utils/write.table.html">utils::write.csv2()</a></code> (<a href='https://github.com/tidyverse/readr/issues/1087'>#1087</a>)</p></li>
 <li><p><code><a href="../reference/write_delim.html">write_csv2()</a></code> and <code><a href="../reference/format_delim.html">format_csv2()</a></code> no longer pad number columns with whitespaces (<a href='https://github.com/keesdeschepper'>@keesdeschepper</a>, <a href='https://github.com/tidyverse/readr/issues/1046'>#1046</a>).</p></li>
@@ -366,8 +375,8 @@ readr::read_tsv(files)</code></pre>
 <a href="#readr-131" class="anchor"></a>readr 1.3.1<small> 2018-12-21 </small>
 </h1>
 <ul>
-<li><p>Column specifications are now coloured when printed. This makes it easy to see at a glance when a column is input as a different type then the rest. Colouring can be disabled by setting <code><a href="https://rdrr.io/r/base/options.html">options(crayon.enabled = FALSE)</a></code>.</p></li>
-<li><p><code><a href="../reference/as.col_spec.html">as.col_spec()</a></code> can now use named character vectors, which makes <code><a href="../reference/read_delim.html">read_csv("file.csv", col_types = c(xyz = "c"))</a></code> equivalent to <code>read_csv("file.csv", col_types = cols(xyz = col_character())</code></p></li>
+<li><p>Column specifications are now coloured when printed. This makes it easy to see at a glance when a column is input as a different type then the rest. Colouring can be disabled by setting <code>options(crayon.enabled = FALSE)</code>.</p></li>
+<li><p><code><a href="../reference/as.col_spec.html">as.col_spec()</a></code> can now use named character vectors, which makes <code>read_csv("file.csv", col_types = c(xyz = "c"))</code> equivalent to <code>read_csv("file.csv", col_types = cols(xyz = col_character())</code></p></li>
 <li><p>Fix skipping when single quotes are embedded in double quoted strings, and single quotes in skipped or commented lines (<a href='https://github.com/tidyverse/readr/issues/944'>#944</a>, <a href='https://github.com/tidyverse/readr/issues/945'>#945</a>).</p></li>
 <li><p>Fix for compilation using custom architectures on macOS (<a href='https://github.com/tidyverse/readr/issues/919'>#919</a>)</p></li>
 <li><p>Fix for valgrind errors (<a href='https://github.com/tidyverse/readr/issues/941'>#941</a>)</p></li>
@@ -557,7 +566,7 @@ w,x,y,z"</span>
 </h1>
 <ul>
 <li>Point release for test compatibility with tibble v1.3.1.</li>
-<li>Fixed undefined behavior in localtime.c when using <code><a href="../reference/locale.html">locale(tz = "")</a></code> after loading a timezone due to incomplete reinitialization of the global locale.</li>
+<li>Fixed undefined behavior in localtime.c when using <code>locale(tz = "")</code> after loading a timezone due to incomplete reinitialization of the global locale.</li>
 </ul>
 </div>
     <div id="readr-110" class="section level1">
@@ -713,7 +722,7 @@ w,x,y,z"</span>
 <p>The date time parsers recognise three new format strings:</p>
 <ul>
 <li><p><code>%I</code> for 12 hour time format (<a href='https://github.com/tidyverse/readr/issues/340'>#340</a>).</p></li>
-<li><p><code>%AD</code> and <code>%AT</code> are “automatic” date and time parsers. They are both slightly less flexible than previous defaults. The automatic date parser requires a four digit year, and only accepts <code><a href="https://rdrr.io/r/base/Arithmetic.html">-</a></code> and <code><a href="https://rdrr.io/r/base/Arithmetic.html">/</a></code> as separators (<a href='https://github.com/tidyverse/readr/issues/442'>#442</a>). The flexible time parser now requires colons between hours and minutes and optional seconds (<a href='https://github.com/tidyverse/readr/issues/424'>#424</a>).</p></li>
+<li><p><code>%AD</code> and <code>%AT</code> are “automatic” date and time parsers. They are both slightly less flexible than previous defaults. The automatic date parser requires a four digit year, and only accepts <code>-</code> and <code>/</code> as separators (<a href='https://github.com/tidyverse/readr/issues/442'>#442</a>). The flexible time parser now requires colons between hours and minutes and optional seconds (<a href='https://github.com/tidyverse/readr/issues/424'>#424</a>).</p></li>
 </ul>
 <p><code>%y</code> and <code>%Y</code> are now strict and require 2 or 4 characters respectively.</p>
 <p>Date and time parsing functions received a number of small enhancements:</p>
@@ -722,9 +731,9 @@ w,x,y,z"</span>
 <li><p><code><a href="../reference/parse_datetime.html">parse_date()</a></code> returns a numeric vector (instead of an integer vector) (<a href='https://github.com/tidyverse/readr/issues/357'>#357</a>).</p></li>
 <li><p><code><a href="../reference/parse_datetime.html">parse_date()</a></code>, <code><a href="../reference/parse_datetime.html">parse_time()</a></code> and <code><a href="../reference/parse_datetime.html">parse_datetime()</a></code> gain an <code>na</code> argument to match all other parsers (<a href='https://github.com/tidyverse/readr/issues/413'>#413</a>).</p></li>
 <li><p>If the format argument is omitted <code><a href="../reference/parse_datetime.html">parse_date()</a></code> or <code><a href="../reference/parse_datetime.html">parse_time()</a></code>, date and time formats specified in the locale will be used. These now default to <code>%AD</code> and <code>%AT</code> respectively.</p></li>
-<li><p>You can now parse partial dates with <code><a href="../reference/parse_datetime.html">parse_date()</a></code> and <code><a href="../reference/parse_datetime.html">parse_datetime()</a></code>, e.g. <code><a href="../reference/parse_datetime.html">parse_date("2001", "%Y")</a></code> returns <code>2001-01-01</code>.</p></li>
+<li><p>You can now parse partial dates with <code><a href="../reference/parse_datetime.html">parse_date()</a></code> and <code><a href="../reference/parse_datetime.html">parse_datetime()</a></code>, e.g. <code>parse_date("2001", "%Y")</code> returns <code>2001-01-01</code>.</p></li>
 </ul>
-<p><code><a href="../reference/parse_number.html">parse_number()</a></code> is slightly more flexible - it now parses numbers up to the first ill-formed character. For example <code><a href="../reference/parse_number.html">parse_number("-3-")</a></code> and <code><a href="../reference/parse_number.html">parse_number("...3...")</a></code> now return -3 and 3 respectively. We also fixed a major bug where parsing negative numbers yielded positive values (<a href='https://github.com/tidyverse/readr/issues/308'>#308</a>).</p>
+<p><code><a href="../reference/parse_number.html">parse_number()</a></code> is slightly more flexible - it now parses numbers up to the first ill-formed character. For example <code>parse_number("-3-")</code> and <code>parse_number("...3...")</code> now return -3 and 3 respectively. We also fixed a major bug where parsing negative numbers yielded positive values (<a href='https://github.com/tidyverse/readr/issues/308'>#308</a>).</p>
 <p><code><a href="../reference/parse_atomic.html">parse_logical()</a></code> now accepts <code>0</code>, <code>1</code> as well as lowercase <code>t</code>, <code>f</code>, <code>true</code>, <code>false</code>.</p>
 </div>
 <div id="new-readers-and-writers" class="section level2">
@@ -857,7 +866,7 @@ w,x,y,z"</span>
 <li><p>Now use R’s platform independent <code>iconv</code> wrapper, thanks to BDR (<a href='https://github.com/tidyverse/readr/issues/149'>#149</a>).</p></li>
 <li><p>Pathological zero row inputs (due to empty input, <code>skip</code> or <code>n_max</code>) now return zero row data frames (<a href='https://github.com/tidyverse/readr/issues/119'>#119</a>).</p></li>
 <li><p>When guessing field types, and there’s no information to go on, use character instead of logical (<a href='https://github.com/tidyverse/readr/issues/124'>#124</a>, <a href='https://github.com/tidyverse/readr/issues/128'>#128</a>).</p></li>
-<li><p>Concise <code>col_types</code> specification now understands <code><a href="https://rdrr.io/r/utils/Question.html">?</a></code> (guess) and <code><a href="https://rdrr.io/r/base/Arithmetic.html">-</a></code> (skip) (<a href='https://github.com/tidyverse/readr/issues/188'>#188</a>).</p></li>
+<li><p>Concise <code>col_types</code> specification now understands <code>?</code> (guess) and <code>-</code> (skip) (<a href='https://github.com/tidyverse/readr/issues/188'>#188</a>).</p></li>
 <li><p><code><a href="../reference/count_fields.html">count_fields()</a></code> starts counting from 1, not 0 (<a href='https://github.com/tidyverse/readr/issues/200'>#200</a>).</p></li>
 <li><p><code><a href="../reference/format_delim.html">format_csv()</a></code> and <code><a href="../reference/format_delim.html">format_delim()</a></code> make it easy to render a csv or delimited file into a string.</p></li>
 <li><p><code><a href="../reference/read_fwf.html">fwf_empty()</a></code> now works correctly when <code>col_names</code> supplied (<a href='https://github.com/tidyverse/readr/issues/186'>#186</a>, <a href='https://github.com/tidyverse/readr/issues/222'>#222</a>).</p></li>

@@ -50,7 +50,7 @@
         <a class="navbar-brand" href="../../index.html">readr</a>
         <div class="info hidden-xs hidden-sm">
           <span class="partof">part of the <a href="https://tidyverse.org">tidyverse</a></span>
-          <span class="version version-default" data-toggle="tooltip" data-placement="bottom" title="Released version">2.0.2</span>
+          <span class="version version-default" data-toggle="tooltip" data-placement="bottom" title="Released version">2.1.0</span>
         </div>
       </div>
     </div>
@@ -191,11 +191,13 @@
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="../../reference/parse_guess.html">guess_parser</a></span><span class="op">(</span><span class="st">"1,234"</span><span class="op">)</span>
 <span class="co">#&gt; [1] "number"</span>
+
 <span class="co"># Were previously guessed as numbers</span>
 <span class="fu"><a href="../../reference/parse_guess.html">guess_parser</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"."</span>, <span class="st">"-"</span><span class="op">)</span><span class="op">)</span>
 <span class="co">#&gt; [1] "character"</span>
 <span class="fu"><a href="../../reference/parse_guess.html">guess_parser</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"10W"</span>, <span class="st">"20N"</span><span class="op">)</span><span class="op">)</span>
 <span class="co">#&gt; [1] "character"</span>
+
 <span class="co"># Now uses the default time format</span>
 <span class="fu"><a href="../../reference/parse_guess.html">guess_parser</a></span><span class="op">(</span><span class="st">"10:30"</span><span class="op">)</span>
 <span class="co">#&gt; [1] "time"</span></code></pre></div>
@@ -214,7 +216,7 @@
 <p>Note that <code><a href="../../reference/parse_datetime.html">parse_time()</a></code> returns <code>hms</code> from the <a href="https://github.com/rstats-db/hms">hms</a> package, rather than a custom <code>time</code> class</p>
 </li>
 <li>
-<p><code>%AD</code> and <code>%AT</code> are “automatic” date and time parsers. They are both slightly less flexible than previous defaults. The automatic date parser requires a four digit year, and only accepts <code><a href="https://rdrr.io/r/base/Arithmetic.html">-</a></code> and <code><a href="https://rdrr.io/r/base/Arithmetic.html">/</a></code> as separators. The flexible time parser now requires colons between hours and minutes and optional seconds.</p>
+<p><code>%AD</code> and <code>%AT</code> are “automatic” date and time parsers. They are both slightly less flexible than previous defaults. The automatic date parser requires a four digit year, and only accepts <code>-</code> and <code>/</code> as separators. The flexible time parser now requires colons between hours and minutes and optional seconds.</p>
 <div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="../../reference/parse_datetime.html">parse_date</a></span><span class="op">(</span><span class="st">"2010-01-01"</span>, <span class="st">"%AD"</span><span class="op">)</span>
 <span class="co">#&gt; [1] "2010-01-01"</span>
