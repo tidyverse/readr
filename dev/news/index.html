@@ -94,7 +94,7 @@
         <a class="navbar-brand" href="../index.html">readr</a>
         <div class="info hidden-xs hidden-sm">
           <span class="partof">part of the <a href="https://tidyverse.org">tidyverse</a></span>
-          <span class="version version-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">2.0.2.9000</span>
+          <span class="version version-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">2.1.0.9000</span>
         </div>
       </div>
     </div>
@@ -120,6 +120,9 @@
   </a>
   <ul class="dropdown-menu" role="menu">
     <li class="dropdown-header">Release notes</li>
+    <li>
+      <a href="https://www.tidyverse.org/blog/2021/11/readr-2-1-0-lazy/">Version 2.1.0</a>
+    </li>
     <li>
       <a href="https://www.tidyverse.org/blog/2021/07/readr-2-0-0/">Version 2.0.0</a>
     </li>
@@ -170,6 +173,11 @@
     <div id="readr-development-version" class="section level1">
 <h1 class="page-header" data-toc-text="development version">
 <a href="#readr-development-version" class="anchor"></a>readr (development version)<small> Unreleased </small>
+</h1>
+</div>
+    <div id="readr-210" class="section level1">
+<h1 class="page-header" data-toc-text="2.1.0">
+<a href="#readr-210" class="anchor"></a>readr 2.1.0<small> 2021-11-11 </small>
 </h1>
 <ul>
 <li>All readr functions again read eagerly by default. Unfortunately many users experienced frustration from the drawbacks of lazy reading, in particular locking files on Windows, so it was decided to disable lazy reading default. However <code>options(readr.read_lazy = TRUE)</code> can be used to set the default to by lazy if desired.</li>
