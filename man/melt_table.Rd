@@ -74,7 +74,7 @@ option is \code{TRUE} then blank rows will not be represented at all.  If it is
 }
 \description{
 \ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#superseded}{\figure{lifecycle-superseded.svg}{options: alt='[Superseded]'}}}{\strong{[Superseded]}}
-This function has been superseded in readr and moved to the meltr package.
+This function has been superseded in readr and moved to \href{https://r-lib.github.io/meltr/}{the meltr package}.
 
 For certain non-rectangular data formats, it can be useful to parse the data
 into a melted format where each row represents a single token.

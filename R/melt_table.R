@@ -2,7 +2,8 @@
 #'
 #' @description
 #' `r lifecycle::badge("superseded")`
-#' This function has been superseded in readr and moved to the meltr package.
+#' This function has been superseded in readr and moved to [the meltr
+#' package](https://r-lib.github.io/meltr/).
 #'
 #' For certain non-rectangular data formats, it can be useful to parse the data
 #' into a melted format where each row represents a single token.

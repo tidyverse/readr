@@ -144,7 +144,7 @@ how many, and you can retrieve the details with \code{\link[=problems]{problems(
 }
 \description{
 \ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#superseded}{\figure{lifecycle-superseded.svg}{options: alt='[Superseded]'}}}{\strong{[Superseded]}}
-This function has been superseded in readr and moved to the meltr package.
+This function has been superseded in readr and moved to \href{https://r-lib.github.io/meltr/}{the meltr package}.
 }
 \details{
 For certain non-rectangular data formats, it can be useful to parse the data
