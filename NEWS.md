@@ -1,5 +1,7 @@
 # readr (development version)
 
+* Fix buffer overflow when trying to parse an integer from a field that is over 64 characters long (#1326)
+
 # readr 2.1.0
 
 * All readr functions again read eagerly by default. Unfortunately many users
