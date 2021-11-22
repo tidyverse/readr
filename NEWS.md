@@ -4,6 +4,7 @@
 
 * Jenny Bryan is now the maintainer.
 
+* `read_table()` and edition 1 parsers gain support for `show_col_types()` (#1331)
 * Fix buffer overflow when trying to parse an integer from a field that is over 64 characters long (#1326)
 
 # readr 2.1.0
