@@ -390,13 +390,6 @@ read_tokens <- function(data, tokenizer, col_specs, col_names, locale_, n_max, p
   read_tokens_(data, tokenizer, col_specs, col_names, locale_, n_max, progress)
 }
 
-should_show_col_types <- function(has_col_types, show_col_types) {
-  if (is.null(show_col_types)) {
-    return(isTRUE(!has_col_types))
-  }
-  isTRUE(show_col_types)
-}
-
 read_delimited <- function(file, tokenizer, col_names = TRUE, col_types = NULL,
                            locale = default_locale(), skip = 0, skip_empty_rows = TRUE, skip_quote = TRUE,
                            comment = "", n_max = Inf, guess_max = min(1000, n_max), progress = show_progress(),
