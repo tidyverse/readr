@@ -11,6 +11,7 @@ read_log(
   trim_ws = TRUE,
   skip = 0,
   n_max = Inf,
+  show_col_types = should_show_types(),
   progress = show_progress()
 )
 }
@@ -86,6 +87,11 @@ each field before parsing it?}
 supplied any commented lines are ignored \emph{after} skipping.}
 
 \item{n_max}{Maximum number of lines to read.}
+
+\item{show_col_types}{If \code{FALSE}, do not show the guessed column types. If
+\code{TRUE} always show the column types, even if they are supplied. If \code{NULL}
+(the default) only show the column types if they are not explicitly supplied
+by the \code{col_types} argument.}
 
 \item{progress}{Display a progress bar? By default it will only display
 in an interactive session and not while knitting a document. The automatic

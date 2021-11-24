@@ -25,6 +25,7 @@ read_delim_chunked(
   skip = 0,
   guess_max = chunk_size,
   progress = show_progress(),
+  show_col_types = should_show_types(),
   skip_empty_rows = TRUE
 )
 
@@ -43,6 +44,7 @@ read_csv_chunked(
   skip = 0,
   guess_max = chunk_size,
   progress = show_progress(),
+  show_col_types = should_show_types(),
   skip_empty_rows = TRUE
 )
 
@@ -61,6 +63,7 @@ read_csv2_chunked(
   skip = 0,
   guess_max = chunk_size,
   progress = show_progress(),
+  show_col_types = should_show_types(),
   skip_empty_rows = TRUE
 )
 
@@ -79,6 +82,7 @@ read_tsv_chunked(
   skip = 0,
   guess_max = chunk_size,
   progress = show_progress(),
+  show_col_types = should_show_types(),
   skip_empty_rows = TRUE
 )
 }
@@ -191,6 +195,11 @@ supplied any commented lines are ignored \emph{after} skipping.}
 in an interactive session and not while knitting a document. The automatic
 progress bar can be disabled by setting option \code{readr.show_progress} to
 \code{FALSE}.}
+
+\item{show_col_types}{If \code{FALSE}, do not show the guessed column types. If
+\code{TRUE} always show the column types, even if they are supplied. If \code{NULL}
+(the default) only show the column types if they are not explicitly supplied
+by the \code{col_types} argument.}
 
 \item{skip_empty_rows}{Should blank rows be ignored altogether? i.e. If this
 option is \code{TRUE} then blank rows will not be represented at all.  If it is
