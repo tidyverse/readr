@@ -5,6 +5,7 @@
 * Jenny Bryan is now the maintainer.
 
 * `read_table()` and edition 1 parsers gain support for `show_col_types()` (#1331)
+* `read_table()`, `read_log()`, and `read_delim_chunked()` (and friends) gain the `show_col_types` argument found elsewhere. All `read_*()` functions now respect the `show_col_types` argument or option even when using the first edition parsing engine (#1331).
 * Fix buffer overflow when trying to parse an integer from a field that is over 64 characters long (#1326)
 
 # readr 2.1.0
