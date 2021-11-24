@@ -393,7 +393,7 @@ read_tokens <- function(data, tokenizer, col_specs, col_names, locale_, n_max, p
 read_delimited <- function(file, tokenizer, col_names = TRUE, col_types = NULL,
                            locale = default_locale(), skip = 0, skip_empty_rows = TRUE, skip_quote = TRUE,
                            comment = "", n_max = Inf, guess_max = min(1000, n_max), progress = show_progress(),
-                           show_col_types = should_show_col_types()) {
+                           show_col_types = should_show_types()) {
   name <- source_name(file)
   # If connection needed, read once.
   file <- standardise_path(file)
