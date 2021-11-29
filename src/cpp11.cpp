@@ -3,6 +3,7 @@
 
 
 #include "cpp11/declarations.hpp"
+#include <R_ext/Visibility.h>
 
 // CollectorGuess.cpp
 std::string collectorGuess(const cpp11::strings& input, const cpp11::list& locale_, bool guessInteger);
@@ -197,34 +198,6 @@ extern "C" SEXP _readr_write_file_raw_(SEXP x, SEXP connection) {
 }
 
 extern "C" {
-/* .Call calls */
-extern SEXP _readr_collectorGuess(SEXP, SEXP, SEXP);
-extern SEXP _readr_count_fields_(SEXP, SEXP, SEXP);
-extern SEXP _readr_dim_tokens_(SEXP, SEXP);
-extern SEXP _readr_guess_header_(SEXP, SEXP, SEXP);
-extern SEXP _readr_guess_types_(SEXP, SEXP, SEXP, SEXP);
-extern SEXP _readr_melt_tokens_(SEXP, SEXP, SEXP, SEXP, SEXP, SEXP);
-extern SEXP _readr_melt_tokens_chunked_(SEXP, SEXP, SEXP, SEXP, SEXP, SEXP, SEXP);
-extern SEXP _readr_parse_vector_(SEXP, SEXP, SEXP, SEXP, SEXP);
-extern SEXP _readr_read_connection_(SEXP, SEXP, SEXP);
-extern SEXP _readr_read_file_(SEXP, SEXP);
-extern SEXP _readr_read_file_raw_(SEXP);
-extern SEXP _readr_read_lines_(SEXP, SEXP, SEXP, SEXP, SEXP, SEXP);
-extern SEXP _readr_read_lines_chunked_(SEXP, SEXP, SEXP, SEXP, SEXP, SEXP, SEXP);
-extern SEXP _readr_read_lines_raw_(SEXP, SEXP, SEXP);
-extern SEXP _readr_read_lines_raw_chunked_(SEXP, SEXP, SEXP, SEXP);
-extern SEXP _readr_read_tokens_(SEXP, SEXP, SEXP, SEXP, SEXP, SEXP, SEXP);
-extern SEXP _readr_read_tokens_chunked_(SEXP, SEXP, SEXP, SEXP, SEXP, SEXP, SEXP, SEXP, SEXP);
-extern SEXP _readr_stream_delim_(SEXP, SEXP, SEXP, SEXP, SEXP, SEXP, SEXP, SEXP);
-extern SEXP _readr_tokenize_(SEXP, SEXP, SEXP);
-extern SEXP _readr_type_convert_col(SEXP, SEXP, SEXP, SEXP, SEXP, SEXP);
-extern SEXP _readr_utctime_(SEXP, SEXP, SEXP, SEXP, SEXP, SEXP, SEXP);
-extern SEXP _readr_whitespaceColumns(SEXP, SEXP, SEXP);
-extern SEXP _readr_write_file_(SEXP, SEXP);
-extern SEXP _readr_write_file_raw_(SEXP, SEXP);
-extern SEXP _readr_write_lines_(SEXP, SEXP, SEXP, SEXP);
-extern SEXP _readr_write_lines_raw_(SEXP, SEXP, SEXP);
-
 static const R_CallMethodDef CallEntries[] = {
     {"_readr_collectorGuess",          (DL_FUNC) &_readr_collectorGuess,          3},
     {"_readr_count_fields_",           (DL_FUNC) &_readr_count_fields_,           3},
@@ -256,7 +229,7 @@ static const R_CallMethodDef CallEntries[] = {
 };
 }
 
-extern "C" void R_init_readr(DllInfo* dll){
+extern "C" attribute_visible void R_init_readr(DllInfo* dll){
   R_registerRoutines(dll, NULL, CallEntries, NULL, NULL);
   R_useDynamicSymbols(dll, FALSE);
   R_forceSymbols(dll, TRUE);
