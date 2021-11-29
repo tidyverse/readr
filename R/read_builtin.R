@@ -11,11 +11,7 @@
 #' @return An object of the built-in class of `x`.
 #' @export
 #' @examples
-#' if (requireNamespace("dplyr")) {
-#'   read_builtin("starwars", "dplyr")
-#'
-#'   read_builtin("storms", "dplyr")
-#' }
+#' read_builtin("mtcars", "datasets")
 read_builtin <- function(x, package = NULL) {
   warn_to_error <- function(e) {
     stop(conditionMessage(e), call. = FALSE)

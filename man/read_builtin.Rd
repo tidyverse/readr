@@ -21,9 +21,5 @@ Consistent wrapper around \code{\link[=data]{data()}} that forces the promise. T
 stronger parallel to loading data from a file.
 }
 \examples{
-if (requireNamespace("dplyr")) {
-  read_builtin("starwars", "dplyr")
-
-  read_builtin("storms", "dplyr")
-}
+read_builtin("mtcars", "datasets")
 }

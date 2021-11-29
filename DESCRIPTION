@@ -53,9 +53,9 @@ Imports:
     utils,
     lifecycle (>= 0.2.0)
 Suggests:
+    datasets,
     covr,
     curl,
-    dplyr,
     knitr,
     rmarkdown,
     spelling,
