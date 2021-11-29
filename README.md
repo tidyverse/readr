@@ -46,7 +46,7 @@ library(tidyverse)
 #> ✔ ggplot2 3.3.5          ✔ purrr   0.3.4     
 #> ✔ tibble  3.1.6          ✔ dplyr   1.0.7     
 #> ✔ tidyr   1.1.4          ✔ stringr 1.4.0.9000
-#> ✔ readr   2.0.2.9000     ✔ forcats 0.5.1
+#> ✔ readr   2.1.0.9000     ✔ forcats 0.5.1
 #> ── Conflicts ────────────────────────────────────────── tidyverse_conflicts() ──
 #> ✖ dplyr::filter() masks stats::filter()
 #> ✖ dplyr::lag()    masks stats::lag()
