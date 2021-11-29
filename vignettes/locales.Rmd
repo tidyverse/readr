@@ -137,7 +137,8 @@ All readr functions yield strings encoded in UTF-8. This encoding is the most li
 
 The following code illustrates the problems with encodings:
 
-```{r}
+<!-- not currently evaluating this chunk due to https://github.com/tidyverse/readr/issues/1337 --!>
+```{r, eval = FALSE}
 library(stringi)
 x <- "Émigré cause célèbre déjà vu.\n"
 y <- stri_conv(x, "UTF-8", "latin1")
