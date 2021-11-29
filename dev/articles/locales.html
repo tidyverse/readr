@@ -279,6 +279,7 @@
 <a href="#character" class="anchor"></a>Character</h2>
 <p>All readr functions yield strings encoded in UTF-8. This encoding is the most likely to give good results in the widest variety of settings. By default, readr assumes that your input is also in UTF-8. This is less likely to be the case, especially when you’re working with older datasets.</p>
 <p>The following code illustrates the problems with encodings:</p>
+<p>&lt;!– not currently evaluating the next two chunks due to <a href="https://github.com/tidyverse/readr/issues/1337" class="uri">https://github.com/tidyverse/readr/issues/1337</a> –!&gt;</p>
 <div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://stringi.gagolewski.com/">stringi</a></span><span class="op">)</span>
 <span class="va">x</span> <span class="op">&lt;-</span> <span class="st">"Émigré cause célèbre déjà vu.\n"</span>
@@ -286,59 +287,34 @@
 
 <span class="co"># These strings look like they're identical:</span>
 <span class="va">x</span>
-<span class="co">#&gt; [1] "Émigré cause célèbre déjà vu.\n"</span>
 <span class="va">y</span>
-<span class="co">#&gt; [1] "Émigré cause célèbre déjà vu.\n"</span>
 <span class="fu"><a href="https://rdrr.io/r/base/identical.html">identical</a></span><span class="op">(</span><span class="va">x</span>, <span class="va">y</span><span class="op">)</span>
-<span class="co">#&gt; [1] TRUE</span>
 
 <span class="co"># But they have difference encodings:</span>
 <span class="fu"><a href="https://rdrr.io/r/base/Encoding.html">Encoding</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span>
-<span class="co">#&gt; [1] "UTF-8"</span>
 <span class="fu"><a href="https://rdrr.io/r/base/Encoding.html">Encoding</a></span><span class="op">(</span><span class="va">y</span><span class="op">)</span>
-<span class="co">#&gt; [1] "latin1"</span>
 
 <span class="co"># That means while they print the same, their raw (binary)</span>
 <span class="co"># representation is actually quite different:</span>
 <span class="fu"><a href="https://rdrr.io/r/base/rawConversion.html">charToRaw</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span>
-<span class="co">#&gt;  [1] c3 89 6d 69 67 72 c3 a9 20 63 61 75 73 65 20 63 c3 a9 6c c3 a8 62 72 65 20</span>
-<span class="co">#&gt; [26] 64 c3 a9 6a c3 a0 20 76 75 2e 0a</span>
 <span class="fu"><a href="https://rdrr.io/r/base/rawConversion.html">charToRaw</a></span><span class="op">(</span><span class="va">y</span><span class="op">)</span>
-<span class="co">#&gt;  [1] c9 6d 69 67 72 e9 20 63 61 75 73 65 20 63 e9 6c e8 62 72 65 20 64 e9 6a e0</span>
-<span class="co">#&gt; [26] 20 76 75 2e 0a</span>
 
 <span class="co"># readr expects strings to be encoded as UTF-8. If they're</span>
 <span class="co"># not, you'll get weird characters</span>
 <span class="fu"><a href="../reference/parse_atomic.html">parse_character</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span>
-<span class="co">#&gt; [1] "Émigré cause célèbre déjà vu.\n"</span>
 <span class="fu"><a href="../reference/parse_atomic.html">parse_character</a></span><span class="op">(</span><span class="va">y</span><span class="op">)</span>
-<span class="co">#&gt; [1] "\xc9migr\xe9 cause c\xe9l\xe8bre d\xe9j\xe0 vu.\n"</span>
 
 <span class="co"># If you know the encoding, supply it:</span>
-<span class="fu"><a href="../reference/parse_atomic.html">parse_character</a></span><span class="op">(</span><span class="va">y</span>, locale <span class="op">=</span> <span class="fu"><a href="../reference/locale.html">locale</a></span><span class="op">(</span>encoding <span class="op">=</span> <span class="st">"latin1"</span><span class="op">)</span><span class="op">)</span>
-<span class="co">#&gt; [1] "Émigré cause célèbre déjà vu.\n"</span></code></pre></div>
+<span class="fu"><a href="../reference/parse_atomic.html">parse_character</a></span><span class="op">(</span><span class="va">y</span>, locale <span class="op">=</span> <span class="fu"><a href="../reference/locale.html">locale</a></span><span class="op">(</span>encoding <span class="op">=</span> <span class="st">"latin1"</span><span class="op">)</span><span class="op">)</span></code></pre></div>
 <p>If you don’t know what encoding the file uses, try <a href="https://readr.tidyverse.org/reference/encoding.html"><code>guess_encoding()</code></a>. It’s not 100% perfect (as it’s fundamentally a heuristic), but should at least get you pointed in the right direction:</p>
 <div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="../reference/guess_encoding.html">guess_encoding</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span>
-<span class="co">#&gt; # A tibble: 3 × 2</span>
-<span class="co">#&gt;   encoding     confidence</span>
-<span class="co">#&gt;   &lt;chr&gt;             &lt;dbl&gt;</span>
-<span class="co">#&gt; 1 UTF-8              1   </span>
-<span class="co">#&gt; 2 windows-1250       0.34</span>
-<span class="co">#&gt; 3 windows-1252       0.26</span>
 <span class="fu"><a href="../reference/guess_encoding.html">guess_encoding</a></span><span class="op">(</span><span class="va">y</span><span class="op">)</span>
-<span class="co">#&gt; # A tibble: 2 × 2</span>
-<span class="co">#&gt;   encoding   confidence</span>
-<span class="co">#&gt;   &lt;chr&gt;           &lt;dbl&gt;</span>
-<span class="co">#&gt; 1 ISO-8859-2        0.4</span>
-<span class="co">#&gt; 2 ISO-8859-1        0.3</span>
 
 <span class="co"># Note that the first guess produces a valid string, but isn't correct:</span>
 <span class="fu"><a href="../reference/parse_atomic.html">parse_character</a></span><span class="op">(</span><span class="va">y</span>, locale <span class="op">=</span> <span class="fu"><a href="../reference/locale.html">locale</a></span><span class="op">(</span>encoding <span class="op">=</span> <span class="st">"ISO-8859-2"</span><span class="op">)</span><span class="op">)</span>
-<span class="co">#&gt; [1] "Émigré cause célčbre déjŕ vu.\n"</span>
 <span class="co"># But ISO-8859-1 is another name for latin1</span>
-<span class="fu"><a href="../reference/parse_atomic.html">parse_character</a></span><span class="op">(</span><span class="va">y</span>, locale <span class="op">=</span> <span class="fu"><a href="../reference/locale.html">locale</a></span><span class="op">(</span>encoding <span class="op">=</span> <span class="st">"ISO-8859-1"</span><span class="op">)</span><span class="op">)</span>
-<span class="co">#&gt; [1] "Émigré cause célèbre déjà vu.\n"</span></code></pre></div>
+<span class="fu"><a href="../reference/parse_atomic.html">parse_character</a></span><span class="op">(</span><span class="va">y</span>, locale <span class="op">=</span> <span class="fu"><a href="../reference/locale.html">locale</a></span><span class="op">(</span>encoding <span class="op">=</span> <span class="st">"ISO-8859-1"</span><span class="op">)</span><span class="op">)</span></code></pre></div>
 </div>
 <div id="numbers" class="section level2">
 <h2 class="hasAnchor">
