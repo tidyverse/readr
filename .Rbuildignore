@@ -38,3 +38,5 @@
 ^compile_commands.json$
 ^[^/]+.csv
 ^MAINTENANCE\.md$
+^doc$
+^Meta$

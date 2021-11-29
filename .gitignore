@@ -12,3 +12,5 @@ sanitize.sh
 docs
 .clangd
 compile_commands.json
+/doc/
+/Meta/
