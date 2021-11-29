@@ -20,11 +20,12 @@ Useful links:
 
 }
 \author{
-\strong{Maintainer}: Jim Hester \email{jim.hester@rstudio.com}
+\strong{Maintainer}: Jennifer Bryan \email{jenny@rstudio.com} (\href{https://orcid.org/0000-0002-6983-2759}{ORCID})
 
 Authors:
 \itemize{
   \item Hadley Wickham \email{hadley@rstudio.com}
+  \item Jim Hester
 }
 
 Other contributors:

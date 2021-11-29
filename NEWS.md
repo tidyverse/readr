@@ -1,5 +1,7 @@
 # readr (development version)
 
+* Jenny Bryan is now the maintainer.
+
 * Fix buffer overflow when trying to parse an integer from a field that is over 64 characters long (#1326)
 
 # readr 2.1.0
