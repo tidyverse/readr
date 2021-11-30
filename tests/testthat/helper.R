@@ -42,3 +42,7 @@ skip_if_edition_second <- function() {
 skip_if_edition_first <- function() {
   skip_if(edition_first())
 }
+
+edition_variant <- function() {
+  paste0("edition-", edition_get())
+}

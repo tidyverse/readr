@@ -57,7 +57,11 @@ test_that("roundtrip preserves dates and datetimes", {
 })
 
 test_that("fails to create file in non-existent directory", {
-  expect_error(write_csv(mtcars, file.path(tempdir(), "/x/y")), "open")
+  expect_error(
+    expect_warning(
+      write_csv(mtcars, file.path(tempdir(), "/x/y")), "open"
+    )
+  )
 })
 
 test_that("write_excel_csv/csv2 includes a byte order mark", {
