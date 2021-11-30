@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Contributor Code of Conduct • readr</title>
+<title>NA • readr</title>
 
 <!-- favicons -->
 <link rel="icon" type="image/png" sizes="16x16" href="favicon-16x16.png">
@@ -49,7 +49,7 @@
 
 
 
-<meta property="og:title" content="Contributor Code of Conduct" />
+<meta property="og:title" content="NA" />
 <meta property="og:image" content="https://readr.tidyverse.org/logo.png" />
 <meta name="twitter:card" content="summary" />
 
@@ -166,18 +166,29 @@
 <div class="row">
   <div class="contents col-md-9">
     <div class="page-header">
-      <h1>Contributor Code of Conduct</h1>
+      <h1>NA</h1>
     </div>
 
-<div id="contributor-code-of-conduct" class="section level1">
 
-<p>As contributors and maintainers of this project, we pledge to respect all people who contribute through reporting issues, posting feature requests, updating documentation, submitting pull requests or patches, and other activities.</p>
-<p>We are committed to making participation in this project a harassment-free experience for everyone, regardless of level of experience, gender, gender identity and expression, sexual orientation, disability, personal appearance, body size, race, ethnicity, age, or religion.</p>
-<p>Examples of unacceptable behavior by participants include the use of sexual language or imagery, derogatory comments or personal attacks, trolling, public or private harassment, insults, or other unprofessional conduct.</p>
-<p>Project maintainers have the right and responsibility to remove, edit, or reject comments, commits, code, wiki edits, issues, and other contributions that are not aligned to this Code of Conduct. Project maintainers who do not follow the Code of Conduct may be removed from the project team.</p>
-<p>Instances of abusive, harassing, or otherwise unacceptable behavior may be reported by opening an issue or contacting one or more of the project maintainers.</p>
-<p>This Code of Conduct is adapted from the Contributor Covenant (<a href="http://contributor-covenant.org" class="uri">http://contributor-covenant.org</a>), version 1.0.0, available at <a href="http://contributor-covenant.org/version/1/0/0/" class="uri">http://contributor-covenant.org/version/1/0/0/</a></p>
+<div id="current-state" class="section level2">
+<h2 class="hasAnchor">
+<a href="#current-state" class="anchor"></a>Current state</h2>
+<p>readr is in somewhat of a weird state currently. We have both the older v1 parsing code base, as well as calls to vroom under the hood in v2.</p>
+<p>In addition there are still some parts, like the <code>parse_()</code> functions which just use the v1 code, as there are not currently analogous APIs in vroom.</p>
 </div>
+<div id="known-outstanding-issues" class="section level2">
+<h2 class="hasAnchor">
+<a href="#known-outstanding-issues" class="anchor"></a>Known outstanding issues</h2>
+<p>Lazy reading causes problems for people in practice because of file locking on windows. This makes the technique less effective then it would otherwise be unfortunately.</p>
+<p>The v1 parser has some issues around skipping lines and quoting. There was a bunch of flux in how skipped lines were counted.</p>
+<p>For known issues for the v2 parser see the vroom MAINTENANCE.md document.</p>
+</div>
+<div id="future-directions" class="section level2">
+<h2 class="hasAnchor">
+<a href="#future-directions" class="anchor"></a>Future directions</h2>
+<p>I think eventually the v1 parsing code should be removed entirely and either the vroom codebase should be included directly in readr and vroom should be archived, or the two should both continue to exist with the readr functions being a lightweight shim over the calls to vroom.</p>
+</div>
+
 
   </div>
 

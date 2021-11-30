@@ -95,7 +95,7 @@
         <a class="navbar-brand" href="../index.html">readr</a>
         <div class="info hidden-xs hidden-sm">
           <span class="partof">part of the <a href="https://tidyverse.org">tidyverse</a></span>
-          <span class="version version-default" data-toggle="tooltip" data-placement="bottom" title="Released version">2.1.0</span>
+          <span class="version version-default" data-toggle="tooltip" data-placement="bottom" title="Released version">2.1.1</span>
         </div>
       </div>
     </div>
@@ -121,6 +121,9 @@
   </a>
   <ul class="dropdown-menu" role="menu">
     <li class="dropdown-header">Release notes</li>
+    <li>
+      <a href="https://www.tidyverse.org/blog/2021/11/readr-2-1-0-lazy/">Version 2.1.0</a>
+    </li>
     <li>
       <a href="https://www.tidyverse.org/blog/2021/07/readr-2-0-0/">Version 2.0.0</a>
     </li>
@@ -266,7 +269,7 @@ string with a new line.</p>
 <span class='r-out co'><span class='r-pr'>#&gt;</span> [1] "source_file" "source"     </span>
 <span class='r-in'><span class='fu'>datasource</span><span class='op'>(</span><span class='fu'><a href='readr_example.html'>readr_example</a></span><span class='op'>(</span><span class='st'>"mtcars.csv.bz2"</span><span class='op'>)</span><span class='op'>)</span></span>
 <span class='r-out co'><span class='r-pr'>#&gt;</span> [[1]]</span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span> [1] "/tmp/Rtmp6K04bT/file2c8214f18d9"</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [1] "/tmp/RtmpVd9W8w/file6a7151583106"</span>
 <span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
 <span class='r-out co'><span class='r-pr'>#&gt;</span> $skip</span>
 <span class='r-out co'><span class='r-pr'>#&gt;</span> [1] 0</span>
@@ -281,13 +284,13 @@ string with a new line.</p>
 <span class='r-out co'><span class='r-pr'>#&gt;</span> [1] TRUE</span>
 <span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
 <span class='r-out co'><span class='r-pr'>#&gt;</span> $env</span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span> &lt;environment: 0x55870043cb68&gt;</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> &lt;environment: 0x564fc8470010&gt;</span>
 <span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
 <span class='r-out co'><span class='r-pr'>#&gt;</span> attr(,"class")</span>
 <span class='r-out co'><span class='r-pr'>#&gt;</span> [1] "source_file" "source"     </span>
 <span class='r-in'><span class='fu'>datasource</span><span class='op'>(</span><span class='fu'><a href='readr_example.html'>readr_example</a></span><span class='op'>(</span><span class='st'>"mtcars.csv.zip"</span><span class='op'>)</span><span class='op'>)</span></span>
 <span class='r-out co'><span class='r-pr'>#&gt;</span> [[1]]</span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span> [1] "/tmp/Rtmp6K04bT/file2c8263c903d"</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [1] "/tmp/RtmpVd9W8w/file6a711108be8b"</span>
 <span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
 <span class='r-out co'><span class='r-pr'>#&gt;</span> $skip</span>
 <span class='r-out co'><span class='r-pr'>#&gt;</span> [1] 0</span>
@@ -302,7 +305,7 @@ string with a new line.</p>
 <span class='r-out co'><span class='r-pr'>#&gt;</span> [1] TRUE</span>
 <span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
 <span class='r-out co'><span class='r-pr'>#&gt;</span> $env</span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span> &lt;environment: 0x558700509ae0&gt;</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> &lt;environment: 0x564fc8501af0&gt;</span>
 <span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
 <span class='r-out co'><span class='r-pr'>#&gt;</span> attr(,"class")</span>
 <span class='r-out co'><span class='r-pr'>#&gt;</span> [1] "source_file" "source"     </span>
@@ -314,7 +317,7 @@ string with a new line.</p>
 <span class='r-in'><span class='va'>con</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/rawConnection.html'>rawConnection</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/rawConversion.html'>charToRaw</a></span><span class='op'>(</span><span class='st'>"abc\n123"</span><span class='op'>)</span><span class='op'>)</span></span>
 <span class='r-in'><span class='fu'>datasource</span><span class='op'>(</span><span class='va'>con</span><span class='op'>)</span></span>
 <span class='r-out co'><span class='r-pr'>#&gt;</span> [[1]]</span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span> [1] "/tmp/Rtmp6K04bT/file2c82397bb6e0"</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [1] "/tmp/RtmpVd9W8w/file6a71473c57e0"</span>
 <span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
 <span class='r-out co'><span class='r-pr'>#&gt;</span> $skip</span>
 <span class='r-out co'><span class='r-pr'>#&gt;</span> [1] 0</span>
@@ -329,7 +332,7 @@ string with a new line.</p>
 <span class='r-out co'><span class='r-pr'>#&gt;</span> [1] TRUE</span>
 <span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
 <span class='r-out co'><span class='r-pr'>#&gt;</span> $env</span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span> &lt;environment: 0x558700637170&gt;</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> &lt;environment: 0x564fc85d1308&gt;</span>
 <span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
 <span class='r-out co'><span class='r-pr'>#&gt;</span> attr(,"class")</span>
 <span class='r-out co'><span class='r-pr'>#&gt;</span> [1] "source_file" "source"     </span>
@@ -351,7 +354,7 @@ string with a new line.</p>
 
 <div class="author">
   <p>
-    Developed by <a href='http://hadley.nz'>Hadley Wickham</a>, <a href='http://jimhester.com'>Jim Hester</a>, <a href='https://www.rstudio.com'><img src='https://www.tidyverse.org/rstudio-logo.svg' alt='RStudio' height='24' /></a>.
+    Developed by <a href='http://hadley.nz'>Hadley Wickham</a>, <a href='http://jimhester.com'>Jim Hester</a>, Jennifer Bryan, <a href='https://www.rstudio.com'><img src='https://www.tidyverse.org/rstudio-logo.svg' alt='RStudio' height='24' /></a>.
     Site built by <a href="https://pkgdown.r-lib.org">pkgdown</a>.
   </p>
 </div>

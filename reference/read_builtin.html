@@ -96,7 +96,7 @@ stronger parallel to loading data from a file." />
         <a class="navbar-brand" href="../index.html">readr</a>
         <div class="info hidden-xs hidden-sm">
           <span class="partof">part of the <a href="https://tidyverse.org">tidyverse</a></span>
-          <span class="version version-default" data-toggle="tooltip" data-placement="bottom" title="Released version">2.1.0</span>
+          <span class="version version-default" data-toggle="tooltip" data-placement="bottom" title="Released version">2.1.1</span>
         </div>
       </div>
     </div>
@@ -122,6 +122,9 @@ stronger parallel to loading data from a file." />
   </a>
   <ul class="dropdown-menu" role="menu">
     <li class="dropdown-header">Release notes</li>
+    <li>
+      <a href="https://www.tidyverse.org/blog/2021/11/readr-2-1-0-lazy/">Version 2.1.0</a>
+    </li>
     <li>
       <a href="https://www.tidyverse.org/blog/2021/07/readr-2-0-0/">Version 2.0.0</a>
     </li>
@@ -197,26 +200,40 @@ of the current working directory.</p></td>
     <p>An object of the built-in class of <code>x</code>.</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><span class='r-in'><span class='kw'>if</span> <span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/ns-load.html'>requireNamespace</a></span><span class='op'>(</span><span class='st'>"dplyr"</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>{</span></span>
-<span class='r-in'>  <span class='fu'>read_builtin</span><span class='op'>(</span><span class='st'>"starwars"</span>, <span class='st'>"dplyr"</span><span class='op'>)</span></span>
-<span class='r-in'></span>
-<span class='r-in'>  <span class='fu'>read_builtin</span><span class='op'>(</span><span class='st'>"storms"</span>, <span class='st'>"dplyr"</span><span class='op'>)</span></span>
-<span class='r-in'><span class='op'>}</span></span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #949494;'># A tibble: 10,010 × 13</span></span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span>    name   year month   day  hour   lat  long status      category  wind pressure</span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span>    <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span> <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span> <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span> <span style='color: #949494; font-style: italic;'>&lt;int&gt;</span> <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span> <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span> <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span> <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span>       <span style='color: #949494; font-style: italic;'>&lt;ord&gt;</span>    <span style='color: #949494; font-style: italic;'>&lt;int&gt;</span>    <span style='color: #949494; font-style: italic;'>&lt;int&gt;</span></span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #BCBCBC;'> 1</span> Amy    <span style='text-decoration: underline;'>1</span>975     6    27     0  27.5 -<span style='color: #BB0000;'>79</span>   tropical d… -1          25     <span style='text-decoration: underline;'>1</span>013</span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #BCBCBC;'> 2</span> Amy    <span style='text-decoration: underline;'>1</span>975     6    27     6  28.5 -<span style='color: #BB0000;'>79</span>   tropical d… -1          25     <span style='text-decoration: underline;'>1</span>013</span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #BCBCBC;'> 3</span> Amy    <span style='text-decoration: underline;'>1</span>975     6    27    12  29.5 -<span style='color: #BB0000;'>79</span>   tropical d… -1          25     <span style='text-decoration: underline;'>1</span>013</span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #BCBCBC;'> 4</span> Amy    <span style='text-decoration: underline;'>1</span>975     6    27    18  30.5 -<span style='color: #BB0000;'>79</span>   tropical d… -1          25     <span style='text-decoration: underline;'>1</span>013</span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #BCBCBC;'> 5</span> Amy    <span style='text-decoration: underline;'>1</span>975     6    28     0  31.5 -<span style='color: #BB0000;'>78.8</span> tropical d… -1          25     <span style='text-decoration: underline;'>1</span>012</span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #BCBCBC;'> 6</span> Amy    <span style='text-decoration: underline;'>1</span>975     6    28     6  32.4 -<span style='color: #BB0000;'>78.7</span> tropical d… -1          25     <span style='text-decoration: underline;'>1</span>012</span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #BCBCBC;'> 7</span> Amy    <span style='text-decoration: underline;'>1</span>975     6    28    12  33.3 -<span style='color: #BB0000;'>78</span>   tropical d… -1          25     <span style='text-decoration: underline;'>1</span>011</span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #BCBCBC;'> 8</span> Amy    <span style='text-decoration: underline;'>1</span>975     6    28    18  34   -<span style='color: #BB0000;'>77</span>   tropical d… -1          30     <span style='text-decoration: underline;'>1</span>006</span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #BCBCBC;'> 9</span> Amy    <span style='text-decoration: underline;'>1</span>975     6    29     0  34.4 -<span style='color: #BB0000;'>75.8</span> tropical s… 0           35     <span style='text-decoration: underline;'>1</span>004</span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #BCBCBC;'>10</span> Amy    <span style='text-decoration: underline;'>1</span>975     6    29     6  34   -<span style='color: #BB0000;'>74.8</span> tropical s… 0           40     <span style='text-decoration: underline;'>1</span>002</span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #949494;'># … with 10,000 more rows, and 2 more variables: ts_diameter &lt;dbl&gt;,</span></span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #949494;'>#   hu_diameter &lt;dbl&gt;</span></span>
+    <pre class="examples"><span class='r-in'><span class='fu'>read_builtin</span><span class='op'>(</span><span class='st'>"mtcars"</span>, <span class='st'>"datasets"</span><span class='op'>)</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>                      mpg cyl  disp  hp drat    wt  qsec vs am gear carb</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> Mazda RX4           21.0   6 160.0 110 3.90 2.620 16.46  0  1    4    4</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> Mazda RX4 Wag       21.0   6 160.0 110 3.90 2.875 17.02  0  1    4    4</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> Datsun 710          22.8   4 108.0  93 3.85 2.320 18.61  1  1    4    1</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> Hornet 4 Drive      21.4   6 258.0 110 3.08 3.215 19.44  1  0    3    1</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> Hornet Sportabout   18.7   8 360.0 175 3.15 3.440 17.02  0  0    3    2</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> Valiant             18.1   6 225.0 105 2.76 3.460 20.22  1  0    3    1</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> Duster 360          14.3   8 360.0 245 3.21 3.570 15.84  0  0    3    4</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> Merc 240D           24.4   4 146.7  62 3.69 3.190 20.00  1  0    4    2</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> Merc 230            22.8   4 140.8  95 3.92 3.150 22.90  1  0    4    2</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> Merc 280            19.2   6 167.6 123 3.92 3.440 18.30  1  0    4    4</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> Merc 280C           17.8   6 167.6 123 3.92 3.440 18.90  1  0    4    4</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> Merc 450SE          16.4   8 275.8 180 3.07 4.070 17.40  0  0    3    3</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> Merc 450SL          17.3   8 275.8 180 3.07 3.730 17.60  0  0    3    3</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> Merc 450SLC         15.2   8 275.8 180 3.07 3.780 18.00  0  0    3    3</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> Cadillac Fleetwood  10.4   8 472.0 205 2.93 5.250 17.98  0  0    3    4</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> Lincoln Continental 10.4   8 460.0 215 3.00 5.424 17.82  0  0    3    4</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> Chrysler Imperial   14.7   8 440.0 230 3.23 5.345 17.42  0  0    3    4</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> Fiat 128            32.4   4  78.7  66 4.08 2.200 19.47  1  1    4    1</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> Honda Civic         30.4   4  75.7  52 4.93 1.615 18.52  1  1    4    2</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> Toyota Corolla      33.9   4  71.1  65 4.22 1.835 19.90  1  1    4    1</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> Toyota Corona       21.5   4 120.1  97 3.70 2.465 20.01  1  0    3    1</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> Dodge Challenger    15.5   8 318.0 150 2.76 3.520 16.87  0  0    3    2</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> AMC Javelin         15.2   8 304.0 150 3.15 3.435 17.30  0  0    3    2</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> Camaro Z28          13.3   8 350.0 245 3.73 3.840 15.41  0  0    3    4</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> Pontiac Firebird    19.2   8 400.0 175 3.08 3.845 17.05  0  0    3    2</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> Fiat X1-9           27.3   4  79.0  66 4.08 1.935 18.90  1  1    4    1</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> Porsche 914-2       26.0   4 120.3  91 4.43 2.140 16.70  0  1    5    2</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> Lotus Europa        30.4   4  95.1 113 3.77 1.513 16.90  1  1    5    2</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> Ford Pantera L      15.8   8 351.0 264 4.22 3.170 14.50  0  1    5    4</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> Ferrari Dino        19.7   6 145.0 175 3.62 2.770 15.50  0  1    5    6</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> Maserati Bora       15.0   8 301.0 335 3.54 3.570 14.60  0  1    5    8</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> Volvo 142E          21.4   4 121.0 109 4.11 2.780 18.60  1  1    4    2</span>
 </pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
@@ -234,7 +251,7 @@ of the current working directory.</p></td>
 
 <div class="author">
   <p>
-    Developed by <a href='http://hadley.nz'>Hadley Wickham</a>, <a href='http://jimhester.com'>Jim Hester</a>, <a href='https://www.rstudio.com'><img src='https://www.tidyverse.org/rstudio-logo.svg' alt='RStudio' height='24' /></a>.
+    Developed by <a href='http://hadley.nz'>Hadley Wickham</a>, <a href='http://jimhester.com'>Jim Hester</a>, Jennifer Bryan, <a href='https://www.rstudio.com'><img src='https://www.tidyverse.org/rstudio-logo.svg' alt='RStudio' height='24' /></a>.
     Site built by <a href="https://pkgdown.r-lib.org">pkgdown</a>.
   </p>
 </div>
