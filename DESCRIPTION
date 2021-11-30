@@ -1,6 +1,6 @@
 Package: readr
 Title: Read Rectangular Text Data
-Version: 2.1.0.9000
+Version: 2.1.1
 Authors@R: 
     c(person(given = "Hadley",
              family = "Wickham",
