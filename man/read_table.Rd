@@ -15,6 +15,7 @@ read_table(
   guess_max = min(n_max, 1000),
   progress = show_progress(),
   comment = "",
+  show_col_types = should_show_types(),
   skip_empty_rows = TRUE
 )
 }
@@ -105,6 +106,11 @@ progress bar can be disabled by setting option \code{readr.show_progress} to
 
 \item{comment}{A string used to identify comments. Any text after the
 comment characters will be silently ignored.}
+
+\item{show_col_types}{If \code{FALSE}, do not show the guessed column types. If
+\code{TRUE} always show the column types, even if they are supplied. If \code{NULL}
+(the default) only show the column types if they are not explicitly supplied
+by the \code{col_types} argument.}
 
 \item{skip_empty_rows}{Should blank rows be ignored altogether? i.e. If this
 option is \code{TRUE} then blank rows will not be represented at all.  If it is

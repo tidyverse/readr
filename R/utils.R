@@ -27,12 +27,22 @@ show_progress <- function() {
 
 #' Determine whether column types should be shown
 #'
-#' Column types are shown unless
-#' - They are disabled by setting `options(readr.show_col_types = FALSE)`
-#' - The column types are supplied with the `col_types` argument.
+#' Wrapper around `getOption("readr.show_col_types")` that implements some fall
+#' back logic if the option is unset. This returns:
+#' * `TRUE` if the option is set to `TRUE`
+#' * `FALSE` if the option is set to `FALSE`
+#' * `FALSE` if the option is unset and we appear to be running tests
+#' * `NULL` otherwise, in which case the caller determines whether to show
+#'   column types based on context, e.g. whether `show_col_types` or actual
+#'   `col_types` were explicitly specified
 #' @export
 should_show_types <- function() {
-  if (identical(getOption("readr.show_col_types", TRUE), FALSE)) {
+  opt <- getOption("readr.show_col_types", NA)
+  if (isTRUE(opt)) {
+    TRUE
+  } else if (identical(opt, FALSE)) {
+    FALSE
+  } else if (is.na(opt) && is_testing()) {
     FALSE
   } else {
     NULL

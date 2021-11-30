@@ -114,6 +114,7 @@ spec_table(
   guess_max = 1000,
   progress = show_progress(),
   comment = "",
+  show_col_types = should_show_types(),
   skip_empty_rows = TRUE
 )
 }

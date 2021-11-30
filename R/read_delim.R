@@ -169,7 +169,8 @@ read_delim <- function(file, delim = NULL, quote = '"',
     return(read_delimited(file, tokenizer,
       col_names = col_names, col_types = col_types,
       locale = locale, skip = skip, skip_empty_rows = skip_empty_rows,
-      comment = comment, n_max = n_max, guess_max = guess_max, progress = progress
+      comment = comment, n_max = n_max, guess_max = guess_max, progress = progress,
+      show_col_types = show_col_types
     ))
   }
   if (!missing(quoted_na)) {
@@ -230,7 +231,8 @@ read_csv <- function(file,
       read_delimited(file, tokenizer,
         col_names = col_names, col_types = col_types,
         locale = locale, skip = skip, skip_empty_rows = skip_empty_rows,
-        comment = comment, n_max = n_max, guess_max = guess_max, progress = progress
+        comment = comment, n_max = n_max, guess_max = guess_max, progress = progress,
+        show_col_types = show_col_types
       )
     )
   }
@@ -300,7 +302,8 @@ read_csv2 <- function(file,
     return(read_delimited(file, tokenizer,
       col_names = col_names, col_types = col_types,
       locale = locale, skip = skip, skip_empty_rows = skip_empty_rows,
-      comment = comment, n_max = n_max, guess_max = guess_max, progress = progress
+      comment = comment, n_max = n_max, guess_max = guess_max, progress = progress,
+      show_col_types = show_col_types
     ))
   }
   vroom::vroom(file,
@@ -349,7 +352,8 @@ read_tsv <- function(file, col_names = TRUE, col_types = NULL,
     return(read_delimited(file, tokenizer,
       col_names = col_names, col_types = col_types,
       locale = locale, skip = skip, skip_empty_rows = skip_empty_rows,
-      comment = comment, n_max = n_max, guess_max = guess_max, progress = progress
+      comment = comment, n_max = n_max, guess_max = guess_max, progress = progress,
+      show_col_types = show_col_types
     ))
   }
 
@@ -388,7 +392,8 @@ read_tokens <- function(data, tokenizer, col_specs, col_names, locale_, n_max, p
 
 read_delimited <- function(file, tokenizer, col_names = TRUE, col_types = NULL,
                            locale = default_locale(), skip = 0, skip_empty_rows = TRUE, skip_quote = TRUE,
-                           comment = "", n_max = Inf, guess_max = min(1000, n_max), progress = show_progress()) {
+                           comment = "", n_max = Inf, guess_max = min(1000, n_max), progress = show_progress(),
+                           show_col_types = should_show_types()) {
   name <- source_name(file)
   # If connection needed, read once.
   file <- standardise_path(file)
@@ -420,7 +425,12 @@ read_delimited <- function(file, tokenizer, col_names = TRUE, col_types = NULL,
 
   ds <- datasource(data, skip = spec$skip, skip_empty_rows = skip_empty_rows, comment = comment, skip_quote = skip_quote)
 
-  if (is.null(col_types) && !inherits(ds, "source_string") && !is_testing()) {
+  has_col_types <- !is.null(col_types)
+
+  if (
+    ((is.null(show_col_types) && !has_col_types) || isTRUE(show_col_types)) &&
+    !inherits(ds, "source_string")
+  ) {
     show_cols_spec(spec)
   }
 

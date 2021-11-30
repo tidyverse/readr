@@ -68,6 +68,7 @@ read_delim_chunked <- function(file, callback, delim = NULL, chunk_size = 10000,
                                comment = "", trim_ws = FALSE,
                                skip = 0, guess_max = chunk_size,
                                progress = show_progress(),
+                               show_col_types = should_show_types(),
                                skip_empty_rows = TRUE) {
   tokenizer <- tokenizer_delim(delim,
     quote = quote,
@@ -79,7 +80,8 @@ read_delim_chunked <- function(file, callback, delim = NULL, chunk_size = 10000,
     callback = callback, chunk_size = chunk_size, tokenizer = tokenizer,
     col_names = col_names, col_types = col_types, locale = locale, skip = skip,
     skip_empty_rows = skip_empty_rows, comment = comment, guess_max = guess_max,
-    progress = progress
+    progress = progress,
+    show_col_types = show_col_types
   )
 }
 
@@ -89,7 +91,9 @@ read_csv_chunked <- function(file, callback, chunk_size = 10000, col_names = TRU
                              locale = default_locale(), na = c("", "NA"),
                              quoted_na = TRUE, quote = "\"", comment = "", trim_ws = TRUE,
                              skip = 0, guess_max = chunk_size,
-                             progress = show_progress(), skip_empty_rows = TRUE) {
+                             progress = show_progress(),
+                             show_col_types = should_show_types(),
+                             skip_empty_rows = TRUE) {
   tokenizer <- tokenizer_csv(
     na = na, quoted_na = quoted_na, quote = quote,
     comment = comment, trim_ws = trim_ws, skip_empty_rows = skip_empty_rows
@@ -98,7 +102,8 @@ read_csv_chunked <- function(file, callback, chunk_size = 10000, col_names = TRU
     callback = callback, chunk_size = chunk_size,
     tokenizer = tokenizer, col_names = col_names, col_types = col_types, locale = locale,
     skip = skip, skip_empty_rows = skip_empty_rows, comment = comment,
-    guess_max = guess_max, progress = progress
+    guess_max = guess_max, progress = progress,
+    show_col_types = show_col_types
   )
 }
 
@@ -108,7 +113,9 @@ read_csv2_chunked <- function(file, callback, chunk_size = 10000, col_names = TR
                               locale = default_locale(), na = c("", "NA"),
                               quoted_na = TRUE, quote = "\"", comment = "", trim_ws = TRUE,
                               skip = 0, guess_max = chunk_size,
-                              progress = show_progress(), skip_empty_rows = TRUE) {
+                              progress = show_progress(),
+                              show_col_types = should_show_types(),
+                              skip_empty_rows = TRUE) {
   tokenizer <- tokenizer_delim(
     delim = ";", na = na, quoted_na = quoted_na,
     quote = quote, comment = comment, trim_ws = trim_ws,
@@ -118,7 +125,8 @@ read_csv2_chunked <- function(file, callback, chunk_size = 10000, col_names = TR
     callback = callback, chunk_size = chunk_size,
     tokenizer = tokenizer, col_names = col_names, col_types = col_types, locale = locale,
     skip = skip, skip_empty_rows = skip_empty_rows, comment = comment,
-    guess_max = guess_max, progress = progress
+    guess_max = guess_max, progress = progress,
+    show_col_types = show_col_types
   )
 }
 
@@ -128,7 +136,9 @@ read_tsv_chunked <- function(file, callback, chunk_size = 10000, col_names = TRU
                              locale = default_locale(), na = c("", "NA"),
                              quoted_na = TRUE, quote = "\"", comment = "", trim_ws = TRUE,
                              skip = 0, guess_max = chunk_size,
-                             progress = show_progress(), skip_empty_rows = TRUE) {
+                             progress = show_progress(),
+                             show_col_types = should_show_types(),
+                             skip_empty_rows = TRUE) {
   tokenizer <- tokenizer_tsv(
     na = na, quoted_na = quoted_na, quote = quote,
     comment = comment, trim_ws = trim_ws, skip_empty_rows = skip_empty_rows
@@ -137,6 +147,7 @@ read_tsv_chunked <- function(file, callback, chunk_size = 10000, col_names = TRU
     callback = callback, chunk_size = chunk_size,
     tokenizer = tokenizer, col_names = col_names, col_types = col_types, locale = locale,
     skip = skip, skip_empty_rows = skip_empty_rows, comment = comment,
-    guess_max = guess_max, progress = progress
+    guess_max = guess_max, progress = progress,
+    show_col_types = show_col_types
   )
 }
