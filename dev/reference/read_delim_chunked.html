@@ -194,6 +194,7 @@
   skip <span class='op'>=</span> <span class='fl'>0</span>,
   guess_max <span class='op'>=</span> <span class='va'>chunk_size</span>,
   progress <span class='op'>=</span> <span class='fu'><a href='show_progress.html'>show_progress</a></span><span class='op'>(</span><span class='op'>)</span>,
+  show_col_types <span class='op'>=</span> <span class='fu'><a href='should_show_types.html'>should_show_types</a></span><span class='op'>(</span><span class='op'>)</span>,
   skip_empty_rows <span class='op'>=</span> <span class='cn'>TRUE</span>
 <span class='op'>)</span>
 
@@ -212,6 +213,7 @@
   skip <span class='op'>=</span> <span class='fl'>0</span>,
   guess_max <span class='op'>=</span> <span class='va'>chunk_size</span>,
   progress <span class='op'>=</span> <span class='fu'><a href='show_progress.html'>show_progress</a></span><span class='op'>(</span><span class='op'>)</span>,
+  show_col_types <span class='op'>=</span> <span class='fu'><a href='should_show_types.html'>should_show_types</a></span><span class='op'>(</span><span class='op'>)</span>,
   skip_empty_rows <span class='op'>=</span> <span class='cn'>TRUE</span>
 <span class='op'>)</span>
 
@@ -230,6 +232,7 @@
   skip <span class='op'>=</span> <span class='fl'>0</span>,
   guess_max <span class='op'>=</span> <span class='va'>chunk_size</span>,
   progress <span class='op'>=</span> <span class='fu'><a href='show_progress.html'>show_progress</a></span><span class='op'>(</span><span class='op'>)</span>,
+  show_col_types <span class='op'>=</span> <span class='fu'><a href='should_show_types.html'>should_show_types</a></span><span class='op'>(</span><span class='op'>)</span>,
   skip_empty_rows <span class='op'>=</span> <span class='cn'>TRUE</span>
 <span class='op'>)</span>
 
@@ -248,6 +251,7 @@
   skip <span class='op'>=</span> <span class='fl'>0</span>,
   guess_max <span class='op'>=</span> <span class='va'>chunk_size</span>,
   progress <span class='op'>=</span> <span class='fu'><a href='show_progress.html'>show_progress</a></span><span class='op'>(</span><span class='op'>)</span>,
+  show_col_types <span class='op'>=</span> <span class='fu'><a href='should_show_types.html'>should_show_types</a></span><span class='op'>(</span><span class='op'>)</span>,
   skip_empty_rows <span class='op'>=</span> <span class='cn'>TRUE</span>
 <span class='op'>)</span></pre>
 
@@ -386,6 +390,13 @@ supplied any commented lines are ignored <em>after</em> skipping.</p></td>
 in an interactive session and not while knitting a document. The automatic
 progress bar can be disabled by setting option <code>readr.show_progress</code> to
 <code>FALSE</code>.</p></td>
+    </tr>
+    <tr>
+      <th>show_col_types</th>
+      <td><p>If <code>FALSE</code>, do not show the guessed column types. If
+<code>TRUE</code> always show the column types, even if they are supplied. If <code>NULL</code>
+(the default) only show the column types if they are not explicitly supplied
+by the <code>col_types</code> argument.</p></td>
     </tr>
     <tr>
       <th>skip_empty_rows</th>

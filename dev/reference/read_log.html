@@ -187,6 +187,7 @@ in a quoted string. The dash, "-", is used for missing values.</p>
   trim_ws <span class='op'>=</span> <span class='cn'>TRUE</span>,
   skip <span class='op'>=</span> <span class='fl'>0</span>,
   n_max <span class='op'>=</span> <span class='cn'>Inf</span>,
+  show_col_types <span class='op'>=</span> <span class='fu'><a href='should_show_types.html'>should_show_types</a></span><span class='op'>(</span><span class='op'>)</span>,
   progress <span class='op'>=</span> <span class='fu'><a href='show_progress.html'>show_progress</a></span><span class='op'>(</span><span class='op'>)</span>
 <span class='op'>)</span></pre>
 
@@ -265,6 +266,13 @@ supplied any commented lines are ignored <em>after</em> skipping.</p></td>
     <tr>
       <th>n_max</th>
       <td><p>Maximum number of lines to read.</p></td>
+    </tr>
+    <tr>
+      <th>show_col_types</th>
+      <td><p>If <code>FALSE</code>, do not show the guessed column types. If
+<code>TRUE</code> always show the column types, even if they are supplied. If <code>NULL</code>
+(the default) only show the column types if they are not explicitly supplied
+by the <code>col_types</code> argument.</p></td>
     </tr>
     <tr>
       <th>progress</th>

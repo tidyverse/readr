@@ -50,9 +50,14 @@
 
 
 <meta property="og:title" content="Determine whether column types should be shown — should_show_types" />
-<meta property="og:description" content="Column types are shown unless
-They are disabled by setting options(readr.show_col_types = FALSE)
-The column types are supplied with the col_types argument.
+<meta property="og:description" content="Wrapper around getOption(&quot;readr.show_col_types&quot;) that implements some fall
+back logic if the option is unset. This returns:
+TRUE if the option is set to TRUE
+FALSE if the option is set to FALSE
+FALSE if the option is unset and we appear to be running tests
+NULL otherwise, in which case the caller determines whether to show
+column types based on context, e.g. whether show_col_types or actual
+col_types were explicitly specified
 
 " />
 <meta property="og:image" content="https://readr.tidyverse.org/logo.png" />
@@ -177,9 +182,14 @@ The column types are supplied with the col_types argument.
     </div>
 
     <div class="ref-description">
-    <p>Column types are shown unless</p><ul>
-<li><p>They are disabled by setting <code>options(readr.show_col_types = FALSE)</code></p></li>
-<li><p>The column types are supplied with the <code>col_types</code> argument.</p></li>
+    <p>Wrapper around <code>getOption("readr.show_col_types")</code> that implements some fall
+back logic if the option is unset. This returns:</p><ul>
+<li><p><code>TRUE</code> if the option is set to <code>TRUE</code></p></li>
+<li><p><code>FALSE</code> if the option is set to <code>FALSE</code></p></li>
+<li><p><code>FALSE</code> if the option is unset and we appear to be running tests</p></li>
+<li><p><code>NULL</code> otherwise, in which case the caller determines whether to show
+column types based on context, e.g. whether <code>show_col_types</code> or actual
+<code>col_types</code> were explicitly specified</p></li>
 </ul>
 
     </div>
