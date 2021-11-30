@@ -137,7 +137,6 @@ test_that("spec object attached to read data", {
   )
 })
 
-
 test_that("print(col_spec) works with dates", {
   out <- col_spec_standardise("a,b,c\n",
     col_types = cols(
@@ -317,21 +316,21 @@ test_that("as.character() works on col_spec objects", {
   expect_equal(as.character(spec), "ddddf")
 })
 
-test_that("options(readr.show_col_spec) can turn off showing column specifications", {
-  skip_if_edition_first()
-
-  old <- options("readr.show_col_types")
-  on.exit(options(old))
-
-  options(readr.show_col_types = NULL)
-  expect_message(
-    expect_message(
-      expect_message(
-        read_csv(readr_example("mtcars.csv"))
-      )
-    )
+test_that("options(readr.show_col_spec) controls column specifications", {
+  withr::local_options(list(readr.show_col_types = TRUE))
+  expect_snapshot(
+    out <- read_csv(readr_example("mtcars.csv")),
+    variant = edition_variant()
   )
 
-  options(readr.show_col_types = FALSE)
+  withr::local_options(list(readr.show_col_types = FALSE))
   expect_silent(read_csv(readr_example("mtcars.csv")))
+})
+
+test_that("`show_col_types` controls column specification", {
+  expect_snapshot(
+    out <- read_csv(readr_example("mtcars.csv"), show_col_types = TRUE),
+    variant = edition_variant()
+  )
+  expect_silent(read_csv(readr_example("mtcars.csv"), show_col_types = FALSE))
 })

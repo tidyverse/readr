@@ -7,9 +7,14 @@
 should_show_types()
 }
 \description{
-Column types are shown unless
+Wrapper around \code{getOption("readr.show_col_types")} that implements some fall
+back logic if the option is unset. This returns:
 \itemize{
-\item They are disabled by setting \code{options(readr.show_col_types = FALSE)}
-\item The column types are supplied with the \code{col_types} argument.
+\item \code{TRUE} if the option is set to \code{TRUE}
+\item \code{FALSE} if the option is set to \code{FALSE}
+\item \code{FALSE} if the option is unset and we appear to be running tests
+\item \code{NULL} otherwise, in which case the caller determines whether to show
+column types based on context, e.g. whether \code{show_col_types} or actual
+\code{col_types} were explicitly specified
 }
 }
