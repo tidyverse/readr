@@ -135,8 +135,14 @@ test_that("warning lines are correct after skipping", {
 
   expect_equal(problems(out2)$row, 1)
 
-  expect_warning(out3 <- read_csv(I("v1,v2\n\n1,2\n\n3,4"), col_types = "i"))
-  expect_warning(out4 <- read_csv(I("v1,v2\n#foo\n1,2\n#bar\n3,4"), col_types = "i", comment = "#"))
+  expect_snapshot(
+    out3 <- read_csv(I("v1,v2\n\n1,2\n\n3,4"), col_types = "i"),
+    variant = edition_variant()
+  )
+  expect_snapshot(
+    out4 <- read_csv(I("v1,v2\n#foo\n1,2\n#bar\n3,4"), col_types = "i", comment = "#"),
+    variant = edition_variant()
+  )
 
   expect_equal(problems(out3)$row, c(1, 2))
 
@@ -158,7 +164,10 @@ test_that("extra columns generates warnings", {
 
 test_that("too few or extra col_types generates warnings", {
   skip_if_edition_second()
-  expect_warning(out1 <- read_csv(I("v1,v2\n1,2"), col_types = "i", lazy = FALSE))
+  expect_snapshot(
+    out1 <- read_csv(I("v1,v2\n1,2"), col_types = "i", lazy = FALSE),
+    variant = edition_variant()
+  )
   expect_equal(problems(out1)$expected, "1 columns")
   expect_equal(problems(out1)$actual, "2 columns")
 
@@ -219,7 +228,10 @@ test_that("comments are ignored regardless of where they appear", {
   expect_equal(out2$x, 1)
   expect_equal(out3$x, 1)
 
-  out4 <- read_csv(I("x,y\n1,#comment"), comment = "#", col_types = "cc")
+  expect_snapshot(
+    out4 <- read_csv(I("x,y\n1,#comment"), comment = "#", col_types = "cc"),
+    variant = edition_variant()
+  )
   expect_equal(out4$y, NA_character_)
 
   expect_warning(out5 <- read_csv(I("x1,x2,x3\nA2,B2,C2\nA3#,B2,C2\nA4,A5,A6"), comment = "#", lazy = FALSE))
