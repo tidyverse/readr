@@ -4,7 +4,8 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="description" content="readr">
 <title>readr 0.2.0 • readr</title>
 <!-- favicons --><link rel="icon" type="image/png" sizes="16x16" href="../../favicon-16x16.png">
 <link rel="icon" type="image/png" sizes="32x32" href="../../favicon-32x32.png">
@@ -12,17 +13,15 @@
 <link rel="apple-touch-icon" type="image/png" sizes="120x120" href="../../apple-touch-icon-120x120.png">
 <link rel="apple-touch-icon" type="image/png" sizes="76x76" href="../../apple-touch-icon-76x76.png">
 <link rel="apple-touch-icon" type="image/png" sizes="60x60" href="../../apple-touch-icon-60x60.png">
-<!-- jquery --><script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script><!-- Bootstrap --><link href="../../tidyverse.css" rel="stylesheet">
-<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/js/bootstrap.min.js" integrity="sha256-nuL8/2cJ5NDSSwnKD8VqreErSWHtnEP9E7AySL+1ev4=" crossorigin="anonymous"></script><!-- bootstrap-toc --><link rel="stylesheet" href="../../bootstrap-toc.css">
-<script src="../../bootstrap-toc.js"></script><!-- Font Awesome icons --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous">
+<script src="../../deps/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<link href="../../deps/bootstrap-5.1.0/bootstrap.min.css" rel="stylesheet">
+<script src="../../deps/bootstrap-5.1.0/bootstrap.bundle.min.js"></script><link href="../../deps/_Source%20Sans%20Pro-0.4.0/font.css" rel="stylesheet">
+<link href="../../deps/_Source%20Code%20Pro-0.4.0/font.css" rel="stylesheet">
+<!-- Font Awesome icons --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/v4-shims.min.css" integrity="sha256-wZjR52fzng1pJHwx4aV2AO3yyTOXrcDW7jBpJtTwVxw=" crossorigin="anonymous">
-<!-- clipboard.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.4/clipboard.min.js" integrity="sha256-FiZwavyI2V6+EXO1U+xzLG3IKldpiTFf3153ea9zikQ=" crossorigin="anonymous"></script><!-- headroom.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/headroom.min.js" integrity="sha256-AsUX4SJE1+yuDu5+mAVzJbuYNPHj/WroHuZ8Ir/CkE0=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script><!-- pkgdown --><link href="../../pkgdown.css" rel="stylesheet">
-<script src="../../pkgdown.js"></script><link href="../../tidyverse-2.css" rel="stylesheet">
-<!--optional theme--><link href="../../.css" rel="stylesheet">
-<meta property="og:title" content="readr 0.2.0">
+<!-- bootstrap-toc --><script src="https://cdn.rawgit.com/afeld/bootstrap-toc/v1.0.1/dist/bootstrap-toc.min.js"></script><!-- headroom.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/headroom.min.js" integrity="sha256-AsUX4SJE1+yuDu5+mAVzJbuYNPHj/WroHuZ8Ir/CkE0=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script><!-- clipboard.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><!-- search --><script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/6.4.6/fuse.js" integrity="sha512-zv6Ywkjyktsohkbp9bb45V6tEMoWhzFzXis+LrMehmJZZSys19Yxf1dopHx7WzIKxr5tK2dVcYmaCk2uqdjF4A==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/autocomplete.js/0.38.0/autocomplete.jquery.min.js" integrity="sha512-GU9ayf+66Xx2TmpxqJpliWbT5PiGYxpaG8rfnBEk1LL8l1KGkRShhngwdXK1UgqhAzWpZHSiYPc09/NwDQIGyg==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/mark.min.js" integrity="sha512-5CYOlHXGh6QpOFA/TeTylKLWfB3ftPsde7AnmhuitiTX4K5SqCLBeKro6sPS8ilsz1Q4NRx3v8Ko2IBiszzdww==" crossorigin="anonymous"></script><!-- pkgdown --><script src="../../pkgdown.js"></script><meta property="og:title" content="readr 0.2.0">
 <meta property="og:description" content="readr">
 <meta property="og:image" content="https://readr.tidyverse.org/logo.png">
-<meta name="twitter:card" content="summary">
 <!-- mathjax --><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js" integrity="sha256-nvJJv9wWKEm88qvoQl9ekL2J+k/RWIsaSScxxlsrv8k=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/config/TeX-AMS-MML_HTMLorMML.js" integrity="sha256-84DKXVJXs0/F8OTMzX4UR909+jtl4G7SPypPavF+GfA=" crossorigin="anonymous"></script><!--[if lt IE 9]>
 <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
 <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
@@ -32,107 +31,86 @@
   gtag('js', new Date());
 
   gtag('config', 'UA-115082821-1');
-</script>
+</script><script defer data-domain="readr.tidyverse.org,all.tidyverse.org" src="https://plausible.io/js/plausible.js"></script>
 </head>
-<body data-spy="scroll" data-target="#toc">
-    <div class="container template-article">
-      <header><div class="navbar navbar-default navbar-fixed-top" role="navigation">
-  <div class="container">
-    <div class="navbar-header">
-      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false">
-        <span class="sr-only">Toggle navigation</span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-      </button>
+<body>
+    <a href="#container" class="visually-hidden-focusable">Skip to content</a>
+    
 
-      <div class="navbar-brand-container">
-        <a class="navbar-brand" href="../../index.html">readr</a>
-        <div class="info hidden-xs hidden-sm">
-          <span class="partof">part of the <a href="https://tidyverse.org">tidyverse</a></span>
-          <span class="version version-default" data-toggle="tooltip" data-placement="bottom" title="Released version">2.1.1</span>
-        </div>
-      </div>
-    </div>
-    <div id="navbar" class="navbar-collapse collapse">
-      <ul class="nav navbar-nav navbar-right">
-<li>
-  <a href="../../index.html">Home</a>
+    <nav class="navbar fixed-top navbar-light navbar-expand-lg bg-none"><div class="container">
+    
+    <a class="navbar-brand me-2" href="../../index.html">readr</a>
+
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Released version">2.1.1</small>
+
+    
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div id="navbar" class="collapse navbar-collapse ms-2">
+      <ul class="navbar-nav me-auto">
+<li class="nav-item">
+  <a class="nav-link" href="../../articles/readr.html">Get started</a>
 </li>
-<li>
-  <a href="../../articles/readr.html">Overview</a>
+<li class="nav-item">
+  <a class="nav-link" href="../../reference/index.html">Reference</a>
 </li>
-<li>
-  <a href="../../articles/locales.html">Locales</a>
+<li class="active nav-item dropdown">
+  <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown" role="button" aria-expanded="false" aria-haspopup="true" id="dropdown-articles">Articles</a>
+  <div class="dropdown-menu" aria-labelledby="dropdown-articles">
+    <a class="dropdown-item" href="../../articles/locales.html">Locales</a>
+    <a class="dropdown-item" href="../../articles/releases/readr-0.1.0.html">readr 0.1.0</a>
+    <a class="dropdown-item" href="../../articles/releases/readr-0.2.0.html">readr 0.2.0</a>
+    <a class="dropdown-item" href="../../articles/releases/readr-1.0.0.html">readr 1.0.0</a>
+  </div>
 </li>
-<li>
-  <a href="../../reference/index.html">Reference</a>
+<li class="nav-item dropdown">
+  <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown" role="button" aria-expanded="false" aria-haspopup="true" id="dropdown-news">News</a>
+  <div class="dropdown-menu" aria-labelledby="dropdown-news">
+    <h6 class="dropdown-header" data-toc-skip>Releases</h6>
+    <a class="external-link dropdown-item" href="https://www.tidyverse.org/blog/2021/11/readr-2-1-0-lazy/">Version 2.1.0</a>
+    <a class="external-link dropdown-item" href="https://www.tidyverse.org/blog/2021/07/readr-2-0-0/">Version 2.0.0</a>
+    <a class="external-link dropdown-item" href="https://www.tidyverse.org/blog/2020/10/readr-1-4-0/">Version 1.4.0</a>
+    <a class="external-link dropdown-item" href="https://www.tidyverse.org/blog/2018/12/readr-1-3-1/">Version 1.3.1</a>
+    <a class="dropdown-item" href="../../articles/releases/readr-1.0.0.html">Version 1.0.0</a>
+    <a class="dropdown-item" href="../../articles/releases/readr-0.2.0.html">Version 0.2.0</a>
+    <a class="dropdown-item" href="../../articles/releases/readr-0.1.0.html">Version 0.1.0</a>
+    <div class="dropdown-divider"></div>
+    <a class="dropdown-item" href="../../news/index.html">Changelog</a>
+  </div>
 </li>
-<li class="dropdown">
-  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
-    News
-     
-    <span class="caret"></span>
-  </a>
-  <ul class="dropdown-menu" role="menu">
-<li class="dropdown-header">Release notes</li>
-    <li>
-      <a href="https://www.tidyverse.org/blog/2021/11/readr-2-1-0-lazy/">Version 2.1.0</a>
-    </li>
-    <li>
-      <a href="https://www.tidyverse.org/blog/2021/07/readr-2-0-0/">Version 2.0.0</a>
-    </li>
-    <li>
-      <a href="https://www.tidyverse.org/blog/2020/10/readr-1-4-0/">Version 1.4.0</a>
-    </li>
-    <li>
-      <a href="https://www.tidyverse.org/blog/2018/12/readr-1-3-1/">Version 1.3.1</a>
-    </li>
-    <li>
-      <a href="../../articles/releases/readr-1.0.0.html">Version 1.0.0</a>
-    </li>
-    <li>
-      <a href="../../articles/releases/readr-0.2.0.html">Version 0.2.0</a>
-    </li>
-    <li>
-      <a href="../../articles/releases/readr-0.1.0.html">Version 0.1.0</a>
-    </li>
-    <li class="divider">
-    <li>
-      <a href="../../news/index.html">Change log</a>
-    </li>
-  </ul>
-</li>
-        <li>
-  <a href="https://github.com/tidyverse/readr/">
-    <span class="fab fa-github fa-lg"></span>
+      </ul>
+<form class="form-inline my-2 my-lg-0" role="search">
+        <input type="search" class="form-control me-sm-2" aria-label="Toggle navigation" name="search-input" data-search-index="../../search.json" id="search-input" placeholder="Search for" autocomplete="off">
+</form>
+
+      <ul class="navbar-nav">
+<li class="nav-item">
+  <a class="external-link nav-link" href="https://github.com/tidyverse/readr/" aria-label="github">
+    <span class="fab fa fab fa-github fa-lg"></span>
      
   </a>
 </li>
       </ul>
 </div>
-<!--/.nav-collapse -->
+
+    
   </div>
-<!--/.container -->
-</div>
-<!--/.navbar -->
+</nav><div class="container template-article" id="container">
 
-      
-
-      </header><script src="readr-0.2.0_files/accessible-code-block-0.0.1/empty-anchor.js"></script><div class="row">
-  <div class="col-md-9 contents">
-    <div class="page-header toc-ignore">
-      <h1 data-toc-skip>readr 0.2.0</h1>
+<div class="row">
+  <main id="main"><div class="page-header">
+      <img src="../../logo.png" class="logo" alt=""><h1>readr 0.2.0</h1>
             
       
-      <small class="dont-index">Source: <a href="https://github.com/tidyverse/readr/blob/master/vignettes/releases/readr-0.2.0.Rmd"><code>vignettes/releases/readr-0.2.0.Rmd</code></a></small>
-      <div class="hidden name"><code>readr-0.2.0.Rmd</code></div>
-
+      <small class="dont-index">Source: <a href="https://github.com/tidyverse/readr/blob/HEAD/vignettes/releases/readr-0.2.0.Rmd" class="external-link"><code>vignettes/releases/readr-0.2.0.Rmd</code></a></small>
+      <div class="d-none name"><code>readr-0.2.0.Rmd</code></div>
     </div>
 
     
     
-<p>readr 0.2.0 is now available on CRAN. readr makes it easy to read many types of tabular data, including csv, tsv and fixed width. Compared to base equivalents like <code><a href="https://rdrr.io/r/utils/read.table.html">read.csv()</a></code>, readr is much faster and gives more convenient output: it never converts strings to factors, can parse date/times, and it doesn’t munge the column names.</p>
+<p>readr 0.2.0 is now available on CRAN. readr makes it easy to read many types of tabular data, including csv, tsv and fixed width. Compared to base equivalents like <code><a href="https://rdrr.io/r/utils/read.table.html" class="external-link">read.csv()</a></code>, readr is much faster and gives more convenient output: it never converts strings to factors, can parse date/times, and it doesn’t munge the column names.</p>
 <p>This is a big release, so below I describe the new features divided into four main categories:</p>
 <ul>
 <li>Improved support for international data.</li>
@@ -140,10 +118,10 @@
 <li>File parsing improvements, including support for comments.</li>
 <li>Improved writers.</li>
 </ul>
-<p>There were too many minor improvements and bug fixes to describe in detail here. See the <a href="https://github.com/hadley/readr/releases/tag/v0.2.0">release notes</a> for a complete list.</p>
-<div id="internationalisation" class="section level2">
-<h2 class="hasAnchor">
-<a href="#internationalisation" class="anchor"></a>Internationalisation</h2>
+<p>There were too many minor improvements and bug fixes to describe in detail here. See the <a href="https://github.com/hadley/readr/releases/tag/v0.2.0" class="external-link">release notes</a> for a complete list.</p>
+<div class="section level2">
+<h2 id="internationalisation">Internationalisation<a class="anchor" aria-label="anchor" href="#internationalisation"></a>
+</h2>
 <p>readr now has a strategy for dealing with settings that vary across languages and localities: <strong>locales</strong>. A locale, created with <code><a href="../../reference/locale.html">locale()</a></code>, includes:</p>
 <ul>
 <li>The names of months and days, used when parsing dates.</li>
@@ -154,9 +132,9 @@
 </ul>
 <p>I’ll cover the most important of these parameters below. For more details, see <code><a href="../../articles/locales.html">vignette("locales")</a></code>.</p>
 <p>To override the default US-centric locale, you pass a custom locale to <code><a href="../../reference/read_delim.html">read_csv()</a></code>, <code><a href="../../reference/read_delim.html">read_tsv()</a></code>, or <code><a href="../../reference/read_fwf.html">read_fwf()</a></code>. Rather than showing those functions here, I’ll use the <code>parse_*()</code> functions because they work with character vectors instead of a files, but are otherwise identical.</p>
-<div id="names-of-months-and-days" class="section level3">
-<h3 class="hasAnchor">
-<a href="#names-of-months-and-days" class="anchor"></a>Names of months and days</h3>
+<div class="section level3">
+<h3 id="names-of-months-and-days">Names of months and days<a class="anchor" aria-label="anchor" href="#names-of-months-and-days"></a>
+</h3>
 <p>The first argument to <code><a href="../../reference/locale.html">locale()</a></code> is <code>date_names</code> which controls what values are used for month and day names. The easiest way to specify them is with a ISO 639 language code:</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="../../reference/locale.html">locale</a></span><span class="op">(</span><span class="st">"ko"</span><span class="op">)</span> <span class="co"># Korean</span>
@@ -166,8 +144,8 @@
 <span class="co">#&gt; Timezone: UTC</span>
 <span class="co">#&gt; Encoding: UTF-8</span>
 <span class="co">#&gt; &lt;date_names&gt;</span>
-<span class="co">#&gt; Days:   일요일 (일), 월요일 (월), 화요일 (화), 수요일 (수), 목요일 (목), 금요일</span>
-<span class="co">#&gt;         (금), 토요일 (토)</span>
+<span class="co">#&gt; Days:   일요일 (일), 월요일 (월), 화요일 (화), 수요일 (수), 목요일 (목),</span>
+<span class="co">#&gt;         금요일 (금), 토요일 (토)</span>
 <span class="co">#&gt; Months: 1월, 2월, 3월, 4월, 5월, 6월, 7월, 8월, 9월, 10월, 11월, 12월</span>
 <span class="co">#&gt; AM/PM:  오전/오후</span>
 <span class="fu"><a href="../../reference/locale.html">locale</a></span><span class="op">(</span><span class="st">"fr"</span><span class="op">)</span> <span class="co"># French</span>
@@ -177,11 +155,12 @@
 <span class="co">#&gt; Timezone: UTC</span>
 <span class="co">#&gt; Encoding: UTF-8</span>
 <span class="co">#&gt; &lt;date_names&gt;</span>
-<span class="co">#&gt; Days:   dimanche (dim.), lundi (lun.), mardi (mar.), mercredi (mer.), jeudi</span>
-<span class="co">#&gt;         (jeu.), vendredi (ven.), samedi (sam.)</span>
-<span class="co">#&gt; Months: janvier (janv.), février (févr.), mars (mars), avril (avr.), mai (mai),</span>
-<span class="co">#&gt;         juin (juin), juillet (juil.), août (août), septembre (sept.),</span>
-<span class="co">#&gt;         octobre (oct.), novembre (nov.), décembre (déc.)</span>
+<span class="co">#&gt; Days:   dimanche (dim.), lundi (lun.), mardi (mar.), mercredi (mer.),</span>
+<span class="co">#&gt;         jeudi (jeu.), vendredi (ven.), samedi (sam.)</span>
+<span class="co">#&gt; Months: janvier (janv.), février (févr.), mars (mars), avril (avr.), mai</span>
+<span class="co">#&gt;         (mai), juin (juin), juillet (juil.), août (août),</span>
+<span class="co">#&gt;         septembre (sept.), octobre (oct.), novembre (nov.),</span>
+<span class="co">#&gt;         décembre (déc.)</span>
 <span class="co">#&gt; AM/PM:  AM/PM</span></code></pre></div>
 <p>This allows you to parse dates in other languages:</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
@@ -190,10 +169,10 @@
 <span class="fu"><a href="../../reference/parse_datetime.html">parse_date</a></span><span class="op">(</span><span class="st">"14 oct. 1979"</span>, <span class="st">"%d %b %Y"</span>, locale <span class="op">=</span> <span class="fu"><a href="../../reference/locale.html">locale</a></span><span class="op">(</span><span class="st">"fr"</span><span class="op">)</span><span class="op">)</span>
 <span class="co">#&gt; [1] "1979-10-14"</span></code></pre></div>
 </div>
-<div id="timezones" class="section level3">
-<h3 class="hasAnchor">
-<a href="#timezones" class="anchor"></a>Timezones</h3>
-<p>readr assumes that times are in <a href="https://en.wikipedia.org/wiki/Coordinated_Universal_Time">Coordinated Universal Time</a>, aka UTC. UTC is the best timezone for data because it doesn’t have daylight savings. If your data isn’t already in UTC, you’ll need to supply a <code>tz</code> in the locale:</p>
+<div class="section level3">
+<h3 id="timezones">Timezones<a class="anchor" aria-label="anchor" href="#timezones"></a>
+</h3>
+<p>readr assumes that times are in <a href="https://en.wikipedia.org/wiki/Coordinated_Universal_Time" class="external-link">Coordinated Universal Time</a>, aka UTC. UTC is the best timezone for data because it doesn’t have daylight savings. If your data isn’t already in UTC, you’ll need to supply a <code>tz</code> in the locale:</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="../../reference/parse_datetime.html">parse_datetime</a></span><span class="op">(</span><span class="st">"2001-10-10 20:10"</span><span class="op">)</span>
 <span class="co">#&gt; [1] "2001-10-10 20:10:00 UTC"</span>
@@ -203,7 +182,7 @@
 <span class="fu"><a href="../../reference/parse_datetime.html">parse_datetime</a></span><span class="op">(</span><span class="st">"2001-10-10 20:10"</span>, 
   locale <span class="op">=</span> <span class="fu"><a href="../../reference/locale.html">locale</a></span><span class="op">(</span>tz <span class="op">=</span> <span class="st">"Europe/Dublin"</span><span class="op">)</span><span class="op">)</span>
 <span class="co">#&gt; [1] "2001-10-10 20:10:00 IST"</span></code></pre></div>
-<p>List all available times zones with <code><a href="https://rdrr.io/r/base/timezones.html">OlsonNames()</a></code>. If you’re American, note that “EST” is not Eastern Standard Time – it’s a Canadian time zone that doesn’t have DST! Instead of relying on ambiguous abbreviations, use:</p>
+<p>List all available times zones with <code><a href="https://rdrr.io/r/base/timezones.html" class="external-link">OlsonNames()</a></code>. If you’re American, note that “EST” is not Eastern Standard Time – it’s a Canadian time zone that doesn’t have DST! Instead of relying on ambiguous abbreviations, use:</p>
 <ul>
 <li>PST/PDT = “US/Pacific”</li>
 <li>CST/CDT = “US/Central”</li>
@@ -211,52 +190,52 @@
 <li>EST/EDT = “US/Eastern”</li>
 </ul>
 </div>
-<div id="default-formats" class="section level3">
-<h3 class="hasAnchor">
-<a href="#default-formats" class="anchor"></a>Default formats</h3>
+<div class="section level3">
+<h3 id="default-formats">Default formats<a class="anchor" aria-label="anchor" href="#default-formats"></a>
+</h3>
 <p>Locales also provide default date and time formats. The time format isn’t currently used for anything, but the date format is used when guessing column types. The default date format is <code>%Y-%m-%d</code> because that’s unambiguous:</p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/utils/str.html">str</a></span><span class="op">(</span><span class="fu"><a href="../../reference/parse_guess.html">parse_guess</a></span><span class="op">(</span><span class="st">"2010-10-10"</span><span class="op">)</span><span class="op">)</span>
+<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/utils/str.html" class="external-link">str</a></span><span class="op">(</span><span class="fu"><a href="../../reference/parse_guess.html">parse_guess</a></span><span class="op">(</span><span class="st">"2010-10-10"</span><span class="op">)</span><span class="op">)</span>
 <span class="co">#&gt;  Date[1:1], format: "2010-10-10"</span></code></pre></div>
 <p>If you’re an American, you might want you use your illogical date system::</p>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/utils/str.html">str</a></span><span class="op">(</span><span class="fu"><a href="../../reference/parse_guess.html">parse_guess</a></span><span class="op">(</span><span class="st">"01/02/2013"</span><span class="op">)</span><span class="op">)</span>
+<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/utils/str.html" class="external-link">str</a></span><span class="op">(</span><span class="fu"><a href="../../reference/parse_guess.html">parse_guess</a></span><span class="op">(</span><span class="st">"01/02/2013"</span><span class="op">)</span><span class="op">)</span>
 <span class="co">#&gt;  chr "01/02/2013"</span>
-<span class="fu"><a href="https://rdrr.io/r/utils/str.html">str</a></span><span class="op">(</span><span class="fu"><a href="../../reference/parse_guess.html">parse_guess</a></span><span class="op">(</span><span class="st">"01/02/2013"</span>, 
+<span class="fu"><a href="https://rdrr.io/r/utils/str.html" class="external-link">str</a></span><span class="op">(</span><span class="fu"><a href="../../reference/parse_guess.html">parse_guess</a></span><span class="op">(</span><span class="st">"01/02/2013"</span>, 
   locale <span class="op">=</span> <span class="fu"><a href="../../reference/locale.html">locale</a></span><span class="op">(</span>date_format <span class="op">=</span> <span class="st">"%d/%m/%Y"</span><span class="op">)</span><span class="op">)</span><span class="op">)</span>
 <span class="co">#&gt;  Date[1:1], format: "2013-02-01"</span></code></pre></div>
 </div>
-<div id="character-encoding" class="section level3">
-<h3 class="hasAnchor">
-<a href="#character-encoding" class="anchor"></a>Character encoding</h3>
+<div class="section level3">
+<h3 id="character-encoding">Character encoding<a class="anchor" aria-label="anchor" href="#character-encoding"></a>
+</h3>
 <p>All readr functions yield strings encoded in UTF-8. This encoding is the most likely to give good results in the widest variety of settings. By default, readr assumes that your input is also in UTF-8, which is less likely to be the case, especially when you’re working with older datasets. To parse a dataset that’s not in UTF-8, you need to a supply an <code>encoding</code>.</p>
 <p>The following code creates a string encoded with latin1 (aka ISO-8859-1), and shows how it’s different from the string encoded as UTF-8, and how to parse it with readr:</p>
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">x</span> <span class="op">&lt;-</span> <span class="st">"Émigré cause célèbre déjà vu.\n"</span>
-<span class="va">y</span> <span class="op">&lt;-</span> <span class="fu">stringi</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/stringi/man/stri_encode.html">stri_conv</a></span><span class="op">(</span><span class="va">x</span>, <span class="st">"UTF-8"</span>, <span class="st">"Latin1"</span><span class="op">)</span>
+<span class="va">y</span> <span class="op">&lt;-</span> <span class="fu">stringi</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/stringi/man/stri_encode.html" class="external-link">stri_conv</a></span><span class="op">(</span><span class="va">x</span>, <span class="st">"UTF-8"</span>, <span class="st">"Latin1"</span><span class="op">)</span>
 
 <span class="co"># These strings look like they're identical:</span>
 <span class="va">x</span>
 <span class="co">#&gt; [1] "Émigré cause célèbre déjà vu.\n"</span>
 <span class="va">y</span>
 <span class="co">#&gt; [1] "Émigré cause célèbre déjà vu.\n"</span>
-<span class="fu"><a href="https://rdrr.io/r/base/identical.html">identical</a></span><span class="op">(</span><span class="va">x</span>, <span class="va">y</span><span class="op">)</span>
+<span class="fu"><a href="https://rdrr.io/r/base/identical.html" class="external-link">identical</a></span><span class="op">(</span><span class="va">x</span>, <span class="va">y</span><span class="op">)</span>
 <span class="co">#&gt; [1] TRUE</span>
 
 <span class="co"># But they have different encodings:</span>
-<span class="fu"><a href="https://rdrr.io/r/base/Encoding.html">Encoding</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span>
+<span class="fu"><a href="https://rdrr.io/r/base/Encoding.html" class="external-link">Encoding</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span>
 <span class="co">#&gt; [1] "UTF-8"</span>
-<span class="fu"><a href="https://rdrr.io/r/base/Encoding.html">Encoding</a></span><span class="op">(</span><span class="va">y</span><span class="op">)</span>
+<span class="fu"><a href="https://rdrr.io/r/base/Encoding.html" class="external-link">Encoding</a></span><span class="op">(</span><span class="va">y</span><span class="op">)</span>
 <span class="co">#&gt; [1] "latin1"</span>
 
 <span class="co"># That means while they print the same, their raw (binary)</span>
 <span class="co"># representation is actually rather different:</span>
-<span class="fu"><a href="https://rdrr.io/r/base/rawConversion.html">charToRaw</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span>
-<span class="co">#&gt;  [1] c3 89 6d 69 67 72 c3 a9 20 63 61 75 73 65 20 63 c3 a9 6c c3 a8 62 72 65 20</span>
-<span class="co">#&gt; [26] 64 c3 a9 6a c3 a0 20 76 75 2e 0a</span>
-<span class="fu"><a href="https://rdrr.io/r/base/rawConversion.html">charToRaw</a></span><span class="op">(</span><span class="va">y</span><span class="op">)</span>
-<span class="co">#&gt;  [1] c9 6d 69 67 72 e9 20 63 61 75 73 65 20 63 e9 6c e8 62 72 65 20 64 e9 6a e0</span>
-<span class="co">#&gt; [26] 20 76 75 2e 0a</span>
+<span class="fu"><a href="https://rdrr.io/r/base/rawConversion.html" class="external-link">charToRaw</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span>
+<span class="co">#&gt;  [1] c3 89 6d 69 67 72 c3 a9 20 63 61 75 73 65 20 63 c3 a9 6c c3 a8 62 72</span>
+<span class="co">#&gt; [24] 65 20 64 c3 a9 6a c3 a0 20 76 75 2e 0a</span>
+<span class="fu"><a href="https://rdrr.io/r/base/rawConversion.html" class="external-link">charToRaw</a></span><span class="op">(</span><span class="va">y</span><span class="op">)</span>
+<span class="co">#&gt;  [1] c9 6d 69 67 72 e9 20 63 61 75 73 65 20 63 e9 6c e8 62 72 65 20 64 e9</span>
+<span class="co">#&gt; [24] 6a e0 20 76 75 2e 0a</span>
 
 <span class="co"># readr expects strings to be encoded as UTF-8. If they're</span>
 <span class="co"># not, you'll get weird characters</span>
@@ -268,14 +247,14 @@
 <span class="co"># If you know the encoding, supply it:</span>
 <span class="fu"><a href="../../reference/parse_atomic.html">parse_character</a></span><span class="op">(</span><span class="va">y</span>, locale <span class="op">=</span> <span class="fu"><a href="../../reference/locale.html">locale</a></span><span class="op">(</span>encoding <span class="op">=</span> <span class="st">"latin1"</span><span class="op">)</span><span class="op">)</span>
 <span class="co">#&gt; [1] "Émigré cause célèbre déjà vu.\n"</span></code></pre></div>
-<p>If you don’t know what encoding the file uses, try <code><a href="../../reference/guess_encoding.html">guess_encoding()</a></code>. It’s not 100% perfect (as it’s fundamentally a heuristic), but should at least get you pointed in the right direction:</p>
+<p>If you don’t know what encoding the file uses, try <code><a href="../../reference/encoding.html">guess_encoding()</a></code>. It’s not 100% perfect (as it’s fundamentally a heuristic), but should at least get you pointed in the right direction:</p>
 <div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="../../reference/guess_encoding.html">guess_encoding</a></span><span class="op">(</span><span class="va">y</span><span class="op">)</span>
-<span class="co">#&gt; # A tibble: 2 × 2</span>
+<code class="sourceCode R"><span class="fu"><a href="../../reference/encoding.html">guess_encoding</a></span><span class="op">(</span><span class="va">y</span><span class="op">)</span>
+<span class="co">#&gt; <span style="color: #949494;"># A tibble: 2 × 2</span></span>
 <span class="co">#&gt;   encoding   confidence</span>
-<span class="co">#&gt;   &lt;chr&gt;           &lt;dbl&gt;</span>
-<span class="co">#&gt; 1 ISO-8859-2        0.4</span>
-<span class="co">#&gt; 2 ISO-8859-1        0.3</span>
+<span class="co">#&gt;   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>           <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span>
+<span class="co">#&gt; <span style="color: #BCBCBC;">1</span> ISO-8859-2        0.4</span>
+<span class="co">#&gt; <span style="color: #BCBCBC;">2</span> ISO-8859-1        0.3</span>
 
 <span class="co"># Note that the first guess produces a valid string, </span>
 <span class="co"># but isn't correct:</span>
@@ -285,9 +264,9 @@
 <span class="fu"><a href="../../reference/parse_atomic.html">parse_character</a></span><span class="op">(</span><span class="va">y</span>, locale <span class="op">=</span> <span class="fu"><a href="../../reference/locale.html">locale</a></span><span class="op">(</span>encoding <span class="op">=</span> <span class="st">"ISO-8859-1"</span><span class="op">)</span><span class="op">)</span>
 <span class="co">#&gt; [1] "Émigré cause célèbre déjà vu.\n"</span></code></pre></div>
 </div>
-<div id="numbers" class="section level3">
-<h3 class="hasAnchor">
-<a href="#numbers" class="anchor"></a>Numbers</h3>
+<div class="section level3">
+<h3 id="numbers">Numbers<a class="anchor" aria-label="anchor" href="#numbers"></a>
+</h3>
 <p>Some countries use the decimal point, while others use the decimal comma. The <code>decimal_mark</code> option controls which readr uses when parsing doubles:</p>
 <div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="../../reference/parse_atomic.html">parse_double</a></span><span class="op">(</span><span class="st">"1,23"</span>, locale <span class="op">=</span> <span class="fu"><a href="../../reference/locale.html">locale</a></span><span class="op">(</span>decimal_mark <span class="op">=</span> <span class="st">","</span><span class="op">)</span><span class="op">)</span>
@@ -303,9 +282,9 @@
 <span class="co">#&gt; [1] 1234.56</span></code></pre></div>
 </div>
 </div>
-<div id="column-parsing-improvements" class="section level2">
-<h2 class="hasAnchor">
-<a href="#column-parsing-improvements" class="anchor"></a>Column parsing improvements</h2>
+<div class="section level2">
+<h2 id="column-parsing-improvements">Column parsing improvements<a class="anchor" aria-label="anchor" href="#column-parsing-improvements"></a>
+</h2>
 <p>One of the most useful parts of readr are the column parsers: the tools that turns character input into usefully typed data frame columns. This process is now described more fully in a new vignette: <code>vignette("column-types")</code>.</p>
 <p>By default, column types are guessed by looking at the data. I’ve made a number of tweaks to make it more likely that your code will load correctly the first time:</p>
 <ul>
@@ -320,20 +299,20 @@
 <p>New <code><a href="../../reference/cols.html">cols()</a></code> function takes of assembling the list of column types, and with its <code>.default</code> argument, allows you to control the default column type:</p>
 <div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="../../reference/read_delim.html">read_csv</a></span><span class="op">(</span><span class="st">"x,y\n1,2"</span>, col_types <span class="op">=</span> <span class="fu"><a href="../../reference/cols.html">cols</a></span><span class="op">(</span>.default <span class="op">=</span> <span class="st">"c"</span><span class="op">)</span><span class="op">)</span>
-<span class="co">#&gt; # A tibble: 1 × 2</span>
+<span class="co">#&gt; <span style="color: #949494;"># A tibble: 1 × 2</span></span>
 <span class="co">#&gt;   x     y    </span>
-<span class="co">#&gt;   &lt;chr&gt; &lt;chr&gt;</span>
-<span class="co">#&gt; 1 1     2</span></code></pre></div>
+<span class="co">#&gt;   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span></span>
+<span class="co">#&gt; <span style="color: #BCBCBC;">1</span> 1     2</span></code></pre></div>
 <p>You can refer to parsers with their full name (e.g. <code><a href="../../reference/parse_atomic.html">col_character()</a></code>) or their one letter abbreviation (e.g. <code>c</code>). The default value of <code>.default</code> is “?”: guess the type of column from the data.</p>
 </li>
 <li>
 <p><code><a href="../../reference/cols.html">cols_only()</a></code> allows you to load only the specified columns:</p>
 <div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="../../reference/read_delim.html">read_csv</a></span><span class="op">(</span><span class="st">"a,b,c\n1,2,3"</span>, col_types <span class="op">=</span> <span class="fu"><a href="../../reference/cols.html">cols_only</a></span><span class="op">(</span><span class="st">"b"</span> <span class="op">=</span> <span class="st">"?"</span><span class="op">)</span><span class="op">)</span>
-<span class="co">#&gt; # A tibble: 1 × 1</span>
+<span class="co">#&gt; <span style="color: #949494;"># A tibble: 1 × 1</span></span>
 <span class="co">#&gt;       b</span>
-<span class="co">#&gt;   &lt;dbl&gt;</span>
-<span class="co">#&gt; 1     2</span></code></pre></div>
+<span class="co">#&gt;   <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span>
+<span class="co">#&gt; <span style="color: #BCBCBC;">1</span>     2</span></code></pre></div>
 </li>
 </ul>
 <p>Many of the individual parsers have also been improved:</p>
@@ -352,7 +331,7 @@
 <li>
 <p>New <code><a href="../../reference/parse_datetime.html">parse_time()</a></code> and <code><a href="../../reference/parse_datetime.html">col_time()</a></code> allow you to parse times. They have an optional <code>format</code> argument, that uses the same components as <code><a href="../../reference/parse_datetime.html">parse_datetime()</a></code>. If <code>format</code> is omitted, they use a flexible parser that looks for hours, then an optional colon, then minutes, then an optional colon, then optional seconds, then optional am/pm.</p>
 <div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="../../reference/parse_datetime.html">parse_time</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"1:45 PM"</span>, <span class="st">"1345"</span>, <span class="st">"13:45:00"</span><span class="op">)</span><span class="op">)</span>
+<code class="sourceCode R"><span class="fu"><a href="../../reference/parse_datetime.html">parse_time</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"1:45 PM"</span>, <span class="st">"1345"</span>, <span class="st">"13:45:00"</span><span class="op">)</span><span class="op">)</span>
 <span class="co">#&gt; Warning: 1 parsing failure.</span>
 <span class="co">#&gt; row col   expected actual</span>
 <span class="co">#&gt;   2  -- time like    1345</span>
@@ -364,27 +343,27 @@
 <li><p><code><a href="../../reference/parse_datetime.html">parse_date()</a></code>/<code><a href="../../reference/parse_datetime.html">col_date()</a></code> and <code><a href="../../reference/parse_datetime.html">parse_datetime()</a></code>/<code><a href="../../reference/parse_datetime.html">col_datetime()</a></code> gain two new format strings: “%+” skips one or more non-digits, and <code>%p</code> reads in AM/PM (and am/pm).</p></li>
 </ul>
 </div>
-<div id="file-parsing-improvements" class="section level2">
-<h2 class="hasAnchor">
-<a href="#file-parsing-improvements" class="anchor"></a>File parsing improvements</h2>
+<div class="section level2">
+<h2 id="file-parsing-improvements">File parsing improvements<a class="anchor" aria-label="anchor" href="#file-parsing-improvements"></a>
+</h2>
 <p><code><a href="../../reference/read_delim.html">read_csv()</a></code>, <code><a href="../../reference/read_delim.html">read_tsv()</a></code>, and <code><a href="../../reference/read_delim.html">read_delim()</a></code> gain extra arguments that allow you to parse more files:</p>
 <ul>
 <li>
 <p>Multiple NA values can be specified by passing a character vector to <code>na</code>. The default has been changed to <code>na = c("", "NA")</code>.</p>
 <div class="sourceCode" id="cb14"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="../../reference/read_delim.html">read_csv</a></span><span class="op">(</span><span class="st">"a,b\n.,NA\n1,3"</span>, na <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"."</span>, <span class="st">"NA"</span><span class="op">)</span><span class="op">)</span>
-<span class="co">#&gt; Rows: 2 Columns: 2</span>
-<span class="co">#&gt; ── Column specification ────────────────────────────────────────────────────────</span>
-<span class="co">#&gt; Delimiter: ","</span>
-<span class="co">#&gt; dbl (2): a, b</span>
+<code class="sourceCode R"><span class="fu"><a href="../../reference/read_delim.html">read_csv</a></span><span class="op">(</span><span class="st">"a,b\n.,NA\n1,3"</span>, na <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"."</span>, <span class="st">"NA"</span><span class="op">)</span><span class="op">)</span>
+<span class="co">#&gt; <span style="font-weight: bold;">Rows: </span><span style="color: #0000BB;">2</span> <span style="font-weight: bold;">Columns: </span><span style="color: #0000BB;">2</span></span>
+<span class="co">#&gt; <span style="color: #00BBBB;">──</span> <span style="font-weight: bold;">Column specification</span> <span style="color: #00BBBB;">──────────────────────────────────────────────────</span></span>
+<span class="co">#&gt; <span style="font-weight: bold;">Delimiter:</span> ","</span>
+<span class="co">#&gt; <span style="color: #00BB00;">dbl</span> (2): a, b</span>
 <span class="co">#&gt; </span>
-<span class="co">#&gt; ℹ Use `spec()` to retrieve the full column specification for this data.</span>
-<span class="co">#&gt; ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.</span>
-<span class="co">#&gt; # A tibble: 2 × 2</span>
+<span class="co">#&gt; <span style="color: #00BBBB;">ℹ</span> Use <span style="color: #262626; background-color: #DADADA;">`spec()`</span> to retrieve the full column specification for this data.</span>
+<span class="co">#&gt; <span style="color: #00BBBB;">ℹ</span> Specify the column types or set <span style="color: #262626; background-color: #DADADA;">`show_col_types = FALSE`</span> to quiet this message.</span>
+<span class="co">#&gt; <span style="color: #949494;"># A tibble: 2 × 2</span></span>
 <span class="co">#&gt;       a     b</span>
-<span class="co">#&gt;   &lt;dbl&gt; &lt;dbl&gt;</span>
-<span class="co">#&gt; 1    NA    NA</span>
-<span class="co">#&gt; 2     1     3</span></code></pre></div>
+<span class="co">#&gt;   <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span>
+<span class="co">#&gt; <span style="color: #BCBCBC;">1</span>    <span style="color: #BB0000;">NA</span>    <span style="color: #BB0000;">NA</span></span>
+<span class="co">#&gt; <span style="color: #BCBCBC;">2</span>     1     3</span></code></pre></div>
 </li>
 <li>
 <p>New <code>comment</code> argument allows you to ignore all text after a string:</p>
@@ -395,126 +374,116 @@
 a,b
 1,10
 2,20"</span>, comment <span class="op">=</span> <span class="st">"#"</span><span class="op">)</span>
-<span class="co">#&gt; Rows: 2 Columns: 2</span>
-<span class="co">#&gt; ── Column specification ────────────────────────────────────────────────────────</span>
-<span class="co">#&gt; Delimiter: ","</span>
-<span class="co">#&gt; dbl (2): a, b</span>
+<span class="co">#&gt; <span style="font-weight: bold;">Rows: </span><span style="color: #0000BB;">2</span> <span style="font-weight: bold;">Columns: </span><span style="color: #0000BB;">2</span></span>
+<span class="co">#&gt; <span style="color: #00BBBB;">──</span> <span style="font-weight: bold;">Column specification</span> <span style="color: #00BBBB;">──────────────────────────────────────────────────</span></span>
+<span class="co">#&gt; <span style="font-weight: bold;">Delimiter:</span> ","</span>
+<span class="co">#&gt; <span style="color: #00BB00;">dbl</span> (2): a, b</span>
 <span class="co">#&gt; </span>
-<span class="co">#&gt; ℹ Use `spec()` to retrieve the full column specification for this data.</span>
-<span class="co">#&gt; ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.</span>
-<span class="co">#&gt; # A tibble: 2 × 2</span>
+<span class="co">#&gt; <span style="color: #00BBBB;">ℹ</span> Use <span style="color: #262626; background-color: #DADADA;">`spec()`</span> to retrieve the full column specification for this data.</span>
+<span class="co">#&gt; <span style="color: #00BBBB;">ℹ</span> Specify the column types or set <span style="color: #262626; background-color: #DADADA;">`show_col_types = FALSE`</span> to quiet this message.</span>
+<span class="co">#&gt; <span style="color: #949494;"># A tibble: 2 × 2</span></span>
 <span class="co">#&gt;       a     b</span>
-<span class="co">#&gt;   &lt;dbl&gt; &lt;dbl&gt;</span>
-<span class="co">#&gt; 1     1    10</span>
-<span class="co">#&gt; 2     2    20</span></code></pre></div>
+<span class="co">#&gt;   <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span>
+<span class="co">#&gt; <span style="color: #BCBCBC;">1</span>     1    10</span>
+<span class="co">#&gt; <span style="color: #BCBCBC;">2</span>     2    20</span></code></pre></div>
 </li>
 <li>
 <p><code>trim_ws</code> argument controls whether leading and trailing whitespace is removed. It defaults to <code>TRUE</code>.</p>
 <div class="sourceCode" id="cb16"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="../../reference/read_delim.html">read_csv</a></span><span class="op">(</span><span class="st">"a,b\n     1,     2"</span><span class="op">)</span>
-<span class="co">#&gt; Rows: 1 Columns: 2</span>
-<span class="co">#&gt; ── Column specification ────────────────────────────────────────────────────────</span>
-<span class="co">#&gt; Delimiter: ","</span>
-<span class="co">#&gt; dbl (2): a, b</span>
+<span class="co">#&gt; <span style="font-weight: bold;">Rows: </span><span style="color: #0000BB;">1</span> <span style="font-weight: bold;">Columns: </span><span style="color: #0000BB;">2</span></span>
+<span class="co">#&gt; <span style="color: #00BBBB;">──</span> <span style="font-weight: bold;">Column specification</span> <span style="color: #00BBBB;">──────────────────────────────────────────────────</span></span>
+<span class="co">#&gt; <span style="font-weight: bold;">Delimiter:</span> ","</span>
+<span class="co">#&gt; <span style="color: #00BB00;">dbl</span> (2): a, b</span>
 <span class="co">#&gt; </span>
-<span class="co">#&gt; ℹ Use `spec()` to retrieve the full column specification for this data.</span>
-<span class="co">#&gt; ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.</span>
-<span class="co">#&gt; # A tibble: 1 × 2</span>
+<span class="co">#&gt; <span style="color: #00BBBB;">ℹ</span> Use <span style="color: #262626; background-color: #DADADA;">`spec()`</span> to retrieve the full column specification for this data.</span>
+<span class="co">#&gt; <span style="color: #00BBBB;">ℹ</span> Specify the column types or set <span style="color: #262626; background-color: #DADADA;">`show_col_types = FALSE`</span> to quiet this message.</span>
+<span class="co">#&gt; <span style="color: #949494;"># A tibble: 1 × 2</span></span>
 <span class="co">#&gt;       a     b</span>
-<span class="co">#&gt;   &lt;dbl&gt; &lt;dbl&gt;</span>
-<span class="co">#&gt; 1     1     2</span>
+<span class="co">#&gt;   <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span>
+<span class="co">#&gt; <span style="color: #BCBCBC;">1</span>     1     2</span>
 <span class="fu"><a href="../../reference/read_delim.html">read_csv</a></span><span class="op">(</span><span class="st">"a,b\n     1,     2"</span>, trim_ws <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span>
-<span class="co">#&gt; Rows: 1 Columns: 2</span>
-<span class="co">#&gt; ── Column specification ────────────────────────────────────────────────────────</span>
-<span class="co">#&gt; Delimiter: ","</span>
-<span class="co">#&gt; chr (2): a, b</span>
+<span class="co">#&gt; <span style="font-weight: bold;">Rows: </span><span style="color: #0000BB;">1</span> <span style="font-weight: bold;">Columns: </span><span style="color: #0000BB;">2</span></span>
+<span class="co">#&gt; <span style="color: #00BBBB;">──</span> <span style="font-weight: bold;">Column specification</span> <span style="color: #00BBBB;">──────────────────────────────────────────────────</span></span>
+<span class="co">#&gt; <span style="font-weight: bold;">Delimiter:</span> ","</span>
+<span class="co">#&gt; <span style="color: #BB0000;">chr</span> (2): a, b</span>
 <span class="co">#&gt; </span>
-<span class="co">#&gt; ℹ Use `spec()` to retrieve the full column specification for this data.</span>
-<span class="co">#&gt; ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.</span>
-<span class="co">#&gt; # A tibble: 1 × 2</span>
+<span class="co">#&gt; <span style="color: #00BBBB;">ℹ</span> Use <span style="color: #262626; background-color: #DADADA;">`spec()`</span> to retrieve the full column specification for this data.</span>
+<span class="co">#&gt; <span style="color: #00BBBB;">ℹ</span> Specify the column types or set <span style="color: #262626; background-color: #DADADA;">`show_col_types = FALSE`</span> to quiet this message.</span>
+<span class="co">#&gt; <span style="color: #949494;"># A tibble: 1 × 2</span></span>
 <span class="co">#&gt;   a        b       </span>
-<span class="co">#&gt;   &lt;chr&gt;    &lt;chr&gt;   </span>
-<span class="co">#&gt; 1 "     1" "     2"</span></code></pre></div>
+<span class="co">#&gt;   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>   </span>
+<span class="co">#&gt; <span style="color: #BCBCBC;">1</span> <span style="color: #949494;">"</span>     1<span style="color: #949494;">"</span> <span style="color: #949494;">"</span>     2<span style="color: #949494;">"</span></span></code></pre></div>
 </li>
 </ul>
 <p>Specifying the wrong number of column names, or having rows with an unexpected number of columns, now gives a warning, rather than an error:</p>
 <div class="sourceCode" id="cb17"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="../../reference/read_delim.html">read_csv</a></span><span class="op">(</span><span class="st">"a,b,c\n1,2\n1,2,3,4"</span><span class="op">)</span>
 <span class="co">#&gt; Warning: One or more parsing issues, see `problems()` for details</span>
-<span class="co">#&gt; Rows: 2 Columns: 3</span>
-<span class="co">#&gt; ── Column specification ────────────────────────────────────────────────────────</span>
-<span class="co">#&gt; Delimiter: ","</span>
-<span class="co">#&gt; dbl (2): a, b</span>
+<span class="co">#&gt; <span style="font-weight: bold;">Rows: </span><span style="color: #0000BB;">2</span> <span style="font-weight: bold;">Columns: </span><span style="color: #0000BB;">3</span></span>
+<span class="co">#&gt; <span style="color: #00BBBB;">──</span> <span style="font-weight: bold;">Column specification</span> <span style="color: #00BBBB;">──────────────────────────────────────────────────</span></span>
+<span class="co">#&gt; <span style="font-weight: bold;">Delimiter:</span> ","</span>
+<span class="co">#&gt; <span style="color: #00BB00;">dbl</span> (2): a, b</span>
 <span class="co">#&gt; </span>
-<span class="co">#&gt; ℹ Use `spec()` to retrieve the full column specification for this data.</span>
-<span class="co">#&gt; ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.</span>
-<span class="co">#&gt; # A tibble: 2 × 3</span>
+<span class="co">#&gt; <span style="color: #00BBBB;">ℹ</span> Use <span style="color: #262626; background-color: #DADADA;">`spec()`</span> to retrieve the full column specification for this data.</span>
+<span class="co">#&gt; <span style="color: #00BBBB;">ℹ</span> Specify the column types or set <span style="color: #262626; background-color: #DADADA;">`show_col_types = FALSE`</span> to quiet this message.</span>
+<span class="co">#&gt; <span style="color: #949494;"># A tibble: 2 × 3</span></span>
 <span class="co">#&gt;       a     b     c</span>
-<span class="co">#&gt;   &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;</span>
-<span class="co">#&gt; 1     1     2    NA</span>
-<span class="co">#&gt; 2     1     2    34</span></code></pre></div>
+<span class="co">#&gt;   <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span>
+<span class="co">#&gt; <span style="color: #BCBCBC;">1</span>     1     2    <span style="color: #BB0000;">NA</span></span>
+<span class="co">#&gt; <span style="color: #BCBCBC;">2</span>     1     2    34</span></code></pre></div>
 <p>Note that the warning message now also shows you the first five problems. I hope this will often allow you to iterate immediately, rather than having to look at the full <code><a href="../../reference/problems.html">problems()</a></code>.</p>
 </div>
-<div id="writers" class="section level2">
-<h2 class="hasAnchor">
-<a href="#writers" class="anchor"></a>Writers</h2>
+<div class="section level2">
+<h2 id="writers">Writers<a class="anchor" aria-label="anchor" href="#writers"></a>
+</h2>
 <p>Despite the name, readr also provides some tools for writing data frames to disk. In this version there are three output functions:</p>
 <ul>
 <li><p><code><a href="../../reference/write_delim.html">write_csv()</a></code> and <code><a href="../../reference/write_delim.html">write_tsv()</a></code> write tab and comma delimited files, and <code><a href="../../reference/write_delim.html">write_delim()</a></code> writes with user specified delimiter.</p></li>
-<li><p><code><a href="../../reference/read_rds.html">write_rds()</a></code> and <code><a href="../../reference/read_rds.html">read_rds()</a></code> wrap around <code><a href="https://rdrr.io/r/base/readRDS.html">readRDS()</a></code> and <code><a href="https://rdrr.io/r/base/readRDS.html">saveRDS()</a></code>, defaulting to no compression, because you’re usually more interested in saving time (expensive) than disk space (cheap).</p></li>
+<li><p><code><a href="../../reference/read_rds.html">write_rds()</a></code> and <code><a href="../../reference/read_rds.html">read_rds()</a></code> wrap around <code><a href="https://rdrr.io/r/base/readRDS.html" class="external-link">readRDS()</a></code> and <code><a href="https://rdrr.io/r/base/readRDS.html" class="external-link">saveRDS()</a></code>, defaulting to no compression, because you’re usually more interested in saving time (expensive) than disk space (cheap).</p></li>
 </ul>
 <p>All these functions invisibly return their output so you can use them as part of a pipeline:</p>
 <div class="sourceCode" id="cb18"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">my_df</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span>
-  <span class="fu">some_manipulation</span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span>
-  <span class="fu"><a href="../../reference/write_delim.html">write_csv</a></span><span class="op">(</span><span class="st">"interim-a.csv"</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span>
-  <span class="fu">some_more_manipulation</span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span>
-  <span class="fu"><a href="../../reference/write_delim.html">write_csv</a></span><span class="op">(</span><span class="st">"interim-b.csv"</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span>
-  <span class="fu">even_more_manipulation</span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span>
+<code class="sourceCode R"><span class="va">my_df</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span>
+  <span class="fu">some_manipulation</span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span>
+  <span class="fu"><a href="../../reference/write_delim.html">write_csv</a></span><span class="op">(</span><span class="st">"interim-a.csv"</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span>
+  <span class="fu">some_more_manipulation</span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span>
+  <span class="fu"><a href="../../reference/write_delim.html">write_csv</a></span><span class="op">(</span><span class="st">"interim-b.csv"</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span>
+  <span class="fu">even_more_manipulation</span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span>
   <span class="fu"><a href="../../reference/write_delim.html">write_csv</a></span><span class="op">(</span><span class="st">"final.csv"</span><span class="op">)</span></code></pre></div>
 <p>You can now control how missing values are written with the <code>na</code> argument, and the quoting algorithm has been further refined to only add quotes when needed: when the string contains a quote, the delimiter, a new line or the same text as missing value.</p>
 <p>Output for doubles now uses the same precision as R, and POSIXt vectors are saved in a ISO8601 compatible format.</p>
 <p>For testing, you can use <code><a href="../../reference/format_delim.html">format_csv()</a></code>, <code><a href="../../reference/format_delim.html">format_tsv()</a></code>, and <code><a href="../../reference/format_delim.html">format_delim()</a></code> to write csv to a string:</p>
 <div class="sourceCode" id="cb19"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">mtcars</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span>
-  <span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span><span class="op">(</span><span class="fl">4</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span>
-  <span class="fu"><a href="../../reference/format_delim.html">format_csv</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span>
-  <span class="fu"><a href="https://rdrr.io/r/base/cat.html">cat</a></span><span class="op">(</span><span class="op">)</span>
+<code class="sourceCode R"><span class="va">mtcars</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span>
+  <span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="fl">4</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span>
+  <span class="fu"><a href="../../reference/format_delim.html">format_csv</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span>
+  <span class="fu"><a href="https://rdrr.io/r/base/cat.html" class="external-link">cat</a></span><span class="op">(</span><span class="op">)</span>
 <span class="co">#&gt; mpg,cyl,disp,hp,drat,wt,qsec,vs,am,gear,carb</span>
 <span class="co">#&gt; 21,6,160,110,3.9,2.62,16.46,0,1,4,4</span>
 <span class="co">#&gt; 21,6,160,110,3.9,2.875,17.02,0,1,4,4</span>
 <span class="co">#&gt; 22.8,4,108,93,3.85,2.32,18.61,1,1,4,1</span>
 <span class="co">#&gt; 21.4,6,258,110,3.08,3.215,19.44,1,0,3,1</span></code></pre></div>
-<p>This is particularly useful for generating <a href="https://github.com/jennybc/reprex">reprexes</a>.</p>
+<p>This is particularly useful for generating <a href="https://github.com/jennybc/reprex" class="external-link">reprexes</a>.</p>
 </div>
-  </div>
-
-  <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
-
-        <nav id="toc" data-toggle="toc"><h2 data-toc-skip>Contents</h2>
-    </nav>
-</div>
-
+  </main><aside class="col-md-3"><nav id="toc"><h2>On this page</h2>
+    </nav></aside>
 </div>
 
 
 
-      <footer><div class="tidyverse">
-  <p>readr is a part of the <strong>tidyverse</strong>, an ecosystem of packages designed with common APIs and a shared philosophy. Learn more at <a href="https://tidyverse.org">tidyverse.org</a>.</p>
+   </div>
+  <footer><div class="container">
+  <div class="pkgdown-footer-left">
+  <p></p>
+<p>Developed by <a href="http://hadley.nz" class="external-link">Hadley Wickham</a>, <a href="https://www.jimhester.com/" class="external-link">Jim Hester</a>, <a href="https://jennybryan.org" class="external-link">Jennifer Bryan</a>, <a href="https://www.rstudio.com" class="external-link"><img src="https://www.tidyverse.org/rstudio-logo.svg" alt="RStudio" width="72"></a>.</p>
 </div>
 
-<div class="author">
-  <p>
-    Developed by <a href="http://hadley.nz">Hadley Wickham</a>, <a href="http://jimhester.com">Jim Hester</a>, Jennifer Bryan, <a href="https://www.rstudio.com"><img src="https://www.tidyverse.org/rstudio-logo.svg" alt="RStudio" height="24"></a>.
-    Site built by <a href="https://pkgdown.r-lib.org">pkgdown</a>.
-  </p>
+<div class="pkgdown-footer-right">
+  <p></p>
+<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.0.9000.</p>
 </div>
 
-      </footer>
-</div>
-
-  
-
-
-  </body>
+  </div></footer>
+</body>
 </html>

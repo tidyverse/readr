@@ -1,7 +1,55 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
+    <loc>https://readr.tidyverse.org/404.html</loc>
+  </url>
+  <url>
+    <loc>https://readr.tidyverse.org/CODE_OF_CONDUCT.html</loc>
+  </url>
+  <url>
+    <loc>https://readr.tidyverse.org/CONDUCT.html</loc>
+  </url>
+  <url>
+    <loc>https://readr.tidyverse.org/CONTRIBUTING.html</loc>
+  </url>
+  <url>
+    <loc>https://readr.tidyverse.org/LICENSE-text.html</loc>
+  </url>
+  <url>
+    <loc>https://readr.tidyverse.org/LICENSE.html</loc>
+  </url>
+  <url>
+    <loc>https://readr.tidyverse.org/MAINTENANCE.html</loc>
+  </url>
+  <url>
+    <loc>https://readr.tidyverse.org/SUPPORT.html</loc>
+  </url>
+  <url>
+    <loc>https://readr.tidyverse.org/articles/index.html</loc>
+  </url>
+  <url>
+    <loc>https://readr.tidyverse.org/articles/locales.html</loc>
+  </url>
+  <url>
+    <loc>https://readr.tidyverse.org/articles/readr.html</loc>
+  </url>
+  <url>
+    <loc>https://readr.tidyverse.org/articles/releases/readr-0.1.0.html</loc>
+  </url>
+  <url>
+    <loc>https://readr.tidyverse.org/articles/releases/readr-0.2.0.html</loc>
+  </url>
+  <url>
+    <loc>https://readr.tidyverse.org/articles/releases/readr-1.0.0.html</loc>
+  </url>
+  <url>
+    <loc>https://readr.tidyverse.org/authors.html</loc>
+  </url>
+  <url>
     <loc>https://readr.tidyverse.org/index.html</loc>
+  </url>
+  <url>
+    <loc>https://readr.tidyverse.org/news/index.html</loc>
   </url>
   <url>
     <loc>https://readr.tidyverse.org/reference/Tokenizers.html</loc>
@@ -38,6 +86,9 @@
   </url>
   <url>
     <loc>https://readr.tidyverse.org/reference/format_delim.html</loc>
+  </url>
+  <url>
+    <loc>https://readr.tidyverse.org/reference/index.html</loc>
   </url>
   <url>
     <loc>https://readr.tidyverse.org/reference/locale.html</loc>
@@ -146,20 +197,5 @@
   </url>
   <url>
     <loc>https://readr.tidyverse.org/reference/write_delim.html</loc>
-  </url>
-  <url>
-    <loc>https://readr.tidyverse.org/articles/locales.html</loc>
-  </url>
-  <url>
-    <loc>https://readr.tidyverse.org/articles/readr.html</loc>
-  </url>
-  <url>
-    <loc>https://readr.tidyverse.org/articles/releases/readr-0.1.0.html</loc>
-  </url>
-  <url>
-    <loc>https://readr.tidyverse.org/articles/releases/readr-0.2.0.html</loc>
-  </url>
-  <url>
-    <loc>https://readr.tidyverse.org/articles/releases/readr-1.0.0.html</loc>
   </url>
 </urlset>
