@@ -39,6 +39,8 @@
 </script>
 </head>
 <body data-spy="scroll" data-target="#toc">
+    
+
     <div class="container template-home">
       <header><div class="navbar navbar-default navbar-fixed-top" role="navigation">
   <div class="container">
@@ -53,7 +55,7 @@
       <div class="navbar-brand-container">
         <a class="navbar-brand" href="index.html">readr</a>
         <div class="info hidden-xs hidden-sm">
-          <span class="partof">part of the <a href="https://tidyverse.org">tidyverse</a></span>
+          <span class="partof">part of the <a href="https://tidyverse.org" class="external-link">tidyverse</a></span>
           <span class="version version-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">2.1.1.9000</span>
         </div>
       </div>
@@ -81,16 +83,16 @@
   <ul class="dropdown-menu" role="menu">
 <li class="dropdown-header">Release notes</li>
     <li>
-      <a href="https://www.tidyverse.org/blog/2021/11/readr-2-1-0-lazy/">Version 2.1.0</a>
+      <a href="https://www.tidyverse.org/blog/2021/11/readr-2-1-0-lazy/" class="external-link">Version 2.1.0</a>
     </li>
     <li>
-      <a href="https://www.tidyverse.org/blog/2021/07/readr-2-0-0/">Version 2.0.0</a>
+      <a href="https://www.tidyverse.org/blog/2021/07/readr-2-0-0/" class="external-link">Version 2.0.0</a>
     </li>
     <li>
-      <a href="https://www.tidyverse.org/blog/2020/10/readr-1-4-0/">Version 1.4.0</a>
+      <a href="https://www.tidyverse.org/blog/2020/10/readr-1-4-0/" class="external-link">Version 1.4.0</a>
     </li>
     <li>
-      <a href="https://www.tidyverse.org/blog/2018/12/readr-1-3-1/">Version 1.3.1</a>
+      <a href="https://www.tidyverse.org/blog/2018/12/readr-1-3-1/" class="external-link">Version 1.3.1</a>
     </li>
     <li>
       <a href="articles/releases/readr-1.0.0.html">Version 1.0.0</a>
@@ -102,13 +104,14 @@
       <a href="articles/releases/readr-0.1.0.html">Version 0.1.0</a>
     </li>
     <li class="divider">
-    <li>
+    </li>
+<li>
       <a href="news/index.html">Change log</a>
     </li>
   </ul>
 </li>
         <li>
-  <a href="https://github.com/tidyverse/readr/">
+  <a href="https://github.com/tidyverse/readr/" class="external-link">
     <span class="fab fa-github fa-lg"></span>
      
   </a>
@@ -125,44 +128,45 @@
 
       </header><div class="row">
   <div class="contents col-md-9">
-<div id="readr-" class="section level1">
+<div class="section level1">
 
+<!-- badges: start -->
 
-<div id="overview" class="section level2">
-<h2 class="hasAnchor">
-<a href="#overview" class="anchor"></a>Overview</h2>
-<p>The goal of readr is to provide a fast and friendly way to read rectangular data (like csv, tsv, and fwf). It is designed to flexibly parse many types of data found in the wild, while still cleanly failing when data unexpectedly changes. If you are new to readr, the best place to start is the <a href="https://r4ds.had.co.nz/data-import.html">data import chapter</a> in R for data science.</p>
+<div class="section level2">
+<h2 id="overview">Overview<a class="anchor" aria-label="anchor" href="#overview"></a>
+</h2>
+<p>The goal of readr is to provide a fast and friendly way to read rectangular data (like csv, tsv, and fwf). It is designed to flexibly parse many types of data found in the wild, while still cleanly failing when data unexpectedly changes. If you are new to readr, the best place to start is the <a href="https://r4ds.had.co.nz/data-import.html" class="external-link">data import chapter</a> in R for data science.</p>
 </div>
-<div id="installation" class="section level2">
-<h2 class="hasAnchor">
-<a href="#installation" class="anchor"></a>Installation</h2>
+<div class="section level2">
+<h2 id="installation">Installation<a class="anchor" aria-label="anchor" href="#installation"></a>
+</h2>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># The easiest way to get readr is to install the whole tidyverse:</span>
-<span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html">install.packages</a></span><span class="op">(</span><span class="st">"tidyverse"</span><span class="op">)</span>
+<span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html" class="external-link">install.packages</a></span><span class="op">(</span><span class="st">"tidyverse"</span><span class="op">)</span>
 
 <span class="co"># Alternatively, install just readr:</span>
-<span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html">install.packages</a></span><span class="op">(</span><span class="st">"readr"</span><span class="op">)</span>
+<span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html" class="external-link">install.packages</a></span><span class="op">(</span><span class="st">"readr"</span><span class="op">)</span>
 
 <span class="co"># Or the the development version from GitHub:</span>
 <span class="co"># install.packages("devtools")</span>
 <span class="fu">devtools</span><span class="fu">::</span><span class="fu">install_github</span><span class="op">(</span><span class="st">"tidyverse/readr"</span><span class="op">)</span></code></pre></div>
 </div>
-<div id="cheatsheet" class="section level2">
-<h2 class="hasAnchor">
-<a href="#cheatsheet" class="anchor"></a>Cheatsheet</h2>
-<p><a href="https://github.com/rstudio/cheatsheets/blob/master/data-import.pdf"><img src="https://raw.githubusercontent.com/rstudio/cheatsheets/master/pngs/thumbnails/data-import-cheatsheet-thumbs.png" width="630" height="252"></a></p>
+<div class="section level2">
+<h2 id="cheatsheet">Cheatsheet<a class="anchor" aria-label="anchor" href="#cheatsheet"></a>
+</h2>
+<p><a href="https://raw.githubusercontent.com/rstudio/cheatsheets/main/data-import.pdf" class="external-link"><img src="https://github.com/rstudio/cheatsheets/raw/main/pngs/thumbnails/data-import-cheatsheet-thumbs.png" height="252"></a></p>
 </div>
-<div id="usage" class="section level2">
-<h2 class="hasAnchor">
-<a href="#usage" class="anchor"></a>Usage</h2>
+<div class="section level2">
+<h2 id="usage">Usage<a class="anchor" aria-label="anchor" href="#usage"></a>
+</h2>
 <p>readr is part of the core tidyverse, so load it with:</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://tidyverse.tidyverse.org">tidyverse</a></span><span class="op">)</span>
+<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://tidyverse.tidyverse.org" class="external-link">tidyverse</a></span><span class="op">)</span>
 <span class="co">#&gt; ── Attaching packages ─────────────────────────────────────── tidyverse 1.3.1 ──</span>
 <span class="co">#&gt; ✓ ggplot2 3.3.5          ✓ purrr   0.3.4     </span>
 <span class="co">#&gt; ✓ tibble  3.1.6          ✓ dplyr   1.0.7     </span>
 <span class="co">#&gt; ✓ tidyr   1.1.4          ✓ stringr 1.4.0     </span>
-<span class="co">#&gt; ✓ readr   2.1.0.9000     ✓ forcats 0.5.1</span>
+<span class="co">#&gt; ✓ readr   2.1.1.9000     ✓ forcats 0.5.1</span>
 <span class="co">#&gt; ── Conflicts ────────────────────────────────────────── tidyverse_conflicts() ──</span>
 <span class="co">#&gt; x dplyr::filter() masks stats::filter()</span>
 <span class="co">#&gt; x dplyr::lag()    masks stats::lag()</span></code></pre></div>
@@ -195,7 +199,7 @@
 <p>Note that readr prints the column specification. This is useful because it allows you to check that the columns have been read in as you expect, and if they haven’t, you can easily copy and paste into a new call:</p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">mtcars</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/read_delim.html">read_csv</a></span><span class="op">(</span><span class="fu"><a href="reference/readr_example.html">readr_example</a></span><span class="op">(</span><span class="st">"mtcars.csv"</span><span class="op">)</span>, col_types <span class="op">=</span> 
-  <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span>
+  <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>
     mpg <span class="op">=</span> <span class="fu"><a href="reference/parse_atomic.html">col_double</a></span><span class="op">(</span><span class="op">)</span>,
     cyl <span class="op">=</span> <span class="fu"><a href="reference/parse_atomic.html">col_integer</a></span><span class="op">(</span><span class="op">)</span>,
     disp <span class="op">=</span> <span class="fu"><a href="reference/parse_atomic.html">col_double</a></span><span class="op">(</span><span class="op">)</span>,
@@ -211,13 +215,13 @@
 <span class="op">)</span></code></pre></div>
 <p><code><a href="articles/readr.html">vignette("readr")</a></code> gives more detail on how readr guesses the column types, how you can override the defaults, and provides some useful tools for debugging parsing problems.</p>
 </div>
-<div id="alternatives" class="section level2">
-<h2 class="hasAnchor">
-<a href="#alternatives" class="anchor"></a>Alternatives</h2>
+<div class="section level2">
+<h2 id="alternatives">Alternatives<a class="anchor" aria-label="anchor" href="#alternatives"></a>
+</h2>
 <p>There are two main alternatives to readr: base R and data.table’s <code>fread()</code>. The most important differences are discussed below.</p>
-<div id="base-r" class="section level3">
-<h3 class="hasAnchor">
-<a href="#base-r" class="anchor"></a>Base R</h3>
+<div class="section level3">
+<h3 id="base-r">Base R<a class="anchor" aria-label="anchor" href="#base-r"></a>
+</h3>
 <p>Compared to the corresponding base functions, readr functions:</p>
 <ul>
 <li><p>Use a consistent naming scheme for the parameters (e.g. <code>col_names</code> and <code>col_types</code> not <code>header</code> and <code>colClasses</code>).</p></li>
@@ -227,30 +231,30 @@
 <li><p>All functions work exactly the same way regardless of the current locale. To override the US-centric defaults, use <code><a href="reference/locale.html">locale()</a></code>.</p></li>
 </ul>
 </div>
-<div id="datatable-and-fread" class="section level3">
-<h3 class="hasAnchor">
-<a href="#datatable-and-fread" class="anchor"></a>data.table and <code>fread()</code>
+<div class="section level3">
+<h3 id="datatable-and-fread">data.table and <code>fread()</code>
+<a class="anchor" aria-label="anchor" href="#datatable-and-fread"></a>
 </h3>
-<p><a href="https://github.com/Rdatatable/data.table">data.table</a> has a function similar to <code><a href="reference/read_delim.html">read_csv()</a></code> called fread. Compared to fread, readr functions:</p>
+<p><a href="https://github.com/Rdatatable/data.table" class="external-link">data.table</a> has a function similar to <code><a href="reference/read_delim.html">read_csv()</a></code> called fread. Compared to fread, readr functions:</p>
 <ul>
 <li><p>Are sometimes slower, particularly on numeric heavy data.</p></li>
 <li><p>Forces you to supply all parameters, where <code>fread()</code> saves you work by automatically guessing the delimiter, whether or not the file has a header, and how many lines to skip.</p></li>
 </ul>
 </div>
 </div>
-<div id="acknowledgements" class="section level2">
-<h2 class="hasAnchor">
-<a href="#acknowledgements" class="anchor"></a>Acknowledgements</h2>
+<div class="section level2">
+<h2 id="acknowledgements">Acknowledgements<a class="anchor" aria-label="anchor" href="#acknowledgements"></a>
+</h2>
 <p>Thanks to:</p>
 <ul>
-<li><p><a href="https://github.com/jcheng5">Joe Cheng</a> for showing me the beauty of deterministic finite automata for parsing, and for teaching me why I should write a tokenizer.</p></li>
-<li><p><a href="https://github.com/jjallaire">JJ Allaire</a> for helping me come up with a design that makes very few copies, and is easy to extend.</p></li>
-<li><p><a href="http://dirk.eddelbuettel.com">Dirk Eddelbuettel</a> for coming up with the name!</p></li>
+<li><p><a href="https://github.com/jcheng5" class="external-link">Joe Cheng</a> for showing me the beauty of deterministic finite automata for parsing, and for teaching me why I should write a tokenizer.</p></li>
+<li><p><a href="https://github.com/jjallaire" class="external-link">JJ Allaire</a> for helping me come up with a design that makes very few copies, and is easy to extend.</p></li>
+<li><p><a href="http://dirk.eddelbuettel.com" class="external-link">Dirk Eddelbuettel</a> for coming up with the name!</p></li>
 </ul>
 </div>
-<div id="code-of-conduct" class="section level2">
-<h2 class="hasAnchor">
-<a href="#code-of-conduct" class="anchor"></a>Code of Conduct</h2>
+<div class="section level2">
+<h2 id="code-of-conduct">Code of Conduct<a class="anchor" aria-label="anchor" href="#code-of-conduct"></a>
+</h2>
 <p>Please note that the readr project is released with a <a href="https://readr.tidyverse.org/CONDUCT.html">Contributor Code of Conduct</a>. By contributing to this project, you agree to abide by its terms.</p>
 </div>
 </div>
@@ -258,66 +262,73 @@
 
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <div class="links">
-<h2>Links</h2>
+<h2 data-toc-skip>Links</h2>
 <ul class="list-unstyled">
-<li>Download from CRAN at <br><a href="https://cloud.r-project.org/package=readr">https://​cloud.r-project.org/​package=readr</a>
-</li>
-<li>Browse source code at <br><a href="https://github.com/tidyverse/readr/">https://​github.com/​tidyverse/​readr/​</a>
-</li>
-<li>Report a bug at <br><a href="https://github.com/tidyverse/readr/issues">https://​github.com/​tidyverse/​readr/​issues</a>
-</li>
-<li>Learn more at <br><a href="http://r4ds.had.co.nz/data-import.html">http://​r4ds.had.co.nz/​data-import.html</a>
-</li>
+<li><a href="https://cloud.r-project.org/package=readr" class="external-link">View on CRAN</a></li>
+<li><a href="https://github.com/tidyverse/readr/" class="external-link">Browse source code</a></li>
+<li><a href="https://github.com/tidyverse/readr/issues" class="external-link">Report a bug</a></li>
+<li><a href="http://r4ds.had.co.nz/data-import.html" class="external-link">Learn more</a></li>
 </ul>
 </div>
+
 <div class="license">
-<h2>License</h2>
+<h2 data-toc-skip>License</h2>
 <ul class="list-unstyled">
 <li><a href="LICENSE.html">Full license</a></li>
-<li><small><a href="https://opensource.org/licenses/mit-license.php">MIT</a> + file <a href="LICENSE-text.html">LICENSE</a></small></li>
+<li><small><a href="https://opensource.org/licenses/mit-license.php" class="external-link">MIT</a> + file <a href="LICENSE-text.html">LICENSE</a></small></li>
 </ul>
 </div>
+
 <div class="community">
-<h2>Community</h2>
+<h2 data-toc-skip>Community</h2>
 <ul class="list-unstyled">
 <li><a href="CONTRIBUTING.html">Contributing guide</a></li>
 <li><a href="CODE_OF_CONDUCT.html">Code of conduct</a></li>
 </ul>
 </div>
-<div class="developers">
-<h2>Developers</h2>
+
+<div class="citation">
+<h2 data-toc-skip>Citation</h2>
 <ul class="list-unstyled">
-<li>
-<a href="http://hadley.nz">Hadley Wickham</a> <br><small class="roles"> Author </small>  </li>
-<li>
-<a href="http://jimhester.com">Jim Hester</a> <br><small class="roles"> Author </small>  </li>
-<li>Jennifer Bryan <br><small class="roles"> Author, maintainer </small> <a href="https://orcid.org/0000-0002-6983-2759" target="orcid.widget" aria-label="ORCID"><span class="fab fa-orcid orcid" aria-hidden="true"></span></a> </li>
-<li>
-<a href="https://www.rstudio.com"><img src="https://www.tidyverse.org/rstudio-logo.svg" alt="RStudio" height="24"></a> <br><small class="roles"> Copyright holder, funder </small>  </li>
-<li><a href="authors.html">All authors...</a></li>
+<li><a href="authors.html#citation">Citing readr</a></li>
 </ul>
 </div>
 
-  <div class="dev-status">
-<h2>Dev status</h2>
+<div class="developers">
+<h2 data-toc-skip>Developers</h2>
 <ul class="list-unstyled">
-<li><a href="https://cran.r-project.org/package=readr"><img src="https://www.r-pkg.org/badges/version/readr" alt="CRAN_Status_Badge"></a></li>
-<li><a href="https://github.com/tidyverse/readr"><img src="https://github.com/tidyverse/readr/workflows/R-CMD-check/badge.svg" alt="R build status"></a></li>
-<li><a href="https://app.codecov.io/gh/tidyverse/readr?branch=master"><img src="https://codecov.io/gh/tidyverse/readr/coverage.svg?branch=master" alt="Coverage Status"></a></li>
+<li>
+<a href="http://hadley.nz" class="external-link">Hadley Wickham</a> <br><small class="roles"> Author </small>  </li>
+<li>
+<a href="http://jimhester.com" class="external-link">Jim Hester</a> <br><small class="roles"> Author </small>  </li>
+<li>Jennifer Bryan <br><small class="roles"> Author, maintainer </small> <a href="https://orcid.org/0000-0002-6983-2759" target="orcid.widget" aria-label="ORCID" class="external-link"><span class="fab fa-orcid orcid" aria-hidden="true"></span></a> </li>
+<li>
+<a href="https://www.rstudio.com" class="external-link"><img src="https://www.tidyverse.org/rstudio-logo.svg" alt="RStudio" width="72"></a> <br><small class="roles"> Copyright holder, funder </small>  </li>
+<li><a href="authors.html">More about authors...</a></li>
 </ul>
 </div>
+
+<div class="dev-status">
+<h2 data-toc-skip>Dev status</h2>
+<ul class="list-unstyled">
+<li><a href="https://CRAN.R-project.org/package=readr" class="external-link"><img src="https://www.r-pkg.org/badges/version/readr" alt="CRAN status"></a></li>
+<li><a href="https://github.com/tidyverse/readr/actions" class="external-link"><img src="https://github.com/tidyverse/readr/workflows/R-CMD-check/badge.svg" alt="R-CMD-check"></a></li>
+<li><a href="https://app.codecov.io/gh/tidyverse/readr?branch=main" class="external-link"><img src="https://codecov.io/gh/tidyverse/readr/coverage.svg?branch=main" alt="Coverage Status"></a></li>
+</ul>
 </div>
+
+  </div>
 </div>
 
 
       <footer><div class="tidyverse">
-  <p>readr is a part of the <strong>tidyverse</strong>, an ecosystem of packages designed with common APIs and a shared philosophy. Learn more at <a href="https://tidyverse.org">tidyverse.org</a>.</p>
+  <p>readr is a part of the <strong>tidyverse</strong>, an ecosystem of packages designed with common APIs and a shared philosophy. Learn more at <a href="https://tidyverse.org" class="external-link">tidyverse.org</a>.</p>
 </div>
 
 <div class="author">
   <p>
-    Developed by <a href="http://hadley.nz">Hadley Wickham</a>, <a href="http://jimhester.com">Jim Hester</a>, Jennifer Bryan, <a href="https://www.rstudio.com"><img src="https://www.tidyverse.org/rstudio-logo.svg" alt="RStudio" height="24"></a>.
-    Site built by <a href="https://pkgdown.r-lib.org">pkgdown</a>.
+    Developed by .
+    Site built by <a href="https://pkgdown.r-lib.org" class="external-link">pkgdown</a>.
   </p>
 </div>
 
@@ -326,6 +337,8 @@
 
   
 
+
+  
 
   </body>
 </html>
