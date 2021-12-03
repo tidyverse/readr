@@ -277,7 +277,7 @@ read_csv(readr_example("mtcars.csv.zip"))
 read_csv(readr_example("mtcars.csv.bz2"))
 \dontrun{
 # Including remote paths
-read_csv("https://github.com/tidyverse/readr/raw/master/inst/extdata/mtcars.csv")
+read_csv("https://github.com/tidyverse/readr/raw/main/inst/extdata/mtcars.csv")
 }
 
 # Or directly from a string with `I()`
