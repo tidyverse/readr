@@ -7,7 +7,7 @@ articles:
   readr-0.1.0: releases/readr-0.1.0.html
   readr-0.2.0: releases/readr-0.2.0.html
   readr-1.0.0: releases/readr-1.0.0.html
-last_built: 2021-12-03T02:24Z
+last_built: 2021-12-03T05:04Z
 urls:
   reference: https://readr.tidyverse.org/reference
   article: https://readr.tidyverse.org/articles

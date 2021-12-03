@@ -155,8 +155,8 @@ because it likely modifies the column data types.
 <span class="r-in"><span class="op">)</span></span>
 <span class="r-in"><span class="fu"><a href="https://rdrr.io/r/utils/str.html" class="external-link">str</a></span><span class="op">(</span><span class="va">df</span><span class="op">)</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 'data.frame':	10 obs. of  2 variables:</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  $ x: chr  "0.668734675971791" "0.304921258008108" "0.178159565431997" "0.278354160953313" ...</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  $ y: chr  "6" "3" "2" "1" ...</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  $ x: chr  "0.30927783343941" "0.394278208026662" "0.64444057806395" "0.868826594669372" ...</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  $ y: chr  "4" "9" "5" "3" ...</span>
 <span class="r-in"><span class="fu"><a href="https://rdrr.io/r/utils/str.html" class="external-link">str</a></span><span class="op">(</span><span class="fu">type_convert</span><span class="op">(</span><span class="va">df</span><span class="op">)</span><span class="op">)</span></span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">──</span> <span style="font-weight: bold;">Column specification</span> <span style="color: #00BBBB;">────────────────────────────────────────────────────────</span></span>
@@ -165,8 +165,8 @@ because it likely modifies the column data types.
 <span class="r-msg co"><span class="r-pr">#&gt;</span>   y = <span style="color: #00BB00;">col_double()</span></span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> )</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 'data.frame':	10 obs. of  2 variables:</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  $ x: num  0.669 0.305 0.178 0.278 0.49 ...</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  $ y: num  6 3 2 1 4 10 9 5 7 8</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  $ x: num  0.309 0.394 0.644 0.869 0.127 ...</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  $ y: num  4 9 5 3 8 2 7 10 1 6</span>
 <span class="r-in"></span>
 <span class="r-in"><span class="va">df</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a></span><span class="op">(</span>x <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"NA"</span>, <span class="st">"10"</span><span class="op">)</span>, stringsAsFactors <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span>
 <span class="r-in"><span class="fu"><a href="https://rdrr.io/r/utils/str.html" class="external-link">str</a></span><span class="op">(</span><span class="fu">type_convert</span><span class="op">(</span><span class="va">df</span><span class="op">)</span><span class="op">)</span></span>
