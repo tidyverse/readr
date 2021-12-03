@@ -33,7 +33,7 @@
 #' melt_csv(readr_example("mtcars.csv.zip"))
 #' melt_csv(readr_example("mtcars.csv.bz2"))
 #' \dontrun{
-#' melt_csv("https://github.com/tidyverse/readr/raw/master/inst/extdata/mtcars.csv")
+#' melt_csv("https://github.com/tidyverse/readr/raw/main/inst/extdata/mtcars.csv")
 #' }
 #'
 #' # Or directly from a string (must contain a newline)

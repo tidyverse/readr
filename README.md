@@ -3,11 +3,14 @@
 
 # readr <a href="https://readr.tidyverse.org"><img src="man/figures/logo.png" align="right" height="139" /></a>
 
-[![CRAN_Status_Badge](https://www.r-pkg.org/badges/version/readr)](https://cran.r-project.org/package=readr)
-[![R build
-status](https://github.com/tidyverse/readr/workflows/R-CMD-check/badge.svg)](https://github.com/tidyverse/readr)
+<!-- badges: start -->
+
+[![CRAN
+status](https://www.r-pkg.org/badges/version/readr)](https://CRAN.R-project.org/package=readr)
+[![R-CMD-check](https://github.com/tidyverse/readr/workflows/R-CMD-check/badge.svg)](https://github.com/tidyverse/readr/actions)
 [![Coverage
-Status](https://codecov.io/gh/tidyverse/readr/coverage.svg?branch=master)](https://app.codecov.io/gh/tidyverse/readr?branch=master)
+Status](https://codecov.io/gh/tidyverse/readr/coverage.svg?branch=main)](https://app.codecov.io/gh/tidyverse/readr?branch=main)
+<!-- badges: end -->
 
 ## Overview
 
@@ -34,7 +37,7 @@ devtools::install_github("tidyverse/readr")
 
 ## Cheatsheet
 
-<a href="https://github.com/rstudio/cheatsheets/blob/master/data-import.pdf"><img src="https://raw.githubusercontent.com/rstudio/cheatsheets/master/pngs/thumbnails/data-import-cheatsheet-thumbs.png" width="630" height="252"/></a>
+<a href="https://raw.githubusercontent.com/rstudio/cheatsheets/main/data-import.pdf"><img src="https://github.com/rstudio/cheatsheets/raw/main/pngs/thumbnails/data-import-cheatsheet-thumbs.png" height="252"/></a>
 
 ## Usage
 
@@ -46,7 +49,7 @@ library(tidyverse)
 #> ✓ ggplot2 3.3.5          ✓ purrr   0.3.4     
 #> ✓ tibble  3.1.6          ✓ dplyr   1.0.7     
 #> ✓ tidyr   1.1.4          ✓ stringr 1.4.0     
-#> ✓ readr   2.1.0.9000     ✓ forcats 0.5.1
+#> ✓ readr   2.1.1.9000     ✓ forcats 0.5.1
 #> ── Conflicts ────────────────────────────────────────── tidyverse_conflicts() ──
 #> x dplyr::filter() masks stats::filter()
 #> x dplyr::lag()    masks stats::lag()

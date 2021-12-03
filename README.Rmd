@@ -14,9 +14,11 @@ knitr::opts_chunk$set(
 
 # readr <a href="https://readr.tidyverse.org"><img src="man/figures/logo.png" align="right" height="139" /></a>
 
-[![CRAN_Status_Badge](https://www.r-pkg.org/badges/version/readr)](https://cran.r-project.org/package=readr)
-[![R build status](https://github.com/tidyverse/readr/workflows/R-CMD-check/badge.svg)](https://github.com/tidyverse/readr)
-[![Coverage Status](https://codecov.io/gh/tidyverse/readr/coverage.svg?branch=master)](https://app.codecov.io/gh/tidyverse/readr?branch=master)
+<!-- badges: start -->
+[![CRAN status](https://www.r-pkg.org/badges/version/readr)](https://CRAN.R-project.org/package=readr)
+[![R-CMD-check](https://github.com/tidyverse/readr/workflows/R-CMD-check/badge.svg)](https://github.com/tidyverse/readr/actions)
+[![Coverage Status](https://codecov.io/gh/tidyverse/readr/coverage.svg?branch=main)](https://app.codecov.io/gh/tidyverse/readr?branch=main)
+<!-- badges: end -->
 
 ## Overview
 
@@ -38,7 +40,7 @@ devtools::install_github("tidyverse/readr")
 
 ## Cheatsheet
 
-<a href="https://github.com/rstudio/cheatsheets/blob/master/data-import.pdf"><img src="https://raw.githubusercontent.com/rstudio/cheatsheets/master/pngs/thumbnails/data-import-cheatsheet-thumbs.png" width="630" height="252"/></a>  
+<a href="https://raw.githubusercontent.com/rstudio/cheatsheets/main/data-import.pdf"><img src="https://github.com/rstudio/cheatsheets/raw/main/pngs/thumbnails/data-import-cheatsheet-thumbs.png" height="252"/></a>
 
 ## Usage
 

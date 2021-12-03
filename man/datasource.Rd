@@ -44,7 +44,7 @@ datasource(readr_example("mtcars.csv"))
 datasource(readr_example("mtcars.csv.bz2"))
 datasource(readr_example("mtcars.csv.zip"))
 \dontrun{
-datasource("https://github.com/tidyverse/readr/raw/master/inst/extdata/mtcars.csv")
+datasource("https://github.com/tidyverse/readr/raw/main/inst/extdata/mtcars.csv")
 }
 
 # Connection
