@@ -60,7 +60,7 @@ Suggests:
     rmarkdown,
     spelling,
     stringi,
-    testthat,
+    testthat (>= 3.1.0),
     tzdb (>= 0.1.1),
     waldo,
     withr,
