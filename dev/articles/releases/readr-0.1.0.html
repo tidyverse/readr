@@ -99,7 +99,8 @@
     
   </div>
 </nav><div class="container template-article" id="container">
-<script src="readr-0.1.0_files/accessible-code-block-0.0.1/empty-anchor.js"></script><div class="row">
+
+<div class="row">
   <main id="main"><div class="page-header">
       <img src="../../logo.png" class="logo" alt=""><h1>readr 0.1.0</h1>
             
@@ -210,9 +211,9 @@
   Species <span class="op">=</span> <span class="fu"><a href="../../reference/parse_factor.html">col_factor</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"setosa"</span>, <span class="st">"versicolor"</span>, <span class="st">"virginica"</span><span class="op">)</span><span class="op">)</span>
 <span class="op">)</span><span class="op">)</span></code></pre></div>
 <p>Any omitted columns will be parsed automatically, so the previous call is equivalent to:</p>
-<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1"></a><span class="kw">read_csv</span>(<span class="st">"iris.csv"</span>, <span class="dt">col_types =</span> <span class="kw">list</span>(</span>
-<span id="cb4-2"><a href="#cb4-2"></a>  <span class="dt">Species =</span> <span class="kw">col_factor</span>(<span class="kw">c</span>(<span class="st">"setosa"</span>, <span class="st">"versicolor"</span>, <span class="st">"virginica"</span>))</span>
-<span id="cb4-3"><a href="#cb4-3"></a>)</span></code></pre></div>
+<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">read_csv</span>(<span class="st">"iris.csv"</span>, <span class="at">col_types =</span> <span class="fu">list</span>(</span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">Species =</span> <span class="fu">col_factor</span>(<span class="fu">c</span>(<span class="st">"setosa"</span>, <span class="st">"versicolor"</span>, <span class="st">"virginica"</span>))</span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div>
 </li>
 </ul>
 <div class="section level3">
@@ -264,8 +265,8 @@ b,2
 <span class="co">#&gt; <span style="color: #949494;"># A tibble: 2 × 5</span></span>
 <span class="co">#&gt;     row   col expected   actual file                            </span>
 <span class="co">#&gt;   <span style="color: #949494; font-style: italic;">&lt;int&gt;</span> <span style="color: #949494; font-style: italic;">&lt;int&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>      <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>  <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>                           </span>
-<span class="co">#&gt; <span style="color: #BCBCBC;">1</span>     2     2 an integer a      /tmp/Rtmp4CSUyr/file488b430034f4</span>
-<span class="co">#&gt; <span style="color: #BCBCBC;">2</span>     3     1 an integer b      /tmp/Rtmp4CSUyr/file488b430034f4</span>
+<span class="co">#&gt; <span style="color: #BCBCBC;">1</span>     2     2 an integer a      /tmp/RtmpIvlTBO/file3ad223ddb40a</span>
+<span class="co">#&gt; <span style="color: #BCBCBC;">2</span>     3     1 an integer b      /tmp/RtmpIvlTBO/file3ad223ddb40a</span>
 <span class="va">df</span>
 <span class="co">#&gt; <span style="color: #949494;"># A tibble: 2 × 2</span></span>
 <span class="co">#&gt;       x     y</span>
