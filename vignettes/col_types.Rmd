@@ -1,0 +1,51 @@
+---
+title: "Column type guessing"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Column type guessing}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+library(readr)
+knitr::opts_chunk$set(collapse = TRUE,comment = "#>")
+```
+
+A common request when using column type guessing is to use every row of your data to guess column types from. This may be necessary when your data contains many `NA` observations or if the column data type is inconsistent.  The options to achieve this are different depending on which version of readr you are using.
+
+### readr 1.0.0
+
+There are several different options to achieve this with readr 1.0.0 though none of them are as fast as readr 2.0.0. Unless you have a specific reason to be using readr 1.0.0 we'd suggest updating your readr package.
+
+The first option is to set `guess_max` to some arbitrarily large number or `Inf`. Because `readr` does not know how many rows your data has prior to column guessing, this option is the slowest since it must pre-allocate a large amount of memory. Thus, data loading will be slow and a warning will appear about the memory cost.
+
+```{r}
+x <- with_edition(1, read_csv(readr_example("challenge.csv"), guess_max = Inf))
+```
+
+If you know some information about your data, such as the number of rows, setting `guess_max` closer to this number will decrease the amount of memory `readr` needs to allocate and loading will be faster.
+
+```{r}
+y <- with_edition(1, read_csv(readr_example("challenge.csv"), guess_max = 2000))
+```
+
+Finally, one could read in the data, setting every column as a character column and then parse the columns using `type_convert()`.
+
+```{r}
+z <- with_edition(1, read_csv(readr_example("challenge.csv"), col_types = cols(.default = col_character())))
+type_convert(z)
+```
+
+### readr 2.0.0
+
+Behind the scenes, readr 2.0.0 uses `vroom` which supports setting `guess_max = Inf` without pre-allocating large amounts of memory for the data. This makes readr 2.0.0 column type guessing much faster than the previous version.
+
+```{r}
+read_csv(readr_example("challenge.csv"), guess_max = Inf)
+```
+
+
+Type guessing is never an exact science and explicitly defining column types is always preferred. Column type guessing should be phased out as you gain a better understanding of your data to avoid incorrect column typing.
+
+
