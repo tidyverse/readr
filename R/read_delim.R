@@ -56,8 +56,9 @@ NULL
 #'    set `show_col_types = FALSE` or set `options(readr.show_col_types = FALSE).
 #' @param col_select <[`tidy-select`][tidyselect::language]> Columns to include
 #'   in the results, either by name or by numeric index. Use [c()] or [list()]
-#'   to select with more than one expression and [`?tidyselect::language`][tidyselect::language] for full
-#'   details on the selection language.
+#'   to select with more than one expression and
+#'   [`?tidyselect::language`][tidyselect::language] for full details on the
+#'   selection language.
 #' @param id The name of a column in which to store the file path. This is
 #'   useful when reading multiple input files and there is data in the file
 #'   paths, such as the data collection date. If `NULL` (the default) no extra
@@ -74,7 +75,8 @@ NULL
 #' @param skip Number of lines to skip before reading data. If `comment` is
 #'   supplied any commented lines are ignored _after_ skipping.
 #' @param n_max Maximum number of lines to read.
-#' @param guess_max Maximum number of lines to use for guessing column types. See `vignette("column-types")` for more details.
+#' @param guess_max Maximum number of lines to use for guessing column types.
+#'   See `vignette("column-types")` for more details.
 #' @param progress Display a progress bar? By default it will only display
 #'   in an interactive session and not while knitting a document. The automatic
 #'   progress bar can be disabled by setting option `readr.show_progress` to

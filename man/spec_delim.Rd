@@ -198,8 +198,9 @@ set \code{show_col_types = FALSE} or set `options(readr.show_col_types = FALSE).
 
 \item{col_select}{<\code{\link[tidyselect:language]{tidy-select}}> Columns to include
 in the results, either by name or by numeric index. Use \code{\link[=c]{c()}} or \code{\link[=list]{list()}}
-to select with more than one expression and \code{\link[tidyselect:language]{?tidyselect::language}} for full
-details on the selection language.}
+to select with more than one expression and
+\code{\link[tidyselect:language]{?tidyselect::language}} for full details on the
+selection language.}
 
 \item{id}{The name of a column in which to store the file path. This is
 useful when reading multiple input files and there is data in the file
@@ -229,7 +230,8 @@ supplied any commented lines are ignored \emph{after} skipping.}
 
 \item{n_max}{Maximum number of lines to read.}
 
-\item{guess_max}{Maximum number of lines to use for guessing column types. See \code{vignette("column-types")} for more details.}
+\item{guess_max}{Maximum number of lines to use for guessing column types.
+See \code{vignette("column-types")} for more details.}
 
 \item{name_repair}{Treatment of problematic column names:
 \itemize{
