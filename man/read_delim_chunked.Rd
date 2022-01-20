@@ -189,7 +189,8 @@ each field before parsing it?}
 \item{skip}{Number of lines to skip before reading data. If \code{comment} is
 supplied any commented lines are ignored \emph{after} skipping.}
 
-\item{guess_max}{Maximum number of lines to use for guessing column types.}
+\item{guess_max}{Maximum number of lines to use for guessing column types.
+See \code{vignette("column-types")} for more details.}
 
 \item{progress}{Display a progress bar? By default it will only display
 in an interactive session and not while knitting a document. The automatic
