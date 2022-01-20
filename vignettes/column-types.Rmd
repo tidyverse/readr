@@ -34,8 +34,8 @@ library(readr)
 ## readr >= 2.0.0
 
 readr got a new parsing engine in version 2.0.0 (released July 2021).
-In this so-called second edition, readr calls the `vroom::vroom()` package, by default.
-vroom and, therefore, the second edition of readr supports a very natural expression of "use all the data to guess": namely `guess_max = Inf`.
+In this so-called second edition, readr calls `vroom::vroom()`, by default.
+The vroom package and, therefore, the second edition of readr supports a very natural expression of "use all the data to guess": namely `guess_max = Inf`.
 
 ```{r, eval = FALSE}
 read_csv("path/to/your/file", ..., guess_max = Inf)
