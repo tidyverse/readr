@@ -34,7 +34,7 @@ library(readr)
 ## readr >= 2.0.0
 
 readr got a new parsing engine in version 2.0.0 (released July 2021).
-In this so-called second edition, readr calls the vroom package, by default.
+In this so-called second edition, readr calls the `vroom::vroom()` package, by default.
 vroom and, therefore, the second edition of readr supports a very natural expression of "use all the data to guess": namely `guess_max = Inf`.
 
 ```{r, eval = FALSE}
@@ -74,6 +74,24 @@ And, obviously, if you're using readr < 2.0.0, you will get first edition parsin
 
 The first edition parser doesn't have a perfect way to convey "use all of the data to guess the column types".
 (This is one of several reasons to prefer readr >= 2.0.0.)
+
+```{r}
+tricky_dat <- tibble::tibble(
+  x = rep(c("", "1", "2", ""), c(1000, 1, 1, 1)),
+  y = "y"
+)
+tfile <- tempfile("tricky-column-type-guessing-", fileext = ".csv")
+write_csv(tricky_dat, tfile)
+
+tail(read_csv(tfile))
+
+with_edition(
+  1,
+  read_csv(tfile)
+)
+```
+
+
 There are three ways to proceed, each of which has some downside:
 
 * Specify `guess_max = Inf`.
@@ -83,7 +101,12 @@ There are three ways to proceed, each of which has some downside:
   This means that reading with `guess_max = Inf` is often extremely slow and can
   even crash your R session.
   
-  <!--Put example that triggers the warning here -->
+```{r}
+with_edition(
+  1,
+  read_csv(tfile, guess_max = Inf)
+)
+```
 
 * Specify an actual, non-infinite value for `guess_max`.
 
@@ -93,13 +116,26 @@ There are three ways to proceed, each of which has some downside:
   that is "big enough".
   This usually results in much better performance than `guess_max = Inf`.
   
-  <!--add example -->
+```{r}
+with_edition(
+  1,
+  read_csv(tfile, guess_max = 1200)
+)
+```
 
 * Read all columns as character, then use `type_convert()`.
 
   <!-- Consult the issues we've found re: describing the downsides of this. -->
 
-  <!--add example -->
+```{r}
+dat_chr <- with_edition(
+  1,
+  read_csv(tfile, col_types = cols(.default = col_character()))
+)
+tail(dat_chr)
+dat <- type_convert(dat_chr)
+tail(dat)
+```
 
 ```{r}
 # fodder for examples above
