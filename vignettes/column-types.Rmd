@@ -125,7 +125,13 @@ with_edition(
 
 * Read all columns as character, then use `type_convert()`.
 
-  <!-- Consult the issues we've found re: describing the downsides of this. -->
+<!-- 
+https://github.com/tidyverse/readr/issues/982
+https://github.com/tidyverse/readr/issues/588
+  
+Using type_convert() is another approach however this requires an extra step (or a few extra steps) after reading in the data.
+It does avoid the issue of reading in the data twice to guess column types.
+-->
 
 ```{r}
 dat_chr <- with_edition(
