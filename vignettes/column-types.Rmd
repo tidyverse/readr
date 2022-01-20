@@ -8,52 +8,139 @@ vignette: >
 ---
 
 ```{r, include = FALSE}
-knitr::opts_chunk$set(collapse = TRUE,comment = "#>")
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
 ```
 
-A common request when using column type guessing is to use every row of your data to guess column types from.
-This may be necessary when your data contains many `NA` observations or if the column data type is inconsistent.
-The options to achieve this are different depending on which version of readr you are using.
+readr will guess column types from the data if the user does not provide them.
+The `guess_max` parameter controls how many lines of the input file are used to form these guesses.
+Ideally, the column types would be completely obvious from the first non-header row and we could use `guess_max = 1`.
+That would be very efficient!
+But the situation is rarely so clear-cut.
 
+By default, readr consults 1000 lines when type-guessing, i.e. `guess_max = 1000`.
+Note that readr never consults lines that won't be part of the import, so the actual default is `guess_max = min(1000, n_max)`.
 
-### readr 2.0.0
+Sometimes you want to convey "use all of the data we're going to import to guess the column types", often without even knowing or specifying `n_max`.
+How should you say that?
+It's also worth discussing the possible downsides of such a request.
 
-Behind the scenes, readr 2.0.0 uses `vroom` which supports setting `guess_max = Inf` without pre-allocating large amounts of memory for the data.
-This makes readr 2.0.0 column type guessing much faster than the previous version.
-
-```{r}
+```{r setup}
 library(readr)
-read_csv(readr_example("challenge.csv"), guess_max = Inf)
 ```
 
+## readr >= 2.0.0
 
-### readr 1.0.0
+readr got a new parsing engine in version 2.0.0 (released July 2021).
+In this so-called second edition, readr calls the vroom package, by default.
+vroom and, therefore, the second edition of readr supports a very natural expression of "use all the data to guess": namely `guess_max = Inf`.
 
-There are several different options to achieve this with readr 1.0.0 though none of them are as fast as readr 2.0.0.
-Unless you have a specific reason to be using readr 1.0.0 we'd suggest updating your readr package.
+```{r, eval = FALSE}
+read_csv("path/to/your/file", ..., guess_max = Inf)
+```
 
-The first option is to set `guess_max` to some arbitrarily large number or `Inf`.
-Because `readr` does not know how many rows your data has prior to column guessing, this option is the slowest since it must pre-allocate a large amount of memory.
-Thus, data loading will be slow and a warning will appear about the memory cost.
+Why isn't this the default?
+Why not do this all the time?
+Because column type guessing basically adds another pass through the data, in addition to the main parsing.
+
+If you routinely use `guess_max = Inf`, you're basically processing every file twice.
+If you only work with small files, this is fine.
+But for larger files, this can be very costly and for relatively little benefit.
+Often the column types guessed based on a subset of the file are "good enough".
+
+Note also that the second edition parser (i.e. vroom) sub-samples lines throughout the file, whereas earlier versions of readr consulted the first `guess_max` lines.
+
+<!-- 
+https://github.com/r-lib/vroom/issues/352
+
+In fact vroom generally does this guessing better than readr currently does. Readr always uses the first guess_max number of rows for guessing, whereas vroom uses rows interspersed throughout the file if guess_max is less than the total number of rows.
+
+However as this example shows we should probably always include the last row when guessing, so I have made a change to always include the last row in the guess in the future.
+-->
+
+As always, remember that the best strategy is to provide explicit column types as any data analysis project matures past the exploratory phase.
+
+<!-- Future link to a vignette on column specification or, if that content gets co-located here, link to later in this vignette. -->
+
+## readr first edition and readr < 2.0.0
+
+The parsing engine in readr versions prior to 2.0.0 is now called the first edition.
+If you're using readr >= 2.0.0, you can still access first edition parsing via the functions `with_edition()` and `local_edition()`.
+And, obviously, if you're using readr < 2.0.0, you will get first edition parsing, by definition, because that's all there is.
+
+The first edition parser doesn't have a perfect way to convey "use all of the data to guess the column types".
+(This is one of several reasons to prefer readr >= 2.0.0.)
+There are three ways to proceed, each of which has some downside:
+
+* Specify `guess_max = Inf`.
+
+  Since readr does not know how much data it will be processing, it
+  pre-allocates a large amount of memory in the face of this uncertainty.
+  This means that reading with `guess_max = Inf` is often extremely slow and can
+  even crash your R session.
+  
+  <!--Put example that triggers the warning here -->
+
+* Specify an actual, non-infinite value for `guess_max`.
+
+  This is awkward to suggest, because if you knew how many lines there were, we
+  wouldn't be having this conversation in the first place.
+  But sometimes you have a decent estimate and can choose a value of `guess_max`
+  that is "big enough".
+  This usually results in much better performance than `guess_max = Inf`.
+  
+  <!--add example -->
+
+* Read all columns as character, then use `type_convert()`.
+
+  <!-- Consult the issues we've found re: describing the downsides of this. -->
+
+  <!--add example -->
 
 ```{r}
-with_edition(1, read_csv(readr_example("challenge.csv"), guess_max = Inf))
+# fodder for examples above
+# proposal: set up the tricky data frame and write it to file first
+# and look at its tail
+# and look at the column types from read_csv() with first edition
+#
+# then start the bullet list
+# and show how the various approaches work in with this example
+tricky_dat <- tibble::tibble(
+  x = rep(c("", "1", "2", ""), c(1000, 1, 1, 1)),
+  y = "y"
+)
+tfile <- tempfile("tricky-column-type-guessing-", fileext = ".csv")
+write_csv(tricky_dat, tfile)
+
+tail(read_csv(tfile))
+
+# bummer that x is guessed as logical and we get parsing failures
+with_edition(
+  1,
+  read_csv(tfile)
+)
+
+# demonstrates the warning (and it's noticeably slow)
+with_edition(
+  1,
+  read_csv(tfile, guess_max = Inf)
+)
+
+# demonstrates setting guess_max based on user's approximate knowledge
+# x is numeric now and it's pretty snappy
+with_edition(
+  1,
+  read_csv(tfile, guess_max = 1200)
+)
+
+# demo of the post hoc type_convert() approach
+dat_chr <- with_edition(
+  1,
+  read_csv(tfile, col_types = cols(.default = col_character()))
+)
+tail(dat_chr)
+dat <- type_convert(dat_chr)
+tail(dat)
 ```
-
-If you know some information about your data, such as the number of rows, setting `guess_max` closer to this number will decrease the amount of memory `readr` needs to allocate and loading will be faster.
-
-```{r}
-with_edition(1, read_csv(readr_example("challenge.csv"), guess_max = 2000))
-```
-
-Finally, one could read in the data, setting every column as a character column and then parse the columns using `type_convert()`.
-
-```{r}
-z <- with_edition(1, read_csv(readr_example("challenge.csv"), col_types = cols(.default = col_character())))
-type_convert(z)
-```
-
-Type guessing is never an exact science and explicitly defining column types is always preferred.
-Column type guessing should be phased out as you gain a better understanding of your data to avoid incorrect column typing.
-
-
