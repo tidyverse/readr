@@ -112,7 +112,7 @@
 
     
     
-<p>readr will guess column types from the data if the user does not provide them. The <code>guess_max</code> parameter controls how many rows of the input file are used to form these guesses. Ideally, the column types would be completely obvious from the first non-header row and we could use <code>guess_max = 1</code>. That would be very efficient! But the situation is rarely so clear-cut.</p>
+<p>readr will guess column types from the data if the user does not specify the types. The <code>guess_max</code> parameter controls how many rows of the input file are used to form these guesses. Ideally, the column types would be completely obvious from the first non-header row and we could use <code>guess_max = 1</code>. That would be very efficient! But the situation is rarely so clear-cut.</p>
 <p>By default, readr consults 1000 rows when type-guessing, i.e. <code>guess_max = 1000</code>. Note that readr never consults rows that won’t be part of the import, so the actual default is <code>guess_max = min(1000, n_max)</code>.</p>
 <p>Sometimes you want to convey “use all of the data we’re going to import to guess the column types”, often without even knowing or specifying <code>n_max</code>. How should you say that? It’s also worth discussing the possible downsides of such a request.</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
@@ -124,8 +124,8 @@
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="../reference/read_delim.html">read_csv</a></span><span class="op">(</span><span class="st">"path/to/your/file"</span>, <span class="va">...</span>, guess_max <span class="op">=</span> <span class="cn">Inf</span><span class="op">)</span></code></pre></div>
 <p>Why isn’t this the default? Why not do this all the time? Because column type guessing basically adds another pass through the data, in addition to the main parsing.</p>
-<p>If you routinely use <code>guess_max = Inf</code>, you’re basically processing every file twice. If you only work with small files, this is fine. But for larger files, this can be very costly and for relatively little benefit. Often the column types guessed based on a subset of the file are “good enough”.</p>
-<p>Note also that <code>guess_max = n</code>, for finite <code>n</code>, works better in the second edition parser (i.e. this behavior comes from vroom). It sub-samples <code>n</code> rows throughout the file, including the last row, whereas earlier versions of readr just consulted the first <code>n</code> rows. Practically speaking, <code>guess_max = n</code> produces better guessed column types than it used to.</p>
+<p>If you routinely use <code>guess_max = Inf</code>, you’re basically processing every file twice, in its entirety. If you only work with small files, this is fine. But for larger files, this can be very costly and for relatively little benefit. Often the column types guessed based on a subset of the file are “good enough”.</p>
+<p>Note also that <code>guess_max = n</code>, for finite <code>n</code>, works better in the second edition parser. Due to its different design, vroom is able to sub-sample <code>n</code> rows throughout the file and it always includes the last row, whereas earlier versions of readr just consulted the first <code>n</code> rows. In practice, the result is that the default of <code>guess_max = min(1000, n_max)</code> produces better guessed column types that it used to. It should feel less necessary to fiddle with <code>guess_max</code> now.</p>
 <!-- 
 https://github.com/r-lib/vroom/issues/352
 
@@ -141,7 +141,7 @@ However as this example shows we should probably always include the last row whe
 </h2>
 <p>The parsing engine in readr versions prior to 2.0.0 is now called the first edition. If you’re using readr &gt;= 2.0.0, you can still access first edition parsing via the functions <code><a href="../reference/with_edition.html">with_edition()</a></code> and <code><a href="../reference/with_edition.html">local_edition()</a></code>. And, obviously, if you’re using readr &lt; 2.0.0, you will get first edition parsing, by definition, because that’s all there is.</p>
 <p>The first edition parser doesn’t have a perfect way to convey “use all of the data to guess the column types”. (This is one of several reasons to prefer readr &gt;= 2.0.0.)</p>
-<p>Let’s set up a slightly tricky file, so we can demonstrate different approaches. The column <code>x</code> is mostly empty, but has some numeric data at the very end.</p>
+<p>Let’s set up a slightly tricky file, so we can demonstrate different approaches. The column <code>x</code> is mostly empty, but has some numeric data at the very end, in row 1001.</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">tricky_dat</span> <span class="op">&lt;-</span> <span class="fu">tibble</span><span class="fu">::</span><span class="fu"><a href="https://tibble.tidyverse.org/reference/tibble.html" class="external-link">tibble</a></span><span class="op">(</span>
   x <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/rep.html" class="external-link">rep</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">""</span>, <span class="st">"2"</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1000</span>, <span class="fl">1</span><span class="op">)</span><span class="op">)</span>,
@@ -149,7 +149,7 @@ However as this example shows we should probably always include the last row whe
 <span class="op">)</span>
 <span class="va">tfile</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/tempfile.html" class="external-link">tempfile</a></span><span class="op">(</span><span class="st">"tricky-column-type-guessing-"</span>, fileext <span class="op">=</span> <span class="st">".csv"</span><span class="op">)</span>
 <span class="fu"><a href="../reference/write_delim.html">write_csv</a></span><span class="op">(</span><span class="va">tricky_dat</span>, <span class="va">tfile</span><span class="op">)</span></code></pre></div>
-<p>First, note that the second edition parser guess the right column types, without any special effort.</p>
+<p>First, note that the second edition parser guesses the right type for <code>x</code>, even with the default <code>guess_max</code> behaviour.</p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">tail</a></span><span class="op">(</span><span class="fu"><a href="../reference/read_delim.html">read_csv</a></span><span class="op">(</span><span class="va">tfile</span><span class="op">)</span><span class="op">)</span>
 <span class="co">#&gt; <span style="font-weight: bold;">Rows: </span><span style="color: #0000BB;">1001</span> <span style="font-weight: bold;">Columns: </span><span style="color: #0000BB;">2</span></span>
@@ -169,7 +169,7 @@ However as this example shows we should probably always include the last row whe
 <span class="co">#&gt; <span style="color: #BCBCBC;">4</span>    <span style="color: #BB0000;">NA</span> y    </span>
 <span class="co">#&gt; <span style="color: #BCBCBC;">5</span>    <span style="color: #BB0000;">NA</span> y    </span>
 <span class="co">#&gt; <span style="color: #BCBCBC;">6</span>     2 y</span></code></pre></div>
-<p>The first edition parser, in contrast, does not. <code>x</code> is imported as <em>logical</em> and the <code>2</code> becomes an <code>NA</code>.</p>
+<p>In contrast, the first edition parser doesn’t guess the right type for <code>x</code> with the <code>guess_max</code> default. <code>x</code> is imported as logical and the <code>2</code> becomes an <code>NA</code>.</p>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="../reference/with_edition.html">with_edition</a></span><span class="op">(</span>
   <span class="fl">1</span>,
@@ -183,7 +183,7 @@ However as this example shows we should probably always include the last row whe
 <span class="co">#&gt; )</span>
 <span class="co">#&gt; Warning: 1 parsing failure.</span>
 <span class="co">#&gt;  row col           expected actual                                                           file</span>
-<span class="co">#&gt; 1001   x 1/0/T/F/TRUE/FALSE      2 '/tmp/RtmpeijlkR/tricky-column-type-guessing-36614510e554.csv'</span>
+<span class="co">#&gt; 1001   x 1/0/T/F/TRUE/FALSE      2 '/tmp/RtmpA7oIAP/tricky-column-type-guessing-366e2711d6df.csv'</span>
 <span class="co">#&gt; <span style="color: #949494;"># A tibble: 6 × 2</span></span>
 <span class="co">#&gt;   x     y    </span>
 <span class="co">#&gt;   <span style="color: #949494; font-style: italic;">&lt;lgl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span></span>
@@ -196,8 +196,8 @@ However as this example shows we should probably always include the last row whe
 <p>There are three ways to proceed, each of which has some downside:</p>
 <ul>
 <li>
-<p>Specify <code>guess_max = Inf</code>.</p>
-<p>Since readr does not know how much data it will be processing, it pre-allocates a large amount of memory in the face of this uncertainty. This means that reading with <code>guess_max = Inf</code> is often extremely slow and can even crash your R session.</p>
+<p>Specify <code>guess_max = Inf</code>, just like we do for the second edition parser.</p>
+<p>Since readr does not know how much data it will be processing, the first edition engine pre-allocates a large amount of memory in the face of this uncertainty. This means that reading with <code>guess_max = Inf</code> can be extremely slow and might even crash your R session.</p>
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="../reference/with_edition.html">with_edition</a></span><span class="op">(</span>
   <span class="fl">1</span>,
@@ -223,7 +223,7 @@ However as this example shows we should probably always include the last row whe
 </li>
 <li>
 <p>Specify an actual, non-infinite value for <code>guess_max</code>.</p>
-<p>This is awkward to suggest, because if you knew how many rows there were, we wouldn’t be having this conversation in the first place. But sometimes you have a decent estimate and can choose a value of <code>guess_max</code> that is “big enough”. This usually results in much better performance than <code>guess_max = Inf</code>.</p>
+<p>This is an awkward suggestion, because if you knew how many rows there were, we wouldn’t be having this conversation in the first place. But sometimes you have a decent estimate and can choose a value of <code>guess_max</code> that is “big enough”. This usually results in much better performance than <code>guess_max = Inf</code>.</p>
 <div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="../reference/with_edition.html">with_edition</a></span><span class="op">(</span>
   <span class="fl">1</span>,
@@ -246,7 +246,7 @@ However as this example shows we should probably always include the last row whe
 <span class="co">#&gt; <span style="color: #BCBCBC;">6</span>     2 y</span></code></pre></div>
 </li>
 <li>
-<p>Read all columns as character, then use <code><a href="../reference/type_convert.html">type_convert()</a></code>.</p>
+<p>Read all columns as character, then use <code><a href="../reference/type_convert.html">type_convert()</a></code>. This is a bit clunky, since this obligates you to post-processing once you’ve brought you data into R.</p>
 <div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">dat_chr</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/with_edition.html">with_edition</a></span><span class="op">(</span>
   <span class="fl">1</span>,
@@ -262,6 +262,7 @@ However as this example shows we should probably always include the last row whe
 <span class="co">#&gt; <span style="color: #BCBCBC;">4</span> <span style="color: #BB0000;">NA</span>    y    </span>
 <span class="co">#&gt; <span style="color: #BCBCBC;">5</span> <span style="color: #BB0000;">NA</span>    y    </span>
 <span class="co">#&gt; <span style="color: #BCBCBC;">6</span> 2     y</span>
+
 <span class="va">dat</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/type_convert.html">type_convert</a></span><span class="op">(</span><span class="va">dat_chr</span><span class="op">)</span>
 <span class="co">#&gt; </span>
 <span class="co">#&gt; <span style="color: #00BBBB;">──</span> <span style="font-weight: bold;">Column specification</span> <span style="color: #00BBBB;">──────────────────────────────────────────────────</span></span>
@@ -286,7 +287,10 @@ https://github.com/tidyverse/readr/issues/982
 https://github.com/tidyverse/readr/issues/588
   
 Using type_convert() is another approach however this requires an extra step (or a few extra steps) after reading in the data.
--->
+--><p>Clean up the temporary tricky csv file.</p>
+<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/base/files.html" class="external-link">file.remove</a></span><span class="op">(</span><span class="va">tfile</span><span class="op">)</span>
+<span class="co">#&gt; [1] TRUE</span></code></pre></div>
 </div>
   </main><aside class="col-md-3"><nav id="toc"><h2>On this page</h2>
     </nav></aside>
