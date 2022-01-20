@@ -14,7 +14,7 @@ knitr::opts_chunk$set(
 )
 ```
 
-readr will guess column types from the data if the user does not provide them.
+readr will guess column types from the data if the user does not specify the types.
 The `guess_max` parameter controls how many rows of the input file are used to form these guesses.
 Ideally, the column types would be completely obvious from the first non-header row and we could use `guess_max = 1`.
 That would be very efficient!
@@ -45,14 +45,15 @@ Why isn't this the default?
 Why not do this all the time?
 Because column type guessing basically adds another pass through the data, in addition to the main parsing.
 
-If you routinely use `guess_max = Inf`, you're basically processing every file twice.
+If you routinely use `guess_max = Inf`, you're basically processing every file twice, in its entirety.
 If you only work with small files, this is fine.
 But for larger files, this can be very costly and for relatively little benefit.
 Often the column types guessed based on a subset of the file are "good enough".
 
-Note also that `guess_max = n`, for finite `n`, works better in the second edition parser (i.e. this behavior comes from vroom).
-It sub-samples `n` rows throughout the file, including the last row, whereas earlier versions of readr just consulted the first `n` rows.
-Practically speaking, `guess_max = n` produces better guessed column types than it used to. 
+Note also that `guess_max = n`, for finite `n`, works better in the second edition parser.
+Due to its different design, vroom is able to sub-sample `n` rows throughout the file and it always includes the last row, whereas earlier versions of readr just consulted the first `n` rows.
+In practice, the result is that the default of `guess_max = min(1000, n_max)` produces better guessed column types that it used to.
+It should feel less necessary to fiddle with `guess_max` now.
 
 <!-- 
 https://github.com/r-lib/vroom/issues/352
@@ -76,7 +77,7 @@ The first edition parser doesn't have a perfect way to convey "use all of the da
 (This is one of several reasons to prefer readr >= 2.0.0.)
 
 Let's set up a slightly tricky file, so we can demonstrate different approaches.
-The column `x` is mostly empty, but has some numeric data at the very end.
+The column `x` is mostly empty, but has some numeric data at the very end, in row 1001.
 
 ```{r}
 tricky_dat <- tibble::tibble(
@@ -87,14 +88,14 @@ tfile <- tempfile("tricky-column-type-guessing-", fileext = ".csv")
 write_csv(tricky_dat, tfile)
 ```
 
-First, note that the second edition parser guess the right column types, without any special effort.
+First, note that the second edition parser guesses the right type for `x`, even with the default `guess_max` behaviour.
 
 ```{r}
 tail(read_csv(tfile))
 ```
 
-The first edition parser, in contrast, does not.
-`x` is imported as *logical* and the `2` becomes an `NA`.
+In contrast, the first edition parser doesn't guess the right type for `x` with the `guess_max` default.
+`x` is imported as logical and the `2` becomes an `NA`.
 
 ```{r}
 with_edition(
@@ -105,12 +106,13 @@ with_edition(
 
 There are three ways to proceed, each of which has some downside:
 
-* Specify `guess_max = Inf`.
+* Specify `guess_max = Inf`, just like we do for the second edition parser.
 
-  Since readr does not know how much data it will be processing, it
-  pre-allocates a large amount of memory in the face of this uncertainty.
-  This means that reading with `guess_max = Inf` is often extremely slow and can
-  even crash your R session.
+  Since readr does not know how much data it will be processing, the first
+  edition engine pre-allocates a large amount of memory in the face of this
+  uncertainty.
+  This means that reading with `guess_max = Inf` can be extremely slow and
+  might even crash your R session.
   
     ```{r}
     with_edition(
@@ -121,8 +123,8 @@ There are three ways to proceed, each of which has some downside:
 
 * Specify an actual, non-infinite value for `guess_max`.
 
-  This is awkward to suggest, because if you knew how many rows there were, we
-  wouldn't be having this conversation in the first place.
+  This is an awkward suggestion, because if you knew how many rows there were,
+  we wouldn't be having this conversation in the first place.
   But sometimes you have a decent estimate and can choose a value of `guess_max`
   that is "big enough".
   This usually results in much better performance than `guess_max = Inf`.
@@ -135,6 +137,8 @@ There are three ways to proceed, each of which has some downside:
     ```
 
 * Read all columns as character, then use `type_convert()`.
+  This is a bit clunky, since this obligates you to post-processing once you've
+  brought you data into R.
 
     ```{r}
     dat_chr <- with_edition(
@@ -142,6 +146,7 @@ There are three ways to proceed, each of which has some downside:
       read_csv(tfile, col_types = cols(.default = col_character()))
     )
     tail(dat_chr)
+    
     dat <- type_convert(dat_chr)
     tail(dat)
     ```
@@ -152,3 +157,8 @@ https://github.com/tidyverse/readr/issues/588
   
 Using type_convert() is another approach however this requires an extra step (or a few extra steps) after reading in the data.
 -->
+
+Clean up the temporary tricky csv file.
+```{r}
+file.remove(tfile)
+```
