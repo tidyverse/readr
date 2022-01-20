@@ -15,13 +15,13 @@ knitr::opts_chunk$set(
 ```
 
 readr will guess column types from the data if the user does not provide them.
-The `guess_max` parameter controls how many lines of the input file are used to form these guesses.
+The `guess_max` parameter controls how many rows of the input file are used to form these guesses.
 Ideally, the column types would be completely obvious from the first non-header row and we could use `guess_max = 1`.
 That would be very efficient!
 But the situation is rarely so clear-cut.
 
-By default, readr consults 1000 lines when type-guessing, i.e. `guess_max = 1000`.
-Note that readr never consults lines that won't be part of the import, so the actual default is `guess_max = min(1000, n_max)`.
+By default, readr consults 1000 rows when type-guessing, i.e. `guess_max = 1000`.
+Note that readr never consults rows that won't be part of the import, so the actual default is `guess_max = min(1000, n_max)`.
 
 Sometimes you want to convey "use all of the data we're going to import to guess the column types", often without even knowing or specifying `n_max`.
 How should you say that?
@@ -50,8 +50,8 @@ If you only work with small files, this is fine.
 But for larger files, this can be very costly and for relatively little benefit.
 Often the column types guessed based on a subset of the file are "good enough".
 
-Note also that `guess_max = n`, for finite `n`, works better in the second edition parser (i.e. this behaviour comes from vroom).
-It sub-samples `n` lines throughout the file, including the last line, whereas earlier versions of readr just consulted the first `n` lines.
+Note also that `guess_max = n`, for finite `n`, works better in the second edition parser (i.e. this behavior comes from vroom).
+It sub-samples `n` rows throughout the file, including the last row, whereas earlier versions of readr just consulted the first `n` rows.
 Practically speaking, `guess_max = n` produces better guessed column types than it used to. 
 
 <!-- 
@@ -121,7 +121,7 @@ There are three ways to proceed, each of which has some downside:
 
 * Specify an actual, non-infinite value for `guess_max`.
 
-  This is awkward to suggest, because if you knew how many lines there were, we
+  This is awkward to suggest, because if you knew how many rows there were, we
   wouldn't be having this conversation in the first place.
   But sometimes you have a decent estimate and can choose a value of `guess_max`
   that is "big enough".
