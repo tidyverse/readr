@@ -127,7 +127,7 @@ each field before parsing it?}
 
 \item{n_max}{Maximum number of lines to read.}
 
-\item{guess_max}{Maximum number of lines to use for guessing column types.}
+\item{guess_max}{Maximum number of lines to use for guessing column types. See \code{vignette("column-types")} for more details.}
 
 \item{progress}{Display a progress bar? By default it will only display
 in an interactive session and not while knitting a document. The automatic

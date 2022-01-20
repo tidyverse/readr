@@ -229,7 +229,7 @@ supplied any commented lines are ignored \emph{after} skipping.}
 
 \item{n_max}{Maximum number of lines to read.}
 
-\item{guess_max}{Maximum number of lines to use for guessing column types.}
+\item{guess_max}{Maximum number of lines to use for guessing column types. See \code{vignette("column-types")} for more details.}
 
 \item{name_repair}{Treatment of problematic column names:
 \itemize{
