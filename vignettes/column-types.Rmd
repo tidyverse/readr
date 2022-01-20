@@ -50,7 +50,9 @@ If you only work with small files, this is fine.
 But for larger files, this can be very costly and for relatively little benefit.
 Often the column types guessed based on a subset of the file are "good enough".
 
-Note also that the second edition parser (i.e. vroom) sub-samples lines throughout the file, whereas earlier versions of readr consulted the first `guess_max` lines.
+Note also that `guess_max = n`, for finite `n`, works better in the second edition parser (i.e. this behaviour comes from vroom).
+It sub-samples `n` lines throughout the file, including the last line, whereas earlier versions of readr just consulted the first `n` lines.
+Practically speaking, `guess_max = n` produces better guessed column types than it used to. 
 
 <!-- 
 https://github.com/r-lib/vroom/issues/352
