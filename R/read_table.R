@@ -22,11 +22,9 @@
 #' cat(read_file(massey))
 #' read_table(massey)
 #'
-#' # Sample of 1978 fuel economy data from
-#' # http://www.fueleconomy.gov/feg/epadata/78data.zip
-#' epa <- readr_example("epa78.txt")
-#' cat(read_file(epa))
-#' read_table(epa, col_names = FALSE)
+#' ws <- readr_example("whitespace-sample.txt")
+#' cat(read_file(ws))
+#' read_table(ws, col_names = FALSE)
 
 #' @rdname read_table
 #' @export

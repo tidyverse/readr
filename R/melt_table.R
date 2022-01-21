@@ -30,11 +30,9 @@
 #' cat(read_file(massey))
 #' melt_table(massey)
 #'
-#' # Sample of 1978 fuel economy data from
-#' # http://www.fueleconomy.gov/feg/epadata/78data.zip
-#' epa <- readr_example("epa78.txt")
-#' cat(read_file(epa))
-#' melt_table(epa)
+#' ws <- readr_example("whitespace-sample.txt")
+#' cat(read_file(ws))
+#' melt_table(ws)
 melt_table <- function(file, locale = default_locale(), na = "NA", skip = 0,
                        n_max = Inf, guess_max = min(n_max, 1000),
                        progress = show_progress(), comment = "",
