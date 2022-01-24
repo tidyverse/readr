@@ -91,15 +91,8 @@ and each field is in the same position in every line. It first finds empty
 columns and then parses like a fixed width file.
 }
 \examples{
-# One corner from http://www.masseyratings.com/cf/compare.htm
-massey <- readr_example("massey-rating.txt")
-cat(read_file(massey))
-melt_table(massey)
-
-# Sample of 1978 fuel economy data from
-# http://www.fueleconomy.gov/feg/epadata/78data.zip
 ws <- readr_example("whitespace-sample.txt")
-cat(read_file(ws))
+writeLines(read_file(ws))
 melt_table(ws)
 }
 \seealso{
