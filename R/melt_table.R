@@ -27,11 +27,11 @@
 #' @examples
 #' # One corner from http://www.masseyratings.com/cf/compare.htm
 #' massey <- readr_example("massey-rating.txt")
-#' cat(read_file(massey))
+#' writeLines(read_file(massey))
 #' melt_table(massey)
 #'
 #' ws <- readr_example("whitespace-sample.txt")
-#' cat(read_file(ws))
+#' writeLines(read_file(ws))
 #' melt_table(ws)
 melt_table <- function(file, locale = default_locale(), na = "NA", skip = 0,
                        n_max = Inf, guess_max = min(n_max, 1000),

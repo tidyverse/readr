@@ -19,11 +19,11 @@
 #' @examples
 #' # One corner from http://www.masseyratings.com/cf/compare.htm
 #' massey <- readr_example("massey-rating.txt")
-#' cat(read_file(massey))
+#' writeLines(read_file(massey))
 #' read_table(massey)
 #'
 #' ws <- readr_example("whitespace-sample.txt")
-#' cat(read_file(ws))
+#' writeLines(read_file(ws))
 #' read_table(ws, col_names = FALSE)
 
 #' @rdname read_table
