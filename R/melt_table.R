@@ -25,11 +25,6 @@
 #' @inheritParams read_table
 #' @export
 #' @examples
-#' # One corner from http://www.masseyratings.com/cf/compare.htm
-#' massey <- readr_example("massey-rating.txt")
-#' writeLines(read_file(massey))
-#' melt_table(massey)
-#'
 #' ws <- readr_example("whitespace-sample.txt")
 #' writeLines(read_file(ws))
 #' melt_table(ws)
