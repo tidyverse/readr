@@ -29,7 +29,7 @@ the base utils::type.convert()."><meta property="og:image" content="https://read
       <span class="navbar-toggler-icon"></span>
     </button>
 
-    <div id="navbar" class="collapse navbar-collapse ms-2">
+    <div id="navbar" class="collapse navbar-collapse ms-3">
       <ul class="navbar-nav me-auto"><li class="nav-item">
   <a class="nav-link" href="../articles/readr.html">Get started</a>
 </li>
@@ -39,6 +39,7 @@ the base utils::type.convert()."><meta property="og:image" content="https://read
 <li class="nav-item dropdown">
   <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown" role="button" aria-expanded="false" aria-haspopup="true" id="dropdown-articles">Articles</a>
   <div class="dropdown-menu" aria-labelledby="dropdown-articles">
+    <a class="dropdown-item" href="../articles/column-types.html">Column type guessing</a>
     <a class="dropdown-item" href="../articles/locales.html">Locales</a>
   </div>
 </li>
@@ -137,8 +138,8 @@ because it likely modifies the column data types.
 <span class="r-in"><span class="op">)</span></span>
 <span class="r-in"><span class="fu"><a href="https://rdrr.io/r/utils/str.html" class="external-link">str</a></span><span class="op">(</span><span class="va">df</span><span class="op">)</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 'data.frame':	10 obs. of  2 variables:</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  $ x: chr  "0.0393920335918665" "0.943544032983482" "0.412225854815915" "0.325374729000032" ...</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  $ y: chr  "8" "3" "1" "2" ...</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  $ x: chr  "0.651715588988736" "0.929351874860004" "0.563021338079125" "0.818644948303699" ...</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  $ y: chr  "8" "7" "10" "4" ...</span>
 <span class="r-in"><span class="fu"><a href="https://rdrr.io/r/utils/str.html" class="external-link">str</a></span><span class="op">(</span><span class="fu">type_convert</span><span class="op">(</span><span class="va">df</span><span class="op">)</span><span class="op">)</span></span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">──</span> <span style="font-weight: bold;">Column specification</span> <span style="color: #00BBBB;">──────────────────────────────────────────────────</span></span>
@@ -147,8 +148,8 @@ because it likely modifies the column data types.
 <span class="r-msg co"><span class="r-pr">#&gt;</span>   y = <span style="color: #00BB00;">col_double()</span></span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> )</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 'data.frame':	10 obs. of  2 variables:</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  $ x: num  0.0394 0.9435 0.4122 0.3254 0.6809 ...</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  $ y: num  8 3 1 2 5 10 9 6 7 4</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  $ x: num  0.652 0.929 0.563 0.819 0.901 ...</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  $ y: num  8 7 10 4 9 5 2 1 6 3</span>
 <span class="r-in"></span>
 <span class="r-in"><span class="va">df</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a></span><span class="op">(</span>x <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"NA"</span>, <span class="st">"10"</span><span class="op">)</span>, stringsAsFactors <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span>
 <span class="r-in"><span class="fu"><a href="https://rdrr.io/r/utils/str.html" class="external-link">str</a></span><span class="op">(</span><span class="fu">type_convert</span><span class="op">(</span><span class="va">df</span><span class="op">)</span><span class="op">)</span></span>
@@ -239,7 +240,7 @@ because it likely modifies the column data types.
 </div>
 
 <div class="pkgdown-footer-right">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.1.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.2.</p>
 </div>
 
   </div></footer></body></html>
