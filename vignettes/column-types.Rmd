@@ -1,0 +1,164 @@
+---
+title: "Column type guessing"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Column type guessing}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+readr will guess column types from the data if the user does not specify the types.
+The `guess_max` parameter controls how many rows of the input file are used to form these guesses.
+Ideally, the column types would be completely obvious from the first non-header row and we could use `guess_max = 1`.
+That would be very efficient!
+But the situation is rarely so clear-cut.
+
+By default, readr consults 1000 rows when type-guessing, i.e. `guess_max = 1000`.
+Note that readr never consults rows that won't be part of the import, so the actual default is `guess_max = min(1000, n_max)`.
+
+Sometimes you want to convey "use all of the data we're going to import to guess the column types", often without even knowing or specifying `n_max`.
+How should you say that?
+It's also worth discussing the possible downsides of such a request.
+
+```{r setup}
+library(readr)
+```
+
+## readr >= 2.0.0
+
+readr got a new parsing engine in version 2.0.0 (released July 2021).
+In this so-called second edition, readr calls `vroom::vroom()`, by default.
+The vroom package and, therefore, the second edition of readr supports a very natural expression of "use all the data to guess": namely `guess_max = Inf`.
+
+```{r, eval = FALSE}
+read_csv("path/to/your/file", ..., guess_max = Inf)
+```
+
+Why isn't this the default?
+Why not do this all the time?
+Because column type guessing basically adds another pass through the data, in addition to the main parsing.
+
+If you routinely use `guess_max = Inf`, you're basically processing every file twice, in its entirety.
+If you only work with small files, this is fine.
+But for larger files, this can be very costly and for relatively little benefit.
+Often the column types guessed based on a subset of the file are "good enough".
+
+Note also that `guess_max = n`, for finite `n`, works better in the second edition parser.
+Due to its different design, vroom is able to sub-sample `n` rows throughout the file and it always includes the last row, whereas earlier versions of readr just consulted the first `n` rows.
+In practice, the result is that the default of `guess_max = min(1000, n_max)` produces better guessed column types that it used to.
+It should feel less necessary to fiddle with `guess_max` now.
+
+<!-- 
+https://github.com/r-lib/vroom/issues/352
+
+In fact vroom generally does this guessing better than readr currently does. Readr always uses the first guess_max number of rows for guessing, whereas vroom uses rows interspersed throughout the file if guess_max is less than the total number of rows.
+
+However as this example shows we should probably always include the last row when guessing, so I have made a change to always include the last row in the guess in the future.
+-->
+
+As always, remember that the best strategy is to provide explicit column types as any data analysis project matures past the exploratory phase.
+
+<!-- Future link to a vignette on column specification or, if that content gets co-located here, link to later in this vignette. -->
+
+## readr first edition and readr < 2.0.0
+
+The parsing engine in readr versions prior to 2.0.0 is now called the first edition.
+If you're using readr >= 2.0.0, you can still access first edition parsing via the functions `with_edition()` and `local_edition()`.
+And, obviously, if you're using readr < 2.0.0, you will get first edition parsing, by definition, because that's all there is.
+
+The first edition parser doesn't have a perfect way to convey "use all of the data to guess the column types".
+(This is one of several reasons to prefer readr >= 2.0.0.)
+
+Let's set up a slightly tricky file, so we can demonstrate different approaches.
+The column `x` is mostly empty, but has some numeric data at the very end, in row 1001.
+
+```{r}
+tricky_dat <- tibble::tibble(
+  x = rep(c("", "2"), c(1000, 1)),
+  y = "y"
+)
+tfile <- tempfile("tricky-column-type-guessing-", fileext = ".csv")
+write_csv(tricky_dat, tfile)
+```
+
+First, note that the second edition parser guesses the right type for `x`, even with the default `guess_max` behaviour.
+
+```{r}
+tail(read_csv(tfile))
+```
+
+In contrast, the first edition parser doesn't guess the right type for `x` with the `guess_max` default.
+`x` is imported as logical and the `2` becomes an `NA`.
+
+```{r}
+with_edition(
+  1,
+  tail(read_csv(tfile))
+)
+```
+
+There are three ways to proceed, each of which has some downside:
+
+* Specify `guess_max = Inf`, just like we do for the second edition parser.
+
+  Since readr does not know how much data it will be processing, the first
+  edition engine pre-allocates a large amount of memory in the face of this
+  uncertainty.
+  This means that reading with `guess_max = Inf` can be extremely slow and
+  might even crash your R session.
+  
+    ```{r}
+    with_edition(
+      1,
+      tail(read_csv(tfile, guess_max = Inf))
+    )
+    ```
+
+* Specify an actual, non-infinite value for `guess_max`.
+
+  This is an awkward suggestion, because if you knew how many rows there were,
+  we wouldn't be having this conversation in the first place.
+  But sometimes you have a decent estimate and can choose a value of `guess_max`
+  that is "big enough".
+  This usually results in much better performance than `guess_max = Inf`.
+  
+    ```{r}
+    with_edition(
+      1,
+      tail(read_csv(tfile, guess_max = 1200))
+    )
+    ```
+
+* Read all columns as character, then use `type_convert()`.
+  This is a bit clunky, since this obligates you to post-processing once you've
+  brought you data into R.
+
+    ```{r}
+    dat_chr <- with_edition(
+      1,
+      read_csv(tfile, col_types = cols(.default = col_character()))
+    )
+    tail(dat_chr)
+    
+    dat <- type_convert(dat_chr)
+    tail(dat)
+    ```
+
+<!-- 
+https://github.com/tidyverse/readr/issues/982
+https://github.com/tidyverse/readr/issues/588
+  
+Using type_convert() is another approach however this requires an extra step (or a few extra steps) after reading in the data.
+-->
+
+Clean up the temporary tricky csv file.
+```{r}
+file.remove(tfile)
+```
