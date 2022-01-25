@@ -8,6 +8,7 @@
       row col  expected    actual         file
         1  -- 1 columns 2 columns literal data
         2  -- 1 columns 2 columns literal data
+      
 
 ---
 
@@ -19,6 +20,7 @@
       row col  expected    actual         file
         1  -- 1 columns 2 columns literal data
         2  -- 1 columns 2 columns literal data
+      
 
 # too few or extra col_types generates warnings
 
@@ -29,6 +31,7 @@
       1 parsing failure.
       row col  expected    actual         file
         1  -- 1 columns 2 columns literal data
+      
 
 # comments are ignored regardless of where they appear
 
@@ -38,4 +41,5 @@
       1 parsing failure.
       row col  expected    actual         file
         1  -- 2 columns 1 columns literal data
+      
 
