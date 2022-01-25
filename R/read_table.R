@@ -18,8 +18,8 @@
 #' @export
 #' @examples
 #' ws <- readr_example("whitespace-sample.txt")
-#' writeLines(read_file(ws))
-#' read_table(ws, col_names = FALSE)
+#' writeLines(read_lines(ws))
+#' read_table(ws)
 
 #' @rdname read_table
 #' @export

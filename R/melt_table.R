@@ -26,7 +26,7 @@
 #' @export
 #' @examples
 #' ws <- readr_example("whitespace-sample.txt")
-#' writeLines(read_file(ws))
+#' writeLines(read_lines(ws))
 #' melt_table(ws)
 melt_table <- function(file, locale = default_locale(), na = "NA", skip = 0,
                        n_max = Inf, guess_max = min(n_max, 1000),
