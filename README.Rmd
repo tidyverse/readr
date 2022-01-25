@@ -53,7 +53,10 @@ library(tidyverse)
 ```
 
 To accurately read a rectangular dataset with readr you combine two pieces: a function that parses the overall file, and a column specification.
-The column specification describes how each column should be converted from a character vector to the most appropriate data type, and in most cases it's not necessary because readr will guess it for you automatically. 
+The column specification describes how each column should be converted from a character vector to the most appropriate data type.
+If column specification is not provided `readr` will try to guess column types but there are limitations and `readr` does not always get it right.
+A better approach is to specify the column types.
+`vignette("column-types")` gives more detail on how readr guesses the column types and how to efficiently guess column types.
 
 readr supports six file formats with six `read_` functions:
 
@@ -64,7 +67,6 @@ readr supports six file formats with six `read_` functions:
 * `read_table()`: tabular files where columns are separated by white-space.
 * `read_log()`: web log files
 
-In many cases, these functions will just work: you supply the path to a file and you get a tibble back.
 The following example loads a sample file bundled with readr:
 
 ```{r}
@@ -72,7 +74,7 @@ mtcars <- read_csv(readr_example("mtcars.csv"))
 ```
 
 Note that readr prints the column specification.
-This is useful because it allows you to check that the columns have been read in as you expect, and if they haven't, you can use `spec()` to retrieve the column specifications then copy and paste into a new call:
+This is useful because it allows you to check that the columns have been read in as you expect, and if they haven't, you can use `spec()` to retrieve the column specifications then copy and paste into a new call with the updated column types:
 
 ```{r, eval = FALSE}
 spec(mtcars)
@@ -94,7 +96,6 @@ mtcars <- read_csv(readr_example("mtcars.csv"), col_types =
 )
 ```
 
-`vignette("readr")` gives more detail on how readr guesses the column types, how you can override the defaults, and provides some useful tools for debugging parsing problems.
 
 ## Alternatives
 
