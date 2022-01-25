@@ -128,8 +128,8 @@ characters between columns, and the lines can be of different lengths.
 }
 \examples{
 ws <- readr_example("whitespace-sample.txt")
-writeLines(read_file(ws))
-read_table(ws, col_names = FALSE)
+writeLines(read_lines(ws))
+read_table(ws)
 }
 \seealso{
 \code{\link[=read_fwf]{read_fwf()}} to read fixed width files where each column

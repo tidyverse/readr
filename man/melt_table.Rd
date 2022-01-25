@@ -91,9 +91,13 @@ and each field is in the same position in every line. It first finds empty
 columns and then parses like a fixed width file.
 }
 \examples{
+fwf <- readr_example("fwf-sample.txt")
+writeLines(read_lines(fwf))
+melt_table(fwf)
+
 ws <- readr_example("whitespace-sample.txt")
-writeLines(read_file(ws))
-melt_table(ws)
+writeLines(read_lines(ws))
+melt_table2(ws)
 }
 \seealso{
 \code{\link[=melt_fwf]{melt_fwf()}} to melt fixed width files where each column
