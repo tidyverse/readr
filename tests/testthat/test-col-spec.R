@@ -1,5 +1,3 @@
-# comment because I want to kick GHA on this branch, before I start
-
 test_that("supplied col names must match non-skipped col types", {
   out <- col_spec_standardise(col_types = "c_c", col_names = c("a", "c"))
   expect_equal(names(out[[1]]), c("a", "", "c"))
@@ -131,50 +129,18 @@ test_that("as.character() works on col_spec objects", {
 
 # Printing ----------------------------------------------------------------
 
-regex_escape <- function(x) {
-  chars <- c("*", ".", "?", "^", "+", "$", "|", "(", ")", "[", "]", "{", "}", "\\")
-  gsub(paste0("([\\", paste0(collapse = "\\", chars), "])"), "\\\\\\1", x, perl = TRUE)
-}
-
 test_that("print(col_spec) with guess_parser", {
-  out <- col_spec_standardise("a,b,c\n1,2,3")
-  expect_output(
-    print(out),
-    regex_escape(
-      "cols(
-  a = col_double(),
-  b = col_double(),
-  c = col_double()
-)"
-    )
-  )
+  expect_snapshot(col_spec_standardise("a,b,c\n1,2,3"))
 })
 
 test_that("print(col_spec) with collector_skip", {
-  out <- cols_only(a = col_integer(), c = col_integer())
-  expect_output(
-    print(out),
-    regex_escape(
-      "cols_only(
-  a = col_integer(),
-  c = col_integer()
-)"
-    )
-  )
+  expect_snapshot(cols_only(a = col_integer(), c = col_integer()))
 })
 
 test_that("print(col_spec) with truncated output", {
   out <- col_spec_standardise("a,b,c\n1,2,3", col_types = cols(.default = "c"))
-  expect_output(
-    print(out, n = 2, condense = FALSE),
-    regex_escape(
-      "cols(
-  .default = col_character(),
-  a = col_character(),
-  b = col_character()
-  # ... with 1 more columns
-)"
-    )
+  expect_snapshot(
+    print(out, n = 2, condense = FALSE)
   )
 })
 
@@ -186,139 +152,75 @@ test_that("print(col_spec) works with dates", {
       c = col_date()
     )
   )
-
-  expect_output(
-    print(out),
-    regex_escape(
-      "cols(
-  a = col_date(format = \"%Y-%m-%d\"),
-  b = col_date(format = \"\"),
-  c = col_date(format = \"\")
-)"
-    )
-  )
+  expect_snapshot(out)
 })
 
 test_that("print(col_spec) with unnamed columns", {
-  out <- col_spec_standardise(col_types = "c_c", col_names = c("a", "c"))
-  expect_output(
-    print(out),
-    regex_escape(
-      "cols(
-  a = col_character(),
-  col_skip(),
-  c = col_character()
-)"
-    )
+  expect_snapshot(
+    col_spec_standardise(col_types = "c_c", col_names = c("a", "c"))
   )
 })
 
 test_that("print(cols_only()) prints properly", {
-  out <- cols_only(
-    a = col_character(),
-    c = col_integer()
-  )
-  expect_output(
-    print(out),
-    regex_escape(
-      "cols_only(
-  a = col_character(),
-  c = col_integer()
-)"
-    )
+  expect_snapshot(
+    cols_only(a = col_character(), c = col_integer())
   )
 })
 
 test_that("print(col_spec) with n == 0 prints nothing", {
-  out <- col_spec_standardise("a,b,c\n1,2,3")
-  expect_silent(print(out, n = 0))
+  expect_silent(print(col_spec_standardise("a,b,c\n1,2,3"), n = 0))
 })
 
-test_that("print(col_spec, condense = TRUE) condenses the spec", {
-  out <- col_spec_standardise("a,b,c,d\n1,2,3,a")
-  expect_output(
-    print(cols_condense(out)),
-    regex_escape(
-      "cols(
-  .default = col_double(),
-  d = col_character()
-)"
-    )
+test_that("print(cols_condense(col_spec)) condenses the spec", {
+  expect_snapshot(
+    cols_condense(col_spec_standardise("a,b,c,d\n1,2,3,a"))
   )
-
-  out <- col_spec_standardise("a,b,c,d\n1,2,3,4")
-  expect_output(
-    print(cols_condense(out)),
-    regex_escape(
-      "cols(
-  .default = col_double()
-)"
-    )
+  expect_snapshot(
+    cols_condense(col_spec_standardise("a,b,c,d\n1,2,3,4"))
   )
 })
 
 test_that("print(col_spec) with no columns specified", {
-  out <- cols()
-  expect_output(print(out), regex_escape("cols()"))
-
-  out <- cols(.default = col_character())
-  expect_output(print(out), regex_escape(
-    "cols(
-  .default = col_character()
-)"
-  ))
+  expect_snapshot(cols())
+  expect_snapshot(cols(.default = col_character()))
 })
 
 test_that("print(col_spec) and condense edge cases", {
-  out <- cols(a = col_integer(), b = col_integer(), c = col_double())
-
-  expect_equal(
-    format(out, n = 1, condense = TRUE, colour = FALSE),
-    "cols(
-  .default = col_integer(),
-  c = col_double()
-)
-"
-  )
+  expect_snapshot(print(
+    cols(a = col_integer(), b = col_integer(), c = col_double()),
+    n = 1,
+    condense = TRUE,
+    colour = FALSE
+  ))
 })
 
 test_that("print(col_spec) with colors", {
+  local_reproducible_output(crayon = TRUE)
+
   out <- col_spec_standardise(
     "a,b,c,d,e,f,g,h,i\n1,2,F,a,2018-01-01,2018-01-01 12:01:01,12:01:01,foo,blah",
     col_types = c(b = "i", h = "f", i = "_")
   )
-
-  with_crayon(
-    expect_snapshot_output(out)
-  )
+  expect_snapshot_output(out)
 })
 
 test_that("non-syntatic names are escaped", {
-  x <- read_csv(I("a b,_c,1,a`b\n1,2,3,4"))
-  expect_equal(
-    format(spec(x), colour = FALSE),
-    "cols(
-  `a b` = col_double(),
-  `_c` = col_double(),
-  `1` = col_double(),
-  `a\\`b` = col_double()
-)
-"
+  expect_snapshot(
+    col_spec_standardise("a b,_c,1,a`b\n1,2,3,4")
   )
 })
 
-test_that("long expressions are wrapped (597)", {
-  expect_equal(
-    format(cols(a = col_factor(levels = c("apple", "pear", "banana", "peach", "apricot", "orange", "plum"), ordered = TRUE)), colour = FALSE),
-    'cols(
-  a = col_factor(levels = c("apple", "pear", "banana", "peach", "apricot", "orange", "plum"
-    ), ordered = TRUE, include_na = FALSE)
-)
-'
+# https://github.com/tidyverse/readr/issues/597
+test_that("long spec declarations can be formatted", {
+  expect_snapshot(
+    cols(a = col_factor(
+      levels = c("apple", "pear", "banana", "peach", "apricot", "orange", "plum"),
+      ordered = TRUE
+    ))
   )
 })
 
-test_that("options(readr.show_col_spec) controls column specifications", {
+test_that("options(readr.show_col_types) controls col spec printing", {
   withr::local_options(list(readr.show_col_types = TRUE))
   expect_snapshot(
     out <- read_csv(readr_example("mtcars.csv")),
@@ -326,13 +228,13 @@ test_that("options(readr.show_col_spec) controls column specifications", {
   )
 
   withr::local_options(list(readr.show_col_types = FALSE))
-  expect_silent(read_csv(readr_example("mtcars.csv")))
+  expect_silent(out <- read_csv(readr_example("mtcars.csv")))
 })
 
-test_that("`show_col_types` controls column specification", {
+test_that("`show_col_types` controls col spec printing", {
   expect_snapshot(
     out <- read_csv(readr_example("mtcars.csv"), show_col_types = TRUE),
     variant = edition_variant()
   )
-  expect_silent(read_csv(readr_example("mtcars.csv"), show_col_types = FALSE))
+  expect_silent(out <- read_csv(readr_example("mtcars.csv"), show_col_types = FALSE))
 })
