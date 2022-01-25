@@ -71,6 +71,64 @@ test_that("warn about missing col names and fill in", {
   )
 })
 
+test_that("spec object attached to read data", {
+  skip_if(edition_first())
+
+  test_data <- read_csv(test_path("basic-df.csv"), col_types = NULL, col_names = TRUE)
+  sp <- spec(test_data)
+  sp$skip <- NULL
+
+  expect_equal(
+    sp,
+    cols(
+      .delim = ",",
+      a = col_logical(),
+      b = col_double(),
+      c = col_double(),
+      d = col_character()
+    )
+  )
+})
+
+test_that("guess_types errors on invalid inputs", {
+  expect_error(col_spec_standardise("a,b,c\n", guess_max = NA), "`guess_max` must be a positive integer")
+  expect_error(col_spec_standardise("a,b,c\n", guess_max = -1), "`guess_max` must be a positive integer")
+
+  expect_warning(col_spec_standardise("a,b,c\n", guess_max = Inf), "`guess_max` is a very large value")
+})
+
+test_that("check_guess_max errors on invalid inputs", {
+  expect_error(check_guess_max(NULL), "`guess_max` must be a positive integer")
+  expect_error(check_guess_max("test"), "`guess_max` must be a positive integer")
+  expect_error(check_guess_max(letters), "`guess_max` must be a positive integer")
+  expect_error(check_guess_max(1:2), "`guess_max` must be a positive integer")
+  expect_error(check_guess_max(NA), "`guess_max` must be a positive integer")
+  expect_error(check_guess_max(-1), "`guess_max` must be a positive integer")
+
+  expect_warning(check_guess_max(Inf), "`guess_max` is a very large value")
+})
+
+test_that("as.col_types can handle named character input", {
+  expect_equal(as.col_spec(c(a = "c")), cols(a = col_character()))
+})
+
+test_that("as.col_types can convert data.frame", {
+  spec <- as.col_spec(iris)
+  exp <- cols(
+    Sepal.Length = col_double(),
+    Sepal.Width = col_double(),
+    Petal.Length = col_double(),
+    Petal.Width = col_double(),
+    Species = col_factor(levels = c("setosa", "versicolor", "virginica"), ordered = FALSE, include_na = FALSE)
+  )
+  expect_equal(spec, exp)
+})
+
+test_that("as.character() works on col_spec objects", {
+  spec <- as.col_spec(iris)
+  expect_equal(as.character(spec), "ddddf")
+})
+
 # Printing ----------------------------------------------------------------
 
 regex_escape <- function(x) {
@@ -116,25 +174,6 @@ test_that("print(col_spec) with truncated output", {
   b = col_character()
   # ... with 1 more columns
 )"
-    )
-  )
-})
-
-test_that("spec object attached to read data", {
-  skip_if(edition_first())
-
-  test_data <- read_csv(test_path("basic-df.csv"), col_types = NULL, col_names = TRUE)
-  sp <- spec(test_data)
-  sp$skip <- NULL
-
-  expect_equal(
-    sp,
-    cols(
-      .delim = ",",
-      a = col_logical(),
-      b = col_double(),
-      c = col_double(),
-      d = col_character()
     )
   )
 })
@@ -277,45 +316,6 @@ test_that("long expressions are wrapped (597)", {
 )
 '
   )
-})
-
-test_that("guess_types errors on invalid inputs", {
-  expect_error(col_spec_standardise("a,b,c\n", guess_max = NA), "`guess_max` must be a positive integer")
-  expect_error(col_spec_standardise("a,b,c\n", guess_max = -1), "`guess_max` must be a positive integer")
-
-  expect_warning(col_spec_standardise("a,b,c\n", guess_max = Inf), "`guess_max` is a very large value")
-})
-
-test_that("check_guess_max errors on invalid inputs", {
-  expect_error(check_guess_max(NULL), "`guess_max` must be a positive integer")
-  expect_error(check_guess_max("test"), "`guess_max` must be a positive integer")
-  expect_error(check_guess_max(letters), "`guess_max` must be a positive integer")
-  expect_error(check_guess_max(1:2), "`guess_max` must be a positive integer")
-  expect_error(check_guess_max(NA), "`guess_max` must be a positive integer")
-  expect_error(check_guess_max(-1), "`guess_max` must be a positive integer")
-
-  expect_warning(check_guess_max(Inf), "`guess_max` is a very large value")
-})
-
-test_that("as.col_types can handle named character input", {
-  expect_equal(as.col_spec(c(a = "c")), cols(a = col_character()))
-})
-
-test_that("as.col_types can convert data.frame", {
-  spec <- as.col_spec(iris)
-  exp <- cols(
-    Sepal.Length = col_double(),
-    Sepal.Width = col_double(),
-    Petal.Length = col_double(),
-    Petal.Width = col_double(),
-    Species = col_factor(levels = c("setosa", "versicolor", "virginica"), ordered = FALSE, include_na = FALSE)
-  )
-  expect_equal(spec, exp)
-})
-
-test_that("as.character() works on col_spec objects", {
-  spec <- as.col_spec(iris)
-  expect_equal(as.character(spec), "ddddf")
 })
 
 test_that("options(readr.show_col_spec) controls column specifications", {
