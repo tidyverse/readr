@@ -22,7 +22,9 @@ knitr::opts_chunk$set(
 
 ## Overview
 
-The goal of readr is to provide a fast and friendly way to read rectangular data (like csv, tsv, and fwf). It is designed to flexibly parse many types of data found in the wild, while still cleanly failing when data unexpectedly changes. If you are new to readr, the best place to start is the [data import chapter](https://r4ds.had.co.nz/data-import.html) in R for data science.
+The goal of readr is to provide a fast and friendly way to read rectangular data (like csv, tsv, and fwf).
+It is designed to flexibly parse many types of data found in the wild, while still cleanly failing when data unexpectedly changes.
+If you are new to readr, the best place to start is the [data import chapter](https://r4ds.had.co.nz/data-import.html) in R for data science.
 
 ## Installation
 
@@ -50,7 +52,8 @@ readr is part of the core tidyverse, so load it with:
 library(tidyverse)
 ```
 
-To accurately read a rectangular dataset with readr you combine two pieces: a function that parses the overall file, and a column specification. The column specification describes how each column should be converted from a character vector to the most appropriate data type, and in most cases it's not necessary because readr will guess it for you automatically. 
+To accurately read a rectangular dataset with readr you combine two pieces: a function that parses the overall file, and a column specification.
+The column specification describes how each column should be converted from a character vector to the most appropriate data type, and in most cases it's not necessary because readr will guess it for you automatically. 
 
 readr supports six file formats with six `read_` functions:
 
@@ -61,13 +64,15 @@ readr supports six file formats with six `read_` functions:
 * `read_table()`: tabular files where columns are separated by white-space.
 * `read_log()`: web log files
 
-In many cases, these functions will just work: you supply the path to a file and you get a tibble back. The following example loads a sample file bundled with readr:
+In many cases, these functions will just work: you supply the path to a file and you get a tibble back.
+The following example loads a sample file bundled with readr:
 
 ```{r}
 mtcars <- read_csv(readr_example("mtcars.csv"))
 ```
 
-Note that readr prints the column specification. This is useful because it allows you to check that the columns have been read in as you expect, and if they haven't, you can use `spec()` to retrieve the column specifications then copy and paste into a new call:
+Note that readr prints the column specification.
+This is useful because it allows you to check that the columns have been read in as you expect, and if they haven't, you can use `spec()` to retrieve the column specifications then copy and paste into a new call:
 
 ```{r, eval = FALSE}
 spec(mtcars)
@@ -93,7 +98,8 @@ mtcars <- read_csv(readr_example("mtcars.csv"), col_types =
 
 ## Alternatives
 
-There are two main alternatives to readr: base R and data.table's `fread()`. The most important differences are discussed below.
+There are two main alternatives to readr: base R and data.table's `fread()`.
+The most important differences are discussed below.
 
 ### Base R
 
