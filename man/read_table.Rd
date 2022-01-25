@@ -127,16 +127,9 @@ characters between columns, and the lines can be of different lengths.
 \code{spec_table()} returns the column specifications rather than a data frame.
 }
 \examples{
-# One corner from http://www.masseyratings.com/cf/compare.htm
-massey <- readr_example("massey-rating.txt")
-cat(read_file(massey))
-read_table(massey)
-
-# Sample of 1978 fuel economy data from
-# http://www.fueleconomy.gov/feg/epadata/78data.zip
-epa <- readr_example("epa78.txt")
-cat(read_file(epa))
-read_table(epa, col_names = FALSE)
+ws <- readr_example("whitespace-sample.txt")
+writeLines(read_lines(ws))
+read_table(ws)
 }
 \seealso{
 \code{\link[=read_fwf]{read_fwf()}} to read fixed width files where each column

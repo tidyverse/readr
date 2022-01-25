@@ -91,16 +91,13 @@ and each field is in the same position in every line. It first finds empty
 columns and then parses like a fixed width file.
 }
 \examples{
-# One corner from http://www.masseyratings.com/cf/compare.htm
-massey <- readr_example("massey-rating.txt")
-cat(read_file(massey))
-melt_table(massey)
+fwf <- readr_example("fwf-sample.txt")
+writeLines(read_lines(fwf))
+melt_table(fwf)
 
-# Sample of 1978 fuel economy data from
-# http://www.fueleconomy.gov/feg/epadata/78data.zip
-epa <- readr_example("epa78.txt")
-cat(read_file(epa))
-melt_table(epa)
+ws <- readr_example("whitespace-sample.txt")
+writeLines(read_lines(ws))
+melt_table2(ws)
 }
 \seealso{
 \code{\link[=melt_fwf]{melt_fwf()}} to melt fixed width files where each column
