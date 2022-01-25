@@ -1,4 +1,4 @@
-# options(readr.show_col_spec) controls column specifications
+# options(readr.show_col_types) controls col spec printing
 
     Code
       out <- read_csv(readr_example("mtcars.csv"))
@@ -18,8 +18,9 @@
         gear = col_double(),
         carb = col_double()
       )
+      
 
-# `show_col_types` controls column specification
+# `show_col_types` controls col spec printing
 
     Code
       out <- read_csv(readr_example("mtcars.csv"), show_col_types = TRUE)
@@ -39,4 +40,5 @@
         gear = col_double(),
         carb = col_double()
       )
+      
 
