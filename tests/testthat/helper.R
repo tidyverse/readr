@@ -24,17 +24,6 @@ skip_if_no_clipboard <- function() {
   return(invisible(TRUE))
 }
 
-with_crayon <- function(expr) {
-  old <- options(crayon.enabled = TRUE, crayon.colors = 16)
-  crayon::num_colors(forget = TRUE)
-  on.exit({
-    options(old)
-    crayon::num_colors(forget = TRUE)
-  })
-
-  force(expr)
-}
-
 skip_if_edition_second <- function() {
   skip_if_not(edition_first())
 }
