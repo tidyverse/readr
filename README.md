@@ -150,22 +150,23 @@ functions:
     by automatically guessing the delimiter, whether or not the file has
     a header, and how many lines to skip.
 
-## Versions
+## Editions
 
 The version of `readr` discussed above (version \>= 2.0.0) uses a
 different parsing engine than previous versions (\< 2.0.0) and warrants
 some discussion.
 
-In the current version, `readr` by default calls `vroom::vroom()` for
-writing and parsing data. This means, when you call `readr` you are in
-effect calling `vroom::vroom()`.
+readr got a new parsing engine in version 2.0.0 (released July 2021). In
+this so-called second edition, readr calls `vroom::vroom()`, by default.
+This means, when you call `readr` you are in effect calling
+`vroom::vroom()`.
 
-Prior versions of `readr` (\< 2.0.0) do not call `vroom::vroom()` and
-are not as adept at guessing column types.
-
-For most users, the current version of `readr` is preferable. If you
-find yourself needing to learn more about how the different `readr`
-versions parse data, `vignette("column-types")` goes into more detail.
+The parsing engine in readr versions prior to 2.0.0 is now called the
+first edition. If you’re using readr \>= 2.0.0, you can still access
+first edition parsing via the functions `with_edition()` and
+`local_edition()`. And, obviously, if you’re using readr \< 2.0.0, you
+will get first edition parsing, by definition, because that’s all there
+is.
 
 ## Acknowledgements
 
