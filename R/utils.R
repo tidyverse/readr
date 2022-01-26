@@ -23,7 +23,7 @@ is_syntactic <- function(x) make.names(x) == x
 #' @export
 show_progress <- function() {
   isTRUE(getOption("readr.show_progress")) &&
-    is_interactive() &&
+    rlang::is_interactive() &&
     # some analysis re: rstudio.notebook.executing can be found in:
     # https://github.com/r-lib/rlang/issues/1031
     # TL;DR it's not consulted by is_interactive(), but probably should be
