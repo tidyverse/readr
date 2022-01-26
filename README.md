@@ -63,7 +63,8 @@ If column specification is not provided `readr` will try to guess column
 types but there are limitations and `readr` does not always get it
 right. A better approach is to specify the column types.
 `vignette("column-types")` gives more detail on how readr guesses the
-column types and how to efficiently guess column types.
+column types and how to most efficiently guess column types based on the
+version of `readr` you are using.
 
 readr supports six file formats with six `read_` functions:
 
@@ -91,7 +92,7 @@ mtcars <- read_csv(readr_example("mtcars.csv"))
 Note that readr prints the column specification. This is useful because
 it allows you to check that the columns have been read in as you expect,
 and if they haven’t, you can use `spec()` to retrieve the column
-specifications then copy and paste into a new call with the updated
+specifications then copy and paste into a new call with the desired
 column types:
 
 ``` r
@@ -148,6 +149,23 @@ functions:
 -   Forces you to supply all parameters, where `fread()` saves you work
     by automatically guessing the delimiter, whether or not the file has
     a header, and how many lines to skip.
+
+## Versions
+
+The version of `readr` discussed above (version \>= 2.0.0) uses a
+different parsing engine than previous versions (\< 2.0.0) and warrants
+some discussion.
+
+In the current version, `readr` by default calls `vroom::vroom()` for
+writing and parsing data. This means, when you call `readr` you are in
+effect calling `vroom::vroom()`.
+
+Prior versions of `readr` (\< 2.0.0) do not call `vroom::vroom()` and
+are not as adept at guessing column types.
+
+For most users, the current version of `readr` is preferable. If you
+find yourself needing to learn more about how the different `readr`
+versions parse data, `vignette("column-types")` goes into more detail.
 
 ## Acknowledgements
 
