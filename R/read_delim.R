@@ -76,7 +76,7 @@ NULL
 #'   supplied any commented lines are ignored _after_ skipping.
 #' @param n_max Maximum number of lines to read.
 #' @param guess_max Maximum number of lines to use for guessing column types.
-#'   See `vignette("column-types")` for more details.
+#'   See `vignette("column-types", package = "readr")` for more details.
 #' @param progress Display a progress bar? By default it will only display
 #'   in an interactive session and not while knitting a document. The automatic
 #'   progress bar can be disabled by setting option `readr.show_progress` to
