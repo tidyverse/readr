@@ -12,7 +12,9 @@ library(readr)
 knitr::opts_chunk$set(collapse = TRUE, comment = "#>")
 ```
 
-The key problem that readr solves is __parsing__ a flat file into a tibble. Parsing is the process of taking a text file and turning it into a rectangular tibble where each column is the appropriate part. Parsing takes place in three basic stages:
+The key problem that readr solves is __parsing__ a flat file into a tibble.
+Parsing is the process of taking a text file and turning it into a rectangular tibble where each column is the appropriate part.
+Parsing takes place in three basic stages:
 
 1.  The flat file is parsed into a rectangular matrix of
     strings.
@@ -22,7 +24,8 @@ The key problem that readr solves is __parsing__ a flat file into a tibble. Pars
 1.  Each column of strings is parsed into a vector of a 
     more specific type.
 
-It's easiest to learn how this works in the opposite order Below, you'll learn how the:
+It's easiest to learn how this works in the opposite order.
+Below, you'll learn how the:
 
 1.  __Vector parsers__ turn a character vector in to a 
     more specific type. 
@@ -38,7 +41,9 @@ Each `parse_*()` is coupled with a `col_*()` function, which will be used in the
 
 ## Vector parsers
 
-It's easiest to learn the vector parses using `parse_` functions. These all take a character vector and some options. They return a new vector the same length as the old, along with an attribute describing any problems.
+It's easiest to learn the vector parses using `parse_` functions.
+These all take a character vector and some options.
+They return a new vector the same length as the old, along with an attribute describing any problems.
 
 ### Atomic vectors
 
@@ -50,11 +55,14 @@ parse_double(c("1.56", "2.34", "3.56"))
 parse_logical(c("true", "false"))
 ```
 
-By default, readr expects `.` as the decimal mark and `,` as the grouping mark. You can override this default using `locale()`, as described in `vignette("locales")`.
+By default, readr expects `.` as the decimal mark and `,` as the grouping mark.
+You can override this default using `locale()`, as described in `vignette("locales")`.
 
 ### Flexible numeric parser
 
-`parse_integer()` and `parse_double()` are strict: the input string must be a single number with no leading or trailing characters. `parse_number()` is more flexible: it ignores non-numeric prefixes and suffixes, and knows how to deal with grouping marks. This makes it suitable for reading currencies and percentages:
+`parse_integer()` and `parse_double()` are strict: the input string must be a single number with no leading or trailing characters.
+`parse_number()` is more flexible: it ignores non-numeric prefixes and suffixes, and knows how to deal with grouping marks.
+This makes it suitable for reading currencies and percentages:
 
 ```{r}
 parse_number(c("0%", "10%", "150%"))
@@ -75,7 +83,8 @@ parse_date("2010-10-01")
 parse_time("1:00pm")
 ```
 
-Each function takes a `format` argument which describes the format of the string. If not specified, it uses a default value:
+Each function takes a `format` argument which describes the format of the string.
+If not specified, it uses a default value:
 
 * `parse_datetime()` recognises
   [ISO8601](https://en.wikipedia.org/wiki/ISO_8601) 
@@ -100,7 +109,8 @@ parse_datetime("02/02/15", "%m/%d/%y")
 
 ### Factors
 
-When reading a column that has a known set of values, you can read directly into a factor. `parse_factor()` will generate a warning if a value is not in the supplied levels.
+When reading a column that has a known set of values, you can read directly into a factor.
+`parse_factor()` will generate a warning if a value is not in the supplied levels.
  
 ```{r}
 parse_factor(c("a", "b", "a"), levels = c("a", "b", "c"))
@@ -109,7 +119,9 @@ parse_factor(c("a", "b", "d"), levels = c("a", "b", "c"))
 
 ## Column specification
 
-It would be tedious if you had to specify the type of every column when reading a file. Instead readr, uses some heuristics to guess the type of each column. You can access these results yourself using `guess_parser()`:
+It would be tedious if you had to specify the type of every column when reading a file.
+Instead readr, uses some heuristics to guess the type of each column.
+You can access these results yourself using `guess_parser()`:
 
 ```{r}
 guess_parser(c("a", "b", "c"))
@@ -118,14 +130,17 @@ guess_parser(c("1,000", "2,000", "3,000"))
 guess_parser(c("2001/10/10"))
 ```
 
-The guessing policies are described in the documentation for the individual functions. Guesses are fairly strict. For example, we don't guess that currencies are numbers, even though we can parse them:
+The guessing policies are described in the documentation for the individual functions.
+Guesses are fairly strict.
+For example, we don't guess that currencies are numbers, even though we can parse them:
 
 ```{r}
 guess_parser("$1,234")
 parse_number("$1,234")
 ``` 
 
-There are two parsers that will never be guessed: `col_skip()` and `col_factor()`. You will always need to supply these explicitly.
+There are two parsers that will never be guessed: `col_skip()` and `col_factor()`.
+You will always need to supply these explicitly.
 
 You can see the specification that readr would generate for a column file by using `spec_csv()`, `spec_tsv()` and so on:
 
@@ -143,7 +158,10 @@ cols_condense(mtcars_spec)
 ```
 
 
-By default readr only looks at the first 1000 rows. This keeps file parsing speedy, but can generate incorrect guesses. For example, in `challenge.csv` the column types change in row 1001, so readr guesses the wrong types. One way to resolve the problem is to increase the number of rows:
+By default readr only looks at the first 1000 rows.
+This keeps file parsing speedy, but can generate incorrect guesses.
+For example, in `challenge.csv` the column types change in row 1001, so readr guesses the wrong types.
+One way to resolve the problem is to increase the number of rows:
 
 ```{r}
 x <- spec_csv(readr_example("challenge.csv"), guess_max = 1001)
@@ -166,7 +184,9 @@ Each of these functions firsts calls `spec_xxx()` (as described above), and then
 df1 <- read_csv(readr_example("challenge.csv"))
 ```
 
-The rectangular parsing functions almost always succeed; they'll only fail if the format is severely messed up. Instead, readr will generate a data frame of problems. The first few will be printed out, and you can access them all with `problems()`:
+The rectangular parsing functions almost always succeed; they'll only fail if the format is severely messed up.
+Instead, readr will generate a data frame of problems.
+The first few will be printed out, and you can access them all with `problems()`:
 
 ```{r}
 problems(df1)
@@ -199,7 +219,8 @@ spec(df1)
 spec(df2)
 ```
 
-(This also allows you to access the full column specification if you're reading a very wide file. By default, readr will only print the specification of the first 20 columns.)
+(This also allows you to access the full column specification if you're reading a very wide file.
+By default, readr will only print the specification of the first 20 columns.)
 
 If you want to manually specify the column types, you can start by copying and pasting this code, and then tweaking it fix the parsing problems.
 
@@ -213,7 +234,10 @@ df3 <- read_csv(
 )
 ```
 
-In general, it's good practice to supply an explicit column specification. It is more work, but it ensures that you get warnings if the data changes in unexpected ways. To be really strict, you can use `stop_for_problems(df3)`. This will throw an error if there are any parsing problems, forcing you to fix those problems before proceeding with the analysis.
+In general, it's good practice to supply an explicit column specification.
+It is more work, but it ensures that you get warnings if the data changes in unexpected ways.
+To be really strict, you can use `stop_for_problems(df3)`.
+This will throw an error if there are any parsing problems, forcing you to fix those problems before proceeding with the analysis.
 
 ### Available column specifications
 
@@ -231,7 +255,8 @@ The available specifications are: (with string abbreviations in brackets)
 * `col_skip()` [_, -], don't import this column.
 * `col_guess()` [?], parse using the "best" type based on the input.
 
-Use the `col_types` argument to override the default choices. There are two ways to use it:
+Use the `col_types` argument to override the default choices.
+There are two ways to use it:
 
 * With a string: `"dc__d"`: read first column as double, second as character,
   skip the next two and read the last column as a double. (There's no way to
@@ -290,6 +315,8 @@ read_csv("iris.csv", col_types = cols_only(
 
 ### Output
 
-The output of all these functions is a tibble. Note that characters are never automatically converted to factors (i.e. no more `stringsAsFactors = FALSE`) and column names are left as is, not munged into valid R identifiers (i.e. there is no `check.names = TRUE`). Row names are never set.
+The output of all these functions is a tibble.
+Note that characters are never automatically converted to factors (i.e. no more `stringsAsFactors = FALSE`) and column names are left as is, not munged into valid R identifiers (i.e. there is no `check.names = TRUE`).
+Row names are never set.
 
 Attributes store the column specification (`spec()`) and any parsing problems (`problems()`).
