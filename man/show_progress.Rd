@@ -7,11 +7,14 @@
 show_progress()
 }
 \description{
-Progress bars are shown \emph{unless} one of the following is \code{TRUE}
+By default, readr shows progress bars. However, progress reporting is
+suppressed if any of the following conditions hold:
 \itemize{
-\item The bar is explicitly disabled by setting \code{options(readr.show_progress = FALSE)}
-\item The code is run in a non-interactive session (\code{interactive()} is \code{FALSE}).
-\item The code is run in an RStudio notebook chunk.
-\item The code is run by knitr / rmarkdown.
+\item The bar is explicitly disabled by setting
+\code{options(readr.show_progress = FALSE)}.
+\item The code is run in a non-interactive session, as determined by
+\code{\link[rlang:is_interactive]{rlang::is_interactive()}}.
+\item The code is run in an RStudio notebook chunk, as determined by
+\code{getOption("rstudio.notebook.executing")}.
 }
 }
