@@ -14,7 +14,7 @@ suppressed if any of the following conditions hold:
 \code{options(readr.show_progress = FALSE)}.
 \item The code is run in a non-interactive session, as determined by
 \code{\link[rlang:is_interactive]{rlang::is_interactive()}}.
-\item The code is run in an RStudio notebook chunk, as determined by the
+\item The code is run in an RStudio notebook chunk, as determined by
 \code{getOption("rstudio.notebook.executing")}.
 }
 }

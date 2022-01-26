@@ -18,7 +18,7 @@ is_syntactic <- function(x) make.names(x) == x
 #'   `options(readr.show_progress = FALSE)`.
 #' - The code is run in a non-interactive session, as determined by
 #'   [rlang::is_interactive()].
-#' - The code is run in an RStudio notebook chunk, as determined by the
+#' - The code is run in an RStudio notebook chunk, as determined by
 #'   `getOption("rstudio.notebook.executing")`.
 #' @export
 show_progress <- function() {
