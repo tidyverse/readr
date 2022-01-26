@@ -45,7 +45,7 @@ readr is part of the core tidyverse, so load it with:
 
 ``` r
 library(tidyverse)
-#> ── Attaching packages ─────────────────────────────────────── tidyverse 1.3.1 ──
+#> ── Attaching packages ────────────────────────────────── tidyverse 1.3.1.9000 ──
 #> ✓ ggplot2 3.3.5          ✓ purrr   0.3.4     
 #> ✓ tibble  3.1.6          ✓ dplyr   1.0.7     
 #> ✓ tidyr   1.1.4          ✓ stringr 1.4.0     
@@ -58,11 +58,14 @@ library(tidyverse)
 To accurately read a rectangular dataset with readr you combine two
 pieces: a function that parses the overall file, and a column
 specification. The column specification describes how each column should
-be converted from a character vector to the most appropriate data type,
-and in most cases it’s not necessary because readr will guess it for you
-automatically.
+be converted from a character vector to the most appropriate data type.
+If column specification is not provided `readr` will try to guess column
+types but there are limitations and `readr` does not always get it
+right. A better approach is to specify the column types.
+`vignette("column-types")` gives more detail on how readr guesses the
+column types and how to efficiently guess column types.
 
-readr supports seven file formats with seven `read_` functions:
+readr supports six file formats with six `read_` functions:
 
 -   `read_csv()`: comma separated (CSV) files
 -   `read_tsv()`: tab separated files
@@ -72,9 +75,7 @@ readr supports seven file formats with seven `read_` functions:
     white-space.
 -   `read_log()`: web log files
 
-In many cases, these functions will just work: you supply the path to a
-file and you get a tibble back. The following example loads a sample
-file bundled with readr:
+The following example loads a sample file bundled with readr:
 
 ``` r
 mtcars <- read_csv(readr_example("mtcars.csv"))
@@ -89,9 +90,13 @@ mtcars <- read_csv(readr_example("mtcars.csv"))
 
 Note that readr prints the column specification. This is useful because
 it allows you to check that the columns have been read in as you expect,
-and if they haven’t, you can easily copy and paste into a new call:
+and if they haven’t, you can use `spec()` to retrieve the column
+specifications then copy and paste into a new call with the updated
+column types:
 
 ``` r
+spec(mtcars)
+
 mtcars <- read_csv(readr_example("mtcars.csv"), col_types = 
   list(
     mpg = col_double(),
@@ -108,10 +113,6 @@ mtcars <- read_csv(readr_example("mtcars.csv"), col_types =
   )
 )
 ```
-
-`vignette("readr")` gives more detail on how readr guesses the column
-types, how you can override the defaults, and provides some useful tools
-for debugging parsing problems.
 
 ## Alternatives
 
