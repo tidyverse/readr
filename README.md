@@ -15,11 +15,11 @@ Status](https://codecov.io/gh/tidyverse/readr/coverage.svg?branch=main)](https:/
 ## Overview
 
 The goal of readr is to provide a fast and friendly way to read
-rectangular data (like csv, tsv, and fwf). It is designed to flexibly
-parse many types of data found in the wild, while still cleanly failing
-when data unexpectedly changes. If you are new to readr, the best place
-to start is the [data import
-chapter](https://r4ds.had.co.nz/data-import.html) in R for data science.
+rectangular data like comma separated (csv) files and tab separated
+(tsv) files. It is designed to flexibly parse many types of data found
+in the wild, while still cleanly failing when data unexpectedly changes.
+If you are new to readr, the best place to start is the [data import
+chapter](https://r4ds.had.co.nz/data-import.html) in R for Data Science.
 
 ## Installation
 
@@ -45,7 +45,7 @@ readr is part of the core tidyverse, so load it with:
 
 ``` r
 library(tidyverse)
-#> ── Attaching packages ────────────────────────────────── tidyverse 1.3.1.9000 ──
+#> ── Attaching packages ─────────────────────────────────────── tidyverse 1.3.1 ──
 #> ✓ ggplot2 3.3.5          ✓ purrr   0.3.4     
 #> ✓ tibble  3.1.6          ✓ dplyr   1.0.7     
 #> ✓ tidyr   1.1.4          ✓ stringr 1.4.0     
@@ -59,19 +59,20 @@ To accurately read a rectangular dataset with readr you combine two
 pieces: a function that parses the overall file, and a column
 specification. The column specification describes how each column should
 be converted from a character vector to the most appropriate data type.
-If column specification is not provided `readr` will try to guess column
-types but there are limitations and `readr` does not always get it
-right. A better approach is to specify the column types.
+
+If column specification is not provided, readr will guess column types.
+As always, remember that the best strategy is to provide explicit column
+types as any data analysis project matures past the exploratory phase.
+
 `vignette("column-types")` gives more detail on how readr guesses the
-column types and how to most efficiently guess column types based on the
-version of `readr` you are using.
+column types.
 
-readr supports six file formats with six `read_` functions:
+readr supports the following file formats with these `read_` functions:
 
--   `read_csv()`: comma separated (CSV) files
--   `read_tsv()`: tab separated files
+-   `read_csv()`: comma separated (csv) files
+-   `read_tsv()`: tab separated (tsv) files
 -   `read_delim()`: general delimited files
--   `read_fwf()`: fixed width files
+-   `read_fwf()`: fixed width files (fwf)
 -   `read_table()`: tabular files where columns are separated by
     white-space.
 -   `read_log()`: web log files
@@ -89,14 +90,26 @@ mtcars <- read_csv(readr_example("mtcars.csv"))
 #> ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.
 ```
 
-Note that readr prints the column specification. This is useful because
-it allows you to check that the columns have been read in as you expect,
-and if they haven’t, you can use `spec()` to retrieve the column
-specifications then copy and paste into a new call with the desired
-column types:
+Note that readr prints the column types. This is useful because it
+allows you to check that the columns have been read in as you expect. If
+they haven’t, you can use `spec()` to retrieve the column specification
+and then copy and paste into a new call with the desired column types:
 
 ``` r
 spec(mtcars)
+#> cols(
+#>   mpg = col_double(),
+#>   cyl = col_double(),
+#>   disp = col_double(),
+#>   hp = col_double(),
+#>   drat = col_double(),
+#>   wt = col_double(),
+#>   qsec = col_double(),
+#>   vs = col_double(),
+#>   am = col_double(),
+#>   gear = col_double(),
+#>   carb = col_double()
+#> )
 
 mtcars <- read_csv(readr_example("mtcars.csv"), col_types = 
   list(
@@ -114,6 +127,22 @@ mtcars <- read_csv(readr_example("mtcars.csv"), col_types =
   )
 )
 ```
+
+`vignette("readr")` gives more detail on how readr parses data.
+
+## Editions
+
+readr got a new parsing engine in version 2.0.0 (released July 2021). In
+this so-called second edition, readr calls `vroom::vroom()`, by default.
+This means, when you call readr you are in effect calling
+`vroom::vroom()`.
+
+The parsing engine in readr versions prior to 2.0.0 is now called the
+first edition. If you’re using readr \>= 2.0.0, you can still access
+first edition parsing via the functions `with_edition()` and
+`local_edition()`. And, obviously, if you’re using readr \< 2.0.0, you
+will get first edition parsing, by definition, because that’s all there
+is.
 
 ## Alternatives
 
@@ -149,24 +178,6 @@ functions:
 -   Forces you to supply all parameters, where `fread()` saves you work
     by automatically guessing the delimiter, whether or not the file has
     a header, and how many lines to skip.
-
-## Editions
-
-The version of `readr` discussed above (version \>= 2.0.0) uses a
-different parsing engine than previous versions (\< 2.0.0) and warrants
-some discussion.
-
-readr got a new parsing engine in version 2.0.0 (released July 2021). In
-this so-called second edition, readr calls `vroom::vroom()`, by default.
-This means, when you call `readr` you are in effect calling
-`vroom::vroom()`.
-
-The parsing engine in readr versions prior to 2.0.0 is now called the
-first edition. If you’re using readr \>= 2.0.0, you can still access
-first edition parsing via the functions `with_edition()` and
-`local_edition()`. And, obviously, if you’re using readr \< 2.0.0, you
-will get first edition parsing, by definition, because that’s all there
-is.
 
 ## Acknowledgements
 
