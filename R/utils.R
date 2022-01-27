@@ -190,3 +190,13 @@ readr_enquo <- function(x) {
   }
   x
 }
+
+check_string <- function(x, nm = deparse(substitute(x)), optional = FALSE) {
+  if (rlang::is_string(x)) {
+    return()
+  }
+  if (optional && is.null(x)) {
+    return()
+  }
+  cli::cli_abort("{.code {nm}} must be a string.")
+}
