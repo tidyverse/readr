@@ -23,17 +23,27 @@ chapter](https://r4ds.had.co.nz/data-import.html) in R for Data Science.
 
 ## Installation
 
+<div class=".pkgdown-release">
+
 ``` r
 # The easiest way to get readr is to install the whole tidyverse:
 install.packages("tidyverse")
 
 # Alternatively, install just readr:
 install.packages("readr")
+```
 
+</div>
+
+<div class=".pkgdown-devel">
+
+``` r
 # Or the the development version from GitHub:
 # install.packages("devtools")
 devtools::install_github("tidyverse/readr")
 ```
+
+</div>
 
 ## Cheatsheet
 

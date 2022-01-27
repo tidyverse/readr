@@ -28,17 +28,23 @@ If you are new to readr, the best place to start is the [data import chapter](ht
 
 ## Installation
 
+::: .pkgdown-release
 ```{r, eval = FALSE}
 # The easiest way to get readr is to install the whole tidyverse:
 install.packages("tidyverse")
 
 # Alternatively, install just readr:
 install.packages("readr")
+```
+:::
 
+::: .pkgdown-devel
+```{r, eval = FALSE}
 # Or the the development version from GitHub:
 # install.packages("devtools")
 devtools::install_github("tidyverse/readr")
 ```
+:::
 
 ## Cheatsheet
 
