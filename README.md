@@ -149,10 +149,15 @@ This means, when you call readr you are in effect calling
 
 The parsing engine in readr versions prior to 2.0.0 is now called the
 first edition. If you’re using readr \>= 2.0.0, you can still access
-first edition parsing via the functions `with_edition()` and
-`local_edition()`. And, obviously, if you’re using readr \< 2.0.0, you
+first edition parsing via the functions `with_edition(1, ...)` and
+`local_edition(1)`. And, obviously, if you’re using readr \< 2.0.0, you
 will get first edition parsing, by definition, because that’s all there
 is.
+
+New code and actively-maintained code should use the 2nd edition. The
+workarounds `with_edition(1, ...)` and `local_edition(1)` are offered as
+a pragmatic way to patch up legacy code or as a temporary solution for
+infelicities identified as the 2nd edition matures.
 
 ## Alternatives
 
