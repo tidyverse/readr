@@ -302,14 +302,15 @@ supplied any commented lines are ignored <em>after</em> skipping.</p></dd>
 <dd><p>Maximum number of lines to use for guessing column types.
 See <code><a href="../articles/column-types.html">vignette("column-types", package = "readr")</a></code> for more details.</p></dd>
 <dt>name_repair</dt>
-<dd><p>Treatment of problematic column names:</p><ul><li><p><code>"minimal"</code>: No name repair or checks, beyond basic existence of names</p></li>
-<li><p><code>"unique"</code>: Make sure names are unique and not empty</p></li>
-<li><p><code>"check_unique"</code>: (default value), no name repair, but check they are
-<code>unique</code></p></li>
-<li><p><code>"universal"</code>: Make the names <code>unique</code> and syntactic</p></li>
-<li><p>a function: apply custom name repair (e.g., <code>.name_repair = make.names</code>
-for names in the style of base R)</p></li>
-<li><p>A purrr-style anonymous function, see <code><a href="https://rlang.r-lib.org/reference/as_function.html" class="external-link">rlang::as_function()</a></code></p></li>
+<dd><p>Handling of column names. The default behaviour is to
+ensure column names are <code>"unique"</code>. Various repair strategies are
+supported:</p><ul><li><p><code>"minimal"</code>: No name repair or checks, beyond basic existence of names.</p></li>
+<li><p><code>"unique"</code> (default value): Make sure names are unique and not empty.</p></li>
+<li><p><code>"check_unique"</code>: no name repair, but check they are <code>unique</code>.</p></li>
+<li><p><code>"universal"</code>: Make the names <code>unique</code> and syntactic.</p></li>
+<li><p>A function: apply custom name repair (e.g., <code>name_repair = make.names</code>
+for names in the style of base R).</p></li>
+<li><p>A purrr-style anonymous function, see <code><a href="https://rlang.r-lib.org/reference/as_function.html" class="external-link">rlang::as_function()</a></code>.</p></li>
 </ul><p>This argument is passed on as <code>repair</code> to <code><a href="https://vctrs.r-lib.org/reference/vec_as_names.html" class="external-link">vctrs::vec_as_names()</a></code>.
 See there for more details on these terms and the strategies used
 to enforce them.</p></dd>
