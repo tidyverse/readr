@@ -136,16 +136,17 @@ in an interactive session and not while knitting a document. The automatic
 progress bar can be disabled by setting option \code{readr.show_progress} to
 \code{FALSE}.}
 
-\item{name_repair}{Treatment of problematic column names:
+\item{name_repair}{Handling of column names. The default behaviour is to
+ensure column names are \code{"unique"}. Various repair strategies are
+supported:
 \itemize{
-\item \code{"minimal"}: No name repair or checks, beyond basic existence of names
-\item \code{"unique"}: Make sure names are unique and not empty
-\item \code{"check_unique"}: (default value), no name repair, but check they are
-\code{unique}
-\item \code{"universal"}: Make the names \code{unique} and syntactic
-\item a function: apply custom name repair (e.g., \code{.name_repair = make.names}
-for names in the style of base R)
-\item A purrr-style anonymous function, see \code{\link[rlang:as_function]{rlang::as_function()}}
+\item \code{"minimal"}: No name repair or checks, beyond basic existence of names.
+\item \code{"unique"} (default value): Make sure names are unique and not empty.
+\item \code{"check_unique"}: no name repair, but check they are \code{unique}.
+\item \code{"universal"}: Make the names \code{unique} and syntactic.
+\item A function: apply custom name repair (e.g., \code{name_repair = make.names}
+for names in the style of base R).
+\item A purrr-style anonymous function, see \code{\link[rlang:as_function]{rlang::as_function()}}.
 }
 
 This argument is passed on as \code{repair} to \code{\link[vctrs:vec_as_names]{vctrs::vec_as_names()}}.
