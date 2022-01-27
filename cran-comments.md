@@ -3,6 +3,9 @@ There were no ERRORs, WARNINGs
 
 There were 0 NOTEs:
 
-## Revdepcheck results
+## revdepcheck results
 
-We checked reverse dependencies, there were no additional issues related to this release.
+We checked 540 reverse dependencies, comparing R CMD check results across CRAN and dev versions of this package.
+
+ * We saw 0 new problems
+ * We failed to check 0 packages
