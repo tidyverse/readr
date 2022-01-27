@@ -4,7 +4,7 @@
 
 * `show_progress()` uses `rlang::is_interactive()` instead of `base::interactive()` (#1356).
 
-* `read_builtin()` does more argument checking, so that we catch obviously malformed input before passing along to `utils::data()`.
+* `read_builtin()` does more argument checking, so that we catch obviously malformed input before passing along to `utils::data()` (#1361).
 
 # readr 2.1.1
 
