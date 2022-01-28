@@ -15,11 +15,12 @@ Status](https://codecov.io/gh/tidyverse/readr/coverage.svg?branch=main)](https:/
 ## Overview
 
 The goal of readr is to provide a fast and friendly way to read
-rectangular data (like csv, tsv, and fwf). It is designed to flexibly
-parse many types of data found in the wild, while still cleanly failing
-when data unexpectedly changes. If you are new to readr, the best place
-to start is the [data import
-chapter](https://r4ds.had.co.nz/data-import.html) in R for data science.
+rectangular data from delimited files, such as comma-separated values
+(CSV) and tab-separated values (TSV). It is designed to parse many types
+of data found in the wild, while providing an informative problem report
+when parsing leads to unexpected results. If you are new to readr, the
+best place to start is the [data import
+chapter](https://r4ds.had.co.nz/data-import.html) in R for Data Science.
 
 ## Installation
 
@@ -29,11 +30,17 @@ install.packages("tidyverse")
 
 # Alternatively, install just readr:
 install.packages("readr")
+```
 
-# Or the the development version from GitHub:
+<div class=".pkgdown-devel">
+
+``` r
+# Or you can install the development version from GitHub:
 # install.packages("devtools")
 devtools::install_github("tidyverse/readr")
 ```
+
+</div>
 
 ## Cheatsheet
 
@@ -41,7 +48,7 @@ devtools::install_github("tidyverse/readr")
 
 ## Usage
 
-readr is part of the core tidyverse, so load it with:
+readr is part of the core tidyverse, so you can load it with:
 
 ``` r
 library(tidyverse)
@@ -55,63 +62,126 @@ library(tidyverse)
 #> x dplyr::lag()    masks stats::lag()
 ```
 
-To accurately read a rectangular dataset with readr you combine two
-pieces: a function that parses the overall file, and a column
-specification. The column specification describes how each column should
-be converted from a character vector to the most appropriate data type,
-and in most cases it’s not necessary because readr will guess it for you
-automatically.
-
-readr supports seven file formats with seven `read_` functions:
-
--   `read_csv()`: comma separated (CSV) files
--   `read_tsv()`: tab separated files
--   `read_delim()`: general delimited files
--   `read_fwf()`: fixed width files
--   `read_table()`: tabular files where columns are separated by
-    white-space.
--   `read_log()`: web log files
-
-In many cases, these functions will just work: you supply the path to a
-file and you get a tibble back. The following example loads a sample
-file bundled with readr:
+Of course, you can also load readr as an individual package:
 
 ``` r
-mtcars <- read_csv(readr_example("mtcars.csv"))
-#> Rows: 32 Columns: 11
+library(readr)
+```
+
+To read a rectangular dataset with readr, you combine two pieces: a
+function that parses the lines of the file into individual fields and a
+column specification.
+
+readr supports the following file formats with these `read_*()`
+functions:
+
+-   `read_csv()`: comma-separated values (CSV) files
+-   `read_tsv()`: tab-separated values (TSV) files
+-   `read_delim()`: delimited files (CSV and TSV are important special
+    cases)
+-   `read_fwf()`: fixed-width files
+-   `read_table()`: whitespace-separated files
+-   `read_log()`: web log files
+
+A column specification describes how each column should be converted
+from a character vector to a specific data type (e.g. character,
+numeric, datetime, etc.). In the absence of a column specification,
+readr will guess column types from the data. `vignette("column-types")`
+gives more detail on how readr guesses the column types. Column type
+guessing is very handy, especially during data exploration, but it’s
+important to remember these are *just guesses*. As any data analysis
+project matures past the exploratory phase, the best strategy is to
+provide explicit column types.
+
+The following example loads a sample file bundled with readr and guesses
+the column types:
+
+``` r
+(chickens <- read_csv(readr_example("chickens.csv")))
+#> Rows: 5 Columns: 4
 #> ── Column specification ────────────────────────────────────────────────────────
 #> Delimiter: ","
-#> dbl (11): mpg, cyl, disp, hp, drat, wt, qsec, vs, am, gear, carb
+#> chr (3): chicken, sex, motto
+#> dbl (1): eggs_laid
 #> 
 #> ℹ Use `spec()` to retrieve the full column specification for this data.
 #> ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.
+#> # A tibble: 5 × 4
+#>   chicken                 sex     eggs_laid motto                               
+#>   <chr>                   <chr>       <dbl> <chr>                               
+#> 1 Foghorn Leghorn         rooster         0 That's a joke, ah say, that's a jok…
+#> 2 Chicken Little          hen             3 The sky is falling!                 
+#> 3 Ginger                  hen            12 Listen. We'll either die free chick…
+#> 4 Camilla the Chicken     hen             7 Bawk, buck, ba-gawk.                
+#> 5 Ernie The Giant Chicken rooster         0 Put Captain Solo in the cargo hold.
 ```
 
-Note that readr prints the column specification. This is useful because
-it allows you to check that the columns have been read in as you expect,
-and if they haven’t, you can easily copy and paste into a new call:
+Note that readr prints the column types – the *guessed* column types, in
+this case. This is useful because it allows you to check that the
+columns have been read in as you expect. If they haven’t, that means you
+need to provide the column specification. This sounds like a lot of
+trouble, but luckily readr affords a nice workflow for this. Use
+`spec()` to retrieve the (guessed) column specification from your
+initial effort.
 
 ``` r
-mtcars <- read_csv(readr_example("mtcars.csv"), col_types = 
-  list(
-    mpg = col_double(),
-    cyl = col_integer(),
-    disp = col_double(),
-    hp = col_integer(),
-    drat = col_double(),
-    vs = col_integer(),
-    wt = col_double(),
-    qsec = col_double(),
-    am = col_integer(),
-    gear = col_integer(),
-    carb = col_integer()
-  )
-)
+spec(chickens)
+#> cols(
+#>   chicken = col_character(),
+#>   sex = col_character(),
+#>   eggs_laid = col_double(),
+#>   motto = col_character()
+#> )
 ```
 
-`vignette("readr")` gives more detail on how readr guesses the column
-types, how you can override the defaults, and provides some useful tools
-for debugging parsing problems.
+Now you can copy, paste, and tweak this, to create a more explicit readr
+call that expresses the desired column types. Here we express that `sex`
+should be a factor with levels `rooster` and `hen`, in that order, and
+that `eggs_laid` should be integer.
+
+``` r
+chickens <- read_csv(
+  readr_example("chickens.csv"),
+  col_types = cols(
+    chicken   = col_character(),
+    sex       = col_factor(levels = c("rooster", "hen")),
+    eggs_laid = col_integer(),
+    motto     = col_character()
+  )
+)
+chickens
+#> # A tibble: 5 × 4
+#>   chicken                 sex     eggs_laid motto                               
+#>   <chr>                   <fct>       <int> <chr>                               
+#> 1 Foghorn Leghorn         rooster         0 That's a joke, ah say, that's a jok…
+#> 2 Chicken Little          hen             3 The sky is falling!                 
+#> 3 Ginger                  hen            12 Listen. We'll either die free chick…
+#> 4 Camilla the Chicken     hen             7 Bawk, buck, ba-gawk.                
+#> 5 Ernie The Giant Chicken rooster         0 Put Captain Solo in the cargo hold.
+```
+
+`vignette("readr")` gives an expanded introduction to readr.
+
+## Editions
+
+readr got a new parsing engine in version 2.0.0 (released July 2021). In
+this so-called second edition, readr calls `vroom::vroom()`, by default.
+
+The parsing engine in readr versions prior to 2.0.0 is now called the
+first edition. If you’re using readr \>= 2.0.0, you can still access
+first edition parsing via the functions `with_edition(1, ...)` and
+`local_edition(1)`. And, obviously, if you’re using readr \< 2.0.0, you
+will get first edition parsing, by definition, because that’s all there
+is.
+
+We will continue to support the first edition for a number of releases,
+but the overall goal is to make the second edition uniformly better than
+the first. Therefore the plan is to eventually deprecate and then remove
+the first edition code. New code and actively-maintained code should use
+the second edition. The workarounds `with_edition(1, ...)` and
+`local_edition(1)` are offered as a pragmatic way to patch up legacy
+code or as a temporary solution for infelicities identified as the
+second edition matures.
 
 ## Alternatives
 
@@ -125,8 +195,7 @@ Compared to the corresponding base functions, readr functions:
 -   Use a consistent naming scheme for the parameters (e.g. `col_names`
     and `col_types` not `header` and `colClasses`).
 
--   Are generally much faster (up to 10x-100x) faster depending on the
-    dataset.
+-   Are generally much faster (up to 10x-100x) depending on the dataset.
 
 -   Leave strings as is by default, and automatically parse common
     date/time formats.
@@ -139,14 +208,18 @@ Compared to the corresponding base functions, readr functions:
 ### data.table and `fread()`
 
 [data.table](https://github.com/Rdatatable/data.table) has a function
-similar to `read_csv()` called fread. Compared to fread, readr
+similar to `read_csv()` called `fread()`. Compared to `fread()`, readr
 functions:
 
 -   Are sometimes slower, particularly on numeric heavy data.
 
--   Forces you to supply all parameters, where `fread()` saves you work
-    by automatically guessing the delimiter, whether or not the file has
-    a header, and how many lines to skip.
+-   Can automatically guess some parameters, but basically encourage
+    explicit specification of, e.g., the delimiter, skipped rows, and
+    the header row.
+
+-   Follow tidyverse-wide conventions, such as returning a tibble, a
+    standard approach for column name repair, and a common mini-language
+    for column selection.
 
 ## Acknowledgements
 
