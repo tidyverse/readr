@@ -22,13 +22,12 @@ knitr::opts_chunk$set(
 
 ## Overview
 
-The goal of readr is to provide a fast and friendly way to read rectangular data like comma separated (csv) files and tab separated (tsv) files.
-It is designed to flexibly parse many types of data found in the wild, while still cleanly failing when data unexpectedly changes.
+The goal of readr is to provide a fast and friendly way to read rectangular data from delimited files, such as comma-separated values (CSV) and tab-separated values (TSV).
+It is designed to parse many types of data found in the wild, while providing an informative problem report when parsing leads to unexpected results.
 If you are new to readr, the best place to start is the [data import chapter](https://r4ds.had.co.nz/data-import.html) in R for Data Science.
 
 ## Installation
 
-::: .pkgdown-release
 ```{r, eval = FALSE}
 # The easiest way to get readr is to install the whole tidyverse:
 install.packages("tidyverse")
@@ -36,7 +35,6 @@ install.packages("tidyverse")
 # Alternatively, install just readr:
 install.packages("readr")
 ```
-:::
 
 ::: .pkgdown-devel
 ```{r, eval = FALSE}
