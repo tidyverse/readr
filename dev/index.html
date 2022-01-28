@@ -115,7 +115,7 @@
 <div class="section level2">
 <h2 id="overview">Overview<a class="anchor" aria-label="anchor" href="#overview"></a>
 </h2>
-<p>The goal of readr is to provide a fast and friendly way to read rectangular data (like csv, tsv, and fwf). It is designed to flexibly parse many types of data found in the wild, while still cleanly failing when data unexpectedly changes. If you are new to readr, the best place to start is the <a href="https://r4ds.had.co.nz/data-import.html" class="external-link">data import chapter</a> in R for data science.</p>
+<p>The goal of readr is to provide a fast and friendly way to read rectangular data from delimited files, such as comma-separated values (CSV) and tab-separated values (TSV). It is designed to parse many types of data found in the wild, while providing an informative problem report when parsing leads to unexpected results. If you are new to readr, the best place to start is the <a href="https://r4ds.had.co.nz/data-import.html" class="external-link">data import chapter</a> in R for Data Science.</p>
 </div>
 <div class="section level2">
 <h2 id="installation">Installation<a class="anchor" aria-label="anchor" href="#installation"></a>
@@ -125,11 +125,13 @@
 <span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html" class="external-link">install.packages</a></span><span class="op">(</span><span class="st">"tidyverse"</span><span class="op">)</span>
 
 <span class="co"># Alternatively, install just readr:</span>
-<span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html" class="external-link">install.packages</a></span><span class="op">(</span><span class="st">"readr"</span><span class="op">)</span>
-
-<span class="co"># Or the the development version from GitHub:</span>
+<span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html" class="external-link">install.packages</a></span><span class="op">(</span><span class="st">"readr"</span><span class="op">)</span></code></pre></div>
+<div class=".pkgdown-devel">
+<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="co"># Or you can install the development version from GitHub:</span>
 <span class="co"># install.packages("devtools")</span>
 <span class="fu">devtools</span><span class="fu">::</span><span class="fu">install_github</span><span class="op">(</span><span class="st">"tidyverse/readr"</span><span class="op">)</span></code></pre></div>
+</div>
 </div>
 <div class="section level2">
 <h2 id="cheatsheet">Cheatsheet<a class="anchor" aria-label="anchor" href="#cheatsheet"></a>
@@ -139,8 +141,8 @@
 <div class="section level2">
 <h2 id="usage">Usage<a class="anchor" aria-label="anchor" href="#usage"></a>
 </h2>
-<p>readr is part of the core tidyverse, so load it with:</p>
-<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
+<p>readr is part of the core tidyverse, so you can load it with:</p>
+<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://tidyverse.tidyverse.org" class="external-link">tidyverse</a></span><span class="op">)</span>
 <span class="co">#&gt; ── Attaching packages ─────────────────────────────────────── tidyverse 1.3.1 ──</span>
 <span class="co">#&gt; ✓ ggplot2 3.3.5          ✓ purrr   0.3.4     </span>
@@ -150,50 +152,82 @@
 <span class="co">#&gt; ── Conflicts ────────────────────────────────────────── tidyverse_conflicts() ──</span>
 <span class="co">#&gt; x dplyr::filter() masks stats::filter()</span>
 <span class="co">#&gt; x dplyr::lag()    masks stats::lag()</span></code></pre></div>
-<p>To accurately read a rectangular dataset with readr you combine two pieces: a function that parses the overall file, and a column specification. The column specification describes how each column should be converted from a character vector to the most appropriate data type, and in most cases it’s not necessary because readr will guess it for you automatically.</p>
-<p>readr supports seven file formats with seven <code>read_</code> functions:</p>
+<p>Of course, you can also load readr as an individual package:</p>
+<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://readr.tidyverse.org">readr</a></span><span class="op">)</span></code></pre></div>
+<p>To read a rectangular dataset with readr, you combine two pieces: a function that parses the lines of the file into individual fields and a column specification.</p>
+<p>readr supports the following file formats with these <code>read_*()</code> functions:</p>
 <ul>
 <li>
-<code><a href="reference/read_delim.html">read_csv()</a></code>: comma separated (CSV) files</li>
+<code><a href="reference/read_delim.html">read_csv()</a></code>: comma-separated values (CSV) files</li>
 <li>
-<code><a href="reference/read_delim.html">read_tsv()</a></code>: tab separated files</li>
+<code><a href="reference/read_delim.html">read_tsv()</a></code>: tab-separated values (TSV) files</li>
 <li>
-<code><a href="reference/read_delim.html">read_delim()</a></code>: general delimited files</li>
+<code><a href="reference/read_delim.html">read_delim()</a></code>: delimited files (CSV and TSV are important special cases)</li>
 <li>
-<code><a href="reference/read_fwf.html">read_fwf()</a></code>: fixed width files</li>
+<code><a href="reference/read_fwf.html">read_fwf()</a></code>: fixed-width files</li>
 <li>
-<code><a href="reference/read_table.html">read_table()</a></code>: tabular files where columns are separated by white-space.</li>
+<code><a href="reference/read_table.html">read_table()</a></code>: whitespace-separated files</li>
 <li>
 <code><a href="reference/read_log.html">read_log()</a></code>: web log files</li>
 </ul>
-<p>In many cases, these functions will just work: you supply the path to a file and you get a tibble back. The following example loads a sample file bundled with readr:</p>
-<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">mtcars</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/read_delim.html">read_csv</a></span><span class="op">(</span><span class="fu"><a href="reference/readr_example.html">readr_example</a></span><span class="op">(</span><span class="st">"mtcars.csv"</span><span class="op">)</span><span class="op">)</span>
-<span class="co">#&gt; Rows: 32 Columns: 11</span>
+<p>A column specification describes how each column should be converted from a character vector to a specific data type (e.g. character, numeric, datetime, etc.). In the absence of a column specification, readr will guess column types from the data. <code><a href="articles/column-types.html">vignette("column-types")</a></code> gives more detail on how readr guesses the column types. Column type guessing is very handy, especially during data exploration, but it’s important to remember these are <em>just guesses</em>. As any data analysis project matures past the exploratory phase, the best strategy is to provide explicit column types.</p>
+<p>The following example loads a sample file bundled with readr and guesses the column types:</p>
+<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="op">(</span><span class="va">chickens</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/read_delim.html">read_csv</a></span><span class="op">(</span><span class="fu"><a href="reference/readr_example.html">readr_example</a></span><span class="op">(</span><span class="st">"chickens.csv"</span><span class="op">)</span><span class="op">)</span><span class="op">)</span>
+<span class="co">#&gt; Rows: 5 Columns: 4</span>
 <span class="co">#&gt; ── Column specification ────────────────────────────────────────────────────────</span>
 <span class="co">#&gt; Delimiter: ","</span>
-<span class="co">#&gt; dbl (11): mpg, cyl, disp, hp, drat, wt, qsec, vs, am, gear, carb</span>
+<span class="co">#&gt; chr (3): chicken, sex, motto</span>
+<span class="co">#&gt; dbl (1): eggs_laid</span>
 <span class="co">#&gt; </span>
 <span class="co">#&gt; ℹ Use `spec()` to retrieve the full column specification for this data.</span>
-<span class="co">#&gt; ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.</span></code></pre></div>
-<p>Note that readr prints the column specification. This is useful because it allows you to check that the columns have been read in as you expect, and if they haven’t, you can easily copy and paste into a new call:</p>
-<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">mtcars</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/read_delim.html">read_csv</a></span><span class="op">(</span><span class="fu"><a href="reference/readr_example.html">readr_example</a></span><span class="op">(</span><span class="st">"mtcars.csv"</span><span class="op">)</span>, col_types <span class="op">=</span> 
-  <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>
-    mpg <span class="op">=</span> <span class="fu"><a href="reference/parse_atomic.html">col_double</a></span><span class="op">(</span><span class="op">)</span>,
-    cyl <span class="op">=</span> <span class="fu"><a href="reference/parse_atomic.html">col_integer</a></span><span class="op">(</span><span class="op">)</span>,
-    disp <span class="op">=</span> <span class="fu"><a href="reference/parse_atomic.html">col_double</a></span><span class="op">(</span><span class="op">)</span>,
-    hp <span class="op">=</span> <span class="fu"><a href="reference/parse_atomic.html">col_integer</a></span><span class="op">(</span><span class="op">)</span>,
-    drat <span class="op">=</span> <span class="fu"><a href="reference/parse_atomic.html">col_double</a></span><span class="op">(</span><span class="op">)</span>,
-    vs <span class="op">=</span> <span class="fu"><a href="reference/parse_atomic.html">col_integer</a></span><span class="op">(</span><span class="op">)</span>,
-    wt <span class="op">=</span> <span class="fu"><a href="reference/parse_atomic.html">col_double</a></span><span class="op">(</span><span class="op">)</span>,
-    qsec <span class="op">=</span> <span class="fu"><a href="reference/parse_atomic.html">col_double</a></span><span class="op">(</span><span class="op">)</span>,
-    am <span class="op">=</span> <span class="fu"><a href="reference/parse_atomic.html">col_integer</a></span><span class="op">(</span><span class="op">)</span>,
-    gear <span class="op">=</span> <span class="fu"><a href="reference/parse_atomic.html">col_integer</a></span><span class="op">(</span><span class="op">)</span>,
-    carb <span class="op">=</span> <span class="fu"><a href="reference/parse_atomic.html">col_integer</a></span><span class="op">(</span><span class="op">)</span>
+<span class="co">#&gt; ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.</span>
+<span class="co">#&gt; # A tibble: 5 × 4</span>
+<span class="co">#&gt;   chicken                 sex     eggs_laid motto                               </span>
+<span class="co">#&gt;   &lt;chr&gt;                   &lt;chr&gt;       &lt;dbl&gt; &lt;chr&gt;                               </span>
+<span class="co">#&gt; 1 Foghorn Leghorn         rooster         0 That's a joke, ah say, that's a jok…</span>
+<span class="co">#&gt; 2 Chicken Little          hen             3 The sky is falling!                 </span>
+<span class="co">#&gt; 3 Ginger                  hen            12 Listen. We'll either die free chick…</span>
+<span class="co">#&gt; 4 Camilla the Chicken     hen             7 Bawk, buck, ba-gawk.                </span>
+<span class="co">#&gt; 5 Ernie The Giant Chicken rooster         0 Put Captain Solo in the cargo hold.</span></code></pre></div>
+<p>Note that readr prints the column types – the <em>guessed</em> column types, in this case. This is useful because it allows you to check that the columns have been read in as you expect. If they haven’t, that means you need to provide the column specification. This sounds like a lot of trouble, but luckily readr affords a nice workflow for this. Use <code><a href="reference/spec.html">spec()</a></code> to retrieve the (guessed) column specification from your initial effort.</p>
+<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="reference/spec.html">spec</a></span><span class="op">(</span><span class="va">chickens</span><span class="op">)</span>
+<span class="co">#&gt; cols(</span>
+<span class="co">#&gt;   chicken = col_character(),</span>
+<span class="co">#&gt;   sex = col_character(),</span>
+<span class="co">#&gt;   eggs_laid = col_double(),</span>
+<span class="co">#&gt;   motto = col_character()</span>
+<span class="co">#&gt; )</span></code></pre></div>
+<p>Now you can copy, paste, and tweak this, to create a more explicit readr call that expresses the desired column types. Here we express that <code>sex</code> should be a factor with levels <code>rooster</code> and <code>hen</code>, in that order, and that <code>eggs_laid</code> should be integer.</p>
+<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">chickens</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/read_delim.html">read_csv</a></span><span class="op">(</span>
+  <span class="fu"><a href="reference/readr_example.html">readr_example</a></span><span class="op">(</span><span class="st">"chickens.csv"</span><span class="op">)</span>,
+  col_types <span class="op">=</span> <span class="fu"><a href="reference/cols.html">cols</a></span><span class="op">(</span>
+    chicken   <span class="op">=</span> <span class="fu"><a href="reference/parse_atomic.html">col_character</a></span><span class="op">(</span><span class="op">)</span>,
+    sex       <span class="op">=</span> <span class="fu"><a href="reference/parse_factor.html">col_factor</a></span><span class="op">(</span>levels <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"rooster"</span>, <span class="st">"hen"</span><span class="op">)</span><span class="op">)</span>,
+    eggs_laid <span class="op">=</span> <span class="fu"><a href="reference/parse_atomic.html">col_integer</a></span><span class="op">(</span><span class="op">)</span>,
+    motto     <span class="op">=</span> <span class="fu"><a href="reference/parse_atomic.html">col_character</a></span><span class="op">(</span><span class="op">)</span>
   <span class="op">)</span>
-<span class="op">)</span></code></pre></div>
-<p><code><a href="articles/readr.html">vignette("readr")</a></code> gives more detail on how readr guesses the column types, how you can override the defaults, and provides some useful tools for debugging parsing problems.</p>
+<span class="op">)</span>
+<span class="va">chickens</span>
+<span class="co">#&gt; # A tibble: 5 × 4</span>
+<span class="co">#&gt;   chicken                 sex     eggs_laid motto                               </span>
+<span class="co">#&gt;   &lt;chr&gt;                   &lt;fct&gt;       &lt;int&gt; &lt;chr&gt;                               </span>
+<span class="co">#&gt; 1 Foghorn Leghorn         rooster         0 That's a joke, ah say, that's a jok…</span>
+<span class="co">#&gt; 2 Chicken Little          hen             3 The sky is falling!                 </span>
+<span class="co">#&gt; 3 Ginger                  hen            12 Listen. We'll either die free chick…</span>
+<span class="co">#&gt; 4 Camilla the Chicken     hen             7 Bawk, buck, ba-gawk.                </span>
+<span class="co">#&gt; 5 Ernie The Giant Chicken rooster         0 Put Captain Solo in the cargo hold.</span></code></pre></div>
+<p><code><a href="articles/readr.html">vignette("readr")</a></code> gives an expanded introduction to readr.</p>
+</div>
+<div class="section level2">
+<h2 id="editions">Editions<a class="anchor" aria-label="anchor" href="#editions"></a>
+</h2>
+<p>readr got a new parsing engine in version 2.0.0 (released July 2021). In this so-called second edition, readr calls <code><a href="https://vroom.r-lib.org/reference/vroom.html" class="external-link">vroom::vroom()</a></code>, by default.</p>
+<p>The parsing engine in readr versions prior to 2.0.0 is now called the first edition. If you’re using readr &gt;= 2.0.0, you can still access first edition parsing via the functions <code>with_edition(1, ...)</code> and <code>local_edition(1)</code>. And, obviously, if you’re using readr &lt; 2.0.0, you will get first edition parsing, by definition, because that’s all there is.</p>
+<p>We will continue to support the first edition for a number of releases, but the overall goal is to make the second edition uniformly better than the first. Therefore the plan is to eventually deprecate and then remove the first edition code. New code and actively-maintained code should use the second edition. The workarounds <code>with_edition(1, ...)</code> and <code>local_edition(1)</code> are offered as a pragmatic way to patch up legacy code or as a temporary solution for infelicities identified as the second edition matures.</p>
 </div>
 <div class="section level2">
 <h2 id="alternatives">Alternatives<a class="anchor" aria-label="anchor" href="#alternatives"></a>
@@ -205,7 +239,7 @@
 <p>Compared to the corresponding base functions, readr functions:</p>
 <ul>
 <li><p>Use a consistent naming scheme for the parameters (e.g. <code>col_names</code> and <code>col_types</code> not <code>header</code> and <code>colClasses</code>).</p></li>
-<li><p>Are generally much faster (up to 10x-100x) faster depending on the dataset.</p></li>
+<li><p>Are generally much faster (up to 10x-100x) depending on the dataset.</p></li>
 <li><p>Leave strings as is by default, and automatically parse common date/time formats.</p></li>
 <li><p>Have a helpful progress bar if loading is going to take a while.</p></li>
 <li><p>All functions work exactly the same way regardless of the current locale. To override the US-centric defaults, use <code><a href="reference/locale.html">locale()</a></code>.</p></li>
@@ -215,10 +249,11 @@
 <h3 id="datatable-and-fread">data.table and <code>fread()</code>
 <a class="anchor" aria-label="anchor" href="#datatable-and-fread"></a>
 </h3>
-<p><a href="https://github.com/Rdatatable/data.table" class="external-link">data.table</a> has a function similar to <code><a href="reference/read_delim.html">read_csv()</a></code> called fread. Compared to fread, readr functions:</p>
+<p><a href="https://github.com/Rdatatable/data.table" class="external-link">data.table</a> has a function similar to <code><a href="reference/read_delim.html">read_csv()</a></code> called <code>fread()</code>. Compared to <code>fread()</code>, readr functions:</p>
 <ul>
 <li><p>Are sometimes slower, particularly on numeric heavy data.</p></li>
-<li><p>Forces you to supply all parameters, where <code>fread()</code> saves you work by automatically guessing the delimiter, whether or not the file has a header, and how many lines to skip.</p></li>
+<li><p>Can automatically guess some parameters, but basically encourage explicit specification of, e.g., the delimiter, skipped rows, and the header row.</p></li>
+<li><p>Follow tidyverse-wide conventions, such as returning a tibble, a standard approach for column name repair, and a common mini-language for column selection.</p></li>
 </ul>
 </div>
 </div>
