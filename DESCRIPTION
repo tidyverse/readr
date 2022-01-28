@@ -33,7 +33,7 @@ Imports:
     lifecycle (>= 0.2.0),
     methods,
     R6,
-    rlang,
+    rlang (>= 1.0.0),
     tibble,
     utils,
     vroom (>= 1.5.6)
