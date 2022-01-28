@@ -18,7 +18,6 @@
         gear = col_double(),
         carb = col_double()
       )
-      
 
 # `show_col_types` controls col spec printing
 
@@ -40,5 +39,4 @@
         gear = col_double(),
         carb = col_double()
       )
-      
 
