@@ -1,45 +1,27 @@
 Package: readr
 Title: Read Rectangular Text Data
 Version: 2.1.1.9000
-Authors@R: 
-    c(person(given = "Hadley",
-             family = "Wickham",
-             role = "aut",
-             email = "hadley@rstudio.com"),
-      person(given = "Jim",
-             family = "Hester",
-             role = "aut"),
-      person(given = "Romain",
-             family = "Francois",
-             role = "ctb"),
-      person(given = "Jennifer",
-             family = "Bryan",
-             role = c("aut", "cre"),
-             email = "jenny@rstudio.com",
-             comment = c(ORCID = "0000-0002-6983-2759")),
-      person(given = "Shelby",
-             family = "Bearrows",
-             role = "ctb"),
-      person(given = "RStudio",
-             role = c("cph", "fnd")),
-      person(given = "https://github.com/mandreyel/",
-             role = "cph",
-             comment = "mio library"),
-      person(given = "Jukka",
-             family = "Jylänki",
-             role = c("ctb", "cph"),
-             comment = "grisu3 implementation"),
-      person(given = "Mikkel",
-             family = "Jørgensen",
-             role = c("ctb", "cph"),
-             comment = "grisu3 implementation"))
-Description: The goal of 'readr' is to provide a fast and
-    friendly way to read rectangular data (like 'csv', 'tsv', and 'fwf').
-    It is designed to flexibly parse many types of data found in the wild,
-    while still cleanly failing when data unexpectedly changes.
+Authors@R: c(
+    person("Hadley", "Wickham", , "hadley@rstudio.com", role = "aut"),
+    person("Jim", "Hester", role = "aut"),
+    person("Romain", "Francois", role = "ctb"),
+    person("Jennifer", "Bryan", , "jenny@rstudio.com", role = c("aut", "cre"),
+           comment = c(ORCID = "0000-0002-6983-2759")),
+    person("Shelby", "Bearrows", role = "ctb"),
+    person("RStudio", role = c("cph", "fnd")),
+    person("https://github.com/mandreyel/", role = "cph",
+           comment = "mio library"),
+    person("Jukka", "Jylänki", role = c("ctb", "cph"),
+           comment = "grisu3 implementation"),
+    person("Mikkel", "Jørgensen", role = c("ctb", "cph"),
+           comment = "grisu3 implementation")
+  )
+Description: The goal of 'readr' is to provide a fast and friendly way to
+    read rectangular data (like 'csv', 'tsv', and 'fwf').  It is designed
+    to flexibly parse many types of data found in the wild, while still
+    cleanly failing when data unexpectedly changes.
 License: MIT + file LICENSE
-URL: https://readr.tidyverse.org,
-    https://github.com/tidyverse/readr
+URL: https://readr.tidyverse.org, https://github.com/tidyverse/readr
 BugReports: https://github.com/tidyverse/readr/issues
 Depends:
     R (>= 3.1)
@@ -48,17 +30,17 @@ Imports:
     clipr,
     crayon,
     hms (>= 0.4.1),
+    lifecycle (>= 0.2.0),
     methods,
-    rlang,
     R6,
+    rlang,
     tibble,
-    vroom (>= 1.5.6),
     utils,
-    lifecycle (>= 0.2.0)
+    vroom (>= 1.5.6)
 Suggests:
-    datasets,
     covr,
     curl,
+    datasets,
     knitr,
     rmarkdown,
     spelling,
@@ -73,9 +55,9 @@ LinkingTo:
     tzdb (>= 0.1.1)
 VignetteBuilder: 
     knitr
-Config/Needs/website: 
-  tidyverse,
-  tidyverse/tidytemplate
+RdMacros: 
+    lifecycle
+Config/Needs/website: tidyverse, tidyverse/tidytemplate
 Config/testthat/edition: 3
 Config/testthat/parallel: false
 Encoding: UTF-8
@@ -83,4 +65,3 @@ Language: en-US
 Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.1.2
 SystemRequirements: C++11
-RdMacros: lifecycle
