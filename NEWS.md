@@ -6,6 +6,8 @@
 
 * `read_builtin()` does more argument checking, so that we catch obviously malformed input before passing along to `utils::data()` (#1361).
 
+* `chickens.csv` and `whitespace-sample.txt` are new example datasets accessible via `readr_example()` (#1354).
+
 # readr 2.1.1
 
 * Jenny Bryan is now the maintainer.
