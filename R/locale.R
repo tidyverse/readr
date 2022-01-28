@@ -59,7 +59,7 @@ locale <- function(date_names = "en",
   }
 
   stopifnot(decimal_mark %in% c(".", ","))
-  stopifnot(is.character(grouping_mark), length(grouping_mark) == 1)
+  check_string(grouping_mark)
   if (decimal_mark == grouping_mark) {
     stop("`decimal_mark` and `grouping_mark` must be different", call. = FALSE)
   }
@@ -109,7 +109,7 @@ default_locale <- function() {
 }
 
 check_tz <- function(x) {
-  stopifnot(is.character(x), length(x) == 1)
+  check_string(x, nm = "tz")
 
   if (identical(x, "")) {
     x <- Sys.timezone()
@@ -127,7 +127,7 @@ check_tz <- function(x) {
 }
 
 check_encoding <- function(x) {
-  stopifnot(is.character(x), length(x) == 1)
+  check_string(x, nm = "encoding")
 
   if (tolower(x) %in% tolower(iconvlist())) {
     return(TRUE)
