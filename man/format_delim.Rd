@@ -86,7 +86,8 @@ column names will be included. If not specified, \code{col_names} will take the 
 \item{eol}{The end of line character to use. Most commonly either \code{"\\n"} for
 Unix style newlines, or \code{"\\r\\n"} for Windows style newlines.}
 
-\item{quote_escape}{\Sexpr[results=rd, stage=render]{lifecycle::badge("deprecated")}, use the \code{escape} argument instead.}
+\item{quote_escape}{\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#deprecated}{\figure{lifecycle-deprecated.svg}{options: alt='[Deprecated]'}}}{\strong{[Deprecated]}} Use the \code{escape}
+argument instead.}
 }
 \value{
 A string.

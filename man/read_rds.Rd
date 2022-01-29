@@ -33,7 +33,8 @@ for more details.}
 
 \item{text}{If \code{TRUE} a text representation is used, otherwise a binary representation is used.}
 
-\item{path}{\Sexpr[results=rd, stage=render]{lifecycle::badge("deprecated")}, use the \code{file} argument instead.}
+\item{path}{\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#deprecated}{\figure{lifecycle-deprecated.svg}{options: alt='[Deprecated]'}}}{\strong{[Deprecated]}} Use the \code{file} argument
+instead.}
 
 \item{...}{Additional arguments to connection function. For example, control
 the space-time trade-off of different compression methods with

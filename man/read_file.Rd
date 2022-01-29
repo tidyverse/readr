@@ -41,7 +41,8 @@ names.}
 will append to existing file. In both cases, if the file does not exist a new
 file is created.}
 
-\item{path}{\Sexpr[results=rd, stage=render]{lifecycle::badge("deprecated")}, use the \code{file} argument instead.}
+\item{path}{\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#deprecated}{\figure{lifecycle-deprecated.svg}{options: alt='[Deprecated]'}}}{\strong{[Deprecated]}} Use the \code{file} argument
+instead.}
 }
 \value{
 \code{read_file}: A length 1 character vector.

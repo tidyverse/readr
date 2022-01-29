@@ -30,7 +30,8 @@ read_rds <- function(file, refhook = NULL) {
 #' @param ... Additional arguments to connection function. For example, control
 #'   the space-time trade-off of different compression methods with
 #'   `compression`. See [connections()] for more details.
-#' @param path \Sexpr[results=rd, stage=render]{lifecycle::badge("deprecated")}, use the `file` argument instead.
+#' @param path `r lifecycle::badge("deprecated")` Use the `file` argument
+#'   instead.
 #' @param text If `TRUE` a text representation is used, otherwise a binary representation is used.
 #' @return `write_rds()` returns `x`, invisibly.
 #' @rdname read_rds

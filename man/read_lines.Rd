@@ -99,7 +99,8 @@ systems like macOS and linux. For native windows (CRLF) separators use
 will append to existing file. In both cases, if the file does not exist a new
 file is created.}
 
-\item{path}{\Sexpr[results=rd, stage=render]{lifecycle::badge("deprecated")}, use the \code{file} argument instead.}
+\item{path}{\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#deprecated}{\figure{lifecycle-deprecated.svg}{options: alt='[Deprecated]'}}}{\strong{[Deprecated]}} Use the \code{file} argument
+instead.}
 }
 \value{
 \code{read_lines()}: A character vector with one element for each line.
