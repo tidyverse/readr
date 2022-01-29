@@ -2,7 +2,7 @@
 
     Code
       out <- read_csv(readr_example("mtcars.csv"))
-    Message
+    Message <readr_spec_message>
       
       -- Column specification --------------------------------------------------------
       cols(
@@ -23,7 +23,7 @@
 
     Code
       out <- read_csv(readr_example("mtcars.csv"), show_col_types = TRUE)
-    Message
+    Message <readr_spec_message>
       
       -- Column specification --------------------------------------------------------
       cols(
