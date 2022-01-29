@@ -33,7 +33,7 @@ Imports:
     lifecycle (>= 0.2.0),
     methods,
     R6,
-    rlang,
+    rlang (>= 1.0.0),
     tibble,
     utils,
     vroom (>= 1.5.6)
@@ -45,7 +45,7 @@ Suggests:
     rmarkdown,
     spelling,
     stringi,
-    testthat (>= 3.1.0),
+    testthat (>= 3.1.2),
     tzdb (>= 0.1.1),
     waldo,
     withr,
