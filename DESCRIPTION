@@ -55,8 +55,6 @@ LinkingTo:
     tzdb (>= 0.1.1)
 VignetteBuilder: 
     knitr
-RdMacros: 
-    lifecycle
 Config/Needs/website: tidyverse, tidyverse/tidytemplate
 Config/testthat/edition: 3
 Config/testthat/parallel: false
