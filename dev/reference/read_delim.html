@@ -276,9 +276,9 @@ names.</p></dd>
 <dd><p>Character vector of strings to interpret as missing values. Set this
 option to <code><a href="https://rdrr.io/r/base/character.html" class="external-link">character()</a></code> to indicate no missing values.</p></dd>
 <dt>quoted_na</dt>
-<dd><p><a href="https://lifecycle.r-lib.org/articles/stages.html#deprecated" class="external-link"><img src="figures/lifecycle-deprecated.svg" alt="[Deprecated]"></a>
- Should missing values inside quotes be treated as missing
-values (the default) or strings. This parameter is soft deprecated as of readr 2.0.0.</p></dd>
+<dd><p><a href="https://lifecycle.r-lib.org/articles/stages.html#deprecated" class="external-link"><img src="figures/lifecycle-deprecated.svg" alt="[Deprecated]"></a> Should missing values
+inside quotes be treated as missing values (the default) or strings. This
+parameter is soft deprecated as of readr 2.0.0.</p></dd>
 <dt>comment</dt>
 <dd><p>A string used to identify comments. Any text after the
 comment characters will be silently ignored.</p></dd>
@@ -461,9 +461,9 @@ You can retrieve the full details by calling <code><a href="problems.html">probl
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">3</span>    <span style="color: #BB0000;">NA</span></span>
 <span class="r-in"><span class="fu"><a href="problems.html">problems</a></span><span class="op">(</span><span class="va">y</span><span class="op">)</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tibble: 1 × 5</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     row   col expected actual file                            </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;int&gt;</span> <span style="color: #949494; font-style: italic;">&lt;int&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>  <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>                           </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">1</span>     4     1 a double b      /tmp/Rtmpv159za/file28166b6a4f6a</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     row   col expected actual file                           </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;int&gt;</span> <span style="color: #949494; font-style: italic;">&lt;int&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>  <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>                          </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">1</span>     4     1 a double b      /tmp/RtmpEzcJkO/file27581887b2e</span>
 <span class="r-in"></span>
 <span class="r-in"><span class="co"># File types ----------------------------------------------------------------</span></span>
 <span class="r-in"><span class="fu">read_csv</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/AsIs.html" class="external-link">I</a></span><span class="op">(</span><span class="st">"a,b\n1.0,2.0"</span><span class="op">)</span><span class="op">)</span></span>
