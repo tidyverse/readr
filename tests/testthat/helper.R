@@ -35,3 +35,7 @@ skip_if_edition_first <- function() {
 edition_variant <- function() {
   paste0("edition-", edition_get())
 }
+
+skip_if_edition_first_windows <- function() {
+  if (edition_first()) skip_on_os("windows")
+}

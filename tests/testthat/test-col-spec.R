@@ -221,6 +221,13 @@ test_that("long spec declarations can be formatted", {
 })
 
 test_that("options(readr.show_col_types) controls col spec printing", {
+  # skip is temporarily necessary as of January 29 2022, due to the very
+  # recent release of rlang 1.0.0
+  # Windows binaries aren't available yet and the different rlang versions
+  # make it challenging to form test snapshots that work for whole GHA
+  # build matrix
+  skip_if_edition_first_windows()
+
   withr::local_options(list(readr.show_col_types = TRUE))
   expect_snapshot(
     out <- read_csv(readr_example("mtcars.csv")),
@@ -232,6 +239,13 @@ test_that("options(readr.show_col_types) controls col spec printing", {
 })
 
 test_that("`show_col_types` controls col spec printing", {
+  # skip is temporarily necessary as of January 29 2022, due to the very
+  # recent release of rlang 1.0.0
+  # Windows binaries aren't available yet and the different rlang versions
+  # make it challenging to form test snapshots that work for whole GHA
+  # build matrix
+  skip_if_edition_first_windows()
+
   expect_snapshot(
     out <- read_csv(readr_example("mtcars.csv"), show_col_types = TRUE),
     variant = edition_variant()
