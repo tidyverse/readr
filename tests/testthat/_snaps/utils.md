@@ -5,10 +5,10 @@
       check_string(name)
     Condition
       Error:
-      ! `name` must be a string
+      ! `name` must be a string.
     Code
       check_string(name, nm = "NAME!")
     Condition
       Error:
-      ! `NAME!` must be a string
+      ! `NAME!` must be a string.
 

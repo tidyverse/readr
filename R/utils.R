@@ -198,5 +198,5 @@ check_string <- function(x, nm = deparse(substitute(x)), optional = FALSE) {
   if (optional && is.null(x)) {
     return()
   }
-  stop("`", nm, "` must be a string", call. = FALSE)
+  stop("`", nm, "` must be a string.", call. = FALSE)
 }
