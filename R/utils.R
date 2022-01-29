@@ -198,5 +198,5 @@ check_string <- function(x, nm = deparse(substitute(x)), optional = FALSE) {
   if (optional && is.null(x)) {
     return()
   }
-  cli::cli_abort("{.code {nm}} must be a string.")
+  stop("`", nm, "` must be a string", call. = FALSE)
 }
