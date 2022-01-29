@@ -3,12 +3,10 @@
     Code
       name <- 1
       check_string(name)
-    Condition
-      Error:
-      ! `name` must be a string.
+    Error <simpleError>
+      `name` must be a string.
     Code
       check_string(name, nm = "NAME!")
-    Condition
-      Error:
-      ! `NAME!` must be a string.
+    Error <simpleError>
+      `NAME!` must be a string.
 
