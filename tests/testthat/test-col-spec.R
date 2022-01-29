@@ -222,11 +222,6 @@ test_that("long spec declarations can be formatted", {
 
 test_that("options(readr.show_col_types) controls col spec printing", {
   withr::local_options(list(readr.show_col_types = TRUE))
-
-  # remove once testthat starts to use rlang 1.0.0 unconditionally if
-  # rlang 1.0.0 is indeed installed
-  withr::local_options("testthat:::rlang_dep" = "1.0.0")
-
   expect_snapshot(
     out <- read_csv(readr_example("mtcars.csv")),
     variant = edition_variant()
@@ -237,10 +232,6 @@ test_that("options(readr.show_col_types) controls col spec printing", {
 })
 
 test_that("`show_col_types` controls col spec printing", {
-  # remove once testthat starts to use rlang 1.0.0 unconditionally if
-  # rlang 1.0.0 is indeed installed
-  withr::local_options("testthat:::rlang_dep" = "1.0.0")
-
   expect_snapshot(
     out <- read_csv(readr_example("mtcars.csv"), show_col_types = TRUE),
     variant = edition_variant()

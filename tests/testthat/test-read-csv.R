@@ -135,10 +135,6 @@ test_that("warning lines are correct after skipping", {
 
   expect_equal(problems(out2)$row, 1)
 
-  # remove once testthat starts to use rlang 1.0.0 unconditionally if
-  # rlang 1.0.0 is indeed installed
-  withr::local_options("testthat:::rlang_dep" = "1.0.0")
-
   expect_snapshot(
     out3 <- read_csv(I("v1,v2\n\n1,2\n\n3,4"), col_types = "i"),
     variant = edition_variant()
@@ -168,11 +164,6 @@ test_that("extra columns generates warnings", {
 
 test_that("too few or extra col_types generates warnings", {
   skip_if_edition_second()
-
-  # remove once testthat starts to use rlang 1.0.0 unconditionally if
-  # rlang 1.0.0 is indeed installed
-  withr::local_options("testthat:::rlang_dep" = "1.0.0")
-
   expect_snapshot(
     out1 <- read_csv(I("v1,v2\n1,2"), col_types = "i", lazy = FALSE),
     variant = edition_variant()
@@ -238,10 +229,6 @@ test_that("comments are ignored regardless of where they appear", {
   expect_equal(out1$x, 1)
   expect_equal(out2$x, 1)
   expect_equal(out3$x, 1)
-
-  # remove once testthat starts to use rlang 1.0.0 unconditionally if
-  # rlang 1.0.0 is indeed installed
-  withr::local_options("testthat:::rlang_dep" = "1.0.0")
 
   expect_snapshot(
     out4 <- read_csv(I("x,y\n1,#comment"), comment = "#", col_types = "cc"),
