@@ -16,7 +16,7 @@
     
     <a class="navbar-brand me-2" href="../index.html">readr</a>
 
-    <small class="nav-text text-danger me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="In-development version">2.1.1.9000</small>
+    <small class="nav-text text-danger me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="In-development version">2.1.2.9000</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -74,6 +74,9 @@
 
     <div class="section level2">
 <h2 class="pkg-version" data-toc-text="development version" id="readr-development-version">readr (development version)<a class="anchor" aria-label="anchor" href="#readr-development-version"></a></h2>
+</div>
+    <div class="section level2">
+<h2 class="pkg-version" data-toc-text="2.1.2" id="readr-212">readr 2.1.2<a class="anchor" aria-label="anchor" href="#readr-212"></a></h2>
 <ul><li><p><code><a href="../reference/read_table.html">read_table()</a></code>, <code><a href="../reference/read_log.html">read_log()</a></code>, and <code><a href="../reference/read_delim_chunked.html">read_delim_chunked()</a></code> (and friends) gain the <code>show_col_types</code> argument found elsewhere. All <code>read_*()</code> functions now respect the <code>show_col_types</code> argument or option, even when using the first edition parsing engine (<a href="https://github.com/tidyverse/readr/issues/1331" class="external-link">#1331</a>).</p></li>
 <li><p><code><a href="../reference/show_progress.html">show_progress()</a></code> uses <code><a href="https://rlang.r-lib.org/reference/is_interactive.html" class="external-link">rlang::is_interactive()</a></code> instead of <code><a href="https://rdrr.io/r/base/interactive.html" class="external-link">base::interactive()</a></code> (<a href="https://github.com/tidyverse/readr/issues/1356" class="external-link">#1356</a>).</p></li>
 <li><p><code><a href="../reference/read_builtin.html">read_builtin()</a></code> does more argument checking, so that we catch obviously malformed input before passing along to <code><a href="https://rdrr.io/r/utils/data.html" class="external-link">utils::data()</a></code> (<a href="https://github.com/tidyverse/readr/issues/1361" class="external-link">#1361</a>).</p></li>
