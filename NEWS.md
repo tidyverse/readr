@@ -1,3 +1,5 @@
+# readr (development version)
+
 # readr 2.1.2
 
 * `read_table()`, `read_log()`, and `read_delim_chunked()` (and friends) gain the `show_col_types` argument found elsewhere. All `read_*()` functions now respect the `show_col_types` argument or option, even when using the first edition parsing engine (#1331).
