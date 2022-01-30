@@ -24,7 +24,7 @@ spec_table() returns the column specifications rather than a data frame."><meta 
     
     <a class="navbar-brand me-2" href="../index.html">readr</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Released version">2.1.1</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Released version">2.1.2</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -102,6 +102,7 @@ characters between columns, and the lines can be of different lengths.</p>
   guess_max <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/Extremes.html" class="external-link">min</a></span><span class="op">(</span><span class="va">n_max</span>, <span class="fl">1000</span><span class="op">)</span>,
   progress <span class="op">=</span> <span class="fu"><a href="show_progress.html">show_progress</a></span><span class="op">(</span><span class="op">)</span>,
   comment <span class="op">=</span> <span class="st">""</span>,
+  show_col_types <span class="op">=</span> <span class="fu"><a href="should_show_types.html">should_show_types</a></span><span class="op">(</span><span class="op">)</span>,
   skip_empty_rows <span class="op">=</span> <span class="cn">TRUE</span>
 <span class="op">)</span></code></pre></div>
     </div>
@@ -174,7 +175,8 @@ option to <code><a href="https://rdrr.io/r/base/character.html" class="external-
 <dt>n_max</dt>
 <dd><p>Maximum number of lines to read.</p></dd>
 <dt>guess_max</dt>
-<dd><p>Maximum number of lines to use for guessing column types.</p></dd>
+<dd><p>Maximum number of lines to use for guessing column types.
+See <code><a href="../articles/column-types.html">vignette("column-types", package = "readr")</a></code> for more details.</p></dd>
 <dt>progress</dt>
 <dd><p>Display a progress bar? By default it will only display
 in an interactive session and not while knitting a document. The automatic
@@ -183,6 +185,11 @@ progress bar can be disabled by setting option <code>readr.show_progress</code> 
 <dt>comment</dt>
 <dd><p>A string used to identify comments. Any text after the
 comment characters will be silently ignored.</p></dd>
+<dt>show_col_types</dt>
+<dd><p>If <code>FALSE</code>, do not show the guessed column types. If
+<code>TRUE</code> always show the column types, even if they are supplied. If <code>NULL</code>
+(the default) only show the column types if they are not explicitly supplied
+by the <code>col_types</code> argument.</p></dd>
 <dt>skip_empty_rows</dt>
 <dd><p>Should blank rows be ignored altogether? i.e. If this
 option is <code>TRUE</code> then blank rows will not be represented at all.  If it is
@@ -197,128 +204,27 @@ tabular data with non-standard formatting.</p></div>
 
     <div class="section level2">
     <h2 id="ref-examples">Examples<a class="anchor" aria-label="anchor" href="#ref-examples"></a></h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span class="co"># One corner from http://www.masseyratings.com/cf/compare.htm</span></span>
-<span class="r-in"><span class="va">massey</span> <span class="op">&lt;-</span> <span class="fu"><a href="readr_example.html">readr_example</a></span><span class="op">(</span><span class="st">"massey-rating.txt"</span><span class="op">)</span></span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/base/cat.html" class="external-link">cat</a></span><span class="op">(</span><span class="fu"><a href="read_file.html">read_file</a></span><span class="op">(</span><span class="va">massey</span><span class="op">)</span><span class="op">)</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> UCC PAY LAZ KPK  RT   COF BIH DII ENG ACU Rank Team            Conf</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   1   1   1   1   1     1   1   1   1   1    1 Ohio St          B10 </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   2   2   2   2   2     2   2   2   4   2    2 Oregon           P12 </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   3   4   3   4   3     4   3   4   2   3    3 Alabama          SEC </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   4   3   4   3   4     3   5   3   3   4    4 TCU              B12 </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   6   6   6   5   5     7   6   5   6  11    5 Michigan St      B10 </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   7   7   7   6   7     6  11   8   7   8    6 Georgia          SEC </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   5   5   5   7   6     8   4   6   5   5    7 Florida St       ACC </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   8   8   9   9  10     5   7   7  10   7    8 Baylor           B12 </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   9  11   8  13  11    11  12   9  14   9    9 Georgia Tech     ACC </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  13  10  13  11   8     9  10  11   9  10   10 Mississippi      SEC </span>
-<span class="r-in"><span class="fu">read_table</span><span class="op">(</span><span class="va">massey</span><span class="op">)</span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span class="va">ws</span> <span class="op">&lt;-</span> <span class="fu"><a href="readr_example.html">readr_example</a></span><span class="op">(</span><span class="st">"whitespace-sample.txt"</span><span class="op">)</span></span>
+<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/base/writeLines.html" class="external-link">writeLines</a></span><span class="op">(</span><span class="fu"><a href="read_lines.html">read_lines</a></span><span class="op">(</span><span class="va">ws</span><span class="op">)</span><span class="op">)</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> first last state phone</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> John Smith WA 418-Y11-4111</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Mary Hartford CA 319-Z19-4341</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Evan Nolan IL 219-532-c301</span>
+<span class="r-in"><span class="fu">read_table</span><span class="op">(</span><span class="va">ws</span><span class="op">)</span></span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">──</span> <span style="font-weight: bold;">Column specification</span> <span style="color: #00BBBB;">──────────────────────────────────────────────────</span></span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> cols(</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span>   UCC = <span style="color: #00BB00;">col_double()</span>,</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span>   PAY = <span style="color: #00BB00;">col_double()</span>,</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span>   LAZ = <span style="color: #00BB00;">col_double()</span>,</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span>   KPK = <span style="color: #00BB00;">col_double()</span>,</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span>   RT = <span style="color: #00BB00;">col_double()</span>,</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span>   COF = <span style="color: #00BB00;">col_double()</span>,</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span>   BIH = <span style="color: #00BB00;">col_double()</span>,</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span>   DII = <span style="color: #00BB00;">col_double()</span>,</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span>   ENG = <span style="color: #00BB00;">col_double()</span>,</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span>   ACU = <span style="color: #00BB00;">col_double()</span>,</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span>   Rank = <span style="color: #00BB00;">col_double()</span>,</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span>   Team = <span style="color: #BB0000;">col_character()</span>,</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span>   Conf = <span style="color: #BB0000;">col_character()</span></span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span>   first = <span style="color: #BB0000;">col_character()</span>,</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span>   last = <span style="color: #BB0000;">col_character()</span>,</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span>   state = <span style="color: #BB0000;">col_character()</span>,</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span>   phone = <span style="color: #BB0000;">col_character()</span></span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> )</span>
-<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>10 parsing failures.</span>
-<span class="r-wrn co"><span class="r-pr">#&gt;</span> row col   expected     actual                                                              file</span>
-<span class="r-wrn co"><span class="r-pr">#&gt;</span>   1  -- 13 columns 15 columns '/home/runner/work/_temp/Library/readr/extdata/massey-rating.txt'</span>
-<span class="r-wrn co"><span class="r-pr">#&gt;</span>   2  -- 13 columns 14 columns '/home/runner/work/_temp/Library/readr/extdata/massey-rating.txt'</span>
-<span class="r-wrn co"><span class="r-pr">#&gt;</span>   3  -- 13 columns 14 columns '/home/runner/work/_temp/Library/readr/extdata/massey-rating.txt'</span>
-<span class="r-wrn co"><span class="r-pr">#&gt;</span>   4  -- 13 columns 14 columns '/home/runner/work/_temp/Library/readr/extdata/massey-rating.txt'</span>
-<span class="r-wrn co"><span class="r-pr">#&gt;</span>   5  -- 13 columns 15 columns '/home/runner/work/_temp/Library/readr/extdata/massey-rating.txt'</span>
-<span class="r-wrn co"><span class="r-pr">#&gt;</span> ... ... .......... .......... .................................................................</span>
-<span class="r-wrn co"><span class="r-pr">#&gt;</span> See problems(...) for more details.</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tibble: 10 × 13</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>      UCC   PAY   LAZ   KPK    RT   COF   BIH   DII   ENG   ACU  Rank Team </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 1</span>     1     1     1     1     1     1     1     1     1     1     1 Ohio </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 2</span>     2     2     2     2     2     2     2     2     4     2     2 Oreg…</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 3</span>     3     4     3     4     3     4     3     4     2     3     3 Alab…</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 4</span>     4     3     4     3     4     3     5     3     3     4     4 TCU  </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 5</span>     6     6     6     5     5     7     6     5     6    11     5 Mich…</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 6</span>     7     7     7     6     7     6    11     8     7     8     6 Geor…</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 7</span>     5     5     5     7     6     8     4     6     5     5     7 Flor…</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 8</span>     8     8     9     9    10     5     7     7    10     7     8 Bayl…</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 9</span>     9    11     8    13    11    11    12     9    14     9     9 Geor…</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">10</span>    13    10    13    11     8     9    10    11     9    10    10 Miss…</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># … with 1 more variable: Conf &lt;chr&gt;</span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co"># Sample of 1978 fuel economy data from</span></span>
-<span class="r-in"><span class="co"># http://www.fueleconomy.gov/feg/epadata/78data.zip</span></span>
-<span class="r-in"><span class="va">epa</span> <span class="op">&lt;-</span> <span class="fu"><a href="readr_example.html">readr_example</a></span><span class="op">(</span><span class="st">"epa78.txt"</span><span class="op">)</span></span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/base/cat.html" class="external-link">cat</a></span><span class="op">(</span><span class="fu"><a href="read_file.html">read_file</a></span><span class="op">(</span><span class="va">epa</span><span class="op">)</span><span class="op">)</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> ALFA ROMEO                                                                     ALFA ROMEO           78010003</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> ALFETTA                              03  81  8    74  7   89  9                ALFETTA              78010053</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> SPIDER 2000                          01                                        SPIDER 2000          78010103</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> AMC                                                                            AMC                  78020002</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> GREMLIN                              03  79  9                    79  9        GREMLIN              78020053</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> PACER                                04  89 11                    89 11        PACER                78020103</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> PACER WAGON                          07  90 26    91 26                        PACER WAGON          78020153</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> CONCORD                              04  88 12    90 11   90 11   83 16        CONCORD              78020203</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> CONCORD WAGON                        07  91 30            91 30                CONCORD WAGON        78020253</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> MATADOR COUPE                        05  97 14    97 14                        MATADOR COUPE        78020303</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> MATADOR SEDAN                        06 110 20           110 20                MATADOR SEDAN        78020353</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> MATADOR WAGON                        09 112 50           112 50                MATADOR WAGON        78020403</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> ASTON MARTIN                                                                   ASTON MARTIN         78040002</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> ASTON MARTIN                                                                   ASTON MARTIN         78040053</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> AUDI                                                                           AUDI                 78050002</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> FOX                                  03  84 11    84 11   84 11                FOX                  78050053</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> FOX WAGON                            07  83 40            83 40                FOX WAGON            78050103</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 5000                                 04  90 15            90 15                5000                 78050153</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> AVANTI                                                                         AVANTI               78065002</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> AVANTI II                            02  75  8    75  8                        AVANTI II            78065053</span>
-<span class="r-in"><span class="fu">read_table</span><span class="op">(</span><span class="va">epa</span>, col_names <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">──</span> <span style="font-weight: bold;">Column specification</span> <span style="color: #00BBBB;">──────────────────────────────────────────────────</span></span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> cols(</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span>   X1 = <span style="color: #BB0000;">col_character()</span>,</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span>   X2 = <span style="color: #BB0000;">col_character()</span>,</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span>   X3 = <span style="color: #BB0000;">col_character()</span>,</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span>   X4 = <span style="color: #BB0000;">col_character()</span>,</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span>   X5 = <span style="color: #00BB00;">col_double()</span></span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> )</span>
-<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>17 parsing failures.</span>
-<span class="r-wrn co"><span class="r-pr">#&gt;</span> row col  expected     actual                                                      file</span>
-<span class="r-wrn co"><span class="r-pr">#&gt;</span>   2  -- 5 columns 10 columns '/home/runner/work/_temp/Library/readr/extdata/epa78.txt'</span>
-<span class="r-wrn co"><span class="r-pr">#&gt;</span>   3  -- 5 columns 6 columns  '/home/runner/work/_temp/Library/readr/extdata/epa78.txt'</span>
-<span class="r-wrn co"><span class="r-pr">#&gt;</span>   4  -- 5 columns 3 columns  '/home/runner/work/_temp/Library/readr/extdata/epa78.txt'</span>
-<span class="r-wrn co"><span class="r-pr">#&gt;</span>   5  -- 5 columns 8 columns  '/home/runner/work/_temp/Library/readr/extdata/epa78.txt'</span>
-<span class="r-wrn co"><span class="r-pr">#&gt;</span>   6  -- 5 columns 8 columns  '/home/runner/work/_temp/Library/readr/extdata/epa78.txt'</span>
-<span class="r-wrn co"><span class="r-pr">#&gt;</span> ... ... ......... .......... .........................................................</span>
-<span class="r-wrn co"><span class="r-pr">#&gt;</span> See problems(...) for more details.</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tibble: 20 × 5</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>    X1      X2     X3       X4           X5</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>  <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>     <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 1</span> ALFA    ROMEO  ALFA     ROMEO  78<span style="text-decoration: underline;">010</span>003</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 2</span> ALFETTA 03     81       8            74</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 3</span> SPIDER  2000   01       SPIDER     <span style="text-decoration: underline;">2</span>000</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 4</span> AMC     AMC    78020002 <span style="color: #BB0000;">NA</span>           <span style="color: #BB0000;">NA</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 5</span> GREMLIN 03     79       9            79</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 6</span> PACER   04     89       11           89</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 7</span> PACER   WAGON  07       90           26</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 8</span> CONCORD 04     88       12           90</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 9</span> CONCORD WAGON  07       91           30</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">10</span> MATADOR COUPE  05       97           14</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">11</span> MATADOR SEDAN  06       110          20</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">12</span> MATADOR WAGON  09       112          50</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">13</span> ASTON   MARTIN ASTON    MARTIN 78<span style="text-decoration: underline;">040</span>002</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">14</span> ASTON   MARTIN ASTON    MARTIN 78<span style="text-decoration: underline;">040</span>053</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">15</span> AUDI    AUDI   78050002 <span style="color: #BB0000;">NA</span>           <span style="color: #BB0000;">NA</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">16</span> FOX     03     84       11           84</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">17</span> FOX     WAGON  07       83           40</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">18</span> 5000    04     90       15           90</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">19</span> AVANTI  AVANTI 78065002 <span style="color: #BB0000;">NA</span>           <span style="color: #BB0000;">NA</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">20</span> AVANTI  II     02       75            8</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tibble: 3 × 4</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   first last     state phone       </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>       </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">1</span> John  Smith    WA    418-Y11-4111</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">2</span> Mary  Hartford CA    319-Z19-4341</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">3</span> Evan  Nolan    IL    219-532-c301</span>
 </code></pre></div>
     </div>
   </main><aside class="col-md-3"><nav id="toc"><h2>On this page</h2>

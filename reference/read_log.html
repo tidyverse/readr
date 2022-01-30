@@ -20,7 +20,7 @@ in a quoted string. The dash, "-", is used for missing values.'><meta property="
     
     <a class="navbar-brand me-2" href="../index.html">readr</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Released version">2.1.1</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Released version">2.1.2</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -92,6 +92,7 @@ in a quoted string. The dash, "-", is used for missing values.</p>
   trim_ws <span class="op">=</span> <span class="cn">TRUE</span>,
   skip <span class="op">=</span> <span class="fl">0</span>,
   n_max <span class="op">=</span> <span class="cn">Inf</span>,
+  show_col_types <span class="op">=</span> <span class="fu"><a href="should_show_types.html">should_show_types</a></span><span class="op">(</span><span class="op">)</span>,
   progress <span class="op">=</span> <span class="fu"><a href="show_progress.html">show_progress</a></span><span class="op">(</span><span class="op">)</span>
 <span class="op">)</span></code></pre></div>
     </div>
@@ -158,6 +159,11 @@ each field before parsing it?</p></dd>
 supplied any commented lines are ignored <em>after</em> skipping.</p></dd>
 <dt>n_max</dt>
 <dd><p>Maximum number of lines to read.</p></dd>
+<dt>show_col_types</dt>
+<dd><p>If <code>FALSE</code>, do not show the guessed column types. If
+<code>TRUE</code> always show the column types, even if they are supplied. If <code>NULL</code>
+(the default) only show the column types if they are not explicitly supplied
+by the <code>col_types</code> argument.</p></dd>
 <dt>progress</dt>
 <dd><p>Display a progress bar? By default it will only display
 in an interactive session and not while knitting a document. The automatic
@@ -180,10 +186,10 @@ progress bar can be disabled by setting option <code>readr.show_progress</code> 
 <span class="r-msg co"><span class="r-pr">#&gt;</span>   X7 = <span style="color: #00BB00;">col_double()</span></span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> )</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tibble: 2 × 7</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   X1           X2    X3                   X4       X5             X6    X7</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>        <span style="color: #949494; font-style: italic;">&lt;lgl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>                <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>       <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">1</span> 172.21.13.45 <span style="color: #BB0000;">NA</span>    <span style="color: #949494;">"</span>Microsoft\\JohnDoe<span style="color: #949494;">"</span> 08/Apr/… GET /scrip…   200  <span style="text-decoration: underline;">3</span>401</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">2</span> 127.0.0.1    <span style="color: #BB0000;">NA</span>    <span style="color: #949494;">"</span>frank<span style="color: #949494;">"</span>              10/Oct/… GET /apach…   200  <span style="text-decoration: underline;">2</span>326</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   X1           X2    X3                   X4             X5       X6    X7</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>        <span style="color: #949494; font-style: italic;">&lt;lgl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>                <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>          <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">1</span> 172.21.13.45 <span style="color: #BB0000;">NA</span>    <span style="color: #949494;">"</span>Microsoft\\JohnDoe<span style="color: #949494;">"</span> 08/Apr/2001:1… GET …   200  <span style="text-decoration: underline;">3</span>401</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">2</span> 127.0.0.1    <span style="color: #BB0000;">NA</span>    <span style="color: #949494;">"</span>frank<span style="color: #949494;">"</span>              10/Oct/2000:1… GET …   200  <span style="text-decoration: underline;">2</span>326</span>
 </code></pre></div>
     </div>
   </main><aside class="col-md-3"><nav id="toc"><h2>On this page</h2>

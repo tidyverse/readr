@@ -36,7 +36,7 @@ fwf_cols() - Supply named arguments of paired start and end positions or column 
     
     <a class="navbar-brand me-2" href="../index.html">readr</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Released version">2.1.1</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Released version">2.1.2</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -190,10 +190,12 @@ message showing what <code>readr</code> guessed they were. To remove this messag
 set <code>show_col_types = FALSE</code> or set `options(readr.show_col_types = FALSE).</p></li>
 </ul></dd>
 <dt>col_select</dt>
-<dd><p>&lt;<code><a href="https://tidyselect.r-lib.org/reference/language.html" class="external-link">tidy-select</a></code>&gt; Columns to include
-in the results, either by name or by numeric index. Use <code><a href="https://rdrr.io/r/base/c.html" class="external-link">c()</a></code> or <code><a href="https://rdrr.io/r/base/list.html" class="external-link">list()</a></code>
-to select with more than one expression and <code><a href="https://tidyselect.r-lib.org/reference/language.html" class="external-link">?tidyselect::language</a></code> for full
-details on the selection language.</p></dd>
+<dd><p>Columns to include in the results. You can use the same
+mini-language as <code><a href="https://dplyr.tidyverse.org/reference/select.html" class="external-link">dplyr::select()</a></code> to refer to the columns by name. Use
+<code><a href="https://rdrr.io/r/base/c.html" class="external-link">c()</a></code> or <code><a href="https://rdrr.io/r/base/list.html" class="external-link">list()</a></code> to use more than one selection expression. Although this
+usage is less common, <code>col_select</code> also accepts a numeric column index. See
+<code><a href="https://tidyselect.r-lib.org/reference/language.html" class="external-link">?tidyselect::language</a></code> for full details on the
+selection language.</p></dd>
 <dt>id</dt>
 <dd><p>The name of a column in which to store the file path. This is
 useful when reading multiple input files and there is data in the file
@@ -219,21 +221,23 @@ each field before parsing it?</p></dd>
 <dt>n_max</dt>
 <dd><p>Maximum number of lines to read.</p></dd>
 <dt>guess_max</dt>
-<dd><p>Maximum number of lines to use for guessing column types.</p></dd>
+<dd><p>Maximum number of lines to use for guessing column types.
+See <code><a href="../articles/column-types.html">vignette("column-types", package = "readr")</a></code> for more details.</p></dd>
 <dt>progress</dt>
 <dd><p>Display a progress bar? By default it will only display
 in an interactive session and not while knitting a document. The automatic
 progress bar can be disabled by setting option <code>readr.show_progress</code> to
 <code>FALSE</code>.</p></dd>
 <dt>name_repair</dt>
-<dd><p>Treatment of problematic column names:</p><ul><li><p><code>"minimal"</code>: No name repair or checks, beyond basic existence of names</p></li>
-<li><p><code>"unique"</code>: Make sure names are unique and not empty</p></li>
-<li><p><code>"check_unique"</code>: (default value), no name repair, but check they are
-<code>unique</code></p></li>
-<li><p><code>"universal"</code>: Make the names <code>unique</code> and syntactic</p></li>
-<li><p>a function: apply custom name repair (e.g., <code>.name_repair = make.names</code>
-for names in the style of base R)</p></li>
-<li><p>A purrr-style anonymous function, see <code><a href="https://rlang.r-lib.org/reference/as_function.html" class="external-link">rlang::as_function()</a></code></p></li>
+<dd><p>Handling of column names. The default behaviour is to
+ensure column names are <code>"unique"</code>. Various repair strategies are
+supported:</p><ul><li><p><code>"minimal"</code>: No name repair or checks, beyond basic existence of names.</p></li>
+<li><p><code>"unique"</code> (default value): Make sure names are unique and not empty.</p></li>
+<li><p><code>"check_unique"</code>: no name repair, but check they are <code>unique</code>.</p></li>
+<li><p><code>"universal"</code>: Make the names <code>unique</code> and syntactic.</p></li>
+<li><p>A function: apply custom name repair (e.g., <code>name_repair = make.names</code>
+for names in the style of base R).</p></li>
+<li><p>A purrr-style anonymous function, see <code><a href="https://rlang.r-lib.org/reference/as_function.html" class="external-link">rlang::as_function()</a></code>.</p></li>
 </ul><p>This argument is passed on as <code>repair</code> to <code><a href="https://vctrs.r-lib.org/reference/vec_as_names.html" class="external-link">vctrs::vec_as_names()</a></code>.
 See there for more details on these terms and the strategies used
 to enforce them.</p></dd>
