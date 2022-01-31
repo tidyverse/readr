@@ -11,60 +11,88 @@ vignette: >
 knitr::opts_chunk$set(collapse = TRUE, comment = "#>")
 ```
 
+Importing and exporting data to and from R is an important operation to master.
+Here, we will review how to use readr's suite of functions to do just that.
+
+First, let's load the readr package.
+
 ```{r}
 library(readr)
 ```
 
+## Data importing
+
+To import data into Rstudio, there are a number of different readr functions to import different types of data files found in the wild:
+
+* `read_csv()`: comma separated values (CSV) files
+* `read_tsv()`: tab separated values (TSV) files
+* `read_delim()`: general delimited files (including CSV and TSV)
+* `read_fwf()`: fixed width files
+* `read_table()`: tabular files where columns are separated by white-space.
+* `read_log()`: web log files
+
+For delimited files, `read_delim()` will work for both csv and tsv files. There are certain arguments in `read_delim()` that are so commonly used together, they are offered as defaults. These include `read_csv()` and `read_tsv()`.
+
+For R users who need `read_csv()` to use ',' as the decimal point and ';' as a field separator, `read_csv2()` offers these as default arguments. 
+
+## Optional Arguments
+
+It's often the case that our data needs some help to importing into R.
+The readr functions come with several optional arguments to make data importing easier.
+Because these arguments are conserved across functions, we can demonstrate them using `read_csv()`.
+
+### skip
+
 
 ```{r}
-df1 <- read_csv(readr_example("challenge.csv"))
+filepath <- readr_example("skip-lines.csv")
+writeLines(read_lines(filepath))
+read_csv(filepath, skip = 5)
 ```
 
-The rectangular parsing functions almost always succeed; they'll only fail if the format is severely messed up.
-Instead, readr will generate a data frame of problems.
-The first few will be printed out, and you can access them all with `problems()`:
+### na
 
 ```{r}
-problems(df1)
 ```
 
-You've already seen one way of handling bad guesses: increasing the number of rows used to guess the type of each column. 
+### reading in multiple files
 
 ```{r}
-df2 <- read_csv(readr_example("challenge.csv"), guess_max = 1001)
 ```
 
-Another approach is to manually supply the column specification.
-
-### Overriding the defaults
-
-You can also access it after the fact using `spec()`:
+### id
 
 ```{r}
-spec(df1)
-spec(df2)
 ```
 
-This also allows you to access the full column specification.
-
-If you want to manually specify the column types, you can start by copying and pasting this code, and then tweaking it fix the parsing problems.
+### trim white space
 
 ```{r}
-df3 <- read_csv(
-  readr_example("challenge.csv"), 
-  col_types = list(
-    x = col_double(),
-    y = col_date(format = "")
-  )
-)
 ```
+
+### lazy
+
+```{r}
+```
+
+
+### n_max
+
+```{r}
+```
+
+### quote
+
+```{r}
+```
+
+
+
+### col_types
 
 In general, it's good practice to supply an explicit column specification.
-It is more work, but it ensures that you get warnings if the data changes in unexpected ways.
-To be really strict, you can use `stop_for_problems(df3)`.
-This will throw an error if there are any parsing problems, forcing you to fix those problems before proceeding with the analysis.
-
-### Available column specifications
+Sometimes, you don't know what column specification to use, which is why readr packages will guess it for you, if not specified.
+But as your analysis matures, providing readr with column specification will ensures that you get warnings if the data changes in unexpected ways.
 
 The available specifications are: (with string abbreviations in brackets)
 
@@ -80,68 +108,28 @@ The available specifications are: (with string abbreviations in brackets)
 * `col_skip()` [_, -], don't import this column.
 * `col_guess()` [?], parse using the "best" type based on the input.
 
-Use the `col_types` argument to override the default choices.
-There are two ways to use it:
+To provide readr functions with column specification, use the `col_types` argument.
 
-* With a string: `"dc__d"`: read first column as double, second as character,
-  skip the next two and read the last column as a double. (There's no way to
-  use this form with types that take additional parameters.)
-  
-* With a (named) list of col objects:
 
     ```{r}
-    read_csv("iris.csv", col_types = list(
-      Sepal.Length = col_double(),
-      Sepal.Width = col_double(),
-      Petal.Length = col_double(),
-      Petal.Width = col_double(),
-      Species = col_factor(c("setosa", "versicolor", "virginica"))
-    ))
+
     ```
     
-  Or, with their abbreviations:
-    
-    ```{r}
-      read_csv("iris.csv", col_types = list(
-      Sepal.Length = "d",
-      Sepal.Width = "d",
-      Petal.Length = "d",
-      Petal.Width = "d",
-      Species = col_factor(c("setosa", "versicolor", "virginica"))
-    ))
-    ```
-    
-Any omitted columns will be parsed automatically, so the previous call
-will lead to the same result as:
+## Troubleshooting
 
 ```{r}
-read_csv("iris.csv", col_types = list(
-  Species = col_factor(c("setosa", "versicolor", "virginica")))
-)
+df1 <- read_csv(readr_example(""))
 ```
 
-You can also set a default type that will be used instead of
-relying on the automatic detection for columns you don't specify:
+If the column type guessing fails, readr will generate a data frame of problems.
+The first few will be printed out, and you can access them all with `problems()`:
 
 ```{r}
-read_csv("iris.csv", col_types = list(
-  Species = col_factor(c("setosa", "versicolor", "virginica")),
-  .default = col_double())
-)
+problems(df1)
 ```
 
-If you only want to read specified columns, use `cols_only()`:
+
 
 ```{r}
-read_csv("iris.csv", col_types = cols_only(
-  Species = col_factor(c("setosa", "versicolor", "virginica")))
-)
+read_lines(readr_example(""), skip = 404, n_max = 1)
 ```
-
-### Output
-
-The output of all these functions is a tibble.
-Note that characters are never automatically converted to factors (i.e. no more `stringsAsFactors = FALSE`) and column names are left as is, not munged into valid R identifiers (i.e. there is no `check.names = TRUE`).
-Row names are never set.
-
-Attributes store the column specification (`spec()`) and any parsing problems (`problems()`).
