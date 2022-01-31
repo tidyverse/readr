@@ -53,6 +53,9 @@ read_csv(filepath, skip = 5)
 ### na
 
 ```{r}
+filepath <- readr_example("interpret-nas.csv")
+writeLines(read_lines(filepath))
+read_csv(filepath, na = "-")
 ```
 
 ### reading in multiple files
