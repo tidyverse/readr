@@ -100,7 +100,7 @@ read_csv(readr_example("mtcars.csv"))
 ```{r}
 filepath <- readr_example("chickens.csv")
 writeLines(read_lines(filepath))
-read_csv(readr_example("chickens.csv"), quote = "\"")
+read_csv(filepath, quote = "\"")
 ```
 
 ### col_types
@@ -127,12 +127,18 @@ To provide readr functions with column specification, use the `col_types` argume
 
 
 ```{r}
+read_csv(readr_example("chickens.csv"),
+         col_types = cols(
+           chicken = col_character(),
+           sex = col_character(),
+           eggs_laid = col_integer(),
+           motto = col_character()))
 ```
     
 ## Troubleshooting
 
 ```{r}
-df1 <- read_csv(readr_example(""))
+df1 <- read_csv(readr_example("problems.csv"))
 ```
 
 If the column type guessing fails, readr will generate a data frame of problems.
@@ -145,5 +151,5 @@ problems(df1)
 
 
 ```{r}
-read_lines(readr_example(""), skip = 404, n_max = 1)
+read_lines(readr_example("problems.csv"), skip = 300, n_max = 1)
 ```
