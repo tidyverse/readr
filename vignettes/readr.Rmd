@@ -33,75 +33,16 @@ To import data into Rstudio, there are a number of different readr functions to 
 
 For delimited files, `read_delim()` will work for both csv and tsv files. There are certain arguments in `read_delim()` that are so commonly used together, they are offered as defaults. These include `read_csv()` and `read_tsv()`.
 
-For R users who need `read_csv()` to use ',' as the decimal point and ';' as a field separator, `read_csv2()` offers these as default arguments. 
+For R users who need `read_csv()` to use ',' as the decimal point and ';' as a field separator, `read_csv2()` offers these as default arguments.
+This delimiter is most common in European countries.
+Because R is US-centric, the default options for most functions are also US-centric. However, you can specify your location with the `locale()` function which will make encoding data easier.
+We will go into more detail about how `locale()` works later on and how it can help make your code more portable.
 
 ## Optional Arguments
 
 It's often the case that our data needs some help to importing into R.
 The readr functions come with several optional arguments to make data importing easier.
 Because these arguments are conserved across functions, we can demonstrate them using `read_csv()`.
-
-### skip
-
-```{r}
-filepath <- readr_example("skip-lines.csv")
-writeLines(read_lines(filepath))
-read_csv(filepath, skip = 5)
-```
-
-### na
-
-```{r}
-filepath <- readr_example("interpret-nas.csv")
-writeLines(read_lines(filepath))
-read_csv(filepath, na = "-")
-```
-
-### reading in multiple files
-
-```{r}
-```
-
-### id
-
-```{r}
-```
-
-### trim white space
-
-```{r}
-trim <- tibble::tibble(x = c("high ", " medium", "low", "medium low"), y = c(10, 10, 10, 15))
-tfile <- tempfile("trim-whitespace_example-", fileext = ".csv")
-write_csv(trim, tfile)
-writeLines(read_lines(tfile))
-```
-
-```{r}
-read_csv(tfile, trim_ws = TRUE)
-```
-
-### lazy
-
-```{r}
-chicken_data <- read_csv(readr_example("chickens.csv"))
-chicken_data <- chicken_data %>% dplyr::filter(sex == "hen")
-chicken_data
-```
-
-### n_max
-
-```{r}
-read_csv(readr_example("mtcars.csv"), n_max = 5)
-read_csv(readr_example("mtcars.csv"))
-```
-
-### quote
-
-```{r}
-filepath <- readr_example("chickens.csv")
-writeLines(read_lines(filepath))
-read_csv(filepath, quote = "\"")
-```
 
 ### col_types
 
@@ -125,7 +66,6 @@ The available specifications are: (with string abbreviations in brackets)
 
 To provide readr functions with column specification, use the `col_types` argument.
 
-
 ```{r}
 read_csv(readr_example("chickens.csv"),
          col_types = cols(
@@ -134,7 +74,75 @@ read_csv(readr_example("chickens.csv"),
            eggs_laid = col_integer(),
            motto = col_character()))
 ```
-    
+
+### na
+
+```{r}
+filepath <- readr_example("interpret-nas.csv")
+writeLines(read_lines(filepath))
+read_csv(filepath, na = "-")
+```
+
+### skip
+
+```{r}
+filepath <- readr_example("skip-lines.csv")
+writeLines(read_lines(filepath))
+read_csv(filepath, skip = 5)
+```
+
+### n_max
+
+```{r}
+read_csv(readr_example("mtcars.csv"), n_max = 5)
+read_csv(readr_example("mtcars.csv"))
+```
+
+### locale
+
+```{r}
+```
+
+
+### trim white space
+
+```{r}
+trim <- tibble::tibble(x = c("high ", " medium", "low", "medium low"), y = c(10, 10, 10, 15))
+tfile <- tempfile("trim-whitespace_example-", fileext = ".csv")
+write_csv(trim, tfile)
+writeLines(read_lines(tfile))
+```
+
+```{r}
+read_csv(tfile, trim_ws = TRUE)
+```
+
+### reading in multiple files
+
+```{r}
+```
+
+### id
+
+```{r}
+```
+
+### lazy
+
+```{r}
+chicken_data <- read_csv(readr_example("chickens.csv"))
+chicken_data <- chicken_data %>% dplyr::filter(sex == "hen")
+chicken_data
+```
+
+### quote
+
+```{r}
+filepath <- readr_example("chickens.csv")
+writeLines(read_lines(filepath))
+read_csv(filepath, quote = "\"")
+```
+
 ## Troubleshooting
 
 ```{r}
@@ -147,8 +155,6 @@ The first few will be printed out, and you can access them all with `problems()`
 ```{r}
 problems(df1)
 ```
-
-
 
 ```{r}
 read_lines(readr_example("problems.csv"), skip = 300, n_max = 1)
