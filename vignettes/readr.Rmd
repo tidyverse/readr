@@ -175,5 +175,14 @@ problems(df1)
 ```
 
 ```{r}
-read_lines(readr_example("problems.csv"), skip = 300, n_max = 1)
+writeLines(read_lines(readr_example("problems.csv"), skip = 300, n_max = 1))
 ```
+
+```{r}
+read_csv(readr_example("problems.csv"),
+         col_types = cols(Duration = col_character(),
+                          Value = col_integer()))
+```
+
+
+
