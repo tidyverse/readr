@@ -40,7 +40,6 @@ We will go into more detail about how `locale()` works later on and how it can h
 
 ## Optional Arguments
 
-It's often the case that our data needs some help to importing into R.
 The readr functions come with several optional arguments to make data importing easier.
 Because these arguments are conserved across functions, we can demonstrate them using `read_csv()`.
 
@@ -86,28 +85,32 @@ read_csv(filepath, na = "-")
 ### skip
 
 ```{r}
-filepath <- readr_example("skip-lines.csv")
+filepath <- readr_example("deaths.csv")
 writeLines(read_lines(filepath))
-read_csv(filepath, skip = 5)
+read_csv(filepath, skip = 4)
 ```
 
 ### n_max
 
 ```{r}
-read_csv(readr_example("mtcars.csv"), n_max = 5)
-read_csv(readr_example("mtcars.csv"))
+read_csv(filepath, skip = 4, n_max = 10)
 ```
 
 ### locale
 
 ```{r}
+
 ```
 
 
 ### trim white space
 
 ```{r}
-trim <- tibble::tibble(x = c("high ", " medium", "low", "medium low"), y = c(10, 10, 10, 15))
+trim <- tibble::tibble(x = c("high ", 
+                             " medium", 
+                             "low", 
+                             "medium low"), 
+                       y = c(10, 10, 10, 15))
 tfile <- tempfile("trim-whitespace_example-", fileext = ".csv")
 write_csv(trim, tfile)
 writeLines(read_lines(tfile))
@@ -117,14 +120,28 @@ writeLines(read_lines(tfile))
 read_csv(tfile, trim_ws = TRUE)
 ```
 
+```{r}
+file.remove(tfile)
+```
+
 ### reading in multiple files
 
 ```{r}
-```
+read_csv(c(readr_example("deaths.csv"), 
+           readr_example("deaths-other.csv")), 
+         skip = 4, 
+         n_max = 10)
 
+```
 ### id
 
 ```{r}
+read_csv(c(readr_example("deaths.csv"), 
+           readr_example("deaths-other.csv")), 
+         skip = 4, 
+         n_max = 10, 
+         id = "filename")
+
 ```
 
 ### lazy
