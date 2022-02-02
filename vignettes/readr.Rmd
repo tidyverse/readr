@@ -134,6 +134,7 @@ read_csv(c(readr_example("deaths.csv"),
          n_max = 10)
 
 ```
+
 ### id
 
 ```{r}
@@ -148,7 +149,7 @@ read_csv(c(readr_example("deaths.csv"),
 ### lazy
 
 ```{r}
-chicken_data <- read_csv(readr_example("chickens.csv"))
+chicken_data <- read_csv(readr_example("chickens.csv"), lazy = TRUE)
 chicken_data <- chicken_data %>% dplyr::filter(sex == "hen")
 chicken_data
 ```

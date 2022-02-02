@@ -14,8 +14,6 @@ knitr::opts_chunk$set(
 )
 ```
 
-
-
 The key problem that readr solves is __parsing__ a flat file into a tibble.
 Parsing is the process of taking a text file and turning it into a rectangular tibble where each column is the appropriate part.
 Parsing takes place in three basic stages:
@@ -27,12 +25,6 @@ Parsing takes place in three basic stages:
 
 1.  Each column of strings is parsed into a vector of a 
     more specific type.
-
-readr will guess column types from the data if the user does not specify the types.
-The `guess_max` parameter controls how many rows of the input file are used to form these guesses.
-Ideally, the column types would be completely obvious from the first non-header row and we could use `guess_max = 1`.
-That would be very efficient!
-But the situation is rarely so clear-cut.
 
 ## Vector parsers
 
@@ -152,6 +144,12 @@ cols_condense(mtcars_spec)
 ```
 
 ## Column type guessing
+
+readr will guess column types from the data if the user does not specify the types.
+The `guess_max` parameter controls how many rows of the input file are used to form these guesses.
+Ideally, the column types would be completely obvious from the first non-header row and we could use `guess_max = 1`.
+That would be very efficient!
+But the situation is rarely so clear-cut.
 
 By default, readr consults 1000 rows when type-guessing, i.e. `guess_max = 1000`.
 Note that readr never consults rows that won't be part of the import, so the actual default is `guess_max = min(1000, n_max)`.
