@@ -99,9 +99,10 @@ read_csv(filepath, skip = 4, n_max = 10)
 ### locale
 
 ```{r}
-
+filepath <- readr_example("norway.csv")
+writeLines(read_lines(filepath))
+read_csv(filepath, locale = locale("nb", date_format = "%d %B %Y", decimal_mark = ","))
 ```
-
 
 ### trim white space
 
