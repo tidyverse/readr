@@ -32,6 +32,12 @@ It's easiest to learn the vector parsers using `parse_` functions.
 These all take a character vector and some options.
 They return a new vector the same length as the old, along with an attribute describing any problems.
 
+First, let's load the readr library
+
+```{r}
+library(readr)
+```
+
 ### Atomic vectors
 
 `parse_logical()`, `parse_integer()`, `parse_double()`, and `parse_character()` are straightforward parsers that produce the corresponding atomic vector.
