@@ -8,10 +8,6 @@
 
 inline int now() { return clock() / CLOCKS_PER_SEC; }
 
-inline std::string clearLine(int width = 50) {
-  return "\r" + std::string(width, ' ') + "\r";
-}
-
 inline std::string showTime(int x) {
   std::stringstream ss;
   if (x < 60) {
