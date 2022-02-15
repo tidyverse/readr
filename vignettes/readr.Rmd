@@ -14,15 +14,22 @@ knitr::opts_chunk$set(collapse = TRUE, comment = "#>")
 Importing and exporting data to and from R is an important operation to master.
 Here, we will review how to use readr's suite of functions to do just that.
 
-First, let's load the readr package.
+We can load the readr package individually with:
 
 ```{r}
 library(readr)
 ```
 
+Alternatively, because readr is a core tidyverse package we can also load it, along with the rest of the tidyverse package with:
+
+
+```{r, eval = FALSE}
+library(tidyverse)
+```
+
 ## Data importing
 
-To import data into Rstudio, there are a number of different readr functions to import different types of data files found in the wild:
+To import data into R, there are a number of different readr functions to import different types of data files found in the wild:
 
 * `read_csv()`: comma separated values (CSV) files
 * `read_tsv()`: tab separated values (TSV) files
@@ -31,23 +38,28 @@ To import data into Rstudio, there are a number of different readr functions to 
 * `read_table()`: tabular files where columns are separated by white-space.
 * `read_log()`: web log files
 
-For delimited files, `read_delim()` will work for both csv and tsv files. There are certain arguments in `read_delim()` that are so commonly used together, they are offered as defaults. These include `read_csv()` and `read_tsv()`.
+For delimited files, `read_delim()` will work for both csv and tsv files.
+There are certain arguments in `read_delim()` that are so commonly used together, they are offered as defaults.
+These include `read_csv()` and `read_tsv()`.
 
-For R users who need `read_csv()` to use ',' as the decimal point and ';' as a field separator, `read_csv2()` offers these as default arguments.
+For R users who need `read_delim()` to use ',' as the decimal point and ';' as a field separator, `read_csv2()` offers these as default arguments.
 This delimiter is most common in European countries.
-Because R is US-centric, the default options for most functions are also US-centric. However, you can specify your location with the `locale()` function which will make encoding data easier.
+Because R is US-centric, the default options for most functions are also US-centric.
+However, you can specify your location with the `locale()` function which will make encoding data easier.
 We will go into more detail about how `locale()` works later on and how it can help make your code more portable.
 
 ## Optional Arguments
 
 The readr functions come with several optional arguments to make data importing easier.
+Using these optional arguments at import are a good idea because they can decrease the work needed to wrangle your data after import.
+
 Because these arguments are conserved across functions, we can demonstrate them using `read_csv()`.
 
 ### col_types
 
 In general, it's good practice to supply an explicit column specification.
 Sometimes, you don't know what column specification to use, which is why readr packages will guess it for you, if not specified.
-But as your analysis matures, providing readr with column specification will ensures that you get warnings if the data changes in unexpected ways.
+But as your analysis matures, providing readr with column specification will ensure that you get warnings if the data changes in unexpected ways.
 
 The available specifications are: (with string abbreviations in brackets)
 
@@ -66,12 +78,32 @@ The available specifications are: (with string abbreviations in brackets)
 To provide readr functions with column specification, use the `col_types` argument.
 
 ```{r}
-read_csv(readr_example("chickens.csv"),
-         col_types = cols(
-           chicken = col_character(),
-           sex = col_character(),
-           eggs_laid = col_integer(),
-           motto = col_character()))
+df <- tibble::tibble(x = c("02/10/2022", "02/11/2022", "02/12/2022", "02/13/2022"), y = c("0", "2.5", "1", "0"), z = c("low", "high", "medium", "low"))
+my_file <- tempfile("df", fileext = ".csv")
+write_csv(df, my_file)
+writeLines(read_lines(my_file))
+```
+
+```{r}
+read_csv(my_file)
+```
+
+```{r}
+read_csv(my_file, na = "", col_types = cols(
+  x = col_date(format = "%m/%d/%Y")
+))
+```
+
+```{r}
+read_csv(my_file, na = "", col_types = cols(
+  x = col_date(format = "%m/%d/%Y"),
+  y = col_double(),
+  z = col_factor()
+))
+```
+
+```{r, include = FALSE}
+file.remove(my_file)
 ```
 
 ### na
@@ -79,7 +111,10 @@ read_csv(readr_example("chickens.csv"),
 ```{r}
 filepath <- readr_example("interpret-nas.csv")
 writeLines(read_lines(filepath))
-read_csv(filepath, na = "-")
+```
+
+```{r}
+read_csv(filepath, na = "-", show_col_types = FALSE)
 ```
 
 ### skip
@@ -87,38 +122,64 @@ read_csv(filepath, na = "-")
 ```{r}
 filepath <- readr_example("deaths.csv")
 writeLines(read_lines(filepath))
-read_csv(filepath, skip = 4)
+```
+
+```{r}
+read_csv(filepath, skip = 5, show_col_types = FALSE)
 ```
 
 ### n_max
 
+To control the number of rows to read in we can use `n_max`.
+In our previous example, the file contains some rows at the end that we'd like to ignore.
+Setting `n_max` allows us to limit the rows read in by `read_csv()`.
+When combined with `skip`, `read_csv()` reads in ten rows starting at the fourth row.
+
 ```{r}
-read_csv(filepath, skip = 4, n_max = 10)
+filepath <- readr_example("mini_gap_Europe.csv")
+writeLines(read_lines(filepath))
+```
+
+```{r}
+read_csv(filepath, n_max = 3, show_col_types = FALSE)
 ```
 
 ### locale
 
+Understanding the `locale()` option gives you more control over importing data from other countries.
+The `locale()` option also includes other information not typically found in `locale()` such as time zones and data encoding.
+
 ```{r}
 filepath <- readr_example("norway.csv")
 writeLines(read_lines(filepath))
-read_csv(filepath, locale = locale("nb", date_format = "%d %B %Y", decimal_mark = ","))
+```
+
+```{r}
+read_csv(filepath,
+  locale = locale("nb", date_format = "%d %B %Y", decimal_mark = ","),
+  show_col_types = FALSE
+)
 ```
 
 ### trim white space
 
 ```{r}
-trim <- tibble::tibble(x = c("high ", 
-                             " medium", 
-                             "low", 
-                             "medium low"), 
-                       y = c(10, 10, 10, 15))
+trim <- tibble::tibble(
+  x = c(
+    "high ",
+    " medium",
+    "low",
+    "medium low"
+  ),
+  y = c(10, 10, 10, 15)
+)
 tfile <- tempfile("trim-whitespace_example-", fileext = ".csv")
 write_csv(trim, tfile)
 writeLines(read_lines(tfile))
 ```
 
 ```{r}
-read_csv(tfile, trim_ws = TRUE)
+read_csv(tfile, trim_ws = TRUE, show_col_types = FALSE)
 ```
 
 ```{r}
@@ -128,61 +189,95 @@ file.remove(tfile)
 ### reading in multiple files
 
 ```{r}
-read_csv(c(readr_example("deaths.csv"), 
-           readr_example("deaths-other.csv")), 
-         skip = 4, 
-         n_max = 10)
-
+read_csv(c(
+  readr_example("mini_gap_Europe.csv"),
+  readr_example("mini_gap_Oceania.csv")
+), show_col_types = FALSE)
 ```
 
 ### id
 
-```{r}
-read_csv(c(readr_example("deaths.csv"), 
-           readr_example("deaths-other.csv")), 
-         skip = 4, 
-         n_max = 10, 
-         id = "filename")
+<!-- Because readr does not include dplyr in Suggests we can't use dplyr functions to demonstrate id to it's full impact  -->
 
+After importing multiple files into a dataframe, you will probably want to track the file name with the data.
+Often times the file path contains important information that you might want to include, like the date of data collection.
+You can use the id option to create a new column that holds this information.
+
+
+```{r}
+mini_gap <- read_csv(c(
+  readr_example("mini_gap_Europe.csv"),
+  readr_example("mini_gap_Oceania.csv")
+), show_col_types = FALSE, id = "filename")
 ```
+
+
+It's common to need to tinker with the filename to extract the real information you want to track.
+In our example below, we want just the basename of the filepath.
+
+```{r}
+mini_gap$filename <- basename(mini_gap$filename)
+mini_gap
+```
+
+We could also do this with dplyr's `mutate()` function.
+
+```{r, eval = FALSE}
+mini_gap <- mini_gap %>% dplyr::mutate(filename = basename(filename))
+```
+
 
 ### lazy
 
+<!-- https://www.tidyverse.org/blog/2021/11/readr-2-1-0-lazy/#the-advantages-of-lazy-reading -->
+
+<!--
+This example for lazy is modified from the following talk
+https://youtu.be/RA9AjqZXxMU?t=581
+-->
+
+<!-- We could make this example a more robust example using filter/mutate but we can't use dplyr functions in readr but lazy could be an article which would allow us to use dplyr functions -->
+
+
 ```{r}
-chicken_data <- read_csv(readr_example("chickens.csv"), lazy = TRUE)
-chicken_data
+read_csv(readr_example("mtcars.csv"), col_select = c("mpg", "disp", "hp", "drat", "wt", "gear"))
 ```
 
 ### quote
 
 ```{r}
-filepath <- readr_example("chickens.csv")
-writeLines(read_lines(filepath))
-read_csv(filepath, quote = "\"")
+read_csv(readr_example("funny_quotes.csv"),
+  show_col_types = FALSE
+)
+```
+
+```{r}
+read_csv(readr_example("funny_quotes.csv"),
+  show_col_types = FALSE, quote = "\'"
+)
 ```
 
 ## Troubleshooting
 
 ```{r}
-df1 <- read_csv(readr_example("problems.csv"))
+my_nums <- read_csv(readr_example("problem_numbers.csv"), col_types = cols(value = col_integer()))
 ```
 
-If the column type guessing fails, readr will generate a data frame of problems.
+If the column type guessing causes awkward conversions, readr will generate a data frame of problems.
 The first few will be printed out, and you can access them all with `problems()`:
 
 ```{r}
-problems(df1)
+problems(my_nums)
+```
+
+Getting the data in front of you can help diagnose any problems
+
+```{r}
+writeLines(read_lines(readr_example("problem_numbers.csv"), skip = 4, n_max = 3))
 ```
 
 ```{r}
-writeLines(read_lines(readr_example("problems.csv"), skip = 300, n_max = 1))
+read_csv(readr_example("problem_numbers.csv"),
+  col_types = cols(value = col_double())
+)
 ```
-
-```{r}
-read_csv(readr_example("problems.csv"),
-         col_types = cols(Duration = col_character(),
-                          Value = col_integer()))
-```
-
-
-
