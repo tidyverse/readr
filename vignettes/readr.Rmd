@@ -78,7 +78,26 @@ The available specifications are: (with string abbreviations in brackets)
 To provide readr functions with column specification, use the `col_types` argument.
 
 ```{r}
-df <- tibble::tibble(x = c("02/10/2022", "02/11/2022", "02/12/2022", "02/13/2022"), y = c("0", "2.5", "1", "0"), z = c("low", "high", "medium", "low"))
+df <- tibble::tibble(
+  x = c(
+    "02/10/2022",
+    "02/11/2022",
+    "02/12/2022",
+    "02/13/2022"
+  ),
+  y = c(
+    "0",
+    "2.5",
+    "1",
+    "0"
+  ),
+  z = c(
+    "low",
+    "high",
+    "medium",
+    "low"
+  )
+)
 my_file <- tempfile("df", fileext = ".csv")
 write_csv(df, my_file)
 writeLines(read_lines(my_file))
@@ -89,17 +108,25 @@ read_csv(my_file)
 ```
 
 ```{r}
-read_csv(my_file, na = "", col_types = cols(
-  x = col_date(format = "%m/%d/%Y")
-))
+read_csv(
+  my_file,
+  na = "",
+  col_types = cols(
+    x = col_date(format = "%m/%d/%Y")
+  )
+)
 ```
 
 ```{r}
-read_csv(my_file, na = "", col_types = cols(
-  x = col_date(format = "%m/%d/%Y"),
-  y = col_double(),
-  z = col_factor()
-))
+read_csv(
+  my_file,
+  na = "",
+  col_types = cols(
+    x = col_date(format = "%m/%d/%Y"),
+    y = col_double(),
+    z = col_factor()
+  )
+)
 ```
 
 ```{r, include = FALSE}
@@ -120,12 +147,15 @@ read_csv(filepath, na = "-", show_col_types = FALSE)
 ### skip
 
 ```{r}
+# make this more indicative of junk in csv files
+# Date created:
+# Created by:
 filepath <- readr_example("deaths.csv")
 writeLines(read_lines(filepath))
 ```
 
 ```{r}
-read_csv(filepath, skip = 5, show_col_types = FALSE)
+read_csv(filepath, skip = 2, show_col_types = FALSE)
 ```
 
 ### n_max
@@ -155,7 +185,8 @@ writeLines(read_lines(filepath))
 ```
 
 ```{r}
-read_csv(filepath,
+read_csv(
+  filepath,
   locale = locale("nb", date_format = "%d %B %Y", decimal_mark = ","),
   show_col_types = FALSE
 )
@@ -189,10 +220,13 @@ file.remove(tfile)
 ### reading in multiple files
 
 ```{r}
-read_csv(c(
-  readr_example("mini_gap_Europe.csv"),
-  readr_example("mini_gap_Oceania.csv")
-), show_col_types = FALSE)
+read_csv(
+  c(
+    readr_example("mini_gap_Europe.csv"),
+    readr_example("mini_gap_Oceania.csv")
+  ),
+  show_col_types = FALSE
+)
 ```
 
 ### id
@@ -205,10 +239,13 @@ You can use the id option to create a new column that holds this information.
 
 
 ```{r}
-mini_gap <- read_csv(c(
-  readr_example("mini_gap_Europe.csv"),
-  readr_example("mini_gap_Oceania.csv")
-), show_col_types = FALSE, id = "filename")
+mini_gap <- read_csv(
+  c(
+    readr_example("mini_gap_Europe.csv"),
+    readr_example("mini_gap_Oceania.csv")
+  ),
+  show_col_types = FALSE, id = "filename"
+)
 ```
 
 
@@ -223,7 +260,7 @@ mini_gap
 We could also do this with dplyr's `mutate()` function.
 
 ```{r, eval = FALSE}
-mini_gap <- mini_gap %>% dplyr::mutate(filename = basename(filename))
+dplyr::mutate(mini_gap, filename = basename(filename))
 ```
 
 
@@ -240,19 +277,25 @@ https://youtu.be/RA9AjqZXxMU?t=581
 
 
 ```{r}
-read_csv(readr_example("mtcars.csv"), col_select = c("mpg", "disp", "hp", "drat", "wt", "gear"))
+
+read_csv(
+  readr_example("mtcars.csv"),
+  col_select = c("mpg", "disp", "hp", "drat", "wt", "gear")
+)
 ```
 
 ### quote
 
 ```{r}
-read_csv(readr_example("funny_quotes.csv"),
+read_csv(
+  readr_example("funny_quotes.csv"),
   show_col_types = FALSE
 )
 ```
 
 ```{r}
-read_csv(readr_example("funny_quotes.csv"),
+read_csv(
+  readr_example("funny_quotes.csv"),
   show_col_types = FALSE, quote = "\'"
 )
 ```
@@ -260,7 +303,12 @@ read_csv(readr_example("funny_quotes.csv"),
 ## Troubleshooting
 
 ```{r}
-my_nums <- read_csv(readr_example("problem_numbers.csv"), col_types = cols(value = col_integer()))
+my_nums <- read_csv(
+  readr_example("problem_numbers.csv"),
+  col_types = cols(
+    value = col_integer()
+  )
+)
 ```
 
 If the column type guessing causes awkward conversions, readr will generate a data frame of problems.
@@ -273,11 +321,20 @@ problems(my_nums)
 Getting the data in front of you can help diagnose any problems
 
 ```{r}
-writeLines(read_lines(readr_example("problem_numbers.csv"), skip = 4, n_max = 3))
+writeLines(
+  read_lines(
+    readr_example("problem_numbers.csv"),
+    skip = 4,
+    n_max = 3
+  )
+)
 ```
 
 ```{r}
-read_csv(readr_example("problem_numbers.csv"),
-  col_types = cols(value = col_double())
+read_csv(
+  readr_example("problem_numbers.csv"),
+  col_types = cols(
+    value = col_double()
+  )
 )
 ```
