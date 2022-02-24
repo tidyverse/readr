@@ -11,7 +11,7 @@ vignette: >
 knitr::opts_chunk$set(collapse = TRUE, comment = "#>")
 ```
 
-Importing and exporting data to and from R is an important operation to master.
+Importing data to R is an important operation to master.
 Here, we will review how to use readr's suite of functions to do just that.
 
 We can load the readr package individually with:
@@ -21,7 +21,6 @@ library(readr)
 ```
 
 Alternatively, because readr is a core tidyverse package we can also load it, along with the rest of the tidyverse package with:
-
 
 ```{r, eval = FALSE}
 library(tidyverse)
@@ -50,6 +49,7 @@ We will go into more detail about how `locale()` works later on and how it can h
 
 ## Optional Arguments
 
+Data in the wild often comes with certain idiosyncrasies that can make data importing and cleaning difficult.
 The readr functions come with several optional arguments to make data importing easier.
 Using these optional arguments at import are a good idea because they can decrease the work needed to wrangle your data after import.
 
@@ -58,9 +58,8 @@ Because these arguments are conserved across functions, we can demonstrate them 
 ### col_types
 
 In general, it's good practice to supply an explicit column specification.
-Sometimes, you don't know what column specification to use, which is why readr packages will guess it for you, if not specified.
-But as your analysis matures, providing readr with column specification will ensure that you get warnings if the data changes in unexpected ways.
-
+If you don't supply readr with a column specification, it will be guessed for you which by nature of guessing, isn't executed perfectly every time.
+To make your data importing more robust, supply a full column specification ensures your data is imported the same way each time.
 The available specifications are: (with string abbreviations in brackets)
 
 * `col_logical()` [l], containing only `T`, `F`, `TRUE` or `FALSE`.
@@ -75,9 +74,8 @@ The available specifications are: (with string abbreviations in brackets)
 * `col_skip()` [_, -], don't import this column.
 * `col_guess()` [?], parse using the "best" type based on the input.
 
-To provide readr functions with column specification, use the `col_types` argument.
 
-```{r}
+```{r, include = FALSE}
 df <- tibble::tibble(
   x = c(
     "02/10/2022",
@@ -103,9 +101,15 @@ write_csv(df, my_file)
 writeLines(read_lines(my_file))
 ```
 
+Sometimes, you don't yet know what column specification to use, which is why readr packages will guess it for you, if not specified.
+
 ```{r}
 read_csv(my_file)
 ```
+
+But as your analysis matures, providing readr with column specification will ensure that you get warnings if the data changes in unexpected ways.
+To provide readr functions with column specification, use the `col_types` argument.
+You can provide a partial column specification while still importing all the data and the other column types will be guessed.
 
 ```{r}
 read_csv(
@@ -116,6 +120,8 @@ read_csv(
   )
 )
 ```
+
+Once you know what column specifications you need, you can supply readr with a full column specification.
 
 ```{r}
 read_csv(
@@ -135,16 +141,23 @@ file.remove(my_file)
 
 ### na
 
+Your data might contain values that you'd like to encode as `NA`.
+
 ```{r}
 filepath <- readr_example("interpret-nas.csv")
 writeLines(read_lines(filepath))
 ```
+
+Using this argument with one or more strings will set those values to `NA` at import.
 
 ```{r}
 read_csv(filepath, na = "-", show_col_types = FALSE)
 ```
 
 ### skip
+
+When importing data, there may be some content at the top of the file that you'd like to ignore.
+The file in the following examples has some header information, like when the file was created, that we'd like to ignore.
 
 ```{r}
 # make this more indicative of junk in csv files
@@ -154,6 +167,8 @@ filepath <- readr_example("deaths.csv")
 writeLines(read_lines(filepath))
 ```
 
+Setting the skip argument to skip these rows will import the data cleanly.
+
 ```{r}
 read_csv(filepath, skip = 2, show_col_types = FALSE)
 ```
@@ -161,14 +176,13 @@ read_csv(filepath, skip = 2, show_col_types = FALSE)
 ### n_max
 
 To control the number of rows to read in we can use `n_max`.
-In our previous example, the file contains some rows at the end that we'd like to ignore.
-Setting `n_max` allows us to limit the rows read in by `read_csv()`.
-When combined with `skip`, `read_csv()` reads in ten rows starting at the fourth row.
 
 ```{r}
 filepath <- readr_example("mini_gap_Europe.csv")
 writeLines(read_lines(filepath))
 ```
+
+Setting `n_max` allows us to limit the rows read in by `read_csv()`.
 
 ```{r}
 read_csv(filepath, n_max = 3, show_col_types = FALSE)
@@ -179,10 +193,16 @@ read_csv(filepath, n_max = 3, show_col_types = FALSE)
 Understanding the `locale()` option gives you more control over importing data from other countries.
 The `locale()` option also includes other information not typically found in `locale()` such as time zones and data encoding.
 
+Here we want to import some data from Norway.
+Not only are the dates written in Norwegian but the integer values are formatted with a comma decimal mark.
+
+
 ```{r}
 filepath <- readr_example("norway.csv")
 writeLines(read_lines(filepath))
 ```
+
+Specifying the locale and specifying the date format and decimal mark makes this data more portable.
 
 ```{r}
 read_csv(
@@ -193,6 +213,8 @@ read_csv(
 ```
 
 ### trim white space
+
+For data that contains extraneous white spaces, setting `trim_ws = TRUE` can clean up your data at import
 
 ```{r}
 trim <- tibble::tibble(
@@ -209,15 +231,19 @@ write_csv(trim, tfile)
 writeLines(read_lines(tfile))
 ```
 
+Now, the white spaces before and after the text are gone!
+
 ```{r}
 read_csv(tfile, trim_ws = TRUE, show_col_types = FALSE)
 ```
 
-```{r}
+```{r, include = FALSE}
 file.remove(tfile)
 ```
 
 ### reading in multiple files
+
+You can supply readr with a vector of filenames to import, rather than having to import them separately.
 
 ```{r}
 read_csv(
@@ -233,10 +259,9 @@ read_csv(
 
 <!-- Because readr does not include dplyr in Suggests we can't use dplyr functions to demonstrate id to it's full impact  -->
 
-After importing multiple files into a dataframe, you will probably want to track the file name with the data.
+After importing multiple files, you will probably want to track the file names with the data that came from them.
 Often times the file path contains important information that you might want to include, like the date of data collection.
 You can use the id option to create a new column that holds this information.
-
 
 ```{r}
 mini_gap <- read_csv(
@@ -268,23 +293,28 @@ dplyr::mutate(mini_gap, filename = basename(filename))
 
 <!-- https://www.tidyverse.org/blog/2021/11/readr-2-1-0-lazy/#the-advantages-of-lazy-reading -->
 
-<!--
-This example for lazy is modified from the following talk
-https://youtu.be/RA9AjqZXxMU?t=581
--->
-
 <!-- We could make this example a more robust example using filter/mutate but we can't use dplyr functions in readr but lazy could be an article which would allow us to use dplyr functions -->
 
+One of the big improvements that was made with readr edition 2 was lazy reading.
+With lazy reading, the data is read on-demand.
+Lazy reading is turned off by default so you much turn it on with `lazy = TRUE`.
+In this example, only the data that is needed to calculate the mean mpg for a subset of cars, is loaded into R.
 
-```{r}
-
+```{r, eval = FALSE}
+library(dplyr)
 read_csv(
   readr_example("mtcars.csv"),
-  col_select = c("mpg", "disp", "hp", "drat", "wt", "gear")
-)
+  lazy = TRUE
+) %>% 
+  filter(hp > 200) %>%
+  summarise(mean(mpg))
 ```
 
 ### quote
+
+For textual data that contains quoted text, specifying the quote type can impact how the data is imported.
+First, we try reading in this data without specifying the quote type.
+The default is `quote = "/""`, so this doesn't work well.
 
 ```{r}
 read_csv(
@@ -292,6 +322,8 @@ read_csv(
   show_col_types = FALSE
 )
 ```
+
+But when we specify the quote type, readr correctly imports our quoted data.
 
 ```{r}
 read_csv(
@@ -302,6 +334,9 @@ read_csv(
 
 ## Troubleshooting
 
+Data importing doesn't always go as planned.
+If there are parsing problems, readr will generate a data frame of problems.
+
 ```{r}
 my_nums <- read_csv(
   readr_example("problem_numbers.csv"),
@@ -311,14 +346,14 @@ my_nums <- read_csv(
 )
 ```
 
-If the column type guessing causes awkward conversions, readr will generate a data frame of problems.
 The first few will be printed out, and you can access them all with `problems()`:
 
 ```{r}
 problems(my_nums)
 ```
 
-Getting the data in front of you can help diagnose any problems
+Getting the data in front of you can help diagnose any problems.
+Use `writeLines()` with `read_lines()` and specify the subset of rows you'd like to look at.
 
 ```{r}
 writeLines(
@@ -329,6 +364,8 @@ writeLines(
   )
 )
 ```
+
+We can fix our problem by specifying that we want this column to be a column of doubles rather than integers.
 
 ```{r}
 read_csv(
