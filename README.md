@@ -8,8 +8,8 @@
 [![CRAN
 status](https://www.r-pkg.org/badges/version/readr)](https://CRAN.R-project.org/package=readr)
 [![R-CMD-check](https://github.com/tidyverse/readr/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/tidyverse/readr/actions/workflows/R-CMD-check.yaml)
-[![Coverage
-Status](https://codecov.io/gh/tidyverse/readr/coverage.svg?branch=main)](https://app.codecov.io/gh/tidyverse/readr?branch=main)
+[![Codecov test
+coverage](https://codecov.io/gh/tidyverse/readr/branch/main/graph/badge.svg)](https://app.codecov.io/gh/tidyverse/readr?branch=main)
 <!-- badges: end -->
 
 ## Overview
