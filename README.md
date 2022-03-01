@@ -234,9 +234,3 @@ Thanks to:
 
 -   [Dirk Eddelbuettel](http://dirk.eddelbuettel.com) for coming up with
     the name!
-
-## Code of Conduct
-
-Please note that the readr project is released with a [Contributor Code
-of Conduct](https://readr.tidyverse.org/CODE_OF_CONDUCT.html). By
-contributing to this project, you agree to abide by its terms.
