@@ -28,6 +28,7 @@ Depends:
 Imports:
     cli (>= 3.2.0),
     clipr,
+    glue,
     crayon,
     hms (>= 0.4.1),
     lifecycle (>= 0.2.0),
@@ -36,7 +37,8 @@ Imports:
     rlang,
     tibble,
     utils,
-    vroom (>= 1.5.6)
+    vroom (>= 1.5.6),
+    withr
 Suggests:
     covr,
     curl,
@@ -48,7 +50,6 @@ Suggests:
     testthat (>= 3.1.2),
     tzdb (>= 0.1.1),
     waldo,
-    withr,
     xml2
 LinkingTo: 
     cpp11,
