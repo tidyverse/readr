@@ -352,7 +352,6 @@ str.col_spec <- function(object, ..., indent.str = "") {
 
     # Append the current indentation string to the specs
     paste(indent.str, specs, collapse = "\n"),
-
     "\n"
   )
 }
