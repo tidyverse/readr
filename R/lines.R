@@ -88,7 +88,6 @@ write_lines <- function(x, file, sep = "\n", na = "NA", append = FALSE,
   }
 
   if (is_raw || edition_first()) {
-
     is_raw <- is.list(x) && inherits(x[[1]], "raw")
     if (!is_raw) {
       x <- as.character(x)

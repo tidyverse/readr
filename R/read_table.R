@@ -20,15 +20,14 @@
 #' ws <- readr_example("whitespace-sample.txt")
 #' writeLines(read_lines(ws))
 #' read_table(ws)
-
 #' @rdname read_table
 #' @export
 read_table <- function(file, col_names = TRUE, col_types = NULL,
-                        locale = default_locale(), na = "NA", skip = 0,
-                        n_max = Inf, guess_max = min(n_max, 1000),
-                        progress = show_progress(), comment = "",
-                        show_col_types = should_show_types(),
-                        skip_empty_rows = TRUE) {
+                       locale = default_locale(), na = "NA", skip = 0,
+                       n_max = Inf, guess_max = min(n_max, 1000),
+                       progress = show_progress(), comment = "",
+                       show_col_types = should_show_types(),
+                       skip_empty_rows = TRUE) {
   tokenizer <- tokenizer_ws(
     na = na, comment = comment,
     skip_empty_rows = skip_empty_rows
@@ -68,7 +67,8 @@ read_table2 <- function(file, col_names = TRUE, col_types = NULL,
     guess_max = guess_max,
     progress = progress,
     comment = comment,
-    skip_empty_rows = skip_empty_rows)
+    skip_empty_rows = skip_empty_rows
+  )
 }
 
 #' @rdname spec_delim

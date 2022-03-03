@@ -119,7 +119,6 @@ write_csv <- function(x, file, na = "NA", append = FALSE, col_names = !append,
                       progress = show_progress(),
                       path = deprecated(),
                       quote_escape = deprecated()) {
-
   if (is_present(path)) {
     deprecate_warn("1.4.0", "write_csv(path = )", "write_csv(file = )")
     file <- path
@@ -336,10 +335,10 @@ format_delim <- function(x, delim, na = "NA", append = FALSE,
 #' @export
 #' @rdname format_delim
 format_csv <- function(x, na = "NA", append = FALSE, col_names = !append,
-  quote = c("needed", "all", "none"),
-  escape = c("double", "backslash", "none"),
-  eol = "\n",
-  quote_escape = deprecated()) {
+                       quote = c("needed", "all", "none"),
+                       escape = c("double", "backslash", "none"),
+                       eol = "\n",
+                       quote_escape = deprecated()) {
   if (is_present(quote_escape)) {
     deprecate_soft("2.0.0", "write_delim(quote_escape = )", "write_delim(escape = )")
     escape <- quote_escape
@@ -351,10 +350,10 @@ format_csv <- function(x, na = "NA", append = FALSE, col_names = !append,
 #' @export
 #' @rdname format_delim
 format_csv2 <- function(x, na = "NA", append = FALSE, col_names = !append,
-  quote = c("needed", "all", "none"),
-  escape = c("double", "backslash", "none"),
-  eol = "\n",
-  quote_escape = deprecated()) {
+                        quote = c("needed", "all", "none"),
+                        escape = c("double", "backslash", "none"),
+                        eol = "\n",
+                        quote_escape = deprecated()) {
   if (is_present(quote_escape)) {
     deprecate_soft("2.0.0", "write_delim(quote_escape = )", "write_delim(escape = )")
     escape <- quote_escape
@@ -367,10 +366,10 @@ format_csv2 <- function(x, na = "NA", append = FALSE, col_names = !append,
 #' @export
 #' @rdname format_delim
 format_tsv <- function(x, na = "NA", append = FALSE, col_names = !append,
-  quote = c("needed", "all", "none"),
-  escape = c("double", "backslash", "none"),
-  eol = "\n",
-  quote_escape = deprecated()) {
+                       quote = c("needed", "all", "none"),
+                       escape = c("double", "backslash", "none"),
+                       eol = "\n",
+                       quote_escape = deprecated()) {
   if (is_present(quote_escape)) {
     deprecate_soft("2.0.0", "write_delim(quote_escape = )", "write_delim(escape = )")
     escape <- quote_escape

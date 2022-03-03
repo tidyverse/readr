@@ -68,7 +68,6 @@ melt_table <- function(file, locale = default_locale(), na = "NA", skip = 0,
 melt_table2 <- function(file, locale = default_locale(), na = "NA", skip = 0,
                         n_max = Inf, progress = show_progress(), comment = "",
                         skip_empty_rows = FALSE) {
-
   if (!edition_first()) {
     lifecycle::deprecate_soft("2.0.0", what = "melt_table2()", details = "Please use `meltr::melt_table2()` instead")
   }
