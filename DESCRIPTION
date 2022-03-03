@@ -38,7 +38,7 @@ Imports:
     utils,
     vroom (>= 1.5.6)
 Suggests:
-    covr,
+    covr,F
     curl,
     datasets,
     knitr,
