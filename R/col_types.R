@@ -308,12 +308,16 @@ colourise_cols <- function(cols, colourise = crayon::has_color()) {
     cols[[i]] <- switch(fname,
       col_skip = ,
       col_guess = cols[[i]],
+
       col_character = ,
       col_factor = crayon::red(cols[[i]]),
+
       col_logical = crayon::yellow(cols[[i]]),
+
       col_double = ,
       col_integer = ,
       col_number = crayon::green(cols[[i]]),
+
       col_date = ,
       col_datetime = ,
       col_time = crayon::blue(cols[[i]])
@@ -348,6 +352,7 @@ str.col_spec <- function(object, ..., indent.str = "") {
 
     # Append the current indentation string to the specs
     paste(indent.str, specs, collapse = "\n"),
+
     "\n"
   )
 }
