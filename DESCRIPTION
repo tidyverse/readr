@@ -24,7 +24,7 @@ License: MIT + file LICENSE
 URL: https://readr.tidyverse.org, https://github.com/tidyverse/readr
 BugReports: https://github.com/tidyverse/readr/issues
 Depends:
-    R (>= 3.1)
+    R (>= 3.4)
 Imports:
     cli (>= 3.2.0),
     clipr,
