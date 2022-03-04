@@ -2,7 +2,7 @@
 generate_read_delimited_chunked <- function(x) {
   args <- formals(x)
   args <- args[names(args) != "n_max"]
-  args <- append(args, alist(callback = , chunk_size =), 1)
+  args <- append(args, alist(callback = , chunk_size = ), 1)
 
   # Change guess_max default to use chunk_size
   args$guess_max[[3]] <- quote(chunk_size)

@@ -434,7 +434,7 @@ read_delimited <- function(file, tokenizer, col_names = TRUE, col_types = NULL,
 
   if (
     ((is.null(show_col_types) && !has_col_types) || isTRUE(show_col_types)) &&
-    !inherits(ds, "source_string")
+      !inherits(ds, "source_string")
   ) {
     show_cols_spec(spec)
   }
