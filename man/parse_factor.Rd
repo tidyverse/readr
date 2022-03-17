@@ -20,9 +20,9 @@ col_factor(levels = NULL, ordered = FALSE, include_na = FALSE)
 \arguments{
 \item{x}{Character vector of values to parse.}
 
-\item{levels}{Character vector providing set of allowed levels. if \code{NULL},
-will generate levels based on the unique values of \code{x}, ordered by order
-of appearance in \code{x}.}
+\item{levels}{Character vector of the allowed levels. When \code{levels = NULL}
+(the default), \code{levels} are discovered from the unique values of \code{x}, in
+the order in which they are encountered in \code{x}.}
 
 \item{ordered}{Is it an ordered factor?}
 
@@ -35,29 +35,36 @@ The default locale is US-centric (like R), but you can use
 the default time zone, encoding, decimal mark, big mark, and day/month
 names.}
 
-\item{include_na}{If \code{NA} are present, include as an explicit factor to level?}
+\item{include_na}{If \code{TRUE} and \code{x} contains at least one \code{NA}, then \code{NA}
+is included in the levels of the constructed factor.}
 
 \item{trim_ws}{Should leading and trailing whitespace (ASCII spaces and tabs) be trimmed from
 each field before parsing it?}
 }
 \description{
-\code{parse_factor} is similar to \code{\link[=factor]{factor()}}, but will generate
-warnings if elements of \code{x} are not found in \code{levels}.
+\code{parse_factor()} is similar to \code{\link[=factor]{factor()}}, but generates a warning if
+\code{levels} have been specified and some elements of \code{x} are not found in those
+\code{levels}.
 }
 \examples{
-parse_factor(c("a", "b"), letters)
+# discover the levels from the data
+parse_factor(c("a", "b"))
+parse_factor(c("a", "b", "-99"))
+parse_factor(c("a", "b", "-99"), na = c("", "NA", "-99"))
+parse_factor(c("a", "b", "-99"), na = c("", "NA", "-99"), include_na = FALSE)
+
+# provide the levels explicitly
+parse_factor(c("a", "b"), levels = letters[1:5])
 
 x <- c("cat", "dog", "caw")
-levels <- c("cat", "dog", "cow")
+animals <- c("cat", "dog", "cow")
 
-# Base R factor() silently converts unknown levels to NA
-x1 <- factor(x, levels)
+# base::factor() silently converts elements that do match any levels to NA
+factor(x, levels = animals)
 
-# parse_factor generates a warning & problems
-x2 <- parse_factor(x, levels)
-
-# Using an argument of `NULL` will generate levels based on values of `x`
-x2 <- parse_factor(x, levels = NULL)
+# parse_factor() generates same factor as base::factor() but throws a warning
+# and reports problems
+parse_factor(x, levels = animals)
 }
 \seealso{
 Other parsers: 
