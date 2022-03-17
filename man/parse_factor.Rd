@@ -22,7 +22,7 @@ col_factor(levels = NULL, ordered = FALSE, include_na = FALSE)
 
 \item{levels}{Character vector of the allowed levels. When \code{levels = NULL}
 (the default), \code{levels} are discovered from the unique values of \code{x}, in
-the order in which they are encountered in \code{x}.}
+the order in which they appear in \code{x}.}
 
 \item{ordered}{Is it an ordered factor?}
 

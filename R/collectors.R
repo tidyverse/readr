@@ -220,7 +220,7 @@ guess_parser <- function(x, locale = default_locale(), guess_integer = FALSE, na
 #'
 #' @param levels Character vector of the allowed levels. When `levels = NULL`
 #'   (the default), `levels` are discovered from the unique values of `x`, in
-#'   the order in which they are encountered in `x`.
+#'   the order in which they appear in `x`.
 #' @param ordered Is it an ordered factor?
 #' @param include_na If `TRUE` and `x` contains at least one `NA`, then `NA`
 #'   is included in the levels of the constructed factor.
