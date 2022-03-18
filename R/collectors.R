@@ -243,7 +243,8 @@ guess_parser <- function(x, locale = default_locale(), guess_integer = FALSE, na
 #' x <- c("cat", "dog", "caw")
 #' animals <- c("cat", "dog", "cow")
 #'
-#' # base::factor() silently converts elements that do match any levels to NA
+#' # base::factor() silently converts elements that do not match any levels to
+#' # NA
 #' factor(x, levels = animals)
 #'
 #' # parse_factor() generates same factor as base::factor() but throws a warning
