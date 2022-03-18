@@ -214,33 +214,42 @@ guess_parser <- function(x, locale = default_locale(), guess_integer = FALSE, na
 
 #' Parse factors
 #'
-#' `parse_factor` is similar to [factor()], but will generate
-#' warnings if elements of `x` are not found in `levels`.
+#' `parse_factor()` is similar to [factor()], but generates a warning if
+#' `levels` have been specified and some elements of `x` are not found in those
+#' `levels`.
 #'
-#' @param levels Character vector providing set of allowed levels. if `NULL`,
-#'   will generate levels based on the unique values of `x`, ordered by order
-#'   of appearance in `x`.
+#' @param levels Character vector of the allowed levels. When `levels = NULL`
+#'   (the default), `levels` are discovered from the unique values of `x`, in
+#'   the order in which they appear in `x`.
 #' @param ordered Is it an ordered factor?
-#' @param include_na If `NA` are present, include as an explicit factor to level?
+#' @param include_na If `TRUE` and `x` contains at least one `NA`, then `NA`
+#'   is included in the levels of the constructed factor.
+#'
 #' @inheritParams parse_atomic
 #' @inheritParams tokenizer_delim
 #' @inheritParams read_delim
 #' @family parsers
 #' @export
 #' @examples
-#' parse_factor(c("a", "b"), letters)
+#' # discover the levels from the data
+#' parse_factor(c("a", "b"))
+#' parse_factor(c("a", "b", "-99"))
+#' parse_factor(c("a", "b", "-99"), na = c("", "NA", "-99"))
+#' parse_factor(c("a", "b", "-99"), na = c("", "NA", "-99"), include_na = FALSE)
+#'
+#' # provide the levels explicitly
+#' parse_factor(c("a", "b"), levels = letters[1:5])
 #'
 #' x <- c("cat", "dog", "caw")
-#' levels <- c("cat", "dog", "cow")
+#' animals <- c("cat", "dog", "cow")
 #'
-#' # Base R factor() silently converts unknown levels to NA
-#' x1 <- factor(x, levels)
+#' # base::factor() silently converts elements that do not match any levels to
+#' # NA
+#' factor(x, levels = animals)
 #'
-#' # parse_factor generates a warning & problems
-#' x2 <- parse_factor(x, levels)
-#'
-#' # Using an argument of `NULL` will generate levels based on values of `x`
-#' x2 <- parse_factor(x, levels = NULL)
+#' # parse_factor() generates same factor as base::factor() but throws a warning
+#' # and reports problems
+#' parse_factor(x, levels = animals)
 parse_factor <- function(x, levels = NULL, ordered = FALSE, na = c("", "NA"),
                          locale = default_locale(), include_na = TRUE, trim_ws = TRUE) {
   parse_vector(x, col_factor(levels, ordered, include_na), na = na, locale = locale, trim_ws = trim_ws)
