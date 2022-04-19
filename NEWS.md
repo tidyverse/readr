@@ -658,7 +658,7 @@ Date and time parsing functions received a number of small enhancements:
   appended to whole number doubles, to ensure they will be read as doubles as
   well. (#483)
 
-* readr imports tibble so that you get consistent `tbl_df` behaviour 
+* readr imports tibble so that you get consistent `tbl_df` behavior 
   (#317, #385).
   
 * New example `extdata/challenge.csv` which is carefully created to cause 
