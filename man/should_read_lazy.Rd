@@ -7,8 +7,8 @@
 should_read_lazy()
 }
 \description{
-Reading in readr is done lazily unless
+Reading in readr is not done lazily unless
 \itemize{
-\item \code{options(readr.read_lazy = FALSE)}
+\item \code{options(readr.read_lazy = TRUE)}
 }
 }

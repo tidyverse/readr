@@ -57,8 +57,8 @@ should_show_types <- function() {
 
 #' Determine whether reading should be done lazily
 #'
-#' Reading in readr is done lazily unless
-#' - `options(readr.read_lazy = FALSE)`
+#' Reading in readr is not done lazily unless
+#' - `options(readr.read_lazy = TRUE)`
 #' @export
 should_read_lazy <- function() {
   identical(getOption("readr.read_lazy", FALSE), TRUE)
