@@ -8,8 +8,8 @@ test_that("strings are only quoted if needed", {
 })
 
 test_that("na argument modifies how missing values are written", {
-  df <- data.frame(x = c(NA, "x", "."), y = c(1, 2, NA))
-  expect_equal(format_csv(df, na = "."), "x,y\n.,1\nx,2\n\".\",.\n")
+  df <- data.frame(x = c(NA, "x"), y = c(1, 2))
+  expect_equal(format_csv(df, na = "None"), "x,y\nNone,1\nx,2\n")
 })
 
 test_that("read_delim/csv/tsv and write_delim round trip special chars", {
