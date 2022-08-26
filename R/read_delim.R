@@ -139,6 +139,20 @@ NULL
 #' y
 #' problems(y)
 #'
+#' # Column names --------------------------------------------------------------
+#' # By default, readr duplicate name repair is noisy
+#' read_csv(I("x,x\n1,2\n3,4"))
+#'
+#' # To quiet, use a function that does name repair quietly
+#' quiet_repair <- function(x){
+#'   vctrs::vec_as_names(x, repair = "unique", quiet = TRUE)
+#' }
+#'
+#' read_csv(I("x,x\n1,2\n3,4"), name_repair = quiet_repair)
+#'
+#' # Or use "minimal" to turn off name repair
+#' read_csv(I("x,x\n1,2\n3,4"), name_repair = "minimal")
+#'
 #' # File types ----------------------------------------------------------------
 #' read_csv(I("a,b\n1.0,2.0"))
 #' read_csv2(I("a;b\n1,0;2,0"))
