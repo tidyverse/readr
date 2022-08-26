@@ -49,7 +49,8 @@ Suggests:
     tzdb (>= 0.1.1),
     waldo,
     withr,
-    xml2
+    xml2,
+    vctrs
 LinkingTo: 
     cpp11,
     tzdb (>= 0.1.1)
