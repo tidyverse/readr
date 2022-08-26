@@ -14,9 +14,9 @@
 <link rel="apple-touch-icon" type="image/png" sizes="76x76" href="../apple-touch-icon-76x76.png">
 <link rel="apple-touch-icon" type="image/png" sizes="60x60" href="../apple-touch-icon-60x60.png">
 <script src="../deps/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<link href="../deps/bootstrap-5.1.0/bootstrap.min.css" rel="stylesheet">
-<script src="../deps/bootstrap-5.1.0/bootstrap.bundle.min.js"></script><link href="../deps/_Source%20Sans%20Pro-0.4.0/font.css" rel="stylesheet">
-<link href="../deps/_Source%20Code%20Pro-0.4.0/font.css" rel="stylesheet">
+<link href="../deps/bootstrap-5.1.3/bootstrap.min.css" rel="stylesheet">
+<script src="../deps/bootstrap-5.1.3/bootstrap.bundle.min.js"></script><link href="../deps/Source_Sans_Pro-0.4.2/font.css" rel="stylesheet">
+<link href="../deps/Source_Code_Pro-0.4.2/font.css" rel="stylesheet">
 <!-- Font Awesome icons --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/v4-shims.min.css" integrity="sha256-wZjR52fzng1pJHwx4aV2AO3yyTOXrcDW7jBpJtTwVxw=" crossorigin="anonymous">
 <!-- bootstrap-toc --><script src="https://cdn.rawgit.com/afeld/bootstrap-toc/v1.0.1/dist/bootstrap-toc.min.js"></script><!-- headroom.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/headroom.min.js" integrity="sha256-AsUX4SJE1+yuDu5+mAVzJbuYNPHj/WroHuZ8Ir/CkE0=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script><!-- clipboard.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><!-- search --><script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/6.4.6/fuse.js" integrity="sha512-zv6Ywkjyktsohkbp9bb45V6tEMoWhzFzXis+LrMehmJZZSys19Yxf1dopHx7WzIKxr5tK2dVcYmaCk2uqdjF4A==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/autocomplete.js/0.38.0/autocomplete.jquery.min.js" integrity="sha512-GU9ayf+66Xx2TmpxqJpliWbT5PiGYxpaG8rfnBEk1LL8l1KGkRShhngwdXK1UgqhAzWpZHSiYPc09/NwDQIGyg==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/mark.min.js" integrity="sha512-5CYOlHXGh6QpOFA/TeTylKLWfB3ftPsde7AnmhuitiTX4K5SqCLBeKro6sPS8ilsz1Q4NRx3v8Ko2IBiszzdww==" crossorigin="anonymous"></script><!-- pkgdown --><script src="../pkgdown.js"></script><meta property="og:title" content="Locales">
@@ -96,7 +96,7 @@
 
 
 <div class="row">
-  <main id="main"><div class="page-header">
+  <main id="main" class="col-md-9"><div class="page-header">
       <img src="../logo.png" class="logo" alt=""><h1>Locales</h1>
             
       
@@ -117,19 +117,19 @@
 <p>(Strictly speaking these are not locales in the usual technical sense of the word because they also contain information about time zones and encoding.)</p>
 <p>To create a new locale, you use the <code><a href="../reference/locale.html">locale()</a></code> function:</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="../reference/locale.html">locale</a></span><span class="op">(</span><span class="op">)</span>
-<span class="co">#&gt; &lt;locale&gt;</span>
-<span class="co">#&gt; Numbers:  123,456.78</span>
-<span class="co">#&gt; Formats:  %AD / %AT</span>
-<span class="co">#&gt; Timezone: UTC</span>
-<span class="co">#&gt; Encoding: UTF-8</span>
-<span class="co">#&gt; &lt;date_names&gt;</span>
-<span class="co">#&gt; Days:   Sunday (Sun), Monday (Mon), Tuesday (Tue), Wednesday (Wed),</span>
-<span class="co">#&gt;         Thursday (Thu), Friday (Fri), Saturday (Sat)</span>
-<span class="co">#&gt; Months: January (Jan), February (Feb), March (Mar), April (Apr), May</span>
-<span class="co">#&gt;         (May), June (Jun), July (Jul), August (Aug), September</span>
-<span class="co">#&gt;         (Sep), October (Oct), November (Nov), December (Dec)</span>
-<span class="co">#&gt; AM/PM:  AM/PM</span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/locale.html">locale</a></span><span class="op">(</span><span class="op">)</span></span>
+<span><span class="co">#&gt; &lt;locale&gt;</span></span>
+<span><span class="co">#&gt; Numbers:  123,456.78</span></span>
+<span><span class="co">#&gt; Formats:  %AD / %AT</span></span>
+<span><span class="co">#&gt; Timezone: UTC</span></span>
+<span><span class="co">#&gt; Encoding: UTF-8</span></span>
+<span><span class="co">#&gt; &lt;date_names&gt;</span></span>
+<span><span class="co">#&gt; Days:   Sunday (Sun), Monday (Mon), Tuesday (Tue), Wednesday (Wed),</span></span>
+<span><span class="co">#&gt;         Thursday (Thu), Friday (Fri), Saturday (Sat)</span></span>
+<span><span class="co">#&gt; Months: January (Jan), February (Feb), March (Mar), April (Apr), May</span></span>
+<span><span class="co">#&gt;         (May), June (Jun), July (Jul), August (Aug), September</span></span>
+<span><span class="co">#&gt;         (Sep), October (Oct), November (Nov), December (Dec)</span></span>
+<span><span class="co">#&gt; AM/PM:  AM/PM</span></span></code></pre></div>
 <p>This rest of this vignette will explain what each of the options do.</p>
 <p>All of the parsing function in readr take a <code>locale</code> argument. You’ll most often use it with <code><a href="../reference/read_delim.html">read_csv()</a></code>, <code><a href="../reference/read_fwf.html">read_fwf()</a></code> or <code><a href="../reference/read_table.html">read_table()</a></code>. Readr is designed to work the same way across systems, so the default locale is English centric like R. If you’re not in an English speaking country, this makes initial import a little harder, because you have to override the defaults. But the payoff is big: you can share your code and know that it will work on any other system. Base R takes a different philosophy. It uses system defaults, so typical data import is a little easier, but sharing code is harder.</p>
 <p>Rather than demonstrating the use of locales with <code><a href="../reference/read_delim.html">read_csv()</a></code> and fields, in this vignette I’m going to use the <code>parse_*()</code> functions. These work with a character vector instead of a file on disk, so they’re easier to use in examples. They’re also useful in their own right if you need to do custom parsing. See <code><a href="../reference/type_convert.html">type_convert()</a></code> if you need to apply multiple parsers to a data frame.</p>
@@ -141,64 +141,64 @@
 </h3>
 <p>The first argument to <code><a href="../reference/locale.html">locale()</a></code> is <code>date_names</code>, and it controls what values are used for month and day names. The easiest way to specify it is with a ISO 639 language code:</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="../reference/locale.html">locale</a></span><span class="op">(</span><span class="st">"ko"</span><span class="op">)</span> <span class="co"># Korean</span>
-<span class="co">#&gt; &lt;locale&gt;</span>
-<span class="co">#&gt; Numbers:  123,456.78</span>
-<span class="co">#&gt; Formats:  %AD / %AT</span>
-<span class="co">#&gt; Timezone: UTC</span>
-<span class="co">#&gt; Encoding: UTF-8</span>
-<span class="co">#&gt; &lt;date_names&gt;</span>
-<span class="co">#&gt; Days:   일요일 (일), 월요일 (월), 화요일 (화), 수요일 (수), 목요일 (목),</span>
-<span class="co">#&gt;         금요일 (금), 토요일 (토)</span>
-<span class="co">#&gt; Months: 1월, 2월, 3월, 4월, 5월, 6월, 7월, 8월, 9월, 10월, 11월, 12월</span>
-<span class="co">#&gt; AM/PM:  오전/오후</span>
-<span class="fu"><a href="../reference/locale.html">locale</a></span><span class="op">(</span><span class="st">"fr"</span><span class="op">)</span> <span class="co"># French</span>
-<span class="co">#&gt; &lt;locale&gt;</span>
-<span class="co">#&gt; Numbers:  123,456.78</span>
-<span class="co">#&gt; Formats:  %AD / %AT</span>
-<span class="co">#&gt; Timezone: UTC</span>
-<span class="co">#&gt; Encoding: UTF-8</span>
-<span class="co">#&gt; &lt;date_names&gt;</span>
-<span class="co">#&gt; Days:   dimanche (dim.), lundi (lun.), mardi (mar.), mercredi (mer.),</span>
-<span class="co">#&gt;         jeudi (jeu.), vendredi (ven.), samedi (sam.)</span>
-<span class="co">#&gt; Months: janvier (janv.), février (févr.), mars (mars), avril (avr.), mai</span>
-<span class="co">#&gt;         (mai), juin (juin), juillet (juil.), août (août),</span>
-<span class="co">#&gt;         septembre (sept.), octobre (oct.), novembre (nov.),</span>
-<span class="co">#&gt;         décembre (déc.)</span>
-<span class="co">#&gt; AM/PM:  AM/PM</span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/locale.html">locale</a></span><span class="op">(</span><span class="st">"ko"</span><span class="op">)</span> <span class="co"># Korean</span></span>
+<span><span class="co">#&gt; &lt;locale&gt;</span></span>
+<span><span class="co">#&gt; Numbers:  123,456.78</span></span>
+<span><span class="co">#&gt; Formats:  %AD / %AT</span></span>
+<span><span class="co">#&gt; Timezone: UTC</span></span>
+<span><span class="co">#&gt; Encoding: UTF-8</span></span>
+<span><span class="co">#&gt; &lt;date_names&gt;</span></span>
+<span><span class="co">#&gt; Days:   일요일 (일), 월요일 (월), 화요일 (화), 수요일 (수), 목요일 (목),</span></span>
+<span><span class="co">#&gt;         금요일 (금), 토요일 (토)</span></span>
+<span><span class="co">#&gt; Months: 1월, 2월, 3월, 4월, 5월, 6월, 7월, 8월, 9월, 10월, 11월, 12월</span></span>
+<span><span class="co">#&gt; AM/PM:  오전/오후</span></span>
+<span><span class="fu"><a href="../reference/locale.html">locale</a></span><span class="op">(</span><span class="st">"fr"</span><span class="op">)</span> <span class="co"># French</span></span>
+<span><span class="co">#&gt; &lt;locale&gt;</span></span>
+<span><span class="co">#&gt; Numbers:  123,456.78</span></span>
+<span><span class="co">#&gt; Formats:  %AD / %AT</span></span>
+<span><span class="co">#&gt; Timezone: UTC</span></span>
+<span><span class="co">#&gt; Encoding: UTF-8</span></span>
+<span><span class="co">#&gt; &lt;date_names&gt;</span></span>
+<span><span class="co">#&gt; Days:   dimanche (dim.), lundi (lun.), mardi (mar.), mercredi (mer.),</span></span>
+<span><span class="co">#&gt;         jeudi (jeu.), vendredi (ven.), samedi (sam.)</span></span>
+<span><span class="co">#&gt; Months: janvier (janv.), février (févr.), mars (mars), avril (avr.), mai</span></span>
+<span><span class="co">#&gt;         (mai), juin (juin), juillet (juil.), août (août),</span></span>
+<span><span class="co">#&gt;         septembre (sept.), octobre (oct.), novembre (nov.),</span></span>
+<span><span class="co">#&gt;         décembre (déc.)</span></span>
+<span><span class="co">#&gt; AM/PM:  AM/PM</span></span></code></pre></div>
 <p>If you don’t already know the code for your language, <a href="https://en.wikipedia.org/wiki/List_of_ISO_639-1_codes" class="external-link">Wikipedia</a> has a good list. Currently readr has 185 languages available. You can list them all with <code><a href="../reference/date_names.html">date_names_langs()</a></code>.</p>
 <p>Specifying a locale allows you to parse dates in other languages:</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="../reference/parse_datetime.html">parse_date</a></span><span class="op">(</span><span class="st">"1 janvier 2015"</span>, <span class="st">"%d %B %Y"</span>, locale <span class="op">=</span> <span class="fu"><a href="../reference/locale.html">locale</a></span><span class="op">(</span><span class="st">"fr"</span><span class="op">)</span><span class="op">)</span>
-<span class="co">#&gt; [1] "2015-01-01"</span>
-<span class="fu"><a href="../reference/parse_datetime.html">parse_date</a></span><span class="op">(</span><span class="st">"14 oct. 1979"</span>, <span class="st">"%d %b %Y"</span>, locale <span class="op">=</span> <span class="fu"><a href="../reference/locale.html">locale</a></span><span class="op">(</span><span class="st">"fr"</span><span class="op">)</span><span class="op">)</span>
-<span class="co">#&gt; [1] "1979-10-14"</span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/parse_datetime.html">parse_date</a></span><span class="op">(</span><span class="st">"1 janvier 2015"</span>, <span class="st">"%d %B %Y"</span>, locale <span class="op">=</span> <span class="fu"><a href="../reference/locale.html">locale</a></span><span class="op">(</span><span class="st">"fr"</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="co">#&gt; [1] "2015-01-01"</span></span>
+<span><span class="fu"><a href="../reference/parse_datetime.html">parse_date</a></span><span class="op">(</span><span class="st">"14 oct. 1979"</span>, <span class="st">"%d %b %Y"</span>, locale <span class="op">=</span> <span class="fu"><a href="../reference/locale.html">locale</a></span><span class="op">(</span><span class="st">"fr"</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="co">#&gt; [1] "1979-10-14"</span></span></code></pre></div>
 <p>For many languages, it’s common to find that diacritics have been stripped so they can be stored as ASCII. You can tell the locale that with the <code>asciify</code> option:</p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="../reference/parse_datetime.html">parse_date</a></span><span class="op">(</span><span class="st">"1 août 2015"</span>, <span class="st">"%d %B %Y"</span>, locale <span class="op">=</span> <span class="fu"><a href="../reference/locale.html">locale</a></span><span class="op">(</span><span class="st">"fr"</span><span class="op">)</span><span class="op">)</span>
-<span class="co">#&gt; [1] "2015-08-01"</span>
-<span class="fu"><a href="../reference/parse_datetime.html">parse_date</a></span><span class="op">(</span><span class="st">"1 aout 2015"</span>, <span class="st">"%d %B %Y"</span>, locale <span class="op">=</span> <span class="fu"><a href="../reference/locale.html">locale</a></span><span class="op">(</span><span class="st">"fr"</span>, asciify <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span><span class="op">)</span>
-<span class="co">#&gt; [1] "2015-08-01"</span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/parse_datetime.html">parse_date</a></span><span class="op">(</span><span class="st">"1 août 2015"</span>, <span class="st">"%d %B %Y"</span>, locale <span class="op">=</span> <span class="fu"><a href="../reference/locale.html">locale</a></span><span class="op">(</span><span class="st">"fr"</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="co">#&gt; [1] "2015-08-01"</span></span>
+<span><span class="fu"><a href="../reference/parse_datetime.html">parse_date</a></span><span class="op">(</span><span class="st">"1 aout 2015"</span>, <span class="st">"%d %B %Y"</span>, locale <span class="op">=</span> <span class="fu"><a href="../reference/locale.html">locale</a></span><span class="op">(</span><span class="st">"fr"</span>, asciify <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="co">#&gt; [1] "2015-08-01"</span></span></code></pre></div>
 <p>Note that the quality of the translations is variable, especially for the rarer languages. If you discover that they’re not quite right for your data, you can create your own with <code><a href="../reference/date_names.html">date_names()</a></code>. The following example creates a locale with Māori date names:</p>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">maori</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/locale.html">locale</a></span><span class="op">(</span><span class="fu"><a href="../reference/date_names.html">date_names</a></span><span class="op">(</span>
-  day <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"Rātapu"</span>, <span class="st">"Rāhina"</span>, <span class="st">"Rātū"</span>, <span class="st">"Rāapa"</span>, <span class="st">"Rāpare"</span>, <span class="st">"Rāmere"</span>, <span class="st">"Rāhoroi"</span><span class="op">)</span>,
-  mon <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"Kohi-tātea"</span>, <span class="st">"Hui-tanguru"</span>, <span class="st">"Poutū-te-rangi"</span>, <span class="st">"Paenga-whāwhā"</span>,
-    <span class="st">"Haratua"</span>, <span class="st">"Pipiri"</span>, <span class="st">"Hōngongoi"</span>, <span class="st">"Here-turi-kōkā"</span>, <span class="st">"Mahuru"</span>,
-    <span class="st">"Whiringa-ā-nuku"</span>, <span class="st">"Whiringa-ā-rangi"</span>, <span class="st">"Hakihea"</span><span class="op">)</span>
-<span class="op">)</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span><span class="va">maori</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/locale.html">locale</a></span><span class="op">(</span><span class="fu"><a href="../reference/date_names.html">date_names</a></span><span class="op">(</span></span>
+<span>  day <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"Rātapu"</span>, <span class="st">"Rāhina"</span>, <span class="st">"Rātū"</span>, <span class="st">"Rāapa"</span>, <span class="st">"Rāpare"</span>, <span class="st">"Rāmere"</span>, <span class="st">"Rāhoroi"</span><span class="op">)</span>,</span>
+<span>  mon <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"Kohi-tātea"</span>, <span class="st">"Hui-tanguru"</span>, <span class="st">"Poutū-te-rangi"</span>, <span class="st">"Paenga-whāwhā"</span>,</span>
+<span>    <span class="st">"Haratua"</span>, <span class="st">"Pipiri"</span>, <span class="st">"Hōngongoi"</span>, <span class="st">"Here-turi-kōkā"</span>, <span class="st">"Mahuru"</span>,</span>
+<span>    <span class="st">"Whiringa-ā-nuku"</span>, <span class="st">"Whiringa-ā-rangi"</span>, <span class="st">"Hakihea"</span><span class="op">)</span></span>
+<span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
 </div>
 <div class="section level3">
 <h3 id="timezones">Timezones<a class="anchor" aria-label="anchor" href="#timezones"></a>
 </h3>
 <p>Unless otherwise specified, readr assumes that times are in UTC, the Universal Coordinated Time (this is a successor to GMT and for almost all intents is identical). UTC is most suitable for data because it doesn’t have daylight savings - this avoids a whole class of potential problems. If your data isn’t already in UTC, you’ll need to supply a <code>tz</code> in the locale:</p>
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="../reference/parse_datetime.html">parse_datetime</a></span><span class="op">(</span><span class="st">"2001-10-10 20:10"</span><span class="op">)</span>
-<span class="co">#&gt; [1] "2001-10-10 20:10:00 UTC"</span>
-<span class="fu"><a href="../reference/parse_datetime.html">parse_datetime</a></span><span class="op">(</span><span class="st">"2001-10-10 20:10"</span>, locale <span class="op">=</span> <span class="fu"><a href="../reference/locale.html">locale</a></span><span class="op">(</span>tz <span class="op">=</span> <span class="st">"Pacific/Auckland"</span><span class="op">)</span><span class="op">)</span>
-<span class="co">#&gt; [1] "2001-10-10 20:10:00 NZDT"</span>
-<span class="fu"><a href="../reference/parse_datetime.html">parse_datetime</a></span><span class="op">(</span><span class="st">"2001-10-10 20:10"</span>, locale <span class="op">=</span> <span class="fu"><a href="../reference/locale.html">locale</a></span><span class="op">(</span>tz <span class="op">=</span> <span class="st">"Europe/Dublin"</span><span class="op">)</span><span class="op">)</span>
-<span class="co">#&gt; [1] "2001-10-10 20:10:00 IST"</span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/parse_datetime.html">parse_datetime</a></span><span class="op">(</span><span class="st">"2001-10-10 20:10"</span><span class="op">)</span></span>
+<span><span class="co">#&gt; [1] "2001-10-10 20:10:00 UTC"</span></span>
+<span><span class="fu"><a href="../reference/parse_datetime.html">parse_datetime</a></span><span class="op">(</span><span class="st">"2001-10-10 20:10"</span>, locale <span class="op">=</span> <span class="fu"><a href="../reference/locale.html">locale</a></span><span class="op">(</span>tz <span class="op">=</span> <span class="st">"Pacific/Auckland"</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="co">#&gt; [1] "2001-10-10 20:10:00 NZDT"</span></span>
+<span><span class="fu"><a href="../reference/parse_datetime.html">parse_datetime</a></span><span class="op">(</span><span class="st">"2001-10-10 20:10"</span>, locale <span class="op">=</span> <span class="fu"><a href="../reference/locale.html">locale</a></span><span class="op">(</span>tz <span class="op">=</span> <span class="st">"Europe/Dublin"</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="co">#&gt; [1] "2001-10-10 20:10:00 IST"</span></span></code></pre></div>
 <p>You can see a complete list of time zones with <code><a href="https://rdrr.io/r/base/timezones.html" class="external-link">OlsonNames()</a></code>.</p>
 <p>If you’re American, note that “EST” is a Canadian time zone that does not have DST. It’s not Eastern Standard Time! Instead use:</p>
 <ul>
@@ -211,41 +211,41 @@
 <p>Note that these are only used as defaults. If individual times have timezones and you’re using “%Z” (as name, e.g. “America/Chicago”) or “%z” (as offset from UTC, e.g. “+0800”), they’ll override the defaults. There’s currently no good way to parse times that use US abbreviations.</p>
 <p>Note that once you have the date in R, changing the time zone just changes its printed representation - it still represents the same instants of time. If you’ve loaded non-UTC data, and want to display it as UTC, try this snippet of code:</p>
 <div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">is_datetime</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/lapply.html" class="external-link">sapply</a></span><span class="op">(</span><span class="va">df</span>, <span class="va">inherits</span>, <span class="st">"POSIXct"</span><span class="op">)</span>
-<span class="va">df</span><span class="op">[</span><span class="va">is_datetime</span><span class="op">]</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/lapply.html" class="external-link">lapply</a></span><span class="op">(</span><span class="va">df</span><span class="op">[</span><span class="va">is_datetime</span><span class="op">]</span>, <span class="kw">function</span><span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="op">{</span>
-  <span class="fu"><a href="https://rdrr.io/r/base/attr.html" class="external-link">attr</a></span><span class="op">(</span><span class="va">x</span>, <span class="st">"tzone"</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="st">"UTC"</span>
-  <span class="va">x</span>
-<span class="op">}</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span><span class="va">is_datetime</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/lapply.html" class="external-link">sapply</a></span><span class="op">(</span><span class="va">df</span>, <span class="va">inherits</span>, <span class="st">"POSIXct"</span><span class="op">)</span></span>
+<span><span class="va">df</span><span class="op">[</span><span class="va">is_datetime</span><span class="op">]</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/lapply.html" class="external-link">lapply</a></span><span class="op">(</span><span class="va">df</span><span class="op">[</span><span class="va">is_datetime</span><span class="op">]</span>, <span class="kw">function</span><span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="op">{</span></span>
+<span>  <span class="fu"><a href="https://rdrr.io/r/base/attr.html" class="external-link">attr</a></span><span class="op">(</span><span class="va">x</span>, <span class="st">"tzone"</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="st">"UTC"</span></span>
+<span>  <span class="va">x</span></span>
+<span><span class="op">}</span><span class="op">)</span></span></code></pre></div>
 </div>
 <div class="section level3">
 <h3 id="default-formats">Default formats<a class="anchor" aria-label="anchor" href="#default-formats"></a>
 </h3>
 <p>Locales also provide default date and time formats. The date format is used when guessing column types. The default date format is <code>%AD</code>, a flexible YMD parser (see <code><a href="../reference/parse_datetime.html">?parse_date</a></code>):</p>
 <div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/utils/str.html" class="external-link">str</a></span><span class="op">(</span><span class="fu"><a href="../reference/parse_guess.html">parse_guess</a></span><span class="op">(</span><span class="st">"2010-10-10"</span><span class="op">)</span><span class="op">)</span>
-<span class="co">#&gt;  Date[1:1], format: "2010-10-10"</span>
-<span class="fu"><a href="https://rdrr.io/r/utils/str.html" class="external-link">str</a></span><span class="op">(</span><span class="fu"><a href="../reference/parse_guess.html">parse_guess</a></span><span class="op">(</span><span class="st">"2010/10/10"</span><span class="op">)</span><span class="op">)</span>
-<span class="co">#&gt;  Date[1:1], format: "2010-10-10"</span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/str.html" class="external-link">str</a></span><span class="op">(</span><span class="fu"><a href="../reference/parse_guess.html">parse_guess</a></span><span class="op">(</span><span class="st">"2010-10-10"</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="co">#&gt;  Date[1:1], format: "2010-10-10"</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/utils/str.html" class="external-link">str</a></span><span class="op">(</span><span class="fu"><a href="../reference/parse_guess.html">parse_guess</a></span><span class="op">(</span><span class="st">"2010/10/10"</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="co">#&gt;  Date[1:1], format: "2010-10-10"</span></span></code></pre></div>
 <p>If you’re an American, you might want to use your illogical date system::</p>
 <div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/utils/str.html" class="external-link">str</a></span><span class="op">(</span><span class="fu"><a href="../reference/parse_guess.html">parse_guess</a></span><span class="op">(</span><span class="st">"01/31/2013"</span><span class="op">)</span><span class="op">)</span>
-<span class="co">#&gt;  chr "01/31/2013"</span>
-<span class="fu"><a href="https://rdrr.io/r/utils/str.html" class="external-link">str</a></span><span class="op">(</span><span class="fu"><a href="../reference/parse_guess.html">parse_guess</a></span><span class="op">(</span><span class="st">"01/31/2013"</span>, locale <span class="op">=</span> <span class="fu"><a href="../reference/locale.html">locale</a></span><span class="op">(</span>date_format <span class="op">=</span> <span class="st">"%m/%d/%Y"</span><span class="op">)</span><span class="op">)</span><span class="op">)</span>
-<span class="co">#&gt;  Date[1:1], format: "2013-01-31"</span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/str.html" class="external-link">str</a></span><span class="op">(</span><span class="fu"><a href="../reference/parse_guess.html">parse_guess</a></span><span class="op">(</span><span class="st">"01/31/2013"</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="co">#&gt;  chr "01/31/2013"</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/utils/str.html" class="external-link">str</a></span><span class="op">(</span><span class="fu"><a href="../reference/parse_guess.html">parse_guess</a></span><span class="op">(</span><span class="st">"01/31/2013"</span>, locale <span class="op">=</span> <span class="fu"><a href="../reference/locale.html">locale</a></span><span class="op">(</span>date_format <span class="op">=</span> <span class="st">"%m/%d/%Y"</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="co">#&gt;  Date[1:1], format: "2013-01-31"</span></span></code></pre></div>
 <p>The time format is also used when guessing column types. The default time format is <code>%AT</code>, a flexible HMS parser (see <code><a href="../reference/parse_datetime.html">?parse_time</a></code>):</p>
 <div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/utils/str.html" class="external-link">str</a></span><span class="op">(</span><span class="fu"><a href="../reference/parse_guess.html">parse_guess</a></span><span class="op">(</span><span class="st">"17:55:14"</span><span class="op">)</span><span class="op">)</span>
-<span class="co">#&gt;  'hms' num 17:55:14</span>
-<span class="co">#&gt;  - attr(*, "units")= chr "secs"</span>
-<span class="fu"><a href="https://rdrr.io/r/utils/str.html" class="external-link">str</a></span><span class="op">(</span><span class="fu"><a href="../reference/parse_guess.html">parse_guess</a></span><span class="op">(</span><span class="st">"5:55:14 PM"</span><span class="op">)</span><span class="op">)</span>
-<span class="co">#&gt;  'hms' num 17:55:14</span>
-<span class="co">#&gt;  - attr(*, "units")= chr "secs"</span>
-<span class="co"># Example of a non-standard time</span>
-<span class="fu"><a href="https://rdrr.io/r/utils/str.html" class="external-link">str</a></span><span class="op">(</span><span class="fu"><a href="../reference/parse_guess.html">parse_guess</a></span><span class="op">(</span><span class="st">"h5m55s14 PM"</span><span class="op">)</span><span class="op">)</span>
-<span class="co">#&gt;  chr "h5m55s14 PM"</span>
-<span class="fu"><a href="https://rdrr.io/r/utils/str.html" class="external-link">str</a></span><span class="op">(</span><span class="fu"><a href="../reference/parse_guess.html">parse_guess</a></span><span class="op">(</span><span class="st">"h5m55s14 PM"</span>, locale <span class="op">=</span> <span class="fu"><a href="../reference/locale.html">locale</a></span><span class="op">(</span>time_format <span class="op">=</span> <span class="st">"h%Hm%Ms%S %p"</span><span class="op">)</span><span class="op">)</span><span class="op">)</span>
-<span class="co">#&gt;  'hms' num 17:55:14</span>
-<span class="co">#&gt;  - attr(*, "units")= chr "secs"</span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/str.html" class="external-link">str</a></span><span class="op">(</span><span class="fu"><a href="../reference/parse_guess.html">parse_guess</a></span><span class="op">(</span><span class="st">"17:55:14"</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="co">#&gt;  'hms' num 17:55:14</span></span>
+<span><span class="co">#&gt;  - attr(*, "units")= chr "secs"</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/utils/str.html" class="external-link">str</a></span><span class="op">(</span><span class="fu"><a href="../reference/parse_guess.html">parse_guess</a></span><span class="op">(</span><span class="st">"5:55:14 PM"</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="co">#&gt;  'hms' num 17:55:14</span></span>
+<span><span class="co">#&gt;  - attr(*, "units")= chr "secs"</span></span>
+<span><span class="co"># Example of a non-standard time</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/utils/str.html" class="external-link">str</a></span><span class="op">(</span><span class="fu"><a href="../reference/parse_guess.html">parse_guess</a></span><span class="op">(</span><span class="st">"h5m55s14 PM"</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="co">#&gt;  chr "h5m55s14 PM"</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/utils/str.html" class="external-link">str</a></span><span class="op">(</span><span class="fu"><a href="../reference/parse_guess.html">parse_guess</a></span><span class="op">(</span><span class="st">"h5m55s14 PM"</span>, locale <span class="op">=</span> <span class="fu"><a href="../reference/locale.html">locale</a></span><span class="op">(</span>time_format <span class="op">=</span> <span class="st">"h%Hm%Ms%S %p"</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="co">#&gt;  'hms' num 17:55:14</span></span>
+<span><span class="co">#&gt;  - attr(*, "units")= chr "secs"</span></span></code></pre></div>
 </div>
 </div>
 <div class="section level2">
@@ -255,61 +255,61 @@
 <p>The following code illustrates the problems with encodings:</p>
 <p>&lt;!– not currently evaluating the next two chunks due to <a href="https://github.com/tidyverse/readr/issues/1337" class="external-link uri">https://github.com/tidyverse/readr/issues/1337</a> –!&gt;</p>
 <div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://stringi.gagolewski.com/" class="external-link">stringi</a></span><span class="op">)</span>
-<span class="va">x</span> <span class="op">&lt;-</span> <span class="st">"Émigré cause célèbre déjà vu.\n"</span>
-<span class="va">y</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/stringi/man/stri_encode.html" class="external-link">stri_conv</a></span><span class="op">(</span><span class="va">x</span>, <span class="st">"UTF-8"</span>, <span class="st">"latin1"</span><span class="op">)</span>
-
-<span class="co"># These strings look like they're identical:</span>
-<span class="va">x</span>
-<span class="va">y</span>
-<span class="fu"><a href="https://rdrr.io/r/base/identical.html" class="external-link">identical</a></span><span class="op">(</span><span class="va">x</span>, <span class="va">y</span><span class="op">)</span>
-
-<span class="co"># But they have difference encodings:</span>
-<span class="fu"><a href="https://rdrr.io/r/base/Encoding.html" class="external-link">Encoding</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span>
-<span class="fu"><a href="https://rdrr.io/r/base/Encoding.html" class="external-link">Encoding</a></span><span class="op">(</span><span class="va">y</span><span class="op">)</span>
-
-<span class="co"># That means while they print the same, their raw (binary)</span>
-<span class="co"># representation is actually quite different:</span>
-<span class="fu"><a href="https://rdrr.io/r/base/rawConversion.html" class="external-link">charToRaw</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span>
-<span class="fu"><a href="https://rdrr.io/r/base/rawConversion.html" class="external-link">charToRaw</a></span><span class="op">(</span><span class="va">y</span><span class="op">)</span>
-
-<span class="co"># readr expects strings to be encoded as UTF-8. If they're</span>
-<span class="co"># not, you'll get weird characters</span>
-<span class="fu"><a href="../reference/parse_atomic.html">parse_character</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span>
-<span class="fu"><a href="../reference/parse_atomic.html">parse_character</a></span><span class="op">(</span><span class="va">y</span><span class="op">)</span>
-
-<span class="co"># If you know the encoding, supply it:</span>
-<span class="fu"><a href="../reference/parse_atomic.html">parse_character</a></span><span class="op">(</span><span class="va">y</span>, locale <span class="op">=</span> <span class="fu"><a href="../reference/locale.html">locale</a></span><span class="op">(</span>encoding <span class="op">=</span> <span class="st">"latin1"</span><span class="op">)</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://stringi.gagolewski.com/" class="external-link">stringi</a></span><span class="op">)</span></span>
+<span><span class="va">x</span> <span class="op">&lt;-</span> <span class="st">"Émigré cause célèbre déjà vu.\n"</span></span>
+<span><span class="va">y</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/stringi/man/stri_encode.html" class="external-link">stri_conv</a></span><span class="op">(</span><span class="va">x</span>, <span class="st">"UTF-8"</span>, <span class="st">"latin1"</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># These strings look like they're identical:</span></span>
+<span><span class="va">x</span></span>
+<span><span class="va">y</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/identical.html" class="external-link">identical</a></span><span class="op">(</span><span class="va">x</span>, <span class="va">y</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># But they have difference encodings:</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/Encoding.html" class="external-link">Encoding</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/Encoding.html" class="external-link">Encoding</a></span><span class="op">(</span><span class="va">y</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># That means while they print the same, their raw (binary)</span></span>
+<span><span class="co"># representation is actually quite different:</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/rawConversion.html" class="external-link">charToRaw</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/rawConversion.html" class="external-link">charToRaw</a></span><span class="op">(</span><span class="va">y</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># readr expects strings to be encoded as UTF-8. If they're</span></span>
+<span><span class="co"># not, you'll get weird characters</span></span>
+<span><span class="fu"><a href="../reference/parse_atomic.html">parse_character</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span></span>
+<span><span class="fu"><a href="../reference/parse_atomic.html">parse_character</a></span><span class="op">(</span><span class="va">y</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># If you know the encoding, supply it:</span></span>
+<span><span class="fu"><a href="../reference/parse_atomic.html">parse_character</a></span><span class="op">(</span><span class="va">y</span>, locale <span class="op">=</span> <span class="fu"><a href="../reference/locale.html">locale</a></span><span class="op">(</span>encoding <span class="op">=</span> <span class="st">"latin1"</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
 <p>If you don’t know what encoding the file uses, try <a href="https://readr.tidyverse.org/reference/encoding.html"><code>guess_encoding()</code></a>. It’s not 100% perfect (as it’s fundamentally a heuristic), but should at least get you pointed in the right direction:</p>
 <div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="../reference/encoding.html">guess_encoding</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span>
-<span class="fu"><a href="../reference/encoding.html">guess_encoding</a></span><span class="op">(</span><span class="va">y</span><span class="op">)</span>
-
-<span class="co"># Note that the first guess produces a valid string, but isn't correct:</span>
-<span class="fu"><a href="../reference/parse_atomic.html">parse_character</a></span><span class="op">(</span><span class="va">y</span>, locale <span class="op">=</span> <span class="fu"><a href="../reference/locale.html">locale</a></span><span class="op">(</span>encoding <span class="op">=</span> <span class="st">"ISO-8859-2"</span><span class="op">)</span><span class="op">)</span>
-<span class="co"># But ISO-8859-1 is another name for latin1</span>
-<span class="fu"><a href="../reference/parse_atomic.html">parse_character</a></span><span class="op">(</span><span class="va">y</span>, locale <span class="op">=</span> <span class="fu"><a href="../reference/locale.html">locale</a></span><span class="op">(</span>encoding <span class="op">=</span> <span class="st">"ISO-8859-1"</span><span class="op">)</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/encoding.html">guess_encoding</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span></span>
+<span><span class="fu"><a href="../reference/encoding.html">guess_encoding</a></span><span class="op">(</span><span class="va">y</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># Note that the first guess produces a valid string, but isn't correct:</span></span>
+<span><span class="fu"><a href="../reference/parse_atomic.html">parse_character</a></span><span class="op">(</span><span class="va">y</span>, locale <span class="op">=</span> <span class="fu"><a href="../reference/locale.html">locale</a></span><span class="op">(</span>encoding <span class="op">=</span> <span class="st">"ISO-8859-2"</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="co"># But ISO-8859-1 is another name for latin1</span></span>
+<span><span class="fu"><a href="../reference/parse_atomic.html">parse_character</a></span><span class="op">(</span><span class="va">y</span>, locale <span class="op">=</span> <span class="fu"><a href="../reference/locale.html">locale</a></span><span class="op">(</span>encoding <span class="op">=</span> <span class="st">"ISO-8859-1"</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
 </div>
 <div class="section level2">
 <h2 id="numbers">Numbers<a class="anchor" aria-label="anchor" href="#numbers"></a>
 </h2>
 <p>Some countries use the decimal point, while others use the decimal comma. The <code>decimal_mark</code> option controls which readr uses when parsing doubles:</p>
 <div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="../reference/parse_atomic.html">parse_double</a></span><span class="op">(</span><span class="st">"1,23"</span>, locale <span class="op">=</span> <span class="fu"><a href="../reference/locale.html">locale</a></span><span class="op">(</span>decimal_mark <span class="op">=</span> <span class="st">","</span><span class="op">)</span><span class="op">)</span>
-<span class="co">#&gt; [1] 1.23</span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/parse_atomic.html">parse_double</a></span><span class="op">(</span><span class="st">"1,23"</span>, locale <span class="op">=</span> <span class="fu"><a href="../reference/locale.html">locale</a></span><span class="op">(</span>decimal_mark <span class="op">=</span> <span class="st">","</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="co">#&gt; [1] 1.23</span></span></code></pre></div>
 <p>Additionally, when writing out big numbers, you might have <code>1,000,000</code>, <code>1.000.000</code>, <code>1 000 000</code>, or <code>1'000'000</code>. The grouping mark is ignored by the more flexible number parser:</p>
 <div class="sourceCode" id="cb14"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="../reference/parse_number.html">parse_number</a></span><span class="op">(</span><span class="st">"$1,234.56"</span><span class="op">)</span>
-<span class="co">#&gt; [1] 1234.56</span>
-<span class="fu"><a href="../reference/parse_number.html">parse_number</a></span><span class="op">(</span><span class="st">"$1.234,56"</span>, 
-  locale <span class="op">=</span> <span class="fu"><a href="../reference/locale.html">locale</a></span><span class="op">(</span>decimal_mark <span class="op">=</span> <span class="st">","</span>, grouping_mark <span class="op">=</span> <span class="st">"."</span><span class="op">)</span>
-<span class="op">)</span>
-<span class="co">#&gt; [1] 1234.56</span>
-
-<span class="co"># readr is smart enough to guess that if you're using , for decimals then</span>
-<span class="co"># you're probably using . for grouping:</span>
-<span class="fu"><a href="../reference/parse_number.html">parse_number</a></span><span class="op">(</span><span class="st">"$1.234,56"</span>, locale <span class="op">=</span> <span class="fu"><a href="../reference/locale.html">locale</a></span><span class="op">(</span>decimal_mark <span class="op">=</span> <span class="st">","</span><span class="op">)</span><span class="op">)</span>
-<span class="co">#&gt; [1] 1234.56</span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/parse_number.html">parse_number</a></span><span class="op">(</span><span class="st">"$1,234.56"</span><span class="op">)</span></span>
+<span><span class="co">#&gt; [1] 1234.56</span></span>
+<span><span class="fu"><a href="../reference/parse_number.html">parse_number</a></span><span class="op">(</span><span class="st">"$1.234,56"</span>, </span>
+<span>  locale <span class="op">=</span> <span class="fu"><a href="../reference/locale.html">locale</a></span><span class="op">(</span>decimal_mark <span class="op">=</span> <span class="st">","</span>, grouping_mark <span class="op">=</span> <span class="st">"."</span><span class="op">)</span></span>
+<span><span class="op">)</span></span>
+<span><span class="co">#&gt; [1] 1234.56</span></span>
+<span></span>
+<span><span class="co"># readr is smart enough to guess that if you're using , for decimals then</span></span>
+<span><span class="co"># you're probably using . for grouping:</span></span>
+<span><span class="fu"><a href="../reference/parse_number.html">parse_number</a></span><span class="op">(</span><span class="st">"$1.234,56"</span>, locale <span class="op">=</span> <span class="fu"><a href="../reference/locale.html">locale</a></span><span class="op">(</span>decimal_mark <span class="op">=</span> <span class="st">","</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="co">#&gt; [1] 1234.56</span></span></code></pre></div>
 </div>
   </main><aside class="col-md-3"><nav id="toc"><h2>On this page</h2>
     </nav></aside>
@@ -326,7 +326,7 @@
 
 <div class="pkgdown-footer-right">
   <p></p>
-<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.2.</p>
+<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.6.</p>
 </div>
 
   </div></footer>
