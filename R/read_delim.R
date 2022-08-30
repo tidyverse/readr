@@ -143,7 +143,7 @@ NULL
 #' # By default, readr duplicate name repair is noisy
 #' read_csv(I("x,x\n1,2\n3,4"))
 #'
-#' # To quiet, set the option for name repair
+#' # To quiet, set the option that controls verbosity of name repair
 #' withr::with_options(
 #'   list(rlib_name_repair_verbosity = "quiet"),
 #'   read_csv(I("x,x\n1,2\n3,4"))
