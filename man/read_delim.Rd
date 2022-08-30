@@ -302,6 +302,19 @@ y <- read_csv(I("x\n1\n2\nb"), col_types = list(col_double()))
 y
 problems(y)
 
+# Column names --------------------------------------------------------------
+# By default, readr duplicate name repair is noisy
+read_csv(I("x,x\n1,2\n3,4"))
+
+# To quiet, set the option that controls verbosity of name repair
+withr::with_options(
+  list(rlib_name_repair_verbosity = "quiet"),
+  read_csv(I("x,x\n1,2\n3,4"))
+)
+
+# Or use "minimal" to turn off name repair
+read_csv(I("x,x\n1,2\n3,4"), name_repair = "minimal")
+
 # File types ----------------------------------------------------------------
 read_csv(I("a,b\n1.0,2.0"))
 read_csv2(I("a;b\n1,0;2,0"))
