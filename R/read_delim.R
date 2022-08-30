@@ -144,8 +144,9 @@ NULL
 #' read_csv(I("x,x\n1,2\n3,4"))
 #'
 #' # To quiet, set the option for name repair
-#' withr::with_options(list(rlib_name_repair_verbosity = "quiet"),
-#'                     read_csv(I("x,x\n1,2\n3,4"))
+#' withr::with_options(
+#'   list(rlib_name_repair_verbosity = "quiet"),
+#'   read_csv(I("x,x\n1,2\n3,4"))
 #' )
 #'
 #' # Or use "minimal" to turn off name repair
