@@ -57,17 +57,17 @@ Other chunked:
 \section{Methods}{
 \subsection{Public methods}{
 \itemize{
-\item \href{#method-new}{\code{ChunkCallback$new()}}
-\item \href{#method-receive}{\code{ChunkCallback$receive()}}
-\item \href{#method-continue}{\code{ChunkCallback$continue()}}
-\item \href{#method-result}{\code{ChunkCallback$result()}}
-\item \href{#method-finally}{\code{ChunkCallback$finally()}}
-\item \href{#method-clone}{\code{ChunkCallback$clone()}}
+\item \href{#method-ChunkCallback-new}{\code{ChunkCallback$new()}}
+\item \href{#method-ChunkCallback-receive}{\code{ChunkCallback$receive()}}
+\item \href{#method-ChunkCallback-continue}{\code{ChunkCallback$continue()}}
+\item \href{#method-ChunkCallback-result}{\code{ChunkCallback$result()}}
+\item \href{#method-ChunkCallback-finally}{\code{ChunkCallback$finally()}}
+\item \href{#method-ChunkCallback-clone}{\code{ChunkCallback$clone()}}
 }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-new"></a>}}
-\if{latex}{\out{\hypertarget{method-new}{}}}
+\if{html}{\out{<a id="method-ChunkCallback-new"></a>}}
+\if{latex}{\out{\hypertarget{method-ChunkCallback-new}{}}}
 \subsection{Method \code{new()}}{
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{ChunkCallback$new(callback)}\if{html}{\out{</div>}}
@@ -75,8 +75,8 @@ Other chunked:
 
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-receive"></a>}}
-\if{latex}{\out{\hypertarget{method-receive}{}}}
+\if{html}{\out{<a id="method-ChunkCallback-receive"></a>}}
+\if{latex}{\out{\hypertarget{method-ChunkCallback-receive}{}}}
 \subsection{Method \code{receive()}}{
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{ChunkCallback$receive(data, index)}\if{html}{\out{</div>}}
@@ -84,8 +84,8 @@ Other chunked:
 
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-continue"></a>}}
-\if{latex}{\out{\hypertarget{method-continue}{}}}
+\if{html}{\out{<a id="method-ChunkCallback-continue"></a>}}
+\if{latex}{\out{\hypertarget{method-ChunkCallback-continue}{}}}
 \subsection{Method \code{continue()}}{
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{ChunkCallback$continue()}\if{html}{\out{</div>}}
@@ -93,8 +93,8 @@ Other chunked:
 
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-result"></a>}}
-\if{latex}{\out{\hypertarget{method-result}{}}}
+\if{html}{\out{<a id="method-ChunkCallback-result"></a>}}
+\if{latex}{\out{\hypertarget{method-ChunkCallback-result}{}}}
 \subsection{Method \code{result()}}{
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{ChunkCallback$result()}\if{html}{\out{</div>}}
@@ -102,8 +102,8 @@ Other chunked:
 
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-finally"></a>}}
-\if{latex}{\out{\hypertarget{method-finally}{}}}
+\if{html}{\out{<a id="method-ChunkCallback-finally"></a>}}
+\if{latex}{\out{\hypertarget{method-ChunkCallback-finally}{}}}
 \subsection{Method \code{finally()}}{
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{ChunkCallback$finally()}\if{html}{\out{</div>}}
@@ -111,8 +111,8 @@ Other chunked:
 
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-clone"></a>}}
-\if{latex}{\out{\hypertarget{method-clone}{}}}
+\if{html}{\out{<a id="method-ChunkCallback-clone"></a>}}
+\if{latex}{\out{\hypertarget{method-ChunkCallback-clone}{}}}
 \subsection{Method \code{clone()}}{
 The objects of this class are cloneable with this method.
 \subsection{Usage}{
@@ -134,23 +134,23 @@ The objects of this class are cloneable with this method.
 \section{Methods}{
 \subsection{Public methods}{
 \itemize{
-\item \href{#method-new}{\code{SideEffectChunkCallback$new()}}
-\item \href{#method-receive}{\code{SideEffectChunkCallback$receive()}}
-\item \href{#method-continue}{\code{SideEffectChunkCallback$continue()}}
-\item \href{#method-clone}{\code{SideEffectChunkCallback$clone()}}
+\item \href{#method-SideEffectChunkCallback-new}{\code{SideEffectChunkCallback$new()}}
+\item \href{#method-SideEffectChunkCallback-receive}{\code{SideEffectChunkCallback$receive()}}
+\item \href{#method-SideEffectChunkCallback-continue}{\code{SideEffectChunkCallback$continue()}}
+\item \href{#method-SideEffectChunkCallback-clone}{\code{SideEffectChunkCallback$clone()}}
 }
 }
-\if{html}{
-\out{<details open ><summary>Inherited methods</summary>}
-\itemize{
-\item \out{<span class="pkg-link" data-pkg="readr" data-topic="ChunkCallback" data-id="finally">}\href{../../readr/html/ChunkCallback.html#method-finally}{\code{readr::ChunkCallback$finally()}}\out{</span>}
-\item \out{<span class="pkg-link" data-pkg="readr" data-topic="ChunkCallback" data-id="result">}\href{../../readr/html/ChunkCallback.html#method-result}{\code{readr::ChunkCallback$result()}}\out{</span>}
-}
-\out{</details>}
-}
+\if{html}{\out{
+<details open><summary>Inherited methods</summary>
+<ul>
+<li><span class="pkg-link" data-pkg="readr" data-topic="ChunkCallback" data-id="finally"><a href='../../readr/html/ChunkCallback.html#method-ChunkCallback-finally'><code>readr::ChunkCallback$finally()</code></a></span></li>
+<li><span class="pkg-link" data-pkg="readr" data-topic="ChunkCallback" data-id="result"><a href='../../readr/html/ChunkCallback.html#method-ChunkCallback-result'><code>readr::ChunkCallback$result()</code></a></span></li>
+</ul>
+</details>
+}}
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-new"></a>}}
-\if{latex}{\out{\hypertarget{method-new}{}}}
+\if{html}{\out{<a id="method-SideEffectChunkCallback-new"></a>}}
+\if{latex}{\out{\hypertarget{method-SideEffectChunkCallback-new}{}}}
 \subsection{Method \code{new()}}{
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{SideEffectChunkCallback$new(callback)}\if{html}{\out{</div>}}
@@ -158,8 +158,8 @@ The objects of this class are cloneable with this method.
 
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-receive"></a>}}
-\if{latex}{\out{\hypertarget{method-receive}{}}}
+\if{html}{\out{<a id="method-SideEffectChunkCallback-receive"></a>}}
+\if{latex}{\out{\hypertarget{method-SideEffectChunkCallback-receive}{}}}
 \subsection{Method \code{receive()}}{
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{SideEffectChunkCallback$receive(data, index)}\if{html}{\out{</div>}}
@@ -167,8 +167,8 @@ The objects of this class are cloneable with this method.
 
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-continue"></a>}}
-\if{latex}{\out{\hypertarget{method-continue}{}}}
+\if{html}{\out{<a id="method-SideEffectChunkCallback-continue"></a>}}
+\if{latex}{\out{\hypertarget{method-SideEffectChunkCallback-continue}{}}}
 \subsection{Method \code{continue()}}{
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{SideEffectChunkCallback$continue()}\if{html}{\out{</div>}}
@@ -176,8 +176,8 @@ The objects of this class are cloneable with this method.
 
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-clone"></a>}}
-\if{latex}{\out{\hypertarget{method-clone}{}}}
+\if{html}{\out{<a id="method-SideEffectChunkCallback-clone"></a>}}
+\if{latex}{\out{\hypertarget{method-SideEffectChunkCallback-clone}{}}}
 \subsection{Method \code{clone()}}{
 The objects of this class are cloneable with this method.
 \subsection{Usage}{
@@ -199,23 +199,23 @@ The objects of this class are cloneable with this method.
 \section{Methods}{
 \subsection{Public methods}{
 \itemize{
-\item \href{#method-new}{\code{DataFrameCallback$new()}}
-\item \href{#method-receive}{\code{DataFrameCallback$receive()}}
-\item \href{#method-result}{\code{DataFrameCallback$result()}}
-\item \href{#method-finally}{\code{DataFrameCallback$finally()}}
-\item \href{#method-clone}{\code{DataFrameCallback$clone()}}
+\item \href{#method-DataFrameCallback-new}{\code{DataFrameCallback$new()}}
+\item \href{#method-DataFrameCallback-receive}{\code{DataFrameCallback$receive()}}
+\item \href{#method-DataFrameCallback-result}{\code{DataFrameCallback$result()}}
+\item \href{#method-DataFrameCallback-finally}{\code{DataFrameCallback$finally()}}
+\item \href{#method-DataFrameCallback-clone}{\code{DataFrameCallback$clone()}}
 }
 }
-\if{html}{
-\out{<details open ><summary>Inherited methods</summary>}
-\itemize{
-\item \out{<span class="pkg-link" data-pkg="readr" data-topic="ChunkCallback" data-id="continue">}\href{../../readr/html/ChunkCallback.html#method-continue}{\code{readr::ChunkCallback$continue()}}\out{</span>}
-}
-\out{</details>}
-}
+\if{html}{\out{
+<details open><summary>Inherited methods</summary>
+<ul>
+<li><span class="pkg-link" data-pkg="readr" data-topic="ChunkCallback" data-id="continue"><a href='../../readr/html/ChunkCallback.html#method-ChunkCallback-continue'><code>readr::ChunkCallback$continue()</code></a></span></li>
+</ul>
+</details>
+}}
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-new"></a>}}
-\if{latex}{\out{\hypertarget{method-new}{}}}
+\if{html}{\out{<a id="method-DataFrameCallback-new"></a>}}
+\if{latex}{\out{\hypertarget{method-DataFrameCallback-new}{}}}
 \subsection{Method \code{new()}}{
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{DataFrameCallback$new(callback)}\if{html}{\out{</div>}}
@@ -223,8 +223,8 @@ The objects of this class are cloneable with this method.
 
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-receive"></a>}}
-\if{latex}{\out{\hypertarget{method-receive}{}}}
+\if{html}{\out{<a id="method-DataFrameCallback-receive"></a>}}
+\if{latex}{\out{\hypertarget{method-DataFrameCallback-receive}{}}}
 \subsection{Method \code{receive()}}{
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{DataFrameCallback$receive(data, index)}\if{html}{\out{</div>}}
@@ -232,8 +232,8 @@ The objects of this class are cloneable with this method.
 
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-result"></a>}}
-\if{latex}{\out{\hypertarget{method-result}{}}}
+\if{html}{\out{<a id="method-DataFrameCallback-result"></a>}}
+\if{latex}{\out{\hypertarget{method-DataFrameCallback-result}{}}}
 \subsection{Method \code{result()}}{
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{DataFrameCallback$result()}\if{html}{\out{</div>}}
@@ -241,8 +241,8 @@ The objects of this class are cloneable with this method.
 
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-finally"></a>}}
-\if{latex}{\out{\hypertarget{method-finally}{}}}
+\if{html}{\out{<a id="method-DataFrameCallback-finally"></a>}}
+\if{latex}{\out{\hypertarget{method-DataFrameCallback-finally}{}}}
 \subsection{Method \code{finally()}}{
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{DataFrameCallback$finally()}\if{html}{\out{</div>}}
@@ -250,8 +250,8 @@ The objects of this class are cloneable with this method.
 
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-clone"></a>}}
-\if{latex}{\out{\hypertarget{method-clone}{}}}
+\if{html}{\out{<a id="method-DataFrameCallback-clone"></a>}}
+\if{latex}{\out{\hypertarget{method-DataFrameCallback-clone}{}}}
 \subsection{Method \code{clone()}}{
 The objects of this class are cloneable with this method.
 \subsection{Usage}{
@@ -273,23 +273,23 @@ The objects of this class are cloneable with this method.
 \section{Methods}{
 \subsection{Public methods}{
 \itemize{
-\item \href{#method-new}{\code{ListCallback$new()}}
-\item \href{#method-receive}{\code{ListCallback$receive()}}
-\item \href{#method-result}{\code{ListCallback$result()}}
-\item \href{#method-finally}{\code{ListCallback$finally()}}
-\item \href{#method-clone}{\code{ListCallback$clone()}}
+\item \href{#method-ListCallback-new}{\code{ListCallback$new()}}
+\item \href{#method-ListCallback-receive}{\code{ListCallback$receive()}}
+\item \href{#method-ListCallback-result}{\code{ListCallback$result()}}
+\item \href{#method-ListCallback-finally}{\code{ListCallback$finally()}}
+\item \href{#method-ListCallback-clone}{\code{ListCallback$clone()}}
 }
 }
-\if{html}{
-\out{<details open ><summary>Inherited methods</summary>}
-\itemize{
-\item \out{<span class="pkg-link" data-pkg="readr" data-topic="ChunkCallback" data-id="continue">}\href{../../readr/html/ChunkCallback.html#method-continue}{\code{readr::ChunkCallback$continue()}}\out{</span>}
-}
-\out{</details>}
-}
+\if{html}{\out{
+<details open><summary>Inherited methods</summary>
+<ul>
+<li><span class="pkg-link" data-pkg="readr" data-topic="ChunkCallback" data-id="continue"><a href='../../readr/html/ChunkCallback.html#method-ChunkCallback-continue'><code>readr::ChunkCallback$continue()</code></a></span></li>
+</ul>
+</details>
+}}
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-new"></a>}}
-\if{latex}{\out{\hypertarget{method-new}{}}}
+\if{html}{\out{<a id="method-ListCallback-new"></a>}}
+\if{latex}{\out{\hypertarget{method-ListCallback-new}{}}}
 \subsection{Method \code{new()}}{
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{ListCallback$new(callback)}\if{html}{\out{</div>}}
@@ -297,8 +297,8 @@ The objects of this class are cloneable with this method.
 
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-receive"></a>}}
-\if{latex}{\out{\hypertarget{method-receive}{}}}
+\if{html}{\out{<a id="method-ListCallback-receive"></a>}}
+\if{latex}{\out{\hypertarget{method-ListCallback-receive}{}}}
 \subsection{Method \code{receive()}}{
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{ListCallback$receive(data, index)}\if{html}{\out{</div>}}
@@ -306,8 +306,8 @@ The objects of this class are cloneable with this method.
 
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-result"></a>}}
-\if{latex}{\out{\hypertarget{method-result}{}}}
+\if{html}{\out{<a id="method-ListCallback-result"></a>}}
+\if{latex}{\out{\hypertarget{method-ListCallback-result}{}}}
 \subsection{Method \code{result()}}{
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{ListCallback$result()}\if{html}{\out{</div>}}
@@ -315,8 +315,8 @@ The objects of this class are cloneable with this method.
 
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-finally"></a>}}
-\if{latex}{\out{\hypertarget{method-finally}{}}}
+\if{html}{\out{<a id="method-ListCallback-finally"></a>}}
+\if{latex}{\out{\hypertarget{method-ListCallback-finally}{}}}
 \subsection{Method \code{finally()}}{
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{ListCallback$finally()}\if{html}{\out{</div>}}
@@ -324,8 +324,8 @@ The objects of this class are cloneable with this method.
 
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-clone"></a>}}
-\if{latex}{\out{\hypertarget{method-clone}{}}}
+\if{html}{\out{<a id="method-ListCallback-clone"></a>}}
+\if{latex}{\out{\hypertarget{method-ListCallback-clone}{}}}
 \subsection{Method \code{clone()}}{
 The objects of this class are cloneable with this method.
 \subsection{Usage}{
@@ -347,23 +347,23 @@ The objects of this class are cloneable with this method.
 \section{Methods}{
 \subsection{Public methods}{
 \itemize{
-\item \href{#method-new}{\code{AccumulateCallback$new()}}
-\item \href{#method-receive}{\code{AccumulateCallback$receive()}}
-\item \href{#method-result}{\code{AccumulateCallback$result()}}
-\item \href{#method-clone}{\code{AccumulateCallback$clone()}}
+\item \href{#method-AccumulateCallback-new}{\code{AccumulateCallback$new()}}
+\item \href{#method-AccumulateCallback-receive}{\code{AccumulateCallback$receive()}}
+\item \href{#method-AccumulateCallback-result}{\code{AccumulateCallback$result()}}
+\item \href{#method-AccumulateCallback-clone}{\code{AccumulateCallback$clone()}}
 }
 }
-\if{html}{
-\out{<details open ><summary>Inherited methods</summary>}
-\itemize{
-\item \out{<span class="pkg-link" data-pkg="readr" data-topic="ChunkCallback" data-id="continue">}\href{../../readr/html/ChunkCallback.html#method-continue}{\code{readr::ChunkCallback$continue()}}\out{</span>}
-\item \out{<span class="pkg-link" data-pkg="readr" data-topic="ChunkCallback" data-id="finally">}\href{../../readr/html/ChunkCallback.html#method-finally}{\code{readr::ChunkCallback$finally()}}\out{</span>}
-}
-\out{</details>}
-}
+\if{html}{\out{
+<details open><summary>Inherited methods</summary>
+<ul>
+<li><span class="pkg-link" data-pkg="readr" data-topic="ChunkCallback" data-id="continue"><a href='../../readr/html/ChunkCallback.html#method-ChunkCallback-continue'><code>readr::ChunkCallback$continue()</code></a></span></li>
+<li><span class="pkg-link" data-pkg="readr" data-topic="ChunkCallback" data-id="finally"><a href='../../readr/html/ChunkCallback.html#method-ChunkCallback-finally'><code>readr::ChunkCallback$finally()</code></a></span></li>
+</ul>
+</details>
+}}
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-new"></a>}}
-\if{latex}{\out{\hypertarget{method-new}{}}}
+\if{html}{\out{<a id="method-AccumulateCallback-new"></a>}}
+\if{latex}{\out{\hypertarget{method-AccumulateCallback-new}{}}}
 \subsection{Method \code{new()}}{
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{AccumulateCallback$new(callback, acc = NULL)}\if{html}{\out{</div>}}
@@ -371,8 +371,8 @@ The objects of this class are cloneable with this method.
 
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-receive"></a>}}
-\if{latex}{\out{\hypertarget{method-receive}{}}}
+\if{html}{\out{<a id="method-AccumulateCallback-receive"></a>}}
+\if{latex}{\out{\hypertarget{method-AccumulateCallback-receive}{}}}
 \subsection{Method \code{receive()}}{
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{AccumulateCallback$receive(data, index)}\if{html}{\out{</div>}}
@@ -380,8 +380,8 @@ The objects of this class are cloneable with this method.
 
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-result"></a>}}
-\if{latex}{\out{\hypertarget{method-result}{}}}
+\if{html}{\out{<a id="method-AccumulateCallback-result"></a>}}
+\if{latex}{\out{\hypertarget{method-AccumulateCallback-result}{}}}
 \subsection{Method \code{result()}}{
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{AccumulateCallback$result()}\if{html}{\out{</div>}}
@@ -389,8 +389,8 @@ The objects of this class are cloneable with this method.
 
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-clone"></a>}}
-\if{latex}{\out{\hypertarget{method-clone}{}}}
+\if{html}{\out{<a id="method-AccumulateCallback-clone"></a>}}
+\if{latex}{\out{\hypertarget{method-AccumulateCallback-clone}{}}}
 \subsection{Method \code{clone()}}{
 The objects of this class are cloneable with this method.
 \subsection{Usage}{
