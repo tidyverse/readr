@@ -2,13 +2,24 @@
 % Please edit documentation in R/utils.R
 \name{should_read_lazy}
 \alias{should_read_lazy}
-\title{Determine whether reading should be done lazily}
+\title{Determine whether to read a file lazily}
 \usage{
 should_read_lazy()
 }
 \description{
-Reading in readr is done lazily unless
-\itemize{
-\item \code{options(readr.read_lazy = FALSE)}
+This function consults the option \code{readr.read_lazy} to figure out whether to
+do lazy reading or not. If the option is unset, the default is \code{FALSE},
+meaning readr will read files eagerly, not lazily. If you want to use this
+option to express a preference for lazy reading, do this:
+
+\if{html}{\out{<div class="sourceCode">}}\preformatted{options(readr.read_lazy = TRUE)
+}\if{html}{\out{</div>}}
+
+Typically, one would use the option to control lazy reading at the session,
+file, or user level. The \code{lazy} argument of functions like \code{\link[=read_csv]{read_csv()}} can
+be used to control laziness in an individual call.
 }
+\seealso{
+The blog post \href{https://www.tidyverse.org/blog/2021/11/readr-2-1-0-lazy/}{"Eager vs lazy reading in readr 2.1.0"} explains
+the benefits (and downsides) of lazy reading.
 }
