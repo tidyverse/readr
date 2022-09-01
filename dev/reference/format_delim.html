@@ -151,7 +151,9 @@ column names will be included. If not specified, <code>col_names</code> will tak
 
 
 <dt>quote</dt>
-<dd><p>How to handle fields which contain characters that need to be quoted.</p><ul><li><p><code>needed</code> - Only quote fields which need them.</p></li>
+<dd><p>How to handle fields which contain characters that need to be
+quoted.</p><ul><li><p><code>needed</code> - Values are only quoted if needed: if they contain a delimiter,
+quote, or newline.</p></li>
 <li><p><code>all</code> - Quote all fields.</p></li>
 <li><p><code>none</code> - Never quote fields.</p></li>
 </ul></dd>
