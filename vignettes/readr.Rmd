@@ -155,13 +155,10 @@ If readr finds problems with parsing your data, it will emit a warning message.
 For example, in our `challenge.csv` file, the column type we expected from our data was a column of dates and a column of doubles.
 
 ```{r}
-df1 <- read_csv(
-  readr_example("challenge.csv"),
-  col_types = cols(
-    date = col_date(),
-    value = col_double()
-  )
-)
+df1 <- read_csv(readr_example("challenge.csv"), col_types = list(
+  date = col_date(),
+  value = col_double()
+))
 ```
 
 The data was successfully imported, but we get a warning message about parsing issues.
@@ -178,13 +175,10 @@ But data in the wild is rarely so clean.
 We can fix this parsing error by importing the date column as character and using the lubridate package to parse our dates.
 
 ```{r, eval = FALSE}
-df1 <- read_csv(
-  readr_example("challenge.csv"),
-  col_types = cols(
-    date = col_character(),
-    value = col_double()
-  )
-)
+df1 <- read_csv(readr_example("challenge.csv"), col_types = list(
+  date = col_character(),
+  value = col_double()
+))
 df1$date <- lubridate::ymd(df1$date)
 ```
 
@@ -228,12 +222,12 @@ Use the `col_types` argument to override the default choices. There are two ways
     
     ```r
       read_csv("iris.csv", col_types = list(
-      Sepal.Length = "d",
-      Sepal.Width = "d",
-      Petal.Length = "d",
-      Petal.Width = "d",
-      Species = col_factor(c("setosa", "versicolor", "virginica"))
-    ))
+        Sepal.Length = "d",
+        Sepal.Width = "d",
+        Petal.Length = "d",
+        Petal.Width = "d",
+        Species = col_factor(c("setosa", "versicolor", "virginica"))
+      ))
     ```
     
 Any omitted columns will be parsed automatically, so the previous call
