@@ -28,8 +28,9 @@ each field before parsing it?}
 A numeric vector (double) of parsed numbers.
 }
 \description{
-This drops any non-numeric characters before or after the first number.
-The grouping mark specified by the locale is ignored inside the number.
+This parses the first number it finds, dropping any non-numeric characters
+before the first number and all characters after the first number. The
+grouping mark specified by the locale is ignored inside the number.
 }
 \examples{
 ## These all return 1000
