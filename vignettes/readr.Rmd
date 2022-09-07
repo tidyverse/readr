@@ -163,10 +163,7 @@ If readr finds problems with parsing your data, it will emit a warning message.
 For example, in our `challenge.csv` file, the column type we expected from our data was a column of dates and a column of doubles.
 
 ```{r}
-df1 <- read_csv(readr_example("challenge.csv"), col_types = list(
-  date = col_date(),
-  value = col_double()
-))
+df1 <- read_csv(readr_example("challenge.csv"))
 ```
 
 The data was successfully imported, but we get a warning message about parsing issues.
@@ -178,9 +175,13 @@ problems(df1)
 ```
 
 In this example, one of the dates is in an incorrect format.
-Since `problems()` gives us the row number from the original file, fixing this value in the original file could be easy, especially since there is only one problematic value.
-But data in the wild is rarely so clean.
-We can work around this parsing error by importing the date column as character and using the lubridate package to convert that column after the fact.
+Since `problems()` gives us the row number from the original file, we can view that data in R with a combination of `readr::read_lines()` and `writeLines()`.
+
+```{r}
+writeLines(read_lines(readr_example("challenge.csv"), skip = 1325, n_max = 3))
+```
+
+We can work around this parsing error by importing the date column as character and converting it to a column of dates, after the fact. The lubridate package is a great option that we show here. But since readr doesn't depend on lubridate, we won't execute this code chunk.
 
 ```{r, eval = FALSE}
 df1 <- read_csv(readr_example("challenge.csv"), col_types = list(
