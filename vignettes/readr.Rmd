@@ -184,6 +184,12 @@ df1$date <- lubridate::ymd(df1$date)
 
 In general, it's good practice to supply an explicit column specification to readr. It is more work, but it ensures that you get warnings if the data changes in unexpected ways. To be really strict, you can use `stop_for_problems(df1)`. This will throw an error if there are any parsing problems, forcing you to fix those problems before proceeding with the analysis.
 
+To access the full column specification after importing, you can call `spec()` on your data frame. If you want to manually specify the column types, you can start by copying and pasting this code, and then tweaking it to fix the parsing problems.
+
+```{r}
+spec(df1)
+```
+
 ### Available column specifications
 
 The available specifications are: (with string abbreviations in brackets)
