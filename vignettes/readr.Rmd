@@ -127,7 +127,7 @@ parse_number("$1,234")
 
 There are two parsers that will never be guessed: `col_skip()` and `col_factor()`. You will always need to supply these explicitly.
 
-You can see the specification that readr would generate for a file by using `spec_csv()`, `spec_tsv()` and so on.
+You can see the specification that readr would generate for a file by using `spec_csv()`, `spec_tsv()`, and so on.
 
 ```{r}
 x <- spec_csv(readr_example("challenge.csv"))
@@ -172,7 +172,7 @@ problems(df1)
 In this example, one of the dates is in an incorrect format.
 Since `problems()` gives us the row number from the original file, fixing this value in the original file could be easy, especially since there is only one problematic value.
 But data in the wild is rarely so clean.
-We can fix this parsing error by importing the date column as character and using the lubridate package to parse our dates.
+We can work around this parsing error by importing the date column as character and using the lubridate package to convert that column after the fact.
 
 ```{r, eval = FALSE}
 df1 <- read_csv(readr_example("challenge.csv"), col_types = list(
