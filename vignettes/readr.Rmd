@@ -208,32 +208,32 @@ Use the `col_types` argument to override the default choices. There are two ways
   
 * With a (named) list of col objects:
 
-    ```r
-    read_csv("iris.csv", col_types = list(
-      Sepal.Length = col_double(),
-      Sepal.Width = col_double(),
-      Petal.Length = col_double(),
-      Petal.Width = col_double(),
-      Species = col_factor(c("setosa", "versicolor", "virginica"))
-    ))
-    ```
+```{r, eval = FALSE}
+read_csv("iris.csv", col_types = list(
+  Sepal.Length = col_double(),
+  Sepal.Width = col_double(),
+  Petal.Length = col_double(),
+  Petal.Width = col_double(),
+  Species = col_factor(c("setosa", "versicolor", "virginica"))
+))
+```
     
   Or, with their abbreviations:
     
-    ```r
-      read_csv("iris.csv", col_types = list(
-        Sepal.Length = "d",
-        Sepal.Width = "d",
-        Petal.Length = "d",
-        Petal.Width = "d",
-        Species = col_factor(c("setosa", "versicolor", "virginica"))
-      ))
-    ```
+```{r, eval = FALSE}
+read_csv("iris.csv", col_types = list(
+  Sepal.Length = "d",
+  Sepal.Width = "d",
+  Petal.Length = "d",
+  Petal.Width = "d",
+  Species = col_factor(c("setosa", "versicolor", "virginica"))
+))
+```
     
 Any omitted columns will be parsed automatically, so the previous call
 will lead to the same result as:
 
-```r
+```{r, eval = FALSE}
 read_csv("iris.csv", col_types = list(
   Species = col_factor(c("setosa", "versicolor", "virginica")))
 )
@@ -242,7 +242,7 @@ read_csv("iris.csv", col_types = list(
 You can also set a default type that will be used instead of
 relying on the automatic detection for columns you don't specify:
 
-```r
+```{r, eval = FALSE}
 read_csv("iris.csv", col_types = list(
   Species = col_factor(c("setosa", "versicolor", "virginica")),
   .default = col_double())
@@ -251,7 +251,7 @@ read_csv("iris.csv", col_types = list(
 
 If you only want to read specified columns, use `cols_only()`:
 
-```r
+```{r, eval = FALSE}
 read_csv("iris.csv", col_types = cols_only(
   Species = col_factor(c("setosa", "versicolor", "virginica")))
 )
