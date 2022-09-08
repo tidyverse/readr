@@ -10,6 +10,7 @@ NULL
 #' decimal point. This format is common in some European countries.
 #' @inheritParams datasource
 #' @inheritParams tokenizer_delim
+#' @inheritParams vroom::vroom
 #' @param col_names Either `TRUE`, `FALSE` or a character vector
 #'   of column names.
 #'
@@ -54,12 +55,6 @@ NULL
 #'    By default, reading a file without a column specification will print a
 #'    message showing what `readr` guessed they were. To remove this message,
 #'    set `show_col_types = FALSE` or set `options(readr.show_col_types = FALSE).
-#' @param col_select Columns to include in the results. You can use the same
-#'   mini-language as `dplyr::select()` to refer to the columns by name. Use
-#'   `c()` or `list()` to use more than one selection expression. Although this
-#'   usage is less common, `col_select` also accepts a numeric column index. See
-#'   [`?tidyselect::language`][tidyselect::language] for full details on the
-#'   selection language.
 #' @param id The name of a column in which to store the file path. This is
 #'   useful when reading multiple input files and there is data in the file
 #'   paths, such as the data collection date. If `NULL` (the default) no extra

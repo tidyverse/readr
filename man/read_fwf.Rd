@@ -100,7 +100,7 @@ set \code{show_col_types = FALSE} or set `options(readr.show_col_types = FALSE).
 
 \item{col_select}{Columns to include in the results. You can use the same
 mini-language as \code{dplyr::select()} to refer to the columns by name. Use
-\code{c()} or \code{list()} to use more than one selection expression. Although this
+\code{c()} to use more than one selection expression. Although this
 usage is less common, \code{col_select} also accepts a numeric column index. See
 \code{\link[tidyselect:language]{?tidyselect::language}} for full details on the
 selection language.}
