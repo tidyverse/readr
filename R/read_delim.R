@@ -120,6 +120,23 @@ NULL
 #' # Or directly from a string with `I()`
 #' read_csv(I("x,y\n1,2\n3,4"))
 #'
+#' # Column selection-----------------------------------------------------------
+#' # Pass column names or indexes directly to select them
+#' read_csv(readr_example("chickens.csv"), col_select = c(chicken, eggs_laid))
+#' read_csv(readr_example("chickens.csv"), col_select = c(1, 3:4))
+#'
+#' # Or use the selection helpers
+#' read_csv(
+#'   readr_example("chickens.csv"),
+#'   col_select = c(starts_with("c"), last_col())
+#' )
+#'
+#' # You can also rename specific columns
+#' read_csv(
+#'   readr_example("chickens.csv"),
+#'   col_select = c(egg_yield = eggs_laid, everything())
+#' )
+#'
 #' # Column types --------------------------------------------------------------
 #' # By default, readr guesses the columns types, looking at `guess_max` rows.
 #' # You can override with a compact specification:
