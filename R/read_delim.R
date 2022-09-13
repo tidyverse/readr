@@ -499,7 +499,59 @@ spec_delim <- generate_spec_fun(read_delim)
 
 #' @rdname spec_delim
 #' @export
-spec_csv <- generate_spec_fun(read_csv)
+spec_csv <- function(file,
+                     col_names = TRUE,
+                     col_types = NULL,
+                     col_select = NULL,
+                     id = NULL,
+                     locale = default_locale(),
+                     na = c("", "NA"),
+                     quoted_na = TRUE,
+                     quote = "\"",
+                     comment = "",
+                     trim_ws = TRUE,
+                     skip = 0,
+                     guess_max = 1000,
+                     name_repair = "unique",
+                     num_threads = readr_threads(),
+                     progress = show_progress(),
+                     show_col_types = FALSE,
+                     skip_empty_rows = TRUE,
+                     lazy = should_read_lazy()) {
+  if (edition_first()) {
+    tokenizer <- tokenizer_csv(
+      na = na, quoted_na = quoted_na, quote = quote,
+      comment = comment, trim_ws = trim_ws, skip_empty_rows = skip_empty_rows
+    )
+    return(spec(read_delimited(file, tokenizer,
+      col_names = col_names, col_types = col_types,
+      locale = locale, skip = skip, skip_empty_rows = skip_empty_rows,
+      comment = comment, n_max = 0, guess_max = guess_max, progress = progress,
+      show_col_types = FALSE
+    )))
+  }
+  out <- vroom::vroom(file,
+    col_names = col_names,
+    col_types = col_types,
+    col_select = {{ col_select }},
+    id = id,
+    locale = locale,
+    na = na,
+    quote = quote,
+    comment = comment,
+    trim_ws = trim_ws,
+    skip = skip,
+    n_max = guess_max,
+    guess_max = guess_max,
+    .name_repair = name_repair,
+    num_threads = num_threads,
+    progress = progress,
+    show_col_types = show_col_types,
+    skip_empty_rows = skip_empty_rows,
+    altrep = lazy
+  )
+  spec(out)
+}
 
 #' @rdname spec_delim
 #' @export

@@ -37,7 +37,7 @@ spec_delim(
 spec_csv(
   file,
   col_names = TRUE,
-  col_types = list(),
+  col_types = NULL,
   col_select = NULL,
   id = NULL,
   locale = default_locale(),
@@ -47,12 +47,11 @@ spec_csv(
   comment = "",
   trim_ws = TRUE,
   skip = 0,
-  n_max = 0,
   guess_max = 1000,
   name_repair = "unique",
   num_threads = readr_threads(),
   progress = show_progress(),
-  show_col_types = should_show_types(),
+  show_col_types = FALSE,
   skip_empty_rows = TRUE,
   lazy = should_read_lazy()
 )
