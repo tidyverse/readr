@@ -51,7 +51,6 @@ spec_csv(
   name_repair = "unique",
   num_threads = readr_threads(),
   progress = show_progress(),
-  show_col_types = FALSE,
   skip_empty_rows = TRUE,
   lazy = should_read_lazy()
 )

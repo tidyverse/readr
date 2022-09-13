@@ -515,7 +515,6 @@ spec_csv <- function(file,
                      name_repair = "unique",
                      num_threads = readr_threads(),
                      progress = show_progress(),
-                     show_col_types = FALSE,
                      skip_empty_rows = TRUE,
                      lazy = should_read_lazy()) {
   if (edition_first()) {
@@ -546,7 +545,7 @@ spec_csv <- function(file,
     .name_repair = name_repair,
     num_threads = num_threads,
     progress = progress,
-    show_col_types = show_col_types,
+    show_col_types = FALSE,
     skip_empty_rows = skip_empty_rows,
     altrep = lazy
   )
