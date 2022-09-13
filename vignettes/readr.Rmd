@@ -142,7 +142,7 @@ mtcars_spec
 cols_condense(mtcars_spec)
 ```
 
-When guessing column types, readr selects rows to use for guessing semi-randomly. The default number of rows it selects is 1000. If the column type guess is incorrect, increasing `guess_max` may or may not improve the results.
+When guessing column types, readr selects rows interspersed through-out the file and always includes the first and last row. The default number of rows it selects is 1000. If the column type guess is incorrect, increasing `guess_max` may or may not improve the results.
 
 ```{r}
 x <- spec_csv(readr_example("challenge.csv"), guess_max = 1001)
