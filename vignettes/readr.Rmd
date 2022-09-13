@@ -168,7 +168,7 @@ df1 <- read_csv(readr_example("challenge.csv"))
 
 The data was successfully imported, but we get a warning message about parsing issues.
 To view more details about these parsing issues, call `problems()` on your data frame.
-This will generate a data frame with information about where the problem was found, and why.
+This will generate a data frame with information about the parsing problems, with one row per problem.
 
 ```{r}
 problems(df1)
