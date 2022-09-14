@@ -256,29 +256,29 @@ Use the `col_types` argument to override the default choices. There are two ways
 Any omitted columns will be parsed automatically, so the previous call
 will lead to the same result as:
 
-  ```{r, eval = FALSE}
-  read_csv("iris.csv", col_types = list(
-    Species = col_factor(c("setosa", "versicolor", "virginica")))
-  )
-  ```
+```{r, eval = FALSE}
+read_csv("iris.csv", col_types = list(
+  Species = col_factor(c("setosa", "versicolor", "virginica")))
+)
+```
 
 You can also set a default type that will be used instead of
 relying on the automatic detection for columns you don't specify:
 
-  ```{r, eval = FALSE}
-  read_csv("iris.csv", col_types = list(
-    Species = col_factor(c("setosa", "versicolor", "virginica")),
-    .default = col_double())
-  )
-  ```
+```{r, eval = FALSE}
+read_csv("iris.csv", col_types = list(
+  Species = col_factor(c("setosa", "versicolor", "virginica")),
+  .default = col_double())
+)
+```
 
 If you only want to read specified columns, use `cols_only()`:
 
-  ```{r, eval = FALSE}
-  read_csv("iris.csv", col_types = cols_only(
-    Species = col_factor(c("setosa", "versicolor", "virginica")))
-  )
-  ```
+```{r, eval = FALSE}
+read_csv("iris.csv", col_types = cols_only(
+  Species = col_factor(c("setosa", "versicolor", "virginica")))
+)
+```
 
 ### Output
 
