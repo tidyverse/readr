@@ -175,13 +175,14 @@ problems(df1)
 ```
 
 In this example, one of the dates is in an incorrect format.
-Since `problems()` gives us the row number from the original file, we can view that data in R with a combination of `readr::read_lines()` and `writeLines()`.
+Since `problems()` gives us the row number from the original file, we can view that area of data in R with a combination of `readr::read_lines()` and `writeLines()`.  
 
 ```{r}
-writeLines(read_lines(readr_example("challenge.csv"), skip = 1325, n_max = 3))
+problem_area <- problems(df1)$row - 2
+writeLines(read_lines(readr_example("challenge.csv"), skip = problem_area, n_max = 3))
 ```
 
-We can work around this parsing error by importing the date column as character and converting it to a column of dates, after the fact. The lubridate package is a great option that we show here. But since readr doesn't depend on lubridate, we won't execute this code chunk.
+We can work around this parsing error by importing the date column as character and converting it to a column of dates, after the fact. Importing as character and using a more specialized package to parse the data post-import is a common solution to parsing tricky columns. In this case, the lubridate package can parse our column back into dates.
 
 ```{r, eval = FALSE}
 df1 <- read_csv(readr_example("challenge.csv"), col_types = list(
@@ -189,6 +190,13 @@ df1 <- read_csv(readr_example("challenge.csv"), col_types = list(
   value = col_double()
 ))
 df1$date <- lubridate::ymd(df1$date)
+df1[1325:1327, ]
+#> # A tibble: 3 × 2
+#>   date       value
+#>   <date>     <dbl>
+#> 1 2008-03-16   762
+#> 2 2008-02-17   206
+#> 3 2019-01-28  1333
 ```
 
 In general, it's good practice to supply an explicit column specification to readr. It is more work, but it ensures that you get warnings if the data changes in unexpected ways. To be really strict, you can use `stop_for_problems(df1)`. This will throw an error if there are any parsing problems, forcing you to fix those problems before proceeding with the analysis.
