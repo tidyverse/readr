@@ -160,7 +160,7 @@ readr comes with five parsers for rectangular file formats:
 * `read_log()` for web log files
 
 If readr finds problems with parsing your data, it will emit a warning message.
-For example, in our `challenge.csv` file, the column type we expected from our data was a column of dates and a column of doubles.
+For example, in our aptly named `my_dates.csv` file, the column type we expected from our data was a column of dates.
 
 ```{r}
 df1 <- read_csv(readr_example("my_dates.csv"))
