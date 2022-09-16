@@ -130,7 +130,7 @@ There are two parsers that will never be guessed: `col_skip()` and `col_factor()
 You can see the specification that readr would generate for a file by using `spec_csv()`, `spec_tsv()`, and so on.
 
 ```{r}
-x <- spec_csv(readr_example("challenge.csv"))
+x <- spec_csv(readr_example("my_dates.csv"))
 ```
 
 For bigger files, you can often make the specification simpler by changing the default column type using `cols_condense()`
@@ -145,7 +145,7 @@ cols_condense(mtcars_spec)
 When guessing column types, readr selects rows interspersed through-out the file and always includes the first and last row. The default number of rows it selects is 1000. If the column type guess is incorrect, increasing `guess_max` may or may not improve the results.
 
 ```{r}
-x <- spec_csv(readr_example("challenge.csv"), guess_max = 1001)
+x <- spec_csv(readr_example("my_dates.csv"), guess_max = 1001)
 ```
 
 The best solution is to manually specify the `col_type`, as described below.
@@ -163,7 +163,7 @@ If readr finds problems with parsing your data, it will emit a warning message.
 For example, in our `challenge.csv` file, the column type we expected from our data was a column of dates and a column of doubles.
 
 ```{r}
-df1 <- read_csv(readr_example("challenge.csv"))
+df1 <- read_csv(readr_example("my_dates.csv"))
 ```
 
 The data was successfully imported, but we get a warning message about parsing issues.
@@ -179,24 +179,23 @@ Since `problems()` gives us the row number from the original file, we can view t
 
 ```{r}
 problem_area <- problems(df1)$row - 2
-writeLines(read_lines(readr_example("challenge.csv"), skip = problem_area, n_max = 3))
+writeLines(read_lines(readr_example("my_dates.csv"), skip = problem_area, n_max = 3))
 ```
 
-We can work around this parsing error by importing the date column as character and converting it to a column of dates, after the fact. Importing as character and using a more specialized package to parse the data post-import is a common solution to parsing tricky columns. In this case, the lubridate package can parse our column back into dates.
+We can work around this parsing error by importing the date column as character and converting it to a column of dates, after the fact. Importing as character and using a more specialized package to parse the data post-import, is a common solution to parsing tricky columns. In this case, the lubridate package can parse our column back into dates.
 
 ```{r, eval = FALSE}
-df1 <- read_csv(readr_example("challenge.csv"), col_types = list(
-  date = col_character(),
-  value = col_double()
+df1 <- read_csv(readr_example("my_dates.csv"), col_types = list(
+  dates = col_character()
 ))
-df1$date <- lubridate::ymd(df1$date)
-df1[1325:1327, ]
-#> # A tibble: 3 × 2
-#>   date       value
-#>   <date>     <dbl>
-#> 1 2008-03-16   762
-#> 2 2008-02-17   206
-#> 3 2019-01-28  1333
+df1$dates <- lubridate::ymd(df1$dates)
+df1[problem_area:(problem_area + 2), ]
+#> # A tibble: 3 × 1
+#>   dates     
+#>   <date>    
+#> 1 2020-02-04
+#> 2 2022-09-07
+#> 3 2022-07-30
 ```
 
 In general, it's good practice to supply an explicit column specification to readr. It is more work, but it ensures that you get warnings if the data changes in unexpected ways. To be really strict, you can use `stop_for_problems(df1)`. This will throw an error if there are any parsing problems, forcing you to fix those problems before proceeding with the analysis.
