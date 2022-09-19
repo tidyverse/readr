@@ -182,7 +182,7 @@ set \code{show_col_types = FALSE} or set `options(readr.show_col_types = FALSE).
 
 \item{col_select}{Columns to include in the results. You can use the same
 mini-language as \code{dplyr::select()} to refer to the columns by name. Use
-\code{c()} or \code{list()} to use more than one selection expression. Although this
+\code{c()} to use more than one selection expression. Although this
 usage is less common, \code{col_select} also accepts a numeric column index. See
 \code{\link[tidyselect:language]{?tidyselect::language}} for full details on the
 selection language.}
@@ -287,6 +287,23 @@ read_csv("https://github.com/tidyverse/readr/raw/main/inst/extdata/mtcars.csv")
 
 # Or directly from a string with `I()`
 read_csv(I("x,y\n1,2\n3,4"))
+
+# Column selection-----------------------------------------------------------
+# Pass column names or indexes directly to select them
+read_csv(readr_example("chickens.csv"), col_select = c(chicken, eggs_laid))
+read_csv(readr_example("chickens.csv"), col_select = c(1, 3:4))
+
+# Or use the selection helpers
+read_csv(
+  readr_example("chickens.csv"),
+  col_select = c(starts_with("c"), last_col())
+)
+
+# You can also rename specific columns
+read_csv(
+  readr_example("chickens.csv"),
+  col_select = c(egg_yield = eggs_laid, everything())
+)
 
 # Column types --------------------------------------------------------------
 # By default, readr guesses the columns types, looking at `guess_max` rows.
