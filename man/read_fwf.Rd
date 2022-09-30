@@ -165,12 +165,15 @@ fields it is safest to set \code{num_threads = 1} explicitly.}
 (the default) only show the column types if they are not explicitly supplied
 by the \code{col_types} argument.}
 
-\item{lazy}{Read values lazily? By default the file is initially only
-indexed and the values are read lazily when accessed. Lazy reading is
-useful interactively, particularly if you are only interested in a subset
-of the full dataset. \emph{Note}, if you later write to the same file you read
-from you need to set \code{lazy = FALSE}. On Windows the file will be locked
-and on other systems the memory map will become invalid.}
+\item{lazy}{Read values lazily? By default, this is \code{FALSE}, because there
+are special considerations when reading a file lazily that have tripped up
+some users. Specifically, things get tricky when reading and then writing
+back into the same file. But, in general, lazy reading (\code{lazy = TRUE}) has
+many benefits, especially for interactive use and when your downstream work
+only involves a subset of the rows or columns.
+
+Learn more in \code{\link[=should_read_lazy]{should_read_lazy()}} and in the documentation for the \code{alrep}
+argument of \code{\link[vroom:vroom]{vroom::vroom()}}.}
 
 \item{skip_empty_rows}{Should blank rows be ignored altogether? i.e. If this
 option is \code{TRUE} then blank rows will not be represented at all.  If it is

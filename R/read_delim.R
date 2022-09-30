@@ -77,12 +77,15 @@ NULL
 #'   in an interactive session and not while knitting a document. The automatic
 #'   progress bar can be disabled by setting option `readr.show_progress` to
 #'   `FALSE`.
-#' @param lazy Read values lazily? By default the file is initially only
-#'   indexed and the values are read lazily when accessed. Lazy reading is
-#'   useful interactively, particularly if you are only interested in a subset
-#'   of the full dataset. *Note*, if you later write to the same file you read
-#'   from you need to set `lazy = FALSE`. On Windows the file will be locked
-#'   and on other systems the memory map will become invalid.
+#' @param lazy Read values lazily? By default, this is `FALSE`, because there
+#'   are special considerations when reading a file lazily that have tripped up
+#'   some users. Specifically, things get tricky when reading and then writing
+#'   back into the same file. But, in general, lazy reading (`lazy = TRUE`) has
+#'   many benefits, especially for interactive use and when your downstream work
+#'   only involves a subset of the rows or columns.
+#'
+#'   Learn more in [should_read_lazy()] and in the documentation for the `alrep`
+#'   argument of [vroom::vroom()].
 #' @param num_threads The number of processing threads to use for initial
 #'   parsing and lazy reading of data. If your data contains newlines within
 #'   fields the parser should automatically detect this and fall back to using
