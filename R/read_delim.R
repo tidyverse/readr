@@ -120,6 +120,15 @@ NULL
 #' read_csv("https://github.com/tidyverse/readr/raw/main/inst/extdata/mtcars.csv")
 #' }
 #'
+#' # Read from multiple file paths at once
+#' continents <- c("africa", "americas", "asia", "europe", "oceania")
+#' filepaths <- vapply(
+#'   paste0("mini-gapminder-", continents, ".csv"),
+#'   FUN = readr_example,
+#'   FUN.VALUE = character(1)
+#' )
+#' read_csv(filepaths, id = "file")
+#'
 #' # Or directly from a string with `I()`
 #' read_csv(I("x,y\n1,2\n3,4"))
 #'
