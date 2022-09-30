@@ -36,7 +36,7 @@ Imports:
     rlang,
     tibble,
     utils,
-    vroom (>= 1.5.6)
+    vroom (>= 1.6.0)
 Suggests:
     covr,
     curl,
