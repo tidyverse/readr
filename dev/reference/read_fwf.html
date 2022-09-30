@@ -279,12 +279,14 @@ by the <code>col_types</code> argument.</p></dd>
 
 
 <dt>lazy</dt>
-<dd><p>Read values lazily? By default the file is initially only
-indexed and the values are read lazily when accessed. Lazy reading is
-useful interactively, particularly if you are only interested in a subset
-of the full dataset. <em>Note</em>, if you later write to the same file you read
-from you need to set <code>lazy = FALSE</code>. On Windows the file will be locked
-and on other systems the memory map will become invalid.</p></dd>
+<dd><p>Read values lazily? By default, this is <code>FALSE</code>, because there
+are special considerations when reading a file lazily that have tripped up
+some users. Specifically, things get tricky when reading and then writing
+back into the same file. But, in general, lazy reading (<code>lazy = TRUE</code>) has
+many benefits, especially for interactive use and when your downstream work
+only involves a subset of the rows or columns.</p>
+<p>Learn more in <code><a href="should_read_lazy.html">should_read_lazy()</a></code> and in the documentation for the <code>alrep</code>
+argument of <code><a href="https://vroom.r-lib.org/reference/vroom.html" class="external-link">vroom::vroom()</a></code>.</p></dd>
 
 
 <dt>skip_empty_rows</dt>
