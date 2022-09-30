@@ -12,3 +12,6 @@ An integer corresponding to the currently active edition.
 \description{
 Retrieve the currently active edition
 }
+\examples{
+edition_get()
+}
