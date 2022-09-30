@@ -172,8 +172,8 @@ back into the same file. But, in general, lazy reading (\code{lazy = TRUE}) has
 many benefits, especially for interactive use and when your downstream work
 only involves a subset of the rows or columns.
 
-Learn more in \code{\link[=should_read_lazy]{should_read_lazy()}} and in the documentation for the \code{alrep}
-argument of \code{\link[vroom:vroom]{vroom::vroom()}}.}
+Learn more in \code{\link[=should_read_lazy]{should_read_lazy()}} and in the documentation for the
+\code{altrep} argument of \code{\link[vroom:vroom]{vroom::vroom()}}.}
 
 \item{skip_empty_rows}{Should blank rows be ignored altogether? i.e. If this
 option is \code{TRUE} then blank rows will not be represented at all.  If it is

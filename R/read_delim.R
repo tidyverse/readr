@@ -84,8 +84,8 @@ NULL
 #'   many benefits, especially for interactive use and when your downstream work
 #'   only involves a subset of the rows or columns.
 #'
-#'   Learn more in [should_read_lazy()] and in the documentation for the `alrep`
-#'   argument of [vroom::vroom()].
+#'   Learn more in [should_read_lazy()] and in the documentation for the
+#'   `altrep` argument of [vroom::vroom()].
 #' @param num_threads The number of processing threads to use for initial
 #'   parsing and lazy reading of data. If your data contains newlines within
 #'   fields the parser should automatically detect this and fall back to using
