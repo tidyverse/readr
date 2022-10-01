@@ -128,8 +128,9 @@ col_skip <- function() {
 
 #' Parse numbers, flexibly
 #'
-#' This drops any non-numeric characters before or after the first number.
-#' The grouping mark specified by the locale is ignored inside the number.
+#' This parses the first number it finds, dropping any non-numeric characters
+#' before the first number and all characters after the first number. The
+#' grouping mark specified by the locale is ignored inside the number.
 #'
 #' @inheritParams parse_atomic
 #' @inheritParams tokenizer_delim
@@ -139,8 +140,9 @@ col_skip <- function() {
 #' @export
 #' @examples
 #' ## These all return 1000
-#' parse_number("$1,000") ## leading $ and grouping character , ignored
+#' parse_number("$1,000") ## leading `$` and grouping character `,` ignored
 #' parse_number("euro1,000") ## leading non-numeric euro ignored
+#' parse_number("t1000t1000") ## only parses first number found
 #'
 #' parse_number("1,234.56")
 #' ## explicit locale specifying European grouping and decimal marks

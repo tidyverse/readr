@@ -71,12 +71,15 @@ names.}
 \item{na}{Character vector of strings to interpret as missing values. Set this
 option to \code{character()} to indicate no missing values.}
 
-\item{lazy}{Read values lazily? By default the file is initially only
-indexed and the values are read lazily when accessed. Lazy reading is
-useful interactively, particularly if you are only interested in a subset
-of the full dataset. \emph{Note}, if you later write to the same file you read
-from you need to set \code{lazy = FALSE}. On Windows the file will be locked
-and on other systems the memory map will become invalid.}
+\item{lazy}{Read values lazily? By default, this is \code{FALSE}, because there
+are special considerations when reading a file lazily that have tripped up
+some users. Specifically, things get tricky when reading and then writing
+back into the same file. But, in general, lazy reading (\code{lazy = TRUE}) has
+many benefits, especially for interactive use and when your downstream work
+only involves a subset of the rows or columns.
+
+Learn more in \code{\link[=should_read_lazy]{should_read_lazy()}} and in the documentation for the
+\code{altrep} argument of \code{\link[vroom:vroom]{vroom::vroom()}}.}
 
 \item{num_threads}{The number of processing threads to use for initial
 parsing and lazy reading of data. If your data contains newlines within

@@ -10,13 +10,32 @@ with_edition(edition, code)
 local_edition(edition, env = parent.frame())
 }
 \arguments{
-\item{edition}{Should be a single integer.}
+\item{edition}{Should be a single integer, such as \code{1} or \code{2}.}
 
 \item{code}{Code to run with the changed edition.}
 
 \item{env}{Environment that controls scope of changes. For expert use only.}
 }
 \description{
-\code{with_edition()} allows you to change the active edition of readr for a given block of code.
-\code{local_edition()} allows you to change the active edition of readr until the end of the current function or file.
+\code{with_edition()} allows you to change the active edition of readr for a given
+block of code. \code{local_edition()} allows you to change the active edition of
+readr until the end of the current function or file.
+}
+\examples{
+with_edition(1, edition_get())
+with_edition(2, edition_get())
+
+# readr 1e and 2e behave differently when input rows have different number
+# number of fields
+with_edition(1, read_csv("1,2\n3,4,5", col_names = c("X", "Y", "Z")))
+with_edition(2, read_csv("1,2\n3,4,5", col_names = c("X", "Y", "Z")))
+
+# local_edition() applies in a specific scope, for example, inside a function
+read_csv_1e <- function(...) {
+  local_edition(1)
+  read_csv(...)
+}
+read_csv("1,2\n3,4,5", col_names = c("X", "Y", "Z"))      # 2e behaviour
+read_csv_1e("1,2\n3,4,5", col_names = c("X", "Y", "Z"))   # 1e behaviour
+read_csv("1,2\n3,4,5", col_names = c("X", "Y", "Z"))      # 2e behaviour
 }
