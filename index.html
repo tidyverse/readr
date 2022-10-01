@@ -17,9 +17,9 @@
 <link rel="apple-touch-icon" type="image/png" sizes="76x76" href="apple-touch-icon-76x76.png">
 <link rel="apple-touch-icon" type="image/png" sizes="60x60" href="apple-touch-icon-60x60.png">
 <script src="deps/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<link href="deps/bootstrap-5.1.0/bootstrap.min.css" rel="stylesheet">
-<script src="deps/bootstrap-5.1.0/bootstrap.bundle.min.js"></script><link href="deps/_Source%20Sans%20Pro-0.4.0/font.css" rel="stylesheet">
-<link href="deps/_Source%20Code%20Pro-0.4.0/font.css" rel="stylesheet">
+<link href="deps/bootstrap-5.1.3/bootstrap.min.css" rel="stylesheet">
+<script src="deps/bootstrap-5.1.3/bootstrap.bundle.min.js"></script><link href="deps/Source_Sans_Pro-0.4.2/font.css" rel="stylesheet">
+<link href="deps/Source_Code_Pro-0.4.2/font.css" rel="stylesheet">
 <!-- Font Awesome icons --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/v4-shims.min.css" integrity="sha256-wZjR52fzng1pJHwx4aV2AO3yyTOXrcDW7jBpJtTwVxw=" crossorigin="anonymous">
 <!-- bootstrap-toc --><script src="https://cdn.rawgit.com/afeld/bootstrap-toc/v1.0.1/dist/bootstrap-toc.min.js"></script><!-- headroom.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/headroom.min.js" integrity="sha256-AsUX4SJE1+yuDu5+mAVzJbuYNPHj/WroHuZ8Ir/CkE0=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script><!-- clipboard.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><!-- search --><script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/6.4.6/fuse.js" integrity="sha512-zv6Ywkjyktsohkbp9bb45V6tEMoWhzFzXis+LrMehmJZZSys19Yxf1dopHx7WzIKxr5tK2dVcYmaCk2uqdjF4A==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/autocomplete.js/0.38.0/autocomplete.jquery.min.js" integrity="sha512-GU9ayf+66Xx2TmpxqJpliWbT5PiGYxpaG8rfnBEk1LL8l1KGkRShhngwdXK1UgqhAzWpZHSiYPc09/NwDQIGyg==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/mark.min.js" integrity="sha512-5CYOlHXGh6QpOFA/TeTylKLWfB3ftPsde7AnmhuitiTX4K5SqCLBeKro6sPS8ilsz1Q4NRx3v8Ko2IBiszzdww==" crossorigin="anonymous"></script><!-- pkgdown --><script src="pkgdown.js"></script><meta property="og:title" content="Read Rectangular Text Data">
@@ -31,13 +31,7 @@
 <!-- mathjax --><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js" integrity="sha256-nvJJv9wWKEm88qvoQl9ekL2J+k/RWIsaSScxxlsrv8k=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/config/TeX-AMS-MML_HTMLorMML.js" integrity="sha256-84DKXVJXs0/F8OTMzX4UR909+jtl4G7SPypPavF+GfA=" crossorigin="anonymous"></script><!--[if lt IE 9]>
 <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
 <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
-<![endif]--><!-- Global site tag (gtag.js) - Google Analytics --><script async src="https://www.googletagmanager.com/gtag/js?id=UA-115082821-1"></script><script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
-
-  gtag('config', 'UA-115082821-1');
-</script><script defer data-domain="readr.tidyverse.org,all.tidyverse.org" src="https://plausible.io/js/plausible.js"></script>
+<![endif]--><script defer data-domain="readr.tidyverse.org,all.tidyverse.org" src="https://plausible.io/js/plausible.js"></script>
 </head>
 <body>
     <a href="#container" class="visually-hidden-focusable">Skip to content</a>
@@ -47,7 +41,7 @@
     
     <a class="navbar-brand me-2" href="index.html">readr</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Released version">2.1.2</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Released version">2.1.3</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -110,7 +104,6 @@
 </h1>
 </div>
 <!-- badges: start -->
-
 <div class="section level2">
 <h2 id="overview">Overview<a class="anchor" aria-label="anchor" href="#overview"></a>
 </h2>
@@ -120,11 +113,11 @@
 <h2 id="installation">Installation<a class="anchor" aria-label="anchor" href="#installation"></a>
 </h2>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="co"># The easiest way to get readr is to install the whole tidyverse:</span>
-<span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html" class="external-link">install.packages</a></span><span class="op">(</span><span class="st">"tidyverse"</span><span class="op">)</span>
-
-<span class="co"># Alternatively, install just readr:</span>
-<span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html" class="external-link">install.packages</a></span><span class="op">(</span><span class="st">"readr"</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span><span class="co"># The easiest way to get readr is to install the whole tidyverse:</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html" class="external-link">install.packages</a></span><span class="op">(</span><span class="st">"tidyverse"</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># Alternatively, install just readr:</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html" class="external-link">install.packages</a></span><span class="op">(</span><span class="st">"readr"</span><span class="op">)</span></span></code></pre></div>
 
 </div>
 <div class="section level2">
@@ -137,18 +130,18 @@
 </h2>
 <p>readr is part of the core tidyverse, so you can load it with:</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://tidyverse.tidyverse.org" class="external-link">tidyverse</a></span><span class="op">)</span>
-<span class="co">#&gt; ── Attaching packages ─────────────────────────────────────── tidyverse 1.3.1 ──</span>
-<span class="co">#&gt; ✓ ggplot2 3.3.5          ✓ purrr   0.3.4     </span>
-<span class="co">#&gt; ✓ tibble  3.1.6          ✓ dplyr   1.0.7     </span>
-<span class="co">#&gt; ✓ tidyr   1.1.4          ✓ stringr 1.4.0     </span>
-<span class="co">#&gt; ✓ readr   2.1.1.9000     ✓ forcats 0.5.1</span>
-<span class="co">#&gt; ── Conflicts ────────────────────────────────────────── tidyverse_conflicts() ──</span>
-<span class="co">#&gt; x dplyr::filter() masks stats::filter()</span>
-<span class="co">#&gt; x dplyr::lag()    masks stats::lag()</span></code></pre></div>
+<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://tidyverse.tidyverse.org" class="external-link">tidyverse</a></span><span class="op">)</span></span>
+<span><span class="co">#&gt; ── Attaching packages ─────────────────────────────────────── tidyverse 1.3.2 ──</span></span>
+<span><span class="co">#&gt; ✔ ggplot2 3.3.6          ✔ purrr   0.3.4     </span></span>
+<span><span class="co">#&gt; ✔ tibble  3.1.8          ✔ dplyr   1.0.10    </span></span>
+<span><span class="co">#&gt; ✔ tidyr   1.2.1          ✔ stringr 1.4.1.9000</span></span>
+<span><span class="co">#&gt; ✔ readr   2.1.2.9000     ✔ forcats 0.5.2     </span></span>
+<span><span class="co">#&gt; ── Conflicts ────────────────────────────────────────── tidyverse_conflicts() ──</span></span>
+<span><span class="co">#&gt; ✖ dplyr::filter() masks stats::filter()</span></span>
+<span><span class="co">#&gt; ✖ dplyr::lag()    masks stats::lag()</span></span></code></pre></div>
 <p>Of course, you can also load readr as an individual package:</p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://readr.tidyverse.org">readr</a></span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://readr.tidyverse.org">readr</a></span><span class="op">)</span></span></code></pre></div>
 <p>To read a rectangular dataset with readr, you combine two pieces: a function that parses the lines of the file into individual fields and a column specification.</p>
 <p>readr supports the following file formats with these <code>read_*()</code> functions:</p>
 <ul>
@@ -168,52 +161,52 @@
 <p>A column specification describes how each column should be converted from a character vector to a specific data type (e.g. character, numeric, datetime, etc.). In the absence of a column specification, readr will guess column types from the data. <code><a href="articles/column-types.html">vignette("column-types")</a></code> gives more detail on how readr guesses the column types. Column type guessing is very handy, especially during data exploration, but it’s important to remember these are <em>just guesses</em>. As any data analysis project matures past the exploratory phase, the best strategy is to provide explicit column types.</p>
 <p>The following example loads a sample file bundled with readr and guesses the column types:</p>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="op">(</span><span class="va">chickens</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/read_delim.html">read_csv</a></span><span class="op">(</span><span class="fu"><a href="reference/readr_example.html">readr_example</a></span><span class="op">(</span><span class="st">"chickens.csv"</span><span class="op">)</span><span class="op">)</span><span class="op">)</span>
-<span class="co">#&gt; Rows: 5 Columns: 4</span>
-<span class="co">#&gt; ── Column specification ────────────────────────────────────────────────────────</span>
-<span class="co">#&gt; Delimiter: ","</span>
-<span class="co">#&gt; chr (3): chicken, sex, motto</span>
-<span class="co">#&gt; dbl (1): eggs_laid</span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt; ℹ Use `spec()` to retrieve the full column specification for this data.</span>
-<span class="co">#&gt; ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.</span>
-<span class="co">#&gt; # A tibble: 5 × 4</span>
-<span class="co">#&gt;   chicken                 sex     eggs_laid motto                               </span>
-<span class="co">#&gt;   &lt;chr&gt;                   &lt;chr&gt;       &lt;dbl&gt; &lt;chr&gt;                               </span>
-<span class="co">#&gt; 1 Foghorn Leghorn         rooster         0 That's a joke, ah say, that's a jok…</span>
-<span class="co">#&gt; 2 Chicken Little          hen             3 The sky is falling!                 </span>
-<span class="co">#&gt; 3 Ginger                  hen            12 Listen. We'll either die free chick…</span>
-<span class="co">#&gt; 4 Camilla the Chicken     hen             7 Bawk, buck, ba-gawk.                </span>
-<span class="co">#&gt; 5 Ernie The Giant Chicken rooster         0 Put Captain Solo in the cargo hold.</span></code></pre></div>
+<code class="sourceCode R"><span><span class="op">(</span><span class="va">chickens</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/read_delim.html">read_csv</a></span><span class="op">(</span><span class="fu"><a href="reference/readr_example.html">readr_example</a></span><span class="op">(</span><span class="st">"chickens.csv"</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="co">#&gt; Rows: 5 Columns: 4</span></span>
+<span><span class="co">#&gt; ── Column specification ────────────────────────────────────────────────────────</span></span>
+<span><span class="co">#&gt; Delimiter: ","</span></span>
+<span><span class="co">#&gt; chr (3): chicken, sex, motto</span></span>
+<span><span class="co">#&gt; dbl (1): eggs_laid</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; ℹ Use `spec()` to retrieve the full column specification for this data.</span></span>
+<span><span class="co">#&gt; ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.</span></span>
+<span><span class="co">#&gt; # A tibble: 5 × 4</span></span>
+<span><span class="co">#&gt;   chicken                 sex     eggs_laid motto                               </span></span>
+<span><span class="co">#&gt;   &lt;chr&gt;                   &lt;chr&gt;       &lt;dbl&gt; &lt;chr&gt;                               </span></span>
+<span><span class="co">#&gt; 1 Foghorn Leghorn         rooster         0 That's a joke, ah say, that's a jok…</span></span>
+<span><span class="co">#&gt; 2 Chicken Little          hen             3 The sky is falling!                 </span></span>
+<span><span class="co">#&gt; 3 Ginger                  hen            12 Listen. We'll either die free chick…</span></span>
+<span><span class="co">#&gt; 4 Camilla the Chicken     hen             7 Bawk, buck, ba-gawk.                </span></span>
+<span><span class="co">#&gt; 5 Ernie The Giant Chicken rooster         0 Put Captain Solo in the cargo hold.</span></span></code></pre></div>
 <p>Note that readr prints the column types – the <em>guessed</em> column types, in this case. This is useful because it allows you to check that the columns have been read in as you expect. If they haven’t, that means you need to provide the column specification. This sounds like a lot of trouble, but luckily readr affords a nice workflow for this. Use <code><a href="reference/spec.html">spec()</a></code> to retrieve the (guessed) column specification from your initial effort.</p>
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="reference/spec.html">spec</a></span><span class="op">(</span><span class="va">chickens</span><span class="op">)</span>
-<span class="co">#&gt; cols(</span>
-<span class="co">#&gt;   chicken = col_character(),</span>
-<span class="co">#&gt;   sex = col_character(),</span>
-<span class="co">#&gt;   eggs_laid = col_double(),</span>
-<span class="co">#&gt;   motto = col_character()</span>
-<span class="co">#&gt; )</span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu"><a href="reference/spec.html">spec</a></span><span class="op">(</span><span class="va">chickens</span><span class="op">)</span></span>
+<span><span class="co">#&gt; cols(</span></span>
+<span><span class="co">#&gt;   chicken = col_character(),</span></span>
+<span><span class="co">#&gt;   sex = col_character(),</span></span>
+<span><span class="co">#&gt;   eggs_laid = col_double(),</span></span>
+<span><span class="co">#&gt;   motto = col_character()</span></span>
+<span><span class="co">#&gt; )</span></span></code></pre></div>
 <p>Now you can copy, paste, and tweak this, to create a more explicit readr call that expresses the desired column types. Here we express that <code>sex</code> should be a factor with levels <code>rooster</code> and <code>hen</code>, in that order, and that <code>eggs_laid</code> should be integer.</p>
 <div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">chickens</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/read_delim.html">read_csv</a></span><span class="op">(</span>
-  <span class="fu"><a href="reference/readr_example.html">readr_example</a></span><span class="op">(</span><span class="st">"chickens.csv"</span><span class="op">)</span>,
-  col_types <span class="op">=</span> <span class="fu"><a href="reference/cols.html">cols</a></span><span class="op">(</span>
-    chicken   <span class="op">=</span> <span class="fu"><a href="reference/parse_atomic.html">col_character</a></span><span class="op">(</span><span class="op">)</span>,
-    sex       <span class="op">=</span> <span class="fu"><a href="reference/parse_factor.html">col_factor</a></span><span class="op">(</span>levels <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"rooster"</span>, <span class="st">"hen"</span><span class="op">)</span><span class="op">)</span>,
-    eggs_laid <span class="op">=</span> <span class="fu"><a href="reference/parse_atomic.html">col_integer</a></span><span class="op">(</span><span class="op">)</span>,
-    motto     <span class="op">=</span> <span class="fu"><a href="reference/parse_atomic.html">col_character</a></span><span class="op">(</span><span class="op">)</span>
-  <span class="op">)</span>
-<span class="op">)</span>
-<span class="va">chickens</span>
-<span class="co">#&gt; # A tibble: 5 × 4</span>
-<span class="co">#&gt;   chicken                 sex     eggs_laid motto                               </span>
-<span class="co">#&gt;   &lt;chr&gt;                   &lt;fct&gt;       &lt;int&gt; &lt;chr&gt;                               </span>
-<span class="co">#&gt; 1 Foghorn Leghorn         rooster         0 That's a joke, ah say, that's a jok…</span>
-<span class="co">#&gt; 2 Chicken Little          hen             3 The sky is falling!                 </span>
-<span class="co">#&gt; 3 Ginger                  hen            12 Listen. We'll either die free chick…</span>
-<span class="co">#&gt; 4 Camilla the Chicken     hen             7 Bawk, buck, ba-gawk.                </span>
-<span class="co">#&gt; 5 Ernie The Giant Chicken rooster         0 Put Captain Solo in the cargo hold.</span></code></pre></div>
+<code class="sourceCode R"><span><span class="va">chickens</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/read_delim.html">read_csv</a></span><span class="op">(</span></span>
+<span>  <span class="fu"><a href="reference/readr_example.html">readr_example</a></span><span class="op">(</span><span class="st">"chickens.csv"</span><span class="op">)</span>,</span>
+<span>  col_types <span class="op">=</span> <span class="fu"><a href="reference/cols.html">cols</a></span><span class="op">(</span></span>
+<span>    chicken   <span class="op">=</span> <span class="fu"><a href="reference/parse_atomic.html">col_character</a></span><span class="op">(</span><span class="op">)</span>,</span>
+<span>    sex       <span class="op">=</span> <span class="fu"><a href="reference/parse_factor.html">col_factor</a></span><span class="op">(</span>levels <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"rooster"</span>, <span class="st">"hen"</span><span class="op">)</span><span class="op">)</span>,</span>
+<span>    eggs_laid <span class="op">=</span> <span class="fu"><a href="reference/parse_atomic.html">col_integer</a></span><span class="op">(</span><span class="op">)</span>,</span>
+<span>    motto     <span class="op">=</span> <span class="fu"><a href="reference/parse_atomic.html">col_character</a></span><span class="op">(</span><span class="op">)</span></span>
+<span>  <span class="op">)</span></span>
+<span><span class="op">)</span></span>
+<span><span class="va">chickens</span></span>
+<span><span class="co">#&gt; # A tibble: 5 × 4</span></span>
+<span><span class="co">#&gt;   chicken                 sex     eggs_laid motto                               </span></span>
+<span><span class="co">#&gt;   &lt;chr&gt;                   &lt;fct&gt;       &lt;int&gt; &lt;chr&gt;                               </span></span>
+<span><span class="co">#&gt; 1 Foghorn Leghorn         rooster         0 That's a joke, ah say, that's a jok…</span></span>
+<span><span class="co">#&gt; 2 Chicken Little          hen             3 The sky is falling!                 </span></span>
+<span><span class="co">#&gt; 3 Ginger                  hen            12 Listen. We'll either die free chick…</span></span>
+<span><span class="co">#&gt; 4 Camilla the Chicken     hen             7 Bawk, buck, ba-gawk.                </span></span>
+<span><span class="co">#&gt; 5 Ernie The Giant Chicken rooster         0 Put Captain Solo in the cargo hold.</span></span></code></pre></div>
 <p><code><a href="articles/readr.html">vignette("readr")</a></code> gives an expanded introduction to readr.</p>
 </div>
 <div class="section level2">
@@ -261,11 +254,6 @@
 <li><p><a href="http://dirk.eddelbuettel.com" class="external-link">Dirk Eddelbuettel</a> for coming up with the name!</p></li>
 </ul>
 </div>
-<div class="section level2">
-<h2 id="code-of-conduct">Code of Conduct<a class="anchor" aria-label="anchor" href="#code-of-conduct"></a>
-</h2>
-<p>Please note that the readr project is released with a <a href="https://readr.tidyverse.org/CONDUCT.html">Contributor Code of Conduct</a>. By contributing to this project, you agree to abide by its terms.</p>
-</div>
 </div>
   </main><aside class="col-md-3"><div class="links">
 <h2 data-toc-skip>Links</h2>
@@ -290,6 +278,7 @@
 <ul class="list-unstyled">
 <li><a href="CONTRIBUTING.html">Contributing guide</a></li>
 <li><a href="CODE_OF_CONDUCT.html">Code of conduct</a></li>
+<li><a href="SUPPORT.html">Getting help</a></li>
 </ul>
 </div>
 
@@ -315,14 +304,7 @@
 </ul>
 </div>
 
-<div class="dev-status">
-<h2 data-toc-skip>Dev status</h2>
-<ul class="list-unstyled">
-<li><a href="https://CRAN.R-project.org/package=readr" class="external-link"><img src="https://www.r-pkg.org/badges/version/readr" alt="CRAN status"></a></li>
-<li><a href="https://github.com/tidyverse/readr/actions/workflows/R-CMD-check.yaml" class="external-link"><img src="https://github.com/tidyverse/readr/actions/workflows/R-CMD-check.yaml/badge.svg" alt="R-CMD-check"></a></li>
-<li><a href="https://app.codecov.io/gh/tidyverse/readr?branch=main" class="external-link"><img src="https://codecov.io/gh/tidyverse/readr/coverage.svg?branch=main" alt="Coverage Status"></a></li>
-</ul>
-</div>
+
 
   </aside>
 </div>
@@ -337,7 +319,7 @@
 
 <div class="pkgdown-footer-right">
   <p></p>
-<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.2.</p>
+<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.6.</p>
 </div>
 
   </div></footer>

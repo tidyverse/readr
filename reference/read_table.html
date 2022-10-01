@@ -3,20 +3,14 @@
 data where each column is separated by one (or more) columns of space.
 read_table() is like read.table(), it allows any number of whitespace
 characters between columns, and the lines can be of different lengths.
-spec_table() returns the column specifications rather than a data frame."><title>Read whitespace-separated columns into a tibble — read_table • readr</title><!-- favicons --><link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png"><link rel="icon" type="image/png" sizes="32x32" href="../favicon-32x32.png"><link rel="apple-touch-icon" type="image/png" sizes="180x180" href="../apple-touch-icon.png"><link rel="apple-touch-icon" type="image/png" sizes="120x120" href="../apple-touch-icon-120x120.png"><link rel="apple-touch-icon" type="image/png" sizes="76x76" href="../apple-touch-icon-76x76.png"><link rel="apple-touch-icon" type="image/png" sizes="60x60" href="../apple-touch-icon-60x60.png"><script src="../deps/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"><link href="../deps/bootstrap-5.1.0/bootstrap.min.css" rel="stylesheet"><script src="../deps/bootstrap-5.1.0/bootstrap.bundle.min.js"></script><link href="../deps/_Source%20Sans%20Pro-0.4.0/font.css" rel="stylesheet"><link href="../deps/_Source%20Code%20Pro-0.4.0/font.css" rel="stylesheet"><!-- Font Awesome icons --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous"><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/v4-shims.min.css" integrity="sha256-wZjR52fzng1pJHwx4aV2AO3yyTOXrcDW7jBpJtTwVxw=" crossorigin="anonymous"><!-- bootstrap-toc --><script src="https://cdn.rawgit.com/afeld/bootstrap-toc/v1.0.1/dist/bootstrap-toc.min.js"></script><!-- headroom.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/headroom.min.js" integrity="sha256-AsUX4SJE1+yuDu5+mAVzJbuYNPHj/WroHuZ8Ir/CkE0=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script><!-- clipboard.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><!-- search --><script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/6.4.6/fuse.js" integrity="sha512-zv6Ywkjyktsohkbp9bb45V6tEMoWhzFzXis+LrMehmJZZSys19Yxf1dopHx7WzIKxr5tK2dVcYmaCk2uqdjF4A==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/autocomplete.js/0.38.0/autocomplete.jquery.min.js" integrity="sha512-GU9ayf+66Xx2TmpxqJpliWbT5PiGYxpaG8rfnBEk1LL8l1KGkRShhngwdXK1UgqhAzWpZHSiYPc09/NwDQIGyg==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/mark.min.js" integrity="sha512-5CYOlHXGh6QpOFA/TeTylKLWfB3ftPsde7AnmhuitiTX4K5SqCLBeKro6sPS8ilsz1Q4NRx3v8Ko2IBiszzdww==" crossorigin="anonymous"></script><!-- pkgdown --><script src="../pkgdown.js"></script><meta property="og:title" content="Read whitespace-separated columns into a tibble — read_table"><meta property="og:description" content="read_table() is designed to read the type of textual
+spec_table() returns the column specifications rather than a data frame."><title>Read whitespace-separated columns into a tibble — read_table • readr</title><!-- favicons --><link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png"><link rel="icon" type="image/png" sizes="32x32" href="../favicon-32x32.png"><link rel="apple-touch-icon" type="image/png" sizes="180x180" href="../apple-touch-icon.png"><link rel="apple-touch-icon" type="image/png" sizes="120x120" href="../apple-touch-icon-120x120.png"><link rel="apple-touch-icon" type="image/png" sizes="76x76" href="../apple-touch-icon-76x76.png"><link rel="apple-touch-icon" type="image/png" sizes="60x60" href="../apple-touch-icon-60x60.png"><script src="../deps/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"><link href="../deps/bootstrap-5.1.3/bootstrap.min.css" rel="stylesheet"><script src="../deps/bootstrap-5.1.3/bootstrap.bundle.min.js"></script><link href="../deps/Source_Sans_Pro-0.4.2/font.css" rel="stylesheet"><link href="../deps/Source_Code_Pro-0.4.2/font.css" rel="stylesheet"><!-- Font Awesome icons --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous"><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/v4-shims.min.css" integrity="sha256-wZjR52fzng1pJHwx4aV2AO3yyTOXrcDW7jBpJtTwVxw=" crossorigin="anonymous"><!-- bootstrap-toc --><script src="https://cdn.rawgit.com/afeld/bootstrap-toc/v1.0.1/dist/bootstrap-toc.min.js"></script><!-- headroom.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/headroom.min.js" integrity="sha256-AsUX4SJE1+yuDu5+mAVzJbuYNPHj/WroHuZ8Ir/CkE0=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script><!-- clipboard.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><!-- search --><script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/6.4.6/fuse.js" integrity="sha512-zv6Ywkjyktsohkbp9bb45V6tEMoWhzFzXis+LrMehmJZZSys19Yxf1dopHx7WzIKxr5tK2dVcYmaCk2uqdjF4A==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/autocomplete.js/0.38.0/autocomplete.jquery.min.js" integrity="sha512-GU9ayf+66Xx2TmpxqJpliWbT5PiGYxpaG8rfnBEk1LL8l1KGkRShhngwdXK1UgqhAzWpZHSiYPc09/NwDQIGyg==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/mark.min.js" integrity="sha512-5CYOlHXGh6QpOFA/TeTylKLWfB3ftPsde7AnmhuitiTX4K5SqCLBeKro6sPS8ilsz1Q4NRx3v8Ko2IBiszzdww==" crossorigin="anonymous"></script><!-- pkgdown --><script src="../pkgdown.js"></script><meta property="og:title" content="Read whitespace-separated columns into a tibble — read_table"><meta property="og:description" content="read_table() is designed to read the type of textual
 data where each column is separated by one (or more) columns of space.
 read_table() is like read.table(), it allows any number of whitespace
 characters between columns, and the lines can be of different lengths.
 spec_table() returns the column specifications rather than a data frame."><meta property="og:image" content="https://readr.tidyverse.org/logo.png"><!-- mathjax --><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js" integrity="sha256-nvJJv9wWKEm88qvoQl9ekL2J+k/RWIsaSScxxlsrv8k=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/config/TeX-AMS-MML_HTMLorMML.js" integrity="sha256-84DKXVJXs0/F8OTMzX4UR909+jtl4G7SPypPavF+GfA=" crossorigin="anonymous"></script><!--[if lt IE 9]>
 <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
 <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
-<![endif]--><!-- Global site tag (gtag.js) - Google Analytics --><script async src="https://www.googletagmanager.com/gtag/js?id=UA-115082821-1"></script><script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
-
-  gtag('config', 'UA-115082821-1');
-</script><script defer data-domain="readr.tidyverse.org,all.tidyverse.org" src="https://plausible.io/js/plausible.js"></script></head><body>
+<![endif]--><script defer data-domain="readr.tidyverse.org,all.tidyverse.org" src="https://plausible.io/js/plausible.js"></script></head><body>
     <a href="#container" class="visually-hidden-focusable">Skip to content</a>
     
 
@@ -24,7 +18,7 @@ spec_table() returns the column specifications rather than a data frame."><meta 
     
     <a class="navbar-brand me-2" href="../index.html">readr</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Released version">2.1.2</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Released version">2.1.3</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -91,20 +85,20 @@ characters between columns, and the lines can be of different lengths.</p>
 
     <div class="section level2">
     <h2 id="ref-usage">Usage<a class="anchor" aria-label="anchor" href="#ref-usage"></a></h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">read_table</span><span class="op">(</span>
-  <span class="va">file</span>,
-  col_names <span class="op">=</span> <span class="cn">TRUE</span>,
-  col_types <span class="op">=</span> <span class="cn">NULL</span>,
-  locale <span class="op">=</span> <span class="fu"><a href="locale.html">default_locale</a></span><span class="op">(</span><span class="op">)</span>,
-  na <span class="op">=</span> <span class="st">"NA"</span>,
-  skip <span class="op">=</span> <span class="fl">0</span>,
-  n_max <span class="op">=</span> <span class="cn">Inf</span>,
-  guess_max <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/Extremes.html" class="external-link">min</a></span><span class="op">(</span><span class="va">n_max</span>, <span class="fl">1000</span><span class="op">)</span>,
-  progress <span class="op">=</span> <span class="fu"><a href="show_progress.html">show_progress</a></span><span class="op">(</span><span class="op">)</span>,
-  comment <span class="op">=</span> <span class="st">""</span>,
-  show_col_types <span class="op">=</span> <span class="fu"><a href="should_show_types.html">should_show_types</a></span><span class="op">(</span><span class="op">)</span>,
-  skip_empty_rows <span class="op">=</span> <span class="cn">TRUE</span>
-<span class="op">)</span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">read_table</span><span class="op">(</span></span>
+<span>  <span class="va">file</span>,</span>
+<span>  col_names <span class="op">=</span> <span class="cn">TRUE</span>,</span>
+<span>  col_types <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  locale <span class="op">=</span> <span class="fu"><a href="locale.html">default_locale</a></span><span class="op">(</span><span class="op">)</span>,</span>
+<span>  na <span class="op">=</span> <span class="st">"NA"</span>,</span>
+<span>  skip <span class="op">=</span> <span class="fl">0</span>,</span>
+<span>  n_max <span class="op">=</span> <span class="cn">Inf</span>,</span>
+<span>  guess_max <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/Extremes.html" class="external-link">min</a></span><span class="op">(</span><span class="va">n_max</span>, <span class="fl">1000</span><span class="op">)</span>,</span>
+<span>  progress <span class="op">=</span> <span class="fu"><a href="show_progress.html">show_progress</a></span><span class="op">(</span><span class="op">)</span>,</span>
+<span>  comment <span class="op">=</span> <span class="st">""</span>,</span>
+<span>  show_col_types <span class="op">=</span> <span class="fu"><a href="should_show_types.html">should_show_types</a></span><span class="op">(</span><span class="op">)</span>,</span>
+<span>  skip_empty_rows <span class="op">=</span> <span class="cn">TRUE</span></span>
+<span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div class="section level2">
@@ -122,6 +116,8 @@ literal data, the input must be either wrapped with <code><a href="https://rdrr.
 containing at least one new line, or be a vector containing at least one
 string with a new line.</p>
 <p>Using a value of <code><a href="clipboard.html">clipboard()</a></code> will read from the system clipboard.</p></dd>
+
+
 <dt>col_names</dt>
 <dd><p>Either <code>TRUE</code>, <code>FALSE</code> or a character vector
 of column names.</p>
@@ -135,6 +131,8 @@ the first row of the output data frame.</p>
 in with dummy names <code>...1</code>, <code>...2</code> etc. Duplicate column names
 will generate a warning and be made unique, see <code>name_repair</code> to control
 how this is done.</p></dd>
+
+
 <dt>col_types</dt>
 <dd><p>One of <code>NULL</code>, a <code><a href="cols.html">cols()</a></code> specification, or
 a string. See <code><a href="../articles/readr.html">vignette("readr")</a></code> for more details.</p>
@@ -161,39 +159,58 @@ character represents one column:</p><ul><li><p>c = character</p></li>
 message showing what <code>readr</code> guessed they were. To remove this message,
 set <code>show_col_types = FALSE</code> or set `options(readr.show_col_types = FALSE).</p></li>
 </ul></dd>
+
+
 <dt>locale</dt>
 <dd><p>The locale controls defaults that vary from place to place.
 The default locale is US-centric (like R), but you can use
 <code><a href="locale.html">locale()</a></code> to create your own locale that controls things like
 the default time zone, encoding, decimal mark, big mark, and day/month
 names.</p></dd>
+
+
 <dt>na</dt>
 <dd><p>Character vector of strings to interpret as missing values. Set this
 option to <code><a href="https://rdrr.io/r/base/character.html" class="external-link">character()</a></code> to indicate no missing values.</p></dd>
+
+
 <dt>skip</dt>
 <dd><p>Number of lines to skip before reading data.</p></dd>
+
+
 <dt>n_max</dt>
 <dd><p>Maximum number of lines to read.</p></dd>
+
+
 <dt>guess_max</dt>
 <dd><p>Maximum number of lines to use for guessing column types.
 See <code><a href="../articles/column-types.html">vignette("column-types", package = "readr")</a></code> for more details.</p></dd>
+
+
 <dt>progress</dt>
 <dd><p>Display a progress bar? By default it will only display
 in an interactive session and not while knitting a document. The automatic
 progress bar can be disabled by setting option <code>readr.show_progress</code> to
 <code>FALSE</code>.</p></dd>
+
+
 <dt>comment</dt>
 <dd><p>A string used to identify comments. Any text after the
 comment characters will be silently ignored.</p></dd>
+
+
 <dt>show_col_types</dt>
 <dd><p>If <code>FALSE</code>, do not show the guessed column types. If
 <code>TRUE</code> always show the column types, even if they are supplied. If <code>NULL</code>
 (the default) only show the column types if they are not explicitly supplied
 by the <code>col_types</code> argument.</p></dd>
+
+
 <dt>skip_empty_rows</dt>
 <dd><p>Should blank rows be ignored altogether? i.e. If this
 option is <code>TRUE</code> then blank rows will not be represented at all.  If it is
 <code>FALSE</code> then they will be represented by <code>NA</code> values in all the columns.</p></dd>
+
 </dl></div>
     <div class="section level2">
     <h2 id="see-also">See also<a class="anchor" aria-label="anchor" href="#see-also"></a></h2>
@@ -204,13 +221,13 @@ tabular data with non-standard formatting.</p></div>
 
     <div class="section level2">
     <h2 id="ref-examples">Examples<a class="anchor" aria-label="anchor" href="#ref-examples"></a></h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span class="va">ws</span> <span class="op">&lt;-</span> <span class="fu"><a href="readr_example.html">readr_example</a></span><span class="op">(</span><span class="st">"whitespace-sample.txt"</span><span class="op">)</span></span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/base/writeLines.html" class="external-link">writeLines</a></span><span class="op">(</span><span class="fu"><a href="read_lines.html">read_lines</a></span><span class="op">(</span><span class="va">ws</span><span class="op">)</span><span class="op">)</span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="va">ws</span> <span class="op">&lt;-</span> <span class="fu"><a href="readr_example.html">readr_example</a></span><span class="op">(</span><span class="st">"whitespace-sample.txt"</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/writeLines.html" class="external-link">writeLines</a></span><span class="op">(</span><span class="fu"><a href="read_lines.html">read_lines</a></span><span class="op">(</span><span class="va">ws</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> first last state phone</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> John Smith WA 418-Y11-4111</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Mary Hartford CA 319-Z19-4341</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Evan Nolan IL 219-532-c301</span>
-<span class="r-in"><span class="fu">read_table</span><span class="op">(</span><span class="va">ws</span><span class="op">)</span></span>
+<span class="r-in"><span><span class="fu">read_table</span><span class="op">(</span><span class="va">ws</span><span class="op">)</span></span></span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">──</span> <span style="font-weight: bold;">Column specification</span> <span style="color: #00BBBB;">──────────────────────────────────────────────────</span></span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> cols(</span>
@@ -238,7 +255,7 @@ tabular data with non-standard formatting.</p></div>
 </div>
 
 <div class="pkgdown-footer-right">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.2.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.6.</p>
 </div>
 
   </div></footer></body></html>

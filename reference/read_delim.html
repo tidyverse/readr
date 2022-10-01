@@ -3,20 +3,14 @@
 read_delim(). They're useful for reading the most common types of
 flat file data, comma separated values and tab separated values,
 respectively. read_csv2() uses ; for the field separator and , for the
-decimal point. This format is common in some European countries."><title>Read a delimited file (including CSV and TSV) into a tibble — read_delim • readr</title><!-- favicons --><link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png"><link rel="icon" type="image/png" sizes="32x32" href="../favicon-32x32.png"><link rel="apple-touch-icon" type="image/png" sizes="180x180" href="../apple-touch-icon.png"><link rel="apple-touch-icon" type="image/png" sizes="120x120" href="../apple-touch-icon-120x120.png"><link rel="apple-touch-icon" type="image/png" sizes="76x76" href="../apple-touch-icon-76x76.png"><link rel="apple-touch-icon" type="image/png" sizes="60x60" href="../apple-touch-icon-60x60.png"><script src="../deps/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"><link href="../deps/bootstrap-5.1.0/bootstrap.min.css" rel="stylesheet"><script src="../deps/bootstrap-5.1.0/bootstrap.bundle.min.js"></script><link href="../deps/_Source%20Sans%20Pro-0.4.0/font.css" rel="stylesheet"><link href="../deps/_Source%20Code%20Pro-0.4.0/font.css" rel="stylesheet"><!-- Font Awesome icons --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous"><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/v4-shims.min.css" integrity="sha256-wZjR52fzng1pJHwx4aV2AO3yyTOXrcDW7jBpJtTwVxw=" crossorigin="anonymous"><!-- bootstrap-toc --><script src="https://cdn.rawgit.com/afeld/bootstrap-toc/v1.0.1/dist/bootstrap-toc.min.js"></script><!-- headroom.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/headroom.min.js" integrity="sha256-AsUX4SJE1+yuDu5+mAVzJbuYNPHj/WroHuZ8Ir/CkE0=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script><!-- clipboard.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><!-- search --><script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/6.4.6/fuse.js" integrity="sha512-zv6Ywkjyktsohkbp9bb45V6tEMoWhzFzXis+LrMehmJZZSys19Yxf1dopHx7WzIKxr5tK2dVcYmaCk2uqdjF4A==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/autocomplete.js/0.38.0/autocomplete.jquery.min.js" integrity="sha512-GU9ayf+66Xx2TmpxqJpliWbT5PiGYxpaG8rfnBEk1LL8l1KGkRShhngwdXK1UgqhAzWpZHSiYPc09/NwDQIGyg==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/mark.min.js" integrity="sha512-5CYOlHXGh6QpOFA/TeTylKLWfB3ftPsde7AnmhuitiTX4K5SqCLBeKro6sPS8ilsz1Q4NRx3v8Ko2IBiszzdww==" crossorigin="anonymous"></script><!-- pkgdown --><script src="../pkgdown.js"></script><meta property="og:title" content="Read a delimited file (including CSV and TSV) into a tibble — read_delim"><meta property="og:description" content="read_csv() and read_tsv() are special cases of the more general
+decimal point. This format is common in some European countries."><title>Read a delimited file (including CSV and TSV) into a tibble — read_delim • readr</title><!-- favicons --><link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png"><link rel="icon" type="image/png" sizes="32x32" href="../favicon-32x32.png"><link rel="apple-touch-icon" type="image/png" sizes="180x180" href="../apple-touch-icon.png"><link rel="apple-touch-icon" type="image/png" sizes="120x120" href="../apple-touch-icon-120x120.png"><link rel="apple-touch-icon" type="image/png" sizes="76x76" href="../apple-touch-icon-76x76.png"><link rel="apple-touch-icon" type="image/png" sizes="60x60" href="../apple-touch-icon-60x60.png"><script src="../deps/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"><link href="../deps/bootstrap-5.1.3/bootstrap.min.css" rel="stylesheet"><script src="../deps/bootstrap-5.1.3/bootstrap.bundle.min.js"></script><link href="../deps/Source_Sans_Pro-0.4.2/font.css" rel="stylesheet"><link href="../deps/Source_Code_Pro-0.4.2/font.css" rel="stylesheet"><!-- Font Awesome icons --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous"><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/v4-shims.min.css" integrity="sha256-wZjR52fzng1pJHwx4aV2AO3yyTOXrcDW7jBpJtTwVxw=" crossorigin="anonymous"><!-- bootstrap-toc --><script src="https://cdn.rawgit.com/afeld/bootstrap-toc/v1.0.1/dist/bootstrap-toc.min.js"></script><!-- headroom.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/headroom.min.js" integrity="sha256-AsUX4SJE1+yuDu5+mAVzJbuYNPHj/WroHuZ8Ir/CkE0=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script><!-- clipboard.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><!-- search --><script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/6.4.6/fuse.js" integrity="sha512-zv6Ywkjyktsohkbp9bb45V6tEMoWhzFzXis+LrMehmJZZSys19Yxf1dopHx7WzIKxr5tK2dVcYmaCk2uqdjF4A==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/autocomplete.js/0.38.0/autocomplete.jquery.min.js" integrity="sha512-GU9ayf+66Xx2TmpxqJpliWbT5PiGYxpaG8rfnBEk1LL8l1KGkRShhngwdXK1UgqhAzWpZHSiYPc09/NwDQIGyg==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/mark.min.js" integrity="sha512-5CYOlHXGh6QpOFA/TeTylKLWfB3ftPsde7AnmhuitiTX4K5SqCLBeKro6sPS8ilsz1Q4NRx3v8Ko2IBiszzdww==" crossorigin="anonymous"></script><!-- pkgdown --><script src="../pkgdown.js"></script><meta property="og:title" content="Read a delimited file (including CSV and TSV) into a tibble — read_delim"><meta property="og:description" content="read_csv() and read_tsv() are special cases of the more general
 read_delim(). They're useful for reading the most common types of
 flat file data, comma separated values and tab separated values,
 respectively. read_csv2() uses ; for the field separator and , for the
 decimal point. This format is common in some European countries."><meta property="og:image" content="https://readr.tidyverse.org/logo.png"><!-- mathjax --><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js" integrity="sha256-nvJJv9wWKEm88qvoQl9ekL2J+k/RWIsaSScxxlsrv8k=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/config/TeX-AMS-MML_HTMLorMML.js" integrity="sha256-84DKXVJXs0/F8OTMzX4UR909+jtl4G7SPypPavF+GfA=" crossorigin="anonymous"></script><!--[if lt IE 9]>
 <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
 <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
-<![endif]--><!-- Global site tag (gtag.js) - Google Analytics --><script async src="https://www.googletagmanager.com/gtag/js?id=UA-115082821-1"></script><script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
-
-  gtag('config', 'UA-115082821-1');
-</script><script defer data-domain="readr.tidyverse.org,all.tidyverse.org" src="https://plausible.io/js/plausible.js"></script></head><body>
+<![endif]--><script defer data-domain="readr.tidyverse.org,all.tidyverse.org" src="https://plausible.io/js/plausible.js"></script></head><body>
     <a href="#container" class="visually-hidden-focusable">Skip to content</a>
     
 
@@ -24,7 +18,7 @@ decimal point. This format is common in some European countries."><meta property
     
     <a class="navbar-brand me-2" href="../index.html">readr</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Released version">2.1.2</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Released version">2.1.3</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -91,100 +85,100 @@ decimal point. This format is common in some European countries.</p>
 
     <div class="section level2">
     <h2 id="ref-usage">Usage<a class="anchor" aria-label="anchor" href="#ref-usage"></a></h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">read_delim</span><span class="op">(</span>
-  <span class="va">file</span>,
-  delim <span class="op">=</span> <span class="cn">NULL</span>,
-  quote <span class="op">=</span> <span class="st">"\""</span>,
-  escape_backslash <span class="op">=</span> <span class="cn">FALSE</span>,
-  escape_double <span class="op">=</span> <span class="cn">TRUE</span>,
-  col_names <span class="op">=</span> <span class="cn">TRUE</span>,
-  col_types <span class="op">=</span> <span class="cn">NULL</span>,
-  col_select <span class="op">=</span> <span class="cn">NULL</span>,
-  id <span class="op">=</span> <span class="cn">NULL</span>,
-  locale <span class="op">=</span> <span class="fu"><a href="locale.html">default_locale</a></span><span class="op">(</span><span class="op">)</span>,
-  na <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">""</span>, <span class="st">"NA"</span><span class="op">)</span>,
-  quoted_na <span class="op">=</span> <span class="cn">TRUE</span>,
-  comment <span class="op">=</span> <span class="st">""</span>,
-  trim_ws <span class="op">=</span> <span class="cn">FALSE</span>,
-  skip <span class="op">=</span> <span class="fl">0</span>,
-  n_max <span class="op">=</span> <span class="cn">Inf</span>,
-  guess_max <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/Extremes.html" class="external-link">min</a></span><span class="op">(</span><span class="fl">1000</span>, <span class="va">n_max</span><span class="op">)</span>,
-  name_repair <span class="op">=</span> <span class="st">"unique"</span>,
-  num_threads <span class="op">=</span> <span class="fu"><a href="readr_threads.html">readr_threads</a></span><span class="op">(</span><span class="op">)</span>,
-  progress <span class="op">=</span> <span class="fu"><a href="show_progress.html">show_progress</a></span><span class="op">(</span><span class="op">)</span>,
-  show_col_types <span class="op">=</span> <span class="fu"><a href="should_show_types.html">should_show_types</a></span><span class="op">(</span><span class="op">)</span>,
-  skip_empty_rows <span class="op">=</span> <span class="cn">TRUE</span>,
-  lazy <span class="op">=</span> <span class="fu"><a href="should_read_lazy.html">should_read_lazy</a></span><span class="op">(</span><span class="op">)</span>
-<span class="op">)</span>
-
-<span class="fu">read_csv</span><span class="op">(</span>
-  <span class="va">file</span>,
-  col_names <span class="op">=</span> <span class="cn">TRUE</span>,
-  col_types <span class="op">=</span> <span class="cn">NULL</span>,
-  col_select <span class="op">=</span> <span class="cn">NULL</span>,
-  id <span class="op">=</span> <span class="cn">NULL</span>,
-  locale <span class="op">=</span> <span class="fu"><a href="locale.html">default_locale</a></span><span class="op">(</span><span class="op">)</span>,
-  na <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">""</span>, <span class="st">"NA"</span><span class="op">)</span>,
-  quoted_na <span class="op">=</span> <span class="cn">TRUE</span>,
-  quote <span class="op">=</span> <span class="st">"\""</span>,
-  comment <span class="op">=</span> <span class="st">""</span>,
-  trim_ws <span class="op">=</span> <span class="cn">TRUE</span>,
-  skip <span class="op">=</span> <span class="fl">0</span>,
-  n_max <span class="op">=</span> <span class="cn">Inf</span>,
-  guess_max <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/Extremes.html" class="external-link">min</a></span><span class="op">(</span><span class="fl">1000</span>, <span class="va">n_max</span><span class="op">)</span>,
-  name_repair <span class="op">=</span> <span class="st">"unique"</span>,
-  num_threads <span class="op">=</span> <span class="fu"><a href="readr_threads.html">readr_threads</a></span><span class="op">(</span><span class="op">)</span>,
-  progress <span class="op">=</span> <span class="fu"><a href="show_progress.html">show_progress</a></span><span class="op">(</span><span class="op">)</span>,
-  show_col_types <span class="op">=</span> <span class="fu"><a href="should_show_types.html">should_show_types</a></span><span class="op">(</span><span class="op">)</span>,
-  skip_empty_rows <span class="op">=</span> <span class="cn">TRUE</span>,
-  lazy <span class="op">=</span> <span class="fu"><a href="should_read_lazy.html">should_read_lazy</a></span><span class="op">(</span><span class="op">)</span>
-<span class="op">)</span>
-
-<span class="fu">read_csv2</span><span class="op">(</span>
-  <span class="va">file</span>,
-  col_names <span class="op">=</span> <span class="cn">TRUE</span>,
-  col_types <span class="op">=</span> <span class="cn">NULL</span>,
-  col_select <span class="op">=</span> <span class="cn">NULL</span>,
-  id <span class="op">=</span> <span class="cn">NULL</span>,
-  locale <span class="op">=</span> <span class="fu"><a href="locale.html">default_locale</a></span><span class="op">(</span><span class="op">)</span>,
-  na <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">""</span>, <span class="st">"NA"</span><span class="op">)</span>,
-  quoted_na <span class="op">=</span> <span class="cn">TRUE</span>,
-  quote <span class="op">=</span> <span class="st">"\""</span>,
-  comment <span class="op">=</span> <span class="st">""</span>,
-  trim_ws <span class="op">=</span> <span class="cn">TRUE</span>,
-  skip <span class="op">=</span> <span class="fl">0</span>,
-  n_max <span class="op">=</span> <span class="cn">Inf</span>,
-  guess_max <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/Extremes.html" class="external-link">min</a></span><span class="op">(</span><span class="fl">1000</span>, <span class="va">n_max</span><span class="op">)</span>,
-  progress <span class="op">=</span> <span class="fu"><a href="show_progress.html">show_progress</a></span><span class="op">(</span><span class="op">)</span>,
-  name_repair <span class="op">=</span> <span class="st">"unique"</span>,
-  num_threads <span class="op">=</span> <span class="fu"><a href="readr_threads.html">readr_threads</a></span><span class="op">(</span><span class="op">)</span>,
-  show_col_types <span class="op">=</span> <span class="fu"><a href="should_show_types.html">should_show_types</a></span><span class="op">(</span><span class="op">)</span>,
-  skip_empty_rows <span class="op">=</span> <span class="cn">TRUE</span>,
-  lazy <span class="op">=</span> <span class="fu"><a href="should_read_lazy.html">should_read_lazy</a></span><span class="op">(</span><span class="op">)</span>
-<span class="op">)</span>
-
-<span class="fu">read_tsv</span><span class="op">(</span>
-  <span class="va">file</span>,
-  col_names <span class="op">=</span> <span class="cn">TRUE</span>,
-  col_types <span class="op">=</span> <span class="cn">NULL</span>,
-  col_select <span class="op">=</span> <span class="cn">NULL</span>,
-  id <span class="op">=</span> <span class="cn">NULL</span>,
-  locale <span class="op">=</span> <span class="fu"><a href="locale.html">default_locale</a></span><span class="op">(</span><span class="op">)</span>,
-  na <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">""</span>, <span class="st">"NA"</span><span class="op">)</span>,
-  quoted_na <span class="op">=</span> <span class="cn">TRUE</span>,
-  quote <span class="op">=</span> <span class="st">"\""</span>,
-  comment <span class="op">=</span> <span class="st">""</span>,
-  trim_ws <span class="op">=</span> <span class="cn">TRUE</span>,
-  skip <span class="op">=</span> <span class="fl">0</span>,
-  n_max <span class="op">=</span> <span class="cn">Inf</span>,
-  guess_max <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/Extremes.html" class="external-link">min</a></span><span class="op">(</span><span class="fl">1000</span>, <span class="va">n_max</span><span class="op">)</span>,
-  progress <span class="op">=</span> <span class="fu"><a href="show_progress.html">show_progress</a></span><span class="op">(</span><span class="op">)</span>,
-  name_repair <span class="op">=</span> <span class="st">"unique"</span>,
-  num_threads <span class="op">=</span> <span class="fu"><a href="readr_threads.html">readr_threads</a></span><span class="op">(</span><span class="op">)</span>,
-  show_col_types <span class="op">=</span> <span class="fu"><a href="should_show_types.html">should_show_types</a></span><span class="op">(</span><span class="op">)</span>,
-  skip_empty_rows <span class="op">=</span> <span class="cn">TRUE</span>,
-  lazy <span class="op">=</span> <span class="fu"><a href="should_read_lazy.html">should_read_lazy</a></span><span class="op">(</span><span class="op">)</span>
-<span class="op">)</span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">read_delim</span><span class="op">(</span></span>
+<span>  <span class="va">file</span>,</span>
+<span>  delim <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  quote <span class="op">=</span> <span class="st">"\""</span>,</span>
+<span>  escape_backslash <span class="op">=</span> <span class="cn">FALSE</span>,</span>
+<span>  escape_double <span class="op">=</span> <span class="cn">TRUE</span>,</span>
+<span>  col_names <span class="op">=</span> <span class="cn">TRUE</span>,</span>
+<span>  col_types <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  col_select <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  id <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  locale <span class="op">=</span> <span class="fu"><a href="locale.html">default_locale</a></span><span class="op">(</span><span class="op">)</span>,</span>
+<span>  na <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">""</span>, <span class="st">"NA"</span><span class="op">)</span>,</span>
+<span>  quoted_na <span class="op">=</span> <span class="cn">TRUE</span>,</span>
+<span>  comment <span class="op">=</span> <span class="st">""</span>,</span>
+<span>  trim_ws <span class="op">=</span> <span class="cn">FALSE</span>,</span>
+<span>  skip <span class="op">=</span> <span class="fl">0</span>,</span>
+<span>  n_max <span class="op">=</span> <span class="cn">Inf</span>,</span>
+<span>  guess_max <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/Extremes.html" class="external-link">min</a></span><span class="op">(</span><span class="fl">1000</span>, <span class="va">n_max</span><span class="op">)</span>,</span>
+<span>  name_repair <span class="op">=</span> <span class="st">"unique"</span>,</span>
+<span>  num_threads <span class="op">=</span> <span class="fu"><a href="readr_threads.html">readr_threads</a></span><span class="op">(</span><span class="op">)</span>,</span>
+<span>  progress <span class="op">=</span> <span class="fu"><a href="show_progress.html">show_progress</a></span><span class="op">(</span><span class="op">)</span>,</span>
+<span>  show_col_types <span class="op">=</span> <span class="fu"><a href="should_show_types.html">should_show_types</a></span><span class="op">(</span><span class="op">)</span>,</span>
+<span>  skip_empty_rows <span class="op">=</span> <span class="cn">TRUE</span>,</span>
+<span>  lazy <span class="op">=</span> <span class="fu"><a href="should_read_lazy.html">should_read_lazy</a></span><span class="op">(</span><span class="op">)</span></span>
+<span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu">read_csv</span><span class="op">(</span></span>
+<span>  <span class="va">file</span>,</span>
+<span>  col_names <span class="op">=</span> <span class="cn">TRUE</span>,</span>
+<span>  col_types <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  col_select <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  id <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  locale <span class="op">=</span> <span class="fu"><a href="locale.html">default_locale</a></span><span class="op">(</span><span class="op">)</span>,</span>
+<span>  na <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">""</span>, <span class="st">"NA"</span><span class="op">)</span>,</span>
+<span>  quoted_na <span class="op">=</span> <span class="cn">TRUE</span>,</span>
+<span>  quote <span class="op">=</span> <span class="st">"\""</span>,</span>
+<span>  comment <span class="op">=</span> <span class="st">""</span>,</span>
+<span>  trim_ws <span class="op">=</span> <span class="cn">TRUE</span>,</span>
+<span>  skip <span class="op">=</span> <span class="fl">0</span>,</span>
+<span>  n_max <span class="op">=</span> <span class="cn">Inf</span>,</span>
+<span>  guess_max <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/Extremes.html" class="external-link">min</a></span><span class="op">(</span><span class="fl">1000</span>, <span class="va">n_max</span><span class="op">)</span>,</span>
+<span>  name_repair <span class="op">=</span> <span class="st">"unique"</span>,</span>
+<span>  num_threads <span class="op">=</span> <span class="fu"><a href="readr_threads.html">readr_threads</a></span><span class="op">(</span><span class="op">)</span>,</span>
+<span>  progress <span class="op">=</span> <span class="fu"><a href="show_progress.html">show_progress</a></span><span class="op">(</span><span class="op">)</span>,</span>
+<span>  show_col_types <span class="op">=</span> <span class="fu"><a href="should_show_types.html">should_show_types</a></span><span class="op">(</span><span class="op">)</span>,</span>
+<span>  skip_empty_rows <span class="op">=</span> <span class="cn">TRUE</span>,</span>
+<span>  lazy <span class="op">=</span> <span class="fu"><a href="should_read_lazy.html">should_read_lazy</a></span><span class="op">(</span><span class="op">)</span></span>
+<span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu">read_csv2</span><span class="op">(</span></span>
+<span>  <span class="va">file</span>,</span>
+<span>  col_names <span class="op">=</span> <span class="cn">TRUE</span>,</span>
+<span>  col_types <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  col_select <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  id <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  locale <span class="op">=</span> <span class="fu"><a href="locale.html">default_locale</a></span><span class="op">(</span><span class="op">)</span>,</span>
+<span>  na <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">""</span>, <span class="st">"NA"</span><span class="op">)</span>,</span>
+<span>  quoted_na <span class="op">=</span> <span class="cn">TRUE</span>,</span>
+<span>  quote <span class="op">=</span> <span class="st">"\""</span>,</span>
+<span>  comment <span class="op">=</span> <span class="st">""</span>,</span>
+<span>  trim_ws <span class="op">=</span> <span class="cn">TRUE</span>,</span>
+<span>  skip <span class="op">=</span> <span class="fl">0</span>,</span>
+<span>  n_max <span class="op">=</span> <span class="cn">Inf</span>,</span>
+<span>  guess_max <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/Extremes.html" class="external-link">min</a></span><span class="op">(</span><span class="fl">1000</span>, <span class="va">n_max</span><span class="op">)</span>,</span>
+<span>  progress <span class="op">=</span> <span class="fu"><a href="show_progress.html">show_progress</a></span><span class="op">(</span><span class="op">)</span>,</span>
+<span>  name_repair <span class="op">=</span> <span class="st">"unique"</span>,</span>
+<span>  num_threads <span class="op">=</span> <span class="fu"><a href="readr_threads.html">readr_threads</a></span><span class="op">(</span><span class="op">)</span>,</span>
+<span>  show_col_types <span class="op">=</span> <span class="fu"><a href="should_show_types.html">should_show_types</a></span><span class="op">(</span><span class="op">)</span>,</span>
+<span>  skip_empty_rows <span class="op">=</span> <span class="cn">TRUE</span>,</span>
+<span>  lazy <span class="op">=</span> <span class="fu"><a href="should_read_lazy.html">should_read_lazy</a></span><span class="op">(</span><span class="op">)</span></span>
+<span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu">read_tsv</span><span class="op">(</span></span>
+<span>  <span class="va">file</span>,</span>
+<span>  col_names <span class="op">=</span> <span class="cn">TRUE</span>,</span>
+<span>  col_types <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  col_select <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  id <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  locale <span class="op">=</span> <span class="fu"><a href="locale.html">default_locale</a></span><span class="op">(</span><span class="op">)</span>,</span>
+<span>  na <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">""</span>, <span class="st">"NA"</span><span class="op">)</span>,</span>
+<span>  quoted_na <span class="op">=</span> <span class="cn">TRUE</span>,</span>
+<span>  quote <span class="op">=</span> <span class="st">"\""</span>,</span>
+<span>  comment <span class="op">=</span> <span class="st">""</span>,</span>
+<span>  trim_ws <span class="op">=</span> <span class="cn">TRUE</span>,</span>
+<span>  skip <span class="op">=</span> <span class="fl">0</span>,</span>
+<span>  n_max <span class="op">=</span> <span class="cn">Inf</span>,</span>
+<span>  guess_max <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/Extremes.html" class="external-link">min</a></span><span class="op">(</span><span class="fl">1000</span>, <span class="va">n_max</span><span class="op">)</span>,</span>
+<span>  progress <span class="op">=</span> <span class="fu"><a href="show_progress.html">show_progress</a></span><span class="op">(</span><span class="op">)</span>,</span>
+<span>  name_repair <span class="op">=</span> <span class="st">"unique"</span>,</span>
+<span>  num_threads <span class="op">=</span> <span class="fu"><a href="readr_threads.html">readr_threads</a></span><span class="op">(</span><span class="op">)</span>,</span>
+<span>  show_col_types <span class="op">=</span> <span class="fu"><a href="should_show_types.html">should_show_types</a></span><span class="op">(</span><span class="op">)</span>,</span>
+<span>  skip_empty_rows <span class="op">=</span> <span class="cn">TRUE</span>,</span>
+<span>  lazy <span class="op">=</span> <span class="fu"><a href="should_read_lazy.html">should_read_lazy</a></span><span class="op">(</span><span class="op">)</span></span>
+<span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div class="section level2">
@@ -202,19 +196,29 @@ literal data, the input must be either wrapped with <code><a href="https://rdrr.
 containing at least one new line, or be a vector containing at least one
 string with a new line.</p>
 <p>Using a value of <code><a href="clipboard.html">clipboard()</a></code> will read from the system clipboard.</p></dd>
+
+
 <dt>delim</dt>
 <dd><p>Single character used to separate fields within a record.</p></dd>
+
+
 <dt>quote</dt>
 <dd><p>Single character used to quote strings.</p></dd>
+
+
 <dt>escape_backslash</dt>
 <dd><p>Does the file use backslashes to escape special
 characters? This is more general than <code>escape_double</code> as backslashes
 can be used to escape the delimiter character, the quote character, or
 to add special characters like <code>\\n</code>.</p></dd>
+
+
 <dt>escape_double</dt>
 <dd><p>Does the file escape quotes by doubling them?
 i.e. If this option is <code>TRUE</code>, the value <code>""""</code> represents
 a single quote, <code>\"</code>.</p></dd>
+
+
 <dt>col_names</dt>
 <dd><p>Either <code>TRUE</code>, <code>FALSE</code> or a character vector
 of column names.</p>
@@ -228,6 +232,8 @@ the first row of the output data frame.</p>
 in with dummy names <code>...1</code>, <code>...2</code> etc. Duplicate column names
 will generate a warning and be made unique, see <code>name_repair</code> to control
 how this is done.</p></dd>
+
+
 <dt>col_types</dt>
 <dd><p>One of <code>NULL</code>, a <code><a href="cols.html">cols()</a></code> specification, or
 a string. See <code><a href="../articles/readr.html">vignette("readr")</a></code> for more details.</p>
@@ -254,45 +260,67 @@ character represents one column:</p><ul><li><p>c = character</p></li>
 message showing what <code>readr</code> guessed they were. To remove this message,
 set <code>show_col_types = FALSE</code> or set `options(readr.show_col_types = FALSE).</p></li>
 </ul></dd>
+
+
 <dt>col_select</dt>
 <dd><p>Columns to include in the results. You can use the same
 mini-language as <code><a href="https://dplyr.tidyverse.org/reference/select.html" class="external-link">dplyr::select()</a></code> to refer to the columns by name. Use
-<code><a href="https://rdrr.io/r/base/c.html" class="external-link">c()</a></code> or <code><a href="https://rdrr.io/r/base/list.html" class="external-link">list()</a></code> to use more than one selection expression. Although this
+<code><a href="https://rdrr.io/r/base/c.html" class="external-link">c()</a></code> to use more than one selection expression. Although this
 usage is less common, <code>col_select</code> also accepts a numeric column index. See
 <code><a href="https://tidyselect.r-lib.org/reference/language.html" class="external-link">?tidyselect::language</a></code> for full details on the
 selection language.</p></dd>
+
+
 <dt>id</dt>
 <dd><p>The name of a column in which to store the file path. This is
 useful when reading multiple input files and there is data in the file
 paths, such as the data collection date. If <code>NULL</code> (the default) no extra
 column is created.</p></dd>
+
+
 <dt>locale</dt>
 <dd><p>The locale controls defaults that vary from place to place.
 The default locale is US-centric (like R), but you can use
 <code><a href="locale.html">locale()</a></code> to create your own locale that controls things like
 the default time zone, encoding, decimal mark, big mark, and day/month
 names.</p></dd>
+
+
 <dt>na</dt>
 <dd><p>Character vector of strings to interpret as missing values. Set this
 option to <code><a href="https://rdrr.io/r/base/character.html" class="external-link">character()</a></code> to indicate no missing values.</p></dd>
+
+
 <dt>quoted_na</dt>
 <dd><p><a href="https://lifecycle.r-lib.org/articles/stages.html#deprecated" class="external-link"><img src="figures/lifecycle-deprecated.svg" alt="[Deprecated]"></a> Should missing values
 inside quotes be treated as missing values (the default) or strings. This
 parameter is soft deprecated as of readr 2.0.0.</p></dd>
+
+
 <dt>comment</dt>
 <dd><p>A string used to identify comments. Any text after the
 comment characters will be silently ignored.</p></dd>
+
+
 <dt>trim_ws</dt>
 <dd><p>Should leading and trailing whitespace (ASCII spaces and tabs) be trimmed from
 each field before parsing it?</p></dd>
+
+
 <dt>skip</dt>
 <dd><p>Number of lines to skip before reading data. If <code>comment</code> is
 supplied any commented lines are ignored <em>after</em> skipping.</p></dd>
+
+
 <dt>n_max</dt>
 <dd><p>Maximum number of lines to read.</p></dd>
+
+
 <dt>guess_max</dt>
 <dd><p>Maximum number of lines to use for guessing column types.
 See <code><a href="../articles/column-types.html">vignette("column-types", package = "readr")</a></code> for more details.</p></dd>
+
+
 <dt>name_repair</dt>
 <dd><p>Handling of column names. The default behaviour is to
 ensure column names are <code>"unique"</code>. Various repair strategies are
@@ -306,52 +334,67 @@ for names in the style of base R).</p></li>
 </ul><p>This argument is passed on as <code>repair</code> to <code><a href="https://vctrs.r-lib.org/reference/vec_as_names.html" class="external-link">vctrs::vec_as_names()</a></code>.
 See there for more details on these terms and the strategies used
 to enforce them.</p></dd>
+
+
 <dt>num_threads</dt>
 <dd><p>The number of processing threads to use for initial
 parsing and lazy reading of data. If your data contains newlines within
 fields the parser should automatically detect this and fall back to using
 one thread only. However if you know your file has newlines within quoted
 fields it is safest to set <code>num_threads = 1</code> explicitly.</p></dd>
+
+
 <dt>progress</dt>
 <dd><p>Display a progress bar? By default it will only display
 in an interactive session and not while knitting a document. The automatic
 progress bar can be disabled by setting option <code>readr.show_progress</code> to
 <code>FALSE</code>.</p></dd>
+
+
 <dt>show_col_types</dt>
 <dd><p>If <code>FALSE</code>, do not show the guessed column types. If
 <code>TRUE</code> always show the column types, even if they are supplied. If <code>NULL</code>
 (the default) only show the column types if they are not explicitly supplied
 by the <code>col_types</code> argument.</p></dd>
+
+
 <dt>skip_empty_rows</dt>
 <dd><p>Should blank rows be ignored altogether? i.e. If this
 option is <code>TRUE</code> then blank rows will not be represented at all.  If it is
 <code>FALSE</code> then they will be represented by <code>NA</code> values in all the columns.</p></dd>
+
+
 <dt>lazy</dt>
-<dd><p>Read values lazily? By default the file is initially only
-indexed and the values are read lazily when accessed. Lazy reading is
-useful interactively, particularly if you are only interested in a subset
-of the full dataset. <em>Note</em>, if you later write to the same file you read
-from you need to set <code>lazy = FALSE</code>. On Windows the file will be locked
-and on other systems the memory map will become invalid.</p></dd>
+<dd><p>Read values lazily? By default, this is <code>FALSE</code>, because there
+are special considerations when reading a file lazily that have tripped up
+some users. Specifically, things get tricky when reading and then writing
+back into the same file. But, in general, lazy reading (<code>lazy = TRUE</code>) has
+many benefits, especially for interactive use and when your downstream work
+only involves a subset of the rows or columns.</p>
+<p>Learn more in <code><a href="should_read_lazy.html">should_read_lazy()</a></code> and in the documentation for the
+<code>altrep</code> argument of <code><a href="https://vroom.r-lib.org/reference/vroom.html" class="external-link">vroom::vroom()</a></code>.</p></dd>
+
 </dl></div>
     <div class="section level2">
     <h2 id="value">Value<a class="anchor" aria-label="anchor" href="#value"></a></h2>
-    <p>A <code><a href="https://tibble.tidyverse.org/reference/tibble.html" class="external-link">tibble()</a></code>. If there are parsing problems, a warning will alert you.
+    
+
+<p>A <code><a href="https://tibble.tidyverse.org/reference/tibble.html" class="external-link">tibble()</a></code>. If there are parsing problems, a warning will alert you.
 You can retrieve the full details by calling <code><a href="problems.html">problems()</a></code> on your dataset.</p>
     </div>
 
     <div class="section level2">
     <h2 id="ref-examples">Examples<a class="anchor" aria-label="anchor" href="#ref-examples"></a></h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span class="co"># Input sources -------------------------------------------------------------</span></span>
-<span class="r-in"><span class="co"># Read from a path</span></span>
-<span class="r-in"><span class="fu">read_csv</span><span class="op">(</span><span class="fu"><a href="readr_example.html">readr_example</a></span><span class="op">(</span><span class="st">"mtcars.csv"</span><span class="op">)</span><span class="op">)</span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="co"># Input sources -------------------------------------------------------------</span></span></span>
+<span class="r-in"><span><span class="co"># Read from a path</span></span></span>
+<span class="r-in"><span><span class="fu">read_csv</span><span class="op">(</span><span class="fu"><a href="readr_example.html">readr_example</a></span><span class="op">(</span><span class="st">"mtcars.csv"</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="font-weight: bold;">Rows: </span><span style="color: #0000BB;">32</span> <span style="font-weight: bold;">Columns: </span><span style="color: #0000BB;">11</span></span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">──</span> <span style="font-weight: bold;">Column specification</span> <span style="color: #00BBBB;">──────────────────────────────────────────────────</span></span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="font-weight: bold;">Delimiter:</span> ","</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BB00;">dbl</span> (11): mpg, cyl, disp, hp, drat, wt, qsec, vs, am, gear, carb</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">ℹ</span> Use <span style="color: #262626; background-color: #DADADA;">`spec()`</span> to retrieve the full column specification for this data.</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">ℹ</span> Specify the column types or set <span style="color: #262626; background-color: #DADADA;">`show_col_types = FALSE`</span> to quiet this message.</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">ℹ</span> Use `spec()` to retrieve the full column specification for this data.</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">ℹ</span> Specify the column types or set `show_col_types = FALSE` to quiet this message.</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tibble: 32 × 11</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>      mpg   cyl  disp    hp  drat    wt  qsec    vs    am  gear  carb</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span>
@@ -366,14 +409,14 @@ You can retrieve the full details by calling <code><a href="problems.html">probl
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 9</span>  22.8     4  141.    95  3.92  3.15  22.9     1     0     4     2</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">10</span>  19.2     6  168.   123  3.92  3.44  18.3     1     0     4     4</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># … with 22 more rows</span></span>
-<span class="r-in"><span class="fu">read_csv</span><span class="op">(</span><span class="fu"><a href="readr_example.html">readr_example</a></span><span class="op">(</span><span class="st">"mtcars.csv.zip"</span><span class="op">)</span><span class="op">)</span></span>
+<span class="r-in"><span><span class="fu">read_csv</span><span class="op">(</span><span class="fu"><a href="readr_example.html">readr_example</a></span><span class="op">(</span><span class="st">"mtcars.csv.zip"</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="font-weight: bold;">Rows: </span><span style="color: #0000BB;">32</span> <span style="font-weight: bold;">Columns: </span><span style="color: #0000BB;">11</span></span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">──</span> <span style="font-weight: bold;">Column specification</span> <span style="color: #00BBBB;">──────────────────────────────────────────────────</span></span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="font-weight: bold;">Delimiter:</span> ","</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BB00;">dbl</span> (11): mpg, cyl, disp, hp, drat, wt, qsec, vs, am, gear, carb</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">ℹ</span> Use <span style="color: #262626; background-color: #DADADA;">`spec()`</span> to retrieve the full column specification for this data.</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">ℹ</span> Specify the column types or set <span style="color: #262626; background-color: #DADADA;">`show_col_types = FALSE`</span> to quiet this message.</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">ℹ</span> Use `spec()` to retrieve the full column specification for this data.</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">ℹ</span> Specify the column types or set `show_col_types = FALSE` to quiet this message.</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tibble: 32 × 11</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>      mpg   cyl  disp    hp  drat    wt  qsec    vs    am  gear  carb</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span>
@@ -388,14 +431,14 @@ You can retrieve the full details by calling <code><a href="problems.html">probl
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 9</span>  22.8     4  141.    95  3.92  3.15  22.9     1     0     4     2</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">10</span>  19.2     6  168.   123  3.92  3.44  18.3     1     0     4     4</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># … with 22 more rows</span></span>
-<span class="r-in"><span class="fu">read_csv</span><span class="op">(</span><span class="fu"><a href="readr_example.html">readr_example</a></span><span class="op">(</span><span class="st">"mtcars.csv.bz2"</span><span class="op">)</span><span class="op">)</span></span>
+<span class="r-in"><span><span class="fu">read_csv</span><span class="op">(</span><span class="fu"><a href="readr_example.html">readr_example</a></span><span class="op">(</span><span class="st">"mtcars.csv.bz2"</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="font-weight: bold;">Rows: </span><span style="color: #0000BB;">32</span> <span style="font-weight: bold;">Columns: </span><span style="color: #0000BB;">11</span></span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">──</span> <span style="font-weight: bold;">Column specification</span> <span style="color: #00BBBB;">──────────────────────────────────────────────────</span></span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="font-weight: bold;">Delimiter:</span> ","</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BB00;">dbl</span> (11): mpg, cyl, disp, hp, drat, wt, qsec, vs, am, gear, carb</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">ℹ</span> Use <span style="color: #262626; background-color: #DADADA;">`spec()`</span> to retrieve the full column specification for this data.</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">ℹ</span> Specify the column types or set <span style="color: #262626; background-color: #DADADA;">`show_col_types = FALSE`</span> to quiet this message.</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">ℹ</span> Use `spec()` to retrieve the full column specification for this data.</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">ℹ</span> Specify the column types or set `show_col_types = FALSE` to quiet this message.</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tibble: 32 × 11</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>      mpg   cyl  disp    hp  drat    wt  qsec    vs    am  gear  carb</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span>
@@ -410,107 +453,273 @@ You can retrieve the full details by calling <code><a href="problems.html">probl
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 9</span>  22.8     4  141.    95  3.92  3.15  22.9     1     0     4     2</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">10</span>  19.2     6  168.   123  3.92  3.44  18.3     1     0     4     4</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># … with 22 more rows</span></span>
-<span class="r-in"><span class="kw">if</span> <span class="op">(</span><span class="cn">FALSE</span><span class="op">)</span> <span class="op">{</span></span>
-<span class="r-in"><span class="co"># Including remote paths</span></span>
-<span class="r-in"><span class="fu">read_csv</span><span class="op">(</span><span class="st">"https://github.com/tidyverse/readr/raw/main/inst/extdata/mtcars.csv"</span><span class="op">)</span></span>
-<span class="r-in"><span class="op">}</span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co"># Or directly from a string with `I()`</span></span>
-<span class="r-in"><span class="fu">read_csv</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/AsIs.html" class="external-link">I</a></span><span class="op">(</span><span class="st">"x,y\n1,2\n3,4"</span><span class="op">)</span><span class="op">)</span></span>
+<span class="r-in"><span><span class="kw">if</span> <span class="op">(</span><span class="cn">FALSE</span><span class="op">)</span> <span class="op">{</span></span></span>
+<span class="r-in"><span><span class="co"># Including remote paths</span></span></span>
+<span class="r-in"><span><span class="fu">read_csv</span><span class="op">(</span><span class="st">"https://github.com/tidyverse/readr/raw/main/inst/extdata/mtcars.csv"</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="op">}</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># Read from multiple file paths at once</span></span></span>
+<span class="r-in"><span><span class="va">continents</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"africa"</span>, <span class="st">"americas"</span>, <span class="st">"asia"</span>, <span class="st">"europe"</span>, <span class="st">"oceania"</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">filepaths</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/lapply.html" class="external-link">vapply</a></span><span class="op">(</span></span></span>
+<span class="r-in"><span>  <span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste0</a></span><span class="op">(</span><span class="st">"mini-gapminder-"</span>, <span class="va">continents</span>, <span class="st">".csv"</span><span class="op">)</span>,</span></span>
+<span class="r-in"><span>  FUN <span class="op">=</span> <span class="va">readr_example</span>,</span></span>
+<span class="r-in"><span>  FUN.VALUE <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/character.html" class="external-link">character</a></span><span class="op">(</span><span class="fl">1</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu">read_csv</span><span class="op">(</span><span class="va">filepaths</span>, id <span class="op">=</span> <span class="st">"file"</span><span class="op">)</span></span></span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="font-weight: bold;">Rows: </span><span style="color: #0000BB;">26</span> <span style="font-weight: bold;">Columns: </span><span style="color: #0000BB;">6</span></span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">──</span> <span style="font-weight: bold;">Column specification</span> <span style="color: #00BBBB;">──────────────────────────────────────────────────</span></span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="font-weight: bold;">Delimiter:</span> ","</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #BB0000;">chr</span> (1): country</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BB00;">dbl</span> (4): year, lifeExp, pop, gdpPercap</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">ℹ</span> Use `spec()` to retrieve the full column specification for this data.</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">ℹ</span> Specify the column types or set `show_col_types = FALSE` to quiet this message.</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tibble: 26 × 6</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>    file                               country  year lifeExp    pop gdpPe…¹</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>                              <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>  <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 1</span> /home/runner/work/_temp/Library/r… Algeria  <span style="text-decoration: underline;">1</span>952    43.1 9.28<span style="color: #949494;">e</span>6   <span style="text-decoration: underline;">2</span>449.</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 2</span> /home/runner/work/_temp/Library/r… Angola   <span style="text-decoration: underline;">1</span>952    30.0 4.23<span style="color: #949494;">e</span>6   <span style="text-decoration: underline;">3</span>521.</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 3</span> /home/runner/work/_temp/Library/r… Benin    <span style="text-decoration: underline;">1</span>952    38.2 1.74<span style="color: #949494;">e</span>6   <span style="text-decoration: underline;">1</span>063.</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 4</span> /home/runner/work/_temp/Library/r… Botswa…  <span style="text-decoration: underline;">1</span>952    47.6 4.42<span style="color: #949494;">e</span>5    851.</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 5</span> /home/runner/work/_temp/Library/r… Burkin…  <span style="text-decoration: underline;">1</span>952    32.0 4.47<span style="color: #949494;">e</span>6    543.</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 6</span> /home/runner/work/_temp/Library/r… Burundi  <span style="text-decoration: underline;">1</span>952    39.0 2.45<span style="color: #949494;">e</span>6    339.</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 7</span> /home/runner/work/_temp/Library/r… Argent…  <span style="text-decoration: underline;">1</span>952    62.5 1.79<span style="color: #949494;">e</span>7   <span style="text-decoration: underline;">5</span>911.</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 8</span> /home/runner/work/_temp/Library/r… Bolivia  <span style="text-decoration: underline;">1</span>952    40.4 2.88<span style="color: #949494;">e</span>6   <span style="text-decoration: underline;">2</span>677.</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 9</span> /home/runner/work/_temp/Library/r… Brazil   <span style="text-decoration: underline;">1</span>952    50.9 5.66<span style="color: #949494;">e</span>7   <span style="text-decoration: underline;">2</span>109.</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">10</span> /home/runner/work/_temp/Library/r… Canada   <span style="text-decoration: underline;">1</span>952    68.8 1.48<span style="color: #949494;">e</span>7  <span style="text-decoration: underline;">11</span>367.</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># … with 16 more rows, and abbreviated variable name ¹​gdpPercap</span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># Or directly from a string with `I()`</span></span></span>
+<span class="r-in"><span><span class="fu">read_csv</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/AsIs.html" class="external-link">I</a></span><span class="op">(</span><span class="st">"x,y\n1,2\n3,4"</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="font-weight: bold;">Rows: </span><span style="color: #0000BB;">2</span> <span style="font-weight: bold;">Columns: </span><span style="color: #0000BB;">2</span></span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">──</span> <span style="font-weight: bold;">Column specification</span> <span style="color: #00BBBB;">──────────────────────────────────────────────────</span></span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="font-weight: bold;">Delimiter:</span> ","</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BB00;">dbl</span> (2): x, y</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">ℹ</span> Use <span style="color: #262626; background-color: #DADADA;">`spec()`</span> to retrieve the full column specification for this data.</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">ℹ</span> Specify the column types or set <span style="color: #262626; background-color: #DADADA;">`show_col_types = FALSE`</span> to quiet this message.</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">ℹ</span> Use `spec()` to retrieve the full column specification for this data.</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">ℹ</span> Specify the column types or set `show_col_types = FALSE` to quiet this message.</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tibble: 2 × 2</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>       x     y</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">1</span>     1     2</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">2</span>     3     4</span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co"># Column types --------------------------------------------------------------</span></span>
-<span class="r-in"><span class="co"># By default, readr guesses the columns types, looking at `guess_max` rows.</span></span>
-<span class="r-in"><span class="co"># You can override with a compact specification:</span></span>
-<span class="r-in"><span class="fu">read_csv</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/AsIs.html" class="external-link">I</a></span><span class="op">(</span><span class="st">"x,y\n1,2\n3,4"</span><span class="op">)</span>, col_types <span class="op">=</span> <span class="st">"dc"</span><span class="op">)</span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># Column selection-----------------------------------------------------------</span></span></span>
+<span class="r-in"><span><span class="co"># Pass column names or indexes directly to select them</span></span></span>
+<span class="r-in"><span><span class="fu">read_csv</span><span class="op">(</span><span class="fu"><a href="readr_example.html">readr_example</a></span><span class="op">(</span><span class="st">"chickens.csv"</span><span class="op">)</span>, col_select <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="va">chicken</span>, <span class="va">eggs_laid</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="font-weight: bold;">Rows: </span><span style="color: #0000BB;">5</span> <span style="font-weight: bold;">Columns: </span><span style="color: #0000BB;">2</span></span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">──</span> <span style="font-weight: bold;">Column specification</span> <span style="color: #00BBBB;">──────────────────────────────────────────────────</span></span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="font-weight: bold;">Delimiter:</span> ","</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #BB0000;">chr</span> (1): chicken</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BB00;">dbl</span> (1): eggs_laid</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">ℹ</span> Use `spec()` to retrieve the full column specification for this data.</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">ℹ</span> Specify the column types or set `show_col_types = FALSE` to quiet this message.</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tibble: 5 × 2</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   chicken                 eggs_laid</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>                       <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">1</span> Foghorn Leghorn                 0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">2</span> Chicken Little                  3</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">3</span> Ginger                         12</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">4</span> Camilla the Chicken             7</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">5</span> Ernie The Giant Chicken         0</span>
+<span class="r-in"><span><span class="fu">read_csv</span><span class="op">(</span><span class="fu"><a href="readr_example.html">readr_example</a></span><span class="op">(</span><span class="st">"chickens.csv"</span><span class="op">)</span>, col_select <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">3</span><span class="op">:</span><span class="fl">4</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="font-weight: bold;">Rows: </span><span style="color: #0000BB;">5</span> <span style="font-weight: bold;">Columns: </span><span style="color: #0000BB;">3</span></span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">──</span> <span style="font-weight: bold;">Column specification</span> <span style="color: #00BBBB;">──────────────────────────────────────────────────</span></span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="font-weight: bold;">Delimiter:</span> ","</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #BB0000;">chr</span> (2): chicken, motto</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BB00;">dbl</span> (1): eggs_laid</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">ℹ</span> Use `spec()` to retrieve the full column specification for this data.</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">ℹ</span> Specify the column types or set `show_col_types = FALSE` to quiet this message.</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tibble: 5 × 3</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   chicken                 eggs_laid motto                                 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>                       <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>                                 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">1</span> Foghorn Leghorn                 0 That's a joke, ah say, that's a joke,…</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">2</span> Chicken Little                  3 The sky is falling!                   </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">3</span> Ginger                         12 Listen. We'll either die free chicken…</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">4</span> Camilla the Chicken             7 Bawk, buck, ba-gawk.                  </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">5</span> Ernie The Giant Chicken         0 Put Captain Solo in the cargo hold.   </span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># Or use the selection helpers</span></span></span>
+<span class="r-in"><span><span class="fu">read_csv</span><span class="op">(</span></span></span>
+<span class="r-in"><span>  <span class="fu"><a href="readr_example.html">readr_example</a></span><span class="op">(</span><span class="st">"chickens.csv"</span><span class="op">)</span>,</span></span>
+<span class="r-in"><span>  col_select <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fu"><a href="https://tidyselect.r-lib.org/reference/starts_with.html" class="external-link">starts_with</a></span><span class="op">(</span><span class="st">"c"</span><span class="op">)</span>, <span class="fu"><a href="https://tidyselect.r-lib.org/reference/everything.html" class="external-link">last_col</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="op">)</span></span></span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="font-weight: bold;">Rows: </span><span style="color: #0000BB;">5</span> <span style="font-weight: bold;">Columns: </span><span style="color: #0000BB;">2</span></span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">──</span> <span style="font-weight: bold;">Column specification</span> <span style="color: #00BBBB;">──────────────────────────────────────────────────</span></span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="font-weight: bold;">Delimiter:</span> ","</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #BB0000;">chr</span> (2): chicken, motto</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">ℹ</span> Use `spec()` to retrieve the full column specification for this data.</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">ℹ</span> Specify the column types or set `show_col_types = FALSE` to quiet this message.</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tibble: 5 × 2</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   chicken                 motto                                           </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>                   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>                                           </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">1</span> Foghorn Leghorn         That's a joke, ah say, that's a joke, son.      </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">2</span> Chicken Little          The sky is falling!                             </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">3</span> Ginger                  Listen. We'll either die free chickens or we di…</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">4</span> Camilla the Chicken     Bawk, buck, ba-gawk.                            </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">5</span> Ernie The Giant Chicken Put Captain Solo in the cargo hold.             </span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># You can also rename specific columns</span></span></span>
+<span class="r-in"><span><span class="fu">read_csv</span><span class="op">(</span></span></span>
+<span class="r-in"><span>  <span class="fu"><a href="readr_example.html">readr_example</a></span><span class="op">(</span><span class="st">"chickens.csv"</span><span class="op">)</span>,</span></span>
+<span class="r-in"><span>  col_select <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span>egg_yield <span class="op">=</span> <span class="va">eggs_laid</span>, <span class="fu"><a href="https://tidyselect.r-lib.org/reference/everything.html" class="external-link">everything</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="op">)</span></span></span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="font-weight: bold;">Rows: </span><span style="color: #0000BB;">5</span> <span style="font-weight: bold;">Columns: </span><span style="color: #0000BB;">4</span></span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">──</span> <span style="font-weight: bold;">Column specification</span> <span style="color: #00BBBB;">──────────────────────────────────────────────────</span></span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="font-weight: bold;">Delimiter:</span> ","</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #BB0000;">chr</span> (3): chicken, sex, motto</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BB00;">dbl</span> (1): eggs_laid</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">ℹ</span> Use `spec()` to retrieve the full column specification for this data.</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">ℹ</span> Specify the column types or set `show_col_types = FALSE` to quiet this message.</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tibble: 5 × 4</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   egg_yield chicken                 sex     motto                         </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>       <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>                   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>                         </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">1</span>         0 Foghorn Leghorn         rooster That's a joke, ah say, that's…</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">2</span>         3 Chicken Little          hen     The sky is falling!           </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">3</span>        12 Ginger                  hen     Listen. We'll either die free…</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">4</span>         7 Camilla the Chicken     hen     Bawk, buck, ba-gawk.          </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">5</span>         0 Ernie The Giant Chicken rooster Put Captain Solo in the cargo…</span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># Column types --------------------------------------------------------------</span></span></span>
+<span class="r-in"><span><span class="co"># By default, readr guesses the columns types, looking at `guess_max` rows.</span></span></span>
+<span class="r-in"><span><span class="co"># You can override with a compact specification:</span></span></span>
+<span class="r-in"><span><span class="fu">read_csv</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/AsIs.html" class="external-link">I</a></span><span class="op">(</span><span class="st">"x,y\n1,2\n3,4"</span><span class="op">)</span>, col_types <span class="op">=</span> <span class="st">"dc"</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tibble: 2 × 2</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>       x y    </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">1</span>     1 2    </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">2</span>     3 4    </span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co"># Or with a list of column types:</span></span>
-<span class="r-in"><span class="fu">read_csv</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/AsIs.html" class="external-link">I</a></span><span class="op">(</span><span class="st">"x,y\n1,2\n3,4"</span><span class="op">)</span>, col_types <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="fu"><a href="parse_atomic.html">col_double</a></span><span class="op">(</span><span class="op">)</span>, <span class="fu"><a href="parse_atomic.html">col_character</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># Or with a list of column types:</span></span></span>
+<span class="r-in"><span><span class="fu">read_csv</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/AsIs.html" class="external-link">I</a></span><span class="op">(</span><span class="st">"x,y\n1,2\n3,4"</span><span class="op">)</span>, col_types <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="fu"><a href="parse_atomic.html">col_double</a></span><span class="op">(</span><span class="op">)</span>, <span class="fu"><a href="parse_atomic.html">col_character</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tibble: 2 × 2</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>       x y    </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">1</span>     1 2    </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">2</span>     3 4    </span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co"># If there are parsing problems, you get a warning, and can extract</span></span>
-<span class="r-in"><span class="co"># more details with problems()</span></span>
-<span class="r-in"><span class="va">y</span> <span class="op">&lt;-</span> <span class="fu">read_csv</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/AsIs.html" class="external-link">I</a></span><span class="op">(</span><span class="st">"x\n1\n2\nb"</span><span class="op">)</span>, col_types <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="fu"><a href="parse_atomic.html">col_double</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span>
-<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>One or more parsing issues, see `problems()` for details</span>
-<span class="r-in"><span class="va">y</span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># If there are parsing problems, you get a warning, and can extract</span></span></span>
+<span class="r-in"><span><span class="co"># more details with problems()</span></span></span>
+<span class="r-in"><span><span class="va">y</span> <span class="op">&lt;-</span> <span class="fu">read_csv</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/AsIs.html" class="external-link">I</a></span><span class="op">(</span><span class="st">"x\n1\n2\nb"</span><span class="op">)</span>, col_types <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="fu"><a href="parse_atomic.html">col_double</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>One or more parsing issues, call `problems()` on your data frame for</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> details, e.g.:</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span>   dat &lt;- vroom(...)</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span>   problems(dat)</span>
+<span class="r-in"><span><span class="va">y</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tibble: 3 × 1</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>       x</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">1</span>     1</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">2</span>     2</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">3</span>    <span style="color: #BB0000;">NA</span></span>
-<span class="r-in"><span class="fu"><a href="problems.html">problems</a></span><span class="op">(</span><span class="va">y</span><span class="op">)</span></span>
+<span class="r-in"><span><span class="fu"><a href="problems.html">problems</a></span><span class="op">(</span><span class="va">y</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tibble: 1 × 5</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     row   col expected actual file                            </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;int&gt;</span> <span style="color: #949494; font-style: italic;">&lt;int&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>  <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>                           </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">1</span>     4     1 a double b      /tmp/RtmpHUcdNA/file272e3ec33855</span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co"># File types ----------------------------------------------------------------</span></span>
-<span class="r-in"><span class="fu">read_csv</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/AsIs.html" class="external-link">I</a></span><span class="op">(</span><span class="st">"a,b\n1.0,2.0"</span><span class="op">)</span><span class="op">)</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">1</span>     4     1 a double b      /tmp/RtmpzJR2yp/file2fa4100909bd</span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># Column names --------------------------------------------------------------</span></span></span>
+<span class="r-in"><span><span class="co"># By default, readr duplicate name repair is noisy</span></span></span>
+<span class="r-in"><span><span class="fu">read_csv</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/AsIs.html" class="external-link">I</a></span><span class="op">(</span><span class="st">"x,x\n1,2\n3,4"</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> New names:</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">•</span> `x` -&gt; `x...1`</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">•</span> `x` -&gt; `x...2`</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="font-weight: bold;">Rows: </span><span style="color: #0000BB;">2</span> <span style="font-weight: bold;">Columns: </span><span style="color: #0000BB;">2</span></span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">──</span> <span style="font-weight: bold;">Column specification</span> <span style="color: #00BBBB;">──────────────────────────────────────────────────</span></span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="font-weight: bold;">Delimiter:</span> ","</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BB00;">dbl</span> (2): x...1, x...2</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">ℹ</span> Use `spec()` to retrieve the full column specification for this data.</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">ℹ</span> Specify the column types or set `show_col_types = FALSE` to quiet this message.</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tibble: 2 × 2</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   x...1 x...2</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">1</span>     1     2</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">2</span>     3     4</span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># To quiet, set the option that controls verbosity of name repair</span></span></span>
+<span class="r-in"><span><span class="fu">withr</span><span class="fu">::</span><span class="fu"><a href="https://withr.r-lib.org/reference/with_options.html" class="external-link">with_options</a></span><span class="op">(</span></span></span>
+<span class="r-in"><span>  <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>rlib_name_repair_verbosity <span class="op">=</span> <span class="st">"quiet"</span><span class="op">)</span>,</span></span>
+<span class="r-in"><span>  <span class="fu">read_csv</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/AsIs.html" class="external-link">I</a></span><span class="op">(</span><span class="st">"x,x\n1,2\n3,4"</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="op">)</span></span></span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="font-weight: bold;">Rows: </span><span style="color: #0000BB;">2</span> <span style="font-weight: bold;">Columns: </span><span style="color: #0000BB;">2</span></span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">──</span> <span style="font-weight: bold;">Column specification</span> <span style="color: #00BBBB;">──────────────────────────────────────────────────</span></span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="font-weight: bold;">Delimiter:</span> ","</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BB00;">dbl</span> (2): x...1, x...2</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">ℹ</span> Use `spec()` to retrieve the full column specification for this data.</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">ℹ</span> Specify the column types or set `show_col_types = FALSE` to quiet this message.</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tibble: 2 × 2</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   x...1 x...2</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">1</span>     1     2</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">2</span>     3     4</span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># Or use "minimal" to turn off name repair</span></span></span>
+<span class="r-in"><span><span class="fu">read_csv</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/AsIs.html" class="external-link">I</a></span><span class="op">(</span><span class="st">"x,x\n1,2\n3,4"</span><span class="op">)</span>, name_repair <span class="op">=</span> <span class="st">"minimal"</span><span class="op">)</span></span></span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="font-weight: bold;">Rows: </span><span style="color: #0000BB;">2</span> <span style="font-weight: bold;">Columns: </span><span style="color: #0000BB;">2</span></span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">──</span> <span style="font-weight: bold;">Column specification</span> <span style="color: #00BBBB;">──────────────────────────────────────────────────</span></span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="font-weight: bold;">Delimiter:</span> ","</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BB00;">dbl</span> (2): x, x</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">ℹ</span> Use `spec()` to retrieve the full column specification for this data.</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">ℹ</span> Specify the column types or set `show_col_types = FALSE` to quiet this message.</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tibble: 2 × 2</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>       x     x</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">1</span>     1     2</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">2</span>     3     4</span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># File types ----------------------------------------------------------------</span></span></span>
+<span class="r-in"><span><span class="fu">read_csv</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/AsIs.html" class="external-link">I</a></span><span class="op">(</span><span class="st">"a,b\n1.0,2.0"</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="font-weight: bold;">Rows: </span><span style="color: #0000BB;">1</span> <span style="font-weight: bold;">Columns: </span><span style="color: #0000BB;">2</span></span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">──</span> <span style="font-weight: bold;">Column specification</span> <span style="color: #00BBBB;">──────────────────────────────────────────────────</span></span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="font-weight: bold;">Delimiter:</span> ","</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BB00;">dbl</span> (2): a, b</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">ℹ</span> Use <span style="color: #262626; background-color: #DADADA;">`spec()`</span> to retrieve the full column specification for this data.</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">ℹ</span> Specify the column types or set <span style="color: #262626; background-color: #DADADA;">`show_col_types = FALSE`</span> to quiet this message.</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">ℹ</span> Use `spec()` to retrieve the full column specification for this data.</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">ℹ</span> Specify the column types or set `show_col_types = FALSE` to quiet this message.</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tibble: 1 × 2</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>       a     b</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">1</span>     1     2</span>
-<span class="r-in"><span class="fu">read_csv2</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/AsIs.html" class="external-link">I</a></span><span class="op">(</span><span class="st">"a;b\n1,0;2,0"</span><span class="op">)</span><span class="op">)</span></span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">ℹ</span> Using <span style="color: #0000BB;">"','"</span> as decimal and <span style="color: #0000BB;">"'.'"</span> as grouping mark. Use <span style="color: #262626; background-color: #DADADA;">`read_delim()`</span> for more control.</span>
+<span class="r-in"><span><span class="fu">read_csv2</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/AsIs.html" class="external-link">I</a></span><span class="op">(</span><span class="st">"a;b\n1,0;2,0"</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">ℹ</span> Using <span style="color: #0000BB;">"','"</span> as decimal and <span style="color: #0000BB;">"'.'"</span> as grouping mark. Use `read_delim()` for more control.</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="font-weight: bold;">Rows: </span><span style="color: #0000BB;">1</span> <span style="font-weight: bold;">Columns: </span><span style="color: #0000BB;">2</span></span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">──</span> <span style="font-weight: bold;">Column specification</span> <span style="color: #00BBBB;">──────────────────────────────────────────────────</span></span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="font-weight: bold;">Delimiter:</span> ";"</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BB00;">dbl</span> (2): a, b</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">ℹ</span> Use <span style="color: #262626; background-color: #DADADA;">`spec()`</span> to retrieve the full column specification for this data.</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">ℹ</span> Specify the column types or set <span style="color: #262626; background-color: #DADADA;">`show_col_types = FALSE`</span> to quiet this message.</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">ℹ</span> Use `spec()` to retrieve the full column specification for this data.</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">ℹ</span> Specify the column types or set `show_col_types = FALSE` to quiet this message.</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tibble: 1 × 2</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>       a     b</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">1</span>     1     2</span>
-<span class="r-in"><span class="fu">read_tsv</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/AsIs.html" class="external-link">I</a></span><span class="op">(</span><span class="st">"a\tb\n1.0\t2.0"</span><span class="op">)</span><span class="op">)</span></span>
+<span class="r-in"><span><span class="fu">read_tsv</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/AsIs.html" class="external-link">I</a></span><span class="op">(</span><span class="st">"a\tb\n1.0\t2.0"</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="font-weight: bold;">Rows: </span><span style="color: #0000BB;">1</span> <span style="font-weight: bold;">Columns: </span><span style="color: #0000BB;">2</span></span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">──</span> <span style="font-weight: bold;">Column specification</span> <span style="color: #00BBBB;">──────────────────────────────────────────────────</span></span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="font-weight: bold;">Delimiter:</span> "\t"</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BB00;">dbl</span> (2): a, b</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">ℹ</span> Use <span style="color: #262626; background-color: #DADADA;">`spec()`</span> to retrieve the full column specification for this data.</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">ℹ</span> Specify the column types or set <span style="color: #262626; background-color: #DADADA;">`show_col_types = FALSE`</span> to quiet this message.</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">ℹ</span> Use `spec()` to retrieve the full column specification for this data.</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">ℹ</span> Specify the column types or set `show_col_types = FALSE` to quiet this message.</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tibble: 1 × 2</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>       a     b</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">1</span>     1     2</span>
-<span class="r-in"><span class="fu">read_delim</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/AsIs.html" class="external-link">I</a></span><span class="op">(</span><span class="st">"a|b\n1.0|2.0"</span><span class="op">)</span>, delim <span class="op">=</span> <span class="st">"|"</span><span class="op">)</span></span>
+<span class="r-in"><span><span class="fu">read_delim</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/AsIs.html" class="external-link">I</a></span><span class="op">(</span><span class="st">"a|b\n1.0|2.0"</span><span class="op">)</span>, delim <span class="op">=</span> <span class="st">"|"</span><span class="op">)</span></span></span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="font-weight: bold;">Rows: </span><span style="color: #0000BB;">1</span> <span style="font-weight: bold;">Columns: </span><span style="color: #0000BB;">2</span></span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">──</span> <span style="font-weight: bold;">Column specification</span> <span style="color: #00BBBB;">──────────────────────────────────────────────────</span></span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="font-weight: bold;">Delimiter:</span> "|"</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BB00;">dbl</span> (2): a, b</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">ℹ</span> Use <span style="color: #262626; background-color: #DADADA;">`spec()`</span> to retrieve the full column specification for this data.</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">ℹ</span> Specify the column types or set <span style="color: #262626; background-color: #DADADA;">`show_col_types = FALSE`</span> to quiet this message.</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">ℹ</span> Use `spec()` to retrieve the full column specification for this data.</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">ℹ</span> Specify the column types or set `show_col_types = FALSE` to quiet this message.</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tibble: 1 × 2</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>       a     b</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span>
@@ -528,7 +737,7 @@ You can retrieve the full details by calling <code><a href="problems.html">probl
 </div>
 
 <div class="pkgdown-footer-right">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.2.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.6.</p>
 </div>
 
   </div></footer></body></html>
