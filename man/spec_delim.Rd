@@ -233,6 +233,7 @@ supplied any commented lines are ignored \emph{after} skipping.}
 \item{n_max}{Maximum number of lines to read.}
 
 \item{guess_max}{Maximum number of lines to use for guessing column types.
+Will never use more than the number of lines read.
 See \code{vignette("column-types", package = "readr")} for more details.}
 
 \item{name_repair}{Handling of column names. The default behaviour is to

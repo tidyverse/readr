@@ -191,6 +191,7 @@ each field before parsing it?}
 supplied any commented lines are ignored \emph{after} skipping.}
 
 \item{guess_max}{Maximum number of lines to use for guessing column types.
+Will never use more than the number of lines read.
 See \code{vignette("column-types", package = "readr")} for more details.}
 
 \item{progress}{Display a progress bar? By default it will only display
