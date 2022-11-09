@@ -54,7 +54,7 @@
 <li class="nav-item dropdown">
   <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown" role="button" aria-expanded="false" aria-haspopup="true" id="dropdown-articles">Articles</a>
   <div class="dropdown-menu" aria-labelledby="dropdown-articles">
-    <a class="dropdown-item" href="../articles/column-types.html">Column type guessing</a>
+    <a class="dropdown-item" href="../articles/column-types.html">Column type</a>
     <a class="dropdown-item" href="../articles/locales.html">Locales</a>
   </div>
 </li>
@@ -106,27 +106,45 @@
 
     
     
-<p>The key problem that readr solves is <strong>parsing</strong> a flat file into a tibble. Parsing is the process of taking a text file and turning it into a rectangular tibble where each column is the appropriate part. Parsing takes place in three basic stages:</p>
+<p>The key problem that readr solves is <strong>parsing</strong> a flat
+file into a tibble. Parsing is the process of taking a text file and
+turning it into a rectangular tibble where each column is the
+appropriate part. Parsing takes place in three basic stages:</p>
 <ol style="list-style-type: decimal">
-<li><p>The flat file is parsed into a rectangular matrix of strings.</p></li>
+<li><p>The flat file is parsed into a rectangular matrix of
+strings.</p></li>
 <li><p>The type of each column is determined.</p></li>
-<li><p>Each column of strings is parsed into a vector of a more specific type.</p></li>
+<li><p>Each column of strings is parsed into a vector of a more specific
+type.</p></li>
 </ol>
-<p>It’s easiest to learn how this works in the opposite order Below, you’ll learn how the:</p>
+<p>It’s easiest to learn how this works in the opposite order Below,
+you’ll learn how the:</p>
 <ol style="list-style-type: decimal">
-<li><p><strong>Vector parsers</strong> turn a character vector in to a more specific type.</p></li>
-<li><p><strong>Column specification</strong> describes the type of each column and the strategy readr uses to guess types so you don’t need to supply them all.</p></li>
-<li><p><strong>Rectangular parsers</strong> turn a flat file into a matrix of rows and columns.</p></li>
+<li><p><strong>Vector parsers</strong> turn a character vector in to a
+more specific type.</p></li>
+<li><p><strong>Column specification</strong> describes the type of each
+column and the strategy readr uses to guess types so you don’t need to
+supply them all.</p></li>
+<li><p><strong>Rectangular parsers</strong> turn a flat file into a
+matrix of rows and columns.</p></li>
 </ol>
-<p>Each <code>parse_*()</code> is coupled with a <code>col_*()</code> function, which will be used in the process of parsing a complete tibble.</p>
+<p>Each <code>parse_*()</code> is coupled with a <code>col_*()</code>
+function, which will be used in the process of parsing a complete
+tibble.</p>
 <div class="section level2">
 <h2 id="vector-parsers">Vector parsers<a class="anchor" aria-label="anchor" href="#vector-parsers"></a>
 </h2>
-<p>It’s easiest to learn the vector parses using <code>parse_</code> functions. These all take a character vector and some options. They return a new vector the same length as the old, along with an attribute describing any problems.</p>
+<p>It’s easiest to learn the vector parses using <code>parse_</code>
+functions. These all take a character vector and some options. They
+return a new vector the same length as the old, along with an attribute
+describing any problems.</p>
 <div class="section level3">
 <h3 id="atomic-vectors">Atomic vectors<a class="anchor" aria-label="anchor" href="#atomic-vectors"></a>
 </h3>
-<p><code><a href="../reference/parse_atomic.html">parse_logical()</a></code>, <code><a href="../reference/parse_atomic.html">parse_integer()</a></code>, <code><a href="../reference/parse_atomic.html">parse_double()</a></code>, and <code><a href="../reference/parse_atomic.html">parse_character()</a></code> are straightforward parsers that produce the corresponding atomic vector.</p>
+<p><code><a href="../reference/parse_atomic.html">parse_logical()</a></code>, <code><a href="../reference/parse_atomic.html">parse_integer()</a></code>,
+<code><a href="../reference/parse_atomic.html">parse_double()</a></code>, and <code><a href="../reference/parse_atomic.html">parse_character()</a></code> are
+straightforward parsers that produce the corresponding atomic
+vector.</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/parse_atomic.html">parse_integer</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"1"</span>, <span class="st">"2"</span>, <span class="st">"3"</span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="co">#&gt; [1] 1 2 3</span></span>
@@ -134,12 +152,20 @@
 <span><span class="co">#&gt; [1] 1.56 2.34 3.56</span></span>
 <span><span class="fu"><a href="../reference/parse_atomic.html">parse_logical</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"true"</span>, <span class="st">"false"</span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="co">#&gt; [1]  TRUE FALSE</span></span></code></pre></div>
-<p>By default, readr expects <code>.</code> as the decimal mark and <code>,</code> as the grouping mark. You can override this default using <code><a href="../reference/locale.html">locale()</a></code>, as described in <code><a href="../articles/locales.html">vignette("locales")</a></code>.</p>
+<p>By default, readr expects <code>.</code> as the decimal mark and
+<code>,</code> as the grouping mark. You can override this default using
+<code><a href="../reference/locale.html">locale()</a></code>, as described in
+<code><a href="../articles/locales.html">vignette("locales")</a></code>.</p>
 </div>
 <div class="section level3">
 <h3 id="flexible-numeric-parser">Flexible numeric parser<a class="anchor" aria-label="anchor" href="#flexible-numeric-parser"></a>
 </h3>
-<p><code><a href="../reference/parse_atomic.html">parse_integer()</a></code> and <code><a href="../reference/parse_atomic.html">parse_double()</a></code> are strict: the input string must be a single number with no leading or trailing characters. <code><a href="../reference/parse_number.html">parse_number()</a></code> is more flexible: it ignores non-numeric prefixes and suffixes, and knows how to deal with grouping marks. This makes it suitable for reading currencies and percentages:</p>
+<p><code><a href="../reference/parse_atomic.html">parse_integer()</a></code> and <code><a href="../reference/parse_atomic.html">parse_double()</a></code> are
+strict: the input string must be a single number with no leading or
+trailing characters. <code><a href="../reference/parse_number.html">parse_number()</a></code> is more flexible: it
+ignores non-numeric prefixes and suffixes, and knows how to deal with
+grouping marks. This makes it suitable for reading currencies and
+percentages:</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/parse_number.html">parse_number</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"0%"</span>, <span class="st">"10%"</span>, <span class="st">"150%"</span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="co">#&gt; [1]   0  10 150</span></span>
@@ -162,13 +188,23 @@
 <span><span class="co">#&gt; [1] "2010-10-01"</span></span>
 <span><span class="fu"><a href="../reference/parse_datetime.html">parse_time</a></span><span class="op">(</span><span class="st">"1:00pm"</span><span class="op">)</span></span>
 <span><span class="co">#&gt; 13:00:00</span></span></code></pre></div>
-<p>Each function takes a <code>format</code> argument which describes the format of the string. If not specified, it uses a default value:</p>
+<p>Each function takes a <code>format</code> argument which describes
+the format of the string. If not specified, it uses a default value:</p>
 <ul>
-<li><p><code><a href="../reference/parse_datetime.html">parse_datetime()</a></code> recognises <a href="https://en.wikipedia.org/wiki/ISO_8601" class="external-link">ISO8601</a> datetimes.</p></li>
-<li><p><code><a href="../reference/parse_datetime.html">parse_date()</a></code> uses the <code>date_format</code> specified by the <code><a href="../reference/locale.html">locale()</a></code>. The default value is <code>%AD</code> which uses an automatic date parser that recognises dates of the format <code>Y-m-d</code> or <code>Y/m/d</code>.</p></li>
-<li><p><code><a href="../reference/parse_datetime.html">parse_time()</a></code> uses the <code>time_format</code> specified by the <code><a href="../reference/locale.html">locale()</a></code>. The default value is <code>%At</code> which uses an automatic time parser that recognises times of the form <code>H:M</code> optionally followed by seconds and am/pm.</p></li>
+<li><p><code><a href="../reference/parse_datetime.html">parse_datetime()</a></code> recognises <a href="https://en.wikipedia.org/wiki/ISO_8601" class="external-link">ISO8601</a>
+datetimes.</p></li>
+<li><p><code><a href="../reference/parse_datetime.html">parse_date()</a></code> uses the <code>date_format</code>
+specified by the <code><a href="../reference/locale.html">locale()</a></code>. The default value is
+<code>%AD</code> which uses an automatic date parser that recognises
+dates of the format <code>Y-m-d</code> or <code>Y/m/d</code>.</p></li>
+<li><p><code><a href="../reference/parse_datetime.html">parse_time()</a></code> uses the <code>time_format</code>
+specified by the <code><a href="../reference/locale.html">locale()</a></code>. The default value is
+<code>%At</code> which uses an automatic time parser that recognises
+times of the form <code>H:M</code> optionally followed by seconds and
+am/pm.</p></li>
 </ul>
-<p>In most cases, you will need to supply a <code>format</code>, as documented in <code><a href="../reference/parse_datetime.html">parse_datetime()</a></code>:</p>
+<p>In most cases, you will need to supply a <code>format</code>, as
+documented in <code><a href="../reference/parse_datetime.html">parse_datetime()</a></code>:</p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/parse_datetime.html">parse_datetime</a></span><span class="op">(</span><span class="st">"1 January, 2010"</span>, <span class="st">"%d %B, %Y"</span><span class="op">)</span></span>
 <span><span class="co">#&gt; [1] "2010-01-01 UTC"</span></span>
@@ -178,7 +214,9 @@
 <div class="section level3">
 <h3 id="factors">Factors<a class="anchor" aria-label="anchor" href="#factors"></a>
 </h3>
-<p>When reading a column that has a known set of values, you can read directly into a factor. <code><a href="../reference/parse_factor.html">parse_factor()</a></code> will generate a warning if a value is not in the supplied levels.</p>
+<p>When reading a column that has a known set of values, you can read
+directly into a factor. <code><a href="../reference/parse_factor.html">parse_factor()</a></code> will generate a
+warning if a value is not in the supplied levels.</p>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/parse_factor.html">parse_factor</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"a"</span>, <span class="st">"b"</span>, <span class="st">"a"</span><span class="op">)</span>, levels <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"a"</span>, <span class="st">"b"</span>, <span class="st">"c"</span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="co">#&gt; [1] a b a</span></span>
@@ -199,7 +237,10 @@
 <div class="section level2">
 <h2 id="column-specification">Column specification<a class="anchor" aria-label="anchor" href="#column-specification"></a>
 </h2>
-<p>It would be tedious if you had to specify the type of every column when reading a file. Instead readr, uses some heuristics to guess the type of each column. You can access these results yourself using <code><a href="../reference/parse_guess.html">guess_parser()</a></code>:</p>
+<p>It would be tedious if you had to specify the type of every column
+when reading a file. Instead readr, uses some heuristics to guess the
+type of each column. You can access these results yourself using
+<code><a href="../reference/parse_guess.html">guess_parser()</a></code>:</p>
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/parse_guess.html">guess_parser</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"a"</span>, <span class="st">"b"</span>, <span class="st">"c"</span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="co">#&gt; [1] "character"</span></span>
@@ -209,17 +250,24 @@
 <span><span class="co">#&gt; [1] "number"</span></span>
 <span><span class="fu"><a href="../reference/parse_guess.html">guess_parser</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"2001/10/10"</span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="co">#&gt; [1] "date"</span></span></code></pre></div>
-<p>The guessing policies are described in the documentation for the individual functions. Guesses are fairly strict. For example, we don’t guess that currencies are numbers, even though we can parse them:</p>
+<p>The guessing policies are described in the documentation for the
+individual functions. Guesses are fairly strict. For example, we don’t
+guess that currencies are numbers, even though we can parse them:</p>
 <div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/parse_guess.html">guess_parser</a></span><span class="op">(</span><span class="st">"$1,234"</span><span class="op">)</span></span>
 <span><span class="co">#&gt; [1] "character"</span></span>
 <span><span class="fu"><a href="../reference/parse_number.html">parse_number</a></span><span class="op">(</span><span class="st">"$1,234"</span><span class="op">)</span></span>
 <span><span class="co">#&gt; [1] 1234</span></span></code></pre></div>
-<p>There are two parsers that will never be guessed: <code><a href="../reference/col_skip.html">col_skip()</a></code> and <code><a href="../reference/parse_factor.html">col_factor()</a></code>. You will always need to supply these explicitly.</p>
-<p>You can see the specification that readr would generate for a column file by using <code><a href="../reference/spec_delim.html">spec_csv()</a></code>, <code><a href="../reference/spec_delim.html">spec_tsv()</a></code> and so on:</p>
+<p>There are two parsers that will never be guessed:
+<code><a href="../reference/col_skip.html">col_skip()</a></code> and <code><a href="../reference/parse_factor.html">col_factor()</a></code>. You will always
+need to supply these explicitly.</p>
+<p>You can see the specification that readr would generate for a column
+file by using <code><a href="../reference/spec_delim.html">spec_csv()</a></code>, <code><a href="../reference/spec_delim.html">spec_tsv()</a></code> and so
+on:</p>
 <div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">x</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/spec_delim.html">spec_csv</a></span><span class="op">(</span><span class="fu"><a href="../reference/readr_example.html">readr_example</a></span><span class="op">(</span><span class="st">"challenge.csv"</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
-<p>For bigger files, you can often make the specification simpler by changing the default column type using <code><a href="../reference/spec.html">cols_condense()</a></code></p>
+<p>For bigger files, you can often make the specification simpler by
+changing the default column type using <code><a href="../reference/spec.html">cols_condense()</a></code></p>
 <div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">mtcars_spec</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/spec_delim.html">spec_csv</a></span><span class="op">(</span><span class="fu"><a href="../reference/readr_example.html">readr_example</a></span><span class="op">(</span><span class="st">"mtcars.csv"</span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="va">mtcars_spec</span></span>
@@ -241,10 +289,15 @@
 <span><span class="co">#&gt; cols(</span></span>
 <span><span class="co">#&gt;   .default = col_double()</span></span>
 <span><span class="co">#&gt; )</span></span></code></pre></div>
-<p>By default readr only looks at the first 1000 rows. This keeps file parsing speedy, but can generate incorrect guesses. For example, in <code>challenge.csv</code> the column types change in row 1001, so readr guesses the wrong types. One way to resolve the problem is to increase the number of rows:</p>
+<p>By default readr only looks at the first 1000 rows. This keeps file
+parsing speedy, but can generate incorrect guesses. For example, in
+<code>challenge.csv</code> the column types change in row 1001, so readr
+guesses the wrong types. One way to resolve the problem is to increase
+the number of rows:</p>
 <div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">x</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/spec_delim.html">spec_csv</a></span><span class="op">(</span><span class="fu"><a href="../reference/readr_example.html">readr_example</a></span><span class="op">(</span><span class="st">"challenge.csv"</span><span class="op">)</span>, guess_max <span class="op">=</span> <span class="fl">1001</span><span class="op">)</span></span></code></pre></div>
-<p>Another way is to manually specify the <code>col_type</code>, as described below.</p>
+<p>Another way is to manually specify the <code>col_type</code>, as
+described below.</p>
 </div>
 <div class="section level2">
 <h2 id="rectangular-parsers">Rectangular parsers<a class="anchor" aria-label="anchor" href="#rectangular-parsers"></a>
@@ -252,7 +305,8 @@
 <p>readr comes with five parsers for rectangular file formats:</p>
 <ul>
 <li>
-<code><a href="../reference/read_delim.html">read_csv()</a></code> and <code><a href="../reference/read_delim.html">read_csv2()</a></code> for csv files</li>
+<code><a href="../reference/read_delim.html">read_csv()</a></code> and <code><a href="../reference/read_delim.html">read_csv2()</a></code> for csv
+files</li>
 <li>
 <code><a href="../reference/read_delim.html">read_tsv()</a></code> for tabs separated files</li>
 <li>
@@ -260,7 +314,9 @@
 <li>
 <code><a href="../reference/read_log.html">read_log()</a></code> for web log files</li>
 </ul>
-<p>Each of these functions firsts calls <code>spec_xxx()</code> (as described above), and then parses the file according to that column specification:</p>
+<p>Each of these functions firsts calls <code>spec_xxx()</code> (as
+described above), and then parses the file according to that column
+specification:</p>
 <div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">df1</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/read_delim.html">read_csv</a></span><span class="op">(</span><span class="fu"><a href="../reference/readr_example.html">readr_example</a></span><span class="op">(</span><span class="st">"challenge.csv"</span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="co">#&gt; <span style="font-weight: bold;">Rows: </span><span style="color: #0000BB;">2000</span> <span style="font-weight: bold;">Columns: </span><span style="color: #0000BB;">2</span></span></span>
@@ -271,13 +327,17 @@
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; <span style="color: #00BBBB;">ℹ</span> Use `spec()` to retrieve the full column specification for this data.</span></span>
 <span><span class="co">#&gt; <span style="color: #00BBBB;">ℹ</span> Specify the column types or set `show_col_types = FALSE` to quiet this message.</span></span></code></pre></div>
-<p>The rectangular parsing functions almost always succeed; they’ll only fail if the format is severely messed up. Instead, readr will generate a data frame of problems. The first few will be printed out, and you can access them all with <code><a href="../reference/problems.html">problems()</a></code>:</p>
+<p>The rectangular parsing functions almost always succeed; they’ll only
+fail if the format is severely messed up. Instead, readr will generate a
+data frame of problems. The first few will be printed out, and you can
+access them all with <code><a href="../reference/problems.html">problems()</a></code>:</p>
 <div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/problems.html">problems</a></span><span class="op">(</span><span class="va">df1</span><span class="op">)</span></span>
 <span><span class="co">#&gt; <span style="color: #949494;"># A tibble: 0 × 5</span></span></span>
 <span><span class="co">#&gt; <span style="color: #949494;"># … with 5 variables: row &lt;int&gt;, col &lt;int&gt;, expected &lt;chr&gt;, actual &lt;chr&gt;,</span></span></span>
 <span><span class="co">#&gt; <span style="color: #949494;">#   file &lt;chr&gt;</span></span></span></code></pre></div>
-<p>You’ve already seen one way of handling bad guesses: increasing the number of rows used to guess the type of each column.</p>
+<p>You’ve already seen one way of handling bad guesses: increasing the
+number of rows used to guess the type of each column.</p>
 <div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">df2</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/read_delim.html">read_csv</a></span><span class="op">(</span><span class="fu"><a href="../reference/readr_example.html">readr_example</a></span><span class="op">(</span><span class="st">"challenge.csv"</span><span class="op">)</span>, guess_max <span class="op">=</span> <span class="fl">1001</span><span class="op">)</span></span>
 <span><span class="co">#&gt; <span style="font-weight: bold;">Rows: </span><span style="color: #0000BB;">2000</span> <span style="font-weight: bold;">Columns: </span><span style="color: #0000BB;">2</span></span></span>
@@ -292,7 +352,8 @@
 <div class="section level3">
 <h3 id="overriding-the-defaults">Overriding the defaults<a class="anchor" aria-label="anchor" href="#overriding-the-defaults"></a>
 </h3>
-<p>In the previous examples, you may have noticed that readr printed the column specification that it used to parse the file:</p>
+<p>In the previous examples, you may have noticed that readr printed the
+column specification that it used to parse the file:</p>
 <div class="sourceCode" id="cb14"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co">#&gt; Parsed with column specification:</span></span>
 <span><span class="co">#&gt; cols(</span></span>
@@ -311,8 +372,12 @@
 <span><span class="co">#&gt;   x = <span style="color: #00BB00;">col_double()</span>,</span></span>
 <span><span class="co">#&gt;   y = <span style="color: #0000BB;">col_date(format = "")</span></span></span>
 <span><span class="co">#&gt; )</span></span></code></pre></div>
-<p>(This also allows you to access the full column specification if you’re reading a very wide file. By default, readr will only print the specification of the first 20 columns.)</p>
-<p>If you want to manually specify the column types, you can start by copying and pasting this code, and then tweaking it fix the parsing problems.</p>
+<p>(This also allows you to access the full column specification if
+you’re reading a very wide file. By default, readr will only print the
+specification of the first 20 columns.)</p>
+<p>If you want to manually specify the column types, you can start by
+copying and pasting this code, and then tweaking it fix the parsing
+problems.</p>
 <div class="sourceCode" id="cb16"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">df3</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/read_delim.html">read_csv</a></span><span class="op">(</span></span>
 <span>  <span class="fu"><a href="../reference/readr_example.html">readr_example</a></span><span class="op">(</span><span class="st">"challenge.csv"</span><span class="op">)</span>, </span>
@@ -321,15 +386,22 @@
 <span>    y <span class="op">=</span> <span class="fu"><a href="../reference/parse_datetime.html">col_date</a></span><span class="op">(</span>format <span class="op">=</span> <span class="st">""</span><span class="op">)</span></span>
 <span>  <span class="op">)</span></span>
 <span><span class="op">)</span></span></code></pre></div>
-<p>In general, it’s good practice to supply an explicit column specification. It is more work, but it ensures that you get warnings if the data changes in unexpected ways. To be really strict, you can use <code>stop_for_problems(df3)</code>. This will throw an error if there are any parsing problems, forcing you to fix those problems before proceeding with the analysis.</p>
+<p>In general, it’s good practice to supply an explicit column
+specification. It is more work, but it ensures that you get warnings if
+the data changes in unexpected ways. To be really strict, you can use
+<code>stop_for_problems(df3)</code>. This will throw an error if there
+are any parsing problems, forcing you to fix those problems before
+proceeding with the analysis.</p>
 </div>
 <div class="section level3">
 <h3 id="available-column-specifications">Available column specifications<a class="anchor" aria-label="anchor" href="#available-column-specifications"></a>
 </h3>
-<p>The available specifications are: (with string abbreviations in brackets)</p>
+<p>The available specifications are: (with string abbreviations in
+brackets)</p>
 <ul>
 <li>
-<code><a href="../reference/parse_atomic.html">col_logical()</a></code> [l], containing only <code>T</code>, <code>F</code>, <code>TRUE</code> or <code>FALSE</code>.</li>
+<code><a href="../reference/parse_atomic.html">col_logical()</a></code> [l], containing only <code>T</code>,
+<code>F</code>, <code>TRUE</code> or <code>FALSE</code>.</li>
 <li>
 <code><a href="../reference/parse_atomic.html">col_integer()</a></code> [i], integers.</li>
 <li>
@@ -337,24 +409,33 @@
 <li>
 <code><a href="../reference/parse_atomic.html">col_character()</a></code> [c], everything else.</li>
 <li>
-<code>col_factor(levels, ordered)</code> [f], a fixed set of values.</li>
+<code>col_factor(levels, ordered)</code> [f], a fixed set of
+values.</li>
 <li>
-<code>col_date(format = "")</code> [D]: with the locale’s <code>date_format</code>.</li>
+<code>col_date(format = "")</code> [D]: with the locale’s
+<code>date_format</code>.</li>
 <li>
-<code>col_time(format = "")</code> [t]: with the locale’s <code>time_format</code>.</li>
+<code>col_time(format = "")</code> [t]: with the locale’s
+<code>time_format</code>.</li>
 <li>
 <code>col_datetime(format = "")</code> [T]: ISO8601 date times</li>
 <li>
-<code><a href="../reference/parse_number.html">col_number()</a></code> [n], numbers containing the <code>grouping_mark</code>
+<code><a href="../reference/parse_number.html">col_number()</a></code> [n], numbers containing the
+<code>grouping_mark</code>
 </li>
 <li>
 <code><a href="../reference/col_skip.html">col_skip()</a></code> [_, -], don’t import this column.</li>
 <li>
-<code><a href="../reference/parse_guess.html">col_guess()</a></code> [?], parse using the “best” type based on the input.</li>
+<code><a href="../reference/parse_guess.html">col_guess()</a></code> [?], parse using the “best” type based on
+the input.</li>
 </ul>
-<p>Use the <code>col_types</code> argument to override the default choices. There are two ways to use it:</p>
+<p>Use the <code>col_types</code> argument to override the default
+choices. There are two ways to use it:</p>
 <ul>
-<li><p>With a string: <code>"dc__d"</code>: read first column as double, second as character, skip the next two and read the last column as a double. (There’s no way to use this form with types that take additional parameters.)</p></li>
+<li><p>With a string: <code>"dc__d"</code>: read first column as double,
+second as character, skip the next two and read the last column as a
+double. (There’s no way to use this form with types that take additional
+parameters.)</p></li>
 <li>
 <p>With a (named) list of col objects:</p>
 <div class="sourceCode" id="cb17"><pre class="downlit sourceCode r">
@@ -376,18 +457,21 @@
 <span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
 </li>
 </ul>
-<p>Any omitted columns will be parsed automatically, so the previous call will lead to the same result as:</p>
+<p>Any omitted columns will be parsed automatically, so the previous
+call will lead to the same result as:</p>
 <div class="sourceCode" id="cb19"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/read_delim.html">read_csv</a></span><span class="op">(</span><span class="st">"iris.csv"</span>, col_types <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
 <span>  Species <span class="op">=</span> <span class="fu"><a href="../reference/parse_factor.html">col_factor</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"setosa"</span>, <span class="st">"versicolor"</span>, <span class="st">"virginica"</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="op">)</span></span></code></pre></div>
-<p>You can also set a default type that will be used instead of relying on the automatic detection for columns you don’t specify:</p>
+<p>You can also set a default type that will be used instead of relying
+on the automatic detection for columns you don’t specify:</p>
 <div class="sourceCode" id="cb20"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/read_delim.html">read_csv</a></span><span class="op">(</span><span class="st">"iris.csv"</span>, col_types <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
 <span>  Species <span class="op">=</span> <span class="fu"><a href="../reference/parse_factor.html">col_factor</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"setosa"</span>, <span class="st">"versicolor"</span>, <span class="st">"virginica"</span><span class="op">)</span><span class="op">)</span>,</span>
 <span>  .default <span class="op">=</span> <span class="fu"><a href="../reference/parse_atomic.html">col_double</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="op">)</span></span></code></pre></div>
-<p>If you only want to read specified columns, use <code><a href="../reference/cols.html">cols_only()</a></code>:</p>
+<p>If you only want to read specified columns, use
+<code><a href="../reference/cols.html">cols_only()</a></code>:</p>
 <div class="sourceCode" id="cb21"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/read_delim.html">read_csv</a></span><span class="op">(</span><span class="st">"iris.csv"</span>, col_types <span class="op">=</span> <span class="fu"><a href="../reference/cols.html">cols_only</a></span><span class="op">(</span></span>
 <span>  Species <span class="op">=</span> <span class="fu"><a href="../reference/parse_factor.html">col_factor</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"setosa"</span>, <span class="st">"versicolor"</span>, <span class="st">"virginica"</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span>
@@ -396,8 +480,13 @@
 <div class="section level3">
 <h3 id="output">Output<a class="anchor" aria-label="anchor" href="#output"></a>
 </h3>
-<p>The output of all these functions is a tibble. Note that characters are never automatically converted to factors (i.e. no more <code>stringsAsFactors = FALSE</code>) and column names are left as is, not munged into valid R identifiers (i.e. there is no <code>check.names = TRUE</code>). Row names are never set.</p>
-<p>Attributes store the column specification (<code><a href="../reference/spec.html">spec()</a></code>) and any parsing problems (<code><a href="../reference/problems.html">problems()</a></code>).</p>
+<p>The output of all these functions is a tibble. Note that characters
+are never automatically converted to factors (i.e. no more
+<code>stringsAsFactors = FALSE</code>) and column names are left as is,
+not munged into valid R identifiers (i.e. there is no
+<code>check.names = TRUE</code>). Row names are never set.</p>
+<p>Attributes store the column specification (<code><a href="../reference/spec.html">spec()</a></code>) and
+any parsing problems (<code><a href="../reference/problems.html">problems()</a></code>).</p>
 </div>
 </div>
   </main><aside class="col-md-3"><nav id="toc"><h2>On this page</h2>

@@ -29,7 +29,7 @@ This function has been superseded in readr and moved to the meltr package."><met
 <li class="nav-item dropdown">
   <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown" role="button" aria-expanded="false" aria-haspopup="true" id="dropdown-articles">Articles</a>
   <div class="dropdown-menu" aria-labelledby="dropdown-articles">
-    <a class="dropdown-item" href="../articles/column-types.html">Column type guessing</a>
+    <a class="dropdown-item" href="../articles/column-types.html">Column type</a>
     <a class="dropdown-item" href="../articles/locales.html">Locales</a>
   </div>
 </li>
@@ -183,7 +183,7 @@ way to read rectangular data from fixed width files.</p></div>
 <span class="r-in"><span><span class="co"># 1. Guess based on position of empty columns</span></span></span>
 <span class="r-in"><span><span class="fu">melt_fwf</span><span class="op">(</span><span class="va">fwf_sample</span>, <span class="fu"><a href="read_fwf.html">fwf_empty</a></span><span class="op">(</span><span class="va">fwf_sample</span>, col_names <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"first"</span>, <span class="st">"last"</span>, <span class="st">"state"</span>, <span class="st">"ssn"</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>`melt_fwf()` was deprecated in readr 2.0.0.</span>
-<span class="r-wrn co"><span class="r-pr">#&gt;</span> Please use `meltr::melt_fwf()` instead</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">ℹ</span> Please use `meltr::melt_fwf()` instead</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tibble: 12 × 4</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>      row   col data_type value       </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>     <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>       </span>
@@ -201,8 +201,6 @@ way to read rectangular data from fixed width files.</p></div>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">12</span>     3     4 character 219-532-c301</span>
 <span class="r-in"><span><span class="co"># 2. A vector of field widths</span></span></span>
 <span class="r-in"><span><span class="fu">melt_fwf</span><span class="op">(</span><span class="va">fwf_sample</span>, <span class="fu"><a href="read_fwf.html">fwf_widths</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">20</span>, <span class="fl">10</span>, <span class="fl">12</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"name"</span>, <span class="st">"state"</span>, <span class="st">"ssn"</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span></span>
-<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>`melt_fwf()` was deprecated in readr 2.0.0.</span>
-<span class="r-wrn co"><span class="r-pr">#&gt;</span> Please use `meltr::melt_fwf()` instead</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tibble: 9 × 4</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     row   col data_type value        </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>     <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>        </span>
@@ -217,8 +215,6 @@ way to read rectangular data from fixed width files.</p></div>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">9</span>     3     3 character 219-532-c301 </span>
 <span class="r-in"><span><span class="co"># 3. Paired vectors of start and end positions</span></span></span>
 <span class="r-in"><span><span class="fu">melt_fwf</span><span class="op">(</span><span class="va">fwf_sample</span>, <span class="fu"><a href="read_fwf.html">fwf_positions</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">30</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">10</span>, <span class="fl">42</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"name"</span>, <span class="st">"ssn"</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span></span>
-<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>`melt_fwf()` was deprecated in readr 2.0.0.</span>
-<span class="r-wrn co"><span class="r-pr">#&gt;</span> Please use `meltr::melt_fwf()` instead</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tibble: 6 × 4</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     row   col data_type value       </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>     <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>       </span>
@@ -230,8 +226,6 @@ way to read rectangular data from fixed width files.</p></div>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">6</span>     3     2 character 219-532-c301</span>
 <span class="r-in"><span><span class="co"># 4. Named arguments with start and end positions</span></span></span>
 <span class="r-in"><span><span class="fu">melt_fwf</span><span class="op">(</span><span class="va">fwf_sample</span>, <span class="fu"><a href="read_fwf.html">fwf_cols</a></span><span class="op">(</span>name <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">10</span><span class="op">)</span>, ssn <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">30</span>, <span class="fl">42</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span></span>
-<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>`melt_fwf()` was deprecated in readr 2.0.0.</span>
-<span class="r-wrn co"><span class="r-pr">#&gt;</span> Please use `meltr::melt_fwf()` instead</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tibble: 6 × 4</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     row   col data_type value       </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>     <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>       </span>
@@ -243,8 +237,6 @@ way to read rectangular data from fixed width files.</p></div>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">6</span>     3     2 character 219-532-c301</span>
 <span class="r-in"><span><span class="co"># 5. Named arguments with column widths</span></span></span>
 <span class="r-in"><span><span class="fu">melt_fwf</span><span class="op">(</span><span class="va">fwf_sample</span>, <span class="fu"><a href="read_fwf.html">fwf_cols</a></span><span class="op">(</span>name <span class="op">=</span> <span class="fl">20</span>, state <span class="op">=</span> <span class="fl">10</span>, ssn <span class="op">=</span> <span class="fl">12</span><span class="op">)</span><span class="op">)</span></span></span>
-<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>`melt_fwf()` was deprecated in readr 2.0.0.</span>
-<span class="r-wrn co"><span class="r-pr">#&gt;</span> Please use `meltr::melt_fwf()` instead</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tibble: 9 × 4</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     row   col data_type value        </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>     <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>        </span>

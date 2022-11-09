@@ -47,7 +47,7 @@ columns and then parses like a fixed width file."><meta property="og:image" cont
 <li class="nav-item dropdown">
   <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown" role="button" aria-expanded="false" aria-haspopup="true" id="dropdown-articles">Articles</a>
   <div class="dropdown-menu" aria-labelledby="dropdown-articles">
-    <a class="dropdown-item" href="../articles/column-types.html">Column type guessing</a>
+    <a class="dropdown-item" href="../articles/column-types.html">Column type</a>
     <a class="dropdown-item" href="../articles/locales.html">Locales</a>
   </div>
 </li>
@@ -167,6 +167,7 @@ option to <code><a href="https://rdrr.io/r/base/character.html" class="external-
 
 <dt>guess_max</dt>
 <dd><p>Maximum number of lines to use for guessing column types.
+Will never use more than the number of lines read.
 See <code><a href="../articles/column-types.html">vignette("column-types", package = "readr")</a></code> for more details.</p></dd>
 
 
@@ -205,7 +206,7 @@ conventional way to read tabular data from whitespace-separated files.</p></div>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Evan Nolan          IL        219-532-c301</span>
 <span class="r-in"><span><span class="fu">melt_table</span><span class="op">(</span><span class="va">fwf</span><span class="op">)</span></span></span>
 <span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>`melt_table()` was deprecated in readr 2.0.0.</span>
-<span class="r-wrn co"><span class="r-pr">#&gt;</span> Please use `meltr::melt_table()` instead</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">ℹ</span> Please use `meltr::melt_table()` instead</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tibble: 12 × 4</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>      row   col data_type value       </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>     <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>       </span>
@@ -230,7 +231,7 @@ conventional way to read tabular data from whitespace-separated files.</p></div>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Evan Nolan IL 219-532-c301</span>
 <span class="r-in"><span><span class="fu">melt_table2</span><span class="op">(</span><span class="va">ws</span><span class="op">)</span></span></span>
 <span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>`melt_table2()` was deprecated in readr 2.0.0.</span>
-<span class="r-wrn co"><span class="r-pr">#&gt;</span> Please use `meltr::melt_table2()` instead</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">ℹ</span> Please use `meltr::melt_table2()` instead</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tibble: 16 × 4</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>      row   col data_type value       </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>     <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>       </span>
