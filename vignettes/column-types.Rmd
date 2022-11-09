@@ -2,7 +2,7 @@
 title: "Column type"
 output: rmarkdown::html_vignette
 vignette: >
-  %\VignetteIndexEntry{Column type guessing}
+  %\VignetteIndexEntry{Column type}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---
@@ -15,7 +15,7 @@ knitr::opts_chunk$set(
 ```
 
 This vignette provides an overview of column type specification with readr.
-Currently it focuses on how automatically guessing works, but over time we expect to cover more topics.
+Currently it focuses on how automatic guessing works, but over time we expect to cover more topics.
 
 ```{r setup}
 library(readr)
@@ -23,20 +23,20 @@ library(readr)
 
 ## Automatic guessing
 
-If you don't explicit specify column types with the `col_types` argument readr will attempt to guess them using some simple heuristics.
-By default, it will inspect the values of 1000 evenly spaced values from the first to the last row.
+If you don't explicit specify column types with the `col_types` argument, readr will attempt to guess them using some simple heuristics.
+By default, it will inspect 1000 values, evenly spaced from the first to the last row.
 This is a heuristic designed to always be fast (no matter how large your file is) and, in our experience, does a good job in most cases.
 
-If needed, you can request that readr uses more rows by supplying the `guess_max` argument.
+If needed, you can request that readr use more rows by supplying the `guess_max` argument.
 You can even supply `guess_max = Inf` to use every row to guess the column types.
 You might wonder why this isn't the default.
 That's because it's slow: it has to look at every column twice, once to determine the type and once to parse the value.
-In most cases you're best off supplying `col_types` yourself.
+In most cases, you're best off supplying `col_types` yourself.
 
 ### Legacy behavior
 
-Column guessing was substantially worse in the first edition because it always looked at the first 1000 rows, and through some application of Murphy's law it appears that many real csv files have different structure in the final rows.
-Let's demonstrate the probelm with a slightly tricky file: the column `x` is mostly empty, but has some numeric data at the very end, in row 1001.
+Column type guessing was substantially worse in the first edition of readr (meaning, prior to v2.0.0), because it always looked at the first 1000 rows, and through some application of Murphy's Law, it appears that many real csv files have lots of empty values at the start, followed by more "excitement" later in the file.
+Let's demonstrate the problem with a slightly tricky file: the column `x` is mostly empty, but has some numeric data at the very end, in row 1001.
 
 ```{r}
 tricky_dat <- tibble::tibble(
@@ -61,7 +61,7 @@ df <- with_edition(1, read_csv(tfile, guess_max = 1001))
 tail(df)
 ```
 
-Unlike the 2nd edition, we don't recommend using `guess_max = Inf` because the engine pre-allocates a large amount of memory in the face of this uncertainty.
+Unlike the 2nd edition, we don't recommend using `guess_max = Inf` with the legacy parser, because the engine pre-allocates a large amount of memory in the face of this uncertainty.
 This means that reading with `guess_max = Inf` can be extremely slow and might even crash your R session.
 Instead specify the `col_types`:
 
