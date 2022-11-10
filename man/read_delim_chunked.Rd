@@ -162,11 +162,11 @@ character represents one column:
 \item t = time
 \item ? = guess
 \item _ or - = skip
+}
 
 By default, reading a file without a column specification will print a
 message showing what \code{readr} guessed they were. To remove this message,
-set \code{show_col_types = FALSE} or set `options(readr.show_col_types = FALSE).
-}}
+set \code{show_col_types = FALSE} or set `options(readr.show_col_types = FALSE).}
 
 \item{locale}{The locale controls defaults that vary from place to place.
 The default locale is US-centric (like R), but you can use

@@ -29,28 +29,28 @@ NULL
 #' @param col_types One of `NULL`, a [cols()] specification, or
 #'   a string. See `vignette("readr")` for more details.
 #'
-#'   If `NULL`, all column types will be imputed from `guess_max` rows
-#'   on the input interspersed throughout the file. This is convenient (and
-#'   fast), but not robust. If the imputation fails, you'll need to increase
-#'   the `guess_max` or supply the correct types yourself.
+#'    If `NULL`, all column types will be imputed from `guess_max` rows
+#'    on the input interspersed throughout the file. This is convenient (and
+#'    fast), but not robust. If the imputation fails, you'll need to increase
+#'    the `guess_max` or supply the correct types yourself.
 #'
-#'   Column specifications created by [list()] or [cols()] must contain
-#'   one column specification for each column. If you only want to read a
-#'   subset of the columns, use [cols_only()].
+#'    Column specifications created by [list()] or [cols()] must contain
+#'    one column specification for each column. If you only want to read a
+#'    subset of the columns, use [cols_only()].
 #'
-#'   Alternatively, you can use a compact string representation where each
-#'   character represents one column:
-#' - c = character
-#' - i = integer
-#' - n = number
-#' - d = double
-#' - l = logical
-#' - f = factor
-#' - D = date
-#' - T = date time
-#' - t = time
-#' - ? = guess
-#' - _ or - = skip
+#'    Alternatively, you can use a compact string representation where each
+#'    character represents one column:
+#'    - c = character
+#'    - i = integer
+#'    - n = number
+#'    - d = double
+#'    - l = logical
+#'    - f = factor
+#'    - D = date
+#'    - T = date time
+#'    - t = time
+#'    - ? = guess
+#'    - _ or - = skip
 #'
 #'    By default, reading a file without a column specification will print a
 #'    message showing what `readr` guessed they were. To remove this message,
