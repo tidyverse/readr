@@ -29,10 +29,10 @@ NULL
 #' @param col_types One of `NULL`, a [cols()] specification, or
 #'   a string. See `vignette("readr")` for more details.
 #'
-#'    If `NULL`, all column types will be imputed from `guess_max` rows
-#'    on the input interspersed throughout the file. This is convenient (and
-#'    fast), but not robust. If the imputation fails, you'll need to increase
-#'    the `guess_max` or supply the correct types yourself.
+#'    If `NULL`, all column types will be inferred from `guess_max` rows of the
+#'    input, interspersed throughout the file. This is convenient (and fast),
+#'    but not robust. If the guessed types are wrong, you'll need to increase
+#'    `guess_max` or supply the correct types yourself.
 #'
 #'    Column specifications created by [list()] or [cols()] must contain
 #'    one column specification for each column. If you only want to read a
