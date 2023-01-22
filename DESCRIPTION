@@ -61,5 +61,5 @@ Config/testthat/parallel: false
 Encoding: UTF-8
 Language: en-US
 Roxygen: list(markdown = TRUE, r6 = FALSE)
-RoxygenNote: 7.2.1
+RoxygenNote: 7.2.3
 SystemRequirements: C++11
