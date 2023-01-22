@@ -1,6 +1,6 @@
 # readr (development version)
 
-`write_excel_csv()` and `write_excel_csv()` put datetimes in a format that is
+`write_excel_csv()` and `write_excel_csv2()` put datetimes in a format that is
 readable again by `readr` on roundtrips (#1202).
 
 # readr 2.1.3
