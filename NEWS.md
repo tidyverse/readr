@@ -1,5 +1,8 @@
 # readr (development version)
 
+`write_excel_csv()` and `write_excel_csv()` put datetimes in a format that is
+readable again by `readr` on roundtrips (#1202).
+
 # readr 2.1.3
 
 * Help files below `man/` have been re-generated, so that they give rise to valid HTML5. (This is the impetus for this release, to keep the package safely on CRAN.)

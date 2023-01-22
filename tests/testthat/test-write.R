@@ -103,6 +103,28 @@ test_that("write_excel_csv/csv2 includes a byte order mark, but not when appendi
   expect_equal(output[-1:-3], charToRaw('"a"\n1\n2\n'))
 })
 
+test_that("write_excel_csv/csv2 preserves datetimes on roundtrip", {
+  tmp <- tempfile()
+  on.exit(unlink(tmp))
+
+  tmp2 <- tempfile()
+  on.exit(unlink(tmp2))
+
+  x <- as.POSIXct("2010-01-01 00:00:00") + 1:10
+  attr(x, "tzone") <- "UTC"
+
+  input <- data.frame(x = x)
+
+  write_excel_csv(input, tmp)
+  write_excel_csv2(input, tmp2)
+
+  output <- read_csv(tmp)
+  output2 <- read_csv2(tmp2)
+
+  expect_equal(output$x, x)
+  expect_equal(output2$x, x)
+})
+
 test_that("does not writes a tailing .0 for whole number doubles", {
   expect_equal(format_tsv(tibble::tibble(x = 1)), "x\n1\n")
 
