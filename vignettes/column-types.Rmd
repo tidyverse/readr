@@ -61,7 +61,7 @@ df <- with_edition(1, read_csv(tfile, guess_max = 1001))
 tail(df)
 ```
 
-Unlike the 2nd edition, we don't recommend using `guess_max = Inf` with the legacy parser, because the engine pre-allocates a large amount of memory in the face of this uncertainty.
+Unlike the second edition, we don't recommend using `guess_max = Inf` with the legacy parser, because the engine pre-allocates a large amount of memory in the face of this uncertainty.
 This means that reading with `guess_max = Inf` can be extremely slow and might even crash your R session.
 Instead specify the `col_types`:
 
