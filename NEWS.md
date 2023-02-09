@@ -1,5 +1,7 @@
 # readr (development version)
 
+* No user-facing changes. Patch release with internal changes requested by CRAN.
+
 # readr 2.1.3
 
 * Help files below `man/` have been re-generated, so that they give rise to valid HTML5. (This is the impetus for this release, to keep the package safely on CRAN.)
