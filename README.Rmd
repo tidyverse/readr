@@ -66,8 +66,9 @@ To read a rectangular dataset with readr, you combine two pieces: a function tha
 
 readr supports the following file formats with these `read_*()` functions:
 
-* `read_csv()`: comma-separated values (CSV) files
-* `read_tsv()`: tab-separated values (TSV) files
+* `read_csv()`: comma-separated values (CSV)
+* `read_tsv()`: tab-separated values (TSV)
+* `read_csv2()`: semicolon-separated values with `,` as the decimal mark
 * `read_delim()`: delimited files (CSV and TSV are important special cases)
 * `read_fwf()`: fixed-width files
 * `read_table()`: whitespace-separated files
