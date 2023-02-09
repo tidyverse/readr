@@ -53,10 +53,10 @@ readr is part of the core tidyverse, so you can load it with:
 ``` r
 library(tidyverse)
 #> ── Attaching packages ─────────────────────────────────────── tidyverse 1.3.2 ──
-#> ✔ ggplot2 3.3.6          ✔ purrr   0.3.4     
-#> ✔ tibble  3.1.8          ✔ dplyr   1.0.10    
-#> ✔ tidyr   1.2.1          ✔ stringr 1.4.1.9000
-#> ✔ readr   2.1.2.9000     ✔ forcats 0.5.2     
+#> ✔ ggplot2 3.4.0          ✔ purrr   1.0.1     
+#> ✔ tibble  3.1.8          ✔ dplyr   1.1.0     
+#> ✔ tidyr   1.3.0          ✔ stringr 1.5.0     
+#> ✔ readr   2.1.3.9000     ✔ forcats 1.0.0     
 #> ── Conflicts ────────────────────────────────────────── tidyverse_conflicts() ──
 #> ✖ dplyr::filter() masks stats::filter()
 #> ✖ dplyr::lag()    masks stats::lag()
@@ -75,13 +75,14 @@ column specification.
 readr supports the following file formats with these `read_*()`
 functions:
 
--   `read_csv()`: comma-separated values (CSV) files
--   `read_tsv()`: tab-separated values (TSV) files
--   `read_delim()`: delimited files (CSV and TSV are important special
-    cases)
--   `read_fwf()`: fixed-width files
--   `read_table()`: whitespace-separated files
--   `read_log()`: web log files
+- `read_csv()`: comma-separated values (CSV)
+- `read_tsv()`: tab-separated values (TSV)
+- `read_csv2()`: semicolon-separated values with `,` as the decimal mark
+- `read_delim()`: delimited files (CSV and TSV are important special
+  cases)
+- `read_fwf()`: fixed-width files
+- `read_table()`: whitespace-separated files
+- `read_log()`: web log files
 
 A column specification describes how each column should be converted
 from a character vector to a specific data type (e.g. character,
@@ -192,18 +193,18 @@ There are two main alternatives to readr: base R and data.table’s
 
 Compared to the corresponding base functions, readr functions:
 
--   Use a consistent naming scheme for the parameters (e.g. `col_names`
-    and `col_types` not `header` and `colClasses`).
+- Use a consistent naming scheme for the parameters (e.g. `col_names`
+  and `col_types` not `header` and `colClasses`).
 
--   Are generally much faster (up to 10x-100x) depending on the dataset.
+- Are generally much faster (up to 10x-100x) depending on the dataset.
 
--   Leave strings as is by default, and automatically parse common
-    date/time formats.
+- Leave strings as is by default, and automatically parse common
+  date/time formats.
 
--   Have a helpful progress bar if loading is going to take a while.
+- Have a helpful progress bar if loading is going to take a while.
 
--   All functions work exactly the same way regardless of the current
-    locale. To override the US-centric defaults, use `locale()`.
+- All functions work exactly the same way regardless of the current
+  locale. To override the US-centric defaults, use `locale()`.
 
 ### data.table and `fread()`
 
@@ -211,26 +212,26 @@ Compared to the corresponding base functions, readr functions:
 similar to `read_csv()` called `fread()`. Compared to `fread()`, readr
 functions:
 
--   Are sometimes slower, particularly on numeric heavy data.
+- Are sometimes slower, particularly on numeric heavy data.
 
--   Can automatically guess some parameters, but basically encourage
-    explicit specification of, e.g., the delimiter, skipped rows, and
-    the header row.
+- Can automatically guess some parameters, but basically encourage
+  explicit specification of, e.g., the delimiter, skipped rows, and the
+  header row.
 
--   Follow tidyverse-wide conventions, such as returning a tibble, a
-    standard approach for column name repair, and a common mini-language
-    for column selection.
+- Follow tidyverse-wide conventions, such as returning a tibble, a
+  standard approach for column name repair, and a common mini-language
+  for column selection.
 
 ## Acknowledgements
 
 Thanks to:
 
--   [Joe Cheng](https://github.com/jcheng5) for showing me the beauty of
-    deterministic finite automata for parsing, and for teaching me why I
-    should write a tokenizer.
+- [Joe Cheng](https://github.com/jcheng5) for showing me the beauty of
+  deterministic finite automata for parsing, and for teaching me why I
+  should write a tokenizer.
 
--   [JJ Allaire](https://github.com/jjallaire) for helping me come up
-    with a design that makes very few copies, and is easy to extend.
+- [JJ Allaire](https://github.com/jjallaire) for helping me come up with
+  a design that makes very few copies, and is easy to extend.
 
--   [Dirk Eddelbuettel](http://dirk.eddelbuettel.com) for coming up with
-    the name!
+- [Dirk Eddelbuettel](http://dirk.eddelbuettel.com) for coming up with
+  the name!
