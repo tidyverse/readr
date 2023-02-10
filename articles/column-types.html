@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <meta name="description" content="readr">
-<title>Column type guessing • readr</title>
+<title>Column type • readr</title>
 <!-- favicons --><link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
 <link rel="icon" type="image/png" sizes="32x32" href="../favicon-32x32.png">
 <link rel="apple-touch-icon" type="image/png" sizes="180x180" href="../apple-touch-icon.png">
@@ -14,12 +14,12 @@
 <link rel="apple-touch-icon" type="image/png" sizes="76x76" href="../apple-touch-icon-76x76.png">
 <link rel="apple-touch-icon" type="image/png" sizes="60x60" href="../apple-touch-icon-60x60.png">
 <script src="../deps/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<link href="../deps/bootstrap-5.1.3/bootstrap.min.css" rel="stylesheet">
-<script src="../deps/bootstrap-5.1.3/bootstrap.bundle.min.js"></script><link href="../deps/Source_Sans_Pro-0.4.2/font.css" rel="stylesheet">
-<link href="../deps/Source_Code_Pro-0.4.2/font.css" rel="stylesheet">
+<link href="../deps/bootstrap-5.2.2/bootstrap.min.css" rel="stylesheet">
+<script src="../deps/bootstrap-5.2.2/bootstrap.bundle.min.js"></script><link href="../deps/Source_Sans_Pro-0.4.5/font.css" rel="stylesheet">
+<link href="../deps/Source_Code_Pro-0.4.5/font.css" rel="stylesheet">
 <!-- Font Awesome icons --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/v4-shims.min.css" integrity="sha256-wZjR52fzng1pJHwx4aV2AO3yyTOXrcDW7jBpJtTwVxw=" crossorigin="anonymous">
-<!-- bootstrap-toc --><script src="https://cdn.rawgit.com/afeld/bootstrap-toc/v1.0.1/dist/bootstrap-toc.min.js"></script><!-- headroom.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/headroom.min.js" integrity="sha256-AsUX4SJE1+yuDu5+mAVzJbuYNPHj/WroHuZ8Ir/CkE0=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script><!-- clipboard.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><!-- search --><script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/6.4.6/fuse.js" integrity="sha512-zv6Ywkjyktsohkbp9bb45V6tEMoWhzFzXis+LrMehmJZZSys19Yxf1dopHx7WzIKxr5tK2dVcYmaCk2uqdjF4A==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/autocomplete.js/0.38.0/autocomplete.jquery.min.js" integrity="sha512-GU9ayf+66Xx2TmpxqJpliWbT5PiGYxpaG8rfnBEk1LL8l1KGkRShhngwdXK1UgqhAzWpZHSiYPc09/NwDQIGyg==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/mark.min.js" integrity="sha512-5CYOlHXGh6QpOFA/TeTylKLWfB3ftPsde7AnmhuitiTX4K5SqCLBeKro6sPS8ilsz1Q4NRx3v8Ko2IBiszzdww==" crossorigin="anonymous"></script><!-- pkgdown --><script src="../pkgdown.js"></script><meta property="og:title" content="Column type guessing">
+<!-- bootstrap-toc --><script src="https://cdn.jsdelivr.net/gh/afeld/bootstrap-toc@v1.0.1/dist/bootstrap-toc.min.js" integrity="sha256-4veVQbu7//Lk5TSmc7YV48MxtMy98e26cf5MrgZYnwo=" crossorigin="anonymous"></script><!-- headroom.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/headroom.min.js" integrity="sha256-AsUX4SJE1+yuDu5+mAVzJbuYNPHj/WroHuZ8Ir/CkE0=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script><!-- clipboard.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><!-- search --><script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/6.4.6/fuse.js" integrity="sha512-zv6Ywkjyktsohkbp9bb45V6tEMoWhzFzXis+LrMehmJZZSys19Yxf1dopHx7WzIKxr5tK2dVcYmaCk2uqdjF4A==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/autocomplete.js/0.38.0/autocomplete.jquery.min.js" integrity="sha512-GU9ayf+66Xx2TmpxqJpliWbT5PiGYxpaG8rfnBEk1LL8l1KGkRShhngwdXK1UgqhAzWpZHSiYPc09/NwDQIGyg==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/mark.min.js" integrity="sha512-5CYOlHXGh6QpOFA/TeTylKLWfB3ftPsde7AnmhuitiTX4K5SqCLBeKro6sPS8ilsz1Q4NRx3v8Ko2IBiszzdww==" crossorigin="anonymous"></script><!-- pkgdown --><script src="../pkgdown.js"></script><meta property="og:title" content="Column type">
 <meta property="og:description" content="readr">
 <meta property="og:image" content="https://readr.tidyverse.org/logo.png">
 <!-- mathjax --><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js" integrity="sha256-nvJJv9wWKEm88qvoQl9ekL2J+k/RWIsaSScxxlsrv8k=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/config/TeX-AMS-MML_HTMLorMML.js" integrity="sha256-84DKXVJXs0/F8OTMzX4UR909+jtl4G7SPypPavF+GfA=" crossorigin="anonymous"></script><!--[if lt IE 9]>
@@ -35,7 +35,7 @@
     
     <a class="navbar-brand me-2" href="../index.html">readr</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Released version">2.1.3</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Released version">2.1.4</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -53,7 +53,7 @@
 <li class="active nav-item dropdown">
   <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown" role="button" aria-expanded="false" aria-haspopup="true" id="dropdown-articles">Articles</a>
   <div class="dropdown-menu" aria-labelledby="dropdown-articles">
-    <a class="dropdown-item" href="../articles/column-types.html">Column type guessing</a>
+    <a class="dropdown-item" href="../articles/column-types.html">Column type</a>
     <a class="dropdown-item" href="../articles/locales.html">Locales</a>
   </div>
 </li>
@@ -96,7 +96,7 @@
 
 <div class="row">
   <main id="main" class="col-md-9"><div class="page-header">
-      <img src="../logo.png" class="logo" alt=""><h1>Column type guessing</h1>
+      <img src="../logo.png" class="logo" alt=""><h1>Column type</h1>
             
       
       <small class="dont-index">Source: <a href="https://github.com/tidyverse/readr/blob/HEAD/vignettes/column-types.Rmd" class="external-link"><code>vignettes/column-types.Rmd</code></a></small>
@@ -105,69 +105,48 @@
 
     
     
-<p>readr will guess column types from the data if the user does not specify the types. The <code>guess_max</code> parameter controls how many rows of the input file are used to form these guesses. Ideally, the column types would be completely obvious from the first non-header row and we could use <code>guess_max = 1</code>. That would be very efficient! But the situation is rarely so clear-cut.</p>
-<p>By default, readr consults 1000 rows when type-guessing, i.e. <code>guess_max = 1000</code>. Note that readr never consults rows that won’t be part of the import, so the actual default is <code>guess_max = min(1000, n_max)</code>.</p>
-<p>Sometimes you want to convey “use all of the data we’re going to import to guess the column types”, often without even knowing or specifying <code>n_max</code>. How should you say that? It’s also worth discussing the possible downsides of such a request.</p>
+<p>This vignette provides an overview of column type specification with
+readr. Currently it focuses on how automatic guessing works, but over
+time we expect to cover more topics.</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://readr.tidyverse.org">readr</a></span><span class="op">)</span></span></code></pre></div>
 <div class="section level2">
-<h2 id="readr-2-0-0">readr &gt;= 2.0.0<a class="anchor" aria-label="anchor" href="#readr-2-0-0"></a>
+<h2 id="automatic-guessing">Automatic guessing<a class="anchor" aria-label="anchor" href="#automatic-guessing"></a>
 </h2>
-<p>readr got a new parsing engine in version 2.0.0 (released July 2021). In this so-called second edition, readr calls <code><a href="https://vroom.r-lib.org/reference/vroom.html" class="external-link">vroom::vroom()</a></code>, by default. The vroom package and, therefore, the second edition of readr supports a very natural expression of “use all the data to guess”: namely <code>guess_max = Inf</code>.</p>
+<p>If you don’t explicit specify column types with the
+<code>col_types</code> argument, readr will attempt to guess them using
+some simple heuristics. By default, it will inspect 1000 values, evenly
+spaced from the first to the last row. This is a heuristic designed to
+always be fast (no matter how large your file is) and, in our
+experience, does a good job in most cases.</p>
+<p>If needed, you can request that readr use more rows by supplying the
+<code>guess_max</code> argument. You can even supply
+<code>guess_max = Inf</code> to use every row to guess the column types.
+You might wonder why this isn’t the default. That’s because it’s slow:
+it has to look at every column twice, once to determine the type and
+once to parse the value. In most cases, you’re best off supplying
+<code>col_types</code> yourself.</p>
+<div class="section level3">
+<h3 id="legacy-behavior">Legacy behavior<a class="anchor" aria-label="anchor" href="#legacy-behavior"></a>
+</h3>
+<p>Column type guessing was substantially worse in the first edition of
+readr (meaning, prior to v2.0.0), because it always looked at the first
+1000 rows, and through some application of Murphy’s Law, it appears that
+many real csv files have lots of empty values at the start, followed by
+more “excitement” later in the file. Let’s demonstrate the problem with
+a slightly tricky file: the column <code>x</code> is mostly empty, but
+has some numeric data at the very end, in row 1001.</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="../reference/read_delim.html">read_csv</a></span><span class="op">(</span><span class="st">"path/to/your/file"</span>, <span class="va">...</span>, guess_max <span class="op">=</span> <span class="cn">Inf</span><span class="op">)</span></span></code></pre></div>
-<p>Why isn’t this the default? Why not do this all the time? Because column type guessing basically adds another pass through the data, in addition to the main parsing.</p>
-<p>If you routinely use <code>guess_max = Inf</code>, you’re basically processing every file twice, in its entirety. If you only work with small files, this is fine. But for larger files, this can be very costly and for relatively little benefit. Often the column types guessed based on a subset of the file are “good enough”.</p>
-<p>Note also that <code>guess_max = n</code>, for finite <code>n</code>, works better in the second edition parser. Due to its different design, vroom is able to sub-sample <code>n</code> rows throughout the file and it always includes the last row, whereas earlier versions of readr just consulted the first <code>n</code> rows. In practice, the result is that the default of <code>guess_max = min(1000, n_max)</code> produces better guessed column types that it used to. It should feel less necessary to fiddle with <code>guess_max</code> now.</p>
-<!-- 
-https://github.com/r-lib/vroom/issues/352
-
-In fact vroom generally does this guessing better than readr currently does. Readr always uses the first guess_max number of rows for guessing, whereas vroom uses rows interspersed throughout the file if guess_max is less than the total number of rows.
-
-However as this example shows we should probably always include the last row when guessing, so I have made a change to always include the last row in the guess in the future.
--->
-<p>As always, remember that the best strategy is to provide explicit column types as any data analysis project matures past the exploratory phase.</p>
-<!-- Future link to a vignette on column specification or, if that content gets co-located here, link to later in this vignette. -->
-</div>
-<div class="section level2">
-<h2 id="readr-first-edition-and-readr-2-0-0">readr first edition and readr &lt; 2.0.0<a class="anchor" aria-label="anchor" href="#readr-first-edition-and-readr-2-0-0"></a>
-</h2>
-<p>The parsing engine in readr versions prior to 2.0.0 is now called the first edition. If you’re using readr &gt;= 2.0.0, you can still access first edition parsing via the functions <code><a href="../reference/with_edition.html">with_edition()</a></code> and <code><a href="../reference/with_edition.html">local_edition()</a></code>. And, obviously, if you’re using readr &lt; 2.0.0, you will get first edition parsing, by definition, because that’s all there is.</p>
-<p>The first edition parser doesn’t have a perfect way to convey “use all of the data to guess the column types”. (This is one of several reasons to prefer readr &gt;= 2.0.0.)</p>
-<p>Let’s set up a slightly tricky file, so we can demonstrate different approaches. The column <code>x</code> is mostly empty, but has some numeric data at the very end, in row 1001.</p>
-<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">tricky_dat</span> <span class="op">&lt;-</span> <span class="fu">tibble</span><span class="fu">::</span><span class="fu"><a href="https://tibble.tidyverse.org/reference/tibble.html" class="external-link">tibble</a></span><span class="op">(</span></span>
 <span>  x <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/rep.html" class="external-link">rep</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">""</span>, <span class="st">"2"</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1000</span>, <span class="fl">1</span><span class="op">)</span><span class="op">)</span>,</span>
 <span>  y <span class="op">=</span> <span class="st">"y"</span></span>
 <span><span class="op">)</span></span>
 <span><span class="va">tfile</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/tempfile.html" class="external-link">tempfile</a></span><span class="op">(</span><span class="st">"tricky-column-type-guessing-"</span>, fileext <span class="op">=</span> <span class="st">".csv"</span><span class="op">)</span></span>
 <span><span class="fu"><a href="../reference/write_delim.html">write_csv</a></span><span class="op">(</span><span class="va">tricky_dat</span>, <span class="va">tfile</span><span class="op">)</span></span></code></pre></div>
-<p>First, note that the second edition parser guesses the right type for <code>x</code>, even with the default <code>guess_max</code> behaviour.</p>
-<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">tail</a></span><span class="op">(</span><span class="fu"><a href="../reference/read_delim.html">read_csv</a></span><span class="op">(</span><span class="va">tfile</span><span class="op">)</span><span class="op">)</span></span>
-<span><span class="co">#&gt; <span style="font-weight: bold;">Rows: </span><span style="color: #0000BB;">1001</span> <span style="font-weight: bold;">Columns: </span><span style="color: #0000BB;">2</span></span></span>
-<span><span class="co">#&gt; <span style="color: #00BBBB;">──</span> <span style="font-weight: bold;">Column specification</span> <span style="color: #00BBBB;">──────────────────────────────────────────────────</span></span></span>
-<span><span class="co">#&gt; <span style="font-weight: bold;">Delimiter:</span> ","</span></span>
-<span><span class="co">#&gt; <span style="color: #BB0000;">chr</span> (1): y</span></span>
-<span><span class="co">#&gt; <span style="color: #00BB00;">dbl</span> (1): x</span></span>
-<span><span class="co">#&gt; </span></span>
-<span><span class="co">#&gt; <span style="color: #00BBBB;">ℹ</span> Use `spec()` to retrieve the full column specification for this data.</span></span>
-<span><span class="co">#&gt; <span style="color: #00BBBB;">ℹ</span> Specify the column types or set `show_col_types = FALSE` to quiet this message.</span></span>
-<span><span class="co">#&gt; <span style="color: #949494;"># A tibble: 6 × 2</span></span></span>
-<span><span class="co">#&gt;       x y    </span></span>
-<span><span class="co">#&gt;   <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span></span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">1</span>    <span style="color: #BB0000;">NA</span> y    </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">2</span>    <span style="color: #BB0000;">NA</span> y    </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">3</span>    <span style="color: #BB0000;">NA</span> y    </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">4</span>    <span style="color: #BB0000;">NA</span> y    </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">5</span>    <span style="color: #BB0000;">NA</span> y    </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">6</span>     2 y</span></span></code></pre></div>
-<p>In contrast, the first edition parser doesn’t guess the right type for <code>x</code> with the <code>guess_max</code> default. <code>x</code> is imported as logical and the <code>2</code> becomes an <code>NA</code>.</p>
-<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="../reference/with_edition.html">with_edition</a></span><span class="op">(</span></span>
-<span>  <span class="fl">1</span>,</span>
-<span>  <span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">tail</a></span><span class="op">(</span><span class="fu"><a href="../reference/read_delim.html">read_csv</a></span><span class="op">(</span><span class="va">tfile</span><span class="op">)</span><span class="op">)</span></span>
-<span><span class="op">)</span></span>
+<p>The first edition parser doesn’t guess the right type for
+<code>x</code> so the <code>2</code> becomes an <code>NA</code>:</p>
+<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">df</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/with_edition.html">with_edition</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fu"><a href="../reference/read_delim.html">read_csv</a></span><span class="op">(</span><span class="va">tfile</span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; <span style="color: #00BBBB;">──</span> <span style="font-weight: bold;">Column specification</span> <span style="color: #00BBBB;">──────────────────────────────────────────────────</span></span></span>
 <span><span class="co">#&gt; cols(</span></span>
@@ -176,7 +155,8 @@ However as this example shows we should probably always include the last row whe
 <span><span class="co">#&gt; )</span></span>
 <span><span class="co">#&gt; Warning: 1 parsing failure.</span></span>
 <span><span class="co">#&gt;  row col           expected actual                                                           file</span></span>
-<span><span class="co">#&gt; 1001   x 1/0/T/F/TRUE/FALSE      2 '/tmp/RtmpEiG0FP/tricky-column-type-guessing-3784535fca7a.csv'</span></span>
+<span><span class="co">#&gt; 1001   x 1/0/T/F/TRUE/FALSE      2 '/tmp/RtmpUKdh86/tricky-column-type-guessing-234e4aa8214b.csv'</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">tail</a></span><span class="op">(</span><span class="va">df</span><span class="op">)</span></span>
 <span><span class="co">#&gt; <span style="color: #949494;"># A tibble: 6 × 2</span></span></span>
 <span><span class="co">#&gt;   x     y    </span></span>
 <span><span class="co">#&gt;   <span style="color: #949494; font-style: italic;">&lt;lgl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span></span></span>
@@ -186,24 +166,17 @@ However as this example shows we should probably always include the last row whe
 <span><span class="co">#&gt; <span style="color: #BCBCBC;">4</span> <span style="color: #BB0000;">NA</span>    y    </span></span>
 <span><span class="co">#&gt; <span style="color: #BCBCBC;">5</span> <span style="color: #BB0000;">NA</span>    y    </span></span>
 <span><span class="co">#&gt; <span style="color: #BCBCBC;">6</span> <span style="color: #BB0000;">NA</span>    y</span></span></code></pre></div>
-<p>There are three ways to proceed, each of which has some downside:</p>
-<ul>
-<li>
-<p>Specify <code>guess_max = Inf</code>, just like we do for the second edition parser.</p>
-<p>Since readr does not know how much data it will be processing, the first edition engine pre-allocates a large amount of memory in the face of this uncertainty. This means that reading with <code>guess_max = Inf</code> can be extremely slow and might even crash your R session.</p>
-<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="../reference/with_edition.html">with_edition</a></span><span class="op">(</span></span>
-<span>  <span class="fl">1</span>,</span>
-<span>  <span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">tail</a></span><span class="op">(</span><span class="fu"><a href="../reference/read_delim.html">read_csv</a></span><span class="op">(</span><span class="va">tfile</span>, guess_max <span class="op">=</span> <span class="cn">Inf</span><span class="op">)</span><span class="op">)</span></span>
-<span><span class="op">)</span></span>
-<span><span class="co">#&gt; Warning: `guess_max` is a very large value, setting to `21474836` to avoid</span></span>
-<span><span class="co">#&gt; exhausting memory</span></span>
+<p>For this specific case, we can fix the problem by marginally
+increasing <code>guess_max</code>:</p>
+<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">df</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/with_edition.html">with_edition</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fu"><a href="../reference/read_delim.html">read_csv</a></span><span class="op">(</span><span class="va">tfile</span>, guess_max <span class="op">=</span> <span class="fl">1001</span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; <span style="color: #00BBBB;">──</span> <span style="font-weight: bold;">Column specification</span> <span style="color: #00BBBB;">──────────────────────────────────────────────────</span></span></span>
 <span><span class="co">#&gt; cols(</span></span>
 <span><span class="co">#&gt;   x = <span style="color: #00BB00;">col_double()</span>,</span></span>
 <span><span class="co">#&gt;   y = <span style="color: #BB0000;">col_character()</span></span></span>
 <span><span class="co">#&gt; )</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">tail</a></span><span class="op">(</span><span class="va">df</span><span class="op">)</span></span>
 <span><span class="co">#&gt; <span style="color: #949494;"># A tibble: 6 × 2</span></span></span>
 <span><span class="co">#&gt;       x y    </span></span>
 <span><span class="co">#&gt;   <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span></span></span>
@@ -213,21 +186,15 @@ However as this example shows we should probably always include the last row whe
 <span><span class="co">#&gt; <span style="color: #BCBCBC;">4</span>    <span style="color: #BB0000;">NA</span> y    </span></span>
 <span><span class="co">#&gt; <span style="color: #BCBCBC;">5</span>    <span style="color: #BB0000;">NA</span> y    </span></span>
 <span><span class="co">#&gt; <span style="color: #BCBCBC;">6</span>     2 y</span></span></code></pre></div>
-</li>
-<li>
-<p>Specify an actual, non-infinite value for <code>guess_max</code>.</p>
-<p>This is an awkward suggestion, because if you knew how many rows there were, we wouldn’t be having this conversation in the first place. But sometimes you have a decent estimate and can choose a value of <code>guess_max</code> that is “big enough”. This usually results in much better performance than <code>guess_max = Inf</code>.</p>
-<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="../reference/with_edition.html">with_edition</a></span><span class="op">(</span></span>
-<span>  <span class="fl">1</span>,</span>
-<span>  <span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">tail</a></span><span class="op">(</span><span class="fu"><a href="../reference/read_delim.html">read_csv</a></span><span class="op">(</span><span class="va">tfile</span>, guess_max <span class="op">=</span> <span class="fl">1200</span><span class="op">)</span><span class="op">)</span></span>
-<span><span class="op">)</span></span>
-<span><span class="co">#&gt; </span></span>
-<span><span class="co">#&gt; <span style="color: #00BBBB;">──</span> <span style="font-weight: bold;">Column specification</span> <span style="color: #00BBBB;">──────────────────────────────────────────────────</span></span></span>
-<span><span class="co">#&gt; cols(</span></span>
-<span><span class="co">#&gt;   x = <span style="color: #00BB00;">col_double()</span>,</span></span>
-<span><span class="co">#&gt;   y = <span style="color: #BB0000;">col_character()</span></span></span>
-<span><span class="co">#&gt; )</span></span>
+<p>Unlike the second edition, we don’t recommend using
+<code>guess_max = Inf</code> with the legacy parser, because the engine
+pre-allocates a large amount of memory in the face of this uncertainty.
+This means that reading with <code>guess_max = Inf</code> can be
+extremely slow and might even crash your R session. Instead specify the
+<code>col_types</code>:</p>
+<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">df</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/with_edition.html">with_edition</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fu"><a href="../reference/read_delim.html">read_csv</a></span><span class="op">(</span><span class="va">tfile</span>, col_types <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>x <span class="op">=</span> <span class="fu"><a href="../reference/parse_atomic.html">col_double</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">tail</a></span><span class="op">(</span><span class="va">df</span><span class="op">)</span></span>
 <span><span class="co">#&gt; <span style="color: #949494;"># A tibble: 6 × 2</span></span></span>
 <span><span class="co">#&gt;       x y    </span></span>
 <span><span class="co">#&gt;   <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span></span></span>
@@ -237,53 +204,7 @@ However as this example shows we should probably always include the last row whe
 <span><span class="co">#&gt; <span style="color: #BCBCBC;">4</span>    <span style="color: #BB0000;">NA</span> y    </span></span>
 <span><span class="co">#&gt; <span style="color: #BCBCBC;">5</span>    <span style="color: #BB0000;">NA</span> y    </span></span>
 <span><span class="co">#&gt; <span style="color: #BCBCBC;">6</span>     2 y</span></span></code></pre></div>
-</li>
-<li>
-<p>Read all columns as character, then use <code><a href="../reference/type_convert.html">type_convert()</a></code>. This is a bit clunky, since this obligates you to post-processing once you’ve brought you data into R.</p>
-<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">dat_chr</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/with_edition.html">with_edition</a></span><span class="op">(</span></span>
-<span>  <span class="fl">1</span>,</span>
-<span>  <span class="fu"><a href="../reference/read_delim.html">read_csv</a></span><span class="op">(</span><span class="va">tfile</span>, col_types <span class="op">=</span> <span class="fu"><a href="../reference/cols.html">cols</a></span><span class="op">(</span>.default <span class="op">=</span> <span class="fu"><a href="../reference/parse_atomic.html">col_character</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span>
-<span><span class="op">)</span></span>
-<span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">tail</a></span><span class="op">(</span><span class="va">dat_chr</span><span class="op">)</span></span>
-<span><span class="co">#&gt; <span style="color: #949494;"># A tibble: 6 × 2</span></span></span>
-<span><span class="co">#&gt;   x     y    </span></span>
-<span><span class="co">#&gt;   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span></span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">1</span> <span style="color: #BB0000;">NA</span>    y    </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">2</span> <span style="color: #BB0000;">NA</span>    y    </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">3</span> <span style="color: #BB0000;">NA</span>    y    </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">4</span> <span style="color: #BB0000;">NA</span>    y    </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">5</span> <span style="color: #BB0000;">NA</span>    y    </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">6</span> 2     y</span></span>
-<span></span>
-<span><span class="va">dat</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/type_convert.html">type_convert</a></span><span class="op">(</span><span class="va">dat_chr</span><span class="op">)</span></span>
-<span><span class="co">#&gt; </span></span>
-<span><span class="co">#&gt; <span style="color: #00BBBB;">──</span> <span style="font-weight: bold;">Column specification</span> <span style="color: #00BBBB;">──────────────────────────────────────────────────</span></span></span>
-<span><span class="co">#&gt; cols(</span></span>
-<span><span class="co">#&gt;   x = <span style="color: #00BB00;">col_double()</span>,</span></span>
-<span><span class="co">#&gt;   y = <span style="color: #BB0000;">col_character()</span></span></span>
-<span><span class="co">#&gt; )</span></span>
-<span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">tail</a></span><span class="op">(</span><span class="va">dat</span><span class="op">)</span></span>
-<span><span class="co">#&gt; <span style="color: #949494;"># A tibble: 6 × 2</span></span></span>
-<span><span class="co">#&gt;       x y    </span></span>
-<span><span class="co">#&gt;   <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span></span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">1</span>    <span style="color: #BB0000;">NA</span> y    </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">2</span>    <span style="color: #BB0000;">NA</span> y    </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">3</span>    <span style="color: #BB0000;">NA</span> y    </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">4</span>    <span style="color: #BB0000;">NA</span> y    </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">5</span>    <span style="color: #BB0000;">NA</span> y    </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">6</span>     2 y</span></span></code></pre></div>
-</li>
-</ul>
-<!-- 
-https://github.com/tidyverse/readr/issues/982
-https://github.com/tidyverse/readr/issues/588
-  
-Using type_convert() is another approach however this requires an extra step (or a few extra steps) after reading in the data.
---><p>Clean up the temporary tricky csv file.</p>
-<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/files.html" class="external-link">file.remove</a></span><span class="op">(</span><span class="va">tfile</span><span class="op">)</span></span>
-<span><span class="co">#&gt; [1] TRUE</span></span></code></pre></div>
+</div>
 </div>
   </main><aside class="col-md-3"><nav id="toc"><h2>On this page</h2>
     </nav></aside>
@@ -295,12 +216,12 @@ Using type_convert() is another approach however this requires an extra step (or
   <footer><div class="container">
   <div class="pkgdown-footer-left">
   <p></p>
-<p>Developed by <a href="http://hadley.nz" class="external-link">Hadley Wickham</a>, <a href="https://www.jimhester.com/" class="external-link">Jim Hester</a>, <a href="https://jennybryan.org" class="external-link">Jennifer Bryan</a>, <a href="https://www.rstudio.com" class="external-link"><img src="https://www.tidyverse.org/rstudio-logo.svg" alt="RStudio" width="72"></a>.</p>
+<p>Developed by <a href="http://hadley.nz" class="external-link">Hadley Wickham</a>, <a href="https://www.jimhester.com/" class="external-link">Jim Hester</a>, <a href="https://jennybryan.org" class="external-link">Jennifer Bryan</a>, <a href="https://www.posit.co" class="external-link"><img src="https://www.tidyverse.org/posit-logo.svg" alt="Posit" height="16" style="margin-bottom: 3px;"></a>.</p>
 </div>
 
 <div class="pkgdown-footer-right">
   <p></p>
-<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.6.</p>
+<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.7.</p>
 </div>
 
   </div></footer>
