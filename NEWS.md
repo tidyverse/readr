@@ -1,4 +1,4 @@
-# readr (development version)
+# readr 2.1.4
 
 * No user-facing changes. Patch release with internal changes requested by CRAN.
 
