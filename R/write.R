@@ -193,7 +193,7 @@ write_excel_csv <- function(x, file, na = "NA", append = FALSE,
 
   x_out <- x
   datetime_cols <- vapply(x, inherits, logical(1), "POSIXt")
-  x[datetime_cols] <- lapply(x[datetime_cols], format, "%Y/%m/%d %H:%M:%S")
+  x[datetime_cols] <- lapply(x[datetime_cols], format, "%Y-%m-%d %H:%M:%S")
 
   x[] <- lapply(x, output_column)
   if (edition_first()) {
@@ -242,7 +242,7 @@ write_excel_csv2 <- function(x, file, na = "NA", append = FALSE,
   x <- change_decimal_separator(x, decimal_mark = ",")
 
   datetime_cols <- vapply(x, inherits, logical(1), "POSIXt")
-  x[datetime_cols] <- lapply(x[datetime_cols], format, "%Y/%m/%d %H:%M:%S")
+  x[datetime_cols] <- lapply(x[datetime_cols], format, "%Y-%m-%d %H:%M:%S")
 
   x[] <- lapply(x, output_column)
   write_excel_csv(x, file, na, append, col_names, delim,
