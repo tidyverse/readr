@@ -1,3 +1,38 @@
+# covidmx
+
+<details>
+
+* Version: NA
+* GitHub: NA
+* Source code: https://github.com/cran/covidmx
+* Number of recursive dependencies: 164
+
+Run `revdepcheck::cloud_details(, "covidmx")` for more info
+
+</details>
+
+## Error before installation
+
+### Devel
+
+```
+
+
+
+
+
+
+```
+### CRAN
+
+```
+
+
+
+
+
+
+```
 # ggPMX
 
 <details>
@@ -6,9 +41,9 @@
 * GitHub: https://github.com/ggPMXdevelopment/ggPMX
 * Source code: https://github.com/cran/ggPMX
 * Date/Publication: 2022-06-17 23:10:02 UTC
-* Number of recursive dependencies: 175
+* Number of recursive dependencies: 177
 
-Run `cloud_details(, "ggPMX")` for more info
+Run `revdepcheck::cloud_details(, "ggPMX")` for more info
 
 </details>
 
@@ -28,7 +63,7 @@ Run `cloud_details(, "ggPMX")` for more info
 * checking package namespace information ... OK
 * checking package dependencies ... NOTE
 ...
-  [ FAIL 1 | WARN 10 | SKIP 8 | PASS 327 ]
+  [ FAIL 1 | WARN 14 | SKIP 8 | PASS 327 ]
   Error: Test failures
   Execution halted
 * checking for unstated dependencies in vignettes ... OK
@@ -58,7 +93,7 @@ Status: 1 ERROR, 2 NOTEs
 * checking package namespace information ... OK
 * checking package dependencies ... NOTE
 ...
-  [ FAIL 1 | WARN 10 | SKIP 8 | PASS 327 ]
+  [ FAIL 1 | WARN 14 | SKIP 8 | PASS 327 ]
   Error: Test failures
   Execution halted
 * checking for unstated dependencies in vignettes ... OK
@@ -74,16 +109,162 @@ Status: 1 ERROR, 2 NOTEs
 
 
 ```
-# NA
+# lifeR
 
 <details>
 
 * Version: NA
 * GitHub: NA
-* Source code: https://github.com/cran/NA
-* Number of recursive dependencies: 0
+* Source code: https://github.com/cran/lifeR
+* Number of recursive dependencies: 92
 
-Run `cloud_details(, "NA")` for more info
+Run `revdepcheck::cloud_details(, "lifeR")` for more info
+
+</details>
+
+## Error before installation
+
+### Devel
+
+```
+
+
+
+
+
+
+```
+### CRAN
+
+```
+
+
+
+
+
+
+```
+# moexer
+
+<details>
+
+* Version: NA
+* GitHub: NA
+* Source code: https://github.com/cran/moexer
+* Number of recursive dependencies: 86
+
+Run `revdepcheck::cloud_details(, "moexer")` for more info
+
+</details>
+
+## Error before installation
+
+### Devel
+
+```
+
+
+
+
+
+
+```
+### CRAN
+
+```
+
+
+
+
+
+
+```
+# Platypus
+
+<details>
+
+* Version: 3.4.1
+* GitHub: NA
+* Source code: https://github.com/cran/Platypus
+* Date/Publication: 2022-08-15 07:20:20 UTC
+* Number of recursive dependencies: 356
+
+Run `revdepcheck::cloud_details(, "Platypus")` for more info
+
+</details>
+
+## Error before installation
+
+### Devel
+
+```
+* using log directory ‘/tmp/workdir/Platypus/new/Platypus.Rcheck’
+* using R version 4.1.1 (2021-08-10)
+* using platform: x86_64-pc-linux-gnu (64-bit)
+* using session charset: UTF-8
+* using option ‘--no-manual’
+* checking for file ‘Platypus/DESCRIPTION’ ... OK
+* checking extension type ... Package
+* this is package ‘Platypus’ version ‘3.4.1’
+* package encoding: UTF-8
+* checking package namespace information ... OK
+...
+* checking package dependencies ... ERROR
+Package required but not available: ‘ggtree’
+
+Packages suggested but not available for checking:
+  'Matrix.utils', 'monocle3', 'ProjecTILs', 'SeuratWrappers'
+
+See section ‘The DESCRIPTION file’ in the ‘Writing R Extensions’
+manual.
+* DONE
+Status: 1 ERROR
+
+
+
+
+
+```
+### CRAN
+
+```
+* using log directory ‘/tmp/workdir/Platypus/old/Platypus.Rcheck’
+* using R version 4.1.1 (2021-08-10)
+* using platform: x86_64-pc-linux-gnu (64-bit)
+* using session charset: UTF-8
+* using option ‘--no-manual’
+* checking for file ‘Platypus/DESCRIPTION’ ... OK
+* checking extension type ... Package
+* this is package ‘Platypus’ version ‘3.4.1’
+* package encoding: UTF-8
+* checking package namespace information ... OK
+...
+* checking package dependencies ... ERROR
+Package required but not available: ‘ggtree’
+
+Packages suggested but not available for checking:
+  'Matrix.utils', 'monocle3', 'ProjecTILs', 'SeuratWrappers'
+
+See section ‘The DESCRIPTION file’ in the ‘Writing R Extensions’
+manual.
+* DONE
+Status: 1 ERROR
+
+
+
+
+
+```
+# tidytags
+
+<details>
+
+* Version: NA
+* GitHub: NA
+* Source code: https://github.com/cran/tidytags
+* Number of recursive dependencies: 122
+
+Run `revdepcheck::cloud_details(, "tidytags")` for more info
 
 </details>
 
@@ -117,9 +298,9 @@ Run `cloud_details(, "NA")` for more info
 * GitHub: NA
 * Source code: https://github.com/cran/xpose.nlmixr2
 * Date/Publication: 2022-06-08 09:10:02 UTC
-* Number of recursive dependencies: 149
+* Number of recursive dependencies: 161
 
-Run `cloud_details(, "xpose.nlmixr2")` for more info
+Run `revdepcheck::cloud_details(, "xpose.nlmixr2")` for more info
 
 </details>
 
