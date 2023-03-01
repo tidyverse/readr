@@ -253,9 +253,11 @@ progress bar can be disabled by setting option <code>readr.show_progress</code> 
 ensure column names are <code>"unique"</code>. Various repair strategies are
 supported:</p><ul><li><p><code>"minimal"</code>: No name repair or checks, beyond basic existence of names.</p></li>
 <li><p><code>"unique"</code> (default value): Make sure names are unique and not empty.</p></li>
-<li><p><code>"check_unique"</code>: no name repair, but check they are <code>unique</code>.</p></li>
+<li><p><code>"check_unique"</code>: No name repair, but check they are <code>unique</code>.</p></li>
+<li><p><code>"unique_quiet"</code>: Repair with the <code>unique</code> strategy, quietly.</p></li>
 <li><p><code>"universal"</code>: Make the names <code>unique</code> and syntactic.</p></li>
-<li><p>A function: apply custom name repair (e.g., <code>name_repair = make.names</code>
+<li><p><code>"universal_quiet"</code>: Repair with the <code>universal</code> strategy, quietly.</p></li>
+<li><p>A function: Apply custom name repair (e.g., <code>name_repair = make.names</code>
 for names in the style of base R).</p></li>
 <li><p>A purrr-style anonymous function, see <code><a href="https://rlang.r-lib.org/reference/as_function.html" class="external-link">rlang::as_function()</a></code>.</p></li>
 </ul><p>This argument is passed on as <code>repair</code> to <code><a href="https://vctrs.r-lib.org/reference/vec_as_names.html" class="external-link">vctrs::vec_as_names()</a></code>.

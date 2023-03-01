@@ -326,9 +326,11 @@ See <code><a href="../articles/column-types.html">vignette("column-types", packa
 ensure column names are <code>"unique"</code>. Various repair strategies are
 supported:</p><ul><li><p><code>"minimal"</code>: No name repair or checks, beyond basic existence of names.</p></li>
 <li><p><code>"unique"</code> (default value): Make sure names are unique and not empty.</p></li>
-<li><p><code>"check_unique"</code>: no name repair, but check they are <code>unique</code>.</p></li>
+<li><p><code>"check_unique"</code>: No name repair, but check they are <code>unique</code>.</p></li>
+<li><p><code>"unique_quiet"</code>: Repair with the <code>unique</code> strategy, quietly.</p></li>
 <li><p><code>"universal"</code>: Make the names <code>unique</code> and syntactic.</p></li>
-<li><p>A function: apply custom name repair (e.g., <code>name_repair = make.names</code>
+<li><p><code>"universal_quiet"</code>: Repair with the <code>universal</code> strategy, quietly.</p></li>
+<li><p>A function: Apply custom name repair (e.g., <code>name_repair = make.names</code>
 for names in the style of base R).</p></li>
 <li><p>A purrr-style anonymous function, see <code><a href="https://rlang.r-lib.org/reference/as_function.html" class="external-link">rlang::as_function()</a></code>.</p></li>
 </ul><p>This argument is passed on as <code>repair</code> to <code><a href="https://vctrs.r-lib.org/reference/vec_as_names.html" class="external-link">vctrs::vec_as_names()</a></code>.
@@ -620,7 +622,7 @@ You can retrieve the full details by calling <code><a href="problems.html">probl
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tibble: 1 × 5</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     row   col expected actual file                            </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;int&gt;</span> <span style="color: #949494; font-style: italic;">&lt;int&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>  <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>                           </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">1</span>     4     1 a double b      /tmp/RtmpsZm3U2/file182b117f8e88</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">1</span>     4     1 a double b      /tmp/Rtmpl6uIfv/file18bf4aef85f5</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># Column names --------------------------------------------------------------</span></span></span>
 <span class="r-in"><span><span class="co"># By default, readr duplicate name repair is noisy</span></span></span>
@@ -641,7 +643,22 @@ You can retrieve the full details by calling <code><a href="problems.html">probl
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">1</span>     1     2</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">2</span>     3     4</span>
 <span class="r-in"><span></span></span>
-<span class="r-in"><span><span class="co"># To quiet, set the option that controls verbosity of name repair</span></span></span>
+<span class="r-in"><span><span class="co"># Same default repair strategy, but quiet</span></span></span>
+<span class="r-in"><span><span class="fu">read_csv</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/AsIs.html" class="external-link">I</a></span><span class="op">(</span><span class="st">"x,x\n1,2\n3,4"</span><span class="op">)</span>, name_repair <span class="op">=</span> <span class="st">"unique_quiet"</span><span class="op">)</span></span></span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="font-weight: bold;">Rows: </span><span style="color: #0000BB;">2</span> <span style="font-weight: bold;">Columns: </span><span style="color: #0000BB;">2</span></span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">──</span> <span style="font-weight: bold;">Column specification</span> <span style="color: #00BBBB;">──────────────────────────────────────────────────</span></span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="font-weight: bold;">Delimiter:</span> ","</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BB00;">dbl</span> (2): x...1, x...2</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">ℹ</span> Use `spec()` to retrieve the full column specification for this data.</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">ℹ</span> Specify the column types or set `show_col_types = FALSE` to quiet this message.</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tibble: 2 × 2</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   x...1 x...2</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">1</span>     1     2</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">2</span>     3     4</span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># There's also a global option that controls verbosity of name repair</span></span></span>
 <span class="r-in"><span><span class="fu">withr</span><span class="fu">::</span><span class="fu"><a href="https://withr.r-lib.org/reference/with_options.html" class="external-link">with_options</a></span><span class="op">(</span></span></span>
 <span class="r-in"><span>  <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>rlib_name_repair_verbosity <span class="op">=</span> <span class="st">"quiet"</span><span class="op">)</span>,</span></span>
 <span class="r-in"><span>  <span class="fu">read_csv</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/AsIs.html" class="external-link">I</a></span><span class="op">(</span><span class="st">"x,x\n1,2\n3,4"</span><span class="op">)</span><span class="op">)</span></span></span>

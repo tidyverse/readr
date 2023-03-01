@@ -5,7 +5,7 @@ articles:
   column-types: column-types.html
   locales: locales.html
   readr: readr.html
-last_built: 2023-02-10T16:07Z
+last_built: 2023-03-01T22:28Z
 urls:
   reference: https://readr.tidyverse.org/reference
   article: https://readr.tidyverse.org/articles
