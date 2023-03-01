@@ -226,9 +226,11 @@ supported:
 \itemize{
 \item \code{"minimal"}: No name repair or checks, beyond basic existence of names.
 \item \code{"unique"} (default value): Make sure names are unique and not empty.
-\item \code{"check_unique"}: no name repair, but check they are \code{unique}.
+\item \code{"check_unique"}: No name repair, but check they are \code{unique}.
+\item \code{"unique_quiet"}: Repair with the \code{unique} strategy, quietly.
 \item \code{"universal"}: Make the names \code{unique} and syntactic.
-\item A function: apply custom name repair (e.g., \code{name_repair = make.names}
+\item \code{"universal_quiet"}: Repair with the \code{universal} strategy, quietly.
+\item A function: Apply custom name repair (e.g., \code{name_repair = make.names}
 for names in the style of base R).
 \item A purrr-style anonymous function, see \code{\link[rlang:as_function]{rlang::as_function()}}.
 }
@@ -336,7 +338,10 @@ problems(y)
 # By default, readr duplicate name repair is noisy
 read_csv(I("x,x\n1,2\n3,4"))
 
-# To quiet, set the option that controls verbosity of name repair
+# Same default repair strategy, but quiet
+read_csv(I("x,x\n1,2\n3,4"), name_repair = "unique_quiet")
+
+# There's also a global option that controls verbosity of name repair
 withr::with_options(
   list(rlib_name_repair_verbosity = "quiet"),
   read_csv(I("x,x\n1,2\n3,4"))

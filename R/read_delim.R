@@ -97,9 +97,11 @@ NULL
 #'   supported:
 #'   * `"minimal"`: No name repair or checks, beyond basic existence of names.
 #'   * `"unique"` (default value): Make sure names are unique and not empty.
-#'   * `"check_unique"`: no name repair, but check they are `unique`.
+#'   * `"check_unique"`: No name repair, but check they are `unique`.
+#'   * `"unique_quiet"`: Repair with the `unique` strategy, quietly.
 #'   * `"universal"`: Make the names `unique` and syntactic.
-#'   * A function: apply custom name repair (e.g., `name_repair = make.names`
+#'   * `"universal_quiet"`: Repair with the `universal` strategy, quietly.
+#'   * A function: Apply custom name repair (e.g., `name_repair = make.names`
 #'     for names in the style of base R).
 #'   * A purrr-style anonymous function, see [rlang::as_function()].
 #'
@@ -168,7 +170,10 @@ NULL
 #' # By default, readr duplicate name repair is noisy
 #' read_csv(I("x,x\n1,2\n3,4"))
 #'
-#' # To quiet, set the option that controls verbosity of name repair
+#' # Same default repair strategy, but quiet
+#' read_csv(I("x,x\n1,2\n3,4"), name_repair = "unique_quiet")
+#'
+#' # There's also a global option that controls verbosity of name repair
 #' withr::with_options(
 #'   list(rlib_name_repair_verbosity = "quiet"),
 #'   read_csv(I("x,x\n1,2\n3,4"))
