@@ -62,7 +62,7 @@ test_that("ragged last column expanded with NA", {
 })
 
 test_that("ragged last column shrunk with warning", {
-  x <- read_fwf("1a\n2ab\n3abc", fwf_widths(c(1, 3)))
+  x <- read_fwf(I("1a\n2ab\n3abc"), fwf_widths(c(1, 3)))
   expect_equal(x$X2, c("a", "ab", "abc"))
   skip_if_edition_second()
   expect_equal(n_problems(x), 2)
