@@ -1,7 +1,7 @@
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
 
-# readr <a href="https://readr.tidyverse.org"><img src="man/figures/logo.png" align="right" height="138" /></a>
+# readr <a href="https://readr.tidyverse.org"><img src="man/figures/logo.png" align="right" height="138" alt = ""/></a>
 
 <!-- badges: start -->
 
@@ -36,15 +36,15 @@ install.packages("readr")
 
 ``` r
 # Or you can install the development version from GitHub:
-# install.packages("devtools")
-devtools::install_github("tidyverse/readr")
+# install.packages("pak")
+pak::pak("tidyverse/readr")
 ```
 
 </div>
 
 ## Cheatsheet
 
-<a href="https://raw.githubusercontent.com/rstudio/cheatsheets/main/data-import.pdf"><img src="https://github.com/rstudio/cheatsheets/raw/main/pngs/thumbnails/data-import-cheatsheet-thumbs.png" height="252"/></a>
+<a href="https://raw.githubusercontent.com/rstudio/cheatsheets/main/data-import.pdf"><img src="https://github.com/rstudio/cheatsheets/raw/main/pngs/thumbnails/data-import-cheatsheet-thumbs.png" height="252" alt="thumbnail of tidyverse data import cheatsheet"//></a>
 
 ## Usage
 
