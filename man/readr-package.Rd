@@ -32,7 +32,7 @@ Other contributors:
 \itemize{
   \item Romain Francois [contributor]
   \item Shelby Bearrows [contributor]
-  \item Posit, PBC [copyright holder, funder]
+  \item Posit Software, PBC [copyright holder, funder]
   \item https://github.com/mandreyel/ (mio library) [copyright holder]
   \item Jukka Jylänki (grisu3 implementation) [contributor, copyright holder]
   \item Mikkel Jørgensen (grisu3 implementation) [contributor, copyright holder]

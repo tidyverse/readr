@@ -8,7 +8,7 @@ Authors@R: c(
     person("Jennifer", "Bryan", , "jenny@posit.co", role = c("aut", "cre"),
            comment = c(ORCID = "0000-0002-6983-2759")),
     person("Shelby", "Bearrows", role = "ctb"),
-    person("Posit, PBC", role = c("cph", "fnd")),
+    person("Posit Software, PBC", role = c("cph", "fnd")),
     person("https://github.com/mandreyel/", role = "cph",
            comment = "mio library"),
     person("Jukka", "Jylänki", role = c("ctb", "cph"),
