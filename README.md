@@ -1,7 +1,7 @@
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
 
-# readr <a href="https://readr.tidyverse.org"><img src="man/figures/logo.png" align="right" height="139" /></a>
+# readr <a href="https://readr.tidyverse.org"><img src="man/figures/logo.png" align="right" height="138" /></a>
 
 <!-- badges: start -->
 
@@ -53,10 +53,10 @@ readr is part of the core tidyverse, so you can load it with:
 ``` r
 library(tidyverse)
 #> ── Attaching packages ─────────────────────────────────────── tidyverse 1.3.2 ──
-#> ✔ ggplot2 3.4.0          ✔ purrr   1.0.1     
-#> ✔ tibble  3.1.8          ✔ dplyr   1.1.0     
+#> ✔ ggplot2 3.4.1          ✔ purrr   1.0.1     
+#> ✔ tibble  3.2.0          ✔ dplyr   1.1.0     
 #> ✔ tidyr   1.3.0          ✔ stringr 1.5.0     
-#> ✔ readr   2.1.3.9000     ✔ forcats 1.0.0     
+#> ✔ readr   2.1.4.9000     ✔ forcats 1.0.0     
 #> ── Conflicts ────────────────────────────────────────── tidyverse_conflicts() ──
 #> ✖ dplyr::filter() masks stats::filter()
 #> ✖ dplyr::lag()    masks stats::lag()
