@@ -8,8 +8,7 @@
 #' problems: this is useful for automated scripts where you want to throw
 #' an error as soon as you encounter a problem.
 #'
-#' @param x An data frame (from `read_*()`) or a vector
-#'   (from `parse_*()`).
+#' @param x A data frame (from `read_*()`) or a vector (from `parse_*()`).
 #' @return A data frame with one row for each problem and four columns:
 #'   \item{row,col}{Row and column of problem}
 #'   \item{expected}{What readr expected to find}
