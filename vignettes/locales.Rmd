@@ -137,8 +137,7 @@ All readr functions yield strings encoded in UTF-8. This encoding is the most li
 
 The following code illustrates the problems with encodings:
 
-<!-- not currently evaluating the next two chunks due to https://github.com/tidyverse/readr/issues/1337 --!>
-```{r, eval = FALSE}
+```{r}
 library(stringi)
 x <- "Émigré cause célèbre déjà vu.\n"
 y <- stri_conv(x, "UTF-8", "latin1")
@@ -148,7 +147,7 @@ x
 y
 identical(x, y)
 
-# But they have difference encodings:
+# But they have different encodings:
 Encoding(x)
 Encoding(y)
 
@@ -168,7 +167,7 @@ parse_character(y, locale = locale(encoding = "latin1"))
 
 If you don't know what encoding the file uses, try [`guess_encoding()`](https://readr.tidyverse.org/reference/encoding.html). It's not 100% perfect (as it's fundamentally a heuristic), but should at least get you pointed in the right direction:
 
-```{r, eval = FALSE}
+```{r}
 guess_encoding(x)
 guess_encoding(y)
 
