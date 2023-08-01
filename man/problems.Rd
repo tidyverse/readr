@@ -10,8 +10,7 @@ problems(x = .Last.value)
 stop_for_problems(x)
 }
 \arguments{
-\item{x}{An data frame (from \verb{read_*()}) or a vector
-(from \verb{parse_*()}).}
+\item{x}{A data frame (from \verb{read_*()}) or a vector (from \verb{parse_*()}).}
 }
 \value{
 A data frame with one row for each problem and four columns:
