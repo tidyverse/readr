@@ -178,7 +178,7 @@ character represents one column:
 
 By default, reading a file without a column specification will print a
 message showing what \code{readr} guessed they were. To remove this message,
-set \code{show_col_types = FALSE} or set `options(readr.show_col_types = FALSE).}
+set \code{show_col_types = FALSE} or set \code{options(readr.show_col_types = FALSE)}.}
 
 \item{col_select}{Columns to include in the results. You can use the same
 mini-language as \code{dplyr::select()} to refer to the columns by name. Use
