@@ -24,7 +24,7 @@ knitr::opts_chunk$set(
 
 The goal of readr is to provide a fast and friendly way to read rectangular data from delimited files, such as comma-separated values (CSV) and tab-separated values (TSV).
 It is designed to parse many types of data found in the wild, while providing an informative problem report when parsing leads to unexpected results.
-If you are new to readr, the best place to start is the [data import chapter](https://r4ds.had.co.nz/data-import.html) in R for Data Science.
+If you are new to readr, the best place to start is the [data import chapter](https://r4ds.hadley.nz/data-import) in R for Data Science.
 
 ## Installation
 
