@@ -54,7 +54,7 @@ NULL
 #'
 #'    By default, reading a file without a column specification will print a
 #'    message showing what `readr` guessed they were. To remove this message,
-#'    set `show_col_types = FALSE` or set `options(readr.show_col_types = FALSE).
+#'    set `show_col_types = FALSE` or set `options(readr.show_col_types = FALSE)`.
 #' @param id The name of a column in which to store the file path. This is
 #'   useful when reading multiple input files and there is data in the file
 #'   paths, such as the data collection date. If `NULL` (the default) no extra
