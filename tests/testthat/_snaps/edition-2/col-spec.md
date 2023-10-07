@@ -2,9 +2,8 @@
 
     Code
       out <- read_csv(readr_example("mtcars.csv"))
-    Message <vroom_dim_message>
+    Message
       Rows: 32 Columns: 11
-    Message <vroom_spec_message>
       -- Column specification --------------------------------------------------------
       Delimiter: ","
       dbl (11): mpg, cyl, disp, hp, drat, wt, qsec, vs, am, gear, carb
@@ -16,9 +15,8 @@
 
     Code
       out <- read_csv(readr_example("mtcars.csv"), show_col_types = TRUE)
-    Message <vroom_dim_message>
+    Message
       Rows: 32 Columns: 11
-    Message <vroom_spec_message>
       -- Column specification --------------------------------------------------------
       Delimiter: ","
       dbl (11): mpg, cyl, disp, hp, drat, wt, qsec, vs, am, gear, carb
