@@ -29,6 +29,8 @@ jobs:
           - {os: windows-latest, r: '3.6'}
           # use 4.1 to check with rtools40's older compiler
           - {os: windows-latest, r: '4.1'}
+          # new CRAN checks re: format specification
+          - {os: windows-latest, r: 'devel'}
 
           - {os: ubuntu-latest,   r: 'devel', http-user-agent: 'release'}
           - {os: ubuntu-latest,   r: 'release'}
