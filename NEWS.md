@@ -1,5 +1,9 @@
 # readr (development version)
 
+* No major user-facing changes. Patch release with housekeeping changes and
+  internal changes requested by CRAN around format specification in compiled
+  code.
+
 # readr 2.1.4
 
 * No user-facing changes. Patch release with internal changes requested by CRAN.
