@@ -1,20 +1,8 @@
 # Revdeps
 
-## Failed to check (7)
-
-|package       |version |error |warning |note |
-|:-------------|:-------|:-----|:-------|:----|
-|covidmx       |?       |      |        |     |
-|ggPMX         |?       |      |        |     |
-|lifeR         |?       |      |        |     |
-|moexer        |?       |      |        |     |
-|Platypus      |?       |      |        |     |
-|tidytags      |?       |      |        |     |
-|xpose.nlmixr2 |?       |      |        |     |
-
 ## New problems (1)
 
-|package |version |error  |warning |note |
-|:-------|:-------|:------|:-------|:----|
-|[rapbase](problems.md#rapbase)|1.23.0  |__+1__ |        |     |
+|package  |version |error  |warning |note |
+|:--------|:-------|:------|:-------|:----|
+|[APCalign](problems.md#apcalign)|0.1.3   |__+1__ |        |1    |
 
