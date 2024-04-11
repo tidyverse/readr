@@ -129,9 +129,11 @@ check_tz <- function(x) {
 check_encoding <- function(x) {
   check_string(x, nm = "encoding")
 
-  if (tolower(x) %in% tolower(iconvlist())) {
+  ## iconvlist() is not complete on all platforms,
+  ## but encodings "latin1" and "UTF-8" are portable.
+  if (tolower(x) %in% tolower(c("latin1", "UTF-8", iconvlist()))) {
     return(TRUE)
   }
 
-  stop("Unknown encoding ", x, call. = FALSE)
+  warning("Unknown encoding ", x, call. = FALSE)
 }
