@@ -37,7 +37,7 @@
 #' locale()
 #' locale("fr")
 #'
-#' # South American locale
+#' # A South American locale
 #' locale("es", decimal_mark = ",")
 locale <- function(date_names = "en",
                    date_format = "%AD", time_format = "%AT",
