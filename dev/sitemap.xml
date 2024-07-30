@@ -1,189 +1,65 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-  <url>
-    <loc>https://readr.tidyverse.org/dev/CODE_OF_CONDUCT.html</loc>
-  </url>
-  <url>
-    <loc>https://readr.tidyverse.org/dev/CONTRIBUTING.html</loc>
-  </url>
-  <url>
-    <loc>https://readr.tidyverse.org/dev/LICENSE-text.html</loc>
-  </url>
-  <url>
-    <loc>https://readr.tidyverse.org/dev/LICENSE.html</loc>
-  </url>
-  <url>
-    <loc>https://readr.tidyverse.org/dev/MAINTENANCE.html</loc>
-  </url>
-  <url>
-    <loc>https://readr.tidyverse.org/dev/SUPPORT.html</loc>
-  </url>
-  <url>
-    <loc>https://readr.tidyverse.org/dev/articles/column-types.html</loc>
-  </url>
-  <url>
-    <loc>https://readr.tidyverse.org/dev/articles/index.html</loc>
-  </url>
-  <url>
-    <loc>https://readr.tidyverse.org/dev/articles/locales.html</loc>
-  </url>
-  <url>
-    <loc>https://readr.tidyverse.org/dev/articles/readr.html</loc>
-  </url>
-  <url>
-    <loc>https://readr.tidyverse.org/dev/authors.html</loc>
-  </url>
-  <url>
-    <loc>https://readr.tidyverse.org/dev/index.html</loc>
-  </url>
-  <url>
-    <loc>https://readr.tidyverse.org/dev/news/index.html</loc>
-  </url>
-  <url>
-    <loc>https://readr.tidyverse.org/dev/reference/Tokenizers.html</loc>
-  </url>
-  <url>
-    <loc>https://readr.tidyverse.org/dev/reference/as.col_spec.html</loc>
-  </url>
-  <url>
-    <loc>https://readr.tidyverse.org/dev/reference/callback.html</loc>
-  </url>
-  <url>
-    <loc>https://readr.tidyverse.org/dev/reference/clipboard.html</loc>
-  </url>
-  <url>
-    <loc>https://readr.tidyverse.org/dev/reference/col_skip.html</loc>
-  </url>
-  <url>
-    <loc>https://readr.tidyverse.org/dev/reference/cols.html</loc>
-  </url>
-  <url>
-    <loc>https://readr.tidyverse.org/dev/reference/count_fields.html</loc>
-  </url>
-  <url>
-    <loc>https://readr.tidyverse.org/dev/reference/datasource.html</loc>
-  </url>
-  <url>
-    <loc>https://readr.tidyverse.org/dev/reference/date_names.html</loc>
-  </url>
-  <url>
-    <loc>https://readr.tidyverse.org/dev/reference/edition_get.html</loc>
-  </url>
-  <url>
-    <loc>https://readr.tidyverse.org/dev/reference/encoding.html</loc>
-  </url>
-  <url>
-    <loc>https://readr.tidyverse.org/dev/reference/format_delim.html</loc>
-  </url>
-  <url>
-    <loc>https://readr.tidyverse.org/dev/reference/index.html</loc>
-  </url>
-  <url>
-    <loc>https://readr.tidyverse.org/dev/reference/locale.html</loc>
-  </url>
-  <url>
-    <loc>https://readr.tidyverse.org/dev/reference/melt_delim.html</loc>
-  </url>
-  <url>
-    <loc>https://readr.tidyverse.org/dev/reference/melt_delim_chunked.html</loc>
-  </url>
-  <url>
-    <loc>https://readr.tidyverse.org/dev/reference/melt_fwf.html</loc>
-  </url>
-  <url>
-    <loc>https://readr.tidyverse.org/dev/reference/melt_table.html</loc>
-  </url>
-  <url>
-    <loc>https://readr.tidyverse.org/dev/reference/output_column.html</loc>
-  </url>
-  <url>
-    <loc>https://readr.tidyverse.org/dev/reference/parse_atomic.html</loc>
-  </url>
-  <url>
-    <loc>https://readr.tidyverse.org/dev/reference/parse_datetime.html</loc>
-  </url>
-  <url>
-    <loc>https://readr.tidyverse.org/dev/reference/parse_factor.html</loc>
-  </url>
-  <url>
-    <loc>https://readr.tidyverse.org/dev/reference/parse_guess.html</loc>
-  </url>
-  <url>
-    <loc>https://readr.tidyverse.org/dev/reference/parse_number.html</loc>
-  </url>
-  <url>
-    <loc>https://readr.tidyverse.org/dev/reference/parse_vector.html</loc>
-  </url>
-  <url>
-    <loc>https://readr.tidyverse.org/dev/reference/problems.html</loc>
-  </url>
-  <url>
-    <loc>https://readr.tidyverse.org/dev/reference/read_builtin.html</loc>
-  </url>
-  <url>
-    <loc>https://readr.tidyverse.org/dev/reference/read_delim.html</loc>
-  </url>
-  <url>
-    <loc>https://readr.tidyverse.org/dev/reference/read_delim_chunked.html</loc>
-  </url>
-  <url>
-    <loc>https://readr.tidyverse.org/dev/reference/read_file.html</loc>
-  </url>
-  <url>
-    <loc>https://readr.tidyverse.org/dev/reference/read_fwf.html</loc>
-  </url>
-  <url>
-    <loc>https://readr.tidyverse.org/dev/reference/read_lines.html</loc>
-  </url>
-  <url>
-    <loc>https://readr.tidyverse.org/dev/reference/read_lines_chunked.html</loc>
-  </url>
-  <url>
-    <loc>https://readr.tidyverse.org/dev/reference/read_log.html</loc>
-  </url>
-  <url>
-    <loc>https://readr.tidyverse.org/dev/reference/read_rds.html</loc>
-  </url>
-  <url>
-    <loc>https://readr.tidyverse.org/dev/reference/read_table.html</loc>
-  </url>
-  <url>
-    <loc>https://readr.tidyverse.org/dev/reference/read_table2.html</loc>
-  </url>
-  <url>
-    <loc>https://readr.tidyverse.org/dev/reference/readr-package.html</loc>
-  </url>
-  <url>
-    <loc>https://readr.tidyverse.org/dev/reference/readr_example.html</loc>
-  </url>
-  <url>
-    <loc>https://readr.tidyverse.org/dev/reference/readr_threads.html</loc>
-  </url>
-  <url>
-    <loc>https://readr.tidyverse.org/dev/reference/should_read_lazy.html</loc>
-  </url>
-  <url>
-    <loc>https://readr.tidyverse.org/dev/reference/should_show_types.html</loc>
-  </url>
-  <url>
-    <loc>https://readr.tidyverse.org/dev/reference/show_progress.html</loc>
-  </url>
-  <url>
-    <loc>https://readr.tidyverse.org/dev/reference/spec.html</loc>
-  </url>
-  <url>
-    <loc>https://readr.tidyverse.org/dev/reference/spec_delim.html</loc>
-  </url>
-  <url>
-    <loc>https://readr.tidyverse.org/dev/reference/tokenize.html</loc>
-  </url>
-  <url>
-    <loc>https://readr.tidyverse.org/dev/reference/type_convert.html</loc>
-  </url>
-  <url>
-    <loc>https://readr.tidyverse.org/dev/reference/with_edition.html</loc>
-  </url>
-  <url>
-    <loc>https://readr.tidyverse.org/dev/reference/write_delim.html</loc>
-  </url>
+<urlset xmlns = 'http://www.sitemaps.org/schemas/sitemap/0.9'>
+<url><loc>https://readr.tidyverse.org/dev/CODE_OF_CONDUCT.html</loc></url>
+<url><loc>https://readr.tidyverse.org/dev/CONTRIBUTING.html</loc></url>
+<url><loc>https://readr.tidyverse.org/dev/LICENSE-text.html</loc></url>
+<url><loc>https://readr.tidyverse.org/dev/LICENSE.html</loc></url>
+<url><loc>https://readr.tidyverse.org/dev/MAINTENANCE.html</loc></url>
+<url><loc>https://readr.tidyverse.org/dev/SUPPORT.html</loc></url>
+<url><loc>https://readr.tidyverse.org/dev/articles/column-types.html</loc></url>
+<url><loc>https://readr.tidyverse.org/dev/articles/index.html</loc></url>
+<url><loc>https://readr.tidyverse.org/dev/articles/locales.html</loc></url>
+<url><loc>https://readr.tidyverse.org/dev/articles/readr.html</loc></url>
+<url><loc>https://readr.tidyverse.org/dev/authors.html</loc></url>
+<url><loc>https://readr.tidyverse.org/dev/index.html</loc></url>
+<url><loc>https://readr.tidyverse.org/dev/news/index.html</loc></url>
+<url><loc>https://readr.tidyverse.org/dev/reference/Tokenizers.html</loc></url>
+<url><loc>https://readr.tidyverse.org/dev/reference/as.col_spec.html</loc></url>
+<url><loc>https://readr.tidyverse.org/dev/reference/callback.html</loc></url>
+<url><loc>https://readr.tidyverse.org/dev/reference/clipboard.html</loc></url>
+<url><loc>https://readr.tidyverse.org/dev/reference/col_skip.html</loc></url>
+<url><loc>https://readr.tidyverse.org/dev/reference/cols.html</loc></url>
+<url><loc>https://readr.tidyverse.org/dev/reference/count_fields.html</loc></url>
+<url><loc>https://readr.tidyverse.org/dev/reference/datasource.html</loc></url>
+<url><loc>https://readr.tidyverse.org/dev/reference/date_names.html</loc></url>
+<url><loc>https://readr.tidyverse.org/dev/reference/edition_get.html</loc></url>
+<url><loc>https://readr.tidyverse.org/dev/reference/encoding.html</loc></url>
+<url><loc>https://readr.tidyverse.org/dev/reference/format_delim.html</loc></url>
+<url><loc>https://readr.tidyverse.org/dev/reference/index.html</loc></url>
+<url><loc>https://readr.tidyverse.org/dev/reference/locale.html</loc></url>
+<url><loc>https://readr.tidyverse.org/dev/reference/melt_delim.html</loc></url>
+<url><loc>https://readr.tidyverse.org/dev/reference/melt_delim_chunked.html</loc></url>
+<url><loc>https://readr.tidyverse.org/dev/reference/melt_fwf.html</loc></url>
+<url><loc>https://readr.tidyverse.org/dev/reference/melt_table.html</loc></url>
+<url><loc>https://readr.tidyverse.org/dev/reference/output_column.html</loc></url>
+<url><loc>https://readr.tidyverse.org/dev/reference/parse_atomic.html</loc></url>
+<url><loc>https://readr.tidyverse.org/dev/reference/parse_datetime.html</loc></url>
+<url><loc>https://readr.tidyverse.org/dev/reference/parse_factor.html</loc></url>
+<url><loc>https://readr.tidyverse.org/dev/reference/parse_guess.html</loc></url>
+<url><loc>https://readr.tidyverse.org/dev/reference/parse_number.html</loc></url>
+<url><loc>https://readr.tidyverse.org/dev/reference/parse_vector.html</loc></url>
+<url><loc>https://readr.tidyverse.org/dev/reference/problems.html</loc></url>
+<url><loc>https://readr.tidyverse.org/dev/reference/read_builtin.html</loc></url>
+<url><loc>https://readr.tidyverse.org/dev/reference/read_delim.html</loc></url>
+<url><loc>https://readr.tidyverse.org/dev/reference/read_delim_chunked.html</loc></url>
+<url><loc>https://readr.tidyverse.org/dev/reference/read_file.html</loc></url>
+<url><loc>https://readr.tidyverse.org/dev/reference/read_fwf.html</loc></url>
+<url><loc>https://readr.tidyverse.org/dev/reference/read_lines.html</loc></url>
+<url><loc>https://readr.tidyverse.org/dev/reference/read_lines_chunked.html</loc></url>
+<url><loc>https://readr.tidyverse.org/dev/reference/read_log.html</loc></url>
+<url><loc>https://readr.tidyverse.org/dev/reference/read_rds.html</loc></url>
+<url><loc>https://readr.tidyverse.org/dev/reference/read_table.html</loc></url>
+<url><loc>https://readr.tidyverse.org/dev/reference/read_table2.html</loc></url>
+<url><loc>https://readr.tidyverse.org/dev/reference/readr-package.html</loc></url>
+<url><loc>https://readr.tidyverse.org/dev/reference/readr_example.html</loc></url>
+<url><loc>https://readr.tidyverse.org/dev/reference/readr_threads.html</loc></url>
+<url><loc>https://readr.tidyverse.org/dev/reference/should_read_lazy.html</loc></url>
+<url><loc>https://readr.tidyverse.org/dev/reference/should_show_types.html</loc></url>
+<url><loc>https://readr.tidyverse.org/dev/reference/show_progress.html</loc></url>
+<url><loc>https://readr.tidyverse.org/dev/reference/spec.html</loc></url>
+<url><loc>https://readr.tidyverse.org/dev/reference/spec_delim.html</loc></url>
+<url><loc>https://readr.tidyverse.org/dev/reference/tokenize.html</loc></url>
+<url><loc>https://readr.tidyverse.org/dev/reference/type_convert.html</loc></url>
+<url><loc>https://readr.tidyverse.org/dev/reference/with_edition.html</loc></url>
+<url><loc>https://readr.tidyverse.org/dev/reference/write_delim.html</loc></url>
 </urlset>
+
