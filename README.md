@@ -44,7 +44,7 @@ pak::pak("tidyverse/readr")
 
 ## Cheatsheet
 
-<a href="https://raw.githubusercontent.com/rstudio/cheatsheets/main/data-import.pdf"><img src="https://github.com/rstudio/cheatsheets/raw/main/pngs/thumbnails/data-import-cheatsheet-thumbs.png" height="252" alt="thumbnail of tidyverse data import cheatsheet"//></a>
+<a href="https://github.com/rstudio/cheatsheets/blob/main/data-import.pdf"><img src="https://raw.githubusercontent.com/rstudio/cheatsheets/main/pngs/thumbnails/data-import-cheatsheet-thumbs.png" width="630" height="252" alt="thumbnail of data import cheatsheet"/></a>
 
 ## Usage
 
@@ -53,10 +53,10 @@ readr is part of the core tidyverse, so you can load it with:
 ``` r
 library(tidyverse)
 #> ── Attaching core tidyverse packages ──────────────────────── tidyverse 2.0.0 ──
-#> ✔ dplyr     1.1.4          ✔ readr     2.1.4.9000
+#> ✔ dplyr     1.1.4          ✔ readr     2.1.5.9000
 #> ✔ forcats   1.0.0          ✔ stringr   1.5.1     
-#> ✔ ggplot2   3.4.3          ✔ tibble    3.2.1     
-#> ✔ lubridate 1.9.3          ✔ tidyr     1.3.0     
+#> ✔ ggplot2   3.5.1          ✔ tibble    3.2.1     
+#> ✔ lubridate 1.9.3          ✔ tidyr     1.3.1     
 #> ✔ purrr     1.0.2          
 #> ── Conflicts ────────────────────────────────────────── tidyverse_conflicts() ──
 #> ✖ dplyr::filter() masks stats::filter()
