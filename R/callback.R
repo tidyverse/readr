@@ -21,6 +21,7 @@ as_chunk_callback.ChunkCallback <- function(x) {
 #'    Callback function that accumulates a single result. Requires the parameter `acc` to specify
 #'    the initial value of the accumulator.  The parameter `acc` is `NULL` by default.
 #'  }
+#'  \item{ListCallback}{Callback function that returns the results in a list.}
 #' }
 #' @usage NULL
 #' @format NULL
