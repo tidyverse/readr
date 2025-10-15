@@ -1,6 +1,6 @@
 as_chunk_callback <- function(x) UseMethod("as_chunk_callback")
 
-#' @exportS3Method
+#' @exportS3Method as_chunk_callback 'function'
 as_chunk_callback.function <- function(x) {
   SideEffectChunkCallback$new(x)
 }
