@@ -18,11 +18,12 @@ Internationalisation
 JJ
 Loitsch
 Māori
-NaN
 ORCID
+PBC
 PLDI
 POSIXt
 Preprocess
+RStudio
 Rcpp
 Rds
 SSD
@@ -40,12 +41,9 @@ cli
 coloured
 cpp
 csv
-datetime
-datetimes
 deduplicated
 delim
 dplyr
-durations
 funder
 fwf
 generalises
@@ -57,7 +55,6 @@ https
 linux
 localtime
 lzma
-macOS
 mandreyel
 meltr
 mio
@@ -67,7 +64,6 @@ nycflights
 parsers
 pkgdown
 pre
-programmatically
 purrr
 readr's
 recognise
