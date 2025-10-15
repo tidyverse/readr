@@ -1,5 +1,10 @@
 # readr (development version)
 
+* `locale(encoding =)` now warns, instead of errors, when the `encoding` cannot
+  be found in the return value of `iconvlist()`. The motivation is to remove an
+  unnecessary blocker on platforms, such as Alpine Linux, where the output of
+  `iconvlist()` does not reflect the actual capabilities (@bastistician, #1537).
+
 # readr 2.1.5
 
 * No major user-facing changes. Patch release with housekeeping changes and
