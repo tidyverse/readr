@@ -51,7 +51,9 @@
 
     <div class="section level2">
 <h2 class="pkg-version" data-toc-text="development version" id="readr-development-version">readr (development version)<a class="anchor" aria-label="anchor" href="#readr-development-version"></a></h2>
-</div>
+<ul><li>
+<code>locale(encoding =)</code> now warns, instead of errors, when the <code>encoding</code> cannot be found in the return value of <code><a href="https://rdrr.io/r/base/iconv.html" class="external-link">iconvlist()</a></code>. The motivation is to remove an unnecessary blocker on platforms, such as Alpine Linux, where the output of <code><a href="https://rdrr.io/r/base/iconv.html" class="external-link">iconvlist()</a></code> does not reflect the actual capabilities (<a href="https://github.com/bastistician" class="external-link">@bastistician</a>, <a href="https://github.com/tidyverse/readr/issues/1537" class="external-link">#1537</a>).</li>
+</ul></div>
     <div class="section level2">
 <h2 class="pkg-version" data-toc-text="2.1.5" id="readr-215">readr 2.1.5<a class="anchor" aria-label="anchor" href="#readr-215"></a></h2><p class="text-muted">CRAN release: 2024-01-10</p>
 <ul><li>No major user-facing changes. Patch release with housekeeping changes and internal changes requested by CRAN around format specification in compiled code.</li>
