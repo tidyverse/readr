@@ -62,6 +62,6 @@ match R (i.e. US English) as closely as possible. See
 locale()
 locale("fr")
 
-# South American locale
+# A South American locale
 locale("es", decimal_mark = ",")
 }
