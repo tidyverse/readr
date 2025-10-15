@@ -6,21 +6,20 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <title>Locales • readr</title>
-<!-- favicons --><link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
-<link rel="icon" type="image/png" sizes="32x32" href="../favicon-32x32.png">
-<link rel="apple-touch-icon" type="image/png" sizes="180x180" href="../apple-touch-icon.png">
-<link rel="apple-touch-icon" type="image/png" sizes="120x120" href="../apple-touch-icon-120x120.png">
-<link rel="apple-touch-icon" type="image/png" sizes="76x76" href="../apple-touch-icon-76x76.png">
-<link rel="apple-touch-icon" type="image/png" sizes="60x60" href="../apple-touch-icon-60x60.png">
+<!-- favicons --><link rel="icon" type="image/png" sizes="96x96" href="../favicon-96x96.png">
+<link rel="icon" type="”image/svg+xml”" href="../favicon.svg">
+<link rel="apple-touch-icon" sizes="180x180" href="../apple-touch-icon.png">
+<link rel="icon" sizes="any" href="../favicon.ico">
+<link rel="manifest" href="../site.webmanifest">
 <script src="../deps/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <link href="../deps/bootstrap-5.3.1/bootstrap.min.css" rel="stylesheet">
-<script src="../deps/bootstrap-5.3.1/bootstrap.bundle.min.js"></script><link href="../deps/Source_Sans_Pro-0.4.9/font.css" rel="stylesheet">
-<link href="../deps/Source_Code_Pro-0.4.9/font.css" rel="stylesheet">
-<link href="../deps/font-awesome-6.4.2/css/all.min.css" rel="stylesheet">
-<link href="../deps/font-awesome-6.4.2/css/v4-shims.min.css" rel="stylesheet">
+<script src="../deps/bootstrap-5.3.1/bootstrap.bundle.min.js"></script><link href="../deps/Source_Sans_Pro-0.4.10/font.css" rel="stylesheet">
+<link href="../deps/Source_Code_Pro-0.4.10/font.css" rel="stylesheet">
+<link href="../deps/font-awesome-6.5.2/css/all.min.css" rel="stylesheet">
+<link href="../deps/font-awesome-6.5.2/css/v4-shims.min.css" rel="stylesheet">
 <script src="../deps/headroom-0.11.0/headroom.min.js"></script><script src="../deps/headroom-0.11.0/jQuery.headroom.min.js"></script><script src="../deps/bootstrap-toc-1.0.1/bootstrap-toc.min.js"></script><script src="../deps/clipboard.js-2.0.11/clipboard.min.js"></script><script src="../deps/search-1.0.0/autocomplete.jquery.min.js"></script><script src="../deps/search-1.0.0/fuse.min.js"></script><script src="../deps/search-1.0.0/mark.min.js"></script><!-- pkgdown --><script src="../pkgdown.js"></script><meta property="og:title" content="Locales">
 <meta name="robots" content="noindex">
-<script defer data-domain="readr.tidyverse.org,all.tidyverse.org" src="https://plausible.io/js/plausible.js"></script>
+<script src="https://cdn.jsdelivr.net/gh/posit-dev/supported-by-posit/js/badge.min.js" data-max-height="43" data-light-bg="#666f76" data-light-fg="#f9f9f9"></script><script defer data-domain="readr.tidyverse.org,all.tidyverse.org" src="https://plausible.io/js/plausible.js"></script>
 </head>
 <body>
     <a href="#container" class="visually-hidden-focusable">Skip to content</a>
@@ -155,8 +154,8 @@ code:</p>
 <span><span class="co">#&gt; Timezone: UTC</span></span>
 <span><span class="co">#&gt; Encoding: UTF-8</span></span>
 <span><span class="co">#&gt; &lt;date_names&gt;</span></span>
-<span><span class="co">#&gt; Days:   일요일 (일), 월요일 (월), 화요일 (화), 수요일 (수), 목요일 (목),</span></span>
-<span><span class="co">#&gt;         금요일 (금), 토요일 (토)</span></span>
+<span><span class="co">#&gt; Days:   일요일 (일), 월요일 (월), 화요일 (화), 수요일 (수), 목요일</span></span>
+<span><span class="co">#&gt;         (목), 금요일 (금), 토요일 (토)</span></span>
 <span><span class="co">#&gt; Months: 1월, 2월, 3월, 4월, 5월, 6월, 7월, 8월, 9월, 10월, 11월, 12월</span></span>
 <span><span class="co">#&gt; AM/PM:  오전/오후</span></span>
 <span><span class="fu"><a href="../reference/locale.html">locale</a></span><span class="op">(</span><span class="st">"fr"</span><span class="op">)</span> <span class="co"># French</span></span>
@@ -168,8 +167,8 @@ code:</p>
 <span><span class="co">#&gt; &lt;date_names&gt;</span></span>
 <span><span class="co">#&gt; Days:   dimanche (dim.), lundi (lun.), mardi (mar.), mercredi (mer.),</span></span>
 <span><span class="co">#&gt;         jeudi (jeu.), vendredi (ven.), samedi (sam.)</span></span>
-<span><span class="co">#&gt; Months: janvier (janv.), février (févr.), mars (mars), avril (avr.), mai</span></span>
-<span><span class="co">#&gt;         (mai), juin (juin), juillet (juil.), août (août),</span></span>
+<span><span class="co">#&gt; Months: janvier (janv.), février (févr.), mars (mars), avril (avr.),</span></span>
+<span><span class="co">#&gt;         mai (mai), juin (juin), juillet (juil.), août (août),</span></span>
 <span><span class="co">#&gt;         septembre (sept.), octobre (oct.), novembre (nov.),</span></span>
 <span><span class="co">#&gt;         décembre (déc.)</span></span>
 <span><span class="co">#&gt; AM/PM:  AM/PM</span></span></code></pre></div>
@@ -318,11 +317,11 @@ datasets.</p>
 <span><span class="co"># That means while they print the same, their raw (binary)</span></span>
 <span><span class="co"># representation is actually quite different:</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/rawConversion.html" class="external-link">charToRaw</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span></span>
-<span><span class="co">#&gt;  [1] c3 89 6d 69 67 72 c3 a9 20 63 61 75 73 65 20 63 c3 a9 6c c3 a8 62 72</span></span>
-<span><span class="co">#&gt; [24] 65 20 64 c3 a9 6a c3 a0 20 76 75 2e 0a</span></span>
+<span><span class="co">#&gt;  [1] c3 89 6d 69 67 72 c3 a9 20 63 61 75 73 65 20 63 c3 a9 6c c3 a8 62</span></span>
+<span><span class="co">#&gt; [23] 72 65 20 64 c3 a9 6a c3 a0 20 76 75 2e 0a</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/rawConversion.html" class="external-link">charToRaw</a></span><span class="op">(</span><span class="va">y</span><span class="op">)</span></span>
-<span><span class="co">#&gt;  [1] c9 6d 69 67 72 e9 20 63 61 75 73 65 20 63 e9 6c e8 62 72 65 20 64 e9</span></span>
-<span><span class="co">#&gt; [24] 6a e0 20 76 75 2e 0a</span></span>
+<span><span class="co">#&gt;  [1] c9 6d 69 67 72 e9 20 63 61 75 73 65 20 63 e9 6c e8 62 72 65 20 64</span></span>
+<span><span class="co">#&gt; [23] e9 6a e0 20 76 75 2e 0a</span></span>
 <span></span>
 <span><span class="co"># readr expects strings to be encoded as UTF-8. If they're</span></span>
 <span><span class="co"># not, you'll get weird characters</span></span>
@@ -398,7 +397,7 @@ flexible number parser:</p>
 </div>
 
 <div class="pkgdown-footer-right">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.1.0.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.1.3.</p>
 </div>
 
   </div></footer>
