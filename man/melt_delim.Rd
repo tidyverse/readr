@@ -130,7 +130,7 @@ option is \code{TRUE} then blank rows will not be represented at all.  If it is
 \code{FALSE} then they will be represented by \code{NA} values in all the columns.}
 }
 \value{
-A \code{\link[=tibble]{tibble()}} of four columns:
+A \code{\link[tibble:tibble]{tibble::tibble()}} of four columns:
 \itemize{
 \item \code{row}, the row that the token comes from in the original file
 \item \code{col}, the column that the token comes from in the original file

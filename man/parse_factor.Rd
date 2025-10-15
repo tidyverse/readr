@@ -70,8 +70,8 @@ parse_factor(x, levels = animals)
 \seealso{
 Other parsers: 
 \code{\link{col_skip}()},
-\code{\link{cols_condense}()},
 \code{\link{cols}()},
+\code{\link{cols_condense}()},
 \code{\link{parse_datetime}()},
 \code{\link{parse_guess}()},
 \code{\link{parse_logical}()},

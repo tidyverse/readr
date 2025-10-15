@@ -190,8 +190,8 @@ parse_datetime("1979-10-14T1010", locale = locale(tz = ""))
 \seealso{
 Other parsers: 
 \code{\link{col_skip}()},
-\code{\link{cols_condense}()},
 \code{\link{cols}()},
+\code{\link{cols_condense}()},
 \code{\link{parse_factor}()},
 \code{\link{parse_guess}()},
 \code{\link{parse_logical}()},

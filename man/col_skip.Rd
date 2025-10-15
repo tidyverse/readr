@@ -12,8 +12,8 @@ To skip all columns not otherwise specified, use \code{\link[=cols_only]{cols_on
 }
 \seealso{
 Other parsers: 
-\code{\link{cols_condense}()},
 \code{\link{cols}()},
+\code{\link{cols_condense}()},
 \code{\link{parse_datetime}()},
 \code{\link{parse_factor}()},
 \code{\link{parse_guess}()},
