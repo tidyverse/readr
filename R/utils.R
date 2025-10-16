@@ -72,7 +72,7 @@ should_show_types <- function() {
 #' be used to control laziness in an individual call.
 #'
 #' @seealso The blog post ["Eager vs lazy reading in readr
-#'   2.1.0"](https://www.tidyverse.org/blog/2021/11/readr-2-1-0-lazy/) explains
+#'   2.1.0"](https://tidyverse.org/blog/2021/11/readr-2-1-0-lazy/) explains
 #'   the benefits (and downsides) of lazy reading.
 #'
 #' @export

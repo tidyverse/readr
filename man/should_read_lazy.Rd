@@ -20,6 +20,6 @@ file, or user level. The \code{lazy} argument of functions like \code{\link[=rea
 be used to control laziness in an individual call.
 }
 \seealso{
-The blog post \href{https://www.tidyverse.org/blog/2021/11/readr-2-1-0-lazy/}{"Eager vs lazy reading in readr 2.1.0"} explains
+The blog post \href{https://tidyverse.org/blog/2021/11/readr-2-1-0-lazy/}{"Eager vs lazy reading in readr 2.1.0"} explains
 the benefits (and downsides) of lazy reading.
 }
