@@ -4,6 +4,7 @@
   be found in the return value of `iconvlist()`. The motivation is to remove an
   unnecessary blocker on platforms, such as Alpine Linux, where the output of
   `iconvlist()` does not reflect the actual capabilities (@bastistician, #1537).
+  
 * Help files below `man/` have been re-generated, as part of the effort to
   support HTML reference manuals on CRAN.
 
