@@ -113,8 +113,10 @@ test_that("melt columns with width, ragged", {
 test_that("melt_fwf returns an empty data.frame on an empty file", {
   withr::local_options(lifecycle_verbosity = "quiet")
   empty_df <- tibble::tibble(
-    row = double(), col = double(),
-    data_type = character(), value = character()
+    row = double(),
+    col = double(),
+    data_type = character(),
+    value = character()
   )
   expect_true(all.equal(melt_fwf("empty-file"), empty_df))
 })
@@ -152,10 +154,26 @@ test_that("check for line breaks in between widths", {
 test_that("ignore commented lines anywhere in file", {
   withr::local_options(lifecycle_verbosity = "quiet")
   col_pos <- fwf_positions(c(1, 3, 6), c(2, 5, 6))
-  x1 <- melt_fwf("COMMENT\n12345A\n67890BBBBBBBBB\n54321C", col_positions = col_pos, comment = "COMMENT")
-  x2 <- melt_fwf("12345A\n67890BBBBBBBBB\nCOMMENT\n54321C", col_positions = col_pos, comment = "COMMENT")
-  x3 <- melt_fwf("12345A\n67890BBBBBBBBB\n54321C\nCOMMENT", col_positions = col_pos, comment = "COMMENT")
-  x4 <- melt_fwf("COMMENT\n12345A\nCOMMENT\n67890BBBBBBBBB\n54321C\nCOMMENT", col_positions = col_pos, comment = "COMMENT")
+  x1 <- melt_fwf(
+    "COMMENT\n12345A\n67890BBBBBBBBB\n54321C",
+    col_positions = col_pos,
+    comment = "COMMENT"
+  )
+  x2 <- melt_fwf(
+    "12345A\n67890BBBBBBBBB\nCOMMENT\n54321C",
+    col_positions = col_pos,
+    comment = "COMMENT"
+  )
+  x3 <- melt_fwf(
+    "12345A\n67890BBBBBBBBB\n54321C\nCOMMENT",
+    col_positions = col_pos,
+    comment = "COMMENT"
+  )
+  x4 <- melt_fwf(
+    "COMMENT\n12345A\nCOMMENT\n67890BBBBBBBBB\n54321C\nCOMMENT",
+    col_positions = col_pos,
+    comment = "COMMENT"
+  )
 
   expect_identical(x1, x2)
   expect_identical(x1, x3)

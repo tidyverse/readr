@@ -51,11 +51,12 @@ test_that("DataFrameCallback works as intended", {
   expect_true(all.equal(out0, out2))
   expect_true(all.equal(out0, out3))
 
-
   # No matching rows
   out0 <- subset(melt_csv(f), data_type == "integer")
 
-  fun5 <- DataFrameCallback$new(function(x, pos) subset(x, data_type == "integer"))
+  fun5 <- DataFrameCallback$new(function(x, pos) {
+    subset(x, data_type == "integer")
+  })
 
   out1 <- melt_csv_chunked(f, fun5)
 

@@ -38,7 +38,9 @@ test_that("write_lines can append to a file", {
 })
 
 test_that("write_lines accepts a list of raws", {
-  x <- lapply(seq_along(1:10), function(x) charToRaw(paste0(collapse = "", sample(letters, size = sample(0:22, 1)))))
+  x <- lapply(seq_along(1:10), function(x) {
+    charToRaw(paste0(collapse = "", sample(letters, size = sample(0:22, 1))))
+  })
   tmp <- tempfile()
   on.exit(unlink(tmp))
 
@@ -108,7 +110,10 @@ test_that("write_lines can write CRLF files", {
   filename <- tempfile()
   on.exit(unlink(filename))
   write_lines(c("a", "b", "c"), filename, sep = "\r\n")
-  expect_identical(charToRaw("a\r\nb\r\nc\r\n"), readBin(filename, n = 9, what = "raw"))
+  expect_identical(
+    charToRaw("a\r\nb\r\nc\r\n"),
+    readBin(filename, n = 9, what = "raw")
+  )
 })
 
 test_that("write_file can write to compressed files", {

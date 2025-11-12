@@ -103,11 +103,17 @@ test_that("negative numbers return negative values", {
 test_that("large numbers are parsed properly", {
   expect_equal(parse_double("100000000000000000000"), 1e20)
 
-  expect_equal(parse_double("1267650600228229401496703205376"), 1.267650600228229401496703205376e+30)
+  expect_equal(
+    parse_double("1267650600228229401496703205376"),
+    1.267650600228229401496703205376e+30
+  )
 
   expect_equal(parse_double("100000000000000000000", locale = es_MX), 1e20)
 
-  expect_equal(parse_double("1267650600228229401496703205376", locale = es_MX), 1.267650600228229401496703205376e+30)
+  expect_equal(
+    parse_double("1267650600228229401496703205376", locale = es_MX),
+    1.267650600228229401496703205376e+30
+  )
 })
 
 # Scientific Notation -------------------------------------------------------

@@ -5,8 +5,15 @@
 #' @keywords internal
 #' @family chunked
 #' @export
-read_lines_chunked <- function(file, callback, chunk_size = 10000, skip = 0,
-                               locale = default_locale(), na = character(), progress = show_progress()) {
+read_lines_chunked <- function(
+  file,
+  callback,
+  chunk_size = 10000,
+  skip = 0,
+  locale = default_locale(),
+  na = character(),
+  progress = show_progress()
+) {
   if (empty_file(file)) {
     return(character())
   }
@@ -22,8 +29,13 @@ read_lines_chunked <- function(file, callback, chunk_size = 10000, skip = 0,
 
 #' @export
 #' @rdname read_lines_chunked
-read_lines_raw_chunked <- function(file, callback, chunk_size = 10000, skip = 0,
-                                   progress = show_progress()) {
+read_lines_raw_chunked <- function(
+  file,
+  callback,
+  chunk_size = 10000,
+  skip = 0,
+  progress = show_progress()
+) {
   if (empty_file(file)) {
     return(character())
   }

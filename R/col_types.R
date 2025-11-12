@@ -81,7 +81,8 @@ col_spec <- function(col_types, default = col_guess()) {
 
   is_collector <- vapply(col_types, is.collector, logical(1))
   if (any(!is_collector)) {
-    stop("Some `col_types` are not S3 collector objects: ",
+    stop(
+      "Some `col_types` are not S3 collector objects: ",
       paste(which(!is_collector), collapse = ", "),
       call. = FALSE
     )
@@ -160,7 +161,11 @@ type_to_col.double <- function(x, ...) {
 
 #' @export
 type_to_col.factor <- function(x, ...) {
-  col_factor(levels = levels(x), ordered = is.ordered(x), include_na = any(is.na(levels(x))))
+  col_factor(
+    levels = levels(x),
+    ordered = is.ordered(x),
+    include_na = any(is.na(levels(x)))
+  )
 }
 
 #' @export
@@ -184,7 +189,8 @@ as.col_spec.data.frame <- function(x) {
 }
 
 col_to_short <- function(x, ...) {
-  switch(class(x)[[1]],
+  switch(
+    class(x)[[1]],
     collector_character = "c",
     collector_date = "D",
     collector_datetime = "T",
@@ -208,7 +214,13 @@ as.character.col_spec <- function(x, ...) {
 }
 
 #' @export
-print.col_spec <- function(x, n = Inf, condense = NULL, colour = crayon::has_color(), ...) {
+print.col_spec <- function(
+  x,
+  n = Inf,
+  condense = NULL,
+  colour = crayon::has_color(),
+  ...
+) {
   cat(format.col_spec(x, n = n, condense = condense, colour = colour, ...))
 
   invisible(x)
@@ -231,7 +243,13 @@ cols_condense <- function(x) {
 }
 
 #' @export
-format.col_spec <- function(x, n = Inf, condense = NULL, colour = crayon::has_color(), ...) {
+format.col_spec <- function(
+  x,
+  n = Inf,
+  condense = NULL,
+  colour = crayon::has_color(),
+  ...
+) {
   if (n == 0) {
     return("")
   }
@@ -274,7 +292,11 @@ format.col_spec <- function(x, n = Inf, condense = NULL, colour = crayon::has_co
         named <- col_names != ""
 
         non_syntactic <- !is_syntactic(col_names) & named
-        col_names[non_syntactic] <- paste0("`", gsub("`", "\\\\`", col_names[non_syntactic]), "`")
+        col_names[non_syntactic] <- paste0(
+          "`",
+          gsub("`", "\\\\`", col_names[non_syntactic]),
+          "`"
+        )
 
         out <- paste0(col_names, " = ", col_funs)
         out[!named] <- col_funs[!named]
@@ -286,7 +308,6 @@ format.col_spec <- function(x, n = Inf, condense = NULL, colour = crayon::has_co
   if (length(x$cols) == 0 && length(cols_args) == 0) {
     return(paste0(fun_type, "()\n"))
   }
-
 
   out <- paste0(fun_type, "(\n  ", paste(collapse = ",\n  ", cols_args))
 
@@ -305,7 +326,8 @@ colourise_cols <- function(cols, colourise = crayon::has_color()) {
 
   fname <- sub("[(].*", "", cols)
   for (i in seq_along(cols)) {
-    cols[[i]] <- switch(fname,
+    cols[[i]] <- switch(
+      fname,
       col_skip = ,
       col_guess = cols[[i]],
 
@@ -334,7 +356,9 @@ show_cols_spec <- function(spec, n = getOption("readr.num_columns", 20)) {
       txt <- strsplit(format(spec, n = n, condense = NULL), "\n")[[1]]
       cli::cli_verbatim(txt)
       if (length(spec$cols) >= n) {
-        cli::cli_alert_info("Use {.fn spec} for the full column specifications.")
+        cli::cli_alert_info(
+          "Use {.fn spec} for the full column specifications."
+        )
       }
     })
   }
@@ -343,7 +367,6 @@ show_cols_spec <- function(spec, n = getOption("readr.num_columns", 20)) {
 # This allows str() on a tibble object to print a little nicer.
 #' @export
 str.col_spec <- function(object, ..., indent.str = "") {
-
   # Split the formatted column spec into strings
   specs <- strsplit(format(object), "\n")[[1]]
   cat(
@@ -378,7 +401,8 @@ spec <- function(x) {
 }
 
 col_concise <- function(x) {
-  switch(x,
+  switch(
+    x,
     "_" = ,
     "-" = col_skip(),
     "?" = col_guess(),
@@ -395,19 +419,29 @@ col_concise <- function(x) {
   )
 }
 
-col_spec_standardise <- function(file, col_names = TRUE, col_types = NULL,
-                                 guessed_types = NULL,
-                                 comment = "",
-                                 skip = 0, skip_empty_rows = TRUE,
-                                 skip_quote = TRUE,
-                                 guess_max = 1000,
-                                 tokenizer = tokenizer_csv(),
-                                 locale = default_locale(),
-                                 drop_skipped_names = FALSE) {
-
+col_spec_standardise <- function(
+  file,
+  col_names = TRUE,
+  col_types = NULL,
+  guessed_types = NULL,
+  comment = "",
+  skip = 0,
+  skip_empty_rows = TRUE,
+  skip_quote = TRUE,
+  guess_max = 1000,
+  tokenizer = tokenizer_csv(),
+  locale = default_locale(),
+  drop_skipped_names = FALSE
+) {
   # Figure out the column names -----------------------------------------------
   if (is.logical(col_names) && length(col_names) == 1) {
-    ds_header <- datasource(file, skip = skip, skip_empty_rows = skip_empty_rows, skip_quote = skip_quote, comment = comment)
+    ds_header <- datasource(
+      file,
+      skip = skip,
+      skip_empty_rows = skip_empty_rows,
+      skip_quote = skip_quote,
+      comment = comment
+    )
     if (col_names) {
       res <- guess_header(ds_header, tokenizer, locale)
       col_names <- res$header
@@ -431,7 +465,9 @@ col_spec_standardise <- function(file, col_names = TRUE, col_types = NULL,
       "Missing column names filled in: ",
       paste0(
         encodeString(new_names, quote = "'"),
-        " [", which(missing_names), "]",
+        " [",
+        which(missing_names),
+        "]",
         collapse = ", "
       ),
       call. = FALSE
@@ -450,7 +486,9 @@ col_spec_standardise <- function(file, col_names = TRUE, col_types = NULL,
         encodeString(old_names[dups], quote = "'"),
         " => ",
         encodeString(col_names[dups], quote = "'"),
-        " [", which(dups), "]",
+        " [",
+        which(dups),
+        "]",
         collapse = ", "
       ),
       call. = FALSE
@@ -473,7 +511,8 @@ col_spec_standardise <- function(file, col_names = TRUE, col_types = NULL,
     # unnamed types & names guessed from header: match exactly
 
     if (length(spec$cols) != length(col_names)) {
-      warning("Unnamed `col_types` should have the same length as `col_names`. ",
+      warning(
+        "Unnamed `col_types` should have the same length as `col_names`. ",
         "Using smaller of the two.",
         call. = FALSE
       )
@@ -485,7 +524,10 @@ col_spec_standardise <- function(file, col_names = TRUE, col_types = NULL,
     names(spec$cols) <- col_names
   } else if (is.null(type_names) && !guessed_names) {
     # unnamed types & names supplied: match non-skipped columns
-    skipped <- vapply(spec$cols, inherits, "collector_skip",
+    skipped <- vapply(
+      spec$cols,
+      inherits,
+      "collector_skip",
       FUN.VALUE = logical(1)
     )
 
@@ -500,17 +542,26 @@ col_spec_standardise <- function(file, col_names = TRUE, col_types = NULL,
 
     n_new <- abs(n_names - n_read)
     if (n_read < n_names) {
-      warning("Insufficient `col_types`. Guessing ", n_new, " columns.",
+      warning(
+        "Insufficient `col_types`. Guessing ",
+        n_new,
+        " columns.",
         call. = FALSE
       )
       spec$cols <- c(spec$cols, list(rep(col_guess(), n_new)))
     } else if (n_read > n_names) {
-      warning("Insufficient `col_names`. Adding ", n_new, " names.",
+      warning(
+        "Insufficient `col_names`. Adding ",
+        n_new,
+        " names.",
         call. = FALSE
       )
 
       col_names2 <- rep("", length(spec$cols))
-      col_names2[!skipped] <- c(col_names, paste0("X", seq_len(n_new) + n_names))
+      col_names2[!skipped] <- c(
+        col_names,
+        paste0("X", seq_len(n_new) + n_names)
+      )
       col_names <- col_names2
     } else {
       col_names2 <- rep("", length(spec$cols))
@@ -523,7 +574,8 @@ col_spec_standardise <- function(file, col_names = TRUE, col_types = NULL,
 
     bad_types <- !(type_names %in% col_names)
     if (any(bad_types)) {
-      warning("The following named parsers don't match the column names: ",
+      warning(
+        "The following named parsers don't match the column names: ",
         paste0(type_names[bad_types], collapse = ", "),
         call. = FALSE
       )
@@ -543,10 +595,20 @@ col_spec_standardise <- function(file, col_names = TRUE, col_types = NULL,
 
   # Guess any types that need to be guessed ------------------------------------
 
-  is_guess <- vapply(spec$cols, function(x) inherits(x, "collector_guess"), logical(1))
+  is_guess <- vapply(
+    spec$cols,
+    function(x) inherits(x, "collector_guess"),
+    logical(1)
+  )
   if (any(is_guess)) {
     if (is.null(guessed_types)) {
-      ds <- datasource(file, skip = spec$skip, skip_empty_rows = skip_empty_rows, skip_quote = skip_quote, comment = comment)
+      ds <- datasource(
+        file,
+        skip = spec$skip,
+        skip_empty_rows = skip_empty_rows,
+        skip_quote = skip_quote,
+        comment = comment
+      )
       guessed_types <- guess_types(ds, tokenizer, locale, guess_max = guess_max)
     }
 
@@ -559,14 +621,24 @@ col_spec_standardise <- function(file, col_names = TRUE, col_types = NULL,
 }
 
 
-check_guess_max <- function(guess_max, max_limit = .Machine$integer.max %/% 100) {
-  if (length(guess_max) != 1 || !is.numeric(guess_max) || !is_integerish(guess_max) ||
-    is.na(guess_max) || guess_max < 0) {
+check_guess_max <- function(
+  guess_max,
+  max_limit = .Machine$integer.max %/% 100
+) {
+  if (
+    length(guess_max) != 1 ||
+      !is.numeric(guess_max) ||
+      !is_integerish(guess_max) ||
+      is.na(guess_max) ||
+      guess_max < 0
+  ) {
     stop("`guess_max` must be a positive integer", call. = FALSE)
   }
 
   if (guess_max > max_limit) {
-    warning("`guess_max` is a very large value, setting to `", max_limit,
+    warning(
+      "`guess_max` is a very large value, setting to `",
+      max_limit,
       "` to avoid exhausting memory",
       call. = FALSE
     )
@@ -575,8 +647,13 @@ check_guess_max <- function(guess_max, max_limit = .Machine$integer.max %/% 100)
   guess_max
 }
 
-guess_types <- function(datasource, tokenizer, locale, guess_max = 1000,
-                        max_limit = .Machine$integer.max %/% 100) {
+guess_types <- function(
+  datasource,
+  tokenizer,
+  locale,
+  guess_max = 1000,
+  max_limit = .Machine$integer.max %/% 100
+) {
   guess_max <- check_guess_max(guess_max, max_limit)
 
   guess_types_(datasource, tokenizer, locale, n = guess_max)

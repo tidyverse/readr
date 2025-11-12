@@ -1,9 +1,19 @@
 parse_b <- function(x, ...) {
-  tok <- tokenizer_delim(",", escape_double = FALSE, escape_backslash = TRUE, ...)
+  tok <- tokenizer_delim(
+    ",",
+    escape_double = FALSE,
+    escape_backslash = TRUE,
+    ...
+  )
   tokenize(datasource_string(x, 0), tok)
 }
 parse_d <- function(x, ...) {
-  tok <- tokenizer_delim(",", escape_double = TRUE, escape_backslash = FALSE, ...)
+  tok <- tokenizer_delim(
+    ",",
+    escape_double = TRUE,
+    escape_backslash = FALSE,
+    ...
+  )
   tokenize(datasource_string(x, 0), tok)
 }
 
@@ -42,19 +52,37 @@ test_that("problem if unterminated escape", {
 })
 
 test_that("empty fields become empty strings", {
-  expect_equal(parse_d(",\n,"), list(c("[EMPTY]", "[EMPTY]"), c("[EMPTY]", "[EMPTY]")))
-  expect_equal(parse_d(",\n,\n"), list(c("[EMPTY]", "[EMPTY]"), c("[EMPTY]", "[EMPTY]")))
+  expect_equal(
+    parse_d(",\n,"),
+    list(c("[EMPTY]", "[EMPTY]"), c("[EMPTY]", "[EMPTY]"))
+  )
+  expect_equal(
+    parse_d(",\n,\n"),
+    list(c("[EMPTY]", "[EMPTY]"), c("[EMPTY]", "[EMPTY]"))
+  )
   expect_equal(parse_d('""'), list("[EMPTY]"))
 })
 
 test_that("bare NA becomes missing value", {
-  expect_equal(parse_b('NA,"NA"', quoted_na = FALSE), list(c("[MISSING]", "NA")))
-  expect_equal(parse_d('NA,"NA"', quoted_na = FALSE), list(c("[MISSING]", "NA")))
+  expect_equal(
+    parse_b('NA,"NA"', quoted_na = FALSE),
+    list(c("[MISSING]", "NA"))
+  )
+  expect_equal(
+    parse_d('NA,"NA"', quoted_na = FALSE),
+    list(c("[MISSING]", "NA"))
+  )
 })
 
 test_that("quoted NA also becomes missing value", {
-  expect_equal(parse_b('NA,"NA"', quoted_na = TRUE), list(c("[MISSING]", "[MISSING]")))
-  expect_equal(parse_d('NA,"NA"', quoted_na = TRUE), list(c("[MISSING]", "[MISSING]")))
+  expect_equal(
+    parse_b('NA,"NA"', quoted_na = TRUE),
+    list(c("[MISSING]", "[MISSING]"))
+  )
+  expect_equal(
+    parse_d('NA,"NA"', quoted_na = TRUE),
+    list(c("[MISSING]", "[MISSING]"))
+  )
 })
 
 test_that("empty string become missing values", {

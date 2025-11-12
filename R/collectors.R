@@ -30,13 +30,25 @@ collector_find <- function(name) {
 #' x <- c("1", "2", "3", "NA")
 #' parse_vector(x, col_integer())
 #' parse_vector(x, col_double())
-parse_vector <- function(x, collector, na = c("", "NA"), locale = default_locale(), trim_ws = TRUE) {
+parse_vector <- function(
+  x,
+  collector,
+  na = c("", "NA"),
+  locale = default_locale(),
+  trim_ws = TRUE
+) {
   stopifnot(is.character(x))
   if (is.character(collector)) {
     collector <- collector_find(collector)
   }
 
-  warn_problems(parse_vector_(x, collector, na = na, locale_ = locale, trim_ws = trim_ws))
+  warn_problems(parse_vector_(
+    x,
+    collector,
+    na = na,
+    locale_ = locale,
+    trim_ws = trim_ws
+  ))
 }
 
 #' Parse logicals, integers, and reals
@@ -69,25 +81,45 @@ NULL
 
 #' @rdname parse_atomic
 #' @export
-parse_logical <- function(x, na = c("", "NA"), locale = default_locale(), trim_ws = TRUE) {
+parse_logical <- function(
+  x,
+  na = c("", "NA"),
+  locale = default_locale(),
+  trim_ws = TRUE
+) {
   parse_vector(x, col_logical(), na = na, locale = locale, trim_ws = trim_ws)
 }
 
 #' @rdname parse_atomic
 #' @export
-parse_integer <- function(x, na = c("", "NA"), locale = default_locale(), trim_ws = TRUE) {
+parse_integer <- function(
+  x,
+  na = c("", "NA"),
+  locale = default_locale(),
+  trim_ws = TRUE
+) {
   parse_vector(x, col_integer(), na = na, locale = locale, trim_ws = trim_ws)
 }
 
 #' @rdname parse_atomic
 #' @export
-parse_double <- function(x, na = c("", "NA"), locale = default_locale(), trim_ws = TRUE) {
+parse_double <- function(
+  x,
+  na = c("", "NA"),
+  locale = default_locale(),
+  trim_ws = TRUE
+) {
   parse_vector(x, col_double(), na = na, locale = locale, trim_ws = trim_ws)
 }
 
 #' @rdname parse_atomic
 #' @export
-parse_character <- function(x, na = c("", "NA"), locale = default_locale(), trim_ws = TRUE) {
+parse_character <- function(
+  x,
+  na = c("", "NA"),
+  locale = default_locale(),
+  trim_ws = TRUE
+) {
   parse_vector(x, col_character(), na = na, locale = locale, trim_ws = trim_ws)
 }
 
@@ -153,7 +185,12 @@ col_skip <- function() {
 #' ## Specifying strings for NAs
 #' parse_number(c("1", "2", "3", "NA"))
 #' parse_number(c("1", "2", "3", "NA", "Nothing"), na = c("NA", "Nothing"))
-parse_number <- function(x, na = c("", "NA"), locale = default_locale(), trim_ws = TRUE) {
+parse_number <- function(
+  x,
+  na = c("", "NA"),
+  locale = default_locale(),
+  trim_ws = TRUE
+) {
   parse_vector(x, col_number(), na = na, locale = locale, trim_ws = trim_ws)
 }
 
@@ -192,8 +229,20 @@ col_number <- function() {
 #' # ISO 8601 date times
 #' guess_parser(c("2010-10-10"))
 #' parse_guess(c("2010-10-10"))
-parse_guess <- function(x, na = c("", "NA"), locale = default_locale(), trim_ws = TRUE, guess_integer = FALSE) {
-  parse_vector(x, guess_parser(x, locale, guess_integer = guess_integer, na = na), na = na, locale = locale, trim_ws = trim_ws)
+parse_guess <- function(
+  x,
+  na = c("", "NA"),
+  locale = default_locale(),
+  trim_ws = TRUE,
+  guess_integer = FALSE
+) {
+  parse_vector(
+    x,
+    guess_parser(x, locale, guess_integer = guess_integer, na = na),
+    na = na,
+    locale = locale,
+    trim_ws = trim_ws
+  )
 }
 
 #' @rdname parse_guess
@@ -206,7 +255,12 @@ col_guess <- function() {
 #' @param guess_integer If `TRUE`, guess integer types for whole numbers, if
 #'   `FALSE` guess numeric type for all numbers.
 #' @export
-guess_parser <- function(x, locale = default_locale(), guess_integer = FALSE, na = c("", "NA")) {
+guess_parser <- function(
+  x,
+  locale = default_locale(),
+  guess_integer = FALSE,
+  na = c("", "NA")
+) {
   x[x %in% na] <- NA_character_
 
   stopifnot(is.locale(locale))
@@ -252,18 +306,42 @@ guess_parser <- function(x, locale = default_locale(), guess_integer = FALSE, na
 #' # parse_factor() generates same factor as base::factor() but throws a warning
 #' # and reports problems
 #' parse_factor(x, levels = animals)
-parse_factor <- function(x, levels = NULL, ordered = FALSE, na = c("", "NA"),
-                         locale = default_locale(), include_na = TRUE, trim_ws = TRUE) {
-  parse_vector(x, col_factor(levels, ordered, include_na), na = na, locale = locale, trim_ws = trim_ws)
+parse_factor <- function(
+  x,
+  levels = NULL,
+  ordered = FALSE,
+  na = c("", "NA"),
+  locale = default_locale(),
+  include_na = TRUE,
+  trim_ws = TRUE
+) {
+  parse_vector(
+    x,
+    col_factor(levels, ordered, include_na),
+    na = na,
+    locale = locale,
+    trim_ws = trim_ws
+  )
 }
 
 #' @rdname parse_factor
 #' @export
 col_factor <- function(levels = NULL, ordered = FALSE, include_na = FALSE) {
   if (!(is.null(levels) || is.character(levels))) {
-    stop(sprintf("`levels` must be `NULL` or a character vector:\n- `levels` is a '%s'", class(levels)), call. = FALSE)
+    stop(
+      sprintf(
+        "`levels` must be `NULL` or a character vector:\n- `levels` is a '%s'",
+        class(levels)
+      ),
+      call. = FALSE
+    )
   }
-  collector("factor", levels = levels, ordered = ordered, include_na = include_na)
+  collector(
+    "factor",
+    levels = levels,
+    ordered = ordered,
+    include_na = include_na
+  )
 }
 
 # More complex ------------------------------------------------------------
@@ -393,19 +471,43 @@ col_factor <- function(levels = NULL, ordered = FALSE, include_na = FALSE) {
 #' parse_datetime("1979-10-14T1010Z", locale = us_central)
 #' # Your current time zone
 #' parse_datetime("1979-10-14T1010", locale = locale(tz = ""))
-parse_datetime <- function(x, format = "", na = c("", "NA"), locale = default_locale(), trim_ws = TRUE) {
-  parse_vector(x, col_datetime(format), na = na, locale = locale, trim_ws = trim_ws)
+parse_datetime <- function(
+  x,
+  format = "",
+  na = c("", "NA"),
+  locale = default_locale(),
+  trim_ws = TRUE
+) {
+  parse_vector(
+    x,
+    col_datetime(format),
+    na = na,
+    locale = locale,
+    trim_ws = trim_ws
+  )
 }
 
 #' @rdname parse_datetime
 #' @export
-parse_date <- function(x, format = "", na = c("", "NA"), locale = default_locale(), trim_ws = TRUE) {
+parse_date <- function(
+  x,
+  format = "",
+  na = c("", "NA"),
+  locale = default_locale(),
+  trim_ws = TRUE
+) {
   parse_vector(x, col_date(format), na = na, locale = locale, trim_ws = trim_ws)
 }
 
 #' @rdname parse_datetime
 #' @export
-parse_time <- function(x, format = "", na = c("", "NA"), locale = default_locale(), trim_ws = TRUE) {
+parse_time <- function(
+  x,
+  format = "",
+  na = c("", "NA"),
+  locale = default_locale(),
+  trim_ws = TRUE
+) {
   parse_vector(x, col_time(format), na = na, locale = locale, trim_ws = trim_ws)
 }
 

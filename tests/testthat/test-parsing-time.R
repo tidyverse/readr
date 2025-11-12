@@ -36,22 +36,37 @@ test_that("times are guessed as expected", {
   expect_equal(guess_parser("12:01"), "time")
 
   expect_equal(
-    guess_parser("12:01:01"), "time"
+    guess_parser("12:01:01"),
+    "time"
   )
 
   expect_equal(
-    guess_parser(c("04:00:00", "04:30:00", "14:00:22")), "time"
+    guess_parser(c("04:00:00", "04:30:00", "14:00:22")),
+    "time"
   )
 
   expect_equal(
-    guess_parser("25:01:01"), "time"
+    guess_parser("25:01:01"),
+    "time"
   )
 })
 
 test_that("durations", {
   expect_warning(parse_time("25:00:00", format = "%H:%M:%S"))
-  expect_equal(parse_time("25:00:00", format = "%h:%M:%S"), hms::hms(hours = 25))
-  expect_equal(parse_time("1000000000:00:00", format = "%h:%M:%S"), hms::hms(hours = 1e9))
-  expect_equal(parse_time("-1:23:45", format = "%h:%M:%S"), hms::as_hms(-hms::hms(45, 23, 1)))
-  expect_equal(parse_time("-1:23:45.67", format = "%h:%M:%OS"), hms::as_hms(-hms::hms(45.67, 23, 1)))
+  expect_equal(
+    parse_time("25:00:00", format = "%h:%M:%S"),
+    hms::hms(hours = 25)
+  )
+  expect_equal(
+    parse_time("1000000000:00:00", format = "%h:%M:%S"),
+    hms::hms(hours = 1e9)
+  )
+  expect_equal(
+    parse_time("-1:23:45", format = "%h:%M:%S"),
+    hms::as_hms(-hms::hms(45, 23, 1))
+  )
+  expect_equal(
+    parse_time("-1:23:45.67", format = "%h:%M:%OS"),
+    hms::as_hms(-hms::hms(45.67, 23, 1))
+  )
 })

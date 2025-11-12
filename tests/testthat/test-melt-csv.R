@@ -114,7 +114,11 @@ test_that("decimal mark automatically set to ,", {
   withr::local_options(lifecycle_verbosity = "quiet")
   expect_message(
     x <- melt_csv2("x\n1,23"),
-    if (default_locale()$decimal_mark == ".") "decimal .*grouping .*mark" else NA
+    if (default_locale()$decimal_mark == ".") {
+      "decimal .*grouping .*mark"
+    } else {
+      NA
+    }
   )
   expect_equal(x$data_type[2], "double")
 })
@@ -148,7 +152,10 @@ test_that("comments are ignored regardless of where they appear", {
 
   out5 <- melt_csv("x1,x2,x3\nA2,B2,C2\nA3#,B2,C2\nA4,A5,A6", comment = "#")
   out6 <- melt_csv("x1,x2,x3\nA2,B2,C2\nA3,#B2,C2\nA4,A5,A6", comment = "#")
-  out7 <- melt_csv("x1,x2,x3\nA2,B2,C2\nA3,#B2,C2\n#comment\nA4,A5,A6", comment = "#")
+  out7 <- melt_csv(
+    "x1,x2,x3\nA2,B2,C2\nA3,#B2,C2\n#comment\nA4,A5,A6",
+    comment = "#"
+  )
 
   chk2 <- tibble::tibble(
     row = c(1, 1, 1, 2, 2, 2, 3, 4, 4, 4),
@@ -164,9 +171,12 @@ test_that("comments are ignored regardless of where they appear", {
 
 test_that("escaped/quoted comments are ignored", {
   withr::local_options(lifecycle_verbosity = "quiet")
-  out1 <- melt_delim("x\n\\#",
-    comment = "#", delim = ",",
-    escape_backslash = TRUE, escape_double = FALSE
+  out1 <- melt_delim(
+    "x\n\\#",
+    comment = "#",
+    delim = ",",
+    escape_backslash = TRUE,
+    escape_double = FALSE
   )
   out2 <- melt_csv('x\n"#"', comment = "#")
 

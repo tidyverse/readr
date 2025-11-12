@@ -10,7 +10,10 @@ test_that("melt_table skips all comment lines", {
   withr::local_options(lifecycle_verbosity = "quiet")
   x <- melt_table("foo bar\n1   2\n3   4\n5   6\n")
 
-  y <- melt_table("#comment1\n#comment2\nfoo bar\n1   2\n3   4\n5   6\n", comment = "#")
+  y <- melt_table(
+    "#comment1\n#comment2\nfoo bar\n1   2\n3   4\n5   6\n",
+    comment = "#"
+  )
 
   expect_equal(x, y)
 })
@@ -41,8 +44,10 @@ test_that("melt_table can read a truncated file without crashing", {
 test_that("melt_table returns an empty data.frame on an empty file", {
   withr::local_options(lifecycle_verbosity = "quiet")
   empty_df <- tibble::tibble(
-    row = double(), col = double(),
-    data_type = character(), value = character()
+    row = double(),
+    col = double(),
+    data_type = character(),
+    value = character()
   )
   expect_true(all.equal(melt_table("empty-file"), empty_df))
 })
@@ -59,7 +64,10 @@ test_that("melt_table2 skips all comment lines", {
   withr::local_options(lifecycle_verbosity = "quiet")
   x <- melt_table2("foo bar\n1   2\n3   4\n5   6\n")
 
-  y <- melt_table2("#comment1\n#comment2\nfoo bar\n1   2\n3   4\n5   6\n", comment = "#")
+  y <- melt_table2(
+    "#comment1\n#comment2\nfoo bar\n1   2\n3   4\n5   6\n",
+    comment = "#"
+  )
 
   expect_equal(x, y)
 })
@@ -87,8 +95,10 @@ test_that("melt_table2 ignores blank lines at the end of a file", {
 test_that("melt_table2 returns an empty data.frame on an empty file", {
   withr::local_options(lifecycle_verbosity = "quiet")
   empty_df <- tibble::tibble(
-    row = double(), col = double(),
-    data_type = character(), value = character()
+    row = double(),
+    col = double(),
+    data_type = character(),
+    value = character()
   )
   expect_true(all.equal(melt_table2("empty-file"), empty_df))
 })

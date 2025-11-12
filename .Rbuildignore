@@ -41,5 +41,7 @@
 ^doc$
 ^Meta$
 ^CRAN-SUBMISSION$
+^\.vscode$
+^[.]?air[.]toml$
 ^CLAUDE\.md$
 ^\.claude$

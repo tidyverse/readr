@@ -56,11 +56,17 @@ NULL
 #' @param skip_empty_rows Should blank rows be ignored altogether? i.e. If this
 #'   option is `TRUE` then blank rows will not be represented at all.  If it is
 #'   `FALSE` then they will be represented by `NA` values in all the columns.
-tokenizer_delim <- function(delim, quote = '"', na = "NA", quoted_na = TRUE, comment = "",
-                            trim_ws = TRUE,
-                            escape_double = TRUE,
-                            escape_backslash = FALSE,
-                            skip_empty_rows = TRUE) {
+tokenizer_delim <- function(
+  delim,
+  quote = '"',
+  na = "NA",
+  quoted_na = TRUE,
+  comment = "",
+  trim_ws = TRUE,
+  escape_double = TRUE,
+  escape_backslash = FALSE,
+  skip_empty_rows = TRUE
+) {
   structure(
     list(
       delim = delim,
@@ -79,9 +85,14 @@ tokenizer_delim <- function(delim, quote = '"', na = "NA", quoted_na = TRUE, com
 
 #' @export
 #' @rdname Tokenizers
-tokenizer_csv <- function(na = "NA", quoted_na = TRUE, quote = "\"",
-                          comment = "", trim_ws = TRUE,
-                          skip_empty_rows = TRUE) {
+tokenizer_csv <- function(
+  na = "NA",
+  quoted_na = TRUE,
+  quote = "\"",
+  comment = "",
+  trim_ws = TRUE,
+  skip_empty_rows = TRUE
+) {
   tokenizer_delim(
     delim = ",",
     na = na,
@@ -97,9 +108,14 @@ tokenizer_csv <- function(na = "NA", quoted_na = TRUE, quote = "\"",
 
 #' @export
 #' @rdname Tokenizers
-tokenizer_tsv <- function(na = "NA", quoted_na = TRUE, quote = "\"",
-                          comment = "", trim_ws = TRUE,
-                          skip_empty_rows = TRUE) {
+tokenizer_tsv <- function(
+  na = "NA",
+  quoted_na = TRUE,
+  quote = "\"",
+  comment = "",
+  trim_ws = TRUE,
+  skip_empty_rows = TRUE
+) {
   tokenizer_delim(
     delim = "\t",
     na = na,
@@ -116,7 +132,8 @@ tokenizer_tsv <- function(na = "NA", quoted_na = TRUE, quote = "\"",
 #' @export
 #' @rdname Tokenizers
 tokenizer_line <- function(na = character(), skip_empty_rows = TRUE) {
-  structure(list(na = na, skip_empty_rows = skip_empty_rows),
+  structure(
+    list(na = na, skip_empty_rows = skip_empty_rows),
     class = "tokenizer_line"
   )
 }
@@ -133,20 +150,32 @@ tokenizer_log <- function(trim_ws) {
 #' @param begin,end Begin and end offsets for each file. These are C++
 #'   offsets so the first column is column zero, and the ranges are
 #'   [begin, end) (i.e inclusive-exclusive).
-tokenizer_fwf <- function(begin, end, na = "NA", comment = "", trim_ws = TRUE,
-                          skip_empty_rows = TRUE) {
-  structure(list(
-    begin = as.integer(begin), end = as.integer(end), na = na, comment = comment,
-    trim_ws = trim_ws, skip_empty_rows = skip_empty_rows
-  ),
-  class = "tokenizer_fwf"
+tokenizer_fwf <- function(
+  begin,
+  end,
+  na = "NA",
+  comment = "",
+  trim_ws = TRUE,
+  skip_empty_rows = TRUE
+) {
+  structure(
+    list(
+      begin = as.integer(begin),
+      end = as.integer(end),
+      na = na,
+      comment = comment,
+      trim_ws = trim_ws,
+      skip_empty_rows = skip_empty_rows
+    ),
+    class = "tokenizer_fwf"
   )
 }
 
 #' @export
 #' @rdname Tokenizers
 tokenizer_ws <- function(na = "NA", comment = "", skip_empty_rows = TRUE) {
-  structure(list(na = na, comment = comment, skip_empty_rows = skip_empty_rows),
+  structure(
+    list(na = na, comment = comment, skip_empty_rows = skip_empty_rows),
     class = "tokenizer_ws"
   )
 }

@@ -21,7 +21,11 @@ test_that("read_delim/csv/tsv and write_delim round trip special chars", {
   x <- c("a", '"', ",", "\n", "at\t")
 
   output <- data.frame(x)
-  input <- read_delim(I(format_delim(output, delim = " ")), delim = " ", trim_ws = FALSE)
+  input <- read_delim(
+    I(format_delim(output, delim = " ")),
+    delim = " ",
+    trim_ws = FALSE
+  )
   input_csv <- read_csv(I(format_delim(output, delim = ",")), trim_ws = FALSE)
   input_tsv <- read_tsv(I(format_delim(output, delim = "\t")), trim_ws = FALSE)
   expect_equal(input$x, input_csv$x)
@@ -60,7 +64,8 @@ test_that("roundtrip preserves dates and datetimes", {
 test_that("fails to create file in non-existent directory", {
   expect_error(
     expect_warning(
-      write_csv(mtcars, file.path(tempdir(), "/x/y")), "open"
+      write_csv(mtcars, file.path(tempdir(), "/x/y")),
+      "open"
     )
   )
 })
@@ -191,9 +196,18 @@ test_that("Can change the escape behavior for quotes", {
   expect_error(format_delim(df, "\t", escape = "invalid"), "should be one of")
 
   expect_equal(format_delim(df, "\t"), "x\na\n\"\"\"\"\n,\n\"\n\"\n")
-  expect_equal(format_delim(df, "\t", escape = "double"), "x\na\n\"\"\"\"\n,\n\"\n\"\n")
-  expect_equal(format_delim(df, "\t", escape = "backslash"), "x\na\n\"\\\"\"\n,\n\"\n\"\n")
-  expect_equal(format_delim(df, "\t", escape = "none"), "x\na\n\"\"\"\n,\n\"\n\"\n")
+  expect_equal(
+    format_delim(df, "\t", escape = "double"),
+    "x\na\n\"\"\"\"\n,\n\"\n\"\n"
+  )
+  expect_equal(
+    format_delim(df, "\t", escape = "backslash"),
+    "x\na\n\"\\\"\"\n,\n\"\n\"\n"
+  )
+  expect_equal(
+    format_delim(df, "\t", escape = "none"),
+    "x\na\n\"\"\"\n,\n\"\n\"\n"
+  )
 })
 
 test_that("hms NAs are written without padding (#930)", {
@@ -202,7 +216,11 @@ test_that("hms NAs are written without padding (#930)", {
 })
 
 test_that("Error when writing list columns or matrix columns", {
-  df <- data.frame(x = LETTERS[1:4], y = I(list(1, "foo", 2:9, iris)), z = I(matrix(1:16, nrow = 4)))
+  df <- data.frame(
+    x = LETTERS[1:4],
+    y = I(list(1, "foo", 2:9, iris)),
+    z = I(matrix(1:16, nrow = 4))
+  )
   expect_error(
     write_csv(df, tempfile()),
     "`x` must not contain list or matrix columns"

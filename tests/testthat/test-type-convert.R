@@ -14,9 +14,15 @@ test_that("col_types accepts character specifications", {
   df <- data.frame(x = 1:3, y = "3", z = "a", stringsAsFactors = FALSE)
   df_conv <- data.frame(x = 1:3, y = 3L, z = "a", stringsAsFactors = FALSE)
 
-  expect_error(type_convert(df, col_types = "i"), "must have consistent lengths")
+  expect_error(
+    type_convert(df, col_types = "i"),
+    "must have consistent lengths"
+  )
 
-  expect_error(type_convert(df, col_types = c("i", "b")), "must be a single string")
+  expect_error(
+    type_convert(df, col_types = c("i", "b")),
+    "must be a single string"
+  )
 
   expect_equal(type_convert(df, col_types = "_ic"), df_conv)
 })
@@ -26,7 +32,10 @@ test_that("col_types accepts cols specifications", {
 
   expect_equal(type_convert(df, col_types = cols(y = "i")), df_conv)
 
-  expect_equal(type_convert(df, col_types = cols(y = col_integer(), z = col_character())), df_conv)
+  expect_equal(
+    type_convert(df, col_types = cols(y = col_integer(), z = col_character())),
+    df_conv
+  )
 
   # non-character cols silently ignored
   expect_equal(type_convert(df, col_types = cols(x = "c", y = "i")), df_conv)

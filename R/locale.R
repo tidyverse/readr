@@ -39,17 +39,26 @@
 #'
 #' # A South American locale
 #' locale("es", decimal_mark = ",")
-locale <- function(date_names = "en",
-                   date_format = "%AD", time_format = "%AT",
-                   decimal_mark = ".", grouping_mark = ",",
-                   tz = "UTC", encoding = "UTF-8",
-                   asciify = FALSE) {
+locale <- function(
+  date_names = "en",
+  date_format = "%AD",
+  time_format = "%AT",
+  decimal_mark = ".",
+  grouping_mark = ",",
+  tz = "UTC",
+  encoding = "UTF-8",
+  asciify = FALSE
+) {
   if (is.character(date_names)) {
     date_names <- date_names_lang(date_names)
   }
   stopifnot(is.date_names(date_names))
   if (asciify) {
-    date_names[] <- lapply(date_names, stringi::stri_trans_general, id = "latin-ascii")
+    date_names[] <- lapply(
+      date_names,
+      stringi::stri_trans_general,
+      id = "latin-ascii"
+    )
   }
 
   if (missing(grouping_mark) && !missing(decimal_mark)) {
@@ -86,10 +95,17 @@ is.locale <- function(x) inherits(x, "locale")
 #' @export
 print.locale <- function(x, ...) {
   cat("<locale>\n")
-  cat("Numbers:  ", prettyNum(123456.78,
-    big.mark = x$grouping_mark,
-    decimal.mark = x$decimal_mark, digits = 8
-  ), "\n", sep = "")
+  cat(
+    "Numbers:  ",
+    prettyNum(
+      123456.78,
+      big.mark = x$grouping_mark,
+      decimal.mark = x$decimal_mark,
+      digits = 8
+    ),
+    "\n",
+    sep = ""
+  )
   cat("Formats:  ", x$date_format, " / ", x$time_format, "\n", sep = "")
   cat("Timezone: ", x$tz, "\n", sep = "")
   cat("Encoding: ", x$encoding, "\n", sep = "")
@@ -137,10 +153,15 @@ check_encoding <- function(x) {
   ## 'iconvlist' could be incomplete (musl) or even unavailable
   known <- tryCatch(iconvlist(), error = identity)
   if (inherits(known, "error")) {
-      warning("Could not check `encoding` against `iconvlist()`.", call. = FALSE)
+    warning("Could not check `encoding` against `iconvlist()`.", call. = FALSE)
   } else if (tolower(x) %in% tolower(known)) {
-      TRUE
+    TRUE
   } else {
-      warning("Unknown encoding ", encodeString(x, quote = '"'), ".", call. = FALSE)
+    warning(
+      "Unknown encoding ",
+      encodeString(x, quote = '"'),
+      ".",
+      call. = FALSE
+    )
   }
 }

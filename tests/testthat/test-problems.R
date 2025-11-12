@@ -6,19 +6,41 @@ test_that("stop_for_problems throws error", {
 test_that("skipping columns gives incorrect problem column (#573)", {
   skip_if_edition_first()
 
-  delim.skip0 <- problems(read_csv("aa,bb,cc\n", col_names = F, col_types = "dcc", lazy = FALSE))
-  delim.skip1 <- problems(read_csv("aa,bb,cc\n", col_names = F, col_types = "_dc", lazy = FALSE))
-  delim.skip2 <- problems(read_csv("aa,bb,cc\n", col_names = F, col_types = "--d", lazy = FALSE))
+  delim.skip0 <- problems(read_csv(
+    "aa,bb,cc\n",
+    col_names = F,
+    col_types = "dcc",
+    lazy = FALSE
+  ))
+  delim.skip1 <- problems(read_csv(
+    "aa,bb,cc\n",
+    col_names = F,
+    col_types = "_dc",
+    lazy = FALSE
+  ))
+  delim.skip2 <- problems(read_csv(
+    "aa,bb,cc\n",
+    col_names = F,
+    col_types = "--d",
+    lazy = FALSE
+  ))
   expect_equal(delim.skip0$col, 1)
   expect_equal(delim.skip1$col, 2)
   expect_equal(delim.skip2$col, 3)
 
   skip_if_edition_second()
-  delim.sk0.2 <- problems(read_tsv("aa\tbb\tcc\n", col_names = F, col_types = "dcd"))
-  delim.sk1.2 <- problems(read_tsv("aa\tbb\tcc\n", col_names = F, col_types = "_dd"))
+  delim.sk0.2 <- problems(read_tsv(
+    "aa\tbb\tcc\n",
+    col_names = F,
+    col_types = "dcd"
+  ))
+  delim.sk1.2 <- problems(read_tsv(
+    "aa\tbb\tcc\n",
+    col_names = F,
+    col_types = "_dd"
+  ))
   expect_equal(delim.sk0.2$col, c("X1", "X3"))
   expect_equal(delim.sk1.2$col, c("X2", "X3"))
-
 
   fwf.pos <- fwf_widths(c(2, 2, 2))
   fwf.skip0 <- problems(read_fwf("aabbcc\n", fwf.pos, col_types = "dcc"))
@@ -35,14 +57,22 @@ test_that("skipping columns gives incorrect problem column (#573)", {
 
 test_that("problems returns the filename (#581)", {
   skip_if_edition_first()
-  files <- problems(read_csv(readr_example("mtcars.csv"), col_types = cols(mpg = col_integer()), lazy = FALSE))$file
+  files <- problems(read_csv(
+    readr_example("mtcars.csv"),
+    col_types = cols(mpg = col_integer()),
+    lazy = FALSE
+  ))$file
 
   expect_equal(length(files), 28L)
   expect_equal(basename(files)[[1L]], "mtcars.csv")
 })
 
 test_that("problems returns full original field (#444)", {
-  probs <- problems(read_tsv("X\n-$12,500\n$2,000\n-$5,000\n$1,000\n-$3,000\n", col_types = list(.default = col_number()), lazy = FALSE))
+  probs <- problems(read_tsv(
+    "X\n-$12,500\n$2,000\n-$5,000\n$1,000\n-$3,000\n",
+    col_types = list(.default = col_number()),
+    lazy = FALSE
+  ))
 
   expect_equal(NROW(probs), 3)
   expect_equal(probs$actual, c("-$12,500", "-$5,000", "-$3,000"))

@@ -1,5 +1,3 @@
-
-
 #' Return melted data for each token in a fixed width file
 #'
 #' `r lifecycle::badge("superseded")`
@@ -37,29 +35,48 @@
 #' melt_fwf(fwf_sample, fwf_cols(name = c(1, 10), ssn = c(30, 42)))
 #' # 5. Named arguments with column widths
 #' melt_fwf(fwf_sample, fwf_cols(name = 20, state = 10, ssn = 12))
-melt_fwf <- function(file, col_positions,
-                     locale = default_locale(), na = c("", "NA"),
-                     comment = "", trim_ws = TRUE, skip = 0, n_max = Inf,
-                     progress = show_progress(),
-                     skip_empty_rows = FALSE) {
+melt_fwf <- function(
+  file,
+  col_positions,
+  locale = default_locale(),
+  na = c("", "NA"),
+  comment = "",
+  trim_ws = TRUE,
+  skip = 0,
+  n_max = Inf,
+  progress = show_progress(),
+  skip_empty_rows = FALSE
+) {
   if (!edition_first()) {
-    lifecycle::deprecate_soft("2.0.0", what = "melt_fwf()", details = "Please use `meltr::melt_fwf()` instead")
+    lifecycle::deprecate_soft(
+      "2.0.0",
+      what = "melt_fwf()",
+      details = "Please use `meltr::melt_fwf()` instead"
+    )
   }
   ds <- datasource(file, skip = skip, skip_empty_rows = skip_empty_rows)
   if (inherits(ds, "source_file") && empty_file(file)) {
     return(tibble::tibble(
-      row = double(), col = double(),
-      data_type = character(), value = character()
+      row = double(),
+      col = double(),
+      data_type = character(),
+      value = character()
     ))
   }
-  tokenizer <- tokenizer_fwf(as.integer(col_positions$begin), as.integer(col_positions$end),
+  tokenizer <- tokenizer_fwf(
+    as.integer(col_positions$begin),
+    as.integer(col_positions$end),
     na = na,
-    comment = comment, trim_ws = trim_ws,
+    comment = comment,
+    trim_ws = trim_ws,
     skip_empty_rows = skip_empty_rows
   )
-  out <- melt_tokens(ds, tokenizer,
+  out <- melt_tokens(
+    ds,
+    tokenizer,
     locale_ = locale,
-    n_max = if (n_max == Inf) -1 else n_max, progress = progress
+    n_max = if (n_max == Inf) -1 else n_max,
+    progress = progress
   )
   warn_problems(out)
 }

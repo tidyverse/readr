@@ -36,15 +36,24 @@ read_rds <- function(file, refhook = NULL) {
 #' @return `write_rds()` returns `x`, invisibly.
 #' @rdname read_rds
 #' @export
-write_rds <- function(x, file, compress = c("none", "gz", "bz2", "xz"),
-                      version = 2, refhook = NULL, text = FALSE, path = deprecated(), ...) {
+write_rds <- function(
+  x,
+  file,
+  compress = c("none", "gz", "bz2", "xz"),
+  version = 2,
+  refhook = NULL,
+  text = FALSE,
+  path = deprecated(),
+  ...
+) {
   if (is_present(path)) {
     deprecate_warn("1.4.0", "write_rds(path = )", "write_rds(file = )")
     file <- path
   }
 
   compress <- match.arg(compress)
-  con <- switch(compress,
+  con <- switch(
+    compress,
     none = file(file, ...),
     gz = gzfile(file, ...),
     bz2 = bzfile(file, ...),

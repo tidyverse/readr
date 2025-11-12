@@ -1,5 +1,3 @@
-
-
 #' Read a fixed width file into a tibble
 #'
 #' A fixed width file can be a very compact representation of numeric data.
@@ -42,23 +40,40 @@
 #' read_fwf(fwf_sample, fwf_cols(name = c(1, 20), ssn = c(30, 42)))
 #' # 5. Named arguments with column widths
 #' read_fwf(fwf_sample, fwf_cols(name = 20, state = 10, ssn = 12))
-read_fwf <- function(file, col_positions = fwf_empty(file, skip, n = guess_max), col_types = NULL,
-                     col_select = NULL,
-                     id = NULL,
-                     locale = default_locale(), na = c("", "NA"),
-                     comment = "", trim_ws = TRUE, skip = 0, n_max = Inf,
-                     guess_max = min(n_max, 1000), progress = show_progress(),
-                     name_repair = "unique",
-                     num_threads = readr_threads(),
-                     show_col_types = should_show_types(),
-                     lazy = should_read_lazy(), skip_empty_rows = TRUE) {
+read_fwf <- function(
+  file,
+  col_positions = fwf_empty(file, skip, n = guess_max),
+  col_types = NULL,
+  col_select = NULL,
+  id = NULL,
+  locale = default_locale(),
+  na = c("", "NA"),
+  comment = "",
+  trim_ws = TRUE,
+  skip = 0,
+  n_max = Inf,
+  guess_max = min(n_max, 1000),
+  progress = show_progress(),
+  name_repair = "unique",
+  num_threads = readr_threads(),
+  show_col_types = should_show_types(),
+  lazy = should_read_lazy(),
+  skip_empty_rows = TRUE
+) {
   if (edition_first()) {
     ds <- datasource(file, skip = skip, skip_empty_rows = skip_empty_rows)
     if (inherits(ds, "source_file") && empty_file(file)) {
       return(tibble::tibble())
     }
 
-    tokenizer <- tokenizer_fwf(col_positions$begin, col_positions$end, na = na, comment = comment, trim_ws = trim_ws, skip_empty_rows = skip_empty_rows)
+    tokenizer <- tokenizer_fwf(
+      col_positions$begin,
+      col_positions$end,
+      na = na,
+      comment = comment,
+      trim_ws = trim_ws,
+      skip_empty_rows = skip_empty_rows
+    )
 
     spec <- col_spec_standardise(
       file,
@@ -75,8 +90,13 @@ read_fwf <- function(file, col_positions = fwf_empty(file, skip, n = guess_max),
       show_cols_spec(spec)
     }
 
-    out <- read_tokens(datasource(file, skip = spec$skip, skip_empty_rows = skip_empty_rows), tokenizer, spec$cols, names(spec$cols),
-      locale_ = locale, n_max = if (n_max == Inf) -1 else n_max,
+    out <- read_tokens(
+      datasource(file, skip = spec$skip, skip_empty_rows = skip_empty_rows),
+      tokenizer,
+      spec$cols,
+      names(spec$cols),
+      locale_ = locale,
+      n_max = if (n_max == Inf) -1 else n_max,
       progress = progress
     )
 
@@ -85,7 +105,8 @@ read_fwf <- function(file, col_positions = fwf_empty(file, skip, n = guess_max),
     return(warn_problems(out))
   }
 
-  vroom::vroom_fwf(file,
+  vroom::vroom_fwf(
+    file,
     col_positions = col_positions,
     col_types = col_types,
     col_select = {{ col_select }},
@@ -110,7 +131,14 @@ read_fwf <- function(file, col_positions = fwf_empty(file, skip, n = guess_max),
 #' @export
 #' @param n Number of lines the tokenizer will read to determine file structure. By default
 #'      it is set to 100.
-fwf_empty <- function(file, skip = 0, skip_empty_rows = FALSE, col_names = NULL, comment = "", n = 100L) {
+fwf_empty <- function(
+  file,
+  skip = 0,
+  skip_empty_rows = FALSE,
+  col_names = NULL,
+  comment = "",
+  n = 100L
+) {
   if (edition_first()) {
     ds <- datasource(file, skip = skip, skip_empty_rows = skip_empty_rows)
 
@@ -126,7 +154,13 @@ fwf_empty <- function(file, skip = 0, skip_empty_rows = FALSE, col_names = NULL,
     lifecycle::deprecate_soft("2.0.0", "readr::fwf_empty(skip_empty_rows = )")
   }
 
-  vroom::fwf_empty(file = file, skip = skip, col_names = col_names, comment = comment, n = n)
+  vroom::fwf_empty(
+    file = file,
+    skip = skip,
+    col_names = col_names,
+    comment = comment,
+    n = n
+  )
 }
 
 #' @rdname read_fwf
@@ -179,7 +213,8 @@ fwf_cols <- function(...) {
     } else if (nrow(x) == 1) {
       res <- fwf_widths(as.integer(x[1, ]), names(x))
     } else {
-      stop("All variables must have either one (width) two (start, end) values.",
+      stop(
+        "All variables must have either one (width) two (start, end) values.",
         call. = FALSE
       )
     }

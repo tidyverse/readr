@@ -6,7 +6,6 @@ all.equal.tbl_df <- function(target, current, ..., check.attributes = FALSE) {
 }
 
 is_bz2_file <- function(x) {
-
   # Magic number for bz2 is "BZh" in ASCII
   # https://en.wikipedia.org/wiki/Bzip2#File_format
   identical(charToRaw("BZh"), readBin(x, n = 3, what = "raw"))

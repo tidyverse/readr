@@ -88,8 +88,14 @@ warn_problems <- function(x) {
 
   if (many_problems) {
     # nchar fails with non-ascii characters, so encode characters beforehand.
-    width <- vapply(probs_f, function(x) max(nchar(encodeString(x))), integer(1))
-    dots <- vapply(width, function(i) paste(rep(".", i), collapse = ""),
+    width <- vapply(
+      probs_f,
+      function(x) max(nchar(encodeString(x))),
+      integer(1)
+    )
+    dots <- vapply(
+      width,
+      function(i) paste(rep(".", i), collapse = ""),
       FUN.VALUE = character(1)
     )
 
@@ -97,10 +103,17 @@ warn_problems <- function(x) {
   }
 
   probs_f <- do.call(paste, c(probs_f, list(sep = " ", collapse = "\n")))
-  warning(n, " parsing failure", if (n > 1) "s", ".\n",
-    probs_f, "\n",
+  warning(
+    n,
+    " parsing failure",
+    if (n > 1) "s",
+    ".\n",
+    probs_f,
+    "\n",
     if (many_problems) "See problems(...) for more details.\n",
-    call. = FALSE, immediate. = TRUE, noBreaks. = TRUE
+    call. = FALSE,
+    immediate. = TRUE,
+    noBreaks. = TRUE
   )
 
   x

@@ -13,8 +13,13 @@
 #' date_names_lang("en")
 #' date_names_lang("ko")
 #' date_names_lang("fr")
-date_names <- function(mon, mon_ab = mon, day, day_ab = day,
-                       am_pm = c("AM", "PM")) {
+date_names <- function(
+  mon,
+  mon_ab = mon,
+  day,
+  day_ab = day,
+  am_pm = c("AM", "PM")
+) {
   stopifnot(is.character(mon), length(mon) == 12)
   stopifnot(is.character(mon_ab), length(mon_ab) == 12)
   stopifnot(is.character(day), length(day) == 7)

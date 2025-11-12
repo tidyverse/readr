@@ -21,7 +21,12 @@ read_builtin <- function(x, package = NULL) {
   tryCatch(
     warning = function(e) warn_to_error(e),
     expr = {
-      res <- utils::data(list = x, package = package, envir = environment(), verbose = FALSE)
+      res <- utils::data(
+        list = x,
+        package = package,
+        envir = environment(),
+        verbose = FALSE
+      )
       get(res[[1]], envir = environment())
     }
   )

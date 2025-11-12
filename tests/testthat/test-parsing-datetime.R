@@ -44,7 +44,10 @@ test_that("%y matches R behaviour", {
 })
 
 test_that("%e allows leading space", {
-  expect_equal(parse_datetime("201010 1", "%Y%m%e"), utctime(2010L, 10L, 1L, 0L, 0L, 0L, 0))
+  expect_equal(
+    parse_datetime("201010 1", "%Y%m%e"),
+    utctime(2010L, 10L, 1L, 0L, 0L, 0L, 0)
+  )
 })
 
 test_that("%OS captures partial seconds", {
@@ -88,12 +91,21 @@ test_that("ISO8601 partial dates are not parsed", {
 
 test_that("Year only gets parsed", {
   expect_equal(parse_datetime("2010", "%Y"), ISOdate(2010, 1, 1, 0, tz = "UTC"))
-  expect_equal(parse_datetime("2010-06", "%Y-%m"), ISOdate(2010, 6, 1, 0, tz = "UTC"))
+  expect_equal(
+    parse_datetime("2010-06", "%Y-%m"),
+    ISOdate(2010, 6, 1, 0, tz = "UTC")
+  )
 })
 
 test_that("%p detects AM/PM", {
-  am <- parse_datetime(c("2015-01-01 01:00 AM", "2015-01-01 01:00 am"), "%F %I:%M %p")
-  pm <- parse_datetime(c("2015-01-01 01:00 PM", "2015-01-01 01:00 pm"), "%F %I:%M %p")
+  am <- parse_datetime(
+    c("2015-01-01 01:00 AM", "2015-01-01 01:00 am"),
+    "%F %I:%M %p"
+  )
+  pm <- parse_datetime(
+    c("2015-01-01 01:00 PM", "2015-01-01 01:00 pm"),
+    "%F %I:%M %p"
+  )
 
   expect_equal(pm, am + 12 * 3600)
 
@@ -112,10 +124,12 @@ test_that("%p detects AM/PM", {
     POSIXct(694141260, "UTC")
   )
 
-  expect_warning(x <- parse_datetime(
-    c("12/31/1991 00:01 PM", "12/31/1991 13:01 PM"),
-    "%m/%d/%Y %I:%M %p"
-  ))
+  expect_warning(
+    x <- parse_datetime(
+      c("12/31/1991 00:01 PM", "12/31/1991 13:01 PM"),
+      "%m/%d/%Y %I:%M %p"
+    )
+  )
   expect_equal(n_problems(x), 2)
 })
 
@@ -142,7 +156,11 @@ test_that("%Z detects named time zones", {
 
   expect_equal(parse_datetime("2010-10-01 01:00", locale = ct), ref)
   expect_equal(
-    parse_datetime("2010-10-01 01:00 America/Chicago", "%Y-%m-%d %H:%M %Z", locale = ct),
+    parse_datetime(
+      "2010-10-01 01:00 America/Chicago",
+      "%Y-%m-%d %H:%M %Z",
+      locale = ct
+    ),
     ref
   )
 })
@@ -178,7 +196,10 @@ test_that("locale affects day of week", {
   a <- parse_datetime("2010-01-01")
   b <- parse_date("2010-01-01")
   fr <- locale("fr")
-  expect_equal(parse_datetime("Ven. 1 janv. 2010", "%a %d %b %Y", locale = fr), a)
+  expect_equal(
+    parse_datetime("Ven. 1 janv. 2010", "%a %d %b %Y", locale = fr),
+    a
+  )
   expect_equal(parse_date("Ven. 1 janv. 2010", "%a %d %b %Y", locale = fr), b)
   expect_warning(parse_datetime("Fri 1 janv. 1020", "%a %d %b %Y", locale = fr))
   expect_warning(parse_date("Fri 1 janv. 2010", "%a %d %b %Y", locale = fr))
@@ -223,7 +244,10 @@ test_that("text re-encoded before strings are parsed", {
 
 test_that("same times with different offsets parsed as same time", {
   # From http://en.wikipedia.org/wiki/ISO_8601#Time_offsets_from_UTC
-  same_time <- paste("2010-02-03", c("18:30Z", "22:30+04", "1130-0700", "15:00-03:30"))
+  same_time <- paste(
+    "2010-02-03",
+    c("18:30Z", "22:30+04", "1130-0700", "15:00-03:30")
+  )
   parsed <- parse_datetime(same_time)
 
   expect_equal(parsed, rep(utctime(2010L, 2L, 3L, 18L, 30L, 0L, 0), 4))
@@ -242,13 +266,19 @@ test_that("unambiguous times with and without daylight savings", {
   melb <- locale(tz = "Australia/Melbourne")
   # Melbourne had daylight savings in 2015 that ended the morning of 2015-04-05
   expect_equal(
-    parse_datetime(c("2015-04-04 12:00:00", "2015-04-06 12:00:00"), locale = melb),
+    parse_datetime(
+      c("2015-04-04 12:00:00", "2015-04-06 12:00:00"),
+      locale = melb
+    ),
     POSIXct(c(1428109200, 1428285600), "Australia/Melbourne")
   )
   # Japan didn't have daylight savings in 2015
   ja <- locale(tz = "Japan")
   expect_equal(
-    parse_datetime(c("2015-04-04 12:00:00", "2015-04-06 12:00:00"), locale = ja),
+    parse_datetime(
+      c("2015-04-04 12:00:00", "2015-04-06 12:00:00"),
+      locale = ja
+    ),
     POSIXct(c(1428116400, 1428289200), "Japan")
   )
 })
@@ -257,7 +287,11 @@ test_that("ambiguous times always choose the earliest time", {
   ny <- locale(tz = "America/New_York")
 
   format <- "%Y-%m-%d %H:%M:%S%z"
-  expected <- as.POSIXct("1970-10-25 01:30:00-0400", tz = "America/New_York", format = format)
+  expected <- as.POSIXct(
+    "1970-10-25 01:30:00-0400",
+    tz = "America/New_York",
+    format = format
+  )
 
   actual <- parse_datetime("1970-10-25 01:30:00", locale = ny)
 
@@ -309,5 +343,8 @@ test_that("must have either two - or none", {
 })
 
 test_that("Invalid formats error", {
-  expect_error(parse_date("2020-11-17", "%%Y-%m-%d"), "Unsupported format %%Y-%m-%d")
+  expect_error(
+    parse_date("2020-11-17", "%%Y-%m-%d"),
+    "Unsupported format %%Y-%m-%d"
+  )
 })

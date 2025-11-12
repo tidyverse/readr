@@ -36,9 +36,14 @@
 #' con <- rawConnection(charToRaw("abc\n123"))
 #' datasource(con)
 #' close(con)
-datasource <- function(file, skip = 0, skip_empty_rows = FALSE, comment = "", skip_quote = TRUE) {
+datasource <- function(
+  file,
+  skip = 0,
+  skip_empty_rows = FALSE,
+  comment = "",
+  skip_quote = TRUE
+) {
   if (inherits(file, "source")) {
-
     # If `skip` and `comment` arguments are expliictly passed, we want to use
     # those even if `file` is already a source
     if (!missing(skip)) {
@@ -56,7 +61,13 @@ datasource <- function(file, skip = 0, skip_empty_rows = FALSE, comment = "", sk
     datasource_raw(file, skip, skip_empty_rows, comment, skip_quote)
   } else if (is.character(file)) {
     if (length(file) > 1) {
-      datasource_string(paste(file, collapse = "\n"), skip, skip_empty_rows, comment, skip_quote)
+      datasource_string(
+        paste(file, collapse = "\n"),
+        skip,
+        skip_empty_rows,
+        comment,
+        skip_quote
+      )
     } else if (grepl("\n", file)) {
       datasource_string(file, skip, skip_empty_rows, comment, skip_quote)
     } else {
@@ -74,33 +85,103 @@ datasource <- function(file, skip = 0, skip_empty_rows = FALSE, comment = "", sk
 
 # Constructors -----------------------------------------------------------------
 
-new_datasource <- function(type, x, skip, skip_empty_rows = TRUE, comment = "", skip_quote = TRUE, ...) {
-  structure(list(x, skip = skip, skip_empty_rows = skip_empty_rows, comment = comment, skip_quote = skip_quote, ...),
+new_datasource <- function(
+  type,
+  x,
+  skip,
+  skip_empty_rows = TRUE,
+  comment = "",
+  skip_quote = TRUE,
+  ...
+) {
+  structure(
+    list(
+      x,
+      skip = skip,
+      skip_empty_rows = skip_empty_rows,
+      comment = comment,
+      skip_quote = skip_quote,
+      ...
+    ),
     class = c(paste0("source_", type), "source")
   )
 }
 
-datasource_string <- function(text, skip, skip_empty_rows = TRUE, comment = "", skip_quote = TRUE) {
-  new_datasource("string", text, skip = skip, skip_empty_rows = skip_empty_rows, comment = comment, skip_quote = skip_quote)
+datasource_string <- function(
+  text,
+  skip,
+  skip_empty_rows = TRUE,
+  comment = "",
+  skip_quote = TRUE
+) {
+  new_datasource(
+    "string",
+    text,
+    skip = skip,
+    skip_empty_rows = skip_empty_rows,
+    comment = comment,
+    skip_quote = skip_quote
+  )
 }
 
-datasource_file <- function(path, skip, skip_empty_rows = TRUE, comment = "", skip_quote = TRUE, ...) {
+datasource_file <- function(
+  path,
+  skip,
+  skip_empty_rows = TRUE,
+  comment = "",
+  skip_quote = TRUE,
+  ...
+) {
   path <- check_path(path)
-  new_datasource("file", path, skip = skip, skip_empty_rows = skip_empty_rows, comment = comment, skip_quote = skip_quote, ...)
+  new_datasource(
+    "file",
+    path,
+    skip = skip,
+    skip_empty_rows = skip_empty_rows,
+    comment = comment,
+    skip_quote = skip_quote,
+    ...
+  )
 }
 
-datasource_connection <- function(path, skip, skip_empty_rows = TRUE, comment = "", skip_quote = TRUE) {
+datasource_connection <- function(
+  path,
+  skip,
+  skip_empty_rows = TRUE,
+  comment = "",
+  skip_quote = TRUE
+) {
   # We read the connection to a temporary file, then register a finalizer to
   # cleanup the temp file after the datasource object is removed.
 
   file <- read_connection(path)
   env <- new.env(parent = emptyenv())
   reg.finalizer(env, function(env) unlink(file))
-  datasource_file(file, skip, skip_empty_rows = skip_empty_rows, comment = comment, env = env, skip_quote = skip_quote)
+  datasource_file(
+    file,
+    skip,
+    skip_empty_rows = skip_empty_rows,
+    comment = comment,
+    env = env,
+    skip_quote = skip_quote
+  )
 }
 
-datasource_raw <- function(text, skip, skip_empty_rows, comment, skip_quote = TRUE) {
-  new_datasource("raw", text, skip = skip, skip_empty_rows = skip_empty_rows, comment = comment, skip_quote = skip_quote)
+datasource_raw <- function(
+  text,
+  skip,
+  skip_empty_rows,
+  comment,
+  skip_quote = TRUE
+) {
+  new_datasource(
+    "raw",
+    text,
+    skip = skip,
+    skip_empty_rows = skip_empty_rows,
+    comment = comment,
+    skip_quote = skip_quote
+  )
 }
 
 # Helpers ----------------------------------------------------------------------
@@ -133,16 +214,22 @@ standardise_path <- function(path, input = TRUE) {
     if (requireNamespace("curl", quietly = TRUE)) {
       con <- curl::curl(path)
     } else {
-      cli::cli_alert_warning("{.pkg curl} package not installed, falling back to using {.fn url}")
+      cli::cli_alert_warning(
+        "{.pkg curl} package not installed, falling back to using {.fn url}"
+      )
       con <- url(path)
     }
     ext <- tolower(tools::file_ext(path))
     return(
-      switch(ext,
+      switch(
+        ext,
         bz2 = ,
         xz = {
           close(con)
-          stop("Reading from remote `", ext, "` compressed files is not supported,\n",
+          stop(
+            "Reading from remote `",
+            ext,
+            "` compressed files is not supported,\n",
             "  download the files locally first.",
             call. = FALSE
           )
@@ -159,7 +246,8 @@ standardise_path <- function(path, input = TRUE) {
   } else {
     compression <- tools::file_ext(path)
   }
-  switch(compression,
+  switch(
+    compression,
     gz = gzfile(path, ""),
     bz2 = bzfile(path, ""),
     xz = xzfile(path, ""),
@@ -202,7 +290,10 @@ check_path <- function(path) {
     return(normalizePath(path, "/", mustWork = FALSE))
   }
 
-  stop("'", path, "' does not exist",
+  stop(
+    "'",
+    path,
+    "' does not exist",
     if (!is_absolute_path(path)) {
       paste0(" in current working directory ('", getwd(), "')")
     },
@@ -220,14 +311,18 @@ zipfile <- function(path, open = "r") {
   file <- files$Name[[1]]
 
   if (nrow(files) > 1) {
-    suppressWarnings(cli::cli_alert_warning("Multiple files in zip: reading {.file '{file}'}"))
+    suppressWarnings(cli::cli_alert_warning(
+      "Multiple files in zip: reading {.file '{file}'}"
+    ))
   }
 
   unz(path, file, open = open)
 }
 
 empty_file <- function(x) {
-  is.character(x) && file.exists(x) && file.info(x, extra_cols = FALSE)$size == 0
+  is.character(x) &&
+    file.exists(x) &&
+    file.info(x, extra_cols = FALSE)$size == 0
 }
 
 #' Returns values from the clipboard
@@ -247,47 +342,57 @@ detect_compression <- function(path) {
   if (length(bytes) >= 2 && bytes[[1]] == 0x1f && bytes[[2]] == 0x8b) {
     return("gz")
   }
-  if (length(bytes) >= 6 &&
-    bytes[[1]] == 0xFD &&
-    bytes[[2]] == 0x37 &&
-    bytes[[3]] == 0x7A &&
-    bytes[[4]] == 0x58 &&
-    bytes[[5]] == 0x5A &&
-    bytes[[6]] == 0x00) {
+  if (
+    length(bytes) >= 6 &&
+      bytes[[1]] == 0xFD &&
+      bytes[[2]] == 0x37 &&
+      bytes[[3]] == 0x7A &&
+      bytes[[4]] == 0x58 &&
+      bytes[[5]] == 0x5A &&
+      bytes[[6]] == 0x00
+  ) {
     return("xz")
   }
 
-  if (length(bytes) >= 3 &&
-    bytes[[1]] == 0x42 &&
-    bytes[[2]] == 0x5a &&
-    bytes[[3]] == 0x68) {
+  if (
+    length(bytes) >= 3 &&
+      bytes[[1]] == 0x42 &&
+      bytes[[2]] == 0x5a &&
+      bytes[[3]] == 0x68
+  ) {
     return("bz2")
   }
 
   # normal zip
-  if (length(bytes) >= 4 &&
-    bytes[[1]] == 0x50 &&
-    bytes[[2]] == 0x4B &&
-    bytes[[3]] == 0x03 &&
-    bytes[[4]] == 0x04) {
+  if (
+    length(bytes) >= 4 &&
+      bytes[[1]] == 0x50 &&
+      bytes[[2]] == 0x4B &&
+      bytes[[3]] == 0x03 &&
+      bytes[[4]] == 0x04
+  ) {
     return("zip")
   }
 
   # empty zip
-  if (length(bytes) >= 4 &&
-    bytes[[1]] == 0x50 &&
-    bytes[[2]] == 0x4B &&
-    bytes[[3]] == 0x05 &&
-    bytes[[4]] == 0x06) {
+  if (
+    length(bytes) >= 4 &&
+      bytes[[1]] == 0x50 &&
+      bytes[[2]] == 0x4B &&
+      bytes[[3]] == 0x05 &&
+      bytes[[4]] == 0x06
+  ) {
     return("zip")
   }
 
   # spanned zip
-  if (length(bytes) >= 4 &&
-    bytes[[1]] == 0x50 &&
-    bytes[[2]] == 0x4B &&
-    bytes[[3]] == 0x07 &&
-    bytes[[4]] == 0x08) {
+  if (
+    length(bytes) >= 4 &&
+      bytes[[1]] == 0x50 &&
+      bytes[[2]] == 0x4B &&
+      bytes[[3]] == 0x07 &&
+      bytes[[4]] == 0x08
+  ) {
     return("zip")
   }
 

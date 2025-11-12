@@ -129,7 +129,6 @@ test_that("DataFrameCallback works as intended", {
   expect_true(all.equal(out0, out2))
   expect_true(all.equal(out0, out3))
 
-
   # No matching rows
   out0 <- subset(read_csv(f), gear == 5)
   attr(out0, "problems") <- NULL
@@ -192,7 +191,8 @@ test_that("AccumulateCallback works as intended", {
 })
 
 test_that("Chunks include their spec (#1143)", {
-  res <- read_csv_chunked(readr_example("mtcars.csv"),
+  res <- read_csv_chunked(
+    readr_example("mtcars.csv"),
     callback = ListCallback$new(function(x, pos) spec(x)),
     chunk_size = 20
   )

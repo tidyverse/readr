@@ -1,5 +1,9 @@
 test_that("read_csv col imputation, col_name detection and NA detection works", {
-  test_data <- read_csv(test_path("basic-df.csv"), col_types = list(), col_names = TRUE)
+  test_data <- read_csv(
+    test_path("basic-df.csv"),
+    col_types = list(),
+    col_names = TRUE
+  )
   expect_equal(
     unname(unlist(lapply(test_data, class))),
     c("logical", "numeric", "numeric", "character")
@@ -7,7 +11,11 @@ test_that("read_csv col imputation, col_name detection and NA detection works", 
   expect_equal(names(test_data), c("a", "b", "c", "d"))
   expect_equal(sum(is.na(test_data$d)), 1)
 
-  test_data2 <- read_csv("basic-df.csv", col_types = list(a = "l", b = "d", c = "d", d = "c"), col_names = TRUE)
+  test_data2 <- read_csv(
+    "basic-df.csv",
+    col_types = list(a = "l", b = "d", c = "d", d = "c"),
+    col_names = TRUE
+  )
   expect_equal(test_data, test_data2)
 })
 
@@ -54,9 +62,12 @@ test_that("read_csv's 'n_max' allows for a maximum number of records and does no
 
 test_that("n_max also affects column guessing", {
   df <- read_csv(
-    n_max = 1, I("x,y,z
+    n_max = 1,
+    I(
+      "x,y,z
     1,2,3
-    1,2,3,4"),
+    1,2,3,4"
+    ),
     progress = FALSE
   )
   expect_equal(dim(df), c(1, 3))
@@ -128,8 +139,17 @@ test_that("missing lines are skipped without warning", {
 test_that("warning lines are correct after skipping", {
   skip_if_edition_second()
 
-  expect_warning(out1 <- read_csv(I("v1,v2\n1,foo"), col_types = "ii", lazy = FALSE))
-  expect_warning(out2 <- read_csv(I("#foo\nv1,v2\n1,foo"), col_types = "ii", comment = "#", lazy = FALSE))
+  expect_warning(
+    out1 <- read_csv(I("v1,v2\n1,foo"), col_types = "ii", lazy = FALSE)
+  )
+  expect_warning(
+    out2 <- read_csv(
+      I("#foo\nv1,v2\n1,foo"),
+      col_types = "ii",
+      comment = "#",
+      lazy = FALSE
+    )
+  )
 
   expect_equal(problems(out1)$row, 1)
 
@@ -140,7 +160,11 @@ test_that("warning lines are correct after skipping", {
     variant = edition_variant()
   )
   expect_snapshot(
-    out4 <- read_csv(I("v1,v2\n#foo\n1,2\n#bar\n3,4"), col_types = "i", comment = "#"),
+    out4 <- read_csv(
+      I("v1,v2\n#foo\n1,2\n#bar\n3,4"),
+      col_types = "i",
+      comment = "#"
+    ),
     variant = edition_variant()
   )
 
@@ -152,9 +176,13 @@ test_that("warning lines are correct after skipping", {
 test_that("extra columns generates warnings", {
   skip_if_edition_second()
   expect_warning(out1 <- read_csv(I("a,b\n1,2,3\n"), lazy = FALSE))
-  expect_warning(out2 <- read_csv(I("a,b\n1,2,3"), col_types = "ii", lazy = FALSE))
+  expect_warning(
+    out2 <- read_csv(I("a,b\n1,2,3"), col_types = "ii", lazy = FALSE)
+  )
   # expect_warning(out3 <- read_csv(I("1,2,3\n"), c("a", "b"), lazy = FALSE))
-  expect_warning(out4 <- read_csv(I("1,2,3\n"), c("a", "b"), "ii", lazy = FALSE))
+  expect_warning(
+    out4 <- read_csv(I("1,2,3\n"), c("a", "b"), "ii", lazy = FALSE)
+  )
 
   expect_equal(problems(out1)$expected, "2 columns")
   expect_equal(problems(out2)$expected, "2 columns")
@@ -171,7 +199,9 @@ test_that("too few or extra col_types generates warnings", {
   expect_equal(problems(out1)$expected, "1 columns")
   expect_equal(problems(out1)$actual, "2 columns")
 
-  expect_warning(out2 <- read_csv(I("v1,v2\n1,2"), col_types = "iii", lazy = FALSE))
+  expect_warning(
+    out2 <- read_csv(I("v1,v2\n1,2"), col_types = "iii", lazy = FALSE)
+  )
   expect_equal(ncol(out2), 2)
 })
 
@@ -236,9 +266,27 @@ test_that("comments are ignored regardless of where they appear", {
   )
   expect_equal(out4$y, NA_character_)
 
-  expect_warning(out5 <- read_csv(I("x1,x2,x3\nA2,B2,C2\nA3#,B2,C2\nA4,A5,A6"), comment = "#", lazy = FALSE))
-  expect_warning(out6 <- read_csv(I("x1,x2,x3\nA2,B2,C2\nA3,#B2,C2\nA4,A5,A6"), comment = "#", lazy = FALSE))
-  expect_warning(out7 <- read_csv(I("x1,x2,x3\nA2,B2,C2\nA3,#B2,C2\n#comment\nA4,A5,A6"), comment = "#", lazy = FALSE))
+  expect_warning(
+    out5 <- read_csv(
+      I("x1,x2,x3\nA2,B2,C2\nA3#,B2,C2\nA4,A5,A6"),
+      comment = "#",
+      lazy = FALSE
+    )
+  )
+  expect_warning(
+    out6 <- read_csv(
+      I("x1,x2,x3\nA2,B2,C2\nA3,#B2,C2\nA4,A5,A6"),
+      comment = "#",
+      lazy = FALSE
+    )
+  )
+  expect_warning(
+    out7 <- read_csv(
+      I("x1,x2,x3\nA2,B2,C2\nA3,#B2,C2\n#comment\nA4,A5,A6"),
+      comment = "#",
+      lazy = FALSE
+    )
+  )
 
   chk <- tibble::tibble(
     x1 = c("A2", "A3", "A4"),
@@ -252,9 +300,12 @@ test_that("comments are ignored regardless of where they appear", {
 })
 
 test_that("escaped/quoted comments are ignored", {
-  out1 <- read_delim(I("x\n\\#"),
-    comment = "#", delim = ",",
-    escape_backslash = TRUE, escape_double = FALSE
+  out1 <- read_delim(
+    I("x\n\\#"),
+    comment = "#",
+    delim = ",",
+    escape_backslash = TRUE,
+    escape_double = FALSE
   )
   out2 <- read_csv(I('x\n"#"'), comment = "#")
 
@@ -290,7 +341,10 @@ test_that("skip respects newlines", {
   expect_equal(read_x(skip = 4), c("a", "b", "c"))
   expect_equal(read_x(skip = 5), c("b", "c"))
 
-  expect_equal(read_x(skip_empty_rows = FALSE), c("1", "2", "3", NA, "a", "b", "c"))
+  expect_equal(
+    read_x(skip_empty_rows = FALSE),
+    c("1", "2", "3", NA, "a", "b", "c")
+  )
 
   expect_equal(read_x(skip_empty_rows = TRUE, skip = 3), c("a", "b", "c"))
   expect_equal(read_x(skip_empty_rows = FALSE, skip = 3), c(NA, "a", "b", "c"))
@@ -335,7 +389,11 @@ test_that("read_csv reads headers with embedded newlines (#784)", {
 })
 
 test_that("read_csv reads headers with embedded newlines 2 (#772)", {
-  x <- read_csv(I("\"Header\nLine Two\"\n\"Another line\nto\nskip\"\nValue,Value2\n"), skip = 2, col_names = FALSE)
+  x <- read_csv(
+    I("\"Header\nLine Two\"\n\"Another line\nto\nskip\"\nValue,Value2\n"),
+    skip = 2,
+    col_names = FALSE
+  )
   expect_equal(names(x), c("X1", "X2"))
   expect_equal(x$X1, "Value")
   expect_equal(x$X2, "Value2")
@@ -366,19 +424,31 @@ test_that("read_csv works with single quotes inside of double quotes (#944)", {
   x <- read_csv(I("\"O'Henry\"\nfoo\n"), skip = 1, col_names = "x")
   expect_equal(x$x, "foo")
 
-  x <- read_csv(I("# \"O'Henry\"\n\"foo\"\n\"bar\"\n"), comment = "#", col_names = TRUE)
+  x <- read_csv(
+    I("# \"O'Henry\"\n\"foo\"\n\"bar\"\n"),
+    comment = "#",
+    col_names = TRUE
+  )
   expect_equal(x$foo, "bar")
 })
 
 test_that("read_csv works with single quotes in skipped lines (#945)", {
-  x <- read_tsv(I("# Director's\nUSGS\t02177000\t2012-09-01\t191\tA\n"), skip = 1, col_names = FALSE)
+  x <- read_tsv(
+    I("# Director's\nUSGS\t02177000\t2012-09-01\t191\tA\n"),
+    skip = 1,
+    col_names = FALSE
+  )
 
   expect_equal(nrow(x), 1)
   expect_equal(ncol(x), 5)
 })
 
 test_that("read_tsv correctly uses the quote and na arguments (#1254, #1255)", {
-  x <- read_tsv(I("foo\tbar\n\"one baz\"\ttwo\nthree\t\n"), quote = "", na = character())
+  x <- read_tsv(
+    I("foo\tbar\n\"one baz\"\ttwo\nthree\t\n"),
+    quote = "",
+    na = character()
+  )
 
   expect_equal(x[[1]], c("\"one baz\"", "three"))
   expect_equal(x[[2]], c("two", ""))

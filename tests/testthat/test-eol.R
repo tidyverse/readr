@@ -19,9 +19,15 @@ test_that("read_csv standardises line breaks", {
 })
 
 test_that("read_csv skipping works with windows newlines", {
-  expect_equal(read_csv(test_path("eol-lf.csv"), skip = 2, col_names = FALSE)[[2]], letters[2:3])
+  expect_equal(
+    read_csv(test_path("eol-lf.csv"), skip = 2, col_names = FALSE)[[2]],
+    letters[2:3]
+  )
   # expect_equal(read_csv("eol-cr.csv", skip = 2, col_names = FALSE)[[2]], letters[2:3])
-  expect_equal(read_csv("eol-crlf.csv", skip = 2, col_names = FALSE)[[2]], letters[2:3])
+  expect_equal(
+    read_csv("eol-crlf.csv", skip = 2, col_names = FALSE)[[2]],
+    letters[2:3]
+  )
 })
 
 test_that("read_lines standardises line breaks", {

@@ -57,7 +57,8 @@ as_chunk_callback.ChunkCallback <- function(x) {
 #' f <- function(x, pos, acc) sum(x$mpg) + acc
 #' read_csv_chunked(readr_example("mtcars.csv"), AccumulateCallback$new(f, acc = 0), chunk_size = 5)
 #' @export
-ChunkCallback <- R6::R6Class("ChunkCallback",
+ChunkCallback <- R6::R6Class(
+  "ChunkCallback",
   private = list(
     callback = NULL
   ),
@@ -74,7 +75,8 @@ ChunkCallback <- R6::R6Class("ChunkCallback",
 #' @format NULL
 #' @rdname callback
 #' @export
-SideEffectChunkCallback <- R6::R6Class("SideEffectChunkCallback",
+SideEffectChunkCallback <- R6::R6Class(
+  "SideEffectChunkCallback",
   inherit = ChunkCallback,
   private = list(
     cancel = FALSE
@@ -98,7 +100,8 @@ SideEffectChunkCallback <- R6::R6Class("SideEffectChunkCallback",
 #' @format NULL
 #' @rdname callback
 #' @export
-DataFrameCallback <- R6::R6Class("DataFrameCallback",
+DataFrameCallback <- R6::R6Class(
+  "DataFrameCallback",
   inherit = ChunkCallback,
   private = list(
     results = list()
@@ -124,7 +127,8 @@ DataFrameCallback <- R6::R6Class("DataFrameCallback",
 #' @format NULL
 #' @rdname callback
 #' @export
-ListCallback <- R6::R6Class("ListCallback",
+ListCallback <- R6::R6Class(
+  "ListCallback",
   inherit = ChunkCallback,
   private = list(
     results = list()
@@ -150,14 +154,16 @@ ListCallback <- R6::R6Class("ListCallback",
 #' @format NULL
 #' @rdname callback
 #' @export
-AccumulateCallback <- R6::R6Class("AccumulateCallback",
+AccumulateCallback <- R6::R6Class(
+  "AccumulateCallback",
   inherit = ChunkCallback,
   private = list(
     acc = NULL
   ),
   public = list(
     initialize = function(callback, acc = NULL) {
-      check_callback_fun(callback,
+      check_callback_fun(
+        callback,
         req_args = 3,
         message = "`callback` must have three or more arguments"
       )

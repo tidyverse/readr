@@ -22,20 +22,38 @@
 #' read_table(ws)
 #' @rdname read_table
 #' @export
-read_table <- function(file, col_names = TRUE, col_types = NULL,
-                       locale = default_locale(), na = "NA", skip = 0,
-                       n_max = Inf, guess_max = min(n_max, 1000),
-                       progress = show_progress(), comment = "",
-                       show_col_types = should_show_types(),
-                       skip_empty_rows = TRUE) {
+read_table <- function(
+  file,
+  col_names = TRUE,
+  col_types = NULL,
+  locale = default_locale(),
+  na = "NA",
+  skip = 0,
+  n_max = Inf,
+  guess_max = min(n_max, 1000),
+  progress = show_progress(),
+  comment = "",
+  show_col_types = should_show_types(),
+  skip_empty_rows = TRUE
+) {
   tokenizer <- tokenizer_ws(
-    na = na, comment = comment,
+    na = na,
+    comment = comment,
     skip_empty_rows = skip_empty_rows
   )
-  read_delimited(file, tokenizer,
-    col_names = col_names, col_types = col_types,
-    locale = locale, skip = skip, skip_empty_rows = skip_empty_rows,
-    skip_quote = FALSE, comment = comment, n_max = n_max, guess_max = guess_max, progress = progress,
+  read_delimited(
+    file,
+    tokenizer,
+    col_names = col_names,
+    col_types = col_types,
+    locale = locale,
+    skip = skip,
+    skip_empty_rows = skip_empty_rows,
+    skip_quote = FALSE,
+    comment = comment,
+    n_max = n_max,
+    guess_max = guess_max,
+    progress = progress,
     show_col_types = show_col_types
   )
 }
@@ -50,11 +68,19 @@ read_table <- function(file, col_names = TRUE, col_types = NULL,
 #' and was analogous to just using `read_fwf()`.
 #' @keywords internal
 #' @export
-read_table2 <- function(file, col_names = TRUE, col_types = NULL,
-                        locale = default_locale(), na = "NA", skip = 0,
-                        n_max = Inf, guess_max = min(n_max, 1000),
-                        progress = show_progress(), comment = "",
-                        skip_empty_rows = TRUE) {
+read_table2 <- function(
+  file,
+  col_names = TRUE,
+  col_types = NULL,
+  locale = default_locale(),
+  na = "NA",
+  skip = 0,
+  n_max = Inf,
+  guess_max = min(n_max, 1000),
+  progress = show_progress(),
+  comment = "",
+  skip_empty_rows = TRUE
+) {
   lifecycle::deprecate_soft("2.0.0", "read_table2()", "read_table()")
   read_table(
     file = file,

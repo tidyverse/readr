@@ -32,32 +32,56 @@
 #' ws <- readr_example("whitespace-sample.txt")
 #' writeLines(read_lines(ws))
 #' melt_table2(ws)
-melt_table <- function(file, locale = default_locale(), na = "NA", skip = 0,
-                       n_max = Inf, guess_max = min(n_max, 1000),
-                       progress = show_progress(), comment = "",
-                       skip_empty_rows = FALSE) {
+melt_table <- function(
+  file,
+  locale = default_locale(),
+  na = "NA",
+  skip = 0,
+  n_max = Inf,
+  guess_max = min(n_max, 1000),
+  progress = show_progress(),
+  comment = "",
+  skip_empty_rows = FALSE
+) {
   if (!edition_first()) {
-    lifecycle::deprecate_soft("2.0.0", what = "melt_table()", details = "Please use `meltr::melt_table()` instead")
+    lifecycle::deprecate_soft(
+      "2.0.0",
+      what = "melt_table()",
+      details = "Please use `meltr::melt_table()` instead"
+    )
   }
   ds <- datasource(file, skip = skip, skip_empty_rows = skip_empty_rows)
   if (inherits(ds, "source_file") && empty_file(file)) {
     return(tibble::tibble(
-      row = double(), col = double(),
-      data_type = character(), value = character()
+      row = double(),
+      col = double(),
+      data_type = character(),
+      value = character()
     ))
   }
 
   local_edition(1)
-  columns <- fwf_empty(ds, skip = skip, skip_empty_rows = skip_empty_rows, n = guess_max, comment = comment)
-  tokenizer <- tokenizer_fwf(columns$begin, columns$end,
+  columns <- fwf_empty(
+    ds,
+    skip = skip,
+    skip_empty_rows = skip_empty_rows,
+    n = guess_max,
+    comment = comment
+  )
+  tokenizer <- tokenizer_fwf(
+    columns$begin,
+    columns$end,
     na = na,
     comment = comment,
     skip_empty_rows = skip_empty_rows
   )
 
   ds <- datasource(file = ds, skip = skip, skip_empty_rows = skip_empty_rows)
-  out <- melt_tokens(ds, tokenizer,
-    locale_ = locale, n_max = n_max,
+  out <- melt_tokens(
+    ds,
+    tokenizer,
+    locale_ = locale,
+    n_max = n_max,
     progress = progress
   )
   warn_problems(out)
@@ -65,28 +89,47 @@ melt_table <- function(file, locale = default_locale(), na = "NA", skip = 0,
 
 #' @rdname melt_table
 #' @export
-melt_table2 <- function(file, locale = default_locale(), na = "NA", skip = 0,
-                        n_max = Inf, progress = show_progress(), comment = "",
-                        skip_empty_rows = FALSE) {
+melt_table2 <- function(
+  file,
+  locale = default_locale(),
+  na = "NA",
+  skip = 0,
+  n_max = Inf,
+  progress = show_progress(),
+  comment = "",
+  skip_empty_rows = FALSE
+) {
   if (!edition_first()) {
-    lifecycle::deprecate_soft("2.0.0", what = "melt_table2()", details = "Please use `meltr::melt_table2()` instead")
+    lifecycle::deprecate_soft(
+      "2.0.0",
+      what = "melt_table2()",
+      details = "Please use `meltr::melt_table2()` instead"
+    )
   }
 
   ds <- datasource(file, skip = skip, skip_empty_rows = skip_empty_rows)
   if (inherits(ds, "source_file") && empty_file(file)) {
     return(tibble::tibble(
-      row = double(), col = double(),
-      data_type = character(), value = character()
+      row = double(),
+      col = double(),
+      data_type = character(),
+      value = character()
     ))
   }
   tokenizer <- tokenizer_ws(
-    na = na, comment = comment,
+    na = na,
+    comment = comment,
     skip_empty_rows = skip_empty_rows
   )
 
   ds <- datasource(file = ds, skip = skip, skip_empty_rows = skip_empty_rows)
-  melt_delimited(ds, tokenizer,
-    locale = locale, skip = skip,
-    comment = comment, n_max = n_max, progress = progress
+  melt_delimited(
+    ds,
+    tokenizer,
+    locale = locale,
+    skip = skip,
+    comment = comment,
+    n_max = n_max,
+    progress = progress
   )
 }

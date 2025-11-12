@@ -48,83 +48,150 @@
 #' melt_tsv("a\tb\n1.0\t2.0")
 #' melt_delim("a|b\n1.0|2.0", delim = "|")
 #' @export
-melt_delim <- function(file, delim, quote = '"',
-                       escape_backslash = FALSE, escape_double = TRUE,
-                       locale = default_locale(),
-                       na = c("", "NA"), quoted_na = TRUE,
-                       comment = "", trim_ws = FALSE,
-                       skip = 0, n_max = Inf,
-                       progress = show_progress(),
-                       skip_empty_rows = FALSE) {
+melt_delim <- function(
+  file,
+  delim,
+  quote = '"',
+  escape_backslash = FALSE,
+  escape_double = TRUE,
+  locale = default_locale(),
+  na = c("", "NA"),
+  quoted_na = TRUE,
+  comment = "",
+  trim_ws = FALSE,
+  skip = 0,
+  n_max = Inf,
+  progress = show_progress(),
+  skip_empty_rows = FALSE
+) {
   if (!edition_first()) {
-    lifecycle::deprecate_soft("2.0.0", what = "melt_delim()", details = "Please use `meltr::melt_delim()` instead")
+    lifecycle::deprecate_soft(
+      "2.0.0",
+      what = "melt_delim()",
+      details = "Please use `meltr::melt_delim()` instead"
+    )
   }
 
   if (!nzchar(delim)) {
-    stop("`delim` must be at least one character, ",
+    stop(
+      "`delim` must be at least one character, ",
       "use `melt_table()` for whitespace delimited input.",
       call. = FALSE
     )
   }
-  tokenizer <- tokenizer_delim(delim,
+  tokenizer <- tokenizer_delim(
+    delim,
     quote = quote,
-    escape_backslash = escape_backslash, escape_double = escape_double,
-    na = na, quoted_na = quoted_na, comment = comment, trim_ws = trim_ws,
+    escape_backslash = escape_backslash,
+    escape_double = escape_double,
+    na = na,
+    quoted_na = quoted_na,
+    comment = comment,
+    trim_ws = trim_ws,
     skip_empty_rows = skip_empty_rows
   )
-  melt_delimited(file, tokenizer,
-    locale = locale, skip = skip,
-    skip_empty_rows = skip_empty_rows, comment = comment,
-    n_max = n_max, progress = progress
-  )
-}
-
-#' @rdname melt_delim
-#' @export
-melt_csv <- function(file, locale = default_locale(), na = c("", "NA"),
-                     quoted_na = TRUE, quote = "\"", comment = "",
-                     trim_ws = TRUE, skip = 0, n_max = Inf,
-                     progress = show_progress(),
-                     skip_empty_rows = FALSE) {
-  if (!edition_first()) {
-    lifecycle::deprecate_soft("2.0.0", what = "melt_csv()", details = "Please use `meltr::melt_csv()` instead")
-  }
-
-  tokenizer <- tokenizer_csv(
-    na = na, quoted_na = quoted_na, quote = quote,
-    comment = comment, trim_ws = trim_ws, skip_empty_rows = skip_empty_rows
-  )
-  melt_delimited(file, tokenizer,
-    locale = locale, skip = skip,
-    skip_empty_rows = skip_empty_rows, comment = comment, n_max = n_max,
+  melt_delimited(
+    file,
+    tokenizer,
+    locale = locale,
+    skip = skip,
+    skip_empty_rows = skip_empty_rows,
+    comment = comment,
+    n_max = n_max,
     progress = progress
   )
 }
 
 #' @rdname melt_delim
 #' @export
-melt_csv2 <- function(file, locale = default_locale(), na = c("", "NA"),
-                      quoted_na = TRUE, quote = "\"", comment = "",
-                      trim_ws = TRUE, skip = 0, n_max = Inf,
-                      progress = show_progress(),
-                      skip_empty_rows = FALSE) {
+melt_csv <- function(
+  file,
+  locale = default_locale(),
+  na = c("", "NA"),
+  quoted_na = TRUE,
+  quote = "\"",
+  comment = "",
+  trim_ws = TRUE,
+  skip = 0,
+  n_max = Inf,
+  progress = show_progress(),
+  skip_empty_rows = FALSE
+) {
   if (!edition_first()) {
-    lifecycle::deprecate_soft("2.0.0", what = "melt_csv2()", details = "Please use `meltr::melt_csv2()` instead")
+    lifecycle::deprecate_soft(
+      "2.0.0",
+      what = "melt_csv()",
+      details = "Please use `meltr::melt_csv()` instead"
+    )
+  }
+
+  tokenizer <- tokenizer_csv(
+    na = na,
+    quoted_na = quoted_na,
+    quote = quote,
+    comment = comment,
+    trim_ws = trim_ws,
+    skip_empty_rows = skip_empty_rows
+  )
+  melt_delimited(
+    file,
+    tokenizer,
+    locale = locale,
+    skip = skip,
+    skip_empty_rows = skip_empty_rows,
+    comment = comment,
+    n_max = n_max,
+    progress = progress
+  )
+}
+
+#' @rdname melt_delim
+#' @export
+melt_csv2 <- function(
+  file,
+  locale = default_locale(),
+  na = c("", "NA"),
+  quoted_na = TRUE,
+  quote = "\"",
+  comment = "",
+  trim_ws = TRUE,
+  skip = 0,
+  n_max = Inf,
+  progress = show_progress(),
+  skip_empty_rows = FALSE
+) {
+  if (!edition_first()) {
+    lifecycle::deprecate_soft(
+      "2.0.0",
+      what = "melt_csv2()",
+      details = "Please use `meltr::melt_csv2()` instead"
+    )
   }
 
   if (locale$decimal_mark == ".") {
-    cli::cli_alert_info("Using {.val ','} as decimal and {.val '.'} as grouping mark. Use {.fn read_delim} for more control.")
+    cli::cli_alert_info(
+      "Using {.val ','} as decimal and {.val '.'} as grouping mark. Use {.fn read_delim} for more control."
+    )
     locale$decimal_mark <- ","
     locale$grouping_mark <- "."
   }
   tokenizer <- tokenizer_delim(
-    delim = ";", na = na, quoted_na = quoted_na,
-    quote = quote, comment = comment, trim_ws = trim_ws,
+    delim = ";",
+    na = na,
+    quoted_na = quoted_na,
+    quote = quote,
+    comment = comment,
+    trim_ws = trim_ws,
     skip_empty_rows = skip_empty_rows
   )
-  melt_delimited(file, tokenizer,
-    locale = locale, skip = skip,
-    skip_empty_rows = skip_empty_rows, comment = comment, n_max = n_max,
+  melt_delimited(
+    file,
+    tokenizer,
+    locale = locale,
+    skip = skip,
+    skip_empty_rows = skip_empty_rows,
+    comment = comment,
+    n_max = n_max,
     progress = progress
   )
 }
@@ -132,55 +199,81 @@ melt_csv2 <- function(file, locale = default_locale(), na = c("", "NA"),
 
 #' @rdname melt_delim
 #' @export
-melt_tsv <- function(file, locale = default_locale(), na = c("", "NA"),
-                     quoted_na = TRUE, quote = "\"", comment = "",
-                     trim_ws = TRUE, skip = 0, n_max = Inf,
-                     progress = show_progress(),
-                     skip_empty_rows = FALSE) {
+melt_tsv <- function(
+  file,
+  locale = default_locale(),
+  na = c("", "NA"),
+  quoted_na = TRUE,
+  quote = "\"",
+  comment = "",
+  trim_ws = TRUE,
+  skip = 0,
+  n_max = Inf,
+  progress = show_progress(),
+  skip_empty_rows = FALSE
+) {
   if (!edition_first()) {
-    lifecycle::deprecate_soft("2.0.0", what = "melt_tsv()", details = "Please use `meltr::melt_tsv()` instead")
+    lifecycle::deprecate_soft(
+      "2.0.0",
+      what = "melt_tsv()",
+      details = "Please use `meltr::melt_tsv()` instead"
+    )
   }
 
   tokenizer <- tokenizer_tsv(
-    na = na, quoted_na = quoted_na, quote = quote,
-    comment = comment, trim_ws = trim_ws, skip_empty_rows = skip_empty_rows
+    na = na,
+    quoted_na = quoted_na,
+    quote = quote,
+    comment = comment,
+    trim_ws = trim_ws,
+    skip_empty_rows = skip_empty_rows
   )
-  melt_delimited(file, tokenizer,
-    locale = locale, skip = skip,
-    skip_empty_rows = skip_empty_rows, comment = comment, n_max = n_max,
+  melt_delimited(
+    file,
+    tokenizer,
+    locale = locale,
+    skip = skip,
+    skip_empty_rows = skip_empty_rows,
+    comment = comment,
+    n_max = n_max,
     progress = progress
   )
 }
 
 # Helper functions for reading from delimited files ----------------------------
 col_spec_melt <-
-  structure(list(
-    row = structure(list(),
-      class = c(
-        "collector_double",
-        "collector"
+  structure(
+    list(
+      row = structure(
+        list(),
+        class = c(
+          "collector_double",
+          "collector"
+        )
+      ),
+      col = structure(
+        list(),
+        class = c(
+          "collector_double",
+          "collector"
+        )
+      ),
+      data_type = structure(
+        list(),
+        class = c(
+          "collector_character",
+          "collector"
+        )
+      ),
+      value = structure(
+        list(),
+        class = c(
+          "collector_character",
+          "collector"
+        )
       )
     ),
-    col = structure(list(),
-      class = c(
-        "collector_double",
-        "collector"
-      )
-    ),
-    data_type = structure(list(),
-      class = c(
-        "collector_character",
-        "collector"
-      )
-    ),
-    value = structure(list(),
-      class = c(
-        "collector_character",
-        "collector"
-      )
-    )
-  ),
-  .Names = c("row", "col", "data_type", "value")
+    .Names = c("row", "col", "data_type", "value")
   )
 
 melt_tokens <- function(data, tokenizer, locale_, n_max, progress) {
@@ -190,19 +283,33 @@ melt_tokens <- function(data, tokenizer, locale_, n_max, progress) {
   melt_tokens_(data, tokenizer, col_spec_melt, locale_, n_max, progress)
 }
 
-melt_delimited <- function(file, tokenizer, locale = default_locale(),
-                           skip = 0, skip_empty_rows = FALSE, comment = "", n_max = Inf,
-                           progress = show_progress()) {
+melt_delimited <- function(
+  file,
+  tokenizer,
+  locale = default_locale(),
+  skip = 0,
+  skip_empty_rows = FALSE,
+  comment = "",
+  n_max = Inf,
+  progress = show_progress()
+) {
   name <- source_name(file)
   # If connection needed, read once.
   file <- standardise_path(file)
   if (is.connection(file)) {
-    data <- datasource_connection(file, skip, skip_empty_rows = skip_empty_rows, comment)
+    data <- datasource_connection(
+      file,
+      skip,
+      skip_empty_rows = skip_empty_rows,
+      comment
+    )
   } else {
     if (empty_file(file)) {
       return(tibble::tibble(
-        row = double(), col = double(),
-        data_type = character(), value = character()
+        row = double(),
+        col = double(),
+        data_type = character(),
+        value = character()
       ))
     }
     if (is.character(file) && identical(locale$encoding, "UTF-8")) {
@@ -213,9 +320,17 @@ melt_delimited <- function(file, tokenizer, locale = default_locale(),
       data <- file
     }
   }
-  ds <- datasource(data, skip = skip, skip_empty_rows = skip_empty_rows, comment = comment)
-  out <- melt_tokens(ds, tokenizer,
-    locale_ = locale, n_max = n_max,
+  ds <- datasource(
+    data,
+    skip = skip,
+    skip_empty_rows = skip_empty_rows,
+    comment = comment
+  )
+  out <- melt_tokens(
+    ds,
+    tokenizer,
+    locale_ = locale,
+    n_max = n_max,
     progress = progress
   )
   warn_problems(out)

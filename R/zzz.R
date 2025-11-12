@@ -11,7 +11,9 @@
     readr.show_progress = TRUE
   )
   to_set <- !(names(opt_readr) %in% names(opt))
-  if (any(to_set)) options(opt_readr[to_set])
+  if (any(to_set)) {
+    options(opt_readr[to_set])
+  }
   invisible()
 }
 

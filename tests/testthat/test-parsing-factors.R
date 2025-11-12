@@ -39,10 +39,16 @@ test_that("levels = NULL default (#862)", {
 
 test_that("NAs included in levels if desired", {
   x <- parse_factor(c("NA", "b", "a"), levels = c("a", "b", NA))
-  expect_equal(x, factor(c(NA, "b", "a"), levels = c("a", "b", NA), exclude = NULL))
+  expect_equal(
+    x,
+    factor(c(NA, "b", "a"), levels = c("a", "b", NA), exclude = NULL)
+  )
 
   x <- parse_factor(c("NA", "b", "a"), levels = c("a", "b"), include_na = TRUE)
-  expect_equal(x, factor(c(NA, "b", "a"), levels = c("a", "b", NA), exclude = NULL))
+  expect_equal(
+    x,
+    factor(c(NA, "b", "a"), levels = c("a", "b", NA), exclude = NULL)
+  )
 
   x <- parse_factor(c("NA", "b", "a"), levels = c("a", "b"), include_na = FALSE)
   expect_equal(x, factor(c(NA, "b", "a")))
@@ -51,7 +57,10 @@ test_that("NAs included in levels if desired", {
   expect_equal(x, factor(c(NA, "b", "a"), levels = c("b", "a")))
 
   x <- parse_factor(c("NA", "b", "a"), levels = NULL, include_na = TRUE)
-  expect_equal(x, factor(c(NA, "b", "a"), levels = c(NA, "b", "a"), exclude = NULL))
+  expect_equal(
+    x,
+    factor(c(NA, "b", "a"), levels = c(NA, "b", "a"), exclude = NULL)
+  )
 })
 
 test_that("Factors handle encodings properly (#615)", {
@@ -59,7 +68,8 @@ test_that("Factors handle encodings properly (#615)", {
   on.exit(unlink(f))
   writeBin(charToRaw(encoded("test\nA\n\xC4\n", "latin1")), f)
 
-  x <- read_csv(f,
+  x <- read_csv(
+    f,
     col_types = cols(col_factor(c("A", "\uC4"))),
     locale = locale(encoding = "latin1")
   )
@@ -86,28 +96,61 @@ test_that("factors parse like factor if trim_ws = FALSE (735)", {
   )
 
   expect_equal(
-    as.integer(parse_factor(c("a", "a "), levels = c("a", "a "), trim_ws = FALSE)),
+    as.integer(parse_factor(
+      c("a", "a "),
+      levels = c("a", "a "),
+      trim_ws = FALSE
+    )),
     as.integer(factor(c("a", "a "), levels = c("a", "a ")))
   )
 
   expect_equal(
-    as.integer(parse_factor(c("a", "a "), levels = c("a ", "a"), trim_ws = FALSE)),
+    as.integer(parse_factor(
+      c("a", "a "),
+      levels = c("a ", "a"),
+      trim_ws = FALSE
+    )),
     as.integer(factor(c("a", "a "), levels = c("a ", "a")))
   )
 })
 
 test_that("Can parse a factor with levels of NA and empty string", {
   x <- c(
-    "", "NC", "NC", "NC", "", "", "NB", "NA", "", "", "NB", "NA",
-    "NA", "NC", "NB", "NB", "NC", "NB", "NA", "NA"
+    "",
+    "NC",
+    "NC",
+    "NC",
+    "",
+    "",
+    "NB",
+    "NA",
+    "",
+    "",
+    "NB",
+    "NA",
+    "NA",
+    "NC",
+    "NB",
+    "NB",
+    "NC",
+    "NB",
+    "NA",
+    "NA"
   )
 
   expect_equal(
-    as.integer(parse_factor(x, levels = c("NA", "NB", "NC", ""), na = character())),
+    as.integer(parse_factor(
+      x,
+      levels = c("NA", "NB", "NC", ""),
+      na = character()
+    )),
     as.integer(factor(x, levels = c("NA", "NB", "NC", "")))
   )
 })
 
 test_that("factor levels must be null or a character vector (#1140)", {
-  expect_error(col_factor(levels = 1:10), "must be `NULL` or a character vector")
+  expect_error(
+    col_factor(levels = 1:10),
+    "must be `NULL` or a character vector"
+  )
 })

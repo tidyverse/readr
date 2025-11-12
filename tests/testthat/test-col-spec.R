@@ -42,15 +42,21 @@ test_that("col_types expanded to col_names by guessing", {
 
 test_that("defaults expanded to match names", {
   out <- col_spec_standardise("a,b,c\n1,2,3", col_types = cols(.default = "c"))
-  expect_equal(out[[1]], list(
-    a = col_character(),
-    b = col_character(),
-    c = col_character()
-  ))
+  expect_equal(
+    out[[1]],
+    list(
+      a = col_character(),
+      b = col_character(),
+      c = col_character()
+    )
+  )
 })
 
 test_that("col_spec_standardise works properly with 1 row inputs and no header columns (#333)", {
-  expect_s3_class(col_spec_standardise("1\n", col_names = FALSE)[[1]]$X1, "collector_double")
+  expect_s3_class(
+    col_spec_standardise("1\n", col_names = FALSE)[[1]]$X1,
+    "collector_double"
+  )
 })
 
 test_that("warns about duplicated names", {
@@ -72,7 +78,11 @@ test_that("warn about missing col names and fill in", {
 test_that("spec object attached to read data", {
   skip_if(edition_first())
 
-  test_data <- read_csv(test_path("basic-df.csv"), col_types = NULL, col_names = TRUE)
+  test_data <- read_csv(
+    test_path("basic-df.csv"),
+    col_types = NULL,
+    col_names = TRUE
+  )
   sp <- spec(test_data)
   sp$skip <- NULL
 
@@ -89,16 +99,31 @@ test_that("spec object attached to read data", {
 })
 
 test_that("guess_types errors on invalid inputs", {
-  expect_error(col_spec_standardise("a,b,c\n", guess_max = NA), "`guess_max` must be a positive integer")
-  expect_error(col_spec_standardise("a,b,c\n", guess_max = -1), "`guess_max` must be a positive integer")
+  expect_error(
+    col_spec_standardise("a,b,c\n", guess_max = NA),
+    "`guess_max` must be a positive integer"
+  )
+  expect_error(
+    col_spec_standardise("a,b,c\n", guess_max = -1),
+    "`guess_max` must be a positive integer"
+  )
 
-  expect_warning(col_spec_standardise("a,b,c\n", guess_max = Inf), "`guess_max` is a very large value")
+  expect_warning(
+    col_spec_standardise("a,b,c\n", guess_max = Inf),
+    "`guess_max` is a very large value"
+  )
 })
 
 test_that("check_guess_max errors on invalid inputs", {
   expect_error(check_guess_max(NULL), "`guess_max` must be a positive integer")
-  expect_error(check_guess_max("test"), "`guess_max` must be a positive integer")
-  expect_error(check_guess_max(letters), "`guess_max` must be a positive integer")
+  expect_error(
+    check_guess_max("test"),
+    "`guess_max` must be a positive integer"
+  )
+  expect_error(
+    check_guess_max(letters),
+    "`guess_max` must be a positive integer"
+  )
   expect_error(check_guess_max(1:2), "`guess_max` must be a positive integer")
   expect_error(check_guess_max(NA), "`guess_max` must be a positive integer")
   expect_error(check_guess_max(-1), "`guess_max` must be a positive integer")
@@ -117,7 +142,11 @@ test_that("as.col_types can convert data.frame", {
     Sepal.Width = col_double(),
     Petal.Length = col_double(),
     Petal.Width = col_double(),
-    Species = col_factor(levels = c("setosa", "versicolor", "virginica"), ordered = FALSE, include_na = FALSE)
+    Species = col_factor(
+      levels = c("setosa", "versicolor", "virginica"),
+      ordered = FALSE,
+      include_na = FALSE
+    )
   )
   expect_equal(spec, exp)
 })
@@ -145,7 +174,8 @@ test_that("print(col_spec) with truncated output", {
 })
 
 test_that("print(col_spec) works with dates", {
-  out <- col_spec_standardise("a,b,c\n",
+  out <- col_spec_standardise(
+    "a,b,c\n",
     col_types = cols(
       a = col_date(format = "%Y-%m-%d"),
       b = col_date(),
@@ -213,10 +243,20 @@ test_that("non-syntatic names are escaped", {
 # https://github.com/tidyverse/readr/issues/597
 test_that("long spec declarations can be formatted", {
   expect_snapshot(
-    cols(a = col_factor(
-      levels = c("apple", "pear", "banana", "peach", "apricot", "orange", "plum"),
-      ordered = TRUE
-    ))
+    cols(
+      a = col_factor(
+        levels = c(
+          "apple",
+          "pear",
+          "banana",
+          "peach",
+          "apricot",
+          "orange",
+          "plum"
+        ),
+        ordered = TRUE
+      )
+    )
   )
 })
 
@@ -250,5 +290,7 @@ test_that("`show_col_types` controls col spec printing", {
     out <- read_csv(readr_example("mtcars.csv"), show_col_types = TRUE),
     variant = edition_variant()
   )
-  expect_silent(out <- read_csv(readr_example("mtcars.csv"), show_col_types = FALSE))
+  expect_silent(
+    out <- read_csv(readr_example("mtcars.csv"), show_col_types = FALSE)
+  )
 })

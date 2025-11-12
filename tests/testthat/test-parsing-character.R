@@ -14,7 +14,6 @@ test_that("trim_ws = TRUE trims spaces and tabs", {
 })
 
 
-
 # Encoding ----------------------------------------------------------------
 
 test_that("locale encoding affects parsing", {
@@ -34,12 +33,13 @@ test_that("locale encoding affects parsing", {
 })
 
 test_that("Unicode Byte order marks are stripped from output", {
-
   # UTF-8
   expect_equal(
     charToRaw(read_lines(
       as.raw(c(
-        0xef, 0xbb, 0xbf, # BOM
+        0xef,
+        0xbb,
+        0xbf, # BOM
         0x41, # A
         0x0A # newline
       ))
@@ -51,7 +51,8 @@ test_that("Unicode Byte order marks are stripped from output", {
   expect_equal(
     charToRaw(read_lines(
       as.raw(c(
-        0xfe, 0xff, # BOM
+        0xfe,
+        0xff, # BOM
         0x41, # A
         0x0A # newline
       ))
@@ -63,7 +64,8 @@ test_that("Unicode Byte order marks are stripped from output", {
   expect_equal(
     charToRaw(read_lines(
       as.raw(c(
-        0xff, 0xfe, # BOM
+        0xff,
+        0xfe, # BOM
         0x41, # A
         0x0A # newline
       ))
@@ -75,7 +77,10 @@ test_that("Unicode Byte order marks are stripped from output", {
   expect_equal(
     charToRaw(read_lines(
       as.raw(c(
-        0x00, 0x00, 0xfe, 0xff, # BOM
+        0x00,
+        0x00,
+        0xfe,
+        0xff, # BOM
         0x41, # A
         0x0A # newline
       ))
@@ -87,7 +92,10 @@ test_that("Unicode Byte order marks are stripped from output", {
   expect_equal(
     charToRaw(read_lines(
       as.raw(c(
-        0xff, 0xfe, 0x00, 0x00, # BOM
+        0xff,
+        0xfe,
+        0x00,
+        0x00, # BOM
         0x41, # A
         0x0A # newline
       ))

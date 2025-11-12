@@ -1,7 +1,10 @@
 test_that("read_lines respects encoding", {
   skip_on_os("solaris")
 
-  x <- read_lines("enc-iso-8859-1.txt", locale = locale(encoding = "ISO-8859-1"))
+  x <- read_lines(
+    "enc-iso-8859-1.txt",
+    locale = locale(encoding = "ISO-8859-1")
+  )
   expect_equal(x, c("fran\u00e7ais", "\u00e9l\u00e8ve"))
 })
 
@@ -19,7 +22,10 @@ test_that("read_lines uses na argument", {
   expect_equal(read_lines(I("abc\n123")), c("abc", "123"))
   expect_equal(read_lines(I("abc\n123"), na = "abc"), c(NA_character_, "123"))
   expect_equal(read_lines(I("abc\n123"), na = "123"), c("abc", NA_character_))
-  expect_equal(read_lines(I("abc\n123"), na = c("abc", "123")), c(NA_character_, NA_character_))
+  expect_equal(
+    read_lines(I("abc\n123"), na = c("abc", "123")),
+    c(NA_character_, NA_character_)
+  )
 })
 
 test_that("blank lines are passed unchanged", {
@@ -29,17 +35,22 @@ test_that("blank lines are passed unchanged", {
 
 test_that("read_lines can skip blank lines (#923)", {
   x <-
-    I("1
+    I(
+      "1
 2
 3
 
 foo
 bar
 baz
-")
+"
+    )
 
   expect_equal(read_lines(x), c("1", "2", "3", "", "foo", "bar", "baz"))
-  expect_equal(read_lines(x, skip_empty_rows = TRUE), c("1", "2", "3", "foo", "bar", "baz"))
+  expect_equal(
+    read_lines(x, skip_empty_rows = TRUE),
+    c("1", "2", "3", "foo", "bar", "baz")
+  )
   expect_equal(read_lines(x, skip = 1), c("2", "3", "", "foo", "bar", "baz"))
   expect_equal(read_lines(x, skip = 2), c("3", "", "foo", "bar", "baz"))
   expect_equal(read_lines(x, skip = 3), c("", "foo", "bar", "baz"))

@@ -69,22 +69,32 @@
 #' \dontshow{
 #' setwd(.old_wd)
 #' }
-write_delim <- function(x, file, delim = " ", na = "NA", append = FALSE,
-                        col_names = !append,
-                        quote = c("needed", "all", "none"),
-                        escape = c("double", "backslash", "none"),
-                        eol = "\n",
-                        num_threads = readr_threads(),
-                        progress = show_progress(),
-                        path = deprecated(),
-                        quote_escape = deprecated()) {
+write_delim <- function(
+  x,
+  file,
+  delim = " ",
+  na = "NA",
+  append = FALSE,
+  col_names = !append,
+  quote = c("needed", "all", "none"),
+  escape = c("double", "backslash", "none"),
+  eol = "\n",
+  num_threads = readr_threads(),
+  progress = show_progress(),
+  path = deprecated(),
+  quote_escape = deprecated()
+) {
   if (is_present(path)) {
     deprecate_warn("1.4.0", "write_delim(path = )", "write_delim(file = )")
     file <- path
   }
 
   if (is_present(quote_escape)) {
-    deprecate_soft("2.0.0", "write_delim(quote_escape = )", "write_delim(escape = )")
+    deprecate_soft(
+      "2.0.0",
+      "write_delim(quote_escape = )",
+      "write_delim(escape = )"
+    )
     escape <- quote_escape
   }
 
@@ -94,15 +104,29 @@ write_delim <- function(x, file, delim = " ", na = "NA", append = FALSE,
   x_out <- x
   x[] <- lapply(x, output_column)
   if (edition_first()) {
-    stream_delim(x, file,
-      delim = delim, col_names = col_names, append = append,
-      na = na, quote_escape = escape, eol = eol
+    stream_delim(
+      x,
+      file,
+      delim = delim,
+      col_names = col_names,
+      append = append,
+      na = na,
+      quote_escape = escape,
+      eol = eol
     )
     return(invisible(x_out))
   }
-  vroom::vroom_write(x, file,
-    delim = delim, col_names = col_names, append = append,
-    na = na, eol = eol, quote = quote, escape = escape, num_threads = num_threads,
+  vroom::vroom_write(
+    x,
+    file,
+    delim = delim,
+    col_names = col_names,
+    append = append,
+    na = na,
+    eol = eol,
+    quote = quote,
+    escape = escape,
+    num_threads = num_threads,
     progress = progress
   )
 
@@ -111,56 +135,92 @@ write_delim <- function(x, file, delim = " ", na = "NA", append = FALSE,
 
 #' @rdname write_delim
 #' @export
-write_csv <- function(x, file, na = "NA", append = FALSE, col_names = !append,
-                      quote = c("needed", "all", "none"),
-                      escape = c("double", "backslash", "none"),
-                      eol = "\n",
-                      num_threads = readr_threads(),
-                      progress = show_progress(),
-                      path = deprecated(),
-                      quote_escape = deprecated()) {
+write_csv <- function(
+  x,
+  file,
+  na = "NA",
+  append = FALSE,
+  col_names = !append,
+  quote = c("needed", "all", "none"),
+  escape = c("double", "backslash", "none"),
+  eol = "\n",
+  num_threads = readr_threads(),
+  progress = show_progress(),
+  path = deprecated(),
+  quote_escape = deprecated()
+) {
   if (is_present(path)) {
     deprecate_warn("1.4.0", "write_csv(path = )", "write_csv(file = )")
     file <- path
   }
 
   if (is_present(quote_escape)) {
-    deprecate_soft("2.0.0", "write_delim(quote_escape = )", "write_delim(escape = )")
+    deprecate_soft(
+      "2.0.0",
+      "write_delim(quote_escape = )",
+      "write_delim(escape = )"
+    )
     escape <- quote_escape
   }
 
-  write_delim(x, file,
-    delim = ",", na = na, append = append,
-    col_names = col_names, quote = quote, escape = escape, eol = eol, num_threads = num_threads,
+  write_delim(
+    x,
+    file,
+    delim = ",",
+    na = na,
+    append = append,
+    col_names = col_names,
+    quote = quote,
+    escape = escape,
+    eol = eol,
+    num_threads = num_threads,
     progress = progress
   )
 }
 
 #' @rdname write_delim
 #' @export
-write_csv2 <- function(x, file, na = "NA", append = FALSE, col_names = !append,
-                       quote = c("needed", "all", "none"),
-                       escape = c("double", "backslash", "none"),
-                       eol = "\n",
-                       num_threads = readr_threads(),
-                       progress = show_progress(),
-                       path = deprecated(),
-                       quote_escape = deprecated()) {
+write_csv2 <- function(
+  x,
+  file,
+  na = "NA",
+  append = FALSE,
+  col_names = !append,
+  quote = c("needed", "all", "none"),
+  escape = c("double", "backslash", "none"),
+  eol = "\n",
+  num_threads = readr_threads(),
+  progress = show_progress(),
+  path = deprecated(),
+  quote_escape = deprecated()
+) {
   if (is_present(path)) {
     deprecate_warn("1.4.0", "write_csv2(path = )", "write_csv2(file = )")
     file <- path
   }
 
   if (is_present(quote_escape)) {
-    deprecate_soft("2.0.0", "write_delim(quote_escape = )", "write_delim(escape = )")
+    deprecate_soft(
+      "2.0.0",
+      "write_delim(quote_escape = )",
+      "write_delim(escape = )"
+    )
     escape <- quote_escape
   }
 
   x_out <- x
   x <- change_decimal_separator(x, decimal_mark = ",")
-  write_delim(x, file,
-    delim = ";", na = na, append = append,
-    col_names = col_names, quote = quote, escape = escape, eol = eol, num_threads = num_threads,
+  write_delim(
+    x,
+    file,
+    delim = ";",
+    na = na,
+    append = append,
+    col_names = col_names,
+    quote = quote,
+    escape = escape,
+    eol = eol,
+    num_threads = num_threads,
     progress = progress
   )
 
@@ -169,22 +229,36 @@ write_csv2 <- function(x, file, na = "NA", append = FALSE, col_names = !append,
 
 #' @rdname write_delim
 #' @export
-write_excel_csv <- function(x, file, na = "NA", append = FALSE,
-                            col_names = !append, delim = ",",
-                            quote = "all",
-                            escape = c("double", "backslash", "none"),
-                            eol = "\n",
-                            num_threads = readr_threads(),
-                            progress = show_progress(),
-                            path = deprecated(),
-                            quote_escape = deprecated()) {
+write_excel_csv <- function(
+  x,
+  file,
+  na = "NA",
+  append = FALSE,
+  col_names = !append,
+  delim = ",",
+  quote = "all",
+  escape = c("double", "backslash", "none"),
+  eol = "\n",
+  num_threads = readr_threads(),
+  progress = show_progress(),
+  path = deprecated(),
+  quote_escape = deprecated()
+) {
   if (is_present(path)) {
-    deprecate_warn("1.4.0", "write_excel_csv(path = )", "write_excel_csv(file = )")
+    deprecate_warn(
+      "1.4.0",
+      "write_excel_csv(path = )",
+      "write_excel_csv(file = )"
+    )
     file <- path
   }
 
   if (is_present(quote_escape)) {
-    deprecate_soft("2.0.0", "write_delim(quote_escape = )", "write_delim(escape = )")
+    deprecate_soft(
+      "2.0.0",
+      "write_delim(quote_escape = )",
+      "write_delim(escape = )"
+    )
     escape <- quote_escape
   }
 
@@ -197,17 +271,31 @@ write_excel_csv <- function(x, file, na = "NA", append = FALSE,
 
   x[] <- lapply(x, output_column)
   if (edition_first()) {
-    stream_delim(x, file, delim,
-      col_names = col_names, append = append,
-      na = na, bom = !append, quote_escape = escape, eol = eol
+    stream_delim(
+      x,
+      file,
+      delim,
+      col_names = col_names,
+      append = append,
+      na = na,
+      bom = !append,
+      quote_escape = escape,
+      eol = eol
     )
     return(invisible(x_out))
   }
-  vroom::vroom_write(x, file, delim,
-    col_names = col_names, append = append,
-    na = na, bom = !append,
-    quote = quote, escape = escape,
-    eol = eol, num_threads = num_threads,
+  vroom::vroom_write(
+    x,
+    file,
+    delim,
+    col_names = col_names,
+    append = append,
+    na = na,
+    bom = !append,
+    quote = quote,
+    escape = escape,
+    eol = eol,
+    num_threads = num_threads,
     progress = progress
   )
 
@@ -216,22 +304,36 @@ write_excel_csv <- function(x, file, na = "NA", append = FALSE,
 
 #' @rdname write_delim
 #' @export
-write_excel_csv2 <- function(x, file, na = "NA", append = FALSE,
-                             col_names = !append, delim = ";",
-                             quote = "all",
-                             escape = c("double", "backslash", "none"),
-                             eol = "\n",
-                             num_threads = readr_threads(),
-                             progress = show_progress(),
-                             path = deprecated(),
-                             quote_escape = deprecated()) {
+write_excel_csv2 <- function(
+  x,
+  file,
+  na = "NA",
+  append = FALSE,
+  col_names = !append,
+  delim = ";",
+  quote = "all",
+  escape = c("double", "backslash", "none"),
+  eol = "\n",
+  num_threads = readr_threads(),
+  progress = show_progress(),
+  path = deprecated(),
+  quote_escape = deprecated()
+) {
   if (is_present(path)) {
-    deprecate_warn("1.4.0", "write_excel_csv2(path = )", "write_excel_csv2(file = )")
+    deprecate_warn(
+      "1.4.0",
+      "write_excel_csv2(path = )",
+      "write_excel_csv2(file = )"
+    )
     file <- path
   }
 
   if (is_present(quote_escape)) {
-    deprecate_soft("2.0.0", "write_delim(quote_escape = )", "write_delim(escape = )")
+    deprecate_soft(
+      "2.0.0",
+      "write_delim(quote_escape = )",
+      "write_delim(escape = )"
+    )
     escape <- quote_escape
   }
 
@@ -245,10 +347,17 @@ write_excel_csv2 <- function(x, file, na = "NA", append = FALSE,
   x[datetime_cols] <- lapply(x[datetime_cols], format, "%Y/%m/%d %H:%M:%S")
 
   x[] <- lapply(x, output_column)
-  write_excel_csv(x, file, na, append, col_names, delim,
+  write_excel_csv(
+    x,
+    file,
+    na,
+    append,
+    col_names,
+    delim,
     quote = quote,
     escape = escape,
-    eol = eol, num_threads = num_threads,
+    eol = eol,
+    num_threads = num_threads,
     progress = progress
   )
 
@@ -257,29 +366,46 @@ write_excel_csv2 <- function(x, file, na = "NA", append = FALSE,
 
 #' @rdname write_delim
 #' @export
-write_tsv <- function(x, file, na = "NA", append = FALSE, col_names = !append,
-                      quote = "none",
-                      escape = c("double", "backslash", "none"),
-                      eol = "\n",
-                      num_threads = readr_threads(),
-                      progress = show_progress(),
-                      path = deprecated(),
-                      quote_escape = deprecated()) {
+write_tsv <- function(
+  x,
+  file,
+  na = "NA",
+  append = FALSE,
+  col_names = !append,
+  quote = "none",
+  escape = c("double", "backslash", "none"),
+  eol = "\n",
+  num_threads = readr_threads(),
+  progress = show_progress(),
+  path = deprecated(),
+  quote_escape = deprecated()
+) {
   if (is_present(path)) {
     deprecate_warn("1.4.0", "write_tsv(path = )", "write_tsv(file = )")
     file <- path
   }
 
   if (is_present(quote_escape)) {
-    deprecate_soft("2.0.0", "write_delim(quote_escape = )", "write_delim(escape = )")
+    deprecate_soft(
+      "2.0.0",
+      "write_delim(quote_escape = )",
+      "write_delim(escape = )"
+    )
     escape <- quote_escape
   }
 
-
-  write_delim(x, file,
-    delim = "\t", na = na, append = append,
-    col_names = col_names, quote = quote, escape = escape, eol = eol,
-    num_threads = num_threads, progress = progress
+  write_delim(
+    x,
+    file,
+    delim = "\t",
+    na = na,
+    append = append,
+    col_names = col_names,
+    quote = quote,
+    escape = escape,
+    eol = eol,
+    num_threads = num_threads,
+    progress = progress
   )
 }
 
@@ -307,75 +433,155 @@ write_tsv <- function(x, file, na = "NA", append = FALSE, col_names = !append,
 #' df <- data.frame(x = c("a ", '"', ",", "\n"))
 #' cat(format_csv(df))
 #' @export
-format_delim <- function(x, delim, na = "NA", append = FALSE,
-                         col_names = !append,
-                         quote = c("needed", "all", "none"),
-                         escape = c("double", "backslash", "none"),
-                         eol = "\n",
-                         quote_escape = deprecated()) {
+format_delim <- function(
+  x,
+  delim,
+  na = "NA",
+  append = FALSE,
+  col_names = !append,
+  quote = c("needed", "all", "none"),
+  escape = c("double", "backslash", "none"),
+  eol = "\n",
+  quote_escape = deprecated()
+) {
   stopifnot(is.data.frame(x))
   check_column_types(x)
 
   if (is_present(quote_escape)) {
-    deprecate_soft("2.0.0", "write_delim(quote_escape = )", "write_delim(escape = )")
+    deprecate_soft(
+      "2.0.0",
+      "write_delim(quote_escape = )",
+      "write_delim(escape = )"
+    )
     escape <- quote_escape
   }
 
   x[] <- lapply(x, output_column)
   if (edition_first()) {
-    res <- stream_delim(df = x, file = NULL, delim = delim, col_names = col_names, append = append, na = na, quote_escape = escape, eol = eol)
+    res <- stream_delim(
+      df = x,
+      file = NULL,
+      delim = delim,
+      col_names = col_names,
+      append = append,
+      na = na,
+      quote_escape = escape,
+      eol = eol
+    )
     Encoding(res) <- "UTF-8"
     return(res)
   }
-  res <- vroom::vroom_format(x, delim = delim, eol = eol, col_names = col_names, na = na, quote = quote, escape = escape)
+  res <- vroom::vroom_format(
+    x,
+    delim = delim,
+    eol = eol,
+    col_names = col_names,
+    na = na,
+    quote = quote,
+    escape = escape
+  )
   Encoding(res) <- "UTF-8"
   res
 }
 
 #' @export
 #' @rdname format_delim
-format_csv <- function(x, na = "NA", append = FALSE, col_names = !append,
-                       quote = c("needed", "all", "none"),
-                       escape = c("double", "backslash", "none"),
-                       eol = "\n",
-                       quote_escape = deprecated()) {
+format_csv <- function(
+  x,
+  na = "NA",
+  append = FALSE,
+  col_names = !append,
+  quote = c("needed", "all", "none"),
+  escape = c("double", "backslash", "none"),
+  eol = "\n",
+  quote_escape = deprecated()
+) {
   if (is_present(quote_escape)) {
-    deprecate_soft("2.0.0", "write_delim(quote_escape = )", "write_delim(escape = )")
+    deprecate_soft(
+      "2.0.0",
+      "write_delim(quote_escape = )",
+      "write_delim(escape = )"
+    )
     escape <- quote_escape
   }
 
-  format_delim(x, delim = ",", na = na, append = append, col_names = col_names, eol = eol, quote = quote, escape = escape)
+  format_delim(
+    x,
+    delim = ",",
+    na = na,
+    append = append,
+    col_names = col_names,
+    eol = eol,
+    quote = quote,
+    escape = escape
+  )
 }
 
 #' @export
 #' @rdname format_delim
-format_csv2 <- function(x, na = "NA", append = FALSE, col_names = !append,
-                        quote = c("needed", "all", "none"),
-                        escape = c("double", "backslash", "none"),
-                        eol = "\n",
-                        quote_escape = deprecated()) {
+format_csv2 <- function(
+  x,
+  na = "NA",
+  append = FALSE,
+  col_names = !append,
+  quote = c("needed", "all", "none"),
+  escape = c("double", "backslash", "none"),
+  eol = "\n",
+  quote_escape = deprecated()
+) {
   if (is_present(quote_escape)) {
-    deprecate_soft("2.0.0", "write_delim(quote_escape = )", "write_delim(escape = )")
+    deprecate_soft(
+      "2.0.0",
+      "write_delim(quote_escape = )",
+      "write_delim(escape = )"
+    )
     escape <- quote_escape
   }
 
   x <- change_decimal_separator(x, decimal_mark = ",")
-  format_delim(x, delim = ";", na = na, append = append, col_names = col_names, eol = eol, quote = quote, escape = escape)
+  format_delim(
+    x,
+    delim = ";",
+    na = na,
+    append = append,
+    col_names = col_names,
+    eol = eol,
+    quote = quote,
+    escape = escape
+  )
 }
 
 #' @export
 #' @rdname format_delim
-format_tsv <- function(x, na = "NA", append = FALSE, col_names = !append,
-                       quote = c("needed", "all", "none"),
-                       escape = c("double", "backslash", "none"),
-                       eol = "\n",
-                       quote_escape = deprecated()) {
+format_tsv <- function(
+  x,
+  na = "NA",
+  append = FALSE,
+  col_names = !append,
+  quote = c("needed", "all", "none"),
+  escape = c("double", "backslash", "none"),
+  eol = "\n",
+  quote_escape = deprecated()
+) {
   if (is_present(quote_escape)) {
-    deprecate_soft("2.0.0", "write_delim(quote_escape = )", "write_delim(escape = )")
+    deprecate_soft(
+      "2.0.0",
+      "write_delim(quote_escape = )",
+      "write_delim(escape = )"
+    )
     escape <- quote_escape
   }
 
-  format_delim(x, delim = "\t", na = na, append = append, col_names = col_names, eol = eol, quote = quote, escape = escape)
+  format_delim(
+    x,
+    delim = "\t",
+    na = na,
+    append = append,
+    col_names = col_names,
+    eol = eol,
+    quote = quote,
+    escape = escape
+  )
 }
 
 #' Preprocess column for output
@@ -413,7 +619,15 @@ output_column.POSIXt <- function(x, name) {
   format(x, "%Y-%m-%dT%H:%M:%OSZ", tz = "UTC", justify = "none")
 }
 
-stream_delim <- function(df, file, append = FALSE, bom = FALSE, ..., quote_escape, eol) {
+stream_delim <- function(
+  df,
+  file,
+  append = FALSE,
+  bom = FALSE,
+  ...,
+  quote_escape,
+  eol
+) {
   quote_escape <- standardise_escape(quote_escape)
 
   file <- standardise_path(file, input = FALSE)
@@ -429,7 +643,14 @@ stream_delim <- function(df, file, append = FALSE, bom = FALSE, ..., quote_escap
       add = TRUE
     )
 
-    stream_delim_(df, con, ..., bom = bom, quote_escape = quote_escape, eol = eol)
+    stream_delim_(
+      df,
+      con,
+      ...,
+      bom = bom,
+      quote_escape = quote_escape,
+      eol = eol
+    )
     close(con)
     return(read_file(out_file))
   }
@@ -442,7 +663,14 @@ stream_delim <- function(df, file, append = FALSE, bom = FALSE, ..., quote_escap
       open(file, "wb")
     }
   }
-  stream_delim_(df, file, ..., bom = bom, quote_escape = quote_escape, eol = eol)
+  stream_delim_(
+    df,
+    file,
+    ...,
+    bom = bom,
+    quote_escape = quote_escape,
+    eol = eol
+  )
 }
 
 change_decimal_separator <- function(x, decimal_mark = ",") {
@@ -477,7 +705,9 @@ check_column_types <- function(x) {
   if (any(is_bad_column)) {
     cli_block(type = rlang::abort, {
       cli::cli_text("`x` must not contain list or matrix columns:")
-      cli::cli_alert_danger("invalid columns at index(s): {paste0(which(is_bad_column), collapse = '\n')}")
+      cli::cli_alert_danger(
+        "invalid columns at index(s): {paste0(which(is_bad_column), collapse = '\n')}"
+      )
     })
   }
 }
