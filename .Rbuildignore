@@ -41,3 +41,5 @@
 ^doc$
 ^Meta$
 ^CRAN-SUBMISSION$
+^CLAUDE\.md$
+^\.claude$
