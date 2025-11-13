@@ -1,0 +1,113 @@
+# Column type
+
+This vignette provides an overview of column type specification with
+readr. Currently it focuses on how automatic guessing works, but over
+time we expect to cover more topics.
+
+``` r
+library(readr)
+```
+
+## Automatic guessing
+
+If you don’t explicit specify column types with the `col_types`
+argument, readr will attempt to guess them using some simple heuristics.
+By default, it will inspect 1000 values, evenly spaced from the first to
+the last row. This is a heuristic designed to always be fast (no matter
+how large your file is) and, in our experience, does a good job in most
+cases.
+
+If needed, you can request that readr use more rows by supplying the
+`guess_max` argument. You can even supply `guess_max = Inf` to use every
+row to guess the column types. You might wonder why this isn’t the
+default. That’s because it’s slow: it has to look at every column twice,
+once to determine the type and once to parse the value. In most cases,
+you’re best off supplying `col_types` yourself.
+
+### Legacy behavior
+
+Column type guessing was substantially worse in the first edition of
+readr (meaning, prior to v2.0.0), because it always looked at the first
+1000 rows, and through some application of Murphy’s Law, it appears that
+many real csv files have lots of empty values at the start, followed by
+more “excitement” later in the file. Let’s demonstrate the problem with
+a slightly tricky file: the column `x` is mostly empty, but has some
+numeric data at the very end, in row 1001.
+
+``` r
+tricky_dat <- tibble::tibble(
+  x = rep(c("", "2"), c(1000, 1)),
+  y = "y"
+)
+tfile <- tempfile("tricky-column-type-guessing-", fileext = ".csv")
+write_csv(tricky_dat, tfile)
+```
+
+The first edition parser doesn’t guess the right type for `x` so the `2`
+becomes an `NA`:
+
+``` r
+df <- with_edition(1, read_csv(tfile))
+#> 
+#> ── Column specification ───────────────────────────────────────────────
+#> cols(
+#>   x = col_logical(),
+#>   y = col_character()
+#> )
+#> Warning: 1 parsing failure.
+#>  row col           expected actual                                                          file
+#> 1001   x 1/0/T/F/TRUE/FALSE      2 '/tmp/RtmpuDSh62/tricky-column-type-guessing-28208c922dd.csv'
+tail(df)
+#> # A tibble: 6 × 2
+#>   x     y    
+#>   <lgl> <chr>
+#> 1 NA    y    
+#> 2 NA    y    
+#> 3 NA    y    
+#> 4 NA    y    
+#> 5 NA    y    
+#> 6 NA    y
+```
+
+For this specific case, we can fix the problem by marginally increasing
+`guess_max`:
+
+``` r
+df <- with_edition(1, read_csv(tfile, guess_max = 1001))
+#> 
+#> ── Column specification ───────────────────────────────────────────────
+#> cols(
+#>   x = col_double(),
+#>   y = col_character()
+#> )
+tail(df)
+#> # A tibble: 6 × 2
+#>       x y    
+#>   <dbl> <chr>
+#> 1    NA y    
+#> 2    NA y    
+#> 3    NA y    
+#> 4    NA y    
+#> 5    NA y    
+#> 6     2 y
+```
+
+Unlike the second edition, we don’t recommend using `guess_max = Inf`
+with the legacy parser, because the engine pre-allocates a large amount
+of memory in the face of this uncertainty. This means that reading with
+`guess_max = Inf` can be extremely slow and might even crash your R
+session. Instead specify the `col_types`:
+
+``` r
+df <- with_edition(1, read_csv(tfile, col_types = list(x = col_double())))
+tail(df)
+#> # A tibble: 6 × 2
+#>       x y    
+#>   <dbl> <chr>
+#> 1    NA y    
+#> 2    NA y    
+#> 3    NA y    
+#> 4    NA y    
+#> 5    NA y    
+#> 6     2 y
+```

@@ -1,0 +1,433 @@
+# readr
+
+## Overview
+
+The goal of readr is to provide a fast and friendly way to read
+rectangular data from delimited files, such as comma-separated values
+(CSV) and tab-separated values (TSV). It is designed to parse many types
+of data found in the wild, while providing an informative problem report
+when parsing leads to unexpected results. If you are new to readr, the
+best place to start is the [data import
+chapter](https://r4ds.hadley.nz/data-import) in R for Data Science.
+
+## Installation
+
+``` r
+# The easiest way to get readr is to install the whole tidyverse:
+install.packages("tidyverse")
+
+# Alternatively, install just readr:
+install.packages("readr")
+```
+
+``` r
+# Or you can install the development version from GitHub:
+# install.packages("pak")
+pak::pak("tidyverse/readr")
+```
+
+## Cheatsheet
+
+[![thumbnail of data import
+cheatsheet](https://raw.githubusercontent.com/rstudio/cheatsheets/main/pngs/thumbnails/data-import-cheatsheet-thumbs.png)](https://github.com/rstudio/cheatsheets/blob/main/data-import.pdf)
+
+## Usage
+
+readr is part of the core tidyverse, so you can load it with:
+
+``` r
+library(tidyverse)
+#> ── Attaching core tidyverse packages ──────────────────────── tidyverse 2.0.0 ──
+#> ✔ dplyr     1.1.4          ✔ readr     2.1.5.9000
+#> ✔ forcats   1.0.0          ✔ stringr   1.5.2     
+#> ✔ ggplot2   4.0.0          ✔ tibble    3.3.0     
+#> ✔ lubridate 1.9.4          ✔ tidyr     1.3.1     
+#> ✔ purrr     1.1.0          
+#> ── Conflicts ────────────────────────────────────────── tidyverse_conflicts() ──
+#> ✖ dplyr::filter() masks stats::filter()
+#> ✖ dplyr::lag()    masks stats::lag()
+#> ℹ Use the conflicted package (<http://conflicted.r-lib.org/>) to force all conflicts to become errors
+```
+
+Of course, you can also load readr as an individual package:
+
+``` r
+library(readr)
+```
+
+To read a rectangular dataset with readr, you combine two pieces: a
+function that parses the lines of the file into individual fields and a
+column specification.
+
+readr supports the following file formats with these `read_*()`
+functions:
+
+- [`read_csv()`](https://readr.tidyverse.org/dev/reference/read_delim.md):
+  comma-separated values (CSV)
+- [`read_tsv()`](https://readr.tidyverse.org/dev/reference/read_delim.md):
+  tab-separated values (TSV)
+- [`read_csv2()`](https://readr.tidyverse.org/dev/reference/read_delim.md):
+  semicolon-separated values with `,` as the decimal mark
+- [`read_delim()`](https://readr.tidyverse.org/dev/reference/read_delim.md):
+  delimited files (CSV and TSV are important special cases)
+- [`read_fwf()`](https://readr.tidyverse.org/dev/reference/read_fwf.md):
+  fixed-width files
+- [`read_table()`](https://readr.tidyverse.org/dev/reference/read_table.md):
+  whitespace-separated files
+- [`read_log()`](https://readr.tidyverse.org/dev/reference/read_log.md):
+  web log files
+
+A column specification describes how each column should be converted
+from a character vector to a specific data type (e.g. character,
+numeric, datetime, etc.). In the absence of a column specification,
+readr will guess column types from the data.
+[`vignette("column-types")`](https://readr.tidyverse.org/dev/articles/column-types.md)
+gives more detail on how readr guesses the column types. Column type
+guessing is very handy, especially during data exploration, but it’s
+important to remember these are *just guesses*. As any data analysis
+project matures past the exploratory phase, the best strategy is to
+provide explicit column types.
+
+The following example loads a sample file bundled with readr and guesses
+the column types:
+
+``` r
+(chickens <- read_csv(readr_example("chickens.csv")))
+#> Rows: 5 Columns: 4
+#> ── Column specification ────────────────────────────────────────────────────────
+#> Delimiter: ","
+#> chr (3): chicken, sex, motto
+#> dbl (1): eggs_laid
+#> 
+#> ℹ Use `spec()` to retrieve the full column specification for this data.
+#> ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.
+#> # A tibble: 5 × 4
+#>   chicken                 sex     eggs_laid motto                               
+#>   <chr>                   <chr>       <dbl> <chr>                               
+#> 1 Foghorn Leghorn         rooster         0 That's a joke, ah say, that's a jok…
+#> 2 Chicken Little          hen             3 The sky is falling!                 
+#> 3 Ginger                  hen            12 Listen. We'll either die free chick…
+#> 4 Camilla the Chicken     hen             7 Bawk, buck, ba-gawk.                
+#> 5 Ernie The Giant Chicken rooster         0 Put Captain Solo in the cargo hold.
+```
+
+Note that readr prints the column types – the *guessed* column types, in
+this case. This is useful because it allows you to check that the
+columns have been read in as you expect. If they haven’t, that means you
+need to provide the column specification. This sounds like a lot of
+trouble, but luckily readr affords a nice workflow for this. Use
+[`spec()`](https://readr.tidyverse.org/dev/reference/spec.md) to
+retrieve the (guessed) column specification from your initial effort.
+
+``` r
+spec(chickens)
+#> cols(
+#>   chicken = col_character(),
+#>   sex = col_character(),
+#>   eggs_laid = col_double(),
+#>   motto = col_character()
+#> )
+```
+
+Now you can copy, paste, and tweak this, to create a more explicit readr
+call that expresses the desired column types. Here we express that `sex`
+should be a factor with levels `rooster` and `hen`, in that order, and
+that `eggs_laid` should be integer.
+
+``` r
+chickens <- read_csv(
+  readr_example("chickens.csv"),
+  col_types = cols(
+    chicken   = col_character(),
+    sex       = col_factor(levels = c("rooster", "hen")),
+    eggs_laid = col_integer(),
+    motto     = col_character()
+  )
+)
+chickens
+#> # A tibble: 5 × 4
+#>   chicken                 sex     eggs_laid motto                               
+#>   <chr>                   <fct>       <int> <chr>                               
+#> 1 Foghorn Leghorn         rooster         0 That's a joke, ah say, that's a jok…
+#> 2 Chicken Little          hen             3 The sky is falling!                 
+#> 3 Ginger                  hen            12 Listen. We'll either die free chick…
+#> 4 Camilla the Chicken     hen             7 Bawk, buck, ba-gawk.                
+#> 5 Ernie The Giant Chicken rooster         0 Put Captain Solo in the cargo hold.
+```
+
+[`vignette("readr")`](https://readr.tidyverse.org/dev/articles/readr.md)
+gives an expanded introduction to readr.
+
+## Editions
+
+readr got a new parsing engine in version 2.0.0 (released July 2021). In
+this so-called second edition, readr calls
+[`vroom::vroom()`](https://vroom.r-lib.org/reference/vroom.html), by
+default.
+
+The parsing engine in readr versions prior to 2.0.0 is now called the
+first edition. If you’re using readr \>= 2.0.0, you can still access
+first edition parsing via the functions `with_edition(1, ...)` and
+`local_edition(1)`. And, obviously, if you’re using readr \< 2.0.0, you
+will get first edition parsing, by definition, because that’s all there
+is.
+
+We will continue to support the first edition for a number of releases,
+but the overall goal is to make the second edition uniformly better than
+the first. Therefore the plan is to eventually deprecate and then remove
+the first edition code. New code and actively-maintained code should use
+the second edition. The workarounds `with_edition(1, ...)` and
+`local_edition(1)` are offered as a pragmatic way to patch up legacy
+code or as a temporary solution for infelicities identified as the
+second edition matures.
+
+## Alternatives
+
+There are two main alternatives to readr: base R and data.table’s
+`fread()`. The most important differences are discussed below.
+
+### Base R
+
+Compared to the corresponding base functions, readr functions:
+
+- Use a consistent naming scheme for the parameters (e.g. `col_names`
+  and `col_types` not `header` and `colClasses`).
+
+- Are generally much faster (up to 10x-100x) depending on the dataset.
+
+- Leave strings as is by default, and automatically parse common
+  date/time formats.
+
+- Have a helpful progress bar if loading is going to take a while.
+
+- All functions work exactly the same way regardless of the current
+  locale. To override the US-centric defaults, use
+  [`locale()`](https://readr.tidyverse.org/dev/reference/locale.md).
+
+### data.table and `fread()`
+
+[data.table](https://github.com/Rdatatable/data.table) has a function
+similar to
+[`read_csv()`](https://readr.tidyverse.org/dev/reference/read_delim.md)
+called `fread()`. Compared to `fread()`, readr functions:
+
+- Are sometimes slower, particularly on numeric heavy data.
+
+- Can automatically guess some parameters, but basically encourage
+  explicit specification of, e.g., the delimiter, skipped rows, and the
+  header row.
+
+- Follow tidyverse-wide conventions, such as returning a tibble, a
+  standard approach for column name repair, and a common mini-language
+  for column selection.
+
+## Acknowledgements
+
+Thanks to:
+
+- [Joe Cheng](https://github.com/jcheng5) for showing me the beauty of
+  deterministic finite automata for parsing, and for teaching me why I
+  should write a tokenizer.
+
+- [JJ Allaire](https://github.com/jjallaire) for helping me come up with
+  a design that makes very few copies, and is easy to extend.
+
+- [Dirk Eddelbuettel](http://dirk.eddelbuettel.com) for coming up with
+  the name!
+
+# Package index
+
+## Read rectangular files
+
+These functions parse rectangular files (like csv or fixed-width format)
+into tibbles. They specify the overall structure of the file, and how
+each line is divided up into fields.
+
+- [`read_delim()`](https://readr.tidyverse.org/dev/reference/read_delim.md)
+  [`read_csv()`](https://readr.tidyverse.org/dev/reference/read_delim.md)
+  [`read_csv2()`](https://readr.tidyverse.org/dev/reference/read_delim.md)
+  [`read_tsv()`](https://readr.tidyverse.org/dev/reference/read_delim.md)
+  : Read a delimited file (including CSV and TSV) into a tibble
+- [`read_fwf()`](https://readr.tidyverse.org/dev/reference/read_fwf.md)
+  [`fwf_empty()`](https://readr.tidyverse.org/dev/reference/read_fwf.md)
+  [`fwf_widths()`](https://readr.tidyverse.org/dev/reference/read_fwf.md)
+  [`fwf_positions()`](https://readr.tidyverse.org/dev/reference/read_fwf.md)
+  [`fwf_cols()`](https://readr.tidyverse.org/dev/reference/read_fwf.md)
+  : Read a fixed width file into a tibble
+- [`read_log()`](https://readr.tidyverse.org/dev/reference/read_log.md)
+  : Read common/combined log file into a tibble
+- [`read_table()`](https://readr.tidyverse.org/dev/reference/read_table.md)
+  : Read whitespace-separated columns into a tibble
+
+## Column specification
+
+The column specification describes how each column is parsed from a
+character vector in to a more specific data type. readr does make an
+educated guess about the type of each column, but you’ll need override
+those guesses when it gets them wrong.
+
+- [`problems()`](https://readr.tidyverse.org/dev/reference/problems.md)
+  [`stop_for_problems()`](https://readr.tidyverse.org/dev/reference/problems.md)
+  : Retrieve parsing problems
+- [`cols()`](https://readr.tidyverse.org/dev/reference/cols.md)
+  [`cols_only()`](https://readr.tidyverse.org/dev/reference/cols.md) :
+  Create column specification
+- [`cols_condense()`](https://readr.tidyverse.org/dev/reference/spec.md)
+  [`spec()`](https://readr.tidyverse.org/dev/reference/spec.md) :
+  Examine the column specifications for a data frame
+- [`spec_delim()`](https://readr.tidyverse.org/dev/reference/spec_delim.md)
+  [`spec_csv()`](https://readr.tidyverse.org/dev/reference/spec_delim.md)
+  [`spec_csv2()`](https://readr.tidyverse.org/dev/reference/spec_delim.md)
+  [`spec_tsv()`](https://readr.tidyverse.org/dev/reference/spec_delim.md)
+  [`spec_table()`](https://readr.tidyverse.org/dev/reference/spec_delim.md)
+  : Generate a column specification
+
+## Column parsers
+
+Column parsers define how a single column is parsed, or how to parse a
+single vector. Each parser comes in two forms: `parse_xxx()` which is
+used to parse vectors that already exist in R and `col_xxx()` which is
+used to parse vectors as they are loaded by a `read_xxx()` function.
+
+- [`parse_logical()`](https://readr.tidyverse.org/dev/reference/parse_atomic.md)
+  [`parse_integer()`](https://readr.tidyverse.org/dev/reference/parse_atomic.md)
+  [`parse_double()`](https://readr.tidyverse.org/dev/reference/parse_atomic.md)
+  [`parse_character()`](https://readr.tidyverse.org/dev/reference/parse_atomic.md)
+  [`col_logical()`](https://readr.tidyverse.org/dev/reference/parse_atomic.md)
+  [`col_integer()`](https://readr.tidyverse.org/dev/reference/parse_atomic.md)
+  [`col_double()`](https://readr.tidyverse.org/dev/reference/parse_atomic.md)
+  [`col_character()`](https://readr.tidyverse.org/dev/reference/parse_atomic.md)
+  : Parse logicals, integers, and reals
+- [`parse_datetime()`](https://readr.tidyverse.org/dev/reference/parse_datetime.md)
+  [`parse_date()`](https://readr.tidyverse.org/dev/reference/parse_datetime.md)
+  [`parse_time()`](https://readr.tidyverse.org/dev/reference/parse_datetime.md)
+  [`col_datetime()`](https://readr.tidyverse.org/dev/reference/parse_datetime.md)
+  [`col_date()`](https://readr.tidyverse.org/dev/reference/parse_datetime.md)
+  [`col_time()`](https://readr.tidyverse.org/dev/reference/parse_datetime.md)
+  : Parse date/times
+- [`parse_factor()`](https://readr.tidyverse.org/dev/reference/parse_factor.md)
+  [`col_factor()`](https://readr.tidyverse.org/dev/reference/parse_factor.md)
+  : Parse factors
+- [`parse_guess()`](https://readr.tidyverse.org/dev/reference/parse_guess.md)
+  [`col_guess()`](https://readr.tidyverse.org/dev/reference/parse_guess.md)
+  [`guess_parser()`](https://readr.tidyverse.org/dev/reference/parse_guess.md)
+  : Parse using the "best" type
+- [`parse_number()`](https://readr.tidyverse.org/dev/reference/parse_number.md)
+  [`col_number()`](https://readr.tidyverse.org/dev/reference/parse_number.md)
+  : Parse numbers, flexibly
+- [`col_skip()`](https://readr.tidyverse.org/dev/reference/col_skip.md)
+  : Skip a column
+
+## Locale controls
+
+The “locale” controls all options that vary from country-to-country or
+language-to-language. This includes things like the character used as
+the decimal mark, the names of days of the week, and the encoding. See
+[`vignette("locales")`](https://readr.tidyverse.org/dev/articles/locales.md)
+for more details.
+
+- [`locale()`](https://readr.tidyverse.org/dev/reference/locale.md)
+  [`default_locale()`](https://readr.tidyverse.org/dev/reference/locale.md)
+  : Create locales
+- [`date_names()`](https://readr.tidyverse.org/dev/reference/date_names.md)
+  [`date_names_lang()`](https://readr.tidyverse.org/dev/reference/date_names.md)
+  [`date_names_langs()`](https://readr.tidyverse.org/dev/reference/date_names.md)
+  : Create or retrieve date names
+
+## Write rectangular files
+
+Despite its name, readr also provides a number of functions to **write**
+data frames to disk, or to convert them to in-memory strings.
+
+- [`format_delim()`](https://readr.tidyverse.org/dev/reference/format_delim.md)
+  [`format_csv()`](https://readr.tidyverse.org/dev/reference/format_delim.md)
+  [`format_csv2()`](https://readr.tidyverse.org/dev/reference/format_delim.md)
+  [`format_tsv()`](https://readr.tidyverse.org/dev/reference/format_delim.md)
+  : Convert a data frame to a delimited string
+- [`write_delim()`](https://readr.tidyverse.org/dev/reference/write_delim.md)
+  [`write_csv()`](https://readr.tidyverse.org/dev/reference/write_delim.md)
+  [`write_csv2()`](https://readr.tidyverse.org/dev/reference/write_delim.md)
+  [`write_excel_csv()`](https://readr.tidyverse.org/dev/reference/write_delim.md)
+  [`write_excel_csv2()`](https://readr.tidyverse.org/dev/reference/write_delim.md)
+  [`write_tsv()`](https://readr.tidyverse.org/dev/reference/write_delim.md)
+  : Write a data frame to a delimited file
+
+## Readr editions
+
+readr supports two editions of parser. Version one is a single threaded
+eager parser that readr used by default from its first release to
+version 1.4.0. Version two is a multi-threaded lazy parser used by
+default from readr 2.0.0 onwards.
+
+- [`with_edition()`](https://readr.tidyverse.org/dev/reference/with_edition.md)
+  [`local_edition()`](https://readr.tidyverse.org/dev/reference/with_edition.md)
+  : Temporarily change the active readr edition
+- [`edition_get()`](https://readr.tidyverse.org/dev/reference/edition_get.md)
+  : Retrieve the currently active edition
+
+## Read non-rectangular files
+
+These functions parse non-rectangular files (like csv or fixed-width
+format) into long (so-called melted) format. They specify the overall
+structure of the file, and how each line is divided up into fields.
+
+- [`melt_delim()`](https://readr.tidyverse.org/dev/reference/melt_delim.md)
+  [`melt_csv()`](https://readr.tidyverse.org/dev/reference/melt_delim.md)
+  [`melt_csv2()`](https://readr.tidyverse.org/dev/reference/melt_delim.md)
+  [`melt_tsv()`](https://readr.tidyverse.org/dev/reference/melt_delim.md)
+  **\[superseded\]** : Return melted data for each token in a delimited
+  file (including csv & tsv)
+- [`melt_fwf()`](https://readr.tidyverse.org/dev/reference/melt_fwf.md)
+  **\[superseded\]** : Return melted data for each token in a fixed
+  width file
+- [`melt_table()`](https://readr.tidyverse.org/dev/reference/melt_table.md)
+  [`melt_table2()`](https://readr.tidyverse.org/dev/reference/melt_table.md)
+  **\[superseded\]** : Return melted data for each token in a
+  whitespace-separated file
+
+## Low-level IO and debugging tools
+
+These functions can be used with non-rectangular files, binary data, and
+to help debug rectangular files that fail to parse.
+
+- [`read_file()`](https://readr.tidyverse.org/dev/reference/read_file.md)
+  [`read_file_raw()`](https://readr.tidyverse.org/dev/reference/read_file.md)
+  [`write_file()`](https://readr.tidyverse.org/dev/reference/read_file.md)
+  : Read/write a complete file
+- [`read_lines()`](https://readr.tidyverse.org/dev/reference/read_lines.md)
+  [`read_lines_raw()`](https://readr.tidyverse.org/dev/reference/read_lines.md)
+  [`write_lines()`](https://readr.tidyverse.org/dev/reference/read_lines.md)
+  : Read/write lines to/from a file
+- [`read_rds()`](https://readr.tidyverse.org/dev/reference/read_rds.md)
+  [`write_rds()`](https://readr.tidyverse.org/dev/reference/read_rds.md)
+  : Read/write RDS files.
+- [`read_builtin()`](https://readr.tidyverse.org/dev/reference/read_builtin.md)
+  : Read built-in object from package
+- [`count_fields()`](https://readr.tidyverse.org/dev/reference/count_fields.md)
+  : Count the number of fields in each line of a file
+- [`guess_encoding()`](https://readr.tidyverse.org/dev/reference/encoding.md)
+  : Guess encoding of file
+- [`type_convert()`](https://readr.tidyverse.org/dev/reference/type_convert.md)
+  : Re-convert character columns in existing data frame
+- [`readr_example()`](https://readr.tidyverse.org/dev/reference/readr_example.md)
+  : Get path to readr example
+- [`clipboard()`](https://readr.tidyverse.org/dev/reference/clipboard.md)
+  : Returns values from the clipboard
+- [`show_progress()`](https://readr.tidyverse.org/dev/reference/show_progress.md)
+  : Determine whether progress bars should be shown
+- [`readr_threads()`](https://readr.tidyverse.org/dev/reference/readr_threads.md)
+  : Determine how many threads readr should use when processing
+- [`should_show_types()`](https://readr.tidyverse.org/dev/reference/should_show_types.md)
+  : Determine whether column types should be shown
+- [`should_read_lazy()`](https://readr.tidyverse.org/dev/reference/should_read_lazy.md)
+  : Determine whether to read a file lazily
+
+# Articles
+
+### All vignettes
+
+- [Column
+  type](https://readr.tidyverse.org/dev/articles/column-types.md):
+- [Locales](https://readr.tidyverse.org/dev/articles/locales.md):
+- [Introduction to
+  readr](https://readr.tidyverse.org/dev/articles/readr.md):

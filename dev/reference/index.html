@@ -53,8 +53,7 @@
 
       <div class="section-desc"><p>These functions parse rectangular files (like csv or fixed-width format) into tibbles. They specify the overall structure of the file, and how each line is divided up into fields.</p></div>
 
-
-    </div><div class="section level2">
+      <dl></dl></div><div class="section level2">
 
 
 
@@ -65,19 +64,22 @@
 
         </dt>
         <dd>Read a delimited file (including CSV and TSV) into a tibble</dd>
-      </dl><dl><dt>
+
+        <dt>
 
           <code><a href="read_fwf.html">read_fwf()</a></code> <code><a href="read_fwf.html">fwf_empty()</a></code> <code><a href="read_fwf.html">fwf_widths()</a></code> <code><a href="read_fwf.html">fwf_positions()</a></code> <code><a href="read_fwf.html">fwf_cols()</a></code>
 
         </dt>
         <dd>Read a fixed width file into a tibble</dd>
-      </dl><dl><dt>
+
+        <dt>
 
           <code><a href="read_log.html">read_log()</a></code>
 
         </dt>
         <dd>Read common/combined log file into a tibble</dd>
-      </dl><dl><dt>
+
+        <dt>
 
           <code><a href="read_table.html">read_table()</a></code>
 
@@ -88,8 +90,7 @@
 
       <div class="section-desc"><p>The column specification describes how each column is parsed from a character vector in to a more specific data type. readr does make an educated guess about the type of each column, but you’ll need override those guesses when it gets them wrong.</p></div>
 
-
-    </div><div class="section level2">
+      <dl></dl></div><div class="section level2">
 
 
 
@@ -100,19 +101,22 @@
 
         </dt>
         <dd>Retrieve parsing problems</dd>
-      </dl><dl><dt>
+
+        <dt>
 
           <code><a href="cols.html">cols()</a></code> <code><a href="cols.html">cols_only()</a></code>
 
         </dt>
         <dd>Create column specification</dd>
-      </dl><dl><dt>
+
+        <dt>
 
           <code><a href="spec.html">cols_condense()</a></code> <code><a href="spec.html">spec()</a></code>
 
         </dt>
         <dd>Examine the column specifications for a data frame</dd>
-      </dl><dl><dt>
+
+        <dt>
 
           <code><a href="spec_delim.html">spec_delim()</a></code> <code><a href="spec_delim.html">spec_csv()</a></code> <code><a href="spec_delim.html">spec_csv2()</a></code> <code><a href="spec_delim.html">spec_tsv()</a></code> <code><a href="spec_delim.html">spec_table()</a></code>
 
@@ -123,8 +127,7 @@
 
       <div class="section-desc"><p>Column parsers define how a single column is parsed, or how to parse a single vector. Each parser comes in two forms: <code>parse_xxx()</code> which is used to parse vectors that already exist in R and <code>col_xxx()</code> which is used to parse vectors as they are loaded by a <code>read_xxx()</code> function.</p></div>
 
-
-    </div><div class="section level2">
+      <dl></dl></div><div class="section level2">
 
 
 
@@ -135,31 +138,36 @@
 
         </dt>
         <dd>Parse logicals, integers, and reals</dd>
-      </dl><dl><dt>
+
+        <dt>
 
           <code><a href="parse_datetime.html">parse_datetime()</a></code> <code><a href="parse_datetime.html">parse_date()</a></code> <code><a href="parse_datetime.html">parse_time()</a></code> <code><a href="parse_datetime.html">col_datetime()</a></code> <code><a href="parse_datetime.html">col_date()</a></code> <code><a href="parse_datetime.html">col_time()</a></code>
 
         </dt>
         <dd>Parse date/times</dd>
-      </dl><dl><dt>
+
+        <dt>
 
           <code><a href="parse_factor.html">parse_factor()</a></code> <code><a href="parse_factor.html">col_factor()</a></code>
 
         </dt>
         <dd>Parse factors</dd>
-      </dl><dl><dt>
+
+        <dt>
 
           <code><a href="parse_guess.html">parse_guess()</a></code> <code><a href="parse_guess.html">col_guess()</a></code> <code><a href="parse_guess.html">guess_parser()</a></code>
 
         </dt>
         <dd>Parse using the "best" type</dd>
-      </dl><dl><dt>
+
+        <dt>
 
           <code><a href="parse_number.html">parse_number()</a></code> <code><a href="parse_number.html">col_number()</a></code>
 
         </dt>
         <dd>Parse numbers, flexibly</dd>
-      </dl><dl><dt>
+
+        <dt>
 
           <code><a href="col_skip.html">col_skip()</a></code>
 
@@ -170,8 +178,7 @@
 
       <div class="section-desc"><p>The “locale” controls all options that vary from country-to-country or language-to-language. This includes things like the character used as the decimal mark, the names of days of the week, and the encoding. See <code><a href="../articles/locales.html">vignette("locales")</a></code> for more details.</p></div>
 
-
-    </div><div class="section level2">
+      <dl></dl></div><div class="section level2">
 
 
 
@@ -182,7 +189,8 @@
 
         </dt>
         <dd>Create locales</dd>
-      </dl><dl><dt>
+
+        <dt>
 
           <code><a href="date_names.html">date_names()</a></code> <code><a href="date_names.html">date_names_lang()</a></code> <code><a href="date_names.html">date_names_langs()</a></code>
 
@@ -193,8 +201,7 @@
 
       <div class="section-desc"><p>Despite its name, readr also provides a number of functions to <strong>write</strong> data frames to disk, or to convert them to in-memory strings.</p></div>
 
-
-    </div><div class="section level2">
+      <dl></dl></div><div class="section level2">
 
 
 
@@ -205,7 +212,8 @@
 
         </dt>
         <dd>Convert a data frame to a delimited string</dd>
-      </dl><dl><dt>
+
+        <dt>
 
           <code><a href="write_delim.html">write_delim()</a></code> <code><a href="write_delim.html">write_csv()</a></code> <code><a href="write_delim.html">write_csv2()</a></code> <code><a href="write_delim.html">write_excel_csv()</a></code> <code><a href="write_delim.html">write_excel_csv2()</a></code> <code><a href="write_delim.html">write_tsv()</a></code>
 
@@ -216,8 +224,7 @@
 
       <div class="section-desc"><p>readr supports two editions of parser. Version one is a single threaded eager parser that readr used by default from its first release to version 1.4.0. Version two is a multi-threaded lazy parser used by default from readr 2.0.0 onwards.</p></div>
 
-
-    </div><div class="section level2">
+      <dl></dl></div><div class="section level2">
 
 
 
@@ -228,7 +235,8 @@
 
         </dt>
         <dd>Temporarily change the active readr edition</dd>
-      </dl><dl><dt>
+
+        <dt>
 
           <code><a href="edition_get.html">edition_get()</a></code>
 
@@ -239,8 +247,7 @@
 
       <div class="section-desc"><p>These functions parse non-rectangular files (like csv or fixed-width format) into long (so-called melted) format. They specify the overall structure of the file, and how each line is divided up into fields.</p></div>
 
-
-    </div><div class="section level2">
+      <dl></dl></div><div class="section level2">
 
 
 
@@ -251,13 +258,15 @@
           <span class="badge lifecycle lifecycle-superseded">superseded</span>
         </dt>
         <dd>Return melted data for each token in a delimited file (including csv &amp; tsv)</dd>
-      </dl><dl><dt>
+
+        <dt>
 
           <code><a href="melt_fwf.html">melt_fwf()</a></code>
           <span class="badge lifecycle lifecycle-superseded">superseded</span>
         </dt>
         <dd>Return melted data for each token in a fixed width file</dd>
-      </dl><dl><dt>
+
+        <dt>
 
           <code><a href="melt_table.html">melt_table()</a></code> <code><a href="melt_table.html">melt_table2()</a></code>
           <span class="badge lifecycle lifecycle-superseded">superseded</span>
@@ -268,8 +277,7 @@
 
       <div class="section-desc"><p>These functions can be used with non-rectangular files, binary data, and to help debug rectangular files that fail to parse.</p></div>
 
-
-    </div><div class="section level2">
+      <dl></dl></div><div class="section level2">
 
 
 
@@ -280,73 +288,85 @@
 
         </dt>
         <dd>Read/write a complete file</dd>
-      </dl><dl><dt>
+
+        <dt>
 
           <code><a href="read_lines.html">read_lines()</a></code> <code><a href="read_lines.html">read_lines_raw()</a></code> <code><a href="read_lines.html">write_lines()</a></code>
 
         </dt>
         <dd>Read/write lines to/from a file</dd>
-      </dl><dl><dt>
+
+        <dt>
 
           <code><a href="read_rds.html">read_rds()</a></code> <code><a href="read_rds.html">write_rds()</a></code>
 
         </dt>
         <dd>Read/write RDS files.</dd>
-      </dl><dl><dt>
+
+        <dt>
 
           <code><a href="read_builtin.html">read_builtin()</a></code>
 
         </dt>
         <dd>Read built-in object from package</dd>
-      </dl><dl><dt>
+
+        <dt>
 
           <code><a href="count_fields.html">count_fields()</a></code>
 
         </dt>
         <dd>Count the number of fields in each line of a file</dd>
-      </dl><dl><dt>
+
+        <dt>
 
           <code><a href="encoding.html">guess_encoding()</a></code>
 
         </dt>
         <dd>Guess encoding of file</dd>
-      </dl><dl><dt>
+
+        <dt>
 
           <code><a href="type_convert.html">type_convert()</a></code>
 
         </dt>
         <dd>Re-convert character columns in existing data frame</dd>
-      </dl><dl><dt>
+
+        <dt>
 
           <code><a href="readr_example.html">readr_example()</a></code>
 
         </dt>
         <dd>Get path to readr example</dd>
-      </dl><dl><dt>
+
+        <dt>
 
           <code><a href="clipboard.html">clipboard()</a></code>
 
         </dt>
         <dd>Returns values from the clipboard</dd>
-      </dl><dl><dt>
+
+        <dt>
 
           <code><a href="show_progress.html">show_progress()</a></code>
 
         </dt>
         <dd>Determine whether progress bars should be shown</dd>
-      </dl><dl><dt>
+
+        <dt>
 
           <code><a href="readr_threads.html">readr_threads()</a></code>
 
         </dt>
         <dd>Determine how many threads readr should use when processing</dd>
-      </dl><dl><dt>
+
+        <dt>
 
           <code><a href="should_show_types.html">should_show_types()</a></code>
 
         </dt>
         <dd>Determine whether column types should be shown</dd>
-      </dl><dl><dt>
+
+        <dt>
 
           <code><a href="should_read_lazy.html">should_read_lazy()</a></code>
 
@@ -364,7 +384,7 @@
 </div>
 
 <div class="pkgdown-footer-right">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.1.3.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.2.0.</p>
 </div>
 
   </div></footer></body></html>
