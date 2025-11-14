@@ -29,6 +29,7 @@
 ^pkgdown$
 ^rcon$
 ^inst/rcon$
+^inst/bench$
 ^azure-pipelines\.yml$
 ^LICENSE\.md$
 ^\.github/workflows/R-CMD-check\.yaml$

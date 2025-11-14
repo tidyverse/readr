@@ -48,17 +48,7 @@ public:
     if (column_ == R_NilValue)
       return;
 
-#if R_VERSION >= R_Version(3, 4, 0)
-    if (n > 0 && n < n_) {
-      SET_TRUELENGTH(column_, n_);
-      SETLENGTH(column_, n);
-      SET_GROWABLE_BIT(column_);
-    } else {
-      column_ = Rf_lengthgets(column_, n);
-    }
-#else
     column_ = Rf_lengthgets(column_, n);
-#endif
 
     n_ = n;
   }
