@@ -2,6 +2,10 @@
 
 ## readr (development version)
 
+## readr 2.1.6
+
+CRAN release: 2025-11-14
+
 - `locale(encoding =)` now warns, instead of errors, when the `encoding`
   cannot be found in the return value of
   [`iconvlist()`](https://rdrr.io/r/base/iconv.html). The motivation is
