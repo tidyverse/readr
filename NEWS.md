@@ -8,6 +8,10 @@
 * Help files below `man/` have been re-generated, as part of the effort to
   support HTML reference manuals on CRAN.
 
+* readr no longer uses `SETLENGTH()`, `SET_TRUELENGTH()`, or
+  `SET_GROWABLE_BIT()`. This change improves C API compliance, with a small
+  performance cost affecting only the legacy first edition parser.
+
 # readr 2.1.5
 
 * No major user-facing changes. Patch release with housekeeping changes and
