@@ -1,4 +1,4 @@
-The impetus for this release is a CRAN request to regenerate Rd files to support HTML manuals. 
+The impetus for this release is a CRAN request to regenerate Rd files to support HTML manuals. Also eliminating non-API calls that are generating a NOTE.
 
 There are no significant internal nor user-facing changes, so I have not run revdep checks.
 
