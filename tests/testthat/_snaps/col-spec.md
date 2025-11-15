@@ -1,3 +1,81 @@
+# guess_types errors on invalid inputs
+
+    Code
+      col_spec_standardise("a,b,c\n", guess_max = NA)
+    Condition
+      Error:
+      ! `guess_max` must be a positive integer
+
+---
+
+    Code
+      col_spec_standardise("a,b,c\n", guess_max = -1)
+    Condition
+      Error:
+      ! `guess_max` must be a positive integer
+
+---
+
+    Code
+      col_spec_standardise("a,b,c\n", guess_max = Inf)
+    Condition
+      Warning:
+      `guess_max` is a very large value, setting to `21474836` to avoid exhausting memory
+    Output
+      cols(
+        a = col_character(),
+        b = col_character(),
+        c = col_character()
+      )
+
+# check_guess_max errors on invalid inputs
+
+    Code
+      check_guess_max(NULL)
+    Condition
+      Error:
+      ! `guess_max` must be a positive integer
+
+---
+
+    Code
+      check_guess_max("test")
+    Condition
+      Error:
+      ! `guess_max` must be a positive integer
+
+---
+
+    Code
+      check_guess_max(letters)
+    Condition
+      Error:
+      ! `guess_max` must be a positive integer
+
+---
+
+    Code
+      check_guess_max(1:2)
+    Condition
+      Error:
+      ! `guess_max` must be a positive integer
+
+---
+
+    Code
+      check_guess_max(NA)
+    Condition
+      Error:
+      ! `guess_max` must be a positive integer
+
+---
+
+    Code
+      check_guess_max(-1)
+    Condition
+      Error:
+      ! `guess_max` must be a positive integer
+
 # print(col_spec) with guess_parser
 
     Code

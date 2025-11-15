@@ -320,7 +320,7 @@ test_that("can use `tz = ''` for system time zone", {
 
 test_that("can catch faulty system time zones", {
   withr::local_timezone("foo")
-  expect_error(locale(tz = ""), "Unknown TZ foo")
+  expect_snapshot(locale(tz = ""), error = TRUE)
 })
 
 
@@ -343,8 +343,8 @@ test_that("must have either two - or none", {
 })
 
 test_that("Invalid formats error", {
-  expect_error(
+  expect_snapshot(
     parse_date("2020-11-17", "%%Y-%m-%d"),
-    "Unsupported format %%Y-%m-%d"
+    error = TRUE
   )
 })

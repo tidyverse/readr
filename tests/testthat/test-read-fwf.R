@@ -174,9 +174,10 @@ test_that("error on empty spec (#511, #519)", {
   skip_if_edition_second()
   txt <- "foo\n"
   pos <- fwf_positions(start = numeric(0), end = numeric(0))
-  expect_error(
+  expect_snapshot(
     read_fwf(I(txt), pos),
-    "Zero-length.*specifications not supported"
+    error = TRUE,
+    variant = edition_variant()
   )
 })
 
@@ -184,7 +185,7 @@ test_that("error on negatives in fwf spec", {
   skip_if_edition_second()
   txt <- "foo\n"
   pos <- fwf_positions(start = c(1, -1), end = c(2, 3))
-  expect_error(read_fwf(I(txt), pos), ".*offset.*greater than 0")
+  expect_snapshot(read_fwf(I(txt), pos), error = TRUE, variant = edition_variant())
 })
 
 test_that("fwf spec can overlap", {
@@ -211,8 +212,8 @@ test_that("fwf_cols produces correct fwf_positions object with elements of lengt
 
 
 test_that("fwf_cols throws error when arguments are not length 1 or 2", {
-  expect_error(fwf_cols(a = 1:3, b = 4:5))
-  expect_error(fwf_cols(a = c(), b = 4:5))
+  expect_snapshot(fwf_cols(a = 1:3, b = 4:5), error = TRUE)
+  expect_snapshot(fwf_cols(a = c(), b = 4:5), error = TRUE)
 })
 
 test_that("fwf_cols works with unnamed columns", {

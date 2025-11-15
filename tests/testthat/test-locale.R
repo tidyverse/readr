@@ -9,8 +9,8 @@ test_that("setting grouping mark overrides decimal mark", {
 })
 
 test_that("grouping and decimal marks must be different", {
-  expect_error(
+  expect_snapshot(
     locale(grouping_mark = ".", decimal_mark = "."),
-    "must be different"
+    error = TRUE
   )
 })

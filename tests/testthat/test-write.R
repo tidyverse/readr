@@ -62,11 +62,11 @@ test_that("roundtrip preserves dates and datetimes", {
 })
 
 test_that("fails to create file in non-existent directory", {
-  expect_error(
-    expect_warning(
-      write_csv(mtcars, file.path(tempdir(), "/x/y")),
-      "open"
-    )
+  expect_snapshot(
+    write_csv(mtcars, file.path(tempdir(), "x/y")),
+    error = TRUE,
+    transform = function(x) gsub(tempdir(), "<temp>", x, fixed = TRUE),
+    variant = edition_variant()
   )
 })
 
@@ -193,7 +193,7 @@ test_that("write_csv2 and format_csv2 use same precision as write.csv2 (#1087)",
 test_that("Can change the escape behavior for quotes", {
   df <- data.frame(x = c("a", '"', ",", "\n"))
 
-  expect_error(format_delim(df, "\t", escape = "invalid"), "should be one of")
+  expect_snapshot(format_delim(df, "\t", escape = "invalid"), error = TRUE)
 
   expect_equal(format_delim(df, "\t"), "x\na\n\"\"\"\"\n,\n\"\n\"\n")
   expect_equal(
@@ -221,15 +221,15 @@ test_that("Error when writing list columns or matrix columns", {
     y = I(list(1, "foo", 2:9, iris)),
     z = I(matrix(1:16, nrow = 4))
   )
-  expect_error(
+  expect_snapshot(
     write_csv(df, tempfile()),
-    "`x` must not contain list or matrix columns"
+    error = TRUE
   )
 
   df2 <- data.frame(x = LETTERS[1:4], y = I(matrix(1:40, nrow = 4)))
-  expect_error(
+  expect_snapshot(
     write_csv(df2, tempfile()),
-    "`x` must not contain list or matrix columns"
+    error = TRUE
   )
 })
 
