@@ -65,7 +65,12 @@ test_that("fails to create file in non-existent directory", {
   expect_snapshot(
     write_csv(mtcars, file.path(tempdir(), "x/y")),
     error = TRUE,
-    transform = function(x) gsub(tempdir(), "<temp>", x, fixed = TRUE),
+    transform = function(x) {
+      # Scrub any path before /x/y (works on all platforms)
+      x <- gsub("\\\\", "/", x)  # Normalize backslashes first
+      x <- gsub(".*/(?=x/y)", "<temp>/", x, perl = TRUE)
+      x
+    },
     variant = edition_variant()
   )
 })
