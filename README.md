@@ -1,7 +1,7 @@
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
 
-# readr <a href="https://readr.tidyverse.org"><img src="man/figures/logo.png" align="right" height="138" alt = ""/></a>
+# readr <a href="https://readr.tidyverse.org"><img src="man/figures/logo.png" align="right" height="138" alt="readr package hex logo"/></a>
 
 <!-- badges: start -->
 

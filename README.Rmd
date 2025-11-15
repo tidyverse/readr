@@ -12,7 +12,7 @@ knitr::opts_chunk$set(
 )
 ```
 
-# readr <a href="https://readr.tidyverse.org"><img src="man/figures/logo.png" align="right" height="138" alt = ""/></a>
+# readr <a href="https://readr.tidyverse.org"><img src="man/figures/logo.png" align="right" height="138" alt="readr package hex logo"/></a>
 
 <!-- badges: start -->
 [![CRAN status](https://www.r-pkg.org/badges/version/readr)](https://CRAN.R-project.org/package=readr)
