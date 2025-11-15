@@ -7,8 +7,10 @@ gapminder |>
   slice_head(n = 6) |>
   arrange(continent, country) |>
   group_walk(
-    \(.x, .y) write_csv(
-      .x,
-      str_glue("inst/extdata/mini-gapminder-{tolower(.y$continent)}.csv")
-    )
+    \(.x, .y) {
+      write_csv(
+        .x,
+        str_glue("inst/extdata/mini-gapminder-{tolower(.y$continent)}.csv")
+      )
+    }
   )
