@@ -8,7 +8,8 @@ Authors@R: c(
     person("Jennifer", "Bryan", , "jenny@posit.co", role = c("aut", "cre"),
            comment = c(ORCID = "0000-0002-6983-2759")),
     person("Shelby", "Bearrows", role = "ctb"),
-    person("Posit Software, PBC", role = c("cph", "fnd")),
+    person("Posit Software, PBC", role = c("cph", "fnd"),
+           comment = c(ROR = "03wc8by49")),
     person("https://github.com/mandreyel/", role = "cph",
            comment = "mio library"),
     person("Jukka", "Jylänki", role = c("ctb", "cph"),
@@ -30,7 +31,7 @@ Imports:
     clipr,
     crayon,
     hms (>= 0.4.1),
-    lifecycle (>= 0.2.0),
+    lifecycle,
     methods,
     R6,
     rlang,
@@ -50,14 +51,15 @@ Suggests:
     waldo,
     withr,
     xml2
-LinkingTo: 
+LinkingTo:
     cpp11,
     tzdb (>= 0.1.1)
-VignetteBuilder: 
+VignetteBuilder:
     knitr
 Config/Needs/website: tidyverse, tidyverse/tidytemplate
 Config/testthat/edition: 3
 Config/testthat/parallel: false
+Config/usethis/last-upkeep: 2025-11-14
 Encoding: UTF-8
 Language: en-US
 Roxygen: list(markdown = TRUE, r6 = FALSE)

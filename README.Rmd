@@ -17,7 +17,7 @@ knitr::opts_chunk$set(
 <!-- badges: start -->
 [![CRAN status](https://www.r-pkg.org/badges/version/readr)](https://CRAN.R-project.org/package=readr)
 [![R-CMD-check](https://github.com/tidyverse/readr/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/tidyverse/readr/actions/workflows/R-CMD-check.yaml)
-[![Codecov test coverage](https://codecov.io/gh/tidyverse/readr/branch/main/graph/badge.svg)](https://app.codecov.io/gh/tidyverse/readr?branch=main)
+[![Codecov test coverage](https://codecov.io/gh/tidyverse/readr/graph/badge.svg)](https://app.codecov.io/gh/tidyverse/readr)
 <!-- badges: end -->
 
 ## Overview
@@ -137,12 +137,12 @@ The most important differences are discussed below.
 
 Compared to the corresponding base functions, readr functions:
 
-* Use a consistent naming scheme for the parameters (e.g. `col_names` and 
+* Use a consistent naming scheme for the parameters (e.g. `col_names` and
  `col_types` not `header` and `colClasses`).
- 
+
 * Are generally much faster (up to 10x-100x) depending on the dataset.
 
-* Leave strings as is by default, and automatically parse common 
+* Leave strings as is by default, and automatically parse common
   date/time formats.
 
 * Have a helpful progress bar if loading is going to take a while.
@@ -158,7 +158,7 @@ Compared to the corresponding base functions, readr functions:
 
 * Can automatically guess some parameters, but basically encourage explicit
   specification of, e.g., the delimiter, skipped rows, and the header row.
-  
+
 * Follow tidyverse-wide conventions, such as returning a tibble, a standard
   approach for column name repair, and a common mini-language for column
   selection.
@@ -168,11 +168,11 @@ Compared to the corresponding base functions, readr functions:
 Thanks to:
 
 * [Joe Cheng](https://github.com/jcheng5) for showing me the beauty of
-  deterministic finite automata for parsing, and for teaching me why I 
+  deterministic finite automata for parsing, and for teaching me why I
   should write a tokenizer.
-  
+
 * [JJ Allaire](https://github.com/jjallaire) for helping me come up with a
   design that makes very few copies, and is easy to extend.
-  
+
 * [Dirk Eddelbuettel](http://dirk.eddelbuettel.com) for coming up with the
   name!
