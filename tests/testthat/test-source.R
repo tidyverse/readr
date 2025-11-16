@@ -1,6 +1,6 @@
 test_that("standardise_path works", {
-  expect_error(
+  expect_snapshot(
     standardise_path("https://foo/bar.bz2"),
-    "compressed files is not supported"
+    error = TRUE
   )
 })

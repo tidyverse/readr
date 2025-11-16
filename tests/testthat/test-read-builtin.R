@@ -1,13 +1,13 @@
 test_that("read_builtin works", {
   # fails with unquoted symbol
-  expect_error(read_builtin(AirPassengers, "datasets"))
+  expect_snapshot(read_builtin(AirPassengers, "datasets"), error = TRUE)
 
   # fails with an error if data set doesn't exist in package
-  expect_error(read_builtin("nasa", "readr"))
+  expect_snapshot(read_builtin("nasa", "readr"), error = TRUE)
 
   # fails with error if the dataset namespace is not attached
   if (!"dplyr" %in% loadedNamespaces()) {
-    expect_error(read_builtin("starwars"))
+    expect_snapshot(read_builtin("starwars"), error = TRUE)
   }
 
   # works if data set exists in package

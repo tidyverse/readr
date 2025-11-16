@@ -7,7 +7,8 @@ vignette: >
   %\VignetteEncoding{UTF-8}
 ---
 
-```{r, include = FALSE}
+```{r}
+#| include: false
 library(readr)
 knitr::opts_chunk$set(collapse = TRUE, comment = "#>")
 ```
@@ -97,7 +98,8 @@ Note that these are only used as defaults. If individual times have timezones an
 
 Note that once you have the date in R, changing the time zone just changes its printed representation - it still represents the same instants of time. If you've loaded non-UTC data, and want to display it as UTC, try this snippet of code:
 
-```{r, eval = FALSE}
+```{r}
+#| eval: false
 is_datetime <- sapply(df, inherits, "POSIXct")
 df[is_datetime] <- lapply(df[is_datetime], function(x) {
   attr(x, "tzone") <- "UTC"

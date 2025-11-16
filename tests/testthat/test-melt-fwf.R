@@ -187,5 +187,5 @@ test_that("error on empty spec", {
   withr::local_options(lifecycle_verbosity = "quiet")
   txt <- "foo\n"
   pos <- fwf_positions(start = numeric(0), end = numeric(0))
-  expect_error(melt_fwf(txt, pos), "Zero-length.*specifications not supported")
+  expect_snapshot(melt_fwf(txt, pos), error = TRUE)
 })

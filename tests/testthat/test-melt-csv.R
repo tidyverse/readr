@@ -211,9 +211,9 @@ test_that("melt_csv returns a four-col zero-row data.frame on an empty file", {
 
 test_that("melt_delim errors on length 0 delimiter", {
   withr::local_options(lifecycle_verbosity = "quiet")
-  expect_error(
+  expect_snapshot(
     melt_delim("a b\n1 2\n", delim = ""),
-    "`delim` must be at least one character, use `melt_table\\(\\)` for whitespace delimited input\\."
+    error = TRUE
   )
 })
 
