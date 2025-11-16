@@ -67,7 +67,7 @@ test_that("fails to create file in non-existent directory", {
     error = TRUE,
     transform = function(x) {
       # Scrub any path before x/y (works on all platforms)
-      x <- gsub("\\\\", "/", x)  # Normalize backslashes first
+      x <- gsub("\\\\", "/", x) # Normalize backslashes first
       x <- gsub("'[^']+/(?=x/y)", "'<temp>/", x, perl = TRUE)
       x
     },

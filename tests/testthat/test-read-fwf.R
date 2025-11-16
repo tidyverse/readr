@@ -185,7 +185,11 @@ test_that("error on negatives in fwf spec", {
   skip_if_edition_second()
   txt <- "foo\n"
   pos <- fwf_positions(start = c(1, -1), end = c(2, 3))
-  expect_snapshot(read_fwf(I(txt), pos), error = TRUE, variant = edition_variant())
+  expect_snapshot(
+    read_fwf(I(txt), pos),
+    error = TRUE,
+    variant = edition_variant()
+  )
 })
 
 test_that("fwf spec can overlap", {
