@@ -184,9 +184,9 @@ test_that("AccumulateCallback works as intended", {
   out2 <- read_csv_chunked(f, fun2, chunk_size = 10)
   expect_equal(sum_chunks(out0, acc = 0), out2)
 
-  expect_error(
+  expect_snapshot(
     AccumulateCallback$new(function(x, i) x),
-    "`callback` must have three or more arguments"
+    error = TRUE
   )
 })
 

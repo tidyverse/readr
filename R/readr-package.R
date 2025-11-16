@@ -2,6 +2,8 @@
 "_PACKAGE"
 
 ## usethis namespace: start
+#' @import rlang
+#' @importFrom glue glue
 #' @importFrom hms hms
 #' @importFrom lifecycle deprecate_soft
 #' @importFrom lifecycle deprecate_warn

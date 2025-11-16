@@ -99,34 +99,27 @@ test_that("spec object attached to read data", {
 })
 
 test_that("guess_types errors on invalid inputs", {
-  expect_error(
+  expect_snapshot(
     col_spec_standardise("a,b,c\n", guess_max = NA),
-    "`guess_max` must be a positive integer"
+    error = TRUE
   )
-  expect_error(
+  expect_snapshot(
     col_spec_standardise("a,b,c\n", guess_max = -1),
-    "`guess_max` must be a positive integer"
+    error = TRUE
   )
 
-  expect_warning(
-    col_spec_standardise("a,b,c\n", guess_max = Inf),
-    "`guess_max` is a very large value"
+  expect_snapshot(
+    col_spec_standardise("a,b,c\n", guess_max = Inf)
   )
 })
 
 test_that("check_guess_max errors on invalid inputs", {
-  expect_error(check_guess_max(NULL), "`guess_max` must be a positive integer")
-  expect_error(
-    check_guess_max("test"),
-    "`guess_max` must be a positive integer"
-  )
-  expect_error(
-    check_guess_max(letters),
-    "`guess_max` must be a positive integer"
-  )
-  expect_error(check_guess_max(1:2), "`guess_max` must be a positive integer")
-  expect_error(check_guess_max(NA), "`guess_max` must be a positive integer")
-  expect_error(check_guess_max(-1), "`guess_max` must be a positive integer")
+  expect_snapshot(check_guess_max(NULL), error = TRUE)
+  expect_snapshot(check_guess_max("test"), error = TRUE)
+  expect_snapshot(check_guess_max(letters), error = TRUE)
+  expect_snapshot(check_guess_max(1:2), error = TRUE)
+  expect_snapshot(check_guess_max(NA), error = TRUE)
+  expect_snapshot(check_guess_max(-1), error = TRUE)
 
   expect_warning(check_guess_max(Inf), "`guess_max` is a very large value")
 })

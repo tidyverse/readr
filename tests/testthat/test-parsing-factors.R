@@ -149,8 +149,8 @@ test_that("Can parse a factor with levels of NA and empty string", {
 })
 
 test_that("factor levels must be null or a character vector (#1140)", {
-  expect_error(
+  expect_snapshot(
     col_factor(levels = 1:10),
-    "must be `NULL` or a character vector"
+    error = TRUE
   )
 })
