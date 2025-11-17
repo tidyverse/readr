@@ -184,52 +184,6 @@ typedef std::vector<CollectorPtr>::iterator CollectorItr;
   }
 }
 
-[[cpp11::register]] cpp11::sexp melt_tokens_(
-    const cpp11::list& sourceSpec,
-    const cpp11::list& tokenizerSpec,
-    const cpp11::list& colSpecs,
-    const cpp11::list& locale_,
-    int n_max,
-    bool progress) {
-
-  LocaleInfo l(locale_);
-  Reader r(
-      Source::create(sourceSpec),
-      Tokenizer::create(tokenizerSpec),
-      collectorsCreate(colSpecs, &l),
-      progress);
-
-  return r.meltToDataFrame(cpp11::list(locale_), n_max);
-}
-
-[[cpp11::register]] void melt_tokens_chunked_(
-    const cpp11::list& sourceSpec,
-    const cpp11::environment& callback,
-    int chunkSize,
-    const cpp11::list& tokenizerSpec,
-    const cpp11::list& colSpecs,
-    const cpp11::list& locale_,
-    bool progress) {
-
-  LocaleInfo l(locale_);
-  Reader r(
-      Source::create(sourceSpec),
-      Tokenizer::create(tokenizerSpec),
-      collectorsCreate(colSpecs, &l),
-      progress);
-
-  int pos = 1;
-  while (isTrue(R6method(callback, "continue")())) {
-    cpp11::data_frame out(
-        r.meltToDataFrame(static_cast<SEXP>(locale_), chunkSize));
-    if (out.nrow() == 0) {
-      return;
-    }
-    R6method(callback, "receive")(out, pos);
-    pos += out.nrow();
-  }
-}
-
 [[cpp11::register]] std::vector<std::string> guess_types_(
     const cpp11::list& sourceSpec,
     const cpp11::list& tokenizerSpec,

@@ -32,7 +32,6 @@ Follow tidyverse style guide conventions. Use `cli::cli_abort()` for error messa
 **Core Functions**
 - Reading: `read_delim()`, `read_csv()`, `read_tsv()`, `read_csv2()`, `read_fwf()`, `read_table()`, `read_log()`
 - Writing: `write_csv()`, `write_tsv()`, `write_delim()`, `format_csv()`
-- Melting (non-rectangular): `melt_delim()`, `melt_fwf()`, `melt_table()`
 - Low-level: `read_lines()`, `read_file()`, `read_rds()`, `count_fields()`, `guess_encoding()`
 
 **Column Type System**
