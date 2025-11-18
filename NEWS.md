@@ -2,7 +2,7 @@
 
 * `melt_csv()`, `melt_csv2()`, `melt_delim()`, `melt_tsv()`, `melt_fwf()`,
   `melt_table()`, `melt_table2()`, and all `melt_*_chunked()` variants have
-  been removed from readr. These functions were deprecated in readr 2.0.0 and
+  been removed from readr. These functions were deprecated in readr 2.0.0 (2021-07-20) and
   are now available in the meltr package
   (https://github.com/r-lib/meltr).
 
