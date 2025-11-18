@@ -14,3 +14,4 @@ docs
 compile_commands.json
 /doc/
 /Meta/
+.claude/settings.local.json
