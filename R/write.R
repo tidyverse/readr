@@ -43,8 +43,6 @@
 #'   argument instead.
 #' @param eol The end of line character to use. Most commonly either `"\n"` for
 #'   Unix style newlines, or `"\r\n"` for Windows style newlines.
-#' @param path `r lifecycle::badge("deprecated")` Use the `file` argument
-#'   instead.
 #' @return `write_*()` returns the input `x` invisibly.
 #' @inheritParams vroom::vroom_write
 #' @inheritParams read_delim
@@ -81,14 +79,8 @@ write_delim <- function(
   eol = "\n",
   num_threads = readr_threads(),
   progress = show_progress(),
-  path = deprecated(),
   quote_escape = deprecated()
 ) {
-  if (is_present(path)) {
-    deprecate_warn("1.4.0", "write_delim(path = )", "write_delim(file = )")
-    file <- path
-  }
-
   if (is_present(quote_escape)) {
     deprecate_soft(
       "2.0.0",
@@ -146,14 +138,8 @@ write_csv <- function(
   eol = "\n",
   num_threads = readr_threads(),
   progress = show_progress(),
-  path = deprecated(),
   quote_escape = deprecated()
 ) {
-  if (is_present(path)) {
-    deprecate_warn("1.4.0", "write_csv(path = )", "write_csv(file = )")
-    file <- path
-  }
-
   if (is_present(quote_escape)) {
     deprecate_soft(
       "2.0.0",
@@ -191,14 +177,8 @@ write_csv2 <- function(
   eol = "\n",
   num_threads = readr_threads(),
   progress = show_progress(),
-  path = deprecated(),
   quote_escape = deprecated()
 ) {
-  if (is_present(path)) {
-    deprecate_warn("1.4.0", "write_csv2(path = )", "write_csv2(file = )")
-    file <- path
-  }
-
   if (is_present(quote_escape)) {
     deprecate_soft(
       "2.0.0",
@@ -241,18 +221,8 @@ write_excel_csv <- function(
   eol = "\n",
   num_threads = readr_threads(),
   progress = show_progress(),
-  path = deprecated(),
   quote_escape = deprecated()
 ) {
-  if (is_present(path)) {
-    deprecate_warn(
-      "1.4.0",
-      "write_excel_csv(path = )",
-      "write_excel_csv(file = )"
-    )
-    file <- path
-  }
-
   if (is_present(quote_escape)) {
     deprecate_soft(
       "2.0.0",
@@ -316,18 +286,8 @@ write_excel_csv2 <- function(
   eol = "\n",
   num_threads = readr_threads(),
   progress = show_progress(),
-  path = deprecated(),
   quote_escape = deprecated()
 ) {
-  if (is_present(path)) {
-    deprecate_warn(
-      "1.4.0",
-      "write_excel_csv2(path = )",
-      "write_excel_csv2(file = )"
-    )
-    file <- path
-  }
-
   if (is_present(quote_escape)) {
     deprecate_soft(
       "2.0.0",
@@ -377,14 +337,8 @@ write_tsv <- function(
   eol = "\n",
   num_threads = readr_threads(),
   progress = show_progress(),
-  path = deprecated(),
   quote_escape = deprecated()
 ) {
-  if (is_present(path)) {
-    deprecate_warn("1.4.0", "write_tsv(path = )", "write_tsv(file = )")
-    file <- path
-  }
-
   if (is_present(quote_escape)) {
     deprecate_soft(
       "2.0.0",

@@ -32,8 +32,7 @@ write_lines(
   sep = "\\n",
   na = "NA",
   append = FALSE,
-  num_threads = readr_threads(),
-  path = deprecated()
+  num_threads = readr_threads()
 )
 }
 \arguments{
@@ -101,9 +100,6 @@ systems like macOS and linux. For native windows (CRLF) separators use
 \item{append}{If \code{FALSE}, will overwrite existing file. If \code{TRUE},
 will append to existing file. In both cases, if the file does not exist a new
 file is created.}
-
-\item{path}{\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#deprecated}{\figure{lifecycle-deprecated.svg}{options: alt='[Deprecated]'}}}{\strong{[Deprecated]}} Use the \code{file} argument
-instead.}
 }
 \value{
 \code{read_lines()}: A character vector with one element for each line.
