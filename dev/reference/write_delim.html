@@ -80,7 +80,6 @@ to coerce columns to suitable output.</p>
 <span>  eol <span class="op">=</span> <span class="st">"\n"</span>,</span>
 <span>  num_threads <span class="op">=</span> <span class="fu"><a href="readr_threads.html">readr_threads</a></span><span class="op">(</span><span class="op">)</span>,</span>
 <span>  progress <span class="op">=</span> <span class="fu"><a href="show_progress.html">show_progress</a></span><span class="op">(</span><span class="op">)</span>,</span>
-<span>  path <span class="op">=</span> <span class="fu">deprecated</span><span class="op">(</span><span class="op">)</span>,</span>
 <span>  quote_escape <span class="op">=</span> <span class="fu">deprecated</span><span class="op">(</span><span class="op">)</span></span>
 <span><span class="op">)</span></span>
 <span></span>
@@ -95,7 +94,6 @@ to coerce columns to suitable output.</p>
 <span>  eol <span class="op">=</span> <span class="st">"\n"</span>,</span>
 <span>  num_threads <span class="op">=</span> <span class="fu"><a href="readr_threads.html">readr_threads</a></span><span class="op">(</span><span class="op">)</span>,</span>
 <span>  progress <span class="op">=</span> <span class="fu"><a href="show_progress.html">show_progress</a></span><span class="op">(</span><span class="op">)</span>,</span>
-<span>  path <span class="op">=</span> <span class="fu">deprecated</span><span class="op">(</span><span class="op">)</span>,</span>
 <span>  quote_escape <span class="op">=</span> <span class="fu">deprecated</span><span class="op">(</span><span class="op">)</span></span>
 <span><span class="op">)</span></span>
 <span></span>
@@ -110,7 +108,6 @@ to coerce columns to suitable output.</p>
 <span>  eol <span class="op">=</span> <span class="st">"\n"</span>,</span>
 <span>  num_threads <span class="op">=</span> <span class="fu"><a href="readr_threads.html">readr_threads</a></span><span class="op">(</span><span class="op">)</span>,</span>
 <span>  progress <span class="op">=</span> <span class="fu"><a href="show_progress.html">show_progress</a></span><span class="op">(</span><span class="op">)</span>,</span>
-<span>  path <span class="op">=</span> <span class="fu">deprecated</span><span class="op">(</span><span class="op">)</span>,</span>
 <span>  quote_escape <span class="op">=</span> <span class="fu">deprecated</span><span class="op">(</span><span class="op">)</span></span>
 <span><span class="op">)</span></span>
 <span></span>
@@ -126,7 +123,6 @@ to coerce columns to suitable output.</p>
 <span>  eol <span class="op">=</span> <span class="st">"\n"</span>,</span>
 <span>  num_threads <span class="op">=</span> <span class="fu"><a href="readr_threads.html">readr_threads</a></span><span class="op">(</span><span class="op">)</span>,</span>
 <span>  progress <span class="op">=</span> <span class="fu"><a href="show_progress.html">show_progress</a></span><span class="op">(</span><span class="op">)</span>,</span>
-<span>  path <span class="op">=</span> <span class="fu">deprecated</span><span class="op">(</span><span class="op">)</span>,</span>
 <span>  quote_escape <span class="op">=</span> <span class="fu">deprecated</span><span class="op">(</span><span class="op">)</span></span>
 <span><span class="op">)</span></span>
 <span></span>
@@ -142,7 +138,6 @@ to coerce columns to suitable output.</p>
 <span>  eol <span class="op">=</span> <span class="st">"\n"</span>,</span>
 <span>  num_threads <span class="op">=</span> <span class="fu"><a href="readr_threads.html">readr_threads</a></span><span class="op">(</span><span class="op">)</span>,</span>
 <span>  progress <span class="op">=</span> <span class="fu"><a href="show_progress.html">show_progress</a></span><span class="op">(</span><span class="op">)</span>,</span>
-<span>  path <span class="op">=</span> <span class="fu">deprecated</span><span class="op">(</span><span class="op">)</span>,</span>
 <span>  quote_escape <span class="op">=</span> <span class="fu">deprecated</span><span class="op">(</span><span class="op">)</span></span>
 <span><span class="op">)</span></span>
 <span></span>
@@ -157,7 +152,6 @@ to coerce columns to suitable output.</p>
 <span>  eol <span class="op">=</span> <span class="st">"\n"</span>,</span>
 <span>  num_threads <span class="op">=</span> <span class="fu"><a href="readr_threads.html">readr_threads</a></span><span class="op">(</span><span class="op">)</span>,</span>
 <span>  progress <span class="op">=</span> <span class="fu"><a href="show_progress.html">show_progress</a></span><span class="op">(</span><span class="op">)</span>,</span>
-<span>  path <span class="op">=</span> <span class="fu">deprecated</span><span class="op">(</span><span class="op">)</span>,</span>
 <span>  quote_escape <span class="op">=</span> <span class="fu">deprecated</span><span class="op">(</span><span class="op">)</span></span>
 <span><span class="op">)</span></span></code></pre></div>
     </div>
@@ -229,11 +223,6 @@ in an interactive session and not while knitting a document. The display
 is updated every 50,000 values and will only display if estimated reading
 time is 5 seconds or more. The automatic progress bar can be disabled by
 setting option <code>readr.show_progress</code> to <code>FALSE</code>.</p></dd>
-
-
-<dt id="arg-path">path<a class="anchor" aria-label="anchor" href="#arg-path"></a></dt>
-<dd><p><a href="https://lifecycle.r-lib.org/articles/stages.html#deprecated" class="external-link"><img src="figures/lifecycle-deprecated.svg" alt="[Deprecated]"></a> Use the <code>file</code> argument
-instead.</p></dd>
 
 
 <dt id="arg-quote-escape">quote_escape<a class="anchor" aria-label="anchor" href="#arg-quote-escape"></a></dt>

@@ -2,6 +2,20 @@
 
 ## readr (development version)
 
+- The `path` parameter has been removed from
+  [`write_delim()`](https://readr.tidyverse.org/dev/reference/write_delim.md),
+  [`write_csv()`](https://readr.tidyverse.org/dev/reference/write_delim.md),
+  [`write_csv2()`](https://readr.tidyverse.org/dev/reference/write_delim.md),
+  [`write_excel_csv()`](https://readr.tidyverse.org/dev/reference/write_delim.md),
+  [`write_excel_csv2()`](https://readr.tidyverse.org/dev/reference/write_delim.md),
+  [`write_tsv()`](https://readr.tidyverse.org/dev/reference/write_delim.md),
+  [`write_lines()`](https://readr.tidyverse.org/dev/reference/read_lines.md),
+  [`write_file()`](https://readr.tidyverse.org/dev/reference/read_file.md),
+  and
+  [`write_rds()`](https://readr.tidyverse.org/dev/reference/read_rds.md).
+  This parameter was deprecated in readr 1.4.0 (2020-01-31) in favor of
+  the `file` parameter. Use `file` instead.
+
 - `melt_csv()`, `melt_csv2()`, `melt_delim()`, `melt_tsv()`,
   `melt_fwf()`, `melt_table()`, `melt_table2()`, and all
   `melt_*_chunked()` variants have been removed from readr. These

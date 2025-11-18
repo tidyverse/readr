@@ -35,8 +35,7 @@ write_lines(
   sep = "\n",
   na = "NA",
   append = FALSE,
-  num_threads = readr_threads(),
-  path = deprecated()
+  num_threads = readr_threads()
 )
 ```
 
@@ -136,10 +135,6 @@ write_lines(
   If `FALSE`, will overwrite existing file. If `TRUE`, will append to
   existing file. In both cases, if the file does not exist a new file is
   created.
-
-- path:
-
-  **\[deprecated\]** Use the `file` argument instead.
 
 ## Value
 

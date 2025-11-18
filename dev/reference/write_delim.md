@@ -25,7 +25,6 @@ write_delim(
   eol = "\n",
   num_threads = readr_threads(),
   progress = show_progress(),
-  path = deprecated(),
   quote_escape = deprecated()
 )
 
@@ -40,7 +39,6 @@ write_csv(
   eol = "\n",
   num_threads = readr_threads(),
   progress = show_progress(),
-  path = deprecated(),
   quote_escape = deprecated()
 )
 
@@ -55,7 +53,6 @@ write_csv2(
   eol = "\n",
   num_threads = readr_threads(),
   progress = show_progress(),
-  path = deprecated(),
   quote_escape = deprecated()
 )
 
@@ -71,7 +68,6 @@ write_excel_csv(
   eol = "\n",
   num_threads = readr_threads(),
   progress = show_progress(),
-  path = deprecated(),
   quote_escape = deprecated()
 )
 
@@ -87,7 +83,6 @@ write_excel_csv2(
   eol = "\n",
   num_threads = readr_threads(),
   progress = show_progress(),
-  path = deprecated(),
   quote_escape = deprecated()
 )
 
@@ -102,7 +97,6 @@ write_tsv(
   eol = "\n",
   num_threads = readr_threads(),
   progress = show_progress(),
-  path = deprecated(),
   quote_escape = deprecated()
 )
 ```
@@ -180,10 +174,6 @@ write_tsv(
   updated every 50,000 values and will only display if estimated reading
   time is 5 seconds or more. The automatic progress bar can be disabled
   by setting option `readr.show_progress` to `FALSE`.
-
-- path:
-
-  **\[deprecated\]** Use the `file` argument instead.
 
 - quote_escape:
 

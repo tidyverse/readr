@@ -17,7 +17,6 @@ write_rds(
   version = 2,
   refhook = NULL,
   text = FALSE,
-  path = deprecated(),
   ...
 )
 ```
@@ -51,10 +50,6 @@ write_rds(
 
   If `TRUE` a text representation is used, otherwise a binary
   representation is used.
-
-- path:
-
-  **\[deprecated\]** Use the `file` argument instead.
 
 - ...:
 

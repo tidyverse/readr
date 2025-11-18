@@ -56,7 +56,7 @@ df <- with_edition(1, read_csv(tfile))
 #> )
 #> Warning: 1 parsing failure.
 #>  row col           expected actual                                                           file
-#> 1001   x 1/0/T/F/TRUE/FALSE      2 '/tmp/RtmpxPCr3P/tricky-column-type-guessing-22af6577cc48.csv'
+#> 1001   x 1/0/T/F/TRUE/FALSE      2 '/tmp/RtmplUpgnU/tricky-column-type-guessing-22996aa012ab.csv'
 tail(df)
 #> # A tibble: 6 × 2
 #>   x     y    
