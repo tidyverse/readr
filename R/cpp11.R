@@ -68,14 +68,6 @@ read_tokens_chunked_ <- function(sourceSpec, callback, chunkSize, tokenizerSpec,
   invisible(.Call(`_readr_read_tokens_chunked_`, sourceSpec, callback, chunkSize, tokenizerSpec, colSpecs, colNames, locale_, spec, progress))
 }
 
-melt_tokens_ <- function(sourceSpec, tokenizerSpec, colSpecs, locale_, n_max, progress) {
-  .Call(`_readr_melt_tokens_`, sourceSpec, tokenizerSpec, colSpecs, locale_, n_max, progress)
-}
-
-melt_tokens_chunked_ <- function(sourceSpec, callback, chunkSize, tokenizerSpec, colSpecs, locale_, progress) {
-  invisible(.Call(`_readr_melt_tokens_chunked_`, sourceSpec, callback, chunkSize, tokenizerSpec, colSpecs, locale_, progress))
-}
-
 guess_types_ <- function(sourceSpec, tokenizerSpec, locale_, n) {
   .Call(`_readr_guess_types_`, sourceSpec, tokenizerSpec, locale_, n)
 }

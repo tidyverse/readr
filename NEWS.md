@@ -1,5 +1,11 @@
 # readr (development version)
 
+* `melt_csv()`, `melt_csv2()`, `melt_delim()`, `melt_tsv()`, `melt_fwf()`,
+  `melt_table()`, `melt_table2()`, and all `melt_*_chunked()` variants have
+  been removed from readr. These functions were deprecated in readr 2.0.0 (2021-07-20) and
+  are now available in the meltr package
+  (https://github.com/r-lib/meltr).
+
 # readr 2.1.6
 
 * `locale(encoding =)` now warns, instead of errors, when the `encoding` cannot
@@ -517,7 +523,7 @@ Future improvements to readr would allow it to parse data from connections in a 
 ### Parser improvements
 * `parse_factor()` gains a `include_na` argument, to include `NA` in the factor levels (#541).
 * `parse_factor()` will now can accept `levels = NULL`, which allows one to generate factor levels based on the data (like stringsAsFactors = TRUE) (#497).
-* `parse_numeric()` now returns the full string if it contains no numbers (#548).
+* `parse_number()` now returns the full string if it contains no numbers (#548).
 * `parse_time()` now correctly handles 12 AM/PM (#579).
 * `problems()` now returns the file path in additional to the location of the error in the file (#581).
 * `read_csv2()` gives a message if it updates the default locale (#443, @krlmlr).

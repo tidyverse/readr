@@ -128,21 +128,6 @@ extern "C" SEXP _readr_read_tokens_chunked_(SEXP sourceSpec, SEXP callback, SEXP
   END_CPP11
 }
 // read.cpp
-cpp11::sexp melt_tokens_(const cpp11::list& sourceSpec, const cpp11::list& tokenizerSpec, const cpp11::list& colSpecs, const cpp11::list& locale_, int n_max, bool progress);
-extern "C" SEXP _readr_melt_tokens_(SEXP sourceSpec, SEXP tokenizerSpec, SEXP colSpecs, SEXP locale_, SEXP n_max, SEXP progress) {
-  BEGIN_CPP11
-    return cpp11::as_sexp(melt_tokens_(cpp11::as_cpp<cpp11::decay_t<const cpp11::list&>>(sourceSpec), cpp11::as_cpp<cpp11::decay_t<const cpp11::list&>>(tokenizerSpec), cpp11::as_cpp<cpp11::decay_t<const cpp11::list&>>(colSpecs), cpp11::as_cpp<cpp11::decay_t<const cpp11::list&>>(locale_), cpp11::as_cpp<cpp11::decay_t<int>>(n_max), cpp11::as_cpp<cpp11::decay_t<bool>>(progress)));
-  END_CPP11
-}
-// read.cpp
-void melt_tokens_chunked_(const cpp11::list& sourceSpec, const cpp11::environment& callback, int chunkSize, const cpp11::list& tokenizerSpec, const cpp11::list& colSpecs, const cpp11::list& locale_, bool progress);
-extern "C" SEXP _readr_melt_tokens_chunked_(SEXP sourceSpec, SEXP callback, SEXP chunkSize, SEXP tokenizerSpec, SEXP colSpecs, SEXP locale_, SEXP progress) {
-  BEGIN_CPP11
-    melt_tokens_chunked_(cpp11::as_cpp<cpp11::decay_t<const cpp11::list&>>(sourceSpec), cpp11::as_cpp<cpp11::decay_t<const cpp11::environment&>>(callback), cpp11::as_cpp<cpp11::decay_t<int>>(chunkSize), cpp11::as_cpp<cpp11::decay_t<const cpp11::list&>>(tokenizerSpec), cpp11::as_cpp<cpp11::decay_t<const cpp11::list&>>(colSpecs), cpp11::as_cpp<cpp11::decay_t<const cpp11::list&>>(locale_), cpp11::as_cpp<cpp11::decay_t<bool>>(progress));
-    return R_NilValue;
-  END_CPP11
-}
-// read.cpp
 std::vector<std::string> guess_types_(const cpp11::list& sourceSpec, const cpp11::list& tokenizerSpec, const cpp11::list& locale_, int n);
 extern "C" SEXP _readr_guess_types_(SEXP sourceSpec, SEXP tokenizerSpec, SEXP locale_, SEXP n) {
   BEGIN_CPP11
@@ -204,8 +189,6 @@ static const R_CallMethodDef CallEntries[] = {
     {"_readr_dim_tokens_",             (DL_FUNC) &_readr_dim_tokens_,             2},
     {"_readr_guess_header_",           (DL_FUNC) &_readr_guess_header_,           3},
     {"_readr_guess_types_",            (DL_FUNC) &_readr_guess_types_,            4},
-    {"_readr_melt_tokens_",            (DL_FUNC) &_readr_melt_tokens_,            6},
-    {"_readr_melt_tokens_chunked_",    (DL_FUNC) &_readr_melt_tokens_chunked_,    7},
     {"_readr_parse_vector_",           (DL_FUNC) &_readr_parse_vector_,           5},
     {"_readr_read_connection_",        (DL_FUNC) &_readr_read_connection_,        3},
     {"_readr_read_file_",              (DL_FUNC) &_readr_read_file_,              2},
