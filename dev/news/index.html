@@ -51,7 +51,9 @@
 
     <div class="section level2">
 <h2 class="pkg-version" data-toc-text="development version" id="readr-development-version">readr (development version)<a class="anchor" aria-label="anchor" href="#readr-development-version"></a></h2>
-</div>
+<ul><li>
+<code>melt_csv()</code>, <code>melt_csv2()</code>, <code>melt_delim()</code>, <code>melt_tsv()</code>, <code>melt_fwf()</code>, <code>melt_table()</code>, <code>melt_table2()</code>, and all <code>melt_*_chunked()</code> variants have been removed from readr. These functions were deprecated in readr 2.0.0 (2021-07-20) and are now available in the meltr package (<a href="https://github.com/r-lib/meltr" class="external-link uri">https://github.com/r-lib/meltr</a>).</li>
+</ul></div>
     <div class="section level2">
 <h2 class="pkg-version" data-toc-text="2.1.6" id="readr-216">readr 2.1.6<a class="anchor" aria-label="anchor" href="#readr-216"></a></h2><p class="text-muted">CRAN release: 2025-11-14</p>
 <ul><li><p><code>locale(encoding =)</code> now warns, instead of errors, when the <code>encoding</code> cannot be found in the return value of <code><a href="https://rdrr.io/r/base/iconv.html" class="external-link">iconvlist()</a></code>. The motivation is to remove an unnecessary blocker on platforms, such as Alpine Linux, where the output of <code><a href="https://rdrr.io/r/base/iconv.html" class="external-link">iconvlist()</a></code> does not reflect the actual capabilities (<a href="https://github.com/bastistician" class="external-link">@bastistician</a>, <a href="https://github.com/tidyverse/readr/issues/1537" class="external-link">#1537</a>).</p></li>
@@ -145,7 +147,7 @@
 </div>
 <div class="section level4">
 <h4 id="deprecated-or-superseded-functions-and-features-2-0-0">Deprecated or superseded functions and features<a class="anchor" aria-label="anchor" href="#deprecated-or-superseded-functions-and-features-2-0-0"></a></h4>
-<ul><li><p><code><a href="../reference/melt_delim.html">melt_csv()</a></code>, <code><a href="../reference/melt_delim.html">melt_delim()</a></code>, <code><a href="../reference/melt_delim.html">melt_tsv()</a></code> and <code><a href="../reference/melt_fwf.html">melt_fwf()</a></code> have been superseded by functions in the same name in the meltr package. The versions in readr have been deprecated. These functions rely on the first edition parsing code and would be challenging to update to the new parser. When the first edition parsing code is eventually removed from readr they will be removed.</p></li>
+<ul><li><p><code>melt_csv()</code>, <code>melt_delim()</code>, <code>melt_tsv()</code> and <code>melt_fwf()</code> have been superseded by functions in the same name in the meltr package. The versions in readr have been deprecated. These functions rely on the first edition parsing code and would be challenging to update to the new parser. When the first edition parsing code is eventually removed from readr they will be removed.</p></li>
 <li><p><code><a href="../reference/read_table2.html">read_table2()</a></code> has been renamed to <code><a href="../reference/read_table.html">read_table()</a></code>, as most users expect <code><a href="../reference/read_table.html">read_table()</a></code> to work like <code><a href="https://rdrr.io/r/utils/read.table.html" class="external-link">utils::read.table()</a></code>. If you want the previous strict behavior of the <code><a href="../reference/read_table.html">read_table()</a></code> you can use <code><a href="../reference/read_fwf.html">read_fwf()</a></code> with <code><a href="../reference/read_fwf.html">fwf_empty()</a></code> directly (<a href="https://github.com/tidyverse/readr/issues/717" class="external-link">#717</a>).</p></li>
 <li><p>Normalizing newlines in files with just carriage returns <code>\r</code> is no longer supported. The last major OS to use only CR as the newline was ‘classic’ Mac OS, which had its final release in 2001.</p></li>
 </ul></div>
@@ -300,7 +302,7 @@
 <span><span class="st">1,2</span></span>
 <span><span class="st">w,x,y,z"</span></span>
 <span></span>
-<span><span class="fu">readr</span><span class="fu">::</span><span class="fu"><a href="../reference/melt_delim.html">melt_csv</a></span><span class="op">(</span><span class="va">data</span><span class="op">)</span></span>
+<span><span class="fu">readr</span><span class="fu">::</span><span class="fu">melt_csv</span><span class="op">(</span><span class="va">data</span><span class="op">)</span></span>
 <span><span class="co">#&gt; # A tibble: 9 x 4</span></span>
 <span><span class="co">#&gt;     row   col data_type value</span></span>
 <span><span class="co">#&gt;   &lt;dbl&gt; &lt;dbl&gt; &lt;chr&gt;     &lt;chr&gt;</span></span>
@@ -415,7 +417,7 @@
 <li>
 <code><a href="../reference/parse_factor.html">parse_factor()</a></code> will now can accept <code>levels = NULL</code>, which allows one to generate factor levels based on the data (like stringsAsFactors = TRUE) (<a href="https://github.com/tidyverse/readr/issues/497" class="external-link">#497</a>).</li>
 <li>
-<code>parse_numeric()</code> now returns the full string if it contains no numbers (<a href="https://github.com/tidyverse/readr/issues/548" class="external-link">#548</a>).</li>
+<code><a href="../reference/parse_number.html">parse_number()</a></code> now returns the full string if it contains no numbers (<a href="https://github.com/tidyverse/readr/issues/548" class="external-link">#548</a>).</li>
 <li>
 <code><a href="../reference/parse_datetime.html">parse_time()</a></code> now correctly handles 12 AM/PM (<a href="https://github.com/tidyverse/readr/issues/579" class="external-link">#579</a>).</li>
 <li>

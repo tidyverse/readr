@@ -83,5 +83,4 @@ read_lines_raw_chunked(
 
 Other chunked:
 [`callback`](https://readr.tidyverse.org/dev/reference/callback.md),
-[`melt_delim_chunked()`](https://readr.tidyverse.org/dev/reference/melt_delim_chunked.md),
 [`read_delim_chunked()`](https://readr.tidyverse.org/dev/reference/read_delim_chunked.md)

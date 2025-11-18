@@ -27,7 +27,6 @@ These classes are used to define callback behaviors.
 ## See also
 
 Other chunked:
-[`melt_delim_chunked()`](https://readr.tidyverse.org/dev/reference/melt_delim_chunked.md),
 [`read_delim_chunked()`](https://readr.tidyverse.org/dev/reference/read_delim_chunked.md),
 [`read_lines_chunked()`](https://readr.tidyverse.org/dev/reference/read_lines_chunked.md)
 

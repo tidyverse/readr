@@ -128,26 +128,6 @@ default from readr 2.0.0 onwards.
 - [`edition_get()`](https://readr.tidyverse.org/dev/reference/edition_get.md)
   : Retrieve the currently active edition
 
-## Read non-rectangular files
-
-These functions parse non-rectangular files (like csv or fixed-width
-format) into long (so-called melted) format. They specify the overall
-structure of the file, and how each line is divided up into fields.
-
-- [`melt_delim()`](https://readr.tidyverse.org/dev/reference/melt_delim.md)
-  [`melt_csv()`](https://readr.tidyverse.org/dev/reference/melt_delim.md)
-  [`melt_csv2()`](https://readr.tidyverse.org/dev/reference/melt_delim.md)
-  [`melt_tsv()`](https://readr.tidyverse.org/dev/reference/melt_delim.md)
-  **\[superseded\]** : Return melted data for each token in a delimited
-  file (including csv & tsv)
-- [`melt_fwf()`](https://readr.tidyverse.org/dev/reference/melt_fwf.md)
-  **\[superseded\]** : Return melted data for each token in a fixed
-  width file
-- [`melt_table()`](https://readr.tidyverse.org/dev/reference/melt_table.md)
-  [`melt_table2()`](https://readr.tidyverse.org/dev/reference/melt_table.md)
-  **\[superseded\]** : Return melted data for each token in a
-  whitespace-separated file
-
 ## Low-level IO and debugging tools
 
 These functions can be used with non-rectangular files, binary data, and

@@ -59,10 +59,6 @@ Writing:
 [`write_tsv()`](https://readr.tidyverse.org/dev/reference/write_delim.md),
 [`write_delim()`](https://readr.tidyverse.org/dev/reference/write_delim.md),
 [`format_csv()`](https://readr.tidyverse.org/dev/reference/format_delim.md) -
-Melting (non-rectangular):
-[`melt_delim()`](https://readr.tidyverse.org/dev/reference/melt_delim.md),
-[`melt_fwf()`](https://readr.tidyverse.org/dev/reference/melt_fwf.md),
-[`melt_table()`](https://readr.tidyverse.org/dev/reference/melt_table.md) -
 Low-level:
 [`read_lines()`](https://readr.tidyverse.org/dev/reference/read_lines.md),
 [`read_file()`](https://readr.tidyverse.org/dev/reference/read_file.md),

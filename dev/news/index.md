@@ -2,6 +2,12 @@
 
 ## readr (development version)
 
+- `melt_csv()`, `melt_csv2()`, `melt_delim()`, `melt_tsv()`,
+  `melt_fwf()`, `melt_table()`, `melt_table2()`, and all
+  `melt_*_chunked()` variants have been removed from readr. These
+  functions were deprecated in readr 2.0.0 (2021-07-20) and are now
+  available in the meltr package (<https://github.com/r-lib/meltr>).
+
 ## readr 2.1.6
 
 CRAN release: 2025-11-14
@@ -256,16 +262,12 @@ license.
 
 #### Deprecated or superseded functions and features
 
-- [`melt_csv()`](https://readr.tidyverse.org/dev/reference/melt_delim.md),
-  [`melt_delim()`](https://readr.tidyverse.org/dev/reference/melt_delim.md),
-  [`melt_tsv()`](https://readr.tidyverse.org/dev/reference/melt_delim.md)
-  and
-  [`melt_fwf()`](https://readr.tidyverse.org/dev/reference/melt_fwf.md)
-  have been superseded by functions in the same name in the meltr
-  package. The versions in readr have been deprecated. These functions
-  rely on the first edition parsing code and would be challenging to
-  update to the new parser. When the first edition parsing code is
-  eventually removed from readr they will be removed.
+- `melt_csv()`, `melt_delim()`, `melt_tsv()` and `melt_fwf()` have been
+  superseded by functions in the same name in the meltr package. The
+  versions in readr have been deprecated. These functions rely on the
+  first edition parsing code and would be challenging to update to the
+  new parser. When the first edition parsing code is eventually removed
+  from readr they will be removed.
 
 - [`read_table2()`](https://readr.tidyverse.org/dev/reference/read_table2.md)
   has been renamed to
@@ -889,8 +891,9 @@ CRAN release: 2017-03-22
   will now can accept `levels = NULL`, which allows one to generate
   factor levels based on the data (like stringsAsFactors = TRUE)
   ([\#497](https://github.com/tidyverse/readr/issues/497)).
-- `parse_numeric()` now returns the full string if it contains no
-  numbers ([\#548](https://github.com/tidyverse/readr/issues/548)).
+- [`parse_number()`](https://readr.tidyverse.org/dev/reference/parse_number.md)
+  now returns the full string if it contains no numbers
+  ([\#548](https://github.com/tidyverse/readr/issues/548)).
 - [`parse_time()`](https://readr.tidyverse.org/dev/reference/parse_datetime.md)
   now correctly handles 12 AM/PM
   ([\#579](https://github.com/tidyverse/readr/issues/579)).

@@ -273,7 +273,6 @@ The number of lines in `file` can exceed the maximum integer value in R
 
 Other chunked:
 [`callback`](https://readr.tidyverse.org/dev/reference/callback.md),
-[`melt_delim_chunked()`](https://readr.tidyverse.org/dev/reference/melt_delim_chunked.md),
 [`read_lines_chunked()`](https://readr.tidyverse.org/dev/reference/read_lines_chunked.md)
 
 ## Examples
