@@ -523,7 +523,7 @@ Future improvements to readr would allow it to parse data from connections in a 
 ### Parser improvements
 * `parse_factor()` gains a `include_na` argument, to include `NA` in the factor levels (#541).
 * `parse_factor()` will now can accept `levels = NULL`, which allows one to generate factor levels based on the data (like stringsAsFactors = TRUE) (#497).
-* `parse_numeric()` now returns the full string if it contains no numbers (#548).
+* `parse_number()` now returns the full string if it contains no numbers (#548).
 * `parse_time()` now correctly handles 12 AM/PM (#579).
 * `problems()` now returns the file path in additional to the location of the error in the file (#581).
 * `read_csv2()` gives a message if it updates the default locale (#443, @krlmlr).
