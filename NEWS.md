@@ -1,5 +1,11 @@
 # readr (development version)
 
+* The `path` parameter has been removed from `write_delim()`, `write_csv()`,
+  `write_csv2()`, `write_excel_csv()`, `write_excel_csv2()`, `write_tsv()`,
+  `write_lines()`, `write_file()`, and `write_rds()`. This parameter was
+  deprecated in readr 1.4.0 (2020-01-31) in favor of the `file` parameter.
+  Use `file` instead.
+
 * `melt_csv()`, `melt_csv2()`, `melt_delim()`, `melt_tsv()`, `melt_fwf()`,
   `melt_table()`, `melt_table2()`, and all `melt_*_chunked()` variants have
   been removed from readr. These functions were deprecated in readr 2.0.0 (2021-07-20) and

@@ -21,7 +21,6 @@ write_delim(
   eol = "\\n",
   num_threads = readr_threads(),
   progress = show_progress(),
-  path = deprecated(),
   quote_escape = deprecated()
 )
 
@@ -36,7 +35,6 @@ write_csv(
   eol = "\\n",
   num_threads = readr_threads(),
   progress = show_progress(),
-  path = deprecated(),
   quote_escape = deprecated()
 )
 
@@ -51,7 +49,6 @@ write_csv2(
   eol = "\\n",
   num_threads = readr_threads(),
   progress = show_progress(),
-  path = deprecated(),
   quote_escape = deprecated()
 )
 
@@ -67,7 +64,6 @@ write_excel_csv(
   eol = "\\n",
   num_threads = readr_threads(),
   progress = show_progress(),
-  path = deprecated(),
   quote_escape = deprecated()
 )
 
@@ -83,7 +79,6 @@ write_excel_csv2(
   eol = "\\n",
   num_threads = readr_threads(),
   progress = show_progress(),
-  path = deprecated(),
   quote_escape = deprecated()
 )
 
@@ -98,7 +93,6 @@ write_tsv(
   eol = "\\n",
   num_threads = readr_threads(),
   progress = show_progress(),
-  path = deprecated(),
   quote_escape = deprecated()
 )
 }
@@ -149,9 +143,6 @@ in an interactive session and not while knitting a document. The display
 is updated every 50,000 values and will only display if estimated reading
 time is 5 seconds or more. The automatic progress bar can be disabled by
 setting option \code{readr.show_progress} to \code{FALSE}.}
-
-\item{path}{\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#deprecated}{\figure{lifecycle-deprecated.svg}{options: alt='[Deprecated]'}}}{\strong{[Deprecated]}} Use the \code{file} argument
-instead.}
 
 \item{quote_escape}{\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#deprecated}{\figure{lifecycle-deprecated.svg}{options: alt='[Deprecated]'}}}{\strong{[Deprecated]}} Use the \code{escape}
 argument instead.}

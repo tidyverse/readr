@@ -98,8 +98,6 @@ read_lines_raw <- function(
 }
 
 #' @inheritParams write_delim
-#' @param path `r lifecycle::badge("deprecated")` Use the `file` argument
-#'   instead.
 #' @return `write_lines()` returns `x`, invisibly.
 #' @export
 #' @rdname read_lines
@@ -109,15 +107,9 @@ write_lines <- function(
   sep = "\n",
   na = "NA",
   append = FALSE,
-  num_threads = readr_threads(),
-  path = deprecated()
+  num_threads = readr_threads()
 ) {
   is_raw <- is.list(x) && inherits(x[[1]], "raw")
-
-  if (is_present(path)) {
-    deprecate_warn("1.4.0", "write_lines(path = )", "write_lines(file = )")
-    file <- path
-  }
 
   if (is_raw || edition_first()) {
     is_raw <- is.list(x) && inherits(x[[1]], "raw")
