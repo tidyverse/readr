@@ -74,7 +74,7 @@ turns off printing).</p>
 <span>  id <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  locale <span class="op">=</span> <span class="fu"><a href="locale.html">default_locale</a></span><span class="op">(</span><span class="op">)</span>,</span>
 <span>  na <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">""</span>, <span class="st">"NA"</span><span class="op">)</span>,</span>
-<span>  quoted_na <span class="op">=</span> <span class="cn">TRUE</span>,</span>
+<span>  quoted_na <span class="op">=</span> <span class="fu">deprecated</span><span class="op">(</span><span class="op">)</span>,</span>
 <span>  comment <span class="op">=</span> <span class="st">""</span>,</span>
 <span>  trim_ws <span class="op">=</span> <span class="cn">FALSE</span>,</span>
 <span>  skip <span class="op">=</span> <span class="fl">0</span>,</span>
@@ -96,7 +96,7 @@ turns off printing).</p>
 <span>  id <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  locale <span class="op">=</span> <span class="fu"><a href="locale.html">default_locale</a></span><span class="op">(</span><span class="op">)</span>,</span>
 <span>  na <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">""</span>, <span class="st">"NA"</span><span class="op">)</span>,</span>
-<span>  quoted_na <span class="op">=</span> <span class="cn">TRUE</span>,</span>
+<span>  quoted_na <span class="op">=</span> <span class="fu">deprecated</span><span class="op">(</span><span class="op">)</span>,</span>
 <span>  quote <span class="op">=</span> <span class="st">"\""</span>,</span>
 <span>  comment <span class="op">=</span> <span class="st">""</span>,</span>
 <span>  trim_ws <span class="op">=</span> <span class="cn">TRUE</span>,</span>
@@ -119,7 +119,7 @@ turns off printing).</p>
 <span>  id <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  locale <span class="op">=</span> <span class="fu"><a href="locale.html">default_locale</a></span><span class="op">(</span><span class="op">)</span>,</span>
 <span>  na <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">""</span>, <span class="st">"NA"</span><span class="op">)</span>,</span>
-<span>  quoted_na <span class="op">=</span> <span class="cn">TRUE</span>,</span>
+<span>  quoted_na <span class="op">=</span> <span class="fu">deprecated</span><span class="op">(</span><span class="op">)</span>,</span>
 <span>  quote <span class="op">=</span> <span class="st">"\""</span>,</span>
 <span>  comment <span class="op">=</span> <span class="st">""</span>,</span>
 <span>  trim_ws <span class="op">=</span> <span class="cn">TRUE</span>,</span>
@@ -142,7 +142,7 @@ turns off printing).</p>
 <span>  id <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  locale <span class="op">=</span> <span class="fu"><a href="locale.html">default_locale</a></span><span class="op">(</span><span class="op">)</span>,</span>
 <span>  na <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">""</span>, <span class="st">"NA"</span><span class="op">)</span>,</span>
-<span>  quoted_na <span class="op">=</span> <span class="cn">TRUE</span>,</span>
+<span>  quoted_na <span class="op">=</span> <span class="fu">deprecated</span><span class="op">(</span><span class="op">)</span>,</span>
 <span>  quote <span class="op">=</span> <span class="st">"\""</span>,</span>
 <span>  comment <span class="op">=</span> <span class="st">""</span>,</span>
 <span>  trim_ws <span class="op">=</span> <span class="cn">TRUE</span>,</span>
@@ -287,7 +287,8 @@ option to <code><a href="https://rdrr.io/r/base/character.html" class="external-
 <dt id="arg-quoted-na">quoted_na<a class="anchor" aria-label="anchor" href="#arg-quoted-na"></a></dt>
 <dd><p><a href="https://lifecycle.r-lib.org/articles/stages.html#deprecated" class="external-link"><img src="figures/lifecycle-deprecated.svg" alt="[Deprecated]"></a> Should missing values
 inside quotes be treated as missing values (the default) or strings. This
-parameter is soft deprecated as of readr 2.0.0.</p></dd>
+argument is deprecated and only works when using the legacy first edition
+parser. See <code><a href="with_edition.html">with_edition()</a></code> for more.</p></dd>
 
 
 <dt id="arg-comment">comment<a class="anchor" aria-label="anchor" href="#arg-comment"></a></dt>

@@ -21,7 +21,7 @@ read_delim(
   id = NULL,
   locale = default_locale(),
   na = c("", "NA"),
-  quoted_na = TRUE,
+  quoted_na = deprecated(),
   comment = "",
   trim_ws = FALSE,
   skip = 0,
@@ -43,7 +43,7 @@ read_csv(
   id = NULL,
   locale = default_locale(),
   na = c("", "NA"),
-  quoted_na = TRUE,
+  quoted_na = deprecated(),
   quote = "\"",
   comment = "",
   trim_ws = TRUE,
@@ -66,7 +66,7 @@ read_csv2(
   id = NULL,
   locale = default_locale(),
   na = c("", "NA"),
-  quoted_na = TRUE,
+  quoted_na = deprecated(),
   quote = "\"",
   comment = "",
   trim_ws = TRUE,
@@ -89,7 +89,7 @@ read_tsv(
   id = NULL,
   locale = default_locale(),
   na = c("", "NA"),
-  quoted_na = TRUE,
+  quoted_na = deprecated(),
   quote = "\"",
   comment = "",
   trim_ws = TRUE,
@@ -250,8 +250,10 @@ read_tsv(
 - quoted_na:
 
   **\[deprecated\]** Should missing values inside quotes be treated as
-  missing values (the default) or strings. This parameter is soft
-  deprecated as of readr 2.0.0.
+  missing values (the default) or strings. This argument is deprecated
+  and only works when using the legacy first edition parser. See
+  [`with_edition()`](https://readr.tidyverse.org/dev/reference/with_edition.md)
+  for more.
 
 - comment:
 
@@ -599,7 +601,7 @@ problems(y)
 #> # A tibble: 1 × 5
 #>     row   col expected actual file                            
 #>   <int> <int> <chr>    <chr>  <chr>                           
-#> 1     4     1 a double b      /tmp/RtmpgFVrKJ/file18ec536d2dc3
+#> 1     4     1 a double b      /tmp/RtmptSdi6K/file18eb79d9f1a8
 
 # Column names --------------------------------------------------------------
 # By default, readr duplicate name repair is noisy

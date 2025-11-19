@@ -72,8 +72,11 @@ tokenizer_ws(na = "NA", comment = "", skip_empty_rows = TRUE)
 - quoted_na:
 
   **\[deprecated\]** Should missing values inside quotes be treated as
-  missing values (the default) or strings. This parameter is soft
-  deprecated as of readr 2.0.0.
+  missing values (the default) or strings. This parameter is only
+  supported in certain legacy functions (e.g., the `read_*_chunked()`
+  functions) or when requesting the legacy first edition parser with
+  [`read_delim()`](https://readr.tidyverse.org/dev/reference/read_delim.md)
+  and friends.
 
 - comment:
 

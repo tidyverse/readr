@@ -19,7 +19,7 @@ spec_delim(
   id = NULL,
   locale = default_locale(),
   na = c("", "NA"),
-  quoted_na = TRUE,
+  quoted_na = deprecated(),
   comment = "",
   trim_ws = FALSE,
   skip = 0,
@@ -41,7 +41,7 @@ spec_csv(
   id = NULL,
   locale = default_locale(),
   na = c("", "NA"),
-  quoted_na = TRUE,
+  quoted_na = deprecated(),
   quote = "\"",
   comment = "",
   trim_ws = TRUE,
@@ -64,7 +64,7 @@ spec_csv2(
   id = NULL,
   locale = default_locale(),
   na = c("", "NA"),
-  quoted_na = TRUE,
+  quoted_na = deprecated(),
   quote = "\"",
   comment = "",
   trim_ws = TRUE,
@@ -87,7 +87,7 @@ spec_tsv(
   id = NULL,
   locale = default_locale(),
   na = c("", "NA"),
-  quoted_na = TRUE,
+  quoted_na = deprecated(),
   quote = "\"",
   comment = "",
   trim_ws = TRUE,
@@ -263,8 +263,10 @@ spec_table(
 - quoted_na:
 
   **\[deprecated\]** Should missing values inside quotes be treated as
-  missing values (the default) or strings. This parameter is soft
-  deprecated as of readr 2.0.0.
+  missing values (the default) or strings. This argument is deprecated
+  and only works when using the legacy first edition parser. See
+  [`with_edition()`](https://readr.tidyverse.org/dev/reference/with_edition.md)
+  for more.
 
 - comment:
 

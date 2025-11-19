@@ -42,6 +42,14 @@
   now throws an error if used in edition 2. This argument was deprecated
   in readr 2.0.0 (2021-07-20).
 
+- The `quoted_na` argument now throws an error if used in edition 2 with
+  [`read_delim()`](https://readr.tidyverse.org/dev/reference/read_delim.md),
+  [`read_csv()`](https://readr.tidyverse.org/dev/reference/read_delim.md),
+  [`read_csv2()`](https://readr.tidyverse.org/dev/reference/read_delim.md),
+  or
+  [`read_tsv()`](https://readr.tidyverse.org/dev/reference/read_delim.md).
+  This usage was first deprecated in readr 2.0.0 (2021-07-20).
+
 ## readr 2.1.6
 
 CRAN release: 2025-11-14

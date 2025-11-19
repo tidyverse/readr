@@ -218,9 +218,8 @@ read_tsv_chunked(
 
 - quoted_na:
 
-  **\[deprecated\]** Should missing values inside quotes be treated as
-  missing values (the default) or strings. This parameter is soft
-  deprecated as of readr 2.0.0.
+  Should missing values inside quotes be treated as missing values (the
+  default) or strings.
 
 - comment:
 
