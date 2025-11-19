@@ -22,6 +22,11 @@
   functions were deprecated in readr 2.0.0 (2021-07-20) and are now
   available in the meltr package (<https://github.com/r-lib/meltr>).
 
+- The `skip_empty_rows` argument of
+  [`fwf_empty()`](https://readr.tidyverse.org/dev/reference/read_fwf.md)
+  now throws an error if used in edition 2. This argument was deprecated
+  in readr 2.0.0 (2021-07-20).
+
 ## readr 2.1.6
 
 CRAN release: 2025-11-14
