@@ -134,13 +134,22 @@ read_fwf <- function(
 fwf_empty <- function(
   file,
   skip = 0,
-  skip_empty_rows = FALSE,
+  skip_empty_rows = deprecated(),
   col_names = NULL,
   comment = "",
   n = 100L
 ) {
   if (edition_first()) {
-    ds <- datasource(file, skip = skip, skip_empty_rows = skip_empty_rows)
+    skip_empty_rows <- if (is_present(skip_empty_rows)) {
+      skip_empty_rows
+    } else {
+      FALSE
+    }
+    ds <- datasource(
+      file,
+      skip = skip,
+      skip_empty_rows = skip_empty_rows
+    )
 
     out <- whitespaceColumns(ds, comment = comment, n = n)
     out$end[length(out$end)] <- NA
@@ -151,7 +160,14 @@ fwf_empty <- function(
   }
 
   if (!missing(skip_empty_rows)) {
-    lifecycle::deprecate_soft("2.0.0", "readr::fwf_empty(skip_empty_rows = )")
+    lifecycle::deprecate_stop(
+      when = "2.0.0",
+      what = "readr::fwf_empty(skip_empty_rows = )",
+      details = c(
+        "i" = "This argument is not supported in readr edition 2.",
+        "i" = "Use `with_edition(1, ...)` or `local_edition(1)` to use the legacy edition 1."
+      )
+    )
   }
 
   vroom::fwf_empty(

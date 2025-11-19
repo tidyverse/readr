@@ -32,7 +32,7 @@ read_fwf(
 fwf_empty(
   file,
   skip = 0,
-  skip_empty_rows = FALSE,
+  skip_empty_rows = deprecated(),
   col_names = NULL,
   comment = "",
   n = 100L

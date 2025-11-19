@@ -12,6 +12,9 @@
   are now available in the meltr package
   (https://github.com/r-lib/meltr).
 
+* The `skip_empty_rows` argument of `fwf_empty()` now throws an error if used in
+  edition 2. This argument was deprecated in readr 2.0.0 (2021-07-20).
+
 # readr 2.1.6
 
 * `locale(encoding =)` now warns, instead of errors, when the `encoding` cannot
