@@ -1,5 +1,11 @@
 # readr (development version)
 
+* The `quote_escape` parameter has been removed from `write_delim()`,
+  `write_csv()`, `write_csv2()`, `write_excel_csv()`, `write_excel_csv2()`,
+  `write_tsv()`, `format_delim()`, `format_csv()`, `format_csv2()`, and
+  `format_tsv()`. This parameter was deprecated in readr 2.0.0 (2021-07-20)
+  in favor of the `escape` parameter. Use `escape` instead.
+
 * The `path` parameter has been removed from `write_delim()`, `write_csv()`,
   `write_csv2()`, `write_excel_csv()`, `write_excel_csv2()`, `write_tsv()`,
   `write_lines()`, `write_file()`, and `write_rds()`. This parameter was
