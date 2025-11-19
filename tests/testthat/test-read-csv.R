@@ -1,6 +1,6 @@
 test_that("read_csv col imputation, col_name detection and NA detection works", {
   test_data <- read_csv(
-    test_path("basic-df.csv"),
+    test_fixture("basic-df.csv"),
     col_types = list(),
     col_names = TRUE
   )
@@ -12,7 +12,7 @@ test_that("read_csv col imputation, col_name detection and NA detection works", 
   expect_equal(sum(is.na(test_data$d)), 1)
 
   test_data2 <- read_csv(
-    "basic-df.csv",
+    test_fixture("basic-df.csv"),
     col_types = list(a = "l", b = "d", c = "d", d = "c"),
     col_names = TRUE
   )
@@ -39,23 +39,34 @@ test_that("passing \"\" to read_csv's 'NA' option reads \"\" correctly", {
 })
 
 test_that("changing read_csv's 'quote' argument works correctly", {
-  test_data <- read_csv("basic-df.csv", col_types = NULL, col_names = TRUE)
-  test_data_singlequote <- read_csv("basic-df-singlequote.csv", quote = "'")
+  test_data <- read_csv(
+    test_fixture("basic-df.csv"),
+    col_types = NULL,
+    col_names = TRUE
+  )
+  test_data_singlequote <- read_csv(
+    test_fixture("basic-df-singlequote.csv"),
+    quote = "'"
+  )
   expect_identical(test_data, test_data_singlequote)
 })
 
 test_that("read_csv's 'skip' option allows for skipping'", {
-  test_data <- read_csv("basic-df.csv", skip = 1)
+  test_data <- read_csv(test_fixture("basic-df.csv"), skip = 1)
   expect_equal(nrow(test_data), 9)
 })
 
 test_that("read_csv's 'skip' option allows for skipping when no header row is present'", {
-  test_data <- read_csv("basic-df.csv", skip = 1, col_names = FALSE)
+  test_data <- read_csv(
+    test_fixture("basic-df.csv"),
+    skip = 1,
+    col_names = FALSE
+  )
   expect_equal(nrow(test_data), 10)
 })
 
 test_that("read_csv's 'n_max' allows for a maximum number of records and does not corrupt any", {
-  test_data <- read_csv("basic-df.csv", n_max = 7)
+  test_data <- read_csv(test_fixture("basic-df.csv"), n_max = 7)
   expect_equal(nrow(test_data), 7)
   expect_equal(sum(is.na(test_data)), 0)
 })
@@ -84,14 +95,17 @@ test_that("can read more than 100 columns", {
 test_that("encoding affects text and headers", {
   skip_on_os("solaris")
 
-  x <- read_csv("enc-iso-8859-1.txt", locale = locale(encoding = "ISO-8859-1"))
+  x <- read_csv(
+    test_fixture("enc-iso-8859-1.txt"),
+    locale = locale(encoding = "ISO-8859-1")
+  )
   expect_identical(names(x), "fran\u00e7ais")
   expect_identical(x[[1]], "\u00e9l\u00e8ve")
 })
 
 test_that("nuls are dropped with a warning", {
   skip_if_edition_second()
-  expect_warning(x <- read_csv("raw.csv"))
+  expect_warning(x <- read_csv(test_fixture("raw.csv")))
   expect_equal(n_problems(x), 1)
   expect_equal(x$abc, "ab")
 })

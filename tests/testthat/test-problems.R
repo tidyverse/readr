@@ -79,6 +79,8 @@ test_that("problems returns full original field (#444)", {
 })
 
 test_that("warn_problems should not fail when parsing non-ASCII characters (#1152)", {
-  expect_warning(probs <- warn_problems(readRDS("test-non-ascii-1152.rds")))
+  expect_warning(
+    probs <- warn_problems(readRDS(test_fixture("test-non-ascii-1152.rds")))
+  )
   expect_equal(NROW(probs), 10)
 })

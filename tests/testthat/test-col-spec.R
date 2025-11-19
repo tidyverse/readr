@@ -79,7 +79,7 @@ test_that("spec object attached to read data", {
   skip_if(edition_first())
 
   test_data <- read_csv(
-    test_path("basic-df.csv"),
+    test_fixture("basic-df.csv"),
     col_types = NULL,
     col_names = TRUE
   )

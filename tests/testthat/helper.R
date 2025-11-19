@@ -38,3 +38,5 @@ edition_variant <- function() {
 skip_if_edition_first_windows <- function() {
   if (edition_first()) skip_on_os("windows")
 }
+
+test_fixture <- function(fname) testthat::test_path("fixtures", fname)
