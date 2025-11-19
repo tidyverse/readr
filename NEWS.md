@@ -21,6 +21,10 @@
 * The `skip_empty_rows` argument of `fwf_empty()` now throws an error if used in
   edition 2. This argument was deprecated in readr 2.0.0 (2021-07-20).
 
+* The `quoted_na` argument now throws an error if used in edition 2 with
+  `read_delim()`, `read_csv()`, `read_csv2()`, or `read_tsv()`. This usage was
+  first deprecated in readr 2.0.0 (2021-07-20).
+
 # readr 2.1.6
 
 * `locale(encoding =)` now warns, instead of errors, when the `encoding` cannot

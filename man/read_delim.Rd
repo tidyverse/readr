@@ -19,7 +19,7 @@ read_delim(
   id = NULL,
   locale = default_locale(),
   na = c("", "NA"),
-  quoted_na = TRUE,
+  quoted_na = deprecated(),
   comment = "",
   trim_ws = FALSE,
   skip = 0,
@@ -41,7 +41,7 @@ read_csv(
   id = NULL,
   locale = default_locale(),
   na = c("", "NA"),
-  quoted_na = TRUE,
+  quoted_na = deprecated(),
   quote = "\\"",
   comment = "",
   trim_ws = TRUE,
@@ -64,7 +64,7 @@ read_csv2(
   id = NULL,
   locale = default_locale(),
   na = c("", "NA"),
-  quoted_na = TRUE,
+  quoted_na = deprecated(),
   quote = "\\"",
   comment = "",
   trim_ws = TRUE,
@@ -87,7 +87,7 @@ read_tsv(
   id = NULL,
   locale = default_locale(),
   na = c("", "NA"),
-  quoted_na = TRUE,
+  quoted_na = deprecated(),
   quote = "\\"",
   comment = "",
   trim_ws = TRUE,
@@ -203,7 +203,8 @@ option to \code{character()} to indicate no missing values.}
 
 \item{quoted_na}{\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#deprecated}{\figure{lifecycle-deprecated.svg}{options: alt='[Deprecated]'}}}{\strong{[Deprecated]}} Should missing values
 inside quotes be treated as missing values (the default) or strings. This
-parameter is soft deprecated as of readr 2.0.0.}
+argument is deprecated and only works when using the legacy first edition
+parser. See \code{\link[=with_edition]{with_edition()}} for more.}
 
 \item{comment}{A string used to identify comments. Any text after the
 comment characters will be silently ignored.}
