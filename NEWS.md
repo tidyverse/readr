@@ -1,5 +1,9 @@
 # readr (development version)
 
+* `read_table2()` has been removed from readr. This function was deprecated in
+  readr 2.0.0 (2021-07-20) in favor of `read_table()`. Use `read_table()`
+  instead.
+
 * The `quote_escape` parameter has been removed from `write_delim()`,
   `write_csv()`, `write_csv2()`, `write_excel_csv()`, `write_excel_csv2()`,
   `write_tsv()`, `format_delim()`, `format_csv()`, `format_csv2()`, and
