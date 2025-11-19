@@ -177,9 +177,8 @@ names.}
 \item{na}{Character vector of strings to interpret as missing values. Set this
 option to \code{character()} to indicate no missing values.}
 
-\item{quoted_na}{\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#deprecated}{\figure{lifecycle-deprecated.svg}{options: alt='[Deprecated]'}}}{\strong{[Deprecated]}} Should missing values
-inside quotes be treated as missing values (the default) or strings. This
-parameter is soft deprecated as of readr 2.0.0.}
+\item{quoted_na}{Should missing values inside quotes be treated as missing
+values (the default) or strings.}
 
 \item{comment}{A string used to identify comments. Any text after the
 comment characters will be silently ignored.}
