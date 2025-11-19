@@ -39,8 +39,6 @@
 #' @param na String used for missing values. Defaults to NA. Missing values
 #'   will never be quoted; strings with the same value as `na` will
 #'   always be quoted.
-#' @param quote_escape `r lifecycle::badge("deprecated")` Use the `escape`
-#'   argument instead.
 #' @param eol The end of line character to use. Most commonly either `"\n"` for
 #'   Unix style newlines, or `"\r\n"` for Windows style newlines.
 #' @return `write_*()` returns the input `x` invisibly.
@@ -78,18 +76,8 @@ write_delim <- function(
   escape = c("double", "backslash", "none"),
   eol = "\n",
   num_threads = readr_threads(),
-  progress = show_progress(),
-  quote_escape = deprecated()
+  progress = show_progress()
 ) {
-  if (is_present(quote_escape)) {
-    deprecate_soft(
-      "2.0.0",
-      "write_delim(quote_escape = )",
-      "write_delim(escape = )"
-    )
-    escape <- quote_escape
-  }
-
   stopifnot(is.data.frame(x))
   check_column_types(x)
 
@@ -103,7 +91,7 @@ write_delim <- function(
       col_names = col_names,
       append = append,
       na = na,
-      quote_escape = escape,
+      escape = escape,
       eol = eol
     )
     return(invisible(x_out))
@@ -137,18 +125,8 @@ write_csv <- function(
   escape = c("double", "backslash", "none"),
   eol = "\n",
   num_threads = readr_threads(),
-  progress = show_progress(),
-  quote_escape = deprecated()
+  progress = show_progress()
 ) {
-  if (is_present(quote_escape)) {
-    deprecate_soft(
-      "2.0.0",
-      "write_delim(quote_escape = )",
-      "write_delim(escape = )"
-    )
-    escape <- quote_escape
-  }
-
   write_delim(
     x,
     file,
@@ -176,18 +154,8 @@ write_csv2 <- function(
   escape = c("double", "backslash", "none"),
   eol = "\n",
   num_threads = readr_threads(),
-  progress = show_progress(),
-  quote_escape = deprecated()
+  progress = show_progress()
 ) {
-  if (is_present(quote_escape)) {
-    deprecate_soft(
-      "2.0.0",
-      "write_delim(quote_escape = )",
-      "write_delim(escape = )"
-    )
-    escape <- quote_escape
-  }
-
   x_out <- x
   x <- change_decimal_separator(x, decimal_mark = ",")
   write_delim(
@@ -220,18 +188,8 @@ write_excel_csv <- function(
   escape = c("double", "backslash", "none"),
   eol = "\n",
   num_threads = readr_threads(),
-  progress = show_progress(),
-  quote_escape = deprecated()
+  progress = show_progress()
 ) {
-  if (is_present(quote_escape)) {
-    deprecate_soft(
-      "2.0.0",
-      "write_delim(quote_escape = )",
-      "write_delim(escape = )"
-    )
-    escape <- quote_escape
-  }
-
   stopifnot(is.data.frame(x))
   check_column_types(x)
 
@@ -249,7 +207,7 @@ write_excel_csv <- function(
       append = append,
       na = na,
       bom = !append,
-      quote_escape = escape,
+      escape = escape,
       eol = eol
     )
     return(invisible(x_out))
@@ -285,18 +243,8 @@ write_excel_csv2 <- function(
   escape = c("double", "backslash", "none"),
   eol = "\n",
   num_threads = readr_threads(),
-  progress = show_progress(),
-  quote_escape = deprecated()
+  progress = show_progress()
 ) {
-  if (is_present(quote_escape)) {
-    deprecate_soft(
-      "2.0.0",
-      "write_delim(quote_escape = )",
-      "write_delim(escape = )"
-    )
-    escape <- quote_escape
-  }
-
   stopifnot(is.data.frame(x))
   check_column_types(x)
 
@@ -336,18 +284,8 @@ write_tsv <- function(
   escape = c("double", "backslash", "none"),
   eol = "\n",
   num_threads = readr_threads(),
-  progress = show_progress(),
-  quote_escape = deprecated()
+  progress = show_progress()
 ) {
-  if (is_present(quote_escape)) {
-    deprecate_soft(
-      "2.0.0",
-      "write_delim(quote_escape = )",
-      "write_delim(escape = )"
-    )
-    escape <- quote_escape
-  }
-
   write_delim(
     x,
     file,
@@ -395,20 +333,10 @@ format_delim <- function(
   col_names = !append,
   quote = c("needed", "all", "none"),
   escape = c("double", "backslash", "none"),
-  eol = "\n",
-  quote_escape = deprecated()
+  eol = "\n"
 ) {
   stopifnot(is.data.frame(x))
   check_column_types(x)
-
-  if (is_present(quote_escape)) {
-    deprecate_soft(
-      "2.0.0",
-      "write_delim(quote_escape = )",
-      "write_delim(escape = )"
-    )
-    escape <- quote_escape
-  }
 
   x[] <- lapply(x, output_column)
   if (edition_first()) {
@@ -419,7 +347,7 @@ format_delim <- function(
       col_names = col_names,
       append = append,
       na = na,
-      quote_escape = escape,
+      escape = escape,
       eol = eol
     )
     Encoding(res) <- "UTF-8"
@@ -447,18 +375,8 @@ format_csv <- function(
   col_names = !append,
   quote = c("needed", "all", "none"),
   escape = c("double", "backslash", "none"),
-  eol = "\n",
-  quote_escape = deprecated()
+  eol = "\n"
 ) {
-  if (is_present(quote_escape)) {
-    deprecate_soft(
-      "2.0.0",
-      "write_delim(quote_escape = )",
-      "write_delim(escape = )"
-    )
-    escape <- quote_escape
-  }
-
   format_delim(
     x,
     delim = ",",
@@ -480,18 +398,8 @@ format_csv2 <- function(
   col_names = !append,
   quote = c("needed", "all", "none"),
   escape = c("double", "backslash", "none"),
-  eol = "\n",
-  quote_escape = deprecated()
+  eol = "\n"
 ) {
-  if (is_present(quote_escape)) {
-    deprecate_soft(
-      "2.0.0",
-      "write_delim(quote_escape = )",
-      "write_delim(escape = )"
-    )
-    escape <- quote_escape
-  }
-
   x <- change_decimal_separator(x, decimal_mark = ",")
   format_delim(
     x,
@@ -514,18 +422,8 @@ format_tsv <- function(
   col_names = !append,
   quote = c("needed", "all", "none"),
   escape = c("double", "backslash", "none"),
-  eol = "\n",
-  quote_escape = deprecated()
+  eol = "\n"
 ) {
-  if (is_present(quote_escape)) {
-    deprecate_soft(
-      "2.0.0",
-      "write_delim(quote_escape = )",
-      "write_delim(escape = )"
-    )
-    escape <- quote_escape
-  }
-
   format_delim(
     x,
     delim = "\t",
@@ -579,10 +477,10 @@ stream_delim <- function(
   append = FALSE,
   bom = FALSE,
   ...,
-  quote_escape,
+  escape,
   eol
 ) {
-  quote_escape <- standardise_escape(quote_escape)
+  escape <- standardise_escape(escape)
 
   file <- standardise_path(file, input = FALSE)
 
@@ -602,7 +500,7 @@ stream_delim <- function(
       con,
       ...,
       bom = bom,
-      quote_escape = quote_escape,
+      quote_escape = escape,
       eol = eol
     )
     close(con)
@@ -622,7 +520,7 @@ stream_delim <- function(
     file,
     ...,
     bom = bom,
-    quote_escape = quote_escape,
+    quote_escape = escape,
     eol = eol
   )
 }

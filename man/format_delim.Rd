@@ -15,8 +15,7 @@ format_delim(
   col_names = !append,
   quote = c("needed", "all", "none"),
   escape = c("double", "backslash", "none"),
-  eol = "\\n",
-  quote_escape = deprecated()
+  eol = "\\n"
 )
 
 format_csv(
@@ -26,8 +25,7 @@ format_csv(
   col_names = !append,
   quote = c("needed", "all", "none"),
   escape = c("double", "backslash", "none"),
-  eol = "\\n",
-  quote_escape = deprecated()
+  eol = "\\n"
 )
 
 format_csv2(
@@ -37,8 +35,7 @@ format_csv2(
   col_names = !append,
   quote = c("needed", "all", "none"),
   escape = c("double", "backslash", "none"),
-  eol = "\\n",
-  quote_escape = deprecated()
+  eol = "\\n"
 )
 
 format_tsv(
@@ -48,8 +45,7 @@ format_tsv(
   col_names = !append,
   quote = c("needed", "all", "none"),
   escape = c("double", "backslash", "none"),
-  eol = "\\n",
-  quote_escape = deprecated()
+  eol = "\\n"
 )
 }
 \arguments{
@@ -87,9 +83,6 @@ quote, or newline.
 
 \item{eol}{The end of line character to use. Most commonly either \code{"\\n"} for
 Unix style newlines, or \code{"\\r\\n"} for Windows style newlines.}
-
-\item{quote_escape}{\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#deprecated}{\figure{lifecycle-deprecated.svg}{options: alt='[Deprecated]'}}}{\strong{[Deprecated]}} Use the \code{escape}
-argument instead.}
 }
 \value{
 A string.
