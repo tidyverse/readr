@@ -58,45 +58,6 @@ read_table <- function(
   )
 }
 
-#' Read whitespace-separated columns into a tibble
-#'
-#' @description
-#' `r lifecycle::badge("deprecated")`
-#'
-#' This function is deprecated because we renamed it to [read_table()] and
-#' removed the old `read_table` function, which was too strict for most cases
-#' and was analogous to just using `read_fwf()`.
-#' @keywords internal
-#' @export
-read_table2 <- function(
-  file,
-  col_names = TRUE,
-  col_types = NULL,
-  locale = default_locale(),
-  na = "NA",
-  skip = 0,
-  n_max = Inf,
-  guess_max = min(n_max, 1000),
-  progress = show_progress(),
-  comment = "",
-  skip_empty_rows = TRUE
-) {
-  lifecycle::deprecate_soft("2.0.0", "read_table2()", "read_table()")
-  read_table(
-    file = file,
-    col_names = col_names,
-    col_types = col_types,
-    locale = locale,
-    na = na,
-    skip = skip,
-    n_max = n_max,
-    guess_max = guess_max,
-    progress = progress,
-    comment = comment,
-    skip_empty_rows = skip_empty_rows
-  )
-}
-
 #' @rdname spec_delim
 #' @export
 spec_table <- generate_spec_fun(read_table)

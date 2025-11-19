@@ -30,8 +30,6 @@ test_that("read_table can read a truncated file without crashing (740)", {
   )
 })
 
-# read_table2 -------------------------------------------------------------------
-
 test_that("read_table silently reads ragged columns", {
   x <- read_table("foo bar\n1 2\n3   4\n5     6\n")
   expect_equal(x$foo, c(1, 3, 5))
