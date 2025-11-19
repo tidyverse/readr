@@ -2,6 +2,13 @@
 
 ## readr (development version)
 
+- `read_table2()` has been removed from readr. This function was
+  deprecated in readr 2.0.0 (2021-07-20) in favor of
+  [`read_table()`](https://readr.tidyverse.org/dev/reference/read_table.md).
+  Use
+  [`read_table()`](https://readr.tidyverse.org/dev/reference/read_table.md)
+  instead.
+
 - The `quote_escape` parameter has been removed from
   [`write_delim()`](https://readr.tidyverse.org/dev/reference/write_delim.md),
   [`write_csv()`](https://readr.tidyverse.org/dev/reference/write_delim.md),
@@ -311,8 +318,7 @@ license.
   new parser. When the first edition parsing code is eventually removed
   from readr they will be removed.
 
-- [`read_table2()`](https://readr.tidyverse.org/dev/reference/read_table2.md)
-  has been renamed to
+- `read_table2()` has been renamed to
   [`read_table()`](https://readr.tidyverse.org/dev/reference/read_table.md),
   as most users expect
   [`read_table()`](https://readr.tidyverse.org/dev/reference/read_table.md)
@@ -819,8 +825,7 @@ drawbacks of either method.
 - `read*()` functions now have a more informative error when trying to
   read a remote bz2 file
   ([\#891](https://github.com/tidyverse/readr/issues/891)).
-- `spec_table2()` function added to correspond to
-  [`read_table2()`](https://readr.tidyverse.org/dev/reference/read_table2.md)
+- `spec_table2()` function added to correspond to `read_table2()`
   ([\#778](https://github.com/tidyverse/readr/issues/778),
   [@mawds](https://github.com/mawds)).
 - [`parse_factor()`](https://readr.tidyverse.org/dev/reference/parse_factor.md)
@@ -850,8 +855,7 @@ drawbacks of either method.
 - `read_*()` now do not print a progress bar when running inside a
   RStudio notebook chunk
   ([\#793](https://github.com/tidyverse/readr/issues/793))
-- [`read_table2()`](https://readr.tidyverse.org/dev/reference/read_table2.md)
-  now skips comments anywhere in the file
+- `read_table2()` now skips comments anywhere in the file
   ([\#908](https://github.com/tidyverse/readr/issues/908)).
 - [`parse_factor()`](https://readr.tidyverse.org/dev/reference/parse_factor.md)
   now handles the case of empty strings separately, so you can have a
@@ -868,8 +872,8 @@ drawbacks of either method.
 - [`read_delim()`](https://readr.tidyverse.org/dev/reference/read_delim.md)
   now ignores whitespace between the delimiter and quoted fields
   ([\#668](https://github.com/tidyverse/readr/issues/668)).
-- [`read_table2()`](https://readr.tidyverse.org/dev/reference/read_table2.md)
-  now properly ignores blank lines at the end of a file like
+- `read_table2()` now properly ignores blank lines at the end of a file
+  like
   [`read_table()`](https://readr.tidyverse.org/dev/reference/read_table.md)
   and
   [`read_delim()`](https://readr.tidyverse.org/dev/reference/read_delim.md)
@@ -976,9 +980,8 @@ CRAN release: 2017-03-22
 - [`read_table()`](https://readr.tidyverse.org/dev/reference/read_table.md)
   can now handle files with many lines of leading comments
   ([\#563](https://github.com/tidyverse/readr/issues/563)).
-- [`read_table2()`](https://readr.tidyverse.org/dev/reference/read_table2.md)
-  which allows any number of whitespace characters as delimiters, a more
-  exact replacement for
+- `read_table2()` which allows any number of whitespace characters as
+  delimiters, a more exact replacement for
   [`utils::read.table()`](https://rdrr.io/r/utils/read.table.html)
   ([\#608](https://github.com/tidyverse/readr/issues/608)).
 
