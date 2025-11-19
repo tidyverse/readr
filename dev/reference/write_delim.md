@@ -24,8 +24,7 @@ write_delim(
   escape = c("double", "backslash", "none"),
   eol = "\n",
   num_threads = readr_threads(),
-  progress = show_progress(),
-  quote_escape = deprecated()
+  progress = show_progress()
 )
 
 write_csv(
@@ -38,8 +37,7 @@ write_csv(
   escape = c("double", "backslash", "none"),
   eol = "\n",
   num_threads = readr_threads(),
-  progress = show_progress(),
-  quote_escape = deprecated()
+  progress = show_progress()
 )
 
 write_csv2(
@@ -52,8 +50,7 @@ write_csv2(
   escape = c("double", "backslash", "none"),
   eol = "\n",
   num_threads = readr_threads(),
-  progress = show_progress(),
-  quote_escape = deprecated()
+  progress = show_progress()
 )
 
 write_excel_csv(
@@ -67,8 +64,7 @@ write_excel_csv(
   escape = c("double", "backslash", "none"),
   eol = "\n",
   num_threads = readr_threads(),
-  progress = show_progress(),
-  quote_escape = deprecated()
+  progress = show_progress()
 )
 
 write_excel_csv2(
@@ -82,8 +78,7 @@ write_excel_csv2(
   escape = c("double", "backslash", "none"),
   eol = "\n",
   num_threads = readr_threads(),
-  progress = show_progress(),
-  quote_escape = deprecated()
+  progress = show_progress()
 )
 
 write_tsv(
@@ -96,8 +91,7 @@ write_tsv(
   escape = c("double", "backslash", "none"),
   eol = "\n",
   num_threads = readr_threads(),
-  progress = show_progress(),
-  quote_escape = deprecated()
+  progress = show_progress()
 )
 ```
 
@@ -174,10 +168,6 @@ write_tsv(
   updated every 50,000 values and will only display if estimated reading
   time is 5 seconds or more. The automatic progress bar can be disabled
   by setting option `readr.show_progress` to `FALSE`.
-
-- quote_escape:
-
-  **\[deprecated\]** Use the `escape` argument instead.
 
 ## Value
 

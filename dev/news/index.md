@@ -2,6 +2,21 @@
 
 ## readr (development version)
 
+- The `quote_escape` parameter has been removed from
+  [`write_delim()`](https://readr.tidyverse.org/dev/reference/write_delim.md),
+  [`write_csv()`](https://readr.tidyverse.org/dev/reference/write_delim.md),
+  [`write_csv2()`](https://readr.tidyverse.org/dev/reference/write_delim.md),
+  [`write_excel_csv()`](https://readr.tidyverse.org/dev/reference/write_delim.md),
+  [`write_excel_csv2()`](https://readr.tidyverse.org/dev/reference/write_delim.md),
+  [`write_tsv()`](https://readr.tidyverse.org/dev/reference/write_delim.md),
+  [`format_delim()`](https://readr.tidyverse.org/dev/reference/format_delim.md),
+  [`format_csv()`](https://readr.tidyverse.org/dev/reference/format_delim.md),
+  [`format_csv2()`](https://readr.tidyverse.org/dev/reference/format_delim.md),
+  and
+  [`format_tsv()`](https://readr.tidyverse.org/dev/reference/format_delim.md).
+  This parameter was deprecated in readr 2.0.0 (2021-07-20) in favor of
+  the `escape` parameter. Use `escape` instead.
+
 - The `path` parameter has been removed from
   [`write_delim()`](https://readr.tidyverse.org/dev/reference/write_delim.md),
   [`write_csv()`](https://readr.tidyverse.org/dev/reference/write_delim.md),
