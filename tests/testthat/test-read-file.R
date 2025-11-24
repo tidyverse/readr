@@ -68,7 +68,8 @@ test_that("read_file returns \"\" on an empty file", {
   expect_equal(read_file(test_path("empty-file")), "")
 })
 
-test_that("read_file errors when provided an empty vector") {
+test_that("read_file errors when provided an empty vector")
+{
   expect_error(read_file(raw()))
   expect_error(read_file(numeric()))
 }
@@ -89,7 +90,8 @@ test_that("read_file_raw returns raw() on an empty file", {
   expect_equal(read_file_raw(test_path("empty-file")), raw())
 })
 
-test_that("read_file_raw errors when provided an empty vector") {
+test_that("read_file_raw errors when provided an empty vector")
+{
   expect_error(read_file_raw(raw()))
   expect_error(read_file_raw(numeric()))
 }
