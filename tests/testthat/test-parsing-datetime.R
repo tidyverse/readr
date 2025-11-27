@@ -362,4 +362,3 @@ test_that("parse_date() handles mixed or malformed date inputs safely", {
   expect_true(is.na(parsed[2]))
   expect_true(is.na(parsed[3]))
 })
-
