@@ -348,3 +348,18 @@ test_that("Invalid formats error", {
     error = TRUE
   )
 })
+
+test_that("parse_date() handles mixed or malformed date inputs safely", {
+  x <- c("2024-01-05", "05/01/2024", "not-a-date")
+
+  parsed <- parse_date(
+    x,
+    format = "%Y-%m-%d",
+    locale = locale(date_names = "en")
+  )
+
+  expect_equal(parsed[1], as.Date("2024-01-05"))
+  expect_true(is.na(parsed[2]))
+  expect_true(is.na(parsed[3]))
+})
+
