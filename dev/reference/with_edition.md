@@ -46,6 +46,17 @@ with_edition(1, read_csv("1,2\n3,4,5", col_names = c("X", "Y", "Z")))
 #> 1     1     2    NA
 #> 2     3     4     5
 with_edition(2, read_csv("1,2\n3,4,5", col_names = c("X", "Y", "Z")))
+#> Warning: The `file` argument of `vroom()` must use `I()` for literal data as of
+#> vroom 1.5.0.
+#>   
+#>   # Bad:
+#>   vroom("X,Y\n1.5,2.3\n")
+#>   
+#>   # Good:
+#>   vroom(I("X,Y\n1.5,2.3\n"))
+#> ℹ The deprecated feature was likely used in the readr package.
+#>   Please report the issue at
+#>   <https://github.com/tidyverse/readr/issues>.
 #> Warning: One or more parsing issues, call `problems()` on your data frame for
 #> details, e.g.:
 #>   dat <- vroom(...)
