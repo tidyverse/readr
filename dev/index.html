@@ -203,7 +203,7 @@
 <div class="section level2">
 <h2 id="editions">Editions<a class="anchor" aria-label="anchor" href="#editions"></a>
 </h2>
-<p>readr got a new parsing engine in version 2.0.0 (released July 2021). In this so-called second edition, readr calls <code><a href="https://vroom.r-lib.org/reference/vroom.html" class="external-link">vroom::vroom()</a></code>, by default.</p>
+<p>readr got a new parsing engine in version 2.0.0 (released July 2021). In this so-called second edition, readr calls <code><a href="https://vroom.tidyverse.org/reference/vroom.html" class="external-link">vroom::vroom()</a></code>, by default.</p>
 <p>The parsing engine in readr versions prior to 2.0.0 is now called the first edition. If you’re using readr &gt;= 2.0.0, you can still access first edition parsing via the functions <code>with_edition(1, ...)</code> and <code>local_edition(1)</code>. And, obviously, if you’re using readr &lt; 2.0.0, you will get first edition parsing, by definition, because that’s all there is.</p>
 <p>We will continue to support the first edition for a number of releases, but the overall goal is to make the second edition uniformly better than the first. Therefore the plan is to eventually deprecate and then remove the first edition code. New code and actively-maintained code should use the second edition. The workarounds <code>with_edition(1, ...)</code> and <code>local_edition(1)</code> are offered as a pragmatic way to patch up legacy code or as a temporary solution for infelicities identified as the second edition matures.</p>
 </div>

@@ -352,7 +352,7 @@ read_tsv(
   Learn more in
   [`should_read_lazy()`](https://readr.tidyverse.org/dev/reference/should_read_lazy.md)
   and in the documentation for the `altrep` argument of
-  [`vroom::vroom()`](https://vroom.r-lib.org/reference/vroom.html).
+  [`vroom::vroom()`](https://vroom.tidyverse.org/reference/vroom.html).
 
 ## Value
 
@@ -601,7 +601,7 @@ problems(y)
 #> # A tibble: 1 × 5
 #>     row   col expected actual file                            
 #>   <int> <int> <chr>    <chr>  <chr>                           
-#> 1     4     1 a double b      /tmp/RtmpN9L7YC/file18d21a89039d
+#> 1     4     1 a double b      /tmp/Rtmpm4cvuk/file19496a740ae6
 
 # Column names --------------------------------------------------------------
 # By default, readr duplicate name repair is noisy

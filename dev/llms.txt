@@ -162,7 +162,7 @@ gives an expanded introduction to readr.
 
 readr got a new parsing engine in version 2.0.0 (released July 2021). In
 this so-called second edition, readr calls
-[`vroom::vroom()`](https://vroom.r-lib.org/reference/vroom.html), by
+[`vroom::vroom()`](https://vroom.tidyverse.org/reference/vroom.html), by
 default.
 
 The parsing engine in readr versions prior to 2.0.0 is now called the

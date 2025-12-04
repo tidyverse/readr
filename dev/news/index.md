@@ -192,7 +192,7 @@ CRAN release: 2021-08-10
 
 - [`read_tsv()`](https://readr.tidyverse.org/dev/reference/read_delim.md)
   now correctly passes the `quote` and `na` arguments to
-  [`vroom::vroom()`](https://vroom.r-lib.org/reference/vroom.html)
+  [`vroom::vroom()`](https://vroom.tidyverse.org/reference/vroom.html)
   ([\#1254](https://github.com/tidyverse/readr/issues/1254),
   [\#1255](https://github.com/tidyverse/readr/issues/1255))
 

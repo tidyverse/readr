@@ -258,7 +258,7 @@ fwf_cols(...)
   Learn more in
   [`should_read_lazy()`](https://readr.tidyverse.org/dev/reference/should_read_lazy.md)
   and in the documentation for the `altrep` argument of
-  [`vroom::vroom()`](https://vroom.r-lib.org/reference/vroom.html).
+  [`vroom::vroom()`](https://vroom.tidyverse.org/reference/vroom.html).
 
 - skip_empty_rows:
 

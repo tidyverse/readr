@@ -39,7 +39,7 @@ error messages with informative formatting. Organize code with
 ## Key Technical Details
 
 **Architecture** - Edition 2 (default since v2.0.0): Delegates to
-[`vroom::vroom()`](https://vroom.r-lib.org/reference/vroom.html) for
+[`vroom::vroom()`](https://vroom.tidyverse.org/reference/vroom.html) for
 multi-threaded, lazy parsing - Edition 1 (legacy): Single-threaded eager
 parser in C++, accessible via `with_edition(1, ...)` or
 `local_edition(1)` - C++ code uses cpp11 interface (in `src/`) for
