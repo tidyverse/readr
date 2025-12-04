@@ -38,7 +38,7 @@ Imports:
     rlang,
     tibble,
     utils,
-    vroom (>= 1.6.0),
+    vroom (>= 1.6.7.9000),
     withr
 Suggests:
     covr,
@@ -65,3 +65,5 @@ Encoding: UTF-8
 Language: en-US
 Roxygen: list(markdown = TRUE, r6 = FALSE)
 RoxygenNote: 7.3.3
+Remotes:  
+    tidyverse/vroom
