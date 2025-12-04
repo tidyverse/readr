@@ -3,8 +3,8 @@
     Code
       format_delim(df, "\t", escape = "invalid")
     Condition
-      Error in `match.arg()`:
-      ! 'arg' should be one of "double", "backslash", "none"
+      Error in `vroom::vroom_format()`:
+      ! `escape` must be one of "double", "backslash", or "none", not "invalid".
 
 # Error when writing list columns or matrix columns
 
