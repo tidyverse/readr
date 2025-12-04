@@ -46,3 +46,4 @@
 ^[.]?air[.]toml$
 ^CLAUDE\.md$
 ^\.claude$
+^scratch\.R$

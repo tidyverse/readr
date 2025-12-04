@@ -198,7 +198,11 @@ test_that("write_csv2 and format_csv2 use same precision as write.csv2 (#1087)",
 test_that("Can change the escape behavior for quotes", {
   df <- data.frame(x = c("a", '"', ",", "\n"))
 
-  expect_snapshot(format_delim(df, "\t", escape = "invalid"), error = TRUE)
+  expect_snapshot(
+    format_delim(df, "\t", escape = "invalid"),
+    error = TRUE,
+    variant = edition_variant()
+  )
 
   expect_equal(format_delim(df, "\t"), "x\na\n\"\"\"\"\n,\n\"\n\"\n")
   expect_equal(

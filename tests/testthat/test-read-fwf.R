@@ -216,8 +216,16 @@ test_that("fwf_cols produces correct fwf_positions object with elements of lengt
 
 
 test_that("fwf_cols throws error when arguments are not length 1 or 2", {
-  expect_snapshot(fwf_cols(a = 1:3, b = 4:5), error = TRUE)
-  expect_snapshot(fwf_cols(a = c(), b = 4:5), error = TRUE)
+  expect_snapshot(
+    fwf_cols(a = 1:3, b = 4:5),
+    error = TRUE,
+    variant = edition_variant()
+  )
+  expect_snapshot(
+    fwf_cols(a = c(), b = 4:5),
+    error = TRUE,
+    variant = edition_variant()
+  )
 })
 
 test_that("fwf_cols works with unnamed columns", {

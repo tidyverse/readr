@@ -1,11 +1,3 @@
-# Can change the escape behavior for quotes
-
-    Code
-      format_delim(df, "\t", escape = "invalid")
-    Condition
-      Error in `vroom::vroom_format()`:
-      ! `escape` must be one of "double", "backslash", or "none", not "invalid".
-
 # Error when writing list columns or matrix columns
 
     Code
