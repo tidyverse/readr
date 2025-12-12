@@ -43,6 +43,9 @@ datasource <- function(
   comment = "",
   skip_quote = TRUE
 ) {
+  if (length(file) == 0) {
+    stop("`file` vector length must be greater than 0", call. = FALSE)
+  }
   if (inherits(file, "source")) {
     # If `skip` and `comment` arguments are expliictly passed, we want to use
     # those even if `file` is already a source
