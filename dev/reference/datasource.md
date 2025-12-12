@@ -102,7 +102,7 @@ datasource(readr_example("mtcars.csv"))
 #> [1] "source_file" "source"     
 datasource(readr_example("mtcars.csv.bz2"))
 #> [[1]]
-#> [1] "/tmp/RtmpJT3MrT/file196852386a00"
+#> [1] "/tmp/RtmpTrWMhS/file1a69244fc019"
 #> 
 #> $skip
 #> [1] 0
@@ -117,13 +117,13 @@ datasource(readr_example("mtcars.csv.bz2"))
 #> [1] TRUE
 #> 
 #> $env
-#> <environment: 0x55a0dcddf418>
+#> <environment: 0x55e4e16e34f8>
 #> 
 #> attr(,"class")
 #> [1] "source_file" "source"     
 datasource(readr_example("mtcars.csv.zip"))
 #> [[1]]
-#> [1] "/tmp/RtmpJT3MrT/file19686f038a78"
+#> [1] "/tmp/RtmpTrWMhS/file1a6975de0d8"
 #> 
 #> $skip
 #> [1] 0
@@ -138,7 +138,7 @@ datasource(readr_example("mtcars.csv.zip"))
 #> [1] TRUE
 #> 
 #> $env
-#> <environment: 0x55a0dcccc680>
+#> <environment: 0x55e4e11e4510>
 #> 
 #> attr(,"class")
 #> [1] "source_file" "source"     
@@ -150,7 +150,7 @@ datasource("https://github.com/tidyverse/readr/raw/main/inst/extdata/mtcars.csv"
 con <- rawConnection(charToRaw("abc\n123"))
 datasource(con)
 #> [[1]]
-#> [1] "/tmp/RtmpJT3MrT/file19682713c001"
+#> [1] "/tmp/RtmpTrWMhS/file1a69f3d12fe"
 #> 
 #> $skip
 #> [1] 0
@@ -165,7 +165,7 @@ datasource(con)
 #> [1] TRUE
 #> 
 #> $env
-#> <environment: 0x55a0dca69ba8>
+#> <environment: 0x55e4e10519c0>
 #> 
 #> attr(,"class")
 #> [1] "source_file" "source"     
