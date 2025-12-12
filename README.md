@@ -48,6 +48,34 @@ pak::pak("tidyverse/readr")
 
 ## Usage
 
+### Example: parsing date columns when reading CSVs
+
+When reading CSVs that contain dates, specify `col_types` (and `locale` if needed) so `readr` parses them correctly. Example:
+
+```r
+library(readr)
+
+csv_text <- "id,date,value
+1,2025-01-01,10
+2,01/02/2025,20
+3,2025-03-15,30"
+
+# Example: explicitly set column types (date formats can vary)
+df <- read_csv(csv_text,
+               col_types = cols(
+                 id = col_integer(),
+                 date = col_date(format = "%Y-%m-%d"),
+                 value = col_double()
+               ))
+
+# If dates use different formats or locales, read as character then parse with parse_date():
+df2 <- read_csv(csv_text, col_types = cols(id = col_integer(), date = col_character(), value = col_double()))
+df2$date_parsed <- parse_date(df2$date, format = "%d/%m/%Y") # handle dd/mm/YYYY
+
+print(df)
+print(df2)
+
+
 readr is part of the core tidyverse, so you can load it with:
 
 ``` r
