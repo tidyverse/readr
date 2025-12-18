@@ -253,7 +253,7 @@ each line is divided up into fields.
   [`fwf_widths()`](https://readr.tidyverse.org/dev/reference/read_fwf.md)
   [`fwf_positions()`](https://readr.tidyverse.org/dev/reference/read_fwf.md)
   [`fwf_cols()`](https://readr.tidyverse.org/dev/reference/read_fwf.md)
-  : Read a fixed width file into a tibble
+  : Read a fixed-width file into a tibble
 - [`read_log()`](https://readr.tidyverse.org/dev/reference/read_log.md)
   : Read common/combined log file into a tibble
 - [`read_table()`](https://readr.tidyverse.org/dev/reference/read_table.md)

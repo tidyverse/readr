@@ -114,8 +114,8 @@ read_tsv(
 
   Files ending in `.gz`, `.bz2`, `.xz`, or `.zip` will be automatically
   uncompressed. Files starting with `http://`, `https://`, `ftp://`, or
-  `ftps://` will be automatically downloaded. Remote gz files can also
-  be automatically downloaded and decompressed.
+  `ftps://` will be automatically downloaded. Remote `.gz` files can
+  also be automatically downloaded and decompressed.
 
   Literal data is most useful for examples and tests. To be recognised
   as literal data, the input must be either wrapped with
@@ -601,7 +601,7 @@ problems(y)
 #> # A tibble: 1 × 5
 #>     row   col expected actual file                            
 #>   <int> <int> <chr>    <chr>  <chr>                           
-#> 1     4     1 a double b      /tmp/RtmpTrWMhS/file1a696b0e39b3
+#> 1     4     1 a double b      /tmp/RtmpK9eWOQ/file1ede70d7e2ce
 
 # Column names --------------------------------------------------------------
 # By default, readr duplicate name repair is noisy
