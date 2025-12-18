@@ -1,7 +1,8 @@
 #' Create a source object.
 #'
-#' @param file Either a path to a file, a connection, or literal data
-#'    (either a single string or a raw vector).
+#' @param file Either a path to a file, a connection, literal data
+#'    (either a single string or a raw vector), or a vector of
+#'    paths.
 #'
 #'    Files ending in `.gz`, `.bz2`, `.xz`, or `.zip` will
 #'    be automatically uncompressed. Files starting with `http://`,
