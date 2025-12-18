@@ -15,3 +15,4 @@ compile_commands.json
 /doc/
 /Meta/
 .claude/settings.local.json
+.claude/plans/*

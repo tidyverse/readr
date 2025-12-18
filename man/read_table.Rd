@@ -26,7 +26,7 @@ read_table(
 Files ending in \code{.gz}, \code{.bz2}, \code{.xz}, or \code{.zip} will
 be automatically uncompressed. Files starting with \verb{http://},
 \verb{https://}, \verb{ftp://}, or \verb{ftps://} will be automatically
-downloaded. Remote gz files can also be automatically downloaded and
+downloaded. Remote \code{.gz} files can also be automatically downloaded and
 decompressed.
 
 Literal data is most useful for examples and tests. To be recognised as
