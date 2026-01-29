@@ -599,9 +599,9 @@ y
 #> 3    NA
 problems(y)
 #> # A tibble: 1 × 5
-#>     row   col expected actual file                            
-#>   <int> <int> <chr>    <chr>  <chr>                           
-#> 1     4     1 a double b      /tmp/RtmpK9eWOQ/file1ede70d7e2ce
+#>     row   col expected actual file                                     
+#>   <int> <int> <chr>    <chr>  <chr>                                    
+#> 1     4     1 a double b      /tmp/Rtmpsy4dRY/vroom-chr-to-file-1c0f28…
 
 # Column names --------------------------------------------------------------
 # By default, readr duplicate name repair is noisy
