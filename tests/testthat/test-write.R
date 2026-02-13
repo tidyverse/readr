@@ -288,3 +288,21 @@ test_that("write_*() supports writing with windows newlines", {
     charToRaw("x\r\n1\r\n2\r\n3\r\n")
   )
 })
+
+test_that("write_*() coerces S3 objects implemented as lists to character", {
+  tmp <- tempfile()
+  on.exit(unlink(tmp))
+
+  x <- c(
+    utils::person("John", "Doe"),
+    utils::person("Jane", "Smith")
+  )
+  df <- data.frame(row.names = 1:length(x))
+  df$x <- x
+  write_delim(df, tmp)
+
+  expect_identical(
+    gsub(pattern = "\"", replacement = "", readLines(tmp)[-1]),
+    as.character(x)
+  )
+})
