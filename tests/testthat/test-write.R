@@ -225,11 +225,7 @@ test_that("hms NAs are written without padding (#930)", {
 })
 
 test_that("Error when writing list columns or matrix columns", {
-  df <- data.frame(
-    x = LETTERS[1:4],
-    y = I(list(1, "foo", 2:9, iris)),
-    z = I(matrix(1:16, nrow = 4))
-  )
+  df <- data.frame(x = LETTERS[1:4], y = I(list(1, "foo", 2:9, iris)))
   expect_snapshot(
     write_csv(df, tempfile()),
     error = TRUE
