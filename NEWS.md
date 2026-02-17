@@ -1,5 +1,7 @@
 # readr (development version)
 
+* `read_csv()`, `read_csv2()`, `read_tsv()`, `read_delim()`, and `read_fwf()` now emit a deprecation warning when literal data is passed without wrapping it in `I()`. For example, usage like `read_csv(I("x,y\n1,2"))` is preferred over `read_csv("x,y\n1,2")` (#1611).
+
 * `read_table2()` has been removed from readr. This function was deprecated in
   readr 2.0.0 (2021-07-20) in favor of `read_table()`. Use `read_table()`
   instead.

@@ -267,6 +267,13 @@ read_delim <- function(
     )
   }
 
+  file <- standardise_literal_data(
+    file,
+    "read_delim",
+    env = current_env(),
+    user_env = caller_env()
+  )
+
   vroom::vroom(
     file,
     delim = delim,
@@ -359,6 +366,14 @@ read_csv <- function(
       )
     )
   }
+
+  file <- standardise_literal_data(
+    file,
+    "read_csv",
+    env = current_env(),
+    user_env = caller_env()
+  )
+
   vroom::vroom(
     file,
     delim = ",",
@@ -457,6 +472,14 @@ read_csv2 <- function(
       )
     )
   }
+
+  file <- standardise_literal_data(
+    file,
+    "read_csv2",
+    env = current_env(),
+    user_env = caller_env()
+  )
+
   vroom::vroom(
     file,
     delim = ";",
@@ -548,6 +571,13 @@ read_tsv <- function(
     )
   }
 
+  file <- standardise_literal_data(
+    file,
+    "read_tsv",
+    env = current_env(),
+    user_env = caller_env()
+  )
+
   vroom::vroom(
     file,
     delim = "\t",
@@ -575,6 +605,40 @@ read_tsv <- function(
 }
 
 # Helper functions for reading from delimited files ----------------------------
+
+# This became necessary when vroom 1.7.0 moved up to deprecate_warn() for
+# literal data that was not wrapped in I().
+#
+# We don't want readr users:
+# * To go abruptly from no message to deprecate_warn()
+# * To get a message from vroom that tells them to open an issue on readr
+standardise_literal_data <- function(file, fn, env, user_env) {
+  if (
+    is.character(file) &&
+      length(file) == 1 &&
+      grepl("\n", file) &&
+      !inherits(file, "AsIs")
+  ) {
+    lifecycle::deprecate_soft(
+      "2.2.0",
+      paste0(fn, "(file = 'should use `I()` for literal data')"),
+      details = c(
+        " " = "",
+        " " = "# Bad (for example):",
+        " " = 'read_csv("x,y\\n1,2")',
+        " " = "",
+        " " = "# Good:",
+        " " = 'read_csv(I("x,y\\n1,2"))'
+      ),
+      env = env,
+      user_env = user_env
+    )
+    I(file)
+  } else {
+    file
+  }
+}
+
 read_tokens <- function(
   data,
   tokenizer,

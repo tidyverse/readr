@@ -285,3 +285,19 @@ test_that("fwf_positions always returns col_names as character (#797)", {
   expect_type(info$end, "double")
   expect_type(info$col_names, "character")
 })
+
+test_that("literal data without I() emits deprecation warning (#1611)", {
+  skip_if_edition_first()
+  withr::local_options(lifecycle_verbosity = "warning")
+
+  expect_snapshot(
+    x <- read_fwf("abcd\nefgh", fwf_widths(c(2, 2)), show_col_types = FALSE),
+    cnd_class = TRUE
+  )
+})
+
+test_that("literal data with I() does not warn", {
+  expect_no_condition(
+    read_fwf(I("abcd\nefgh"), fwf_widths(c(2, 2)), show_col_types = FALSE)
+  )
+})
