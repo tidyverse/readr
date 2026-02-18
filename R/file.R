@@ -25,7 +25,7 @@
 #'
 #' read_lines(I(x))
 read_file <- function(file, locale = default_locale()) {
-  if (empty_file(file)) {
+  if (empty_file(file) || empty_raw(file)) {
     return("")
   }
 
@@ -36,7 +36,7 @@ read_file <- function(file, locale = default_locale()) {
 #' @export
 #' @rdname read_file
 read_file_raw <- function(file) {
-  if (empty_file(file)) {
+  if (empty_file(file) || empty_raw(file)) {
     return(raw())
   }
 

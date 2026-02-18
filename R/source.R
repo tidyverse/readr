@@ -323,6 +323,10 @@ empty_file <- function(x) {
     file.info(x, extra_cols = FALSE)$size == 0
 }
 
+empty_raw <- function(x) {
+  is.raw(x) && length(x) == 0
+}
+
 #' Returns values from the clipboard
 #'
 #' This is useful in the [read_delim()] functions to read from the clipboard.
