@@ -81,8 +81,7 @@ set \code{show_col_types = FALSE} or set \code{options(readr.show_col_types = FA
 \item{trim_ws}{Should leading and trailing whitespace (ASCII spaces and tabs) be trimmed from
 each field before parsing it?}
 
-\item{skip}{Number of lines to skip before reading data. If \code{comment} is
-supplied any commented lines are ignored \emph{after} skipping.}
+\item{skip}{Number of lines to skip before reading data.}
 
 \item{n_max}{Maximum number of lines to read.}
 

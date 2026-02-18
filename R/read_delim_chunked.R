@@ -76,6 +76,7 @@ read_delimited_chunked <- generate_read_delimited_chunked(read_delimited)
 
 #' Read a delimited file by chunks
 #'
+#' @inheritParams datasource
 #' @inheritParams read_delim
 #' @param callback A callback function to call on each chunk
 #' @param chunk_size The number of rows to include in each chunk

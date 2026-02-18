@@ -4,6 +4,7 @@
 #' and square brackets for quoting, and there may be literal quotes embedded
 #' in a quoted string. The dash, "-", is used for missing values.
 #'
+#' @inheritParams datasource
 #' @inheritParams read_delim
 #' @export
 #' @examples

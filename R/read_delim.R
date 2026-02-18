@@ -8,7 +8,6 @@ NULL
 #' flat file data, comma separated values and tab separated values,
 #' respectively. `read_csv2()` uses `;` for the field separator and `,` for the
 #' decimal point. This format is common in some European countries.
-#' @inheritParams datasource
 #' @inheritParams tokenizer_delim
 #' @inheritParams vroom::vroom
 #' @param col_names Either `TRUE`, `FALSE` or a character vector
