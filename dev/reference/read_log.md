@@ -113,8 +113,7 @@ read_log(
 
 - skip:
 
-  Number of lines to skip before reading data. If `comment` is supplied
-  any commented lines are ignored *after* skipping.
+  Number of lines to skip before reading data.
 
 - n_max:
 

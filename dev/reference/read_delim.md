@@ -110,20 +110,19 @@ read_tsv(
 - file:
 
   Either a path to a file, a connection, or literal data (either a
-  single string or a raw vector).
+  single string or a raw vector). `file` can also be a character vector
+  containing multiple filepaths or a list containing multiple
+  connections.
 
   Files ending in `.gz`, `.bz2`, `.xz`, or `.zip` will be automatically
-  uncompressed. Files starting with `http://`, `https://`, `ftp://`, or
-  `ftps://` will be automatically downloaded. Remote `.gz` files can
-  also be automatically downloaded and decompressed.
+  decompressed. Files starting with `http://`, `https://`, `ftp://`, or
+  `ftps://` will be automatically downloaded. Remote compressed files
+  (`.gz`, `.bz2`, `.xz`, `.zip`) will be automatically downloaded and
+  decompressed.
 
   Literal data is most useful for examples and tests. To be recognised
   as literal data, wrap the input with
   [`I()`](https://rdrr.io/r/base/AsIs.html).
-
-  Using a value of
-  [`clipboard()`](https://readr.tidyverse.org/dev/reference/clipboard.md)
-  will read from the system clipboard.
 
 - delim:
 
@@ -599,7 +598,7 @@ problems(y)
 #> # A tibble: 1 × 5
 #>     row   col expected actual file                                     
 #>   <int> <int> <chr>    <chr>  <chr>                                    
-#> 1     4     1 a double b      /tmp/RtmpHhqSPu/vroom-chr-to-file-19d031…
+#> 1     4     1 a double b      /tmp/RtmpxekGrG/vroom-chr-to-file-19d295…
 
 # Column names --------------------------------------------------------------
 # By default, readr duplicate name repair is noisy
