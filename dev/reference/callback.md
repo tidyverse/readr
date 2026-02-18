@@ -24,6 +24,10 @@ These classes are used to define callback behaviors.
   parameter `acc` to specify the initial value of the accumulator. The
   parameter `acc` is `NULL` by default.
 
+- ListCallback:
+
+  Callback function that returns the results in a list.
+
 ## See also
 
 Other chunked:
