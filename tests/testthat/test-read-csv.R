@@ -467,3 +467,51 @@ test_that("read_tsv correctly uses the quote and na arguments (#1254, #1255)", {
   expect_equal(x[[1]], c("\"one baz\"", "three"))
   expect_equal(x[[2]], c("two", ""))
 })
+
+test_that("literal data without I() emits deprecation warning (#1611)", {
+  skip_if_edition_first()
+  withr::local_options(lifecycle_verbosity = "warning")
+
+  expect_snapshot(
+    x <- read_csv("x,y\n1,2", show_col_types = FALSE),
+    cnd_class = TRUE
+  )
+  expect_snapshot(
+    x <- read_csv2("x;y\n1;2", show_col_types = FALSE),
+    cnd_class = TRUE
+  )
+  expect_snapshot(
+    x <- read_tsv("x\ty\n1\t2", show_col_types = FALSE),
+    cnd_class = TRUE
+  )
+  expect_snapshot(
+    x <- read_delim("x|y\n1|2", delim = "|", show_col_types = FALSE),
+    cnd_class = TRUE
+  )
+})
+
+test_that("literal data with I() does not warn", {
+  expect_no_condition(
+    read_csv(I("x,y\n1,2"), show_col_types = FALSE)
+  )
+  # read_csv2 emits an info message about decimal mark, so expect_message()
+  # absorbs that
+  expect_message(
+    expect_no_warning(
+      read_csv2(I("x;y\n1;2"), show_col_types = FALSE),
+      class = "lifecycle_warning_deprecated"
+    )
+  )
+  expect_no_condition(
+    read_tsv(I("x\ty\n1\t2"), show_col_types = FALSE)
+  )
+  expect_no_condition(
+    read_delim(I("x|y\n1|2"), delim = "|", show_col_types = FALSE)
+  )
+})
+
+test_that("file paths do not trigger literal data warning", {
+  expect_no_condition(
+    read_csv(test_fixture("basic-df.csv"), show_col_types = FALSE)
+  )
+})

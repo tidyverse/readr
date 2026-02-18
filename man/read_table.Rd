@@ -30,9 +30,7 @@ downloaded. Remote \code{.gz} files can also be automatically downloaded and
 decompressed.
 
 Literal data is most useful for examples and tests. To be recognised as
-literal data, the input must be either wrapped with \code{I()}, be a string
-containing at least one new line, or be a vector containing at least one
-string with a new line.
+literal data, wrap the input with \code{I()}.
 
 Using a value of \code{\link[=clipboard]{clipboard()}} will read from the system clipboard.}
 

@@ -143,6 +143,13 @@ read_fwf <- function(
     return(warn_problems(out))
   }
 
+  file <- standardise_literal_data(
+    file,
+    "read_fwf",
+    env = current_env(),
+    user_env = caller_env()
+  )
+
   vroom::vroom_fwf(
     file,
     col_positions = col_positions,
