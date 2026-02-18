@@ -20,6 +20,7 @@ These classes are used to define callback behaviors.
 Callback function that accumulates a single result. Requires the parameter \code{acc} to specify
 the initial value of the accumulator.  The parameter \code{acc} is \code{NULL} by default.
 }
+\item{ListCallback}{Callback function that returns the results in a list.}
 }
 }
 \examples{
