@@ -2,6 +2,18 @@
 
 ## readr (development version)
 
+- [`read_csv()`](https://readr.tidyverse.org/dev/reference/read_delim.md),
+  [`read_csv2()`](https://readr.tidyverse.org/dev/reference/read_delim.md),
+  [`read_tsv()`](https://readr.tidyverse.org/dev/reference/read_delim.md),
+  [`read_delim()`](https://readr.tidyverse.org/dev/reference/read_delim.md),
+  and
+  [`read_fwf()`](https://readr.tidyverse.org/dev/reference/read_fwf.md)
+  now emit a deprecation warning when literal data is passed without
+  wrapping it in [`I()`](https://rdrr.io/r/base/AsIs.html). For example,
+  usage like `read_csv(I("x,y\n1,2"))` is preferred over
+  `read_csv("x,y\n1,2")`
+  ([\#1611](https://github.com/tidyverse/readr/issues/1611)).
+
 - `read_table2()` has been removed from readr. This function was
   deprecated in readr 2.0.0 (2021-07-20) in favor of
   [`read_table()`](https://readr.tidyverse.org/dev/reference/read_table.md).

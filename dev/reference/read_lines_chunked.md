@@ -37,10 +37,8 @@ read_lines_raw_chunked(
   also be automatically downloaded and decompressed.
 
   Literal data is most useful for examples and tests. To be recognised
-  as literal data, the input must be either wrapped with
-  [`I()`](https://rdrr.io/r/base/AsIs.html), be a string containing at
-  least one new line, or be a vector containing at least one string with
-  a new line.
+  as literal data, wrap the input with
+  [`I()`](https://rdrr.io/r/base/AsIs.html).
 
   Using a value of
   [`clipboard()`](https://readr.tidyverse.org/dev/reference/clipboard.md)

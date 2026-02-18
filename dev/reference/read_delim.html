@@ -177,9 +177,7 @@ be automatically uncompressed. Files starting with <code>http://</code>,
 downloaded. Remote <code>.gz</code> files can also be automatically downloaded and
 decompressed.</p>
 <p>Literal data is most useful for examples and tests. To be recognised as
-literal data, the input must be either wrapped with <code><a href="https://rdrr.io/r/base/AsIs.html" class="external-link">I()</a></code>, be a string
-containing at least one new line, or be a vector containing at least one
-string with a new line.</p>
+literal data, wrap the input with <code><a href="https://rdrr.io/r/base/AsIs.html" class="external-link">I()</a></code>.</p>
 <p>Using a value of <code><a href="clipboard.html">clipboard()</a></code> will read from the system clipboard.</p></dd>
 
 
@@ -606,7 +604,7 @@ You can retrieve the full details by calling <code><a href="problems.html">probl
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tibble: 1 × 5</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     row   col expected actual file                                     </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;int&gt;</span> <span style="color: #949494; font-style: italic;">&lt;int&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>  <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>                                    </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">1</span>     4     1 a double b      /tmp/RtmpcT9MSC/vroom-chr-to-file-19eb1b…</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">1</span>     4     1 a double b      /tmp/RtmpHhqSPu/vroom-chr-to-file-19d031…</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># Column names --------------------------------------------------------------</span></span></span>
 <span class="r-in"><span><span class="co"># By default, readr duplicate name repair is noisy</span></span></span>
