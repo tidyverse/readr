@@ -15,8 +15,7 @@ format_delim(
   col_names = !append,
   quote = c("needed", "all", "none"),
   escape = c("double", "backslash", "none"),
-  eol = "\n",
-  quote_escape = deprecated()
+  eol = "\n"
 )
 
 format_csv(
@@ -26,8 +25,7 @@ format_csv(
   col_names = !append,
   quote = c("needed", "all", "none"),
   escape = c("double", "backslash", "none"),
-  eol = "\n",
-  quote_escape = deprecated()
+  eol = "\n"
 )
 
 format_csv2(
@@ -37,8 +35,7 @@ format_csv2(
   col_names = !append,
   quote = c("needed", "all", "none"),
   escape = c("double", "backslash", "none"),
-  eol = "\n",
-  quote_escape = deprecated()
+  eol = "\n"
 )
 
 format_tsv(
@@ -48,8 +45,7 @@ format_tsv(
   col_names = !append,
   quote = c("needed", "all", "none"),
   escape = c("double", "backslash", "none"),
-  eol = "\n",
-  quote_escape = deprecated()
+  eol = "\n"
 )
 ```
 
@@ -112,10 +108,6 @@ format_tsv(
 
   The end of line character to use. Most commonly either `"\n"` for Unix
   style newlines, or `"\r\n"` for Windows style newlines.
-
-- quote_escape:
-
-  **\[deprecated\]** Use the `escape` argument instead.
 
 ## Value
 

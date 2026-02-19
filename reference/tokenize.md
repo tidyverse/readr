@@ -20,14 +20,12 @@ tokenize(file, tokenizer = tokenizer_csv(), skip = 0, n_max = -1L)
 
   Files ending in `.gz`, `.bz2`, `.xz`, or `.zip` will be automatically
   uncompressed. Files starting with `http://`, `https://`, `ftp://`, or
-  `ftps://` will be automatically downloaded. Remote gz files can also
-  be automatically downloaded and decompressed.
+  `ftps://` will be automatically downloaded. Remote `.gz` files can
+  also be automatically downloaded and decompressed.
 
   Literal data is most useful for examples and tests. To be recognised
-  as literal data, the input must be either wrapped with
-  [`I()`](https://rdrr.io/r/base/AsIs.html), be a string containing at
-  least one new line, or be a vector containing at least one string with
-  a new line.
+  as literal data, wrap the input with
+  [`I()`](https://rdrr.io/r/base/AsIs.html).
 
   Using a value of
   [`clipboard()`](https://readr.tidyverse.org/reference/clipboard.md)

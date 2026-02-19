@@ -32,11 +32,11 @@ readr is part of the core tidyverse, so you can load it with:
 ``` r
 library(tidyverse)
 #> ── Attaching core tidyverse packages ──────────────────────── tidyverse 2.0.0 ──
-#> ✔ dplyr     1.1.4          ✔ readr     2.1.5.9000
-#> ✔ forcats   1.0.1          ✔ stringr   1.5.2     
-#> ✔ ggplot2   4.0.0          ✔ tibble    3.3.0     
-#> ✔ lubridate 1.9.4          ✔ tidyr     1.3.1     
-#> ✔ purrr     1.1.0          
+#> ✔ dplyr     1.2.0          ✔ readr     2.1.6.9000
+#> ✔ forcats   1.0.1          ✔ stringr   1.6.0     
+#> ✔ ggplot2   4.0.2          ✔ tibble    3.3.1     
+#> ✔ lubridate 1.9.4          ✔ tidyr     1.3.2     
+#> ✔ purrr     1.2.1          
 #> ── Conflicts ────────────────────────────────────────── tidyverse_conflicts() ──
 #> ✖ dplyr::filter() masks stats::filter()
 #> ✖ dplyr::lag()    masks stats::lag()
@@ -156,7 +156,7 @@ gives an expanded introduction to readr.
 
 readr got a new parsing engine in version 2.0.0 (released July 2021). In
 this so-called second edition, readr calls
-[`vroom::vroom()`](https://vroom.r-lib.org/reference/vroom.html), by
+[`vroom::vroom()`](https://vroom.tidyverse.org/reference/vroom.html), by
 default.
 
 The parsing engine in readr versions prior to 2.0.0 is now called the

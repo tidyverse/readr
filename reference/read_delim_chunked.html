@@ -7,7 +7,7 @@
 
     <a class="navbar-brand me-2" href="../index.html">readr</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Released version">2.1.6</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Released version">2.2.0</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -46,7 +46,7 @@
 <div class="row">
   <main id="main" class="col-md-9"><div class="page-header">
       <img src="../logo.png" class="logo" alt=""><h1>Read a delimited file by chunks</h1>
-      <small class="dont-index">Source: <a href="https://github.com/tidyverse/readr/blob/v2.1.6/R/read_delim_chunked.R" class="external-link"><code>R/read_delim_chunked.R</code></a></small>
+      <small class="dont-index">Source: <a href="https://github.com/tidyverse/readr/blob/main/R/read_delim_chunked.R" class="external-link"><code>R/read_delim_chunked.R</code></a></small>
       <div class="d-none name"><code>read_delim_chunked.Rd</code></div>
     </div>
 
@@ -146,12 +146,10 @@
 <p>Files ending in <code>.gz</code>, <code>.bz2</code>, <code>.xz</code>, or <code>.zip</code> will
 be automatically uncompressed. Files starting with <code>http://</code>,
 <code>https://</code>, <code>ftp://</code>, or <code>ftps://</code> will be automatically
-downloaded. Remote gz files can also be automatically downloaded and
+downloaded. Remote <code>.gz</code> files can also be automatically downloaded and
 decompressed.</p>
 <p>Literal data is most useful for examples and tests. To be recognised as
-literal data, the input must be either wrapped with <code><a href="https://rdrr.io/r/base/AsIs.html" class="external-link">I()</a></code>, be a string
-containing at least one new line, or be a vector containing at least one
-string with a new line.</p>
+literal data, wrap the input with <code><a href="https://rdrr.io/r/base/AsIs.html" class="external-link">I()</a></code>.</p>
 <p>Using a value of <code><a href="clipboard.html">clipboard()</a></code> will read from the system clipboard.</p></dd>
 
 
@@ -240,9 +238,8 @@ option to <code><a href="https://rdrr.io/r/base/character.html" class="external-
 
 
 <dt id="arg-quoted-na">quoted_na<a class="anchor" aria-label="anchor" href="#arg-quoted-na"></a></dt>
-<dd><p><a href="https://lifecycle.r-lib.org/articles/stages.html#deprecated" class="external-link"><img src="figures/lifecycle-deprecated.svg" alt="[Deprecated]"></a> Should missing values
-inside quotes be treated as missing values (the default) or strings. This
-parameter is soft deprecated as of readr 2.0.0.</p></dd>
+<dd><p>Should missing values inside quotes be treated as missing
+values (the default) or strings.</p></dd>
 
 
 <dt id="arg-comment">comment<a class="anchor" aria-label="anchor" href="#arg-comment"></a></dt>
@@ -256,8 +253,7 @@ each field before parsing it?</p></dd>
 
 
 <dt id="arg-skip">skip<a class="anchor" aria-label="anchor" href="#arg-skip"></a></dt>
-<dd><p>Number of lines to skip before reading data. If <code>comment</code> is
-supplied any commented lines are ignored <em>after</em> skipping.</p></dd>
+<dd><p>Number of lines to skip before reading data.</p></dd>
 
 
 <dt id="arg-guess-max">guess_max<a class="anchor" aria-label="anchor" href="#arg-guess-max"></a></dt>
@@ -294,7 +290,6 @@ option is <code>TRUE</code> then blank rows will not be represented at all.  If 
     <h2 id="see-also">See also<a class="anchor" aria-label="anchor" href="#see-also"></a></h2>
     <div class="dont-index"><p>Other chunked:
 <code><a href="callback.html">callback</a></code>,
-<code><a href="melt_delim_chunked.html">melt_delim_chunked()</a></code>,
 <code><a href="read_lines_chunked.html">read_lines_chunked()</a></code></p></div>
     </div>
 

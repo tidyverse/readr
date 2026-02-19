@@ -46,6 +46,14 @@ with_edition(1, read_csv("1,2\n3,4,5", col_names = c("X", "Y", "Z")))
 #> 1     1     2    NA
 #> 2     3     4     5
 with_edition(2, read_csv("1,2\n3,4,5", col_names = c("X", "Y", "Z")))
+#> Warning: The `file` argument of `read_csv()` should use `I()` for literal data
+#> as of readr 2.2.0.
+#>   
+#>   # Bad (for example):
+#>   read_csv("x,y\n1,2")
+#>   
+#>   # Good:
+#>   read_csv(I("x,y\n1,2"))
 #> Warning: One or more parsing issues, call `problems()` on your data frame for
 #> details, e.g.:
 #>   dat <- vroom(...)

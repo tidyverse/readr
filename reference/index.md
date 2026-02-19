@@ -16,7 +16,7 @@ each line is divided up into fields.
   [`fwf_widths()`](https://readr.tidyverse.org/reference/read_fwf.md)
   [`fwf_positions()`](https://readr.tidyverse.org/reference/read_fwf.md)
   [`fwf_cols()`](https://readr.tidyverse.org/reference/read_fwf.md) :
-  Read a fixed width file into a tibble
+  Read a fixed-width file into a tibble
 - [`read_log()`](https://readr.tidyverse.org/reference/read_log.md) :
   Read common/combined log file into a tibble
 - [`read_table()`](https://readr.tidyverse.org/reference/read_table.md)
@@ -127,26 +127,6 @@ default from readr 2.0.0 onwards.
   : Temporarily change the active readr edition
 - [`edition_get()`](https://readr.tidyverse.org/reference/edition_get.md)
   : Retrieve the currently active edition
-
-## Read non-rectangular files
-
-These functions parse non-rectangular files (like csv or fixed-width
-format) into long (so-called melted) format. They specify the overall
-structure of the file, and how each line is divided up into fields.
-
-- [`melt_delim()`](https://readr.tidyverse.org/reference/melt_delim.md)
-  [`melt_csv()`](https://readr.tidyverse.org/reference/melt_delim.md)
-  [`melt_csv2()`](https://readr.tidyverse.org/reference/melt_delim.md)
-  [`melt_tsv()`](https://readr.tidyverse.org/reference/melt_delim.md)
-  **\[superseded\]** : Return melted data for each token in a delimited
-  file (including csv & tsv)
-- [`melt_fwf()`](https://readr.tidyverse.org/reference/melt_fwf.md)
-  **\[superseded\]** : Return melted data for each token in a fixed
-  width file
-- [`melt_table()`](https://readr.tidyverse.org/reference/melt_table.md)
-  [`melt_table2()`](https://readr.tidyverse.org/reference/melt_table.md)
-  **\[superseded\]** : Return melted data for each token in a
-  whitespace-separated file
 
 ## Low-level IO and debugging tools
 

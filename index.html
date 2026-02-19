@@ -31,7 +31,7 @@
 
     <a class="navbar-brand me-2" href="index.html">readr</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Released version">2.1.6</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Released version">2.2.0</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -113,11 +113,11 @@
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://tidyverse.tidyverse.org" class="external-link">tidyverse</a></span><span class="op">)</span></span>
 <span><span class="co">#&gt; ── Attaching core tidyverse packages ──────────────────────── tidyverse 2.0.0 ──</span></span>
-<span><span class="co">#&gt; ✔ dplyr     1.1.4          ✔ readr     2.1.5.9000</span></span>
-<span><span class="co">#&gt; ✔ forcats   1.0.1          ✔ stringr   1.5.2     </span></span>
-<span><span class="co">#&gt; ✔ ggplot2   4.0.0          ✔ tibble    3.3.0     </span></span>
-<span><span class="co">#&gt; ✔ lubridate 1.9.4          ✔ tidyr     1.3.1     </span></span>
-<span><span class="co">#&gt; ✔ purrr     1.1.0          </span></span>
+<span><span class="co">#&gt; ✔ dplyr     1.2.0          ✔ readr     2.1.6.9000</span></span>
+<span><span class="co">#&gt; ✔ forcats   1.0.1          ✔ stringr   1.6.0     </span></span>
+<span><span class="co">#&gt; ✔ ggplot2   4.0.2          ✔ tibble    3.3.1     </span></span>
+<span><span class="co">#&gt; ✔ lubridate 1.9.4          ✔ tidyr     1.3.2     </span></span>
+<span><span class="co">#&gt; ✔ purrr     1.2.1          </span></span>
 <span><span class="co">#&gt; ── Conflicts ────────────────────────────────────────── tidyverse_conflicts() ──</span></span>
 <span><span class="co">#&gt; ✖ dplyr::filter() masks stats::filter()</span></span>
 <span><span class="co">#&gt; ✖ dplyr::lag()    masks stats::lag()</span></span>
@@ -197,7 +197,7 @@
 <div class="section level2">
 <h2 id="editions">Editions<a class="anchor" aria-label="anchor" href="#editions"></a>
 </h2>
-<p>readr got a new parsing engine in version 2.0.0 (released July 2021). In this so-called second edition, readr calls <code><a href="https://vroom.r-lib.org/reference/vroom.html" class="external-link">vroom::vroom()</a></code>, by default.</p>
+<p>readr got a new parsing engine in version 2.0.0 (released July 2021). In this so-called second edition, readr calls <code><a href="https://vroom.tidyverse.org/reference/vroom.html" class="external-link">vroom::vroom()</a></code>, by default.</p>
 <p>The parsing engine in readr versions prior to 2.0.0 is now called the first edition. If you’re using readr &gt;= 2.0.0, you can still access first edition parsing via the functions <code>with_edition(1, ...)</code> and <code>local_edition(1)</code>. And, obviously, if you’re using readr &lt; 2.0.0, you will get first edition parsing, by definition, because that’s all there is.</p>
 <p>We will continue to support the first edition for a number of releases, but the overall goal is to make the second edition uniformly better than the first. Therefore the plan is to eventually deprecate and then remove the first edition code. New code and actively-maintained code should use the second edition. The workarounds <code>with_edition(1, ...)</code> and <code>local_edition(1)</code> are offered as a pragmatic way to patch up legacy code or as a temporary solution for infelicities identified as the second edition matures.</p>
 </div>
@@ -284,7 +284,7 @@
 <li>
 <a href="https://jennybryan.org" class="external-link">Jennifer Bryan</a> <br><small class="roles"> Author, maintainer </small> <a href="https://orcid.org/0000-0002-6983-2759" target="orcid.widget" aria-label="ORCID" class="external-link"><span class="fab fa-orcid orcid" aria-hidden="true"></span></a>  </li>
 <li>
-<a href="https://www.posit.co" class="external-link"><img src="https://www.tidyverse.org/posit-logo.svg" alt="Posit" height="16" width="62" style="margin-bottom: 3px;"></a> <br><small class="roles"> Copyright holder, funder </small>   </li>
+<a href="https://www.posit.co" class="external-link"><img src="https://www.tidyverse.org/posit-logo.svg" alt="Posit" height="16" width="62" style="margin-bottom: 3px;"></a> <br><small class="roles"> Copyright holder, funder </small>  <a href="https://ror.org/03wc8by49" class="external-link"><img src="https://raw.githubusercontent.com/ror-community/ror-logos/main/ror-icon-rgb.svg" class="ror" alt="ROR"></a> </li>
 <li><a href="authors.html">More about authors...</a></li>
 </ul>
 </div>

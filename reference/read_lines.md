@@ -35,8 +35,7 @@ write_lines(
   sep = "\n",
   na = "NA",
   append = FALSE,
-  num_threads = readr_threads(),
-  path = deprecated()
+  num_threads = readr_threads()
 )
 ```
 
@@ -49,14 +48,12 @@ write_lines(
 
   Files ending in `.gz`, `.bz2`, `.xz`, or `.zip` will be automatically
   uncompressed. Files starting with `http://`, `https://`, `ftp://`, or
-  `ftps://` will be automatically downloaded. Remote gz files can also
-  be automatically downloaded and decompressed.
+  `ftps://` will be automatically downloaded. Remote `.gz` files can
+  also be automatically downloaded and decompressed.
 
   Literal data is most useful for examples and tests. To be recognised
-  as literal data, the input must be either wrapped with
-  [`I()`](https://rdrr.io/r/base/AsIs.html), be a string containing at
-  least one new line, or be a vector containing at least one string with
-  a new line.
+  as literal data, wrap the input with
+  [`I()`](https://rdrr.io/r/base/AsIs.html).
 
   Using a value of
   [`clipboard()`](https://readr.tidyverse.org/reference/clipboard.md)
@@ -104,7 +101,7 @@ write_lines(
   Learn more in
   [`should_read_lazy()`](https://readr.tidyverse.org/reference/should_read_lazy.md)
   and in the documentation for the `altrep` argument of
-  [`vroom::vroom()`](https://vroom.r-lib.org/reference/vroom.html).
+  [`vroom::vroom()`](https://vroom.tidyverse.org/reference/vroom.html).
 
 - num_threads:
 
@@ -136,10 +133,6 @@ write_lines(
   If `FALSE`, will overwrite existing file. If `TRUE`, will append to
   existing file. In both cases, if the file does not exist a new file is
   created.
-
-- path:
-
-  **\[deprecated\]** Use the `file` argument instead.
 
 ## Value
 

@@ -7,7 +7,7 @@
 
     <a class="navbar-brand me-2" href="../index.html">readr</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Released version">2.1.6</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Released version">2.2.0</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -46,9 +46,20 @@
 <div class="row">
   <main id="main" class="col-md-9"><div class="page-header">
       <img src="../logo.png" class="logo" alt=""><h1>Changelog</h1>
-      <small>Source: <a href="https://github.com/tidyverse/readr/blob/v2.1.6/NEWS.md" class="external-link"><code>NEWS.md</code></a></small>
+      <small>Source: <a href="https://github.com/tidyverse/readr/blob/main/NEWS.md" class="external-link"><code>NEWS.md</code></a></small>
     </div>
 
+    <div class="section level2">
+<h2 class="pkg-version" data-toc-text="2.2.0" id="readr-220">readr 2.2.0<a class="anchor" aria-label="anchor" href="#readr-220"></a></h2>
+<p>This release advances many deprecations.</p>
+<ul><li><p><code>melt_csv()</code>, <code>melt_csv2()</code>, <code>melt_delim()</code>, <code>melt_tsv()</code>, <code>melt_fwf()</code>, <code>melt_table()</code>, <code>melt_table2()</code>, and all <code>melt_*_chunked()</code> variants have been removed from readr. These functions were deprecated in readr 2.0.0 (2021-07-20). See the meltr package (<a href="https://github.com/r-lib/meltr" class="external-link uri">https://github.com/r-lib/meltr</a>).</p></li>
+<li><p><code>read_table2()</code> has been removed from readr. This function was deprecated in readr 2.0.0 (2021-07-20) in favor of <code><a href="../reference/read_table.html">read_table()</a></code>. Use <code><a href="../reference/read_table.html">read_table()</a></code> instead.</p></li>
+<li><p><code><a href="../reference/read_delim.html">read_csv()</a></code>, <code><a href="../reference/read_delim.html">read_csv2()</a></code>, <code><a href="../reference/read_delim.html">read_tsv()</a></code>, <code><a href="../reference/read_delim.html">read_delim()</a></code>, and <code><a href="../reference/read_fwf.html">read_fwf()</a></code> now emit a deprecation warning when literal data is passed without wrapping it in <code><a href="https://rdrr.io/r/base/AsIs.html" class="external-link">I()</a></code>. For example, usage like <code>read_csv(I("x,y\n1,2"))</code> is preferred over <code>read_csv("x,y\n1,2")</code> (<a href="https://github.com/tidyverse/readr/issues/1611" class="external-link">#1611</a>).</p></li>
+<li><p>The <code>quote_escape</code> parameter has been removed from <code><a href="../reference/write_delim.html">write_delim()</a></code>, <code><a href="../reference/write_delim.html">write_csv()</a></code>, <code><a href="../reference/write_delim.html">write_csv2()</a></code>, <code><a href="../reference/write_delim.html">write_excel_csv()</a></code>, <code><a href="../reference/write_delim.html">write_excel_csv2()</a></code>, <code><a href="../reference/write_delim.html">write_tsv()</a></code>, <code><a href="../reference/format_delim.html">format_delim()</a></code>, <code><a href="../reference/format_delim.html">format_csv()</a></code>, <code><a href="../reference/format_delim.html">format_csv2()</a></code>, and <code><a href="../reference/format_delim.html">format_tsv()</a></code>. This parameter was deprecated in readr 2.0.0 (2021-07-20) in favor of the <code>escape</code> parameter. Use <code>escape</code> instead.</p></li>
+<li><p>The <code>path</code> parameter has been removed from <code><a href="../reference/write_delim.html">write_delim()</a></code>, <code><a href="../reference/write_delim.html">write_csv()</a></code>, <code><a href="../reference/write_delim.html">write_csv2()</a></code>, <code><a href="../reference/write_delim.html">write_excel_csv()</a></code>, <code><a href="../reference/write_delim.html">write_excel_csv2()</a></code>, <code><a href="../reference/write_delim.html">write_tsv()</a></code>, <code><a href="../reference/read_lines.html">write_lines()</a></code>, <code><a href="../reference/read_file.html">write_file()</a></code>, and <code><a href="../reference/read_rds.html">write_rds()</a></code>. This parameter was deprecated in readr 1.4.0 (2020-01-31) in favor of the <code>file</code> parameter. Use <code>file</code> instead.</p></li>
+<li><p>The <code>skip_empty_rows</code> argument of <code><a href="../reference/read_fwf.html">fwf_empty()</a></code> now throws an error if used in edition 2. This argument was deprecated in readr 2.0.0 (2021-07-20).</p></li>
+<li><p>The <code>quoted_na</code> argument now throws an error if used in edition 2 with <code><a href="../reference/read_delim.html">read_delim()</a></code>, <code><a href="../reference/read_delim.html">read_csv()</a></code>, <code><a href="../reference/read_delim.html">read_csv2()</a></code>, or <code><a href="../reference/read_delim.html">read_tsv()</a></code>. This usage was first deprecated in readr 2.0.0 (2021-07-20).</p></li>
+</ul></div>
     <div class="section level2">
 <h2 class="pkg-version" data-toc-text="2.1.6" id="readr-216">readr 2.1.6<a class="anchor" aria-label="anchor" href="#readr-216"></a></h2><p class="text-muted">CRAN release: 2025-11-14</p>
 <ul><li><p><code>locale(encoding =)</code> now warns, instead of errors, when the <code>encoding</code> cannot be found in the return value of <code><a href="https://rdrr.io/r/base/iconv.html" class="external-link">iconvlist()</a></code>. The motivation is to remove an unnecessary blocker on platforms, such as Alpine Linux, where the output of <code><a href="https://rdrr.io/r/base/iconv.html" class="external-link">iconvlist()</a></code> does not reflect the actual capabilities (<a href="https://github.com/bastistician" class="external-link">@bastistician</a>, <a href="https://github.com/tidyverse/readr/issues/1537" class="external-link">#1537</a>).</p></li>
@@ -95,14 +106,14 @@
 <ul><li><p><code>options(readr.show_col_types = FALSE)</code> now works as intended (<a href="https://github.com/tidyverse/readr/issues/1250" class="external-link">#1250</a>)</p></li>
 <li><p><code><a href="../reference/read_delim_chunked.html">read_delim_chunked()</a></code> now again correctly respects the <code>chunk_size</code> parameter (<a href="https://github.com/tidyverse/readr/issues/1248" class="external-link">#1248</a>)</p></li>
 <li><p><code><a href="../reference/type_convert.html">type_convert()</a></code> gains a <code>guess_integer</code> argument, passed to <code><a href="../reference/parse_guess.html">guess_parser()</a></code> (<a href="https://github.com/jmbarbone" class="external-link">@jmbarbone</a>, <a href="https://github.com/tidyverse/readr/issues/1264" class="external-link">#1264</a>)</p></li>
-<li><p><code><a href="../reference/read_delim.html">read_tsv()</a></code> now correctly passes the <code>quote</code> and <code>na</code> arguments to <code><a href="https://vroom.r-lib.org/reference/vroom.html" class="external-link">vroom::vroom()</a></code> (<a href="https://github.com/tidyverse/readr/issues/1254" class="external-link">#1254</a>, <a href="https://github.com/tidyverse/readr/issues/1255" class="external-link">#1255</a>)</p></li>
+<li><p><code><a href="../reference/read_delim.html">read_tsv()</a></code> now correctly passes the <code>quote</code> and <code>na</code> arguments to <code><a href="https://vroom.tidyverse.org/reference/vroom.html" class="external-link">vroom::vroom()</a></code> (<a href="https://github.com/tidyverse/readr/issues/1254" class="external-link">#1254</a>, <a href="https://github.com/tidyverse/readr/issues/1255" class="external-link">#1255</a>)</p></li>
 <li><p>Avoid spurious byte compilation errors due to the programmatically generated <code>spec_*()</code> functions.</p></li>
 </ul></div>
     <div class="section level2">
 <h2 class="pkg-version" data-toc-text="2.0.0" id="readr-200">readr 2.0.0<a class="anchor" aria-label="anchor" href="#readr-200"></a></h2><p class="text-muted">CRAN release: 2021-07-20</p>
 <div class="section level3">
 <h3 id="second-edition-changes-2-0-0">second edition changes<a class="anchor" aria-label="anchor" href="#second-edition-changes-2-0-0"></a></h3>
-<p>readr 2.0.0 is a major release of readr and introduces a new second edition parsing and writing engine implemented via the <a href="https://vroom.r-lib.org/" class="external-link">vroom</a> package.</p>
+<p>readr 2.0.0 is a major release of readr and introduces a new second edition parsing and writing engine implemented via the <a href="https://vroom.tidyverse.org/" class="external-link">vroom</a> package.</p>
 <p>This engine takes advantage of lazy reading, multi-threading and performance characteristics of modern SSD drives to significantly improve the performance of reading and writing compared to the first edition engine.</p>
 <p>We will continue to support the first edition for a number of releases, but eventually this support will be first deprecated and then removed.</p>
 <p>You can use the <code><a href="../reference/with_edition.html">with_edition()</a></code> or <code><a href="../reference/with_edition.html">local_edition()</a></code> functions to temporarily change the edition of readr for a section of code.</p>
@@ -142,8 +153,8 @@
 </div>
 <div class="section level4">
 <h4 id="deprecated-or-superseded-functions-and-features-2-0-0">Deprecated or superseded functions and features<a class="anchor" aria-label="anchor" href="#deprecated-or-superseded-functions-and-features-2-0-0"></a></h4>
-<ul><li><p><code><a href="../reference/melt_delim.html">melt_csv()</a></code>, <code><a href="../reference/melt_delim.html">melt_delim()</a></code>, <code><a href="../reference/melt_delim.html">melt_tsv()</a></code> and <code><a href="../reference/melt_fwf.html">melt_fwf()</a></code> have been superseded by functions in the same name in the meltr package. The versions in readr have been deprecated. These functions rely on the first edition parsing code and would be challenging to update to the new parser. When the first edition parsing code is eventually removed from readr they will be removed.</p></li>
-<li><p><code><a href="../reference/read_table2.html">read_table2()</a></code> has been renamed to <code><a href="../reference/read_table.html">read_table()</a></code>, as most users expect <code><a href="../reference/read_table.html">read_table()</a></code> to work like <code><a href="https://rdrr.io/r/utils/read.table.html" class="external-link">utils::read.table()</a></code>. If you want the previous strict behavior of the <code><a href="../reference/read_table.html">read_table()</a></code> you can use <code><a href="../reference/read_fwf.html">read_fwf()</a></code> with <code><a href="../reference/read_fwf.html">fwf_empty()</a></code> directly (<a href="https://github.com/tidyverse/readr/issues/717" class="external-link">#717</a>).</p></li>
+<ul><li><p><code>melt_csv()</code>, <code>melt_delim()</code>, <code>melt_tsv()</code> and <code>melt_fwf()</code> have been superseded by functions in the same name in the meltr package. The versions in readr have been deprecated. These functions rely on the first edition parsing code and would be challenging to update to the new parser. When the first edition parsing code is eventually removed from readr they will be removed.</p></li>
+<li><p><code>read_table2()</code> has been renamed to <code><a href="../reference/read_table.html">read_table()</a></code>, as most users expect <code><a href="../reference/read_table.html">read_table()</a></code> to work like <code><a href="https://rdrr.io/r/utils/read.table.html" class="external-link">utils::read.table()</a></code>. If you want the previous strict behavior of the <code><a href="../reference/read_table.html">read_table()</a></code> you can use <code><a href="../reference/read_fwf.html">read_fwf()</a></code> with <code><a href="../reference/read_fwf.html">fwf_empty()</a></code> directly (<a href="https://github.com/tidyverse/readr/issues/717" class="external-link">#717</a>).</p></li>
 <li><p>Normalizing newlines in files with just carriage returns <code>\r</code> is no longer supported. The last major OS to use only CR as the newline was ‘classic’ Mac OS, which had its final release in 2001.</p></li>
 </ul></div>
 <div class="section level4">
@@ -297,7 +308,7 @@
 <span><span class="st">1,2</span></span>
 <span><span class="st">w,x,y,z"</span></span>
 <span></span>
-<span><span class="fu">readr</span><span class="fu">::</span><span class="fu"><a href="../reference/melt_delim.html">melt_csv</a></span><span class="op">(</span><span class="va">data</span><span class="op">)</span></span>
+<span><span class="fu">readr</span><span class="fu">::</span><span class="fu">melt_csv</span><span class="op">(</span><span class="va">data</span><span class="op">)</span></span>
 <span><span class="co">#&gt; # A tibble: 9 x 4</span></span>
 <span><span class="co">#&gt;     row   col data_type value</span></span>
 <span><span class="co">#&gt;   &lt;dbl&gt; &lt;dbl&gt; &lt;chr&gt;     &lt;chr&gt;</span></span>
@@ -349,7 +360,7 @@
 <li>
 <code>read*()</code> functions now have a more informative error when trying to read a remote bz2 file (<a href="https://github.com/tidyverse/readr/issues/891" class="external-link">#891</a>).</li>
 <li>
-<code>spec_table2()</code> function added to correspond to <code><a href="../reference/read_table2.html">read_table2()</a></code> (<a href="https://github.com/tidyverse/readr/issues/778" class="external-link">#778</a>, <a href="https://github.com/mawds" class="external-link">@mawds</a>).</li>
+<code>spec_table2()</code> function added to correspond to <code>read_table2()</code> (<a href="https://github.com/tidyverse/readr/issues/778" class="external-link">#778</a>, <a href="https://github.com/mawds" class="external-link">@mawds</a>).</li>
 <li>
 <code><a href="../reference/parse_factor.html">parse_factor()</a></code> now has <code>levels = NULL</code> by default (<a href="https://github.com/tidyverse/readr/issues/862" class="external-link">#862</a>, <a href="https://github.com/mikmart" class="external-link">@mikmart</a>).</li>
 <li>
@@ -366,7 +377,7 @@
 <li>
 <code>read_*()</code> now do not print a progress bar when running inside a RStudio notebook chunk (<a href="https://github.com/tidyverse/readr/issues/793" class="external-link">#793</a>)</li>
 <li>
-<code><a href="../reference/read_table2.html">read_table2()</a></code> now skips comments anywhere in the file (<a href="https://github.com/tidyverse/readr/issues/908" class="external-link">#908</a>).</li>
+<code>read_table2()</code> now skips comments anywhere in the file (<a href="https://github.com/tidyverse/readr/issues/908" class="external-link">#908</a>).</li>
 <li>
 <code><a href="../reference/parse_factor.html">parse_factor()</a></code> now handles the case of empty strings separately, so you can have a factor level that is an empty string (<a href="https://github.com/tidyverse/readr/issues/864" class="external-link">#864</a>).</li>
 <li>
@@ -378,7 +389,7 @@
 <li>
 <code><a href="../reference/read_delim.html">read_delim()</a></code> now ignores whitespace between the delimiter and quoted fields (<a href="https://github.com/tidyverse/readr/issues/668" class="external-link">#668</a>).</li>
 <li>
-<code><a href="../reference/read_table2.html">read_table2()</a></code> now properly ignores blank lines at the end of a file like <code><a href="../reference/read_table.html">read_table()</a></code> and <code><a href="../reference/read_delim.html">read_delim()</a></code> (<a href="https://github.com/tidyverse/readr/issues/657" class="external-link">#657</a>).</li>
+<code>read_table2()</code> now properly ignores blank lines at the end of a file like <code><a href="../reference/read_table.html">read_table()</a></code> and <code><a href="../reference/read_delim.html">read_delim()</a></code> (<a href="https://github.com/tidyverse/readr/issues/657" class="external-link">#657</a>).</li>
 <li>
 <code><a href="../reference/read_delim.html">read_delim()</a></code>, <code><a href="../reference/read_table.html">read_table()</a></code> and <code><a href="../reference/read_table.html">read_table()</a></code> now skip blank lines at the start of a file (<a href="https://github.com/tidyverse/readr/issues/680" class="external-link">#680</a>, <a href="https://github.com/tidyverse/readr/issues/747" class="external-link">#747</a>).</li>
 <li>
@@ -412,7 +423,7 @@
 <li>
 <code><a href="../reference/parse_factor.html">parse_factor()</a></code> will now can accept <code>levels = NULL</code>, which allows one to generate factor levels based on the data (like stringsAsFactors = TRUE) (<a href="https://github.com/tidyverse/readr/issues/497" class="external-link">#497</a>).</li>
 <li>
-<code>parse_numeric()</code> now returns the full string if it contains no numbers (<a href="https://github.com/tidyverse/readr/issues/548" class="external-link">#548</a>).</li>
+<code><a href="../reference/parse_number.html">parse_number()</a></code> now returns the full string if it contains no numbers (<a href="https://github.com/tidyverse/readr/issues/548" class="external-link">#548</a>).</li>
 <li>
 <code><a href="../reference/parse_datetime.html">parse_time()</a></code> now correctly handles 12 AM/PM (<a href="https://github.com/tidyverse/readr/issues/579" class="external-link">#579</a>).</li>
 <li>
@@ -437,7 +448,7 @@
 <li>
 <code><a href="../reference/read_table.html">read_table()</a></code> can now handle files with many lines of leading comments (<a href="https://github.com/tidyverse/readr/issues/563" class="external-link">#563</a>).</li>
 <li>
-<code><a href="../reference/read_table2.html">read_table2()</a></code> which allows any number of whitespace characters as delimiters, a more exact replacement for <code><a href="https://rdrr.io/r/utils/read.table.html" class="external-link">utils::read.table()</a></code> (<a href="https://github.com/tidyverse/readr/issues/608" class="external-link">#608</a>).</li>
+<code>read_table2()</code> which allows any number of whitespace characters as delimiters, a more exact replacement for <code><a href="https://rdrr.io/r/utils/read.table.html" class="external-link">utils::read.table()</a></code> (<a href="https://github.com/tidyverse/readr/issues/608" class="external-link">#608</a>).</li>
 </ul></div>
 </div>
 <div class="section level3">

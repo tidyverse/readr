@@ -13,7 +13,7 @@ to see the underlying tokens."><meta property="og:image" content="https://readr.
 
     <a class="navbar-brand me-2" href="../index.html">readr</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Released version">2.1.6</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Released version">2.2.0</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -52,7 +52,7 @@ to see the underlying tokens."><meta property="og:image" content="https://readr.
 <div class="row">
   <main id="main" class="col-md-9"><div class="page-header">
       <img src="../logo.png" class="logo" alt=""><h1>Tokenize a file/string.</h1>
-      <small class="dont-index">Source: <a href="https://github.com/tidyverse/readr/blob/v2.1.6/R/tokenizer.R" class="external-link"><code>R/tokenizer.R</code></a></small>
+      <small class="dont-index">Source: <a href="https://github.com/tidyverse/readr/blob/main/R/tokenizer.R" class="external-link"><code>R/tokenizer.R</code></a></small>
       <div class="d-none name"><code>tokenize.Rd</code></div>
     </div>
 
@@ -78,12 +78,10 @@ to see the underlying tokens.</p>
 <p>Files ending in <code>.gz</code>, <code>.bz2</code>, <code>.xz</code>, or <code>.zip</code> will
 be automatically uncompressed. Files starting with <code>http://</code>,
 <code>https://</code>, <code>ftp://</code>, or <code>ftps://</code> will be automatically
-downloaded. Remote gz files can also be automatically downloaded and
+downloaded. Remote <code>.gz</code> files can also be automatically downloaded and
 decompressed.</p>
 <p>Literal data is most useful for examples and tests. To be recognised as
-literal data, the input must be either wrapped with <code><a href="https://rdrr.io/r/base/AsIs.html" class="external-link">I()</a></code>, be a string
-containing at least one new line, or be a vector containing at least one
-string with a new line.</p>
+literal data, wrap the input with <code><a href="https://rdrr.io/r/base/AsIs.html" class="external-link">I()</a></code>.</p>
 <p>Using a value of <code><a href="clipboard.html">clipboard()</a></code> will read from the system clipboard.</p></dd>
 
 

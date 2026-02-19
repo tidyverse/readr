@@ -1,20 +1,31 @@
-# Read a fixed width file into a tibble
+# Read a fixed-width file into a tibble
 
-A fixed width file can be a very compact representation of numeric data.
-It's also very fast to parse, because every field is in the same place
-in every line. Unfortunately, it's painful to parse because you need to
-describe the length of every field. Readr aims to make it as easy as
-possible by providing a number of different ways to describe the field
-structure.
+Fixed-width files store tabular data with each field occupying a
+specific range of character positions in every line. Once the fields are
+identified, converting them to the appropriate R types works just like
+for delimited files. The unique challenge with fixed-width files is
+describing where each field begins and ends. readr tries to ease this
+pain by offering a few different ways to specify the field structure:
 
-- `fwf_empty()` - Guesses based on the positions of empty columns.
+- `fwf_empty()` - Guesses based on the positions of empty columns. This
+  is the default. (Note that `fwf_empty()` returns 0-based positions,
+  for internal use.)
 
 - `fwf_widths()` - Supply the widths of the columns.
 
 - `fwf_positions()` - Supply paired vectors of start and end positions.
+  These are interpreted as 1-based positions, so are off-by-one compared
+  to the output of `fwf_empty()`.
 
 - `fwf_cols()` - Supply named arguments of paired start and end
   positions or column widths.
+
+Note: `fwf_empty()` cannot work with a connection or with any of the
+input types that involve a connection internally, which includes remote
+and compressed files. The reason is that this would necessitate reading
+from the connection twice. In these cases, you'll have to either provide
+the field structure explicitly with another `fwf_*()` function or
+download (and decompress, if relevant) the file first.
 
 ## Usage
 
@@ -43,7 +54,7 @@ read_fwf(
 fwf_empty(
   file,
   skip = 0,
-  skip_empty_rows = FALSE,
+  skip_empty_rows = deprecated(),
   col_names = NULL,
   comment = "",
   n = 100L
@@ -65,14 +76,12 @@ fwf_cols(...)
 
   Files ending in `.gz`, `.bz2`, `.xz`, or `.zip` will be automatically
   uncompressed. Files starting with `http://`, `https://`, `ftp://`, or
-  `ftps://` will be automatically downloaded. Remote gz files can also
-  be automatically downloaded and decompressed.
+  `ftps://` will be automatically downloaded. Remote `.gz` files can
+  also be automatically downloaded and decompressed.
 
   Literal data is most useful for examples and tests. To be recognised
-  as literal data, the input must be either wrapped with
-  [`I()`](https://rdrr.io/r/base/AsIs.html), be a string containing at
-  least one new line, or be a vector containing at least one string with
-  a new line.
+  as literal data, wrap the input with
+  [`I()`](https://rdrr.io/r/base/AsIs.html).
 
   Using a value of
   [`clipboard()`](https://readr.tidyverse.org/reference/clipboard.md)
@@ -80,10 +89,10 @@ fwf_cols(...)
 
 - col_positions:
 
-  Column positions, as created by `fwf_empty()`, `fwf_widths()` or
-  `fwf_positions()`. To read in only selected fields, use
-  `fwf_positions()`. If the width of the last column is variable (a
-  ragged fwf file), supply the last end position as NA.
+  Column positions, as created by `fwf_empty()`, `fwf_widths()`,
+  `fwf_positions()`, or `fwf_cols()`. To read in only selected fields,
+  use `fwf_positions()`. If the width of the last column is variable (a
+  ragged fwf file), supply the last end position as `NA`.
 
 - col_types:
 
@@ -258,7 +267,7 @@ fwf_cols(...)
   Learn more in
   [`should_read_lazy()`](https://readr.tidyverse.org/reference/should_read_lazy.md)
   and in the documentation for the `altrep` argument of
-  [`vroom::vroom()`](https://vroom.r-lib.org/reference/vroom.html).
+  [`vroom::vroom()`](https://vroom.tidyverse.org/reference/vroom.html).
 
 - skip_empty_rows:
 
@@ -277,13 +286,15 @@ fwf_cols(...)
 
 - widths:
 
-  Width of each field. Use NA as width of last field when reading a
-  ragged fwf file.
+  Width of each field. Use `NA` as the width of the last field when
+  reading a ragged fixed-width file.
 
 - start, end:
 
-  Starting and ending (inclusive) positions of each field. Use NA as
-  last end field when reading a ragged fwf file.
+  Starting and ending (inclusive) positions of each field. **Positions
+  are 1-based**: the first character in a line is at position 1. Use
+  `NA` as the last value of `end` when reading a ragged fixed-width
+  file.
 
 - ...:
 
@@ -294,10 +305,31 @@ fwf_cols(...)
   elements of `...` are used to construct a data frame with or or two
   rows as above.
 
+## Details
+
+Here's a enhanced example using the contents of the file accessed via
+`readr_example("fwf-sample.txt")`.
+
+             1         2         3         4
+    123456789012345678901234567890123456789012
+    [     name 20      ][state 10][  ssn 12  ]
+    John Smith          WA        418-Y11-4111
+    Mary Hartford       CA        319-Z19-4341
+    Evan Nolan          IL        219-532-c301
+
+Here are some valid field specifications for the above (they aren't all
+equivalent! but they are all valid):
+
+    fwf_widths(c(20, 10, 12), c("name", "state", "ssn"))
+    fwf_positions(c(1, 30), c(20, 42), c("name", "ssn"))
+    fwf_cols(state = c(21, 30), last = c(6, 20), first = c(1, 4), ssn = c(31, 42))
+    fwf_cols(name = c(1, 20), ssn = c(30, 42))
+    fwf_cols(name = 20, state = 10, ssn = 12)
+
 ## Second edition changes
 
-Comments are no longer looked for anywhere in the file. They are now
-only ignored at the start of a line.
+Comments are now only ignored if they appear at the start of a line.
+Comments elsewhere in a line are no longer treated specially.
 
 ## See also
 

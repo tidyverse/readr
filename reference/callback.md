@@ -24,10 +24,13 @@ These classes are used to define callback behaviors.
   parameter `acc` to specify the initial value of the accumulator. The
   parameter `acc` is `NULL` by default.
 
+- ListCallback:
+
+  Callback function that returns the results in a list.
+
 ## See also
 
 Other chunked:
-[`melt_delim_chunked()`](https://readr.tidyverse.org/reference/melt_delim_chunked.md),
 [`read_delim_chunked()`](https://readr.tidyverse.org/reference/read_delim_chunked.md),
 [`read_lines_chunked()`](https://readr.tidyverse.org/reference/read_lines_chunked.md)
 

@@ -15,6 +15,7 @@
 
 - **[![Posit](https://www.tidyverse.org/posit-logo.svg)](https://www.posit.co)**.
   Copyright holder, funder.
+  [![ROR](https://raw.githubusercontent.com/ror-community/ror-logos/main/ror-icon-rgb.svg)](https://ror.org/03wc8by49)
 
 - **https://github.com/mandreyel/**. Copyright holder.  
   mio library
@@ -28,15 +29,15 @@
 ## Citation
 
 Source:
-[`DESCRIPTION`](https://github.com/tidyverse/readr/blob/v2.1.6/DESCRIPTION)
+[`DESCRIPTION`](https://github.com/tidyverse/readr/blob/main/DESCRIPTION)
 
-Wickham H, Hester J, Bryan J (2025). *readr: Read Rectangular Text
-Data*. R package version 2.1.6, <https://readr.tidyverse.org>.
+Wickham H, Hester J, Bryan J (2026). *readr: Read Rectangular Text
+Data*. R package version 2.2.0, <https://readr.tidyverse.org>.
 
     @Manual{,
       title = {readr: Read Rectangular Text Data},
       author = {Hadley Wickham and Jim Hester and Jennifer Bryan},
-      year = {2025},
-      note = {R package version 2.1.6},
+      year = {2026},
+      note = {R package version 2.2.0},
       url = {https://readr.tidyverse.org},
     }

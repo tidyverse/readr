@@ -94,14 +94,12 @@ read_tsv_chunked(
 
   Files ending in `.gz`, `.bz2`, `.xz`, or `.zip` will be automatically
   uncompressed. Files starting with `http://`, `https://`, `ftp://`, or
-  `ftps://` will be automatically downloaded. Remote gz files can also
-  be automatically downloaded and decompressed.
+  `ftps://` will be automatically downloaded. Remote `.gz` files can
+  also be automatically downloaded and decompressed.
 
   Literal data is most useful for examples and tests. To be recognised
-  as literal data, the input must be either wrapped with
-  [`I()`](https://rdrr.io/r/base/AsIs.html), be a string containing at
-  least one new line, or be a vector containing at least one string with
-  a new line.
+  as literal data, wrap the input with
+  [`I()`](https://rdrr.io/r/base/AsIs.html).
 
   Using a value of
   [`clipboard()`](https://readr.tidyverse.org/reference/clipboard.md)
@@ -218,9 +216,8 @@ read_tsv_chunked(
 
 - quoted_na:
 
-  **\[deprecated\]** Should missing values inside quotes be treated as
-  missing values (the default) or strings. This parameter is soft
-  deprecated as of readr 2.0.0.
+  Should missing values inside quotes be treated as missing values (the
+  default) or strings.
 
 - comment:
 
@@ -234,8 +231,7 @@ read_tsv_chunked(
 
 - skip:
 
-  Number of lines to skip before reading data. If `comment` is supplied
-  any commented lines are ignored *after* skipping.
+  Number of lines to skip before reading data.
 
 - guess_max:
 
@@ -273,7 +269,6 @@ The number of lines in `file` can exceed the maximum integer value in R
 
 Other chunked:
 [`callback`](https://readr.tidyverse.org/reference/callback.md),
-[`melt_delim_chunked()`](https://readr.tidyverse.org/reference/melt_delim_chunked.md),
 [`read_lines_chunked()`](https://readr.tidyverse.org/reference/read_lines_chunked.md)
 
 ## Examples

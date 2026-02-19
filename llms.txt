@@ -32,11 +32,11 @@ readr is part of the core tidyverse, so you can load it with:
 ``` r
 library(tidyverse)
 #> ── Attaching core tidyverse packages ──────────────────────── tidyverse 2.0.0 ──
-#> ✔ dplyr     1.1.4          ✔ readr     2.1.5.9000
-#> ✔ forcats   1.0.1          ✔ stringr   1.5.2     
-#> ✔ ggplot2   4.0.0          ✔ tibble    3.3.0     
-#> ✔ lubridate 1.9.4          ✔ tidyr     1.3.1     
-#> ✔ purrr     1.1.0          
+#> ✔ dplyr     1.2.0          ✔ readr     2.1.6.9000
+#> ✔ forcats   1.0.1          ✔ stringr   1.6.0     
+#> ✔ ggplot2   4.0.2          ✔ tibble    3.3.1     
+#> ✔ lubridate 1.9.4          ✔ tidyr     1.3.2     
+#> ✔ purrr     1.2.1          
 #> ── Conflicts ────────────────────────────────────────── tidyverse_conflicts() ──
 #> ✖ dplyr::filter() masks stats::filter()
 #> ✖ dplyr::lag()    masks stats::lag()
@@ -156,7 +156,7 @@ gives an expanded introduction to readr.
 
 readr got a new parsing engine in version 2.0.0 (released July 2021). In
 this so-called second edition, readr calls
-[`vroom::vroom()`](https://vroom.r-lib.org/reference/vroom.html), by
+[`vroom::vroom()`](https://vroom.tidyverse.org/reference/vroom.html), by
 default.
 
 The parsing engine in readr versions prior to 2.0.0 is now called the
@@ -247,7 +247,7 @@ each line is divided up into fields.
   [`fwf_widths()`](https://readr.tidyverse.org/reference/read_fwf.md)
   [`fwf_positions()`](https://readr.tidyverse.org/reference/read_fwf.md)
   [`fwf_cols()`](https://readr.tidyverse.org/reference/read_fwf.md) :
-  Read a fixed width file into a tibble
+  Read a fixed-width file into a tibble
 - [`read_log()`](https://readr.tidyverse.org/reference/read_log.md) :
   Read common/combined log file into a tibble
 - [`read_table()`](https://readr.tidyverse.org/reference/read_table.md)
@@ -358,26 +358,6 @@ default from readr 2.0.0 onwards.
   : Temporarily change the active readr edition
 - [`edition_get()`](https://readr.tidyverse.org/reference/edition_get.md)
   : Retrieve the currently active edition
-
-## Read non-rectangular files
-
-These functions parse non-rectangular files (like csv or fixed-width
-format) into long (so-called melted) format. They specify the overall
-structure of the file, and how each line is divided up into fields.
-
-- [`melt_delim()`](https://readr.tidyverse.org/reference/melt_delim.md)
-  [`melt_csv()`](https://readr.tidyverse.org/reference/melt_delim.md)
-  [`melt_csv2()`](https://readr.tidyverse.org/reference/melt_delim.md)
-  [`melt_tsv()`](https://readr.tidyverse.org/reference/melt_delim.md)
-  **\[superseded\]** : Return melted data for each token in a delimited
-  file (including csv & tsv)
-- [`melt_fwf()`](https://readr.tidyverse.org/reference/melt_fwf.md)
-  **\[superseded\]** : Return melted data for each token in a fixed
-  width file
-- [`melt_table()`](https://readr.tidyverse.org/reference/melt_table.md)
-  [`melt_table2()`](https://readr.tidyverse.org/reference/melt_table.md)
-  **\[superseded\]** : Return melted data for each token in a
-  whitespace-separated file
 
 ## Low-level IO and debugging tools
 

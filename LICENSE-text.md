@@ -1,4 +1,4 @@
 # License
 
-    YEAR: 2023
+    YEAR: 2026
     COPYRIGHT HOLDER: readr authors

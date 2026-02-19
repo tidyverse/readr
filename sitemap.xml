@@ -1,6 +1,5 @@
 <urlset xmlns = 'http://www.sitemaps.org/schemas/sitemap/0.9'>
 <url><loc>https://readr.tidyverse.org/404.html</loc></url>
-<url><loc>https://readr.tidyverse.org/CLAUDE.html</loc></url>
 <url><loc>https://readr.tidyverse.org/CODE_OF_CONDUCT.html</loc></url>
 <url><loc>https://readr.tidyverse.org/CONTRIBUTING.html</loc></url>
 <url><loc>https://readr.tidyverse.org/LICENSE-text.html</loc></url>
@@ -28,10 +27,6 @@
 <url><loc>https://readr.tidyverse.org/reference/format_delim.html</loc></url>
 <url><loc>https://readr.tidyverse.org/reference/index.html</loc></url>
 <url><loc>https://readr.tidyverse.org/reference/locale.html</loc></url>
-<url><loc>https://readr.tidyverse.org/reference/melt_delim.html</loc></url>
-<url><loc>https://readr.tidyverse.org/reference/melt_delim_chunked.html</loc></url>
-<url><loc>https://readr.tidyverse.org/reference/melt_fwf.html</loc></url>
-<url><loc>https://readr.tidyverse.org/reference/melt_table.html</loc></url>
 <url><loc>https://readr.tidyverse.org/reference/output_column.html</loc></url>
 <url><loc>https://readr.tidyverse.org/reference/parse_atomic.html</loc></url>
 <url><loc>https://readr.tidyverse.org/reference/parse_datetime.html</loc></url>
@@ -50,7 +45,6 @@
 <url><loc>https://readr.tidyverse.org/reference/read_log.html</loc></url>
 <url><loc>https://readr.tidyverse.org/reference/read_rds.html</loc></url>
 <url><loc>https://readr.tidyverse.org/reference/read_table.html</loc></url>
-<url><loc>https://readr.tidyverse.org/reference/read_table2.html</loc></url>
 <url><loc>https://readr.tidyverse.org/reference/readr-package.html</loc></url>
 <url><loc>https://readr.tidyverse.org/reference/readr_example.html</loc></url>
 <url><loc>https://readr.tidyverse.org/reference/readr_threads.html</loc></url>

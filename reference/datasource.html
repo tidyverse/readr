@@ -7,7 +7,7 @@
 
     <a class="navbar-brand me-2" href="../index.html">readr</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Released version">2.1.6</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Released version">2.2.0</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -46,7 +46,7 @@
 <div class="row">
   <main id="main" class="col-md-9"><div class="page-header">
       <img src="../logo.png" class="logo" alt=""><h1>Create a source object.</h1>
-      <small class="dont-index">Source: <a href="https://github.com/tidyverse/readr/blob/v2.1.6/R/source.R" class="external-link"><code>R/source.R</code></a></small>
+      <small class="dont-index">Source: <a href="https://github.com/tidyverse/readr/blob/main/R/source.R" class="external-link"><code>R/source.R</code></a></small>
       <div class="d-none name"><code>datasource.Rd</code></div>
     </div>
 
@@ -75,12 +75,10 @@
 <p>Files ending in <code>.gz</code>, <code>.bz2</code>, <code>.xz</code>, or <code>.zip</code> will
 be automatically uncompressed. Files starting with <code>http://</code>,
 <code>https://</code>, <code>ftp://</code>, or <code>ftps://</code> will be automatically
-downloaded. Remote gz files can also be automatically downloaded and
+downloaded. Remote <code>.gz</code> files can also be automatically downloaded and
 decompressed.</p>
 <p>Literal data is most useful for examples and tests. To be recognised as
-literal data, the input must be either wrapped with <code><a href="https://rdrr.io/r/base/AsIs.html" class="external-link">I()</a></code>, be a string
-containing at least one new line, or be a vector containing at least one
-string with a new line.</p>
+literal data, wrap the input with <code><a href="https://rdrr.io/r/base/AsIs.html" class="external-link">I()</a></code>.</p>
 <p>Using a value of <code><a href="clipboard.html">clipboard()</a></code> will read from the system clipboard.</p></dd>
 
 
@@ -150,7 +148,7 @@ string with a new line.</p>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] "source_file" "source"     </span>
 <span class="r-in"><span><span class="fu">datasource</span><span class="op">(</span><span class="fu"><a href="readr_example.html">readr_example</a></span><span class="op">(</span><span class="st">"mtcars.csv.bz2"</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [[1]]</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "/tmp/RtmpYF9Btc/file18c541d84388"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "/tmp/Rtmpce6oh1/file19e24ee17738"</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $skip</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] 0</span>
@@ -165,13 +163,13 @@ string with a new line.</p>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] TRUE</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $env</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> &lt;environment: 0x55badae68fc0&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> &lt;environment: 0x55ad4be5ac98&gt;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> attr(,"class")</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] "source_file" "source"     </span>
 <span class="r-in"><span><span class="fu">datasource</span><span class="op">(</span><span class="fu"><a href="readr_example.html">readr_example</a></span><span class="op">(</span><span class="st">"mtcars.csv.zip"</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [[1]]</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "/tmp/RtmpYF9Btc/file18c52543a1c8"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "/tmp/Rtmpce6oh1/file19e26c8627a9"</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $skip</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] 0</span>
@@ -186,7 +184,7 @@ string with a new line.</p>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] TRUE</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $env</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> &lt;environment: 0x55bad8ba9780&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> &lt;environment: 0x55ad4bef9400&gt;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> attr(,"class")</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] "source_file" "source"     </span>
@@ -198,7 +196,7 @@ string with a new line.</p>
 <span class="r-in"><span><span class="va">con</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/rawConnection.html" class="external-link">rawConnection</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/rawConversion.html" class="external-link">charToRaw</a></span><span class="op">(</span><span class="st">"abc\n123"</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="fu">datasource</span><span class="op">(</span><span class="va">con</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [[1]]</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "/tmp/RtmpYF9Btc/file18c546652f9a"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "/tmp/Rtmpce6oh1/file19e22772dd7b"</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $skip</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] 0</span>
@@ -213,7 +211,7 @@ string with a new line.</p>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] TRUE</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $env</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> &lt;environment: 0x55badfee89c0&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> &lt;environment: 0x55ad4bf97e40&gt;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> attr(,"class")</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] "source_file" "source"     </span>

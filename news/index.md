@@ -1,5 +1,75 @@
 # Changelog
 
+## readr 2.2.0
+
+This release advances many deprecations.
+
+- `melt_csv()`, `melt_csv2()`, `melt_delim()`, `melt_tsv()`,
+  `melt_fwf()`, `melt_table()`, `melt_table2()`, and all
+  `melt_*_chunked()` variants have been removed from readr. These
+  functions were deprecated in readr 2.0.0 (2021-07-20). See the meltr
+  package (<https://github.com/r-lib/meltr>).
+
+- `read_table2()` has been removed from readr. This function was
+  deprecated in readr 2.0.0 (2021-07-20) in favor of
+  [`read_table()`](https://readr.tidyverse.org/reference/read_table.md).
+  Use
+  [`read_table()`](https://readr.tidyverse.org/reference/read_table.md)
+  instead.
+
+- [`read_csv()`](https://readr.tidyverse.org/reference/read_delim.md),
+  [`read_csv2()`](https://readr.tidyverse.org/reference/read_delim.md),
+  [`read_tsv()`](https://readr.tidyverse.org/reference/read_delim.md),
+  [`read_delim()`](https://readr.tidyverse.org/reference/read_delim.md),
+  and [`read_fwf()`](https://readr.tidyverse.org/reference/read_fwf.md)
+  now emit a deprecation warning when literal data is passed without
+  wrapping it in [`I()`](https://rdrr.io/r/base/AsIs.html). For example,
+  usage like `read_csv(I("x,y\n1,2"))` is preferred over
+  `read_csv("x,y\n1,2")`
+  ([\#1611](https://github.com/tidyverse/readr/issues/1611)).
+
+- The `quote_escape` parameter has been removed from
+  [`write_delim()`](https://readr.tidyverse.org/reference/write_delim.md),
+  [`write_csv()`](https://readr.tidyverse.org/reference/write_delim.md),
+  [`write_csv2()`](https://readr.tidyverse.org/reference/write_delim.md),
+  [`write_excel_csv()`](https://readr.tidyverse.org/reference/write_delim.md),
+  [`write_excel_csv2()`](https://readr.tidyverse.org/reference/write_delim.md),
+  [`write_tsv()`](https://readr.tidyverse.org/reference/write_delim.md),
+  [`format_delim()`](https://readr.tidyverse.org/reference/format_delim.md),
+  [`format_csv()`](https://readr.tidyverse.org/reference/format_delim.md),
+  [`format_csv2()`](https://readr.tidyverse.org/reference/format_delim.md),
+  and
+  [`format_tsv()`](https://readr.tidyverse.org/reference/format_delim.md).
+  This parameter was deprecated in readr 2.0.0 (2021-07-20) in favor of
+  the `escape` parameter. Use `escape` instead.
+
+- The `path` parameter has been removed from
+  [`write_delim()`](https://readr.tidyverse.org/reference/write_delim.md),
+  [`write_csv()`](https://readr.tidyverse.org/reference/write_delim.md),
+  [`write_csv2()`](https://readr.tidyverse.org/reference/write_delim.md),
+  [`write_excel_csv()`](https://readr.tidyverse.org/reference/write_delim.md),
+  [`write_excel_csv2()`](https://readr.tidyverse.org/reference/write_delim.md),
+  [`write_tsv()`](https://readr.tidyverse.org/reference/write_delim.md),
+  [`write_lines()`](https://readr.tidyverse.org/reference/read_lines.md),
+  [`write_file()`](https://readr.tidyverse.org/reference/read_file.md),
+  and
+  [`write_rds()`](https://readr.tidyverse.org/reference/read_rds.md).
+  This parameter was deprecated in readr 1.4.0 (2020-01-31) in favor of
+  the `file` parameter. Use `file` instead.
+
+- The `skip_empty_rows` argument of
+  [`fwf_empty()`](https://readr.tidyverse.org/reference/read_fwf.md) now
+  throws an error if used in edition 2. This argument was deprecated in
+  readr 2.0.0 (2021-07-20).
+
+- The `quoted_na` argument now throws an error if used in edition 2 with
+  [`read_delim()`](https://readr.tidyverse.org/reference/read_delim.md),
+  [`read_csv()`](https://readr.tidyverse.org/reference/read_delim.md),
+  [`read_csv2()`](https://readr.tidyverse.org/reference/read_delim.md),
+  or
+  [`read_tsv()`](https://readr.tidyverse.org/reference/read_delim.md).
+  This usage was first deprecated in readr 2.0.0 (2021-07-20).
+
 ## readr 2.1.6
 
 CRAN release: 2025-11-14
@@ -134,7 +204,7 @@ CRAN release: 2021-08-10
 
 - [`read_tsv()`](https://readr.tidyverse.org/reference/read_delim.md)
   now correctly passes the `quote` and `na` arguments to
-  [`vroom::vroom()`](https://vroom.r-lib.org/reference/vroom.html)
+  [`vroom::vroom()`](https://vroom.tidyverse.org/reference/vroom.html)
   ([\#1254](https://github.com/tidyverse/readr/issues/1254),
   [\#1255](https://github.com/tidyverse/readr/issues/1255))
 
@@ -149,7 +219,7 @@ CRAN release: 2021-07-20
 
 readr 2.0.0 is a major release of readr and introduces a new second
 edition parsing and writing engine implemented via the
-[vroom](https://vroom.r-lib.org/) package.
+[vroom](https://vroom.tidyverse.org/) package.
 
 This engine takes advantage of lazy reading, multi-threading and
 performance characteristics of modern SSD drives to significantly
@@ -252,18 +322,14 @@ license.
 
 #### Deprecated or superseded functions and features
 
-- [`melt_csv()`](https://readr.tidyverse.org/reference/melt_delim.md),
-  [`melt_delim()`](https://readr.tidyverse.org/reference/melt_delim.md),
-  [`melt_tsv()`](https://readr.tidyverse.org/reference/melt_delim.md)
-  and [`melt_fwf()`](https://readr.tidyverse.org/reference/melt_fwf.md)
-  have been superseded by functions in the same name in the meltr
-  package. The versions in readr have been deprecated. These functions
-  rely on the first edition parsing code and would be challenging to
-  update to the new parser. When the first edition parsing code is
-  eventually removed from readr they will be removed.
+- `melt_csv()`, `melt_delim()`, `melt_tsv()` and `melt_fwf()` have been
+  superseded by functions in the same name in the meltr package. The
+  versions in readr have been deprecated. These functions rely on the
+  first edition parsing code and would be challenging to update to the
+  new parser. When the first edition parsing code is eventually removed
+  from readr they will be removed.
 
-- [`read_table2()`](https://readr.tidyverse.org/reference/read_table2.md)
-  has been renamed to
+- `read_table2()` has been renamed to
   [`read_table()`](https://readr.tidyverse.org/reference/read_table.md),
   as most users expect
   [`read_table()`](https://readr.tidyverse.org/reference/read_table.md)
@@ -768,8 +834,7 @@ drawbacks of either method.
 - `read*()` functions now have a more informative error when trying to
   read a remote bz2 file
   ([\#891](https://github.com/tidyverse/readr/issues/891)).
-- `spec_table2()` function added to correspond to
-  [`read_table2()`](https://readr.tidyverse.org/reference/read_table2.md)
+- `spec_table2()` function added to correspond to `read_table2()`
   ([\#778](https://github.com/tidyverse/readr/issues/778),
   [@mawds](https://github.com/mawds)).
 - [`parse_factor()`](https://readr.tidyverse.org/reference/parse_factor.md)
@@ -799,8 +864,7 @@ drawbacks of either method.
 - `read_*()` now do not print a progress bar when running inside a
   RStudio notebook chunk
   ([\#793](https://github.com/tidyverse/readr/issues/793))
-- [`read_table2()`](https://readr.tidyverse.org/reference/read_table2.md)
-  now skips comments anywhere in the file
+- `read_table2()` now skips comments anywhere in the file
   ([\#908](https://github.com/tidyverse/readr/issues/908)).
 - [`parse_factor()`](https://readr.tidyverse.org/reference/parse_factor.md)
   now handles the case of empty strings separately, so you can have a
@@ -817,8 +881,8 @@ drawbacks of either method.
 - [`read_delim()`](https://readr.tidyverse.org/reference/read_delim.md)
   now ignores whitespace between the delimiter and quoted fields
   ([\#668](https://github.com/tidyverse/readr/issues/668)).
-- [`read_table2()`](https://readr.tidyverse.org/reference/read_table2.md)
-  now properly ignores blank lines at the end of a file like
+- `read_table2()` now properly ignores blank lines at the end of a file
+  like
   [`read_table()`](https://readr.tidyverse.org/reference/read_table.md)
   and
   [`read_delim()`](https://readr.tidyverse.org/reference/read_delim.md)
@@ -882,8 +946,9 @@ CRAN release: 2017-03-22
   will now can accept `levels = NULL`, which allows one to generate
   factor levels based on the data (like stringsAsFactors = TRUE)
   ([\#497](https://github.com/tidyverse/readr/issues/497)).
-- `parse_numeric()` now returns the full string if it contains no
-  numbers ([\#548](https://github.com/tidyverse/readr/issues/548)).
+- [`parse_number()`](https://readr.tidyverse.org/reference/parse_number.md)
+  now returns the full string if it contains no numbers
+  ([\#548](https://github.com/tidyverse/readr/issues/548)).
 - [`parse_time()`](https://readr.tidyverse.org/reference/parse_datetime.md)
   now correctly handles 12 AM/PM
   ([\#579](https://github.com/tidyverse/readr/issues/579)).
@@ -924,9 +989,8 @@ CRAN release: 2017-03-22
 - [`read_table()`](https://readr.tidyverse.org/reference/read_table.md)
   can now handle files with many lines of leading comments
   ([\#563](https://github.com/tidyverse/readr/issues/563)).
-- [`read_table2()`](https://readr.tidyverse.org/reference/read_table2.md)
-  which allows any number of whitespace characters as delimiters, a more
-  exact replacement for
+- `read_table2()` which allows any number of whitespace characters as
+  delimiters, a more exact replacement for
   [`utils::read.table()`](https://rdrr.io/r/utils/read.table.html)
   ([\#608](https://github.com/tidyverse/readr/issues/608)).
 

@@ -11,7 +11,7 @@ read_csv()."><meta property="og:image" content="https://readr.tidyverse.org/logo
 
     <a class="navbar-brand me-2" href="../index.html">readr</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Released version">2.1.6</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Released version">2.2.0</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -50,7 +50,7 @@ read_csv()."><meta property="og:image" content="https://readr.tidyverse.org/logo
 <div class="row">
   <main id="main" class="col-md-9"><div class="page-header">
       <img src="../logo.png" class="logo" alt=""><h1>Tokenizers.</h1>
-      <small class="dont-index">Source: <a href="https://github.com/tidyverse/readr/blob/v2.1.6/R/tokenizer.R" class="external-link"><code>R/tokenizer.R</code></a></small>
+      <small class="dont-index">Source: <a href="https://github.com/tidyverse/readr/blob/main/R/tokenizer.R" class="external-link"><code>R/tokenizer.R</code></a></small>
       <div class="d-none name"><code>Tokenizers.Rd</code></div>
     </div>
 
@@ -128,7 +128,9 @@ option to <code><a href="https://rdrr.io/r/base/character.html" class="external-
 <dt id="arg-quoted-na">quoted_na<a class="anchor" aria-label="anchor" href="#arg-quoted-na"></a></dt>
 <dd><p><a href="https://lifecycle.r-lib.org/articles/stages.html#deprecated" class="external-link"><img src="figures/lifecycle-deprecated.svg" alt="[Deprecated]"></a> Should missing values
 inside quotes be treated as missing values (the default) or strings. This
-parameter is soft deprecated as of readr 2.0.0.</p></dd>
+parameter is only supported in certain legacy functions (e.g., the
+<code>read_*_chunked()</code> functions) or when requesting the legacy first edition
+parser with <code><a href="read_delim.html">read_delim()</a></code> and friends.</p></dd>
 
 
 <dt id="arg-comment">comment<a class="anchor" aria-label="anchor" href="#arg-comment"></a></dt>
