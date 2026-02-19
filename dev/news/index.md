@@ -2,6 +2,21 @@
 
 ## readr (development version)
 
+This release advances many deprecations.
+
+- `melt_csv()`, `melt_csv2()`, `melt_delim()`, `melt_tsv()`,
+  `melt_fwf()`, `melt_table()`, `melt_table2()`, and all
+  `melt_*_chunked()` variants have been removed from readr. These
+  functions were deprecated in readr 2.0.0 (2021-07-20). See the meltr
+  package (<https://github.com/r-lib/meltr>).
+
+- `read_table2()` has been removed from readr. This function was
+  deprecated in readr 2.0.0 (2021-07-20) in favor of
+  [`read_table()`](https://readr.tidyverse.org/dev/reference/read_table.md).
+  Use
+  [`read_table()`](https://readr.tidyverse.org/dev/reference/read_table.md)
+  instead.
+
 - [`read_csv()`](https://readr.tidyverse.org/dev/reference/read_delim.md),
   [`read_csv2()`](https://readr.tidyverse.org/dev/reference/read_delim.md),
   [`read_tsv()`](https://readr.tidyverse.org/dev/reference/read_delim.md),
@@ -13,13 +28,6 @@
   usage like `read_csv(I("x,y\n1,2"))` is preferred over
   `read_csv("x,y\n1,2")`
   ([\#1611](https://github.com/tidyverse/readr/issues/1611)).
-
-- `read_table2()` has been removed from readr. This function was
-  deprecated in readr 2.0.0 (2021-07-20) in favor of
-  [`read_table()`](https://readr.tidyverse.org/dev/reference/read_table.md).
-  Use
-  [`read_table()`](https://readr.tidyverse.org/dev/reference/read_table.md)
-  instead.
 
 - The `quote_escape` parameter has been removed from
   [`write_delim()`](https://readr.tidyverse.org/dev/reference/write_delim.md),
@@ -49,12 +57,6 @@
   [`write_rds()`](https://readr.tidyverse.org/dev/reference/read_rds.md).
   This parameter was deprecated in readr 1.4.0 (2020-01-31) in favor of
   the `file` parameter. Use `file` instead.
-
-- `melt_csv()`, `melt_csv2()`, `melt_delim()`, `melt_tsv()`,
-  `melt_fwf()`, `melt_table()`, `melt_table2()`, and all
-  `melt_*_chunked()` variants have been removed from readr. These
-  functions were deprecated in readr 2.0.0 (2021-07-20) and are now
-  available in the meltr package (<https://github.com/r-lib/meltr>).
 
 - The `skip_empty_rows` argument of
   [`fwf_empty()`](https://readr.tidyverse.org/dev/reference/read_fwf.md)
@@ -219,7 +221,7 @@ CRAN release: 2021-07-20
 
 readr 2.0.0 is a major release of readr and introduces a new second
 edition parsing and writing engine implemented via the
-[vroom](https://vroom.r-lib.org/) package.
+[vroom](https://vroom.tidyverse.org/) package.
 
 This engine takes advantage of lazy reading, multi-threading and
 performance characteristics of modern SSD drives to significantly
