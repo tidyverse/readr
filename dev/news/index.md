@@ -2,6 +2,8 @@
 
 ## readr (development version)
 
+## readr 2.2.0
+
 This release advances many deprecations.
 
 - `melt_csv()`, `melt_csv2()`, `melt_delim()`, `melt_tsv()`,

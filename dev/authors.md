@@ -32,12 +32,12 @@ Source:
 [`DESCRIPTION`](https://github.com/tidyverse/readr/blob/main/DESCRIPTION)
 
 Wickham H, Hester J, Bryan J (2026). *readr: Read Rectangular Text
-Data*. R package version 2.1.6.9000, <https://readr.tidyverse.org>.
+Data*. R package version 2.2.0.9000, <https://readr.tidyverse.org>.
 
     @Manual{,
       title = {readr: Read Rectangular Text Data},
       author = {Hadley Wickham and Jim Hester and Jennifer Bryan},
       year = {2026},
-      note = {R package version 2.1.6.9000},
+      note = {R package version 2.2.0.9000},
       url = {https://readr.tidyverse.org},
     }
