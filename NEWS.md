@@ -1,4 +1,4 @@
-# readr (development version)
+# readr 2.2.0
 
 This release advances many deprecations.
 
