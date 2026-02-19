@@ -5,7 +5,7 @@
     Condition
       Error in `cli_block()`:
       ! `x` must not contain list or matrix columns:
-      x invalid columns at index(s): 3
+      x invalid columns at index(s): 2
 
 ---
 
