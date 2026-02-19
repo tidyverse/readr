@@ -29,7 +29,7 @@
 ## Citation
 
 Source:
-[`DESCRIPTION`](https://github.com/tidyverse/readr/blob/main/DESCRIPTION)
+[`DESCRIPTION`](https://github.com/tidyverse/readr/blob/v2.2.0/DESCRIPTION)
 
 Wickham H, Hester J, Bryan J (2026). *readr: Read Rectangular Text
 Data*. R package version 2.2.0, <https://readr.tidyverse.org>.
