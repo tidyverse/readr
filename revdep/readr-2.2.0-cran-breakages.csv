@@ -1,0 +1,8 @@
+package,github,maintainer_email,github_mirror,check_failure,breakage_reason
+MIMSunit,https://github.com/mhealthgroup/MIMSunit,tang.q@northeastern.edu,https://github.com/cran/MIMSunit,checking examples ... ERROR,"Uses defunct `quoted_na` argument of `read_csv()`"
+eyelinker,https://github.com/a-hurst/eyelinker,ajhurst@uwaterloo.ca,https://github.com/cran/eyelinker,checking whether package can be installed ... ERROR,"Uses removed `read_table2()` function"
+params,https://github.com/sahilseth/params,me@sahilseth.com,https://github.com/cran/params,checking R code for possible problems ... NOTE,"Uses removed `quote_escape` argument of `write_delim()`"
+readit,https://github.com/ryapric/readit,ryapric@gmail.com,https://github.com/cran/readit,"checking examples ... ERROR, checking tests ... ERROR, checking R code for possible problems ... NOTE","Uses removed `read_table2()` function"
+rubias,,eric.anderson@noaa.gov,https://github.com/cran/rubias,checking dependencies in R code ... WARNING,"Uses removed `read_table2()` function"
+skater,https://github.com/signaturescience/skater,vustephen@gmail.com,https://github.com/cran/skater,"checking examples ... ERROR, checking dependencies in R code ... WARNING","Uses removed `read_table2()` function"
+suddengains,https://github.com/milanwiedemann/suddengains,milan.wiedemann@gmail.com,https://github.com/cran/suddengains,checking examples ... ERROR,"Uses removed `path` argument of `write_csv()` (renamed to `file`)"
