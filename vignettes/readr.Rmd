@@ -128,10 +128,10 @@ parse_number("$1,234")
 
 There are two parsers that will never be guessed: `col_skip()` and `col_factor()`. You will always need to supply these explicitly.
 
-You can see the specification that readr would generate for a column file by using `spec_csv()`, `spec_tsv()` and so on:
+You can see the specification that readr would generate for a file by using `spec_csv()`, `spec_tsv()`, and so on.
 
 ```{r}
-x <- spec_csv(readr_example("challenge.csv"))
+x <- spec_csv(readr_example("my_dates.csv"))
 ```
 
 For bigger files, you can often make the specification simpler by changing the default column type using `cols_condense()`
@@ -143,14 +143,13 @@ mtcars_spec
 cols_condense(mtcars_spec)
 ```
 
-
-By default readr only looks at the first 1000 rows. This keeps file parsing speedy, but can generate incorrect guesses. For example, in `challenge.csv` the column types change in row 1001, so readr guesses the wrong types. One way to resolve the problem is to increase the number of rows:
+When guessing column types, readr selects rows interspersed through-out the file and always includes the first and last row. The default number of rows it selects is 1000. If the column type guess is incorrect, increasing `guess_max` may or may not improve the results.
 
 ```{r}
-x <- spec_csv(readr_example("challenge.csv"), guess_max = 1001)
+x <- spec_csv(readr_example("my_dates.csv"), guess_max = 1001)
 ```
 
-Another way is to manually specify the `col_type`, as described below.
+The best solution is to manually specify the `col_type`, as described below.
 
 ## Rectangular parsers
 
@@ -161,60 +160,52 @@ readr comes with five parsers for rectangular file formats:
 * `read_fwf()` for fixed-width files
 * `read_log()` for web log files
 
-Each of these functions firsts calls `spec_xxx()` (as described above), and then parses the file according to that column specification:
+If readr finds problems with parsing your data, it will emit a warning message.
+For example, in our aptly named `my_dates.csv` file, the column type we expected from our data was a column of dates.
 
 ```{r}
-df1 <- read_csv(readr_example("challenge.csv"))
+df1 <- read_csv(readr_example("my_dates.csv"))
 ```
 
-The rectangular parsing functions almost always succeed; they'll only fail if the format is severely messed up. Instead, readr will generate a data frame of problems. The first few will be printed out, and you can access them all with `problems()`:
+The data was successfully imported, but we get a warning message about parsing issues.
+To view more details about these parsing issues, call `problems()` on your data frame.
+This will generate a data frame with information about the parsing problems, with one row per problem.
 
 ```{r}
 problems(df1)
 ```
 
-You've already seen one way of handling bad guesses: increasing the number of rows used to guess the type of each column. 
+In this example, one of the dates is in an incorrect format.
+Since `problems()` gives us the row number from the original file, we can view that area of data in R with a combination of `readr::read_lines()` and `writeLines()`.  
 
 ```{r}
-df2 <- read_csv(readr_example("challenge.csv"), guess_max = 1001)
+problem_area <- problems(df1)$row - 2
+writeLines(read_lines(readr_example("my_dates.csv"), skip = problem_area, n_max = 3))
 ```
 
-Another approach is to manually supply the column specification.
+We can work around this parsing error by importing the date column as character and converting it to a column of dates, after the fact. Importing as character and using a more specialized package to parse the data post-import, is a common solution to parsing tricky columns. In this case, the lubridate package can parse our column back into dates.
 
-### Overriding the defaults
-
-In the previous examples, you may have noticed that readr printed the column specification that it used to parse the file:
-
-```{r}
-#> Parsed with column specification:
-#> cols(
-#>   x = col_integer(),
-#>   y = col_character()
-#> )
+```{r, eval = FALSE}
+df1 <- read_csv(readr_example("my_dates.csv"), col_types = list(
+  dates = col_character()
+))
+df1$dates <- lubridate::ymd(df1$dates)
+df1[problem_area:(problem_area + 2), ]
+#> # A tibble: 3 × 1
+#>   dates     
+#>   <date>    
+#> 1 2020-02-04
+#> 2 2022-09-07
+#> 3 2022-07-30
 ```
 
-You can also access it after the fact using `spec()`:
+In general, it's good practice to supply an explicit column specification to readr. It is more work, but it ensures that you get warnings if the data changes in unexpected ways. To be really strict, you can use `stop_for_problems(df1)`. This will throw an error if there are any parsing problems, forcing you to fix those problems before proceeding with the analysis.
+
+To access the full column specification after importing, you can call `spec()` on your data frame. If you want to manually specify the column types, you can start by copying and pasting this code, and then tweaking it to fix the parsing problems.
 
 ```{r}
 spec(df1)
-spec(df2)
 ```
-
-(This also allows you to access the full column specification if you're reading a very wide file. By default, readr will only print the specification of the first 20 columns.)
-
-If you want to manually specify the column types, you can start by copying and pasting this code, and then tweaking it fix the parsing problems.
-
-```{r}
-df3 <- read_csv(
-  readr_example("challenge.csv"), 
-  col_types = list(
-    x = col_double(),
-    y = col_date(format = "")
-  )
-)
-```
-
-In general, it's good practice to supply an explicit column specification. It is more work, but it ensures that you get warnings if the data changes in unexpected ways. To be really strict, you can use `stop_for_problems(df3)`. This will throw an error if there are any parsing problems, forcing you to fix those problems before proceeding with the analysis.
 
 ### Available column specifications
 
@@ -240,32 +231,32 @@ Use the `col_types` argument to override the default choices. There are two ways
   
 * With a (named) list of col objects:
 
-    ```r
-    read_csv("iris.csv", col_types = list(
-      Sepal.Length = col_double(),
-      Sepal.Width = col_double(),
-      Petal.Length = col_double(),
-      Petal.Width = col_double(),
-      Species = col_factor(c("setosa", "versicolor", "virginica"))
-    ))
-    ```
+  ```{r, eval = FALSE}
+  read_csv("iris.csv", col_types = list(
+    Sepal.Length = col_double(),
+    Sepal.Width = col_double(),
+    Petal.Length = col_double(),
+    Petal.Width = col_double(),
+    Species = col_factor(c("setosa", "versicolor", "virginica"))
+  ))
+  ```
     
   Or, with their abbreviations:
     
-    ```r
-      read_csv("iris.csv", col_types = list(
-      Sepal.Length = "d",
-      Sepal.Width = "d",
-      Petal.Length = "d",
-      Petal.Width = "d",
-      Species = col_factor(c("setosa", "versicolor", "virginica"))
-    ))
-    ```
+  ```{r, eval = FALSE}
+  read_csv("iris.csv", col_types = list(
+    Sepal.Length = "d",
+    Sepal.Width = "d",
+    Petal.Length = "d",
+    Petal.Width = "d",
+    Species = col_factor(c("setosa", "versicolor", "virginica"))
+  ))
+  ```
     
 Any omitted columns will be parsed automatically, so the previous call
 will lead to the same result as:
 
-```r
+```{r, eval = FALSE}
 read_csv("iris.csv", col_types = list(
   Species = col_factor(c("setosa", "versicolor", "virginica")))
 )
@@ -274,7 +265,7 @@ read_csv("iris.csv", col_types = list(
 You can also set a default type that will be used instead of
 relying on the automatic detection for columns you don't specify:
 
-```r
+```{r, eval = FALSE}
 read_csv("iris.csv", col_types = list(
   Species = col_factor(c("setosa", "versicolor", "virginica")),
   .default = col_double())
@@ -283,7 +274,7 @@ read_csv("iris.csv", col_types = list(
 
 If you only want to read specified columns, use `cols_only()`:
 
-```r
+```{r, eval = FALSE}
 read_csv("iris.csv", col_types = cols_only(
   Species = col_factor(c("setosa", "versicolor", "virginica")))
 )
