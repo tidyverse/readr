@@ -103,9 +103,10 @@ read_tsv(
 )
 }
 \arguments{
-\item{file}{Either a path to a file, a connection, or literal data (either a
-single string or a raw vector). \code{file} can also be a character vector
-containing multiple filepaths or a list containing multiple connections.
+\item{file}{Either a path to a file, a connection, or literal data
+(either a single string or a raw vector). \code{file} can also be a
+character vector containing multiple filepaths or a list containing
+multiple connections.
 
 Files ending in \code{.gz}, \code{.bz2}, \code{.xz}, or \code{.zip} will be automatically
 decompressed. Files starting with \verb{http://}, \verb{https://}, \verb{ftp://}, or
@@ -114,7 +115,9 @@ decompressed. Files starting with \verb{http://}, \verb{https://}, \verb{ftp://}
 decompressed.
 
 Literal data is most useful for examples and tests. To be recognised as
-literal data, wrap the input with \code{I()}.}
+literal data, wrap the input with \code{I()}.
+
+Using a value of \code{\link[=clipboard]{clipboard()}} will read from the system clipboard.}
 
 \item{delim}{Single character used to separate fields within a record.}
 
