@@ -76,8 +76,8 @@ df <- data.frame(
 )
 str(df)
 #> 'data.frame':    10 obs. of  2 variables:
-#>  $ x: chr  "0.947763937758282" "0.542480408679694" "0.544603393413126" "0.278597153956071" ...
-#>  $ y: chr  "2" "7" "10" "3" ...
+#>  $ x: chr  "0.0807501375675201" "0.834333037259057" "0.600760886212811" "0.157208441523835" ...
+#>  $ y: chr  "6" "9" "5" "8" ...
 str(type_convert(df))
 #> 
 #> ── Column specification ───────────────────────────────────────────────
@@ -86,8 +86,8 @@ str(type_convert(df))
 #>   y = col_double()
 #> )
 #> 'data.frame':    10 obs. of  2 variables:
-#>  $ x: num  0.948 0.542 0.545 0.279 0.447 ...
-#>  $ y: num  2 7 10 3 6 4 8 1 9 5
+#>  $ x: num  0.0808 0.8343 0.6008 0.1572 0.0074 ...
+#>  $ y: num  6 9 5 8 7 2 10 3 1 4
 
 df <- data.frame(x = c("NA", "10"), stringsAsFactors = FALSE)
 str(type_convert(df))
