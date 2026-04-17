@@ -1,5 +1,7 @@
 # readr (development version)
 
+* Non-ascii characters in non-file `file` arguments no longer cause unexpected errors (@jonthegeek, #1508, #1521).
+
 # readr 2.2.0
 
 This release advances many deprecations.

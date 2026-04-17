@@ -125,3 +125,18 @@ test_that("Unicode Byte order marks are stripped from output", {
     as.raw(c(0xff))
   )
 })
+
+test_that("can read non-ascii characters in non-file input (#1521)", {
+  skip_if_not_installed("vroom", "1.7.1.9000")
+  expect_no_error({
+    df <- read_csv(
+      I("text\nEl Ni\xf1o was particularly bad this year"),
+      show_col_types = FALSE,
+      locale = locale(encoding = "Latin1")
+    )
+  })
+  expect_equal(
+    df$text,
+    "El Niño was particularly bad this year"
+  )
+})
