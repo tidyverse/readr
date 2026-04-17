@@ -127,7 +127,7 @@ test_that("Unicode Byte order marks are stripped from output", {
 })
 
 test_that("can read non-ascii characters in non-file input (#1521)", {
-  skip_if_not_installed("vroom", "1.7.1.9000")
+  skip_if_not_installed("vroom", "1.7.1.9001")
   # This works fine for me on Windows, but GitHub windows produces a slightly
   # different snapshot
   skip_if(

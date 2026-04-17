@@ -524,7 +524,7 @@ test_that("read_delim errors on NULL delimiter (#1508)", {
 })
 
 test_that("read_delim errors informatively with non-ascii text and NULL delimiter (#1508)", {
-  skip_if_not_installed("vroom", "1.7.1.9000")
+  skip_if_not_installed("vroom", "1.7.1.9001")
   expect_snapshot(
     read_delim(test_fixture("enc-iso-8859-1.txt"), delim = NULL),
     error = TRUE
