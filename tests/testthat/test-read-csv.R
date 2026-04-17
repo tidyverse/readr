@@ -515,3 +515,20 @@ test_that("file paths do not trigger literal data warning", {
     read_csv(test_fixture("basic-df.csv"), show_col_types = FALSE)
   )
 })
+
+test_that("read_delim errors on NULL delimiter (#1508)", {
+  skip_if_edition_first()
+  expect_snapshot(
+    read_delim(test_fixture("sample_text.txt"), delim = NULL),
+    error = TRUE
+  )
+})
+
+test_that("read_delim errors informatively with non-ascii text and NULL delimiter (#1508)", {
+  skip_if_not_installed("vroom", "1.7.1.9001")
+  skip_if_edition_first()
+  expect_snapshot(
+    read_delim(test_fixture("enc-iso-8859-1.txt"), delim = NULL),
+    error = TRUE
+  )
+})

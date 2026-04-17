@@ -64,3 +64,21 @@
         # Good:
         read_csv(I("x,y\n1,2"))
 
+# read_delim errors on NULL delimiter (#1508)
+
+    Code
+      read_delim(test_fixture("sample_text.txt"), delim = NULL)
+    Condition
+      Error:
+      ! Could not guess the delimiter.
+      i Use `vroom(delim =)` to explicitly specify the delimiter.
+
+# read_delim errors informatively with non-ascii text and NULL delimiter (#1508)
+
+    Code
+      read_delim(test_fixture("enc-iso-8859-1.txt"), delim = NULL)
+    Condition
+      Error:
+      ! Could not guess the delimiter.
+      i Use `vroom(delim =)` to explicitly specify the delimiter.
+

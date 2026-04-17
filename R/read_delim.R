@@ -615,7 +615,7 @@ standardise_literal_data <- function(file, fn, env, user_env) {
   if (
     is.character(file) &&
       length(file) == 1 &&
-      grepl("\n", file) &&
+      grepl("\n", file, useBytes = TRUE) &&
       !inherits(file, "AsIs")
   ) {
     lifecycle::deprecate_soft(
