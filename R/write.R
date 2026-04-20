@@ -79,10 +79,10 @@ write_delim <- function(
   progress = show_progress()
 ) {
   stopifnot(is.data.frame(x))
-  check_column_types(x)
 
   x_out <- x
   x[] <- lapply(x, output_column)
+  check_column_types(x)
   if (edition_first()) {
     stream_delim(
       x,
@@ -191,13 +191,13 @@ write_excel_csv <- function(
   progress = show_progress()
 ) {
   stopifnot(is.data.frame(x))
-  check_column_types(x)
 
   x_out <- x
   datetime_cols <- vapply(x, inherits, logical(1), "POSIXt")
   x[datetime_cols] <- lapply(x[datetime_cols], format, "%Y/%m/%d %H:%M:%S")
 
   x[] <- lapply(x, output_column)
+  check_column_types(x)
   if (edition_first()) {
     stream_delim(
       x,
@@ -246,7 +246,6 @@ write_excel_csv2 <- function(
   progress = show_progress()
 ) {
   stopifnot(is.data.frame(x))
-  check_column_types(x)
 
   x_out <- x
   x <- change_decimal_separator(x, decimal_mark = ",")
@@ -255,6 +254,7 @@ write_excel_csv2 <- function(
   x[datetime_cols] <- lapply(x[datetime_cols], format, "%Y/%m/%d %H:%M:%S")
 
   x[] <- lapply(x, output_column)
+  check_column_types(x)
   write_excel_csv(
     x,
     file,
@@ -336,9 +336,9 @@ format_delim <- function(
   eol = "\n"
 ) {
   stopifnot(is.data.frame(x))
-  check_column_types(x)
 
   x[] <- lapply(x, output_column)
+  check_column_types(x)
   if (edition_first()) {
     res <- stream_delim(
       df = x,
@@ -553,7 +553,9 @@ standardise_escape <- function(x) {
 }
 
 check_column_types <- function(x) {
-  is_bad_column <- vapply(x, function(xx) !is.null(dim(xx)), logical(1))
+  is_bad_column <- vapply(x, function(xx) {
+    !is.atomic(xx) || !is.null(dim(xx))
+  }, logical(1))
   if (any(is_bad_column)) {
     cli_block(type = rlang::abort, {
       cli::cli_text("`x` must not contain list or matrix columns:")
