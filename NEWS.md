@@ -1,5 +1,14 @@
 # readr (development version)
 
+* `locale()` gains a `date_order` argument to control the component order used
+  when parsing dates and date-times (e.g. `"mdy"`, `"dmy"`, `"ymd_hms"`). This
+  makes it possible to read year-last formats such as `10/02/2024` that the
+  automatic type guesser would otherwise treat as character.
+
+* Date and date-time auto-detection now accepts any non-alphanumeric separator
+  between components (e.g. `2024.10.02`, `2024/10/02`), and falls back to a
+  year-last heuristic so unambiguous `D/M/YYYY` values are recognised as dates.
+
 # readr 2.2.0
 
 This release advances many deprecations.

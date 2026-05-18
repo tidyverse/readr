@@ -13,7 +13,8 @@ locale(
   grouping_mark = ",",
   tz = "UTC",
   encoding = "UTF-8",
-  asciify = FALSE
+  asciify = FALSE,
+  date_order = NULL
 )
 
 default_locale()
@@ -50,6 +51,11 @@ read - readr always converts the output to UTF-8.}
 \item{asciify}{Should diacritics be stripped from date names and converted to
 ASCII? This is useful if you're dealing with ASCII data where the correct
 spellings have been lost. Requires the \pkg{stringi} package.}
+
+\item{date_order}{Order of date components for auto-detection. One of
+\code{"ymd"}, \code{"ydm"}, \code{"mdy"}, \code{"myd"}, \code{"dmy"}, \code{"dym"}, or those combined
+with a time suffix: \code{"_hms"}, \code{"_hm"}, or \code{"_h"} (e.g. \code{"mdy_hms"}).
+Use \code{NULL} (default) for automatic detection.}
 }
 \description{
 A locale object tries to capture all the defaults that can vary between

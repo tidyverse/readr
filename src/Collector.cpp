@@ -29,9 +29,16 @@ CollectorPtr Collector::create(const cpp11::list& spec, LocaleInfo* pLocale) {
   }
   if (subclass == "collector_date") {
     SEXP format_ = spec["format"];
-    std::string format = (Rf_isNull(format_)) != 0U
-                             ? pLocale->dateFormat_
-                             : cpp11::as_cpp<std::string>(format_);
+    std::string format;
+    if ((Rf_isNull(format_)) == 0U) {
+      // Explicit format given by user
+      format = cpp11::as_cpp<std::string>(format_);
+    } else if (pLocale->dateOrder_.empty()) {
+      // No date_order set: use locale date format (e.g. "%AD" -> ISO8601)
+      format = pLocale->dateFormat_;
+    }
+    // When date_order is set and no explicit format: leave format empty
+    // so setValue() will dispatch through parseDateOrder()
     return CollectorPtr(new CollectorDate(pLocale, format));
   }
   if (subclass == "collector_datetime") {
@@ -106,8 +113,23 @@ void CollectorDate::setValue(int i, const Token& t) {
     std::string std_string(string.first, string.second);
 
     parser_.setDate(std_string.c_str());
-    bool res =
-        (format_.empty()) ? parser_.parseLocaleDate() : parser_.parse(format_);
+    bool res;
+    if (!format_.empty()) {
+      res = parser_.parse(format_);
+    } else if (!pLocale_->dateOrder_.empty() &&
+               pLocale_->dateOrder_.find('_') == std::string::npos) {
+      // Explicit date-only order (e.g. "mdy", "dmy")
+      res = parser_.parseDateOrder(pLocale_->dateOrder_);
+    } else {
+      res = parser_.parseLocaleDate();
+      if (!res) {
+        // Auto-detection fallback: year-last heuristic (D/M/YYYY, M/D/YYYY).
+        // Mirrors isDate() in CollectorGuess.cpp so the guesser and the
+        // collector agree on which strings count as dates.
+        parser_.setDate(std_string.c_str());
+        res = parser_.parseYearLastHeuristic();
+      }
+    }
 
     if (!res) {
       warn(t.row(), t.col(), "date like " + format_, std_string);
@@ -141,8 +163,16 @@ void CollectorDateTime::setValue(int i, const Token& t) {
     std::string std_string(string.first, string.second);
 
     parser_.setDate(std_string.c_str());
-    bool res =
-        (format_.empty()) ? parser_.parseISO8601() : parser_.parse(format_);
+    bool res;
+    if (!format_.empty()) {
+      res = parser_.parse(format_);
+    } else if (!pLocale_->dateOrder_.empty() &&
+               pLocale_->dateOrder_.find('_') != std::string::npos) {
+      // Explicit datetime order (e.g. "mdy_hms", "dmy_hm")
+      res = parser_.parseDateOrder(pLocale_->dateOrder_);
+    } else {
+      res = parser_.parseISO8601();
+    }
 
     if (!res) {
       warn(t.row(), t.col(), "date like " + format_, std_string);

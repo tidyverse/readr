@@ -96,26 +96,47 @@ bool isTime(const std::string& x, LocaleInfo* pLocale) {
 
 bool isDate(const std::string& x, LocaleInfo* pLocale) {
   DateTimeParser parser(pLocale);
+  parser.setDate(x.c_str());
+
+  // Explicit date-only order (no '_' suffix means date-only, e.g. "mdy", "dmy")
+  if (!pLocale->dateOrder_.empty() &&
+      pLocale->dateOrder_.find('_') == std::string::npos) {
+    return parser.parseDateOrder(pLocale->dateOrder_);
+  }
+
+  // If a datetime order is explicitly set, don't match as date-only
+  if (!pLocale->dateOrder_.empty()) {
+    return false;
+  }
+
+  // Auto-detection: locale date format first (handles YMD/%AD), then year-last heuristic
+  if (parser.parseLocaleDate()) return true;
 
   parser.setDate(x.c_str());
-  return parser.parseLocaleDate();
+  return parser.parseYearLastHeuristic();
 }
 
 static bool isDateTime(const std::string& x, LocaleInfo* pLocale) {
   DateTimeParser parser(pLocale);
-
   parser.setDate(x.c_str());
-  bool ok = parser.parseISO8601();
 
-  if (!ok) {
+  // Explicit datetime order (has '_' suffix, e.g. "mdy_hms", "dmy_hm")
+  if (!pLocale->dateOrder_.empty() &&
+      pLocale->dateOrder_.find('_') != std::string::npos) {
+    if (!parser.parseDateOrder(pLocale->dateOrder_)) return false;
+    return parser.makeDateTime().validDateTime();
+  }
+
+  // If a date-only order is explicitly set, don't match as datetime
+  if (!pLocale->dateOrder_.empty()) {
     return false;
   }
 
-  if (!parser.compactDate()) {
-    return true;
-  }
+  // Auto-detection: ISO8601 only (YMD, existing behavior — no change)
+  bool ok = parser.parseISO8601();
+  if (!ok) return false;
 
-  // Values like 00014567 are unlikely to be dates, so don't guess
+  if (!parser.compactDate()) return true;
   return parser.year() > 999;
 }
 

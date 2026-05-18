@@ -27,5 +27,11 @@ LocaleInfo::LocaleInfo(const cpp11::list& x)
   dateFormat_ = cpp11::as_cpp<std::string>(x["date_format"]);
   timeFormat_ = cpp11::as_cpp<std::string>(x["time_format"]);
 
+  // date_order is optional (NULL in R becomes empty string)
+  SEXP date_order_sexp = x["date_order"];
+  dateOrder_ = (date_order_sexp == R_NilValue)
+    ? ""
+    : cpp11::as_cpp<std::string>(date_order_sexp);
+
   tz_ = cpp11::as_cpp<std::string>(x["tz"]);
 }

@@ -348,3 +348,47 @@ test_that("Invalid formats error", {
     error = TRUE
   )
 })
+
+# --- date_order tests ---
+test_that("guess_parser detects MDY dates with explicit date_order", {
+  loc_mdy <- locale(date_order = "mdy")
+  expect_equal(
+    guess_parser(c("10/02/2024", "03/15/2024"), locale = loc_mdy),
+    "date"
+  )
+})
+
+test_that("guess_parser detects DMY dates with explicit date_order", {
+  loc_dmy <- locale(date_order = "dmy")
+  expect_equal(
+    guess_parser(c("02/10/2024", "15/03/2024"), locale = loc_dmy),
+    "date"
+  )
+})
+
+test_that("guess_parser detects MDY datetime with explicit date_order", {
+  loc <- locale(date_order = "mdy_hms")
+  expect_equal(guess_parser(c("10/02/2024 14:30:00"), locale = loc), "datetime")
+})
+
+test_that("guess_parser auto-detects year-last date without date_order", {
+  # 15/03/2024: part1=15 > 12, unambiguously DMY
+  expect_equal(guess_parser(c("15/03/2024", "20/01/2024")), "date")
+})
+
+test_that("guess_parser auto-detects ambiguous year-last as MDY by default", {
+  # 10/02/2024: ambiguous, defaults to MDY — still detected as date
+  expect_equal(guess_parser(c("10/02/2024", "03/15/2024")), "date")
+})
+
+test_that("parse_date parses MDY with locale date_order", {
+  loc <- locale(date_order = "mdy")
+  result <- parse_date(c("10/02/2024", "03/15/2024"), locale = loc)
+  expect_equal(result, as.Date(c("2024-10-02", "2024-03-15")))
+})
+
+test_that("parse_datetime parses dmy_hms with locale date_order", {
+  loc <- locale(date_order = "dmy_hms")
+  result <- parse_datetime(c("02/10/2024 14:30:00"), locale = loc)
+  expect_equal(result, as.POSIXct("2024-10-02 14:30:00", tz = "UTC"))
+})
