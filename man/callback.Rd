@@ -48,9 +48,9 @@ f <- function(x, pos, acc) sum(x$mpg) + acc
 read_csv_chunked(readr_example("mtcars.csv"), AccumulateCallback$new(f, acc = 0), chunk_size = 5)
 }
 \seealso{
-Other chunked: 
-\code{\link{read_delim_chunked}()},
-\code{\link{read_lines_chunked}()}
+Other chunked:
+\code{\link[=read_delim_chunked]{read_delim_chunked()}},
+\code{\link[=read_lines_chunked]{read_lines_chunked()}}
 }
 \concept{chunked}
 \keyword{internal}

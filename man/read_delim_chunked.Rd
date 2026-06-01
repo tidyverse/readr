@@ -216,9 +216,9 @@ f <- function(x, pos) subset(x, gear == 3)
 read_csv_chunked(readr_example("mtcars.csv"), DataFrameCallback$new(f), chunk_size = 5)
 }
 \seealso{
-Other chunked: 
+Other chunked:
 \code{\link{callback}},
-\code{\link{read_lines_chunked}()}
+\code{\link[=read_lines_chunked]{read_lines_chunked()}}
 }
 \concept{chunked}
 \keyword{internal}

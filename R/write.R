@@ -24,7 +24,7 @@
 #' Values are only quoted if they contain a comma, quote or newline.
 #'
 #' The `write_*()` functions will automatically compress outputs if an appropriate extension is given.
-#' Three extensions are currently supported: `.gz` for gzip compression, `.bz2` for bzip2 compression and
+#' Four extensions are currently supported: `.zip` for zip compression, `.gz` for gzip compression, `.bz2` for bzip2 compression and
 #' `.xz` for lzma compression.  See the examples for more information.
 #'
 #' @param x A data frame or tibble to write to disk.
@@ -59,6 +59,7 @@
 #'
 #' # If you add an extension to the file name, write_()* will
 #' # automatically compress the output.
+#' write_tsv(mtcars, "mtcars.tsv.zip")
 #' write_tsv(mtcars, "mtcars.tsv.gz")
 #' write_tsv(mtcars, "mtcars.tsv.bz2")
 #' write_tsv(mtcars, "mtcars.tsv.xz")
