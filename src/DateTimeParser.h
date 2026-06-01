@@ -39,14 +39,16 @@ public:
   // parsing with a format string so it doesn't seem necessary to add individual
   // parsers for other common formats.
   bool parseISO8601(bool partial = true) {
-    // Date: YYYY-MM-DD, YYYYMMDD
+    // Date: YYYY-MM-DD, YYYYMMDD, YYYY/MM/DD, YYYY.MM.DD, etc.
+    // Accepts any non-alphanumeric separator between date components,
+    // similar to lubridate's ymd() flexible parsing.
     if (!consumeInteger(4, &year_))
       return false;
-    if (consumeThisChar('-'))
+    if (consumeDateSeparator())
       compactDate_ = false;
     if (!consumeInteger(2, &mon_))
       return false;
-    if (!compactDate_ && !consumeThisChar('-'))
+    if (!compactDate_ && !consumeDateSeparator())
       return false;
     if (!consumeInteger(2, &day_))
       return false;
@@ -104,17 +106,169 @@ public:
   }
 
   bool parseDate() {
-    // Date: YYYY-MM-DD, YYYY/MM/DD
+    // Date: YYYY-MM-DD, YYYY/MM/DD, YYYY.MM.DD, etc.
+    // Accepts any non-alphanumeric separator between date components.
     if (!consumeInteger(4, &year_))
       return false;
-    if (!consumeThisChar('-') && !consumeThisChar('/'))
+    if (!consumeDateSeparator())
       return false;
     if (!consumeInteger(2, &mon_))
       return false;
-    if (!consumeThisChar('-') && !consumeThisChar('/'))
+    if (!consumeDateSeparator())
       return false;
     if (!consumeInteger(2, &day_))
       return false;
+
+    return isComplete();
+  }
+
+  // Parse a date (and optionally time) according to an explicit component order.
+  // dateOrder examples: "mdy", "dmy", "ymd", "mdy_hms", "dmy_hm", "ymd_h"
+  // Date components: y=year(4-digit), m=month(1-2 digit), d=day(1-2 digit)
+  // Time suffixes: h=HH, hm=HH:MM, hms=HH:MM:SS
+  bool parseDateOrder(const std::string& order) {
+    // Split on '_' into date part and optional time part
+    std::string datePart, timePart;
+    size_t underscore = order.find('_');
+    if (underscore != std::string::npos) {
+      datePart = order.substr(0, underscore);
+      timePart = order.substr(underscore + 1);
+    } else {
+      datePart = order;
+      timePart = "";
+    }
+
+    // Parse date components in the specified order
+    for (size_t i = 0; i < datePart.size(); i++) {
+      if (i > 0 && !consumeDateSeparator())
+        return false;
+
+      switch (datePart[i]) {
+        case 'y':
+          if (!consumeYearFlexible()) return false;
+          break;
+        case 'm':
+          if (!consumeInteger(2, &mon_, false)) return false;
+          break;
+        case 'd':
+          if (!consumeInteger(2, &day_, false)) return false;
+          break;
+        default:
+          return false;
+      }
+    }
+
+    // Date-only: must consume entire input
+    if (timePart.empty())
+      return isComplete();
+
+    // Date+time: consume separator (T or space)
+    char next;
+    if (!consumeChar(&next)) return false;
+    if (next != 'T' && next != ' ') return false;
+
+    // Parse hour (always present in any time suffix)
+    if (!consumeInteger(2, &hour_)) return false;
+
+    if (timePart == "h")
+      return isComplete();
+
+    // "hm" or "hms": parse minutes
+    consumeThisChar(':');
+    if (!consumeInteger(2, &min_)) return false;
+
+    if (timePart == "hm")
+      return isComplete();
+
+    // "hms": parse seconds (optional fractional)
+    consumeThisChar(':');
+    consumeSeconds(&sec_, &psec_);
+
+    // Optional timezone (same as ISO8601)
+    if (isComplete()) return true;
+    tz_ = "UTC";
+    consumeTzOffset(&tzOffsetHours_, &tzOffsetMinutes_);
+
+    return isComplete();
+  }
+
+  // Consume a year that may be 2 or 4 digits. 2-digit years use the same pivot
+  // as the %y format specifier (00-68 -> 2000s, 69-99 -> 1900s). 3-digit values
+  // (100-999) are implausible and rejected. (Issue #36088)
+  bool consumeYearFlexible() {
+    if (!consumeInteger(4, &year_, false)) return false;
+    if (year_ < 100) {
+      year_ += (year_ < 69) ? 2000 : 1900;
+    } else if (year_ < 1000) {
+      return false;
+    }
+    return true;
+  }
+
+  // Disambiguate a year-last date's first two components into month and day.
+  // part1 > 12 -> DMY; part2 > 12 -> MDY; otherwise default to MDY (US).
+  // Returns false if the resulting month/day are out of range.
+  bool disambiguateDayMonth(int part1, int part2) {
+    if (part1 > 12) {
+      day_ = part1;
+      mon_ = part2;
+    } else if (part2 > 12) {
+      mon_ = part1;
+      day_ = part2;
+    } else {
+      mon_ = part1;
+      day_ = part2;
+    }
+    if (mon_ < 1 || mon_ > 12) return false;
+    if (day_ < 1 || day_ > 31) return false;
+    return true;
+  }
+
+  // Heuristic for year-last date patterns: D/M/Y or M/D/Y (Y = 2 or 4 digits)
+  // Matches: \d{1,2}[sep]\d{1,2}[sep]\d{2,4}
+  // Disambiguation: if part1 > 12 → DMY; if part2 > 12 → MDY; else → MDY (default)
+  bool parseYearLastHeuristic() {
+    int part1, part2;
+
+    if (!consumeInteger(2, &part1, false)) return false;
+    if (!consumeDateSeparator()) return false;
+    if (!consumeInteger(2, &part2, false)) return false;
+    if (!consumeDateSeparator()) return false;
+    if (!consumeYearFlexible()) return false;
+    if (!isComplete()) return false;
+
+    return disambiguateDayMonth(part1, part2);
+  }
+
+  // Year-last datetime heuristic: a year-last date (M/D/Y or D/M/Y, 2 or 4 digit
+  // year) followed by a T/space separator and a HH[:MM[:SS]] time with optional
+  // timezone. Mirrors the time tail of parseISO8601. (Issue #36088)
+  bool parseYearLastHeuristicDateTime() {
+    int part1, part2;
+
+    if (!consumeInteger(2, &part1, false)) return false;
+    if (!consumeDateSeparator()) return false;
+    if (!consumeInteger(2, &part2, false)) return false;
+    if (!consumeDateSeparator()) return false;
+    if (!consumeYearFlexible()) return false;
+    if (!disambiguateDayMonth(part1, part2)) return false;
+
+    // Time portion is required (date-only is handled by parseYearLastHeuristic).
+    char next;
+    if (!consumeChar(&next)) return false;
+    if (next != 'T' && next != ' ') return false;
+
+    if (!consumeInteger(2, &hour_)) return false;
+    consumeThisChar(':');
+    consumeInteger(2, &min_);
+    consumeThisChar(':');
+    consumeSeconds(&sec_, &psec_);
+
+    if (isComplete()) return true;
+
+    // Optional timezone
+    tz_ = "UTC";
+    if (!consumeTzOffset(&tzOffsetHours_, &tzOffsetMinutes_)) return false;
 
     return isComplete();
   }
@@ -424,6 +578,19 @@ private:
     while (dateItr_ != dateEnd_ && std::isspace(*dateItr_))
       dateItr_++;
 
+    return true;
+  }
+
+  // Consume a single non-alphanumeric, non-space character as a date separator.
+  // Accepts: - / . , ; and other punctuation, similar to lubridate's ymd().
+  // Rejects: digits, letters, whitespace (to avoid false positives).
+  inline bool consumeDateSeparator() {
+    if (dateItr_ == dateEnd_)
+      return false;
+    char c = *dateItr_;
+    if (std::isalnum(c) || std::isspace(c))
+      return false;
+    dateItr_++;
     return true;
   }
 

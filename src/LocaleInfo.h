@@ -13,6 +13,7 @@ public:
   // LC_TIME
   std::vector<std::string> mon_, monAb_, day_, dayAb_, amPm_;
   std::string dateFormat_, timeFormat_;
+  std::string dateOrder_;  // date component order (e.g. "mdy", "dmy_hms"), empty = auto
 
   // LC_NUMERIC
   char decimalMark_, groupingMark_;

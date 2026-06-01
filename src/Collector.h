@@ -95,12 +95,14 @@ public:
 class CollectorDate : public Collector {
   std::string format_;
   DateTimeParser parser_;
+  LocaleInfo* pLocale_;
 
 public:
   CollectorDate(LocaleInfo* pLocale, const std::string& format)
       : Collector(cpp11::writable::doubles(R_xlen_t(0))),
         format_(format),
-        parser_(pLocale) {}
+        parser_(pLocale),
+        pLocale_(pLocale) {}
 
   void setValue(int i, const Token& t);
 
@@ -116,13 +118,15 @@ class CollectorDateTime : public Collector {
   std::string format_;
   DateTimeParser parser_;
   std::string tz_;
+  LocaleInfo* pLocale_;
 
 public:
   CollectorDateTime(LocaleInfo* pLocale, const std::string& format)
       : Collector(cpp11::writable::doubles(R_xlen_t(0))),
         format_(format),
         parser_(pLocale),
-        tz_(pLocale->tz_) {}
+        tz_(pLocale->tz_),
+        pLocale_(pLocale) {}
 
   void setValue(int i, const Token& t);
 

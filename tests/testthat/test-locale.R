@@ -14,3 +14,19 @@ test_that("grouping and decimal marks must be different", {
     error = TRUE
   )
 })
+
+test_that("locale() accepts date_order parameter", {
+  loc <- locale(date_order = "mdy")
+  expect_equal(loc$date_order, "mdy")
+
+  loc2 <- locale(date_order = "dmy_hms")
+  expect_equal(loc2$date_order, "dmy_hms")
+
+  loc3 <- locale()
+  expect_null(loc3$date_order)
+})
+
+test_that("locale() rejects invalid date_order", {
+  expect_error(locale(date_order = "ymd_xyz"), "date_order")
+  expect_error(locale(date_order = "bad"), "date_order")
+})

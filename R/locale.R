@@ -32,6 +32,10 @@
 #' @param asciify Should diacritics be stripped from date names and converted to
 #'   ASCII? This is useful if you're dealing with ASCII data where the correct
 #'   spellings have been lost. Requires the \pkg{stringi} package.
+#' @param date_order Order of date components for auto-detection. One of
+#'   `"ymd"`, `"ydm"`, `"mdy"`, `"myd"`, `"dmy"`, `"dym"`, or those combined
+#'   with a time suffix: `"_hms"`, `"_hm"`, or `"_h"` (e.g. `"mdy_hms"`).
+#'   Use `NULL` (default) for automatic detection.
 #' @export
 #' @examples
 #' locale()
@@ -47,7 +51,8 @@ locale <- function(
   grouping_mark = ",",
   tz = "UTC",
   encoding = "UTF-8",
-  asciify = FALSE
+  asciify = FALSE,
+  date_order = NULL
 ) {
   if (is.character(date_names)) {
     date_names <- date_names_lang(date_names)
@@ -76,6 +81,38 @@ locale <- function(
   tz <- check_tz(tz)
   check_encoding(encoding)
 
+  if (!is.null(date_order)) {
+    check_string(date_order)
+  }
+
+  valid_date_orders <- c(
+    "ymd",
+    "ydm",
+    "mdy",
+    "myd",
+    "dmy",
+    "dym",
+    "ymd_hms",
+    "ymd_hm",
+    "ymd_h",
+    "mdy_hms",
+    "mdy_hm",
+    "mdy_h",
+    "dmy_hms",
+    "dmy_hm",
+    "dmy_h",
+    "ydm_hms",
+    "ydm_hm",
+    "ydm_h"
+  )
+  if (!is.null(date_order) && !date_order %in% valid_date_orders) {
+    stop(
+      "`date_order` must be NULL or one of: ",
+      paste(valid_date_orders, collapse = ", "),
+      call. = FALSE
+    )
+  }
+
   structure(
     list(
       date_names = date_names,
@@ -84,7 +121,8 @@ locale <- function(
       decimal_mark = decimal_mark,
       grouping_mark = grouping_mark,
       tz = tz,
-      encoding = encoding
+      encoding = encoding,
+      date_order = date_order
     ),
     class = "locale"
   )
@@ -107,6 +145,9 @@ print.locale <- function(x, ...) {
     sep = ""
   )
   cat("Formats:  ", x$date_format, " / ", x$time_format, "\n", sep = "")
+  if (!is.null(x$date_order)) {
+    cat("Date order: ", x$date_order, "\n", sep = "")
+  }
   cat("Timezone: ", x$tz, "\n", sep = "")
   cat("Encoding: ", x$encoding, "\n", sep = "")
   print(x$date_names)
