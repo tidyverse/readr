@@ -145,7 +145,7 @@ public:
 
       switch (datePart[i]) {
         case 'y':
-          if (!consumeInteger(4, &year_)) return false;
+          if (!consumeYearFlexible()) return false;
           break;
         case 'm':
           if (!consumeInteger(2, &mon_, false)) return false;
@@ -192,8 +192,40 @@ public:
     return isComplete();
   }
 
-  // Heuristic for year-last date patterns: D/M/YYYY or M/D/YYYY
-  // Matches: \d{1,2}[sep]\d{1,2}[sep]\d{4}
+  // Consume a year that may be 2 or 4 digits. 2-digit years use the same pivot
+  // as the %y format specifier (00-68 -> 2000s, 69-99 -> 1900s). 3-digit values
+  // (100-999) are implausible and rejected. (Issue #36088)
+  bool consumeYearFlexible() {
+    if (!consumeInteger(4, &year_, false)) return false;
+    if (year_ < 100) {
+      year_ += (year_ < 69) ? 2000 : 1900;
+    } else if (year_ < 1000) {
+      return false;
+    }
+    return true;
+  }
+
+  // Disambiguate a year-last date's first two components into month and day.
+  // part1 > 12 -> DMY; part2 > 12 -> MDY; otherwise default to MDY (US).
+  // Returns false if the resulting month/day are out of range.
+  bool disambiguateDayMonth(int part1, int part2) {
+    if (part1 > 12) {
+      day_ = part1;
+      mon_ = part2;
+    } else if (part2 > 12) {
+      mon_ = part1;
+      day_ = part2;
+    } else {
+      mon_ = part1;
+      day_ = part2;
+    }
+    if (mon_ < 1 || mon_ > 12) return false;
+    if (day_ < 1 || day_ > 31) return false;
+    return true;
+  }
+
+  // Heuristic for year-last date patterns: D/M/Y or M/D/Y (Y = 2 or 4 digits)
+  // Matches: \d{1,2}[sep]\d{1,2}[sep]\d{2,4}
   // Disambiguation: if part1 > 12 → DMY; if part2 > 12 → MDY; else → MDY (default)
   bool parseYearLastHeuristic() {
     int part1, part2;
@@ -202,31 +234,43 @@ public:
     if (!consumeDateSeparator()) return false;
     if (!consumeInteger(2, &part2, false)) return false;
     if (!consumeDateSeparator()) return false;
-    if (!consumeInteger(4, &year_)) return false;
+    if (!consumeYearFlexible()) return false;
     if (!isComplete()) return false;
 
-    // Validate year is plausible
-    if (year_ < 1000) return false;
+    return disambiguateDayMonth(part1, part2);
+  }
 
-    if (part1 > 12) {
-      // Must be DMY
-      day_ = part1;
-      mon_ = part2;
-    } else if (part2 > 12) {
-      // Must be MDY
-      mon_ = part1;
-      day_ = part2;
-    } else {
-      // Ambiguous: default to MDY (US convention)
-      mon_ = part1;
-      day_ = part2;
-    }
+  // Year-last datetime heuristic: a year-last date (M/D/Y or D/M/Y, 2 or 4 digit
+  // year) followed by a T/space separator and a HH[:MM[:SS]] time with optional
+  // timezone. Mirrors the time tail of parseISO8601. (Issue #36088)
+  bool parseYearLastHeuristicDateTime() {
+    int part1, part2;
 
-    // Validate month and day are in plausible range
-    if (mon_ < 1 || mon_ > 12) return false;
-    if (day_ < 1 || day_ > 31) return false;
+    if (!consumeInteger(2, &part1, false)) return false;
+    if (!consumeDateSeparator()) return false;
+    if (!consumeInteger(2, &part2, false)) return false;
+    if (!consumeDateSeparator()) return false;
+    if (!consumeYearFlexible()) return false;
+    if (!disambiguateDayMonth(part1, part2)) return false;
 
-    return true;
+    // Time portion is required (date-only is handled by parseYearLastHeuristic).
+    char next;
+    if (!consumeChar(&next)) return false;
+    if (next != 'T' && next != ' ') return false;
+
+    if (!consumeInteger(2, &hour_)) return false;
+    consumeThisChar(':');
+    consumeInteger(2, &min_);
+    consumeThisChar(':');
+    consumeSeconds(&sec_, &psec_);
+
+    if (isComplete()) return true;
+
+    // Optional timezone
+    tz_ = "UTC";
+    if (!consumeTzOffset(&tzOffsetHours_, &tzOffsetMinutes_)) return false;
+
+    return isComplete();
   }
 
   bool isComplete() { return dateItr_ == dateEnd_; }

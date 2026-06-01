@@ -132,12 +132,16 @@ static bool isDateTime(const std::string& x, LocaleInfo* pLocale) {
     return false;
   }
 
-  // Auto-detection: ISO8601 only (YMD, existing behavior — no change)
-  bool ok = parser.parseISO8601();
-  if (!ok) return false;
+  // Auto-detection: ISO8601 first (YMD), then year-last (M/D/Y or D/M/Y)
+  // heuristic so MDY/DMY datetimes (including 2-digit years) are recognized.
+  // (Issue #36088)
+  if (parser.parseISO8601()) {
+    if (!parser.compactDate()) return true;
+    return parser.year() > 999;
+  }
 
-  if (!parser.compactDate()) return true;
-  return parser.year() > 999;
+  parser.setDate(x.c_str());
+  return parser.parseYearLastHeuristicDateTime();
 }
 
 [[cpp11::register]] std::string collectorGuess(

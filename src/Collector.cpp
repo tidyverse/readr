@@ -172,6 +172,13 @@ void CollectorDateTime::setValue(int i, const Token& t) {
       res = parser_.parseDateOrder(pLocale_->dateOrder_);
     } else {
       res = parser_.parseISO8601();
+      if (!res) {
+        // Auto-detection fallback: year-last heuristic datetime
+        // (M/D/Y or D/M/Y date + time). Mirrors isDateTime() in
+        // CollectorGuess.cpp so the guesser and the collector agree.
+        parser_.setDate(std_string.c_str());
+        res = parser_.parseYearLastHeuristicDateTime();
+      }
     }
 
     if (!res) {

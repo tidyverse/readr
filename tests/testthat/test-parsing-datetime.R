@@ -392,3 +392,76 @@ test_that("parse_datetime parses dmy_hms with locale date_order", {
   result <- parse_datetime(c("02/10/2024 14:30:00"), locale = loc)
   expect_equal(result, as.POSIXct("2024-10-02 14:30:00", tz = "UTC"))
 })
+
+# --- 2-digit-year (M/D/YY) auto-detection ---
+
+test_that("read_csv() auto-detects 2-digit-year MDY dates", {
+  csv <- "id,date\n1,5/29/26\n2,5/31/26\n3,12/25/26"
+  result <- read_csv(I(csv), show_col_types = FALSE)
+  expect_s3_class(result$date, "Date")
+  expect_equal(result$date, as.Date(c("2026-05-29", "2026-05-31", "2026-12-25")))
+})
+
+test_that("read_csv() auto-detects 2-digit-year DMY dates", {
+  # 29 > 12 in the first part: unambiguously day-first
+  csv <- "id,date\n1,29/5/26\n2,20/1/26"
+  result <- read_csv(I(csv), show_col_types = FALSE)
+  expect_s3_class(result$date, "Date")
+  expect_equal(result$date, as.Date(c("2026-05-29", "2026-01-20")))
+})
+
+test_that("type_convert() materializes year-last dates (guesser and collector agree)", {
+  df <- data.frame(date = c("5/29/2026", "3/15/2026"), stringsAsFactors = FALSE)
+  result <- type_convert(df, guess_integer = FALSE)
+  expect_s3_class(result$date, "Date")
+  expect_equal(result$date, as.Date(c("2026-05-29", "2026-03-15")))
+})
+
+test_that("read_csv() applies the %y pivot to 2-digit years", {
+  csv <- "id,date\n1,5/29/68\n2,5/29/69"
+  result <- read_csv(I(csv), show_col_types = FALSE)
+  expect_s3_class(result$date, "Date")
+  expect_equal(result$date, as.Date(c("2068-05-29", "1969-05-29")))
+})
+
+test_that("guess_parser detects 2-digit-year year-last dates", {
+  expect_equal(guess_parser(c("5/29/26", "5/31/26"), locale()), "date")
+})
+
+test_that("read_csv() does not treat invalid or 3-digit-year values as year-last dates", {
+  for (v in c("13/25/26", "100/200/300")) {
+    result <- read_csv(I(paste0("x\n", v, "\n")), show_col_types = FALSE)
+    expect_type(result$x, "character")
+  }
+})
+
+test_that("read_csv() auto-detects 2-digit-year MDY datetimes", {
+  csv <- "id,dt\n1,5/29/26 14:30:00\n2,12/25/26 23:59:59"
+  result <- read_csv(I(csv), show_col_types = FALSE)
+  expect_s3_class(result$dt, "POSIXct")
+  expect_equal(
+    result$dt,
+    as.POSIXct(c("2026-05-29 14:30:00", "2026-12-25 23:59:59"), tz = "UTC")
+  )
+})
+
+test_that("read_csv() auto-detects 4-digit-year MDY datetimes", {
+  csv <- "id,dt\n1,5/29/2026 14:30:00\n2,10/15/2024 09:00:00"
+  result <- read_csv(I(csv), show_col_types = FALSE)
+  expect_s3_class(result$dt, "POSIXct")
+  expect_equal(
+    result$dt,
+    as.POSIXct(c("2026-05-29 14:30:00", "2024-10-15 09:00:00"), tz = "UTC")
+  )
+})
+
+test_that("parse_date parses 2-digit-year MDY/DMY with locale date_order", {
+  expect_equal(
+    parse_date("5/29/26", locale = locale(date_order = "mdy")),
+    as.Date("2026-05-29")
+  )
+  expect_equal(
+    parse_date("29/5/26", locale = locale(date_order = "dmy")),
+    as.Date("2026-05-29")
+  )
+})
