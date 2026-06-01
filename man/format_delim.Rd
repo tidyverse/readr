@@ -110,7 +110,7 @@ This is common in some European countries.
 Values are only quoted if they contain a comma, quote or newline.
 
 The \verb{write_*()} functions will automatically compress outputs if an appropriate extension is given.
-Three extensions are currently supported: \code{.gz} for gzip compression, \code{.bz2} for bzip2 compression and
+Four extensions are currently supported: \code{.zip} for zip compression, \code{.gz} for gzip compression, \code{.bz2} for bzip2 compression and
 \code{.xz} for lzma compression.  See the examples for more information.
 }
 

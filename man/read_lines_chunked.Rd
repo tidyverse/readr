@@ -62,9 +62,9 @@ progress bar can be disabled by setting option \code{readr.show_progress} to
 Read lines from a file or string by chunk.
 }
 \seealso{
-Other chunked: 
+Other chunked:
 \code{\link{callback}},
-\code{\link{read_delim_chunked}()}
+\code{\link[=read_delim_chunked]{read_delim_chunked()}}
 }
 \concept{chunked}
 \keyword{internal}

@@ -27,7 +27,7 @@ write_rds(
 \item{compress}{Compression method to use: "none", "gz" ,"bz", or "xz".}
 
 \item{version}{Serialization format version to be used. The default value is 2
-as it's compatible for R versions prior to 3.5.0. See \code{\link[base:readRDS]{base::saveRDS()}}
+as it's compatible for R versions prior to 3.5.0. See \code{\link[base:saveRDS]{base::saveRDS()}}
 for more details.}
 
 \item{text}{If \code{TRUE} a text representation is used, otherwise a binary representation is used.}
