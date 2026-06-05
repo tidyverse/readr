@@ -57,6 +57,10 @@ parse_vector <- function(
 #' `col_*()` in conjunction with a `read_*()` function to parse the
 #' values as they're read in.
 #'
+#' The `parse_*()` functions use readr's first edition parser. When using
+#' readr's second edition, `read_*()` functions parse columns with vroom, so
+#' `col_*()` may differ from `parse_*()` in some edge cases.
+#'
 #' @name parse_atomic
 #' @aliases NULL
 #' @param x Character vector of values to parse.

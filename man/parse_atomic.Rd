@@ -46,6 +46,10 @@ each field before parsing it?}
 Use \verb{parse_*()} if you have a character vector you want to parse. Use
 \verb{col_*()} in conjunction with a \verb{read_*()} function to parse the
 values as they're read in.
+
+The \verb{parse_*()} functions use readr's first edition parser. When using
+readr's second edition, \verb{read_*()} functions parse columns with vroom, so
+\verb{col_*()} may differ from \verb{parse_*()} in some edge cases.
 }
 \examples{
 parse_integer(c("1", "2", "3"))

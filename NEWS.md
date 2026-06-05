@@ -1,5 +1,8 @@
 # readr (development version)
 
+* Clarified that `parse_*()` functions use the first edition parser, which can
+  differ from `col_*()` parsing in second edition `read_*()` calls (#1617).
+
 # readr 2.2.0
 
 This release advances many deprecations.
