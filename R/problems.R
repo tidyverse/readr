@@ -9,17 +9,26 @@
 #' an error as soon as you encounter a problem.
 #'
 #' @param x A data frame (from `read_*()`) or a vector (from `parse_*()`).
-#' @return A data frame with one row for each problem and four columns:
+#' @return A data frame with one row for each problem. Columns include:
 #'   \item{row,col}{Row and column of problem}
 #'   \item{expected}{What readr expected to find}
 #'   \item{actual}{What it actually got}
+#'
+#'   When using the edition 2 parser (the default for `read_*()` functions),
+#'   the result also includes a `file` column identifying the source file.
 #' @export
 #' @examples
+#' # parse_*() functions return problems with row, col, expected, actual
 #' x <- parse_integer(c("1X", "blah", "3"))
 #' problems(x)
 #'
+#' # When there are no problems, the result is an empty data frame
 #' y <- parse_integer(c("1", "2", "3"))
 #' problems(y)
+#'
+#' # read_*() functions also include a file column
+#' z <- read_csv(I("x\n1\n2\nb"), col_types = "d", show_col_types = FALSE)
+#' problems(z)
 problems <- local({
   no_problems <- tibble::tibble(
     row = integer(),
