@@ -57,7 +57,7 @@ tokenizer_fwf(
 tokenizer_ws(na = "NA", comment = "", skip_empty_rows = TRUE)
 }
 \arguments{
-\item{delim}{Single character used to separate fields within a record.}
+\item{delim}{One or more characters used to separate fields within a record.}
 
 \item{quote}{Single character used to quote strings.}
 

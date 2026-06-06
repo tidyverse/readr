@@ -169,6 +169,15 @@ NULL
 #' y
 #' problems(y)
 #'
+#' # Combining col_select and col_types ----------------------------------------
+#' # Use col_select to choose columns and col_types to specify their types.
+#' # This is useful when you only care about a subset of columns in a wide file.
+#' read_csv(
+#'   readr_example("chickens.csv"),
+#'   col_select = c(chicken, eggs_laid),
+#'   col_types = list(chicken = col_character(), eggs_laid = col_integer())
+#' )
+#'
 #' # Column names --------------------------------------------------------------
 #' # By default, readr duplicate name repair is noisy
 #' read_csv(I("x,x\n1,2\n3,4"))

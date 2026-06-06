@@ -116,7 +116,7 @@ decompressed.
 Literal data is most useful for examples and tests. To be recognised as
 literal data, wrap the input with \code{I()}.}
 
-\item{delim}{Single character used to separate fields within a record.}
+\item{delim}{One or more characters used to separate fields within a record.}
 
 \item{quote}{Single character used to quote strings.}
 
@@ -268,7 +268,7 @@ Learn more in \code{\link[=should_read_lazy]{should_read_lazy()}} and in the doc
 \code{altrep} argument of \code{\link[vroom:vroom]{vroom::vroom()}}.}
 }
 \value{
-A \code{\link[tibble:tibble]{tibble::tibble()}}. If there are parsing problems, a warning will alert you.
+A \code{\link[tibble:tibble]{tibble()}}. If there are parsing problems, a warning will alert you.
 You can retrieve the full details by calling \code{\link[=problems]{problems()}} on your dataset.
 }
 \description{
@@ -331,6 +331,15 @@ read_csv(I("x,y\n1,2\n3,4"), col_types = list(col_double(), col_character()))
 y <- read_csv(I("x\n1\n2\nb"), col_types = list(col_double()))
 y
 problems(y)
+
+# Combining col_select and col_types ----------------------------------------
+# Use col_select to choose columns and col_types to specify their types.
+# This is useful when you only care about a subset of columns in a wide file.
+read_csv(
+  readr_example("chickens.csv"),
+  col_select = c(chicken, eggs_laid),
+  col_types = list(chicken = col_character(), eggs_laid = col_integer())
+)
 
 # Column names --------------------------------------------------------------
 # By default, readr duplicate name repair is noisy

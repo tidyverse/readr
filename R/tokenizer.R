@@ -44,7 +44,7 @@ NULL
 #'   parameter is only supported in certain legacy functions (e.g., the
 #'   `read_*_chunked()` functions) or when requesting the legacy first edition
 #'   parser with [read_delim()] and friends.
-#' @param delim Single character used to separate fields within a record.
+#' @param delim One or more characters used to separate fields within a record.
 #' @param quote Single character used to quote strings.
 #' @param trim_ws Should leading and trailing whitespace (ASCII spaces and tabs) be trimmed from
 #'     each field before parsing it?
