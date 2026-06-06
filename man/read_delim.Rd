@@ -162,6 +162,7 @@ character represents one column:
 \itemize{
 \item c = character
 \item i = integer
+\item I = big integer (requires the \pkg{bit64} package)
 \item n = number
 \item d = double
 \item l = logical

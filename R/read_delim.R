@@ -41,6 +41,7 @@ NULL
 #'    character represents one column:
 #'    - c = character
 #'    - i = integer
+#'    - I = big integer (requires the \pkg{bit64} package)
 #'    - n = number
 #'    - d = double
 #'    - l = logical
