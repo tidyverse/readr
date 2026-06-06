@@ -89,8 +89,8 @@ for example if only a year is given.
 1970-1999.
 \item Month: "\%m" (2 digits), "\%b" (abbreviated name in current locale), "\%B"
 (full name in current locale).
-\item Day: "\%d" (2 digits), "\%e" (optional leading space), "\%a" (abbreviated
-name in current locale).
+\item Day: "\%d" (1 or 2 digits), "\%e" (1 or 2 digits with optional leading
+space), "\%a" (abbreviated name in current locale).
 \item Hour: "\%H" or "\%I" or "\%h", use I (and not H) with AM/PM, use h (and not H)
 if your times represent durations longer than one day.
 \item Minutes: "\%M"
@@ -188,14 +188,14 @@ parse_datetime("1979-10-14T1010Z", locale = us_central)
 parse_datetime("1979-10-14T1010", locale = locale(tz = ""))
 }
 \seealso{
-Other parsers: 
-\code{\link{col_skip}()},
-\code{\link{cols}()},
-\code{\link{cols_condense}()},
-\code{\link{parse_factor}()},
-\code{\link{parse_guess}()},
-\code{\link{parse_logical}()},
-\code{\link{parse_number}()},
-\code{\link{parse_vector}()}
+Other parsers:
+\code{\link[=col_skip]{col_skip()}},
+\code{\link[=cols]{cols()}},
+\code{\link[=cols_condense]{cols_condense()}},
+\code{\link[=parse_factor]{parse_factor()}},
+\code{\link[=parse_guess]{parse_guess()}},
+\code{\link[=parse_logical]{parse_logical()}},
+\code{\link[=parse_number]{parse_number()}},
+\code{\link[=parse_vector]{parse_vector()}}
 }
 \concept{parsers}

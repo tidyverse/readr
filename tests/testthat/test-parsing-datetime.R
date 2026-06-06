@@ -50,6 +50,14 @@ test_that("%e allows leading space", {
   )
 })
 
+test_that("%e handles single-digit day without leading space (#1559)", {
+  target <- utctime(2010L, 1L, 1L, 0L, 0L, 0L, 0)
+  expect_equal(parse_date("January 1, 2010", "%B %e, %Y"), as.Date("2010-01-01"))
+  expect_equal(parse_date("January 5, 2010", "%B %e, %Y"), as.Date("2010-01-05"))
+  expect_equal(parse_date("February 9, 2010", "%B %e, %Y"), as.Date("2010-02-09"))
+  expect_equal(parse_date("January 15, 2010", "%B %e, %Y"), as.Date("2010-01-15"))
+})
+
 test_that("%OS captures partial seconds", {
   x <- parse_datetime("2001-01-01 00:00:01.125", "%Y-%m-%d %H:%M:%OS")
   expect_equal(as.POSIXlt(x)$sec, 1.125)

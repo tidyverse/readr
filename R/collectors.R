@@ -365,8 +365,8 @@ col_factor <- function(levels = NULL, ordered = FALSE, include_na = FALSE) {
 #'   1970-1999.
 #' * Month: "%m" (2 digits), "%b" (abbreviated name in current locale), "%B"
 #'   (full name in current locale).
-#' * Day: "%d" (2 digits), "%e" (optional leading space), "%a" (abbreviated
-#'   name in current locale).
+#' * Day: "%d" (1 or 2 digits), "%e" (1 or 2 digits with optional leading
+#'   space), "%a" (abbreviated name in current locale).
 #' * Hour: "%H" or "%I" or "%h", use I (and not H) with AM/PM, use h (and not H)
 #'   if your times represent durations longer than one day.
 #' * Minutes: "%M"

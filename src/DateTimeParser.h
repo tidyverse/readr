@@ -408,7 +408,7 @@ private:
     if (consumeThisChar(' '))
       n--;
 
-    return consumeInteger(n, pOut);
+    return consumeInteger(n, pOut, false);
   }
 
   inline bool consumeDouble(double* pOut) {
