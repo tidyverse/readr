@@ -7,6 +7,7 @@
 #include "cpp11/protect.hpp"
 
 #include "utils.h"
+#include <cmath>
 #include <ctime>
 
 // Parsing ---------------------------------------------------------------------
@@ -210,6 +211,14 @@ public:
         if (!consumeSeconds(&sec_, NULL))
           return false;
         break;
+      case 's': { // seconds since the Unix epoch
+        double epochSeconds;
+        if (!consumeEpochSeconds(&epochSeconds))
+          return false;
+        if (!setEpochSeconds(epochSeconds))
+          return false;
+        break;
+      }
       case 'O': // seconds (double)
         if (formatItr + 1 == formatEnd || *(formatItr + 1) != 'S')
           cpp11::stop("Invalid format: %%O must be followed by %%S");
@@ -420,6 +429,16 @@ private:
     return ok;
   }
 
+  inline bool consumeEpochSeconds(double* pOut) {
+    if (dateItr_ == dateEnd_)
+      return false;
+
+    const char* end = dateEnd_;
+    bool ok = parseDouble(pLocale_->decimalMark_, dateItr_, end, *pOut);
+    dateItr_ = end;
+    return ok;
+  }
+
   inline bool consumeWhiteSpace() {
     while (dateItr_ != dateEnd_ && std::isspace(*dateItr_))
       dateItr_++;
@@ -516,6 +535,40 @@ private:
 
     pOut->assign(tzStart, dateItr_);
     return tzStart != dateItr_;
+  }
+
+  inline bool setEpochSeconds(double seconds) {
+    if (!std::isfinite(seconds))
+      return false;
+
+    double wholeSeconds = std::floor(seconds);
+    double partialSeconds = seconds - wholeSeconds;
+
+    auto timestamp =
+        date::sys_time<std::chrono::seconds>(std::chrono::seconds(
+            static_cast<long long>(wholeSeconds)));
+    const date::sys_days day = date::floor<date::days>(timestamp);
+    const date::year_month_day ymd(day);
+
+    const auto time = timestamp - day;
+    const auto hours = std::chrono::duration_cast<std::chrono::hours>(time);
+    const auto minutes =
+        std::chrono::duration_cast<std::chrono::minutes>(time - hours);
+    const auto secs = std::chrono::duration_cast<std::chrono::seconds>(
+        time - hours - minutes);
+
+    year_ = static_cast<int>(ymd.year());
+    mon_ = static_cast<int>(static_cast<unsigned>(ymd.month()));
+    day_ = static_cast<int>(static_cast<unsigned>(ymd.day()));
+    hour_ = static_cast<int>(hours.count());
+    min_ = static_cast<int>(minutes.count());
+    sec_ = static_cast<int>(secs.count());
+    psec_ = partialSeconds;
+    tz_ = "UTC";
+    tzOffsetHours_ = 0;
+    tzOffsetMinutes_ = 0;
+
+    return true;
   }
 
   void reset() {

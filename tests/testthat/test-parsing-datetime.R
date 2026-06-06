@@ -58,6 +58,17 @@ test_that("%OS captures partial seconds", {
   expect_equal(as.POSIXlt(x)$sec, 1.333, tolerance = 1e-6)
 })
 
+test_that("%s parses seconds since the Unix epoch", {
+  expect_equal(
+    parse_datetime("1285912800", "%s"),
+    POSIXct(1285912800, "UTC")
+  )
+  expect_equal(
+    parse_datetime("-0.5", "%s"),
+    POSIXct(-0.5, "UTC")
+  )
+})
+
 test_that("%y requries 4 digits", {
   expect_warning(parse_date("003-01-01", "%Y-%m-%d"), "parsing failure")
   expect_warning(parse_date("03-01-01", "%Y-%m-%d"), "parsing failure")
