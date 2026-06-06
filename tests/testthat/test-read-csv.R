@@ -468,6 +468,63 @@ test_that("read_tsv correctly uses the quote and na arguments (#1254, #1255)", {
   expect_equal(x[[2]], c("two", ""))
 })
 
+# col_select ---------------------------------------------------------------
+
+test_that("col_select works with column names", {
+  skip_if_edition_first()
+  x <- read_csv(
+    readr_example("chickens.csv"),
+    col_select = c(chicken, eggs_laid),
+    show_col_types = FALSE
+  )
+  expect_named(x, c("chicken", "eggs_laid"))
+  expect_equal(nrow(x), 5)
+})
+
+test_that("col_select works with column indexes", {
+  skip_if_edition_first()
+  x <- read_csv(
+    readr_example("chickens.csv"),
+    col_select = c(1, 3),
+    show_col_types = FALSE
+  )
+  expect_named(x, c("chicken", "eggs_laid"))
+  expect_equal(nrow(x), 5)
+})
+
+test_that("col_select works with tidyselect helpers", {
+  skip_if_edition_first()
+  x <- read_csv(
+    readr_example("chickens.csv"),
+    col_select = c(starts_with("c"), last_col()),
+    show_col_types = FALSE
+  )
+  expect_named(x, c("chicken", "motto"))
+})
+
+test_that("col_select can rename columns", {
+  skip_if_edition_first()
+  x <- read_csv(
+    readr_example("chickens.csv"),
+    col_select = c(bird = chicken, eggs = eggs_laid),
+    show_col_types = FALSE
+  )
+  expect_named(x, c("bird", "eggs"))
+})
+
+test_that("col_select works together with col_types", {
+  skip_if_edition_first()
+  x <- read_csv(
+    readr_example("chickens.csv"),
+    col_select = c(chicken, eggs_laid),
+    col_types = cols(chicken = col_character(), eggs_laid = col_integer()),
+    show_col_types = FALSE
+  )
+  expect_named(x, c("chicken", "eggs_laid"))
+  expect_s3_class(x$chicken, "character")
+  expect_s3_class(x$eggs_laid, "integer")
+})
+
 test_that("literal data without I() emits deprecation warning (#1611)", {
   skip_if_edition_first()
   withr::local_options(lifecycle_verbosity = "warning")
