@@ -30,6 +30,9 @@ The available specifications are: (with string abbreviations in brackets)
 \itemize{
 \item \code{col_logical()} [l], containing only \code{T}, \code{F}, \code{TRUE} or \code{FALSE}.
 \item \code{col_integer()} [i], integers.
+\item \code{col_big_integer()} [I], 64-bit (big) integers. Requires the \pkg{bit64}
+package. Available when using the edition 2 parser (the default for
+\verb{read_*()} functions).
 \item \code{col_double()} [d], doubles.
 \item \code{col_character()} [c], everything else.
 \item \code{col_factor(levels, ordered)} [f], a fixed set of values.
@@ -66,14 +69,14 @@ t3$cols <- c(t1$cols, t2$cols)
 t3
 }
 \seealso{
-Other parsers: 
-\code{\link{col_skip}()},
-\code{\link{cols_condense}()},
-\code{\link{parse_datetime}()},
-\code{\link{parse_factor}()},
-\code{\link{parse_guess}()},
-\code{\link{parse_logical}()},
-\code{\link{parse_number}()},
-\code{\link{parse_vector}()}
+Other parsers:
+\code{\link[=col_skip]{col_skip()}},
+\code{\link[=cols_condense]{cols_condense()}},
+\code{\link[=parse_datetime]{parse_datetime()}},
+\code{\link[=parse_factor]{parse_factor()}},
+\code{\link[=parse_guess]{parse_guess()}},
+\code{\link[=parse_logical]{parse_logical()}},
+\code{\link[=parse_number]{parse_number()}},
+\code{\link[=parse_vector]{parse_vector()}}
 }
 \concept{parsers}

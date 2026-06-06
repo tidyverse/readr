@@ -9,6 +9,9 @@
 #'
 #' * `col_logical()` \[l\], containing only `T`, `F`, `TRUE` or `FALSE`.
 #' * `col_integer()` \[i\], integers.
+#' * `col_big_integer()` \[I\], 64-bit (big) integers. Requires the \pkg{bit64}
+#'   package. Available when using the edition 2 parser (the default for
+#'   `read_*()` functions).
 #' * `col_double()` \[d\], doubles.
 #' * `col_character()` \[c\], everything else.
 #' * `col_factor(levels, ordered)` \[f\], a fixed set of values.
