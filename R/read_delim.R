@@ -65,7 +65,7 @@ NULL
 #' @param locale The locale controls defaults that vary from place to place.
 #'   The default locale is US-centric (like R), but you can use
 #'   [locale()] to create your own locale that controls things like
-#'   the default time zone, encoding, decimal mark, big mark, and day/month
+#'   the default time zone, encoding, decimal mark, grouping mark, and day/month
 #'   names.
 #' @param skip Number of lines to skip before reading data. If `comment` is
 #'   supplied any commented lines are ignored _after_ skipping.

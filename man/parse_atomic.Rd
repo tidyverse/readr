@@ -36,7 +36,7 @@ option to \code{character()} to indicate no missing values.}
 \item{locale}{The locale controls defaults that vary from place to place.
 The default locale is US-centric (like R), but you can use
 \code{\link[=locale]{locale()}} to create your own locale that controls things like
-the default time zone, encoding, decimal mark, big mark, and day/month
+the default time zone, encoding, decimal mark, grouping mark, and day/month
 names.}
 
 \item{trim_ws}{Should leading and trailing whitespace (ASCII spaces and tabs) be trimmed from
@@ -63,14 +63,14 @@ parse_double(x)
 parse_double(x, na = "-")
 }
 \seealso{
-Other parsers: 
-\code{\link{col_skip}()},
-\code{\link{cols}()},
-\code{\link{cols_condense}()},
-\code{\link{parse_datetime}()},
-\code{\link{parse_factor}()},
-\code{\link{parse_guess}()},
-\code{\link{parse_number}()},
-\code{\link{parse_vector}()}
+Other parsers:
+\code{\link[=col_skip]{col_skip()}},
+\code{\link[=cols]{cols()}},
+\code{\link[=cols_condense]{cols_condense()}},
+\code{\link[=parse_datetime]{parse_datetime()}},
+\code{\link[=parse_factor]{parse_factor()}},
+\code{\link[=parse_guess]{parse_guess()}},
+\code{\link[=parse_number]{parse_number()}},
+\code{\link[=parse_vector]{parse_vector()}}
 }
 \concept{parsers}

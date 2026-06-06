@@ -30,7 +30,7 @@ Using a value of \code{\link[=clipboard]{clipboard()}} will read from the system
 \item{locale}{The locale controls defaults that vary from place to place.
 The default locale is US-centric (like R), but you can use
 \code{\link[=locale]{locale()}} to create your own locale that controls things like
-the default time zone, encoding, decimal mark, big mark, and day/month
+the default time zone, encoding, decimal mark, grouping mark, and day/month
 names.}
 
 \item{x}{A single string, or a raw vector to write to disk.}

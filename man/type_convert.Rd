@@ -30,7 +30,7 @@ each field before parsing it?}
 \item{locale}{The locale controls defaults that vary from place to place.
 The default locale is US-centric (like R), but you can use
 \code{\link[=locale]{locale()}} to create your own locale that controls things like
-the default time zone, encoding, decimal mark, big mark, and day/month
+the default time zone, encoding, decimal mark, grouping mark, and day/month
 names.}
 
 \item{guess_integer}{If \code{TRUE}, guess integer types for whole numbers, if
