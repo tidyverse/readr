@@ -1,5 +1,8 @@
 # readr (development version)
 
+* `parse_datetime()` now supports the documented `%s` format for parsing seconds
+  since the Unix epoch (#1492, @LeonidasZhak).
+
 # readr 2.2.0
 
 This release advances many deprecations.
