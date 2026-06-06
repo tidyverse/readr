@@ -1,4 +1,4 @@
-test_that("trailing spaces ommitted", {
+test_that("trailing spaces omitted", {
   spec <- fwf_empty(test_fixture("fwf-trailing.txt"))
   expect_equal(spec$begin, c(0, 4))
   expect_equal(spec$end, c(3, NA))

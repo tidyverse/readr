@@ -25,7 +25,7 @@
 #' decompress, if relevant) the file first.
 #'
 #' @details
-#' Here's a enhanced example using the contents of the file accessed via
+#' Here's an enhanced example using the contents of the file accessed via
 #' `readr_example("fwf-sample.txt")`.
 #'
 #' ```
