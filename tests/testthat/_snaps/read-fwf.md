@@ -7,8 +7,8 @@
       The `file` argument of `read_fwf()` should use `I()` for literal data as of readr 2.2.0.
         
         # Bad (for example):
-        read_csv("x,y\n1,2")
+        read_fwf("x,y\n1,2")
         
         # Good:
-        read_csv(I("x,y\n1,2"))
+        read_fwf(I("x,y\n1,2"))
 

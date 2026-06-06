@@ -624,10 +624,10 @@ standardise_literal_data <- function(file, fn, env, user_env) {
       details = c(
         " " = "",
         " " = "# Bad (for example):",
-        " " = 'read_csv("x,y\\n1,2")',
+        " " = paste0(fn, '("x,y\\n1,2")'),
         " " = "",
         " " = "# Good:",
-        " " = 'read_csv(I("x,y\\n1,2"))'
+        " " = paste0(fn, '(I("x,y\\n1,2"))')
       ),
       env = env,
       user_env = user_env

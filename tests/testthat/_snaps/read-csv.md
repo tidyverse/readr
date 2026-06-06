@@ -31,10 +31,10 @@
       The `file` argument of `read_csv2()` should use `I()` for literal data as of readr 2.2.0.
         
         # Bad (for example):
-        read_csv("x,y\n1,2")
+        read_csv2("x,y\n1,2")
         
         # Good:
-        read_csv(I("x,y\n1,2"))
+        read_csv2(I("x,y\n1,2"))
 
 ---
 
@@ -45,10 +45,10 @@
       The `file` argument of `read_tsv()` should use `I()` for literal data as of readr 2.2.0.
         
         # Bad (for example):
-        read_csv("x,y\n1,2")
+        read_tsv("x,y\n1,2")
         
         # Good:
-        read_csv(I("x,y\n1,2"))
+        read_tsv(I("x,y\n1,2"))
 
 ---
 
@@ -59,8 +59,8 @@
       The `file` argument of `read_delim()` should use `I()` for literal data as of readr 2.2.0.
         
         # Bad (for example):
-        read_csv("x,y\n1,2")
+        read_delim("x,y\n1,2")
         
         # Good:
-        read_csv(I("x,y\n1,2"))
+        read_delim(I("x,y\n1,2"))
 
