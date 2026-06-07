@@ -95,6 +95,9 @@ in an interactive session and not while knitting a document. The automatic
 progress bar can be disabled by setting option \code{readr.show_progress} to
 \code{FALSE}.}
 }
+\value{
+A \code{\link[tibble:tibble]{tibble::tibble()}}.
+}
 \description{
 This is a fairly standard format for log files - it uses both quotes
 and square brackets for quoting, and there may be literal quotes embedded

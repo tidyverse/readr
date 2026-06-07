@@ -15,6 +15,8 @@
 #' @inheritParams datasource
 #' @inheritParams tokenizer_fwf
 #' @inheritParams read_delim
+#' @return A [tibble::tibble()]. Parsing problems are stored in the
+#'   `problems` attribute; use [problems()] to inspect them.
 #' @export
 #' @examples
 #' ws <- readr_example("whitespace-sample.txt")

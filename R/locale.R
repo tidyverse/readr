@@ -32,6 +32,7 @@
 #' @param asciify Should diacritics be stripped from date names and converted to
 #'   ASCII? This is useful if you're dealing with ASCII data where the correct
 #'   spellings have been lost. Requires the \pkg{stringi} package.
+#' @return A `locale` object.
 #' @export
 #' @examples
 #' locale()

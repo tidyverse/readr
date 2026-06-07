@@ -116,6 +116,10 @@ by the \code{col_types} argument.}
 option is \code{TRUE} then blank rows will not be represented at all.  If it is
 \code{FALSE} then they will be represented by \code{NA} values in all the columns.}
 }
+\value{
+A \code{\link[tibble:tibble]{tibble::tibble()}}. Parsing problems are stored in the
+\code{problems} attribute; use \code{\link[=problems]{problems()}} to inspect them.
+}
 \description{
 \code{read_table()} is designed to read the type of textual
 data where each column is separated by one (or more) columns of space.

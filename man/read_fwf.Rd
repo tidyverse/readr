@@ -200,6 +200,10 @@ variable widths if a length one vector, and if length two, variable start and en
 positions. The elements of \code{...} are used to construct a data frame
 with or or two rows as above.}
 }
+\value{
+A \code{\link[tibble:tibble]{tibble::tibble()}}. Parsing problems are stored in the
+\code{problems} attribute; use \code{\link[=problems]{problems()}} to inspect them.
+}
 \description{
 Fixed-width files store tabular data with each field occupying a specific
 range of character positions in every line. Once the fields are identified,

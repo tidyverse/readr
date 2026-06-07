@@ -6,6 +6,7 @@
 #'
 #' @inheritParams datasource
 #' @inheritParams read_delim
+#' @return A [tibble::tibble()].
 #' @export
 #' @examples
 #' read_log(readr_example("example.log"))

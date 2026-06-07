@@ -51,6 +51,9 @@ read - readr always converts the output to UTF-8.}
 ASCII? This is useful if you're dealing with ASCII data where the correct
 spellings have been lost. Requires the \pkg{stringi} package.}
 }
+\value{
+A \code{locale} object.
+}
 \description{
 A locale object tries to capture all the defaults that can vary between
 countries. You set the locale in once, and the details are automatically

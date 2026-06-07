@@ -62,6 +62,8 @@
 #'   `fwf_widths()`, `fwf_positions()`, or `fwf_cols()`. To read in only
 #'   selected fields, use `fwf_positions()`. If the width of the last column
 #'   is variable (a ragged fwf file), supply the last end position as `NA`.
+#' @return A [tibble::tibble()]. Parsing problems are stored in the
+#'   `problems` attribute; use [problems()] to inspect them.
 #' @export
 #' @examples
 #' fwf_sample <- readr_example("fwf-sample.txt")
