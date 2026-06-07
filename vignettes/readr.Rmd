@@ -222,6 +222,7 @@ The available specifications are: (with string abbreviations in brackets)
 
 * `col_logical()` [l], containing only `T`, `F`, `TRUE` or `FALSE`.
 * `col_integer()` [i], integers.
+* `col_big_integer()` [I], 64-bit integers (requires the bit64 package).
 * `col_double()` [d], doubles.
 * `col_character()` [c], everything else.
 * `col_factor(levels, ordered)` [f], a fixed set of values.
