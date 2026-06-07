@@ -5,6 +5,14 @@
 #' then let readr take another stab at parsing it. The name is a homage to
 #' the base [utils::type.convert()].
 #'
+#' Column types are guessed from the data using [guess_parser()]. Values
+#' that cannot be converted to the guessed type are replaced with `NA`
+#' and a warning.
+#'
+#' Note that the numeric parser recognizes some alphanumeric strings as
+#' valid numbers (e.g., `"100e5"`, `"100L"`, `"100S"`). If this is
+#' undesirable, specify column types explicitly with [cols()].
+#'
 #' @param df A data frame.
 #' @param col_types One of `NULL`, a [cols()] specification, or
 #'   a string. See `vignette("readr")` for more details.
@@ -17,6 +25,9 @@
 #' because it likely modifies the column data types.
 #' (see [spec()] for more information about column specifications).
 #' @export
+#' @return A data frame with the character columns converted to their
+#'   guessed types. Values that cannot be converted to the guessed type
+#'   are replaced with `NA` and a warning.
 #' @examples
 #' df <- data.frame(
 #'   x = as.character(runif(10)),
@@ -38,6 +49,10 @@
 #' str(data)
 #' # Then convert it with type_convert
 #' type_convert(data)
+#'
+#' # Values that cannot be parsed as the guessed type become NA
+#' df <- data.frame(x = c("100", "200", "abc"), stringsAsFactors = FALSE)
+#' type_convert(df, col_types = cols(x = col_double()))
 type_convert <- function(
   df,
   col_types = NULL,

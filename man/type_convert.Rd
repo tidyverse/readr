@@ -36,11 +36,25 @@ names.}
 \item{guess_integer}{If \code{TRUE}, guess integer types for whole numbers, if
 \code{FALSE} guess numeric type for all numbers.}
 }
+\value{
+A data frame with the character columns converted to their
+guessed types. Values that cannot be converted to the guessed type
+are replaced with \code{NA} and a warning.
+}
 \description{
 This is useful if you need to do some manual munging - you can read the
 columns in as character, clean it up with (e.g.) regular expressions and
 then let readr take another stab at parsing it. The name is a homage to
 the base \code{\link[utils:type.convert]{utils::type.convert()}}.
+}
+\details{
+Column types are guessed from the data using \code{\link[=guess_parser]{guess_parser()}}. Values
+that cannot be converted to the guessed type are replaced with \code{NA}
+and a warning.
+
+Note that the numeric parser recognizes some alphanumeric strings as
+valid numbers (e.g., \code{"100e5"}, \code{"100L"}, \code{"100S"}). If this is
+undesirable, specify column types explicitly with \code{\link[=cols]{cols()}}.
 }
 \note{
 \code{type_convert()} removes a 'spec' attribute,
@@ -68,4 +82,8 @@ data <- read_csv(readr_example("mtcars.csv"),
 str(data)
 # Then convert it with type_convert
 type_convert(data)
+
+# Values that cannot be parsed as the guessed type become NA
+df <- data.frame(x = c("100", "200", "abc"), stringsAsFactors = FALSE)
+type_convert(df, col_types = cols(x = col_double()))
 }
