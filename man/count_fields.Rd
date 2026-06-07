@@ -29,6 +29,10 @@ up into fields, e.g., \code{\link[=tokenizer_csv]{tokenizer_csv()}},
 
 \item{n_max}{Optionally, maximum number of rows to count fields for.}
 }
+\value{
+An integer vector with one element per line, giving the number of
+fields in each line.
+}
 \description{
 This is useful for diagnosing problems with functions that fail
 to parse correctly.

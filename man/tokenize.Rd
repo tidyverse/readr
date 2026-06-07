@@ -27,6 +27,9 @@ Using a value of \code{\link[=clipboard]{clipboard()}} will read from the system
 
 \item{n_max}{Optionally, maximum number of rows to tokenize.}
 }
+\value{
+A list of character vectors, one per line, containing the tokens.
+}
 \description{
 Turns input into a character vector. Usually the tokenization is done purely
 in C++, and never exposed to R (because that requires a copy). This function
@@ -37,6 +40,6 @@ to see the underlying tokens.
 tokenize("1,2\n3,4,5\n\n6")
 
 # Only tokenize first two lines
-tokenize("1,2\n3,4,5\n\n6", n = 2)
+tokenize("1,2\n3,4,5\n\n6", n_max = 2)
 }
 \keyword{internal}

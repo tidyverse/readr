@@ -9,13 +9,14 @@
 #' @param tokenizer A tokenizer specification.
 #' @param skip Number of lines to skip before reading data.
 #' @param n_max Optionally, maximum number of rows to tokenize.
+#' @return A list of character vectors, one per line, containing the tokens.
 #' @keywords internal
 #' @export
 #' @examples
 #' tokenize("1,2\n3,4,5\n\n6")
 #'
 #' # Only tokenize first two lines
-#' tokenize("1,2\n3,4,5\n\n6", n = 2)
+#' tokenize("1,2\n3,4,5\n\n6", n_max = 2)
 tokenize <- function(file, tokenizer = tokenizer_csv(), skip = 0, n_max = -1L) {
   ds <- datasource(file, skip = skip, skip_empty_rows = FALSE)
   tokenize_(ds, tokenizer, n_max)

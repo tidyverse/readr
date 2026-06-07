@@ -8,6 +8,8 @@
 #'   up into fields, e.g., [tokenizer_csv()],
 #'   [tokenizer_fwf()]
 #' @param n_max Optionally, maximum number of rows to count fields for.
+#' @return An integer vector with one element per line, giving the number of
+#'   fields in each line.
 #' @export
 #' @examples
 #' count_fields(readr_example("mtcars.csv"), tokenizer_csv())
