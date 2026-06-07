@@ -41,7 +41,7 @@ file is created.}
 }
 \value{
 \code{read_file}: A length 1 character vector.
-\code{read_lines_raw}: A raw vector.
+\code{read_file_raw}: A raw vector.
 }
 \description{
 \code{read_file()} reads a complete file into a single object: either a

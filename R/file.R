@@ -10,7 +10,7 @@
 #' @inheritParams read_delim
 #' @return
 #'   `read_file`: A length 1 character vector.
-#'   `read_lines_raw`: A raw vector.
+#'   `read_file_raw`: A raw vector.
 #' @param x A single string, or a raw vector to write to disk.
 #' @export
 #' @examples
