@@ -45,6 +45,7 @@ Suggests:
     curl,
     datasets,
     knitr,
+    parallel,
     rmarkdown,
     spelling,
     stringi,
