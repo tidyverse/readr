@@ -548,7 +548,7 @@ col_spec_standardise <- function(
         " columns.",
         call. = FALSE
       )
-      spec$cols <- c(spec$cols, list(rep(col_guess(), n_new)))
+      spec$cols <- c(spec$cols, rep(list(col_guess()), n_new))
     } else if (n_read > n_names) {
       warning(
         "Insufficient `col_names`. Adding ",

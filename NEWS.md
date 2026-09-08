@@ -1,5 +1,7 @@
 # readr (development version)
 
+* When unnamed `col_types` are shorter than the supplied `col_names`, all missing columns are now filled in with `col_guess()`. Previously this errored with a confusing "'names' attribute must be the same length as the vector" error when more than one column was missing.
+
 # readr 2.2.0
 
 This release advances many deprecations.
