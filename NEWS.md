@@ -2,6 +2,8 @@
 
 * When unnamed `col_types` are shorter than the supplied `col_names`, all missing columns are now filled in with `col_guess()`. Previously this errored with a confusing "'names' attribute must be the same length as the vector" error when more than one column was missing.
 
+* `read_lines_raw_chunked()` now returns `list()` for an empty file, rather than `character()`, consistent with `read_lines_raw()` and its non-empty return value.
+
 # readr 2.2.0
 
 This release advances many deprecations.
