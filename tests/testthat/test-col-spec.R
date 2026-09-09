@@ -40,6 +40,18 @@ test_that("col_types expanded to col_names by guessing", {
   expect_equal(out[[1]][[3]], col_double())
 })
 
+test_that("all insufficient col_types are expanded to guesses", {
+  skip_if(edition_first())
+  expect_warning(
+    out <- col_spec_standardise("1,2,3\n", c("a", "b", "c"), "i"),
+    "Insufficient `col_types`"
+  )
+  expect_equal(length(out[[1]]), 3L)
+  expect_equal(names(out[[1]]), c("a", "b", "c"))
+  expect_equal(out[[1]][[2]], col_double())
+  expect_equal(out[[1]][[3]], col_double())
+})
+
 test_that("defaults expanded to match names", {
   out <- col_spec_standardise("a,b,c\n1,2,3", col_types = cols(.default = "c"))
   expect_equal(

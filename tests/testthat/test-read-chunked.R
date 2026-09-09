@@ -70,6 +70,17 @@ test_that("read_lines_raw_chunked", {
   expect_true(all(sizes[1:2] == 5))
 })
 
+test_that("read_lines_chunked returns the correct type for empty files", {
+  expect_equal(
+    read_lines_chunked(test_path("empty-file"), function(x, pos) x),
+    character()
+  )
+  expect_equal(
+    read_lines_raw_chunked(test_path("empty-file"), function(x, pos) x),
+    list()
+  )
+})
+
 test_that("read_delim_chunked", {
   file <- readr_example("mtcars.csv")
   unchunked <- read_csv(file)

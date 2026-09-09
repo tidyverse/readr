@@ -37,7 +37,7 @@ read_lines_raw_chunked <- function(
   progress = show_progress()
 ) {
   if (empty_file(file)) {
-    return(character())
+    return(list())
   }
   ds <- datasource(file, skip = skip, skip_empty_rows = FALSE)
   callback <- as_chunk_callback(callback)
