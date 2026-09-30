@@ -1,5 +1,7 @@
 # readr (development version)
 
+* `read_csv2_chunked()` now switches the decimal and grouping marks to `,` and `.` when `locale` has `.` as the decimal mark, like `read_csv2()` (#1468).
+
 # readr 2.2.0
 
 This release advances many deprecations.

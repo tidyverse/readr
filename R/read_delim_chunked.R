@@ -204,6 +204,13 @@ read_csv2_chunked <- function(
   show_col_types = should_show_types(),
   skip_empty_rows = TRUE
 ) {
+  if (locale$decimal_mark == ".") {
+    cli::cli_alert_info(
+      "Using {.val ','} as decimal and {.val '.'} as grouping mark. Use {.fn read_delim_chunked} for more control."
+    )
+    locale$decimal_mark <- ","
+    locale$grouping_mark <- "."
+  }
   tokenizer <- tokenizer_delim(
     delim = ";",
     na = na,
