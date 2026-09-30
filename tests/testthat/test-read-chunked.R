@@ -199,3 +199,19 @@ test_that("Chunks include their spec (#1143)", {
 
   expect_equal(res[[1]]$cols, spec_csv(readr_example("mtcars.csv"))$cols)
 })
+
+test_that("read_csv2_chunked() uses , as decimal mark (#1468)", {
+  path <- withr::local_tempfile(lines = c("x;y", "1,3;2,3"))
+
+  res <- suppressMessages(
+    read_csv2_chunked(
+      path,
+      DataFrameCallback$new(data.frame),
+      chunk_size = 3,
+      col_types = list()
+    )
+  )
+
+  expect_equal(res$x, 1.3)
+  expect_equal(res$y, 2.3)
+})
