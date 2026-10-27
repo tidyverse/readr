@@ -23,10 +23,10 @@
     Token t;
 
     if (string == NA_STRING) {
-      t = Token(TOKEN_MISSING, i - 1, col - 1);
+      t = Token(TOKEN_MISSING, i, col - 1);
     } else {
       const char* begin = CHAR(string);
-      t = Token(begin, begin + Rf_length(string), i - 1, col - 1, false);
+      t = Token(begin, begin + Rf_length(string), i, col - 1, false);
       if (trim_ws) {
         t.trim();
       }

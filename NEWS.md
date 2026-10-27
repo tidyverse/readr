@@ -1,5 +1,7 @@
 # readr (development version)
 
+* `type_convert()` reports the correct row in conversion warnings (#1642).
+
 # readr 2.2.0
 
 This release advances many deprecations.

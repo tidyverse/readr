@@ -77,3 +77,43 @@ test_that("guess_integer is implemented", {
 
   expect_identical(type_convert(df, guess_integer = TRUE), exp)
 })
+
+test_that("conversion warnings locate the original rows and columns (#1642)", {
+  df <- data.frame(
+    id = 1:3,
+    group = c("a", "b", "c"),
+    date = c("2026-13-01", "12-01-2026", "2026-01-01")
+  )
+  warnings <- character()
+  out <- withCallingHandlers(
+    type_convert(df, col_types = cols(
+      group = col_factor(levels = c("b", "c")),
+      date = col_date(format = "%Y-%m-%d")
+    )),
+    warning = function(w) {
+      warnings <<- c(warnings, conditionMessage(w))
+      invokeRestart("muffleWarning")
+    }
+  )
+
+  expect_length(warnings, 3L)
+  expect_match(warnings[1], "^\\[1, 2\\]:")
+  expect_match(warnings[2], "^\\[1, 3\\]:")
+  expect_match(warnings[3], "^\\[2, 3\\]:")
+  expect_identical(out$id, 1:3)
+  expect_identical(out$group, factor(c(NA, "b", "c"), levels = c("b", "c")))
+  expect_identical(out$date, as.Date(c(NA, NA, "2026-01-01")))
+})
+
+test_that("valid and missing values convert without warnings (#1642)", {
+  df <- data.frame(
+    group = c(NA_character_, "b"),
+    date = c(NA_character_, "2026-01-01")
+  )
+  expect_no_warning(out <- type_convert(df, col_types = cols(
+    group = col_factor(levels = "b"),
+    date = col_date(format = "%Y-%m-%d")
+  )))
+  expect_identical(out$group, factor(c(NA, "b"), levels = "b"))
+  expect_identical(out$date, as.Date(c(NA, "2026-01-01")))
+})
