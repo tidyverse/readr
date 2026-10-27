@@ -287,7 +287,6 @@ void CollectorLogical::setValue(int i, const Token& t) {
   case TOKEN_STRING: {
     std::string buffer;
     SourceIterators string = t.getString(&buffer);
-    std::string str(string.first, string.second);
     size_t len = string.second - string.first;
 
     if (isTrue(string.first, string.second) ||
