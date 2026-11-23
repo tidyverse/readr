@@ -1,5 +1,7 @@
 # readr (development version)
 
+* The edition 1 double parser accepts only `e` and `E` as exponent markers. This lets `type_convert()` preserve identifiers such as `1176413S03` as text (#1562).
+
 # readr 2.2.0
 
 This release advances many deprecations.

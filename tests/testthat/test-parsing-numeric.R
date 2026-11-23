@@ -118,6 +118,15 @@ test_that("large numbers are parsed properly", {
 
 # Scientific Notation -------------------------------------------------------
 
+test_that("parse_double() accepts only e and E as exponent markers", {
+  expect_equal(parse_double(c("1e2", "1E-2", "-2e+1")), c(100, 0.01, -20))
+
+  values <- paste0("1", c("d", "D", "f", "F", "l", "L", "s", "S"), "2")
+  expect_warning(parsed <- parse_double(values), "parsing failures")
+  expect_identical(as.double(parsed), rep(NA_real_, length(values)))
+  expect_identical(problems(parsed)$actual, values)
+})
+
 test_that("scientific notation is parsed properly", {
   expect_equal(parse_number("1e20"), 1e20)
   expect_equal(parse_number("3e2"), 300)
