@@ -5,6 +5,15 @@ test_that("missing values removed before guessing col type", {
   expect_equal(df2$x, c(NA, 10L))
 })
 
+test_that("type conversion preserves identifiers with exponent-like letters", {
+  ids <- c("1176413S03", "1176413S06", "1176413S02")
+  df <- data.frame(id = ids, value = c("1e2", "1E-2", "-2e+1"))
+
+  result <- suppressMessages(type_convert(df))
+  expect_identical(result$id, ids)
+  expect_equal(result$value, c(100, 0.01, -20))
+})
+
 test_that("requires data.frame input", {
   not_df <- matrix(letters[1:4], nrow = 2)
   expect_snapshot(type_convert(not_df), error = TRUE)
