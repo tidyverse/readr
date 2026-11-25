@@ -10,7 +10,8 @@ type_convert(
   na = c("", "NA"),
   trim_ws = TRUE,
   locale = default_locale(),
-  guess_integer = FALSE
+  guess_integer = FALSE,
+  show_col_types = should_show_types()
 )
 }
 \arguments{
@@ -35,12 +36,21 @@ names.}
 
 \item{guess_integer}{If \code{TRUE}, guess integer types for whole numbers, if
 \code{FALSE} guess numeric type for all numbers.}
+
+\item{show_col_types}{If \code{FALSE}, do not show the guessed column types. If
+\code{TRUE} always show the column types, even if they are supplied. If \code{NULL}
+(the default) only show the column types if they are not explicitly supplied
+by the \code{col_types} argument.}
 }
 \description{
 This is useful if you need to do some manual munging - you can read the
 columns in as character, clean it up with (e.g.) regular expressions and
 then let readr take another stab at parsing it. The name is a homage to
 the base \code{\link[utils:type.convert]{utils::type.convert()}}.
+}
+\details{
+Set \code{options(readr.show_col_types = FALSE)} to suppress the column
+specification message by default.
 }
 \note{
 \code{type_convert()} removes a 'spec' attribute,

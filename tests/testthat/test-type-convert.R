@@ -5,6 +5,30 @@ test_that("missing values removed before guessing col type", {
   expect_equal(df2$x, c(NA, 10L))
 })
 
+test_that("column type messages respect the option and argument", {
+  df <- data.frame(x = c("1", "2"), stringsAsFactors = FALSE)
+  converted <- data.frame(x = c(1, 2))
+
+  withr::local_options(readr.show_col_types = FALSE)
+  expect_no_message(quiet <- type_convert(df))
+  expect_identical(quiet, converted)
+  expect_message(
+    loud <- type_convert(df, col_types = "d", show_col_types = TRUE),
+    "Column specification"
+  )
+  expect_identical(loud, converted)
+
+  expect_message(
+    type_convert(df, show_col_types = NULL),
+    "Column specification"
+  )
+  expect_no_message(type_convert(df, col_types = "d", show_col_types = NULL))
+
+  withr::local_options(readr.show_col_types = TRUE)
+  expect_message(type_convert(df), "Column specification")
+  expect_no_message(type_convert(df, show_col_types = FALSE))
+})
+
 test_that("requires data.frame input", {
   not_df <- matrix(letters[1:4], nrow = 2)
   expect_snapshot(type_convert(not_df), error = TRUE)
@@ -57,7 +81,10 @@ test_that("spec attribute is removed", {
 })
 
 test_that("warning is thrown if there are no character columns (1020)", {
-  expect_warning(type_convert(mtcars), "only converts columns")
+  expect_warning(
+    type_convert(mtcars, show_col_types = FALSE),
+    "only converts columns"
+  )
 })
 
 test_that("guess_integer is implemented", {

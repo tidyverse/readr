@@ -5,6 +5,9 @@
 #' then let readr take another stab at parsing it. The name is a homage to
 #' the base [utils::type.convert()].
 #'
+#' Set `options(readr.show_col_types = FALSE)` to suppress the column
+#' specification message by default.
+#'
 #' @param df A data frame.
 #' @param col_types One of `NULL`, a [cols()] specification, or
 #'   a string. See `vignette("readr")` for more details.
@@ -44,7 +47,8 @@ type_convert <- function(
   na = c("", "NA"),
   trim_ws = TRUE,
   locale = default_locale(),
-  guess_integer = FALSE
+  guess_integer = FALSE,
+  show_col_types = should_show_types()
 ) {
   stopifnot(is.data.frame(df))
   is_character <- vapply(df, is.character, logical(1))
@@ -74,7 +78,9 @@ type_convert <- function(
     guessed_types = guesses
   )
 
-  if (is.null(col_types) && !is_testing()) {
+  if (
+    isTRUE(show_col_types) || (is.null(show_col_types) && is.null(col_types))
+  ) {
     show_cols_spec(specs)
   }
 
