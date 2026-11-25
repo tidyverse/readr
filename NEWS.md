@@ -1,5 +1,8 @@
 # readr (development version)
 
+* `type_convert()` now supports `show_col_types` and respects the
+  `readr.show_col_types` option (#1545).
+
 # readr 2.2.0
 
 This release advances many deprecations.
